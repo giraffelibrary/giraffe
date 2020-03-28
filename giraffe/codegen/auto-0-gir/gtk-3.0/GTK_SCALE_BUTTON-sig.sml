@@ -21,7 +21,7 @@ signature GTK_SCALE_BUTTON =
        * real
        * real
        * real
-       * string list option
+       * Utf8CArray.t option
        -> base class
     val getAdjustment : 'a class -> base adjustment_class
     val getMinusButton : 'a class -> base button_class
@@ -34,7 +34,7 @@ signature GTK_SCALE_BUTTON =
        -> unit
     val setIcons :
       'a class
-       -> string list
+       -> Utf8CArray.t
        -> unit
     val setValue :
       'a class

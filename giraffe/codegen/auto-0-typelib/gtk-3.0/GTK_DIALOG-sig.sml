@@ -35,7 +35,7 @@ signature GTK_DIALOG =
     val run : 'a class -> LargeInt.int
     val setAlternativeButtonOrderFromArray :
       'a class
-       -> LargeInt.int vector
+       -> GInt32CArrayN.t
        -> unit
     val setDefaultResponse :
       'a class

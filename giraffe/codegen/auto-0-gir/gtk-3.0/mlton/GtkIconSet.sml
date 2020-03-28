@@ -8,12 +8,6 @@ structure GtkIconSet :>
     where type 'a style_class = 'a GtkStyleClass.class
     where type 'a style_context_class = 'a GtkStyleContextClass.class =
   struct
-    structure GIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
-      )
-    structure GIntCVectorN = CVectorN(GIntCVectorNType)
     val getType_ = _import "gtk_icon_set_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_icon_set_new" : unit -> GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p;
     val newFromPixbuf_ = _import "gtk_icon_set_new_from_pixbuf" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p;
@@ -27,8 +21,8 @@ structure GtkIconSet :>
           (
             _import "mlton_gtk_icon_set_get_sizes" :
               GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p
-               * GIntCVectorN.MLton.r1
-               * (unit, GIntCVectorN.FFI.notnull) GIntCVectorN.MLton.r2
+               * GIntCArrayN.MLton.r1
+               * (unit, GIntCArrayN.FFI.notnull) GIntCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -128,9 +122,9 @@ structure GtkIconSet :>
          & () =
           (
             GtkIconSetRecord.FFI.withPtr
-             &&&> GIntCVectorN.FFI.withRefOptPtr
+             &&&> GIntCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GIntCVectorN.FFI.fromPtr 1
+             ---> GIntCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )

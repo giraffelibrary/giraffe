@@ -6,22 +6,10 @@ structure GioApplication :>
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a notification_class = 'a GioNotificationClass.class
     where type 'a application_command_line_class = 'a GioApplicationCommandLineClass.class
-    where type 'a file_class = 'a GioFileClass.class
+    where type file_class_c_array_n_t = GioFileClassCArrayN.t
     where type 'a action_group_class = 'a GioActionGroupClass.class
     where type application_flags_t = GioApplicationFlags.t =
   struct
-    structure GioFileClassCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GioFileClass.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GioFileClassCVectorN = CVectorN(GioFileClassCVectorNType)
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -65,7 +53,7 @@ structure GioApplication :>
         call (getSymbol "g_application_open")
           (
             GioApplicationClass.PolyML.cPtr
-             &&> GioFileClassCVectorN.PolyML.cInPtr
+             &&> GioFileClassCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              --> cVoid
@@ -85,7 +73,7 @@ structure GioApplication :>
           (
             GioApplicationClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
-             &&> Utf8CVectorN.PolyML.cInOptPtr
+             &&> Utf8CArrayN.PolyML.cInOptPtr
              --> GInt.PolyML.cVal
           )
       val sendNotification_ =
@@ -119,7 +107,7 @@ structure GioApplication :>
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a notification_class = 'a GioNotificationClass.class
     type 'a application_command_line_class = 'a GioApplicationCommandLineClass.class
-    type 'a file_class = 'a GioFileClass.class
+    type file_class_c_array_n_t = GioFileClassCArrayN.t
     type 'a action_group_class = 'a GioActionGroupClass.class
     type application_flags_t = GioApplicationFlags.t
     type t = base class
@@ -186,11 +174,11 @@ structure GioApplication :>
     fun markBusy self = (GioApplicationClass.FFI.withPtr ---> I) markBusy_ self
     fun open' self (files, hint) =
       let
-        val nFiles = LargeInt.fromInt (GioFileClassCVectorN.length files)
+        val nFiles = LargeInt.fromInt (GioFileClassCArrayN.length files)
         val () =
           (
             GioApplicationClass.FFI.withPtr
-             &&&> GioFileClassCVectorN.FFI.withPtr
+             &&&> GioFileClassCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> Utf8.FFI.withPtr
              ---> I
@@ -224,13 +212,13 @@ structure GioApplication :>
       let
         val argc =
           case argv of
-            SOME argv => LargeInt.fromInt (Utf8CVectorN.length argv)
+            SOME argv => LargeInt.fromInt (Utf8CArrayN.length argv)
           | NONE => GInt.null
         val retVal =
           (
             GioApplicationClass.FFI.withPtr
              &&&> GInt.FFI.withVal
-             &&&> Utf8CVectorN.FFI.withOptPtr
+             &&&> Utf8CArrayN.FFI.withOptPtr
              ---> GInt.FFI.fromVal
           )
             run_
@@ -285,7 +273,7 @@ structure GioApplication :>
       fun openSig f =
         signal "open"
           (
-            get 0w1 GioFileClassCVectorN.t
+            get 0w1 GioFileClassCArrayN.t
              &&&> get 0w2 int
              &&&> get 0w3 string
              ---> ret_void

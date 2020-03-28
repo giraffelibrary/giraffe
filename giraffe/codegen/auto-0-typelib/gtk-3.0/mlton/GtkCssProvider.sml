@@ -3,12 +3,6 @@ structure GtkCssProvider :>
     where type 'a class = 'a GtkCssProviderClass.class
     where type 'a style_provider_class = 'a GtkStyleProviderClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "gtk_css_provider_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_css_provider_new" : unit -> GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p;
     val getDefault_ = _import "gtk_css_provider_get_default" : unit -> GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p;
@@ -38,8 +32,8 @@ structure GtkCssProvider :>
           (
             _import "mlton_gtk_css_provider_load_from_data" :
               GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GInt64.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
@@ -113,11 +107,11 @@ structure GtkCssProvider :>
     fun getNamed (name, variant) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkCssProviderClass.FFI.fromPtr false) getNamed_ (name & variant)
     fun loadFromData self data =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
         val () =
           (
             GtkCssProviderClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GInt64.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> ignore

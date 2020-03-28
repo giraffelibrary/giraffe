@@ -2,7 +2,7 @@ structure PangoContext :>
   PANGO_CONTEXT
     where type 'a class = 'a PangoContextClass.class
     where type font_metrics_t = PangoFontMetricsRecord.t
-    where type 'a font_family_class = 'a PangoFontFamilyClass.class
+    where type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
     where type 'a font_class = 'a PangoFontClass.class
     where type 'a fontset_class = 'a PangoFontsetClass.class
     where type direction_t = PangoDirection.t
@@ -13,12 +13,6 @@ structure PangoContext :>
     where type language_t = PangoLanguageRecord.t
     where type matrix_t = PangoMatrixRecord.t =
   struct
-    structure PangoFontFamilyClassCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = PangoFontFamilyClass.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure PangoFontFamilyClassCVectorN = CVectorN(PangoFontFamilyClassCVectorNType)
     local
       open PolyMLFFI
     in
@@ -46,7 +40,7 @@ structure PangoContext :>
         call (getSymbol "pango_context_list_families")
           (
             PangoContextClass.PolyML.cPtr
-             &&> PangoFontFamilyClassCVectorN.PolyML.cOutRef
+             &&> PangoFontFamilyClassCArrayN.PolyML.cOutRef
              &&> GInt32.PolyML.cRef
              --> cVoid
           )
@@ -69,7 +63,7 @@ structure PangoContext :>
     end
     type 'a class = 'a PangoContextClass.class
     type font_metrics_t = PangoFontMetricsRecord.t
-    type 'a font_family_class = 'a PangoFontFamilyClass.class
+    type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
     type 'a font_class = 'a PangoFontClass.class
     type 'a fontset_class = 'a PangoFontsetClass.class
     type direction_t = PangoDirection.t
@@ -112,9 +106,9 @@ structure PangoContext :>
          & () =
           (
             PangoContextClass.FFI.withPtr
-             &&&> PangoFontFamilyClassCVectorN.FFI.withRefOptPtr
+             &&&> PangoFontFamilyClassCArrayN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> PangoFontFamilyClassCVectorN.FFI.fromPtr 1
+             ---> PangoFontFamilyClassCArrayN.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
                    && I
           )

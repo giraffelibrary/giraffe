@@ -1,4 +1,4 @@
-(* Copyright (C) 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016, 2019 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -10,6 +10,7 @@ signature MONO_SEQUENCE =
     type t
     type elem
     val tabulate : int * (int -> elem) -> t
+    val sub : t * int -> elem
     val length : t -> int
     val appi : (int * elem -> unit) -> t -> unit
     val findi : (int * elem -> bool) -> t -> (int * elem) option

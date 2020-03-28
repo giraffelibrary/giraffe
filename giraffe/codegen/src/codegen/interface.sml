@@ -10,7 +10,7 @@ in
     (_                  : 'a RepositoryClass.class)
     (interfaceNamespace : string)
     (interfaceInfo      : 'b InterfaceInfoClass.class)
-    : id * program * id list =
+    : id * program * interfaceref list * interfaceref list =
     let
       val () = checkDeprecated interfaceInfo
 
@@ -76,9 +76,10 @@ in
       val qSig : qsig = (sig1, [])
       val sigDec = toList1 [(interfaceClassSigId, qSig)]
       val program = [ModuleDecSig sigDec]
-      val sigDeps = []
+      val sigIRefs = []
+      val extIRefs = []
     in
-      (mkSigFile interfaceClassSigId, Portable program, sigDeps)
+      (mkSigFile interfaceClassSigId, Portable program, sigIRefs, extIRefs)
     end
 end
 
@@ -285,7 +286,7 @@ fun makeInterfaceSig
   (interfaceNamespace : string)
   (interfaceInfo      : 'b InterfaceInfoClass.class)
   (excls'0            : info_excl_hier list)
-  : id * program * id list * info_excl_hier list =
+  : id * program * interfaceref list * interfaceref list * info_excl_hier list =
   let
     val () = checkDeprecated interfaceInfo
 
@@ -300,7 +301,8 @@ fun makeInterfaceSig
       namespace = interfaceNamespace,
       name      = interfaceName,
       scope     = LOCALINTERFACESELF,
-      ty        = CLASS
+      ty        = CLASS,
+      container = NONE
     }
 
     val interfaceStrId = mkStrId interfaceNamespace interfaceName
@@ -310,9 +312,9 @@ fun makeInterfaceSig
 
     val acc'0
       : spec list
-         * interfaceref list
+         * (interfaceref list * interfaceref list)
          * info_excl_hier list =
-      ([], [], excls'0)
+      ([], ([], []), excls'0)
     val acc'1 =
       addInterfacePropertySpecs repo interfaceIRef (interfaceInfo, acc'0)
     val acc'2 =
@@ -322,10 +324,10 @@ fun makeInterfaceSig
     val acc'4 = addGetTypeFunctionSpec getTypeSymbol typeIRef acc'3
     val acc'5 = addInterfaceConstantSpecs repo vers (interfaceInfo, acc'4)
     val acc'6 = acc'5
-    val (specs'6, iRefs'6, excls'6) = acc'6
+    val (specs'6, (localIRefs'6, extIRefs'6), excls'6) = acc'6
 
-    val sigIRefs =
-      interfaceIRef :: iRefs'6
+    val localIRefs =
+      interfaceIRef :: localIRefs'6
       (* `interfaceIRef` for class structure dependence *)
 
     (*
@@ -359,15 +361,15 @@ fun makeInterfaceSig
      *
      *     type <varlist[N]> <type_name[N]>_<t>
      *)
-    val specs'10 = revMapAppend makeIRefLocalTypeSpec (rev sigIRefs, specs'9)
+    val specs'10 = revMapAppend makeIRefLocalTypeSpec (rev localIRefs, specs'9)
 
     val sig1 = mkSigSpec specs'10
     val qSig : qsig = (sig1, [])
     val sigDec = toList1 [(interfaceSigId, qSig)]
     val program = [ModuleDecSig sigDec]
-    val sigDeps = []
+    val sigIRefs = []
   in
-    (mkSigFile interfaceSigId, Portable program, sigDeps, excls'6)
+    (mkSigFile interfaceSigId, Portable program, sigIRefs, extIRefs'6, excls'6)
   end
 
 
@@ -486,7 +488,8 @@ fun makeInterfaceStr
       namespace = interfaceNamespace,
       name      = interfaceName,
       scope     = LOCALINTERFACESELF,
-      ty        = CLASS
+      ty        = CLASS,
+      container = NONE
     }
 
     val interfaceStrId = mkStrId interfaceNamespace interfaceName

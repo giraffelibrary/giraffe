@@ -1,13 +1,8 @@
 structure GLibVariantType :>
   G_LIB_VARIANT_TYPE
-    where type t = GLibVariantTypeRecord.t =
+    where type t = GLibVariantTypeRecord.t
+    where type variant_type_record_c_array_n_t = GLibVariantTypeRecordCArrayN.t =
   struct
-    structure GLibVariantTypeRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GLibVariantTypeRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GLibVariantTypeRecordCVectorN = CVectorN(GLibVariantTypeRecordCVectorNType)
     val getType_ = _import "g_variant_type_get_gtype" : unit -> GObjectType.FFI.val_;
     val new_ = _import "mlton_g_variant_type_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
     val newArray_ = _import "g_variant_type_new_array" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
@@ -18,8 +13,8 @@ structure GLibVariantType :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_variant_type_new_tuple" :
-              GLibVariantTypeRecordCVectorN.MLton.p1
-               * GLibVariantTypeRecordCVectorN.FFI.notnull GLibVariantTypeRecordCVectorN.MLton.p2
+              GLibVariantTypeRecordCArrayN.MLton.p1
+               * GLibVariantTypeRecordCArrayN.FFI.notnull GLibVariantTypeRecordCArrayN.MLton.p2
                * GInt.FFI.val_
                -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
           )
@@ -74,6 +69,7 @@ structure GLibVariantType :>
               x6
             )
     type t = GLibVariantTypeRecord.t
+    type variant_type_record_c_array_n_t = GLibVariantTypeRecordCArrayN.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new typeString = (Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) new_ typeString
     fun newArray element = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newArray_ element
@@ -81,8 +77,8 @@ structure GLibVariantType :>
     fun newMaybe element = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newMaybe_ element
     fun newTuple items =
       let
-        val length = LargeInt.fromInt (GLibVariantTypeRecordCVectorN.length items)
-        val retVal = (GLibVariantTypeRecordCVectorN.FFI.withPtr &&&> GInt.FFI.withVal ---> GLibVariantTypeRecord.FFI.fromPtr true) newTuple_ (items & length)
+        val length = LargeInt.fromInt (GLibVariantTypeRecordCArrayN.length items)
+        val retVal = (GLibVariantTypeRecordCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GLibVariantTypeRecord.FFI.fromPtr true) newTuple_ (items & length)
       in
         retVal
       end

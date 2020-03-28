@@ -2,12 +2,6 @@ structure GtkRecentInfo :>
   GTK_RECENT_INFO
     where type t = GtkRecentInfoRecord.t =
   struct
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     val getType_ = _import "gtk_recent_info_get_type" : unit -> GObjectType.FFI.val_;
     val createAppInfo_ =
       fn
@@ -58,11 +52,11 @@ structure GtkRecentInfo :>
               x6,
               x7
             )
-    val getApplications_ = fn x1 & x2 => (_import "gtk_recent_info_get_applications" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CVectorN.FFI.notnull Utf8CVectorN.FFI.out_p;) (x1, x2)
+    val getApplications_ = fn x1 & x2 => (_import "gtk_recent_info_get_applications" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CArrayN.FFI.notnull Utf8CArrayN.FFI.out_p;) (x1, x2)
     val getDescription_ = _import "gtk_recent_info_get_description" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getDisplayName_ = _import "gtk_recent_info_get_display_name" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getGicon_ = _import "gtk_recent_info_get_gicon" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> unit GioIconClass.FFI.p;
-    val getGroups_ = fn x1 & x2 => (_import "gtk_recent_info_get_groups" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CVectorN.FFI.notnull Utf8CVectorN.FFI.out_p;) (x1, x2)
+    val getGroups_ = fn x1 & x2 => (_import "gtk_recent_info_get_groups" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CArrayN.FFI.notnull Utf8CArrayN.FFI.out_p;) (x1, x2)
     val getIcon_ = fn x1 & x2 => (_import "gtk_recent_info_get_icon" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p * GInt32.FFI.val_ -> unit GdkPixbufPixbufClass.FFI.p;) (x1, x2)
     val getMimeType_ = _import "gtk_recent_info_get_mime_type" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getModified_ = _import "gtk_recent_info_get_modified" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> GInt64.FFI.val_;
@@ -160,7 +154,7 @@ structure GtkRecentInfo :>
       end
     fun getApplications self =
       let
-        val length & retVal = (GtkRecentInfoRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CVectorN.FFI.fromPtr 2) getApplications_ (self & GUInt64.null)
+        val length & retVal = (GtkRecentInfoRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2) getApplications_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end
@@ -169,7 +163,7 @@ structure GtkRecentInfo :>
     fun getGicon self = (GtkRecentInfoRecord.FFI.withPtr ---> GioIconClass.FFI.fromOptPtr true) getGicon_ self
     fun getGroups self =
       let
-        val length & retVal = (GtkRecentInfoRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CVectorN.FFI.fromPtr 2) getGroups_ (self & GUInt64.null)
+        val length & retVal = (GtkRecentInfoRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2) getGroups_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end

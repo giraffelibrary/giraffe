@@ -195,7 +195,7 @@ val () =
 (* Generate code *)
 
 fun gen outDir path (x as (namespace, version, _)) = (
-  List.app print ["  ", namespace, "-", version, "\n"];
+  List.app print ["  ", mkNamespaceDep (namespace, version), "\n"];
   ((namespace, version), generate outDir path x)
 )
 

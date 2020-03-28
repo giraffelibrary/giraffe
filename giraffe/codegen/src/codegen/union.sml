@@ -10,7 +10,7 @@ fun makeUnionSig
   (unionNamespace : string)
   (unionInfo      : 'b UnionInfoClass.class)
   (excls'0        : info_excl_hier list)
-  : id * program * id list * info_excl_hier list =
+  : id * program * interfaceref list * interfaceref list * info_excl_hier list =
   let
     val () = checkDeprecated unionInfo
 
@@ -20,7 +20,8 @@ fun makeUnionSig
       namespace = unionNamespace,
       name      = unionName,
       scope     = LOCALINTERFACESELF,
-      ty        = UNION
+      ty        = UNION,
+      container = NONE
     }
  *)
 
@@ -29,9 +30,10 @@ fun makeUnionSig
 
     (* module *)
     val program = []
-    val sigDeps = []
+    val sigIRefs = []
+    val extIRefs = []
   in
-    (mkSigFile unionSigId, Portable program, sigDeps, excls'0)
+    (mkSigFile unionSigId, Portable program, sigIRefs, extIRefs, excls'0)
   end
 
 
@@ -53,7 +55,8 @@ fun makeUnionStr
       namespace = unionNamespace,
       name      = unionName,
       scope     = LOCALINTERFACESELF,
-      ty        = UNION
+      ty        = UNION,
+      container = NONE
     }
  *)
 

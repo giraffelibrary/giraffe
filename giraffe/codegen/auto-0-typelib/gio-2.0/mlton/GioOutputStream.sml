@@ -6,12 +6,6 @@ structure GioOutputStream :>
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "g_output_stream_get_type" : unit -> GObjectType.FFI.val_;
     val clearPending_ = _import "g_output_stream_clear_pending" : GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p -> unit;
     val close_ =
@@ -136,8 +130,8 @@ structure GioOutputStream :>
           (
             _import "mlton_g_output_stream_write" :
               GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
@@ -162,8 +156,8 @@ structure GioOutputStream :>
           (
             _import "mlton_g_output_stream_write_all" :
               GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GUInt64.FFI.ref_
                * unit GioCancellableClass.FFI.p
@@ -355,11 +349,11 @@ structure GioOutputStream :>
         )
     fun write self (buffer, cancellable) =
       let
-        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioOutputStreamClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
@@ -378,11 +372,11 @@ structure GioOutputStream :>
       end
     fun writeAll self (buffer, cancellable) =
       let
-        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val bytesWritten & () =
           (
             GioOutputStreamClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GUInt64.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr

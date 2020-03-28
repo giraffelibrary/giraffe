@@ -4,12 +4,6 @@ structure GioConverter :>
     where type converter_result_t = GioConverterResult.t
     where type converter_flags_t = GioConverterFlags.t =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -18,9 +12,9 @@ structure GioConverter :>
         call (getSymbol "g_converter_convert")
           (
             GioConverterClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              &&> GioConverterFlags.PolyML.cVal
              &&> GUInt64.PolyML.cRef
@@ -43,16 +37,16 @@ structure GioConverter :>
         flags
       ) =
       let
-        val inbufSize = LargeInt.fromInt (GUInt8CVectorN.length inbuf)
-        val outbufSize = LargeInt.fromInt (GUInt8CVectorN.length outbuf)
+        val inbufSize = LargeInt.fromInt (GUInt8CArrayN.length inbuf)
+        val outbufSize = LargeInt.fromInt (GUInt8CArrayN.length outbuf)
         val bytesRead
          & bytesWritten
          & retVal =
           (
             GioConverterClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GioConverterFlags.FFI.withVal
              &&&> GUInt64.FFI.withRefVal

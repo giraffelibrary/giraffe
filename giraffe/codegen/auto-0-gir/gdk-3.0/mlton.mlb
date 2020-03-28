@@ -11,6 +11,11 @@ local
   ../cairo-1.0/mlton.mlb
   ../pango-1.0/mlton.mlb
 in
+  ../glib-2.0/GUIntCArrayN.mlb
+  ../glib-2.0/Utf8CArrayN.mlb
+  ../glib-2.0/GIntCArrayN.mlb
+  ../glib-2.0/Utf8CArray.mlb
+  ../glib-2.0/GUInt8CArrayN.mlb
   GDK_EVENT_ANY_RECORD-sig.sml
   GDK_EVENT_BUTTON_RECORD-sig.sml
   GDK_EVENT_CONFIGURE_RECORD-sig.sml
@@ -251,7 +256,7 @@ in
     mlton/GdkDeviceManager.sml
     mlton/GdkDevicePad.sml
     mlton/GdkDeviceTool.sml
-    mlton/GdkDisplay.sml
+    GdkAtomRecordCArrayN.sml
     mlton/GdkDisplayManager.sml
     mlton/GdkDragContext.sml
     mlton/GdkDrawingContext.sml
@@ -260,7 +265,7 @@ in
     mlton/GdkFrameTimings.sml
     mlton/GdkGLContext.sml
     mlton/GdkGeometry.sml
-    mlton/GdkKeymap.sml
+    GdkKeymapKeyRecordCArrayN.sml
     mlton/GdkKeymapKey.sml
     mlton/GdkMonitor.sml
     mlton/GdkPoint.sml
@@ -271,7 +276,10 @@ in
     mlton/GdkVisual.sml
     mlton/GdkWindow.sml
     mlton/GdkWindowAttr.sml
+    GdkVisualTypeCArrayN.sml
     mlton/ClassifyEvent.sml
+    mlton/GdkDisplay.sml
+    mlton/GdkKeymap.sml
     mlton/Gdk.sml
   end
 end

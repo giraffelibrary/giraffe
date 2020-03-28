@@ -12,6 +12,6 @@ signature GIO_POLLABLE_INPUT_STREAM =
     val isReadable : 'a class -> bool
     val readNonblocking :
       'a class
-       -> Word8Vector.vector * 'b cancellable_class option
+       -> GUInt8CArrayN.t * 'b cancellable_class option
        -> LargeInt.int
   end

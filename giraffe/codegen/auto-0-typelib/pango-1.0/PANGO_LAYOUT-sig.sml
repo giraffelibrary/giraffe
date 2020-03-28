@@ -4,7 +4,7 @@ signature PANGO_LAYOUT =
     type 'a context_class
     type layout_iter_t
     type layout_line_t
-    type log_attr_t
+    type log_attr_record_c_array_n_t
     type rectangle_t
     type alignment_t
     type attr_list_t
@@ -43,8 +43,8 @@ signature PANGO_LAYOUT =
       'a class
        -> LargeInt.int
        -> layout_line_t option
-    val getLogAttrs : 'a class -> log_attr_t vector
-    val getLogAttrsReadonly : 'a class -> log_attr_t vector
+    val getLogAttrs : 'a class -> log_attr_record_c_array_n_t
+    val getLogAttrsReadonly : 'a class -> log_attr_record_c_array_n_t
     val getPixelExtents : 'a class -> rectangle_t * rectangle_t
     val getPixelSize : 'a class -> LargeInt.int * LargeInt.int
     val getSerial : 'a class -> LargeInt.int

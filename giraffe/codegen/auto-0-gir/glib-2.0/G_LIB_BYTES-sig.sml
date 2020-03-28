@@ -2,7 +2,7 @@ signature G_LIB_BYTES =
   sig
     type t
     val getType : unit -> GObject.Type.t
-    val new : Word8Vector.vector option -> t
+    val new : GUInt8CArrayN.t option -> t
     val compare :
       t
        -> t
@@ -11,12 +11,12 @@ signature G_LIB_BYTES =
       t
        -> t
        -> bool
-    val getData : t -> Word8Vector.vector option
+    val getData : t -> GUInt8CArrayN.t option
     val getSize : t -> LargeInt.int
     val hash : t -> LargeInt.int
     val newFromBytes :
       t
        -> LargeInt.int * LargeInt.int
        -> t
-    val unrefToData : t -> Word8Vector.vector
+    val unrefToData : t -> GUInt8CArrayN.t
   end

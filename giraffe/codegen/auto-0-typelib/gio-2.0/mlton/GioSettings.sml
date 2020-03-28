@@ -6,18 +6,6 @@ structure GioSettings :>
     where type 'a action_class = 'a GioActionClass.class
     where type settings_schema_t = GioSettingsSchemaRecord.t =
   struct
-    structure GUInt32CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt32.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GUInt32.C.ValueType)
-      )
-    structure GUInt32CVectorN = CVectorN(GUInt32CVectorNType)
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_settings_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "mlton_g_settings_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p;
     val newFull_ =
@@ -92,8 +80,8 @@ structure GioSettings :>
               x3,
               x4
             )
-    val listRelocatableSchemas_ = _import "g_settings_list_relocatable_schemas" : unit -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
-    val listSchemas_ = _import "g_settings_list_schemas" : unit -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val listRelocatableSchemas_ = _import "g_settings_list_relocatable_schemas" : unit -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val listSchemas_ = _import "g_settings_list_schemas" : unit -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
     val sync_ = _import "g_settings_sync" : unit -> unit;
     val unbind_ =
       fn
@@ -340,7 +328,7 @@ structure GioSettings :>
               GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
           )
             (
               x1,
@@ -422,8 +410,8 @@ structure GioSettings :>
               x2,
               x3
             )
-    val listChildren_ = _import "g_settings_list_children" : GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
-    val listKeys_ = _import "g_settings_list_keys" : GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val listChildren_ = _import "g_settings_list_children" : GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val listKeys_ = _import "g_settings_list_keys" : GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
     val rangeCheck_ =
       fn
         x1
@@ -604,8 +592,8 @@ structure GioSettings :>
               GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CVector.MLton.p1
-               * unit Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * unit Utf8CArray.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -718,8 +706,8 @@ structure GioSettings :>
            & path
         )
     fun newWithPath (schemaId, path) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithPath_ (schemaId & path)
-    fun listRelocatableSchemas () = (I ---> Utf8CVector.FFI.fromPtr 0) listRelocatableSchemas_ ()
-    fun listSchemas () = (I ---> Utf8CVector.FFI.fromPtr 0) listSchemas_ ()
+    fun listRelocatableSchemas () = (I ---> Utf8CArray.FFI.fromPtr 0) listRelocatableSchemas_ ()
+    fun listSchemas () = (I ---> Utf8CArray.FFI.fromPtr 0) listSchemas_ ()
     fun sync () = (I ---> I) sync_ ()
     fun unbind (object, property) = (GObjectObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) unbind_ (object & property)
     fun apply self = (GioSettingsClass.FFI.withPtr ---> I) apply_ self
@@ -784,14 +772,14 @@ structure GioSettings :>
     fun getInt64 self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt64.FFI.fromVal) getInt64_ (self & key)
     fun getRange self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getRange_ (self & key)
     fun getString self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getString_ (self & key)
-    fun getStrv self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getStrv_ (self & key)
+    fun getStrv self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getStrv_ (self & key)
     fun getUint self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt32.FFI.fromVal) getUint_ (self & key)
     fun getUint64 self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt64.FFI.fromVal) getUint64_ (self & key)
     fun getUserValue self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getUserValue_ (self & key)
     fun getValue self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getValue_ (self & key)
     fun isWritable self name = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ (self & name)
-    fun listChildren self = (GioSettingsClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listChildren_ self
-    fun listKeys self = (GioSettingsClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listKeys_ self
+    fun listChildren self = (GioSettingsClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) listChildren_ self
+    fun listKeys self = (GioSettingsClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) listKeys_ self
     fun rangeCheck self (key, value) =
       (
         GioSettingsClass.FFI.withPtr
@@ -902,7 +890,7 @@ structure GioSettings :>
       (
         GioSettingsClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CVector.FFI.withOptPtr
+         &&&> Utf8CArray.FFI.withOptPtr
          ---> GBool.FFI.fromVal
       )
         setStrv_
@@ -953,7 +941,7 @@ structure GioSettings :>
     local
       open ClosureMarshal Signal
     in
-      fun changeEventSig f = signal "change-event" (get 0w1 GUInt32CVectorN.tOpt &&&> get 0w2 int ---> ret boolean) (fn keys & nKeys => f (keys (LargeInt.toInt nKeys)))
+      fun changeEventSig f = signal "change-event" (get 0w1 GUInt32CArrayN.tOpt &&&> get 0w2 int ---> ret boolean) (fn keys & nKeys => f (keys (LargeInt.toInt nKeys)))
       fun changedSig f = signal "changed" (get 0w1 string ---> ret_void) f
       fun writableChangeEventSig f = signal "writable-change-event" (get 0w1 uint ---> ret boolean) f
       fun writableChangedSig f = signal "writable-changed" (get 0w1 string ---> ret_void) f

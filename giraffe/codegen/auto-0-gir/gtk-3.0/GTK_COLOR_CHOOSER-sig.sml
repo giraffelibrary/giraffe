@@ -8,7 +8,7 @@ signature GTK_COLOR_CHOOSER =
       'a class
        -> orientation_t
            * LargeInt.int
-           * Gdk.RgbaRecord.t vector option
+           * GdkRgbaRecordCArrayN.t option
        -> unit
     val getRgba : 'a class -> Gdk.RgbaRecord.t
     val getUseAlpha : 'a class -> bool

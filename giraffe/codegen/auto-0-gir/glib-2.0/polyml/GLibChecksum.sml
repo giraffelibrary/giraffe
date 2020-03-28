@@ -3,12 +3,6 @@ structure GLibChecksum :>
     where type t = GLibChecksumRecord.t
     where type checksum_type_t = GLibChecksumType.t =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -21,7 +15,7 @@ structure GLibChecksum :>
         call (getSymbol "g_checksum_update")
           (
             GLibChecksumRecord.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GSSize.PolyML.cVal
              --> cVoid
           )
@@ -36,11 +30,11 @@ structure GLibChecksum :>
     fun reset self = (GLibChecksumRecord.FFI.withPtr ---> I) reset_ self
     fun update self data =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
         val () =
           (
             GLibChecksumRecord.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GSSize.FFI.withVal
              ---> I
           )

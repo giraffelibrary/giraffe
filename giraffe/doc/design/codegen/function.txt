@@ -27,6 +27,176 @@ Placeholders
 
 
 
+==Common==
+
+  ArrayStructId(arrayTypeInfo)
+    is as follows:
+
+      elemTypeInfo = GIRepository.TypeInfo.getParamType arrayTypeInfo 0
+
+      <ElemStructId(elemTypeInfo)><ArrayType(arrayTypeInfo)>
+
+
+  ArrayType(arrayTypeInfo) is
+
+      CArray<N>
+
+    where
+
+      N is as follows:
+
+        isZeroTerminated = GIRepository.TypeInfo.isZeroTerminated arrayTypeInfo
+
+          isZeroTermin... | N
+        ==================+===================
+          false           | N
+        ------------------+-------------------
+          true            | <>
+        ------------------+-------------------
+
+
+  ElemStructId(typeInfo)
+    is as follows:
+
+      tag          = GIRepository.TypeInfo.getTag typeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        FILENAME  --->    Utf8
+        ARRAY     --->    <ArrayStructId(typeInfo)>
+        GLIST     --->    <raise Error "not expected">
+        GSLIST    --->    <raise Error "not expected">
+        GHASH     --->    <raise Error "not expected">
+        VOID      --->    <raise Error "not expected">
+        BOOLEAN   --->    GBool
+        CHAR      --->    GChar
+        UCHAR     --->    GUChar
+        INT       --->    GInt
+        UINT      --->    GUInt
+        SHORT     --->    GShort
+        USHORT    --->    GUShort
+        LONG      --->    GLong
+        ULONG     --->    GULong
+        INT8      --->    GInt8
+        UINT8     --->    GUInt8
+        INT16     --->    GInt16
+        UINT16    --->    GUInt16
+        INT32     --->    GInt32
+        UINT32    --->    GUInt32
+        INT64     --->    GInt64
+        UINT64    --->    GUInt64
+        FLOAT     --->    GFloat
+        DOUBLE    --->    GDouble
+        SSIZE     --->    GSSize
+        SIZE      --->    GSize
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
+        UTF8      --->    Utf8
+        UNICHAR   --->    GChar
+        INTERFACE --->    <InterfaceElemStructId>
+
+    where
+
+      InterfaceElemStructId is as follows:
+
+        interfaceTypeInfo = GIRepository.TypeInfo.getInterface elemTypeInfo
+
+        InterfaceName = GIRepository.BaseInfo.getName interfaceTypeInfo
+        InterfaceNamespace = GIRepository.BaseInfo.getNamespace interfaceTypeInfo
+        InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+        infoType = GIRepository.InfoType.getType interfaceTypeInfo
+        isClass = infoType is OBJECT _ | INTERFACE _
+        isRecord = infoType is STRUCT _
+        isUnion = infoType is UNION _
+        isEnum = infoType is ENUM _
+        isFlags = infoType is FLAGS _
+        isOther = not (isClass or isRecord or isUnion or isEnum or isFlags)
+
+        isGlobal = InterfaceNamespace <> FunctionNamespace
+        isNamespace = optContainerName = NONE
+        isSelf = SOME InterfaceName = optContainerName
+
+
+        <InterfaceNamespace><InterfaceName>Class
+          if isGlobal and isClass
+
+        <InterfaceNamespace><InterfaceName>Record
+          if isGlobal and isRecord
+
+        <InterfaceNamespace><InterfaceName>
+          if isGlobal and isUnion
+
+        <InterfaceNamespace><InterfaceName>
+          if isGlobal and isEnum
+
+        <InterfaceNamespace><InterfaceName>
+          if isGlobal and isFlags
+
+        <InterfaceNamespace><InterfaceName>
+          if isGlobal and isOther
+
+
+        <InterfaceNamespace><InterfaceName>Class
+          if not isGlobal and isNamespace and isClass
+
+        <InterfaceNamespace><InterfaceName>Record
+          if not isGlobal and isNamespace and isRecord
+
+        <InterfaceNamespace><InterfaceName>
+          if not isGlobal and isNamespace and isUnion
+
+        <InterfaceNamespace><InterfaceName>
+          if not isGlobal and isNamespace and isEnum
+
+        <InterfaceNamespace><InterfaceName>
+          if not isGlobal and isNamespace and isFlags
+
+        <InterfaceNamespace><InterfaceName>
+          if not isGlobal and isNamespace and isOther
+
+
+        <InterfaceNamespace><InterfaceName>Class
+          if not isGlobal and not isNamespace and not isSelf and isClass
+
+        <InterfaceNamespace><InterfaceName>Record
+          if not isGlobal and not isNamespace and not isSelf and isRecord
+
+        <InterfaceNamespace><InterfaceName>
+          if not isGlobal and not isNamespace and not isSelf and isUnion
+
+        <InterfaceNamespace><InterfaceName>
+          if not isGlobal and not isNamespace and not isSelf and isEnum
+
+        <InterfaceNamespace><InterfaceName>
+          if not isGlobal and not isNamespace and not isSelf and isFlags
+
+        <InterfaceNamespace><InterfaceName>
+          if not isGlobal and not isNamespace and not isSelf and isOther
+
+
+        <InterfaceNamespace><InterfaceName>Class
+          if not isGlobal and not isNamespace and isSelf and isClass
+
+        <InterfaceNamespace><InterfaceName>Record
+          if not isGlobal and not isNamespace and isSelf and isRecord
+
+        <>
+          if not isGlobal and not isNamespace and isSelf and isUnion
+
+        <>
+          if not isGlobal and not isNamespace and isSelf and isEnum
+
+        <>
+          if not isGlobal and not isNamespace and isSelf and isFlags
+
+        <>
+          if not isGlobal and not isNamespace and isSelf and isOther
+
+
+
 ==Specification==
 
 For
@@ -207,14 +377,22 @@ where
         ERROR     --->    <raise Error "not expected">
         GTYPE     --->    <raise Error "not supported">
         FILENAME  --->    string
-        ARRAY     --->    <arrayType(typeInfo)>
+        ARRAY     --->    <ArrayStructId(typeInfo)>.t
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
         VOID      --->    unit
         BOOLEAN   --->    bool
+        CHAR      --->    char
+        UCHAR     --->    char
+        INT       --->    LargeInt.int
+        UINT      --->    LargeInt.int
+        SHORT     --->    LargeInt.int
+        USHORT    --->    LargeInt.int
+        LONG      --->    LargeInt.int
+        ULONG     --->    LargeInt.int
         INT8      --->    LargeInt.int
-        UINT8     --->    LargeInt.int
+        UINT8     --->    Word8.word
         INT16     --->    LargeInt.int
         UINT16    --->    LargeInt.int
         INT32     --->    LargeInt.int
@@ -223,6 +401,11 @@ where
         UINT64    --->    LargeInt.int
         FLOAT     --->    real
         DOUBLE    --->    real
+        SSIZE     --->    LargeInt.int
+        SIZE      --->    LargeInt.int
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
         UTF8      --->    string
         UNICHAR   --->    char
 
@@ -296,30 +479,6 @@ where
               if not isGlobal and not isNamespace and isSelf and isOther
 
 
-  arrayType(arrayTypeInfo)
-    is defined as follows:
-
-        elemTypeInfo = GIRepository.TypeInfo.getParamType arrayTypeInfo 0
-
-      <type(elemTypeInfo)> list
-        if baseTag(elemTypeInfo) is UTF8 or FILENAME
-
-      <type(elemTypeInfo)> vector
-        otherwise
-
-
-  baseTag(typeInfo)
-    is defined as according to the GIR type tag as follows:
-
-        tag = GIRepository.TypeInfo.get_tag typeInfo
-
-      <baseTag(GIRepository.TypeInfo.getParamType typeInfo 0)>
-        if tag is ARRAY
-
-      <tag>
-        otherwise
-
-
   var
     is
 
@@ -330,151 +489,6 @@ where
         for an outParamType or retType or contained type.
 
     A type is 'contained' when it is the element type of some container, e.g. array, list etc.
-
-
-
-==Common==
-
-  ArrayStructId(arrayTypeInfo)
-    is as follows:
-
-      elemTypeInfo = GIRepository.TypeInfo.getParamType arrayTypeInfo 0
-      tag          = GIRepository.TypeInfo.getTag elemTypeInfo
-
-    Conversion from tag is as follows:
-
-      ERROR     --->    <raise Error "not expected">
-      FILENAME  --->    Utf8
-      ARRAY     --->    <ArrayStructId(elemTypeInfo)><VectorType>
-      GLIST     --->    <raise Error "not expected">
-      GSLIST    --->    <raise Error "not expected">
-      GHASH     --->    <raise Error "not expected">
-      INT8      --->    <Prefix>Int8<VectorType>
-      UINT8     --->    <Prefix>UInt8<VectorType>
-      INT16     --->    <Prefix>Int16<VectorType>
-      UINT16    --->    <Prefix>UInt16<VectorType>
-      INT32     --->    <Prefix>Int32<VectorType>
-      UINT32    --->    <Prefix>UInt32<VectorType>
-      INT64     --->    <Prefix>Int64<VectorType>
-      UINT64    --->    <Prefix>UInt64<VectorType>
-      VOID      --->    <raise Fail "VOID">
-      BOOLEAN   --->    <Prefix>Bool<VectorType>
-      FLOAT     --->    <Prefix>Float<VectorType>
-      DOUBLE    --->    <Prefix>Double<VectorType>
-      UTF8      --->    Utf8
-      UNICHAR   --->    <Prefix>Char<VectorType>
-      INTERFACE --->    <InterfaceArrayStructId>
-
-
-    Prefix is G
-
-
-    InterfaceArrayStructId is as follows:
-
-      interfaceTypeInfo = GIRepository.TypeInfo.getInterface elemTypeInfo
-
-      InterfaceName = GIRepository.BaseInfo.getName interfaceTypeInfo
-      InterfaceNamespace = GIRepository.BaseInfo.getNamespace interfaceTypeInfo
-      InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
-
-      infoType = GIRepository.InfoType.getType interfaceTypeInfo
-      isClass = infoType is OBJECT _ | INTERFACE _
-      isRecord = infoType is STRUCT _
-      isUnion = infoType is UNION _
-      isEnum = infoType is ENUM _
-      isFlags = infoType is FLAGS _
-      isOther = not (isClass or isRecord or isUnion or isEnum or isFlags)
-
-      isGlobal = InterfaceNamespace <> FunctionNamespace
-      isNamespace = optContainerName = NONE
-      isSelf = SOME InterfaceName = optContainerName
-
-        <InterfaceNamespace><InterfaceName>Class<VectorType>
-          if isGlobal and isClass
-
-        <InterfaceNamespace><InterfaceName>Record<VectorType>
-          if isGlobal and isRecord
-
-        <InterfaceNamespace><InterfaceName><VectorType>
-          if isGlobal and isUnion
-
-        <InterfaceNamespace><InterfaceName><VectorType>
-          if isGlobal and isEnum
-
-        <InterfaceNamespace><InterfaceName><VectorType>
-          if isGlobal and isFlags
-
-        <InterfaceNamespace><InterfaceName><VectorType>
-          if isGlobal and isOther
-
-
-        <InterfaceNamespace><InterfaceName>Class<VectorType>
-          if not isGlobal and isNamespace and isClass
-
-        <InterfaceNamespace><InterfaceName>Record<VectorType>
-          if not isGlobal and isNamespace and isRecord
-
-        <InterfaceNamespace><InterfaceName><VectorType>
-          if not isGlobal and isNamespace and isUnion
-
-        <InterfaceNamespace><InterfaceName><VectorType>
-          if not isGlobal and isNamespace and isEnum
-
-        <InterfaceNamespace><InterfaceName><VectorType>
-          if not isGlobal and isNamespace and isFlags
-
-        <InterfaceNamespace><InterfaceName><VectorType>
-          if not isGlobal and isNamespace and isOther
-
-
-        <InterfaceNamespace><InterfaceName>Class<VectorType>
-          if not isGlobal and not isNamespace and not isSelf and isClass
-
-        <InterfaceNamespace><InterfaceName>Record<VectorType>
-          if not isGlobal and not isNamespace and not isSelf and isRecord
-
-        <InterfaceNamespace><InterfaceName><VectorType>
-          if not isGlobal and not isNamespace and not isSelf and isUnion
-
-        <InterfaceNamespace><InterfaceName><VectorType>
-          if not isGlobal and not isNamespace and not isSelf and isEnum
-
-        <InterfaceNamespace><InterfaceName><VectorType>
-          if not isGlobal and not isNamespace and not isSelf and isFlags
-
-        <InterfaceNamespace><InterfaceName><VectorType>
-          if not isGlobal and not isNamespace and not isSelf and isOther
-
-
-        <InterfaceNamespace><InterfaceName>Class<VectorType>
-          if not isGlobal and not isNamespace and isSelf and isClass
-
-        <InterfaceNamespace><InterfaceName>Record<VectorType>
-          if not isGlobal and not isNamespace and isSelf and isRecord
-
-        <VectorType>
-          if not isGlobal and not isNamespace and isSelf and isUnion
-
-        <VectorType>
-          if not isGlobal and not isNamespace and isSelf and isEnum
-
-        <VectorType>
-          if not isGlobal and not isNamespace and isSelf and isFlags
-
-        <VectorType>
-          if not isGlobal and not isNamespace and isSelf and isOther
-
-
-    VectorType is as follows:
-
-      isZeroTerminated = GIRepository.TypeInfo.isZeroTerminated arrayTypeInfo
-
-        isZeroTermin... | VectorType
-      ==================+===================
-        false           | CVector
-      ------------------+-------------------
-        true            | CVectorN
-      ------------------+-------------------
 
 
 
@@ -800,6 +814,16 @@ where
             GLIST     --->    <raise Error "not supported">
             GSLIST    --->    <raise Error "not supported">
             GHASH     --->    <raise Error "not supported">
+            VOID      --->    <raise Error "not expected">
+            BOOLEAN   --->    <raise Error "not expected">
+            CHAR      --->    <raise Error "not expected">
+            UCHAR     --->    <raise Error "not expected">
+            INT       --->    GInt.null
+            UINT      --->    GUInt.null
+            SHORT     --->    GShort.null
+            USHORT    --->    GUShort.null
+            LONG      --->    GLong.null
+            ULONG     --->    GULong.null
             INT8      --->    GInt8.null
             UINT8     --->    GUInt8.null
             INT16     --->    GInt16.null
@@ -808,10 +832,13 @@ where
             UINT32    --->    GUInt32.null
             INT64     --->    GInt64.null
             UINT64    --->    GUInt64.null
-            VOID      --->    <raise Error "not expected">
-            BOOLEAN   --->    <raise Error "not expected">
             FLOAT     --->    <raise Error "not expected">
             DOUBLE    --->    <raise Error "not expected">
+            SSIZE     --->    GSSize.null
+            SIZE      --->    GSize.null
+            OFFSET    --->    <raise Error "not supported">
+            INTPTR    --->    <raise Error "not supported">
+            UINTPTR   --->    <raise Error "not supported">
             UTF8      --->    <raise Error "not expected">
             UNICHAR   --->    <raise Error "not expected">
             INTERFACE --->    <raise Error "not expected">
@@ -842,6 +869,16 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Error "not expected">
+        BOOLEAN   --->    <withValFun(GBool.FFI)>
+        CHAR      --->    <withValFun(GChar.FFI)>
+        UCHAR     --->    <withValFun(GUChar.FFI)>
+        INT       --->    <withValFun(GInt.FFI)>
+        UINT      --->    <withValFun(GUInt.FFI)>
+        SHORT     --->    <withValFun(GShort.FFI)>
+        USHORT    --->    <withValFun(GUShort.FFI)>
+        LONG      --->    <withValFun(GLong.FFI)>
+        ULONG     --->    <withValFun(GULong.FFI)>
         INT8      --->    <withValFun(GInt8.FFI)>
         UINT8     --->    <withValFun(GUInt8.FFI)>
         INT16     --->    <withValFun(GInt16.FFI)>
@@ -850,10 +887,13 @@ where
         UINT32    --->    <withValFun(GUInt32.FFI)>
         INT64     --->    <withValFun(GInt64.FFI)>
         UINT64    --->    <withValFun(GUInt64.FFI)>
-        VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    <withValFun(GBool.FFI)>
         FLOAT     --->    <withValFun(GFloat.FFI)>
         DOUBLE    --->    <withValFun(GDouble.FFI)>
+        SSIZE     --->    <withValFun(GSSize.FFI)>
+        SIZE      --->    <withValFun(GSize.FFI)>
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
         UTF8      --->    <withUtf8Fun>
         UNICHAR   --->    <withValFun(GChar.FFI)>
         INTERFACE --->    <withInterfaceFun>
@@ -1244,6 +1284,16 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Error "not expected">
+        BOOLEAN   --->    <fromValFun(GBool.FFI)>
+        CHAR      --->    <fromValFun(GChar.FFI)>
+        UCHAR     --->    <fromValFun(GUChar.FFI)>
+        INT       --->    <fromValFun(GInt.FFI)>
+        UINT      --->    <fromValFun(GUInt.FFI)>
+        SHORT     --->    <fromValFun(GShort.FFI)>
+        USHORT    --->    <fromValFun(GUShort.FFI)>
+        LONG      --->    <fromValFun(GLong.FFI)>
+        ULONG     --->    <fromValFun(GULong.FFI)>
         INT8      --->    <fromValFun(GInt8.FFI)>
         UINT8     --->    <fromValFun(GUInt8.FFI)>
         INT16     --->    <fromValFun(GInt16.FFI)>
@@ -1252,10 +1302,13 @@ where
         UINT32    --->    <fromValFun(GUInt32.FFI)>
         INT64     --->    <fromValFun(GInt64.FFI)>
         UINT64    --->    <fromValFun(GUInt64.FFI)>
-        VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    <fromValFun(GBool.FFI)>
         FLOAT     --->    <fromValFun(GFloat.FFI)>
         DOUBLE    --->    <fromValFun(GDouble.FFI)>
+        SSIZE     --->    <fromValFun(GSSize.FFI)>
+        SIZE      --->    <fromValFun(GSize.FFI)>
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
         UTF8      --->    <fromUtf8Fun>
         UNICHAR   --->    <fromValFun(GChar.FFI)>
         INTERFACE --->    <fromInterfaceFun>
@@ -1560,6 +1613,16 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
+        VOID      --->    I
+        BOOLEAN   --->    <retFromBooleanFun>
+        CHAR      --->    <retFromValFun(GChar.FFI)>
+        UCHAR     --->    <retFromValFun(GUChar.FFI)>
+        INT       --->    <retFromValFun(GInt.FFI)>
+        UINT      --->    <retFromValFun(GUInt.FFI)>
+        SHORT     --->    <retFromValFun(GShort.FFI)>
+        USHORT    --->    <retFromValFun(GUShort.FFI)>
+        LONG      --->    <retFromValFun(GLong.FFI)>
+        ULONG     --->    <retFromValFun(GULong.FFI)>
         INT8      --->    <retFromValFun(GInt8.FFI)>
         UINT8     --->    <retFromValFun(GUInt8.FFI)>
         INT16     --->    <retFromValFun(GInt16.FFI)>
@@ -1568,10 +1631,13 @@ where
         UINT32    --->    <retFromValFun(GUInt32.FFI)>
         INT64     --->    <retFromValFun(GInt64.FFI)>
         UINT64    --->    <retFromValFun(GUInt64.FFI)>
-        VOID      --->    I
-        BOOLEAN   --->    <retFromBooleanFun>
         FLOAT     --->    <retFromValFun(GFloat.FFI)>
         DOUBLE    --->    <retFromValFun(GDouble.FFI)>
+        SSIZE     --->    <retFromValFun(GSSize.FFI)>
+        SIZE      --->    <retFromValFun(GSize.FFI)>
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
         UTF8      --->    <retFromUtf8Fun>
         UNICHAR   --->    <retFromValFun(GChar.FFI)>
         INTERFACE --->    <retFromInterfaceFun>
@@ -1805,6 +1871,16 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Error "not expected">
+        BOOLEAN   --->    <name>
+        CHAR      --->    <name>
+        UCHAR     --->    <name>
+        INT       --->    <name>
+        UINT      --->    <name>
+        SHORT     --->    <name>
+        USHORT    --->    <name>
+        LONG      --->    <name>
+        ULONG     --->    <name>
         INT8      --->    <name>
         UINT8     --->    <name>
         INT16     --->    <name>
@@ -1813,10 +1889,13 @@ where
         UINT32    --->    <name>
         INT64     --->    <name>
         UINT64    --->    <name>
-        VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    <name>
         FLOAT     --->    <name>
         DOUBLE    --->    <name>
+        SSIZE     --->    <name>
+        SIZE      --->    <name>
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
         UTF8      --->    <name>
         UNICHAR   --->    <name>
         INTERFACE --->    <name>
@@ -1829,6 +1908,16 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Error "not expected">
+        BOOLEAN   --->    GBool.null
+        CHAR      --->    GChar.null
+        UCHAR     --->    GUChar.null
+        INT       --->    GInt.null
+        UINT      --->    GUInt.null
+        SHORT     --->    GShort.null
+        USHORT    --->    GUShort.null
+        LONG      --->    GLong.null
+        ULONG     --->    GULong.null
         INT8      --->    GInt8.null
         UINT8     --->    GUInt8.null
         INT16     --->    GInt16.null
@@ -1837,10 +1926,13 @@ where
         UINT32    --->    GUInt32.null
         INT64     --->    GInt64.null
         UINT64    --->    GUInt64.null
-        VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    GBool.null
         FLOAT     --->    GFloat.null
         DOUBLE    --->    GDouble.null
+        SSIZE     --->    GSSize.null
+        SIZE      --->    GSize.null
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
         UTF8      --->    NONE
         UNICHAR   --->    GChar.null
         INTERFACE --->    <argInterfaceVal>
@@ -1991,8 +2083,16 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
-        VOID      --->    <raise Fail "VOID">
+        VOID      --->    <raise Error "not expected">
         BOOLEAN   --->    <parScalarConv(GBool.PolyML)>
+        CHAR      --->    <parScalarConv(GChar.PolyML)>
+        UCHAR     --->    <parScalarConv(GUChar.PolyML)>
+        INT       --->    <parScalarConv(GInt.PolyML)>
+        UINT      --->    <parScalarConv(GUInt.PolyML)>
+        SHORT     --->    <parScalarConv(GShort.PolyML)>
+        USHORT    --->    <parScalarConv(GUShort.PolyML)>
+        LONG      --->    <parScalarConv(GLong.PolyML)>
+        ULONG     --->    <parScalarConv(GULong.PolyML)>
         INT8      --->    <parScalarConv(GInt8.PolyML)>
         UINT8     --->    <parScalarConv(GUInt8.PolyML)>
         INT16     --->    <parScalarConv(GInt16.PolyML)>
@@ -2003,6 +2103,11 @@ where
         UINT64    --->    <parScalarConv(GUInt64.PolyML)>
         FLOAT     --->    <parScalarConv(GFloat.PolyML)>
         DOUBLE    --->    <parScalarConv(GDouble.PolyML)>
+        SSIZE     --->    <parScalarConv(GSSize.PolyML)>
+        SIZE      --->    <parScalarConv(GSize.PolyML)>
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
         UTF8      --->    <parUtf8Conv>
         UNICHAR   --->    <parScalarConv(GChar.PolyML)>
         INTERFACE --->    <parInterfaceConv>
@@ -2307,6 +2412,14 @@ where
         GHASH     --->    <raise Error "not supported">
         VOID      --->    cVoid
         BOOLEAN   --->    <retScalarConv(GBool.PolyML)>
+        CHAR      --->    <retScalarConv(GChar.PolyML)>
+        UCHAR     --->    <retScalarConv(GUChar.PolyML)>
+        INT       --->    <retScalarConv(GInt.PolyML)>
+        UINT      --->    <retScalarConv(GUInt.PolyML)>
+        SHORT     --->    <retScalarConv(GShort.PolyML)>
+        USHORT    --->    <retScalarConv(GUShort.PolyML)>
+        LONG      --->    <retScalarConv(GLong.PolyML)>
+        ULONG     --->    <retScalarConv(GULong.PolyML)>
         INT8      --->    <retScalarConv(GInt8.PolyML)>
         UINT8     --->    <retScalarConv(GUInt8.PolyML)>
         INT16     --->    <retScalarConv(GInt16.PolyML)>
@@ -2317,6 +2430,11 @@ where
         UINT64    --->    <retScalarConv(GUInt64.PolyML)>
         FLOAT     --->    <retScalarConv(GFloat.PolyML)>
         DOUBLE    --->    <retScalarConv(GDouble.PolyML)>
+        SSIZE     --->    <retScalarConv(GSSize.PolyML)>
+        SIZE      --->    <retScalarConv(GSize.PolyML)>
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
         UTF8      --->    <retUtf8Conv>
         UNICHAR   --->    <retScalarConv(GChar.PolyML)>
         INTERFACE --->    <retInterfaceConv>
@@ -2606,8 +2724,16 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
-        VOID      --->    <raise Fail "VOID">
+        VOID      --->    <raise Error "not expected">
         BOOLEAN   --->    <parScalarType(GBool.FFI)>
+        CHAR      --->    <parScalarType(GChar.FFI)>
+        UCHAR     --->    <parScalarType(GUChar.FFI)>
+        INT       --->    <parScalarType(GInt.FFI)>
+        UINT      --->    <parScalarType(GUInt.FFI)>
+        SHORT     --->    <parScalarType(GShort.FFI)>
+        USHORT    --->    <parScalarType(GUShort.FFI)>
+        LONG      --->    <parScalarType(GLong.FFI)>
+        ULONG     --->    <parScalarType(GULong.FFI)>
         INT8      --->    <parScalarType(GInt8.FFI)>
         UINT8     --->    <parScalarType(GUInt8.FFI)>
         INT16     --->    <parScalarType(GInt16.FFI)>
@@ -2618,6 +2744,11 @@ where
         UINT64    --->    <parScalarType(GUInt64.FFI)>
         FLOAT     --->    <parScalarType(GFloat.FFI)>
         DOUBLE    --->    <parScalarType(GDouble.FFI)>
+        SSIZE     --->    <parScalarType(GSSize.FFI)>
+        SIZE      --->    <parScalarType(GSize.FFI)>
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
         UTF8      --->    <parUtf8Type>
         UNICHAR   --->    <parScalarType(GChar.FFI)>
         INTERFACE --->    <parInterfaceType>
@@ -2934,6 +3065,14 @@ where
         GHASH     --->    <raise Error "not supported">
         VOID      --->    unit
         BOOLEAN   --->    <retScalarType(GBool.FFI)>
+        CHAR      --->    <retScalarType(GChar.FFI)>
+        UCHAR     --->    <retScalarType(GUChar.FFI)>
+        INT       --->    <retScalarType(GInt.FFI)>
+        UINT      --->    <retScalarType(GUInt.FFI)>
+        SHORT     --->    <retScalarType(GShort.FFI)>
+        USHORT    --->    <retScalarType(GUShort.FFI)>
+        LONG      --->    <retScalarType(GLong.FFI)>
+        ULONG     --->    <retScalarType(GULong.FFI)>
         INT8      --->    <retScalarType(GInt8.FFI)>
         UINT8     --->    <retScalarType(GUInt8.FFI)>
         INT16     --->    <retScalarType(GInt16.FFI)>
@@ -2944,6 +3083,11 @@ where
         UINT64    --->    <retScalarType(GUInt64.FFI)>
         FLOAT     --->    <retScalarType(GFloat.FFI)>
         DOUBLE    --->    <retScalarType(GDouble.FFI)>
+        SSIZE     --->    <retScalarType(GSSize.FFI)>
+        SIZE      --->    <retScalarType(GSize.FFI)>
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
         UTF8      --->    <retUtf8Type>
         UNICHAR   --->    <retScalarType(GChar.FFI)>
         INTERFACE --->    <retInterfaceType>

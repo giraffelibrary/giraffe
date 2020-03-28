@@ -262,6 +262,7 @@ withtype array_info =
     isOpt   : bool,
     ownXfer : bool,
     length  : array_length,
+    iRef    : interfaceref,
     elem    : info
   }
 
@@ -280,7 +281,12 @@ fun addIRef (info, iRefs) =
     )
   | ISCALAR _                              => iRefs
   | IUTF8 _                                => iRefs
-  | IARRAY {elem, ...}                     => addIRef (elem, iRefs)
+  | IARRAY {iRef as {scope, ...}, ...}     => (
+      case scope of
+        GLOBAL             => iRefs
+      | LOCALINTERFACESELF => iRefs
+      | _                  => insert (iRef, iRefs)
+    )
   | IINTERFACE {iRef as {scope, ...}, ...} => (
       case scope of
         GLOBAL             => iRefs
@@ -303,62 +309,10 @@ fun mkArrayLenExp length e =
         )
       )
 
-fun cArrayStrId length elem =
-  let
-    val suffixStrId = String.concat (
-      cStrId :: vectorStrId :: (
-        case length of
-          ArrayLengthZeroTerminated => []
-        | _                         => ["N"]
-      )
-    )
-
-    val elemStrId =
-      case elem of
-        IGTYPE {iRef, ...}                         =>
-          makeIRefInterfaceOtherStrId iRef
-      | ISCALAR {ty, ...}                          => (
-          gStrId ^ scalarStrId ty
-        )
-      | IUTF8 {isOpt, ...}                         => (
-          if isOpt
-          then infoExcl "optional UTF8 as array element not supported"
-          else utf8StrId
-        )
-      | IARRAY {isOpt, length, elem, ...}          => (
-          if isOpt
-          then infoExcl "optional ARRAY as array element not supported"
-          else cArrayStrId length elem
-        )
-      | IINTERFACE {iRef, ...}                     =>
-          makeIRefInterfaceOtherStrId iRef
-
-    val elemArrayStrId = elemStrId ^ suffixStrId
-  in
-    elemArrayStrId
-  end
-
-(* `cArrayStrIdStructDeps length elem structDeps` returns
- * `(elemArrayStrId, structDeps')` where
- *
- *   `elemArrayStrId`
- *     is the name of the array type structure for an array whose element is
- *     `elem` and has length convention `length`, as returned by
- *     `cArrayStrId length elem`.
- *
- *   `structDeps'`
- *     is an ordered dictionary of the structure dependencies, indexed by
- *     name, that are required to create the structure `elemArrayStrId` (when
- *     not part of the static library) and contains `structDeps`.
- *
- * Note that `structDeps` and `structDeps'` are in 'reverse' order, that is,
- * `ListDict.toList` will return a list in reverse order.
- *)
-
-val needsStructDeps =
+val isPtrElem =
   fn
-    IGTYPE _                   => SOME false
-  | ISCALAR _                  => SOME false
+    IGTYPE _                   => NONE
+  | ISCALAR _                  => NONE
   | IUTF8 _                    => SOME true
   | IARRAY _                   => SOME true
   | IINTERFACE {infoType, ...} =>
@@ -366,125 +320,95 @@ val needsStructDeps =
         open InfoType
       in
         case infoType of
-          FLAGS _           => SOME false
-        | ENUM _            => SOME false
+          FLAGS _           => NONE
+        | ENUM _            => NONE
         | STRUCT structInfo =>
             let
               val structName = getName structInfo
               val structNamespace = BaseInfo.getNamespace structInfo
             in
               case getStructType (structNamespace, structName) of
-                ValueRecord _ => SOME false
-              | _             => SOME true
+                ValueRecord _ => NONE
+              | _             => SOME false
             end 
-        | _                 => SOME true
+        | _                 => SOME false
       end
 
-
-fun cArrayStrIdStructDeps length elem structDeps =
+fun makeCArrayIRef functionNamespace optContainerName length elem =
   let
-    val suffixStrId = String.concat (
-      cStrId :: vectorStrId :: (
-        case length of
-          ArrayLengthZeroTerminated => []
-        | _                         => [nStrId]
-      )
-    )
-
-    val (elemStrId, structDeps'1) =
+    val elemRef =
       case elem of
-        IGTYPE {iRef, ...}                         =>
-          (makeIRefInterfaceOtherStrId iRef, structDeps)
+        IGTYPE {iRef, ...}                         => INTERFACE iRef
       | ISCALAR {ty, ...}                          => (
-          gStrId ^ scalarStrId ty,
-          structDeps
+          NAME (gStrId ^ scalarStrId ty)
         )
       | IUTF8 {isOpt, ...}                         => (
           if isOpt
           then infoExcl "optional UTF8 as array element not supported"
-          else utf8StrId,
-          structDeps
+          else
+            NAME utf8StrId
         )
-      | IARRAY {isOpt, length, elem, ...}          => (
+      | IARRAY {iRef, isOpt, ...}                  => (
           if isOpt
           then infoExcl "optional ARRAY as array element not supported"
-          else cArrayStrIdStructDeps length elem structDeps
+          else INTERFACE iRef
         )
-      | IINTERFACE {iRef, ...}                     =>
-          (makeIRefInterfaceOtherStrId iRef, structDeps)
+      | IINTERFACE {iRef, ...}                     => INTERFACE iRef
 
-    val elemArrayStrId = elemStrId ^ suffixStrId
+    val arrayNamespace =
+      case elemRef of
+        INTERFACE {namespace, ...} => namespace
+      | NAME _                     => ""  (* arrayScope = GLOBAL *)
 
-    val structDeps'2 =
-      case needsStructDeps elem of
-        SOME isPtr =>
-          let
-            val funcId = suffixStrId
-            val funcTypeId =
-              let
-                val prefixId = if isPtr then cPointerStrId else cValueStrId
-              in
-                prefixId ^ suffixStrId ^ typeStrId
-              end
-            val elemArrayTypeStrId = elemArrayStrId ^ typeStrId
+    val elemName =
+      case elemRef of
+        INTERFACE iRef => makeIRefNamespaceStrId iRef
+      | NAME name      => name
 
-            val arrayStruct = (
-              elemArrayStrId,
-              mkInstStruct (funcId, mkNameStruct [elemArrayTypeStrId])
-            )
-            val arrayTypeStruct = (
-              elemArrayTypeStrId,
-              StructInst (
-                funcTypeId,
-                if isPtr
-                then
-                  let
-                    val elemStruct =
-                      case elem of
-                        IUTF8 _  => mkNameStruct [elemStrId, cStrId, arrayTypeStrId]
-                      | IARRAY _ => mkNameStruct [elemStrId, cStrId, arrayTypeStrId]
-                      | _        => mkNameStruct [elemStrId, cStrId, pointerTypeStrId]
+    val isPtr = isPtrElem elem
 
-                    val sequenceStruct =
-                      case getBaseInfo elem of
-                        IUTF8 _  => mkNameStruct ["ListSequence"]
-                      | _        => mkNameStruct ["VectorSequence"]
+    val zeroTerminated =
+      case length of
+        ArrayLengthZeroTerminated => true
+      | _                         => false
 
-                  in
-                    mkStrDecsFunArg [
-                      mkStructStrDec ("CElemType", elemStruct),
-                      mkStructStrDec ("Sequence", sequenceStruct)
-                    ]
-                  end
-                else
-                  let
-                    val elemStruct =
-                      case elem of
-                        ISCALAR {ty, ...} =>
-                          mkNameStruct [gStrId ^ scalarStrId ty, cStrId, valueTypeStrId]
-                      | _                 =>
-                          mkNameStruct [elemStrId, cStrId, valueTypeStrId]
+    val arrayName =
+      concat [elemName, cStrId, arrayStrId, if zeroTerminated then "" else "N"]
 
-                    val elemSequenceStruct =
-                      case elem of
-                        ISCALAR {ty = STUINT8, ...}            =>
-                          mkInstStruct ("MonoVectorSequence", mkNameStruct ["Word8Vector"])
-                      | _                                      =>
-                          mkInstStruct ("CValueVectorSequence", elemStruct)
-                  in
-                    mkStrDecsFunArg [
-                      mkStructStrDec ("CElemType", elemStruct),
-                      mkStructStrDec ("ElemSequence", elemSequenceStruct)
-                    ]
-                  end
+    val arrayScope =
+      if arrayNamespace <> functionNamespace
+      then GLOBAL
+      else
+        case optContainerName of
+          NONE               => LOCALNAMESPACE
+        | SOME containerName =>
+            if arrayName = containerName
+            then
+              raise Fail (
+                concat [
+                  "generated name for C array interface ", arrayName,
+                  " is already an interface in namespace ", arrayNamespace
+                ]
               )
-            )
-          in
-            foldl (ListDict.insert #2) structDeps'1 [arrayTypeStruct, arrayStruct]
-          end
-      | NONE       => structDeps'1
+            else LOCALINTERFACEOTHER
+
+    val arrayTy = SIMPLE
+
+    val arrayRef =
+      ARRAYREF {
+        isPtr          = isPtr,
+        zeroTerminated = zeroTerminated,
+        elemRef        = elemRef
+      }
+    val arrayContainer = SOME arrayRef
   in
-    (elemArrayStrId, structDeps'2)
+    {
+      namespace = arrayNamespace,
+      name      = arrayName,
+      scope     = arrayScope,
+      ty        = arrayTy,
+      container = arrayContainer
+    }
   end
 
 fun boolToInt b = if b then 1 else 0
@@ -700,12 +624,18 @@ fun getParInfo
                   SOME typeInfo => typeInfo
                 | NONE          => infoExcl noTypeParamForArray
 
+              val elem = resolveType () () (NONE, false, ownXfer') elemTypeInfo
+
+              val iRef =
+                case () of
+                  () => makeCArrayIRef functionNamespace optContainerName length elem
+
               val arrayInfo = {
                 isOpt   = isOpt,
                 ownXfer = ownXfer <> NOTHING,
                 length  = length,
-                elem    =
-                  resolveType () () (NONE, false, ownXfer') elemTypeInfo
+                iRef    = iRef,
+                elem    = elem
               }
             in
               IARRAY arrayInfo
@@ -791,7 +721,8 @@ fun getParInfo
                         namespace = interfaceNamespace,
                         name      = interfaceName,
                         scope     = interfaceScope,
-                        ty        = interfaceTy
+                        ty        = interfaceTy,
+                        container = NONE
                       }
                     end
 
@@ -1093,11 +1024,18 @@ fun getRetInfo
                   SOME typeInfo => typeInfo
                 | NONE          => infoExcl noTypeParamForArray
 
+              val elem = resolveType () () (NONE, false, ownXfer') elemTypeInfo
+
+              val iRef =
+                case () of
+                  () => makeCArrayIRef functionNamespace optContainerName length elem
+
               val arrayInfo = {
                 isOpt   = isOpt,
                 ownXfer = ownXfer <> NOTHING,
                 length  = length,
-                elem    = resolveType () () (NONE, false, ownXfer') elemTypeInfo
+                iRef    = iRef,
+                elem    = elem
               }
             in
               IARRAY arrayInfo
@@ -1177,7 +1115,8 @@ fun getRetInfo
                         namespace = interfaceNamespace,
                         name      = interfaceName,
                         scope     = interfaceScope,
-                        ty        = interfaceTy
+                        ty        = interfaceTy,
+                        container = NONE
                       }
                     end
 
@@ -1295,21 +1234,25 @@ fun addSpecParInfo
       | INOUT => addInOutTy isElem tyMap tyRef
       | OUT _ => addOutTy isElem tyMap tyRef
 
-    fun addIRefTy dir isElem tyMap iRef iRefs =
+    fun addIRefTy dir isElem tyMap iRef (sigIRefs, extIRefs) =
       let
-        val {scope, ...} = iRef
-        val iRefs' =
+        val {scope, container, ...} = iRef
+        val sigIRefs' =
           case scope of
-            GLOBAL             => iRefs
-          | LOCALINTERFACESELF => iRefs
-          | _                  => insert (iRef, iRefs)
+            GLOBAL             => sigIRefs
+          | LOCALINTERFACESELF => sigIRefs
+          | _                  => insert (iRef, sigIRefs)
+        val extIRefs' =
+          case (scope, container) of
+            (GLOBAL, SOME _) => insert (iRef, extIRefs)
+          | _                => extIRefs
 
         val ifTyRef = (
           numInterfaceRefTyVars iRef,
           makeInterfaceRefTyLongId iRef
         )
       in
-        (addTy dir isElem tyMap ifTyRef, iRefs')
+        (addTy dir isElem tyMap ifTyRef, (sigIRefs', extIRefs'))
       end
   in
     case parInfo of
@@ -1317,12 +1260,6 @@ fun addSpecParInfo
     | PISOME {array = SOME _, ...}          => acc
     | PISOME {dir, array = NONE, info, ...} =>
         let
-          val baseInfo = getBaseInfo info
-          val arrayTy =
-            case baseInfo of
-              IUTF8 _ => listTy
-            | _       => vectorTy
-
           fun addInfo isElem tyMap info =
             case info of
               IGTYPE {iRef, ...}                 =>
@@ -1331,14 +1268,8 @@ fun addSpecParInfo
                 (addTy dir isElem tyMap (scalarTyRef ty), iRefs)
             | IUTF8 {isOpt, ...}                 =>
                 (addTy dir isElem (mkOpt isOpt o tyMap) utf8TyRef, iRefs)
-            | IARRAY {isOpt, elem, ...}          => (
-                case elem of
-                  ISCALAR {
-                    ty = STUINT8,
-                    ...
-                  } => (addTy dir isElem (mkOpt isOpt o tyMap) word8VectorTyRef, iRefs)
-                | _ => addInfo true (mkOpt isOpt o arrayTy o tyMap) elem
-              )
+            | IARRAY {isOpt, iRef, ...}          =>
+                addIRefTy dir isElem (mkOpt isOpt o tyMap) iRef iRefs
             | IINTERFACE {iRef, isOpt, ...}      =>
                 addIRefTy dir isElem (mkOpt isOpt o tyMap) iRef iRefs
         in
@@ -1361,46 +1292,38 @@ fun addSpecRetInfo
         (tyMap ty, tyVarIdx')
       end
 
-    fun mkIRefTy isElem tyMap iRef iRefs =
+    fun mkIRefTy isElem tyMap iRef (sigIRefs, extIRefs) =
       let
-        val {scope, ...} = iRef
-        val iRefs' =
+        val {scope, container, ...} = iRef
+        val sigIRefs' =
           case scope of
-            GLOBAL             => iRefs
-          | LOCALINTERFACESELF => iRefs
-          | _                  => insert (iRef, iRefs)
+            GLOBAL             => sigIRefs
+          | LOCALINTERFACESELF => sigIRefs
+          | _                  => insert (iRef, sigIRefs)
+        val extIRefs' =
+          case (scope, container) of
+            (GLOBAL, SOME _) => insert (iRef, extIRefs)
+          | _                => extIRefs
 
         val ifTyRef = (
           numInterfaceRefTyVars iRef,
           makeInterfaceRefTyLongId iRef
         )
       in
-        (mkTy isElem tyMap ifTyRef, iRefs')
+        (mkTy isElem tyMap ifTyRef, (sigIRefs', extIRefs'))
       end
   in
     case retInfo of
       RIVOID        => ((unitTy, tyVarIdx), iRefs)
     | RISOME {info} =>
         let
-          val baseInfo = getBaseInfo info
-          val arrayTy =
-            case baseInfo of
-              IUTF8 _ => listTy
-            | _       => vectorTy
-
           fun addInfo isElem tyMap info =
             case info of
               IGTYPE {iRef, ...}                 => mkIRefTy isElem tyMap iRef iRefs
             | ISCALAR {ty, ...}                  => (mkTy isElem tyMap (scalarTyRef ty), iRefs)
             | IUTF8 {isOpt, ...}                 => (mkTy isElem (mkOpt isOpt o tyMap) utf8TyRef, iRefs)
-            | IARRAY {isOpt, elem, ...}          => (
-                case elem of
-                  ISCALAR {
-                    ty = STUINT8,
-                    ...
-                  } => (mkTy isElem (mkOpt isOpt o tyMap) word8VectorTyRef, iRefs)
-                | _ => addInfo true (mkOpt isOpt o arrayTy o tyMap) elem
-              )
+            | IARRAY {isOpt, iRef, ...}          =>
+                mkIRefTy isElem (mkOpt isOpt o tyMap) iRef iRefs
             | IINTERFACE {
                 iRef,
                 infoType,
@@ -1434,7 +1357,7 @@ fun makeFunctionSpec
   vers
   (optContainerIRef : interfaceref option)
   (functionInfo, (iRefs, excls))
-  : spec * (interfaceref list * info_excl_hier list) =
+  : spec * ((interfaceref list * interfaceref list) * info_excl_hier list) =
   let
     val () = checkDeprecated functionInfo
 
@@ -1736,9 +1659,9 @@ local
       }
     end
 
-  fun withFunArray arrayStrId (dir, {ownXfer, isOpt, elem, ...} : array_info) =
+  fun withFunArray (dir, {ownXfer, isOpt, iRef, elem, ...} : array_info) =
     let
-      val prefixIds = [arrayStrId, ffiStrId]
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
 
       val isDup = dir = INOUT andalso ownXfer
     in
@@ -1843,9 +1766,9 @@ local
       }
     end
 
-  fun fromFunArray arrayStrId (_, {ownXfer, isOpt, elem, ...} : array_info) =
+  fun fromFunArray (_, {ownXfer, isOpt, iRef, elem, ...} : array_info) =
     let
-      val prefixIds = [arrayStrId, ffiStrId]
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
     in
       fromFunExp prefixIds {
         isOpt = isOpt,
@@ -1940,8 +1863,8 @@ local
 
   fun mkLenParamExp ty arrayInfo arrayName =
     let
-      val {length, elem, isOpt, ...} = arrayInfo
-      val strId = cArrayStrId length elem
+      val {iRef, isOpt, ...} = arrayInfo
+      val strId = makeIRefInterfaceOtherStrId iRef
       val lenExp =
         ExpApp (
           mkLIdLNameExp [largeIntStrId, fromIntId],
@@ -2008,17 +1931,14 @@ in
                 end
             | IARRAY arrayParInfo         =>
                 let
-                  val {length, elem, ...} = arrayParInfo
-                  val (strId, structDeps'1) =
-                    cArrayStrIdStructDeps length elem structDeps
+                  val {length, ...} = arrayParInfo
 
-                  val withFunExp = withFunArray strId (dir, arrayParInfo)
+                  val withFunExp = withFunArray (dir, arrayParInfo)
                   val argValExp = argValArray (name, dir, arrayParInfo)
-                  fun fromFunExp () =
-                    fromFunArray strId (dir = INOUT, arrayParInfo)
+                  fun fromFunExp () = fromFunArray (dir = INOUT, arrayParInfo)
                   fun outParamExp () = mkArrayLenExp length (mkIdLNameExp name)
                 in
-                  (withFunExp, argValExp, fromFunExp, outParamExp, structDeps'1)
+                  (withFunExp, argValExp, fromFunExp, outParamExp, structDeps)
                 end
             | IINTERFACE interfaceParInfo =>
                 let
@@ -2122,13 +2042,9 @@ in
                 end
             | IARRAY arrayParInfo                  =>
                 let
-                  val {length, elem, ...} = arrayParInfo
-                  val (strId, structDeps') =
-                    cArrayStrIdStructDeps length elem structDeps
-
-                  val fromFunExp = fromFunArray strId (false, arrayParInfo)
+                  val fromFunExp = fromFunArray (false, arrayParInfo)
                 in
-                  (fromFunExp, structDeps')
+                  (fromFunExp, structDeps)
                 end
             | IINTERFACE interfaceParInfo          =>
                 let
@@ -2647,9 +2563,9 @@ local
       )
     end
 
-  fun parArrayConv (dir, {isOpt, length, elem, ...} : array_info) =
+  fun parArrayConv (dir, {isOpt, iRef, ...} : array_info) =
     let
-      val prefixIds = [cArrayStrId length elem, polyMLStrId]
+      val prefixIds = prefixInterfaceStrId iRef [polyMLStrId]
     in
       convExp prefixIds (
         if dir <> IN
@@ -2668,9 +2584,9 @@ local
       )
     end
 
-  fun retArrayConv ({isOpt, length, elem, ...} : array_info) =
+  fun retArrayConv ({isOpt, iRef, ...} : array_info) =
     let
-      val prefixIds = [cArrayStrId length elem, polyMLStrId]
+      val prefixIds = prefixInterfaceStrId iRef [polyMLStrId]
     in
       convExp prefixIds (
         PTR {
@@ -3329,9 +3245,9 @@ local
       )
     end
 
-  fun parArrayType (dir, {isOpt, length, elem, ...} : array_info) =
+  fun parArrayType (dir, {isOpt, iRef, ...} : array_info) =
     let
-      val prefixIds = [cArrayStrId length elem, ffiStrId]
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
     in
       typeTy true prefixIds (
         if dir <> IN
@@ -3350,9 +3266,9 @@ local
       )
     end
 
-  fun retArrayType ({isOpt, length, elem, ...} : array_info) =
+  fun retArrayType ({isOpt, iRef, ...} : array_info) =
     let
-      val prefixIds = [cArrayStrId length elem, ffiStrId]
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
     in
       typeTy false prefixIds (
         PTR {

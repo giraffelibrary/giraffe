@@ -4,7 +4,7 @@ structure PangoLayout :>
     where type 'a context_class = 'a PangoContextClass.class
     where type layout_iter_t = PangoLayoutIterRecord.t
     where type layout_line_t = PangoLayoutLineRecord.t
-    where type log_attr_t = PangoLogAttrRecord.t
+    where type log_attr_record_c_array_n_t = PangoLogAttrRecordCArrayN.t
     where type rectangle_t = PangoRectangleRecord.t
     where type alignment_t = PangoAlignment.t
     where type attr_list_t = PangoAttrListRecord.t
@@ -13,12 +13,6 @@ structure PangoLayout :>
     where type tab_array_t = PangoTabArrayRecord.t
     where type wrap_mode_t = PangoWrapMode.t =
   struct
-    structure PangoLogAttrRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = PangoLogAttrRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(PangoLogAttrRecord.C.ValueType)
-      )
-    structure PangoLogAttrRecordCVectorN = CVectorN(PangoLogAttrRecordCVectorNType)
     val getType_ = _import "pango_layout_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "pango_layout_new" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p;
     val contextChanged_ = _import "pango_layout_context_changed" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> unit;
@@ -83,8 +77,8 @@ structure PangoLayout :>
           (
             _import "mlton_pango_layout_get_log_attrs" :
               PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
-               * PangoLogAttrRecordCVectorN.MLton.r1
-               * (unit, PangoLogAttrRecordCVectorN.FFI.notnull) PangoLogAttrRecordCVectorN.MLton.r2
+               * PangoLogAttrRecordCArrayN.MLton.r1
+               * (unit, PangoLogAttrRecordCArrayN.FFI.notnull) PangoLogAttrRecordCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -94,7 +88,7 @@ structure PangoLayout :>
               x3,
               x4
             )
-    val getLogAttrsReadonly_ = fn x1 & x2 => (_import "pango_layout_get_log_attrs_readonly" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt.FFI.ref_ -> PangoLogAttrRecordCVectorN.FFI.notnull PangoLogAttrRecordCVectorN.FFI.out_p;) (x1, x2)
+    val getLogAttrsReadonly_ = fn x1 & x2 => (_import "pango_layout_get_log_attrs_readonly" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt.FFI.ref_ -> PangoLogAttrRecordCArrayN.FFI.notnull PangoLogAttrRecordCArrayN.FFI.out_p;) (x1, x2)
     val getPixelExtents_ =
       fn
         x1
@@ -328,7 +322,7 @@ structure PangoLayout :>
     type 'a context_class = 'a PangoContextClass.class
     type layout_iter_t = PangoLayoutIterRecord.t
     type layout_line_t = PangoLayoutLineRecord.t
-    type log_attr_t = PangoLogAttrRecord.t
+    type log_attr_record_c_array_n_t = PangoLogAttrRecordCArrayN.t
     type rectangle_t = PangoRectangleRecord.t
     type alignment_t = PangoAlignment.t
     type attr_list_t = PangoAttrListRecord.t
@@ -409,9 +403,9 @@ structure PangoLayout :>
          & () =
           (
             PangoLayoutClass.FFI.withPtr
-             &&&> PangoLogAttrRecordCVectorN.FFI.withRefOptPtr
+             &&&> PangoLogAttrRecordCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> PangoLogAttrRecordCVectorN.FFI.fromPtr 1
+             ---> PangoLogAttrRecordCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )
@@ -426,7 +420,7 @@ structure PangoLayout :>
       end
     fun getLogAttrsReadonly self =
       let
-        val nAttrs & retVal = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && PangoLogAttrRecordCVectorN.FFI.fromPtr 0) getLogAttrsReadonly_ (self & GInt.null)
+        val nAttrs & retVal = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && PangoLogAttrRecordCArrayN.FFI.fromPtr 0) getLogAttrsReadonly_ (self & GInt.null)
       in
         retVal (LargeInt.toInt nAttrs)
       end

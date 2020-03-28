@@ -10,7 +10,7 @@ signature GTK_CSS_PROVIDER =
     val getNamed : string * string option -> base class
     val loadFromData :
       'a class
-       -> Word8Vector.vector
+       -> GUInt8CArrayN.t
        -> unit
     val loadFromFile :
       'a class

@@ -5,18 +5,6 @@ structure GLibRegex :>
     where type regex_match_flags_t = GLibRegexMatchFlags.t
     where type regex_compile_flags_t = GLibRegexCompileFlags.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -60,7 +48,7 @@ structure GLibRegex :>
         call (getSymbol "g_regex_match_all_full")
           (
             GLibRegexRecord.PolyML.cPtr
-             &&> Utf8CVectorN.PolyML.cInPtr
+             &&> Utf8CArrayN.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              &&> GInt32.PolyML.cVal
              &&> GLibRegexMatchFlags.PolyML.cVal
@@ -72,7 +60,7 @@ structure GLibRegex :>
         call (getSymbol "g_regex_match_full")
           (
             GLibRegexRecord.PolyML.cPtr
-             &&> Utf8CVectorN.PolyML.cInPtr
+             &&> Utf8CArrayN.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              &&> GInt32.PolyML.cVal
              &&> GLibRegexMatchFlags.PolyML.cVal
@@ -84,7 +72,7 @@ structure GLibRegex :>
         call (getSymbol "g_regex_replace")
           (
             GLibRegexRecord.PolyML.cPtr
-             &&> Utf8CVectorN.PolyML.cInPtr
+             &&> Utf8CArrayN.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              &&> GInt32.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
@@ -96,7 +84,7 @@ structure GLibRegex :>
         call (getSymbol "g_regex_replace_literal")
           (
             GLibRegexRecord.PolyML.cPtr
-             &&> Utf8CVectorN.PolyML.cInPtr
+             &&> Utf8CArrayN.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              &&> GInt32.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
@@ -110,19 +98,19 @@ structure GLibRegex :>
             GLibRegexRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GLibRegexMatchFlags.PolyML.cVal
-             --> Utf8CVector.PolyML.cOutPtr
+             --> Utf8CArray.PolyML.cOutPtr
           )
       val splitFull_ =
         call (getSymbol "g_regex_split_full")
           (
             GLibRegexRecord.PolyML.cPtr
-             &&> Utf8CVectorN.PolyML.cInPtr
+             &&> Utf8CArrayN.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              &&> GInt32.PolyML.cVal
              &&> GLibRegexMatchFlags.PolyML.cVal
              &&> GInt32.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CVector.PolyML.cOutPtr
+             --> Utf8CArray.PolyML.cOutPtr
           )
       val checkReplacement_ =
         call (getSymbol "g_regex_check_replacement")
@@ -149,7 +137,7 @@ structure GLibRegex :>
              &&> Utf8.PolyML.cInPtr
              &&> GLibRegexCompileFlags.PolyML.cVal
              &&> GLibRegexMatchFlags.PolyML.cVal
-             --> Utf8CVector.PolyML.cOutPtr
+             --> Utf8CArray.PolyML.cOutPtr
           )
     end
     type t = GLibRegexRecord.t
@@ -233,11 +221,11 @@ structure GLibRegex :>
         matchOptions
       ) =
       let
-        val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
+        val stringLen = LargeInt.fromInt (Utf8CArrayN.length string)
         val matchInfo & () =
           (
             GLibRegexRecord.FFI.withPtr
-             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> Utf8CArrayN.FFI.withPtr
              &&&> GInt64.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GLibRegexMatchFlags.FFI.withVal
@@ -266,11 +254,11 @@ structure GLibRegex :>
         matchOptions
       ) =
       let
-        val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
+        val stringLen = LargeInt.fromInt (Utf8CArrayN.length string)
         val matchInfo & () =
           (
             GLibRegexRecord.FFI.withPtr
-             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> Utf8CArrayN.FFI.withPtr
              &&&> GInt64.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GLibRegexMatchFlags.FFI.withVal
@@ -300,11 +288,11 @@ structure GLibRegex :>
         matchOptions
       ) =
       let
-        val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
+        val stringLen = LargeInt.fromInt (Utf8CArrayN.length string)
         val retVal =
           (
             GLibRegexRecord.FFI.withPtr
-             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> Utf8CArrayN.FFI.withPtr
              &&&> GInt64.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> Utf8.FFI.withPtr
@@ -334,11 +322,11 @@ structure GLibRegex :>
         matchOptions
       ) =
       let
-        val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
+        val stringLen = LargeInt.fromInt (Utf8CArrayN.length string)
         val retVal =
           (
             GLibRegexRecord.FFI.withPtr
-             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> Utf8CArrayN.FFI.withPtr
              &&&> GInt64.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> Utf8.FFI.withPtr
@@ -364,7 +352,7 @@ structure GLibRegex :>
         GLibRegexRecord.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GLibRegexMatchFlags.FFI.withVal
-         ---> Utf8CVector.FFI.fromPtr 2
+         ---> Utf8CArray.FFI.fromPtr 2
       )
         split_
         (
@@ -381,17 +369,17 @@ structure GLibRegex :>
         maxTokens
       ) =
       let
-        val stringLen = LargeInt.fromInt (Utf8CVectorN.length string)
+        val stringLen = LargeInt.fromInt (Utf8CArrayN.length string)
         val retVal =
           (
             GLibRegexRecord.FFI.withPtr
-             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> Utf8CArrayN.FFI.withPtr
              &&&> GInt64.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GLibRegexMatchFlags.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GLibErrorRecord.handleError
-             ---> Utf8CVector.FFI.fromPtr 2
+             ---> Utf8CArray.FFI.fromPtr 2
           )
             splitFull_
             (
@@ -458,7 +446,7 @@ structure GLibRegex :>
          &&&> Utf8.FFI.withPtr
          &&&> GLibRegexCompileFlags.FFI.withVal
          &&&> GLibRegexMatchFlags.FFI.withVal
-         ---> Utf8CVector.FFI.fromPtr 2
+         ---> Utf8CArray.FFI.fromPtr 2
       )
         splitSimple_
         (

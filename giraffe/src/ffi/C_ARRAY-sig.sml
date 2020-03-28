@@ -29,6 +29,32 @@ signature C_ARRAY =
     val length : t -> int
 
     (**
+     * `sub t i` returns the element at (zero-based) index `i` of `t`.  It
+     * raises `Subscript` if `i < 0` or `length t <= i`.  Note, therefore,
+     * that `i` cannot index a null terminator if one is present in the
+     * internal representation.
+     *)
+    val sub : t -> int -> elem
+
+    (**
+     * Conversion between SML values and C arrays.
+     *
+     * The type `sequence` represents array values in SML.
+     *
+     * When the elements of the SML sequence can represent the null terminator
+     * value, `fromSequence v` returns the C array that is the longest prefix
+     * of `v` not containing a null terminator.  For example, for a character
+     * array, i.e. where type `sequence` is `string`, we would have:
+     *
+     *   toSequence (fromSequence "a\000bc") = "a"
+     *   toSequence (fromSequence "\000abc") = ""
+     *
+     *)
+    type sequence
+    val fromSequence : sequence -> t
+    val toSequence : t -> sequence
+
+    (**
      * The structure C provides the underlying C array representation and
      * operations.
      *)
@@ -41,6 +67,8 @@ signature C_ARRAY =
 
         structure ArrayType :
           C_ARRAY_TYPE
+            where type t = sequence
+            where type elem = elem
             where type notnull = notnull
             where type 'a p = 'a p
       end

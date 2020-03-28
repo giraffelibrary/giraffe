@@ -3,12 +3,6 @@ structure GLibMatchInfo :>
     where type t = GLibMatchInfoRecord.t
     where type regex_t = GLibRegexRecord.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_match_info_get_type" : unit -> GObjectType.FFI.val_;
     val expandReferences_ =
       fn
@@ -30,7 +24,7 @@ structure GLibMatchInfo :>
               x4
             )
     val fetch_ = fn x1 & x2 => (_import "g_match_info_fetch" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p * GInt.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
-    val fetchAll_ = _import "g_match_info_fetch_all" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val fetchAll_ = _import "g_match_info_fetch_all" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
     val fetchNamed_ =
       fn
         x1 & (x2, x3) =>
@@ -111,7 +105,7 @@ structure GLibMatchInfo :>
            & []
         )
     fun fetch self matchNum = (GLibMatchInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 1) fetch_ (self & matchNum)
-    fun fetchAll self = (GLibMatchInfoRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) fetchAll_ self
+    fun fetchAll self = (GLibMatchInfoRecord.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) fetchAll_ self
     fun fetchNamed self name = (GLibMatchInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) fetchNamed_ (self & name)
     fun fetchNamedPos self name =
       let

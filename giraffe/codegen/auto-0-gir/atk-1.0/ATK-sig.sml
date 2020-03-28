@@ -115,11 +115,9 @@ signature ATK =
       ATK_REGISTRY
         where type 'a class = 'a RegistryClass.class
         where type 'a object_factory_class = 'a ObjectFactoryClass.class
-    structure Relation :
-      ATK_RELATION
-        where type 'a class = 'a RelationClass.class
-        where type 'a object_class = 'a ObjectClass.class
-        where type relation_type_t = RelationType.t
+    structure ObjectClassCArrayN :
+      C_ARRAY
+        where type elem = base ObjectClass.class
     structure RelationSet :
       ATK_RELATION_SET
         where type 'a class = 'a RelationSetClass.class
@@ -133,10 +131,9 @@ signature ATK =
     structure SocketClass :
       ATK_SOCKET_CLASS
         where type 'a object_class = 'a ObjectClass.class
-    structure StateSet :
-      ATK_STATE_SET
-        where type 'a class = 'a StateSetClass.class
-        where type state_type_t = StateType.t
+    structure StateTypeCArrayN :
+      C_ARRAY
+        where type elem = StateType.t
     structure StreamableContent :
       ATK_STREAMABLE_CONTENT
         where type 'a class = 'a StreamableContentClass.class
@@ -148,15 +145,9 @@ signature ATK =
       ATK_TABLE_CELL
         where type 'a class = 'a TableCellClass.class
         where type 'a object_class = 'a ObjectClass.class
-    structure Text :
-      ATK_TEXT
-        where type 'a class = 'a TextClass.class
-        where type text_range_t = TextRangeRecord.t
-        where type text_clip_type_t = TextClipType.t
-        where type text_rectangle_t = TextRectangleRecord.t
-        where type coord_type_t = CoordType.t
-        where type text_granularity_t = TextGranularity.t
-        where type text_boundary_t = TextBoundary.t
+    structure TextRangeRecordCArray :
+      C_ARRAY
+        where type elem = TextRangeRecord.t
     structure TextRange :
       ATK_TEXT_RANGE
         where type t = TextRangeRecord.t
@@ -199,10 +190,30 @@ signature ATK =
       ATK_PLUG
         where type 'a class = 'a PlugClass.class
         where type 'a component_class = 'a ComponentClass.class
+    structure Relation :
+      ATK_RELATION
+        where type 'a class = 'a RelationClass.class
+        where type object_class_c_array_n_t = ObjectClassCArrayN.t
+        where type 'a object_class = 'a ObjectClass.class
+        where type relation_type_t = RelationType.t
     structure Socket :
       ATK_SOCKET
         where type 'a class = 'a SocketClass.class
         where type 'a component_class = 'a ComponentClass.class
+    structure StateSet :
+      ATK_STATE_SET
+        where type 'a class = 'a StateSetClass.class
+        where type state_type_c_array_n_t = StateTypeCArrayN.t
+        where type state_type_t = StateType.t
+    structure Text :
+      ATK_TEXT
+        where type 'a class = 'a TextClass.class
+        where type text_range_record_c_array_t = TextRangeRecordCArray.t
+        where type text_clip_type_t = TextClipType.t
+        where type text_rectangle_t = TextRectangleRecord.t
+        where type coord_type_t = CoordType.t
+        where type text_granularity_t = TextGranularity.t
+        where type text_boundary_t = TextBoundary.t
     val BINARY_AGE : LargeInt.int
     val INTERFACE_AGE : LargeInt.int
     val MAJOR_VERSION : LargeInt.int

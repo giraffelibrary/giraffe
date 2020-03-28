@@ -3,12 +3,6 @@ structure GioPollableOutputStream :>
     where type 'a class = 'a GioPollableOutputStreamClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "g_pollable_output_stream_get_type" : unit -> GObjectType.FFI.val_;
     val canPoll_ = _import "g_pollable_output_stream_can_poll" : GioPollableOutputStreamClass.FFI.notnull GioPollableOutputStreamClass.FFI.p -> GBool.FFI.val_;
     val createSource_ = fn x1 & x2 => (_import "g_pollable_output_stream_create_source" : GioPollableOutputStreamClass.FFI.notnull GioPollableOutputStreamClass.FFI.p * unit GioCancellableClass.FFI.p -> GLibSourceRecord.FFI.notnull GLibSourceRecord.FFI.p;) (x1, x2)
@@ -23,8 +17,8 @@ structure GioPollableOutputStream :>
           (
             _import "mlton_g_pollable_output_stream_write_nonblocking" :
               GioPollableOutputStreamClass.FFI.notnull GioPollableOutputStreamClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GSize.FFI.val_
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
@@ -47,11 +41,11 @@ structure GioPollableOutputStream :>
     fun isWritable self = (GioPollableOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ self
     fun writeNonblocking self (buffer, cancellable) =
       let
-        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioPollableOutputStreamClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GSize.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError

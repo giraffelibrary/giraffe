@@ -10,8 +10,8 @@ fun mkInterfaceConvId interfaceName = "as" ^ toUCC interfaceName
 fun makeInterfaceConvSpec
   _
   (containerIRef as {namespace = containerNamespace, ...} : interfaceref)
-  (interfaceInfo, (iRefs, excls))
-  : spec * (interfaceref list * info_excl_hier list) =
+  (interfaceInfo, ((sigIRefs, extIRefs), excls))
+  : spec * ((interfaceref list * interfaceref list) * info_excl_hier list) =
   let
     val () = checkDeprecated interfaceInfo
 
@@ -27,16 +27,17 @@ fun makeInterfaceConvSpec
       namespace = interfaceNamespace,
       name      = interfaceName,
       scope     = interfaceScope,
-      ty        = interfaceTy
+      ty        = interfaceTy,
+      container = NONE
     }
 
     val interfaceConvId = mkInterfaceConvId interfaceName
 
-    val iRefs'1 =
+    val sigIRefs'1 =
       case interfaceScope of
-        GLOBAL             => iRefs
-   (* | LOCALINTERFACESELF => iRefs *) (* unreachable *)
-      | _                  => insert (interfaceIRef, iRefs)
+        GLOBAL             => sigIRefs
+   (* | LOCALINTERFACESELF => sigIRefs *) (* unreachable *)
+      | _                  => insert (interfaceIRef, sigIRefs)
 
     (*
      * <containerTy> -> <interfaceTy>
@@ -48,7 +49,7 @@ fun makeInterfaceConvSpec
        makeIRefLocalTypeRef (makeRefBaseTy false) (interfaceIRef, tyVarIdx'1)
     val interfaceConvTy = TyFun (containerTy, interfaceTy)
   in
-    (mkValSpec (interfaceConvId, interfaceConvTy), (iRefs'1, excls))
+    (mkValSpec (interfaceConvId, interfaceConvTy), ((sigIRefs'1, extIRefs), excls))
   end
 
 
@@ -75,7 +76,8 @@ fun makeInterfaceConvStrDec
       namespace = interfaceNamespace,
       name      = interfaceName,
       scope     = interfaceScope,
-      ty        = interfaceTy
+      ty        = interfaceTy,
+      container = NONE
     }
 
     val interfaceConvId = mkInterfaceConvId interfaceName

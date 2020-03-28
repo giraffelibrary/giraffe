@@ -1,12 +1,13 @@
 signature G_LIB_VARIANT_TYPE =
   sig
     type t
+    type variant_type_record_c_array_n_t
     val getType : unit -> GObject.Type.t
     val new : string -> t
     val newArray : t -> t
     val newDictEntry : t * t -> t
     val newMaybe : t -> t
-    val newTuple : t vector -> t
+    val newTuple : variant_type_record_c_array_n_t -> t
     val copy : t -> t
     val dupString : t -> string
     val element : t -> t

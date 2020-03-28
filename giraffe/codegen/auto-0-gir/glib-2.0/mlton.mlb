@@ -1,31 +1,17 @@
+mlton-gobject.mlb
 local
   $(SML_LIB)/basis/basis.mlb
   $(SML_LIB)/basis/mlton.mlb
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
 in
-  G_OBJECT_TYPE-sig.sml
-  G_OBJECT_VALUE_RECORD-sig.sml
-  VALUE_ACCESSOR-sig.sml
-  G_OBJECT-sig.sml
-  ann
-    "allowFFI true"
-    "resolveScope topdec"
-  in
-    mlton/GObjectType.sml
-    mlton/GObjectValueRecord.sml
-    mlton/ValueAccessor.sml
-    mlton/CVector.sml
-    mlton/CVectorN.sml
-    mlton/GObject.sml
-  end
-end
-local
-  $(SML_LIB)/basis/basis.mlb
-  $(SML_LIB)/basis/mlton.mlb
-  $(GIRAFFE_SML_LIB)/general/mlton.mlb
-  $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
-in
+  GBoolCArrayN.mlb
+  GDoubleCArrayN.mlb
+  GIntCArrayN.mlb
+  GUInt8CArrayN.mlb
+  Utf8CArrayN.mlb
+  GUInt8CArray.mlb
+  Utf8CArray.mlb
   G_LIB_PID_TYPE-sig.sml
   G_LIB_SOURCE_FUNC-sig.sml
   G_LIB_CHILD_WATCH_FUNC-sig.sml
@@ -232,10 +218,11 @@ in
     mlton/GLibTestSuite.sml
     mlton/GLibTimeVal.sml
     mlton/GLibTimeZone.sml
-    mlton/GLibVariant.sml
+    GLibVariantRecordCArrayN.sml
     mlton/GLibVariantBuilder.sml
     mlton/GLibVariantDict.sml
-    mlton/GLibVariantType.sml
+    GLibVariantTypeRecordCArrayN.sml
+    GLibDebugKeyRecordCArrayN.sml
     mlton/GLibChildWatchFunc.sml
     mlton/GLibBookmarkFileError.sml
     mlton/GLibConvertError.sml
@@ -249,7 +236,9 @@ in
     mlton/GLibShellError.sml
     mlton/GLibSpawnError.sml
     mlton/GLibThreadError.sml
+    mlton/GLibVariant.sml
     mlton/GLibVariantParseError.sml
+    mlton/GLibVariantType.sml
     mlton/GLibIOChannel.sml
     mlton/GLib.sml
   end

@@ -5,12 +5,6 @@ structure GtkTreeModel :>
     where type tree_iter_t = GtkTreeIterRecord.t
     where type tree_path_t = GtkTreePathRecord.t =
   struct
-    structure GInt32CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt32.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt32.C.ValueType)
-      )
-    structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
     val getType_ = _import "gtk_tree_model_get_type" : unit -> GObjectType.FFI.val_;
     val filterNew_ = fn x1 & x2 => (_import "gtk_tree_model_filter_new" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * unit GtkTreePathRecord.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;) (x1, x2)
     val getColumnType_ = fn x1 & x2 => (_import "gtk_tree_model_get_column_type" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GInt32.FFI.val_ -> GObjectType.FFI.val_;) (x1, x2)
@@ -198,8 +192,8 @@ structure GtkTreeModel :>
               GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
                * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
                * unit GtkTreeIterRecord.FFI.p
-               * GInt32CVectorN.MLton.p1
-               * GInt32CVectorN.FFI.notnull GInt32CVectorN.MLton.p2
+               * GInt32CArrayN.MLton.p1
+               * GInt32CArrayN.FFI.notnull GInt32CArrayN.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -396,13 +390,13 @@ structure GtkTreeModel :>
         newOrder
       ) =
       let
-        val length = LargeInt.fromInt (GInt32CVectorN.length newOrder)
+        val length = LargeInt.fromInt (GInt32CArrayN.length newOrder)
         val () =
           (
             GtkTreeModelClass.FFI.withPtr
              &&&> GtkTreePathRecord.FFI.withPtr
              &&&> GtkTreeIterRecord.FFI.withOptPtr
-             &&&> GInt32CVectorN.FFI.withPtr
+             &&&> GInt32CArrayN.FFI.withPtr
              &&&> GInt32.FFI.withVal
              ---> I
           )

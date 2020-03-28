@@ -11,18 +11,6 @@ structure GObjectObject :>
     where type 'object_class property_t = 'object_class Property.t
     where type 'a signal_t = 'a Signal.t =
   struct
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
-    structure GObjectValueRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GObjectValueRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GObjectValueRecord.C.ValueType)
-      )
-    structure GObjectValueRecordCVectorN = CVectorN(GObjectValueRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -32,8 +20,8 @@ structure GObjectObject :>
           (
             GObjectType.PolyML.cVal
              &&> GUInt.PolyML.cVal
-             &&> Utf8CVectorN.PolyML.cInPtr
-             &&> GObjectValueRecordCVectorN.PolyML.cInPtr
+             &&> Utf8CArrayN.PolyML.cInPtr
+             &&> GObjectValueRecordCArrayN.PolyML.cInPtr
              --> GObjectObjectClass.PolyML.cPtr
           )
       val bindProperty_ =
@@ -97,14 +85,18 @@ structure GObjectObject :>
       let
         val objectType = ValueAccessor.gtype class
         val nProperties = LargeInt.fromInt (List.length parameters)
-        val names = List.map Property.name parameters
-        val values = Vector.fromList (List.map Property.value parameters)
+        val names =
+          Utf8CArrayN.fromSequence
+            (Vector.fromList (List.map Property.name parameters))
+        val values =
+          GObjectValueRecordCArrayN.fromSequence
+            (Vector.fromList (List.map Property.value parameters))
         val retVal =
           (
             GObjectType.FFI.withVal
              &&&> GUInt.FFI.withVal
-             &&&> Utf8CVectorN.FFI.withPtr
-             &&&> GObjectValueRecordCVectorN.FFI.withPtr
+             &&&> Utf8CArrayN.FFI.withPtr
+             &&&> GObjectValueRecordCArrayN.FFI.withPtr
              ---> GObjectObjectClass.FFI.fromPtr true
           )
             new_

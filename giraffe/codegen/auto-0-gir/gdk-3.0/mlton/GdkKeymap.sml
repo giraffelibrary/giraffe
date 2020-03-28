@@ -2,22 +2,11 @@ structure GdkKeymap :>
   GDK_KEYMAP
     where type 'a class = 'a GdkKeymapClass.class
     where type 'a display_class = 'a GdkDisplayClass.class
+    where type keymap_key_record_c_array_n_t = GdkKeymapKeyRecordCArrayN.t
     where type modifier_intent_t = GdkModifierIntent.t
     where type keymap_key_t = GdkKeymapKeyRecord.t
     where type modifier_type_t = GdkModifierType.t =
   struct
-    structure GdkKeymapKeyRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkKeymapKeyRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkKeymapKeyRecord.C.ValueType)
-      )
-    structure GdkKeymapKeyRecordCVectorN = CVectorN(GdkKeymapKeyRecordCVectorNType)
-    structure GUIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GUInt.C.ValueType)
-      )
-    structure GUIntCVectorN = CVectorN(GUIntCVectorNType)
     val getType_ = _import "gdk_keymap_get_type" : unit -> GObjectType.FFI.val_;
     val getDefault_ = _import "gdk_keymap_get_default" : unit -> GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p;
     val getForDisplay_ = _import "gdk_keymap_get_for_display" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p;
@@ -35,10 +24,10 @@ structure GdkKeymap :>
             _import "mlton_gdk_keymap_get_entries_for_keycode" :
               GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p
                * GUInt.FFI.val_
-               * GdkKeymapKeyRecordCVectorN.MLton.r1
-               * (unit, GdkKeymapKeyRecordCVectorN.FFI.notnull) GdkKeymapKeyRecordCVectorN.MLton.r2
-               * GUIntCVectorN.MLton.r1
-               * (unit, GUIntCVectorN.FFI.notnull) GUIntCVectorN.MLton.r2
+               * GdkKeymapKeyRecordCArrayN.MLton.r1
+               * (unit, GdkKeymapKeyRecordCArrayN.FFI.notnull) GdkKeymapKeyRecordCArrayN.MLton.r2
+               * GUIntCArrayN.MLton.r1
+               * (unit, GUIntCArrayN.FFI.notnull) GUIntCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -61,8 +50,8 @@ structure GdkKeymap :>
             _import "mlton_gdk_keymap_get_entries_for_keyval" :
               GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p
                * GUInt.FFI.val_
-               * GdkKeymapKeyRecordCVectorN.MLton.r1
-               * (unit, GdkKeymapKeyRecordCVectorN.FFI.notnull) GdkKeymapKeyRecordCVectorN.MLton.r2
+               * GdkKeymapKeyRecordCArrayN.MLton.r1
+               * (unit, GdkKeymapKeyRecordCArrayN.FFI.notnull) GdkKeymapKeyRecordCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -114,6 +103,7 @@ structure GdkKeymap :>
             )
     type 'a class = 'a GdkKeymapClass.class
     type 'a display_class = 'a GdkDisplayClass.class
+    type keymap_key_record_c_array_n_t = GdkKeymapKeyRecordCArrayN.t
     type modifier_intent_t = GdkModifierIntent.t
     type keymap_key_t = GdkKeymapKeyRecord.t
     type modifier_type_t = GdkModifierType.t
@@ -138,11 +128,11 @@ structure GdkKeymap :>
           (
             GdkKeymapClass.FFI.withPtr
              &&&> GUInt.FFI.withVal
-             &&&> GdkKeymapKeyRecordCVectorN.FFI.withRefOptPtr
-             &&&> GUIntCVectorN.FFI.withRefOptPtr
+             &&&> GdkKeymapKeyRecordCArrayN.FFI.withRefOptPtr
+             &&&> GUIntCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GdkKeymapKeyRecordCVectorN.FFI.fromPtr 1
-                   && GUIntCVectorN.FFI.fromPtr 1
+             ---> GdkKeymapKeyRecordCArrayN.FFI.fromPtr 1
+                   && GUIntCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
           )
@@ -165,9 +155,9 @@ structure GdkKeymap :>
           (
             GdkKeymapClass.FFI.withPtr
              &&&> GUInt.FFI.withVal
-             &&&> GdkKeymapKeyRecordCVectorN.FFI.withRefOptPtr
+             &&&> GdkKeymapKeyRecordCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GdkKeymapKeyRecordCVectorN.FFI.fromPtr 1
+             ---> GdkKeymapKeyRecordCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
           )

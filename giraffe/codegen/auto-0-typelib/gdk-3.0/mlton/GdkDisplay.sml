@@ -7,17 +7,12 @@ structure GdkDisplay :>
     where type modifier_type_t = GdkModifierType.t
     where type 'a event_union = 'a GdkEvent.union
     where type atom_t = GdkAtomRecord.t
+    where type atom_record_c_array_n_t = GdkAtomRecordCArrayN.t
     where type 'a window_class = 'a GdkWindowClass.class
     where type 'a screen_class = 'a GdkScreenClass.class
     where type 'a monitor_class = 'a GdkMonitorClass.class
     where type 'a seat_class = 'a GdkSeatClass.class =
   struct
-    structure GdkAtomRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkAtomRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
     val getType_ = _import "gdk_display_get_type" : unit -> GObjectType.FFI.val_;
     val getDefault_ = _import "gdk_display_get_default" : unit -> unit GdkDisplayClass.FFI.p;
     val open_ = _import "mlton_gdk_display_open" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit GdkDisplayClass.FFI.p;
@@ -151,8 +146,8 @@ structure GdkDisplay :>
               GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
                * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
                * GUInt32.FFI.val_
-               * GdkAtomRecordCVectorN.MLton.p1
-               * unit GdkAtomRecordCVectorN.MLton.p2
+               * GdkAtomRecordCArrayN.MLton.p1
+               * unit GdkAtomRecordCArrayN.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -199,6 +194,7 @@ structure GdkDisplay :>
     type modifier_type_t = GdkModifierType.t
     type 'a event_union = 'a GdkEvent.union
     type atom_t = GdkAtomRecord.t
+    type atom_record_c_array_n_t = GdkAtomRecordCArrayN.t
     type 'a window_class = 'a GdkWindowClass.class
     type 'a screen_class = 'a GdkScreenClass.class
     type 'a monitor_class = 'a GdkMonitorClass.class
@@ -343,14 +339,14 @@ structure GdkDisplay :>
       let
         val nTargets =
           case targets of
-            SOME targets => LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
+            SOME targets => LargeInt.fromInt (GdkAtomRecordCArrayN.length targets)
           | NONE => GInt32.null
         val () =
           (
             GdkDisplayClass.FFI.withPtr
              &&&> GdkWindowClass.FFI.withPtr
              &&&> GUInt32.FFI.withVal
-             &&&> GdkAtomRecordCVectorN.FFI.withOptPtr
+             &&&> GdkAtomRecordCArrayN.FFI.withOptPtr
              &&&> GInt32.FFI.withVal
              ---> I
           )

@@ -150,15 +150,15 @@ in
     mlton/AtkRange.sml
     mlton/AtkRectangle.sml
     mlton/AtkRegistry.sml
-    mlton/AtkRelation.sml
+    AtkObjectClassCArrayN.sml
     mlton/AtkRelationSet.sml
     mlton/AtkSelection.sml
     mlton/AtkSocketClass.sml
-    mlton/AtkStateSet.sml
+    AtkStateTypeCArrayN.sml
     mlton/AtkStreamableContent.sml
     mlton/AtkTable.sml
     mlton/AtkTableCell.sml
-    mlton/AtkText.sml
+    AtkTextRangeRecordCArray.sml
     mlton/AtkTextRange.sml
     mlton/AtkTextRectangle.sml
     mlton/AtkUtil.sml
@@ -168,7 +168,10 @@ in
     mlton/AtkNoOpObject.sml
     mlton/AtkNoOpObjectFactory.sml
     mlton/AtkPlug.sml
+    mlton/AtkRelation.sml
     mlton/AtkSocket.sml
+    mlton/AtkStateSet.sml
+    mlton/AtkText.sml
     mlton/Atk.sml
   end
 end

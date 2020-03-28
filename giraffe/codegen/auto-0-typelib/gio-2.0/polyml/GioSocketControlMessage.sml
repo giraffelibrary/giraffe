@@ -2,12 +2,6 @@ structure GioSocketControlMessage :>
   GIO_SOCKET_CONTROL_MESSAGE
     where type 'a class = 'a GioSocketControlMessageClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -18,7 +12,7 @@ structure GioSocketControlMessage :>
             GInt32.PolyML.cVal
              &&> GInt32.PolyML.cVal
              &&> GUInt64.PolyML.cVal
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              --> GioSocketControlMessageClass.PolyML.cPtr
           )
       val getLevel_ = call (getSymbol "g_socket_control_message_get_level") (GioSocketControlMessageClass.PolyML.cPtr --> GInt32.PolyML.cVal)
@@ -35,13 +29,13 @@ structure GioSocketControlMessage :>
         data
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length data)
         val retVal =
           (
             GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GUInt64.FFI.withVal
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              ---> GioSocketControlMessageClass.FFI.fromPtr true
           )
             deserialize_

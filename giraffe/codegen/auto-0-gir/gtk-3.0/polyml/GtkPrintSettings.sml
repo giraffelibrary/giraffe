@@ -4,19 +4,13 @@ structure GtkPrintSettings :>
     where type print_duplex_t = GtkPrintDuplex.t
     where type number_up_layout_t = GtkNumberUpLayout.t
     where type page_orientation_t = GtkPageOrientation.t
-    where type page_range_t = GtkPageRangeRecord.t
+    where type page_range_record_c_array_n_t = GtkPageRangeRecordCArrayN.t
     where type page_set_t = GtkPageSet.t
     where type paper_size_t = GtkPaperSizeRecord.t
     where type unit_t = GtkUnit.t
     where type print_pages_t = GtkPrintPages.t
     where type print_quality_t = GtkPrintQuality.t =
   struct
-    structure GtkPageRangeRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GtkPageRangeRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GtkPageRangeRecord.C.ValueType)
-      )
-    structure GtkPageRangeRecordCVectorN = CVectorN(GtkPageRangeRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -72,7 +66,7 @@ structure GtkPrintSettings :>
       val getNumberUpLayout_ = call (getSymbol "gtk_print_settings_get_number_up_layout") (GtkPrintSettingsClass.PolyML.cPtr --> GtkNumberUpLayout.PolyML.cVal)
       val getOrientation_ = call (getSymbol "gtk_print_settings_get_orientation") (GtkPrintSettingsClass.PolyML.cPtr --> GtkPageOrientation.PolyML.cVal)
       val getOutputBin_ = call (getSymbol "gtk_print_settings_get_output_bin") (GtkPrintSettingsClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getPageRanges_ = call (getSymbol "gtk_print_settings_get_page_ranges") (GtkPrintSettingsClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GtkPageRangeRecordCVectorN.PolyML.cOutPtr)
+      val getPageRanges_ = call (getSymbol "gtk_print_settings_get_page_ranges") (GtkPrintSettingsClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GtkPageRangeRecordCArrayN.PolyML.cOutPtr)
       val getPageSet_ = call (getSymbol "gtk_print_settings_get_page_set") (GtkPrintSettingsClass.PolyML.cPtr --> GtkPageSet.PolyML.cVal)
       val getPaperHeight_ = call (getSymbol "gtk_print_settings_get_paper_height") (GtkPrintSettingsClass.PolyML.cPtr &&> GtkUnit.PolyML.cVal --> GDouble.PolyML.cVal)
       val getPaperSize_ = call (getSymbol "gtk_print_settings_get_paper_size") (GtkPrintSettingsClass.PolyML.cPtr --> GtkPaperSizeRecord.PolyML.cPtr)
@@ -161,7 +155,7 @@ structure GtkPrintSettings :>
         call (getSymbol "gtk_print_settings_set_page_ranges")
           (
             GtkPrintSettingsClass.PolyML.cPtr
-             &&> GtkPageRangeRecordCVectorN.PolyML.cInPtr
+             &&> GtkPageRangeRecordCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              --> cVoid
           )
@@ -222,7 +216,7 @@ structure GtkPrintSettings :>
     type print_duplex_t = GtkPrintDuplex.t
     type number_up_layout_t = GtkNumberUpLayout.t
     type page_orientation_t = GtkPageOrientation.t
-    type page_range_t = GtkPageRangeRecord.t
+    type page_range_record_c_array_n_t = GtkPageRangeRecordCArrayN.t
     type page_set_t = GtkPageSet.t
     type paper_size_t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
@@ -303,7 +297,7 @@ structure GtkPrintSettings :>
     fun getOutputBin self = (GtkPrintSettingsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getOutputBin_ self
     fun getPageRanges self =
       let
-        val numRanges & retVal = (GtkPrintSettingsClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GtkPageRangeRecordCVectorN.FFI.fromPtr 1) getPageRanges_ (self & GInt.null)
+        val numRanges & retVal = (GtkPrintSettingsClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GtkPageRangeRecordCArrayN.FFI.fromPtr 1) getPageRanges_ (self & GInt.null)
       in
         retVal (LargeInt.toInt numRanges)
       end
@@ -436,11 +430,11 @@ structure GtkPrintSettings :>
     fun setOutputBin self outputBin = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setOutputBin_ (self & outputBin)
     fun setPageRanges self pageRanges =
       let
-        val numRanges = LargeInt.fromInt (GtkPageRangeRecordCVectorN.length pageRanges)
+        val numRanges = LargeInt.fromInt (GtkPageRangeRecordCArrayN.length pageRanges)
         val () =
           (
             GtkPrintSettingsClass.FFI.withPtr
-             &&&> GtkPageRangeRecordCVectorN.FFI.withPtr
+             &&&> GtkPageRangeRecordCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              ---> I
           )

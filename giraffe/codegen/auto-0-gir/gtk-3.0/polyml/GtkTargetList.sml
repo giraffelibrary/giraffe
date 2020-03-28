@@ -2,19 +2,13 @@ structure GtkTargetList :>
   GTK_TARGET_LIST
     where type t = GtkTargetListRecord.t
     where type 'a text_buffer_class = 'a GtkTextBufferClass.class
-    where type target_entry_t = GtkTargetEntryRecord.t =
+    where type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t =
   struct
-    structure GtkTargetEntryRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GtkTargetEntryRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
-      )
-    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     local
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_target_list_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "gtk_target_list_new") (GtkTargetEntryRecordCVectorN.PolyML.cInOptPtr &&> GUInt.PolyML.cVal --> GtkTargetListRecord.PolyML.cPtr)
+      val new_ = call (getSymbol "gtk_target_list_new") (GtkTargetEntryRecordCArrayN.PolyML.cInOptPtr &&> GUInt.PolyML.cVal --> GtkTargetListRecord.PolyML.cPtr)
       val add_ =
         call (getSymbol "gtk_target_list_add")
           (
@@ -45,7 +39,7 @@ structure GtkTargetList :>
         call (getSymbol "gtk_target_list_add_table")
           (
             GtkTargetListRecord.PolyML.cPtr
-             &&> GtkTargetEntryRecordCVectorN.PolyML.cInPtr
+             &&> GtkTargetEntryRecordCArrayN.PolyML.cInPtr
              &&> GUInt.PolyML.cVal
              --> cVoid
           )
@@ -63,15 +57,15 @@ structure GtkTargetList :>
     end
     type t = GtkTargetListRecord.t
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
-    type target_entry_t = GtkTargetEntryRecord.t
+    type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new targets =
       let
         val ntargets =
           case targets of
-            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
           | NONE => GUInt.null
-        val retVal = (GtkTargetEntryRecordCVectorN.FFI.withOptPtr &&&> GUInt.FFI.withVal ---> GtkTargetListRecord.FFI.fromPtr true) new_ (targets & ntargets)
+        val retVal = (GtkTargetEntryRecordCArrayN.FFI.withOptPtr &&&> GUInt.FFI.withVal ---> GtkTargetListRecord.FFI.fromPtr true) new_ (targets & ntargets)
       in
         retVal
       end
@@ -132,11 +126,11 @@ structure GtkTargetList :>
         )
     fun addTable self targets =
       let
-        val ntargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val ntargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkTargetListRecord.FFI.withPtr
-             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
              &&&> GUInt.FFI.withVal
              ---> I
           )

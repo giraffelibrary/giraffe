@@ -4,7 +4,7 @@ structure GtkIconView :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     where type 'a scrollable_class = 'a GtkScrollableClass.class
-    where type target_entry_t = GtkTargetEntryRecord.t
+    where type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t
     where type tree_iter_t = GtkTreeIterRecord.t
     where type icon_view_drop_position_t = GtkIconViewDropPosition.t
     where type 'a cell_renderer_class = 'a GtkCellRendererClass.class
@@ -16,12 +16,6 @@ structure GtkIconView :>
     where type 'a tree_model_class = 'a GtkTreeModelClass.class
     where type selection_mode_t = GtkSelectionMode.t =
   struct
-    structure GtkTargetEntryRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GtkTargetEntryRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
-      )
-    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     val getType_ = _import "gtk_icon_view_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_icon_view_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val newWithArea_ = _import "gtk_icon_view_new_with_area" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
@@ -59,8 +53,8 @@ structure GtkIconView :>
           (
             _import "mlton_gtk_icon_view_enable_model_drag_dest" :
               GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
-               * GtkTargetEntryRecordCVectorN.MLton.p1
-               * GtkTargetEntryRecordCVectorN.FFI.notnull GtkTargetEntryRecordCVectorN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.MLton.p1
+               * GtkTargetEntryRecordCArrayN.FFI.notnull GtkTargetEntryRecordCArrayN.MLton.p2
                * GInt32.FFI.val_
                * GdkDragAction.FFI.val_
                -> unit;
@@ -83,8 +77,8 @@ structure GtkIconView :>
             _import "mlton_gtk_icon_view_enable_model_drag_source" :
               GtkIconViewClass.FFI.notnull GtkIconViewClass.FFI.p
                * GdkModifierType.FFI.val_
-               * GtkTargetEntryRecordCVectorN.MLton.p1
-               * GtkTargetEntryRecordCVectorN.FFI.notnull GtkTargetEntryRecordCVectorN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.MLton.p1
+               * GtkTargetEntryRecordCArrayN.FFI.notnull GtkTargetEntryRecordCArrayN.MLton.p2
                * GInt32.FFI.val_
                * GdkDragAction.FFI.val_
                -> unit;
@@ -403,7 +397,7 @@ structure GtkIconView :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     type 'a scrollable_class = 'a GtkScrollableClass.class
-    type target_entry_t = GtkTargetEntryRecord.t
+    type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t
     type tree_iter_t = GtkTreeIterRecord.t
     type icon_view_drop_position_t = GtkIconViewDropPosition.t
     type 'a cell_renderer_class = 'a GtkCellRendererClass.class
@@ -452,11 +446,11 @@ structure GtkIconView :>
     fun createDragIcon self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr true) createDragIcon_ (self & path)
     fun enableModelDragDest self (targets, actions) =
       let
-        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkIconViewClass.FFI.withPtr
-             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
              &&&> GInt32.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I
@@ -479,12 +473,12 @@ structure GtkIconView :>
         actions
       ) =
       let
-        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkIconViewClass.FFI.withPtr
              &&&> GdkModifierType.FFI.withVal
-             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
              &&&> GInt32.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I

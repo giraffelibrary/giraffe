@@ -6,12 +6,6 @@ structure GtkRecentChooser :>
     where type 'a recent_manager_class = 'a GtkRecentManagerClass.class
     where type recent_sort_type_t = GtkRecentSortType.t =
   struct
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     val getType_ = _import "gtk_recent_chooser_get_type" : unit -> GObjectType.FFI.val_;
     val addFilter_ = fn x1 & x2 => (_import "gtk_recent_chooser_add_filter" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p -> unit;) (x1, x2)
     val getCurrentItem_ = _import "gtk_recent_chooser_get_current_item" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p;
@@ -25,7 +19,7 @@ structure GtkRecentChooser :>
     val getShowPrivate_ = _import "gtk_recent_chooser_get_show_private" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
     val getShowTips_ = _import "gtk_recent_chooser_get_show_tips" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
     val getSortType_ = _import "gtk_recent_chooser_get_sort_type" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GtkRecentSortType.FFI.val_;
-    val getUris_ = fn x1 & x2 => (_import "gtk_recent_chooser_get_uris" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GUInt64.FFI.ref_ -> Utf8CVectorN.FFI.notnull Utf8CVectorN.FFI.out_p;) (x1, x2)
+    val getUris_ = fn x1 & x2 => (_import "gtk_recent_chooser_get_uris" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GUInt64.FFI.ref_ -> Utf8CArrayN.FFI.notnull Utf8CArrayN.FFI.out_p;) (x1, x2)
     val removeFilter_ = fn x1 & x2 => (_import "gtk_recent_chooser_remove_filter" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p -> unit;) (x1, x2)
     val selectAll_ = _import "gtk_recent_chooser_select_all" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> unit;
     val selectUri_ =
@@ -112,7 +106,7 @@ structure GtkRecentChooser :>
     fun getSortType self = (GtkRecentChooserClass.FFI.withPtr ---> GtkRecentSortType.FFI.fromVal) getSortType_ self
     fun getUris self =
       let
-        val length & retVal = (GtkRecentChooserClass.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CVectorN.FFI.fromPtr 2) getUris_ (self & GUInt64.null)
+        val length & retVal = (GtkRecentChooserClass.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2) getUris_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end

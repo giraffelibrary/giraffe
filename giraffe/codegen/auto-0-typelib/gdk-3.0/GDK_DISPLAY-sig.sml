@@ -7,6 +7,7 @@ signature GDK_DISPLAY =
     type modifier_type_t
     type 'a event_union
     type atom_t
+    type atom_record_c_array_n_t
     type 'a window_class
     type 'a screen_class
     type 'a monitor_class
@@ -98,7 +99,7 @@ signature GDK_DISPLAY =
       'a class
        -> 'b window_class
            * LargeInt.int
-           * atom_t vector option
+           * atom_record_c_array_n_t option
        -> unit
     val supportsClipboardPersistence : 'a class -> bool
     val supportsComposite : 'a class -> bool

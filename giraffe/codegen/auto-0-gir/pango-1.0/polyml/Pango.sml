@@ -1,17 +1,5 @@
 structure Pango : PANGO =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -35,7 +23,7 @@ structure Pango : PANGO =
         call (getSymbol "pango_lookup_aliases")
           (
             Utf8.PolyML.cInPtr
-             &&> Utf8CVectorN.PolyML.cOutRef
+             &&> Utf8CArrayN.PolyML.cOutRef
              &&> GInt.PolyML.cRef
              --> cVoid
           )
@@ -116,7 +104,7 @@ structure Pango : PANGO =
              &&> PangoGlyphStringRecord.PolyML.cPtr
              --> cVoid
           )
-      val splitFileList_ = call (getSymbol "pango_split_file_list") (Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
+      val splitFileList_ = call (getSymbol "pango_split_file_list") (Utf8.PolyML.cInPtr --> Utf8CArray.PolyML.cOutPtr)
       val trimString_ = call (getSymbol "pango_trim_string") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val unicharDirection_ = call (getSymbol "pango_unichar_direction") (GChar.PolyML.cVal --> PangoDirection.PolyML.cVal)
       val unitsFromDouble_ = call (getSymbol "pango_units_from_double") (GDouble.PolyML.cVal --> GInt.PolyML.cVal)
@@ -185,15 +173,15 @@ structure Pango : PANGO =
     structure EngineShapeClass = PangoEngineShapeClass
     structure Font = PangoFont
     structure FontFace = PangoFontFace
-    structure FontFamily = PangoFontFamily
-    structure FontMap = PangoFontMap
+    structure FontFaceClassCArrayN = PangoFontFaceClassCArrayN
+    structure FontFamilyClassCArrayN = PangoFontFamilyClassCArrayN
     structure FontMetrics = PangoFontMetrics
     structure Fontset = PangoFontset
     structure FontsetSimpleClass = PangoFontsetSimpleClass
     structure GlyphItem = PangoGlyphItem
     structure GlyphString = PangoGlyphString
     structure Item = PangoItem
-    structure Layout = PangoLayout
+    structure LogAttrRecordCArrayN = PangoLogAttrRecordCArrayN
     structure LayoutLine = PangoLayoutLine
     structure LogAttr = PangoLogAttr
     structure Matrix = PangoMatrix
@@ -203,12 +191,16 @@ structure Pango : PANGO =
     structure TabArray = PangoTabArray
     structure EngineLang = PangoEngineLang
     structure EngineShape = PangoEngineShape
+    structure FontFamily = PangoFontFamily
+    structure FontMap = PangoFontMap
     structure FontsetSimple = PangoFontsetSimple
     structure Gravity = PangoGravity
-    structure Language = PangoLanguage
+    structure ScriptCArrayN = PangoScriptCArrayN
+    structure Layout = PangoLayout
     structure LayoutIter = PangoLayoutIter
     structure Context = PangoContext
     structure FontDescription = PangoFontDescription
+    structure Language = PangoLanguage
     val ANALYSIS_FLAG_CENTERED_BASELINE = 1
     val ANALYSIS_FLAG_IS_ELLIPSIS = 2
     val ATTR_INDEX_FROM_TEXT_BEGINNING = 0
@@ -257,9 +249,9 @@ structure Pango : PANGO =
          & () =
           (
             Utf8.FFI.withPtr
-             &&&> Utf8CVectorN.FFI.withRefOptPtr
+             &&&> Utf8CArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> Utf8CVectorN.FFI.fromPtr 2
+             ---> Utf8CArrayN.FFI.fromPtr 2
                    && GInt.FFI.fromVal
                    && I
           )
@@ -492,7 +484,7 @@ structure Pango : PANGO =
            & analysis
            & glyphs
         )
-    fun splitFileList str = (Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) splitFileList_ str
+    fun splitFileList str = (Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) splitFileList_ str
     fun trimString str = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) trimString_ str
     fun unicharDirection ch = (GChar.FFI.withVal ---> PangoDirection.FFI.fromVal) unicharDirection_ ch
     fun unitsFromDouble d = (GDouble.FFI.withVal ---> GInt.FFI.fromVal) unitsFromDouble_ d

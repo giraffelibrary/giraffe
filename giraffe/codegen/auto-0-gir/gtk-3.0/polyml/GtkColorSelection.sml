@@ -4,12 +4,6 @@ structure GtkColorSelection :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
-    structure GdkColorRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkColorRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkColorRecord.C.ValueType)
-      )
-    structure GdkColorRecordCVectorN = CVectorN(GdkColorRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -19,11 +13,11 @@ structure GtkColorSelection :>
         call (getSymbol "gtk_color_selection_palette_from_string")
           (
             Utf8.PolyML.cInPtr
-             &&> GdkColorRecordCVectorN.PolyML.cOutRef
+             &&> GdkColorRecordCArrayN.PolyML.cOutRef
              &&> GInt.PolyML.cRef
              --> GBool.PolyML.cVal
           )
-      val paletteToString_ = call (getSymbol "gtk_color_selection_palette_to_string") (GdkColorRecordCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val paletteToString_ = call (getSymbol "gtk_color_selection_palette_to_string") (GdkColorRecordCArrayN.PolyML.cInPtr &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val getCurrentAlpha_ = call (getSymbol "gtk_color_selection_get_current_alpha") (GtkColorSelectionClass.PolyML.cPtr --> GUInt16.PolyML.cVal)
       val getCurrentColor_ = call (getSymbol "gtk_color_selection_get_current_color") (GtkColorSelectionClass.PolyML.cPtr &&> GdkColorRecord.PolyML.cPtr --> cVoid)
       val getCurrentRgba_ = call (getSymbol "gtk_color_selection_get_current_rgba") (GtkColorSelectionClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
@@ -58,9 +52,9 @@ structure GtkColorSelection :>
          & retVal =
           (
             Utf8.FFI.withPtr
-             &&&> GdkColorRecordCVectorN.FFI.withRefOptPtr
+             &&&> GdkColorRecordCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GdkColorRecordCVectorN.FFI.fromPtr 1
+             ---> GdkColorRecordCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
           )
@@ -75,8 +69,8 @@ structure GtkColorSelection :>
       end
     fun paletteToString colors =
       let
-        val nColors = LargeInt.fromInt (GdkColorRecordCVectorN.length colors)
-        val retVal = (GdkColorRecordCVectorN.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) paletteToString_ (colors & nColors)
+        val nColors = LargeInt.fromInt (GdkColorRecordCArrayN.length colors)
+        val retVal = (GdkColorRecordCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) paletteToString_ (colors & nColors)
       in
         retVal
       end

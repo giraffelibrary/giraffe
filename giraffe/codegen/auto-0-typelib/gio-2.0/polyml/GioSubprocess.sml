@@ -8,12 +8,6 @@ structure GioSubprocess :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class
     where type subprocess_flags_t = GioSubprocessFlags.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -21,7 +15,7 @@ structure GioSubprocess :>
       val new_ =
         call (getSymbol "g_subprocess_newv")
           (
-            Utf8CVector.PolyML.cInPtr
+            Utf8CArray.PolyML.cInPtr
              &&> GioSubprocessFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioSubprocessClass.PolyML.cPtr
@@ -125,7 +119,7 @@ structure GioSubprocess :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (argv, flags) =
       (
-        Utf8CVector.FFI.withPtr
+        Utf8CArray.FFI.withPtr
          &&&> GioSubprocessFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioSubprocessClass.FFI.fromPtr true

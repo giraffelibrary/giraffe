@@ -4,18 +4,6 @@ structure GObject :
     where type 'a signal_t = 'a Signal.t
     where type 'object_class property_t = 'object_class Property.t =
   struct
-    structure GObjectTypeCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GObjectType.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GObjectType.C.ValueType)
-      )
-    structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
-    structure GUIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GUInt.C.ValueType)
-      )
-    structure GUIntCVectorN = CVectorN(GUIntCVectorNType)
     local
       open PolyMLFFI
     in
@@ -250,7 +238,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val pointerTypeRegisterStatic_ = call (getSymbol "g_pointer_type_register_static") (Utf8.PolyML.cInPtr --> GObjectType.PolyML.cVal)
-      val signalListIds_ = call (getSymbol "g_signal_list_ids") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GUIntCVectorN.PolyML.cOutPtr)
+      val signalListIds_ = call (getSymbol "g_signal_list_ids") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GUIntCArrayN.PolyML.cOutPtr)
       val signalLookup_ = call (getSymbol "g_signal_lookup") (Utf8.PolyML.cInPtr &&> GObjectType.PolyML.cVal --> GUInt.PolyML.cVal)
       val signalOverrideClassClosure_ =
         call (getSymbol "g_signal_override_class_closure")
@@ -283,7 +271,7 @@ structure GObject :
           )
       val typeCheckIsValueType_ = call (getSymbol "g_type_check_is_value_type") (GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
       val typeCheckValueHolds_ = call (getSymbol "g_type_check_value_holds") (GObjectValueRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
-      val typeChildren_ = call (getSymbol "g_type_children") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GObjectTypeCVectorN.PolyML.cOutPtr)
+      val typeChildren_ = call (getSymbol "g_type_children") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GObjectTypeCArrayN.PolyML.cOutPtr)
       val typeDepth_ = call (getSymbol "g_type_depth") (GObjectType.PolyML.cVal --> GUInt.PolyML.cVal)
       val typeEnsure_ = call (getSymbol "g_type_ensure") (GObjectType.PolyML.cVal --> cVoid)
       val typeFromName_ = call (getSymbol "g_type_from_name") (Utf8.PolyML.cInPtr --> GObjectType.PolyML.cVal)
@@ -294,7 +282,7 @@ structure GObject :
       val typeGetTypeRegistrationSerial_ = call (getSymbol "g_type_get_type_registration_serial") (cVoid --> GUInt.PolyML.cVal)
       val typeInit_ = call (getSymbol "g_type_init") (cVoid --> cVoid)
       val typeInitWithDebugFlags_ = call (getSymbol "g_type_init_with_debug_flags") (GObjectTypeDebugFlags.PolyML.cVal --> cVoid)
-      val typeInterfaces_ = call (getSymbol "g_type_interfaces") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GObjectTypeCVectorN.PolyML.cOutPtr)
+      val typeInterfaces_ = call (getSymbol "g_type_interfaces") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GObjectTypeCArrayN.PolyML.cOutPtr)
       val typeIsA_ = call (getSymbol "g_type_is_a") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
       val typeName_ = call (getSymbol "g_type_name") (GObjectType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
       val typeNextBase_ = call (getSymbol "g_type_next_base") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GObjectType.PolyML.cVal)
@@ -340,6 +328,7 @@ structure GObject :
     structure SignalQuery = GObjectSignalQuery
     structure TypeQuery = GObjectTypeQuery
     structure ValueRecord = GObjectValueRecord
+    structure TypeCArrayN = GObjectTypeCArrayN
     structure Value = GObjectValue
     structure ValueArray = GObjectValueArray
     structure ClosureRecord = GObjectClosureRecord
@@ -971,7 +960,7 @@ structure GObject :
     fun pointerTypeRegisterStatic name = (Utf8.FFI.withPtr ---> GObjectType.FFI.fromVal) pointerTypeRegisterStatic_ name
     fun signalListIds itype =
       let
-        val nIds & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUIntCVectorN.FFI.fromPtr 1) signalListIds_ (itype & GUInt.null)
+        val nIds & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUIntCArrayN.FFI.fromPtr 1) signalListIds_ (itype & GUInt.null)
       in
         retVal (LargeInt.toInt nIds)
       end
@@ -1050,7 +1039,7 @@ structure GObject :
     fun typeCheckValueHolds (value, type') = (GObjectValueRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCheckValueHolds_ (value & type')
     fun typeChildren type' =
       let
-        val nChildren & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCVectorN.FFI.fromPtr 1) typeChildren_ (type' & GUInt.null)
+        val nChildren & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr 1) typeChildren_ (type' & GUInt.null)
       in
         retVal (LargeInt.toInt nChildren)
       end
@@ -1066,7 +1055,7 @@ structure GObject :
     fun typeInitWithDebugFlags debugFlags = (GObjectTypeDebugFlags.FFI.withVal ---> I) typeInitWithDebugFlags_ debugFlags
     fun typeInterfaces type' =
       let
-        val nInterfaces & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCVectorN.FFI.fromPtr 1) typeInterfaces_ (type' & GUInt.null)
+        val nInterfaces & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr 1) typeInterfaces_ (type' & GUInt.null)
       in
         retVal (LargeInt.toInt nInterfaces)
       end

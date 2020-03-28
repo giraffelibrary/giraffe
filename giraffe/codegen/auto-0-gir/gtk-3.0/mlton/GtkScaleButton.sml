@@ -10,12 +10,6 @@ structure GtkScaleButton :>
     where type 'a adjustment_class = 'a GtkAdjustmentClass.class
     where type icon_size_t = GtkIconSize.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "gtk_scale_button_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
@@ -30,8 +24,8 @@ structure GtkScaleButton :>
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
-               * Utf8CVector.MLton.p1
-               * unit Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * unit Utf8CArray.MLton.p2
                -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
           )
             (
@@ -54,8 +48,8 @@ structure GtkScaleButton :>
           (
             _import "mlton_gtk_scale_button_set_icons" :
               GtkScaleButtonClass.FFI.notnull GtkScaleButtonClass.FFI.p
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                -> unit;
           )
             (
@@ -93,7 +87,7 @@ structure GtkScaleButton :>
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
-         &&&> Utf8CVector.FFI.withOptPtr
+         &&&> Utf8CArray.FFI.withOptPtr
          ---> GtkScaleButtonClass.FFI.fromPtr false
       )
         new_
@@ -110,7 +104,7 @@ structure GtkScaleButton :>
     fun getPopup self = (GtkScaleButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getPopup_ self
     fun getValue self = (GtkScaleButtonClass.FFI.withPtr ---> GDouble.FFI.fromVal) getValue_ self
     fun setAdjustment self adjustment = (GtkScaleButtonClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setAdjustment_ (self & adjustment)
-    fun setIcons self icons = (GtkScaleButtonClass.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> I) setIcons_ (self & icons)
+    fun setIcons self icons = (GtkScaleButtonClass.FFI.withPtr &&&> Utf8CArray.FFI.withPtr ---> I) setIcons_ (self & icons)
     fun setValue self value = (GtkScaleButtonClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setValue_ (self & value)
     local
       open ClosureMarshal Signal

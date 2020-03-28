@@ -8,12 +8,6 @@ structure GLibIOChannel :>
     where type i_o_status_t = GLibIOStatus.t
     where type i_o_channel_error_t = GLibIOChannelError.t =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -50,7 +44,7 @@ structure GLibIOChannel :>
         call (getSymbol "g_io_channel_read_to_end")
           (
             GLibIOChannelRecord.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cOutRef
+             &&> GUInt8CArrayN.PolyML.cOutRef
              &&> GUInt64.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibIOStatus.PolyML.cVal
@@ -197,10 +191,10 @@ structure GLibIOChannel :>
          & retVal =
           (
             GLibIOChannelRecord.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GUInt8CVectorN.FFI.fromPtr 1
+             ---> GUInt8CArrayN.FFI.fromPtr 1
                    && GUInt64.FFI.fromVal
                    && GLibIOStatus.FFI.fromVal
           )

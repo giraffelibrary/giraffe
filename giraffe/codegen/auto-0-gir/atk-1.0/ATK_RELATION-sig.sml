@@ -1,11 +1,12 @@
 signature ATK_RELATION =
   sig
     type 'a class
+    type object_class_c_array_n_t
     type 'a object_class
     type relation_type_t
     type t = base class
     val getType : unit -> GObject.Type.t
-    val new : base object_class vector * relation_type_t -> base class
+    val new : object_class_c_array_n_t * relation_type_t -> base class
     val addTarget :
       'a class
        -> 'b object_class

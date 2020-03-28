@@ -477,7 +477,10 @@ fun getNamespaceElemInfoId {elem, ...} =
   | FUNCTION function       => getFunctionInfoId function
 
 
-fun mkBaseVersion base ver = String.concat [base, "-", ver]
+fun mkNamespaceDep (namespace, version) =
+  String.concat [namespace, "-", version]
+
+fun mkNamespaceFile namespaceDep = String.map Char.toLower namespaceDep
 
 fun generate outDir path (namespace_, version, cppPrefix) =
   let
@@ -489,7 +492,7 @@ fun generate outDir path (namespace_, version, cppPrefix) =
         addNamespaceElem
         (elems, ([], []))
 
-    val lib = String.map Char.toLower (mkBaseVersion namespace_ version)
+    val lib = mkNamespaceFile (mkNamespaceDep (namespace_, version))
     val file = String.concat ["giraffe-", lib, "-mlton.c"]
 
     open HVTextTree
@@ -561,7 +564,7 @@ local
   fun fmtLogVersion namespace (version, excls) =
     makeVItem (
       V.seq [
-        V.str (String.concat [namespace, "-", version]),
+        V.str (mkNamespaceDep (namespace, version)),
         V.seq (map fmtInfoExclHier excls)
       ]
     )

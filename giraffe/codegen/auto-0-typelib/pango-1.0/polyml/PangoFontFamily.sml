@@ -1,14 +1,8 @@
 structure PangoFontFamily :>
   PANGO_FONT_FAMILY
     where type 'a class = 'a PangoFontFamilyClass.class
-    where type 'a font_face_class = 'a PangoFontFaceClass.class =
+    where type font_face_class_c_array_n_t = PangoFontFaceClassCArrayN.t =
   struct
-    structure PangoFontFaceClassCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = PangoFontFaceClass.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure PangoFontFaceClassCVectorN = CVectorN(PangoFontFaceClassCVectorNType)
     local
       open PolyMLFFI
     in
@@ -19,13 +13,13 @@ structure PangoFontFamily :>
         call (getSymbol "pango_font_family_list_faces")
           (
             PangoFontFamilyClass.PolyML.cPtr
-             &&> PangoFontFaceClassCVectorN.PolyML.cOutRef
+             &&> PangoFontFaceClassCArrayN.PolyML.cOutRef
              &&> GInt32.PolyML.cRef
              --> cVoid
           )
     end
     type 'a class = 'a PangoFontFamilyClass.class
-    type 'a font_face_class = 'a PangoFontFaceClass.class
+    type font_face_class_c_array_n_t = PangoFontFaceClassCArrayN.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getName self = (PangoFontFamilyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
@@ -37,9 +31,9 @@ structure PangoFontFamily :>
          & () =
           (
             PangoFontFamilyClass.FFI.withPtr
-             &&&> PangoFontFaceClassCVectorN.FFI.withRefOptPtr
+             &&&> PangoFontFaceClassCArrayN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> PangoFontFaceClassCVectorN.FFI.fromPtr 1
+             ---> PangoFontFaceClassCArrayN.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
                    && I
           )

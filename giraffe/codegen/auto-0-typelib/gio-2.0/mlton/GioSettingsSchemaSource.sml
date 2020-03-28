@@ -3,12 +3,6 @@ structure GioSettingsSchemaSource :>
     where type t = GioSettingsSchemaSourceRecord.t
     where type settings_schema_t = GioSettingsSchemaRecord.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_settings_schema_source_get_type" : unit -> GObjectType.FFI.val_;
     val newFromDirectory_ =
       fn
@@ -42,10 +36,10 @@ structure GioSettingsSchemaSource :>
             _import "mlton_g_settings_schema_source_list_schemas" :
               GioSettingsSchemaSourceRecord.FFI.notnull GioSettingsSchemaSourceRecord.FFI.p
                * GBool.FFI.val_
-               * Utf8CVector.MLton.r1
-               * (unit, Utf8CVector.FFI.notnull) Utf8CVector.MLton.r2
-               * Utf8CVector.MLton.r1
-               * (unit, Utf8CVector.FFI.notnull) Utf8CVector.MLton.r2
+               * Utf8CArray.MLton.r1
+               * (unit, Utf8CArray.FFI.notnull) Utf8CArray.MLton.r2
+               * Utf8CArray.MLton.r1
+               * (unit, Utf8CArray.FFI.notnull) Utf8CArray.MLton.r2
                -> unit;
           )
             (
@@ -107,10 +101,10 @@ structure GioSettingsSchemaSource :>
           (
             GioSettingsSchemaSourceRecord.FFI.withPtr
              &&&> GBool.FFI.withVal
-             &&&> Utf8CVector.FFI.withRefOptPtr
-             &&&> Utf8CVector.FFI.withRefOptPtr
-             ---> Utf8CVector.FFI.fromPtr 2
-                   && Utf8CVector.FFI.fromPtr 2
+             &&&> Utf8CArray.FFI.withRefOptPtr
+             &&&> Utf8CArray.FFI.withRefOptPtr
+             ---> Utf8CArray.FFI.fromPtr 2
+                   && Utf8CArray.FFI.fromPtr 2
                    && I
           )
             listSchemas_

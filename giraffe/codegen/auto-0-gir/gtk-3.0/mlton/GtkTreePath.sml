@@ -2,12 +2,6 @@ structure GtkTreePath :>
   GTK_TREE_PATH
     where type t = GtkTreePathRecord.t =
   struct
-    structure GIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
-      )
-    structure GIntCVectorN = CVectorN(GIntCVectorNType)
     val getType_ = _import "gtk_tree_path_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_tree_path_new" : unit -> GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p;
     val newFirst_ = _import "gtk_tree_path_new_first" : unit -> GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p;
@@ -16,8 +10,8 @@ structure GtkTreePath :>
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_tree_path_new_from_indicesv" :
-              GIntCVectorN.MLton.p1
-               * GIntCVectorN.FFI.notnull GIntCVectorN.MLton.p2
+              GIntCArrayN.MLton.p1
+               * GIntCArrayN.FFI.notnull GIntCArrayN.MLton.p2
                * GSize.FFI.val_
                -> GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p;
           )
@@ -32,7 +26,7 @@ structure GtkTreePath :>
     val copy_ = _import "gtk_tree_path_copy" : GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p;
     val down_ = _import "gtk_tree_path_down" : GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit;
     val getDepth_ = _import "gtk_tree_path_get_depth" : GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GInt.FFI.val_;
-    val getIndices_ = fn x1 & x2 => (_import "gtk_tree_path_get_indices_with_depth" : GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p * GInt.FFI.ref_ -> GIntCVectorN.FFI.notnull GIntCVectorN.FFI.out_p;) (x1, x2)
+    val getIndices_ = fn x1 & x2 => (_import "gtk_tree_path_get_indices_with_depth" : GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p * GInt.FFI.ref_ -> GIntCArrayN.FFI.notnull GIntCArrayN.FFI.out_p;) (x1, x2)
     val isAncestor_ = fn x1 & x2 => (_import "gtk_tree_path_is_ancestor" : GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val isDescendant_ = fn x1 & x2 => (_import "gtk_tree_path_is_descendant" : GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val next_ = _import "gtk_tree_path_next" : GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit;
@@ -46,8 +40,8 @@ structure GtkTreePath :>
     fun newFirst () = (I ---> GtkTreePathRecord.FFI.fromPtr true) newFirst_ ()
     fun newFromIndices indices =
       let
-        val length = LargeInt.fromInt (GIntCVectorN.length indices)
-        val retVal = (GIntCVectorN.FFI.withPtr &&&> GSize.FFI.withVal ---> GtkTreePathRecord.FFI.fromPtr true) newFromIndices_ (indices & length)
+        val length = LargeInt.fromInt (GIntCArrayN.length indices)
+        val retVal = (GIntCArrayN.FFI.withPtr &&&> GSize.FFI.withVal ---> GtkTreePathRecord.FFI.fromPtr true) newFromIndices_ (indices & length)
       in
         retVal
       end
@@ -59,7 +53,7 @@ structure GtkTreePath :>
     fun getDepth self = (GtkTreePathRecord.FFI.withPtr ---> GInt.FFI.fromVal) getDepth_ self
     fun getIndices self =
       let
-        val depth & retVal = (GtkTreePathRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCVectorN.FFI.fromPtr 0) getIndices_ (self & GInt.null)
+        val depth & retVal = (GtkTreePathRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCArrayN.FFI.fromPtr 0) getIndices_ (self & GInt.null)
       in
         retVal (LargeInt.toInt depth)
       end

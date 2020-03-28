@@ -38,7 +38,7 @@ signature GDK_PIXBUF_PIXBUF =
        * LargeInt.int
        * LargeInt.int
        -> base class
-    val newFromInline : Word8Vector.vector * bool -> base class
+    val newFromInline : GUInt8CArrayN.t * bool -> base class
     val newFromResource : string -> base class
     val newFromResourceAtScale :
       string
@@ -55,7 +55,7 @@ signature GDK_PIXBUF_PIXBUF =
        * 'b Gio.CancellableClass.class option
        -> base class
     val newFromStreamFinish : 'a Gio.AsyncResultClass.class -> base class
-    val newFromXpmData : string list -> base class
+    val newFromXpmData : Utf8CArray.t -> base class
     val calculateRowstride :
       colorspace_t
        * bool
@@ -159,7 +159,7 @@ signature GDK_PIXBUF_PIXBUF =
       'a class
        -> string
        -> string
-    val getPixels : 'a class -> Word8Vector.vector
+    val getPixels : 'a class -> GUInt8CArrayN.t
     val getRowstride : 'a class -> LargeInt.int
     val getWidth : 'a class -> LargeInt.int
     val newSubpixbuf :
@@ -187,23 +187,23 @@ signature GDK_PIXBUF_PIXBUF =
     val saveToBufferv :
       'a class
        -> string
-           * string list
-           * string list
-       -> Word8Vector.vector
+           * Utf8CArray.t
+           * Utf8CArray.t
+       -> GUInt8CArrayN.t
     val saveToStreamv :
       'a class
        -> 'b Gio.OutputStreamClass.class
            * string
-           * string list
-           * string list
+           * Utf8CArray.t
+           * Utf8CArray.t
            * 'c Gio.CancellableClass.class option
        -> unit
     val savev :
       'a class
        -> string
            * string
-           * string list
-           * string list
+           * Utf8CArray.t
+           * Utf8CArray.t
        -> unit
     val scale :
       'a class

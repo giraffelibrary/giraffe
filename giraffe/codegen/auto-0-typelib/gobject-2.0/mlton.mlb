@@ -5,6 +5,7 @@ local
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
   ../glib-2.0/mlton.mlb
 in
+  ../glib-2.0/GUInt32CArrayN.mlb
   CLOSURE_MARSHAL-sig.sml
   SIGNAL-sig.sml
   PROPERTY-sig.sml
@@ -127,10 +128,9 @@ in
     mlton/GObjectSignalQuery.sml
     mlton/GObjectTypeQuery.sml
     mlton/GObjectValueRecord.sml
+    GObjectTypeCArrayN.sml
     mlton/GObjectValue.sml
     mlton/GObjectValueArray.sml
-    mlton/CVector.sml
-    mlton/CVectorN.sml
     mlton/ClosureMarshal.sml
     mlton/GObjectClosureRecord.sml
     mlton/GObjectObjectClass.sml

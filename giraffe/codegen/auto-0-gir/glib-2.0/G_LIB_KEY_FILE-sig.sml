@@ -12,7 +12,7 @@ signature G_LIB_KEY_FILE =
     val getBooleanList :
       t
        -> string * string
-       -> bool vector
+       -> GBoolCArrayN.t
     val getComment :
       t
        -> string option * string
@@ -24,8 +24,8 @@ signature G_LIB_KEY_FILE =
     val getDoubleList :
       t
        -> string * string
-       -> real vector
-    val getGroups : t -> string list * LargeInt.int
+       -> GDoubleCArrayN.t
+    val getGroups : t -> Utf8CArray.t * LargeInt.int
     val getInt64 :
       t
        -> string * string
@@ -37,11 +37,11 @@ signature G_LIB_KEY_FILE =
     val getIntegerList :
       t
        -> string * string
-       -> LargeInt.int vector
+       -> GIntCArrayN.t
     val getKeys :
       t
        -> string
-       -> string list * LargeInt.int
+       -> Utf8CArray.t * LargeInt.int
     val getLocaleString :
       t
        -> string
@@ -53,7 +53,7 @@ signature G_LIB_KEY_FILE =
        -> string
            * string
            * string option
-       -> string list
+       -> Utf8CArrayN.t
     val getStartGroup : t -> string
     val getString :
       t
@@ -62,7 +62,7 @@ signature G_LIB_KEY_FILE =
     val getStringList :
       t
        -> string * string
-       -> string list
+       -> Utf8CArrayN.t
     val getUint64 :
       t
        -> string * string
@@ -92,7 +92,7 @@ signature G_LIB_KEY_FILE =
     val loadFromDirs :
       t
        -> string
-           * string list
+           * Utf8CArray.t
            * key_file_flags_t
        -> string
     val loadFromFile :
@@ -125,7 +125,7 @@ signature G_LIB_KEY_FILE =
       t
        -> string
            * string
-           * bool vector
+           * GBoolCArrayN.t
        -> unit
     val setComment :
       t
@@ -143,7 +143,7 @@ signature G_LIB_KEY_FILE =
       t
        -> string
            * string
-           * real vector
+           * GDoubleCArrayN.t
        -> unit
     val setInt64 :
       t
@@ -161,7 +161,7 @@ signature G_LIB_KEY_FILE =
       t
        -> string
            * string
-           * LargeInt.int vector
+           * GIntCArrayN.t
        -> unit
     val setListSeparator :
       t
@@ -179,7 +179,7 @@ signature G_LIB_KEY_FILE =
        -> string
            * string
            * string
-           * string list
+           * Utf8CArrayN.t
        -> unit
     val setString :
       t
@@ -191,7 +191,7 @@ signature G_LIB_KEY_FILE =
       t
        -> string
            * string
-           * string list
+           * Utf8CArrayN.t
        -> unit
     val setUint64 :
       t

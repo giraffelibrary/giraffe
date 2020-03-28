@@ -83,7 +83,7 @@ signature GTK_TEXT_BUFFER =
        -> 'b class
            * Gdk.AtomRecord.t
            * text_iter_t
-           * Word8Vector.vector
+           * GUInt8CArrayN.t
        -> unit
     val deserializeGetCanCreateTags :
       'a class
@@ -97,7 +97,7 @@ signature GTK_TEXT_BUFFER =
     val getBounds : 'a class -> text_iter_t * text_iter_t
     val getCharCount : 'a class -> LargeInt.int
     val getCopyTargetList : 'a class -> target_list_t
-    val getDeserializeFormats : 'a class -> Gdk.AtomRecord.t vector
+    val getDeserializeFormats : 'a class -> GdkAtomRecordCArrayN.t
     val getEndIter : 'a class -> text_iter_t
     val getHasSelection : 'a class -> bool
     val getInsert : 'a class -> base text_mark_class
@@ -134,7 +134,7 @@ signature GTK_TEXT_BUFFER =
     val getPasteTargetList : 'a class -> target_list_t
     val getSelectionBound : 'a class -> base text_mark_class
     val getSelectionBounds : 'a class -> (text_iter_t * text_iter_t) option
-    val getSerializeFormats : 'a class -> Gdk.AtomRecord.t vector
+    val getSerializeFormats : 'a class -> GdkAtomRecordCArrayN.t
     val getSlice :
       'a class
        -> text_iter_t
@@ -255,7 +255,7 @@ signature GTK_TEXT_BUFFER =
            * Gdk.AtomRecord.t
            * text_iter_t
            * text_iter_t
-       -> Word8Vector.vector
+       -> GUInt8CArrayN.t
     val setModified :
       'a class
        -> bool

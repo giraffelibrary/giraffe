@@ -228,11 +228,9 @@ signature GTK =
     structure WindowPosition : GTK_WINDOW_POSITION
     structure WindowType : GTK_WINDOW_TYPE
     structure WrapMode : GTK_WRAP_MODE
-    structure AccelGroup :
-      GTK_ACCEL_GROUP
-        where type 'a class = 'a AccelGroupClass.class
-        where type accel_flags_t = AccelFlags.t
-        where type accel_group_entry_t = AccelGroupEntryRecord.t
+    structure AccelGroupEntryRecordCArrayN :
+      C_ARRAY
+        where type elem = AccelGroupEntryRecord.t
     structure AccelGroupEntry :
       GTK_ACCEL_GROUP_ENTRY
         where type t = AccelGroupEntryRecord.t
@@ -353,12 +351,6 @@ signature GTK =
     structure CellViewClass :
       GTK_CELL_VIEW_CLASS
         where type 'a widget_class = 'a WidgetClass.class
-    structure Clipboard :
-      GTK_CLIPBOARD
-        where type 'a class = 'a ClipboardClass.class
-        where type target_entry_t = TargetEntryRecord.t
-        where type selection_data_t = SelectionDataRecord.t
-        where type 'a text_buffer_class = 'a TextBufferClass.class
     structure ColorChooser :
       GTK_COLOR_CHOOSER
         where type 'a class = 'a ColorChooserClass.class
@@ -530,18 +522,9 @@ signature GTK =
         where type 'a class = 'a PrintOperationPreviewClass.class
         where type 'a page_setup_class = 'a PageSetupClass.class
         where type 'a print_context_class = 'a PrintContextClass.class
-    structure PrintSettings :
-      GTK_PRINT_SETTINGS
-        where type 'a class = 'a PrintSettingsClass.class
-        where type print_duplex_t = PrintDuplex.t
-        where type number_up_layout_t = NumberUpLayout.t
-        where type page_orientation_t = PageOrientation.t
-        where type page_range_t = PageRangeRecord.t
-        where type page_set_t = PageSet.t
-        where type paper_size_t = PaperSizeRecord.t
-        where type unit_t = Unit.t
-        where type print_pages_t = PrintPages.t
-        where type print_quality_t = PrintQuality.t
+    structure PageRangeRecordCArrayN :
+      C_ARRAY
+        where type elem = PageRangeRecord.t
     structure ProgressBarClass :
       GTK_PROGRESS_BAR_CLASS
         where type 'a widget_class = 'a WidgetClass.class
@@ -658,11 +641,6 @@ signature GTK =
     structure TargetEntry :
       GTK_TARGET_ENTRY
         where type t = TargetEntryRecord.t
-    structure TargetList :
-      GTK_TARGET_LIST
-        where type t = TargetListRecord.t
-        where type 'a text_buffer_class = 'a TextBufferClass.class
-        where type target_entry_t = TargetEntryRecord.t
     structure TextAttributes :
       GTK_TEXT_ATTRIBUTES
         where type t = TextAttributesRecord.t
@@ -809,6 +787,17 @@ signature GTK =
         where type 'a widget_class = 'a WidgetClass.class
         where type region_flags_t = RegionFlags.t
         where type state_flags_t = StateFlags.t
+    structure StockItemRecordCArrayN :
+      C_ARRAY
+        where type elem = StockItemRecord.t
+    structure TargetEntryRecordCArrayN :
+      C_ARRAY
+        where type elem = TargetEntryRecord.t
+    structure AccelGroup :
+      GTK_ACCEL_GROUP
+        where type 'a class = 'a AccelGroupClass.class
+        where type accel_flags_t = AccelFlags.t
+        where type accel_group_entry_record_c_array_n_t = AccelGroupEntryRecordCArrayN.t
     structure ArrowClass :
       GTK_ARROW_CLASS
         where type 'a misc_class = 'a MiscClass.class
@@ -878,6 +867,12 @@ signature GTK =
         where type 'a cell_area_class = 'a CellAreaClass.class
         where type 'a cell_area_context_class = 'a CellAreaContextClass.class
         where type 'a tree_model_class = 'a TreeModelClass.class
+    structure Clipboard :
+      GTK_CLIPBOARD
+        where type 'a class = 'a ClipboardClass.class
+        where type target_entry_record_c_array_n_t = TargetEntryRecordCArrayN.t
+        where type selection_data_t = SelectionDataRecord.t
+        where type 'a text_buffer_class = 'a TextBufferClass.class
     structure Container :
       GTK_CONTAINER
         where type 'a class = 'a ContainerClass.class
@@ -1005,6 +1000,18 @@ signature GTK =
     structure PanedClass :
       GTK_PANED_CLASS
         where type 'a container_class = 'a ContainerClass.class
+    structure PrintSettings :
+      GTK_PRINT_SETTINGS
+        where type 'a class = 'a PrintSettingsClass.class
+        where type print_duplex_t = PrintDuplex.t
+        where type number_up_layout_t = NumberUpLayout.t
+        where type page_orientation_t = PageOrientation.t
+        where type page_range_record_c_array_n_t = PageRangeRecordCArrayN.t
+        where type page_set_t = PageSet.t
+        where type paper_size_t = PaperSizeRecord.t
+        where type unit_t = Unit.t
+        where type print_pages_t = PrintPages.t
+        where type print_quality_t = PrintQuality.t
     structure ProgressBar :
       GTK_PROGRESS_BAR
         where type 'a class = 'a ProgressBarClass.class
@@ -1090,6 +1097,11 @@ signature GTK =
     structure TableClass :
       GTK_TABLE_CLASS
         where type 'a container_class = 'a ContainerClass.class
+    structure TargetList :
+      GTK_TARGET_LIST
+        where type t = TargetListRecord.t
+        where type 'a text_buffer_class = 'a TextBufferClass.class
+        where type target_entry_record_c_array_n_t = TargetEntryRecordCArrayN.t
     structure TextViewClass :
       GTK_TEXT_VIEW_CLASS
         where type 'a container_class = 'a ContainerClass.class
@@ -1304,7 +1316,7 @@ signature GTK =
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a cell_layout_class = 'a CellLayoutClass.class
         where type 'a scrollable_class = 'a ScrollableClass.class
-        where type target_entry_t = TargetEntryRecord.t
+        where type target_entry_record_c_array_n_t = TargetEntryRecordCArrayN.t
         where type tree_iter_t = TreeIterRecord.t
         where type icon_view_drop_position_t = IconViewDropPosition.t
         where type 'a cell_renderer_class = 'a CellRendererClass.class
@@ -1561,7 +1573,7 @@ signature GTK =
         where type 'a class = 'a TreeViewClass.class
         where type 'a buildable_class = 'a BuildableClass.class
         where type 'a scrollable_class = 'a ScrollableClass.class
-        where type target_entry_t = TargetEntryRecord.t
+        where type target_entry_record_c_array_n_t = TargetEntryRecordCArrayN.t
         where type 'a tree_selection_class = 'a TreeSelectionClass.class
         where type tree_view_drop_position_t = TreeViewDropPosition.t
         where type 'a entry_class = 'a EntryClass.class
@@ -2201,7 +2213,7 @@ signature GTK =
         where type accel_flags_t = AccelFlags.t
         where type orientation_t = Orientation.t
         where type dest_defaults_t = DestDefaults.t
-        where type target_entry_t = TargetEntryRecord.t
+        where type target_entry_record_c_array_n_t = TargetEntryRecordCArrayN.t
         where type target_list_t = TargetListRecord.t
         where type 'a clipboard_class = 'a ClipboardClass.class
         where type widget_path_t = WidgetPathRecord.t
@@ -2899,7 +2911,7 @@ signature GTK =
     val acceleratorParseWithKeycode :
       string
        -> LargeInt.int
-           * LargeInt.int vector
+           * GUIntCArray.t
            * Gdk.ModifierType.t
     val acceleratorSetDefaultModMask : Gdk.ModifierType.t -> unit
     val acceleratorValid : LargeInt.int * Gdk.ModifierType.t -> bool
@@ -2986,8 +2998,8 @@ signature GTK =
     val getMinorVersion : unit -> LargeInt.int
     val getOptionGroup : bool -> GLib.OptionGroupRecord.t
     val grabGetCurrent : unit -> base WidgetClass.class option
-    val init : string list -> string list
-    val initCheck : string list -> bool * string list
+    val init : Utf8CArrayN.t -> Utf8CArrayN.t
+    val initCheck : Utf8CArrayN.t -> bool * Utf8CArrayN.t
     val keySnooperRemove : LargeInt.int -> unit
     val main : unit -> unit
     val mainDoEvent : 'a Gdk.Event.union -> unit
@@ -3238,7 +3250,7 @@ signature GTK =
        * LargeInt.int
        * LargeInt.int
        -> unit
-    val parseArgs : string list -> bool * string list
+    val parseArgs : Utf8CArrayN.t -> bool * Utf8CArrayN.t
     val printRunPageSetupDialog :
       'a WindowClass.class option
        * 'b PageSetupClass.class option
@@ -3247,7 +3259,7 @@ signature GTK =
     val propagateEvent : 'a WidgetClass.class * 'b Gdk.Event.union -> unit
     val rcAddDefaultFile : string -> unit
     val rcFindModuleInPath : string -> string
-    val rcGetDefaultFiles : unit -> string list
+    val rcGetDefaultFiles : unit -> Utf8CArray.t
     val rcGetImModuleFile : unit -> string
     val rcGetImModulePath : unit -> string
     val rcGetModuleDir : unit -> string
@@ -3264,7 +3276,7 @@ signature GTK =
     val rcReparseAll : unit -> bool
     val rcReparseAllForSettings : 'a SettingsClass.class * bool -> bool
     val rcResetStyles : 'a SettingsClass.class -> unit
-    val rcSetDefaultFiles : string list -> unit
+    val rcSetDefaultFiles : Utf8CArray.t -> unit
     val renderActivity :
       'a StyleContextClass.class
        * Cairo.ContextRecord.t
@@ -3432,7 +3444,7 @@ signature GTK =
     val selectionAddTargets :
       'a WidgetClass.class
        * Gdk.AtomRecord.t
-       * TargetEntryRecord.t vector
+       * TargetEntryRecordCArrayN.t
        -> unit
     val selectionClearTargets : 'a WidgetClass.class * Gdk.AtomRecord.t -> unit
     val selectionConvert :
@@ -3464,15 +3476,15 @@ signature GTK =
        * string
        * LargeInt.int
        -> unit
-    val stockAdd : StockItemRecord.t vector -> unit
-    val stockAddStatic : StockItemRecord.t vector -> unit
+    val stockAdd : StockItemRecordCArrayN.t -> unit
+    val stockAddStatic : StockItemRecordCArrayN.t -> unit
     val stockLookup : string -> StockItemRecord.t option
-    val targetTableFree : TargetEntryRecord.t vector -> unit
-    val targetTableNewFromList : TargetListRecord.t -> TargetEntryRecord.t vector
-    val targetsIncludeImage : Gdk.AtomRecord.t vector * bool -> bool
-    val targetsIncludeRichText : Gdk.AtomRecord.t vector * 'a TextBufferClass.class -> bool
-    val targetsIncludeText : Gdk.AtomRecord.t vector -> bool
-    val targetsIncludeUri : Gdk.AtomRecord.t vector -> bool
+    val targetTableFree : TargetEntryRecordCArrayN.t -> unit
+    val targetTableNewFromList : TargetListRecord.t -> TargetEntryRecordCArrayN.t
+    val targetsIncludeImage : GdkAtomRecordCArrayN.t * bool -> bool
+    val targetsIncludeRichText : GdkAtomRecordCArrayN.t * 'a TextBufferClass.class -> bool
+    val targetsIncludeText : GdkAtomRecordCArrayN.t -> bool
+    val targetsIncludeUri : GdkAtomRecordCArrayN.t -> bool
     val testCreateSimpleWindow : string * string -> base WidgetClass.class
     val testFindLabel : 'a WidgetClass.class * string -> base WidgetClass.class
     val testFindSibling : 'a WidgetClass.class * GObject.Type.t -> base WidgetClass.class
@@ -3481,7 +3493,7 @@ signature GTK =
        * string
        * GObject.Type.t
        -> base WidgetClass.class option
-    val testListAllTypes : unit -> GObject.Type.t vector
+    val testListAllTypes : unit -> GObjectTypeCArrayN.t
     val testRegisterAllTypes : unit -> unit
     val testSliderGetValue : 'a WidgetClass.class -> real
     val testSliderSetPerc : 'a WidgetClass.class * real -> unit

@@ -19,7 +19,7 @@ signature GDK_PIXBUF_PIXBUF_LOADER =
        -> unit
     val write :
       'a class
-       -> Word8Vector.vector
+       -> GUInt8CArrayN.t
        -> unit
     val writeBytes :
       'a class

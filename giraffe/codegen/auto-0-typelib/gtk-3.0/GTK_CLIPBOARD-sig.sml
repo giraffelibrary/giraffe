@@ -1,7 +1,7 @@
 signature GTK_CLIPBOARD =
   sig
     type 'a class
-    type target_entry_t
+    type target_entry_record_c_array_n_t
     type selection_data_t
     type 'a text_buffer_class
     type t = base class
@@ -14,7 +14,7 @@ signature GTK_CLIPBOARD =
     val getOwner : 'a class -> base GObject.ObjectClass.class option
     val setCanStore :
       'a class
-       -> target_entry_t vector option
+       -> target_entry_record_c_array_n_t option
        -> unit
     val setImage :
       'a class
@@ -33,10 +33,10 @@ signature GTK_CLIPBOARD =
     val waitForRichText :
       'a class
        -> 'b text_buffer_class
-       -> Word8Vector.vector option * Gdk.AtomRecord.t
-    val waitForTargets : 'a class -> Gdk.AtomRecord.t vector option
+       -> GUInt8CArrayN.t option * Gdk.AtomRecord.t
+    val waitForTargets : 'a class -> GdkAtomRecordCArrayN.t option
     val waitForText : 'a class -> string option
-    val waitForUris : 'a class -> string list option
+    val waitForUris : 'a class -> Utf8CArray.t option
     val waitIsImageAvailable : 'a class -> bool
     val waitIsRichTextAvailable :
       'a class

@@ -1,0 +1,54 @@
+local
+  $(SML_LIB)/basis/basis.mlb
+  $(SML_LIB)/basis/mlton.mlb
+  $(GIRAFFE_SML_LIB)/general/mlton.mlb
+  $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
+  ../glib-2.0/mlton.mlb
+  ../gmodule-2.0/mlton.mlb
+  ../gobject-2.0/mlton.mlb
+  ../gio-2.0/mlton.mlb
+  ../gdkpixbuf-2.0/mlton.mlb
+  ../cairo-1.0/mlton.mlb
+  ../pango-1.0/mlton.mlb
+  ../gdk-3.0/mlton.mlb
+  ../atk-1.0/mlton.mlb
+  ../xlib-2.0/mlton.mlb
+  ../gtk-3.0/mlton.mlb
+in
+  ../glib-2.0/GUInt8CArrayN.mlb
+  ../glib-2.0/Utf8CArray.mlb
+  ../gdk-3.0/GdkRgbaRecordCArrayN.mlb
+  VTE_CURSOR_BLINK_MODE-sig.sml
+  VTE_CURSOR_SHAPE-sig.sml
+  VTE_ERASE_BINDING-sig.sml
+  VTE_PTY_CLASS-sig.sml
+  VTE_PTY-sig.sml
+  VTE_PTY_ERROR-sig.sml
+  VTE_PTY_FLAGS-sig.sml
+  VTE_REGEX_RECORD-sig.sml
+  VTE_REGEX-sig.sml
+  VTE_REGEX_ERROR-sig.sml
+  VTE_TERMINAL_CLASS-sig.sml
+  VTE_TERMINAL-sig.sml
+  VTE_WRITE_FLAGS-sig.sml
+  VTE-sig.sml
+  ann
+    "allowFFI true"
+    "resolveScope topdec"
+  in
+    mlton/VteCursorBlinkMode.sml
+    mlton/VteCursorShape.sml
+    mlton/VteEraseBinding.sml
+    mlton/VtePtyClass.sml
+    mlton/VtePtyError.sml
+    mlton/VtePtyFlags.sml
+    mlton/VteRegexRecord.sml
+    mlton/VteRegexError.sml
+    mlton/VteTerminalClass.sml
+    mlton/VteWriteFlags.sml
+    mlton/VtePty.sml
+    mlton/VteRegex.sml
+    mlton/VteTerminal.sml
+    mlton/Vte.sml
+  end
+end

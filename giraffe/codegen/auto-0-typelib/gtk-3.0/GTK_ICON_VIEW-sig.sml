@@ -4,7 +4,7 @@ signature GTK_ICON_VIEW =
     type 'a buildable_class
     type 'a cell_layout_class
     type 'a scrollable_class
-    type target_entry_t
+    type target_entry_record_c_array_n_t
     type tree_iter_t
     type icon_view_drop_position_t
     type 'a cell_renderer_class
@@ -34,12 +34,12 @@ signature GTK_ICON_VIEW =
        -> Cairo.SurfaceRecord.t
     val enableModelDragDest :
       'a class
-       -> target_entry_t vector * Gdk.DragAction.t
+       -> target_entry_record_c_array_n_t * Gdk.DragAction.t
        -> unit
     val enableModelDragSource :
       'a class
        -> Gdk.ModifierType.t
-           * target_entry_t vector
+           * target_entry_record_c_array_n_t
            * Gdk.DragAction.t
        -> unit
     val getActivateOnSingleClick : 'a class -> bool

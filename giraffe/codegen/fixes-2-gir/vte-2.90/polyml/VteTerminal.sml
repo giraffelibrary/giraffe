@@ -8,30 +8,6 @@ structure VteTerminal :>
     where type terminal_erase_binding_t = VteTerminalEraseBinding.t
     where type 'a pty_class = 'a VtePtyClass.class =
   struct
-    structure GdkRgbaRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkRgbaRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkRgbaRecord.C.ValueType)
-      )
-    structure GdkRgbaRecordCVectorN = CVectorN(GdkRgbaRecordCVectorNType)
-    structure GdkColorRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkColorRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkColorRecord.C.ValueType)
-      )
-    structure GdkColorRecordCVectorN = CVectorN(GdkColorRecordCVectorNType)
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8Type
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -43,7 +19,7 @@ structure VteTerminal :>
         call (getSymbol "vte_terminal_feed")
           (
             VteTerminalClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GLong.PolyML.cVal
              --> cVoid
           )
@@ -69,8 +45,8 @@ structure VteTerminal :>
             GObjectObjectClass.PolyML.cPtr
              &&> VtePtyFlags.PolyML.cVal
              &&> Utf8.PolyML.cInOptPtr
-             &&> Utf8CVector.PolyML.cInPtr
-             &&> Utf8CVector.PolyML.cInOptPtr
+             &&> Utf8CArray.PolyML.cInPtr
+             &&> Utf8CArray.PolyML.cInOptPtr
              &&> GLibSpawnFlags.PolyML.cVal
              &&> GLibSpawnChildSetupFunc.PolyML.cOptPtr
              &&> GLibSpawnChildSetupFunc.PolyML.cFunction
@@ -202,7 +178,7 @@ structure VteTerminal :>
             VteTerminalClass.PolyML.cPtr
              &&> GdkColorRecord.PolyML.cOptPtr
              &&> GdkColorRecord.PolyML.cOptPtr
-             &&> GdkColorRecordCVectorN.PolyML.cInPtr
+             &&> GdkColorRecordCArrayN.PolyML.cInPtr
              &&> GLong.PolyML.cVal
              --> cVoid
           )
@@ -212,7 +188,7 @@ structure VteTerminal :>
             VteTerminalClass.PolyML.cPtr
              &&> GdkRgbaRecord.PolyML.cOptPtr
              &&> GdkRgbaRecord.PolyML.cOptPtr
-             &&> GdkRgbaRecordCVectorN.PolyML.cInPtr
+             &&> GdkRgbaRecordCArrayN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              --> cVoid
           )
@@ -269,11 +245,11 @@ structure VteTerminal :>
     fun copyPrimary self = (VteTerminalClass.FFI.withPtr ---> I) copyPrimary_ self
     fun feed self data =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
         val () =
           (
             VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GLong.FFI.withVal
              ---> I
           )
@@ -319,8 +295,8 @@ structure VteTerminal :>
             VteTerminalClass.FFI.withPtr
              &&&> VtePtyFlags.FFI.withVal
              &&&> Utf8.FFI.withOptPtr
-             &&&> Utf8CVector.FFI.withPtr
-             &&&> Utf8CVector.FFI.withOptPtr
+             &&&> Utf8CArray.FFI.withPtr
+             &&&> Utf8CArray.FFI.withOptPtr
              &&&> GLibSpawnFlags.FFI.withVal
              &&&> GLibSpawnChildSetupFunc.FFI.withOptPtrToDispatch
              &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
@@ -526,13 +502,13 @@ structure VteTerminal :>
         palette
       ) =
       let
-        val paletteSize = LargeInt.fromInt (GdkColorRecordCVectorN.length palette)
+        val paletteSize = LargeInt.fromInt (GdkColorRecordCArrayN.length palette)
         val () =
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkColorRecord.FFI.withOptPtr
              &&&> GdkColorRecord.FFI.withOptPtr
-             &&&> GdkColorRecordCVectorN.FFI.withPtr
+             &&&> GdkColorRecordCArrayN.FFI.withPtr
              &&&> GLong.FFI.withVal
              ---> I
           )
@@ -555,13 +531,13 @@ structure VteTerminal :>
         palette
       ) =
       let
-        val paletteSize = LargeInt.fromInt (GdkRgbaRecordCVectorN.length palette)
+        val paletteSize = LargeInt.fromInt (GdkRgbaRecordCArrayN.length palette)
         val () =
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkRgbaRecord.FFI.withOptPtr
              &&&> GdkRgbaRecord.FFI.withOptPtr
-             &&&> GdkRgbaRecordCVectorN.FFI.withPtr
+             &&&> GdkRgbaRecordCArrayN.FFI.withPtr
              &&&> GSize.FFI.withVal
              ---> I
           )

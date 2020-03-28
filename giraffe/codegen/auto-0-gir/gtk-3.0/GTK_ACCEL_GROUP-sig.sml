@@ -2,7 +2,7 @@ signature GTK_ACCEL_GROUP =
   sig
     type 'a class
     type accel_flags_t
-    type accel_group_entry_t
+    type accel_group_entry_record_c_array_n_t
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
@@ -39,7 +39,7 @@ signature GTK_ACCEL_GROUP =
     val query :
       'a class
        -> LargeInt.int * Gdk.ModifierType.t
-       -> accel_group_entry_t vector option
+       -> accel_group_entry_record_c_array_n_t option
     val unlock : 'a class -> unit
     val accelActivateSig :
       (base GObject.ObjectClass.class

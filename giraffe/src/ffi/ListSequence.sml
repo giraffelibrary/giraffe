@@ -9,6 +9,7 @@ structure ListSequence :> SEQUENCE where type 'a t = 'a list =
   struct
     open List
     type 'a t = 'a list
+    val sub = nth
     fun appi f =
       let
         fun step n xs =

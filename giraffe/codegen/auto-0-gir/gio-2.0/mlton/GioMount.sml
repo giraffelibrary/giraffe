@@ -8,12 +8,6 @@ structure GioMount :>
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_mount_get_type" : unit -> GObjectType.FFI.val_;
     val canEject_ = _import "g_mount_can_eject" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GBool.FFI.val_;
     val canUnmount_ = _import "g_mount_can_unmount" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GBool.FFI.val_;
@@ -70,7 +64,7 @@ structure GioMount :>
               GioMountClass.FFI.notnull GioMountClass.FFI.p
                * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
           )
             (
               x1,
@@ -89,7 +83,7 @@ structure GioMount :>
                * GBool.FFI.val_
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
           )
             (
               x1,
@@ -202,7 +196,7 @@ structure GioMount :>
         GioMountClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CVector.FFI.fromPtr 2
+         ---> Utf8CArray.FFI.fromPtr 2
       )
         guessContentTypeFinish_
         (
@@ -216,7 +210,7 @@ structure GioMount :>
          &&&> GBool.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CVector.FFI.fromPtr 2
+         ---> Utf8CArray.FFI.fromPtr 2
       )
         guessContentTypeSync_
         (

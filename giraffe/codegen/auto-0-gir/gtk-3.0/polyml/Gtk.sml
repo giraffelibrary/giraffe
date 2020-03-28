@@ -1,47 +1,5 @@
 structure Gtk : GTK =
   struct
-    structure GObjectTypeCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GObjectType.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GObjectType.C.ValueType)
-      )
-    structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
-    structure GdkAtomRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkAtomRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
-    structure GtkTargetEntryRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GtkTargetEntryRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
-      )
-    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
-    structure GtkStockItemRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GtkStockItemRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GtkStockItemRecord.C.ValueType)
-      )
-    structure GtkStockItemRecordCVectorN = CVectorN(GtkStockItemRecordCVectorNType)
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
-    structure GUIntCVectorType =
-      CValueCVectorType(
-        structure CElemType = GUInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GUInt.C.ValueType)
-      )
-    structure GUIntCVector = CVector(GUIntCVectorType)
     local
       open PolyMLFFI
     in
@@ -87,7 +45,7 @@ structure Gtk : GTK =
           (
             Utf8.PolyML.cInPtr
              &&> GUInt.PolyML.cRef
-             &&> GUIntCVector.PolyML.cOutRef
+             &&> GUIntCArray.PolyML.cOutRef
              &&> GdkModifierType.PolyML.cRef
              --> cVoid
           )
@@ -206,8 +164,8 @@ structure Gtk : GTK =
       val getMinorVersion_ = call (getSymbol "gtk_get_minor_version") (cVoid --> GUInt.PolyML.cVal)
       val getOptionGroup_ = call (getSymbol "gtk_get_option_group") (GBool.PolyML.cVal --> GLibOptionGroupRecord.PolyML.cPtr)
       val grabGetCurrent_ = call (getSymbol "gtk_grab_get_current") (cVoid --> GtkWidgetClass.PolyML.cOptPtr)
-      val init_ = call (getSymbol "gtk_init") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> cVoid)
-      val initCheck_ = call (getSymbol "gtk_init_check") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> GBool.PolyML.cVal)
+      val init_ = call (getSymbol "gtk_init") (GInt.PolyML.cRef &&> Utf8CArrayN.PolyML.cInOutRef --> cVoid)
+      val initCheck_ = call (getSymbol "gtk_init_check") (GInt.PolyML.cRef &&> Utf8CArrayN.PolyML.cInOutRef --> GBool.PolyML.cVal)
       val keySnooperRemove_ = call (getSymbol "gtk_key_snooper_remove") (GUInt.PolyML.cVal --> cVoid)
       val main_ = call (getSymbol "gtk_main") (cVoid --> cVoid)
       val mainDoEvent_ = call (getSymbol "gtk_main_do_event") (GdkEvent.PolyML.cPtr --> cVoid)
@@ -518,7 +476,7 @@ structure Gtk : GTK =
              &&> GInt.PolyML.cVal
              --> cVoid
           )
-      val parseArgs_ = call (getSymbol "gtk_parse_args") (GInt.PolyML.cRef &&> Utf8CVectorN.PolyML.cInOutRef --> GBool.PolyML.cVal)
+      val parseArgs_ = call (getSymbol "gtk_parse_args") (GInt.PolyML.cRef &&> Utf8CArrayN.PolyML.cInOutRef --> GBool.PolyML.cVal)
       val printRunPageSetupDialog_ =
         call (getSymbol "gtk_print_run_page_setup_dialog")
           (
@@ -530,7 +488,7 @@ structure Gtk : GTK =
       val propagateEvent_ = call (getSymbol "gtk_propagate_event") (GtkWidgetClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> cVoid)
       val rcAddDefaultFile_ = call (getSymbol "gtk_rc_add_default_file") (Utf8.PolyML.cInPtr --> cVoid)
       val rcFindModuleInPath_ = call (getSymbol "gtk_rc_find_module_in_path") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val rcGetDefaultFiles_ = call (getSymbol "gtk_rc_get_default_files") (cVoid --> Utf8CVector.PolyML.cOutPtr)
+      val rcGetDefaultFiles_ = call (getSymbol "gtk_rc_get_default_files") (cVoid --> Utf8CArray.PolyML.cOutPtr)
       val rcGetImModuleFile_ = call (getSymbol "gtk_rc_get_im_module_file") (cVoid --> Utf8.PolyML.cOutPtr)
       val rcGetImModulePath_ = call (getSymbol "gtk_rc_get_im_module_path") (cVoid --> Utf8.PolyML.cOutPtr)
       val rcGetModuleDir_ = call (getSymbol "gtk_rc_get_module_dir") (cVoid --> Utf8.PolyML.cOutPtr)
@@ -550,7 +508,7 @@ structure Gtk : GTK =
       val rcReparseAll_ = call (getSymbol "gtk_rc_reparse_all") (cVoid --> GBool.PolyML.cVal)
       val rcReparseAllForSettings_ = call (getSymbol "gtk_rc_reparse_all_for_settings") (GtkSettingsClass.PolyML.cPtr &&> GBool.PolyML.cVal --> GBool.PolyML.cVal)
       val rcResetStyles_ = call (getSymbol "gtk_rc_reset_styles") (GtkSettingsClass.PolyML.cPtr --> cVoid)
-      val rcSetDefaultFiles_ = call (getSymbol "gtk_rc_set_default_files") (Utf8CVector.PolyML.cInPtr --> cVoid)
+      val rcSetDefaultFiles_ = call (getSymbol "gtk_rc_set_default_files") (Utf8CArray.PolyML.cInPtr --> cVoid)
       val renderActivity_ =
         call (getSymbol "gtk_render_activity")
           (
@@ -785,7 +743,7 @@ structure Gtk : GTK =
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkAtomRecord.PolyML.cPtr
-             &&> GtkTargetEntryRecordCVectorN.PolyML.cInPtr
+             &&> GtkTargetEntryRecordCArrayN.PolyML.cInPtr
              &&> GUInt.PolyML.cVal
              --> cVoid
           )
@@ -836,15 +794,15 @@ structure Gtk : GTK =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val stockAdd_ = call (getSymbol "gtk_stock_add") (GtkStockItemRecordCVectorN.PolyML.cInPtr &&> GUInt.PolyML.cVal --> cVoid)
-      val stockAddStatic_ = call (getSymbol "gtk_stock_add_static") (GtkStockItemRecordCVectorN.PolyML.cInPtr &&> GUInt.PolyML.cVal --> cVoid)
+      val stockAdd_ = call (getSymbol "gtk_stock_add") (GtkStockItemRecordCArrayN.PolyML.cInPtr &&> GUInt.PolyML.cVal --> cVoid)
+      val stockAddStatic_ = call (getSymbol "gtk_stock_add_static") (GtkStockItemRecordCArrayN.PolyML.cInPtr &&> GUInt.PolyML.cVal --> cVoid)
       val stockLookup_ = call (getSymbol "gtk_stock_lookup") (Utf8.PolyML.cInPtr &&> GtkStockItemRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val targetTableFree_ = call (getSymbol "gtk_target_table_free") (GtkTargetEntryRecordCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> cVoid)
-      val targetTableNewFromList_ = call (getSymbol "gtk_target_table_new_from_list") (GtkTargetListRecord.PolyML.cPtr &&> GInt.PolyML.cRef --> GtkTargetEntryRecordCVectorN.PolyML.cOutPtr)
+      val targetTableFree_ = call (getSymbol "gtk_target_table_free") (GtkTargetEntryRecordCArrayN.PolyML.cInPtr &&> GInt.PolyML.cVal --> cVoid)
+      val targetTableNewFromList_ = call (getSymbol "gtk_target_table_new_from_list") (GtkTargetListRecord.PolyML.cPtr &&> GInt.PolyML.cRef --> GtkTargetEntryRecordCArrayN.PolyML.cOutPtr)
       val targetsIncludeImage_ =
         call (getSymbol "gtk_targets_include_image")
           (
-            GdkAtomRecordCVectorN.PolyML.cInPtr
+            GdkAtomRecordCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GBool.PolyML.cVal
              --> GBool.PolyML.cVal
@@ -852,13 +810,13 @@ structure Gtk : GTK =
       val targetsIncludeRichText_ =
         call (getSymbol "gtk_targets_include_rich_text")
           (
-            GdkAtomRecordCVectorN.PolyML.cInPtr
+            GdkAtomRecordCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GtkTextBufferClass.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val targetsIncludeText_ = call (getSymbol "gtk_targets_include_text") (GdkAtomRecordCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
-      val targetsIncludeUri_ = call (getSymbol "gtk_targets_include_uri") (GdkAtomRecordCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val targetsIncludeText_ = call (getSymbol "gtk_targets_include_text") (GdkAtomRecordCArrayN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val targetsIncludeUri_ = call (getSymbol "gtk_targets_include_uri") (GdkAtomRecordCArrayN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GBool.PolyML.cVal)
       val testCreateSimpleWindow_ = call (getSymbol "gtk_test_create_simple_window") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val testFindLabel_ = call (getSymbol "gtk_test_find_label") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GtkWidgetClass.PolyML.cPtr)
       val testFindSibling_ = call (getSymbol "gtk_test_find_sibling") (GtkWidgetClass.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GtkWidgetClass.PolyML.cPtr)
@@ -870,7 +828,7 @@ structure Gtk : GTK =
              &&> GObjectType.PolyML.cVal
              --> GtkWidgetClass.PolyML.cOptPtr
           )
-      val testListAllTypes_ = call (getSymbol "gtk_test_list_all_types") (GUInt.PolyML.cRef --> GObjectTypeCVectorN.PolyML.cOutPtr)
+      val testListAllTypes_ = call (getSymbol "gtk_test_list_all_types") (GUInt.PolyML.cRef --> GObjectTypeCArrayN.PolyML.cOutPtr)
       val testRegisterAllTypes_ = call (getSymbol "gtk_test_register_all_types") (cVoid --> cVoid)
       val testSliderGetValue_ = call (getSymbol "gtk_test_slider_get_value") (GtkWidgetClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val testSliderSetPerc_ = call (getSymbol "gtk_test_slider_set_perc") (GtkWidgetClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
@@ -1146,7 +1104,7 @@ structure Gtk : GTK =
     structure WindowPosition = GtkWindowPosition
     structure WindowType = GtkWindowType
     structure WrapMode = GtkWrapMode
-    structure AccelGroup = GtkAccelGroup
+    structure AccelGroupEntryRecordCArrayN = GtkAccelGroupEntryRecordCArrayN
     structure AccelGroupEntry = GtkAccelGroupEntry
     structure AccelKey = GtkAccelKey
     structure AccelMap = GtkAccelMap
@@ -1175,7 +1133,6 @@ structure Gtk : GTK =
     structure CellRendererTextClass = GtkCellRendererTextClass
     structure CellRendererToggleClass = GtkCellRendererToggleClass
     structure CellViewClass = GtkCellViewClass
-    structure Clipboard = GtkClipboard
     structure ColorChooser = GtkColorChooser
     structure ContainerClass = GtkContainerClass
     structure CssProvider = GtkCssProvider
@@ -1216,7 +1173,7 @@ structure Gtk : GTK =
     structure PaperSize = GtkPaperSize
     structure PrintContext = GtkPrintContext
     structure PrintOperationPreview = GtkPrintOperationPreview
-    structure PrintSettings = GtkPrintSettings
+    structure PageRangeRecordCArrayN = GtkPageRangeRecordCArrayN
     structure ProgressBarClass = GtkProgressBarClass
     structure RangeClass = GtkRangeClass
     structure RcStyle = GtkRcStyle
@@ -1242,7 +1199,6 @@ structure Gtk : GTK =
     structure SwitchClass = GtkSwitchClass
     structure SymbolicColor = GtkSymbolicColor
     structure TargetEntry = GtkTargetEntry
-    structure TargetList = GtkTargetList
     structure TextAttributes = GtkTextAttributes
     structure TextBuffer = GtkTextBuffer
     structure TextChildAnchor = GtkTextChildAnchor
@@ -1268,6 +1224,9 @@ structure Gtk : GTK =
     structure UIManager = GtkUIManager
     structure WidgetAccessibleClass = GtkWidgetAccessibleClass
     structure WidgetPath = GtkWidgetPath
+    structure StockItemRecordCArrayN = GtkStockItemRecordCArrayN
+    structure TargetEntryRecordCArrayN = GtkTargetEntryRecordCArrayN
+    structure AccelGroup = GtkAccelGroup
     structure ArrowClass = GtkArrowClass
     structure ArrowAccessibleClass = GtkArrowAccessibleClass
     structure BinClass = GtkBinClass
@@ -1285,6 +1244,7 @@ structure Gtk : GTK =
     structure CellRendererText = GtkCellRendererText
     structure CellRendererToggle = GtkCellRendererToggle
     structure CellView = GtkCellView
+    structure Clipboard = GtkClipboard
     structure Container = GtkContainer
     structure ContainerAccessibleClass = GtkContainerAccessibleClass
     structure ContainerCellAccessibleClass = GtkContainerCellAccessibleClass
@@ -1317,6 +1277,7 @@ structure Gtk : GTK =
     structure Misc = GtkMisc
     structure NotebookClass = GtkNotebookClass
     structure PanedClass = GtkPanedClass
+    structure PrintSettings = GtkPrintSettings
     structure ProgressBar = GtkProgressBar
     structure ProgressBarAccessibleClass = GtkProgressBarAccessibleClass
     structure RadioActionClass = GtkRadioActionClass
@@ -1337,6 +1298,7 @@ structure Gtk : GTK =
     structure Switch = GtkSwitch
     structure SwitchAccessibleClass = GtkSwitchAccessibleClass
     structure TableClass = GtkTableClass
+    structure TargetList = GtkTargetList
     structure TextViewClass = GtkTextViewClass
     structure ToggleAction = GtkToggleAction
     structure ToolItemGroupClass = GtkToolItemGroupClass
@@ -2021,10 +1983,10 @@ structure Gtk : GTK =
           (
             Utf8.FFI.withPtr
              &&&> GUInt.FFI.withRefVal
-             &&&> GUIntCVector.FFI.withRefOptPtr
+             &&&> GUIntCArray.FFI.withRefOptPtr
              &&&> GdkModifierType.FFI.withRefVal
              ---> GUInt.FFI.fromVal
-                   && GUIntCVector.FFI.fromPtr 1
+                   && GUIntCArray.FFI.fromPtr 1
                    && GdkModifierType.FFI.fromVal
                    && I
           )
@@ -2282,14 +2244,14 @@ structure Gtk : GTK =
     fun grabGetCurrent () = (I ---> GtkWidgetClass.FFI.fromOptPtr false) grabGetCurrent_ ()
     fun init argv =
       let
-        val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
+        val argc = LargeInt.fromInt (Utf8CArrayN.length argv)
         val argc
          & argv
          & () =
           (
-            GInt.FFI.withRefVal &&&> Utf8CVectorN.FFI.withRefDupPtr 2
+            GInt.FFI.withRefVal &&&> Utf8CArrayN.FFI.withRefDupPtr 2
              ---> GInt.FFI.fromVal
-                   && Utf8CVectorN.FFI.fromPtr 2
+                   && Utf8CArrayN.FFI.fromPtr 2
                    && I
           )
             init_
@@ -2299,14 +2261,14 @@ structure Gtk : GTK =
       end
     fun initCheck argv =
       let
-        val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
+        val argc = LargeInt.fromInt (Utf8CArrayN.length argv)
         val argc
          & argv
          & retVal =
           (
-            GInt.FFI.withRefVal &&&> Utf8CVectorN.FFI.withRefDupPtr 2
+            GInt.FFI.withRefVal &&&> Utf8CArrayN.FFI.withRefDupPtr 2
              ---> GInt.FFI.fromVal
-                   && Utf8CVectorN.FFI.fromPtr 2
+                   && Utf8CArrayN.FFI.fromPtr 2
                    && GBool.FFI.fromVal
           )
             initCheck_
@@ -3112,14 +3074,14 @@ structure Gtk : GTK =
         )
     fun parseArgs argv =
       let
-        val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
+        val argc = LargeInt.fromInt (Utf8CArrayN.length argv)
         val argc
          & argv
          & retVal =
           (
-            GInt.FFI.withRefVal &&&> Utf8CVectorN.FFI.withRefDupPtr 2
+            GInt.FFI.withRefVal &&&> Utf8CArrayN.FFI.withRefDupPtr 2
              ---> GInt.FFI.fromVal
-                   && Utf8CVectorN.FFI.fromPtr 2
+                   && Utf8CArrayN.FFI.fromPtr 2
                    && GBool.FFI.fromVal
           )
             parseArgs_
@@ -3148,7 +3110,7 @@ structure Gtk : GTK =
     fun propagateEvent (widget, event) = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> I) propagateEvent_ (widget & event)
     fun rcAddDefaultFile filename = (Utf8.FFI.withPtr ---> I) rcAddDefaultFile_ filename
     fun rcFindModuleInPath moduleFile = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) rcFindModuleInPath_ moduleFile
-    fun rcGetDefaultFiles () = (I ---> Utf8CVector.FFI.fromPtr 0) rcGetDefaultFiles_ ()
+    fun rcGetDefaultFiles () = (I ---> Utf8CArray.FFI.fromPtr 0) rcGetDefaultFiles_ ()
     fun rcGetImModuleFile () = (I ---> Utf8.FFI.fromPtr 1) rcGetImModuleFile_ ()
     fun rcGetImModulePath () = (I ---> Utf8.FFI.fromPtr 1) rcGetImModulePath_ ()
     fun rcGetModuleDir () = (I ---> Utf8.FFI.fromPtr 1) rcGetModuleDir_ ()
@@ -3180,7 +3142,7 @@ structure Gtk : GTK =
     fun rcReparseAll () = (I ---> GBool.FFI.fromVal) rcReparseAll_ ()
     fun rcReparseAllForSettings (settings, forceLoad) = (GtkSettingsClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) rcReparseAllForSettings_ (settings & forceLoad)
     fun rcResetStyles settings = (GtkSettingsClass.FFI.withPtr ---> I) rcResetStyles_ settings
-    fun rcSetDefaultFiles filenames = (Utf8CVector.FFI.withPtr ---> I) rcSetDefaultFiles_ filenames
+    fun rcSetDefaultFiles filenames = (Utf8CArray.FFI.withPtr ---> I) rcSetDefaultFiles_ filenames
     fun renderActivity
       (
         context,
@@ -3765,12 +3727,12 @@ structure Gtk : GTK =
         targets
       ) =
       let
-        val ntargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val ntargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkWidgetClass.FFI.withPtr
              &&&> GdkAtomRecord.FFI.withPtr
-             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
              &&&> GUInt.FFI.withVal
              ---> I
           )
@@ -3889,15 +3851,15 @@ structure Gtk : GTK =
         )
     fun stockAdd items =
       let
-        val nItems = LargeInt.fromInt (GtkStockItemRecordCVectorN.length items)
-        val () = (GtkStockItemRecordCVectorN.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) stockAdd_ (items & nItems)
+        val nItems = LargeInt.fromInt (GtkStockItemRecordCArrayN.length items)
+        val () = (GtkStockItemRecordCArrayN.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) stockAdd_ (items & nItems)
       in
         ()
       end
     fun stockAddStatic items =
       let
-        val nItems = LargeInt.fromInt (GtkStockItemRecordCVectorN.length items)
-        val () = (GtkStockItemRecordCVectorN.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) stockAddStatic_ (items & nItems)
+        val nItems = LargeInt.fromInt (GtkStockItemRecordCArrayN.length items)
+        val () = (GtkStockItemRecordCArrayN.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) stockAddStatic_ (items & nItems)
       in
         ()
       end
@@ -3909,23 +3871,23 @@ structure Gtk : GTK =
       end
     fun targetTableFree targets =
       let
-        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
-        val () = (GtkTargetEntryRecordCVectorN.FFI.withPtr &&&> GInt.FFI.withVal ---> I) targetTableFree_ (targets & nTargets)
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
+        val () = (GtkTargetEntryRecordCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> I) targetTableFree_ (targets & nTargets)
       in
         ()
       end
     fun targetTableNewFromList list =
       let
-        val nTargets & retVal = (GtkTargetListRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GtkTargetEntryRecordCVectorN.FFI.fromPtr 1) targetTableNewFromList_ (list & GInt.null)
+        val nTargets & retVal = (GtkTargetListRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GtkTargetEntryRecordCArrayN.FFI.fromPtr 1) targetTableNewFromList_ (list & GInt.null)
       in
         retVal (LargeInt.toInt nTargets)
       end
     fun targetsIncludeImage (targets, writable) =
       let
-        val nTargets = LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
+        val nTargets = LargeInt.fromInt (GdkAtomRecordCArrayN.length targets)
         val retVal =
           (
-            GdkAtomRecordCVectorN.FFI.withPtr
+            GdkAtomRecordCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> GBool.FFI.withVal
              ---> GBool.FFI.fromVal
@@ -3941,10 +3903,10 @@ structure Gtk : GTK =
       end
     fun targetsIncludeRichText (targets, buffer) =
       let
-        val nTargets = LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
+        val nTargets = LargeInt.fromInt (GdkAtomRecordCArrayN.length targets)
         val retVal =
           (
-            GdkAtomRecordCVectorN.FFI.withPtr
+            GdkAtomRecordCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> GtkTextBufferClass.FFI.withPtr
              ---> GBool.FFI.fromVal
@@ -3960,15 +3922,15 @@ structure Gtk : GTK =
       end
     fun targetsIncludeText targets =
       let
-        val nTargets = LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
-        val retVal = (GdkAtomRecordCVectorN.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeText_ (targets & nTargets)
+        val nTargets = LargeInt.fromInt (GdkAtomRecordCArrayN.length targets)
+        val retVal = (GdkAtomRecordCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeText_ (targets & nTargets)
       in
         retVal
       end
     fun targetsIncludeUri targets =
       let
-        val nTargets = LargeInt.fromInt (GdkAtomRecordCVectorN.length targets)
-        val retVal = (GdkAtomRecordCVectorN.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeUri_ (targets & nTargets)
+        val nTargets = LargeInt.fromInt (GdkAtomRecordCArrayN.length targets)
+        val retVal = (GdkAtomRecordCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeUri_ (targets & nTargets)
       in
         retVal
       end
@@ -3995,7 +3957,7 @@ structure Gtk : GTK =
         )
     fun testListAllTypes () =
       let
-        val nTypes & retVal = (GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCVectorN.FFI.fromPtr 0) testListAllTypes_ GUInt.null
+        val nTypes & retVal = (GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr 0) testListAllTypes_ GUInt.null
       in
         retVal (LargeInt.toInt nTypes)
       end

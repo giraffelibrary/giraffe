@@ -9,18 +9,6 @@ structure VteTerminal :>
     where type erase_binding_t = VteEraseBinding.t
     where type 'a pty_class = 'a VtePtyClass.class =
   struct
-    structure GdkRgbaRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkRgbaRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkRgbaRecord.C.ValueType)
-      )
-    structure GdkRgbaRecordCVectorN = CVectorN(GdkRgbaRecordCVectorNType)
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "vte_terminal_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "vte_terminal_new" : unit -> VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p;
     val copyClipboard_ = _import "vte_terminal_copy_clipboard" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> unit;
@@ -33,8 +21,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed" :
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * unit GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * unit GUInt8CArrayN.MLton.p2
                * GSSize.FFI.val_
                -> unit;
           )
@@ -71,8 +59,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed_child_binary" :
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * unit GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * unit GUInt8CArrayN.MLton.p2
                * GSize.FFI.val_
                -> unit;
           )
@@ -370,8 +358,8 @@ structure VteTerminal :>
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
                * unit GdkRgbaRecord.FFI.p
                * unit GdkRgbaRecord.FFI.p
-               * GdkRgbaRecordCVectorN.MLton.p1
-               * unit GdkRgbaRecordCVectorN.MLton.p2
+               * GdkRgbaRecordCArrayN.MLton.p1
+               * unit GdkRgbaRecordCArrayN.MLton.p2
                * GSize.FFI.val_
                -> unit;
           )
@@ -494,12 +482,12 @@ structure VteTerminal :>
       let
         val length =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CVectorN.length data)
+            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
           | NONE => GSSize.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withOptPtr
+             &&&> GUInt8CArrayN.FFI.withOptPtr
              &&&> GSSize.FFI.withVal
              ---> I
           )
@@ -529,12 +517,12 @@ structure VteTerminal :>
       let
         val length =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CVectorN.length data)
+            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
           | NONE => GSize.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withOptPtr
+             &&&> GUInt8CArrayN.FFI.withOptPtr
              &&&> GSize.FFI.withVal
              ---> I
           )
@@ -800,14 +788,14 @@ structure VteTerminal :>
       let
         val paletteSize =
           case palette of
-            SOME palette => LargeInt.fromInt (GdkRgbaRecordCVectorN.length palette)
+            SOME palette => LargeInt.fromInt (GdkRgbaRecordCArrayN.length palette)
           | NONE => GSize.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkRgbaRecord.FFI.withOptPtr
              &&&> GdkRgbaRecord.FFI.withOptPtr
-             &&&> GdkRgbaRecordCVectorN.FFI.withOptPtr
+             &&&> GdkRgbaRecordCArrayN.FFI.withOptPtr
              &&&> GSize.FFI.withVal
              ---> I
           )

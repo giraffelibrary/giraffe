@@ -1,14 +1,9 @@
 structure AtkStateSet :>
   ATK_STATE_SET
     where type 'a class = 'a AtkStateSetClass.class
+    where type state_type_c_array_n_t = AtkStateTypeCArrayN.t
     where type state_type_t = AtkStateType.t =
   struct
-    structure AtkStateTypeCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = AtkStateType.C.ValueType
-        structure ElemSequence = CValueVectorSequence(AtkStateType.C.ValueType)
-      )
-    structure AtkStateTypeCVectorN = CVectorN(AtkStateTypeCVectorNType)
     local
       open PolyMLFFI
     in
@@ -19,7 +14,7 @@ structure AtkStateSet :>
         call (getSymbol "atk_state_set_add_states")
           (
             AtkStateSetClass.PolyML.cPtr
-             &&> AtkStateTypeCVectorN.PolyML.cInPtr
+             &&> AtkStateTypeCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              --> cVoid
           )
@@ -30,7 +25,7 @@ structure AtkStateSet :>
         call (getSymbol "atk_state_set_contains_states")
           (
             AtkStateSetClass.PolyML.cPtr
-             &&> AtkStateTypeCVectorN.PolyML.cInPtr
+             &&> AtkStateTypeCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              --> GBool.PolyML.cVal
           )
@@ -40,6 +35,7 @@ structure AtkStateSet :>
       val xorSets_ = call (getSymbol "atk_state_set_xor_sets") (AtkStateSetClass.PolyML.cPtr &&> AtkStateSetClass.PolyML.cPtr --> AtkStateSetClass.PolyML.cPtr)
     end
     type 'a class = 'a AtkStateSetClass.class
+    type state_type_c_array_n_t = AtkStateTypeCArrayN.t
     type state_type_t = AtkStateType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -47,11 +43,11 @@ structure AtkStateSet :>
     fun addState self type' = (AtkStateSetClass.FFI.withPtr &&&> AtkStateType.FFI.withVal ---> GBool.FFI.fromVal) addState_ (self & type')
     fun addStates self types =
       let
-        val nTypes = LargeInt.fromInt (AtkStateTypeCVectorN.length types)
+        val nTypes = LargeInt.fromInt (AtkStateTypeCArrayN.length types)
         val () =
           (
             AtkStateSetClass.FFI.withPtr
-             &&&> AtkStateTypeCVectorN.FFI.withPtr
+             &&&> AtkStateTypeCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              ---> I
           )
@@ -69,11 +65,11 @@ structure AtkStateSet :>
     fun containsState self type' = (AtkStateSetClass.FFI.withPtr &&&> AtkStateType.FFI.withVal ---> GBool.FFI.fromVal) containsState_ (self & type')
     fun containsStates self types =
       let
-        val nTypes = LargeInt.fromInt (AtkStateTypeCVectorN.length types)
+        val nTypes = LargeInt.fromInt (AtkStateTypeCArrayN.length types)
         val retVal =
           (
             AtkStateSetClass.FFI.withPtr
-             &&&> AtkStateTypeCVectorN.FFI.withPtr
+             &&&> AtkStateTypeCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              ---> GBool.FFI.fromVal
           )

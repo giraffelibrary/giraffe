@@ -1,3 +1,4 @@
+useExt "../glib-2.0/Utf8CArray.sml";
 use "GTK_SOURCE_BACKGROUND_PATTERN_TYPE-sig.sml";
 use "GTK_SOURCE_BRACKET_MATCH_TYPE-sig.sml";
 use "GTK_SOURCE_BUFFER_CLASS-sig.sml";

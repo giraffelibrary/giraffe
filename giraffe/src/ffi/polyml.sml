@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2016-2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -42,7 +42,6 @@ use "MONO_SEQUENCE-sig.sml";
 use "C_ARRAY_TYPE-sig.sml";
 use "C_ARRAY-sig.sml";
 use "polyml/C_ARRAY-sig.sml";
-use "C_ARRAY_LOW_LEVEL-sig.sml";
 use "polyml/Finalizable.sml";
 
 use "polyml/CRef-fun.sml";
@@ -53,14 +52,14 @@ use "polyml/CScalar-fun.sml";
 use "polyml/CScalarNull-fun.sml";
 use "polyml/CScalarEq-fun.sml";
 use "polyml/CScalarEqNull-fun.sml";
-use "polyml/CVectorLowLevel-fun.sml";
-use "polyml/CVector-fun.sml";
-use "polyml/CVectorNLowLevel-fun.sml";
-use "polyml/CVectorN-fun.sml";
-use "polyml/CValueCVectorType-fun.sml";
-use "polyml/CValueCVectorNType-fun.sml";
-use "polyml/CPointerCVectorType-fun.sml";
-use "polyml/CPointerCVectorNType-fun.sml";
+use "polyml/VectorCArray-fun.sml";
+use "polyml/VectorCArrayN-fun.sml";
+use "polyml/CArray-fun.sml";
+use "polyml/CArrayN-fun.sml";
+use "polyml/CValueCArrayType-fun.sml";
+use "polyml/CValueCArrayNType-fun.sml";
+use "polyml/CPointerCArrayType-fun.sml";
+use "polyml/CPointerCArrayNType-fun.sml";
 use "polyml/GCharType.sml";
 use "polyml/GShortType.sml";
 use "polyml/GUShortType.sml";

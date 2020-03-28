@@ -20,8 +20,8 @@ signature GIO_SETTINGS =
        * string
        -> base class
     val newWithPath : string * string -> base class
-    val listRelocatableSchemas : unit -> string list
-    val listSchemas : unit -> string list
+    val listRelocatableSchemas : unit -> Utf8CArray.t
+    val listSchemas : unit -> Utf8CArray.t
     val sync : unit -> unit
     val unbind : 'a GObject.ObjectClass.class * string -> unit
     val apply : 'a class -> unit
@@ -88,7 +88,7 @@ signature GIO_SETTINGS =
     val getStrv :
       'a class
        -> string
-       -> string list
+       -> Utf8CArray.t
     val getUint :
       'a class
        -> string
@@ -109,8 +109,8 @@ signature GIO_SETTINGS =
       'a class
        -> string
        -> bool
-    val listChildren : 'a class -> string list
-    val listKeys : 'a class -> string list
+    val listChildren : 'a class -> Utf8CArray.t
+    val listKeys : 'a class -> Utf8CArray.t
     val rangeCheck :
       'a class
        -> string * GLib.VariantRecord.t
@@ -150,7 +150,7 @@ signature GIO_SETTINGS =
        -> bool
     val setStrv :
       'a class
-       -> string * string list option
+       -> string * Utf8CArray.t option
        -> bool
     val setUint :
       'a class
@@ -164,7 +164,7 @@ signature GIO_SETTINGS =
       'a class
        -> string * GLib.VariantRecord.t
        -> bool
-    val changeEventSig : (LargeInt.int vector option -> bool) -> 'a class Signal.t
+    val changeEventSig : (GUInt32CArrayN.t option -> bool) -> 'a class Signal.t
     val changedSig : (string -> unit) -> 'a class Signal.t
     val writableChangeEventSig : (LargeInt.int -> bool) -> 'a class Signal.t
     val writableChangedSig : (string -> unit) -> 'a class Signal.t

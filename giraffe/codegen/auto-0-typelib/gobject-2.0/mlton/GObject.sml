@@ -4,18 +4,6 @@ structure GObject :
     where type 'a signal_t = 'a Signal.t
     where type 'object_class property_t = 'object_class Property.t =
   struct
-    structure GObjectTypeCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GObjectType.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GObjectType.C.ValueType)
-      )
-    structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
-    structure GUInt32CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt32.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GUInt32.C.ValueType)
-      )
-    structure GUInt32CVectorN = CVectorN(GUInt32CVectorNType)
     val enumGetValue_ = fn x1 & x2 => (_import "g_enum_get_value" : GObjectEnumClassRecord.FFI.notnull GObjectEnumClassRecord.FFI.p * GInt32.FFI.val_ -> GObjectEnumValueRecord.FFI.notnull GObjectEnumValueRecord.FFI.p;) (x1, x2)
     val enumGetValueByName_ =
       fn
@@ -755,7 +743,7 @@ structure GObject :
               x8
             )
     val pointerTypeRegisterStatic_ = _import "mlton_g_pointer_type_register_static" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GObjectType.FFI.val_;
-    val signalListIds_ = fn x1 & x2 => (_import "g_signal_list_ids" : GObjectType.FFI.val_ * GUInt32.FFI.ref_ -> GUInt32CVectorN.FFI.notnull GUInt32CVectorN.FFI.out_p;) (x1, x2)
+    val signalListIds_ = fn x1 & x2 => (_import "g_signal_list_ids" : GObjectType.FFI.val_ * GUInt32.FFI.ref_ -> GUInt32CArrayN.FFI.notnull GUInt32CArrayN.FFI.out_p;) (x1, x2)
     val signalLookup_ =
       fn
         (x1, x2) & x3 =>
@@ -835,7 +823,7 @@ structure GObject :
             )
     val typeCheckIsValueType_ = _import "g_type_check_is_value_type" : GObjectType.FFI.val_ -> GBool.FFI.val_;
     val typeCheckValueHolds_ = fn x1 & x2 => (_import "g_type_check_value_holds" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val typeChildren_ = fn x1 & x2 => (_import "g_type_children" : GObjectType.FFI.val_ * GUInt32.FFI.ref_ -> GObjectTypeCVectorN.FFI.notnull GObjectTypeCVectorN.FFI.out_p;) (x1, x2)
+    val typeChildren_ = fn x1 & x2 => (_import "g_type_children" : GObjectType.FFI.val_ * GUInt32.FFI.ref_ -> GObjectTypeCArrayN.FFI.notnull GObjectTypeCArrayN.FFI.out_p;) (x1, x2)
     val typeDepth_ = _import "g_type_depth" : GObjectType.FFI.val_ -> GUInt32.FFI.val_;
     val typeEnsure_ = _import "g_type_ensure" : GObjectType.FFI.val_ -> unit;
     val typeFromName_ = _import "mlton_g_type_from_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GObjectType.FFI.val_;
@@ -848,8 +836,8 @@ structure GObject :
     val typeInitWithDebugFlags_ = _import "g_type_init_with_debug_flags" : GObjectTypeDebugFlags.FFI.val_ -> unit;
     val typeInterfaceAddPrerequisite_ = fn x1 & x2 => (_import "g_type_interface_add_prerequisite" : GObjectType.FFI.val_ * GObjectType.FFI.val_ -> unit;) (x1, x2)
     val typeInterfaceGetPlugin_ = fn x1 & x2 => (_import "g_type_interface_get_plugin" : GObjectType.FFI.val_ * GObjectType.FFI.val_ -> GObjectTypePluginClass.FFI.notnull GObjectTypePluginClass.FFI.p;) (x1, x2)
-    val typeInterfacePrerequisites_ = fn x1 & x2 => (_import "g_type_interface_prerequisites" : GObjectType.FFI.val_ * GUInt32.FFI.ref_ -> GObjectTypeCVectorN.FFI.notnull GObjectTypeCVectorN.FFI.out_p;) (x1, x2)
-    val typeInterfaces_ = fn x1 & x2 => (_import "g_type_interfaces" : GObjectType.FFI.val_ * GUInt32.FFI.ref_ -> GObjectTypeCVectorN.FFI.notnull GObjectTypeCVectorN.FFI.out_p;) (x1, x2)
+    val typeInterfacePrerequisites_ = fn x1 & x2 => (_import "g_type_interface_prerequisites" : GObjectType.FFI.val_ * GUInt32.FFI.ref_ -> GObjectTypeCArrayN.FFI.notnull GObjectTypeCArrayN.FFI.out_p;) (x1, x2)
+    val typeInterfaces_ = fn x1 & x2 => (_import "g_type_interfaces" : GObjectType.FFI.val_ * GUInt32.FFI.ref_ -> GObjectTypeCArrayN.FFI.notnull GObjectTypeCArrayN.FFI.out_p;) (x1, x2)
     val typeIsA_ = fn x1 & x2 => (_import "g_type_is_a" : GObjectType.FFI.val_ * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val typeName_ = _import "g_type_name" : GObjectType.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val typeNextBase_ = fn x1 & x2 => (_import "g_type_next_base" : GObjectType.FFI.val_ * GObjectType.FFI.val_ -> GObjectType.FFI.val_;) (x1, x2)
@@ -909,6 +897,7 @@ structure GObject :
     structure SignalQuery = GObjectSignalQuery
     structure TypeQuery = GObjectTypeQuery
     structure ValueRecord = GObjectValueRecord
+    structure TypeCArrayN = GObjectTypeCArrayN
     structure Value = GObjectValue
     structure ValueArray = GObjectValueArray
     structure ClosureRecord = GObjectClosureRecord
@@ -1541,7 +1530,7 @@ structure GObject :
     fun pointerTypeRegisterStatic name = (Utf8.FFI.withPtr ---> GObjectType.FFI.fromVal) pointerTypeRegisterStatic_ name
     fun signalListIds itype =
       let
-        val nIds & retVal = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GUInt32CVectorN.FFI.fromPtr 1) signalListIds_ (itype & GUInt32.null)
+        val nIds & retVal = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GUInt32CArrayN.FFI.fromPtr 1) signalListIds_ (itype & GUInt32.null)
       in
         retVal (LargeInt.toInt nIds)
       end
@@ -1620,7 +1609,7 @@ structure GObject :
     fun typeCheckValueHolds (value, type') = (GObjectValueRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCheckValueHolds_ (value & type')
     fun typeChildren type' =
       let
-        val nChildren & retVal = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCVectorN.FFI.fromPtr 1) typeChildren_ (type' & GUInt32.null)
+        val nChildren & retVal = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr 1) typeChildren_ (type' & GUInt32.null)
       in
         retVal (LargeInt.toInt nChildren)
       end
@@ -1638,13 +1627,13 @@ structure GObject :
     fun typeInterfaceGetPlugin (instanceType, interfaceType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GObjectTypePluginClass.FFI.fromPtr false) typeInterfaceGetPlugin_ (instanceType & interfaceType)
     fun typeInterfacePrerequisites interfaceType =
       let
-        val nPrerequisites & retVal = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCVectorN.FFI.fromPtr 1) typeInterfacePrerequisites_ (interfaceType & GUInt32.null)
+        val nPrerequisites & retVal = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr 1) typeInterfacePrerequisites_ (interfaceType & GUInt32.null)
       in
         retVal (LargeInt.toInt nPrerequisites)
       end
     fun typeInterfaces type' =
       let
-        val nInterfaces & retVal = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCVectorN.FFI.fromPtr 1) typeInterfaces_ (type' & GUInt32.null)
+        val nInterfaces & retVal = (GObjectType.FFI.withVal &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr 1) typeInterfaces_ (type' & GUInt32.null)
       in
         retVal (LargeInt.toInt nInterfaces)
       end

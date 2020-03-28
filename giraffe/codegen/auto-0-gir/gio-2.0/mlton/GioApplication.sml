@@ -6,22 +6,10 @@ structure GioApplication :>
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a notification_class = 'a GioNotificationClass.class
     where type 'a application_command_line_class = 'a GioApplicationCommandLineClass.class
-    where type 'a file_class = 'a GioFileClass.class
+    where type file_class_c_array_n_t = GioFileClassCArrayN.t
     where type 'a action_group_class = 'a GioActionGroupClass.class
     where type application_flags_t = GioApplicationFlags.t =
   struct
-    structure GioFileClassCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GioFileClass.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GioFileClassCVectorN = CVectorN(GioFileClassCVectorNType)
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     val getType_ = _import "g_application_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
@@ -115,8 +103,8 @@ structure GioApplication :>
           (
             _import "mlton_g_application_open" :
               GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
-               * GioFileClassCVectorN.MLton.p1
-               * GioFileClassCVectorN.FFI.notnull GioFileClassCVectorN.MLton.p2
+               * GioFileClassCArrayN.MLton.p1
+               * GioFileClassCArrayN.FFI.notnull GioFileClassCArrayN.MLton.p2
                * GInt.FFI.val_
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
@@ -158,8 +146,8 @@ structure GioApplication :>
             _import "mlton_g_application_run" :
               GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
                * GInt.FFI.val_
-               * Utf8CVectorN.MLton.p1
-               * unit Utf8CVectorN.MLton.p2
+               * Utf8CArrayN.MLton.p1
+               * unit Utf8CArrayN.MLton.p2
                -> GInt.FFI.val_;
           )
             (
@@ -262,7 +250,7 @@ structure GioApplication :>
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a notification_class = 'a GioNotificationClass.class
     type 'a application_command_line_class = 'a GioApplicationCommandLineClass.class
-    type 'a file_class = 'a GioFileClass.class
+    type file_class_c_array_n_t = GioFileClassCArrayN.t
     type 'a action_group_class = 'a GioActionGroupClass.class
     type application_flags_t = GioApplicationFlags.t
     type t = base class
@@ -329,11 +317,11 @@ structure GioApplication :>
     fun markBusy self = (GioApplicationClass.FFI.withPtr ---> I) markBusy_ self
     fun open' self (files, hint) =
       let
-        val nFiles = LargeInt.fromInt (GioFileClassCVectorN.length files)
+        val nFiles = LargeInt.fromInt (GioFileClassCArrayN.length files)
         val () =
           (
             GioApplicationClass.FFI.withPtr
-             &&&> GioFileClassCVectorN.FFI.withPtr
+             &&&> GioFileClassCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> Utf8.FFI.withPtr
              ---> I
@@ -367,13 +355,13 @@ structure GioApplication :>
       let
         val argc =
           case argv of
-            SOME argv => LargeInt.fromInt (Utf8CVectorN.length argv)
+            SOME argv => LargeInt.fromInt (Utf8CArrayN.length argv)
           | NONE => GInt.null
         val retVal =
           (
             GioApplicationClass.FFI.withPtr
              &&&> GInt.FFI.withVal
-             &&&> Utf8CVectorN.FFI.withOptPtr
+             &&&> Utf8CArrayN.FFI.withOptPtr
              ---> GInt.FFI.fromVal
           )
             run_
@@ -428,7 +416,7 @@ structure GioApplication :>
       fun openSig f =
         signal "open"
           (
-            get 0w1 GioFileClassCVectorN.t
+            get 0w1 GioFileClassCArrayN.t
              &&&> get 0w2 int
              &&&> get 0w3 string
              ---> ret_void

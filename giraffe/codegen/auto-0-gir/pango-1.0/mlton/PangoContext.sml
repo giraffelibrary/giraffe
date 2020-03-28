@@ -2,7 +2,7 @@ structure PangoContext :>
   PANGO_CONTEXT
     where type 'a class = 'a PangoContextClass.class
     where type font_metrics_t = PangoFontMetricsRecord.t
-    where type 'a font_family_class = 'a PangoFontFamilyClass.class
+    where type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
     where type 'a font_class = 'a PangoFontClass.class
     where type 'a fontset_class = 'a PangoFontsetClass.class
     where type direction_t = PangoDirection.t
@@ -13,12 +13,6 @@ structure PangoContext :>
     where type language_t = PangoLanguageRecord.t
     where type matrix_t = PangoMatrixRecord.t =
   struct
-    structure PangoFontFamilyClassCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = PangoFontFamilyClass.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure PangoFontFamilyClassCVectorN = CVectorN(PangoFontFamilyClassCVectorNType)
     val getType_ = _import "pango_context_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "pango_context_new" : unit -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
     val changed_ = _import "pango_context_changed" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> unit;
@@ -56,8 +50,8 @@ structure PangoContext :>
           (
             _import "mlton_pango_context_list_families" :
               PangoContextClass.FFI.notnull PangoContextClass.FFI.p
-               * PangoFontFamilyClassCVectorN.MLton.r1
-               * (unit, PangoFontFamilyClassCVectorN.FFI.notnull) PangoFontFamilyClassCVectorN.MLton.r2
+               * PangoFontFamilyClassCArrayN.MLton.r1
+               * (unit, PangoFontFamilyClassCArrayN.FFI.notnull) PangoFontFamilyClassCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -94,7 +88,7 @@ structure PangoContext :>
     val setMatrix_ = fn x1 & x2 => (_import "pango_context_set_matrix" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * unit PangoMatrixRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a PangoContextClass.class
     type font_metrics_t = PangoFontMetricsRecord.t
-    type 'a font_family_class = 'a PangoFontFamilyClass.class
+    type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
     type 'a font_class = 'a PangoFontClass.class
     type 'a fontset_class = 'a PangoFontsetClass.class
     type direction_t = PangoDirection.t
@@ -137,9 +131,9 @@ structure PangoContext :>
          & () =
           (
             PangoContextClass.FFI.withPtr
-             &&&> PangoFontFamilyClassCVectorN.FFI.withRefOptPtr
+             &&&> PangoFontFamilyClassCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> PangoFontFamilyClassCVectorN.FFI.fromPtr 1
+             ---> PangoFontFamilyClassCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )

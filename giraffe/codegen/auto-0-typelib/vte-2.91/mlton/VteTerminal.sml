@@ -1,6 +1,7 @@
 structure VteTerminal :>
   VTE_TERMINAL
     where type 'a class = 'a VteTerminalClass.class
+    where type regex_record_c_array_n_t = VteRegexRecordCArrayN.t
     where type pty_flags_t = VtePtyFlags.t
     where type regex_t = VteRegexRecord.t
     where type write_flags_t = VteWriteFlags.t
@@ -9,36 +10,6 @@ structure VteTerminal :>
     where type erase_binding_t = VteEraseBinding.t
     where type 'a pty_class = 'a VtePtyClass.class =
   struct
-    structure GdkRgbaRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkRgbaRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkRgbaRecord.C.ValueType)
-      )
-    structure GdkRgbaRecordCVectorN = CVectorN(GdkRgbaRecordCVectorNType)
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
-    structure VteRegexRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = VteRegexRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure VteRegexRecordCVectorN = CVectorN(VteRegexRecordCVectorNType)
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
-    structure GLibRegexRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GLibRegexRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GLibRegexRecordCVectorN = CVectorN(GLibRegexRecordCVectorNType)
     val getType_ = _import "vte_terminal_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "vte_terminal_new" : unit -> VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p;
     val copyClipboard_ = _import "vte_terminal_copy_clipboard" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> unit;
@@ -55,12 +26,12 @@ structure VteTerminal :>
             _import "mlton_vte_terminal_event_check_gregex_simple" :
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
                * GdkEvent.FFI.notnull GdkEvent.FFI.p
-               * GLibRegexRecordCVectorN.MLton.p1
-               * GLibRegexRecordCVectorN.FFI.notnull GLibRegexRecordCVectorN.MLton.p2
+               * GLibRegexRecordCArrayN.MLton.p1
+               * GLibRegexRecordCArrayN.FFI.notnull GLibRegexRecordCArrayN.MLton.p2
                * GUInt64.FFI.ref_
                * GLibRegexMatchFlags.FFI.val_
-               * Utf8CVectorN.MLton.r1
-               * (unit, Utf8CVectorN.FFI.notnull) Utf8CVectorN.MLton.r2
+               * Utf8CArrayN.MLton.r1
+               * (unit, Utf8CArrayN.FFI.notnull) Utf8CArrayN.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -85,12 +56,12 @@ structure VteTerminal :>
             _import "mlton_vte_terminal_event_check_regex_simple" :
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
                * GdkEvent.FFI.notnull GdkEvent.FFI.p
-               * VteRegexRecordCVectorN.MLton.p1
-               * VteRegexRecordCVectorN.FFI.notnull VteRegexRecordCVectorN.MLton.p2
+               * VteRegexRecordCArrayN.MLton.p1
+               * VteRegexRecordCArrayN.FFI.notnull VteRegexRecordCArrayN.MLton.p2
                * GUInt64.FFI.ref_
                * GUInt32.FFI.val_
-               * Utf8CVectorN.MLton.r1
-               * (unit, Utf8CVectorN.FFI.notnull) Utf8CVectorN.MLton.r2
+               * Utf8CArrayN.MLton.r1
+               * (unit, Utf8CArrayN.FFI.notnull) Utf8CArrayN.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -111,8 +82,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed" :
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * unit GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * unit GUInt8CArrayN.MLton.p2
                * GInt64.FFI.val_
                -> unit;
           )
@@ -149,8 +120,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed_child_binary" :
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * unit GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * unit GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                -> unit;
           )
@@ -448,8 +419,8 @@ structure VteTerminal :>
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
                * unit GdkRgbaRecord.FFI.p
                * unit GdkRgbaRecord.FFI.p
-               * GdkRgbaRecordCVectorN.MLton.p1
-               * unit GdkRgbaRecordCVectorN.MLton.p2
+               * GdkRgbaRecordCArrayN.MLton.p1
+               * unit GdkRgbaRecordCArrayN.MLton.p2
                * GUInt64.FFI.val_
                -> unit;
           )
@@ -553,6 +524,7 @@ structure VteTerminal :>
               x5
             )
     type 'a class = 'a VteTerminalClass.class
+    type regex_record_c_array_n_t = VteRegexRecordCArrayN.t
     type pty_flags_t = VtePtyFlags.t
     type regex_t = VteRegexRecord.t
     type write_flags_t = VteWriteFlags.t
@@ -582,12 +554,12 @@ structure VteTerminal :>
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkEvent.FFI.withPtr
-             &&&> GLibRegexRecordCVectorN.FFI.withPtr
+             &&&> GLibRegexRecordCArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GLibRegexMatchFlags.FFI.withVal
-             &&&> Utf8CVectorN.FFI.withRefOptPtr
+             &&&> Utf8CArrayN.FFI.withRefOptPtr
              ---> GUInt64.FFI.fromVal
-                   && Utf8CVectorN.FFI.fromPtr 0
+                   && Utf8CArrayN.FFI.fromPtr 0
                    && GBool.FFI.fromVal
           )
             eventCheckGregexSimple_
@@ -616,12 +588,12 @@ structure VteTerminal :>
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkEvent.FFI.withPtr
-             &&&> VteRegexRecordCVectorN.FFI.withPtr
+             &&&> VteRegexRecordCArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GUInt32.FFI.withVal
-             &&&> Utf8CVectorN.FFI.withRefOptPtr
+             &&&> Utf8CArrayN.FFI.withRefOptPtr
              ---> GUInt64.FFI.fromVal
-                   && Utf8CVectorN.FFI.fromPtr 0
+                   && Utf8CArrayN.FFI.fromPtr 0
                    && GBool.FFI.fromVal
           )
             eventCheckRegexSimple_
@@ -640,12 +612,12 @@ structure VteTerminal :>
       let
         val length =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CVectorN.length data)
+            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
           | NONE => GInt64.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withOptPtr
+             &&&> GUInt8CArrayN.FFI.withOptPtr
              &&&> GInt64.FFI.withVal
              ---> I
           )
@@ -675,12 +647,12 @@ structure VteTerminal :>
       let
         val length =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CVectorN.length data)
+            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
           | NONE => GUInt64.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withOptPtr
+             &&&> GUInt8CArrayN.FFI.withOptPtr
              &&&> GUInt64.FFI.withVal
              ---> I
           )
@@ -946,14 +918,14 @@ structure VteTerminal :>
       let
         val paletteSize =
           case palette of
-            SOME palette => LargeInt.fromInt (GdkRgbaRecordCVectorN.length palette)
+            SOME palette => LargeInt.fromInt (GdkRgbaRecordCArrayN.length palette)
           | NONE => GUInt64.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkRgbaRecord.FFI.withOptPtr
              &&&> GdkRgbaRecord.FFI.withOptPtr
-             &&&> GdkRgbaRecordCVectorN.FFI.withOptPtr
+             &&&> GdkRgbaRecordCArrayN.FFI.withOptPtr
              &&&> GUInt64.FFI.withVal
              ---> I
           )

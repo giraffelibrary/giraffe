@@ -8,7 +8,7 @@ signature GTK_ICON_INFO =
     type t = base class
     val getType : unit -> GObject.Type.t
     val newForPixbuf : 'a icon_theme_class * 'b GdkPixbuf.PixbufClass.class -> base class
-    val getAttachPoints : 'a class -> Gdk.PointRecord.t vector option
+    val getAttachPoints : 'a class -> GdkPointRecordCArrayN.t option
     val getBaseScale : 'a class -> LargeInt.int
     val getBaseSize : 'a class -> LargeInt.int
     val getBuiltinPixbuf : 'a class -> base GdkPixbuf.PixbufClass.class option

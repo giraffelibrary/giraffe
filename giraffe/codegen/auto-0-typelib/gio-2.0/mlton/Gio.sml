@@ -1,23 +1,5 @@
 structure Gio : GIO =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
-    structure GioDBusAnnotationInfoRecordCVectorType =
-      CPointerCVectorType(
-        structure CElemType = GioDBusAnnotationInfoRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GioDBusAnnotationInfoRecordCVector = CVector(GioDBusAnnotationInfoRecordCVectorType)
     val actionNameIsValid_ = _import "mlton_g_action_name_is_valid" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
     val actionParseDetailedName_ =
       fn
@@ -276,8 +258,8 @@ structure Gio : GIO =
             _import "mlton_g_content_type_guess" :
               Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               * GUInt8CVectorN.MLton.p1
-               * unit GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * unit GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GBool.FFI.ref_
                -> Utf8.FFI.notnull Utf8.FFI.out_p;
@@ -290,7 +272,7 @@ structure Gio : GIO =
               x5,
               x6
             )
-    val contentTypeGuessForTree_ = _import "g_content_type_guess_for_tree" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val contentTypeGuessForTree_ = _import "g_content_type_guess_for_tree" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
     val contentTypeIsA_ =
       fn
         (x1, x2) & (x3, x4) =>
@@ -375,8 +357,8 @@ structure Gio : GIO =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_dbus_annotation_info_lookup" :
-              GioDBusAnnotationInfoRecordCVector.MLton.p1
-               * unit GioDBusAnnotationInfoRecordCVector.MLton.p2
+              GioDBusAnnotationInfoRecordCArray.MLton.p1
+               * unit GioDBusAnnotationInfoRecordCArray.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                -> Utf8.FFI.notnull Utf8.FFI.out_p;
@@ -578,8 +560,8 @@ structure Gio : GIO =
           (
             _import "mlton_g_pollable_stream_read" :
               GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GBool.FFI.val_
                * unit GioCancellableClass.FFI.p
@@ -606,8 +588,8 @@ structure Gio : GIO =
           (
             _import "mlton_g_pollable_stream_write" :
               GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GBool.FFI.val_
                * unit GioCancellableClass.FFI.p
@@ -635,8 +617,8 @@ structure Gio : GIO =
           (
             _import "mlton_g_pollable_stream_write_all" :
               GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GBool.FFI.val_
                * GUInt64.FFI.ref_
@@ -684,7 +666,7 @@ structure Gio : GIO =
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
           )
             (
               x1,
@@ -1040,7 +1022,7 @@ structure Gio : GIO =
     structure AppInfo = GioAppInfo
     structure AppInfoMonitor = GioAppInfoMonitor
     structure AppLaunchContext = GioAppLaunchContext
-    structure Application = GioApplication
+    structure FileClassCArrayN = GioFileClassCArrayN
     structure ApplicationCommandLine = GioApplicationCommandLine
     structure AsyncInitable = GioAsyncInitable
     structure AsyncResult = GioAsyncResult
@@ -1050,7 +1032,6 @@ structure Gio : GIO =
     structure Converter = GioConverter
     structure Credentials = GioCredentials
     structure DBusActionGroup = GioDBusActionGroup
-    structure DBusAnnotationInfo = GioDBusAnnotationInfo
     structure DBusArgInfo = GioDBusArgInfo
     structure DBusAuthObserver = GioDBusAuthObserver
     structure DBusConnection = GioDBusConnection
@@ -1179,10 +1160,13 @@ structure Gio : GIO =
     structure VolumeMonitor = GioVolumeMonitor
     structure ZlibCompressor = GioZlibCompressor
     structure ZlibDecompressor = GioZlibDecompressor
+    structure DBusAnnotationInfoRecordCArray = GioDBusAnnotationInfoRecordCArray
+    structure Application = GioApplication
     structure BufferedInputStreamClass = GioBufferedInputStreamClass
     structure BufferedOutputStreamClass = GioBufferedOutputStreamClass
     structure ConverterInputStreamClass = GioConverterInputStreamClass
     structure ConverterOutputStreamClass = GioConverterOutputStreamClass
+    structure DBusAnnotationInfo = GioDBusAnnotationInfo
     structure DBusMenuModel = GioDBusMenuModel
     structure DataOutputStreamClass = GioDataOutputStreamClass
     structure File = GioFile
@@ -1522,12 +1506,12 @@ structure Gio : GIO =
       let
         val dataSize =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CVectorN.length data)
+            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
           | NONE => GUInt64.null
         val resultUncertain & retVal =
           (
             Utf8.FFI.withOptPtr
-             &&&> GUInt8CVectorN.FFI.withOptPtr
+             &&&> GUInt8CArrayN.FFI.withOptPtr
              &&&> GUInt64.FFI.withVal
              &&&> GBool.FFI.withRefVal
              ---> GBool.FFI.fromVal && Utf8.FFI.fromPtr 1
@@ -1542,7 +1526,7 @@ structure Gio : GIO =
       in
         (retVal, resultUncertain)
       end
-    fun contentTypeGuessForTree root = (GioFileClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) contentTypeGuessForTree_ root
+    fun contentTypeGuessForTree root = (GioFileClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) contentTypeGuessForTree_ root
     fun contentTypeIsA (type', supertype) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsA_ (type' & supertype)
     fun contentTypeIsUnknown type' = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsUnknown_ type'
     fun dbusAddressEscapeValue string = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) dbusAddressEscapeValue_ string
@@ -1597,7 +1581,7 @@ structure Gio : GIO =
       in
         (retVal, outGuid)
       end
-    fun dbusAnnotationInfoLookup (annotations, name) = (GioDBusAnnotationInfoRecordCVector.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dbusAnnotationInfoLookup_ (annotations & name)
+    fun dbusAnnotationInfoLookup (annotations, name) = (GioDBusAnnotationInfoRecordCArray.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dbusAnnotationInfoLookup_ (annotations & name)
     fun dbusErrorQuark () = (I ---> GUInt32.FFI.fromVal) dbusErrorQuark_ ()
     fun dbusGenerateGuid () = (I ---> Utf8.FFI.fromPtr 1) dbusGenerateGuid_ ()
     fun dbusGvalueToGvariant (gvalue, type') = (GObjectValueRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) dbusGvalueToGvariant_ (gvalue & type')
@@ -1722,11 +1706,11 @@ structure Gio : GIO =
         cancellable
       ) =
       let
-        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioInputStreamClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
@@ -1753,11 +1737,11 @@ structure Gio : GIO =
         cancellable
       ) =
       let
-        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioOutputStreamClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
@@ -1784,11 +1768,11 @@ structure Gio : GIO =
         cancellable
       ) =
       let
-        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val bytesWritten & () =
           (
             GioOutputStreamClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GUInt64.FFI.withRefVal
@@ -1819,7 +1803,7 @@ structure Gio : GIO =
         Utf8.FFI.withPtr
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CVector.FFI.fromPtr 2
+         ---> Utf8CArray.FFI.fromPtr 2
       )
         resourcesEnumerateChildren_
         (

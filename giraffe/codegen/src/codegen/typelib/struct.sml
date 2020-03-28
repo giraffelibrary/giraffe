@@ -10,7 +10,7 @@ in
     (_               : 'a RepositoryClass.class)
     (structNamespace : string)
     (structInfo      : 'b StructInfoClass.class)
-    : id * program * id list =
+    : id * program * interfaceref list * interfaceref list =
     let
       val () = checkDeprecated structInfo
       val () = checkNonClassStruct structInfo
@@ -46,9 +46,10 @@ in
       val qSig : qsig = (sig1, [])
       val sigDec = toList1 [(structRecordSigId, qSig)]
       val program = [ModuleDecSig sigDec]
-      val sigDeps = []
+      val sigIRefs = []
+      val extIRefs = []
     in
-      (mkSigFile structRecordSigId, Portable program, sigDeps)
+      (mkSigFile structRecordSigId, Portable program, sigIRefs, extIRefs)
     end
 end
 
@@ -556,7 +557,7 @@ fun makeStructSig
   (structNamespace : string)
   (structInfo      : 'b StructInfoClass.class)
   (excls'0         : info_excl_hier list)
-  : id * program * id list * info_excl_hier list =
+  : id * program * interfaceref list * interfaceref list * info_excl_hier list =
   let
     val () = checkDeprecated structInfo
 
@@ -567,7 +568,8 @@ fun makeStructSig
       namespace = structNamespace,
       name      = structName,
       scope     = LOCALINTERFACESELF,
-      ty        = RECORD
+      ty        = RECORD,
+      container = NONE
     }
 
     val structStrId = mkStrId structNamespace structName
@@ -582,15 +584,15 @@ fun makeStructSig
 
     val acc'0
       : spec list
-         * interfaceref list
+         * (interfaceref list * interfaceref list)
          * info_excl_hier list =
-      ([], [], excls'0)
+      ([], ([], []), excls'0)
     val acc'1 = addStructMethodSpecs repo vers structIRef (structInfo, acc'0)
     val acc'2 = addStructGetTypeFunctionSpec typeIRef acc'1
-    val (specs'2, iRefs'2, excls'2) = acc'2
+    val (specs'2, (sigIRefs'2, extIRefs'2), excls'2) = acc'2
 
     val sigIRefs =
-      structIRef :: iRefs'2  (* `structIRef` for record structure dependence *)
+      structIRef :: sigIRefs'2  (* `structIRef` for record structure dependence *)
 
     (*
      *     type t
@@ -607,9 +609,9 @@ fun makeStructSig
     val qSig : qsig = (sig1, [])
     val sigDec = toList1 [(structSigId, qSig)]
     val program = [ModuleDecSig sigDec]
-    val sigDeps = []
+    val sigIRefs = []
   in
-    (mkSigFile structSigId, Portable program, sigDeps, excls'2)
+    (mkSigFile structSigId, Portable program, sigIRefs, extIRefs'2, excls'2)
   end
 
 
@@ -652,7 +654,8 @@ fun makeStructStr
       namespace = structNamespace,
       name      = structName,
       scope     = LOCALINTERFACESELF,
-      ty        = RECORD
+      ty        = RECORD,
+      container = NONE
     }
 
     val structStrId = mkStrId structNamespace structName

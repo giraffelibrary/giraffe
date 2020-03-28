@@ -18,7 +18,7 @@ signature VTE_TERMINAL =
     val copyPrimary : 'a class -> unit
     val feed :
       'a class
-       -> Word8Vector.vector option
+       -> GUInt8CArrayN.t option
        -> unit
     val feedChild :
       'a class
@@ -26,7 +26,7 @@ signature VTE_TERMINAL =
        -> unit
     val feedChildBinary :
       'a class
-       -> Word8Vector.vector option
+       -> GUInt8CArrayN.t option
        -> unit
     val getAllowBold : 'a class -> bool
     val getAudibleBell : 'a class -> bool
@@ -164,7 +164,7 @@ signature VTE_TERMINAL =
       'a class
        -> Gdk.RgbaRecord.t option
            * Gdk.RgbaRecord.t option
-           * Gdk.RgbaRecord.t vector option
+           * GdkRgbaRecordCArrayN.t option
        -> unit
     val setCursorBlinkMode :
       'a class
@@ -239,8 +239,8 @@ signature VTE_TERMINAL =
       'a class
        -> pty_flags_t
            * string option
-           * string list
-           * string list option
+           * Utf8CArray.t
+           * Utf8CArray.t option
            * GLib.SpawnFlags.t
            * GLib.SpawnChildSetupFunc.t option
            * 'a Gio.CancellableClass.class option

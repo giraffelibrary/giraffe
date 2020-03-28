@@ -4,12 +4,6 @@ structure GtkBuilder :>
     where type 'a widget_class = 'a GtkWidgetClass.class
     where type 'a application_class = 'a GtkApplicationClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -48,7 +42,7 @@ structure GtkBuilder :>
           (
             GtkBuilderClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8CVector.PolyML.cInPtr
+             &&> Utf8CArray.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GUInt.PolyML.cVal
           )
@@ -57,7 +51,7 @@ structure GtkBuilder :>
           (
             GtkBuilderClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8CVector.PolyML.cInPtr
+             &&> Utf8CArray.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GUInt.PolyML.cVal
           )
@@ -67,7 +61,7 @@ structure GtkBuilder :>
             GtkBuilderClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GSize.PolyML.cVal
-             &&> Utf8CVector.PolyML.cInPtr
+             &&> Utf8CArray.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GUInt.PolyML.cVal
           )
@@ -171,7 +165,7 @@ structure GtkBuilder :>
       (
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )
@@ -186,7 +180,7 @@ structure GtkBuilder :>
       (
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )
@@ -208,7 +202,7 @@ structure GtkBuilder :>
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GSize.FFI.withVal
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )

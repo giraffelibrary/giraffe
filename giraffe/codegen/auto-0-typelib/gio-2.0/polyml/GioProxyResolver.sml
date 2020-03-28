@@ -4,12 +4,6 @@ structure GioProxyResolver :>
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -23,7 +17,7 @@ structure GioProxyResolver :>
              &&> Utf8.PolyML.cInPtr
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CVector.PolyML.cOutPtr
+             --> Utf8CArray.PolyML.cOutPtr
           )
       val lookupFinish_ =
         call (getSymbol "g_proxy_resolver_lookup_finish")
@@ -31,7 +25,7 @@ structure GioProxyResolver :>
             GioProxyResolverClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CVector.PolyML.cOutPtr
+             --> Utf8CArray.PolyML.cOutPtr
           )
     end
     type 'a class = 'a GioProxyResolverClass.class
@@ -47,7 +41,7 @@ structure GioProxyResolver :>
          &&&> Utf8.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CVector.FFI.fromPtr 2
+         ---> Utf8CArray.FFI.fromPtr 2
       )
         lookup_
         (
@@ -61,7 +55,7 @@ structure GioProxyResolver :>
         GioProxyResolverClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CVector.FFI.fromPtr 2
+         ---> Utf8CArray.FFI.fromPtr 2
       )
         lookupFinish_
         (

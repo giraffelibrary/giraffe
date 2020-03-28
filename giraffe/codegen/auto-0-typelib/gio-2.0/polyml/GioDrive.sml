@@ -5,12 +5,6 @@ structure GioDrive :>
     where type 'a icon_class = 'a GioIconClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -36,7 +30,7 @@ structure GioDrive :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val enumerateIdentifiers_ = call (getSymbol "g_drive_enumerate_identifiers") (GioDriveClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val enumerateIdentifiers_ = call (getSymbol "g_drive_enumerate_identifiers") (GioDriveClass.PolyML.cPtr --> Utf8CArray.PolyML.cOutPtr)
       val getIcon_ = call (getSymbol "g_drive_get_icon") (GioDriveClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
       val getIdentifier_ = call (getSymbol "g_drive_get_identifier") (GioDriveClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val getName_ = call (getSymbol "g_drive_get_name") (GioDriveClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -110,7 +104,7 @@ structure GioDrive :>
            & result
            & []
         )
-    fun enumerateIdentifiers self = (GioDriveClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) enumerateIdentifiers_ self
+    fun enumerateIdentifiers self = (GioDriveClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) enumerateIdentifiers_ self
     fun getIcon self = (GioDriveClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getIcon_ self
     fun getIdentifier self kind = (GioDriveClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getIdentifier_ (self & kind)
     fun getName self = (GioDriveClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getName_ self

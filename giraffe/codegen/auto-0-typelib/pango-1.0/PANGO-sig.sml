@@ -74,19 +74,12 @@ signature PANGO =
       PANGO_FONT_FACE
         where type 'a class = 'a FontFaceClass.class
         where type font_description_t = FontDescriptionRecord.t
-    structure FontFamily :
-      PANGO_FONT_FAMILY
-        where type 'a class = 'a FontFamilyClass.class
-        where type 'a font_face_class = 'a FontFaceClass.class
-    structure FontMap :
-      PANGO_FONT_MAP
-        where type 'a class = 'a FontMapClass.class
-        where type 'a font_family_class = 'a FontFamilyClass.class
-        where type 'a font_class = 'a FontClass.class
-        where type 'a fontset_class = 'a FontsetClass.class
-        where type language_t = LanguageRecord.t
-        where type font_description_t = FontDescriptionRecord.t
-        where type 'a context_class = 'a ContextClass.class
+    structure FontFaceClassCArrayN :
+      C_ARRAY
+        where type elem = base FontFaceClass.class
+    structure FontFamilyClassCArrayN :
+      C_ARRAY
+        where type elem = base FontFamilyClass.class
     structure FontMetrics :
       PANGO_FONT_METRICS
         where type t = FontMetricsRecord.t
@@ -110,20 +103,9 @@ signature PANGO =
     structure Item :
       PANGO_ITEM
         where type t = ItemRecord.t
-    structure Layout :
-      PANGO_LAYOUT
-        where type 'a class = 'a LayoutClass.class
-        where type 'a context_class = 'a ContextClass.class
-        where type layout_iter_t = LayoutIterRecord.t
-        where type layout_line_t = LayoutLineRecord.t
-        where type log_attr_t = LogAttrRecord.t
-        where type rectangle_t = RectangleRecord.t
-        where type alignment_t = Alignment.t
-        where type attr_list_t = AttrListRecord.t
-        where type ellipsize_mode_t = EllipsizeMode.t
-        where type font_description_t = FontDescriptionRecord.t
-        where type tab_array_t = TabArrayRecord.t
-        where type wrap_mode_t = WrapMode.t
+    structure LogAttrRecordCArrayN :
+      C_ARRAY
+        where type elem = LogAttrRecord.t
     structure LayoutIter :
       PANGO_LAYOUT_ITER
         where type t = LayoutIterRecord.t
@@ -168,6 +150,19 @@ signature PANGO =
     structure EngineShape :
       PANGO_ENGINE_SHAPE
         where type 'a class = 'a EngineShapeClass.class
+    structure FontFamily :
+      PANGO_FONT_FAMILY
+        where type 'a class = 'a FontFamilyClass.class
+        where type font_face_class_c_array_n_t = FontFaceClassCArrayN.t
+    structure FontMap :
+      PANGO_FONT_MAP
+        where type 'a class = 'a FontMapClass.class
+        where type font_family_class_c_array_n_t = FontFamilyClassCArrayN.t
+        where type 'a font_class = 'a FontClass.class
+        where type 'a fontset_class = 'a FontsetClass.class
+        where type language_t = LanguageRecord.t
+        where type font_description_t = FontDescriptionRecord.t
+        where type 'a context_class = 'a ContextClass.class
     structure FontsetSimple :
       PANGO_FONTSET_SIMPLE
         where type 'a class = 'a FontsetSimpleClass.class
@@ -178,15 +173,28 @@ signature PANGO =
         where type matrix_t = MatrixRecord.t
         where type gravity_hint_t = GravityHint.t
         where type script_t = Script.t
-    structure Language :
-      PANGO_LANGUAGE
-        where type t = LanguageRecord.t
-        where type script_t = Script.t
+    structure ScriptCArrayN :
+      C_ARRAY
+        where type elem = Script.t
+    structure Layout :
+      PANGO_LAYOUT
+        where type 'a class = 'a LayoutClass.class
+        where type 'a context_class = 'a ContextClass.class
+        where type layout_iter_t = LayoutIterRecord.t
+        where type layout_line_t = LayoutLineRecord.t
+        where type log_attr_record_c_array_n_t = LogAttrRecordCArrayN.t
+        where type rectangle_t = RectangleRecord.t
+        where type alignment_t = Alignment.t
+        where type attr_list_t = AttrListRecord.t
+        where type ellipsize_mode_t = EllipsizeMode.t
+        where type font_description_t = FontDescriptionRecord.t
+        where type tab_array_t = TabArrayRecord.t
+        where type wrap_mode_t = WrapMode.t
     structure Context :
       PANGO_CONTEXT
         where type 'a class = 'a ContextClass.class
         where type font_metrics_t = FontMetricsRecord.t
-        where type 'a font_family_class = 'a FontFamilyClass.class
+        where type font_family_class_c_array_n_t = FontFamilyClassCArrayN.t
         where type 'a font_class = 'a FontClass.class
         where type 'a fontset_class = 'a FontsetClass.class
         where type direction_t = Direction.t
@@ -205,6 +213,11 @@ signature PANGO =
         where type variant_t = Variant.t
         where type weight_t = Weight.t
         where type font_mask_t = FontMask.t
+    structure Language :
+      PANGO_LANGUAGE
+        where type t = LanguageRecord.t
+        where type script_c_array_n_t = ScriptCArrayN.t
+        where type script_t = Script.t
     val ANALYSIS_FLAG_CENTERED_BASELINE : LargeInt.int
     val ANALYSIS_FLAG_IS_ELLIPSIS : LargeInt.int
     val ATTR_INDEX_FROM_TEXT_BEGINNING : LargeInt.int
@@ -245,7 +258,7 @@ signature PANGO =
     val isZeroWidth : char -> bool
     val languageFromString : string option -> LanguageRecord.t option
     val languageGetDefault : unit -> LanguageRecord.t
-    val lookupAliases : string -> string list
+    val lookupAliases : string -> Utf8CArrayN.t
     val markupParserFinish :
       GLib.MarkupParseContextRecord.t
        -> AttrListRecord.t
@@ -279,7 +292,7 @@ signature PANGO =
        * AnalysisRecord.t
        * GlyphStringRecord.t
        -> unit
-    val splitFileList : string -> string list
+    val splitFileList : string -> Utf8CArray.t
     val trimString : string -> string
     val unicharDirection : char -> Direction.t
     val unitsFromDouble : real -> LargeInt.int

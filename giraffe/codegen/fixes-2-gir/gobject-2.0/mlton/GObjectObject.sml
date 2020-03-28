@@ -11,18 +11,6 @@ structure GObjectObject :>
     where type 'object_class property_t = 'object_class Property.t
     where type 'a signal_t = 'a Signal.t =
   struct
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
-    structure GObjectValueRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GObjectValueRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GObjectValueRecord.C.ValueType)
-      )
-    structure GObjectValueRecordCVectorN = CVectorN(GObjectValueRecordCVectorNType)
     val getType_ = _import "g_object_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
@@ -34,10 +22,10 @@ structure GObjectObject :>
             _import "mlton_g_object_new_with_properties" :
               GObjectType.FFI.val_
                * GUInt.FFI.val_
-               * Utf8CVectorN.MLton.p1
-               * Utf8CVectorN.FFI.notnull Utf8CVectorN.MLton.p2
-               * GObjectValueRecordCVectorN.MLton.p1
-               * GObjectValueRecordCVectorN.FFI.notnull GObjectValueRecordCVectorN.MLton.p2
+               * Utf8CArrayN.MLton.p1
+               * Utf8CArrayN.FFI.notnull Utf8CArrayN.MLton.p2
+               * GObjectValueRecordCArrayN.MLton.p1
+               * GObjectValueRecordCArrayN.FFI.notnull GObjectValueRecordCArrayN.MLton.p2
                -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
           )
             (
@@ -182,14 +170,18 @@ structure GObjectObject :>
       let
         val objectType = ValueAccessor.gtype class
         val nProperties = LargeInt.fromInt (List.length parameters)
-        val names = List.map Property.name parameters
-        val values = Vector.fromList (List.map Property.value parameters)
+        val names =
+          Utf8CArrayN.fromSequence
+            (Vector.fromList (List.map Property.name parameters))
+        val values =
+          GObjectValueRecordCArrayN.fromSequence
+            (Vector.fromList (List.map Property.value parameters))
         val retVal =
           (
             GObjectType.FFI.withVal
              &&&> GUInt.FFI.withVal
-             &&&> Utf8CVectorN.FFI.withPtr
-             &&&> GObjectValueRecordCVectorN.FFI.withPtr
+             &&&> Utf8CArrayN.FFI.withPtr
+             &&&> GObjectValueRecordCArrayN.FFI.withPtr
              ---> GObjectObjectClass.FFI.fromPtr true
           )
             new_

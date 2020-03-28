@@ -1,14 +1,9 @@
 structure AtkStateSet :>
   ATK_STATE_SET
     where type 'a class = 'a AtkStateSetClass.class
+    where type state_type_c_array_n_t = AtkStateTypeCArrayN.t
     where type state_type_t = AtkStateType.t =
   struct
-    structure AtkStateTypeCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = AtkStateType.C.ValueType
-        structure ElemSequence = CValueVectorSequence(AtkStateType.C.ValueType)
-      )
-    structure AtkStateTypeCVectorN = CVectorN(AtkStateTypeCVectorNType)
     val getType_ = _import "atk_state_set_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "atk_state_set_new" : unit -> AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p;
     val addState_ = fn x1 & x2 => (_import "atk_state_set_add_state" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
@@ -20,8 +15,8 @@ structure AtkStateSet :>
           (
             _import "mlton_atk_state_set_add_states" :
               AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p
-               * AtkStateTypeCVectorN.MLton.p1
-               * AtkStateTypeCVectorN.FFI.notnull AtkStateTypeCVectorN.MLton.p2
+               * AtkStateTypeCArrayN.MLton.p1
+               * AtkStateTypeCArrayN.FFI.notnull AtkStateTypeCArrayN.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -42,8 +37,8 @@ structure AtkStateSet :>
           (
             _import "mlton_atk_state_set_contains_states" :
               AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p
-               * AtkStateTypeCVectorN.MLton.p1
-               * AtkStateTypeCVectorN.FFI.notnull AtkStateTypeCVectorN.MLton.p2
+               * AtkStateTypeCArrayN.MLton.p1
+               * AtkStateTypeCArrayN.FFI.notnull AtkStateTypeCArrayN.MLton.p2
                * GInt32.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -58,6 +53,7 @@ structure AtkStateSet :>
     val removeState_ = fn x1 & x2 => (_import "atk_state_set_remove_state" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val xorSets_ = fn x1 & x2 => (_import "atk_state_set_xor_sets" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p -> AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p;) (x1, x2)
     type 'a class = 'a AtkStateSetClass.class
+    type state_type_c_array_n_t = AtkStateTypeCArrayN.t
     type state_type_t = AtkStateType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
@@ -65,11 +61,11 @@ structure AtkStateSet :>
     fun addState self type' = (AtkStateSetClass.FFI.withPtr &&&> AtkStateType.FFI.withVal ---> GBool.FFI.fromVal) addState_ (self & type')
     fun addStates self types =
       let
-        val nTypes = LargeInt.fromInt (AtkStateTypeCVectorN.length types)
+        val nTypes = LargeInt.fromInt (AtkStateTypeCArrayN.length types)
         val () =
           (
             AtkStateSetClass.FFI.withPtr
-             &&&> AtkStateTypeCVectorN.FFI.withPtr
+             &&&> AtkStateTypeCArrayN.FFI.withPtr
              &&&> GInt32.FFI.withVal
              ---> I
           )
@@ -87,11 +83,11 @@ structure AtkStateSet :>
     fun containsState self type' = (AtkStateSetClass.FFI.withPtr &&&> AtkStateType.FFI.withVal ---> GBool.FFI.fromVal) containsState_ (self & type')
     fun containsStates self types =
       let
-        val nTypes = LargeInt.fromInt (AtkStateTypeCVectorN.length types)
+        val nTypes = LargeInt.fromInt (AtkStateTypeCArrayN.length types)
         val retVal =
           (
             AtkStateSetClass.FFI.withPtr
-             &&&> AtkStateTypeCVectorN.FFI.withPtr
+             &&&> AtkStateTypeCArrayN.FFI.withPtr
              &&&> GInt32.FFI.withVal
              ---> GBool.FFI.fromVal
           )

@@ -9,24 +9,6 @@ structure VteTerminal :>
     where type erase_binding_t = VteEraseBinding.t
     where type 'a pty_class = 'a VtePtyClass.class =
   struct
-    structure GdkRgbaRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkRgbaRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkRgbaRecord.C.ValueType)
-      )
-    structure GdkRgbaRecordCVectorN = CVectorN(GdkRgbaRecordCVectorNType)
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8Type
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -38,7 +20,7 @@ structure VteTerminal :>
         call (getSymbol "vte_terminal_feed")
           (
             VteTerminalClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInOptPtr
+             &&> GUInt8CArrayN.PolyML.cInOptPtr
              &&> GSSize.PolyML.cVal
              --> cVoid
           )
@@ -54,7 +36,7 @@ structure VteTerminal :>
         call (getSymbol "vte_terminal_feed_child_binary")
           (
             VteTerminalClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInOptPtr
+             &&> GUInt8CArrayN.PolyML.cInOptPtr
              &&> GSize.PolyML.cVal
              --> cVoid
           )
@@ -215,7 +197,7 @@ structure VteTerminal :>
             VteTerminalClass.PolyML.cPtr
              &&> GdkRgbaRecord.PolyML.cOptPtr
              &&> GdkRgbaRecord.PolyML.cOptPtr
-             &&> GdkRgbaRecordCVectorN.PolyML.cInOptPtr
+             &&> GdkRgbaRecordCArrayN.PolyML.cInOptPtr
              &&> GSize.PolyML.cVal
              --> cVoid
           )
@@ -257,8 +239,8 @@ structure VteTerminal :>
             VteTerminalClass.PolyML.cPtr
              &&> VtePtyFlags.PolyML.cVal
              &&> Utf8.PolyML.cInOptPtr
-             &&> Utf8CVector.PolyML.cInPtr
-             &&> Utf8CVector.PolyML.cInOptPtr
+             &&> Utf8CArray.PolyML.cInPtr
+             &&> Utf8CArray.PolyML.cInOptPtr
              &&> GLibSpawnFlags.PolyML.cVal
              &&> GLibSpawnChildSetupFunc.PolyML.cOptPtr
              &&> GLibSpawnChildSetupFunc.PolyML.cFunction
@@ -300,12 +282,12 @@ structure VteTerminal :>
       let
         val length =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CVectorN.length data)
+            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
           | NONE => GSSize.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withOptPtr
+             &&&> GUInt8CArrayN.FFI.withOptPtr
              &&&> GSSize.FFI.withVal
              ---> I
           )
@@ -335,12 +317,12 @@ structure VteTerminal :>
       let
         val length =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CVectorN.length data)
+            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
           | NONE => GSize.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withOptPtr
+             &&&> GUInt8CArrayN.FFI.withOptPtr
              &&&> GSize.FFI.withVal
              ---> I
           )
@@ -606,14 +588,14 @@ structure VteTerminal :>
       let
         val paletteSize =
           case palette of
-            SOME palette => LargeInt.fromInt (GdkRgbaRecordCVectorN.length palette)
+            SOME palette => LargeInt.fromInt (GdkRgbaRecordCArrayN.length palette)
           | NONE => GSize.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkRgbaRecord.FFI.withOptPtr
              &&&> GdkRgbaRecord.FFI.withOptPtr
-             &&&> GdkRgbaRecordCVectorN.FFI.withOptPtr
+             &&&> GdkRgbaRecordCArrayN.FFI.withOptPtr
              &&&> GSize.FFI.withVal
              ---> I
           )
@@ -679,8 +661,8 @@ structure VteTerminal :>
             VteTerminalClass.FFI.withPtr
              &&&> VtePtyFlags.FFI.withVal
              &&&> Utf8.FFI.withOptPtr
-             &&&> Utf8CVector.FFI.withPtr
-             &&&> Utf8CVector.FFI.withOptPtr
+             &&&> Utf8CArray.FFI.withPtr
+             &&&> Utf8CArray.FFI.withOptPtr
              &&&> GLibSpawnFlags.FFI.withVal
              &&&> GLibSpawnChildSetupFunc.FFI.withOptPtrToDispatch
              &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback

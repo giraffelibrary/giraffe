@@ -9,7 +9,7 @@ signature G_LIB_CHECKSUM =
     val reset : t -> unit
     val update :
       t
-       -> Word8Vector.vector
+       -> GUInt8CArrayN.t
        -> unit
     val typeGetLength : checksum_type_t -> LargeInt.int
   end

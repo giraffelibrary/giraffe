@@ -10,13 +10,13 @@ signature GTK_ABOUT_DIALOG =
     val new : unit -> base class
     val addCreditSection :
       'a class
-       -> string * string list
+       -> string * Utf8CArray.t
        -> unit
-    val getArtists : 'a class -> string list
-    val getAuthors : 'a class -> string list
+    val getArtists : 'a class -> Utf8CArray.t
+    val getAuthors : 'a class -> Utf8CArray.t
     val getComments : 'a class -> string
     val getCopyright : 'a class -> string
-    val getDocumenters : 'a class -> string list
+    val getDocumenters : 'a class -> Utf8CArray.t
     val getLicense : 'a class -> string
     val getLicenseType : 'a class -> license_t
     val getLogo : 'a class -> base GdkPixbuf.PixbufClass.class
@@ -29,11 +29,11 @@ signature GTK_ABOUT_DIALOG =
     val getWrapLicense : 'a class -> bool
     val setArtists :
       'a class
-       -> string list
+       -> Utf8CArray.t
        -> unit
     val setAuthors :
       'a class
-       -> string list
+       -> Utf8CArray.t
        -> unit
     val setComments :
       'a class
@@ -45,7 +45,7 @@ signature GTK_ABOUT_DIALOG =
        -> unit
     val setDocumenters :
       'a class
-       -> string list
+       -> Utf8CArray.t
        -> unit
     val setLicense :
       'a class

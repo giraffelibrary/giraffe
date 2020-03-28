@@ -2,14 +2,8 @@ structure GtkAccelGroup :>
   GTK_ACCEL_GROUP
     where type 'a class = 'a GtkAccelGroupClass.class
     where type accel_flags_t = GtkAccelFlags.t
-    where type accel_group_entry_t = GtkAccelGroupEntryRecord.t =
+    where type accel_group_entry_record_c_array_n_t = GtkAccelGroupEntryRecordCArrayN.t =
   struct
-    structure GtkAccelGroupEntryRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GtkAccelGroupEntryRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GtkAccelGroupEntryRecord.C.ValueType)
-      )
-    structure GtkAccelGroupEntryRecordCVectorN = CVectorN(GtkAccelGroupEntryRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -63,13 +57,13 @@ structure GtkAccelGroup :>
              &&> GUInt.PolyML.cVal
              &&> GdkModifierType.PolyML.cVal
              &&> GUInt.PolyML.cRef
-             --> GtkAccelGroupEntryRecordCVectorN.PolyML.cOutOptPtr
+             --> GtkAccelGroupEntryRecordCArrayN.PolyML.cOutOptPtr
           )
       val unlock_ = call (getSymbol "gtk_accel_group_unlock") (GtkAccelGroupClass.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GtkAccelGroupClass.class
     type accel_flags_t = GtkAccelFlags.t
-    type accel_group_entry_t = GtkAccelGroupEntryRecord.t
+    type accel_group_entry_record_c_array_n_t = GtkAccelGroupEntryRecordCArrayN.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkAccelGroupClass.FFI.fromPtr true) new_ ()
@@ -160,7 +154,7 @@ structure GtkAccelGroup :>
              &&&> GUInt.FFI.withVal
              &&&> GdkModifierType.FFI.withVal
              &&&> GUInt.FFI.withRefVal
-             ---> GUInt.FFI.fromVal && GtkAccelGroupEntryRecordCVectorN.FFI.fromOptPtr 0
+             ---> GUInt.FFI.fromVal && GtkAccelGroupEntryRecordCArrayN.FFI.fromOptPtr 0
           )
             query_
             (

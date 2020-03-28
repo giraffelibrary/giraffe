@@ -1,20 +1,25 @@
 structure ListExtras =
   struct
 
-    fun revMapAppend f (xs, ys) = foldl (fn (x, ys) => f x :: ys) ys xs
+    fun revMapAppendWith g f (xs, ys) = foldl (fn (x, ys) => g (f x, ys)) ys xs
+    fun revMapAppend f = revMapAppendWith (op ::) f
     fun revMap f xs = revMapAppend f (xs, [])
 
-    fun revMapPartialAppend f (xs, ys) =
-      foldl (fn (x, ys) => case f x of SOME y => y :: ys | NONE => ys) ys xs
+    fun revMapPartialAppendWith g f (xs, ys) =
+      foldl (fn (x, ys) => case f x of SOME y => g (y, ys) | NONE => ys) ys xs
+    fun revMapPartialAppend f = revMapPartialAppendWith (op ::) f
     fun revMapPartial f xs = revMapPartialAppend f (xs, [])
 
 
-    fun genfoldmapl
+    fun foldmapwithl
 
-      (g : 'b * 'd list -> 'd list)
+      (
+        e : 'd,
+        g : 'b * 'd -> 'd
+      )
       (f : 'a * 'c -> 'b * 'c)
 
-    : 'a list * 'c -> 'd list * 'c =
+    : 'a list * 'c -> 'd * 'c =
       let
         fun aux (xs, c) =
           case xs of
@@ -25,12 +30,12 @@ structure ListExtras =
               in
                 (g (y, ys), c')
               end
-          | []       => ([], c)
+          | []       => (e, c)
       in
         aux
       end
 
-    fun foldmapl f = genfoldmapl (op ::) f
+    fun foldmapl f = foldmapwithl ([], op ::) f
 
     fun insert (x, xs) =
       if List.exists (fn x' => x = x') xs then xs else x :: xs

@@ -17,6 +17,8 @@ signature VALUE_ACCESSOR =
     val set : ('a, 'b) t -> value_t -> 'b -> unit
     val gtype : ('a, 'b) t -> type_t
 
+    val map : ('a -> 'b) * ('c -> 'd) -> ('a, 'd) t -> ('b, 'c) t
+
     structure C :
       sig
         type value_v

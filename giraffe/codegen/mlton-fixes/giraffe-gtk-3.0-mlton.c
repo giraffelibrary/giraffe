@@ -1,6 +1,7 @@
 #include "cvector.h"
 #include "cvectorvector.h"
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 void
 mlton_gtk_about_dialog_add_credit_section (GtkAboutDialog* about,
                                            SML_CVECTOR_VAL(const gchar, section_name),
@@ -10,7 +11,9 @@ mlton_gtk_about_dialog_add_credit_section (GtkAboutDialog* about,
                                        GET_SML_CVECTOR_VAL(const gchar, section_name),
                                        GET_SML_CVECTORVECTOR_VAL(const gchar, people));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_about_dialog_set_artists (GtkAboutDialog* about,
                                     SML_CVECTORVECTOR_VAL(const gchar, artists))
@@ -18,7 +21,9 @@ mlton_gtk_about_dialog_set_artists (GtkAboutDialog* about,
   gtk_about_dialog_set_artists (about,
                                 GET_SML_CVECTORVECTOR_VAL(const gchar, artists));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_about_dialog_set_authors (GtkAboutDialog* about,
                                     SML_CVECTORVECTOR_VAL(const gchar, authors))
@@ -26,7 +31,9 @@ mlton_gtk_about_dialog_set_authors (GtkAboutDialog* about,
   gtk_about_dialog_set_authors (about,
                                 GET_SML_CVECTORVECTOR_VAL(const gchar, authors));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_about_dialog_set_comments (GtkAboutDialog* about,
                                      SML_CVECTOR_VAL(const gchar, comments))
@@ -34,7 +41,9 @@ mlton_gtk_about_dialog_set_comments (GtkAboutDialog* about,
   gtk_about_dialog_set_comments (about,
                                  GET_SML_CVECTOR_VAL(const gchar, comments));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_about_dialog_set_copyright (GtkAboutDialog* about,
                                       SML_CVECTOR_VAL(const gchar, copyright))
@@ -42,7 +51,9 @@ mlton_gtk_about_dialog_set_copyright (GtkAboutDialog* about,
   gtk_about_dialog_set_copyright (about,
                                   GET_SML_CVECTOR_VAL(const gchar, copyright));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_about_dialog_set_documenters (GtkAboutDialog* about,
                                         SML_CVECTORVECTOR_VAL(const gchar, documenters))
@@ -50,7 +61,9 @@ mlton_gtk_about_dialog_set_documenters (GtkAboutDialog* about,
   gtk_about_dialog_set_documenters (about,
                                     GET_SML_CVECTORVECTOR_VAL(const gchar, documenters));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_about_dialog_set_license (GtkAboutDialog* about,
                                     SML_CVECTOR_VAL(const gchar, license))
@@ -58,7 +71,9 @@ mlton_gtk_about_dialog_set_license (GtkAboutDialog* about,
   gtk_about_dialog_set_license (about,
                                 GET_SML_CVECTOR_VAL(const gchar, license));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_about_dialog_set_logo_icon_name (GtkAboutDialog* about,
                                            SML_CVECTOR_VAL(const gchar, icon_name))
@@ -66,7 +81,9 @@ mlton_gtk_about_dialog_set_logo_icon_name (GtkAboutDialog* about,
   gtk_about_dialog_set_logo_icon_name (about,
                                        GET_SML_CVECTOR_VAL(const gchar, icon_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_about_dialog_set_program_name (GtkAboutDialog* about,
                                          SML_CVECTOR_VAL(const gchar, name))
@@ -74,7 +91,9 @@ mlton_gtk_about_dialog_set_program_name (GtkAboutDialog* about,
   gtk_about_dialog_set_program_name (about,
                                      GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_about_dialog_set_translator_credits (GtkAboutDialog* about,
                                                SML_CVECTOR_VAL(const gchar, translator_credits))
@@ -82,7 +101,9 @@ mlton_gtk_about_dialog_set_translator_credits (GtkAboutDialog* about,
   gtk_about_dialog_set_translator_credits (about,
                                            GET_SML_CVECTOR_VAL(const gchar, translator_credits));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_about_dialog_set_version (GtkAboutDialog* about,
                                     SML_CVECTOR_VAL(const gchar, version))
@@ -90,7 +111,9 @@ mlton_gtk_about_dialog_set_version (GtkAboutDialog* about,
   gtk_about_dialog_set_version (about,
                                 GET_SML_CVECTOR_VAL(const gchar, version));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_about_dialog_set_website (GtkAboutDialog* about,
                                     SML_CVECTOR_VAL(const gchar, website))
@@ -98,7 +121,9 @@ mlton_gtk_about_dialog_set_website (GtkAboutDialog* about,
   gtk_about_dialog_set_website (about,
                                 GET_SML_CVECTOR_VAL(const gchar, website));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_about_dialog_set_website_label (GtkAboutDialog* about,
                                           SML_CVECTOR_VAL(const gchar, website_label))
@@ -106,6 +131,7 @@ mlton_gtk_about_dialog_set_website_label (GtkAboutDialog* about,
   gtk_about_dialog_set_website_label (about,
                                       GET_SML_CVECTOR_VAL(const gchar, website_label));
 }
+#endif
 
 void
 mlton_gtk_accel_group_connect_by_path (GtkAccelGroup* accel_group,
@@ -157,11 +183,13 @@ mlton_gtk_accel_map_load (SML_CVECTOR_VAL(gchar, file_name))
   gtk_accel_map_load (GET_SML_CVECTOR_VAL(gchar, file_name));
 }
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_accel_map_lock_path (SML_CVECTOR_VAL(const gchar, accel_path))
 {
   gtk_accel_map_lock_path (GET_SML_CVECTOR_VAL(const gchar, accel_path));
 }
+#endif
 
 gboolean
 mlton_gtk_accel_map_lookup_entry (SML_CVECTOR_VAL(const gchar, accel_path),
@@ -177,12 +205,15 @@ mlton_gtk_accel_map_save (SML_CVECTOR_VAL(gchar, file_name))
   gtk_accel_map_save (GET_SML_CVECTOR_VAL(gchar, file_name));
 }
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_accel_map_unlock_path (SML_CVECTOR_VAL(const gchar, accel_path))
 {
   gtk_accel_map_unlock_path (GET_SML_CVECTOR_VAL(const gchar, accel_path));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkAction*
 mlton_gtk_action_new (SML_CVECTOR_VAL(const gchar, name),
                       SML_CVECTOR_VAL(const gchar, label),
@@ -194,7 +225,9 @@ mlton_gtk_action_new (SML_CVECTOR_VAL(const gchar, name),
                          GET_SML_CVECTOR_VAL(const gchar, tooltip),
                          GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_action_set_accel_path (GtkAction* action,
                                  SML_CVECTOR_VAL(const gchar, accel_path))
@@ -202,7 +235,9 @@ mlton_gtk_action_set_accel_path (GtkAction* action,
   gtk_action_set_accel_path (action,
                              GET_SML_CVECTOR_VAL(const gchar, accel_path));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_action_set_icon_name (GtkAction* action,
                                 SML_CVECTOR_VAL(const gchar, icon_name))
@@ -210,7 +245,9 @@ mlton_gtk_action_set_icon_name (GtkAction* action,
   gtk_action_set_icon_name (action,
                             GET_SML_CVECTOR_VAL(const gchar, icon_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_action_set_label (GtkAction* action,
                             SML_CVECTOR_VAL(const gchar, label))
@@ -218,7 +255,9 @@ mlton_gtk_action_set_label (GtkAction* action,
   gtk_action_set_label (action,
                         GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_action_set_short_label (GtkAction* action,
                                   SML_CVECTOR_VAL(const gchar, short_label))
@@ -226,7 +265,9 @@ mlton_gtk_action_set_short_label (GtkAction* action,
   gtk_action_set_short_label (action,
                               GET_SML_CVECTOR_VAL(const gchar, short_label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_action_set_stock_id (GtkAction* action,
                                SML_CVECTOR_VAL(const gchar, stock_id))
@@ -234,7 +275,9 @@ mlton_gtk_action_set_stock_id (GtkAction* action,
   gtk_action_set_stock_id (action,
                            GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_action_set_tooltip (GtkAction* action,
                               SML_CVECTOR_VAL(const gchar, tooltip))
@@ -242,13 +285,17 @@ mlton_gtk_action_set_tooltip (GtkAction* action,
   gtk_action_set_tooltip (action,
                           GET_SML_CVECTOR_VAL(const gchar, tooltip));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkActionGroup*
 mlton_gtk_action_group_new (SML_CVECTOR_VAL(const gchar, name))
 {
   return gtk_action_group_new (GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_action_group_add_action_with_accel (GtkActionGroup* action_group,
                                               GtkAction* action,
@@ -258,7 +305,9 @@ mlton_gtk_action_group_add_action_with_accel (GtkActionGroup* action_group,
                                           action,
                                           GET_SML_CVECTOR_VAL(const gchar, accelerator));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkAction*
 mlton_gtk_action_group_get_action (GtkActionGroup* action_group,
                                    SML_CVECTOR_VAL(const gchar, action_name))
@@ -266,7 +315,9 @@ mlton_gtk_action_group_get_action (GtkActionGroup* action_group,
   return gtk_action_group_get_action (action_group,
                                       GET_SML_CVECTOR_VAL(const gchar, action_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_action_group_set_translation_domain (GtkActionGroup* action_group,
                                                SML_CVECTOR_VAL(const gchar, domain))
@@ -274,7 +325,9 @@ mlton_gtk_action_group_set_translation_domain (GtkActionGroup* action_group,
   gtk_action_group_set_translation_domain (action_group,
                                            GET_SML_CVECTOR_VAL(const gchar, domain));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 const gchar*
 mlton_gtk_action_group_translate_string (GtkActionGroup* action_group,
                                          SML_CVECTOR_VAL(const gchar, string))
@@ -282,7 +335,9 @@ mlton_gtk_action_group_translate_string (GtkActionGroup* action_group,
   return gtk_action_group_translate_string (action_group,
                                             GET_SML_CVECTOR_VAL(const gchar, string));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 void
 mlton_gtk_actionable_set_action_name (GtkActionable* actionable,
                                       SML_CVECTOR_VAL(const gchar, action_name))
@@ -290,7 +345,9 @@ mlton_gtk_actionable_set_action_name (GtkActionable* actionable,
   gtk_actionable_set_action_name (actionable,
                                   GET_SML_CVECTOR_VAL(const gchar, action_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 void
 mlton_gtk_actionable_set_detailed_action_name (GtkActionable* actionable,
                                                SML_CVECTOR_VAL(const gchar, detailed_action_name))
@@ -298,13 +355,17 @@ mlton_gtk_actionable_set_detailed_action_name (GtkActionable* actionable,
   gtk_actionable_set_detailed_action_name (actionable,
                                            GET_SML_CVECTOR_VAL(const gchar, detailed_action_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 GtkWidget*
 mlton_gtk_app_chooser_button_new (SML_CVECTOR_VAL(const gchar, content_type))
 {
   return gtk_app_chooser_button_new (GET_SML_CVECTOR_VAL(const gchar, content_type));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_app_chooser_button_append_custom_item (GtkAppChooserButton* self,
                                                  SML_CVECTOR_VAL(const gchar, name),
@@ -316,7 +377,9 @@ mlton_gtk_app_chooser_button_append_custom_item (GtkAppChooserButton* self,
                                              GET_SML_CVECTOR_VAL(const gchar, label),
                                              icon);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_app_chooser_button_set_active_custom_item (GtkAppChooserButton* self,
                                                      SML_CVECTOR_VAL(const gchar, name))
@@ -324,6 +387,7 @@ mlton_gtk_app_chooser_button_set_active_custom_item (GtkAppChooserButton* self,
   gtk_app_chooser_button_set_active_custom_item (self,
                                                  GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
 void
 mlton_gtk_app_chooser_button_set_heading (GtkAppChooserButton* self,
@@ -333,6 +397,7 @@ mlton_gtk_app_chooser_button_set_heading (GtkAppChooserButton* self,
                                       GET_SML_CVECTOR_VAL(const gchar, heading));
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 GtkWidget*
 mlton_gtk_app_chooser_dialog_new_for_content_type (GtkWindow* parent,
                                                    GtkDialogFlags flags,
@@ -342,6 +407,7 @@ mlton_gtk_app_chooser_dialog_new_for_content_type (GtkWindow* parent,
                                                       flags,
                                                       GET_SML_CVECTOR_VAL(const gchar, content_type));
 }
+#endif
 
 void
 mlton_gtk_app_chooser_dialog_set_heading (GtkAppChooserDialog* self,
@@ -351,11 +417,13 @@ mlton_gtk_app_chooser_dialog_set_heading (GtkAppChooserDialog* self,
                                       GET_SML_CVECTOR_VAL(const gchar, heading));
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 GtkWidget*
 mlton_gtk_app_chooser_widget_new (SML_CVECTOR_VAL(const gchar, content_type))
 {
   return gtk_app_chooser_widget_new (GET_SML_CVECTOR_VAL(const gchar, content_type));
 }
+#endif
 
 void
 mlton_gtk_app_chooser_widget_set_default_text (GtkAppChooserWidget* self,
@@ -365,6 +433,7 @@ mlton_gtk_app_chooser_widget_set_default_text (GtkAppChooserWidget* self,
                                            GET_SML_CVECTOR_VAL(const gchar, text));
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 GtkApplication*
 mlton_gtk_application_new (SML_CVECTOR_VAL(const gchar, application_id),
                            GApplicationFlags flags)
@@ -372,7 +441,9 @@ mlton_gtk_application_new (SML_CVECTOR_VAL(const gchar, application_id),
   return gtk_application_new (GET_SML_CVECTOR_VAL(const gchar, application_id),
                               flags);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 void
 mlton_gtk_application_add_accelerator (GtkApplication* application,
                                        SML_CVECTOR_VAL(const gchar, accelerator),
@@ -384,7 +455,9 @@ mlton_gtk_application_add_accelerator (GtkApplication* application,
                                    GET_SML_CVECTOR_VAL(const gchar, action_name),
                                    parameter);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 12, 0)
 gchar**
 mlton_gtk_application_get_accels_for_action (GtkApplication* application,
                                              SML_CVECTOR_VAL(const gchar, detailed_action_name))
@@ -392,7 +465,9 @@ mlton_gtk_application_get_accels_for_action (GtkApplication* application,
   return gtk_application_get_accels_for_action (application,
                                                 GET_SML_CVECTOR_VAL(const gchar, detailed_action_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 14, 0)
 gchar**
 mlton_gtk_application_get_actions_for_accel (GtkApplication* application,
                                              SML_CVECTOR_VAL(const gchar, accel))
@@ -400,7 +475,9 @@ mlton_gtk_application_get_actions_for_accel (GtkApplication* application,
   return gtk_application_get_actions_for_accel (application,
                                                 GET_SML_CVECTOR_VAL(const gchar, accel));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 14, 0)
 GMenu*
 mlton_gtk_application_get_menu_by_id (GtkApplication* application,
                                       SML_CVECTOR_VAL(const gchar, id))
@@ -408,7 +485,9 @@ mlton_gtk_application_get_menu_by_id (GtkApplication* application,
   return gtk_application_get_menu_by_id (application,
                                          GET_SML_CVECTOR_VAL(const gchar, id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 guint
 mlton_gtk_application_inhibit (GtkApplication* application,
                                GtkWindow* window,
@@ -420,7 +499,9 @@ mlton_gtk_application_inhibit (GtkApplication* application,
                                   flags,
                                   GET_SML_CVECTOR_VAL(const gchar, reason));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 void
 mlton_gtk_application_remove_accelerator (GtkApplication* application,
                                           SML_CVECTOR_VAL(const gchar, action_name),
@@ -430,7 +511,9 @@ mlton_gtk_application_remove_accelerator (GtkApplication* application,
                                       GET_SML_CVECTOR_VAL(const gchar, action_name),
                                       parameter);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 12, 0)
 void
 mlton_gtk_application_set_accels_for_action (GtkApplication* application,
                                              SML_CVECTOR_VAL(const gchar, detailed_action_name),
@@ -440,6 +523,7 @@ mlton_gtk_application_set_accels_for_action (GtkApplication* application,
                                          GET_SML_CVECTOR_VAL(const gchar, detailed_action_name),
                                          GET_SML_CVECTORVECTOR_VAL(const gchar, accels));
 }
+#endif
 
 GtkWidget*
 mlton_gtk_aspect_frame_new (SML_CVECTOR_VAL(const gchar, label),
@@ -455,6 +539,7 @@ mlton_gtk_aspect_frame_new (SML_CVECTOR_VAL(const gchar, label),
                                obey_child);
 }
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_assistant_set_page_title (GtkAssistant* assistant,
                                     GtkWidget* page,
@@ -464,7 +549,9 @@ mlton_gtk_assistant_set_page_title (GtkAssistant* assistant,
                                 page,
                                 GET_SML_CVECTOR_VAL(const gchar, title));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 GTokenType
 mlton_gtk_binding_entry_add_signal_from_string (GtkBindingSet* binding_set,
                                                 SML_CVECTOR_VAL(const gchar, signal_desc))
@@ -472,6 +559,7 @@ mlton_gtk_binding_entry_add_signal_from_string (GtkBindingSet* binding_set,
   return gtk_binding_entry_add_signal_from_string (binding_set,
                                                    GET_SML_CVECTOR_VAL(const gchar, signal_desc));
 }
+#endif
 
 void
 mlton_gtk_binding_entry_add_signall (GtkBindingSet* binding_set,
@@ -505,6 +593,7 @@ mlton_gtk_binding_set_find (SML_CVECTOR_VAL(const gchar, set_name))
   return gtk_binding_set_find (GET_SML_CVECTOR_VAL(const gchar, set_name));
 }
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_buildable_add_child (GtkBuildable* buildable,
                                GtkBuilder* builder,
@@ -516,7 +605,9 @@ mlton_gtk_buildable_add_child (GtkBuildable* buildable,
                            child,
                            GET_SML_CVECTOR_VAL(const gchar, type));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GObject*
 mlton_gtk_buildable_construct_child (GtkBuildable* buildable,
                                      GtkBuilder* builder,
@@ -526,7 +617,9 @@ mlton_gtk_buildable_construct_child (GtkBuildable* buildable,
                                         builder,
                                         GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_buildable_custom_finished (GtkBuildable* buildable,
                                      GtkBuilder* builder,
@@ -540,7 +633,9 @@ mlton_gtk_buildable_custom_finished (GtkBuildable* buildable,
                                  GET_SML_CVECTOR_VAL(const gchar, tagname),
                                  data);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_buildable_custom_tag_end (GtkBuildable* buildable,
                                     GtkBuilder* builder,
@@ -554,7 +649,9 @@ mlton_gtk_buildable_custom_tag_end (GtkBuildable* buildable,
                                 GET_SML_CVECTOR_VAL(const gchar, tagname),
                                 data);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 gboolean
 mlton_gtk_buildable_custom_tag_start (GtkBuildable* buildable,
                                       GtkBuilder* builder,
@@ -570,7 +667,9 @@ mlton_gtk_buildable_custom_tag_start (GtkBuildable* buildable,
                                          parser,
                                          data);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GObject*
 mlton_gtk_buildable_get_internal_child (GtkBuildable* buildable,
                                         GtkBuilder* builder,
@@ -580,7 +679,9 @@ mlton_gtk_buildable_get_internal_child (GtkBuildable* buildable,
                                            builder,
                                            GET_SML_CVECTOR_VAL(const gchar, childname));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_buildable_set_buildable_property (GtkBuildable* buildable,
                                             GtkBuilder* builder,
@@ -592,7 +693,9 @@ mlton_gtk_buildable_set_buildable_property (GtkBuildable* buildable,
                                         GET_SML_CVECTOR_VAL(const gchar, name),
                                         value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_buildable_set_name (GtkBuildable* buildable,
                               SML_CVECTOR_VAL(const gchar, name))
@@ -600,19 +703,25 @@ mlton_gtk_buildable_set_name (GtkBuildable* buildable,
   gtk_buildable_set_name (buildable,
                           GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 GtkBuilder*
 mlton_gtk_builder_new_from_file (SML_CVECTOR_VAL(const gchar, filename))
 {
   return gtk_builder_new_from_file (GET_SML_CVECTOR_VAL(const gchar, filename));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 GtkBuilder*
 mlton_gtk_builder_new_from_resource (SML_CVECTOR_VAL(const gchar, resource_path))
 {
   return gtk_builder_new_from_resource (GET_SML_CVECTOR_VAL(const gchar, resource_path));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 GtkBuilder*
 mlton_gtk_builder_new_from_string (SML_CVECTOR_VAL(const gchar, string),
                                    gssize length)
@@ -620,7 +729,9 @@ mlton_gtk_builder_new_from_string (SML_CVECTOR_VAL(const gchar, string),
   return gtk_builder_new_from_string (GET_SML_CVECTOR_VAL(const gchar, string),
                                       length);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 void
 mlton_gtk_builder_add_callback_symbol (GtkBuilder* builder,
                                        SML_CVECTOR_VAL(const gchar, callback_name),
@@ -630,7 +741,9 @@ mlton_gtk_builder_add_callback_symbol (GtkBuilder* builder,
                                    GET_SML_CVECTOR_VAL(const gchar, callback_name),
                                    callback_symbol);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 guint
 mlton_gtk_builder_add_from_file (GtkBuilder* builder,
                                  SML_CVECTOR_VAL(const gchar, filename),
@@ -640,7 +753,9 @@ mlton_gtk_builder_add_from_file (GtkBuilder* builder,
                                     GET_SML_CVECTOR_VAL(const gchar, filename),
                                     error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 guint
 mlton_gtk_builder_add_from_resource (GtkBuilder* builder,
                                      SML_CVECTOR_VAL(const gchar, resource_path),
@@ -650,7 +765,9 @@ mlton_gtk_builder_add_from_resource (GtkBuilder* builder,
                                         GET_SML_CVECTOR_VAL(const gchar, resource_path),
                                         error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 guint
 mlton_gtk_builder_add_from_string (GtkBuilder* builder,
                                    SML_CVECTOR_VAL(const gchar, buffer),
@@ -662,7 +779,9 @@ mlton_gtk_builder_add_from_string (GtkBuilder* builder,
                                       length,
                                       error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 14, 0)
 guint
 mlton_gtk_builder_add_objects_from_file (GtkBuilder* builder,
                                          SML_CVECTOR_VAL(const gchar, filename),
@@ -674,7 +793,9 @@ mlton_gtk_builder_add_objects_from_file (GtkBuilder* builder,
                                             GET_SML_CVECTORVECTOR_VAL(gchar, object_ids),
                                             error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 guint
 mlton_gtk_builder_add_objects_from_resource (GtkBuilder* builder,
                                              SML_CVECTOR_VAL(const gchar, resource_path),
@@ -686,7 +807,9 @@ mlton_gtk_builder_add_objects_from_resource (GtkBuilder* builder,
                                                 GET_SML_CVECTORVECTOR_VAL(gchar, object_ids),
                                                 error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 14, 0)
 guint
 mlton_gtk_builder_add_objects_from_string (GtkBuilder* builder,
                                            SML_CVECTOR_VAL(const gchar, buffer),
@@ -700,7 +823,9 @@ mlton_gtk_builder_add_objects_from_string (GtkBuilder* builder,
                                               GET_SML_CVECTORVECTOR_VAL(gchar, object_ids),
                                               error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 8, 0)
 void
 mlton_gtk_builder_expose_object (GtkBuilder* builder,
                                  SML_CVECTOR_VAL(const gchar, name),
@@ -710,6 +835,7 @@ mlton_gtk_builder_expose_object (GtkBuilder* builder,
                              GET_SML_CVECTOR_VAL(const gchar, name),
                              object);
 }
+#endif
 
 guint
 mlton_gtk_builder_extend_with_template (GtkBuilder* builder,
@@ -727,6 +853,7 @@ mlton_gtk_builder_extend_with_template (GtkBuilder* builder,
                                            error);
 }
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GObject*
 mlton_gtk_builder_get_object (GtkBuilder* builder,
                               SML_CVECTOR_VAL(const gchar, name))
@@ -734,7 +861,9 @@ mlton_gtk_builder_get_object (GtkBuilder* builder,
   return gtk_builder_get_object (builder,
                                  GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GType
 mlton_gtk_builder_get_type_from_name (GtkBuilder* builder,
                                       SML_CVECTOR_VAL(const char, type_name))
@@ -742,7 +871,9 @@ mlton_gtk_builder_get_type_from_name (GtkBuilder* builder,
   return gtk_builder_get_type_from_name (builder,
                                          GET_SML_CVECTOR_VAL(const char, type_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_builder_set_translation_domain (GtkBuilder* builder,
                                           SML_CVECTOR_VAL(const gchar, domain))
@@ -750,7 +881,9 @@ mlton_gtk_builder_set_translation_domain (GtkBuilder* builder,
   gtk_builder_set_translation_domain (builder,
                                       GET_SML_CVECTOR_VAL(const gchar, domain));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 gboolean
 mlton_gtk_builder_value_from_string (GtkBuilder* builder,
                                      GParamSpec* pspec,
@@ -764,7 +897,9 @@ mlton_gtk_builder_value_from_string (GtkBuilder* builder,
                                         value,
                                         error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 gboolean
 mlton_gtk_builder_value_from_string_type (GtkBuilder* builder,
                                           GType type,
@@ -778,7 +913,9 @@ mlton_gtk_builder_value_from_string_type (GtkBuilder* builder,
                                              value,
                                              error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 GtkWidget*
 mlton_gtk_button_new_from_icon_name (SML_CVECTOR_VAL(const gchar, icon_name),
                                      GtkIconSize size)
@@ -786,6 +923,7 @@ mlton_gtk_button_new_from_icon_name (SML_CVECTOR_VAL(const gchar, icon_name),
   return gtk_button_new_from_icon_name (GET_SML_CVECTOR_VAL(const gchar, icon_name),
                                         size);
 }
+#endif
 
 GtkWidget*
 mlton_gtk_button_new_from_stock (SML_CVECTOR_VAL(const gchar, stock_id))
@@ -813,6 +951,7 @@ mlton_gtk_button_set_label (GtkButton* button,
                         GET_SML_CVECTOR_VAL(const gchar, label));
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_cell_area_attribute_connect (GtkCellArea* area,
                                        GtkCellRenderer* renderer,
@@ -824,7 +963,9 @@ mlton_gtk_cell_area_attribute_connect (GtkCellArea* area,
                                    GET_SML_CVECTOR_VAL(const gchar, attribute),
                                    column);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_cell_area_attribute_disconnect (GtkCellArea* area,
                                           GtkCellRenderer* renderer,
@@ -834,7 +975,9 @@ mlton_gtk_cell_area_attribute_disconnect (GtkCellArea* area,
                                       renderer,
                                       GET_SML_CVECTOR_VAL(const gchar, attribute));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 14, 0)
 gint
 mlton_gtk_cell_area_attribute_get_column (GtkCellArea* area,
                                           GtkCellRenderer* renderer,
@@ -844,7 +987,9 @@ mlton_gtk_cell_area_attribute_get_column (GtkCellArea* area,
                                              renderer,
                                              GET_SML_CVECTOR_VAL(const gchar, attribute));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_cell_area_cell_get_property (GtkCellArea* area,
                                        GtkCellRenderer* renderer,
@@ -856,7 +1001,9 @@ mlton_gtk_cell_area_cell_get_property (GtkCellArea* area,
                                    GET_SML_CVECTOR_VAL(const gchar, property_name),
                                    value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_cell_area_cell_set_property (GtkCellArea* area,
                                        GtkCellRenderer* renderer,
@@ -868,7 +1015,9 @@ mlton_gtk_cell_area_cell_set_property (GtkCellArea* area,
                                    GET_SML_CVECTOR_VAL(const gchar, property_name),
                                    value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 GParamSpec*
 mlton_gtk_cell_area_class_find_cell_property (GtkCellAreaClass* aclass,
                                               SML_CVECTOR_VAL(const gchar, property_name))
@@ -876,7 +1025,9 @@ mlton_gtk_cell_area_class_find_cell_property (GtkCellAreaClass* aclass,
   return gtk_cell_area_class_find_cell_property (aclass,
                                                  GET_SML_CVECTOR_VAL(const gchar, property_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_cell_layout_add_attribute (GtkCellLayout* cell_layout,
                                      GtkCellRenderer* cell,
@@ -888,6 +1039,7 @@ mlton_gtk_cell_layout_add_attribute (GtkCellLayout* cell_layout,
                                  GET_SML_CVECTOR_VAL(const gchar, attribute),
                                  column);
 }
+#endif
 
 gboolean
 mlton_gtk_cell_renderer_activate (GtkCellRenderer* cell,
@@ -925,17 +1077,21 @@ mlton_gtk_cell_renderer_start_editing (GtkCellRenderer* cell,
                                           flags);
 }
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 GtkWidget*
 mlton_gtk_cell_view_new_with_markup (SML_CVECTOR_VAL(const gchar, markup))
 {
   return gtk_cell_view_new_with_markup (GET_SML_CVECTOR_VAL(const gchar, markup));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 GtkWidget*
 mlton_gtk_cell_view_new_with_text (SML_CVECTOR_VAL(const gchar, text))
 {
   return gtk_cell_view_new_with_text (GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
 GtkWidget*
 mlton_gtk_check_button_new_with_label (SML_CVECTOR_VAL(const gchar, label))
@@ -961,6 +1117,7 @@ mlton_gtk_check_menu_item_new_with_mnemonic (SML_CVECTOR_VAL(const gchar, label)
   return gtk_check_menu_item_new_with_mnemonic (GET_SML_CVECTOR_VAL(const gchar, label));
 }
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_clipboard_set_can_store (GtkClipboard* clipboard,
                                    SML_CVECTOR_VAL(GtkTargetEntry, targets),
@@ -970,6 +1127,7 @@ mlton_gtk_clipboard_set_can_store (GtkClipboard* clipboard,
                                GET_SML_CVECTOR_VAL(GtkTargetEntry, targets),
                                n_targets);
 }
+#endif
 
 void
 mlton_gtk_clipboard_set_text (GtkClipboard* clipboard,
@@ -981,6 +1139,7 @@ mlton_gtk_clipboard_set_text (GtkClipboard* clipboard,
                           len);
 }
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_clipboard_wait_for_targets (GtkClipboard* clipboard,
                                       SML_CVECTOR_REF(GdkAtom, targets),
@@ -990,7 +1149,9 @@ mlton_gtk_clipboard_wait_for_targets (GtkClipboard* clipboard,
                                          GET_SML_CVECTOR_REF(GdkAtom, targets),
                                          n_targets);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_color_button_set_title (GtkColorButton* button,
                                   SML_CVECTOR_VAL(const gchar, title))
@@ -998,7 +1159,9 @@ mlton_gtk_color_button_set_title (GtkColorButton* button,
   gtk_color_button_set_title (button,
                               GET_SML_CVECTOR_VAL(const gchar, title));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 void
 mlton_gtk_color_chooser_add_palette (GtkColorChooser* chooser,
                                      GtkOrientation orientation,
@@ -1012,7 +1175,9 @@ mlton_gtk_color_chooser_add_palette (GtkColorChooser* chooser,
                                  n_colors,
                                  GET_SML_CVECTOR_VAL(GdkRGBA, colors));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 GtkWidget*
 mlton_gtk_color_chooser_dialog_new (SML_CVECTOR_VAL(const gchar, title),
                                     GtkWindow* parent)
@@ -1020,6 +1185,7 @@ mlton_gtk_color_chooser_dialog_new (SML_CVECTOR_VAL(const gchar, title),
   return gtk_color_chooser_dialog_new (GET_SML_CVECTOR_VAL(const gchar, title),
                                        parent);
 }
+#endif
 
 gboolean
 mlton_gtk_color_selection_palette_from_string (SML_CVECTOR_VAL(const gchar, str),
@@ -1045,6 +1211,7 @@ mlton_gtk_color_selection_dialog_new (SML_CVECTOR_VAL(const gchar, title))
   return gtk_color_selection_dialog_new (GET_SML_CVECTOR_VAL(const gchar, title));
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 gboolean
 mlton_gtk_combo_box_set_active_id (GtkComboBox* combo_box,
                                    SML_CVECTOR_VAL(const gchar, active_id))
@@ -1052,7 +1219,9 @@ mlton_gtk_combo_box_set_active_id (GtkComboBox* combo_box,
   return gtk_combo_box_set_active_id (combo_box,
                                       GET_SML_CVECTOR_VAL(const gchar, active_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_combo_box_set_title (GtkComboBox* combo_box,
                                SML_CVECTOR_VAL(const gchar, title))
@@ -1060,7 +1229,9 @@ mlton_gtk_combo_box_set_title (GtkComboBox* combo_box,
   gtk_combo_box_set_title (combo_box,
                            GET_SML_CVECTOR_VAL(const gchar, title));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 24, 0)
 void
 mlton_gtk_combo_box_text_append (GtkComboBoxText* combo_box,
                                  SML_CVECTOR_VAL(const gchar, id),
@@ -1070,7 +1241,9 @@ mlton_gtk_combo_box_text_append (GtkComboBoxText* combo_box,
                              GET_SML_CVECTOR_VAL(const gchar, id),
                              GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 24, 0)
 void
 mlton_gtk_combo_box_text_append_text (GtkComboBoxText* combo_box,
                                       SML_CVECTOR_VAL(const gchar, text))
@@ -1078,7 +1251,9 @@ mlton_gtk_combo_box_text_append_text (GtkComboBoxText* combo_box,
   gtk_combo_box_text_append_text (combo_box,
                                   GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_combo_box_text_insert (GtkComboBoxText* combo_box,
                                  gint position,
@@ -1090,7 +1265,9 @@ mlton_gtk_combo_box_text_insert (GtkComboBoxText* combo_box,
                              GET_SML_CVECTOR_VAL(const gchar, id),
                              GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 24, 0)
 void
 mlton_gtk_combo_box_text_insert_text (GtkComboBoxText* combo_box,
                                       gint position,
@@ -1100,7 +1277,9 @@ mlton_gtk_combo_box_text_insert_text (GtkComboBoxText* combo_box,
                                   position,
                                   GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 24, 0)
 void
 mlton_gtk_combo_box_text_prepend (GtkComboBoxText* combo_box,
                                   SML_CVECTOR_VAL(const gchar, id),
@@ -1110,7 +1289,9 @@ mlton_gtk_combo_box_text_prepend (GtkComboBoxText* combo_box,
                               GET_SML_CVECTOR_VAL(const gchar, id),
                               GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 24, 0)
 void
 mlton_gtk_combo_box_text_prepend_text (GtkComboBoxText* combo_box,
                                        SML_CVECTOR_VAL(const gchar, text))
@@ -1118,6 +1299,7 @@ mlton_gtk_combo_box_text_prepend_text (GtkComboBoxText* combo_box,
   gtk_combo_box_text_prepend_text (combo_box,
                                    GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
 void
 mlton_gtk_container_child_get_property (GtkContainer* container,
@@ -1131,6 +1313,7 @@ mlton_gtk_container_child_get_property (GtkContainer* container,
                                     value);
 }
 
+#if GTK_CHECK_VERSION(3, 2, 0)
 void
 mlton_gtk_container_child_notify (GtkContainer* container,
                                   GtkWidget* child,
@@ -1140,6 +1323,7 @@ mlton_gtk_container_child_notify (GtkContainer* container,
                               child,
                               GET_SML_CVECTOR_VAL(const gchar, child_property));
 }
+#endif
 
 void
 mlton_gtk_container_child_set_property (GtkContainer* container,
@@ -1161,6 +1345,7 @@ mlton_gtk_container_class_find_child_property (GObjectClass* cclass,
                                                   GET_SML_CVECTOR_VAL(const gchar, property_name));
 }
 
+#if GTK_CHECK_VERSION(3, 18, 0)
 void
 mlton_gtk_container_class_install_child_properties (GtkContainerClass* cclass,
                                                     guint n_pspecs,
@@ -1170,6 +1355,7 @@ mlton_gtk_container_class_install_child_properties (GtkContainerClass* cclass,
                                                 n_pspecs,
                                                 GET_SML_CVECTOR_VAL(GParamSpec*, pspecs));
 }
+#endif
 
 GtkCssProvider*
 mlton_gtk_css_provider_get_named (SML_CVECTOR_VAL(const gchar, name),
@@ -1201,6 +1387,7 @@ mlton_gtk_css_provider_load_from_path (GtkCssProvider* css_provider,
                                           error);
 }
 
+#if GTK_CHECK_VERSION(3, 16, 0)
 void
 mlton_gtk_css_provider_load_from_resource (GtkCssProvider* css_provider,
                                            SML_CVECTOR_VAL(const gchar, resource_path))
@@ -1208,6 +1395,7 @@ mlton_gtk_css_provider_load_from_resource (GtkCssProvider* css_provider,
   gtk_css_provider_load_from_resource (css_provider,
                                        GET_SML_CVECTOR_VAL(const gchar, resource_path));
 }
+#endif
 
 GtkWidget*
 mlton_gtk_dialog_add_button (GtkDialog* dialog,
@@ -1219,6 +1407,7 @@ mlton_gtk_dialog_add_button (GtkDialog* dialog,
                                 response_id);
 }
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_dialog_set_alternative_button_order_from_array (GtkDialog* dialog,
                                                           gint n_params,
@@ -1228,6 +1417,7 @@ mlton_gtk_dialog_set_alternative_button_order_from_array (GtkDialog* dialog,
                                                       n_params,
                                                       GET_SML_CVECTOR_VAL(gint, new_order));
 }
+#endif
 
 void
 mlton_gtk_editable_insert_text (GtkEditable* editable,
@@ -1241,6 +1431,7 @@ mlton_gtk_editable_insert_text (GtkEditable* editable,
                             position);
 }
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_entry_set_icon_from_icon_name (GtkEntry* entry,
                                          GtkEntryIconPosition icon_pos,
@@ -1250,7 +1441,9 @@ mlton_gtk_entry_set_icon_from_icon_name (GtkEntry* entry,
                                      icon_pos,
                                      GET_SML_CVECTOR_VAL(const gchar, icon_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_entry_set_icon_from_stock (GtkEntry* entry,
                                      GtkEntryIconPosition icon_pos,
@@ -1260,7 +1453,9 @@ mlton_gtk_entry_set_icon_from_stock (GtkEntry* entry,
                                  icon_pos,
                                  GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_entry_set_icon_tooltip_markup (GtkEntry* entry,
                                          GtkEntryIconPosition icon_pos,
@@ -1270,7 +1465,9 @@ mlton_gtk_entry_set_icon_tooltip_markup (GtkEntry* entry,
                                      icon_pos,
                                      GET_SML_CVECTOR_VAL(const gchar, tooltip));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_entry_set_icon_tooltip_text (GtkEntry* entry,
                                        GtkEntryIconPosition icon_pos,
@@ -1280,7 +1477,9 @@ mlton_gtk_entry_set_icon_tooltip_text (GtkEntry* entry,
                                    icon_pos,
                                    GET_SML_CVECTOR_VAL(const gchar, tooltip));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 2, 0)
 void
 mlton_gtk_entry_set_placeholder_text (GtkEntry* entry,
                                       SML_CVECTOR_VAL(const gchar, text))
@@ -1288,6 +1487,7 @@ mlton_gtk_entry_set_placeholder_text (GtkEntry* entry,
   gtk_entry_set_placeholder_text (entry,
                                   GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
 void
 mlton_gtk_entry_set_text (GtkEntry* entry,
@@ -1297,6 +1497,7 @@ mlton_gtk_entry_set_text (GtkEntry* entry,
                       GET_SML_CVECTOR_VAL(const gchar, text));
 }
 
+#if GTK_CHECK_VERSION(2, 18, 0)
 GtkEntryBuffer*
 mlton_gtk_entry_buffer_new (SML_CVECTOR_VAL(const gchar, initial_chars),
                             gint n_initial_chars)
@@ -1304,7 +1505,9 @@ mlton_gtk_entry_buffer_new (SML_CVECTOR_VAL(const gchar, initial_chars),
   return gtk_entry_buffer_new (GET_SML_CVECTOR_VAL(const gchar, initial_chars),
                                n_initial_chars);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 18, 0)
 void
 mlton_gtk_entry_buffer_emit_inserted_text (GtkEntryBuffer* buffer,
                                            guint position,
@@ -1316,7 +1519,9 @@ mlton_gtk_entry_buffer_emit_inserted_text (GtkEntryBuffer* buffer,
                                        GET_SML_CVECTOR_VAL(const gchar, chars),
                                        n_chars);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 18, 0)
 guint
 mlton_gtk_entry_buffer_insert_text (GtkEntryBuffer* buffer,
                                     guint position,
@@ -1328,7 +1533,9 @@ mlton_gtk_entry_buffer_insert_text (GtkEntryBuffer* buffer,
                                        GET_SML_CVECTOR_VAL(const gchar, chars),
                                        n_chars);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 18, 0)
 void
 mlton_gtk_entry_buffer_set_text (GtkEntryBuffer* buffer,
                                  SML_CVECTOR_VAL(const gchar, chars),
@@ -1338,7 +1545,9 @@ mlton_gtk_entry_buffer_set_text (GtkEntryBuffer* buffer,
                              GET_SML_CVECTOR_VAL(const gchar, chars),
                              n_chars);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 gchar*
 mlton_gtk_entry_completion_compute_prefix (GtkEntryCompletion* completion,
                                            SML_CVECTOR_VAL(const char, key))
@@ -1346,7 +1555,9 @@ mlton_gtk_entry_completion_compute_prefix (GtkEntryCompletion* completion,
   return gtk_entry_completion_compute_prefix (completion,
                                               GET_SML_CVECTOR_VAL(const char, key));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_entry_completion_insert_action_markup (GtkEntryCompletion* completion,
                                                  gint index_,
@@ -1356,7 +1567,9 @@ mlton_gtk_entry_completion_insert_action_markup (GtkEntryCompletion* completion,
                                              index_,
                                              GET_SML_CVECTOR_VAL(const gchar, markup));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_entry_completion_insert_action_text (GtkEntryCompletion* completion,
                                                gint index_,
@@ -1366,19 +1579,25 @@ mlton_gtk_entry_completion_insert_action_text (GtkEntryCompletion* completion,
                                            index_,
                                            GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkWidget*
 mlton_gtk_expander_new (SML_CVECTOR_VAL(const gchar, label))
 {
   return gtk_expander_new (GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkWidget*
 mlton_gtk_expander_new_with_mnemonic (SML_CVECTOR_VAL(const gchar, label))
 {
   return gtk_expander_new_with_mnemonic (GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_expander_set_label (GtkExpander* expander,
                               SML_CVECTOR_VAL(const gchar, label))
@@ -1386,7 +1605,9 @@ mlton_gtk_expander_set_label (GtkExpander* expander,
   gtk_expander_set_label (expander,
                           GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 22, 0)
 void
 mlton_gtk_file_chooser_add_choice (GtkFileChooser* chooser,
                                    SML_CVECTOR_VAL(const char, id),
@@ -1400,7 +1621,9 @@ mlton_gtk_file_chooser_add_choice (GtkFileChooser* chooser,
                                GET_SML_CVECTOR_VAL(const char*, options),
                                GET_SML_CVECTOR_VAL(const char*, option_labels));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_file_chooser_add_shortcut_folder (GtkFileChooser* chooser,
                                             SML_CVECTOR_VAL(char, folder),
@@ -1410,7 +1633,9 @@ mlton_gtk_file_chooser_add_shortcut_folder (GtkFileChooser* chooser,
                                                GET_SML_CVECTOR_VAL(char, folder),
                                                error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_file_chooser_add_shortcut_folder_uri (GtkFileChooser* chooser,
                                                 SML_CVECTOR_VAL(const char, uri),
@@ -1420,7 +1645,9 @@ mlton_gtk_file_chooser_add_shortcut_folder_uri (GtkFileChooser* chooser,
                                                    GET_SML_CVECTOR_VAL(const char, uri),
                                                    error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 22, 0)
 const char*
 mlton_gtk_file_chooser_get_choice (GtkFileChooser* chooser,
                                    SML_CVECTOR_VAL(const char, id))
@@ -1428,7 +1655,9 @@ mlton_gtk_file_chooser_get_choice (GtkFileChooser* chooser,
   return gtk_file_chooser_get_choice (chooser,
                                       GET_SML_CVECTOR_VAL(const char, id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 22, 0)
 void
 mlton_gtk_file_chooser_remove_choice (GtkFileChooser* chooser,
                                       SML_CVECTOR_VAL(const char, id))
@@ -1436,7 +1665,9 @@ mlton_gtk_file_chooser_remove_choice (GtkFileChooser* chooser,
   gtk_file_chooser_remove_choice (chooser,
                                   GET_SML_CVECTOR_VAL(const char, id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_file_chooser_remove_shortcut_folder (GtkFileChooser* chooser,
                                                SML_CVECTOR_VAL(char, folder),
@@ -1446,7 +1677,9 @@ mlton_gtk_file_chooser_remove_shortcut_folder (GtkFileChooser* chooser,
                                                   GET_SML_CVECTOR_VAL(char, folder),
                                                   error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_file_chooser_remove_shortcut_folder_uri (GtkFileChooser* chooser,
                                                    SML_CVECTOR_VAL(const char, uri),
@@ -1456,7 +1689,9 @@ mlton_gtk_file_chooser_remove_shortcut_folder_uri (GtkFileChooser* chooser,
                                                       GET_SML_CVECTOR_VAL(const char, uri),
                                                       error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_file_chooser_select_filename (GtkFileChooser* chooser,
                                         SML_CVECTOR_VAL(char, filename))
@@ -1464,7 +1699,9 @@ mlton_gtk_file_chooser_select_filename (GtkFileChooser* chooser,
   return gtk_file_chooser_select_filename (chooser,
                                            GET_SML_CVECTOR_VAL(char, filename));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_file_chooser_select_uri (GtkFileChooser* chooser,
                                    SML_CVECTOR_VAL(const char, uri))
@@ -1472,7 +1709,9 @@ mlton_gtk_file_chooser_select_uri (GtkFileChooser* chooser,
   return gtk_file_chooser_select_uri (chooser,
                                       GET_SML_CVECTOR_VAL(const char, uri));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 22, 0)
 void
 mlton_gtk_file_chooser_set_choice (GtkFileChooser* chooser,
                                    SML_CVECTOR_VAL(const char, id),
@@ -1482,7 +1721,9 @@ mlton_gtk_file_chooser_set_choice (GtkFileChooser* chooser,
                                GET_SML_CVECTOR_VAL(const char, id),
                                GET_SML_CVECTOR_VAL(const char, option));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_file_chooser_set_current_folder (GtkFileChooser* chooser,
                                            SML_CVECTOR_VAL(gchar, filename))
@@ -1490,7 +1731,9 @@ mlton_gtk_file_chooser_set_current_folder (GtkFileChooser* chooser,
   return gtk_file_chooser_set_current_folder (chooser,
                                               GET_SML_CVECTOR_VAL(gchar, filename));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_file_chooser_set_current_folder_uri (GtkFileChooser* chooser,
                                                SML_CVECTOR_VAL(const gchar, uri))
@@ -1498,7 +1741,9 @@ mlton_gtk_file_chooser_set_current_folder_uri (GtkFileChooser* chooser,
   return gtk_file_chooser_set_current_folder_uri (chooser,
                                                   GET_SML_CVECTOR_VAL(const gchar, uri));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_file_chooser_set_current_name (GtkFileChooser* chooser,
                                          SML_CVECTOR_VAL(gchar, name))
@@ -1506,7 +1751,9 @@ mlton_gtk_file_chooser_set_current_name (GtkFileChooser* chooser,
   gtk_file_chooser_set_current_name (chooser,
                                      GET_SML_CVECTOR_VAL(gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_file_chooser_set_filename (GtkFileChooser* chooser,
                                      SML_CVECTOR_VAL(char, filename))
@@ -1514,7 +1761,9 @@ mlton_gtk_file_chooser_set_filename (GtkFileChooser* chooser,
   return gtk_file_chooser_set_filename (chooser,
                                         GET_SML_CVECTOR_VAL(char, filename));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_file_chooser_set_uri (GtkFileChooser* chooser,
                                 SML_CVECTOR_VAL(const char, uri))
@@ -1522,7 +1771,9 @@ mlton_gtk_file_chooser_set_uri (GtkFileChooser* chooser,
   return gtk_file_chooser_set_uri (chooser,
                                    GET_SML_CVECTOR_VAL(const char, uri));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_file_chooser_unselect_filename (GtkFileChooser* chooser,
                                           SML_CVECTOR_VAL(char, filename))
@@ -1530,7 +1781,9 @@ mlton_gtk_file_chooser_unselect_filename (GtkFileChooser* chooser,
   gtk_file_chooser_unselect_filename (chooser,
                                       GET_SML_CVECTOR_VAL(char, filename));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_file_chooser_unselect_uri (GtkFileChooser* chooser,
                                      SML_CVECTOR_VAL(const char, uri))
@@ -1538,7 +1791,9 @@ mlton_gtk_file_chooser_unselect_uri (GtkFileChooser* chooser,
   gtk_file_chooser_unselect_uri (chooser,
                                  GET_SML_CVECTOR_VAL(const char, uri));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 GtkWidget*
 mlton_gtk_file_chooser_button_new (SML_CVECTOR_VAL(const gchar, title),
                                    GtkFileChooserAction action)
@@ -1546,7 +1801,9 @@ mlton_gtk_file_chooser_button_new (SML_CVECTOR_VAL(const gchar, title),
   return gtk_file_chooser_button_new (GET_SML_CVECTOR_VAL(const gchar, title),
                                       action);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_file_chooser_button_set_title (GtkFileChooserButton* button,
                                          SML_CVECTOR_VAL(const gchar, title))
@@ -1554,7 +1811,9 @@ mlton_gtk_file_chooser_button_set_title (GtkFileChooserButton* button,
   gtk_file_chooser_button_set_title (button,
                                      GET_SML_CVECTOR_VAL(const gchar, title));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 20, 0)
 GtkFileChooserNative*
 mlton_gtk_file_chooser_native_new (SML_CVECTOR_VAL(const gchar, title),
                                    GtkWindow* parent,
@@ -1568,7 +1827,9 @@ mlton_gtk_file_chooser_native_new (SML_CVECTOR_VAL(const gchar, title),
                                       GET_SML_CVECTOR_VAL(const gchar, accept_label),
                                       GET_SML_CVECTOR_VAL(const gchar, cancel_label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 20, 0)
 void
 mlton_gtk_file_chooser_native_set_accept_label (GtkFileChooserNative* self,
                                                 SML_CVECTOR_VAL(const char, accept_label))
@@ -1576,7 +1837,9 @@ mlton_gtk_file_chooser_native_set_accept_label (GtkFileChooserNative* self,
   gtk_file_chooser_native_set_accept_label (self,
                                             GET_SML_CVECTOR_VAL(const char, accept_label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 20, 0)
 void
 mlton_gtk_file_chooser_native_set_cancel_label (GtkFileChooserNative* self,
                                                 SML_CVECTOR_VAL(const char, cancel_label))
@@ -1584,7 +1847,9 @@ mlton_gtk_file_chooser_native_set_cancel_label (GtkFileChooserNative* self,
   gtk_file_chooser_native_set_cancel_label (self,
                                             GET_SML_CVECTOR_VAL(const char, cancel_label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_file_filter_add_mime_type (GtkFileFilter* filter,
                                      SML_CVECTOR_VAL(const gchar, mime_type))
@@ -1592,7 +1857,9 @@ mlton_gtk_file_filter_add_mime_type (GtkFileFilter* filter,
   gtk_file_filter_add_mime_type (filter,
                                  GET_SML_CVECTOR_VAL(const gchar, mime_type));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_file_filter_add_pattern (GtkFileFilter* filter,
                                    SML_CVECTOR_VAL(const gchar, pattern))
@@ -1600,7 +1867,9 @@ mlton_gtk_file_filter_add_pattern (GtkFileFilter* filter,
   gtk_file_filter_add_pattern (filter,
                                GET_SML_CVECTOR_VAL(const gchar, pattern));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_file_filter_set_name (GtkFileFilter* filter,
                                 SML_CVECTOR_VAL(const gchar, name))
@@ -1608,13 +1877,17 @@ mlton_gtk_file_filter_set_name (GtkFileFilter* filter,
   gtk_file_filter_set_name (filter,
                             GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkWidget*
 mlton_gtk_font_button_new_with_font (SML_CVECTOR_VAL(const gchar, fontname))
 {
   return gtk_font_button_new_with_font (GET_SML_CVECTOR_VAL(const gchar, fontname));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_font_button_set_font_name (GtkFontButton* font_button,
                                      SML_CVECTOR_VAL(const gchar, fontname))
@@ -1622,7 +1895,9 @@ mlton_gtk_font_button_set_font_name (GtkFontButton* font_button,
   return gtk_font_button_set_font_name (font_button,
                                         GET_SML_CVECTOR_VAL(const gchar, fontname));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_font_button_set_title (GtkFontButton* font_button,
                                  SML_CVECTOR_VAL(const gchar, title))
@@ -1630,7 +1905,9 @@ mlton_gtk_font_button_set_title (GtkFontButton* font_button,
   gtk_font_button_set_title (font_button,
                              GET_SML_CVECTOR_VAL(const gchar, title));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 2, 0)
 void
 mlton_gtk_font_chooser_set_font (GtkFontChooser* fontchooser,
                                  SML_CVECTOR_VAL(const gchar, fontname))
@@ -1638,7 +1915,9 @@ mlton_gtk_font_chooser_set_font (GtkFontChooser* fontchooser,
   gtk_font_chooser_set_font (fontchooser,
                              GET_SML_CVECTOR_VAL(const gchar, fontname));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 2, 0)
 void
 mlton_gtk_font_chooser_set_preview_text (GtkFontChooser* fontchooser,
                                          SML_CVECTOR_VAL(const gchar, text))
@@ -1646,7 +1925,9 @@ mlton_gtk_font_chooser_set_preview_text (GtkFontChooser* fontchooser,
   gtk_font_chooser_set_preview_text (fontchooser,
                                      GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 2, 0)
 GtkWidget*
 mlton_gtk_font_chooser_dialog_new (SML_CVECTOR_VAL(const gchar, title),
                                    GtkWindow* parent)
@@ -1654,6 +1935,7 @@ mlton_gtk_font_chooser_dialog_new (SML_CVECTOR_VAL(const gchar, title),
   return gtk_font_chooser_dialog_new (GET_SML_CVECTOR_VAL(const gchar, title),
                                       parent);
 }
+#endif
 
 gboolean
 mlton_gtk_font_selection_set_font_name (GtkFontSelection* fontsel,
@@ -1707,6 +1989,7 @@ mlton_gtk_frame_set_label (GtkFrame* frame,
                        GET_SML_CVECTOR_VAL(const gchar, label));
 }
 
+#if GTK_CHECK_VERSION(3, 12, 0)
 void
 mlton_gtk_header_bar_set_decoration_layout (GtkHeaderBar* bar,
                                             SML_CVECTOR_VAL(const gchar, layout))
@@ -1714,7 +1997,9 @@ mlton_gtk_header_bar_set_decoration_layout (GtkHeaderBar* bar,
   gtk_header_bar_set_decoration_layout (bar,
                                         GET_SML_CVECTOR_VAL(const gchar, layout));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 void
 mlton_gtk_header_bar_set_subtitle (GtkHeaderBar* bar,
                                    SML_CVECTOR_VAL(const gchar, subtitle))
@@ -1722,7 +2007,9 @@ mlton_gtk_header_bar_set_subtitle (GtkHeaderBar* bar,
   gtk_header_bar_set_subtitle (bar,
                                GET_SML_CVECTOR_VAL(const gchar, subtitle));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 void
 mlton_gtk_header_bar_set_title (GtkHeaderBar* bar,
                                 SML_CVECTOR_VAL(const gchar, title))
@@ -1730,6 +2017,7 @@ mlton_gtk_header_bar_set_title (GtkHeaderBar* bar,
   gtk_header_bar_set_title (bar,
                             GET_SML_CVECTOR_VAL(const gchar, title));
 }
+#endif
 
 void
 mlton_gtk_im_context_get_preedit_string (GtkIMContext* context,
@@ -1773,6 +2061,7 @@ mlton_gtk_im_context_simple_add_compose_file (GtkIMContextSimple* context_simple
                                           GET_SML_CVECTOR_VAL(const gchar, compose_file));
 }
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_im_multicontext_set_context_id (GtkIMMulticontext* context,
                                           SML_CVECTOR_VAL(const char, context_id))
@@ -1780,6 +2069,7 @@ mlton_gtk_im_multicontext_set_context_id (GtkIMMulticontext* context,
   gtk_im_multicontext_set_context_id (context,
                                       GET_SML_CVECTOR_VAL(const char, context_id));
 }
+#endif
 
 GtkIconSet*
 mlton_gtk_icon_factory_lookup_default (SML_CVECTOR_VAL(const gchar, stock_id))
@@ -1805,6 +2095,7 @@ mlton_gtk_icon_factory_lookup (GtkIconFactory* factory,
                                   GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_icon_info_get_attach_points (GtkIconInfo* icon_info,
                                        SML_CVECTOR_REF(GdkPoint, points),
@@ -1814,6 +2105,7 @@ mlton_gtk_icon_info_get_attach_points (GtkIconInfo* icon_info,
                                           GET_SML_CVECTOR_REF(GdkPoint, points),
                                           n_points);
 }
+#endif
 
 void
 mlton_gtk_icon_set_get_sizes (GtkIconSet* icon_set,
@@ -1883,6 +2175,7 @@ mlton_gtk_icon_source_set_icon_name (GtkIconSource* source,
                                  GET_SML_CVECTOR_VAL(const gchar, icon_name));
 }
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_icon_theme_add_builtin_icon (SML_CVECTOR_VAL(const gchar, icon_name),
                                        gint size,
@@ -1892,7 +2185,9 @@ mlton_gtk_icon_theme_add_builtin_icon (SML_CVECTOR_VAL(const gchar, icon_name),
                                    size,
                                    pixbuf);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 14, 0)
 void
 mlton_gtk_icon_theme_add_resource_path (GtkIconTheme* icon_theme,
                                         SML_CVECTOR_VAL(const gchar, path))
@@ -1900,7 +2195,9 @@ mlton_gtk_icon_theme_add_resource_path (GtkIconTheme* icon_theme,
   gtk_icon_theme_add_resource_path (icon_theme,
                                     GET_SML_CVECTOR_VAL(const gchar, path));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_icon_theme_append_search_path (GtkIconTheme* icon_theme,
                                          SML_CVECTOR_VAL(gchar, path))
@@ -1908,7 +2205,9 @@ mlton_gtk_icon_theme_append_search_path (GtkIconTheme* icon_theme,
   gtk_icon_theme_append_search_path (icon_theme,
                                      GET_SML_CVECTOR_VAL(gchar, path));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 gint*
 mlton_gtk_icon_theme_get_icon_sizes (GtkIconTheme* icon_theme,
                                      SML_CVECTOR_VAL(const gchar, icon_name))
@@ -1916,7 +2215,9 @@ mlton_gtk_icon_theme_get_icon_sizes (GtkIconTheme* icon_theme,
   return gtk_icon_theme_get_icon_sizes (icon_theme,
                                         GET_SML_CVECTOR_VAL(const gchar, icon_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 gboolean
 mlton_gtk_icon_theme_has_icon (GtkIconTheme* icon_theme,
                                SML_CVECTOR_VAL(const gchar, icon_name))
@@ -1924,7 +2225,9 @@ mlton_gtk_icon_theme_has_icon (GtkIconTheme* icon_theme,
   return gtk_icon_theme_has_icon (icon_theme,
                                   GET_SML_CVECTOR_VAL(const gchar, icon_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GList*
 mlton_gtk_icon_theme_list_icons (GtkIconTheme* icon_theme,
                                  SML_CVECTOR_VAL(const gchar, context))
@@ -1932,7 +2235,9 @@ mlton_gtk_icon_theme_list_icons (GtkIconTheme* icon_theme,
   return gtk_icon_theme_list_icons (icon_theme,
                                     GET_SML_CVECTOR_VAL(const gchar, context));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GdkPixbuf*
 mlton_gtk_icon_theme_load_icon (GtkIconTheme* icon_theme,
                                 SML_CVECTOR_VAL(const gchar, icon_name),
@@ -1946,7 +2251,9 @@ mlton_gtk_icon_theme_load_icon (GtkIconTheme* icon_theme,
                                    flags,
                                    error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 GdkPixbuf*
 mlton_gtk_icon_theme_load_icon_for_scale (GtkIconTheme* icon_theme,
                                           SML_CVECTOR_VAL(const gchar, icon_name),
@@ -1962,7 +2269,9 @@ mlton_gtk_icon_theme_load_icon_for_scale (GtkIconTheme* icon_theme,
                                              flags,
                                              error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 cairo_surface_t*
 mlton_gtk_icon_theme_load_surface (GtkIconTheme* icon_theme,
                                    SML_CVECTOR_VAL(const gchar, icon_name),
@@ -1980,7 +2289,9 @@ mlton_gtk_icon_theme_load_surface (GtkIconTheme* icon_theme,
                                       flags,
                                       error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkIconInfo*
 mlton_gtk_icon_theme_lookup_icon (GtkIconTheme* icon_theme,
                                   SML_CVECTOR_VAL(const gchar, icon_name),
@@ -1992,7 +2303,9 @@ mlton_gtk_icon_theme_lookup_icon (GtkIconTheme* icon_theme,
                                      size,
                                      flags);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 GtkIconInfo*
 mlton_gtk_icon_theme_lookup_icon_for_scale (GtkIconTheme* icon_theme,
                                             SML_CVECTOR_VAL(const gchar, icon_name),
@@ -2006,7 +2319,9 @@ mlton_gtk_icon_theme_lookup_icon_for_scale (GtkIconTheme* icon_theme,
                                                scale,
                                                flags);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_icon_theme_prepend_search_path (GtkIconTheme* icon_theme,
                                           SML_CVECTOR_VAL(gchar, path))
@@ -2014,7 +2329,9 @@ mlton_gtk_icon_theme_prepend_search_path (GtkIconTheme* icon_theme,
   gtk_icon_theme_prepend_search_path (icon_theme,
                                       GET_SML_CVECTOR_VAL(gchar, path));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_icon_theme_set_custom_theme (GtkIconTheme* icon_theme,
                                        SML_CVECTOR_VAL(const gchar, theme_name))
@@ -2022,7 +2339,9 @@ mlton_gtk_icon_theme_set_custom_theme (GtkIconTheme* icon_theme,
   gtk_icon_theme_set_custom_theme (icon_theme,
                                    GET_SML_CVECTOR_VAL(const gchar, theme_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 8, 0)
 void
 mlton_gtk_icon_view_enable_model_drag_dest (GtkIconView* icon_view,
                                             SML_CVECTOR_VAL(GtkTargetEntry, targets),
@@ -2034,7 +2353,9 @@ mlton_gtk_icon_view_enable_model_drag_dest (GtkIconView* icon_view,
                                         n_targets,
                                         actions);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 8, 0)
 void
 mlton_gtk_icon_view_enable_model_drag_source (GtkIconView* icon_view,
                                               GdkModifierType start_button_mask,
@@ -2048,6 +2369,7 @@ mlton_gtk_icon_view_enable_model_drag_source (GtkIconView* icon_view,
                                           n_targets,
                                           actions);
 }
+#endif
 
 GtkWidget*
 mlton_gtk_image_new_from_file (SML_CVECTOR_VAL(gchar, filename))
@@ -2055,6 +2377,7 @@ mlton_gtk_image_new_from_file (SML_CVECTOR_VAL(gchar, filename))
   return gtk_image_new_from_file (GET_SML_CVECTOR_VAL(gchar, filename));
 }
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 GtkWidget*
 mlton_gtk_image_new_from_icon_name (SML_CVECTOR_VAL(const gchar, icon_name),
                                     GtkIconSize size)
@@ -2062,12 +2385,15 @@ mlton_gtk_image_new_from_icon_name (SML_CVECTOR_VAL(const gchar, icon_name),
   return gtk_image_new_from_icon_name (GET_SML_CVECTOR_VAL(const gchar, icon_name),
                                        size);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 GtkWidget*
 mlton_gtk_image_new_from_resource (SML_CVECTOR_VAL(const gchar, resource_path))
 {
   return gtk_image_new_from_resource (GET_SML_CVECTOR_VAL(const gchar, resource_path));
 }
+#endif
 
 GtkWidget*
 mlton_gtk_image_new_from_stock (SML_CVECTOR_VAL(const gchar, stock_id),
@@ -2077,6 +2403,7 @@ mlton_gtk_image_new_from_stock (SML_CVECTOR_VAL(const gchar, stock_id),
                                    size);
 }
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_image_get_icon_name (GtkImage* image,
                                SML_CVECTOR_REF(const gchar, icon_name),
@@ -2086,6 +2413,7 @@ mlton_gtk_image_get_icon_name (GtkImage* image,
                            GET_SML_CVECTOR_REF(const gchar, icon_name),
                            size);
 }
+#endif
 
 void
 mlton_gtk_image_get_stock (GtkImage* image,
@@ -2105,6 +2433,7 @@ mlton_gtk_image_set_from_file (GtkImage* image,
                            GET_SML_CVECTOR_VAL(gchar, filename));
 }
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_image_set_from_icon_name (GtkImage* image,
                                     SML_CVECTOR_VAL(const gchar, icon_name),
@@ -2114,6 +2443,7 @@ mlton_gtk_image_set_from_icon_name (GtkImage* image,
                                 GET_SML_CVECTOR_VAL(const gchar, icon_name),
                                 size);
 }
+#endif
 
 void
 mlton_gtk_image_set_from_resource (GtkImage* image,
@@ -2153,6 +2483,7 @@ mlton_gtk_image_menu_item_new_with_mnemonic (SML_CVECTOR_VAL(const gchar, label)
   return gtk_image_menu_item_new_with_mnemonic (GET_SML_CVECTOR_VAL(const gchar, label));
 }
 
+#if GTK_CHECK_VERSION(2, 18, 0)
 GtkWidget*
 mlton_gtk_info_bar_add_button (GtkInfoBar* info_bar,
                                SML_CVECTOR_VAL(const gchar, button_text),
@@ -2162,6 +2493,7 @@ mlton_gtk_info_bar_add_button (GtkInfoBar* info_bar,
                                   GET_SML_CVECTOR_VAL(const gchar, button_text),
                                   response_id);
 }
+#endif
 
 GtkWidget*
 mlton_gtk_label_new (SML_CVECTOR_VAL(const gchar, str))
@@ -2223,6 +2555,7 @@ mlton_gtk_label_set_text_with_mnemonic (GtkLabel* label,
                                     GET_SML_CVECTOR_VAL(const gchar, str));
 }
 
+#if GTK_CHECK_VERSION(3, 6, 0)
 void
 mlton_gtk_level_bar_add_offset_value (GtkLevelBar* self,
                                       SML_CVECTOR_VAL(const gchar, name),
@@ -2232,7 +2565,9 @@ mlton_gtk_level_bar_add_offset_value (GtkLevelBar* self,
                                   GET_SML_CVECTOR_VAL(const gchar, name),
                                   value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 6, 0)
 gboolean
 mlton_gtk_level_bar_get_offset_value (GtkLevelBar* self,
                                       SML_CVECTOR_VAL(const gchar, name),
@@ -2242,7 +2577,9 @@ mlton_gtk_level_bar_get_offset_value (GtkLevelBar* self,
                                          GET_SML_CVECTOR_VAL(const gchar, name),
                                          value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 6, 0)
 void
 mlton_gtk_level_bar_remove_offset_value (GtkLevelBar* self,
                                          SML_CVECTOR_VAL(const gchar, name))
@@ -2250,13 +2587,17 @@ mlton_gtk_level_bar_remove_offset_value (GtkLevelBar* self,
   gtk_level_bar_remove_offset_value (self,
                                      GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GtkWidget*
 mlton_gtk_link_button_new (SML_CVECTOR_VAL(const gchar, uri))
 {
   return gtk_link_button_new (GET_SML_CVECTOR_VAL(const gchar, uri));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GtkWidget*
 mlton_gtk_link_button_new_with_label (SML_CVECTOR_VAL(const gchar, uri),
                                       SML_CVECTOR_VAL(const gchar, label))
@@ -2264,7 +2605,9 @@ mlton_gtk_link_button_new_with_label (SML_CVECTOR_VAL(const gchar, uri),
   return gtk_link_button_new_with_label (GET_SML_CVECTOR_VAL(const gchar, uri),
                                          GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_link_button_set_uri (GtkLinkButton* link_button,
                                SML_CVECTOR_VAL(const gchar, uri))
@@ -2272,6 +2615,7 @@ mlton_gtk_link_button_set_uri (GtkLinkButton* link_button,
   gtk_link_button_set_uri (link_button,
                            GET_SML_CVECTOR_VAL(const gchar, uri));
 }
+#endif
 
 GtkListStore*
 mlton_gtk_list_store_newv (gint n_columns,
@@ -2281,6 +2625,7 @@ mlton_gtk_list_store_newv (gint n_columns,
                               GET_SML_CVECTOR_VAL(GType, types));
 }
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_list_store_insert_with_valuesv (GtkListStore* list_store,
                                           GtkTreeIter* iter,
@@ -2296,7 +2641,9 @@ mlton_gtk_list_store_insert_with_valuesv (GtkListStore* list_store,
                                       GET_SML_CVECTOR_VAL(GValue, values),
                                       n_values);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 2, 0)
 void
 mlton_gtk_list_store_reorder (GtkListStore* store,
                               SML_CVECTOR_VAL(gint, new_order))
@@ -2304,6 +2651,7 @@ mlton_gtk_list_store_reorder (GtkListStore* store,
   gtk_list_store_reorder (store,
                           GET_SML_CVECTOR_VAL(gint, new_order));
 }
+#endif
 
 void
 mlton_gtk_list_store_set_column_types (GtkListStore* list_store,
@@ -2315,6 +2663,7 @@ mlton_gtk_list_store_set_column_types (GtkListStore* list_store,
                                    GET_SML_CVECTOR_VAL(GType, types));
 }
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_list_store_set_valuesv (GtkListStore* list_store,
                                   GtkTreeIter* iter,
@@ -2328,6 +2677,7 @@ mlton_gtk_list_store_set_valuesv (GtkListStore* list_store,
                               GET_SML_CVECTOR_VAL(GValue, values),
                               n_values);
 }
+#endif
 
 void
 mlton_gtk_menu_set_accel_path (GtkMenu* menu,
@@ -2365,6 +2715,7 @@ mlton_gtk_menu_item_set_accel_path (GtkMenuItem* menu_item,
                                 GET_SML_CVECTOR_VAL(const gchar, accel_path));
 }
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_menu_item_set_label (GtkMenuItem* menu_item,
                                SML_CVECTOR_VAL(const gchar, label))
@@ -2372,7 +2723,9 @@ mlton_gtk_menu_item_set_label (GtkMenuItem* menu_item,
   gtk_menu_item_set_label (menu_item,
                            GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 6, 0)
 void
 mlton_gtk_menu_shell_bind_model (GtkMenuShell* menu_shell,
                                  GMenuModel* model,
@@ -2384,7 +2737,9 @@ mlton_gtk_menu_shell_bind_model (GtkMenuShell* menu_shell,
                              GET_SML_CVECTOR_VAL(const gchar, action_namespace),
                              with_separators);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 GtkToolItem*
 mlton_gtk_menu_tool_button_new (GtkWidget* icon_widget,
                                 SML_CVECTOR_VAL(const gchar, label))
@@ -2392,13 +2747,17 @@ mlton_gtk_menu_tool_button_new (GtkWidget* icon_widget,
   return gtk_menu_tool_button_new (icon_widget,
                                    GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 GtkToolItem*
 mlton_gtk_menu_tool_button_new_from_stock (SML_CVECTOR_VAL(const gchar, stock_id))
 {
   return gtk_menu_tool_button_new_from_stock (GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_menu_tool_button_set_arrow_tooltip_markup (GtkMenuToolButton* button,
                                                      SML_CVECTOR_VAL(const gchar, markup))
@@ -2406,7 +2765,9 @@ mlton_gtk_menu_tool_button_set_arrow_tooltip_markup (GtkMenuToolButton* button,
   gtk_menu_tool_button_set_arrow_tooltip_markup (button,
                                                  GET_SML_CVECTOR_VAL(const gchar, markup));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_menu_tool_button_set_arrow_tooltip_text (GtkMenuToolButton* button,
                                                    SML_CVECTOR_VAL(const gchar, text))
@@ -2414,7 +2775,9 @@ mlton_gtk_menu_tool_button_set_arrow_tooltip_text (GtkMenuToolButton* button,
   gtk_menu_tool_button_set_arrow_tooltip_text (button,
                                                GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_message_dialog_set_markup (GtkMessageDialog* message_dialog,
                                      SML_CVECTOR_VAL(const gchar, str))
@@ -2422,7 +2785,9 @@ mlton_gtk_message_dialog_set_markup (GtkMessageDialog* message_dialog,
   gtk_message_dialog_set_markup (message_dialog,
                                  GET_SML_CVECTOR_VAL(const gchar, str));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 20, 0)
 void
 mlton_gtk_native_dialog_set_title (GtkNativeDialog* self,
                                    SML_CVECTOR_VAL(const char, title))
@@ -2430,7 +2795,9 @@ mlton_gtk_native_dialog_set_title (GtkNativeDialog* self,
   gtk_native_dialog_set_title (self,
                                GET_SML_CVECTOR_VAL(const char, title));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 24, 0)
 void
 mlton_gtk_notebook_set_group_name (GtkNotebook* notebook,
                                    SML_CVECTOR_VAL(const gchar, group_name))
@@ -2438,6 +2805,7 @@ mlton_gtk_notebook_set_group_name (GtkNotebook* notebook,
   gtk_notebook_set_group_name (notebook,
                                GET_SML_CVECTOR_VAL(const gchar, group_name));
 }
+#endif
 
 void
 mlton_gtk_notebook_set_menu_label_text (GtkNotebook* notebook,
@@ -2459,6 +2827,7 @@ mlton_gtk_notebook_set_tab_label_text (GtkNotebook* notebook,
                                    GET_SML_CVECTOR_VAL(const gchar, tab_text));
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_numerable_icon_set_background_icon_name (GtkNumerableIcon* self,
                                                    SML_CVECTOR_VAL(const gchar, icon_name))
@@ -2466,7 +2835,9 @@ mlton_gtk_numerable_icon_set_background_icon_name (GtkNumerableIcon* self,
   gtk_numerable_icon_set_background_icon_name (self,
                                                GET_SML_CVECTOR_VAL(const gchar, icon_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_numerable_icon_set_label (GtkNumerableIcon* self,
                                     SML_CVECTOR_VAL(const gchar, label))
@@ -2474,7 +2845,9 @@ mlton_gtk_numerable_icon_set_label (GtkNumerableIcon* self,
   gtk_numerable_icon_set_label (self,
                                 GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 22, 0)
 void
 mlton_gtk_pad_controller_set_action (GtkPadController* controller,
                                      GtkPadActionType type,
@@ -2490,7 +2863,9 @@ mlton_gtk_pad_controller_set_action (GtkPadController* controller,
                                  GET_SML_CVECTOR_VAL(const gchar, label),
                                  GET_SML_CVECTOR_VAL(const gchar, action_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 22, 0)
 void
 mlton_gtk_pad_controller_set_action_entries (GtkPadController* controller,
                                              SML_CVECTOR_VAL(GtkPadActionEntry, entries),
@@ -2500,7 +2875,9 @@ mlton_gtk_pad_controller_set_action_entries (GtkPadController* controller,
                                          GET_SML_CVECTOR_VAL(GtkPadActionEntry, entries),
                                          n_entries);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GtkPageSetup*
 mlton_gtk_page_setup_new_from_file (SML_CVECTOR_VAL(gchar, file_name),
                                     GError** error)
@@ -2508,7 +2885,9 @@ mlton_gtk_page_setup_new_from_file (SML_CVECTOR_VAL(gchar, file_name),
   return gtk_page_setup_new_from_file (GET_SML_CVECTOR_VAL(gchar, file_name),
                                        error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GtkPageSetup*
 mlton_gtk_page_setup_new_from_key_file (GKeyFile* key_file,
                                         SML_CVECTOR_VAL(const gchar, group_name),
@@ -2518,7 +2897,9 @@ mlton_gtk_page_setup_new_from_key_file (GKeyFile* key_file,
                                            GET_SML_CVECTOR_VAL(const gchar, group_name),
                                            error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 14, 0)
 gboolean
 mlton_gtk_page_setup_load_file (GtkPageSetup* setup,
                                 SML_CVECTOR_VAL(char, file_name),
@@ -2528,7 +2909,9 @@ mlton_gtk_page_setup_load_file (GtkPageSetup* setup,
                                    GET_SML_CVECTOR_VAL(char, file_name),
                                    error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 14, 0)
 gboolean
 mlton_gtk_page_setup_load_key_file (GtkPageSetup* setup,
                                     GKeyFile* key_file,
@@ -2540,7 +2923,9 @@ mlton_gtk_page_setup_load_key_file (GtkPageSetup* setup,
                                        GET_SML_CVECTOR_VAL(const gchar, group_name),
                                        error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 gboolean
 mlton_gtk_page_setup_to_file (GtkPageSetup* setup,
                               SML_CVECTOR_VAL(char, file_name),
@@ -2550,7 +2935,9 @@ mlton_gtk_page_setup_to_file (GtkPageSetup* setup,
                                  GET_SML_CVECTOR_VAL(char, file_name),
                                  error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_page_setup_to_key_file (GtkPageSetup* setup,
                                   GKeyFile* key_file,
@@ -2560,13 +2947,17 @@ mlton_gtk_page_setup_to_key_file (GtkPageSetup* setup,
                               key_file,
                               GET_SML_CVECTOR_VAL(const gchar, group_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GtkPaperSize*
 mlton_gtk_paper_size_new (SML_CVECTOR_VAL(const gchar, name))
 {
   return gtk_paper_size_new (GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GtkPaperSize*
 mlton_gtk_paper_size_new_custom (SML_CVECTOR_VAL(const gchar, name),
                                  SML_CVECTOR_VAL(const gchar, display_name),
@@ -2580,7 +2971,9 @@ mlton_gtk_paper_size_new_custom (SML_CVECTOR_VAL(const gchar, name),
                                     height,
                                     unit);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 16, 0)
 GtkPaperSize*
 mlton_gtk_paper_size_new_from_ipp (SML_CVECTOR_VAL(const gchar, ipp_name),
                                    gdouble width,
@@ -2590,7 +2983,9 @@ mlton_gtk_paper_size_new_from_ipp (SML_CVECTOR_VAL(const gchar, ipp_name),
                                       width,
                                       height);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GtkPaperSize*
 mlton_gtk_paper_size_new_from_key_file (GKeyFile* key_file,
                                         SML_CVECTOR_VAL(const gchar, group_name),
@@ -2600,7 +2995,9 @@ mlton_gtk_paper_size_new_from_key_file (GKeyFile* key_file,
                                            GET_SML_CVECTOR_VAL(const gchar, group_name),
                                            error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GtkPaperSize*
 mlton_gtk_paper_size_new_from_ppd (SML_CVECTOR_VAL(const gchar, ppd_name),
                                    SML_CVECTOR_VAL(const gchar, ppd_display_name),
@@ -2612,7 +3009,9 @@ mlton_gtk_paper_size_new_from_ppd (SML_CVECTOR_VAL(const gchar, ppd_name),
                                       width,
                                       height);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_paper_size_to_key_file (GtkPaperSize* size,
                                   GKeyFile* key_file,
@@ -2622,7 +3021,9 @@ mlton_gtk_paper_size_to_key_file (GtkPaperSize* size,
                               key_file,
                               GET_SML_CVECTOR_VAL(const gchar, group_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 12, 0)
 void
 mlton_gtk_popover_bind_model (GtkPopover* popover,
                               GMenuModel* model,
@@ -2632,7 +3033,9 @@ mlton_gtk_popover_bind_model (GtkPopover* popover,
                           model,
                           GET_SML_CVECTOR_VAL(const gchar, action_namespace));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 16, 0)
 void
 mlton_gtk_popover_menu_open_submenu (GtkPopoverMenu* popover,
                                      SML_CVECTOR_VAL(const gchar, name))
@@ -2640,7 +3043,9 @@ mlton_gtk_popover_menu_open_submenu (GtkPopoverMenu* popover,
   gtk_popover_menu_open_submenu (popover,
                                  GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_operation_set_custom_tab_label (GtkPrintOperation* op,
                                                 SML_CVECTOR_VAL(const gchar, label))
@@ -2648,7 +3053,9 @@ mlton_gtk_print_operation_set_custom_tab_label (GtkPrintOperation* op,
   gtk_print_operation_set_custom_tab_label (op,
                                             GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_operation_set_export_filename (GtkPrintOperation* op,
                                                SML_CVECTOR_VAL(gchar, filename))
@@ -2656,7 +3063,9 @@ mlton_gtk_print_operation_set_export_filename (GtkPrintOperation* op,
   gtk_print_operation_set_export_filename (op,
                                            GET_SML_CVECTOR_VAL(gchar, filename));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_operation_set_job_name (GtkPrintOperation* op,
                                         SML_CVECTOR_VAL(const gchar, job_name))
@@ -2664,7 +3073,9 @@ mlton_gtk_print_operation_set_job_name (GtkPrintOperation* op,
   gtk_print_operation_set_job_name (op,
                                     GET_SML_CVECTOR_VAL(const gchar, job_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GtkPrintSettings*
 mlton_gtk_print_settings_new_from_file (SML_CVECTOR_VAL(gchar, file_name),
                                         GError** error)
@@ -2672,7 +3083,9 @@ mlton_gtk_print_settings_new_from_file (SML_CVECTOR_VAL(gchar, file_name),
   return gtk_print_settings_new_from_file (GET_SML_CVECTOR_VAL(gchar, file_name),
                                            error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GtkPrintSettings*
 mlton_gtk_print_settings_new_from_key_file (GKeyFile* key_file,
                                             SML_CVECTOR_VAL(const gchar, group_name),
@@ -2682,7 +3095,9 @@ mlton_gtk_print_settings_new_from_key_file (GKeyFile* key_file,
                                                GET_SML_CVECTOR_VAL(const gchar, group_name),
                                                error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 const gchar*
 mlton_gtk_print_settings_get (GtkPrintSettings* settings,
                               SML_CVECTOR_VAL(const gchar, key))
@@ -2690,7 +3105,9 @@ mlton_gtk_print_settings_get (GtkPrintSettings* settings,
   return gtk_print_settings_get (settings,
                                  GET_SML_CVECTOR_VAL(const gchar, key));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_print_settings_get_bool (GtkPrintSettings* settings,
                                    SML_CVECTOR_VAL(const gchar, key))
@@ -2698,7 +3115,9 @@ mlton_gtk_print_settings_get_bool (GtkPrintSettings* settings,
   return gtk_print_settings_get_bool (settings,
                                       GET_SML_CVECTOR_VAL(const gchar, key));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gdouble
 mlton_gtk_print_settings_get_double (GtkPrintSettings* settings,
                                      SML_CVECTOR_VAL(const gchar, key))
@@ -2706,7 +3125,9 @@ mlton_gtk_print_settings_get_double (GtkPrintSettings* settings,
   return gtk_print_settings_get_double (settings,
                                         GET_SML_CVECTOR_VAL(const gchar, key));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gdouble
 mlton_gtk_print_settings_get_double_with_default (GtkPrintSettings* settings,
                                                   SML_CVECTOR_VAL(const gchar, key),
@@ -2716,7 +3137,9 @@ mlton_gtk_print_settings_get_double_with_default (GtkPrintSettings* settings,
                                                      GET_SML_CVECTOR_VAL(const gchar, key),
                                                      def);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gint
 mlton_gtk_print_settings_get_int (GtkPrintSettings* settings,
                                   SML_CVECTOR_VAL(const gchar, key))
@@ -2724,7 +3147,9 @@ mlton_gtk_print_settings_get_int (GtkPrintSettings* settings,
   return gtk_print_settings_get_int (settings,
                                      GET_SML_CVECTOR_VAL(const gchar, key));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gint
 mlton_gtk_print_settings_get_int_with_default (GtkPrintSettings* settings,
                                                SML_CVECTOR_VAL(const gchar, key),
@@ -2734,7 +3159,9 @@ mlton_gtk_print_settings_get_int_with_default (GtkPrintSettings* settings,
                                                   GET_SML_CVECTOR_VAL(const gchar, key),
                                                   def);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gdouble
 mlton_gtk_print_settings_get_length (GtkPrintSettings* settings,
                                      SML_CVECTOR_VAL(const gchar, key),
@@ -2744,7 +3171,9 @@ mlton_gtk_print_settings_get_length (GtkPrintSettings* settings,
                                         GET_SML_CVECTOR_VAL(const gchar, key),
                                         unit);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_print_settings_has_key (GtkPrintSettings* settings,
                                   SML_CVECTOR_VAL(const gchar, key))
@@ -2752,7 +3181,9 @@ mlton_gtk_print_settings_has_key (GtkPrintSettings* settings,
   return gtk_print_settings_has_key (settings,
                                      GET_SML_CVECTOR_VAL(const gchar, key));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 14, 0)
 gboolean
 mlton_gtk_print_settings_load_file (GtkPrintSettings* settings,
                                     SML_CVECTOR_VAL(gchar, file_name),
@@ -2762,7 +3193,9 @@ mlton_gtk_print_settings_load_file (GtkPrintSettings* settings,
                                        GET_SML_CVECTOR_VAL(gchar, file_name),
                                        error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 14, 0)
 gboolean
 mlton_gtk_print_settings_load_key_file (GtkPrintSettings* settings,
                                         GKeyFile* key_file,
@@ -2774,7 +3207,9 @@ mlton_gtk_print_settings_load_key_file (GtkPrintSettings* settings,
                                            GET_SML_CVECTOR_VAL(const gchar, group_name),
                                            error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_set (GtkPrintSettings* settings,
                               SML_CVECTOR_VAL(const gchar, key),
@@ -2784,7 +3219,9 @@ mlton_gtk_print_settings_set (GtkPrintSettings* settings,
                           GET_SML_CVECTOR_VAL(const gchar, key),
                           GET_SML_CVECTOR_VAL(const gchar, value));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_set_bool (GtkPrintSettings* settings,
                                    SML_CVECTOR_VAL(const gchar, key),
@@ -2794,7 +3231,9 @@ mlton_gtk_print_settings_set_bool (GtkPrintSettings* settings,
                                GET_SML_CVECTOR_VAL(const gchar, key),
                                value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_set_default_source (GtkPrintSettings* settings,
                                              SML_CVECTOR_VAL(const gchar, default_source))
@@ -2802,7 +3241,9 @@ mlton_gtk_print_settings_set_default_source (GtkPrintSettings* settings,
   gtk_print_settings_set_default_source (settings,
                                          GET_SML_CVECTOR_VAL(const gchar, default_source));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_set_dither (GtkPrintSettings* settings,
                                      SML_CVECTOR_VAL(const gchar, dither))
@@ -2810,7 +3251,9 @@ mlton_gtk_print_settings_set_dither (GtkPrintSettings* settings,
   gtk_print_settings_set_dither (settings,
                                  GET_SML_CVECTOR_VAL(const gchar, dither));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_set_double (GtkPrintSettings* settings,
                                      SML_CVECTOR_VAL(const gchar, key),
@@ -2820,7 +3263,9 @@ mlton_gtk_print_settings_set_double (GtkPrintSettings* settings,
                                  GET_SML_CVECTOR_VAL(const gchar, key),
                                  value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_set_finishings (GtkPrintSettings* settings,
                                          SML_CVECTOR_VAL(const gchar, finishings))
@@ -2828,7 +3273,9 @@ mlton_gtk_print_settings_set_finishings (GtkPrintSettings* settings,
   gtk_print_settings_set_finishings (settings,
                                      GET_SML_CVECTOR_VAL(const gchar, finishings));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_set_int (GtkPrintSettings* settings,
                                   SML_CVECTOR_VAL(const gchar, key),
@@ -2838,7 +3285,9 @@ mlton_gtk_print_settings_set_int (GtkPrintSettings* settings,
                               GET_SML_CVECTOR_VAL(const gchar, key),
                               value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_set_length (GtkPrintSettings* settings,
                                      SML_CVECTOR_VAL(const gchar, key),
@@ -2850,7 +3299,9 @@ mlton_gtk_print_settings_set_length (GtkPrintSettings* settings,
                                  value,
                                  unit);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_set_media_type (GtkPrintSettings* settings,
                                          SML_CVECTOR_VAL(const gchar, media_type))
@@ -2858,7 +3309,9 @@ mlton_gtk_print_settings_set_media_type (GtkPrintSettings* settings,
   gtk_print_settings_set_media_type (settings,
                                      GET_SML_CVECTOR_VAL(const gchar, media_type));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_set_output_bin (GtkPrintSettings* settings,
                                          SML_CVECTOR_VAL(const gchar, output_bin))
@@ -2866,7 +3319,9 @@ mlton_gtk_print_settings_set_output_bin (GtkPrintSettings* settings,
   gtk_print_settings_set_output_bin (settings,
                                      GET_SML_CVECTOR_VAL(const gchar, output_bin));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_set_page_ranges (GtkPrintSettings* settings,
                                           SML_CVECTOR_VAL(GtkPageRange, page_ranges),
@@ -2876,7 +3331,9 @@ mlton_gtk_print_settings_set_page_ranges (GtkPrintSettings* settings,
                                       GET_SML_CVECTOR_VAL(GtkPageRange, page_ranges),
                                       num_ranges);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_set_printer (GtkPrintSettings* settings,
                                       SML_CVECTOR_VAL(const gchar, printer))
@@ -2884,7 +3341,9 @@ mlton_gtk_print_settings_set_printer (GtkPrintSettings* settings,
   gtk_print_settings_set_printer (settings,
                                   GET_SML_CVECTOR_VAL(const gchar, printer));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 gboolean
 mlton_gtk_print_settings_to_file (GtkPrintSettings* settings,
                                   SML_CVECTOR_VAL(gchar, file_name),
@@ -2894,7 +3353,9 @@ mlton_gtk_print_settings_to_file (GtkPrintSettings* settings,
                                      GET_SML_CVECTOR_VAL(gchar, file_name),
                                      error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_print_settings_to_key_file (GtkPrintSettings* settings,
                                       GKeyFile* key_file,
@@ -2904,7 +3365,9 @@ mlton_gtk_print_settings_to_key_file (GtkPrintSettings* settings,
                                   key_file,
                                   GET_SML_CVECTOR_VAL(const gchar, group_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_print_settings_unset (GtkPrintSettings* settings,
                                 SML_CVECTOR_VAL(const gchar, key))
@@ -2912,6 +3375,7 @@ mlton_gtk_print_settings_unset (GtkPrintSettings* settings,
   gtk_print_settings_unset (settings,
                             GET_SML_CVECTOR_VAL(const gchar, key));
 }
+#endif
 
 void
 mlton_gtk_progress_bar_set_text (GtkProgressBar* pbar,
@@ -2921,6 +3385,7 @@ mlton_gtk_progress_bar_set_text (GtkProgressBar* pbar,
                              GET_SML_CVECTOR_VAL(const gchar, text));
 }
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkRadioAction*
 mlton_gtk_radio_action_new (SML_CVECTOR_VAL(const gchar, name),
                             SML_CVECTOR_VAL(const gchar, label),
@@ -2934,6 +3399,7 @@ mlton_gtk_radio_action_new (SML_CVECTOR_VAL(const gchar, name),
                                GET_SML_CVECTOR_VAL(const gchar, stock_id),
                                value);
 }
+#endif
 
 GtkWidget*
 mlton_gtk_radio_button_new_with_label (GSList* group,
@@ -2975,6 +3441,7 @@ mlton_gtk_radio_menu_item_new_with_label (GSList* group,
                                              GET_SML_CVECTOR_VAL(const gchar, label));
 }
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkWidget*
 mlton_gtk_radio_menu_item_new_with_label_from_widget (GtkRadioMenuItem* group,
                                                       SML_CVECTOR_VAL(const gchar, label))
@@ -2982,6 +3449,7 @@ mlton_gtk_radio_menu_item_new_with_label_from_widget (GtkRadioMenuItem* group,
   return gtk_radio_menu_item_new_with_label_from_widget (group,
                                                          GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
 GtkWidget*
 mlton_gtk_radio_menu_item_new_with_mnemonic (GSList* group,
@@ -2991,6 +3459,7 @@ mlton_gtk_radio_menu_item_new_with_mnemonic (GSList* group,
                                                 GET_SML_CVECTOR_VAL(const gchar, label));
 }
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkWidget*
 mlton_gtk_radio_menu_item_new_with_mnemonic_from_widget (GtkRadioMenuItem* group,
                                                          SML_CVECTOR_VAL(const gchar, label))
@@ -2998,7 +3467,9 @@ mlton_gtk_radio_menu_item_new_with_mnemonic_from_widget (GtkRadioMenuItem* group
   return gtk_radio_menu_item_new_with_mnemonic_from_widget (group,
                                                             GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkToolItem*
 mlton_gtk_radio_tool_button_new_from_stock (GSList* group,
                                             SML_CVECTOR_VAL(const gchar, stock_id))
@@ -3006,7 +3477,9 @@ mlton_gtk_radio_tool_button_new_from_stock (GSList* group,
   return gtk_radio_tool_button_new_from_stock (group,
                                                GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkToolItem*
 mlton_gtk_radio_tool_button_new_with_stock_from_widget (GtkRadioToolButton* group,
                                                         SML_CVECTOR_VAL(const gchar, stock_id))
@@ -3014,7 +3487,9 @@ mlton_gtk_radio_tool_button_new_with_stock_from_widget (GtkRadioToolButton* grou
   return gtk_radio_tool_button_new_with_stock_from_widget (group,
                                                            GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GtkAction*
 mlton_gtk_recent_action_new (SML_CVECTOR_VAL(const gchar, name),
                              SML_CVECTOR_VAL(const gchar, label),
@@ -3026,7 +3501,9 @@ mlton_gtk_recent_action_new (SML_CVECTOR_VAL(const gchar, name),
                                 GET_SML_CVECTOR_VAL(const gchar, tooltip),
                                 GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GtkAction*
 mlton_gtk_recent_action_new_for_manager (SML_CVECTOR_VAL(const gchar, name),
                                          SML_CVECTOR_VAL(const gchar, label),
@@ -3040,7 +3517,9 @@ mlton_gtk_recent_action_new_for_manager (SML_CVECTOR_VAL(const gchar, name),
                                             GET_SML_CVECTOR_VAL(const gchar, stock_id),
                                             manager);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_recent_chooser_select_uri (GtkRecentChooser* chooser,
                                      SML_CVECTOR_VAL(const gchar, uri),
@@ -3050,7 +3529,9 @@ mlton_gtk_recent_chooser_select_uri (GtkRecentChooser* chooser,
                                         GET_SML_CVECTOR_VAL(const gchar, uri),
                                         error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_recent_chooser_set_current_uri (GtkRecentChooser* chooser,
                                           SML_CVECTOR_VAL(const gchar, uri),
@@ -3060,7 +3541,9 @@ mlton_gtk_recent_chooser_set_current_uri (GtkRecentChooser* chooser,
                                              GET_SML_CVECTOR_VAL(const gchar, uri),
                                              error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_recent_chooser_unselect_uri (GtkRecentChooser* chooser,
                                        SML_CVECTOR_VAL(const gchar, uri))
@@ -3068,7 +3551,9 @@ mlton_gtk_recent_chooser_unselect_uri (GtkRecentChooser* chooser,
   gtk_recent_chooser_unselect_uri (chooser,
                                    GET_SML_CVECTOR_VAL(const gchar, uri));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_recent_filter_add_application (GtkRecentFilter* filter,
                                          SML_CVECTOR_VAL(const gchar, application))
@@ -3076,7 +3561,9 @@ mlton_gtk_recent_filter_add_application (GtkRecentFilter* filter,
   gtk_recent_filter_add_application (filter,
                                      GET_SML_CVECTOR_VAL(const gchar, application));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_recent_filter_add_group (GtkRecentFilter* filter,
                                    SML_CVECTOR_VAL(const gchar, group))
@@ -3084,7 +3571,9 @@ mlton_gtk_recent_filter_add_group (GtkRecentFilter* filter,
   gtk_recent_filter_add_group (filter,
                                GET_SML_CVECTOR_VAL(const gchar, group));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_recent_filter_add_mime_type (GtkRecentFilter* filter,
                                        SML_CVECTOR_VAL(const gchar, mime_type))
@@ -3092,7 +3581,9 @@ mlton_gtk_recent_filter_add_mime_type (GtkRecentFilter* filter,
   gtk_recent_filter_add_mime_type (filter,
                                    GET_SML_CVECTOR_VAL(const gchar, mime_type));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_recent_filter_add_pattern (GtkRecentFilter* filter,
                                      SML_CVECTOR_VAL(const gchar, pattern))
@@ -3100,7 +3591,9 @@ mlton_gtk_recent_filter_add_pattern (GtkRecentFilter* filter,
   gtk_recent_filter_add_pattern (filter,
                                  GET_SML_CVECTOR_VAL(const gchar, pattern));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_recent_filter_set_name (GtkRecentFilter* filter,
                                   SML_CVECTOR_VAL(const gchar, name))
@@ -3108,6 +3601,7 @@ mlton_gtk_recent_filter_set_name (GtkRecentFilter* filter,
   gtk_recent_filter_set_name (filter,
                               GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
 GAppInfo*
 mlton_gtk_recent_info_create_app_info (GtkRecentInfo* info,
@@ -3119,6 +3613,7 @@ mlton_gtk_recent_info_create_app_info (GtkRecentInfo* info,
                                           error);
 }
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_recent_info_get_application_info (GtkRecentInfo* info,
                                             SML_CVECTOR_VAL(const gchar, app_name),
@@ -3132,7 +3627,9 @@ mlton_gtk_recent_info_get_application_info (GtkRecentInfo* info,
                                                count,
                                                time_);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_recent_info_has_application (GtkRecentInfo* info,
                                        SML_CVECTOR_VAL(const gchar, app_name))
@@ -3140,7 +3637,9 @@ mlton_gtk_recent_info_has_application (GtkRecentInfo* info,
   return gtk_recent_info_has_application (info,
                                           GET_SML_CVECTOR_VAL(const gchar, app_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_recent_info_has_group (GtkRecentInfo* info,
                                  SML_CVECTOR_VAL(const gchar, group_name))
@@ -3148,7 +3647,9 @@ mlton_gtk_recent_info_has_group (GtkRecentInfo* info,
   return gtk_recent_info_has_group (info,
                                     GET_SML_CVECTOR_VAL(const gchar, group_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_recent_manager_add_full (GtkRecentManager* manager,
                                    SML_CVECTOR_VAL(const gchar, uri),
@@ -3158,7 +3659,9 @@ mlton_gtk_recent_manager_add_full (GtkRecentManager* manager,
                                       GET_SML_CVECTOR_VAL(const gchar, uri),
                                       recent_data);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_recent_manager_add_item (GtkRecentManager* manager,
                                    SML_CVECTOR_VAL(const gchar, uri))
@@ -3166,7 +3669,9 @@ mlton_gtk_recent_manager_add_item (GtkRecentManager* manager,
   return gtk_recent_manager_add_item (manager,
                                       GET_SML_CVECTOR_VAL(const gchar, uri));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_recent_manager_has_item (GtkRecentManager* manager,
                                    SML_CVECTOR_VAL(const gchar, uri))
@@ -3174,7 +3679,9 @@ mlton_gtk_recent_manager_has_item (GtkRecentManager* manager,
   return gtk_recent_manager_has_item (manager,
                                       GET_SML_CVECTOR_VAL(const gchar, uri));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GtkRecentInfo*
 mlton_gtk_recent_manager_lookup_item (GtkRecentManager* manager,
                                       SML_CVECTOR_VAL(const gchar, uri),
@@ -3184,7 +3691,9 @@ mlton_gtk_recent_manager_lookup_item (GtkRecentManager* manager,
                                          GET_SML_CVECTOR_VAL(const gchar, uri),
                                          error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_recent_manager_move_item (GtkRecentManager* manager,
                                     SML_CVECTOR_VAL(const gchar, uri),
@@ -3196,7 +3705,9 @@ mlton_gtk_recent_manager_move_item (GtkRecentManager* manager,
                                        GET_SML_CVECTOR_VAL(const gchar, new_uri),
                                        error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_recent_manager_remove_item (GtkRecentManager* manager,
                                       SML_CVECTOR_VAL(const gchar, uri),
@@ -3206,7 +3717,9 @@ mlton_gtk_recent_manager_remove_item (GtkRecentManager* manager,
                                          GET_SML_CVECTOR_VAL(const gchar, uri),
                                          error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_scale_add_mark (GtkScale* scale,
                           gdouble value,
@@ -3218,7 +3731,9 @@ mlton_gtk_scale_add_mark (GtkScale* scale,
                       position,
                       GET_SML_CVECTOR_VAL(const gchar, markup));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GtkWidget*
 mlton_gtk_scale_button_new (GtkIconSize size,
                             gdouble min,
@@ -3232,7 +3747,9 @@ mlton_gtk_scale_button_new (GtkIconSize size,
                                step,
                                GET_SML_CVECTORVECTOR_VAL(const gchar, icons));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_scale_button_set_icons (GtkScaleButton* button,
                                   SML_CVECTORVECTOR_VAL(const gchar, icons))
@@ -3240,6 +3757,7 @@ mlton_gtk_scale_button_set_icons (GtkScaleButton* button,
   gtk_scale_button_set_icons (button,
                               GET_SML_CVECTORVECTOR_VAL(const gchar, icons));
 }
+#endif
 
 gboolean
 mlton_gtk_selection_data_get_targets (const GtkSelectionData* selection_data,
@@ -3275,6 +3793,7 @@ mlton_gtk_selection_data_set_text (GtkSelectionData* selection_data,
                                       len);
 }
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 gboolean
 mlton_gtk_selection_data_set_uris (GtkSelectionData* selection_data,
                                    SML_CVECTORVECTOR_VAL(gchar, uris))
@@ -3282,7 +3801,9 @@ mlton_gtk_selection_data_set_uris (GtkSelectionData* selection_data,
   return gtk_selection_data_set_uris (selection_data,
                                       GET_SML_CVECTORVECTOR_VAL(gchar, uris));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 20, 0)
 void
 mlton_gtk_settings_reset_property (GtkSettings* settings,
                                    SML_CVECTOR_VAL(const gchar, name))
@@ -3290,6 +3811,7 @@ mlton_gtk_settings_reset_property (GtkSettings* settings,
   gtk_settings_reset_property (settings,
                                GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
 void
 mlton_gtk_settings_set_double_property (GtkSettings* settings,
@@ -3337,12 +3859,15 @@ mlton_gtk_settings_set_string_property (GtkSettings* settings,
                                     GET_SML_CVECTOR_VAL(const gchar, origin));
 }
 
+#if GTK_CHECK_VERSION(3, 22, 0)
 GtkWidget*
 mlton_gtk_shortcut_label_new (SML_CVECTOR_VAL(const gchar, accelerator))
 {
   return gtk_shortcut_label_new (GET_SML_CVECTOR_VAL(const gchar, accelerator));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 22, 0)
 void
 mlton_gtk_shortcut_label_set_accelerator (GtkShortcutLabel* self,
                                           SML_CVECTOR_VAL(const gchar, accelerator))
@@ -3350,7 +3875,9 @@ mlton_gtk_shortcut_label_set_accelerator (GtkShortcutLabel* self,
   gtk_shortcut_label_set_accelerator (self,
                                       GET_SML_CVECTOR_VAL(const gchar, accelerator));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 22, 0)
 void
 mlton_gtk_shortcut_label_set_disabled_text (GtkShortcutLabel* self,
                                             SML_CVECTOR_VAL(const gchar, disabled_text))
@@ -3358,7 +3885,9 @@ mlton_gtk_shortcut_label_set_disabled_text (GtkShortcutLabel* self,
   gtk_shortcut_label_set_disabled_text (self,
                                         GET_SML_CVECTOR_VAL(const gchar, disabled_text));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 void
 mlton_gtk_stack_add_named (GtkStack* stack,
                            GtkWidget* child,
@@ -3368,7 +3897,9 @@ mlton_gtk_stack_add_named (GtkStack* stack,
                        child,
                        GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 void
 mlton_gtk_stack_add_titled (GtkStack* stack,
                             GtkWidget* child,
@@ -3380,7 +3911,9 @@ mlton_gtk_stack_add_titled (GtkStack* stack,
                         GET_SML_CVECTOR_VAL(const gchar, name),
                         GET_SML_CVECTOR_VAL(const gchar, title));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 12, 0)
 GtkWidget*
 mlton_gtk_stack_get_child_by_name (GtkStack* stack,
                                    SML_CVECTOR_VAL(const gchar, name))
@@ -3388,7 +3921,9 @@ mlton_gtk_stack_get_child_by_name (GtkStack* stack,
   return gtk_stack_get_child_by_name (stack,
                                       GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 void
 mlton_gtk_stack_set_visible_child_full (GtkStack* stack,
                                         SML_CVECTOR_VAL(const gchar, name),
@@ -3398,7 +3933,9 @@ mlton_gtk_stack_set_visible_child_full (GtkStack* stack,
                                     GET_SML_CVECTOR_VAL(const gchar, name),
                                     transition);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 void
 mlton_gtk_stack_set_visible_child_name (GtkStack* stack,
                                         SML_CVECTOR_VAL(const gchar, name))
@@ -3406,25 +3943,33 @@ mlton_gtk_stack_set_visible_child_name (GtkStack* stack,
   gtk_stack_set_visible_child_name (stack,
                                     GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GtkStatusIcon*
 mlton_gtk_status_icon_new_from_file (SML_CVECTOR_VAL(gchar, filename))
 {
   return gtk_status_icon_new_from_file (GET_SML_CVECTOR_VAL(gchar, filename));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GtkStatusIcon*
 mlton_gtk_status_icon_new_from_icon_name (SML_CVECTOR_VAL(const gchar, icon_name))
 {
   return gtk_status_icon_new_from_icon_name (GET_SML_CVECTOR_VAL(const gchar, icon_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GtkStatusIcon*
 mlton_gtk_status_icon_new_from_stock (SML_CVECTOR_VAL(const gchar, stock_id))
 {
   return gtk_status_icon_new_from_stock (GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_status_icon_set_from_file (GtkStatusIcon* status_icon,
                                      SML_CVECTOR_VAL(gchar, filename))
@@ -3432,7 +3977,9 @@ mlton_gtk_status_icon_set_from_file (GtkStatusIcon* status_icon,
   gtk_status_icon_set_from_file (status_icon,
                                  GET_SML_CVECTOR_VAL(gchar, filename));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_status_icon_set_from_icon_name (GtkStatusIcon* status_icon,
                                           SML_CVECTOR_VAL(const gchar, icon_name))
@@ -3440,7 +3987,9 @@ mlton_gtk_status_icon_set_from_icon_name (GtkStatusIcon* status_icon,
   gtk_status_icon_set_from_icon_name (status_icon,
                                       GET_SML_CVECTOR_VAL(const gchar, icon_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_status_icon_set_from_stock (GtkStatusIcon* status_icon,
                                       SML_CVECTOR_VAL(const gchar, stock_id))
@@ -3448,7 +3997,9 @@ mlton_gtk_status_icon_set_from_stock (GtkStatusIcon* status_icon,
   gtk_status_icon_set_from_stock (status_icon,
                                   GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 20, 0)
 void
 mlton_gtk_status_icon_set_name (GtkStatusIcon* status_icon,
                                 SML_CVECTOR_VAL(const gchar, name))
@@ -3456,7 +4007,9 @@ mlton_gtk_status_icon_set_name (GtkStatusIcon* status_icon,
   gtk_status_icon_set_name (status_icon,
                             GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 18, 0)
 void
 mlton_gtk_status_icon_set_title (GtkStatusIcon* status_icon,
                                  SML_CVECTOR_VAL(const gchar, title))
@@ -3464,7 +4017,9 @@ mlton_gtk_status_icon_set_title (GtkStatusIcon* status_icon,
   gtk_status_icon_set_title (status_icon,
                              GET_SML_CVECTOR_VAL(const gchar, title));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_status_icon_set_tooltip_markup (GtkStatusIcon* status_icon,
                                           SML_CVECTOR_VAL(const gchar, markup))
@@ -3472,7 +4027,9 @@ mlton_gtk_status_icon_set_tooltip_markup (GtkStatusIcon* status_icon,
   gtk_status_icon_set_tooltip_markup (status_icon,
                                       GET_SML_CVECTOR_VAL(const gchar, markup));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_status_icon_set_tooltip_text (GtkStatusIcon* status_icon,
                                         SML_CVECTOR_VAL(const gchar, text))
@@ -3480,6 +4037,7 @@ mlton_gtk_status_icon_set_tooltip_text (GtkStatusIcon* status_icon,
   gtk_status_icon_set_tooltip_text (status_icon,
                                     GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
 guint
 mlton_gtk_statusbar_get_context_id (GtkStatusbar* statusbar,
@@ -3499,6 +4057,7 @@ mlton_gtk_statusbar_push (GtkStatusbar* statusbar,
                              GET_SML_CVECTOR_VAL(const gchar, text));
 }
 
+#if GTK_CHECK_VERSION(2, 16, 0)
 void
 mlton_gtk_style_get_style_property (GtkStyle* style,
                                     GType widget_type,
@@ -3510,7 +4069,9 @@ mlton_gtk_style_get_style_property (GtkStyle* style,
                                 GET_SML_CVECTOR_VAL(const gchar, property_name),
                                 value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_style_lookup_color (GtkStyle* style,
                               SML_CVECTOR_VAL(const gchar, color_name),
@@ -3520,6 +4081,7 @@ mlton_gtk_style_lookup_color (GtkStyle* style,
                                  GET_SML_CVECTOR_VAL(const gchar, color_name),
                                  color);
 }
+#endif
 
 GtkIconSet*
 mlton_gtk_style_lookup_icon_set (GtkStyle* style,
@@ -3547,6 +4109,7 @@ mlton_gtk_style_render_icon (GtkStyle* style,
                                 GET_SML_CVECTOR_VAL(const gchar, detail));
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_style_context_add_class (GtkStyleContext* context,
                                    SML_CVECTOR_VAL(const gchar, class_name))
@@ -3554,7 +4117,9 @@ mlton_gtk_style_context_add_class (GtkStyleContext* context,
   gtk_style_context_add_class (context,
                                GET_SML_CVECTOR_VAL(const gchar, class_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_style_context_add_region (GtkStyleContext* context,
                                     SML_CVECTOR_VAL(const gchar, region_name),
@@ -3564,7 +4129,9 @@ mlton_gtk_style_context_add_region (GtkStyleContext* context,
                                 GET_SML_CVECTOR_VAL(const gchar, region_name),
                                 flags);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_style_context_get_property (GtkStyleContext* context,
                                       SML_CVECTOR_VAL(const gchar, property),
@@ -3576,6 +4143,7 @@ mlton_gtk_style_context_get_property (GtkStyleContext* context,
                                   state,
                                   value);
 }
+#endif
 
 GtkCssSection*
 mlton_gtk_style_context_get_section (GtkStyleContext* context,
@@ -3595,6 +4163,7 @@ mlton_gtk_style_context_get_style_property (GtkStyleContext* context,
                                         value);
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 gboolean
 mlton_gtk_style_context_has_class (GtkStyleContext* context,
                                    SML_CVECTOR_VAL(const gchar, class_name))
@@ -3602,7 +4171,9 @@ mlton_gtk_style_context_has_class (GtkStyleContext* context,
   return gtk_style_context_has_class (context,
                                       GET_SML_CVECTOR_VAL(const gchar, class_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 gboolean
 mlton_gtk_style_context_has_region (GtkStyleContext* context,
                                     SML_CVECTOR_VAL(const gchar, region_name),
@@ -3612,6 +4183,7 @@ mlton_gtk_style_context_has_region (GtkStyleContext* context,
                                        GET_SML_CVECTOR_VAL(const gchar, region_name),
                                        flags_return);
 }
+#endif
 
 gboolean
 mlton_gtk_style_context_lookup_color (GtkStyleContext* context,
@@ -3631,6 +4203,7 @@ mlton_gtk_style_context_lookup_icon_set (GtkStyleContext* context,
                                             GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_style_context_remove_class (GtkStyleContext* context,
                                       SML_CVECTOR_VAL(const gchar, class_name))
@@ -3638,7 +4211,9 @@ mlton_gtk_style_context_remove_class (GtkStyleContext* context,
   gtk_style_context_remove_class (context,
                                   GET_SML_CVECTOR_VAL(const gchar, class_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_style_context_remove_region (GtkStyleContext* context,
                                        SML_CVECTOR_VAL(const gchar, region_name))
@@ -3646,7 +4221,9 @@ mlton_gtk_style_context_remove_region (GtkStyleContext* context,
   gtk_style_context_remove_region (context,
                                    GET_SML_CVECTOR_VAL(const gchar, region_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 gboolean
 mlton_gtk_style_properties_get_property (GtkStyleProperties* props,
                                          SML_CVECTOR_VAL(const gchar, property),
@@ -3658,7 +4235,9 @@ mlton_gtk_style_properties_get_property (GtkStyleProperties* props,
                                             state,
                                             value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 GtkSymbolicColor*
 mlton_gtk_style_properties_lookup_color (GtkStyleProperties* props,
                                          SML_CVECTOR_VAL(const gchar, name))
@@ -3666,7 +4245,9 @@ mlton_gtk_style_properties_lookup_color (GtkStyleProperties* props,
   return gtk_style_properties_lookup_color (props,
                                             GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_style_properties_map_color (GtkStyleProperties* props,
                                       SML_CVECTOR_VAL(const gchar, name),
@@ -3676,7 +4257,9 @@ mlton_gtk_style_properties_map_color (GtkStyleProperties* props,
                                   GET_SML_CVECTOR_VAL(const gchar, name),
                                   color);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_style_properties_set_property (GtkStyleProperties* props,
                                          SML_CVECTOR_VAL(const gchar, property),
@@ -3688,7 +4271,9 @@ mlton_gtk_style_properties_set_property (GtkStyleProperties* props,
                                      state,
                                      value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_style_properties_unset_property (GtkStyleProperties* props,
                                            SML_CVECTOR_VAL(const gchar, property),
@@ -3698,13 +4283,17 @@ mlton_gtk_style_properties_unset_property (GtkStyleProperties* props,
                                        GET_SML_CVECTOR_VAL(const gchar, property),
                                        state);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 GtkSymbolicColor*
 mlton_gtk_symbolic_color_new_name (SML_CVECTOR_VAL(const gchar, name))
 {
   return gtk_symbolic_color_new_name (GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 GtkSymbolicColor*
 mlton_gtk_symbolic_color_new_win32 (SML_CVECTOR_VAL(const gchar, theme_class),
                                     gint id)
@@ -3712,6 +4301,7 @@ mlton_gtk_symbolic_color_new_win32 (SML_CVECTOR_VAL(const gchar, theme_class),
   return gtk_symbolic_color_new_win32 (GET_SML_CVECTOR_VAL(const gchar, theme_class),
                                        id);
 }
+#endif
 
 GtkTargetEntry*
 mlton_gtk_target_entry_new (SML_CVECTOR_VAL(const gchar, target),
@@ -3773,6 +4363,7 @@ mlton_gtk_text_buffer_delete_mark_by_name (GtkTextBuffer* buffer,
                                        GET_SML_CVECTOR_VAL(const gchar, name));
 }
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_text_buffer_deserialize (GtkTextBuffer* register_buffer,
                                    GtkTextBuffer* content_buffer,
@@ -3790,6 +4381,7 @@ mlton_gtk_text_buffer_deserialize (GtkTextBuffer* register_buffer,
                                       length,
                                       error);
 }
+#endif
 
 GtkTextMark*
 mlton_gtk_text_buffer_get_mark (GtkTextBuffer* buffer,
@@ -3847,6 +4439,7 @@ mlton_gtk_text_buffer_insert_interactive_at_cursor (GtkTextBuffer* buffer,
                                                        default_editable);
 }
 
+#if GTK_CHECK_VERSION(3, 16, 0)
 void
 mlton_gtk_text_buffer_insert_markup (GtkTextBuffer* buffer,
                                      GtkTextIter* iter,
@@ -3858,6 +4451,7 @@ mlton_gtk_text_buffer_insert_markup (GtkTextBuffer* buffer,
                                  GET_SML_CVECTOR_VAL(const gchar, markup),
                                  len);
 }
+#endif
 
 void
 mlton_gtk_text_buffer_move_mark_by_name (GtkTextBuffer* buffer,
@@ -3869,6 +4463,7 @@ mlton_gtk_text_buffer_move_mark_by_name (GtkTextBuffer* buffer,
                                      where);
 }
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GdkAtom
 mlton_gtk_text_buffer_register_deserialize_format (GtkTextBuffer* buffer,
                                                    SML_CVECTOR_VAL(const gchar, mime_type),
@@ -3882,7 +4477,9 @@ mlton_gtk_text_buffer_register_deserialize_format (GtkTextBuffer* buffer,
                                                       user_data,
                                                       user_data_destroy);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GdkAtom
 mlton_gtk_text_buffer_register_deserialize_tagset (GtkTextBuffer* buffer,
                                                    SML_CVECTOR_VAL(const gchar, tagset_name))
@@ -3890,7 +4487,9 @@ mlton_gtk_text_buffer_register_deserialize_tagset (GtkTextBuffer* buffer,
   return gtk_text_buffer_register_deserialize_tagset (buffer,
                                                       GET_SML_CVECTOR_VAL(const gchar, tagset_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GdkAtom
 mlton_gtk_text_buffer_register_serialize_format (GtkTextBuffer* buffer,
                                                  SML_CVECTOR_VAL(const gchar, mime_type),
@@ -3904,7 +4503,9 @@ mlton_gtk_text_buffer_register_serialize_format (GtkTextBuffer* buffer,
                                                     user_data,
                                                     user_data_destroy);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 GdkAtom
 mlton_gtk_text_buffer_register_serialize_tagset (GtkTextBuffer* buffer,
                                                  SML_CVECTOR_VAL(const gchar, tagset_name))
@@ -3912,6 +4513,7 @@ mlton_gtk_text_buffer_register_serialize_tagset (GtkTextBuffer* buffer,
   return gtk_text_buffer_register_serialize_tagset (buffer,
                                                     GET_SML_CVECTOR_VAL(const gchar, tagset_name));
 }
+#endif
 
 void
 mlton_gtk_text_buffer_remove_tag_by_name (GtkTextBuffer* buffer,
@@ -3967,6 +4569,7 @@ mlton_gtk_text_iter_forward_search (const GtkTextIter* iter,
                                        limit);
 }
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 GtkTextMark*
 mlton_gtk_text_mark_new (SML_CVECTOR_VAL(const gchar, name),
                          gboolean left_gravity)
@@ -3974,6 +4577,7 @@ mlton_gtk_text_mark_new (SML_CVECTOR_VAL(const gchar, name),
   return gtk_text_mark_new (GET_SML_CVECTOR_VAL(const gchar, name),
                             left_gravity);
 }
+#endif
 
 GtkTextTag*
 mlton_gtk_text_tag_new (SML_CVECTOR_VAL(const gchar, name))
@@ -3995,6 +4599,7 @@ mlton_gtk_theming_engine_load (SML_CVECTOR_VAL(const gchar, name))
   return gtk_theming_engine_load (GET_SML_CVECTOR_VAL(const gchar, name));
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_theming_engine_get_property (GtkThemingEngine* engine,
                                        SML_CVECTOR_VAL(const gchar, property),
@@ -4006,7 +4611,9 @@ mlton_gtk_theming_engine_get_property (GtkThemingEngine* engine,
                                    state,
                                    value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_theming_engine_get_style_property (GtkThemingEngine* engine,
                                              SML_CVECTOR_VAL(const gchar, property_name),
@@ -4016,7 +4623,9 @@ mlton_gtk_theming_engine_get_style_property (GtkThemingEngine* engine,
                                          GET_SML_CVECTOR_VAL(const gchar, property_name),
                                          value);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 gboolean
 mlton_gtk_theming_engine_has_class (GtkThemingEngine* engine,
                                     SML_CVECTOR_VAL(const gchar, style_class))
@@ -4024,7 +4633,9 @@ mlton_gtk_theming_engine_has_class (GtkThemingEngine* engine,
   return gtk_theming_engine_has_class (engine,
                                        GET_SML_CVECTOR_VAL(const gchar, style_class));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 gboolean
 mlton_gtk_theming_engine_has_region (GtkThemingEngine* engine,
                                      SML_CVECTOR_VAL(const gchar, style_region),
@@ -4034,7 +4645,9 @@ mlton_gtk_theming_engine_has_region (GtkThemingEngine* engine,
                                         GET_SML_CVECTOR_VAL(const gchar, style_region),
                                         flags);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 gboolean
 mlton_gtk_theming_engine_lookup_color (GtkThemingEngine* engine,
                                        SML_CVECTOR_VAL(const gchar, color_name),
@@ -4044,7 +4657,9 @@ mlton_gtk_theming_engine_lookup_color (GtkThemingEngine* engine,
                                           GET_SML_CVECTOR_VAL(const gchar, color_name),
                                           color);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkToggleAction*
 mlton_gtk_toggle_action_new (SML_CVECTOR_VAL(const gchar, name),
                              SML_CVECTOR_VAL(const gchar, label),
@@ -4056,6 +4671,7 @@ mlton_gtk_toggle_action_new (SML_CVECTOR_VAL(const gchar, name),
                                 GET_SML_CVECTOR_VAL(const gchar, tooltip),
                                 GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
 GtkWidget*
 mlton_gtk_toggle_button_new_with_label (SML_CVECTOR_VAL(const gchar, label))
@@ -4069,12 +4685,15 @@ mlton_gtk_toggle_button_new_with_mnemonic (SML_CVECTOR_VAL(const gchar, label))
   return gtk_toggle_button_new_with_mnemonic (GET_SML_CVECTOR_VAL(const gchar, label));
 }
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkToolItem*
 mlton_gtk_toggle_tool_button_new_from_stock (SML_CVECTOR_VAL(const gchar, stock_id))
 {
   return gtk_toggle_tool_button_new_from_stock (GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkToolItem*
 mlton_gtk_tool_button_new (GtkWidget* icon_widget,
                            SML_CVECTOR_VAL(const gchar, label))
@@ -4082,13 +4701,17 @@ mlton_gtk_tool_button_new (GtkWidget* icon_widget,
   return gtk_tool_button_new (icon_widget,
                               GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkToolItem*
 mlton_gtk_tool_button_new_from_stock (SML_CVECTOR_VAL(const gchar, stock_id))
 {
   return gtk_tool_button_new_from_stock (GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 8, 0)
 void
 mlton_gtk_tool_button_set_icon_name (GtkToolButton* button,
                                      SML_CVECTOR_VAL(const gchar, icon_name))
@@ -4096,7 +4719,9 @@ mlton_gtk_tool_button_set_icon_name (GtkToolButton* button,
   gtk_tool_button_set_icon_name (button,
                                  GET_SML_CVECTOR_VAL(const gchar, icon_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_tool_button_set_label (GtkToolButton* button,
                                  SML_CVECTOR_VAL(const gchar, label))
@@ -4104,7 +4729,9 @@ mlton_gtk_tool_button_set_label (GtkToolButton* button,
   gtk_tool_button_set_label (button,
                              GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_tool_button_set_stock_id (GtkToolButton* button,
                                     SML_CVECTOR_VAL(const gchar, stock_id))
@@ -4112,7 +4739,9 @@ mlton_gtk_tool_button_set_stock_id (GtkToolButton* button,
   gtk_tool_button_set_stock_id (button,
                                 GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkWidget*
 mlton_gtk_tool_item_get_proxy_menu_item (GtkToolItem* tool_item,
                                          SML_CVECTOR_VAL(const gchar, menu_item_id))
@@ -4120,7 +4749,9 @@ mlton_gtk_tool_item_get_proxy_menu_item (GtkToolItem* tool_item,
   return gtk_tool_item_get_proxy_menu_item (tool_item,
                                             GET_SML_CVECTOR_VAL(const gchar, menu_item_id));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_tool_item_set_proxy_menu_item (GtkToolItem* tool_item,
                                          SML_CVECTOR_VAL(const gchar, menu_item_id),
@@ -4130,7 +4761,9 @@ mlton_gtk_tool_item_set_proxy_menu_item (GtkToolItem* tool_item,
                                      GET_SML_CVECTOR_VAL(const gchar, menu_item_id),
                                      menu_item);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_tool_item_set_tooltip_markup (GtkToolItem* tool_item,
                                         SML_CVECTOR_VAL(const gchar, markup))
@@ -4138,7 +4771,9 @@ mlton_gtk_tool_item_set_tooltip_markup (GtkToolItem* tool_item,
   gtk_tool_item_set_tooltip_markup (tool_item,
                                     GET_SML_CVECTOR_VAL(const gchar, markup));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_tool_item_set_tooltip_text (GtkToolItem* tool_item,
                                       SML_CVECTOR_VAL(const gchar, text))
@@ -4146,13 +4781,17 @@ mlton_gtk_tool_item_set_tooltip_text (GtkToolItem* tool_item,
   gtk_tool_item_set_tooltip_text (tool_item,
                                   GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 20, 0)
 GtkWidget*
 mlton_gtk_tool_item_group_new (SML_CVECTOR_VAL(const gchar, label))
 {
   return gtk_tool_item_group_new (GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 20, 0)
 void
 mlton_gtk_tool_item_group_set_label (GtkToolItemGroup* group,
                                      SML_CVECTOR_VAL(const gchar, label))
@@ -4160,7 +4799,9 @@ mlton_gtk_tool_item_group_set_label (GtkToolItemGroup* group,
   gtk_tool_item_group_set_label (group,
                                  GET_SML_CVECTOR_VAL(const gchar, label));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 14, 0)
 void
 mlton_gtk_tooltip_set_icon_from_icon_name (GtkTooltip* tooltip,
                                            SML_CVECTOR_VAL(const gchar, icon_name),
@@ -4170,7 +4811,9 @@ mlton_gtk_tooltip_set_icon_from_icon_name (GtkTooltip* tooltip,
                                        GET_SML_CVECTOR_VAL(const gchar, icon_name),
                                        size);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_tooltip_set_icon_from_stock (GtkTooltip* tooltip,
                                        SML_CVECTOR_VAL(const gchar, stock_id),
@@ -4180,7 +4823,9 @@ mlton_gtk_tooltip_set_icon_from_stock (GtkTooltip* tooltip,
                                    GET_SML_CVECTOR_VAL(const gchar, stock_id),
                                    size);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_tooltip_set_markup (GtkTooltip* tooltip,
                               SML_CVECTOR_VAL(const gchar, markup))
@@ -4188,7 +4833,9 @@ mlton_gtk_tooltip_set_markup (GtkTooltip* tooltip,
   gtk_tooltip_set_markup (tooltip,
                           GET_SML_CVECTOR_VAL(const gchar, markup));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_tooltip_set_text (GtkTooltip* tooltip,
                             SML_CVECTOR_VAL(const gchar, text))
@@ -4196,6 +4843,7 @@ mlton_gtk_tooltip_set_text (GtkTooltip* tooltip,
   gtk_tooltip_set_text (tooltip,
                         GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
 gboolean
 mlton_gtk_tree_model_get_iter_from_string (GtkTreeModel* tree_model,
@@ -4207,6 +4855,7 @@ mlton_gtk_tree_model_get_iter_from_string (GtkTreeModel* tree_model,
                                               GET_SML_CVECTOR_VAL(const gchar, path_string));
 }
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 void
 mlton_gtk_tree_model_rows_reordered_with_length (GtkTreeModel* tree_model,
                                                  GtkTreePath* path,
@@ -4220,7 +4869,9 @@ mlton_gtk_tree_model_rows_reordered_with_length (GtkTreeModel* tree_model,
                                              GET_SML_CVECTOR_VAL(gint, new_order),
                                              length);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_tree_model_filter_set_modify_func (GtkTreeModelFilter* filter,
                                              gint n_columns,
@@ -4236,7 +4887,9 @@ mlton_gtk_tree_model_filter_set_modify_func (GtkTreeModelFilter* filter,
                                          data,
                                          destroy);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 12, 0)
 GtkTreePath*
 mlton_gtk_tree_path_new_from_indicesv (SML_CVECTOR_VAL(gint, indices),
                                        gsize length)
@@ -4244,6 +4897,7 @@ mlton_gtk_tree_path_new_from_indicesv (SML_CVECTOR_VAL(gint, indices),
   return gtk_tree_path_new_from_indicesv (GET_SML_CVECTOR_VAL(gint, indices),
                                           length);
 }
+#endif
 
 GtkTreePath*
 mlton_gtk_tree_path_new_from_string (SML_CVECTOR_VAL(const gchar, path))
@@ -4259,6 +4913,7 @@ mlton_gtk_tree_store_newv (gint n_columns,
                               GET_SML_CVECTOR_VAL(GType, types));
 }
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_tree_store_insert_with_valuesv (GtkTreeStore* tree_store,
                                           GtkTreeIter* iter,
@@ -4276,6 +4931,7 @@ mlton_gtk_tree_store_insert_with_valuesv (GtkTreeStore* tree_store,
                                       GET_SML_CVECTOR_VAL(GValue, values),
                                       n_values);
 }
+#endif
 
 void
 mlton_gtk_tree_store_set_column_types (GtkTreeStore* tree_store,
@@ -4287,6 +4943,7 @@ mlton_gtk_tree_store_set_column_types (GtkTreeStore* tree_store,
                                    GET_SML_CVECTOR_VAL(GType, types));
 }
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_tree_store_set_valuesv (GtkTreeStore* tree_store,
                                   GtkTreeIter* iter,
@@ -4300,6 +4957,7 @@ mlton_gtk_tree_store_set_valuesv (GtkTreeStore* tree_store,
                               GET_SML_CVECTOR_VAL(GValue, values),
                               n_values);
 }
+#endif
 
 void
 mlton_gtk_tree_view_enable_model_drag_dest (GtkTreeView* tree_view,
@@ -4365,6 +5023,7 @@ mlton_gtk_tree_view_column_set_title (GtkTreeViewColumn* tree_column,
                                   GET_SML_CVECTOR_VAL(const gchar, title));
 }
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 void
 mlton_gtk_ui_manager_add_ui (GtkUIManager* manager,
                              guint merge_id,
@@ -4382,7 +5041,9 @@ mlton_gtk_ui_manager_add_ui (GtkUIManager* manager,
                          type,
                          top);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 guint
 mlton_gtk_ui_manager_add_ui_from_file (GtkUIManager* manager,
                                        SML_CVECTOR_VAL(gchar, filename),
@@ -4392,7 +5053,9 @@ mlton_gtk_ui_manager_add_ui_from_file (GtkUIManager* manager,
                                           GET_SML_CVECTOR_VAL(gchar, filename),
                                           error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 guint
 mlton_gtk_ui_manager_add_ui_from_resource (GtkUIManager* manager,
                                            SML_CVECTOR_VAL(const gchar, resource_path),
@@ -4402,7 +5065,9 @@ mlton_gtk_ui_manager_add_ui_from_resource (GtkUIManager* manager,
                                               GET_SML_CVECTOR_VAL(const gchar, resource_path),
                                               error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 guint
 mlton_gtk_ui_manager_add_ui_from_string (GtkUIManager* manager,
                                          SML_CVECTOR_VAL(const gchar, buffer),
@@ -4414,7 +5079,9 @@ mlton_gtk_ui_manager_add_ui_from_string (GtkUIManager* manager,
                                             length,
                                             error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkAction*
 mlton_gtk_ui_manager_get_action (GtkUIManager* manager,
                                  SML_CVECTOR_VAL(const gchar, path))
@@ -4422,7 +5089,9 @@ mlton_gtk_ui_manager_get_action (GtkUIManager* manager,
   return gtk_ui_manager_get_action (manager,
                                     GET_SML_CVECTOR_VAL(const gchar, path));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 4, 0)
 GtkWidget*
 mlton_gtk_ui_manager_get_widget (GtkUIManager* manager,
                                  SML_CVECTOR_VAL(const gchar, path))
@@ -4430,6 +5099,7 @@ mlton_gtk_ui_manager_get_widget (GtkUIManager* manager,
   return gtk_ui_manager_get_widget (manager,
                                     GET_SML_CVECTOR_VAL(const gchar, path));
 }
+#endif
 
 void
 mlton_gtk_widget_add_accelerator (GtkWidget* widget,
@@ -4503,6 +5173,7 @@ mlton_gtk_drag_source_set (GtkWidget* widget,
                        actions);
 }
 
+#if GTK_CHECK_VERSION(2, 8, 0)
 void
 mlton_gtk_drag_source_set_icon_name (GtkWidget* widget,
                                      SML_CVECTOR_VAL(const gchar, icon_name))
@@ -4510,6 +5181,7 @@ mlton_gtk_drag_source_set_icon_name (GtkWidget* widget,
   gtk_drag_source_set_icon_name (widget,
                                  GET_SML_CVECTOR_VAL(const gchar, icon_name));
 }
+#endif
 
 void
 mlton_gtk_drag_source_set_icon_stock (GtkWidget* widget,
@@ -4519,6 +5191,7 @@ mlton_gtk_drag_source_set_icon_stock (GtkWidget* widget,
                                   GET_SML_CVECTOR_VAL(const gchar, stock_id));
 }
 
+#if GTK_CHECK_VERSION(3, 16, 0)
 GActionGroup*
 mlton_gtk_widget_get_action_group (GtkWidget* widget,
                                    SML_CVECTOR_VAL(const gchar, prefix))
@@ -4526,6 +5199,7 @@ mlton_gtk_widget_get_action_group (GtkWidget* widget,
   return gtk_widget_get_action_group (widget,
                                       GET_SML_CVECTOR_VAL(const gchar, prefix));
 }
+#endif
 
 GObject*
 mlton_gtk_widget_get_template_child (GtkWidget* widget,
@@ -4537,6 +5211,7 @@ mlton_gtk_widget_get_template_child (GtkWidget* widget,
                                         GET_SML_CVECTOR_VAL(const gchar, name));
 }
 
+#if GTK_CHECK_VERSION(3, 6, 0)
 void
 mlton_gtk_widget_insert_action_group (GtkWidget* widget,
                                       SML_CVECTOR_VAL(const gchar, name),
@@ -4546,7 +5221,9 @@ mlton_gtk_widget_insert_action_group (GtkWidget* widget,
                                   GET_SML_CVECTOR_VAL(const gchar, name),
                                   group);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_widget_override_symbolic_color (GtkWidget* widget,
                                           SML_CVECTOR_VAL(const gchar, name),
@@ -4556,6 +5233,7 @@ mlton_gtk_widget_override_symbolic_color (GtkWidget* widget,
                                       GET_SML_CVECTOR_VAL(const gchar, name),
                                       color);
 }
+#endif
 
 void
 mlton_gtk_widget_path (GtkWidget* widget,
@@ -4581,6 +5259,7 @@ mlton_gtk_widget_render_icon (GtkWidget* widget,
                                  GET_SML_CVECTOR_VAL(const gchar, detail));
 }
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 GdkPixbuf*
 mlton_gtk_widget_render_icon_pixbuf (GtkWidget* widget,
                                      SML_CVECTOR_VAL(const gchar, stock_id),
@@ -4590,6 +5269,7 @@ mlton_gtk_widget_render_icon_pixbuf (GtkWidget* widget,
                                         GET_SML_CVECTOR_VAL(const gchar, stock_id),
                                         size);
 }
+#endif
 
 void
 mlton_gtk_widget_set_accel_path (GtkWidget* widget,
@@ -4617,6 +5297,7 @@ mlton_gtk_widget_set_name (GtkWidget* widget,
                        GET_SML_CVECTOR_VAL(const gchar, name));
 }
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_widget_set_tooltip_markup (GtkWidget* widget,
                                      SML_CVECTOR_VAL(const gchar, markup))
@@ -4624,7 +5305,9 @@ mlton_gtk_widget_set_tooltip_markup (GtkWidget* widget,
   gtk_widget_set_tooltip_markup (widget,
                                  GET_SML_CVECTOR_VAL(const gchar, markup));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_widget_set_tooltip_text (GtkWidget* widget,
                                    SML_CVECTOR_VAL(const gchar, text))
@@ -4632,6 +5315,7 @@ mlton_gtk_widget_set_tooltip_text (GtkWidget* widget,
   gtk_widget_set_tooltip_text (widget,
                                GET_SML_CVECTOR_VAL(const gchar, text));
 }
+#endif
 
 void
 mlton_gtk_widget_style_get_property (GtkWidget* widget,
@@ -4643,6 +5327,7 @@ mlton_gtk_widget_style_get_property (GtkWidget* widget,
                                  value);
 }
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 void
 mlton_gtk_widget_class_bind_template_callback_full (GtkWidgetClass* widget_class,
                                                     SML_CVECTOR_VAL(const gchar, callback_name),
@@ -4652,7 +5337,9 @@ mlton_gtk_widget_class_bind_template_callback_full (GtkWidgetClass* widget_class
                                                 GET_SML_CVECTOR_VAL(const gchar, callback_name),
                                                 callback_symbol);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 void
 mlton_gtk_widget_class_bind_template_child_full (GtkWidgetClass* widget_class,
                                                  SML_CVECTOR_VAL(const gchar, name),
@@ -4664,7 +5351,9 @@ mlton_gtk_widget_class_bind_template_child_full (GtkWidgetClass* widget_class,
                                              internal_child,
                                              struct_offset);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 2, 0)
 GParamSpec*
 mlton_gtk_widget_class_find_style_property (GtkWidgetClass* klass,
                                             SML_CVECTOR_VAL(const gchar, property_name))
@@ -4672,7 +5361,9 @@ mlton_gtk_widget_class_find_style_property (GtkWidgetClass* klass,
   return gtk_widget_class_find_style_property (klass,
                                                GET_SML_CVECTOR_VAL(const gchar, property_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 20, 0)
 void
 mlton_gtk_widget_class_set_css_name (GtkWidgetClass* widget_class,
                                      SML_CVECTOR_VAL(const char, name))
@@ -4680,7 +5371,9 @@ mlton_gtk_widget_class_set_css_name (GtkWidgetClass* widget_class,
   gtk_widget_class_set_css_name (widget_class,
                                  GET_SML_CVECTOR_VAL(const char, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 10, 0)
 void
 mlton_gtk_widget_class_set_template_from_resource (GtkWidgetClass* widget_class,
                                                    SML_CVECTOR_VAL(const gchar, resource_name))
@@ -4688,7 +5381,9 @@ mlton_gtk_widget_class_set_template_from_resource (GtkWidgetClass* widget_class,
   gtk_widget_class_set_template_from_resource (widget_class,
                                                GET_SML_CVECTOR_VAL(const gchar, resource_name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_widget_path_iter_add_class (GtkWidgetPath* path,
                                       gint pos,
@@ -4698,7 +5393,9 @@ mlton_gtk_widget_path_iter_add_class (GtkWidgetPath* path,
                                   pos,
                                   GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_widget_path_iter_add_region (GtkWidgetPath* path,
                                        gint pos,
@@ -4710,7 +5407,9 @@ mlton_gtk_widget_path_iter_add_region (GtkWidgetPath* path,
                                    GET_SML_CVECTOR_VAL(const gchar, name),
                                    flags);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 gboolean
 mlton_gtk_widget_path_iter_has_class (const GtkWidgetPath* path,
                                       gint pos,
@@ -4720,7 +5419,9 @@ mlton_gtk_widget_path_iter_has_class (const GtkWidgetPath* path,
                                          pos,
                                          GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 gboolean
 mlton_gtk_widget_path_iter_has_name (const GtkWidgetPath* path,
                                      gint pos,
@@ -4730,7 +5431,9 @@ mlton_gtk_widget_path_iter_has_name (const GtkWidgetPath* path,
                                         pos,
                                         GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 gboolean
 mlton_gtk_widget_path_iter_has_region (const GtkWidgetPath* path,
                                        gint pos,
@@ -4742,7 +5445,9 @@ mlton_gtk_widget_path_iter_has_region (const GtkWidgetPath* path,
                                           GET_SML_CVECTOR_VAL(const gchar, name),
                                           flags);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_widget_path_iter_remove_class (GtkWidgetPath* path,
                                          gint pos,
@@ -4752,7 +5457,9 @@ mlton_gtk_widget_path_iter_remove_class (GtkWidgetPath* path,
                                      pos,
                                      GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_widget_path_iter_remove_region (GtkWidgetPath* path,
                                           gint pos,
@@ -4762,7 +5469,9 @@ mlton_gtk_widget_path_iter_remove_region (GtkWidgetPath* path,
                                       pos,
                                       GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 0, 0)
 void
 mlton_gtk_widget_path_iter_set_name (GtkWidgetPath* path,
                                      gint pos,
@@ -4772,7 +5481,9 @@ mlton_gtk_widget_path_iter_set_name (GtkWidgetPath* path,
                                  pos,
                                  GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 20, 0)
 void
 mlton_gtk_widget_path_iter_set_object_name (GtkWidgetPath* path,
                                             gint pos,
@@ -4782,7 +5493,9 @@ mlton_gtk_widget_path_iter_set_object_name (GtkWidgetPath* path,
                                         pos,
                                         GET_SML_CVECTOR_VAL(const char, name));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 2, 0)
 gboolean
 mlton_gtk_window_set_default_icon_from_file (SML_CVECTOR_VAL(gchar, filename),
                                              GError** error)
@@ -4790,12 +5503,15 @@ mlton_gtk_window_set_default_icon_from_file (SML_CVECTOR_VAL(gchar, filename),
   return gtk_window_set_default_icon_from_file (GET_SML_CVECTOR_VAL(gchar, filename),
                                                 error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_window_set_default_icon_name (SML_CVECTOR_VAL(const gchar, name))
 {
   gtk_window_set_default_icon_name (GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
 gboolean
 mlton_gtk_window_parse_geometry (GtkWindow* window,
@@ -4805,6 +5521,7 @@ mlton_gtk_window_parse_geometry (GtkWindow* window,
                                     GET_SML_CVECTOR_VAL(const gchar, geometry));
 }
 
+#if GTK_CHECK_VERSION(2, 2, 0)
 gboolean
 mlton_gtk_window_set_icon_from_file (GtkWindow* window,
                                      SML_CVECTOR_VAL(gchar, filename),
@@ -4814,7 +5531,9 @@ mlton_gtk_window_set_icon_from_file (GtkWindow* window,
                                         GET_SML_CVECTOR_VAL(gchar, filename),
                                         error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 void
 mlton_gtk_window_set_icon_name (GtkWindow* window,
                                 SML_CVECTOR_VAL(const gchar, name))
@@ -4822,6 +5541,7 @@ mlton_gtk_window_set_icon_name (GtkWindow* window,
   gtk_window_set_icon_name (window,
                             GET_SML_CVECTOR_VAL(const gchar, name));
 }
+#endif
 
 void
 mlton_gtk_window_set_role (GtkWindow* window,
@@ -4831,6 +5551,7 @@ mlton_gtk_window_set_role (GtkWindow* window,
                        GET_SML_CVECTOR_VAL(const gchar, role));
 }
 
+#if GTK_CHECK_VERSION(2, 12, 0)
 void
 mlton_gtk_window_set_startup_id (GtkWindow* window,
                                  SML_CVECTOR_VAL(const gchar, startup_id))
@@ -4838,6 +5559,7 @@ mlton_gtk_window_set_startup_id (GtkWindow* window,
   gtk_window_set_startup_id (window,
                              GET_SML_CVECTOR_VAL(const gchar, startup_id));
 }
+#endif
 
 void
 mlton_gtk_window_set_title (GtkWindow* window,
@@ -4867,6 +5589,7 @@ mlton_gtk_accelerator_parse (SML_CVECTOR_VAL(const gchar, accelerator),
                          accelerator_mods);
 }
 
+#if GTK_CHECK_VERSION(3, 4, 0)
 void
 mlton_gtk_accelerator_parse_with_keycode (SML_CVECTOR_VAL(const gchar, accelerator),
                                           guint* accelerator_key,
@@ -4878,7 +5601,9 @@ mlton_gtk_accelerator_parse_with_keycode (SML_CVECTOR_VAL(const gchar, accelerat
                                       GET_SML_CVECTOR_REF(guint, accelerator_codes),
                                       accelerator_mods);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 8, 0)
 void
 mlton_gtk_drag_set_icon_name (GdkDragContext* context,
                               SML_CVECTOR_VAL(const gchar, icon_name),
@@ -4890,6 +5615,7 @@ mlton_gtk_drag_set_icon_name (GdkDragContext* context,
                           hot_x,
                           hot_y);
 }
+#endif
 
 void
 mlton_gtk_drag_set_icon_stock (GdkDragContext* context,
@@ -4919,6 +5645,7 @@ mlton_gtk_init_check (int* argc,
                          GET_SML_CVECTORVECTOR_REF(char, argv));
 }
 
+#if GTK_CHECK_VERSION(2, 6, 0)
 gboolean
 mlton_gtk_init_with_args (gint* argc,
                           SML_CVECTORVECTOR_REF(gchar, argv),
@@ -4934,6 +5661,7 @@ mlton_gtk_init_with_args (gint* argc,
                              GET_SML_CVECTOR_VAL(const gchar, translation_domain),
                              error);
 }
+#endif
 
 void
 mlton_gtk_paint_arrow (GtkStyle* style,
@@ -5493,6 +6221,7 @@ mlton_gtk_selection_add_targets (GtkWidget* widget,
                              ntargets);
 }
 
+#if GTK_CHECK_VERSION(2, 14, 0)
 gboolean
 mlton_gtk_show_uri (GdkScreen* screen,
                     SML_CVECTOR_VAL(const gchar, uri),
@@ -5504,7 +6233,9 @@ mlton_gtk_show_uri (GdkScreen* screen,
                        timestamp,
                        error);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3, 22, 0)
 gboolean
 mlton_gtk_show_uri_on_window (GtkWindow* parent,
                               SML_CVECTOR_VAL(const char, uri),
@@ -5516,6 +6247,7 @@ mlton_gtk_show_uri_on_window (GtkWindow* parent,
                                  timestamp,
                                  error);
 }
+#endif
 
 void
 mlton_gtk_stock_add (SML_CVECTOR_VAL(GtkStockItem, items),
@@ -5541,6 +6273,7 @@ mlton_gtk_stock_lookup (SML_CVECTOR_VAL(const gchar, stock_id),
                            item);
 }
 
+#if GTK_CHECK_VERSION(2, 8, 0)
 void
 mlton_gtk_stock_set_translate_func (SML_CVECTOR_VAL(const gchar, domain),
                                     GtkTranslateFunc func,
@@ -5552,7 +6285,9 @@ mlton_gtk_stock_set_translate_func (SML_CVECTOR_VAL(const gchar, domain),
                                 data,
                                 notify);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 void
 mlton_gtk_target_table_free (SML_CVECTOR_VAL(GtkTargetEntry, targets),
                              gint n_targets)
@@ -5560,7 +6295,9 @@ mlton_gtk_target_table_free (SML_CVECTOR_VAL(GtkTargetEntry, targets),
   gtk_target_table_free (GET_SML_CVECTOR_VAL(GtkTargetEntry, targets),
                          n_targets);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_targets_include_image (SML_CVECTOR_VAL(GdkAtom, targets),
                                  gint n_targets,
@@ -5570,7 +6307,9 @@ mlton_gtk_targets_include_image (SML_CVECTOR_VAL(GdkAtom, targets),
                                     n_targets,
                                     writable);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_targets_include_rich_text (SML_CVECTOR_VAL(GdkAtom, targets),
                                      gint n_targets,
@@ -5580,7 +6319,9 @@ mlton_gtk_targets_include_rich_text (SML_CVECTOR_VAL(GdkAtom, targets),
                                         n_targets,
                                         buffer);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_targets_include_text (SML_CVECTOR_VAL(GdkAtom, targets),
                                 gint n_targets)
@@ -5588,7 +6329,9 @@ mlton_gtk_targets_include_text (SML_CVECTOR_VAL(GdkAtom, targets),
   return gtk_targets_include_text (GET_SML_CVECTOR_VAL(GdkAtom, targets),
                                    n_targets);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 10, 0)
 gboolean
 mlton_gtk_targets_include_uri (SML_CVECTOR_VAL(GdkAtom, targets),
                                gint n_targets)
@@ -5596,7 +6339,9 @@ mlton_gtk_targets_include_uri (SML_CVECTOR_VAL(GdkAtom, targets),
   return gtk_targets_include_uri (GET_SML_CVECTOR_VAL(GdkAtom, targets),
                                   n_targets);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 14, 0)
 GtkWidget*
 mlton_gtk_test_create_simple_window (SML_CVECTOR_VAL(const gchar, window_title),
                                      SML_CVECTOR_VAL(const gchar, dialog_text))
@@ -5604,7 +6349,9 @@ mlton_gtk_test_create_simple_window (SML_CVECTOR_VAL(const gchar, window_title),
   return gtk_test_create_simple_window (GET_SML_CVECTOR_VAL(const gchar, window_title),
                                         GET_SML_CVECTOR_VAL(const gchar, dialog_text));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 14, 0)
 GtkWidget*
 mlton_gtk_test_find_label (GtkWidget* widget,
                            SML_CVECTOR_VAL(const gchar, label_pattern))
@@ -5612,7 +6359,9 @@ mlton_gtk_test_find_label (GtkWidget* widget,
   return gtk_test_find_label (widget,
                               GET_SML_CVECTOR_VAL(const gchar, label_pattern));
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 14, 0)
 GtkWidget*
 mlton_gtk_test_find_widget (GtkWidget* widget,
                             SML_CVECTOR_VAL(const gchar, label_pattern),
@@ -5622,7 +6371,9 @@ mlton_gtk_test_find_widget (GtkWidget* widget,
                                GET_SML_CVECTOR_VAL(const gchar, label_pattern),
                                widget_type);
 }
+#endif
 
+#if GTK_CHECK_VERSION(2, 14, 0)
 void
 mlton_gtk_test_text_set (GtkWidget* widget,
                          SML_CVECTOR_VAL(const gchar, string))
@@ -5630,3 +6381,4 @@ mlton_gtk_test_text_set (GtkWidget* widget,
   gtk_test_text_set (widget,
                      GET_SML_CVECTOR_VAL(const gchar, string));
 }
+#endif

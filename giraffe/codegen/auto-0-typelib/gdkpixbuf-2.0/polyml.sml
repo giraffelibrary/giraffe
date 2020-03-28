@@ -1,3 +1,5 @@
+useExt "../glib-2.0/Utf8CArray.sml";
+useExt "../glib-2.0/GUInt8CArrayN.sml";
 use "GDK_PIXBUF_COLORSPACE-sig.sml";
 use "GDK_PIXBUF_INTERP_TYPE-sig.sml";
 use "GDK_PIXBUF_PIXBUF_CLASS-sig.sml";

@@ -32,11 +32,11 @@ signature GIO_DATA_INPUT_STREAM =
     val readLine :
       'a class
        -> 'b cancellable_class option
-       -> Word8Vector.vector option * LargeInt.int
+       -> GUInt8CArray.t option * LargeInt.int
     val readLineFinish :
       'a class
        -> 'b async_result_class
-       -> Word8Vector.vector option * LargeInt.int
+       -> GUInt8CArray.t option * LargeInt.int
     val readLineFinishUtf8 :
       'a class
        -> 'b async_result_class

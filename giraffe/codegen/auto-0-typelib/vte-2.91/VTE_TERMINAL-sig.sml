@@ -1,6 +1,7 @@
 signature VTE_TERMINAL =
   sig
     type 'a class
+    type regex_record_c_array_n_t
     type pty_flags_t
     type regex_t
     type write_flags_t
@@ -19,18 +20,18 @@ signature VTE_TERMINAL =
     val eventCheckGregexSimple :
       'a class
        -> 'b Gdk.Event.union
-           * GLib.RegexRecord.t vector
+           * GLibRegexRecordCArrayN.t
            * GLib.RegexMatchFlags.t
-       -> string list option
+       -> Utf8CArrayN.t option
     val eventCheckRegexSimple :
       'a class
        -> 'b Gdk.Event.union
-           * regex_t vector
+           * regex_record_c_array_n_t
            * LargeInt.int
-       -> string list option
+       -> Utf8CArrayN.t option
     val feed :
       'a class
-       -> Word8Vector.vector option
+       -> GUInt8CArrayN.t option
        -> unit
     val feedChild :
       'a class
@@ -38,7 +39,7 @@ signature VTE_TERMINAL =
        -> unit
     val feedChildBinary :
       'a class
-       -> Word8Vector.vector option
+       -> GUInt8CArrayN.t option
        -> unit
     val getAllowBold : 'a class -> bool
     val getAudibleBell : 'a class -> bool
@@ -176,7 +177,7 @@ signature VTE_TERMINAL =
       'a class
        -> Gdk.RgbaRecord.t option
            * Gdk.RgbaRecord.t option
-           * Gdk.RgbaRecord.t vector option
+           * GdkRgbaRecordCArrayN.t option
        -> unit
     val setCursorBlinkMode :
       'a class

@@ -3,12 +3,6 @@ structure PangoLayoutLine :>
     where type t = PangoLayoutLineRecord.t
     where type rectangle_t = PangoRectangleRecord.t =
   struct
-    structure GIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
-      )
-    structure GIntCVectorN = CVectorN(GIntCVectorNType)
     val getType_ = _import "pango_layout_line_get_type" : unit -> GObjectType.FFI.val_;
     val getExtents_ =
       fn
@@ -56,8 +50,8 @@ structure PangoLayoutLine :>
               PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               * GIntCVectorN.MLton.r1
-               * (unit, GIntCVectorN.FFI.notnull) GIntCVectorN.MLton.r2
+               * GIntCArrayN.MLton.r1
+               * (unit, GIntCArrayN.FFI.notnull) GIntCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -165,9 +159,9 @@ structure PangoLayoutLine :>
             PangoLayoutLineRecord.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
-             &&&> GIntCVectorN.FFI.withRefOptPtr
+             &&&> GIntCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GIntCVectorN.FFI.fromPtr 1
+             ---> GIntCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )

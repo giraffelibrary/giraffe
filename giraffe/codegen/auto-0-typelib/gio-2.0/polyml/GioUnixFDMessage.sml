@@ -3,12 +3,6 @@ structure GioUnixFDMessage :>
     where type 'a class = 'a GioUnixFDMessageClass.class
     where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class =
   struct
-    structure GInt32CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt32.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt32.C.ValueType)
-      )
-    structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
     local
       open PolyMLFFI
     in
@@ -24,7 +18,7 @@ structure GioUnixFDMessage :>
              --> GBool.PolyML.cVal
           )
       val getFdList_ = call (getSymbol "g_unix_fd_message_get_fd_list") (GioUnixFDMessageClass.PolyML.cPtr --> GioUnixFDListClass.PolyML.cPtr)
-      val stealFds_ = call (getSymbol "g_unix_fd_message_steal_fds") (GioUnixFDMessageClass.PolyML.cPtr &&> GInt32.PolyML.cRef --> GInt32CVectorN.PolyML.cOutPtr)
+      val stealFds_ = call (getSymbol "g_unix_fd_message_steal_fds") (GioUnixFDMessageClass.PolyML.cPtr &&> GInt32.PolyML.cRef --> GInt32CArrayN.PolyML.cOutPtr)
     end
     type 'a class = 'a GioUnixFDMessageClass.class
     type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
@@ -48,7 +42,7 @@ structure GioUnixFDMessage :>
     fun getFdList self = (GioUnixFDMessageClass.FFI.withPtr ---> GioUnixFDListClass.FFI.fromPtr false) getFdList_ self
     fun stealFds self =
       let
-        val length & retVal = (GioUnixFDMessageClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GInt32CVectorN.FFI.fromPtr 1) stealFds_ (self & GInt32.null)
+        val length & retVal = (GioUnixFDMessageClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GInt32CArrayN.FFI.fromPtr 1) stealFds_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt length)
       end

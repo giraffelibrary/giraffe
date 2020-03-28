@@ -1,3 +1,4 @@
+useExt "../glib-2.0/GUIntCArrayN.sml";
 use "CLOSURE_MARSHAL-sig.sml";
 use "SIGNAL-sig.sml";
 use "PROPERTY-sig.sml";
@@ -116,6 +117,7 @@ use "polyml/GObjectSignalInvocationHint.sml";
 use "polyml/GObjectSignalQuery.sml";
 use "polyml/GObjectTypeQuery.sml";
 use "polyml/GObjectValueRecord.sml";
+use "GObjectTypeCArrayN.sml";
 use "polyml/GObjectValue.sml";
 use "polyml/GObjectValueArray.sml";
 use "polyml/ClosureMarshal.sml";

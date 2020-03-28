@@ -234,17 +234,9 @@ signature GIO =
       GIO_APP_LAUNCH_CONTEXT
         where type 'a class = 'a AppLaunchContextClass.class
         where type 'a app_info_class = 'a AppInfoClass.class
-    structure Application :
-      GIO_APPLICATION
-        where type 'a class = 'a ApplicationClass.class
-        where type 'a action_map_class = 'a ActionMapClass.class
-        where type 'a d_bus_connection_class = 'a DBusConnectionClass.class
-        where type 'a cancellable_class = 'a CancellableClass.class
-        where type 'a notification_class = 'a NotificationClass.class
-        where type 'a application_command_line_class = 'a ApplicationCommandLineClass.class
-        where type 'a file_class = 'a FileClass.class
-        where type 'a action_group_class = 'a ActionGroupClass.class
-        where type application_flags_t = ApplicationFlags.t
+    structure FileClassCArrayN :
+      C_ARRAY
+        where type elem = base FileClass.class
     structure ApplicationCommandLine :
       GIO_APPLICATION_COMMAND_LINE
         where type 'a class = 'a ApplicationCommandLineClass.class
@@ -284,9 +276,6 @@ signature GIO =
         where type 'a action_group_class = 'a ActionGroupClass.class
         where type 'a remote_action_group_class = 'a RemoteActionGroupClass.class
         where type 'a d_bus_connection_class = 'a DBusConnectionClass.class
-    structure DBusAnnotationInfo :
-      GIO_D_BUS_ANNOTATION_INFO
-        where type t = DBusAnnotationInfoRecord.t
     structure DBusArgInfo :
       GIO_D_BUS_ARG_INFO
         where type t = DBusArgInfoRecord.t
@@ -909,6 +898,20 @@ signature GIO =
         where type 'a converter_class = 'a ConverterClass.class
         where type 'a file_info_class = 'a FileInfoClass.class
         where type zlib_compressor_format_t = ZlibCompressorFormat.t
+    structure DBusAnnotationInfoRecordCArray :
+      C_ARRAY
+        where type elem = DBusAnnotationInfoRecord.t
+    structure Application :
+      GIO_APPLICATION
+        where type 'a class = 'a ApplicationClass.class
+        where type 'a action_map_class = 'a ActionMapClass.class
+        where type 'a d_bus_connection_class = 'a DBusConnectionClass.class
+        where type 'a cancellable_class = 'a CancellableClass.class
+        where type 'a notification_class = 'a NotificationClass.class
+        where type 'a application_command_line_class = 'a ApplicationCommandLineClass.class
+        where type file_class_c_array_n_t = FileClassCArrayN.t
+        where type 'a action_group_class = 'a ActionGroupClass.class
+        where type application_flags_t = ApplicationFlags.t
     structure BufferedInputStreamClass :
       GIO_BUFFERED_INPUT_STREAM_CLASS
         where type 'a filter_input_stream_class = 'a FilterInputStreamClass.class
@@ -921,6 +924,10 @@ signature GIO =
     structure ConverterOutputStreamClass :
       GIO_CONVERTER_OUTPUT_STREAM_CLASS
         where type 'a filter_output_stream_class = 'a FilterOutputStreamClass.class
+    structure DBusAnnotationInfo :
+      GIO_D_BUS_ANNOTATION_INFO
+        where type t = DBusAnnotationInfoRecord.t
+        where type d_bus_annotation_info_record_c_array_t = DBusAnnotationInfoRecordCArray.t
     structure DBusMenuModel :
       GIO_D_BUS_MENU_MODEL
         where type 'a class = 'a DBusMenuModelClass.class
@@ -1352,15 +1359,15 @@ signature GIO =
     val contentTypeGetIcon : string -> base IconClass.class
     val contentTypeGetMimeType : string -> string option
     val contentTypeGetSymbolicIcon : string -> base IconClass.class
-    val contentTypeGuess : string option * Word8Vector.vector option -> string * bool
-    val contentTypeGuessForTree : 'a FileClass.class -> string list
+    val contentTypeGuess : string option * GUInt8CArrayN.t option -> string * bool
+    val contentTypeGuessForTree : 'a FileClass.class -> Utf8CArray.t
     val contentTypeIsA : string * string -> bool
     val contentTypeIsUnknown : string -> bool
     val dbusAddressEscapeValue : string -> string
     val dbusAddressGetForBusSync : BusType.t * 'a CancellableClass.class option -> string
     val dbusAddressGetStreamFinish : 'a AsyncResultClass.class -> base IOStreamClass.class * string
     val dbusAddressGetStreamSync : string * 'a CancellableClass.class option -> base IOStreamClass.class * string
-    val dbusAnnotationInfoLookup : DBusAnnotationInfoRecord.t vector option * string -> string
+    val dbusAnnotationInfoLookup : DBusAnnotationInfoRecordCArray.t option * string -> string
     val dbusErrorQuark : unit -> LargeInt.int
     val dbusGenerateGuid : unit -> string
     val dbusGvalueToGvariant : GObject.ValueRecord.t * GLib.VariantTypeRecord.t -> GLib.VariantRecord.t
@@ -1405,19 +1412,19 @@ signature GIO =
        -> GLib.SourceRecord.t
     val pollableStreamRead :
       'a InputStreamClass.class
-       * Word8Vector.vector
+       * GUInt8CArrayN.t
        * bool
        * 'b CancellableClass.class option
        -> LargeInt.int
     val pollableStreamWrite :
       'a OutputStreamClass.class
-       * Word8Vector.vector
+       * GUInt8CArrayN.t
        * bool
        * 'b CancellableClass.class option
        -> LargeInt.int
     val pollableStreamWriteAll :
       'a OutputStreamClass.class
-       * Word8Vector.vector
+       * GUInt8CArrayN.t
        * bool
        * 'b CancellableClass.class option
        -> LargeInt.int
@@ -1426,7 +1433,7 @@ signature GIO =
     val resolverErrorQuark : unit -> LargeInt.int
     val resourceErrorQuark : unit -> LargeInt.int
     val resourceLoad : string -> ResourceRecord.t
-    val resourcesEnumerateChildren : string * ResourceLookupFlags.t -> string list
+    val resourcesEnumerateChildren : string * ResourceLookupFlags.t -> Utf8CArray.t
     val resourcesGetInfo : string * ResourceLookupFlags.t -> LargeInt.int * LargeInt.int
     val resourcesLookupData : string * ResourceLookupFlags.t -> GLib.BytesRecord.t
     val resourcesOpenStream : string * ResourceLookupFlags.t -> base InputStreamClass.class

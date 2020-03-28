@@ -9,18 +9,6 @@ structure GtkTextBuffer :>
     where type target_list_t = GtkTargetListRecord.t
     where type 'a text_tag_table_class = 'a GtkTextTagTableClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
-    structure GdkAtomRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkAtomRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
     val getType_ = _import "gtk_text_buffer_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_text_buffer_new" : unit GtkTextTagTableClass.FFI.p -> GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p;
     val addMark_ =
@@ -230,8 +218,8 @@ structure GtkTextBuffer :>
                * GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
                * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
@@ -284,7 +272,7 @@ structure GtkTextBuffer :>
             )
     val getCharCount_ = _import "gtk_text_buffer_get_char_count" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GInt32.FFI.val_;
     val getCopyTargetList_ = _import "gtk_text_buffer_get_copy_target_list" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p;
-    val getDeserializeFormats_ = fn x1 & x2 => (_import "gtk_text_buffer_get_deserialize_formats" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GInt32.FFI.ref_ -> GdkAtomRecordCVectorN.FFI.notnull GdkAtomRecordCVectorN.FFI.out_p;) (x1, x2)
+    val getDeserializeFormats_ = fn x1 & x2 => (_import "gtk_text_buffer_get_deserialize_formats" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GInt32.FFI.ref_ -> GdkAtomRecordCArrayN.FFI.notnull GdkAtomRecordCArrayN.FFI.out_p;) (x1, x2)
     val getEndIter_ = fn x1 & x2 => (_import "gtk_text_buffer_get_end_iter" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> unit;) (x1, x2)
     val getHasSelection_ = _import "gtk_text_buffer_get_has_selection" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GBool.FFI.val_;
     val getInsert_ = _import "gtk_text_buffer_get_insert" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p;
@@ -432,7 +420,7 @@ structure GtkTextBuffer :>
               x2,
               x3
             )
-    val getSerializeFormats_ = fn x1 & x2 => (_import "gtk_text_buffer_get_serialize_formats" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GInt32.FFI.ref_ -> GdkAtomRecordCVectorN.FFI.notnull GdkAtomRecordCVectorN.FFI.out_p;) (x1, x2)
+    val getSerializeFormats_ = fn x1 & x2 => (_import "gtk_text_buffer_get_serialize_formats" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p * GInt32.FFI.ref_ -> GdkAtomRecordCArrayN.FFI.notnull GdkAtomRecordCArrayN.FFI.out_p;) (x1, x2)
     val getSlice_ =
       fn
         x1
@@ -842,7 +830,7 @@ structure GtkTextBuffer :>
                * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
                * GUInt64.FFI.ref_
-               -> GUInt8CVectorN.FFI.notnull GUInt8CVectorN.FFI.out_p;
+               -> GUInt8CArrayN.FFI.notnull GUInt8CArrayN.FFI.out_p;
           )
             (
               x1,
@@ -1057,14 +1045,14 @@ structure GtkTextBuffer :>
         data
       ) =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
         val () =
           (
             GtkTextBufferClass.FFI.withPtr
              &&&> GtkTextBufferClass.FFI.withPtr
              &&&> GdkAtomRecord.FFI.withPtr
              &&&> GtkTextIterRecord.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> ignore
@@ -1123,7 +1111,7 @@ structure GtkTextBuffer :>
     fun getCopyTargetList self = (GtkTextBufferClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) getCopyTargetList_ self
     fun getDeserializeFormats self =
       let
-        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCVectorN.FFI.fromPtr 1) getDeserializeFormats_ (self & GInt32.null)
+        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCArrayN.FFI.fromPtr 1) getDeserializeFormats_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt nFormats)
       end
@@ -1276,7 +1264,7 @@ structure GtkTextBuffer :>
       end
     fun getSerializeFormats self =
       let
-        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCVectorN.FFI.fromPtr 1) getSerializeFormats_ (self & GInt32.null)
+        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCArrayN.FFI.fromPtr 1) getSerializeFormats_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt nFormats)
       end
@@ -1636,7 +1624,7 @@ structure GtkTextBuffer :>
              &&&> GtkTextIterRecord.FFI.withPtr
              &&&> GtkTextIterRecord.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
-             ---> GUInt64.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 1
+             ---> GUInt64.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 1
           )
             serialize_
             (

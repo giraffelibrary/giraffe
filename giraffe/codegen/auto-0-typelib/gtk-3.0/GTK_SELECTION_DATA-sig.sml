@@ -5,21 +5,21 @@ signature GTK_SELECTION_DATA =
     val getType : unit -> GObject.Type.t
     val copy : t -> t
     val getDataType : t -> Gdk.AtomRecord.t
-    val getData : t -> Word8Vector.vector
+    val getData : t -> GUInt8CArrayN.t
     val getDisplay : t -> base Gdk.DisplayClass.class
     val getFormat : t -> LargeInt.int
     val getLength : t -> LargeInt.int
     val getPixbuf : t -> base GdkPixbuf.PixbufClass.class option
     val getSelection : t -> Gdk.AtomRecord.t
     val getTarget : t -> Gdk.AtomRecord.t
-    val getTargets : t -> Gdk.AtomRecord.t vector option
+    val getTargets : t -> GdkAtomRecordCArrayN.t option
     val getText : t -> string option
-    val getUris : t -> string list
+    val getUris : t -> Utf8CArray.t
     val set :
       t
        -> Gdk.AtomRecord.t
            * LargeInt.int
-           * Word8Vector.vector
+           * GUInt8CArrayN.t
        -> unit
     val setPixbuf :
       t
@@ -31,7 +31,7 @@ signature GTK_SELECTION_DATA =
        -> bool
     val setUris :
       t
-       -> string list
+       -> Utf8CArray.t
        -> bool
     val targetsIncludeImage :
       t

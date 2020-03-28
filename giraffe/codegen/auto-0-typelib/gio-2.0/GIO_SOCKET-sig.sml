@@ -87,31 +87,31 @@ signature GIO_SOCKET =
     val listen : 'a class -> unit
     val receive :
       'a class
-       -> Word8Vector.vector * 'b cancellable_class option
+       -> GUInt8CArrayN.t * 'b cancellable_class option
        -> LargeInt.int
     val receiveFrom :
       'a class
-       -> Word8Vector.vector * 'b cancellable_class option
+       -> GUInt8CArrayN.t * 'b cancellable_class option
        -> LargeInt.int * base socket_address_class
     val receiveWithBlocking :
       'a class
-       -> Word8Vector.vector
+       -> GUInt8CArrayN.t
            * bool
            * 'b cancellable_class option
        -> LargeInt.int
     val send :
       'a class
-       -> Word8Vector.vector * 'b cancellable_class option
+       -> GUInt8CArrayN.t * 'b cancellable_class option
        -> LargeInt.int
     val sendTo :
       'a class
        -> 'b socket_address_class option
-           * Word8Vector.vector
+           * GUInt8CArrayN.t
            * 'c cancellable_class option
        -> LargeInt.int
     val sendWithBlocking :
       'a class
-       -> Word8Vector.vector
+       -> GUInt8CArrayN.t
            * bool
            * 'b cancellable_class option
        -> LargeInt.int

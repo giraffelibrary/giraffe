@@ -1,19 +1,13 @@
 structure AtkText :>
   ATK_TEXT
     where type 'a class = 'a AtkTextClass.class
-    where type text_range_t = AtkTextRangeRecord.t
+    where type text_range_record_c_array_t = AtkTextRangeRecordCArray.t
     where type text_clip_type_t = AtkTextClipType.t
     where type text_rectangle_t = AtkTextRectangleRecord.t
     where type coord_type_t = AtkCoordType.t
     where type text_granularity_t = AtkTextGranularity.t
     where type text_boundary_t = AtkTextBoundary.t =
   struct
-    structure AtkTextRangeRecordCVectorType =
-      CPointerCVectorType(
-        structure CElemType = AtkTextRangeRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure AtkTextRangeRecordCVector = CVector(AtkTextRangeRecordCVectorType)
     val getType_ = _import "atk_text_get_type" : unit -> GObjectType.FFI.val_;
     val addSelection_ =
       fn
@@ -46,7 +40,7 @@ structure AtkText :>
                * AtkCoordType.FFI.val_
                * AtkTextClipType.FFI.val_
                * AtkTextClipType.FFI.val_
-               -> AtkTextRangeRecordCVector.FFI.notnull AtkTextRangeRecordCVector.FFI.out_p;
+               -> AtkTextRangeRecordCArray.FFI.notnull AtkTextRangeRecordCArray.FFI.out_p;
           )
             (
               x1,
@@ -283,7 +277,7 @@ structure AtkText :>
               x4
             )
     type 'a class = 'a AtkTextClass.class
-    type text_range_t = AtkTextRangeRecord.t
+    type text_range_record_c_array_t = AtkTextRangeRecordCArray.t
     type text_clip_type_t = AtkTextClipType.t
     type text_rectangle_t = AtkTextRectangleRecord.t
     type coord_type_t = AtkCoordType.t
@@ -318,7 +312,7 @@ structure AtkText :>
          &&&> AtkCoordType.FFI.withVal
          &&&> AtkTextClipType.FFI.withVal
          &&&> AtkTextClipType.FFI.withVal
-         ---> AtkTextRangeRecordCVector.FFI.fromPtr 2
+         ---> AtkTextRangeRecordCArray.FFI.fromPtr 2
       )
         getBoundedRanges_
         (

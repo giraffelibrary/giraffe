@@ -89,7 +89,7 @@ signature GTK_TREE_MODEL =
       'a class
        -> tree_path_t
            * tree_iter_t option
-           * LargeInt.int vector
+           * GInt32CArrayN.t
        -> unit
     val sortNewWithModel : 'a class -> base class
     val unrefNode :

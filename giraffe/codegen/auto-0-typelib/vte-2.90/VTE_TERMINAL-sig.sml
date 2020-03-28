@@ -17,7 +17,7 @@ signature VTE_TERMINAL =
     val copyPrimary : 'a class -> unit
     val feed :
       'a class
-       -> Word8Vector.vector
+       -> GUInt8CArrayN.t
        -> unit
     val feedChild :
       'a class
@@ -176,13 +176,13 @@ signature VTE_TERMINAL =
       'a class
        -> Gdk.ColorRecord.t option
            * Gdk.ColorRecord.t option
-           * Gdk.ColorRecord.t vector
+           * GdkColorRecordCArrayN.t
        -> unit
     val setColorsRgba :
       'a class
        -> Gdk.RgbaRecord.t option
            * Gdk.RgbaRecord.t option
-           * Gdk.RgbaRecord.t vector
+           * GdkRgbaRecordCArrayN.t
        -> unit
     val setCursorBlinkMode :
       'a class

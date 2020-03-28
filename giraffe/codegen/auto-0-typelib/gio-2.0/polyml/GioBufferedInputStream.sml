@@ -6,12 +6,6 @@ structure GioBufferedInputStream :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -41,12 +35,12 @@ structure GioBufferedInputStream :>
         call (getSymbol "g_buffered_input_stream_peek")
           (
             GioBufferedInputStreamClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              &&> GUInt64.PolyML.cVal
              --> GUInt64.PolyML.cVal
           )
-      val peekBuffer_ = call (getSymbol "g_buffered_input_stream_peek_buffer") (GioBufferedInputStreamClass.PolyML.cPtr &&> GUInt64.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutPtr)
+      val peekBuffer_ = call (getSymbol "g_buffered_input_stream_peek_buffer") (GioBufferedInputStreamClass.PolyML.cPtr &&> GUInt64.PolyML.cRef --> GUInt8CArrayN.PolyML.cOutPtr)
       val readByte_ =
         call (getSymbol "g_buffered_input_stream_read_byte")
           (
@@ -99,11 +93,11 @@ structure GioBufferedInputStream :>
     fun getBufferSize self = (GioBufferedInputStreamClass.FFI.withPtr ---> GUInt64.FFI.fromVal) getBufferSize_ self
     fun peek self (buffer, offset) =
       let
-        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioBufferedInputStreamClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GUInt64.FFI.withVal
              ---> GUInt64.FFI.fromVal
@@ -120,7 +114,7 @@ structure GioBufferedInputStream :>
       end
     fun peekBuffer self =
       let
-        val count & retVal = (GioBufferedInputStreamClass.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) peekBuffer_ (self & GUInt64.null)
+        val count & retVal = (GioBufferedInputStreamClass.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 0) peekBuffer_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt count)
       end

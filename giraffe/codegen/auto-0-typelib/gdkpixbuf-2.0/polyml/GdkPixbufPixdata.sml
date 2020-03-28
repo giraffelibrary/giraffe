@@ -3,12 +3,6 @@ structure GdkPixbufPixdata :>
     where type t = GdkPixbufPixdataRecord.t
     where type pixdata_dump_type_t = GdkPixbufPixdataDumpType.t =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -17,11 +11,11 @@ structure GdkPixbufPixdata :>
           (
             GdkPixbufPixdataRecord.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val serialize_ = call (getSymbol "gdk_pixdata_serialize") (GdkPixbufPixdataRecord.PolyML.cPtr &&> GUInt32.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutPtr)
+      val serialize_ = call (getSymbol "gdk_pixdata_serialize") (GdkPixbufPixdataRecord.PolyML.cPtr &&> GUInt32.PolyML.cRef --> GUInt8CArrayN.PolyML.cOutPtr)
       val toCsource_ =
         call (getSymbol "gdk_pixdata_to_csource")
           (
@@ -35,12 +29,12 @@ structure GdkPixbufPixdata :>
     type pixdata_dump_type_t = GdkPixbufPixdataDumpType.t
     fun deserialize self stream =
       let
-        val streamLength = LargeInt.fromInt (GUInt8CVectorN.length stream)
+        val streamLength = LargeInt.fromInt (GUInt8CArrayN.length stream)
         val () =
           (
             GdkPixbufPixdataRecord.FFI.withPtr
              &&&> GUInt32.FFI.withVal
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GLibErrorRecord.handleError
              ---> ignore
           )
@@ -56,7 +50,7 @@ structure GdkPixbufPixdata :>
       end
     fun serialize self =
       let
-        val streamLengthP & retVal = (GdkPixbufPixdataRecord.FFI.withPtr &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 1) serialize_ (self & GUInt32.null)
+        val streamLengthP & retVal = (GdkPixbufPixdataRecord.FFI.withPtr &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 1) serialize_ (self & GUInt32.null)
       in
         retVal (LargeInt.toInt streamLengthP)
       end

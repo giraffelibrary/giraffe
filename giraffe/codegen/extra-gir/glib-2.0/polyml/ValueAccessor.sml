@@ -75,6 +75,13 @@ structure ValueAccessor :>
         value
       end
 
+    fun map (getConv, setConv) {getType, getValue, setValue} =
+      {
+        getType  = getType,
+        getValue = getConv o getValue,
+        setValue = fn value & x => setValue (value & setConv x)
+      }
+
     structure Types =
       struct
         local

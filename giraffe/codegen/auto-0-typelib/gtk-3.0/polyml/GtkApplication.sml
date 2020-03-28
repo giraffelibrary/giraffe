@@ -4,12 +4,6 @@ structure GtkApplication :>
     where type application_inhibit_flags_t = GtkApplicationInhibitFlags.t
     where type 'a window_class = 'a GtkWindowClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -25,8 +19,8 @@ structure GtkApplication :>
              --> cVoid
           )
       val addWindow_ = call (getSymbol "gtk_application_add_window") (GtkApplicationClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> cVoid)
-      val getAccelsForAction_ = call (getSymbol "gtk_application_get_accels_for_action") (GtkApplicationClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
-      val getActionsForAccel_ = call (getSymbol "gtk_application_get_actions_for_accel") (GtkApplicationClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getAccelsForAction_ = call (getSymbol "gtk_application_get_accels_for_action") (GtkApplicationClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CArray.PolyML.cOutPtr)
+      val getActionsForAccel_ = call (getSymbol "gtk_application_get_actions_for_accel") (GtkApplicationClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CArray.PolyML.cOutPtr)
       val getActiveWindow_ = call (getSymbol "gtk_application_get_active_window") (GtkApplicationClass.PolyML.cPtr --> GtkWindowClass.PolyML.cOptPtr)
       val getAppMenu_ = call (getSymbol "gtk_application_get_app_menu") (GtkApplicationClass.PolyML.cPtr --> GioMenuModelClass.PolyML.cOptPtr)
       val getMenuById_ = call (getSymbol "gtk_application_get_menu_by_id") (GtkApplicationClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioMenuClass.PolyML.cPtr)
@@ -42,7 +36,7 @@ structure GtkApplication :>
              --> GUInt32.PolyML.cVal
           )
       val isInhibited_ = call (getSymbol "gtk_application_is_inhibited") (GtkApplicationClass.PolyML.cPtr &&> GtkApplicationInhibitFlags.PolyML.cVal --> GBool.PolyML.cVal)
-      val listActionDescriptions_ = call (getSymbol "gtk_application_list_action_descriptions") (GtkApplicationClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val listActionDescriptions_ = call (getSymbol "gtk_application_list_action_descriptions") (GtkApplicationClass.PolyML.cPtr --> Utf8CArray.PolyML.cOutPtr)
       val prefersAppMenu_ = call (getSymbol "gtk_application_prefers_app_menu") (GtkApplicationClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val removeAccelerator_ =
         call (getSymbol "gtk_application_remove_accelerator")
@@ -58,7 +52,7 @@ structure GtkApplication :>
           (
             GtkApplicationClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8CVector.PolyML.cInPtr
+             &&> Utf8CArray.PolyML.cInPtr
              --> cVoid
           )
       val setAppMenu_ = call (getSymbol "gtk_application_set_app_menu") (GtkApplicationClass.PolyML.cPtr &&> GioMenuModelClass.PolyML.cOptPtr --> cVoid)
@@ -95,8 +89,8 @@ structure GtkApplication :>
            & parameter
         )
     fun addWindow self window = (GtkApplicationClass.FFI.withPtr &&&> GtkWindowClass.FFI.withPtr ---> I) addWindow_ (self & window)
-    fun getAccelsForAction self detailedActionName = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getAccelsForAction_ (self & detailedActionName)
-    fun getActionsForAccel self accel = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getActionsForAccel_ (self & accel)
+    fun getAccelsForAction self detailedActionName = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getAccelsForAction_ (self & detailedActionName)
+    fun getActionsForAccel self accel = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getActionsForAccel_ (self & accel)
     fun getActiveWindow self = (GtkApplicationClass.FFI.withPtr ---> GtkWindowClass.FFI.fromOptPtr false) getActiveWindow_ self
     fun getAppMenu self = (GtkApplicationClass.FFI.withPtr ---> GioMenuModelClass.FFI.fromOptPtr false) getAppMenu_ self
     fun getMenuById self id = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioMenuClass.FFI.fromPtr false) getMenuById_ (self & id)
@@ -124,7 +118,7 @@ structure GtkApplication :>
            & reason
         )
     fun isInhibited self flags = (GtkApplicationClass.FFI.withPtr &&&> GtkApplicationInhibitFlags.FFI.withVal ---> GBool.FFI.fromVal) isInhibited_ (self & flags)
-    fun listActionDescriptions self = (GtkApplicationClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listActionDescriptions_ self
+    fun listActionDescriptions self = (GtkApplicationClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) listActionDescriptions_ self
     fun prefersAppMenu self = (GtkApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) prefersAppMenu_ self
     fun removeAccelerator self (actionName, parameter) =
       (
@@ -144,7 +138,7 @@ structure GtkApplication :>
       (
         GtkApplicationClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          ---> I
       )
         setAccelsForAction_

@@ -4,19 +4,13 @@ structure GtkPrintSettings :>
     where type print_duplex_t = GtkPrintDuplex.t
     where type number_up_layout_t = GtkNumberUpLayout.t
     where type page_orientation_t = GtkPageOrientation.t
-    where type page_range_t = GtkPageRangeRecord.t
+    where type page_range_record_c_array_n_t = GtkPageRangeRecordCArrayN.t
     where type page_set_t = GtkPageSet.t
     where type paper_size_t = GtkPaperSizeRecord.t
     where type unit_t = GtkUnit.t
     where type print_pages_t = GtkPrintPages.t
     where type print_quality_t = GtkPrintQuality.t =
   struct
-    structure GtkPageRangeRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GtkPageRangeRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GtkPageRangeRecord.C.ValueType)
-      )
-    structure GtkPageRangeRecordCVectorN = CVectorN(GtkPageRangeRecordCVectorNType)
     val getType_ = _import "gtk_print_settings_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_print_settings_new" : unit -> GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p;
     val newFromFile_ =
@@ -183,7 +177,7 @@ structure GtkPrintSettings :>
     val getNumberUpLayout_ = _import "gtk_print_settings_get_number_up_layout" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GtkNumberUpLayout.FFI.val_;
     val getOrientation_ = _import "gtk_print_settings_get_orientation" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GtkPageOrientation.FFI.val_;
     val getOutputBin_ = _import "gtk_print_settings_get_output_bin" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPageRanges_ = fn x1 & x2 => (_import "gtk_print_settings_get_page_ranges" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GInt.FFI.ref_ -> GtkPageRangeRecordCVectorN.FFI.notnull GtkPageRangeRecordCVectorN.FFI.out_p;) (x1, x2)
+    val getPageRanges_ = fn x1 & x2 => (_import "gtk_print_settings_get_page_ranges" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GInt.FFI.ref_ -> GtkPageRangeRecordCArrayN.FFI.notnull GtkPageRangeRecordCArrayN.FFI.out_p;) (x1, x2)
     val getPageSet_ = _import "gtk_print_settings_get_page_set" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GtkPageSet.FFI.val_;
     val getPaperHeight_ = fn x1 & x2 => (_import "gtk_print_settings_get_paper_height" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
     val getPaperSize_ = _import "gtk_print_settings_get_paper_size" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p;
@@ -443,8 +437,8 @@ structure GtkPrintSettings :>
           (
             _import "mlton_gtk_print_settings_set_page_ranges" :
               GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
-               * GtkPageRangeRecordCVectorN.MLton.p1
-               * GtkPageRangeRecordCVectorN.FFI.notnull GtkPageRangeRecordCVectorN.MLton.p2
+               * GtkPageRangeRecordCArrayN.MLton.p1
+               * GtkPageRangeRecordCArrayN.FFI.notnull GtkPageRangeRecordCArrayN.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )
@@ -587,7 +581,7 @@ structure GtkPrintSettings :>
     type print_duplex_t = GtkPrintDuplex.t
     type number_up_layout_t = GtkNumberUpLayout.t
     type page_orientation_t = GtkPageOrientation.t
-    type page_range_t = GtkPageRangeRecord.t
+    type page_range_record_c_array_n_t = GtkPageRangeRecordCArrayN.t
     type page_set_t = GtkPageSet.t
     type paper_size_t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
@@ -668,7 +662,7 @@ structure GtkPrintSettings :>
     fun getOutputBin self = (GtkPrintSettingsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getOutputBin_ self
     fun getPageRanges self =
       let
-        val numRanges & retVal = (GtkPrintSettingsClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GtkPageRangeRecordCVectorN.FFI.fromPtr 1) getPageRanges_ (self & GInt.null)
+        val numRanges & retVal = (GtkPrintSettingsClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GtkPageRangeRecordCArrayN.FFI.fromPtr 1) getPageRanges_ (self & GInt.null)
       in
         retVal (LargeInt.toInt numRanges)
       end
@@ -801,11 +795,11 @@ structure GtkPrintSettings :>
     fun setOutputBin self outputBin = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setOutputBin_ (self & outputBin)
     fun setPageRanges self pageRanges =
       let
-        val numRanges = LargeInt.fromInt (GtkPageRangeRecordCVectorN.length pageRanges)
+        val numRanges = LargeInt.fromInt (GtkPageRangeRecordCArrayN.length pageRanges)
         val () =
           (
             GtkPrintSettingsClass.FFI.withPtr
-             &&&> GtkPageRangeRecordCVectorN.FFI.withPtr
+             &&&> GtkPageRangeRecordCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              ---> I
           )

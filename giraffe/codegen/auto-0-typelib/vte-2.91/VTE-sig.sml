@@ -19,9 +19,13 @@ signature VTE =
     structure Regex :
       VTE_REGEX
         where type t = RegexRecord.t
+    structure RegexRecordCArrayN :
+      C_ARRAY
+        where type elem = RegexRecord.t
     structure Terminal :
       VTE_TERMINAL
         where type 'a class = 'a TerminalClass.class
+        where type regex_record_c_array_n_t = RegexRecordCArrayN.t
         where type pty_flags_t = PtyFlags.t
         where type regex_t = RegexRecord.t
         where type write_flags_t = WriteFlags.t

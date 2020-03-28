@@ -11,7 +11,7 @@ signature GIO_FILENAME_COMPLETER =
     val getCompletions :
       'a class
        -> string
-       -> string list
+       -> Utf8CArray.t
     val setDirsOnly :
       'a class
        -> bool

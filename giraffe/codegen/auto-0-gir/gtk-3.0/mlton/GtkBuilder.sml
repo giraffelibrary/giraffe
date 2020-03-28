@@ -4,12 +4,6 @@ structure GtkBuilder :>
     where type 'a widget_class = 'a GtkWidgetClass.class
     where type 'a application_class = 'a GtkApplicationClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "gtk_builder_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_builder_new" : unit -> GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p;
     val newFromFile_ = _import "mlton_gtk_builder_new_from_file" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p;
@@ -100,8 +94,8 @@ structure GtkBuilder :>
               GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GUInt.FFI.val_;
           )
@@ -124,8 +118,8 @@ structure GtkBuilder :>
               GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GUInt.FFI.val_;
           )
@@ -150,8 +144,8 @@ structure GtkBuilder :>
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GSize.FFI.val_
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GUInt.FFI.val_;
           )
@@ -363,7 +357,7 @@ structure GtkBuilder :>
       (
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )
@@ -378,7 +372,7 @@ structure GtkBuilder :>
       (
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )
@@ -400,7 +394,7 @@ structure GtkBuilder :>
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GSize.FFI.withVal
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )

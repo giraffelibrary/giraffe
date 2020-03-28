@@ -10,7 +10,7 @@ fun makeAliasSig
   (aliasNamespace : string)
   (aliasInfo      : 'b AliasInfoClass.class)
   (excls'0        : info_excl_hier list)
-  : id * program * id list * info_excl_hier list =
+  : id * program * interfaceref list * interfaceref list * info_excl_hier list =
   let
     val () = checkDeprecated aliasInfo
 
@@ -20,28 +20,47 @@ fun makeAliasSig
     fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
     fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
 
-    fun makeSourceRefSig {name, namespace, ty} =
+    fun makeSourceSigIRef {name, namespace, ty} =
       let
-        val sigId = toUCU (makeInterfaceOtherStrId ty namespace name)
-        val sigDeps =
+        val scope =
           if namespace <> aliasNamespace
-          then []
-          else [mkSigFile sigId]
+          then GLOBAL
+          else LOCALNAMESPACE
       in
-        (sigId, ty, sigDeps)
+        {
+          namespace = namespace,
+          name      = name,
+          scope     = scope,
+          ty        = ty,
+          container = NONE
+        }
       end
 
     open TypeTag
 
-    fun scalarSigId optSourceRef _ =
+    fun scalarSigIRef optSourceRef _ =
       case optSourceRef of
-        SOME sourceRef => makeSourceRefSig sourceRef
-      | NONE           => ("C_SCALAR", SIMPLE, [])
+        SOME sourceRef => makeSourceSigIRef sourceRef
+      | NONE           =>
+          {
+            namespace = "",
+            name      = "C_SCALAR",
+            scope     = GLOBAL,
+            ty        = SIMPLE,
+            container = NONE
+          }
 
-    fun utf8SigId optSourceRef =
+    fun utf8SigIRef optSourceRef =
       case optSourceRef of
-        SOME sourceRef => makeSourceRefSig sourceRef
-      | NONE           => ("UTF8", SIMPLE, [])
+        SOME sourceRef => makeSourceSigIRef sourceRef
+      | NONE           =>
+          {
+            namespace = "",
+            name      = "UTF8",
+            scope     = GLOBAL,
+            ty        = SIMPLE,
+            container = NONE
+          }
 
     fun resolveType optSourceRef typeInfo =
       let
@@ -54,33 +73,33 @@ fun makeAliasSig
         | GSLIST       => notSupported "GSLIST"
         | GHASH        => notSupported "GHASH"
         | VOID         => notExpected "VOID"
-        | BOOLEAN      => scalarSigId optSourceRef STBOOLEAN
-        | CHAR         => scalarSigId optSourceRef STCHAR
-        | UCHAR        => scalarSigId optSourceRef STUCHAR
-        | INT          => scalarSigId optSourceRef STINT
-        | UINT         => scalarSigId optSourceRef STUINT
-        | SHORT        => scalarSigId optSourceRef STSHORT
-        | USHORT       => scalarSigId optSourceRef STUSHORT
-        | LONG         => scalarSigId optSourceRef STLONG
-        | ULONG        => scalarSigId optSourceRef STULONG
-        | INT8         => scalarSigId optSourceRef STINT8
-        | UINT8        => scalarSigId optSourceRef STUINT8
-        | INT16        => scalarSigId optSourceRef STINT16
-        | UINT16       => scalarSigId optSourceRef STUINT16
-        | INT32        => scalarSigId optSourceRef STINT32
-        | UINT32       => scalarSigId optSourceRef STUINT32
-        | INT64        => scalarSigId optSourceRef STINT64
-        | UINT64       => scalarSigId optSourceRef STUINT64
-        | FLOAT        => scalarSigId optSourceRef STFLOAT
-        | DOUBLE       => scalarSigId optSourceRef STDOUBLE
-        | SIZE         => scalarSigId optSourceRef STSIZE
-        | SSIZE        => scalarSigId optSourceRef STSSIZE
+        | BOOLEAN      => scalarSigIRef optSourceRef STBOOLEAN
+        | CHAR         => scalarSigIRef optSourceRef STCHAR
+        | UCHAR        => scalarSigIRef optSourceRef STUCHAR
+        | INT          => scalarSigIRef optSourceRef STINT
+        | UINT         => scalarSigIRef optSourceRef STUINT
+        | SHORT        => scalarSigIRef optSourceRef STSHORT
+        | USHORT       => scalarSigIRef optSourceRef STUSHORT
+        | LONG         => scalarSigIRef optSourceRef STLONG
+        | ULONG        => scalarSigIRef optSourceRef STULONG
+        | INT8         => scalarSigIRef optSourceRef STINT8
+        | UINT8        => scalarSigIRef optSourceRef STUINT8
+        | INT16        => scalarSigIRef optSourceRef STINT16
+        | UINT16       => scalarSigIRef optSourceRef STUINT16
+        | INT32        => scalarSigIRef optSourceRef STINT32
+        | UINT32       => scalarSigIRef optSourceRef STUINT32
+        | INT64        => scalarSigIRef optSourceRef STINT64
+        | UINT64       => scalarSigIRef optSourceRef STUINT64
+        | FLOAT        => scalarSigIRef optSourceRef STFLOAT
+        | DOUBLE       => scalarSigIRef optSourceRef STDOUBLE
+        | SIZE         => scalarSigIRef optSourceRef STSIZE
+        | SSIZE        => scalarSigIRef optSourceRef STSSIZE
         | OFFSET       => notSupported "OFFSET"
         | INTPTR       => notSupported "INTPTR"
         | UINTPTR      => notSupported "UINTPTR"
-        | FILENAME     => utf8SigId optSourceRef
-        | UTF8         => utf8SigId optSourceRef
-        | UNICHAR      => scalarSigId optSourceRef STUNICHAR
+        | FILENAME     => utf8SigIRef optSourceRef
+        | UTF8         => utf8SigIRef optSourceRef
+        | UNICHAR      => scalarSigIRef optSourceRef STUNICHAR
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
@@ -114,19 +133,29 @@ fun makeAliasSig
               case infoType of
                 ALIAS aliasInfo
                   => resolveType (SOME sourceRef) (AliasInfo.getType aliasInfo)
-              | _ => makeSourceRefSig sourceRef
+              | _ => makeSourceSigIRef sourceRef
             end
       end
 
     val typeInfo = AliasInfo.getType aliasInfo
-    val (sourceSigId, sourceTy, sigDeps) = resolveType NONE typeInfo
+    val sourceSigIRef as {scope, ty = sourceTy, container, ...} = resolveType NONE typeInfo
+    val sourceSigId = toUCU (makeIRefInterfaceOtherStrId sourceSigIRef)
+    val sigIRefs =
+      case scope of
+        GLOBAL             => []
+      | _                  => [sourceSigIRef]
+    val extIRefs =
+      case container of
+        NONE => []
+      | _    => [sourceSigIRef]
 
     val aliasIRef =
       {
         namespace = aliasNamespace,
         name      = aliasName,
         scope     = LOCALNAMESPACE, (* not used *)
-        ty        = sourceTy
+        ty        = sourceTy,
+        container = NONE
       }
 
     val aliasStrId = makeIRefInterfaceOtherStrId aliasIRef
@@ -137,7 +166,7 @@ fun makeAliasSig
     val sigDec = toList1 [(aliasSigId, qSig)]
     val program = [ModuleDecSig sigDec]
   in
-    (mkSigFile aliasSigId, Portable program, sigDeps, excls'0)
+    (mkSigFile aliasSigId, Portable program, sigIRefs, extIRefs, excls'0)
   end
 
 
@@ -171,7 +200,8 @@ fun makeAliasStr
                 namespace = namespace,
                 name      = name,
                 scope     = LOCALINTERFACEOTHER,
-                ty        = ty
+                ty        = ty,
+                container = NONE
               }
             ]
       in
@@ -272,7 +302,8 @@ fun makeAliasStr
         namespace = aliasNamespace,
         name      = aliasName,
         scope     = LOCALNAMESPACE, (* not used *)
-        ty        = sourceTy
+        ty        = sourceTy,
+        container = NONE
       }
 
     val aliasStrId = makeIRefInterfaceOtherStrId aliasIRef

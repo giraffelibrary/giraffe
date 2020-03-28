@@ -1,14 +1,16 @@
-(* Support for structure identifiers *)
+(* Structure identifiers for type references in local namespace scope *)
 
-fun mkClassStrNameId name = toUCC name ^ "Class"
+fun mkClassStrNameId name = concat [toUCC name, "Class"]
 fun prefixClassStrNameId name ids = mkClassStrNameId name :: ids
 
-fun mkRecordStrNameId name = toUCC name ^ "Record"
+fun mkRecordStrNameId name = concat [toUCC name, "Record"]
 fun prefixRecordStrNameId name ids = mkRecordStrNameId name :: ids
 
 fun mkStrNameId name = toUCC name
 fun prefixStrNameId name ids = mkStrNameId name :: ids
 
+
+(* Structure identifiers for structure references *)
 
 (*
  *     <ObjectNamespace><ObjectName>Class
@@ -30,22 +32,28 @@ fun mkStrId namespace name = concat [toUCC namespace, toUCC name]
 fun prefixStrId namespace name ids = mkStrId namespace name :: ids
 
 
+(* Structure identifiers for type references with global scope *)
+
+fun prefixNamespaceStrId namespace ids =
+  if namespace <> "" then toUCC namespace :: ids else ids
+
 (*
  *     <ObjectNamespace>.<ObjectName>Class
  *)
 fun prefixClassStrIds namespace name ids =
-  toUCC namespace :: concat [toUCC name, "Class"] :: ids
+  prefixNamespaceStrId namespace (prefixClassStrNameId name ids)
 
 (*
  *     <StructNamespace>.<StructName>Record
  *)
 fun prefixRecordStrIds namespace name ids =
-  toUCC namespace :: concat [toUCC name, "Record"] :: ids
+  prefixNamespaceStrId namespace (prefixRecordStrNameId name ids)
 
 (*
  *     <XNamespace>.<XName>
  *)
-fun prefixStrIds namespace name ids = toUCC namespace :: toUCC name :: ids
+fun prefixStrIds namespace name ids =
+  prefixNamespaceStrId namespace (prefixStrNameId name ids)
 
 
 
@@ -122,12 +130,35 @@ datatype interfacescope =
 | LOCALINTERFACESELF
 
 
-type interfaceref = {
-  namespace : string,
-  name      : string,
-  scope     : interfacescope,
-  ty        : interfacetype
-}
+(* `interfaceref` captures information required to generate references to an
+ * interface - either type references or a structure identifier - and to
+ * determine dependencies between modules.
+ *
+ * A container, e.g. array, of an interface type requires its own structure
+ * to be generated (as SML does not have applicative functors) so
+ * `interfaceref` also captures information required to declare and generate
+ * container structures.
+ *)
+
+datatype containertype =
+  ARRAYREF of {
+    isPtr          : bool option,  (* NONE: non-pointer; SOME isArray: pointers *)
+    zeroTerminated : bool,
+    elemRef        : elemref
+  }
+
+and elemref =
+  INTERFACE of interfaceref
+| NAME      of string
+
+withtype interfaceref =
+  {
+    namespace : string,
+    name      : string,
+    scope     : interfacescope,
+    ty        : interfacetype,
+    container : containertype option
+  }
 
 
 fun makeLocalInterfaceSelfId ({ty, ...} : interfaceref) : id =
@@ -167,9 +198,13 @@ fun makeLocalNamespaceIds iRef =
   prefixLocalNamespaceIds iRef [makeLocalInterfaceSelfId iRef]
 
 
-fun prefixGlobalIds ({namespace, name, ty, ...} : interfaceref) =
+fun prefixGlobalIds ({namespace, name, ty, container, ...} : interfaceref) =
   case ty of
-    SIMPLE => prefixStrIds namespace name
+    SIMPLE => (
+      case container of
+        NONE   => prefixStrIds namespace name
+      | SOME _ => prefixStrId namespace name
+    )
   | CLASS  => prefixClassStrIds namespace name
   | RECORD => prefixRecordStrIds namespace name
   | UNION  => prefixStrIds namespace name
@@ -183,7 +218,7 @@ fun makeGlobalIds iRef =
  * `numInterfaceRefTyVars iRef` returns number of type parameters `n`
  * according to the following table:
  *
- *     scope                   ty       | n   lid
+ *     scope   container       ty       | n   lid
  *   ===================================+===================================
  *                             SIMPLE   | 0   t
  *                           -----------+-----------------------------------
@@ -209,7 +244,9 @@ fun makeGlobalIds iRef =
  *                           -----------+-----------------------------------
  *                             UNION    | 1   <Name>.union
  *   -----------------------------------+-----------------------------------
- *                             SIMPLE   | 0   <Namespace>.<Name>.t
+ *             SOME _          SIMPLE   | 0   <Namespace><Name>.t
+ *                           -----------+-----------------------------------
+ *             NONE            SIMPLE   | 0   <Namespace>.<Name>.t
  *                           -----------+-----------------------------------
  *                             CLASS    | 1   <Namespace>.<Name>Class.class
  *     GLOBAL                -----------+-----------------------------------
@@ -375,7 +412,8 @@ fun makeErrorIRef namespace optName : interfaceref =
       namespace = errorNamespace,
       name      = errorName,
       scope     = errorScope,
-      ty        = errorTy
+      ty        = errorTy,
+      container = NONE
     }
   end
 
@@ -399,7 +437,8 @@ fun makeTypeIRef namespace optName : interfaceref =
       namespace = typeNamespace,
       name      = typeName,
       scope     = typeScope,
-      ty        = typeTy
+      ty        = typeTy,
+      container = NONE
     }
   end
 
@@ -423,7 +462,8 @@ fun makeValueIRef namespace optName : interfaceref =
       namespace = valueNamespace,
       name      = valueName,
       scope     = valueScope,
-      ty        = valueTy
+      ty        = valueTy,
+      container = NONE
     }
   end
 
@@ -447,7 +487,8 @@ fun makeObjectIRef namespace optName : interfaceref =
       namespace = objectNamespace,
       name      = objectName,
       scope     = objectScope,
-      ty        = objectTy
+      ty        = objectTy,
+      container = NONE
     }
   end
 
@@ -482,7 +523,8 @@ fun getRootObjectIRef
           namespace = rootObjectNamespace,
           name      = rootObjectName,
           scope     = rootObjectScope,
-          ty        = rootObjectTy
+          ty        = rootObjectTy,
+          container = NONE
         }
       end
 
@@ -496,12 +538,13 @@ fun getIRefTy info =
   | _                    => SIMPLE
 
 (* `updateIRefTy` is used only with GIR files *)
-fun updateIRefTy ty {namespace, name, scope, ty = _} : interfaceref =
+fun updateIRefTy ty {namespace, name, scope, ty = _, container} : interfaceref =
   {
     namespace = namespace,
     name      = name,
     scope     = scope,
-    ty        = ty
+    ty        = ty,
+    container = container
   }
 
 

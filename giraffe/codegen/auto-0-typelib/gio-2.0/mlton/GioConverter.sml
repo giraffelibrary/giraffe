@@ -4,12 +4,6 @@ structure GioConverter :>
     where type converter_result_t = GioConverterResult.t
     where type converter_flags_t = GioConverterFlags.t =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "g_converter_get_type" : unit -> GObjectType.FFI.val_;
     val convert_ =
       fn
@@ -25,11 +19,11 @@ structure GioConverter :>
           (
             _import "mlton_g_converter_convert" :
               GioConverterClass.FFI.notnull GioConverterClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GioConverterFlags.FFI.val_
                * GUInt64.FFI.ref_
@@ -64,16 +58,16 @@ structure GioConverter :>
         flags
       ) =
       let
-        val inbufSize = LargeInt.fromInt (GUInt8CVectorN.length inbuf)
-        val outbufSize = LargeInt.fromInt (GUInt8CVectorN.length outbuf)
+        val inbufSize = LargeInt.fromInt (GUInt8CArrayN.length inbuf)
+        val outbufSize = LargeInt.fromInt (GUInt8CArrayN.length outbuf)
         val bytesRead
          & bytesWritten
          & retVal =
           (
             GioConverterClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GioConverterFlags.FFI.withVal
              &&&> GUInt64.FFI.withRefVal

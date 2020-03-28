@@ -76,7 +76,7 @@ in
     (enumNamespace : string)
     (enumInfo    : 'b EnumInfoClass.class)
     (excls'0     : info_excl_hier list)
-    : id * program * id list * info_excl_hier list =
+    : id * program * interfaceref list * interfaceref list * info_excl_hier list =
     let
       val () = checkDeprecated enumInfo
 
@@ -87,7 +87,8 @@ in
         namespace = enumNamespace,
         name      = enumName,
         scope     = LOCALINTERFACESELF,
-        ty        = SIMPLE
+        ty        = SIMPLE,
+        container = NONE
       }
 
       val enumStrId = mkStrId enumNamespace enumName
@@ -95,12 +96,12 @@ in
 
       val typeIRef = makeTypeIRef enumNamespace (SOME enumName)
 
-      val acc'0 = (specs'0, [], excls'0)
+      val acc'0 = (specs'0, ([], []), excls'0)
       val acc'1 = addFlagsEnumMethodSpecs repo vers enumIRef (enumInfo, acc'0)
       val acc'2 = addOptGetTypeFunctionSpec optGetTypeSymbol typeIRef acc'1
 
-      val (specs'2, iRefs'2, excls'2) = acc'2
-      val specs'3 = revMapAppend makeIRefLocalTypeSpec (iRefs'2, specs'2)
+      val (specs'2, (sigIRefs'2, extIRefs'2), excls'2) = acc'2
+      val specs'3 = revMapAppend makeIRefLocalTypeSpec (sigIRefs'2, specs'2)
       val specs'4 =
         addAccessorSpecs enumNamespace enumInfo (tTy, tTy) false specs'3
       val specs'5 = addFlagsValueSpecs (enumInfo, specs'4)
@@ -110,9 +111,9 @@ in
       val qSig : qsig = (sig1, [])
       val sigDec = toList1 [(enumSigId, qSig)]
       val program = [ModuleDecSig sigDec]
-      val sigDeps = []
+      val sigIRefs = []
     in
-      (mkSigFile enumSigId, Portable program, sigDeps, excls'2)
+      (mkSigFile enumSigId, Portable program, sigIRefs, extIRefs'2, excls'2)
     end
 end
 
@@ -157,7 +158,8 @@ in
         namespace = enumNamespace,
         name      = enumName,
         scope     = LOCALINTERFACESELF,
-        ty        = SIMPLE
+        ty        = SIMPLE,
+        container = NONE
       }
 
       val enumStrId = mkStrId enumNamespace enumName

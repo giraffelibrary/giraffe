@@ -2,22 +2,11 @@ structure GdkKeymap :>
   GDK_KEYMAP
     where type 'a class = 'a GdkKeymapClass.class
     where type 'a display_class = 'a GdkDisplayClass.class
+    where type keymap_key_record_c_array_n_t = GdkKeymapKeyRecordCArrayN.t
     where type modifier_intent_t = GdkModifierIntent.t
     where type keymap_key_t = GdkKeymapKeyRecord.t
     where type modifier_type_t = GdkModifierType.t =
   struct
-    structure GdkKeymapKeyRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkKeymapKeyRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkKeymapKeyRecord.C.ValueType)
-      )
-    structure GdkKeymapKeyRecordCVectorN = CVectorN(GdkKeymapKeyRecordCVectorNType)
-    structure GUIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GUInt.C.ValueType)
-      )
-    structure GUIntCVectorN = CVectorN(GUIntCVectorNType)
     local
       open PolyMLFFI
     in
@@ -32,8 +21,8 @@ structure GdkKeymap :>
           (
             GdkKeymapClass.PolyML.cPtr
              &&> GUInt.PolyML.cVal
-             &&> GdkKeymapKeyRecordCVectorN.PolyML.cOutRef
-             &&> GUIntCVectorN.PolyML.cOutRef
+             &&> GdkKeymapKeyRecordCArrayN.PolyML.cOutRef
+             &&> GUIntCArrayN.PolyML.cOutRef
              &&> GInt.PolyML.cRef
              --> GBool.PolyML.cVal
           )
@@ -42,7 +31,7 @@ structure GdkKeymap :>
           (
             GdkKeymapClass.PolyML.cPtr
              &&> GUInt.PolyML.cVal
-             &&> GdkKeymapKeyRecordCVectorN.PolyML.cOutRef
+             &&> GdkKeymapKeyRecordCArrayN.PolyML.cOutRef
              &&> GInt.PolyML.cRef
              --> GBool.PolyML.cVal
           )
@@ -69,6 +58,7 @@ structure GdkKeymap :>
     end
     type 'a class = 'a GdkKeymapClass.class
     type 'a display_class = 'a GdkDisplayClass.class
+    type keymap_key_record_c_array_n_t = GdkKeymapKeyRecordCArrayN.t
     type modifier_intent_t = GdkModifierIntent.t
     type keymap_key_t = GdkKeymapKeyRecord.t
     type modifier_type_t = GdkModifierType.t
@@ -93,11 +83,11 @@ structure GdkKeymap :>
           (
             GdkKeymapClass.FFI.withPtr
              &&&> GUInt.FFI.withVal
-             &&&> GdkKeymapKeyRecordCVectorN.FFI.withRefOptPtr
-             &&&> GUIntCVectorN.FFI.withRefOptPtr
+             &&&> GdkKeymapKeyRecordCArrayN.FFI.withRefOptPtr
+             &&&> GUIntCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GdkKeymapKeyRecordCVectorN.FFI.fromPtr 1
-                   && GUIntCVectorN.FFI.fromPtr 1
+             ---> GdkKeymapKeyRecordCArrayN.FFI.fromPtr 1
+                   && GUIntCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
           )
@@ -120,9 +110,9 @@ structure GdkKeymap :>
           (
             GdkKeymapClass.FFI.withPtr
              &&&> GUInt.FFI.withVal
-             &&&> GdkKeymapKeyRecordCVectorN.FFI.withRefOptPtr
+             &&&> GdkKeymapKeyRecordCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GdkKeymapKeyRecordCVectorN.FFI.fromPtr 1
+             ---> GdkKeymapKeyRecordCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
           )

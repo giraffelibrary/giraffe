@@ -50,7 +50,7 @@ signature GIO_FILE_INFO =
     val getAttributeStringv :
       'a class
        -> string
-       -> string list
+       -> Utf8CArray.t
     val getAttributeType :
       'a class
        -> string
@@ -90,7 +90,7 @@ signature GIO_FILE_INFO =
     val listAttributes :
       'a class
        -> string option
-       -> string list option
+       -> Utf8CArray.t option
     val removeAttribute :
       'a class
        -> string

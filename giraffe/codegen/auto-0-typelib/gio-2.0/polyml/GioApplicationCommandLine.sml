@@ -4,26 +4,14 @@ structure GioApplicationCommandLine :>
     where type 'a file_class = 'a GioFileClass.class
     where type 'a input_stream_class = 'a GioInputStreamClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     local
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_application_command_line_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val createFileForArg_ = call (getSymbol "g_application_command_line_create_file_for_arg") (GioApplicationCommandLineClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileClass.PolyML.cPtr)
-      val getArguments_ = call (getSymbol "g_application_command_line_get_arguments") (GioApplicationCommandLineClass.PolyML.cPtr &&> GInt32.PolyML.cRef --> Utf8CVectorN.PolyML.cOutPtr)
+      val getArguments_ = call (getSymbol "g_application_command_line_get_arguments") (GioApplicationCommandLineClass.PolyML.cPtr &&> GInt32.PolyML.cRef --> Utf8CArrayN.PolyML.cOutPtr)
       val getCwd_ = call (getSymbol "g_application_command_line_get_cwd") (GioApplicationCommandLineClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val getEnviron_ = call (getSymbol "g_application_command_line_get_environ") (GioApplicationCommandLineClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getEnviron_ = call (getSymbol "g_application_command_line_get_environ") (GioApplicationCommandLineClass.PolyML.cPtr --> Utf8CArray.PolyML.cOutPtr)
       val getExitStatus_ = call (getSymbol "g_application_command_line_get_exit_status") (GioApplicationCommandLineClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getIsRemote_ = call (getSymbol "g_application_command_line_get_is_remote") (GioApplicationCommandLineClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getOptionsDict_ = call (getSymbol "g_application_command_line_get_options_dict") (GioApplicationCommandLineClass.PolyML.cPtr --> GLibVariantDictRecord.PolyML.cPtr)
@@ -40,12 +28,12 @@ structure GioApplicationCommandLine :>
     fun createFileForArg self arg = (GioApplicationCommandLineClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) createFileForArg_ (self & arg)
     fun getArguments self =
       let
-        val argc & retVal = (GioApplicationCommandLineClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && Utf8CVectorN.FFI.fromPtr 2) getArguments_ (self & GInt32.null)
+        val argc & retVal = (GioApplicationCommandLineClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2) getArguments_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt argc)
       end
     fun getCwd self = (GioApplicationCommandLineClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getCwd_ self
-    fun getEnviron self = (GioApplicationCommandLineClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 0) getEnviron_ self
+    fun getEnviron self = (GioApplicationCommandLineClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 0) getEnviron_ self
     fun getExitStatus self = (GioApplicationCommandLineClass.FFI.withPtr ---> GInt32.FFI.fromVal) getExitStatus_ self
     fun getIsRemote self = (GioApplicationCommandLineClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsRemote_ self
     fun getOptionsDict self = (GioApplicationCommandLineClass.FFI.withPtr ---> GLibVariantDictRecord.FFI.fromPtr false) getOptionsDict_ self

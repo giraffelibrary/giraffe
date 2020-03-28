@@ -8,12 +8,6 @@ structure GioSubprocess :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class
     where type subprocess_flags_t = GioSubprocessFlags.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_subprocess_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
@@ -22,8 +16,8 @@ structure GioSubprocess :>
          & x4 =>
           (
             _import "mlton_g_subprocess_newv" :
-              Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+              Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                * GioSubprocessFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p;
@@ -234,7 +228,7 @@ structure GioSubprocess :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (argv, flags) =
       (
-        Utf8CVector.FFI.withPtr
+        Utf8CArray.FFI.withPtr
          &&&> GioSubprocessFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioSubprocessClass.FFI.fromPtr true

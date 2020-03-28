@@ -133,15 +133,15 @@ signature GIO_FILE =
     val loadContents :
       'a class
        -> 'b cancellable_class option
-       -> Word8Vector.vector * string
+       -> GUInt8CArrayN.t * string
     val loadContentsFinish :
       'a class
        -> 'b async_result_class
-       -> Word8Vector.vector * string
+       -> GUInt8CArrayN.t * string
     val loadPartialContentsFinish :
       'a class
        -> 'b async_result_class
-       -> Word8Vector.vector * string
+       -> GUInt8CArrayN.t * string
     val makeDirectory :
       'a class
        -> 'b cancellable_class option
@@ -251,7 +251,7 @@ signature GIO_FILE =
        -> base file_output_stream_class
     val replaceContents :
       'a class
-       -> Word8Vector.vector
+       -> GUInt8CArrayN.t
            * string option
            * bool
            * file_create_flags_t

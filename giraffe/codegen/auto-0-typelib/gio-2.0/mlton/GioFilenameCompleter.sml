@@ -2,12 +2,6 @@ structure GioFilenameCompleter :>
   GIO_FILENAME_COMPLETER
     where type 'a class = 'a GioFilenameCompleterClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_filename_completer_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_filename_completer_new" : unit -> GioFilenameCompleterClass.FFI.notnull GioFilenameCompleterClass.FFI.p;
     val getCompletionSuffix_ =
@@ -33,7 +27,7 @@ structure GioFilenameCompleter :>
               GioFilenameCompleterClass.FFI.notnull GioFilenameCompleterClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
           )
             (
               x1,
@@ -46,7 +40,7 @@ structure GioFilenameCompleter :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioFilenameCompleterClass.FFI.fromPtr true) new_ ()
     fun getCompletionSuffix self initialText = (GioFilenameCompleterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getCompletionSuffix_ (self & initialText)
-    fun getCompletions self initialText = (GioFilenameCompleterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getCompletions_ (self & initialText)
+    fun getCompletions self initialText = (GioFilenameCompleterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getCompletions_ (self & initialText)
     fun setDirsOnly self dirsOnly = (GioFilenameCompleterClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDirsOnly_ (self & dirsOnly)
     local
       open ClosureMarshal Signal

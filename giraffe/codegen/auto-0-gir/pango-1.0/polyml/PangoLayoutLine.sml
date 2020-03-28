@@ -3,12 +3,6 @@ structure PangoLayoutLine :>
     where type t = PangoLayoutLineRecord.t
     where type rectangle_t = PangoRectangleRecord.t =
   struct
-    structure GIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
-      )
-    structure GIntCVectorN = CVectorN(GIntCVectorNType)
     local
       open PolyMLFFI
     in
@@ -35,7 +29,7 @@ structure PangoLayoutLine :>
             PangoLayoutLineRecord.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
-             &&> GIntCVectorN.PolyML.cOutRef
+             &&> GIntCArrayN.PolyML.cOutRef
              &&> GInt.PolyML.cRef
              --> cVoid
           )
@@ -114,9 +108,9 @@ structure PangoLayoutLine :>
             PangoLayoutLineRecord.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
-             &&&> GIntCVectorN.FFI.withRefOptPtr
+             &&&> GIntCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GIntCVectorN.FFI.fromPtr 1
+             ---> GIntCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )

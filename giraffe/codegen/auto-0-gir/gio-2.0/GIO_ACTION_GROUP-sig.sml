@@ -51,7 +51,7 @@ signature GIO_ACTION_GROUP =
       'a class
        -> string
        -> bool
-    val listActions : 'a class -> string list
+    val listActions : 'a class -> Utf8CArray.t
     val queryAction :
       'a class
        -> string

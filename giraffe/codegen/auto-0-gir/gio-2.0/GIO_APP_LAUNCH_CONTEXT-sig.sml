@@ -5,7 +5,7 @@ signature GIO_APP_LAUNCH_CONTEXT =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val getEnvironment : 'a class -> string list
+    val getEnvironment : 'a class -> Utf8CArray.t
     val launchFailed :
       'a class
        -> string

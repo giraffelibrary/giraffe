@@ -2,11 +2,6 @@
  * Common
  * -------------------------------------------------------------------------- *)
 
-(* File names *)
-
-fun mkFile (base, ext) = OS.Path.joinBaseExt {base = base, ext = SOME ext}
-
-
 (**
  * Construction of a target-specific directory and file name
  *)
@@ -49,12 +44,63 @@ val cFileExt   = "c"
 
 (**
  * Construction of a file name from a module name
+ *
+ * The module name is encoded in the base name as follows:
+ *   - <name>-fun for a functor called name
+ *   - <name>-sig for a signature called name
+ *   - <name>     for a structure called name
+ * This encoding of module names requires a file system to be case preserving
+ * but not case sensitive for the module name to be recoverable from the file
+ * name, as done by the function `useExt` in the run-time source.
  *)
 
-fun mkStrFile id = mkFile (id,          smlFileExt)
-fun mkSigFile id = mkFile (id ^ "-sig", smlFileExt)
-fun mkFunFile id = mkFile (id ^ "-fun", smlFileExt)
+fun mkStrFile id = id
+fun mkSigFile id = id ^ "-sig"
+fun mkFunFile id = id ^ "-fun"
 
+fun addExt (base, ext) = OS.Path.joinBaseExt {base = base, ext = SOME ext}
+
+
+(**
+ * Namespace names
+ *
+ * Each namespace dependency returned by
+ *
+ *   GIRepository.Repository.getDependencies repo vers namespace
+ *
+ * is a string of the form "<namespace>-<version>".  For example, "GLib-2.0",
+ * "Gio-2.0", "Atk-1.0".  Therefore we describe a string of this form as a
+ * namespace dependency.
+ *
+ * A namespace dependency used in a file name is converted to lower case.
+ * The directory for a namespace is just the namespace dependency in lower
+ * case.  For example, "glib-2.0", "gio-2.0", "atk-1.0".
+ *)
+
+fun mkNamespaceDep (namespace, version) =
+  String.concat [namespace, "-", version]
+
+fun mkNamespaceFile namespaceDep = String.map Char.toLower namespaceDep
+
+
+(**
+ *
+ *)
+
+structure FileMap = ListDict
+structure NamespaceMap = ListDict
+
+structure NamespaceFileMap =
+  JoinMap(
+    structure L = NamespaceMap
+    structure R = FileMap
+  )
+
+fun thisNamespace x : NamespaceMap.key * 'a = ("", x)
+fun otherNamespace namespace x : NamespaceMap.key * 'a =
+  if namespace <> ""
+  then (namespace, x)
+  else raise Fail "empty string specified for other namespace"
 
 
 (* Representation of a program unit for multiple compiler targets *)
@@ -133,20 +179,24 @@ val internTypeSymbol = "intern"
 fun addGetTypeFunctionSpec
   getTypeSymbol
   (typeIRef : interfaceref)
-  (init as (specs, iRefs, excls)) =
+  (init as (specs, (sigIRefs, extIRefs), excls)) =
   if getTypeSymbol <> internTypeSymbol
   then
     let
       val specs' = getTypeSpec typeIRef :: specs
 
-      val iRef as {scope, ...} = typeIRef
-      val iRefs' =
+      val iRef as {scope, container, ...} = typeIRef
+      val sigIRefs' =
         case scope of
-          GLOBAL             => iRefs
-        | LOCALINTERFACESELF => iRefs
-        | _                  => insert (iRef, iRefs)
+          GLOBAL             => sigIRefs
+        | LOCALINTERFACESELF => sigIRefs
+        | _                  => insert (iRef, sigIRefs)
+      val extIRefs' =
+        case container of
+          NONE   => extIRefs
+        | SOME _ => insert (iRef, extIRefs)
     in
-      (specs', iRefs', excls)
+      (specs', (sigIRefs', extIRefs'), excls)
     end
   else init
 
@@ -675,11 +725,6 @@ end
  *
  *)
 local
-  fun stripPrefix s1 s2 =
-    if String.isPrefix s1 s2
-    then SOME (String.extract (s2, String.size s1, NONE))
-    else NONE
-
   (*
    *     val t<Opt> =
    *       ValueAccessor.C.createAccessor {

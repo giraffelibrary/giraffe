@@ -3,12 +3,6 @@ structure GioSettingsSchemaSource :>
     where type t = GioSettingsSchemaSourceRecord.t
     where type settings_schema_t = GioSettingsSchemaRecord.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -27,8 +21,8 @@ structure GioSettingsSchemaSource :>
           (
             GioSettingsSchemaSourceRecord.PolyML.cPtr
              &&> GBool.PolyML.cVal
-             &&> Utf8CVector.PolyML.cOutRef
-             &&> Utf8CVector.PolyML.cOutRef
+             &&> Utf8CArray.PolyML.cOutRef
+             &&> Utf8CArray.PolyML.cOutRef
              --> cVoid
           )
       val lookup_ =
@@ -72,10 +66,10 @@ structure GioSettingsSchemaSource :>
           (
             GioSettingsSchemaSourceRecord.FFI.withPtr
              &&&> GBool.FFI.withVal
-             &&&> Utf8CVector.FFI.withRefOptPtr
-             &&&> Utf8CVector.FFI.withRefOptPtr
-             ---> Utf8CVector.FFI.fromPtr 2
-                   && Utf8CVector.FFI.fromPtr 2
+             &&&> Utf8CArray.FFI.withRefOptPtr
+             &&&> Utf8CArray.FFI.withRefOptPtr
+             ---> Utf8CArray.FFI.fromPtr 2
+                   && Utf8CArray.FFI.fromPtr 2
                    && I
           )
             listSchemas_

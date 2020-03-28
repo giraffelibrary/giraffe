@@ -1,19 +1,13 @@
 structure PangoFontMap :>
   PANGO_FONT_MAP
     where type 'a class = 'a PangoFontMapClass.class
-    where type 'a font_family_class = 'a PangoFontFamilyClass.class
+    where type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
     where type 'a font_class = 'a PangoFontClass.class
     where type 'a fontset_class = 'a PangoFontsetClass.class
     where type language_t = PangoLanguageRecord.t
     where type font_description_t = PangoFontDescriptionRecord.t
     where type 'a context_class = 'a PangoContextClass.class =
   struct
-    structure PangoFontFamilyClassCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = PangoFontFamilyClass.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure PangoFontFamilyClassCVectorN = CVectorN(PangoFontFamilyClassCVectorNType)
     val getType_ = _import "pango_font_map_get_type" : unit -> GObjectType.FFI.val_;
     val changed_ = _import "pango_font_map_changed" : PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p -> unit;
     val createContext_ = _import "pango_font_map_create_context" : PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
@@ -27,8 +21,8 @@ structure PangoFontMap :>
           (
             _import "mlton_pango_font_map_list_families" :
               PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p
-               * PangoFontFamilyClassCVectorN.MLton.r1
-               * (unit, PangoFontFamilyClassCVectorN.FFI.notnull) PangoFontFamilyClassCVectorN.MLton.r2
+               * PangoFontFamilyClassCArrayN.MLton.r1
+               * (unit, PangoFontFamilyClassCArrayN.FFI.notnull) PangoFontFamilyClassCArrayN.MLton.r2
                * GInt32.FFI.ref_
                -> unit;
           )
@@ -76,7 +70,7 @@ structure PangoFontMap :>
               x4
             )
     type 'a class = 'a PangoFontMapClass.class
-    type 'a font_family_class = 'a PangoFontFamilyClass.class
+    type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
     type 'a font_class = 'a PangoFontClass.class
     type 'a fontset_class = 'a PangoFontsetClass.class
     type language_t = PangoLanguageRecord.t
@@ -95,9 +89,9 @@ structure PangoFontMap :>
          & () =
           (
             PangoFontMapClass.FFI.withPtr
-             &&&> PangoFontFamilyClassCVectorN.FFI.withRefOptPtr
+             &&&> PangoFontFamilyClassCArrayN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> PangoFontFamilyClassCVectorN.FFI.fromPtr 1
+             ---> PangoFontFamilyClassCArrayN.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
                    && I
           )

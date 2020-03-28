@@ -6,7 +6,7 @@ signature GIO_SOCKET_CONTROL_MESSAGE =
     val deserialize :
       LargeInt.int
        * LargeInt.int
-       * Word8Vector.vector
+       * GUInt8CArrayN.t
        -> base class
     val getLevel : 'a class -> LargeInt.int
     val getMsgType : 'a class -> LargeInt.int

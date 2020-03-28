@@ -4,24 +4,6 @@ structure GtkIconTheme :>
     where type 'a icon_info_class = 'a GtkIconInfoClass.class
     where type icon_lookup_flags_t = GtkIconLookupFlags.t =
   struct
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
-    structure GInt32CVectorType =
-      CValueCVectorType(
-        structure CElemType = GInt32.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt32.C.ValueType)
-      )
-    structure GInt32CVector = CVector(GInt32CVectorType)
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "gtk_icon_theme_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_icon_theme_new" : unit -> GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p;
     val addBuiltinIcon_ =
@@ -84,8 +66,8 @@ structure GtkIconTheme :>
           (
             _import "mlton_gtk_icon_theme_choose_icon" :
               GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
                -> unit GtkIconInfoClass.FFI.p;
@@ -107,8 +89,8 @@ structure GtkIconTheme :>
           (
             _import "mlton_gtk_icon_theme_choose_icon_for_scale" :
               GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
@@ -131,7 +113,7 @@ structure GtkIconTheme :>
               GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GInt32CVector.FFI.notnull GInt32CVector.FFI.out_p;
+               -> GInt32CArray.FFI.notnull GInt32CArray.FFI.out_p;
           )
             (
               x1,
@@ -146,8 +128,8 @@ structure GtkIconTheme :>
           (
             _import "mlton_gtk_icon_theme_get_search_path" :
               GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
-               * Utf8CVectorN.MLton.r1
-               * (unit, Utf8CVectorN.FFI.notnull) Utf8CVectorN.MLton.r2
+               * Utf8CArrayN.MLton.r1
+               * (unit, Utf8CArrayN.FFI.notnull) Utf8CArrayN.MLton.r2
                * GInt32.FFI.ref_
                -> unit;
           )
@@ -386,8 +368,8 @@ structure GtkIconTheme :>
           (
             _import "mlton_gtk_icon_theme_set_search_path" :
               GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
-               * Utf8CVectorN.MLton.p1
-               * Utf8CVectorN.FFI.notnull Utf8CVectorN.MLton.p2
+               * Utf8CArrayN.MLton.p1
+               * Utf8CArrayN.FFI.notnull Utf8CArrayN.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -434,7 +416,7 @@ structure GtkIconTheme :>
       ) =
       (
         GtkIconThemeClass.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
          ---> GtkIconInfoClass.FFI.fromOptPtr true
@@ -456,7 +438,7 @@ structure GtkIconTheme :>
       ) =
       (
         GtkIconThemeClass.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
@@ -471,7 +453,7 @@ structure GtkIconTheme :>
            & flags
         )
     fun getExampleIconName self = (GtkIconThemeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getExampleIconName_ self
-    fun getIconSizes self iconName = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt32CVector.FFI.fromPtr 1) getIconSizes_ (self & iconName)
+    fun getIconSizes self iconName = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt32CArray.FFI.fromPtr 1) getIconSizes_ (self & iconName)
     fun getSearchPath self =
       let
         val path
@@ -479,9 +461,9 @@ structure GtkIconTheme :>
          & () =
           (
             GtkIconThemeClass.FFI.withPtr
-             &&&> Utf8CVectorN.FFI.withRefOptPtr
+             &&&> Utf8CArrayN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> Utf8CVectorN.FFI.fromPtr 2
+             ---> Utf8CArrayN.FFI.fromPtr 2
                    && GInt32.FFI.fromVal
                    && I
           )
@@ -669,11 +651,11 @@ structure GtkIconTheme :>
     fun setScreen self screen = (GtkIconThemeClass.FFI.withPtr &&&> GdkScreenClass.FFI.withPtr ---> I) setScreen_ (self & screen)
     fun setSearchPath self path =
       let
-        val nElements = LargeInt.fromInt (Utf8CVectorN.length path)
+        val nElements = LargeInt.fromInt (Utf8CArrayN.length path)
         val () =
           (
             GtkIconThemeClass.FFI.withPtr
-             &&&> Utf8CVectorN.FFI.withPtr
+             &&&> Utf8CArrayN.FFI.withPtr
              &&&> GInt32.FFI.withVal
              ---> I
           )

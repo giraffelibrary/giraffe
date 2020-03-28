@@ -8,12 +8,6 @@ structure GioMount :>
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -51,7 +45,7 @@ structure GioMount :>
             GioMountClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CVector.PolyML.cOutPtr
+             --> Utf8CArray.PolyML.cOutPtr
           )
       val guessContentTypeSync_ =
         call (getSymbol "g_mount_guess_content_type_sync")
@@ -60,7 +54,7 @@ structure GioMount :>
              &&> GBool.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CVector.PolyML.cOutPtr
+             --> Utf8CArray.PolyML.cOutPtr
           )
       val isShadowed_ = call (getSymbol "g_mount_is_shadowed") (GioMountClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val remountFinish_ =
@@ -141,7 +135,7 @@ structure GioMount :>
         GioMountClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CVector.FFI.fromPtr 2
+         ---> Utf8CArray.FFI.fromPtr 2
       )
         guessContentTypeFinish_
         (
@@ -155,7 +149,7 @@ structure GioMount :>
          &&&> GBool.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CVector.FFI.fromPtr 2
+         ---> Utf8CArray.FFI.fromPtr 2
       )
         guessContentTypeSync_
         (

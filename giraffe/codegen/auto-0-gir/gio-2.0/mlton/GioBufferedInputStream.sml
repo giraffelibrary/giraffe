@@ -6,12 +6,6 @@ structure GioBufferedInputStream :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class
     where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "g_buffered_input_stream_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_buffered_input_stream_new" : GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
     val newSized_ = fn x1 & x2 => (_import "g_buffered_input_stream_new_sized" : GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p * GSize.FFI.val_ -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;) (x1, x2)
@@ -63,8 +57,8 @@ structure GioBufferedInputStream :>
           (
             _import "mlton_g_buffered_input_stream_peek" :
               GioBufferedInputStreamClass.FFI.notnull GioBufferedInputStreamClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GSize.FFI.val_
                * GSize.FFI.val_
                -> GSize.FFI.val_;
@@ -76,7 +70,7 @@ structure GioBufferedInputStream :>
               x4,
               x5
             )
-    val peekBuffer_ = fn x1 & x2 => (_import "g_buffered_input_stream_peek_buffer" : GioBufferedInputStreamClass.FFI.notnull GioBufferedInputStreamClass.FFI.p * GSize.FFI.ref_ -> GUInt8CVectorN.FFI.notnull GUInt8CVectorN.FFI.out_p;) (x1, x2)
+    val peekBuffer_ = fn x1 & x2 => (_import "g_buffered_input_stream_peek_buffer" : GioBufferedInputStreamClass.FFI.notnull GioBufferedInputStreamClass.FFI.p * GSize.FFI.ref_ -> GUInt8CArrayN.FFI.notnull GUInt8CArrayN.FFI.out_p;) (x1, x2)
     val readByte_ =
       fn
         x1
@@ -137,11 +131,11 @@ structure GioBufferedInputStream :>
     fun getBufferSize self = (GioBufferedInputStreamClass.FFI.withPtr ---> GSize.FFI.fromVal) getBufferSize_ self
     fun peek self (buffer, offset) =
       let
-        val count = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioBufferedInputStreamClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GSize.FFI.withVal
              &&&> GSize.FFI.withVal
              ---> GSize.FFI.fromVal
@@ -158,7 +152,7 @@ structure GioBufferedInputStream :>
       end
     fun peekBuffer self =
       let
-        val count & retVal = (GioBufferedInputStreamClass.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) peekBuffer_ (self & GSize.null)
+        val count & retVal = (GioBufferedInputStreamClass.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 0) peekBuffer_ (self & GSize.null)
       in
         retVal (LargeInt.toInt count)
       end

@@ -1,17 +1,12 @@
 structure PangoLanguage :>
   PANGO_LANGUAGE
     where type t = PangoLanguageRecord.t
+    where type script_c_array_n_t = PangoScriptCArrayN.t
     where type script_t = PangoScript.t =
   struct
-    structure PangoScriptCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = PangoScript.C.ValueType
-        structure ElemSequence = CValueVectorSequence(PangoScript.C.ValueType)
-      )
-    structure PangoScriptCVectorN = CVectorN(PangoScriptCVectorNType)
     val getType_ = _import "pango_language_get_type" : unit -> GObjectType.FFI.val_;
     val getSampleString_ = _import "pango_language_get_sample_string" : PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getScripts_ = fn x1 & x2 => (_import "pango_language_get_scripts" : PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p * GInt.FFI.ref_ -> unit PangoScriptCVectorN.FFI.out_p;) (x1, x2)
+    val getScripts_ = fn x1 & x2 => (_import "pango_language_get_scripts" : PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p * GInt.FFI.ref_ -> unit PangoScriptCArrayN.FFI.out_p;) (x1, x2)
     val includesScript_ = fn x1 & x2 => (_import "pango_language_includes_script" : PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p * PangoScript.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val matches_ =
       fn
@@ -32,12 +27,13 @@ structure PangoLanguage :>
     val fromString_ = _import "mlton_pango_language_from_string" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> unit PangoLanguageRecord.FFI.p;
     val getDefault_ = _import "pango_language_get_default" : unit -> PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p;
     type t = PangoLanguageRecord.t
+    type script_c_array_n_t = PangoScriptCArrayN.t
     type script_t = PangoScript.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getSampleString self = (PangoLanguageRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSampleString_ self
     fun getScripts self =
       let
-        val numScripts & retVal = (PangoLanguageRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && PangoScriptCVectorN.FFI.fromOptPtr 0) getScripts_ (self & GInt.null)
+        val numScripts & retVal = (PangoLanguageRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && PangoScriptCArrayN.FFI.fromOptPtr 0) getScripts_ (self & GInt.null)
       in
         retVal (LargeInt.toInt numScripts)
       end

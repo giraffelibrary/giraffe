@@ -7,6 +7,9 @@ local
   ../glib-2.0/mlton.mlb
   ../cairo-1.0/mlton.mlb
 in
+  ../glib-2.0/GInt32CArrayN.mlb
+  ../glib-2.0/Utf8CArrayN.mlb
+  ../glib-2.0/Utf8CArray.mlb
   PANGO_ALIGNMENT-sig.sml
   PANGO_ANALYSIS_RECORD-sig.sml
   PANGO_ANALYSIS-sig.sml
@@ -136,15 +139,15 @@ in
     mlton/PangoEngineShapeClass.sml
     mlton/PangoFont.sml
     mlton/PangoFontFace.sml
-    mlton/PangoFontFamily.sml
-    mlton/PangoFontMap.sml
+    PangoFontFaceClassCArrayN.sml
+    PangoFontFamilyClassCArrayN.sml
     mlton/PangoFontMetrics.sml
     mlton/PangoFontset.sml
     mlton/PangoFontsetSimpleClass.sml
     mlton/PangoGlyphItem.sml
     mlton/PangoGlyphString.sml
     mlton/PangoItem.sml
-    mlton/PangoLayout.sml
+    PangoLogAttrRecordCArrayN.sml
     mlton/PangoLayoutIter.sml
     mlton/PangoLayoutLine.sml
     mlton/PangoLogAttr.sml
@@ -155,11 +158,15 @@ in
     mlton/PangoTabArray.sml
     mlton/PangoEngineLang.sml
     mlton/PangoEngineShape.sml
+    mlton/PangoFontFamily.sml
+    mlton/PangoFontMap.sml
     mlton/PangoFontsetSimple.sml
     mlton/PangoGravity.sml
-    mlton/PangoLanguage.sml
+    PangoScriptCArrayN.sml
+    mlton/PangoLayout.sml
     mlton/PangoContext.sml
     mlton/PangoFontDescription.sml
+    mlton/PangoLanguage.sml
     mlton/Pango.sml
   end
 end

@@ -66,7 +66,7 @@ signature GIO_D_BUS_PROXY =
       'a class
        -> string
        -> GLib.VariantRecord.t
-    val getCachedPropertyNames : 'a class -> string list
+    val getCachedPropertyNames : 'a class -> Utf8CArray.t
     val getConnection : 'a class -> base d_bus_connection_class
     val getDefaultTimeout : 'a class -> LargeInt.int
     val getFlags : 'a class -> d_bus_proxy_flags_t
@@ -87,7 +87,7 @@ signature GIO_D_BUS_PROXY =
       'a class
        -> d_bus_interface_info_t option
        -> unit
-    val gPropertiesChangedSig : (GLib.VariantRecord.t * string list -> unit) -> 'a class Signal.t
+    val gPropertiesChangedSig : (GLib.VariantRecord.t * Utf8CArray.t -> unit) -> 'a class Signal.t
     val gSignalSig :
       (string option
         * string

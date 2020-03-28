@@ -3,14 +3,8 @@ structure GtkSourceStyleScheme :>
     where type 'a class = 'a GtkSourceStyleSchemeClass.class
     where type 'a style_class = 'a GtkSourceStyleClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "gtk_source_style_scheme_get_type" : unit -> GObjectType.FFI.val_;
-    val getAuthors_ = _import "gtk_source_style_scheme_get_authors" : GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p -> unit Utf8CVector.FFI.out_p;
+    val getAuthors_ = _import "gtk_source_style_scheme_get_authors" : GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p -> unit Utf8CArray.FFI.out_p;
     val getDescription_ = _import "gtk_source_style_scheme_get_description" : GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p -> unit Utf8.FFI.out_p;
     val getFilename_ = _import "gtk_source_style_scheme_get_filename" : GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p -> unit Utf8.FFI.out_p;
     val getId_ = _import "gtk_source_style_scheme_get_id" : GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
@@ -34,7 +28,7 @@ structure GtkSourceStyleScheme :>
     type 'a style_class = 'a GtkSourceStyleClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getAuthors self = (GtkSourceStyleSchemeClass.FFI.withPtr ---> Utf8CVector.FFI.fromOptPtr 0) getAuthors_ self
+    fun getAuthors self = (GtkSourceStyleSchemeClass.FFI.withPtr ---> Utf8CArray.FFI.fromOptPtr 0) getAuthors_ self
     fun getDescription self = (GtkSourceStyleSchemeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getDescription_ self
     fun getFilename self = (GtkSourceStyleSchemeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getFilename_ self
     fun getId self = (GtkSourceStyleSchemeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getId_ self

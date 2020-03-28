@@ -3,12 +3,6 @@ structure GtkCssProvider :>
     where type 'a class = 'a GtkCssProviderClass.class
     where type 'a style_provider_class = 'a GtkStyleProviderClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -20,7 +14,7 @@ structure GtkCssProvider :>
         call (getSymbol "gtk_css_provider_load_from_data")
           (
             GtkCssProviderClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GInt64.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
@@ -54,11 +48,11 @@ structure GtkCssProvider :>
     fun getNamed (name, variant) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkCssProviderClass.FFI.fromPtr false) getNamed_ (name & variant)
     fun loadFromData self data =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
         val () =
           (
             GtkCssProviderClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GInt64.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> ignore

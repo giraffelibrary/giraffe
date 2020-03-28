@@ -3,31 +3,13 @@ structure GtkSelectionData :>
     where type t = GtkSelectionDataRecord.t
     where type 'a text_buffer_class = 'a GtkTextBufferClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
-    structure GdkAtomRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkAtomRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
     local
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "gtk_selection_data_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val copy_ = call (getSymbol "gtk_selection_data_copy") (GtkSelectionDataRecord.PolyML.cPtr --> GtkSelectionDataRecord.PolyML.cPtr)
       val getDataType_ = call (getSymbol "gtk_selection_data_get_data_type") (GtkSelectionDataRecord.PolyML.cPtr --> GdkAtomRecord.PolyML.cPtr)
-      val getData_ = call (getSymbol "gtk_selection_data_get_data_with_length") (GtkSelectionDataRecord.PolyML.cPtr &&> GInt32.PolyML.cRef --> GUInt8CVectorN.PolyML.cOutPtr)
+      val getData_ = call (getSymbol "gtk_selection_data_get_data_with_length") (GtkSelectionDataRecord.PolyML.cPtr &&> GInt32.PolyML.cRef --> GUInt8CArrayN.PolyML.cOutPtr)
       val getDisplay_ = call (getSymbol "gtk_selection_data_get_display") (GtkSelectionDataRecord.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
       val getFormat_ = call (getSymbol "gtk_selection_data_get_format") (GtkSelectionDataRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getLength_ = call (getSymbol "gtk_selection_data_get_length") (GtkSelectionDataRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
@@ -38,19 +20,19 @@ structure GtkSelectionData :>
         call (getSymbol "gtk_selection_data_get_targets")
           (
             GtkSelectionDataRecord.PolyML.cPtr
-             &&> GdkAtomRecordCVectorN.PolyML.cOutRef
+             &&> GdkAtomRecordCArrayN.PolyML.cOutRef
              &&> GInt32.PolyML.cRef
              --> GBool.PolyML.cVal
           )
       val getText_ = call (getSymbol "gtk_selection_data_get_text") (GtkSelectionDataRecord.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val getUris_ = call (getSymbol "gtk_selection_data_get_uris") (GtkSelectionDataRecord.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getUris_ = call (getSymbol "gtk_selection_data_get_uris") (GtkSelectionDataRecord.PolyML.cPtr --> Utf8CArray.PolyML.cOutPtr)
       val set_ =
         call (getSymbol "gtk_selection_data_set")
           (
             GtkSelectionDataRecord.PolyML.cPtr
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GInt32.PolyML.cVal
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
              --> cVoid
           )
@@ -63,7 +45,7 @@ structure GtkSelectionData :>
              &&> GInt32.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val setUris_ = call (getSymbol "gtk_selection_data_set_uris") (GtkSelectionDataRecord.PolyML.cPtr &&> Utf8CVector.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val setUris_ = call (getSymbol "gtk_selection_data_set_uris") (GtkSelectionDataRecord.PolyML.cPtr &&> Utf8CArray.PolyML.cInPtr --> GBool.PolyML.cVal)
       val targetsIncludeImage_ = call (getSymbol "gtk_selection_data_targets_include_image") (GtkSelectionDataRecord.PolyML.cPtr &&> GBool.PolyML.cVal --> GBool.PolyML.cVal)
       val targetsIncludeRichText_ = call (getSymbol "gtk_selection_data_targets_include_rich_text") (GtkSelectionDataRecord.PolyML.cPtr &&> GtkTextBufferClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val targetsIncludeText_ = call (getSymbol "gtk_selection_data_targets_include_text") (GtkSelectionDataRecord.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -76,7 +58,7 @@ structure GtkSelectionData :>
     fun getDataType self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) getDataType_ self
     fun getData self =
       let
-        val length & retVal = (GtkSelectionDataRecord.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) getData_ (self & GInt32.null)
+        val length & retVal = (GtkSelectionDataRecord.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 0) getData_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt length)
       end
@@ -93,9 +75,9 @@ structure GtkSelectionData :>
          & retVal =
           (
             GtkSelectionDataRecord.FFI.withPtr
-             &&&> GdkAtomRecordCVectorN.FFI.withRefOptPtr
+             &&&> GdkAtomRecordCArrayN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> GdkAtomRecordCVectorN.FFI.fromPtr 1
+             ---> GdkAtomRecordCArrayN.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
                    && GBool.FFI.fromVal
           )
@@ -109,7 +91,7 @@ structure GtkSelectionData :>
         if retVal then SOME (targets (LargeInt.toInt nAtoms)) else NONE
       end
     fun getText self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getText_ self
-    fun getUris self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getUris_ self
+    fun getUris self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getUris_ self
     fun set
       self
       (
@@ -118,13 +100,13 @@ structure GtkSelectionData :>
         data
       ) =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
         val () =
           (
             GtkSelectionDataRecord.FFI.withPtr
              &&&> GdkAtomRecord.FFI.withPtr
              &&&> GInt32.FFI.withVal
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GInt32.FFI.withVal
              ---> I
           )
@@ -153,7 +135,7 @@ structure GtkSelectionData :>
            & str
            & len
         )
-    fun setUris self uris = (GtkSelectionDataRecord.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> GBool.FFI.fromVal) setUris_ (self & uris)
+    fun setUris self uris = (GtkSelectionDataRecord.FFI.withPtr &&&> Utf8CArray.FFI.withPtr ---> GBool.FFI.fromVal) setUris_ (self & uris)
     fun targetsIncludeImage self writable = (GtkSelectionDataRecord.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeImage_ (self & writable)
     fun targetsIncludeRichText self buffer = (GtkSelectionDataRecord.FFI.withPtr &&&> GtkTextBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) targetsIncludeRichText_ (self & buffer)
     fun targetsIncludeText self = (GtkSelectionDataRecord.FFI.withPtr ---> GBool.FFI.fromVal) targetsIncludeText_ self

@@ -4,12 +4,6 @@ structure GioResource :>
     where type 'a input_stream_class = 'a GioInputStreamClass.class
     where type resource_lookup_flags_t = GioResourceLookupFlags.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_resource_get_type" : unit -> GObjectType.FFI.val_;
     val newFromData_ = fn x1 & x2 => (_import "g_resource_new_from_data" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p;) (x1, x2)
     val register_ = _import "g_resources_register" : GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p -> unit;
@@ -27,7 +21,7 @@ structure GioResource :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
           )
             (
               x1,
@@ -136,7 +130,7 @@ structure GioResource :>
          &&&> Utf8.FFI.withPtr
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CVector.FFI.fromPtr 2
+         ---> Utf8CArray.FFI.fromPtr 2
       )
         enumerateChildren_
         (

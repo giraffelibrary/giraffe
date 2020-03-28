@@ -31,11 +31,11 @@ signature GIO_MOUNT =
     val guessContentTypeFinish :
       'a class
        -> 'b async_result_class
-       -> string list
+       -> Utf8CArray.t
     val guessContentTypeSync :
       'a class
        -> bool * 'b cancellable_class option
-       -> string list
+       -> Utf8CArray.t
     val isShadowed : 'a class -> bool
     val remountFinish :
       'a class

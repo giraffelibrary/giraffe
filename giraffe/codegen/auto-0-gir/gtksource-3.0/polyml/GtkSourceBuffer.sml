@@ -9,12 +9,6 @@ structure GtkSourceBuffer :>
     where type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class
     where type 'a undo_manager_class = 'a GtkSourceUndoManagerClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -67,7 +61,7 @@ structure GtkSourceBuffer :>
              &&> Utf8.PolyML.cInOptPtr
              --> GBool.PolyML.cVal
           )
-      val getContextClassesAtIter_ = call (getSymbol "gtk_source_buffer_get_context_classes_at_iter") (GtkSourceBufferClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val getContextClassesAtIter_ = call (getSymbol "gtk_source_buffer_get_context_classes_at_iter") (GtkSourceBufferClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> Utf8CArray.PolyML.cOutPtr)
       val getHighlightMatchingBrackets_ = call (getSymbol "gtk_source_buffer_get_highlight_matching_brackets") (GtkSourceBufferClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getHighlightSyntax_ = call (getSymbol "gtk_source_buffer_get_highlight_syntax") (GtkSourceBufferClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getImplicitTrailingNewline_ = call (getSymbol "gtk_source_buffer_get_implicit_trailing_newline") (GtkSourceBufferClass.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -233,7 +227,7 @@ structure GtkSourceBuffer :>
            & iter
            & category
         )
-    fun getContextClassesAtIter self iter = (GtkSourceBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getContextClassesAtIter_ (self & iter)
+    fun getContextClassesAtIter self iter = (GtkSourceBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getContextClassesAtIter_ (self & iter)
     fun getHighlightMatchingBrackets self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getHighlightMatchingBrackets_ self
     fun getHighlightSyntax self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getHighlightSyntax_ self
     fun getImplicitTrailingNewline self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getImplicitTrailingNewline_ self

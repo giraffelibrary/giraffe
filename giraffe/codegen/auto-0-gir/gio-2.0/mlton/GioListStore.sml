@@ -3,12 +3,6 @@ structure GioListStore :>
     where type 'a class = 'a GioListStoreClass.class
     where type 'a list_model_class = 'a GioListModelClass.class =
   struct
-    structure GObjectObjectClassCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GObjectObjectClass.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GObjectObjectClassCVectorN = CVectorN(GObjectObjectClassCVectorNType)
     val getType_ = _import "g_list_store_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_list_store_new" : GObjectType.FFI.val_ -> GioListStoreClass.FFI.notnull GioListStoreClass.FFI.p;
     val append_ = fn x1 & x2 => (_import "g_list_store_append" : GioListStoreClass.FFI.notnull GioListStoreClass.FFI.p * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p -> unit;) (x1, x2)
@@ -43,8 +37,8 @@ structure GioListStore :>
               GioListStoreClass.FFI.notnull GioListStoreClass.FFI.p
                * GUInt.FFI.val_
                * GUInt.FFI.val_
-               * GObjectObjectClassCVectorN.MLton.p1
-               * GObjectObjectClassCVectorN.FFI.notnull GObjectObjectClassCVectorN.MLton.p2
+               * GObjectObjectClassCArrayN.MLton.p1
+               * GObjectObjectClassCArrayN.FFI.notnull GObjectObjectClassCArrayN.MLton.p2
                * GUInt.FFI.val_
                -> unit;
           )
@@ -86,13 +80,13 @@ structure GioListStore :>
         additions
       ) =
       let
-        val nAdditions = LargeInt.fromInt (GObjectObjectClassCVectorN.length additions)
+        val nAdditions = LargeInt.fromInt (GObjectObjectClassCArrayN.length additions)
         val () =
           (
             GioListStoreClass.FFI.withPtr
              &&&> GUInt.FFI.withVal
              &&&> GUInt.FFI.withVal
-             &&&> GObjectObjectClassCVectorN.FFI.withPtr
+             &&&> GObjectObjectClassCArrayN.FFI.withPtr
              &&&> GUInt.FFI.withVal
              ---> I
           )

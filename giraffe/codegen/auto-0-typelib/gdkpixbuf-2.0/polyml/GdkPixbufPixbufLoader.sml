@@ -5,12 +5,6 @@ structure GdkPixbufPixbufLoader :>
     where type pixbuf_format_t = GdkPixbufPixbufFormatRecord.t
     where type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -34,7 +28,7 @@ structure GdkPixbufPixbufLoader :>
         call (getSymbol "gdk_pixbuf_loader_write")
           (
             GdkPixbufPixbufLoaderClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
@@ -76,11 +70,11 @@ structure GdkPixbufPixbufLoader :>
         )
     fun write self buf =
       let
-        val count = LargeInt.fromInt (GUInt8CVectorN.length buf)
+        val count = LargeInt.fromInt (GUInt8CArrayN.length buf)
         val () =
           (
             GdkPixbufPixbufLoaderClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> ignore

@@ -24,6 +24,7 @@ structure Vte : VTE =
     structure WriteFlags = VteWriteFlags
     structure Pty = VtePty
     structure Regex = VteRegex
+    structure RegexRecordCArrayN = VteRegexRecordCArrayN
     structure Terminal = VteTerminal
     val MAJOR_VERSION = 0
     val MICRO_VERSION = 3

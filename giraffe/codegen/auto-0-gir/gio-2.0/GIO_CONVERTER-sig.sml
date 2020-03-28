@@ -7,8 +7,8 @@ signature GIO_CONVERTER =
     val getType : unit -> GObject.Type.t
     val convert :
       'a class
-       -> Word8Vector.vector
-           * Word8Vector.vector
+       -> GUInt8CArrayN.t
+           * GUInt8CArrayN.t
            * converter_flags_t
        -> converter_result_t
            * LargeInt.int

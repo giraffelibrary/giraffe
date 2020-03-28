@@ -3,12 +3,6 @@ structure GLibChecksum :>
     where type t = GLibChecksumRecord.t
     where type checksum_type_t = GLibChecksumType.t =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "g_checksum_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_checksum_new" : GLibChecksumType.FFI.val_ -> GLibChecksumRecord.FFI.notnull GLibChecksumRecord.FFI.p;
     val copy_ = _import "g_checksum_copy" : GLibChecksumRecord.FFI.notnull GLibChecksumRecord.FFI.p -> GLibChecksumRecord.FFI.notnull GLibChecksumRecord.FFI.p;
@@ -22,8 +16,8 @@ structure GLibChecksum :>
           (
             _import "mlton_g_checksum_update" :
               GLibChecksumRecord.FFI.notnull GLibChecksumRecord.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GSSize.FFI.val_
                -> unit;
           )
@@ -43,11 +37,11 @@ structure GLibChecksum :>
     fun reset self = (GLibChecksumRecord.FFI.withPtr ---> I) reset_ self
     fun update self data =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
         val () =
           (
             GLibChecksumRecord.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GSSize.FFI.withVal
              ---> I
           )

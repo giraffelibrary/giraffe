@@ -2,22 +2,16 @@ structure GtkTargetList :>
   GTK_TARGET_LIST
     where type t = GtkTargetListRecord.t
     where type 'a text_buffer_class = 'a GtkTextBufferClass.class
-    where type target_entry_t = GtkTargetEntryRecord.t =
+    where type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t =
   struct
-    structure GtkTargetEntryRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GtkTargetEntryRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
-      )
-    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     val getType_ = _import "gtk_target_list_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_target_list_new" :
-              GtkTargetEntryRecordCVectorN.MLton.p1
-               * unit GtkTargetEntryRecordCVectorN.MLton.p2
+              GtkTargetEntryRecordCArrayN.MLton.p1
+               * unit GtkTargetEntryRecordCArrayN.MLton.p2
                * GUInt32.FFI.val_
                -> GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p;
           )
@@ -91,8 +85,8 @@ structure GtkTargetList :>
           (
             _import "mlton_gtk_target_list_add_table" :
               GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p
-               * GtkTargetEntryRecordCVectorN.MLton.p1
-               * GtkTargetEntryRecordCVectorN.FFI.notnull GtkTargetEntryRecordCVectorN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.MLton.p1
+               * GtkTargetEntryRecordCArrayN.FFI.notnull GtkTargetEntryRecordCArrayN.MLton.p2
                * GUInt32.FFI.val_
                -> unit;
           )
@@ -124,15 +118,15 @@ structure GtkTargetList :>
     val remove_ = fn x1 & x2 => (_import "gtk_target_list_remove" : GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> unit;) (x1, x2)
     type t = GtkTargetListRecord.t
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
-    type target_entry_t = GtkTargetEntryRecord.t
+    type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new targets =
       let
         val ntargets =
           case targets of
-            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
           | NONE => GUInt32.null
-        val retVal = (GtkTargetEntryRecordCVectorN.FFI.withOptPtr &&&> GUInt32.FFI.withVal ---> GtkTargetListRecord.FFI.fromPtr true) new_ (targets & ntargets)
+        val retVal = (GtkTargetEntryRecordCArrayN.FFI.withOptPtr &&&> GUInt32.FFI.withVal ---> GtkTargetListRecord.FFI.fromPtr true) new_ (targets & ntargets)
       in
         retVal
       end
@@ -193,11 +187,11 @@ structure GtkTargetList :>
         )
     fun addTable self targets =
       let
-        val ntargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val ntargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkTargetListRecord.FFI.withPtr
-             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
              &&&> GUInt32.FFI.withVal
              ---> I
           )

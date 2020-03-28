@@ -9,12 +9,6 @@ structure GtkSourceBuffer :>
     where type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class
     where type 'a undo_manager_class = 'a GtkSourceUndoManagerClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "gtk_source_buffer_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_source_buffer_new" : unit GtkTextTagTableClass.FFI.p -> GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p;
     val newWithLanguage_ = _import "gtk_source_buffer_new_with_language" : GtkSourceLanguageClass.FFI.notnull GtkSourceLanguageClass.FFI.p -> GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p;
@@ -121,7 +115,7 @@ structure GtkSourceBuffer :>
               x3,
               x4
             )
-    val getContextClassesAtIter_ = fn x1 & x2 => (_import "gtk_source_buffer_get_context_classes_at_iter" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;) (x1, x2)
+    val getContextClassesAtIter_ = fn x1 & x2 => (_import "gtk_source_buffer_get_context_classes_at_iter" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;) (x1, x2)
     val getHighlightMatchingBrackets_ = _import "gtk_source_buffer_get_highlight_matching_brackets" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
     val getHighlightSyntax_ = _import "gtk_source_buffer_get_highlight_syntax" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
     val getImplicitTrailingNewline_ = _import "gtk_source_buffer_get_implicit_trailing_newline" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
@@ -354,7 +348,7 @@ structure GtkSourceBuffer :>
            & iter
            & category
         )
-    fun getContextClassesAtIter self iter = (GtkSourceBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getContextClassesAtIter_ (self & iter)
+    fun getContextClassesAtIter self iter = (GtkSourceBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getContextClassesAtIter_ (self & iter)
     fun getHighlightMatchingBrackets self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getHighlightMatchingBrackets_ self
     fun getHighlightSyntax self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getHighlightSyntax_ self
     fun getImplicitTrailingNewline self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getImplicitTrailingNewline_ self

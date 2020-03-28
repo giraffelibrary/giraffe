@@ -7,12 +7,6 @@ structure GioVolume :>
     where type 'a icon_class = 'a GioIconClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -35,7 +29,7 @@ structure GioVolume :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val enumerateIdentifiers_ = call (getSymbol "g_volume_enumerate_identifiers") (GioVolumeClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val enumerateIdentifiers_ = call (getSymbol "g_volume_enumerate_identifiers") (GioVolumeClass.PolyML.cPtr --> Utf8CArray.PolyML.cOutPtr)
       val getActivationRoot_ = call (getSymbol "g_volume_get_activation_root") (GioVolumeClass.PolyML.cPtr --> GioFileClass.PolyML.cOptPtr)
       val getDrive_ = call (getSymbol "g_volume_get_drive") (GioVolumeClass.PolyML.cPtr --> GioDriveClass.PolyML.cPtr)
       val getIcon_ = call (getSymbol "g_volume_get_icon") (GioVolumeClass.PolyML.cPtr --> GioIconClass.PolyML.cPtr)
@@ -91,7 +85,7 @@ structure GioVolume :>
            & result
            & []
         )
-    fun enumerateIdentifiers self = (GioVolumeClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) enumerateIdentifiers_ self
+    fun enumerateIdentifiers self = (GioVolumeClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) enumerateIdentifiers_ self
     fun getActivationRoot self = (GioVolumeClass.FFI.withPtr ---> GioFileClass.FFI.fromOptPtr true) getActivationRoot_ self
     fun getDrive self = (GioVolumeClass.FFI.withPtr ---> GioDriveClass.FFI.fromPtr true) getDrive_ self
     fun getIcon self = (GioVolumeClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getIcon_ self

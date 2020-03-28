@@ -11,7 +11,7 @@ signature GIO_SETTINGS_SCHEMA_SOURCE =
     val listSchemas :
       t
        -> bool
-       -> string list * string list
+       -> Utf8CArray.t * Utf8CArray.t
     val lookup :
       t
        -> string * bool

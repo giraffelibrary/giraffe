@@ -3,12 +3,6 @@ structure GtkColorChooser :>
     where type 'a class = 'a GtkColorChooserClass.class
     where type orientation_t = GtkOrientation.t =
   struct
-    structure GdkRgbaRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkRgbaRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkRgbaRecord.C.ValueType)
-      )
-    structure GdkRgbaRecordCVectorN = CVectorN(GdkRgbaRecordCVectorNType)
     val getType_ = _import "gtk_color_chooser_get_type" : unit -> GObjectType.FFI.val_;
     val addPalette_ =
       fn
@@ -23,8 +17,8 @@ structure GtkColorChooser :>
                * GtkOrientation.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
-               * GdkRgbaRecordCVectorN.MLton.p1
-               * unit GdkRgbaRecordCVectorN.MLton.p2
+               * GdkRgbaRecordCArrayN.MLton.p1
+               * unit GdkRgbaRecordCArrayN.MLton.p2
                -> unit;
           )
             (
@@ -53,7 +47,7 @@ structure GtkColorChooser :>
       let
         val nColors =
           case colors of
-            SOME colors => LargeInt.fromInt (GdkRgbaRecordCVectorN.length colors)
+            SOME colors => LargeInt.fromInt (GdkRgbaRecordCArrayN.length colors)
           | NONE => GInt.null
         val () =
           (
@@ -61,7 +55,7 @@ structure GtkColorChooser :>
              &&&> GtkOrientation.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
-             &&&> GdkRgbaRecordCVectorN.FFI.withOptPtr
+             &&&> GdkRgbaRecordCArrayN.FFI.withOptPtr
              ---> I
           )
             addPalette_

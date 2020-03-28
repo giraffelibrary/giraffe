@@ -2,12 +2,6 @@ structure GioSocketControlMessage :>
   GIO_SOCKET_CONTROL_MESSAGE
     where type 'a class = 'a GioSocketControlMessageClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "g_socket_control_message_get_type" : unit -> GObjectType.FFI.val_;
     val deserialize_ =
       fn
@@ -20,8 +14,8 @@ structure GioSocketControlMessage :>
               GInt32.FFI.val_
                * GInt32.FFI.val_
                * GUInt64.FFI.val_
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                -> GioSocketControlMessageClass.FFI.notnull GioSocketControlMessageClass.FFI.p;
           )
             (
@@ -44,13 +38,13 @@ structure GioSocketControlMessage :>
         data
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length data)
         val retVal =
           (
             GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GUInt64.FFI.withVal
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              ---> GioSocketControlMessageClass.FFI.fromPtr true
           )
             deserialize_

@@ -8,12 +8,6 @@ structure GioDataInputStream :>
     where type data_stream_byte_order_t = GioDataStreamByteOrder.t
     where type data_stream_newline_type_t = GioDataStreamNewlineType.t =
   struct
-    structure GUInt8CVectorType =
-      CValueCVectorType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVector = CVector(GUInt8CVectorType)
     val getType_ = _import "g_data_input_stream_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_data_input_stream_new" : GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p -> GioDataInputStreamClass.FFI.notnull GioDataInputStreamClass.FFI.p;
     val getByteOrder_ = _import "g_data_input_stream_get_byte_order" : GioDataInputStreamClass.FFI.notnull GioDataInputStreamClass.FFI.p -> GioDataStreamByteOrder.FFI.val_;
@@ -98,7 +92,7 @@ structure GioDataInputStream :>
                * GSize.FFI.ref_
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> unit GUInt8CVector.FFI.out_p;
+               -> unit GUInt8CArray.FFI.out_p;
           )
             (
               x1,
@@ -118,7 +112,7 @@ structure GioDataInputStream :>
                * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
                * GSize.FFI.ref_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> unit GUInt8CVector.FFI.out_p;
+               -> unit GUInt8CArray.FFI.out_p;
           )
             (
               x1,
@@ -385,7 +379,7 @@ structure GioDataInputStream :>
              &&&> GSize.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && GUInt8CVector.FFI.fromOptPtr 1
+             ---> GSize.FFI.fromVal && GUInt8CArray.FFI.fromOptPtr 1
           )
             readLine_
             (
@@ -405,7 +399,7 @@ structure GioDataInputStream :>
              &&&> GioAsyncResultClass.FFI.withPtr
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && GUInt8CVector.FFI.fromOptPtr 1
+             ---> GSize.FFI.fromVal && GUInt8CArray.FFI.fromOptPtr 1
           )
             readLineFinish_
             (

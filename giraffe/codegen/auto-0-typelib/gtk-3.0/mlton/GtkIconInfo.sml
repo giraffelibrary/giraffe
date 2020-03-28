@@ -6,12 +6,6 @@ structure GtkIconInfo :>
     where type state_type_t = GtkStateType.t
     where type 'a style_class = 'a GtkStyleClass.class =
   struct
-    structure GdkPointRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkPointRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkPointRecord.C.ValueType)
-      )
-    structure GdkPointRecordCVectorN = CVectorN(GdkPointRecordCVectorNType)
     val getType_ = _import "gtk_icon_info_get_type" : unit -> GObjectType.FFI.val_;
     val newForPixbuf_ = fn x1 & x2 => (_import "gtk_icon_info_new_for_pixbuf" : GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p;) (x1, x2)
     val getAttachPoints_ =
@@ -22,8 +16,8 @@ structure GtkIconInfo :>
           (
             _import "mlton_gtk_icon_info_get_attach_points" :
               GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p
-               * GdkPointRecordCVectorN.MLton.r1
-               * (unit, GdkPointRecordCVectorN.FFI.notnull) GdkPointRecordCVectorN.MLton.r2
+               * GdkPointRecordCArrayN.MLton.r1
+               * (unit, GdkPointRecordCArrayN.FFI.notnull) GdkPointRecordCArrayN.MLton.r2
                * GInt32.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -203,9 +197,9 @@ structure GtkIconInfo :>
          & retVal =
           (
             GtkIconInfoClass.FFI.withPtr
-             &&&> GdkPointRecordCVectorN.FFI.withRefOptPtr
+             &&&> GdkPointRecordCArrayN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> GdkPointRecordCVectorN.FFI.fromPtr 1
+             ---> GdkPointRecordCArrayN.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
                    && GBool.FFI.fromVal
           )

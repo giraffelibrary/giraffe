@@ -2,6 +2,7 @@ signature GDK_KEYMAP =
   sig
     type 'a class
     type 'a display_class
+    type keymap_key_record_c_array_n_t
     type modifier_intent_t
     type keymap_key_t
     type modifier_type_t
@@ -18,11 +19,11 @@ signature GDK_KEYMAP =
     val getEntriesForKeycode :
       'a class
        -> LargeInt.int
-       -> (keymap_key_t vector * LargeInt.int vector) option
+       -> (keymap_key_record_c_array_n_t * GUIntCArrayN.t) option
     val getEntriesForKeyval :
       'a class
        -> LargeInt.int
-       -> keymap_key_t vector option
+       -> keymap_key_record_c_array_n_t option
     val getModifierMask :
       'a class
        -> modifier_intent_t

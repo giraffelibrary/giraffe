@@ -5,12 +5,6 @@ structure GtkTreeModel :>
     where type tree_iter_t = GtkTreeIterRecord.t
     where type tree_path_t = GtkTreePathRecord.t =
   struct
-    structure GIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
-      )
-    structure GIntCVectorN = CVectorN(GIntCVectorNType)
     local
       open PolyMLFFI
     in
@@ -108,7 +102,7 @@ structure GtkTreeModel :>
             GtkTreeModelClass.PolyML.cPtr
              &&> GtkTreePathRecord.PolyML.cPtr
              &&> GtkTreeIterRecord.PolyML.cOptPtr
-             &&> GIntCVectorN.PolyML.cInPtr
+             &&> GIntCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              --> cVoid
           )
@@ -298,13 +292,13 @@ structure GtkTreeModel :>
         newOrder
       ) =
       let
-        val length = LargeInt.fromInt (GIntCVectorN.length newOrder)
+        val length = LargeInt.fromInt (GIntCArrayN.length newOrder)
         val () =
           (
             GtkTreeModelClass.FFI.withPtr
              &&&> GtkTreePathRecord.FFI.withPtr
              &&&> GtkTreeIterRecord.FFI.withOptPtr
-             &&&> GIntCVectorN.FFI.withPtr
+             &&&> GIntCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              ---> I
           )

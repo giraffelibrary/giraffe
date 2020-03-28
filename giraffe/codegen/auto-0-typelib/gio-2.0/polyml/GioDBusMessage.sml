@@ -8,18 +8,6 @@ structure GioDBusMessage :>
     where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     where type d_bus_capability_flags_t = GioDBusCapabilityFlags.t =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
-    structure GUInt8CVectorType =
-      CValueCVectorType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVector = CVector(GUInt8CVectorType)
     local
       open PolyMLFFI
     in
@@ -28,7 +16,7 @@ structure GioDBusMessage :>
       val newFromBlob_ =
         call (getSymbol "g_dbus_message_new_from_blob")
           (
-            GUInt8CVectorN.PolyML.cInPtr
+            GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              &&> GioDBusCapabilityFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -54,7 +42,7 @@ structure GioDBusMessage :>
       val bytesNeeded_ =
         call (getSymbol "g_dbus_message_bytes_needed")
           (
-            GUInt8CVectorN.PolyML.cInPtr
+            GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GInt64.PolyML.cVal
@@ -67,7 +55,7 @@ structure GioDBusMessage :>
       val getErrorName_ = call (getSymbol "g_dbus_message_get_error_name") (GioDBusMessageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getFlags_ = call (getSymbol "g_dbus_message_get_flags") (GioDBusMessageClass.PolyML.cPtr --> GioDBusMessageFlags.PolyML.cVal)
       val getHeader_ = call (getSymbol "g_dbus_message_get_header") (GioDBusMessageClass.PolyML.cPtr &&> GioDBusMessageHeaderField.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
-      val getHeaderFields_ = call (getSymbol "g_dbus_message_get_header_fields") (GioDBusMessageClass.PolyML.cPtr --> GUInt8CVector.PolyML.cOutPtr)
+      val getHeaderFields_ = call (getSymbol "g_dbus_message_get_header_fields") (GioDBusMessageClass.PolyML.cPtr --> GUInt8CArray.PolyML.cOutPtr)
       val getInterface_ = call (getSymbol "g_dbus_message_get_interface") (GioDBusMessageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getLocked_ = call (getSymbol "g_dbus_message_get_locked") (GioDBusMessageClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getMember_ = call (getSymbol "g_dbus_message_get_member") (GioDBusMessageClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
@@ -120,7 +108,7 @@ structure GioDBusMessage :>
              &&> GUInt64.PolyML.cRef
              &&> GioDBusCapabilityFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GUInt8CVectorN.PolyML.cOutPtr
+             --> GUInt8CArrayN.PolyML.cOutPtr
           )
       val toGerror_ = call (getSymbol "g_dbus_message_to_gerror") (GioDBusMessageClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
     end
@@ -136,10 +124,10 @@ structure GioDBusMessage :>
     fun new () = (I ---> GioDBusMessageClass.FFI.fromPtr true) new_ ()
     fun newFromBlob (blob, capabilities) =
       let
-        val blobLen = LargeInt.fromInt (GUInt8CVectorN.length blob)
+        val blobLen = LargeInt.fromInt (GUInt8CArrayN.length blob)
         val retVal =
           (
-            GUInt8CVectorN.FFI.withPtr
+            GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GioDBusCapabilityFlags.FFI.withVal
              &&&> GLibErrorRecord.handleError
@@ -196,10 +184,10 @@ structure GioDBusMessage :>
         )
     fun bytesNeeded blob =
       let
-        val blobLen = LargeInt.fromInt (GUInt8CVectorN.length blob)
+        val blobLen = LargeInt.fromInt (GUInt8CArrayN.length blob)
         val retVal =
           (
-            GUInt8CVectorN.FFI.withPtr
+            GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> GInt64.FFI.fromVal
@@ -221,7 +209,7 @@ structure GioDBusMessage :>
     fun getErrorName self = (GioDBusMessageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getErrorName_ self
     fun getFlags self = (GioDBusMessageClass.FFI.withPtr ---> GioDBusMessageFlags.FFI.fromVal) getFlags_ self
     fun getHeader self headerField = (GioDBusMessageClass.FFI.withPtr &&&> GioDBusMessageHeaderField.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr true) getHeader_ (self & headerField)
-    fun getHeaderFields self = (GioDBusMessageClass.FFI.withPtr ---> GUInt8CVector.FFI.fromPtr 0) getHeaderFields_ self
+    fun getHeaderFields self = (GioDBusMessageClass.FFI.withPtr ---> GUInt8CArray.FFI.fromPtr 0) getHeaderFields_ self
     fun getInterface self = (GioDBusMessageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getInterface_ self
     fun getLocked self = (GioDBusMessageClass.FFI.withPtr ---> GBool.FFI.fromVal) getLocked_ self
     fun getMember self = (GioDBusMessageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMember_ self
@@ -285,7 +273,7 @@ structure GioDBusMessage :>
              &&&> GUInt64.FFI.withRefVal
              &&&> GioDBusCapabilityFlags.FFI.withVal
              &&&> GLibErrorRecord.handleError
-             ---> GUInt64.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 1
+             ---> GUInt64.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 1
           )
             toBlob_
             (

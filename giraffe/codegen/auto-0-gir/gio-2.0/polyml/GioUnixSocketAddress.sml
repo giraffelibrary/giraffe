@@ -4,22 +4,16 @@ structure GioUnixSocketAddress :>
     where type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     where type unix_socket_address_type_t = GioUnixSocketAddressType.t =
   struct
-    structure GCharCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GChar.C.ValueType
-        structure ElemSequence = MonoVectorSequence(CharVector)
-      )
-    structure GCharCVectorN = CVectorN(GCharCVectorNType)
     local
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_unix_socket_address_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_unix_socket_address_new") (Utf8.PolyML.cInPtr --> GioSocketAddressClass.PolyML.cPtr)
-      val newAbstract_ = call (getSymbol "g_unix_socket_address_new_abstract") (GCharCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GioSocketAddressClass.PolyML.cPtr)
+      val newAbstract_ = call (getSymbol "g_unix_socket_address_new_abstract") (GCharCArrayN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GioSocketAddressClass.PolyML.cPtr)
       val newWithType_ =
         call (getSymbol "g_unix_socket_address_new_with_type")
           (
-            GCharCVectorN.PolyML.cInPtr
+            GCharCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GioUnixSocketAddressType.PolyML.cVal
              --> GioSocketAddressClass.PolyML.cPtr
@@ -39,17 +33,17 @@ structure GioUnixSocketAddress :>
     fun new path = (Utf8.FFI.withPtr ---> GioUnixSocketAddressClass.FFI.fromPtr true) new_ path
     fun newAbstract path =
       let
-        val pathLen = LargeInt.fromInt (GCharCVectorN.length path)
-        val retVal = (GCharCVectorN.FFI.withPtr &&&> GInt.FFI.withVal ---> GioUnixSocketAddressClass.FFI.fromPtr true) newAbstract_ (path & pathLen)
+        val pathLen = LargeInt.fromInt (GCharCArrayN.length path)
+        val retVal = (GCharCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GioUnixSocketAddressClass.FFI.fromPtr true) newAbstract_ (path & pathLen)
       in
         retVal
       end
     fun newWithType (path, type') =
       let
-        val pathLen = LargeInt.fromInt (GCharCVectorN.length path)
+        val pathLen = LargeInt.fromInt (GCharCArrayN.length path)
         val retVal =
           (
-            GCharCVectorN.FFI.withPtr
+            GCharCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> GioUnixSocketAddressType.FFI.withVal
              ---> GioUnixSocketAddressClass.FFI.fromPtr true

@@ -2,9 +2,9 @@ signature GTK_TARGET_LIST =
   sig
     type t
     type 'a text_buffer_class
-    type target_entry_t
+    type target_entry_record_c_array_n_t
     val getType : unit -> GObject.Type.t
-    val new : target_entry_t vector option -> t
+    val new : target_entry_record_c_array_n_t option -> t
     val add :
       t
        -> Gdk.AtomRecord.t
@@ -23,7 +23,7 @@ signature GTK_TARGET_LIST =
        -> unit
     val addTable :
       t
-       -> target_entry_t vector
+       -> target_entry_record_c_array_n_t
        -> unit
     val addTextTargets :
       t

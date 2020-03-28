@@ -5,7 +5,7 @@ structure GtkWidget :>
     where type accel_flags_t = GtkAccelFlags.t
     where type orientation_t = GtkOrientation.t
     where type dest_defaults_t = GtkDestDefaults.t
-    where type target_entry_t = GtkTargetEntryRecord.t
+    where type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t
     where type target_list_t = GtkTargetListRecord.t
     where type 'a clipboard_class = 'a GtkClipboardClass.class
     where type widget_path_t = GtkWidgetPathRecord.t
@@ -28,18 +28,6 @@ structure GtkWidget :>
     where type 'a style_class = 'a GtkStyleClass.class
     where type align_t = GtkAlign.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
-    structure GtkTargetEntryRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GtkTargetEntryRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
-      )
-    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     val getType_ = _import "gtk_widget_get_type" : unit -> GObjectType.FFI.val_;
     val getDefaultDirection_ = _import "gtk_widget_get_default_direction" : unit -> GtkTextDirection.FFI.val_;
     val getDefaultStyle_ = _import "gtk_widget_get_default_style" : unit -> GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p;
@@ -262,8 +250,8 @@ structure GtkWidget :>
             _import "mlton_gtk_drag_dest_set" :
               GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
                * GtkDestDefaults.FFI.val_
-               * GtkTargetEntryRecordCVectorN.MLton.p1
-               * unit GtkTargetEntryRecordCVectorN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.MLton.p1
+               * unit GtkTargetEntryRecordCArrayN.MLton.p2
                * GInt32.FFI.val_
                * GdkDragAction.FFI.val_
                -> unit;
@@ -335,8 +323,8 @@ structure GtkWidget :>
             _import "mlton_gtk_drag_source_set" :
               GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
                * GdkModifierType.FFI.val_
-               * GtkTargetEntryRecordCVectorN.MLton.p1
-               * unit GtkTargetEntryRecordCVectorN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.MLton.p1
+               * unit GtkTargetEntryRecordCArrayN.MLton.p2
                * GInt32.FFI.val_
                * GdkDragAction.FFI.val_
                -> unit;
@@ -720,7 +708,7 @@ structure GtkWidget :>
     val isToplevel_ = _import "gtk_widget_is_toplevel" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val isVisible_ = _import "gtk_widget_is_visible" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val keynavFailed_ = fn x1 & x2 => (_import "gtk_widget_keynav_failed" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GtkDirectionType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val listActionPrefixes_ = _import "gtk_widget_list_action_prefixes" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val listActionPrefixes_ = _import "gtk_widget_list_action_prefixes" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
     val map_ = _import "gtk_widget_map" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;
     val mnemonicActivate_ = fn x1 & x2 => (_import "gtk_widget_mnemonic_activate" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val modifyBase_ =
@@ -1276,7 +1264,7 @@ structure GtkWidget :>
     type accel_flags_t = GtkAccelFlags.t
     type orientation_t = GtkOrientation.t
     type dest_defaults_t = GtkDestDefaults.t
-    type target_entry_t = GtkTargetEntryRecord.t
+    type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t
     type target_list_t = GtkTargetListRecord.t
     type 'a clipboard_class = 'a GtkClipboardClass.class
     type widget_path_t = GtkWidgetPathRecord.t
@@ -1494,13 +1482,13 @@ structure GtkWidget :>
       let
         val nTargets =
           case targets of
-            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
           | NONE => GInt32.null
         val () =
           (
             GtkWidgetClass.FFI.withPtr
              &&&> GtkDestDefaults.FFI.withVal
-             &&&> GtkTargetEntryRecordCVectorN.FFI.withOptPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withOptPtr
              &&&> GInt32.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I
@@ -1576,13 +1564,13 @@ structure GtkWidget :>
       let
         val nTargets =
           case targets of
-            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
           | NONE => GInt32.null
         val () =
           (
             GtkWidgetClass.FFI.withPtr
              &&&> GdkModifierType.FFI.withVal
-             &&&> GtkTargetEntryRecordCVectorN.FFI.withOptPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withOptPtr
              &&&> GInt32.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I
@@ -1985,7 +1973,7 @@ structure GtkWidget :>
     fun isToplevel self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isToplevel_ self
     fun isVisible self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isVisible_ self
     fun keynavFailed self direction = (GtkWidgetClass.FFI.withPtr &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal) keynavFailed_ (self & direction)
-    fun listActionPrefixes self = (GtkWidgetClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 1) listActionPrefixes_ self
+    fun listActionPrefixes self = (GtkWidgetClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 1) listActionPrefixes_ self
     fun map self = (GtkWidgetClass.FFI.withPtr ---> I) map_ self
     fun mnemonicActivate self groupCycling = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) mnemonicActivate_ (self & groupCycling)
     fun modifyBase self (state, color) =

@@ -25,7 +25,7 @@ signature G_LIB_I_O_CHANNEL =
            * string
            * LargeInt.int
            * LargeInt.int
-    val readToEnd : t -> i_o_status_t * Word8Vector.vector
+    val readToEnd : t -> i_o_status_t * GUInt8CArrayN.t
     val readUnichar : t -> i_o_status_t * char
     val seek :
       t

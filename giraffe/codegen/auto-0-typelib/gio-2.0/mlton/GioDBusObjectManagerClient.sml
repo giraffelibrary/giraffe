@@ -11,12 +11,6 @@ structure GioDBusObjectManagerClient :>
     where type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
     where type d_bus_object_manager_client_flags_t = GioDBusObjectManagerClientFlags.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_dbus_object_manager_client_get_type" : unit -> GObjectType.FFI.val_;
     val newFinish_ = fn x1 & x2 => (_import "g_dbus_object_manager_client_new_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p;) (x1, x2)
     val newForBusFinish_ = fn x1 & x2 => (_import "g_dbus_object_manager_client_new_for_bus_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p;) (x1, x2)
@@ -54,7 +48,7 @@ structure GioDBusObjectManagerClient :>
             get 0w1 GioDBusObjectProxyClass.t
              &&&> get 0w2 GioDBusProxyClass.t
              &&&> get 0w3 GLibVariantRecord.t
-             &&&> get 0w4 Utf8CVector.t
+             &&&> get 0w4 Utf8CArray.t
              ---> ret_void
           )
           (

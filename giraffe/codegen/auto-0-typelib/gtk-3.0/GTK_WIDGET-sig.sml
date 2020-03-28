@@ -5,7 +5,7 @@ signature GTK_WIDGET =
     type accel_flags_t
     type orientation_t
     type dest_defaults_t
-    type target_entry_t
+    type target_entry_record_c_array_n_t
     type target_list_t
     type 'a clipboard_class
     type widget_path_t
@@ -123,7 +123,7 @@ signature GTK_WIDGET =
     val dragDestSet :
       'a class
        -> dest_defaults_t
-           * target_entry_t vector option
+           * target_entry_record_c_array_n_t option
            * Gdk.DragAction.t
        -> unit
     val dragDestSetProxy :
@@ -155,7 +155,7 @@ signature GTK_WIDGET =
     val dragSourceSet :
       'a class
        -> Gdk.ModifierType.t
-           * target_entry_t vector option
+           * target_entry_record_c_array_n_t option
            * Gdk.DragAction.t
        -> unit
     val dragSourceSetIconGicon :
@@ -345,7 +345,7 @@ signature GTK_WIDGET =
       'a class
        -> direction_type_t
        -> bool
-    val listActionPrefixes : 'a class -> string list
+    val listActionPrefixes : 'a class -> Utf8CArray.t
     val map : 'a class -> unit
     val mnemonicActivate :
       'a class

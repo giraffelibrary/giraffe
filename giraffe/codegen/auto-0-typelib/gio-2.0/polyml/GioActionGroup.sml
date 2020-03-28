@@ -2,12 +2,6 @@ structure GioActionGroup :>
   GIO_ACTION_GROUP
     where type 'a class = 'a GioActionGroupClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -52,7 +46,7 @@ structure GioActionGroup :>
       val getActionStateHint_ = call (getSymbol "g_action_group_get_action_state_hint") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cOptPtr)
       val getActionStateType_ = call (getSymbol "g_action_group_get_action_state_type") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GLibVariantTypeRecord.PolyML.cOptPtr)
       val hasAction_ = call (getSymbol "g_action_group_has_action") (GioActionGroupClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val listActions_ = call (getSymbol "g_action_group_list_actions") (GioActionGroupClass.PolyML.cPtr --> Utf8CVector.PolyML.cOutPtr)
+      val listActions_ = call (getSymbol "g_action_group_list_actions") (GioActionGroupClass.PolyML.cPtr --> Utf8CArray.PolyML.cOutPtr)
       val queryAction_ =
         call (getSymbol "g_action_group_query_action")
           (
@@ -129,7 +123,7 @@ structure GioActionGroup :>
     fun getActionStateHint self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getActionStateHint_ (self & actionName)
     fun getActionStateType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getActionStateType_ (self & actionName)
     fun hasAction self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasAction_ (self & actionName)
-    fun listActions self = (GioActionGroupClass.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) listActions_ self
+    fun listActions self = (GioActionGroupClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) listActions_ self
     fun queryAction self actionName =
       let
         val enabled

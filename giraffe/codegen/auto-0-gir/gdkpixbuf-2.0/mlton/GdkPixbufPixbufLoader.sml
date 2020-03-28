@@ -5,12 +5,6 @@ structure GdkPixbufPixbufLoader :>
     where type pixbuf_format_t = GdkPixbufPixbufFormatRecord.t
     where type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "gdk_pixbuf_loader_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gdk_pixbuf_loader_new" : unit -> GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p;
     val newWithMimeType_ =
@@ -73,8 +67,8 @@ structure GdkPixbufPixbufLoader :>
           (
             _import "mlton_gdk_pixbuf_loader_write" :
               GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GSize.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
@@ -131,11 +125,11 @@ structure GdkPixbufPixbufLoader :>
         )
     fun write self buf =
       let
-        val count = LargeInt.fromInt (GUInt8CVectorN.length buf)
+        val count = LargeInt.fromInt (GUInt8CArrayN.length buf)
         val () =
           (
             GdkPixbufPixbufLoaderClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GSize.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> ignore

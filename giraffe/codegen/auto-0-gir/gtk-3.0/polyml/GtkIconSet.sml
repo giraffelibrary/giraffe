@@ -8,12 +8,6 @@ structure GtkIconSet :>
     where type 'a style_class = 'a GtkStyleClass.class
     where type 'a style_context_class = 'a GtkStyleContextClass.class =
   struct
-    structure GIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
-      )
-    structure GIntCVectorN = CVectorN(GIntCVectorNType)
     local
       open PolyMLFFI
     in
@@ -26,7 +20,7 @@ structure GtkIconSet :>
         call (getSymbol "gtk_icon_set_get_sizes")
           (
             GtkIconSetRecord.PolyML.cPtr
-             &&> GIntCVectorN.PolyML.cOutRef
+             &&> GIntCArrayN.PolyML.cOutRef
              &&> GInt.PolyML.cRef
              --> cVoid
           )
@@ -80,9 +74,9 @@ structure GtkIconSet :>
          & () =
           (
             GtkIconSetRecord.FFI.withPtr
-             &&&> GIntCVectorN.FFI.withRefOptPtr
+             &&&> GIntCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GIntCVectorN.FFI.fromPtr 1
+             ---> GIntCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )

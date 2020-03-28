@@ -9,18 +9,6 @@ structure GtkTextBuffer :>
     where type target_list_t = GtkTargetListRecord.t
     where type 'a text_tag_table_class = 'a GtkTextTagTableClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
-    structure GdkAtomRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkAtomRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -116,7 +104,7 @@ structure GtkTextBuffer :>
              &&> GtkTextBufferClass.PolyML.cPtr
              &&> GdkAtomRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
@@ -141,7 +129,7 @@ structure GtkTextBuffer :>
           )
       val getCharCount_ = call (getSymbol "gtk_text_buffer_get_char_count") (GtkTextBufferClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getCopyTargetList_ = call (getSymbol "gtk_text_buffer_get_copy_target_list") (GtkTextBufferClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cPtr)
-      val getDeserializeFormats_ = call (getSymbol "gtk_text_buffer_get_deserialize_formats") (GtkTextBufferClass.PolyML.cPtr &&> GInt32.PolyML.cRef --> GdkAtomRecordCVectorN.PolyML.cOutPtr)
+      val getDeserializeFormats_ = call (getSymbol "gtk_text_buffer_get_deserialize_formats") (GtkTextBufferClass.PolyML.cPtr &&> GInt32.PolyML.cRef --> GdkAtomRecordCArrayN.PolyML.cOutPtr)
       val getEndIter_ = call (getSymbol "gtk_text_buffer_get_end_iter") (GtkTextBufferClass.PolyML.cPtr &&> GtkTextIterRecord.PolyML.cPtr --> cVoid)
       val getHasSelection_ = call (getSymbol "gtk_text_buffer_get_has_selection") (GtkTextBufferClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getInsert_ = call (getSymbol "gtk_text_buffer_get_insert") (GtkTextBufferClass.PolyML.cPtr --> GtkTextMarkClass.PolyML.cPtr)
@@ -208,7 +196,7 @@ structure GtkTextBuffer :>
              &&> GtkTextIterRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val getSerializeFormats_ = call (getSymbol "gtk_text_buffer_get_serialize_formats") (GtkTextBufferClass.PolyML.cPtr &&> GInt32.PolyML.cRef --> GdkAtomRecordCVectorN.PolyML.cOutPtr)
+      val getSerializeFormats_ = call (getSymbol "gtk_text_buffer_get_serialize_formats") (GtkTextBufferClass.PolyML.cPtr &&> GInt32.PolyML.cRef --> GdkAtomRecordCArrayN.PolyML.cOutPtr)
       val getSlice_ =
         call (getSymbol "gtk_text_buffer_get_slice")
           (
@@ -381,7 +369,7 @@ structure GtkTextBuffer :>
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GtkTextIterRecord.PolyML.cPtr
              &&> GUInt64.PolyML.cRef
-             --> GUInt8CVectorN.PolyML.cOutPtr
+             --> GUInt8CArrayN.PolyML.cOutPtr
           )
       val setModified_ = call (getSymbol "gtk_text_buffer_set_modified") (GtkTextBufferClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setText_ =
@@ -578,14 +566,14 @@ structure GtkTextBuffer :>
         data
       ) =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
         val () =
           (
             GtkTextBufferClass.FFI.withPtr
              &&&> GtkTextBufferClass.FFI.withPtr
              &&&> GdkAtomRecord.FFI.withPtr
              &&&> GtkTextIterRecord.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> ignore
@@ -644,7 +632,7 @@ structure GtkTextBuffer :>
     fun getCopyTargetList self = (GtkTextBufferClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) getCopyTargetList_ self
     fun getDeserializeFormats self =
       let
-        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCVectorN.FFI.fromPtr 1) getDeserializeFormats_ (self & GInt32.null)
+        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCArrayN.FFI.fromPtr 1) getDeserializeFormats_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt nFormats)
       end
@@ -797,7 +785,7 @@ structure GtkTextBuffer :>
       end
     fun getSerializeFormats self =
       let
-        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCVectorN.FFI.fromPtr 1) getSerializeFormats_ (self & GInt32.null)
+        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCArrayN.FFI.fromPtr 1) getSerializeFormats_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt nFormats)
       end
@@ -1157,7 +1145,7 @@ structure GtkTextBuffer :>
              &&&> GtkTextIterRecord.FFI.withPtr
              &&&> GtkTextIterRecord.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
-             ---> GUInt64.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 1
+             ---> GUInt64.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 1
           )
             serialize_
             (

@@ -180,7 +180,7 @@ val () = List.app Repository.prependSearchPath revPaths
  * This is not necessary but may catch errors sooner. *)
 
 fun require repo (namespace, version, flags) = (
-  app print ["  ", namespace, "-", version, "\n"];
+  app print ["  ", mkNamespaceDep (namespace, version), "\n"];
   Repository.require repo (namespace, version, flags)
 )
 val flags = RepositoryLoadFlags.flags []
@@ -272,9 +272,9 @@ val () =
 
 (* Generate code *)
 
-fun gen outDir repo (x as (namespace, version, _)) extras = (
-  List.app print ["  ", namespace, "-", version, "\n"];
-  ((namespace, version), generateFull outDir repo x extras)
+fun gen outDir repo (x as (namespace, version, _)) initNamespaceDeps extras = (
+  List.app print ["  ", mkNamespaceDep (namespace, version), "\n"];
+  ((namespace, version), generateFull outDir repo x initNamespaceDeps extras)
 )
 
 fun init outDir namespace_version initNamespace extras =
@@ -299,24 +299,27 @@ val () = ignore [
       [
         newSig "G_OBJECT_TYPE" [],
         newSig "G_OBJECT_VALUE_RECORD" [],
-        newSig "VALUE_ACCESSOR" []
+        newSig "VALUE_ACCESSOR" [],
+        newSig "C_ARRAY" []
       ],
       [
         newStr ("GObject", "Type", "G_OBJECT_TYPE") [],
         newStr ("GObject", "ValueRecord", "G_OBJECT_VALUE_RECORD") [],
         extendStrDeps "ValueAccessor" ["GObjectValueRecord", "GObjectType"],
 
-        (* CVector and CVectorN are manually generated modules that extend
+        (* CArray and CArrayN are manually generated modules that extend
          * existing functors (of the same name) with GValue accessors for
          * arrays.  Therefore their spec and strdec lists are empty but
          * dependencies are included to ensure that they are loaded first. *)
-        extendStrDeps "CVector" ["GObjectValueRecord", "ValueAccessor"],
-        extendStrDeps "CVectorN" ["GObjectValueRecord", "ValueAccessor"]
+        extendFunDeps "CArray" [] ["GObjectValueRecord", "ValueAccessor"],
+        extendFunDeps "CArrayN" [] ["GObjectValueRecord", "ValueAccessor"],
+        extendFunDeps "VectorCArray" [] ["ValueAccessor"],
+        extendFunDeps "VectorCArrayN" [] ["ValueAccessor"]
       ]
     )
 ]
 val errorLog'1 = List.foldl insert errorLog'0 [
-  gen outDir repo ("GLib", "2.0", "GLIB")
+  gen outDir repo ("GLib", "2.0", "GLIB") ["GObject"]
     (
       [],
       [
@@ -342,7 +345,7 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         extendStrDeps "GLibErrorRecord" ["GLibQuark"]
       ]
     ),
-  gen outDir repo ("GObject", "2.0", "GLIB")
+  gen outDir repo ("GObject", "2.0", "GLIB") []
     (
       [],
       [
@@ -394,9 +397,9 @@ val errorLog'1 = List.foldl insert errorLog'0 [
           ["GObjectType", "GObjectValueRecord", "GObjectValue"]
       ]
     ),
-  gen outDir repo ("GModule", "2.0", "GLIB") ([], [], []),
-  gen outDir repo ("Gio", "2.0", "GLIB") ([], [], []),
-  gen outDir repo ("GIRepository", "2.0", "")
+  gen outDir repo ("GModule", "2.0", "GLIB") [] ([], [], []),
+  gen outDir repo ("Gio", "2.0", "GLIB") [] ([], [], []),
+  gen outDir repo ("GIRepository", "2.0", "") []
     (
       [],
       [
@@ -411,12 +414,12 @@ val errorLog'1 = List.foldl insert errorLog'0 [
           []
       ]
     ),
-  gen outDir repo ("Atk", "1.0", "ATK") ([], [], []),
-  gen outDir repo ("GdkPixbuf", "2.0", "GDK_PIXBUF") ([], [], []),
-  gen outDir repo ("Pango", "1.0", "PANGO") ([], [], []),
-  gen outDir repo ("cairo", "1.0", "") ([("GObject", "2.0")], [], []),
-  gen outDir repo ("PangoCairo", "1.0", "PANGO") ([], [], []),
-  gen outDir repo ("Gdk", "3.0", "GDK")
+  gen outDir repo ("Atk", "1.0", "ATK") [] ([], [], []),
+  gen outDir repo ("GdkPixbuf", "2.0", "GDK_PIXBUF") [] ([], [], []),
+  gen outDir repo ("Pango", "1.0", "PANGO") [] ([], [], []),
+  gen outDir repo ("cairo", "1.0", "") [] ([("GObject", "2.0")], [], []),
+  gen outDir repo ("PangoCairo", "1.0", "PANGO") [] ([], [], []),
+  gen outDir repo ("Gdk", "3.0", "GDK") []
     (
       [],
       [
@@ -556,9 +559,9 @@ val errorLog'1 = List.foldl insert errorLog'0 [
    * academic because this library is used only for aliases which is not
    * required by the TYPELIB version.
    *
-   * gen outDir repo ("xlib", "2.0", "") ([], [], []),
+   * gen outDir repo ("xlib", "2.0", "") [] ([], [], []),
    *)
-  gen outDir repo ("Gtk", "3.0", "GTK")
+  gen outDir repo ("Gtk", "3.0", "GTK") []
     (
       [],
       [
@@ -568,8 +571,8 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         extendStrDeps "ChildSignal" ["GtkWidgetClass", "GtkWidget"]
       ]
     ),
-  gen outDir repo ("GtkSource", "3.0", "GTK_SOURCE") ([], [], []),
-  gen outDir repo ("Vte", "2.90", "VTE") ([], [], [])
+  gen outDir repo ("GtkSource", "3.0", "GTK_SOURCE") [] ([], [], []),
+  gen outDir repo ("Vte", "2.90", "VTE") [] ([], [], [])
 ]
 
 

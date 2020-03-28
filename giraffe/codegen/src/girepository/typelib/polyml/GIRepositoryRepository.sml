@@ -5,12 +5,6 @@ structure GIRepositoryRepository :>
     where type loadflags_t = GIRepositoryRepositoryLoadFlags.flags
     where type typelibtype_t = GIRepositoryTypelibType.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -48,7 +42,7 @@ structure GIRepositoryRepository :>
           (getSymbol "g_irepository_get_dependencies")
           (GObjectObjectClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
-            --> Utf8CVector.PolyML.cOutOptPtr)
+            --> Utf8CArray.PolyML.cOutOptPtr)
 
       val getNInfos_ =
         call
@@ -138,7 +132,7 @@ structure GIRepositoryRepository :>
       (
         GObjectObjectClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         ---> Utf8CVector.FFI.fromOptPtr 2
+         ---> Utf8CArray.FFI.fromOptPtr 2
       )
         getDependencies_
         (repository & namespace_)
@@ -269,13 +263,16 @@ structure GIRepositoryRepository :>
 
     (* Wrap GIRepository functions to support `typelibvers_t` *)
 
+    fun convertUtf8CArrayToList a =
+      List.tabulate (Utf8CArray.length a, Utf8CArray.sub a)
+
     fun require repository (namespace_, version, flags) =
       let
         val typelib = require1 repository (namespace_, version, flags)
         val dependencies =
           case getDependencies1 repository namespace_ of
             NONE      => ListDict.empty
-          | SOME deps => extendTypelibVers (map parseDependency deps) ListDict.empty
+          | SOME deps => extendTypelibVers (map parseDependency (convertUtf8CArrayToList deps)) ListDict.empty
 
         val versions =
           ListDict.insert
@@ -287,7 +284,7 @@ structure GIRepositoryRepository :>
 
     fun getDependencies repository versions namespace_ = (
       ignore (getVersion repository versions namespace_);
-      getDependencies1 repository namespace_
+      Option.map convertUtf8CArrayToList (getDependencies1 repository namespace_)
     )
 
     fun getNInfos repository versions namespace_ = (

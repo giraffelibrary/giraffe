@@ -5,12 +5,6 @@ structure GioMountOperation :>
     where type mount_operation_result_t = GioMountOperationResult.t
     where type password_save_t = GioPasswordSave.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_mount_operation_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_mount_operation_new" : unit -> GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p;
     val getAnonymous_ = _import "g_mount_operation_get_anonymous" : GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p -> GBool.FFI.val_;
@@ -115,7 +109,7 @@ structure GioMountOperation :>
                     flags
                   )
           )
-      fun askQuestionSig f = signal "ask-question" (get 0w1 string &&&> get 0w2 Utf8CVector.t ---> ret_void) (fn message & choices => f (message, choices))
+      fun askQuestionSig f = signal "ask-question" (get 0w1 string &&&> get 0w2 Utf8CArray.t ---> ret_void) (fn message & choices => f (message, choices))
       fun replySig f = signal "reply" (get 0w1 GioMountOperationResult.t ---> ret_void) f
       fun showUnmountProgressSig f =
         signal "show-unmount-progress"

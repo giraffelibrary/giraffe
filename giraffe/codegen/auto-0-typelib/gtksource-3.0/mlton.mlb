@@ -15,6 +15,7 @@ local
   ../pango-1.0/mlton.mlb
   ../gtk-3.0/mlton.mlb
 in
+  ../glib-2.0/Utf8CArray.mlb
   GTK_SOURCE_BACKGROUND_PATTERN_TYPE-sig.sml
   GTK_SOURCE_BRACKET_MATCH_TYPE-sig.sml
   GTK_SOURCE_BUFFER_CLASS-sig.sml

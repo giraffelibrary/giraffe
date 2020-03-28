@@ -1,6 +1,7 @@
 signature ATK_STATE_SET =
   sig
     type 'a class
+    type state_type_c_array_n_t
     type state_type_t
     type t = base class
     val getType : unit -> GObject.Type.t
@@ -11,7 +12,7 @@ signature ATK_STATE_SET =
        -> bool
     val addStates :
       'a class
-       -> state_type_t vector
+       -> state_type_c_array_n_t
        -> unit
     val andSets :
       'a class
@@ -24,7 +25,7 @@ signature ATK_STATE_SET =
        -> bool
     val containsStates :
       'a class
-       -> state_type_t vector
+       -> state_type_c_array_n_t
        -> bool
     val isEmpty : 'a class -> bool
     val orSets :

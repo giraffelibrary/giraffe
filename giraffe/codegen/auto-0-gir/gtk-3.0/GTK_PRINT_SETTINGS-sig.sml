@@ -4,7 +4,7 @@ signature GTK_PRINT_SETTINGS =
     type print_duplex_t
     type number_up_layout_t
     type page_orientation_t
-    type page_range_t
+    type page_range_record_c_array_n_t
     type page_set_t
     type paper_size_t
     type unit_t
@@ -56,7 +56,7 @@ signature GTK_PRINT_SETTINGS =
     val getNumberUpLayout : 'a class -> number_up_layout_t
     val getOrientation : 'a class -> page_orientation_t
     val getOutputBin : 'a class -> string
-    val getPageRanges : 'a class -> page_range_t vector
+    val getPageRanges : 'a class -> page_range_record_c_array_n_t
     val getPageSet : 'a class -> page_set_t
     val getPaperHeight :
       'a class
@@ -157,7 +157,7 @@ signature GTK_PRINT_SETTINGS =
        -> unit
     val setPageRanges :
       'a class
-       -> page_range_t vector
+       -> page_range_record_c_array_n_t
        -> unit
     val setPageSet :
       'a class

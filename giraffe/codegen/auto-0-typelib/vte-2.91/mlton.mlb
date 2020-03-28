@@ -15,6 +15,10 @@ local
   ../pango-1.0/mlton.mlb
   ../gtk-3.0/mlton.mlb
 in
+  ../glib-2.0/GLibRegexRecordCArrayN.mlb
+  ../glib-2.0/Utf8CArrayN.mlb
+  ../glib-2.0/GUInt8CArrayN.mlb
+  ../gdk-3.0/GdkRgbaRecordCArrayN.mlb
   VTE_CURSOR_BLINK_MODE-sig.sml
   VTE_CURSOR_SHAPE-sig.sml
   VTE_ERASE_BINDING-sig.sml
@@ -45,6 +49,7 @@ in
     mlton/VteWriteFlags.sml
     mlton/VtePty.sml
     mlton/VteRegex.sml
+    VteRegexRecordCArrayN.sml
     mlton/VteTerminal.sml
     mlton/Vte.sml
   end

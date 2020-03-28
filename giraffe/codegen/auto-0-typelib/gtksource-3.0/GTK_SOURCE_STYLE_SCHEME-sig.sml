@@ -4,7 +4,7 @@ signature GTK_SOURCE_STYLE_SCHEME =
     type 'a style_class
     type t = base class
     val getType : unit -> GObject.Type.t
-    val getAuthors : 'a class -> string list option
+    val getAuthors : 'a class -> Utf8CArray.t option
     val getDescription : 'a class -> string option
     val getFilename : 'a class -> string option
     val getId : 'a class -> string

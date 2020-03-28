@@ -44,10 +44,19 @@ signature <NAMESPACE> =
 
     <ModuleSpec[N]>
 
+    |||  (* interleaved with *)
+
+    <ContainerModuleSpec[1]>
+
+    ...
+
+    <ContainerModuleSpec[L]>
+
 
     (* Constants *)
 
     <ConstantSpec[1]>
+
     ...
 
     <ConstantSpec[C]>
@@ -161,6 +170,36 @@ where
         otherwise
 
 
+  ContainerModuleSpec
+    is introduced for each container type (array, hash table, list etc.) referenced by a module
+    in the same namespace as follows, where the container type is described by typeInfo:
+
+      tag = GIRepository.TypeInfo.getTag typeInfo
+
+      <ArrayModuleSpec(typeInfo)>
+
+        if tag is ARRAY
+
+
+      <raise Error "not supported">
+
+        otherwise
+
+
+  ArrayModuleSpec(arrayTypeInfo)
+    is defined as follows:
+
+      elemTypeInfo = GIRepository.TypeInfo.getParamType arrayTypeInfo 0
+
+
+      structure <ArrayStructId(arrayTypeInfo)> :
+        <ARRAY_TYPE(arrayTypeInfo)>
+          where type elem = <ElemStructId(elemTypeInfo)>.t
+
+
+    where ArrayType, ArrayStructId and ElemStructId are as defined for functions.
+
+
 
 
 ==Structure==
@@ -218,6 +257,14 @@ structure <Namespace> :
     ...
 
     <ModuleDec[N]>
+
+    |||  (* interleaved with *)
+
+    <ContainerModuleDec[1]>
+
+    ...
+
+    <ContainerModuleDec[L]>
 
 
     (* Constants *)
@@ -279,6 +326,33 @@ structure <Namespace> :
       <empty>
 
         otherwise
+
+
+  ContainerModuleDec
+    is introduced for each container type (array, hash table, list etc.) referenced by a module
+    in the same namespace as follows, where the container type is described by typeInfo:
+
+      tag = GIRepository.TypeInfo.getTag typeInfo
+
+
+      <ArrayModuleDec(typeInfo)>
+
+        if tag is ARRAY
+
+
+      <raise Error "not supported">
+
+        otherwise
+
+
+  ArrayModuleDec(arrayTypeInfo)
+    is defined as follows:
+
+
+      structure <ArrayStructId(arrayTypeInfo)> = <Namespace><ArrayStructId(arrayTypeInfo)>
+
+
+    where ArrayStructId is as defined for functions.
 
 
 

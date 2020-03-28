@@ -11,6 +11,7 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
     type elem
 
     val length : t -> int
+    val sub : t -> int -> elem
     val tabulate : int * (int -> elem) -> t
 
     structure Pointer : C_POINTER
@@ -33,7 +34,7 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
     val dup  : int -> (notnull p -> notnull p) from_p
     val free : int -> (notnull p -> unit) from_p
     val len  : (notnull p -> int) from_p
-    val sub  : (notnull p -> int -> e) from_p
+    val get  : (notnull p -> int -> e) from_p
 
     val toElem : e -> elem
 

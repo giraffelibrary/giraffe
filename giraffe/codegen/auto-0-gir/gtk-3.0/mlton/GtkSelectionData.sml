@@ -3,28 +3,10 @@ structure GtkSelectionData :>
     where type t = GtkSelectionDataRecord.t
     where type 'a text_buffer_class = 'a GtkTextBufferClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
-    structure GdkAtomRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GdkAtomRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GdkAtomRecordCVectorN = CVectorN(GdkAtomRecordCVectorNType)
     val getType_ = _import "gtk_selection_data_get_type" : unit -> GObjectType.FFI.val_;
     val copy_ = _import "gtk_selection_data_copy" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p;
     val getDataType_ = _import "gtk_selection_data_get_data_type" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;
-    val getData_ = fn x1 & x2 => (_import "gtk_selection_data_get_data_with_length" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p * GInt.FFI.ref_ -> GUInt8CVectorN.FFI.notnull GUInt8CVectorN.FFI.out_p;) (x1, x2)
+    val getData_ = fn x1 & x2 => (_import "gtk_selection_data_get_data_with_length" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p * GInt.FFI.ref_ -> GUInt8CArrayN.FFI.notnull GUInt8CArrayN.FFI.out_p;) (x1, x2)
     val getDisplay_ = _import "gtk_selection_data_get_display" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
     val getFormat_ = _import "gtk_selection_data_get_format" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GInt.FFI.val_;
     val getLength_ = _import "gtk_selection_data_get_length" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GInt.FFI.val_;
@@ -39,8 +21,8 @@ structure GtkSelectionData :>
           (
             _import "mlton_gtk_selection_data_get_targets" :
               GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p
-               * GdkAtomRecordCVectorN.MLton.r1
-               * (unit, GdkAtomRecordCVectorN.FFI.notnull) GdkAtomRecordCVectorN.MLton.r2
+               * GdkAtomRecordCArrayN.MLton.r1
+               * (unit, GdkAtomRecordCArrayN.FFI.notnull) GdkAtomRecordCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -51,7 +33,7 @@ structure GtkSelectionData :>
               x4
             )
     val getText_ = _import "gtk_selection_data_get_text" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> unit Utf8.FFI.out_p;
-    val getUris_ = _import "gtk_selection_data_get_uris" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val getUris_ = _import "gtk_selection_data_get_uris" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
     val set_ =
       fn
         x1
@@ -64,8 +46,8 @@ structure GtkSelectionData :>
               GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p
                * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
                * GInt.FFI.val_
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )
@@ -103,8 +85,8 @@ structure GtkSelectionData :>
           (
             _import "mlton_gtk_selection_data_set_uris" :
               GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -123,7 +105,7 @@ structure GtkSelectionData :>
     fun getDataType self = (GtkSelectionDataRecord.FFI.withPtr ---> GdkAtomRecord.FFI.fromPtr false) getDataType_ self
     fun getData self =
       let
-        val length & retVal = (GtkSelectionDataRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) getData_ (self & GInt.null)
+        val length & retVal = (GtkSelectionDataRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 0) getData_ (self & GInt.null)
       in
         retVal (LargeInt.toInt length)
       end
@@ -140,9 +122,9 @@ structure GtkSelectionData :>
          & retVal =
           (
             GtkSelectionDataRecord.FFI.withPtr
-             &&&> GdkAtomRecordCVectorN.FFI.withRefOptPtr
+             &&&> GdkAtomRecordCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GdkAtomRecordCVectorN.FFI.fromPtr 1
+             ---> GdkAtomRecordCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
           )
@@ -156,7 +138,7 @@ structure GtkSelectionData :>
         if retVal then SOME (targets (LargeInt.toInt nAtoms)) else NONE
       end
     fun getText self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getText_ self
-    fun getUris self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8CVector.FFI.fromPtr 2) getUris_ self
+    fun getUris self = (GtkSelectionDataRecord.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getUris_ self
     fun set
       self
       (
@@ -165,13 +147,13 @@ structure GtkSelectionData :>
         data
       ) =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
         val () =
           (
             GtkSelectionDataRecord.FFI.withPtr
              &&&> GdkAtomRecord.FFI.withPtr
              &&&> GInt.FFI.withVal
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              ---> I
           )
@@ -200,7 +182,7 @@ structure GtkSelectionData :>
            & str
            & len
         )
-    fun setUris self uris = (GtkSelectionDataRecord.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> GBool.FFI.fromVal) setUris_ (self & uris)
+    fun setUris self uris = (GtkSelectionDataRecord.FFI.withPtr &&&> Utf8CArray.FFI.withPtr ---> GBool.FFI.fromVal) setUris_ (self & uris)
     fun targetsIncludeImage self writable = (GtkSelectionDataRecord.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeImage_ (self & writable)
     fun targetsIncludeRichText self buffer = (GtkSelectionDataRecord.FFI.withPtr &&&> GtkTextBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) targetsIncludeRichText_ (self & buffer)
     fun targetsIncludeText self = (GtkSelectionDataRecord.FFI.withPtr ---> GBool.FFI.fromVal) targetsIncludeText_ self

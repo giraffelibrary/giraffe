@@ -14,7 +14,7 @@ signature GTK_TREE_STORE =
     val asTreeModel : 'a class -> base tree_model_class
     val asTreeSortable : 'a class -> base tree_sortable_class
     val getType : unit -> GObject.Type.t
-    val new : GObject.Type.t vector -> base class
+    val new : GObjectTypeCArrayN.t -> base class
     val append :
       'a class
        -> tree_iter_t option
@@ -36,8 +36,8 @@ signature GTK_TREE_STORE =
       'a class
        -> tree_iter_t option
            * LargeInt.int
-           * LargeInt.int vector
-           * GObject.ValueRecord.t vector
+           * GIntCArrayN.t
+           * GObjectValueRecordCArrayN.t
        -> tree_iter_t
     val isAncestor :
       'a class
@@ -69,7 +69,7 @@ signature GTK_TREE_STORE =
        -> bool
     val setColumnTypes :
       'a class
-       -> GObject.Type.t vector
+       -> GObjectTypeCArrayN.t
        -> unit
     val setValue :
       'a class
@@ -80,8 +80,8 @@ signature GTK_TREE_STORE =
     val set :
       'a class
        -> tree_iter_t
-           * LargeInt.int vector
-           * GObject.ValueRecord.t vector
+           * GIntCArrayN.t
+           * GObjectValueRecordCArrayN.t
        -> unit
     val swap :
       'a class

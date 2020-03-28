@@ -2,18 +2,12 @@ structure GioUnixFDList :>
   GIO_UNIX_F_D_LIST
     where type 'a class = 'a GioUnixFDListClass.class =
   struct
-    structure GIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
-      )
-    structure GIntCVectorN = CVectorN(GIntCVectorNType)
     local
       open PolyMLFFI
     in
       val getType_ = call (getSymbol "g_unix_fd_list_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_unix_fd_list_new") (cVoid --> GioUnixFDListClass.PolyML.cPtr)
-      val newFromArray_ = call (getSymbol "g_unix_fd_list_new_from_array") (GIntCVectorN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GioUnixFDListClass.PolyML.cPtr)
+      val newFromArray_ = call (getSymbol "g_unix_fd_list_new_from_array") (GIntCArrayN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GioUnixFDListClass.PolyML.cPtr)
       val append_ =
         call (getSymbol "g_unix_fd_list_append")
           (
@@ -31,8 +25,8 @@ structure GioUnixFDList :>
              --> GInt.PolyML.cVal
           )
       val getLength_ = call (getSymbol "g_unix_fd_list_get_length") (GioUnixFDListClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val peekFds_ = call (getSymbol "g_unix_fd_list_peek_fds") (GioUnixFDListClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCVectorN.PolyML.cOutPtr)
-      val stealFds_ = call (getSymbol "g_unix_fd_list_steal_fds") (GioUnixFDListClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCVectorN.PolyML.cOutPtr)
+      val peekFds_ = call (getSymbol "g_unix_fd_list_peek_fds") (GioUnixFDListClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCArrayN.PolyML.cOutPtr)
+      val stealFds_ = call (getSymbol "g_unix_fd_list_steal_fds") (GioUnixFDListClass.PolyML.cPtr &&> GInt.PolyML.cRef --> GIntCArrayN.PolyML.cOutPtr)
     end
     type 'a class = 'a GioUnixFDListClass.class
     type t = base class
@@ -40,8 +34,8 @@ structure GioUnixFDList :>
     fun new () = (I ---> GioUnixFDListClass.FFI.fromPtr true) new_ ()
     fun newFromArray fds =
       let
-        val nFds = LargeInt.fromInt (GIntCVectorN.length fds)
-        val retVal = (GIntCVectorN.FFI.withPtr &&&> GInt.FFI.withVal ---> GioUnixFDListClass.FFI.fromPtr true) newFromArray_ (fds & nFds)
+        val nFds = LargeInt.fromInt (GIntCArrayN.length fds)
+        val retVal = (GIntCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GioUnixFDListClass.FFI.fromPtr true) newFromArray_ (fds & nFds)
       in
         retVal
       end
@@ -74,13 +68,13 @@ structure GioUnixFDList :>
     fun getLength self = (GioUnixFDListClass.FFI.withPtr ---> GInt.FFI.fromVal) getLength_ self
     fun peekFds self =
       let
-        val length & retVal = (GioUnixFDListClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCVectorN.FFI.fromPtr 0) peekFds_ (self & GInt.null)
+        val length & retVal = (GioUnixFDListClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCArrayN.FFI.fromPtr 0) peekFds_ (self & GInt.null)
       in
         retVal (LargeInt.toInt length)
       end
     fun stealFds self =
       let
-        val length & retVal = (GioUnixFDListClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCVectorN.FFI.fromPtr 1) stealFds_ (self & GInt.null)
+        val length & retVal = (GioUnixFDListClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCArrayN.FFI.fromPtr 1) stealFds_ (self & GInt.null)
       in
         retVal (LargeInt.toInt length)
       end

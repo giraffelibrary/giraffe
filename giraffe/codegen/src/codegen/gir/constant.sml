@@ -15,7 +15,7 @@ fun makeConstantSpec
   repo
   vers
   (constantInfo, (iRefs, excls))
-  : spec * (interfaceref list * info_excl_hier list) =
+  : spec * ((interfaceref list * interfaceref list) * info_excl_hier list) =
   let
     val () = checkDeprecated constantInfo
 

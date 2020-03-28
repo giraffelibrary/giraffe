@@ -1,3 +1,4 @@
+useExt "../glib-2.0/Utf8CArray.sml";
 use "G_I_REPOSITORY_BASE_INFO_RECORD-sig.sml";
 use "G_I_REPOSITORY_ARRAY_TYPE-sig.sml";
 use "G_I_REPOSITORY_DIRECTION-sig.sml";

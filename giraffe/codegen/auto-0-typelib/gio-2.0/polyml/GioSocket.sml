@@ -12,12 +12,6 @@ structure GioSocket :>
     where type 'a socket_address_class = 'a GioSocketAddressClass.class
     where type socket_type_t = GioSocketType.t =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -134,7 +128,7 @@ structure GioSocket :>
         call (getSymbol "g_socket_receive")
           (
             GioSocketClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -145,7 +139,7 @@ structure GioSocket :>
           (
             GioSocketClass.PolyML.cPtr
              &&> GioSocketAddressClass.PolyML.cOutRef
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -155,7 +149,7 @@ structure GioSocket :>
         call (getSymbol "g_socket_receive_with_blocking")
           (
             GioSocketClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              &&> GBool.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -166,7 +160,7 @@ structure GioSocket :>
         call (getSymbol "g_socket_send")
           (
             GioSocketClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -177,7 +171,7 @@ structure GioSocket :>
           (
             GioSocketClass.PolyML.cPtr
              &&> GioSocketAddressClass.PolyML.cOptPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -187,7 +181,7 @@ structure GioSocket :>
         call (getSymbol "g_socket_send_with_blocking")
           (
             GioSocketClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              &&> GBool.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -433,11 +427,11 @@ structure GioSocket :>
     fun listen self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) listen_ (self & [])
     fun receive self (buffer, cancellable) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
@@ -456,12 +450,12 @@ structure GioSocket :>
       end
     fun receiveFrom self (buffer, cancellable) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val address & retVal =
           (
             GioSocketClass.FFI.withPtr
              &&&> GioSocketAddressClass.FFI.withRefOptPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
@@ -487,11 +481,11 @@ structure GioSocket :>
         cancellable
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
@@ -512,11 +506,11 @@ structure GioSocket :>
       end
     fun send self (buffer, cancellable) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
@@ -541,12 +535,12 @@ structure GioSocket :>
         cancellable
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
              &&&> GioSocketAddressClass.FFI.withOptPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
@@ -572,11 +566,11 @@ structure GioSocket :>
         cancellable
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr

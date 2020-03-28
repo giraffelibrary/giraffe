@@ -1,35 +1,5 @@
 structure Gdk : GDK =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
-    structure GdkVisualTypeCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkVisualType.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkVisualType.C.ValueType)
-      )
-    structure GdkVisualTypeCVectorN = CVectorN(GdkVisualTypeCVectorNType)
-    structure GIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
-      )
-    structure GIntCVectorN = CVectorN(GIntCVectorNType)
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
     val beep_ = _import "gdk_beep" : unit -> unit;
     val cairoCreate_ = _import "gdk_cairo_create" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p;
     val cairoDrawFromGl_ =
@@ -319,8 +289,8 @@ structure Gdk : GDK =
           (
             _import "mlton_gdk_init" :
               GInt.FFI.ref_
-               * Utf8CVectorN.MLton.r1
-               * (Utf8CVectorN.FFI.notnull, Utf8CVectorN.FFI.notnull) Utf8CVectorN.MLton.r2
+               * Utf8CArrayN.MLton.r1
+               * (Utf8CArrayN.FFI.notnull, Utf8CArrayN.FFI.notnull) Utf8CArrayN.MLton.r2
                -> unit;
           )
             (
@@ -334,8 +304,8 @@ structure Gdk : GDK =
           (
             _import "mlton_gdk_init_check" :
               GInt.FFI.ref_
-               * Utf8CVectorN.MLton.r1
-               * (Utf8CVectorN.FFI.notnull, Utf8CVectorN.FFI.notnull) Utf8CVectorN.MLton.r2
+               * Utf8CArrayN.MLton.r1
+               * (Utf8CArrayN.FFI.notnull, Utf8CArrayN.FFI.notnull) Utf8CArrayN.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -399,8 +369,8 @@ structure Gdk : GDK =
           (
             _import "mlton_gdk_parse_args" :
               GInt.FFI.ref_
-               * Utf8CVectorN.MLton.r1
-               * (Utf8CVectorN.FFI.notnull, Utf8CVectorN.FFI.notnull) Utf8CVectorN.MLton.r2
+               * Utf8CArrayN.MLton.r1
+               * (Utf8CArrayN.FFI.notnull, Utf8CArrayN.FFI.notnull) Utf8CArrayN.MLton.r2
                -> unit;
           )
             (
@@ -507,8 +477,8 @@ structure Gdk : GDK =
                * (unit, GdkAtomRecord.FFI.notnull) GdkAtomRecord.FFI.r
                * GInt.FFI.ref_
                * GInt.FFI.ref_
-               * GUInt8CVectorN.MLton.r1
-               * (unit, GUInt8CVectorN.FFI.notnull) GUInt8CVectorN.MLton.r2
+               * GUInt8CArrayN.MLton.r1
+               * (unit, GUInt8CArrayN.FFI.notnull) GUInt8CArrayN.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -529,8 +499,8 @@ structure Gdk : GDK =
         (x1, x2) & x3 =>
           (
             _import "mlton_gdk_query_depths" :
-              GIntCVectorN.MLton.r1
-               * (unit, GIntCVectorN.FFI.notnull) GIntCVectorN.MLton.r2
+              GIntCArrayN.MLton.r1
+               * (unit, GIntCArrayN.FFI.notnull) GIntCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -544,8 +514,8 @@ structure Gdk : GDK =
         (x1, x2) & x3 =>
           (
             _import "mlton_gdk_query_visual_types" :
-              GdkVisualTypeCVectorN.MLton.r1
-               * (unit, GdkVisualTypeCVectorN.FFI.notnull) GdkVisualTypeCVectorN.MLton.r2
+              GdkVisualTypeCArrayN.MLton.r1
+               * (unit, GdkVisualTypeCArrayN.FFI.notnull) GdkVisualTypeCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -770,11 +740,11 @@ structure Gdk : GDK =
               GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
                * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
                * GInt.FFI.val_
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GInt.FFI.val_
-               * Utf8CVector.MLton.r1
-               * (unit, Utf8CVector.FFI.notnull) Utf8CVector.MLton.r2
+               * Utf8CArray.MLton.r1
+               * (unit, Utf8CArray.FFI.notnull) Utf8CArray.MLton.r2
                -> GInt.FFI.val_;
           )
             (
@@ -900,7 +870,7 @@ structure Gdk : GDK =
     structure DeviceManager = GdkDeviceManager
     structure DevicePad = GdkDevicePad
     structure DeviceTool = GdkDeviceTool
-    structure Display = GdkDisplay
+    structure AtomRecordCArrayN = GdkAtomRecordCArrayN
     structure DisplayManager = GdkDisplayManager
     structure DragContext = GdkDragContext
     structure DrawingContext = GdkDrawingContext
@@ -909,7 +879,7 @@ structure Gdk : GDK =
     structure FrameTimings = GdkFrameTimings
     structure GLContext = GdkGLContext
     structure Geometry = GdkGeometry
-    structure Keymap = GdkKeymap
+    structure KeymapKeyRecordCArrayN = GdkKeymapKeyRecordCArrayN
     structure KeymapKey = GdkKeymapKey
     structure Monitor = GdkMonitor
     structure Point = GdkPoint
@@ -920,6 +890,9 @@ structure Gdk : GDK =
     structure Visual = GdkVisual
     structure Window = GdkWindow
     structure WindowAttr = GdkWindowAttr
+    structure VisualTypeCArrayN = GdkVisualTypeCArrayN
+    structure Display = GdkDisplay
+    structure Keymap = GdkKeymap
     val BUTTON_MIDDLE = 2
     val BUTTON_PRIMARY = 1
     val BUTTON_SECONDARY = 3
@@ -3511,14 +3484,14 @@ structure Gdk : GDK =
     fun getShowEvents () = (I ---> GBool.FFI.fromVal) getShowEvents_ ()
     fun init argv =
       let
-        val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
+        val argc = LargeInt.fromInt (Utf8CArrayN.length argv)
         val argc
          & argv
          & () =
           (
-            GInt.FFI.withRefVal &&&> Utf8CVectorN.FFI.withRefDupPtr 2
+            GInt.FFI.withRefVal &&&> Utf8CArrayN.FFI.withRefDupPtr 2
              ---> GInt.FFI.fromVal
-                   && Utf8CVectorN.FFI.fromPtr 2
+                   && Utf8CArrayN.FFI.fromPtr 2
                    && I
           )
             init_
@@ -3528,14 +3501,14 @@ structure Gdk : GDK =
       end
     fun initCheck argv =
       let
-        val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
+        val argc = LargeInt.fromInt (Utf8CArrayN.length argv)
         val argc
          & argv
          & retVal =
           (
-            GInt.FFI.withRefVal &&&> Utf8CVectorN.FFI.withRefDupPtr 2
+            GInt.FFI.withRefVal &&&> Utf8CArrayN.FFI.withRefDupPtr 2
              ---> GInt.FFI.fromVal
-                   && Utf8CVectorN.FFI.fromPtr 2
+                   && Utf8CArrayN.FFI.fromPtr 2
                    && GBool.FFI.fromVal
           )
             initCheck_
@@ -3601,14 +3574,14 @@ structure Gdk : GDK =
     fun pangoContextGetForScreen screen = (GdkScreenClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) pangoContextGetForScreen_ screen
     fun parseArgs argv =
       let
-        val argc = LargeInt.fromInt (Utf8CVectorN.length argv)
+        val argc = LargeInt.fromInt (Utf8CArrayN.length argv)
         val argc
          & argv
          & () =
           (
-            GInt.FFI.withRefVal &&&> Utf8CVectorN.FFI.withRefDupPtr 2
+            GInt.FFI.withRefVal &&&> Utf8CArrayN.FFI.withRefDupPtr 2
              ---> GInt.FFI.fromVal
-                   && Utf8CVectorN.FFI.fromPtr 2
+                   && Utf8CArrayN.FFI.fromPtr 2
                    && I
           )
             parseArgs_
@@ -3720,11 +3693,11 @@ structure Gdk : GDK =
              &&&> GdkAtomRecord.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
-             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr
              ---> GdkAtomRecord.FFI.fromPtr false
                    && GInt.FFI.fromVal
                    && GInt.FFI.fromVal
-                   && GUInt8CVectorN.FFI.fromPtr 1
+                   && GUInt8CArrayN.FFI.fromPtr 1
                    && GBool.FFI.fromVal
           )
             propertyGet_
@@ -3757,8 +3730,8 @@ structure Gdk : GDK =
          & count
          & () =
           (
-            GIntCVectorN.FFI.withRefOptPtr &&&> GInt.FFI.withRefVal
-             ---> GIntCVectorN.FFI.fromPtr 0
+            GIntCArrayN.FFI.withRefOptPtr &&&> GInt.FFI.withRefVal
+             ---> GIntCArrayN.FFI.fromPtr 0
                    && GInt.FFI.fromVal
                    && I
           )
@@ -3773,8 +3746,8 @@ structure Gdk : GDK =
          & count
          & () =
           (
-            GdkVisualTypeCVectorN.FFI.withRefOptPtr &&&> GInt.FFI.withRefVal
-             ---> GdkVisualTypeCVectorN.FFI.fromPtr 0
+            GdkVisualTypeCArrayN.FFI.withRefOptPtr &&&> GInt.FFI.withRefVal
+             ---> GdkVisualTypeCArrayN.FFI.fromPtr 0
                    && GInt.FFI.fromVal
                    && I
           )
@@ -3988,16 +3961,16 @@ structure Gdk : GDK =
         text
       ) =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length text)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length text)
         val list & retVal =
           (
             GdkDisplayClass.FFI.withPtr
              &&&> GdkAtomRecord.FFI.withPtr
              &&&> GInt.FFI.withVal
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
-             &&&> Utf8CVector.FFI.withRefOptPtr
-             ---> Utf8CVector.FFI.fromPtr 2 && GInt.FFI.fromVal
+             &&&> Utf8CArray.FFI.withRefOptPtr
+             ---> Utf8CArray.FFI.fromPtr 2 && GInt.FFI.fromVal
           )
             textPropertyToUtf8ListForDisplay_
             (

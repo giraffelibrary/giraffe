@@ -40,11 +40,11 @@ signature GIO_OUTPUT_STREAM =
        -> LargeInt.int
     val write :
       'a class
-       -> Word8Vector.vector * 'b cancellable_class option
+       -> GUInt8CArrayN.t * 'b cancellable_class option
        -> LargeInt.int
     val writeAll :
       'a class
-       -> Word8Vector.vector * 'b cancellable_class option
+       -> GUInt8CArrayN.t * 'b cancellable_class option
        -> LargeInt.int
     val writeAllFinish :
       'a class

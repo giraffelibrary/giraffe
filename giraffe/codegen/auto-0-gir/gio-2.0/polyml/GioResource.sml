@@ -4,12 +4,6 @@ structure GioResource :>
     where type 'a input_stream_class = 'a GioInputStreamClass.class
     where type resource_lookup_flags_t = GioResourceLookupFlags.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -22,7 +16,7 @@ structure GioResource :>
              &&> Utf8.PolyML.cInPtr
              &&> GioResourceLookupFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CVector.PolyML.cOutPtr
+             --> Utf8CArray.PolyML.cOutPtr
           )
       val getInfo_ =
         call (getSymbol "g_resource_get_info")
@@ -66,7 +60,7 @@ structure GioResource :>
          &&&> Utf8.FFI.withPtr
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CVector.FFI.fromPtr 2
+         ---> Utf8CArray.FFI.fromPtr 2
       )
         enumerateChildren_
         (

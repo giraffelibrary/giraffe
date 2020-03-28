@@ -8,30 +8,6 @@ structure GtkListStore :>
     where type 'a tree_sortable_class = 'a GtkTreeSortableClass.class
     where type tree_iter_t = GtkTreeIterRecord.t =
   struct
-    structure GIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
-      )
-    structure GIntCVectorN = CVectorN(GIntCVectorNType)
-    structure GObjectValueRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GObjectValueRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GObjectValueRecord.C.ValueType)
-      )
-    structure GObjectValueRecordCVectorN = CVectorN(GObjectValueRecordCVectorNType)
-    structure GObjectTypeCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GObjectType.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GObjectType.C.ValueType)
-      )
-    structure GObjectTypeCVectorN = CVectorN(GObjectTypeCVectorNType)
-    structure GIntCVectorType =
-      CValueCVectorType(
-        structure CElemType = GInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
-      )
-    structure GIntCVector = CVector(GIntCVectorType)
     val getType_ = _import "gtk_list_store_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
@@ -39,8 +15,8 @@ structure GtkListStore :>
           (
             _import "mlton_gtk_list_store_newv" :
               GInt.FFI.val_
-               * GObjectTypeCVectorN.MLton.p1
-               * GObjectTypeCVectorN.FFI.notnull GObjectTypeCVectorN.MLton.p2
+               * GObjectTypeCArrayN.MLton.p1
+               * GObjectTypeCArrayN.FFI.notnull GObjectTypeCArrayN.MLton.p2
                -> GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p;
           )
             (
@@ -114,10 +90,10 @@ structure GtkListStore :>
               GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
                * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
                * GInt.FFI.val_
-               * GIntCVectorN.MLton.p1
-               * GIntCVectorN.FFI.notnull GIntCVectorN.MLton.p2
-               * GObjectValueRecordCVectorN.MLton.p1
-               * GObjectValueRecordCVectorN.FFI.notnull GObjectValueRecordCVectorN.MLton.p2
+               * GIntCArrayN.MLton.p1
+               * GIntCArrayN.FFI.notnull GIntCArrayN.MLton.p2
+               * GObjectValueRecordCArrayN.MLton.p1
+               * GObjectValueRecordCArrayN.FFI.notnull GObjectValueRecordCArrayN.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )
@@ -174,8 +150,8 @@ structure GtkListStore :>
           (
             _import "mlton_gtk_list_store_reorder" :
               GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
-               * GIntCVector.MLton.p1
-               * GIntCVector.FFI.notnull GIntCVector.MLton.p2
+               * GIntCArray.MLton.p1
+               * GIntCArray.FFI.notnull GIntCArray.MLton.p2
                -> unit;
           )
             (
@@ -192,8 +168,8 @@ structure GtkListStore :>
             _import "mlton_gtk_list_store_set_column_types" :
               GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
                * GInt.FFI.val_
-               * GObjectTypeCVectorN.MLton.p1
-               * GObjectTypeCVectorN.FFI.notnull GObjectTypeCVectorN.MLton.p2
+               * GObjectTypeCArrayN.MLton.p1
+               * GObjectTypeCArrayN.FFI.notnull GObjectTypeCArrayN.MLton.p2
                -> unit;
           )
             (
@@ -233,10 +209,10 @@ structure GtkListStore :>
             _import "mlton_gtk_list_store_set_valuesv" :
               GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
                * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * GIntCVectorN.MLton.p1
-               * GIntCVectorN.FFI.notnull GIntCVectorN.MLton.p2
-               * GObjectValueRecordCVectorN.MLton.p1
-               * GObjectValueRecordCVectorN.FFI.notnull GObjectValueRecordCVectorN.MLton.p2
+               * GIntCArrayN.MLton.p1
+               * GIntCArrayN.FFI.notnull GIntCArrayN.MLton.p2
+               * GObjectValueRecordCArrayN.MLton.p1
+               * GObjectValueRecordCArrayN.FFI.notnull GObjectValueRecordCArrayN.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )
@@ -282,8 +258,8 @@ structure GtkListStore :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new types =
       let
-        val nColumns = LargeInt.fromInt (GObjectTypeCVectorN.length types)
-        val retVal = (GInt.FFI.withVal &&&> GObjectTypeCVectorN.FFI.withPtr ---> GtkListStoreClass.FFI.fromPtr true) new_ (nColumns & types)
+        val nColumns = LargeInt.fromInt (GObjectTypeCArrayN.length types)
+        val retVal = (GInt.FFI.withVal &&&> GObjectTypeCArrayN.FFI.withPtr ---> GtkListStoreClass.FFI.fromPtr true) new_ (nColumns & types)
       in
         retVal
       end
@@ -356,14 +332,14 @@ structure GtkListStore :>
         values
       ) =
       let
-        val nValues = LargeInt.fromInt (GObjectValueRecordCVectorN.length values)
+        val nValues = LargeInt.fromInt (GObjectValueRecordCArrayN.length values)
         val iter & () =
           (
             GtkListStoreClass.FFI.withPtr
              &&&> GtkTreeIterRecord.FFI.withNewPtr
              &&&> GInt.FFI.withVal
-             &&&> GIntCVectorN.FFI.withPtr
-             &&&> GObjectValueRecordCVectorN.FFI.withPtr
+             &&&> GIntCArrayN.FFI.withPtr
+             &&&> GObjectValueRecordCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              ---> GtkTreeIterRecord.FFI.fromPtr true && I
           )
@@ -413,15 +389,15 @@ structure GtkListStore :>
         iter
       end
     fun remove self iter = (GtkListStoreClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) remove_ (self & iter)
-    fun reorder self newOrder = (GtkListStoreClass.FFI.withPtr &&&> GIntCVector.FFI.withPtr ---> I) reorder_ (self & newOrder)
+    fun reorder self newOrder = (GtkListStoreClass.FFI.withPtr &&&> GIntCArray.FFI.withPtr ---> I) reorder_ (self & newOrder)
     fun setColumnTypes self types =
       let
-        val nColumns = LargeInt.fromInt (GObjectTypeCVectorN.length types)
+        val nColumns = LargeInt.fromInt (GObjectTypeCArrayN.length types)
         val () =
           (
             GtkListStoreClass.FFI.withPtr
              &&&> GInt.FFI.withVal
-             &&&> GObjectTypeCVectorN.FFI.withPtr
+             &&&> GObjectTypeCArrayN.FFI.withPtr
              ---> I
           )
             setColumnTypes_
@@ -462,13 +438,13 @@ structure GtkListStore :>
         values
       ) =
       let
-        val nValues = LargeInt.fromInt (GObjectValueRecordCVectorN.length values)
+        val nValues = LargeInt.fromInt (GObjectValueRecordCArrayN.length values)
         val () =
           (
             GtkListStoreClass.FFI.withPtr
              &&&> GtkTreeIterRecord.FFI.withPtr
-             &&&> GIntCVectorN.FFI.withPtr
-             &&&> GObjectValueRecordCVectorN.FFI.withPtr
+             &&&> GIntCArrayN.FFI.withPtr
+             &&&> GObjectValueRecordCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              ---> I
           )

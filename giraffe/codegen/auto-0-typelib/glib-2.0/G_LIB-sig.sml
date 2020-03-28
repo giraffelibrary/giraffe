@@ -146,12 +146,9 @@ signature G_LIB =
       G_LIB_TIME_ZONE
         where type t = TimeZoneRecord.t
         where type time_type_t = TimeType.t
-    structure Variant :
-      G_LIB_VARIANT
-        where type t = VariantRecord.t
-        where type variant_class_t = VariantClass.t
-        where type bytes_t = BytesRecord.t
-        where type variant_type_t = VariantTypeRecord.t
+    structure VariantRecordCArrayN :
+      C_ARRAY
+        where type elem = VariantRecord.t
     structure VariantBuilder :
       G_LIB_VARIANT_BUILDER
         where type t = VariantBuilderRecord.t
@@ -162,9 +159,12 @@ signature G_LIB =
         where type t = VariantDictRecord.t
         where type variant_t = VariantRecord.t
         where type variant_type_t = VariantTypeRecord.t
-    structure VariantType :
-      G_LIB_VARIANT_TYPE
-        where type t = VariantTypeRecord.t
+    structure VariantTypeRecordCArrayN :
+      C_ARRAY
+        where type elem = VariantTypeRecord.t
+    structure DebugKeyRecordCArrayN :
+      C_ARRAY
+        where type elem = DebugKeyRecord.t
     structure ChildWatchFunc :
       G_LIB_CHILD_WATCH_FUNC
         where type pid_t = Pid.t
@@ -215,10 +215,21 @@ signature G_LIB =
       G_LIB_THREAD_ERROR
         where type error_handler = ErrorRecord.handler
     exception ThreadError of ThreadError.t
+    structure Variant :
+      G_LIB_VARIANT
+        where type t = VariantRecord.t
+        where type variant_record_c_array_n_t = VariantRecordCArrayN.t
+        where type variant_class_t = VariantClass.t
+        where type bytes_t = BytesRecord.t
+        where type variant_type_t = VariantTypeRecord.t
     structure VariantParseError :
       G_LIB_VARIANT_PARSE_ERROR
         where type error_handler = ErrorRecord.handler
     exception VariantParseError of VariantParseError.t
+    structure VariantType :
+      G_LIB_VARIANT_TYPE
+        where type t = VariantTypeRecord.t
+        where type variant_type_record_c_array_n_t = VariantTypeRecordCArrayN.t
     structure IOChannel :
       G_LIB_I_O_CHANNEL
         where type t = IOChannelRecord.t
@@ -310,10 +321,10 @@ signature G_LIB =
        * string
        * string
        -> unit
-    val base64Decode : string -> Word8Vector.vector
-    val base64Encode : Word8Vector.vector -> string
-    val buildFilenamev : string list -> string
-    val buildPathv : string * string list -> string
+    val base64Decode : string -> GUInt8CArrayN.t
+    val base64Encode : GUInt8CArrayN.t -> string
+    val buildFilenamev : Utf8CArray.t -> string
+    val buildPathv : string * Utf8CArray.t -> string
     val chdir : string -> LargeInt.int
     val checkVersion :
       LargeInt.int
@@ -324,7 +335,7 @@ signature G_LIB =
     val childWatchSourceNew : LargeInt.int -> SourceRecord.t
     val close : LargeInt.int -> unit
     val computeChecksumForBytes : ChecksumType.t * BytesRecord.t -> string
-    val computeChecksumForData : ChecksumType.t * Word8Vector.vector -> string
+    val computeChecksumForData : ChecksumType.t * GUInt8CArrayN.t -> string
     val computeChecksumForString :
       ChecksumType.t
        * string
@@ -337,12 +348,12 @@ signature G_LIB =
        -> string
     val computeHmacForData :
       ChecksumType.t
-       * Word8Vector.vector
-       * Word8Vector.vector
+       * GUInt8CArrayN.t
+       * GUInt8CArrayN.t
        -> string
     val computeHmacForString :
       ChecksumType.t
-       * Word8Vector.vector
+       * GUInt8CArrayN.t
        * string
        * LargeInt.int
        -> string
@@ -397,11 +408,11 @@ signature G_LIB =
        * string
        * string
        -> string
-    val environGetenv : string list option * string -> string
+    val environGetenv : Utf8CArray.t option * string -> string
     val filenameDisplayBasename : string -> string
     val filenameDisplayName : string -> string
     val filenameFromUri : string -> string * string
-    val filenameFromUtf8 : string * LargeInt.int -> Word8Vector.vector * LargeInt.int
+    val filenameFromUtf8 : string * LargeInt.int -> GUInt8CArrayN.t * LargeInt.int
     val filenameToUri : string * string option -> string
     val filenameToUtf8 :
       string * LargeInt.int
@@ -416,18 +427,18 @@ signature G_LIB =
     val getCodeset : unit -> string
     val getCurrentDir : unit -> string
     val getCurrentTime : TimeValRecord.t -> unit
-    val getEnviron : unit -> string list
+    val getEnviron : unit -> Utf8CArray.t
     val getHomeDir : unit -> string
     val getHostName : unit -> string
-    val getLanguageNames : unit -> string list
-    val getLocaleVariants : string -> string list
+    val getLanguageNames : unit -> Utf8CArray.t
+    val getLocaleVariants : string -> Utf8CArray.t
     val getMonotonicTime : unit -> LargeInt.int
     val getNumProcessors : unit -> LargeInt.int
     val getPrgname : unit -> string
     val getRealName : unit -> string
     val getRealTime : unit -> LargeInt.int
-    val getSystemConfigDirs : unit -> string list
-    val getSystemDataDirs : unit -> string list
+    val getSystemConfigDirs : unit -> Utf8CArray.t
+    val getSystemDataDirs : unit -> Utf8CArray.t
     val getTmpDir : unit -> string
     val getUserCacheDir : unit -> string
     val getUserConfigDir : unit -> string
@@ -454,7 +465,7 @@ signature G_LIB =
     val idleSourceNew : unit -> SourceRecord.t
     val ioChannelErrorFromErrno : LargeInt.int -> IOChannelError.t
     val ioCreateWatch : IOChannelRecord.t * IOCondition.t -> SourceRecord.t
-    val listenv : unit -> string list
+    val listenv : unit -> Utf8CArray.t
     val localeFromUtf8 :
       string * LargeInt.int
        -> string
@@ -492,7 +503,7 @@ signature G_LIB =
        -> LargeInt.int
     val onErrorQuery : string -> unit
     val onErrorStackTrace : string -> unit
-    val parseDebugString : string option * DebugKeyRecord.t vector -> LargeInt.int
+    val parseDebugString : string option * DebugKeyRecordCArrayN.t -> LargeInt.int
     val pathGetBasename : string -> string
     val pathGetDirname : string -> string
     val pathIsAbsolute : string -> bool
@@ -523,7 +534,7 @@ signature G_LIB =
        * string
        * RegexCompileFlags.t
        * RegexMatchFlags.t
-       -> string list
+       -> Utf8CArray.t
     val reloadUserSpecialDirsCache : unit -> unit
     val rmdir : string -> LargeInt.int
     val sequenceMove : SequenceIterRecord.t * SequenceIterRecord.t -> unit
@@ -542,7 +553,7 @@ signature G_LIB =
        * string
        * bool
        -> bool
-    val shellParseArgv : string -> string list
+    val shellParseArgv : string -> Utf8CArrayN.t
     val shellQuote : string -> string
     val shellUnquote : string -> string
     val sliceGetConfig : SliceConfig.t -> LargeInt.int
@@ -554,8 +565,8 @@ signature G_LIB =
     val spawnCommandLineAsync : string -> unit
     val spawnCommandLineSync :
       string
-       -> Word8Vector.vector
-           * Word8Vector.vector
+       -> GUInt8CArray.t
+           * GUInt8CArray.t
            * LargeInt.int
     val testAssertExpectedMessagesInternal :
       string
@@ -625,7 +636,7 @@ signature G_LIB =
        * string option
        * bool
        -> string
-    val uriListExtractUris : string -> string list
+    val uriListExtractUris : string -> Utf8CArray.t
     val uriParseScheme : string -> string
     val uriUnescapeSegment :
       string option

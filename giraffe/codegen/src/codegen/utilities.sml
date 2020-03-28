@@ -23,6 +23,14 @@ fun lazy (f : unit -> 'a) : unit -> 'a =
   end
 
 
+(* Support for strings *)
+
+fun stripPrefix s1 s2 =
+  if String.isPrefix s1 s2
+  then SOME (String.extract (s2, String.size s1, NONE))
+  else NONE
+
+
 (* Support for lists *)
 
 open ListExtras

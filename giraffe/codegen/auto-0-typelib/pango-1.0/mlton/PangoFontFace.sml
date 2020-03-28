@@ -3,12 +3,6 @@ structure PangoFontFace :>
     where type 'a class = 'a PangoFontFaceClass.class
     where type font_description_t = PangoFontDescriptionRecord.t =
   struct
-    structure GInt32CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt32.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt32.C.ValueType)
-      )
-    structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
     val getType_ = _import "pango_font_face_get_type" : unit -> GObjectType.FFI.val_;
     val describe_ = _import "pango_font_face_describe" : PangoFontFaceClass.FFI.notnull PangoFontFaceClass.FFI.p -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;
     val getFaceName_ = _import "pango_font_face_get_face_name" : PangoFontFaceClass.FFI.notnull PangoFontFaceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
@@ -21,8 +15,8 @@ structure PangoFontFace :>
           (
             _import "mlton_pango_font_face_list_sizes" :
               PangoFontFaceClass.FFI.notnull PangoFontFaceClass.FFI.p
-               * GInt32CVectorN.MLton.r1
-               * (unit, GInt32CVectorN.FFI.notnull) GInt32CVectorN.MLton.r2
+               * GInt32CArrayN.MLton.r1
+               * (unit, GInt32CArrayN.FFI.notnull) GInt32CArrayN.MLton.r2
                * GInt32.FFI.ref_
                -> unit;
           )
@@ -46,9 +40,9 @@ structure PangoFontFace :>
          & () =
           (
             PangoFontFaceClass.FFI.withPtr
-             &&&> GInt32CVectorN.FFI.withRefOptPtr
+             &&&> GInt32CArrayN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> GInt32CVectorN.FFI.fromPtr 1
+             ---> GInt32CArrayN.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
                    && I
           )

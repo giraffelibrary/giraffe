@@ -1,14 +1,8 @@
 structure PangoFontFamily :>
   PANGO_FONT_FAMILY
     where type 'a class = 'a PangoFontFamilyClass.class
-    where type 'a font_face_class = 'a PangoFontFaceClass.class =
+    where type font_face_class_c_array_n_t = PangoFontFaceClassCArrayN.t =
   struct
-    structure PangoFontFaceClassCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = PangoFontFaceClass.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure PangoFontFaceClassCVectorN = CVectorN(PangoFontFaceClassCVectorNType)
     val getType_ = _import "pango_font_family_get_type" : unit -> GObjectType.FFI.val_;
     val getName_ = _import "pango_font_family_get_name" : PangoFontFamilyClass.FFI.notnull PangoFontFamilyClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val isMonospace_ = _import "pango_font_family_is_monospace" : PangoFontFamilyClass.FFI.notnull PangoFontFamilyClass.FFI.p -> GBool.FFI.val_;
@@ -20,8 +14,8 @@ structure PangoFontFamily :>
           (
             _import "mlton_pango_font_family_list_faces" :
               PangoFontFamilyClass.FFI.notnull PangoFontFamilyClass.FFI.p
-               * PangoFontFaceClassCVectorN.MLton.r1
-               * (unit, PangoFontFaceClassCVectorN.FFI.notnull) PangoFontFaceClassCVectorN.MLton.r2
+               * PangoFontFaceClassCArrayN.MLton.r1
+               * (unit, PangoFontFaceClassCArrayN.FFI.notnull) PangoFontFaceClassCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -32,7 +26,7 @@ structure PangoFontFamily :>
               x4
             )
     type 'a class = 'a PangoFontFamilyClass.class
-    type 'a font_face_class = 'a PangoFontFaceClass.class
+    type font_face_class_c_array_n_t = PangoFontFaceClassCArrayN.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getName self = (PangoFontFamilyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
@@ -44,9 +38,9 @@ structure PangoFontFamily :>
          & () =
           (
             PangoFontFamilyClass.FFI.withPtr
-             &&&> PangoFontFaceClassCVectorN.FFI.withRefOptPtr
+             &&&> PangoFontFaceClassCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> PangoFontFaceClassCVectorN.FFI.fromPtr 1
+             ---> PangoFontFaceClassCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )

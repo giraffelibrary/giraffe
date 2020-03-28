@@ -8,12 +8,6 @@ structure GioDataInputStream :>
     where type data_stream_byte_order_t = GioDataStreamByteOrder.t
     where type data_stream_newline_type_t = GioDataStreamNewlineType.t =
   struct
-    structure GUInt8CVectorType =
-      CValueCVectorType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVector = CVector(GUInt8CVectorType)
     local
       open PolyMLFFI
     in
@@ -60,7 +54,7 @@ structure GioDataInputStream :>
              &&> GUInt64.PolyML.cRef
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GUInt8CVector.PolyML.cOutOptPtr
+             --> GUInt8CArray.PolyML.cOutOptPtr
           )
       val readLineFinish_ =
         call (getSymbol "g_data_input_stream_read_line_finish")
@@ -69,7 +63,7 @@ structure GioDataInputStream :>
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GUInt64.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GUInt8CVector.PolyML.cOutOptPtr
+             --> GUInt8CArray.PolyML.cOutOptPtr
           )
       val readLineFinishUtf8_ =
         call (getSymbol "g_data_input_stream_read_line_finish_utf8")
@@ -228,7 +222,7 @@ structure GioDataInputStream :>
              &&&> GUInt64.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GUInt64.FFI.fromVal && GUInt8CVector.FFI.fromOptPtr 1
+             ---> GUInt64.FFI.fromVal && GUInt8CArray.FFI.fromOptPtr 1
           )
             readLine_
             (
@@ -248,7 +242,7 @@ structure GioDataInputStream :>
              &&&> GioAsyncResultClass.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GUInt64.FFI.fromVal && GUInt8CVector.FFI.fromOptPtr 1
+             ---> GUInt64.FFI.fromVal && GUInt8CArray.FFI.fromOptPtr 1
           )
             readLineFinish_
             (

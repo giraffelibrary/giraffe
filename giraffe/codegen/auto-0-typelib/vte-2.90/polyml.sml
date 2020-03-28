@@ -1,3 +1,6 @@
+useExt "../glib-2.0/GUInt8CArrayN.sml";
+useExt "../gdk-3.0/GdkColorRecordCArrayN.sml";
+useExt "../gdk-3.0/GdkRgbaRecordCArrayN.sml";
 use "VTE_PTY_CLASS-sig.sml";
 use "VTE_PTY-sig.sml";
 use "VTE_PTY_ERROR-sig.sml";

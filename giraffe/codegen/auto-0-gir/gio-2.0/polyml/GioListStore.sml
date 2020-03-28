@@ -3,12 +3,6 @@ structure GioListStore :>
     where type 'a class = 'a GioListStoreClass.class
     where type 'a list_model_class = 'a GioListModelClass.class =
   struct
-    structure GObjectObjectClassCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GObjectObjectClass.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GObjectObjectClassCVectorN = CVectorN(GObjectObjectClassCVectorNType)
     local
       open PolyMLFFI
     in
@@ -31,7 +25,7 @@ structure GioListStore :>
             GioListStoreClass.PolyML.cPtr
              &&> GUInt.PolyML.cVal
              &&> GUInt.PolyML.cVal
-             &&> GObjectObjectClassCVectorN.PolyML.cInPtr
+             &&> GObjectObjectClassCArrayN.PolyML.cInPtr
              &&> GUInt.PolyML.cVal
              --> cVoid
           )
@@ -66,13 +60,13 @@ structure GioListStore :>
         additions
       ) =
       let
-        val nAdditions = LargeInt.fromInt (GObjectObjectClassCVectorN.length additions)
+        val nAdditions = LargeInt.fromInt (GObjectObjectClassCArrayN.length additions)
         val () =
           (
             GioListStoreClass.FFI.withPtr
              &&&> GUInt.FFI.withVal
              &&&> GUInt.FFI.withVal
-             &&&> GObjectObjectClassCVectorN.FFI.withPtr
+             &&&> GObjectObjectClassCArrayN.FFI.withPtr
              &&&> GUInt.FFI.withVal
              ---> I
           )

@@ -18,12 +18,6 @@ structure GioFile :>
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "g_file_get_type" : unit -> GObjectType.FFI.val_;
     val newForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
     val newForCommandlineArgAndCwd_ =
@@ -434,8 +428,8 @@ structure GioFile :>
             _import "mlton_g_file_load_contents" :
               GioFileClass.FFI.notnull GioFileClass.FFI.p
                * unit GioCancellableClass.FFI.p
-               * GUInt8CVectorN.MLton.r1
-               * (unit, GUInt8CVectorN.FFI.notnull) GUInt8CVectorN.MLton.r2
+               * GUInt8CArrayN.MLton.r1
+               * (unit, GUInt8CArrayN.FFI.notnull) GUInt8CArrayN.MLton.r2
                * GSize.FFI.ref_
                * Utf8.MLton.r1
                * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
@@ -464,8 +458,8 @@ structure GioFile :>
             _import "mlton_g_file_load_contents_finish" :
               GioFileClass.FFI.notnull GioFileClass.FFI.p
                * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * GUInt8CVectorN.MLton.r1
-               * (unit, GUInt8CVectorN.FFI.notnull) GUInt8CVectorN.MLton.r2
+               * GUInt8CArrayN.MLton.r1
+               * (unit, GUInt8CArrayN.FFI.notnull) GUInt8CArrayN.MLton.r2
                * GSize.FFI.ref_
                * Utf8.MLton.r1
                * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
@@ -494,8 +488,8 @@ structure GioFile :>
             _import "mlton_g_file_load_partial_contents_finish" :
               GioFileClass.FFI.notnull GioFileClass.FFI.p
                * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * GUInt8CVectorN.MLton.r1
-               * (unit, GUInt8CVectorN.FFI.notnull) GUInt8CVectorN.MLton.r2
+               * GUInt8CArrayN.MLton.r1
+               * (unit, GUInt8CArrayN.FFI.notnull) GUInt8CArrayN.MLton.r2
                * GSize.FFI.ref_
                * Utf8.MLton.r1
                * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
@@ -982,8 +976,8 @@ structure GioFile :>
           (
             _import "mlton_g_file_replace_contents" :
               GioFileClass.FFI.notnull GioFileClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GSize.FFI.val_
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
@@ -1778,11 +1772,11 @@ structure GioFile :>
           (
             GioFileClass.FFI.withPtr
              &&&> GioCancellableClass.FFI.withOptPtr
-             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr
              &&&> GSize.FFI.withRefVal
              &&&> Utf8.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GUInt8CVectorN.FFI.fromPtr 1
+             ---> GUInt8CArrayN.FFI.fromPtr 1
                    && GSize.FFI.fromVal
                    && Utf8.FFI.fromPtr 1
                    && ignore
@@ -1808,11 +1802,11 @@ structure GioFile :>
           (
             GioFileClass.FFI.withPtr
              &&&> GioAsyncResultClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr
              &&&> GSize.FFI.withRefVal
              &&&> Utf8.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GUInt8CVectorN.FFI.fromPtr 1
+             ---> GUInt8CArrayN.FFI.fromPtr 1
                    && GSize.FFI.fromVal
                    && Utf8.FFI.fromPtr 1
                    && ignore
@@ -1838,11 +1832,11 @@ structure GioFile :>
           (
             GioFileClass.FFI.withPtr
              &&&> GioAsyncResultClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr
              &&&> GSize.FFI.withRefVal
              &&&> Utf8.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GUInt8CVectorN.FFI.fromPtr 1
+             ---> GUInt8CArrayN.FFI.fromPtr 1
                    && GSize.FFI.fromVal
                    && Utf8.FFI.fromPtr 1
                    && ignore
@@ -2236,11 +2230,11 @@ structure GioFile :>
         cancellable
       ) =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length contents)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length contents)
         val newEtag & () =
           (
             GioFileClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GSize.FFI.withVal
              &&&> Utf8.FFI.withOptPtr
              &&&> GBool.FFI.withVal

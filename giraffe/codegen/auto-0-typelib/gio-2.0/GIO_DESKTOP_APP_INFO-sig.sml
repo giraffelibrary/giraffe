@@ -9,7 +9,7 @@ signature GIO_DESKTOP_APP_INFO =
     val new : string -> base class
     val newFromFilename : string -> base class
     val newFromKeyfile : GLib.KeyFileRecord.t -> base class
-    val search : string -> string list list
+    val search : string -> Utf8CArrayCArray.t
     val setDesktopEnv : string -> unit
     val getActionName :
       'a class
@@ -23,7 +23,7 @@ signature GIO_DESKTOP_APP_INFO =
     val getFilename : 'a class -> string
     val getGenericName : 'a class -> string
     val getIsHidden : 'a class -> bool
-    val getKeywords : 'a class -> string list
+    val getKeywords : 'a class -> Utf8CArray.t
     val getNodisplay : 'a class -> bool
     val getShowIn :
       'a class
@@ -42,7 +42,7 @@ signature GIO_DESKTOP_APP_INFO =
       'a class
        -> string * 'b app_launch_context_class option
        -> unit
-    val listActions : 'a class -> string list
+    val listActions : 'a class -> Utf8CArray.t
     val filenameProp :
       {
         get : 'a class -> string option,

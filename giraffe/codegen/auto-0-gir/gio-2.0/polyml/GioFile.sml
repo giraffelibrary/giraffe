@@ -18,12 +18,6 @@ structure GioFile :>
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     local
       open PolyMLFFI
     in
@@ -204,7 +198,7 @@ structure GioFile :>
           (
             GioFileClass.PolyML.cPtr
              &&> GioCancellableClass.PolyML.cOptPtr
-             &&> GUInt8CVectorN.PolyML.cOutRef
+             &&> GUInt8CArrayN.PolyML.cOutRef
              &&> GSize.PolyML.cRef
              &&> Utf8.PolyML.cOutRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -215,7 +209,7 @@ structure GioFile :>
           (
             GioFileClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cOutRef
+             &&> GUInt8CArrayN.PolyML.cOutRef
              &&> GSize.PolyML.cRef
              &&> Utf8.PolyML.cOutRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -226,7 +220,7 @@ structure GioFile :>
           (
             GioFileClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cOutRef
+             &&> GUInt8CArrayN.PolyML.cOutRef
              &&> GSize.PolyML.cRef
              &&> Utf8.PolyML.cOutRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -442,7 +436,7 @@ structure GioFile :>
         call (getSymbol "g_file_replace_contents")
           (
             GioFileClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              &&> Utf8.PolyML.cInOptPtr
              &&> GBool.PolyML.cVal
@@ -954,11 +948,11 @@ structure GioFile :>
           (
             GioFileClass.FFI.withPtr
              &&&> GioCancellableClass.FFI.withOptPtr
-             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr
              &&&> GSize.FFI.withRefVal
              &&&> Utf8.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GUInt8CVectorN.FFI.fromPtr 1
+             ---> GUInt8CArrayN.FFI.fromPtr 1
                    && GSize.FFI.fromVal
                    && Utf8.FFI.fromPtr 1
                    && ignore
@@ -984,11 +978,11 @@ structure GioFile :>
           (
             GioFileClass.FFI.withPtr
              &&&> GioAsyncResultClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr
              &&&> GSize.FFI.withRefVal
              &&&> Utf8.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GUInt8CVectorN.FFI.fromPtr 1
+             ---> GUInt8CArrayN.FFI.fromPtr 1
                    && GSize.FFI.fromVal
                    && Utf8.FFI.fromPtr 1
                    && ignore
@@ -1014,11 +1008,11 @@ structure GioFile :>
           (
             GioFileClass.FFI.withPtr
              &&&> GioAsyncResultClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr
              &&&> GSize.FFI.withRefVal
              &&&> Utf8.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
-             ---> GUInt8CVectorN.FFI.fromPtr 1
+             ---> GUInt8CArrayN.FFI.fromPtr 1
                    && GSize.FFI.fromVal
                    && Utf8.FFI.fromPtr 1
                    && ignore
@@ -1412,11 +1406,11 @@ structure GioFile :>
         cancellable
       ) =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length contents)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length contents)
         val newEtag & () =
           (
             GioFileClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GSize.FFI.withVal
              &&&> Utf8.FFI.withOptPtr
              &&&> GBool.FFI.withVal

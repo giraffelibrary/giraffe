@@ -18,11 +18,11 @@ signature GIO_INPUT_STREAM =
     val isClosed : 'a class -> bool
     val read :
       'a class
-       -> Word8Vector.vector * 'b cancellable_class option
+       -> GUInt8CArrayN.t * 'b cancellable_class option
        -> LargeInt.int
     val readAll :
       'a class
-       -> Word8Vector.vector * 'b cancellable_class option
+       -> GUInt8CArrayN.t * 'b cancellable_class option
        -> LargeInt.int
     val readAllFinish :
       'a class

@@ -1,6 +1,7 @@
 structure VteTerminal :>
   VTE_TERMINAL
     where type 'a class = 'a VteTerminalClass.class
+    where type regex_record_c_array_n_t = VteRegexRecordCArrayN.t
     where type pty_flags_t = VtePtyFlags.t
     where type regex_t = VteRegexRecord.t
     where type write_flags_t = VteWriteFlags.t
@@ -9,36 +10,6 @@ structure VteTerminal :>
     where type erase_binding_t = VteEraseBinding.t
     where type 'a pty_class = 'a VtePtyClass.class =
   struct
-    structure GdkRgbaRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkRgbaRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkRgbaRecord.C.ValueType)
-      )
-    structure GdkRgbaRecordCVectorN = CVectorN(GdkRgbaRecordCVectorNType)
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
-    structure VteRegexRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = VteRegexRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure VteRegexRecordCVectorN = CVectorN(VteRegexRecordCVectorNType)
-    structure Utf8CVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVectorN = CVectorN(Utf8CVectorNType)
-    structure GLibRegexRecordCVectorNType =
-      CPointerCVectorNType(
-        structure CElemType = GLibRegexRecord.C.PointerType
-        structure Sequence = VectorSequence
-      )
-    structure GLibRegexRecordCVectorN = CVectorN(GLibRegexRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -51,10 +22,10 @@ structure VteTerminal :>
           (
             VteTerminalClass.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
-             &&> GLibRegexRecordCVectorN.PolyML.cInPtr
+             &&> GLibRegexRecordCArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cRef
              &&> GLibRegexMatchFlags.PolyML.cVal
-             &&> Utf8CVectorN.PolyML.cOutRef
+             &&> Utf8CArrayN.PolyML.cOutRef
              --> GBool.PolyML.cVal
           )
       val eventCheckRegexSimple_ =
@@ -62,17 +33,17 @@ structure VteTerminal :>
           (
             VteTerminalClass.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
-             &&> VteRegexRecordCVectorN.PolyML.cInPtr
+             &&> VteRegexRecordCArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cRef
              &&> GUInt32.PolyML.cVal
-             &&> Utf8CVectorN.PolyML.cOutRef
+             &&> Utf8CArrayN.PolyML.cOutRef
              --> GBool.PolyML.cVal
           )
       val feed_ =
         call (getSymbol "vte_terminal_feed")
           (
             VteTerminalClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInOptPtr
+             &&> GUInt8CArrayN.PolyML.cInOptPtr
              &&> GInt64.PolyML.cVal
              --> cVoid
           )
@@ -88,7 +59,7 @@ structure VteTerminal :>
         call (getSymbol "vte_terminal_feed_child_binary")
           (
             VteTerminalClass.PolyML.cPtr
-             &&> GUInt8CVectorN.PolyML.cInOptPtr
+             &&> GUInt8CArrayN.PolyML.cInOptPtr
              &&> GUInt64.PolyML.cVal
              --> cVoid
           )
@@ -249,7 +220,7 @@ structure VteTerminal :>
             VteTerminalClass.PolyML.cPtr
              &&> GdkRgbaRecord.PolyML.cOptPtr
              &&> GdkRgbaRecord.PolyML.cOptPtr
-             &&> GdkRgbaRecordCVectorN.PolyML.cInOptPtr
+             &&> GdkRgbaRecordCArrayN.PolyML.cInOptPtr
              &&> GUInt64.PolyML.cVal
              --> cVoid
           )
@@ -299,6 +270,7 @@ structure VteTerminal :>
           )
     end
     type 'a class = 'a VteTerminalClass.class
+    type regex_record_c_array_n_t = VteRegexRecordCArrayN.t
     type pty_flags_t = VtePtyFlags.t
     type regex_t = VteRegexRecord.t
     type write_flags_t = VteWriteFlags.t
@@ -328,12 +300,12 @@ structure VteTerminal :>
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkEvent.FFI.withPtr
-             &&&> GLibRegexRecordCVectorN.FFI.withPtr
+             &&&> GLibRegexRecordCArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GLibRegexMatchFlags.FFI.withVal
-             &&&> Utf8CVectorN.FFI.withRefOptPtr
+             &&&> Utf8CArrayN.FFI.withRefOptPtr
              ---> GUInt64.FFI.fromVal
-                   && Utf8CVectorN.FFI.fromPtr 0
+                   && Utf8CArrayN.FFI.fromPtr 0
                    && GBool.FFI.fromVal
           )
             eventCheckGregexSimple_
@@ -362,12 +334,12 @@ structure VteTerminal :>
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkEvent.FFI.withPtr
-             &&&> VteRegexRecordCVectorN.FFI.withPtr
+             &&&> VteRegexRecordCArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GUInt32.FFI.withVal
-             &&&> Utf8CVectorN.FFI.withRefOptPtr
+             &&&> Utf8CArrayN.FFI.withRefOptPtr
              ---> GUInt64.FFI.fromVal
-                   && Utf8CVectorN.FFI.fromPtr 0
+                   && Utf8CArrayN.FFI.fromPtr 0
                    && GBool.FFI.fromVal
           )
             eventCheckRegexSimple_
@@ -386,12 +358,12 @@ structure VteTerminal :>
       let
         val length =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CVectorN.length data)
+            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
           | NONE => GInt64.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withOptPtr
+             &&&> GUInt8CArrayN.FFI.withOptPtr
              &&&> GInt64.FFI.withVal
              ---> I
           )
@@ -421,12 +393,12 @@ structure VteTerminal :>
       let
         val length =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CVectorN.length data)
+            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
           | NONE => GUInt64.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withOptPtr
+             &&&> GUInt8CArrayN.FFI.withOptPtr
              &&&> GUInt64.FFI.withVal
              ---> I
           )
@@ -692,14 +664,14 @@ structure VteTerminal :>
       let
         val paletteSize =
           case palette of
-            SOME palette => LargeInt.fromInt (GdkRgbaRecordCVectorN.length palette)
+            SOME palette => LargeInt.fromInt (GdkRgbaRecordCArrayN.length palette)
           | NONE => GUInt64.null
         val () =
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkRgbaRecord.FFI.withOptPtr
              &&&> GdkRgbaRecord.FFI.withOptPtr
-             &&&> GdkRgbaRecordCVectorN.FFI.withOptPtr
+             &&&> GdkRgbaRecordCArrayN.FFI.withOptPtr
              &&&> GUInt64.FFI.withVal
              ---> I
           )

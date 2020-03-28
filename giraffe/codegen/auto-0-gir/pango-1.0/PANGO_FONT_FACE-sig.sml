@@ -7,5 +7,5 @@ signature PANGO_FONT_FACE =
     val describe : 'a class -> font_description_t
     val getFaceName : 'a class -> string
     val isSynthesized : 'a class -> bool
-    val listSizes : 'a class -> LargeInt.int vector
+    val listSizes : 'a class -> GIntCArrayN.t
   end

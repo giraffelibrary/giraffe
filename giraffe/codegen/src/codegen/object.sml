@@ -11,7 +11,7 @@ in
     (objectNamespace  : string)
     (parentObjectInfo : 'b ObjectInfoClass.class)
     (objectInfo       : 'c ObjectInfoClass.class)
-    : id * program * id list =
+    : id * program * interfaceref list * interfaceref list =
     let
       val () = checkDeprecated objectInfo
 
@@ -30,7 +30,8 @@ in
         namespace = parentObjectNamespace,
         name      = parentObjectName,
         scope     = parentObjectScope,
-        ty        = parentObjectTy
+        ty        = parentObjectTy,
+        container = NONE
       }
 
       val objectClassStrId = mkClassStrId objectNamespace objectName
@@ -89,15 +90,16 @@ in
       val qSig : qsig = (sig1, [])
       val sigDec = toList1 [(objectClassSigId, qSig)]
       val program = [ModuleDecSig sigDec]
-      val sigDeps = []
+      val sigIRefs = []
+      val extIRefs = []
     in
-      (mkSigFile objectClassSigId, Portable program, sigDeps)
+      (mkSigFile objectClassSigId, Portable program, sigIRefs, extIRefs)
     end
 
   fun makeObjectRootClassSig
     (objectNamespace : string)
     (objectInfo      : 'a ObjectInfoClass.class)
-    : id * program * id list =
+    : id * program * interfaceref list * interfaceref list =
     let
       val () = checkDeprecated objectInfo
 
@@ -107,16 +109,17 @@ in
       val objectClassSigId = toUCU objectClassStrId
 
       val program = []
-      val sigDeps = []
+      val sigIRefs = []
+      val extIRefs = []
     in
-      (mkSigFile objectClassSigId, Portable program, sigDeps)
+      (mkSigFile objectClassSigId, Portable program, sigIRefs, extIRefs)
     end
 
   fun makeObjectClassSig
     (repo            : 'a RepositoryClass.class)
     (objectNamespace : string)
     (objectInfo      : 'b ObjectInfoClass.class)
-    : id * program * id list =
+    : id * program * interfaceref list * interfaceref list =
     case ObjectInfo.getParent objectInfo of
       SOME parentObjectInfo =>
         makeObjectDerivedClassSig
@@ -157,7 +160,8 @@ in
         namespace = parentObjectNamespace,
         name      = parentObjectName,
         scope     = parentObjectScope,
-        ty        = parentObjectTy
+        ty        = parentObjectTy,
+        container = NONE
       }
 
       (* <ParentObjectNamespace><ParentObjectName>Class *)
@@ -424,7 +428,7 @@ fun makeObjectSig
   (objectNamespace : string)
   (objectInfo      : 'b ObjectInfoClass.class)
   (excls'0         : info_excl_hier list)
-  : id * program * id list * info_excl_hier list =
+  : id * program * interfaceref list * interfaceref list * info_excl_hier list =
   let
     val () = checkDeprecated objectInfo
 
@@ -435,7 +439,8 @@ fun makeObjectSig
       namespace = objectNamespace,
       name      = objectName,
       scope     = LOCALINTERFACESELF,
-      ty        = CLASS
+      ty        = CLASS,
+      container = NONE
     }
 
     val objectStrId = mkStrId objectNamespace objectName
@@ -445,19 +450,19 @@ fun makeObjectSig
 
     val acc'0
       : spec list
-         * interfaceref list
+         * (interfaceref list * interfaceref list)
          * info_excl_hier list =
-      ([], [], excls'0)
+      ([], ([], []), excls'0)
     val acc'1 = addObjectPropertySpecs repo objectIRef (objectInfo, acc'0)
     val acc'2 = addObjectSignalSpecs repo objectIRef (objectInfo, acc'1)
     val acc'3 = addObjectMethodSpecs repo vers objectIRef (objectInfo, acc'2)
     val acc'4 = addGetTypeFunctionSpec getTypeSymbol typeIRef acc'3
     val acc'5 = addObjectConstantSpecs repo vers (objectInfo, acc'4)
     val acc'6 = addObjectInterfaceConvSpecs repo objectIRef (objectInfo, acc'5)
-    val (specs'6, iRefs'6, excls'6) = acc'6
+    val (specs'6, (localIRefs'6, extIRefs'6), excls'6) = acc'6
 
-    val sigIRefs =
-      objectIRef :: iRefs'6  (* `objectIRef` for class structure dependence *)
+    val localIRefs =
+      objectIRef :: localIRefs'6  (* `objectIRef` for class structure dependence *)
 
     (*
      *     type t = base class
@@ -490,15 +495,15 @@ fun makeObjectSig
      *
      *     type <varlist[N]> <type_name[N]>_<t>
      *)
-    val specs'10 = revMapAppend makeIRefLocalTypeSpec (rev sigIRefs, specs'9)
+    val specs'10 = revMapAppend makeIRefLocalTypeSpec (rev localIRefs, specs'9)
 
     val sig1 = mkSigSpec specs'10
     val qSig : qsig = (sig1, [])
     val sigDec = toList1 [(objectSigId, qSig)]
     val program = [ModuleDecSig sigDec]
-    val sigDeps = []
+    val sigIRefs = []
   in
-    (mkSigFile objectSigId, Portable program, sigDeps, excls'6)
+    (mkSigFile objectSigId, Portable program, sigIRefs, extIRefs'6, excls'6)
   end
 
 
@@ -620,7 +625,8 @@ fun makeObjectStr
       namespace = objectNamespace,
       name      = objectName,
       scope     = LOCALINTERFACESELF,
-      ty        = CLASS
+      ty        = CLASS,
+      container = NONE
     }
 
     val objectStrId = mkStrId objectNamespace objectName

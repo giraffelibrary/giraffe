@@ -49,6 +49,9 @@ signature G_OBJECT =
     structure ValueRecord :
       G_OBJECT_VALUE_RECORD
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
+    structure TypeCArrayN :
+      C_ARRAY
+        where type elem = Type.t
     structure Value :
       G_OBJECT_VALUE
         where type t = ValueRecord.t
@@ -469,7 +472,7 @@ signature G_OBJECT =
        * ParamFlags.t
        -> base ParamSpecClass.class
     val pointerTypeRegisterStatic : string -> Type.t
-    val signalListIds : Type.t -> LargeInt.int vector
+    val signalListIds : Type.t -> GUIntCArrayN.t
     val signalLookup : string * Type.t -> LargeInt.int
     val signalOverrideClassClosure :
       LargeInt.int
@@ -491,7 +494,7 @@ signature G_OBJECT =
        -> unit
     val typeCheckIsValueType : Type.t -> bool
     val typeCheckValueHolds : ValueRecord.t * Type.t -> bool
-    val typeChildren : Type.t -> Type.t vector
+    val typeChildren : Type.t -> TypeCArrayN.t
     val typeDepth : Type.t -> LargeInt.int
     val typeEnsure : Type.t -> unit
     val typeFromName : string -> Type.t
@@ -502,7 +505,7 @@ signature G_OBJECT =
     val typeGetTypeRegistrationSerial : unit -> LargeInt.int
     val typeInit : unit -> unit
     val typeInitWithDebugFlags : TypeDebugFlags.t -> unit
-    val typeInterfaces : Type.t -> Type.t vector
+    val typeInterfaces : Type.t -> TypeCArrayN.t
     val typeIsA : Type.t * Type.t -> bool
     val typeName : Type.t -> string
     val typeNextBase : Type.t * Type.t -> Type.t

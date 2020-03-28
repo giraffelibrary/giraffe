@@ -14,6 +14,18 @@ local
   ../gobject-2.0/mlton.mlb
   ../pango-1.0/mlton.mlb
 in
+  ../glib-2.0/GInt32CArray.mlb
+  ../glib-2.0/GUInt8CArrayN.mlb
+  ../glib-2.0/GInt32CArrayN.mlb
+  ../glib-2.0/GUInt32CArray.mlb
+  ../glib-2.0/Utf8CArrayN.mlb
+  ../glib-2.0/Utf8CArray.mlb
+  ../gdk-3.0/GdkRgbaRecordCArrayN.mlb
+  ../gdk-3.0/GdkColorRecordCArrayN.mlb
+  ../gdk-3.0/GdkPointRecordCArrayN.mlb
+  ../gdk-3.0/GdkAtomRecordCArrayN.mlb
+  ../gobject-2.0/GObjectValueRecordCArrayN.mlb
+  ../gobject-2.0/GObjectTypeCArrayN.mlb
   CHILD_SIGNAL-sig.sml
   GTK_ABOUT_DIALOG_CLASS-sig.sml
   GTK_ABOUT_DIALOG-sig.sml
@@ -979,7 +991,7 @@ in
     mlton/GtkWindowPosition.sml
     mlton/GtkWindowType.sml
     mlton/GtkWrapMode.sml
-    mlton/GtkAccelGroup.sml
+    GtkAccelGroupEntryRecordCArrayN.sml
     mlton/GtkAccelGroupEntry.sml
     mlton/GtkAccelKey.sml
     mlton/GtkAccelMap.sml
@@ -1008,7 +1020,6 @@ in
     mlton/GtkCellRendererTextClass.sml
     mlton/GtkCellRendererToggleClass.sml
     mlton/GtkCellViewClass.sml
-    mlton/GtkClipboard.sml
     mlton/GtkColorChooser.sml
     mlton/GtkContainerClass.sml
     mlton/GtkCssProvider.sml
@@ -1049,7 +1060,7 @@ in
     mlton/GtkPaperSize.sml
     mlton/GtkPrintContext.sml
     mlton/GtkPrintOperationPreview.sml
-    mlton/GtkPrintSettings.sml
+    GtkPageRangeRecordCArrayN.sml
     mlton/GtkProgressBarClass.sml
     mlton/GtkRangeClass.sml
     mlton/GtkRcStyle.sml
@@ -1075,7 +1086,6 @@ in
     mlton/GtkSwitchClass.sml
     mlton/GtkSymbolicColor.sml
     mlton/GtkTargetEntry.sml
-    mlton/GtkTargetList.sml
     mlton/GtkTextAttributes.sml
     mlton/GtkTextBuffer.sml
     mlton/GtkTextChildAnchor.sml
@@ -1101,6 +1111,9 @@ in
     mlton/GtkUIManager.sml
     mlton/GtkWidgetAccessibleClass.sml
     mlton/GtkWidgetPath.sml
+    GtkStockItemRecordCArrayN.sml
+    GtkTargetEntryRecordCArrayN.sml
+    mlton/GtkAccelGroup.sml
     mlton/GtkArrowClass.sml
     mlton/GtkArrowAccessibleClass.sml
     mlton/GtkBinClass.sml
@@ -1118,6 +1131,7 @@ in
     mlton/GtkCellRendererText.sml
     mlton/GtkCellRendererToggle.sml
     mlton/GtkCellView.sml
+    mlton/GtkClipboard.sml
     mlton/GtkContainer.sml
     mlton/GtkContainerAccessibleClass.sml
     mlton/GtkContainerCellAccessibleClass.sml
@@ -1150,6 +1164,7 @@ in
     mlton/GtkMisc.sml
     mlton/GtkNotebookClass.sml
     mlton/GtkPanedClass.sml
+    mlton/GtkPrintSettings.sml
     mlton/GtkProgressBar.sml
     mlton/GtkProgressBarAccessibleClass.sml
     mlton/GtkRadioActionClass.sml
@@ -1170,6 +1185,7 @@ in
     mlton/GtkSwitch.sml
     mlton/GtkSwitchAccessibleClass.sml
     mlton/GtkTableClass.sml
+    mlton/GtkTargetList.sml
     mlton/GtkTextViewClass.sml
     mlton/GtkToggleAction.sml
     mlton/GtkToolItemGroupClass.sml

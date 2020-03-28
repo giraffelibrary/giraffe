@@ -23,13 +23,13 @@ signature GTK_ICON_THEME =
        -> unit
     val chooseIcon :
       'a class
-       -> string list
+       -> Utf8CArray.t
            * LargeInt.int
            * icon_lookup_flags_t
        -> base icon_info_class option
     val chooseIconForScale :
       'a class
-       -> string list
+       -> Utf8CArray.t
            * LargeInt.int
            * LargeInt.int
            * icon_lookup_flags_t
@@ -38,8 +38,8 @@ signature GTK_ICON_THEME =
     val getIconSizes :
       'a class
        -> string
-       -> LargeInt.int vector
-    val getSearchPath : 'a class -> string list
+       -> GInt32CArray.t
+    val getSearchPath : 'a class -> Utf8CArrayN.t
     val hasIcon :
       'a class
        -> string
@@ -106,7 +106,7 @@ signature GTK_ICON_THEME =
        -> unit
     val setSearchPath :
       'a class
-       -> string list
+       -> Utf8CArrayN.t
        -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.t
   end

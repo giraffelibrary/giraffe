@@ -5,12 +5,6 @@ structure GtkDialog :>
     where type 'a box_class = 'a GtkBoxClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
-    structure GInt32CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt32.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt32.C.ValueType)
-      )
-    structure GInt32CVectorN = CVectorN(GInt32CVectorNType)
     val getType_ = _import "gtk_dialog_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_dialog_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
     val addActionWidget_ =
@@ -65,8 +59,8 @@ structure GtkDialog :>
             _import "mlton_gtk_dialog_set_alternative_button_order_from_array" :
               GtkDialogClass.FFI.notnull GtkDialogClass.FFI.p
                * GInt32.FFI.val_
-               * GInt32CVectorN.MLton.p1
-               * GInt32CVectorN.FFI.notnull GInt32CVectorN.MLton.p2
+               * GInt32CArrayN.MLton.p1
+               * GInt32CArrayN.FFI.notnull GInt32CArrayN.MLton.p2
                -> unit;
           )
             (
@@ -137,12 +131,12 @@ structure GtkDialog :>
     fun run self = (GtkDialogClass.FFI.withPtr ---> GInt32.FFI.fromVal) run_ self
     fun setAlternativeButtonOrderFromArray self newOrder =
       let
-        val nParams = LargeInt.fromInt (GInt32CVectorN.length newOrder)
+        val nParams = LargeInt.fromInt (GInt32CArrayN.length newOrder)
         val () =
           (
             GtkDialogClass.FFI.withPtr
              &&&> GInt32.FFI.withVal
-             &&&> GInt32CVectorN.FFI.withPtr
+             &&&> GInt32CArrayN.FFI.withPtr
              ---> I
           )
             setAlternativeButtonOrderFromArray_

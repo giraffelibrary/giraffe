@@ -199,19 +199,9 @@ signature GDK =
         where type 'a class = 'a DeviceToolClass.class
         where type axis_flags_t = AxisFlags.t
         where type device_tool_type_t = DeviceToolType.t
-    structure Display :
-      GDK_DISPLAY
-        where type 'a class = 'a DisplayClass.class
-        where type 'a device_class = 'a DeviceClass.class
-        where type 'a app_launch_context_class = 'a AppLaunchContextClass.class
-        where type 'a device_manager_class = 'a DeviceManagerClass.class
-        where type modifier_type_t = ModifierType.t
-        where type 'a event_union = 'a Event.union
-        where type atom_t = AtomRecord.t
-        where type 'a window_class = 'a WindowClass.class
-        where type 'a screen_class = 'a ScreenClass.class
-        where type 'a monitor_class = 'a MonitorClass.class
-        where type 'a seat_class = 'a SeatClass.class
+    structure AtomRecordCArrayN :
+      C_ARRAY
+        where type elem = AtomRecord.t
     structure DisplayManager :
       GDK_DISPLAY_MANAGER
         where type 'a class = 'a DisplayManagerClass.class
@@ -247,13 +237,9 @@ signature GDK =
     structure Geometry :
       GDK_GEOMETRY
         where type t = GeometryRecord.t
-    structure Keymap :
-      GDK_KEYMAP
-        where type 'a class = 'a KeymapClass.class
-        where type 'a display_class = 'a DisplayClass.class
-        where type modifier_intent_t = ModifierIntent.t
-        where type keymap_key_t = KeymapKeyRecord.t
-        where type modifier_type_t = ModifierType.t
+    structure KeymapKeyRecordCArrayN :
+      C_ARRAY
+        where type elem = KeymapKeyRecord.t
     structure KeymapKey :
       GDK_KEYMAP_KEY
         where type t = KeymapKeyRecord.t
@@ -325,6 +311,31 @@ signature GDK =
     structure WindowAttr :
       GDK_WINDOW_ATTR
         where type t = WindowAttrRecord.t
+    structure VisualTypeCArrayN :
+      C_ARRAY
+        where type elem = VisualType.t
+    structure Display :
+      GDK_DISPLAY
+        where type 'a class = 'a DisplayClass.class
+        where type 'a device_class = 'a DeviceClass.class
+        where type 'a app_launch_context_class = 'a AppLaunchContextClass.class
+        where type 'a device_manager_class = 'a DeviceManagerClass.class
+        where type modifier_type_t = ModifierType.t
+        where type 'a event_union = 'a Event.union
+        where type atom_t = AtomRecord.t
+        where type atom_record_c_array_n_t = AtomRecordCArrayN.t
+        where type 'a window_class = 'a WindowClass.class
+        where type 'a screen_class = 'a ScreenClass.class
+        where type 'a monitor_class = 'a MonitorClass.class
+        where type 'a seat_class = 'a SeatClass.class
+    structure Keymap :
+      GDK_KEYMAP
+        where type 'a class = 'a KeymapClass.class
+        where type 'a display_class = 'a DisplayClass.class
+        where type keymap_key_record_c_array_n_t = KeymapKeyRecordCArrayN.t
+        where type modifier_intent_t = ModifierIntent.t
+        where type keymap_key_t = KeymapKeyRecord.t
+        where type modifier_type_t = ModifierType.t
     val BUTTON_MIDDLE : LargeInt.int
     val BUTTON_PRIMARY : LargeInt.int
     val BUTTON_SECONDARY : LargeInt.int
@@ -2699,8 +2710,8 @@ signature GDK =
     val getProgramClass : unit -> string
     val getShowEvents : unit -> bool
     val glErrorQuark : unit -> LargeInt.int
-    val init : string list -> string list
-    val initCheck : string list -> bool * string list
+    val init : Utf8CArrayN.t -> Utf8CArrayN.t
+    val initCheck : Utf8CArrayN.t -> bool * Utf8CArrayN.t
     val keyboardGrab :
       'a WindowClass.class
        * bool
@@ -2723,7 +2734,7 @@ signature GDK =
     val pangoContextGet : unit -> base Pango.ContextClass.class
     val pangoContextGetForDisplay : 'a DisplayClass.class -> base Pango.ContextClass.class
     val pangoContextGetForScreen : 'a ScreenClass.class -> base Pango.ContextClass.class
-    val parseArgs : string list -> string list
+    val parseArgs : Utf8CArrayN.t -> Utf8CArrayN.t
     val pixbufGetFromSurface :
       Cairo.SurfaceRecord.t
        * LargeInt.int
@@ -2759,10 +2770,10 @@ signature GDK =
        * LargeInt.int
        -> (AtomRecord.t
             * LargeInt.int
-            * Word8Vector.vector)
+            * GUInt8CArrayN.t)
             option
-    val queryDepths : unit -> LargeInt.int vector
-    val queryVisualTypes : unit -> VisualType.t vector
+    val queryDepths : unit -> GInt32CArrayN.t
+    val queryVisualTypes : unit -> VisualTypeCArrayN.t
     val selectionConvert :
       'a WindowClass.class
        * AtomRecord.t
@@ -2830,8 +2841,8 @@ signature GDK =
       'a DisplayClass.class
        * AtomRecord.t
        * LargeInt.int
-       * Word8Vector.vector
-       -> LargeInt.int * string list
+       * GUInt8CArrayN.t
+       -> LargeInt.int * Utf8CArray.t
     val threadsEnter : unit -> unit
     val threadsInit : unit -> unit
     val threadsLeave : unit -> unit

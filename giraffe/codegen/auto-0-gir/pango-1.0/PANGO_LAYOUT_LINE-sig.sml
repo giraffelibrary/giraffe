@@ -8,7 +8,7 @@ signature PANGO_LAYOUT_LINE =
     val getXRanges :
       t
        -> LargeInt.int * LargeInt.int
-       -> LargeInt.int vector
+       -> GIntCArrayN.t
     val indexToX :
       t
        -> LargeInt.int * bool

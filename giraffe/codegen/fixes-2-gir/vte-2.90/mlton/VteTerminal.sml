@@ -8,30 +8,6 @@ structure VteTerminal :>
     where type terminal_erase_binding_t = VteTerminalEraseBinding.t
     where type 'a pty_class = 'a VtePtyClass.class =
   struct
-    structure GdkRgbaRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkRgbaRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkRgbaRecord.C.ValueType)
-      )
-    structure GdkRgbaRecordCVectorN = CVectorN(GdkRgbaRecordCVectorNType)
-    structure GdkColorRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkColorRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkColorRecord.C.ValueType)
-      )
-    structure GdkColorRecordCVectorN = CVectorN(GdkColorRecordCVectorNType)
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8Type
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "vte_terminal_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "vte_terminal_new" : unit -> VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p;
     val copyClipboard_ = _import "vte_terminal_copy_clipboard" : VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p -> unit;
@@ -44,8 +20,8 @@ structure VteTerminal :>
           (
             _import "mlton_vte_terminal_feed" :
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GLong.FFI.val_
                -> unit;
           )
@@ -101,10 +77,10 @@ structure VteTerminal :>
              * VtePtyFlags.FFI.val_
              * Utf8.MLton.p1
              * unit Utf8.MLton.p2
-             * Utf8CVector.MLton.p1
-             * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
-             * Utf8CVector.MLton.p1
-             * unit Utf8CVector.MLton.p2
+             * Utf8CArray.MLton.p1
+             * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+             * Utf8CArray.MLton.p1
+             * unit Utf8CArray.MLton.p2
              * GLibSpawnFlags.FFI.val_
              * unit GLibSpawnChildSetupFunc.FFI.p
              * GLibSpawnChildSetupFunc.FFI.callback
@@ -333,8 +309,8 @@ structure VteTerminal :>
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
                * unit GdkColorRecord.FFI.p
                * unit GdkColorRecord.FFI.p
-               * GdkColorRecordCVectorN.MLton.p1
-               * GdkColorRecordCVectorN.FFI.notnull GdkColorRecordCVectorN.MLton.p2
+               * GdkColorRecordCArrayN.MLton.p1
+               * GdkColorRecordCArrayN.FFI.notnull GdkColorRecordCArrayN.MLton.p2
                * GLong.FFI.val_
                -> unit;
           )
@@ -358,8 +334,8 @@ structure VteTerminal :>
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
                * unit GdkRgbaRecord.FFI.p
                * unit GdkRgbaRecord.FFI.p
-               * GdkRgbaRecordCVectorN.MLton.p1
-               * GdkRgbaRecordCVectorN.FFI.notnull GdkRgbaRecordCVectorN.MLton.p2
+               * GdkRgbaRecordCArrayN.MLton.p1
+               * GdkRgbaRecordCArrayN.FFI.notnull GdkRgbaRecordCArrayN.MLton.p2
                * GSize.FFI.val_
                -> unit;
           )
@@ -501,11 +477,11 @@ structure VteTerminal :>
     fun copyPrimary self = (VteTerminalClass.FFI.withPtr ---> I) copyPrimary_ self
     fun feed self data =
       let
-        val length = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
         val () =
           (
             VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GLong.FFI.withVal
              ---> I
           )
@@ -551,8 +527,8 @@ structure VteTerminal :>
             VteTerminalClass.FFI.withPtr
              &&&> VtePtyFlags.FFI.withVal
              &&&> Utf8.FFI.withOptPtr
-             &&&> Utf8CVector.FFI.withPtr
-             &&&> Utf8CVector.FFI.withOptPtr
+             &&&> Utf8CArray.FFI.withPtr
+             &&&> Utf8CArray.FFI.withOptPtr
              &&&> GLibSpawnFlags.FFI.withVal
              &&&> GLibSpawnChildSetupFunc.FFI.withOptPtrToDispatch
              &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
@@ -758,13 +734,13 @@ structure VteTerminal :>
         palette
       ) =
       let
-        val paletteSize = LargeInt.fromInt (GdkColorRecordCVectorN.length palette)
+        val paletteSize = LargeInt.fromInt (GdkColorRecordCArrayN.length palette)
         val () =
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkColorRecord.FFI.withOptPtr
              &&&> GdkColorRecord.FFI.withOptPtr
-             &&&> GdkColorRecordCVectorN.FFI.withPtr
+             &&&> GdkColorRecordCArrayN.FFI.withPtr
              &&&> GLong.FFI.withVal
              ---> I
           )
@@ -787,13 +763,13 @@ structure VteTerminal :>
         palette
       ) =
       let
-        val paletteSize = LargeInt.fromInt (GdkRgbaRecordCVectorN.length palette)
+        val paletteSize = LargeInt.fromInt (GdkRgbaRecordCArrayN.length palette)
         val () =
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkRgbaRecord.FFI.withOptPtr
              &&&> GdkRgbaRecord.FFI.withOptPtr
-             &&&> GdkRgbaRecordCVectorN.FFI.withPtr
+             &&&> GdkRgbaRecordCArrayN.FFI.withPtr
              &&&> GSize.FFI.withVal
              ---> I
           )

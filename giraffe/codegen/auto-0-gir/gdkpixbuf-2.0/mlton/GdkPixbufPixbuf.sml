@@ -7,18 +7,6 @@ structure GdkPixbufPixbuf :>
     where type interp_type_t = GdkPixbufInterpType.t
     where type colorspace_t = GdkPixbufColorspace.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "gdk_pixbuf_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
@@ -143,8 +131,8 @@ structure GdkPixbufPixbuf :>
           (
             _import "mlton_gdk_pixbuf_new_from_inline" :
               GInt.FFI.val_
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GBool.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
@@ -240,7 +228,7 @@ structure GdkPixbufPixbuf :>
               x6
             )
     val newFromStreamFinish_ = fn x1 & x2 => (_import "gdk_pixbuf_new_from_stream_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;) (x1, x2)
-    val newFromXpmData_ = _import "mlton_gdk_pixbuf_new_from_xpm_data" : Utf8CVector.MLton.p1 * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2 -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+    val newFromXpmData_ = _import "mlton_gdk_pixbuf_new_from_xpm_data" : Utf8CArray.MLton.p1 * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2 -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
     val calculateRowstride_ =
       fn
         x1
@@ -537,7 +525,7 @@ structure GdkPixbufPixbuf :>
               x2,
               x3
             )
-    val getPixels_ = fn x1 & x2 => (_import "gdk_pixbuf_get_pixels_with_length" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p * GUInt.FFI.ref_ -> GUInt8CVectorN.FFI.notnull GUInt8CVectorN.FFI.out_p;) (x1, x2)
+    val getPixels_ = fn x1 & x2 => (_import "gdk_pixbuf_get_pixels_with_length" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p * GUInt.FFI.ref_ -> GUInt8CArrayN.FFI.notnull GUInt8CArrayN.FFI.out_p;) (x1, x2)
     val getRowstride_ = _import "gdk_pixbuf_get_rowstride" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GInt.FFI.val_;
     val getWidth_ = _import "gdk_pixbuf_get_width" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GInt.FFI.val_;
     val newSubpixbuf_ =
@@ -612,15 +600,15 @@ structure GdkPixbufPixbuf :>
           (
             _import "mlton_gdk_pixbuf_save_to_bufferv" :
               GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p
-               * GUInt8CVectorN.MLton.r1
-               * (unit, GUInt8CVectorN.FFI.notnull) GUInt8CVectorN.MLton.r2
+               * GUInt8CArrayN.MLton.r1
+               * (unit, GUInt8CArrayN.FFI.notnull) GUInt8CArrayN.MLton.r2
                * GSize.FFI.ref_
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
@@ -652,10 +640,10 @@ structure GdkPixbufPixbuf :>
                * GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
@@ -687,10 +675,10 @@ structure GdkPixbufPixbuf :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
@@ -898,11 +886,11 @@ structure GdkPixbufPixbuf :>
         )
     fun newFromInline (data, copyPixels) =
       let
-        val dataLength = LargeInt.fromInt (GUInt8CVectorN.length data)
+        val dataLength = LargeInt.fromInt (GUInt8CArrayN.length data)
         val retVal =
           (
             GInt.FFI.withVal
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GBool.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> GdkPixbufPixbufClass.FFI.fromPtr true
@@ -981,7 +969,7 @@ structure GdkPixbufPixbuf :>
            & []
         )
     fun newFromStreamFinish asyncResult = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromStreamFinish_ (asyncResult & [])
-    fun newFromXpmData data = (Utf8CVector.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromXpmData_ data
+    fun newFromXpmData data = (Utf8CArray.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromXpmData_ data
     fun calculateRowstride
       (
         colorspace,
@@ -1283,7 +1271,7 @@ structure GdkPixbufPixbuf :>
     fun getOption self key = (GdkPixbufPixbufClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getOption_ (self & key)
     fun getPixels self =
       let
-        val length & retVal = (GdkPixbufPixbufClass.FFI.withPtr &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUInt8CVectorN.FFI.fromPtr 0) getPixels_ (self & GUInt.null)
+        val length & retVal = (GdkPixbufPixbufClass.FFI.withPtr &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 0) getPixels_ (self & GUInt.null)
       in
         retVal (LargeInt.toInt length)
       end
@@ -1350,13 +1338,13 @@ structure GdkPixbufPixbuf :>
          & () =
           (
             GdkPixbufPixbufClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withRefOptPtr
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr
              &&&> GSize.FFI.withRefVal
              &&&> Utf8.FFI.withPtr
-             &&&> Utf8CVector.FFI.withPtr
-             &&&> Utf8CVector.FFI.withPtr
+             &&&> Utf8CArray.FFI.withPtr
+             &&&> Utf8CArray.FFI.withPtr
              &&&> GLibErrorRecord.handleError
-             ---> GUInt8CVectorN.FFI.fromPtr 1
+             ---> GUInt8CArrayN.FFI.fromPtr 1
                    && GSize.FFI.fromVal
                    && ignore
           )
@@ -1386,8 +1374,8 @@ structure GdkPixbufPixbuf :>
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> GioOutputStreamClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> ignore
@@ -1414,8 +1402,8 @@ structure GdkPixbufPixbuf :>
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

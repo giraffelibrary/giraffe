@@ -1,3 +1,5 @@
+useExt "../glib-2.0/GUInt8CArrayN.sml";
+useExt "../gdk-3.0/GdkRgbaRecordCArrayN.sml";
 use "VTE_CURSOR_BLINK_MODE-sig.sml";
 use "VTE_CURSOR_SHAPE-sig.sml";
 use "VTE_ERASE_BINDING-sig.sml";

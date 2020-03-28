@@ -12,7 +12,7 @@ fun makeSignalSpec
   repo
   (containerIRef as {namespace = containerNamespace, name = containerName, ...})
   (signalInfo, (iRefs, excls))
-  : spec * (interfaceref list * info_excl_hier list) =
+  : spec * ((interfaceref list * interfaceref list) * info_excl_hier list) =
   let
     val () = checkDeprecated signalInfo
 
@@ -177,11 +177,13 @@ local
       else mkIdLNameExp "string"
     )
 
-  fun mkFunArray (funExp, arrayStrId) ({isOpt, ...} : array_info) =
-    ExpApp (
-      funExp,
-      mkLIdLNameExp [arrayStrId, if isOpt then tOptId else tId]
-    )
+  fun mkFunArray funExp ({iRef, isOpt, ...} : array_info) =
+    let
+      val accId = if isOpt then tOptId else tId
+      val accExp = mkLIdLNameExp (prefixInterfaceStrId iRef [accId])
+    in
+      ExpApp (funExp, accExp)
+    end
 
   fun mkFunInterface funExp ({iRef, isOpt, ...} : interface_info) =
     let
@@ -201,7 +203,7 @@ local
 
   fun getFunUtf8 n = mkFunUtf8 (indexAppExp getExp n)
 
-  fun getFunArray (n, arrayStrId) = mkFunArray (indexAppExp getExp n, arrayStrId)
+  fun getFunArray n = mkFunArray (indexAppExp getExp n)
 
   fun getFunInterface n = mkFunInterface (indexAppExp getExp n)
 
@@ -212,7 +214,7 @@ local
 
   fun setFunUtf8 n = mkFunUtf8 (indexAppExp setExp n)
 
-  fun setFunArray (n, arrayStrId) = mkFunArray (indexAppExp setExp n, arrayStrId)
+  fun setFunArray n = mkFunArray (indexAppExp setExp n)
 
   fun setFunInterface n = mkFunInterface (indexAppExp setExp n)
 
@@ -225,7 +227,7 @@ local
 
   val retFunUtf8 = mkFunUtf8 retExp
 
-  fun retFunArray arrayStrId = mkFunArray (retExp, arrayStrId)
+  val retFunArray = mkFunArray retExp
 
   val retFunInterface = mkFunInterface retExp
 in
@@ -262,15 +264,13 @@ in
                 end
             | IARRAY arrayParInfo         =>
                 let
-                  val {length, elem, ...} = arrayParInfo
-                  val (arrayStrId, structDeps'1) =
-                    cArrayStrIdStructDeps length elem structDeps
+                  val {length, ...} = arrayParInfo
                   fun inParamExp () = mkArrayLenExp length (mkIdLNameExp name)
 
-                  fun getFun n = getFunArray (n, arrayStrId) arrayParInfo
-                  fun setFun n = setFunArray (n, arrayStrId) arrayParInfo
+                  fun getFun n = getFunArray n arrayParInfo
+                  fun setFun n = setFunArray n arrayParInfo
                 in
-                  (inParamExp, getFun, setFun, structDeps'1)
+                  (inParamExp, getFun, setFun, structDeps)
                 end
             | IINTERFACE interfaceParInfo =>
                 let
@@ -312,14 +312,7 @@ in
               IGTYPE gtypeRetInfo      => (retFunGType gtypeRetInfo, structDeps)
             | ISCALAR scalarRetInfo    => (retFunScalar scalarRetInfo, structDeps)
             | IUTF8 utf8RetInfo        => (retFunUtf8 utf8RetInfo, structDeps)
-            | IARRAY arrayRetInfo      =>
-                let
-                  val {length, elem, ...} = arrayRetInfo
-                  val (arrayStrId, structDeps'1) =
-                    cArrayStrIdStructDeps length elem structDeps
-                in
-                  (retFunArray arrayStrId arrayRetInfo, structDeps'1)
-                end
+            | IARRAY arrayRetInfo      => (retFunArray arrayRetInfo, structDeps)
             | IINTERFACE interfaceInfo => (retFunInterface interfaceInfo, structDeps)
 
           val iRefs' = addIRef (info, iRefs)

@@ -11,7 +11,7 @@ signature GIO_UNIX_F_D_MESSAGE =
        -> LargeInt.int
        -> unit
     val getFdList : 'a class -> base unix_f_d_list_class
-    val stealFds : 'a class -> LargeInt.int vector
+    val stealFds : 'a class -> GIntCArrayN.t
     val fdListProp :
       {
         get : 'a class -> base unix_f_d_list_class option,

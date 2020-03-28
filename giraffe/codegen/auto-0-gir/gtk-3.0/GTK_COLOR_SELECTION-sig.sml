@@ -9,8 +9,8 @@ signature GTK_COLOR_SELECTION =
     val asOrientable : 'a class -> base orientable_class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val paletteFromString : string -> Gdk.ColorRecord.t vector option
-    val paletteToString : Gdk.ColorRecord.t vector -> string
+    val paletteFromString : string -> GdkColorRecordCArrayN.t option
+    val paletteToString : GdkColorRecordCArrayN.t -> string
     val getCurrentAlpha : 'a class -> LargeInt.int
     val getCurrentColor : 'a class -> Gdk.ColorRecord.t
     val getCurrentRgba : 'a class -> Gdk.RgbaRecord.t

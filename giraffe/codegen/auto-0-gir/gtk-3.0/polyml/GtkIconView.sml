@@ -4,7 +4,7 @@ structure GtkIconView :>
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     where type 'a scrollable_class = 'a GtkScrollableClass.class
-    where type target_entry_t = GtkTargetEntryRecord.t
+    where type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t
     where type tree_iter_t = GtkTreeIterRecord.t
     where type icon_view_drop_position_t = GtkIconViewDropPosition.t
     where type 'a cell_renderer_class = 'a GtkCellRendererClass.class
@@ -16,12 +16,6 @@ structure GtkIconView :>
     where type 'a tree_model_class = 'a GtkTreeModelClass.class
     where type selection_mode_t = GtkSelectionMode.t =
   struct
-    structure GtkTargetEntryRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GtkTargetEntryRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
-      )
-    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -44,7 +38,7 @@ structure GtkIconView :>
         call (getSymbol "gtk_icon_view_enable_model_drag_dest")
           (
             GtkIconViewClass.PolyML.cPtr
-             &&> GtkTargetEntryRecordCVectorN.PolyML.cInPtr
+             &&> GtkTargetEntryRecordCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GdkDragAction.PolyML.cVal
              --> cVoid
@@ -54,7 +48,7 @@ structure GtkIconView :>
           (
             GtkIconViewClass.PolyML.cPtr
              &&> GdkModifierType.PolyML.cVal
-             &&> GtkTargetEntryRecordCVectorN.PolyML.cInPtr
+             &&> GtkTargetEntryRecordCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GdkDragAction.PolyML.cVal
              --> cVoid
@@ -223,7 +217,7 @@ structure GtkIconView :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     type 'a scrollable_class = 'a GtkScrollableClass.class
-    type target_entry_t = GtkTargetEntryRecord.t
+    type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t
     type tree_iter_t = GtkTreeIterRecord.t
     type icon_view_drop_position_t = GtkIconViewDropPosition.t
     type 'a cell_renderer_class = 'a GtkCellRendererClass.class
@@ -272,11 +266,11 @@ structure GtkIconView :>
     fun createDragIcon self path = (GtkIconViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr true) createDragIcon_ (self & path)
     fun enableModelDragDest self (targets, actions) =
       let
-        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkIconViewClass.FFI.withPtr
-             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I
@@ -299,12 +293,12 @@ structure GtkIconView :>
         actions
       ) =
       let
-        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkIconViewClass.FFI.withPtr
              &&&> GdkModifierType.FFI.withVal
-             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I

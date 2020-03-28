@@ -6,12 +6,6 @@ structure GtkIconInfo :>
     where type state_type_t = GtkStateType.t
     where type 'a style_class = 'a GtkStyleClass.class =
   struct
-    structure GdkPointRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GdkPointRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GdkPointRecord.C.ValueType)
-      )
-    structure GdkPointRecordCVectorN = CVectorN(GdkPointRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -21,7 +15,7 @@ structure GtkIconInfo :>
         call (getSymbol "gtk_icon_info_get_attach_points")
           (
             GtkIconInfoClass.PolyML.cPtr
-             &&> GdkPointRecordCVectorN.PolyML.cOutRef
+             &&> GdkPointRecordCArrayN.PolyML.cOutRef
              &&> GInt.PolyML.cRef
              --> GBool.PolyML.cVal
           )
@@ -115,9 +109,9 @@ structure GtkIconInfo :>
          & retVal =
           (
             GtkIconInfoClass.FFI.withPtr
-             &&&> GdkPointRecordCVectorN.FFI.withRefOptPtr
+             &&&> GdkPointRecordCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GdkPointRecordCVectorN.FFI.fromPtr 1
+             ---> GdkPointRecordCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
           )

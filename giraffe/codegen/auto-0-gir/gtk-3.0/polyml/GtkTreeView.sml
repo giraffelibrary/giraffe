@@ -3,7 +3,7 @@ structure GtkTreeView :>
     where type 'a class = 'a GtkTreeViewClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
     where type 'a scrollable_class = 'a GtkScrollableClass.class
-    where type target_entry_t = GtkTargetEntryRecord.t
+    where type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t
     where type 'a tree_selection_class = 'a GtkTreeSelectionClass.class
     where type tree_view_drop_position_t = GtkTreeViewDropPosition.t
     where type 'a entry_class = 'a GtkEntryClass.class
@@ -17,12 +17,6 @@ structure GtkTreeView :>
     where type 'a tree_view_column_class = 'a GtkTreeViewColumnClass.class
     where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
-    structure GtkTargetEntryRecordCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GtkTargetEntryRecord.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GtkTargetEntryRecord.C.ValueType)
-      )
-    structure GtkTargetEntryRecordCVectorN = CVectorN(GtkTargetEntryRecordCVectorNType)
     local
       open PolyMLFFI
     in
@@ -98,7 +92,7 @@ structure GtkTreeView :>
         call (getSymbol "gtk_tree_view_enable_model_drag_dest")
           (
             GtkTreeViewClass.PolyML.cPtr
-             &&> GtkTargetEntryRecordCVectorN.PolyML.cInPtr
+             &&> GtkTargetEntryRecordCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GdkDragAction.PolyML.cVal
              --> cVoid
@@ -108,7 +102,7 @@ structure GtkTreeView :>
           (
             GtkTreeViewClass.PolyML.cPtr
              &&> GdkModifierType.PolyML.cVal
-             &&> GtkTargetEntryRecordCVectorN.PolyML.cInPtr
+             &&> GtkTargetEntryRecordCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GdkDragAction.PolyML.cVal
              --> cVoid
@@ -355,7 +349,7 @@ structure GtkTreeView :>
     type 'a class = 'a GtkTreeViewClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a scrollable_class = 'a GtkScrollableClass.class
-    type target_entry_t = GtkTargetEntryRecord.t
+    type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t
     type 'a tree_selection_class = 'a GtkTreeSelectionClass.class
     type tree_view_drop_position_t = GtkTreeViewDropPosition.t
     type 'a entry_class = 'a GtkEntryClass.class
@@ -538,11 +532,11 @@ structure GtkTreeView :>
     fun createRowDragIcon self path = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr true) createRowDragIcon_ (self & path)
     fun enableModelDragDest self (targets, actions) =
       let
-        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkTreeViewClass.FFI.withPtr
-             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I
@@ -565,12 +559,12 @@ structure GtkTreeView :>
         actions
       ) =
       let
-        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCVectorN.length targets)
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkTreeViewClass.FFI.withPtr
              &&&> GdkModifierType.FFI.withVal
-             &&&> GtkTargetEntryRecordCVectorN.FFI.withPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I

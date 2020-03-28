@@ -4,12 +4,6 @@ structure GioSubprocessLauncher :>
     where type 'a subprocess_class = 'a GioSubprocessClass.class
     where type subprocess_flags_t = GioSubprocessFlags.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     local
       open PolyMLFFI
     in
@@ -17,7 +11,7 @@ structure GioSubprocessLauncher :>
       val new_ = call (getSymbol "g_subprocess_launcher_new") (GioSubprocessFlags.PolyML.cVal --> GioSubprocessLauncherClass.PolyML.cPtr)
       val getenv_ = call (getSymbol "g_subprocess_launcher_getenv") (GioSubprocessLauncherClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val setCwd_ = call (getSymbol "g_subprocess_launcher_set_cwd") (GioSubprocessLauncherClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
-      val setEnviron_ = call (getSymbol "g_subprocess_launcher_set_environ") (GioSubprocessLauncherClass.PolyML.cPtr &&> Utf8CVector.PolyML.cInPtr --> cVoid)
+      val setEnviron_ = call (getSymbol "g_subprocess_launcher_set_environ") (GioSubprocessLauncherClass.PolyML.cPtr &&> Utf8CArray.PolyML.cInPtr --> cVoid)
       val setFlags_ = call (getSymbol "g_subprocess_launcher_set_flags") (GioSubprocessLauncherClass.PolyML.cPtr &&> GioSubprocessFlags.PolyML.cVal --> cVoid)
       val setStderrFilePath_ = call (getSymbol "g_subprocess_launcher_set_stderr_file_path") (GioSubprocessLauncherClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
       val setStdinFilePath_ = call (getSymbol "g_subprocess_launcher_set_stdin_file_path") (GioSubprocessLauncherClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
@@ -35,7 +29,7 @@ structure GioSubprocessLauncher :>
         call (getSymbol "g_subprocess_launcher_spawnv")
           (
             GioSubprocessLauncherClass.PolyML.cPtr
-             &&> Utf8CVector.PolyML.cInPtr
+             &&> Utf8CArray.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioSubprocessClass.PolyML.cPtr
           )
@@ -60,7 +54,7 @@ structure GioSubprocessLauncher :>
     fun new flags = (GioSubprocessFlags.FFI.withVal ---> GioSubprocessLauncherClass.FFI.fromPtr true) new_ flags
     fun getenv self variable = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getenv_ (self & variable)
     fun setCwd self cwd = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setCwd_ (self & cwd)
-    fun setEnviron self env = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> I) setEnviron_ (self & env)
+    fun setEnviron self env = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8CArray.FFI.withPtr ---> I) setEnviron_ (self & env)
     fun setFlags self flags = (GioSubprocessLauncherClass.FFI.withPtr &&&> GioSubprocessFlags.FFI.withVal ---> I) setFlags_ (self & flags)
     fun setStderrFilePath self path = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setStderrFilePath_ (self & path)
     fun setStdinFilePath self path = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setStdinFilePath_ (self & path)
@@ -89,7 +83,7 @@ structure GioSubprocessLauncher :>
     fun spawnv self argv =
       (
         GioSubprocessLauncherClass.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSubprocessClass.FFI.fromPtr true
       )

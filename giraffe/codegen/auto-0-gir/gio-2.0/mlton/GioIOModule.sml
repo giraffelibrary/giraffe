@@ -2,15 +2,9 @@ structure GioIOModule :>
   GIO_I_O_MODULE
     where type 'a class = 'a GioIOModuleClass.class =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_io_module_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "mlton_g_io_module_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioIOModuleClass.FFI.notnull GioIOModuleClass.FFI.p;
-    val query_ = _import "g_io_module_query" : unit -> Utf8CVector.FFI.notnull Utf8CVector.FFI.out_p;
+    val query_ = _import "g_io_module_query" : unit -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
     val load_ = _import "g_io_module_load" : GioIOModuleClass.FFI.notnull GioIOModuleClass.FFI.p -> unit;
     val unload_ = _import "g_io_module_unload" : GioIOModuleClass.FFI.notnull GioIOModuleClass.FFI.p -> unit;
     type 'a class = 'a GioIOModuleClass.class
@@ -18,7 +12,7 @@ structure GioIOModule :>
     fun asTypePlugin self = (GObjectObjectClass.FFI.withPtr ---> GObjectTypePluginClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new filename = (Utf8.FFI.withPtr ---> GioIOModuleClass.FFI.fromPtr true) new_ filename
-    fun query () = (I ---> Utf8CVector.FFI.fromPtr 2) query_ ()
+    fun query () = (I ---> Utf8CArray.FFI.fromPtr 2) query_ ()
     fun load self = (GioIOModuleClass.FFI.withPtr ---> I) load_ self
     fun unload self = (GioIOModuleClass.FFI.withPtr ---> I) unload_ self
   end

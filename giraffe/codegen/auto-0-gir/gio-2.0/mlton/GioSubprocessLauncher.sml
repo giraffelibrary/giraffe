@@ -4,12 +4,6 @@ structure GioSubprocessLauncher :>
     where type 'a subprocess_class = 'a GioSubprocessClass.class
     where type subprocess_flags_t = GioSubprocessFlags.t =
   struct
-    structure Utf8CVectorType =
-      CPointerCVectorType(
-        structure CElemType = Utf8.C.ArrayType
-        structure Sequence = ListSequence
-      )
-    structure Utf8CVector = CVector(Utf8CVectorType)
     val getType_ = _import "g_subprocess_launcher_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_subprocess_launcher_new" : GioSubprocessFlags.FFI.val_ -> GioSubprocessLauncherClass.FFI.notnull GioSubprocessLauncherClass.FFI.p;
     val getenv_ =
@@ -48,8 +42,8 @@ structure GioSubprocessLauncher :>
           (
             _import "mlton_g_subprocess_launcher_set_environ" :
               GioSubprocessLauncherClass.FFI.notnull GioSubprocessLauncherClass.FFI.p
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                -> unit;
           )
             (
@@ -135,8 +129,8 @@ structure GioSubprocessLauncher :>
           (
             _import "mlton_g_subprocess_launcher_spawnv" :
               GioSubprocessLauncherClass.FFI.notnull GioSubprocessLauncherClass.FFI.p
-               * Utf8CVector.MLton.p1
-               * Utf8CVector.FFI.notnull Utf8CVector.MLton.p2
+               * Utf8CArray.MLton.p1
+               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p;
           )
@@ -189,7 +183,7 @@ structure GioSubprocessLauncher :>
     fun new flags = (GioSubprocessFlags.FFI.withVal ---> GioSubprocessLauncherClass.FFI.fromPtr true) new_ flags
     fun getenv self variable = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getenv_ (self & variable)
     fun setCwd self cwd = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setCwd_ (self & cwd)
-    fun setEnviron self env = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8CVector.FFI.withPtr ---> I) setEnviron_ (self & env)
+    fun setEnviron self env = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8CArray.FFI.withPtr ---> I) setEnviron_ (self & env)
     fun setFlags self flags = (GioSubprocessLauncherClass.FFI.withPtr &&&> GioSubprocessFlags.FFI.withVal ---> I) setFlags_ (self & flags)
     fun setStderrFilePath self path = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setStderrFilePath_ (self & path)
     fun setStdinFilePath self path = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setStdinFilePath_ (self & path)
@@ -218,7 +212,7 @@ structure GioSubprocessLauncher :>
     fun spawnv self argv =
       (
         GioSubprocessLauncherClass.FFI.withPtr
-         &&&> Utf8CVector.FFI.withPtr
+         &&&> Utf8CArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GioSubprocessClass.FFI.fromPtr true
       )

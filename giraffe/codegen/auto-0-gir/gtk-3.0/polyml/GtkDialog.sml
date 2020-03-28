@@ -5,12 +5,6 @@ structure GtkDialog :>
     where type 'a box_class = 'a GtkBoxClass.class
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
-    structure GIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
-      )
-    structure GIntCVectorN = CVectorN(GIntCVectorNType)
     local
       open PolyMLFFI
     in
@@ -44,7 +38,7 @@ structure GtkDialog :>
           (
             GtkDialogClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
-             &&> GIntCVectorN.PolyML.cInPtr
+             &&> GIntCArrayN.PolyML.cInPtr
              --> cVoid
           )
       val setDefaultResponse_ = call (getSymbol "gtk_dialog_set_default_response") (GtkDialogClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
@@ -101,12 +95,12 @@ structure GtkDialog :>
     fun run self = (GtkDialogClass.FFI.withPtr ---> GInt.FFI.fromVal) run_ self
     fun setAlternativeButtonOrderFromArray self newOrder =
       let
-        val nParams = LargeInt.fromInt (GIntCVectorN.length newOrder)
+        val nParams = LargeInt.fromInt (GIntCArrayN.length newOrder)
         val () =
           (
             GtkDialogClass.FFI.withPtr
              &&&> GInt.FFI.withVal
-             &&&> GIntCVectorN.FFI.withPtr
+             &&&> GIntCArrayN.FFI.withPtr
              ---> I
           )
             setAlternativeButtonOrderFromArray_

@@ -12,12 +12,6 @@ structure GioSocket :>
     where type 'a socket_address_class = 'a GioSocketAddressClass.class
     where type socket_type_t = GioSocketType.t =
   struct
-    structure GUInt8CVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GUInt8.C.ValueType
-        structure ElemSequence = MonoVectorSequence(Word8Vector)
-      )
-    structure GUInt8CVectorN = CVectorN(GUInt8CVectorNType)
     val getType_ = _import "g_socket_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       fn
@@ -246,8 +240,8 @@ structure GioSocket :>
           (
             _import "mlton_g_socket_receive" :
               GioSocketClass.FFI.notnull GioSocketClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
@@ -273,8 +267,8 @@ structure GioSocket :>
             _import "mlton_g_socket_receive_from" :
               GioSocketClass.FFI.notnull GioSocketClass.FFI.p
                * (unit, GioSocketAddressClass.FFI.notnull) GioSocketAddressClass.FFI.r
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
@@ -300,8 +294,8 @@ structure GioSocket :>
           (
             _import "mlton_g_socket_receive_with_blocking" :
               GioSocketClass.FFI.notnull GioSocketClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GBool.FFI.val_
                * unit GioCancellableClass.FFI.p
@@ -327,8 +321,8 @@ structure GioSocket :>
           (
             _import "mlton_g_socket_send" :
               GioSocketClass.FFI.notnull GioSocketClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
@@ -354,8 +348,8 @@ structure GioSocket :>
             _import "mlton_g_socket_send_to" :
               GioSocketClass.FFI.notnull GioSocketClass.FFI.p
                * unit GioSocketAddressClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
@@ -381,8 +375,8 @@ structure GioSocket :>
           (
             _import "mlton_g_socket_send_with_blocking" :
               GioSocketClass.FFI.notnull GioSocketClass.FFI.p
-               * GUInt8CVectorN.MLton.p1
-               * GUInt8CVectorN.FFI.notnull GUInt8CVectorN.MLton.p2
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GBool.FFI.val_
                * unit GioCancellableClass.FFI.p
@@ -660,11 +654,11 @@ structure GioSocket :>
     fun listen self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) listen_ (self & [])
     fun receive self (buffer, cancellable) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
@@ -683,12 +677,12 @@ structure GioSocket :>
       end
     fun receiveFrom self (buffer, cancellable) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val address & retVal =
           (
             GioSocketClass.FFI.withPtr
              &&&> GioSocketAddressClass.FFI.withRefOptPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
@@ -714,11 +708,11 @@ structure GioSocket :>
         cancellable
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
@@ -739,11 +733,11 @@ structure GioSocket :>
       end
     fun send self (buffer, cancellable) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
@@ -768,12 +762,12 @@ structure GioSocket :>
         cancellable
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
              &&&> GioSocketAddressClass.FFI.withOptPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr
              &&&> GLibErrorRecord.handleError
@@ -799,11 +793,11 @@ structure GioSocket :>
         cancellable
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CVectorN.length buffer)
+        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
             GioSocketClass.FFI.withPtr
-             &&&> GUInt8CVectorN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr

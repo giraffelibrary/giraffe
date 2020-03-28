@@ -3,12 +3,6 @@ structure PangoFontFace :>
     where type 'a class = 'a PangoFontFaceClass.class
     where type font_description_t = PangoFontDescriptionRecord.t =
   struct
-    structure GIntCVectorNType =
-      CValueCVectorNType(
-        structure CElemType = GInt.C.ValueType
-        structure ElemSequence = CValueVectorSequence(GInt.C.ValueType)
-      )
-    structure GIntCVectorN = CVectorN(GIntCVectorNType)
     local
       open PolyMLFFI
     in
@@ -20,7 +14,7 @@ structure PangoFontFace :>
         call (getSymbol "pango_font_face_list_sizes")
           (
             PangoFontFaceClass.PolyML.cPtr
-             &&> GIntCVectorN.PolyML.cOutRef
+             &&> GIntCArrayN.PolyML.cOutRef
              &&> GInt.PolyML.cRef
              --> cVoid
           )
@@ -39,9 +33,9 @@ structure PangoFontFace :>
          & () =
           (
             PangoFontFaceClass.FFI.withPtr
-             &&&> GIntCVectorN.FFI.withRefOptPtr
+             &&&> GIntCArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GIntCVectorN.FFI.fromPtr 1
+             ---> GIntCArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )
