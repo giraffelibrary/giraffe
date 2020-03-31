@@ -13,7 +13,7 @@ signature G_LIB_I_O_CHANNEL =
     val close : t -> unit
     val flush : t -> i_o_status_t
     val getBufferCondition : t -> i_o_condition_t
-    val getBufferSize : t -> LargeInt.int
+    val getBufferSize : t -> int
     val getBuffered : t -> bool
     val getCloseOnUnref : t -> bool
     val getEncoding : t -> string
@@ -23,8 +23,8 @@ signature G_LIB_I_O_CHANNEL =
       t
        -> i_o_status_t
            * string
-           * LargeInt.int
-           * LargeInt.int
+           * int
+           * int
     val readToEnd : t -> i_o_status_t * GUInt8CArrayN.t
     val readUnichar : t -> i_o_status_t * char
     val seek :
@@ -37,7 +37,7 @@ signature G_LIB_I_O_CHANNEL =
        -> i_o_status_t
     val setBufferSize :
       t
-       -> LargeInt.int
+       -> int
        -> unit
     val setBuffered :
       t

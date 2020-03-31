@@ -321,7 +321,7 @@ structure GLibIOChannel :>
                & []
             )
       in
-        (retVal, strReturn (LargeInt.toInt length))
+        (retVal, strReturn length)
       end
     fun readUnichar self =
       let

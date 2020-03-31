@@ -19,18 +19,18 @@ signature GIO_INPUT_STREAM =
     val read :
       'a class
        -> GUInt8CArrayN.t * 'b cancellable_class option
-       -> LargeInt.int
+       -> int
     val readAll :
       'a class
        -> GUInt8CArrayN.t * 'b cancellable_class option
-       -> LargeInt.int
+       -> int
     val readAllFinish :
       'a class
        -> 'b async_result_class
-       -> LargeInt.int
+       -> int
     val readBytes :
       'a class
-       -> LargeInt.int * 'b cancellable_class option
+       -> int * 'b cancellable_class option
        -> GLib.BytesRecord.t
     val readBytesFinish :
       'a class
@@ -39,14 +39,14 @@ signature GIO_INPUT_STREAM =
     val readFinish :
       'a class
        -> 'b async_result_class
-       -> LargeInt.int
+       -> int
     val setPending : 'a class -> unit
     val skip :
       'a class
-       -> LargeInt.int * 'b cancellable_class option
-       -> LargeInt.int
+       -> int * 'b cancellable_class option
+       -> int
     val skipFinish :
       'a class
        -> 'b async_result_class
-       -> LargeInt.int
+       -> int
   end

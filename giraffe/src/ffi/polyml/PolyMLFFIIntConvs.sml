@@ -1,4 +1,4 @@
-(* Copyright (C) 2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -7,6 +7,23 @@
 
 structure PolyMLFFIIntConvs =
   struct
+    val cBool = Foreign.cInt
+
+    val cInt8 = Foreign.cInt8
+    val cUint8 = Foreign.cUint8
+    val cInt16 = Foreign.cInt16
+    val cUint16 = Foreign.cUint16
+    val cInt32 = Foreign.cInt32
+    val cUint32 = Foreign.cUint32
+    val cInt64 = Foreign.cInt64
+    val cUint64 = Foreign.cUint64
+    val cShort = Foreign.cShort
+    val cUshort = Foreign.cUshort
+    val cInt = Foreign.cInt
+    val cUint = Foreign.cUint
+    val cLong = Foreign.cLong
+    val cUlong = Foreign.cUlong
+
     fun makeLargeIntConv conv =
       let
         val {load, store, ctype} = Foreign.breakConversion conv
@@ -18,19 +35,18 @@ structure PolyMLFFIIntConvs =
         }
       end
 
-    val cBool = Foreign.cInt
-    val cInt8 = makeLargeIntConv Foreign.cInt8
-    val cUint8 = makeLargeIntConv Foreign.cUint8
-    val cInt16 = makeLargeIntConv Foreign.cInt16
-    val cUint16 = makeLargeIntConv Foreign.cUint16
-    val cInt32 = Foreign.cInt32Large
-    val cUint32 = Foreign.cUint32Large
-    val cInt64 = Foreign.cInt64Large
-    val cUint64 = Foreign.cUint64Large
-    val cShort = makeLargeIntConv Foreign.cShort
-    val cUshort = makeLargeIntConv Foreign.cUshort
-    val cInt = Foreign.cIntLarge
-    val cUint = Foreign.cUintLarge
-    val cLong = Foreign.cLongLarge
-    val cUlong = Foreign.cUlongLarge
+    val cInt8Large = makeLargeIntConv Foreign.cInt8
+    val cUint8Large = makeLargeIntConv Foreign.cUint8
+    val cInt16Large = makeLargeIntConv Foreign.cInt16
+    val cUint16Large = makeLargeIntConv Foreign.cUint16
+    val cInt32Large = Foreign.cInt32Large
+    val cUint32Large = Foreign.cUint32Large
+    val cInt64Large = Foreign.cInt64Large
+    val cUint64Large = Foreign.cUint64Large
+    val cShortLarge = makeLargeIntConv Foreign.cShort
+    val cUshortLarge = makeLargeIntConv Foreign.cUshort
+    val cIntLarge = Foreign.cIntLarge
+    val cUintLarge = Foreign.cUintLarge
+    val cLongLarge = Foreign.cLongLarge
+    val cUlongLarge = Foreign.cUlongLarge
   end

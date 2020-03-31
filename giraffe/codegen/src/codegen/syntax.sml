@@ -192,7 +192,8 @@ fun mkModuleTopLevelDec module : topleveldec = TopLevelDecModule (module, false)
 
 
 
-val boolTy = mkIdTy "bool"
+val boolId : id = "bool"
+val boolTy = mkIdTy boolId
 fun optionTy ty =
   let
     val ty' =
@@ -319,12 +320,19 @@ val ptrStrId : id = "Ptr"
 val ffiStrId : id = "FFI"
 val largeIntStrId : id = "LargeInt"
 val wordStrId : id = "Word"
+val word8StrId : id = "Word8"
+val word8VectorStrId : id = "Word8Vector"
 val toIntId : id = "toInt"
 val fromIntId : id = "fromInt"
 val fromLargeIntId : id = "fromLargeInt"
 val lengthId : id = "length"
 val utf8StrId : id = "Utf8"
+val intId : id = "int"
+val wordId : id = "word"
+val charId : id = "char"
+val realId : id = "real"
 val vectorId : id = "vector"
+val stringId : id = "string"
 val arrayStrId : id = "Array"
 val typeStrId : id = "Type"
 val cValueStrId : id = "CValue"

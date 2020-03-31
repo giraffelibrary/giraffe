@@ -266,7 +266,7 @@ structure VteTerminal :>
       let
         val length =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
+            SOME data => GUInt8CArrayN.length data
           | NONE => GSSize.null
         val () =
           (
@@ -301,7 +301,7 @@ structure VteTerminal :>
       let
         val length =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
+            SOME data => GUInt8CArrayN.length data
           | NONE => GSize.null
         val () =
           (
@@ -572,7 +572,7 @@ structure VteTerminal :>
       let
         val paletteSize =
           case palette of
-            SOME palette => LargeInt.fromInt (GdkRgbaRecordCArrayN.length palette)
+            SOME palette => GdkRgbaRecordCArrayN.length palette
           | NONE => GSize.null
         val () =
           (

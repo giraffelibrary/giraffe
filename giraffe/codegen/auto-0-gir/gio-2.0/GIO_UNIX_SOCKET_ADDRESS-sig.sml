@@ -13,7 +13,7 @@ signature GIO_UNIX_SOCKET_ADDRESS =
     val getAddressType : 'a class -> unix_socket_address_type_t
     val getIsAbstract : 'a class -> bool
     val getPath : 'a class -> string
-    val getPathLen : 'a class -> LargeInt.int
+    val getPathLen : 'a class -> int
     val abstractProp :
       {
         get : 'a class -> bool,

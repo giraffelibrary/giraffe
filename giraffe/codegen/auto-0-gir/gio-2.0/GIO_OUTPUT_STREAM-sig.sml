@@ -33,33 +33,33 @@ signature GIO_OUTPUT_STREAM =
        -> 'b input_stream_class
            * output_stream_splice_flags_t
            * 'c cancellable_class option
-       -> LargeInt.int
+       -> int
     val spliceFinish :
       'a class
        -> 'b async_result_class
-       -> LargeInt.int
+       -> int
     val write :
       'a class
        -> GUInt8CArrayN.t * 'b cancellable_class option
-       -> LargeInt.int
+       -> int
     val writeAll :
       'a class
        -> GUInt8CArrayN.t * 'b cancellable_class option
-       -> LargeInt.int
+       -> int
     val writeAllFinish :
       'a class
        -> 'b async_result_class
-       -> LargeInt.int
+       -> int
     val writeBytes :
       'a class
        -> GLib.BytesRecord.t * 'b cancellable_class option
-       -> LargeInt.int
+       -> int
     val writeBytesFinish :
       'a class
        -> 'b async_result_class
-       -> LargeInt.int
+       -> int
     val writeFinish :
       'a class
        -> 'b async_result_class
-       -> LargeInt.int
+       -> int
   end

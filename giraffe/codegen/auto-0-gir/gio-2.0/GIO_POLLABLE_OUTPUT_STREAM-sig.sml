@@ -13,5 +13,5 @@ signature GIO_POLLABLE_OUTPUT_STREAM =
     val writeNonblocking :
       'a class
        -> GUInt8CArrayN.t * 'b cancellable_class option
-       -> LargeInt.int
+       -> int
   end

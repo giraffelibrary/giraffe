@@ -124,7 +124,7 @@ structure GioDBusMessage :>
     fun new () = (I ---> GioDBusMessageClass.FFI.fromPtr true) new_ ()
     fun newFromBlob (blob, capabilities) =
       let
-        val blobLen = LargeInt.fromInt (GUInt8CArrayN.length blob)
+        val blobLen = GUInt8CArrayN.length blob
         val retVal =
           (
             GUInt8CArrayN.FFI.withPtr
@@ -184,7 +184,7 @@ structure GioDBusMessage :>
         )
     fun bytesNeeded blob =
       let
-        val blobLen = LargeInt.fromInt (GUInt8CArrayN.length blob)
+        val blobLen = GUInt8CArrayN.length blob
         val retVal =
           (
             GUInt8CArrayN.FFI.withPtr
@@ -283,7 +283,7 @@ structure GioDBusMessage :>
                & []
             )
       in
-        retVal (LargeInt.toInt outSize)
+        retVal outSize
       end
     fun toGerror self = (GioDBusMessageClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) toGerror_ (self & [])
     local

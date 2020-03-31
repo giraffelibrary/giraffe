@@ -175,12 +175,16 @@ in
     | STUNICHAR      => "char"
 end
 
+
+val boolTyRef = (0, toList1 [boolId])
+val charTyRef = (0, toList1 [charId])
+val word8TyRef = (0, toList1 [word8StrId, wordId])
+val intTyRef = (0, toList1 [intId])
+val largeIntTyRef = (0, toList1 [largeIntStrId, intId])
+val realTyRef = (0, toList1 [realId])
+
+
 local
-  val boolTyRef = (0, toList1 ["bool"])
-  val charTyRef = (0, toList1 ["char"])
-  val word8TyRef = (0, toList1 ["Word8", "word"])
-  val largeIntTyRef = (0, toList1 ["LargeInt", "int"])
-  val realTyRef = (0, toList1 ["real"])
 in
   val scalarTyRef =
     fn
@@ -199,9 +203,31 @@ in
 end
 
 
-val utf8TyRef : int * lid = (0, toList1 ["string"])
-val stringTyRef : int * lid = (0, toList1 ["string"])
-val word8VectorTyRef : int * lid = (0, toList1 ["Word8Vector", vectorId])
+local
+  structure TyRefMap = ListMap(type key = lid val eq = op =)
+
+  val toInt =
+    foldr (TyRefMap.insert (fn _ => raise Fail "toInt")) TyRefMap.empty [
+      (#2 intTyRef,      NONE),
+      (#2 largeIntTyRef, SOME (mkLIdLNameExp [largeIntStrId, toIntId])),
+      (#2 word8TyRef,    SOME (mkLIdLNameExp [word8StrId, toIntId]))
+    ]
+
+  val fromInt =
+    foldr (TyRefMap.insert (fn _ => raise Fail "fromInt")) TyRefMap.empty [
+      (#2 intTyRef,      NONE),
+      (#2 largeIntTyRef, SOME (mkLIdLNameExp [largeIntStrId, fromIntId])),
+      (#2 word8TyRef,    SOME (mkLIdLNameExp [word8StrId, fromIntId]))
+    ]
+in
+  fun convertToInt ty = TyRefMap.lookup toInt (#2 (scalarTyRef ty))
+  fun convertFromInt ty = TyRefMap.lookup fromInt (#2 (scalarTyRef ty))
+end
+
+
+val utf8TyRef : int * lid = (0, toList1 [stringId])
+val stringTyRef : int * lid = (0, toList1 [stringId])
+val word8VectorTyRef : int * lid = (0, toList1 [word8VectorStrId, vectorId])
 
 
 type gtype_info =
@@ -247,8 +273,8 @@ type interface_info =
 
 datatype array_length =
   ArrayLengthZeroTerminated
-| ArrayLengthFixed of LargeInt.int  (* the fixed length *)
-| ArrayLengthParam of string        (* the parameter name *)
+| ArrayLengthFixed of LargeInt.int         (* fixed length *)
+| ArrayLengthParam of string * scalartype  (* parameter name and type *)
 
 datatype info =
   IGTYPE     of gtype_info
@@ -298,16 +324,20 @@ fun mkArrayLenExp length e =
   case length of
     ArrayLengthZeroTerminated => e
   | ArrayLengthFixed n        => ExpApp (e, mkIntConstExp n)
-  | ArrayLengthParam lenName  =>
-      ExpApp (
-        e,
-        mkParenExp (
-          ExpApp (
-            mkLIdLNameExp [largeIntStrId, toIntId],
-            mkIdLNameExp lenName
-          )
-        )
-      )
+  | ArrayLengthParam (id, ty) =>
+      let
+        val lenIntExp = mkIdLNameExp id
+        val lenExp =
+          case convertToInt ty of
+            SOME NONE           => lenIntExp
+          | SOME (SOME convExp) => mkParenExp (ExpApp (convExp, lenIntExp))
+          | NONE                => infoExcl (
+              "conversion from SML type int not defined for "
+               ^ scalarToString ty ^ " array length parameter"
+            )
+      in
+        ExpApp (e, lenExp)
+      end
 
 val isPtrElem =
   fn
@@ -506,11 +536,11 @@ fun getParInfo
     val ownershipTransfer = ArgInfo.getOwnershipTransfer argInfo
     val isCallerAllocates = ArgInfo.isCallerAllocates argInfo
 
-    val argName = getName argInfo
-    val argId = mkId (toLCC argName)
+    fun mkArgName argInfo = getName argInfo
+    fun mkArgId argName = mkId (toLCC argName)
 
-    fun getNthArgName n = getName (CallableInfo.getArg callableInfo n)
-    fun getNthArgId n = mkId (toLCC (getNthArgName n))
+    val argName = mkArgName argInfo
+    val argId = mkArgId argName
 
     val argDir =
       case direction of
@@ -558,6 +588,46 @@ fun getParInfo
       val flagsMsg = ptrForFlags
       val enumMsg = ptrForEnum
     end
+
+    fun notExpectedForArrayLen s =
+      infoExcl ("type " ^ s ^ " not expected for array length parameter")
+
+    fun resolveArrayLenType typeInfo =
+      let
+        open TypeTag
+      in
+        case TypeInfo.getTag typeInfo of
+          ERROR        => notExpectedForArrayLen "ERROR"
+        | GTYPE        => notExpectedForArrayLen "GTYPE"
+        | ARRAY        => notExpectedForArrayLen "ARRAY"
+        | GLIST        => notExpectedForArrayLen "GLIST"
+        | GSLIST       => notExpectedForArrayLen "GSLIST"
+        | GHASH        => notExpectedForArrayLen "GHASH"
+        | VOID         => notExpectedForArrayLen "VOID"
+        | BOOLEAN      => notExpectedForArrayLen "BOOLEAN"
+        | INT8         => STINT8
+        | UINT8        => STUINT8
+        | INT16        => STINT16
+        | UINT16       => STUINT16
+        | INT32        => STINT32
+        | UINT32       => STUINT32
+        | INT64        => STINT64
+        | UINT64       => STUINT64
+        | FLOAT        => notExpectedForArrayLen "FLOAT"
+        | DOUBLE       => notExpectedForArrayLen "DOUBLE"
+        | FILENAME     => notExpectedForArrayLen "FILENAME"
+        | UTF8         => notExpectedForArrayLen "UTF8"
+        | UNICHAR      => notExpectedForArrayLen "UNICHAR"
+        | INTERFACE    =>
+            let
+              val interfaceInfo = getInterface typeInfo
+              val infoType = InfoType.getType interfaceInfo
+              open InfoType
+            in
+              case infoType of
+                _               => notExpectedForArrayLen "INTERFACE"
+            end
+      end
 
     fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
     fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
@@ -623,7 +693,14 @@ fun getParInfo
                         then ArrayLengthZeroTerminated
                         else infoExcl "cannot determine array length"
                       )
-                    | n  => ArrayLengthParam (getNthArgId n)
+                    | n  =>
+                        let
+                          val argInfo = CallableInfo.getArg callableInfo n
+                          val id = mkArgId (mkArgName argInfo)
+                          val ty = resolveArrayLenType (ArgInfo.getType argInfo)
+                        in
+                          ArrayLengthParam (id, ty)
+                        end
                   )
                 | n  => ArrayLengthFixed n
 
@@ -850,7 +927,7 @@ fun updateParInfos retInfo parInfos =
       case info of
         IARRAY (
           arrayInfo as {
-            length = ArrayLengthParam lenName,
+            length = ArrayLengthParam (lenName, _),
             ...
           }
         ) => (lenName, arrayParDir, {name = name, info = arrayInfo}) :: lenArrayInfos
@@ -930,8 +1007,8 @@ fun getRetInfo
 
     val ownershipTransfer = CallableInfo.getCallerOwns callableInfo
 
-    fun getNthArgName n = getName (CallableInfo.getArg callableInfo n)
-    fun getNthArgId n = mkId (toLCC (getNthArgName n))
+    fun mkArgName argInfo = getName argInfo
+    fun mkArgId argName = mkId (toLCC argName)
 
     local
       open Transfer
@@ -967,6 +1044,46 @@ fun getRetInfo
       val flagsMsg = ptrForFlags
       val enumMsg = ptrForEnum
     end
+
+    fun notExpectedForArrayLen s =
+      infoExcl ("type " ^ s ^ " not expected for array length parameter")
+
+    fun resolveArrayLenType typeInfo =
+      let
+        open TypeTag
+      in
+        case TypeInfo.getTag typeInfo of
+          ERROR        => notExpectedForArrayLen "ERROR"
+        | GTYPE        => notExpectedForArrayLen "GTYPE"
+        | ARRAY        => notExpectedForArrayLen "ARRAY"
+        | GLIST        => notExpectedForArrayLen "GLIST"
+        | GSLIST       => notExpectedForArrayLen "GSLIST"
+        | GHASH        => notExpectedForArrayLen "GHASH"
+        | VOID         => notExpectedForArrayLen "VOID"
+        | BOOLEAN      => notExpectedForArrayLen "BOOLEAN"
+        | INT8         => STINT8
+        | UINT8        => STUINT8
+        | INT16        => STINT16
+        | UINT16       => STUINT16
+        | INT32        => STINT32
+        | UINT32       => STUINT32
+        | INT64        => STINT64
+        | UINT64       => STUINT64
+        | FLOAT        => STFLOAT
+        | DOUBLE       => STDOUBLE
+        | FILENAME     => notExpectedForArrayLen "FILENAME"
+        | UTF8         => notExpectedForArrayLen "UTF8"
+        | UNICHAR      => notExpectedForArrayLen "UNICHAR"
+        | INTERFACE    =>
+            let
+              val interfaceInfo = getInterface typeInfo
+              val infoType = InfoType.getType interfaceInfo
+              open InfoType
+            in
+              case infoType of
+                _               => notExpectedForArrayLen "INTERFACE"
+            end
+      end
 
     fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
     fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
@@ -1023,7 +1140,14 @@ fun getRetInfo
                         then ArrayLengthZeroTerminated
                         else infoExcl "cannot determine array length"
                       )
-                    | n  => ArrayLengthParam (getNthArgId n)
+                    | n  =>
+                        let
+                          val argInfo = CallableInfo.getArg callableInfo n
+                          val id = mkArgId (mkArgName argInfo)
+                          val ty = resolveArrayLenType (ArgInfo.getType argInfo)
+                        in
+                          ArrayLengthParam (id, ty)
+                        end
                   )
                 | n  => ArrayLengthFixed n
 
@@ -1873,16 +1997,20 @@ local
     let
       val {iRef, isOpt, ...} = arrayInfo
       val strId = makeIRefInterfaceOtherStrId iRef
-      val lenExp =
+      val lenIntExp =
         ExpApp (
-          mkLIdLNameExp [largeIntStrId, fromIntId],
-          mkParenExp (
-            ExpApp (
-              mkLIdLNameExp [strId, lengthId],
-              mkIdLNameExp arrayName
-            )
-          )
+          mkLIdLNameExp [strId, lengthId],
+          mkIdLNameExp arrayName
         )
+      val lenExp =
+        case convertFromInt ty of
+          SOME NONE           => lenIntExp
+        | SOME (SOME convExp) => ExpApp (convExp, mkParenExp lenIntExp)
+        | NONE                => infoExcl (
+            "conversion to SML type int not defined for "
+             ^ scalarToString ty ^ " array length parameter"
+          )
+
     in
       if isOpt
       then

@@ -8,7 +8,7 @@ signature GTK_BUILDER =
     val new : unit -> base class
     val newFromFile : string -> base class
     val newFromResource : string -> base class
-    val newFromString : string * LargeInt.int -> base class
+    val newFromString : string * int -> base class
     val addFromFile :
       'a class
        -> string
@@ -19,7 +19,7 @@ signature GTK_BUILDER =
        -> LargeInt.int
     val addFromString :
       'a class
-       -> string * LargeInt.int
+       -> string * int
        -> LargeInt.int
     val addObjectsFromFile :
       'a class
@@ -32,7 +32,7 @@ signature GTK_BUILDER =
     val addObjectsFromString :
       'a class
        -> string
-           * LargeInt.int
+           * int
            * Utf8CPtrArray.t
        -> LargeInt.int
     val exposeObject :
@@ -44,7 +44,7 @@ signature GTK_BUILDER =
        -> 'b widget_class
            * GObject.Type.t
            * string
-           * LargeInt.int
+           * int
        -> LargeInt.int
     val getApplication : 'a class -> base application_class option
     val getObject :

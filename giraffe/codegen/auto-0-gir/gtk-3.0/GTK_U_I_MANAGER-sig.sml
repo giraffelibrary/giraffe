@@ -30,7 +30,7 @@ signature GTK_U_I_MANAGER =
        -> LargeInt.int
     val addUiFromString :
       'a class
-       -> string * LargeInt.int
+       -> string * int
        -> LargeInt.int
     val ensureUpdate : 'a class -> unit
     val getAccelGroup : 'a class -> base accel_group_class

@@ -137,7 +137,7 @@ structure GioInputStream :>
     fun isClosed self = (GioInputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
     fun read self (buffer, cancellable) =
       let
-        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val count = GUInt8CArrayN.length buffer
         val retVal =
           (
             GioInputStreamClass.FFI.withPtr
@@ -160,7 +160,7 @@ structure GioInputStream :>
       end
     fun readAll self (buffer, cancellable) =
       let
-        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val count = GUInt8CArrayN.length buffer
         val bytesRead & () =
           (
             GioInputStreamClass.FFI.withPtr

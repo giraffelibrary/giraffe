@@ -97,7 +97,7 @@ structure CPointerInternal :>
         in
           val g_malloc_sym = getSymbol "g_malloc"
           val g_free_sym = getSymbol "g_free"
-          fun malloc n = call g_malloc_sym (cUlong --> cPointer) (Word.toLargeInt n)
+          fun malloc n = call g_malloc_sym (cUlong --> cPointer) (Word.toInt n)
           val free = call g_free_sym (cPointer --> cVoid)
         end
       end

@@ -695,11 +695,11 @@ structure GLib : G_LIB =
       let
         val outLen & retVal = (Utf8.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 1) base64Decode_ (text & GSize.null)
       in
-        retVal (LargeInt.toInt outLen)
+        retVal outLen
       end
     fun base64Encode data =
       let
-        val len = LargeInt.fromInt (GUInt8CArrayN.length data)
+        val len = GUInt8CArrayN.length data
         val retVal = (GUInt8CArrayN.FFI.withPtr &&&> GSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) base64Encode_ (data & len)
       in
         retVal
@@ -730,7 +730,7 @@ structure GLib : G_LIB =
     fun computeChecksumForBytes (checksumType, data) = (GLibChecksumType.FFI.withVal &&&> GLibBytesRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) computeChecksumForBytes_ (checksumType & data)
     fun computeChecksumForData (checksumType, data) =
       let
-        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
+        val length = GUInt8CArrayN.length data
         val retVal =
           (
             GLibChecksumType.FFI.withVal
@@ -790,8 +790,8 @@ structure GLib : G_LIB =
         data
       ) =
       let
-        val keyLen = LargeInt.fromInt (GUInt8CArrayN.length key)
-        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
+        val keyLen = GUInt8CArrayN.length key
+        val length = GUInt8CArrayN.length data
         val retVal =
           (
             GLibChecksumType.FFI.withVal
@@ -820,7 +820,7 @@ structure GLib : G_LIB =
         length
       ) =
       let
-        val keyLen = LargeInt.fromInt (GUInt8CArrayN.length key)
+        val keyLen = GUInt8CArrayN.length key
         val retVal =
           (
             GLibChecksumType.FFI.withVal
@@ -1002,7 +1002,7 @@ structure GLib : G_LIB =
                & []
             )
       in
-        (retVal (LargeInt.toInt bytesWritten), bytesRead)
+        (retVal bytesWritten, bytesRead)
       end
     fun filenameToUri (filename, hostname) =
       (

@@ -45,7 +45,7 @@ signature G_LIB_VARIANT =
     val dupBytestring : t -> GUInt8CArrayN.t
     val dupBytestringArray : t -> Utf8CPtrArrayN.t
     val dupObjv : t -> Utf8CPtrArrayN.t
-    val dupString : t -> string * LargeInt.int
+    val dupString : t -> string * int
     val dupStrv : t -> Utf8CPtrArrayN.t
     val equal :
       t
@@ -57,7 +57,7 @@ signature G_LIB_VARIANT =
     val getBytestringArray : t -> Utf8CPtrArrayN.t
     val getChildValue :
       t
-       -> LargeInt.int
+       -> int
        -> t
     val getDataAsBytes : t -> bytes_t
     val getDouble : t -> real
@@ -68,8 +68,8 @@ signature G_LIB_VARIANT =
     val getMaybe : t -> t option
     val getNormalForm : t -> t
     val getObjv : t -> Utf8CPtrArrayN.t
-    val getSize : t -> LargeInt.int
-    val getString : t -> string * LargeInt.int
+    val getSize : t -> int
+    val getString : t -> string * int
     val getStrv : t -> Utf8CPtrArrayN.t
     val getType : t -> variant_type_t
     val getTypeString : t -> string
@@ -89,7 +89,7 @@ signature G_LIB_VARIANT =
       t
        -> string * variant_type_t option
        -> t
-    val nChildren : t -> LargeInt.int
+    val nChildren : t -> int
     val print :
       t
        -> bool

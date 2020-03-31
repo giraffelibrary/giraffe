@@ -4,12 +4,12 @@ signature VTE_REGEX =
     val getType : unit -> GObject.Type.t
     val newForMatch :
       string
-       * LargeInt.int
+       * int
        * LargeInt.int
        -> t
     val newForSearch :
       string
-       * LargeInt.int
+       * int
        * LargeInt.int
        -> t
     val jit :

@@ -591,7 +591,7 @@ parameter.  The length parameter for an array return value must have direction O
 
 Note that the condition 'N + M > 0' determines whether a let-expression is introduced.
 
-We also treat J, K, L, M and N as arrays whose elements are the parameter index in the
+We also treat J, K, L, M and N as arrays whose elements are the zero-based parameter index in the
 full list of parameters.  Each array is injective (i.e. elements are unique) and the
 inverse of an array X is denoted X~.
 
@@ -741,18 +741,34 @@ where
           _               | retVal <retValArrayLenExp>
         ------------------+-------------------
 
-      retValArrayLenExp is defined as follows:
+    where
 
-        retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
-        arrayLength = GIRepository.TypeInfo.getArrayLength retTypeInfo
+      retValArrayLenExp
+        is defined as follows:
 
-        Conversion from arrayLength is as follows:
+          retTypeInfo = GIRepository.CallableInfo.getReturnType functionInfo
+          arrayLength = GIRepository.TypeInfo.getArrayLength retTypeInfo
 
-          NONE                     --->     <empty>
-          SOME ZeroTerminated      --->     <empty>
-          SOME (LengthFixed n)     --->     <n>
-          SOME (LengthParam i)     --->     (LargeInt.toInt <outParamName[N~[i]]>)
+          Conversion from arrayLength is as follows:
 
+            NONE                     --->     <empty>
+            SOME ZeroTerminated      --->     <empty>
+            SOME (LengthFixed n)     --->     <n>
+            SOME (LengthParam i)     --->     <convertToInt(i)>
+
+          convertToInt(i) is defined as follows:
+
+            lenArgInfo = GIRepository.CallableInfo.getArg functionInfo i
+            lenArgTypeInfo = GIRepository.ArgInfo.getType lenArgInfo
+
+              type(lenArgTypeInfo)    | convertToInt(i)
+            ==========================+========================================
+              int                     | <outParamName[N~[i]]>
+            --------------------------+----------------------------------------
+              LargeInt.int            | (LargeInt.toInt <outParamName[N~[i]]>)
+            --------------------------+----------------------------------------
+              Word8.word              | (Word8.toInt <outParamName[N~[i]]>)
+            --------------------------+----------------------------------------
 
   retExp
     when K = 0, retExp is <retVal>
@@ -830,21 +846,36 @@ where
 
     where
 
-      outParamArrayLenExp is defined as follows:
+      outParamArrayLenExp
+        is defined as follows:
 
-        argTypeInfo = GIRepository.ArgInfo.getType argInfo
-        arrayLength = GIRepository.TypeInfo.getArrayLength argTypeInfo
+          argTypeInfo = GIRepository.ArgInfo.getType argInfo
+          arrayLength = GIRepository.TypeInfo.getArrayLength argTypeInfo
 
-        Conversion from arrayLength is as follows:
+          Conversion from arrayLength is as follows:
 
-          NONE                     --->     <empty>
-          SOME ZeroTerminated      --->     <empty>
-          SOME (LengthFixed n)     --->     <n>
-          SOME (LengthParam i)     --->     (LargeInt.toInt <outParamName[N~[i]]>)
+            NONE                     --->     <empty>
+            SOME ZeroTerminated      --->     <empty>
+            SOME (LengthFixed n)     --->     <n>
+            SOME (LengthParam i)     --->     <convertToInt(i)>
+
+          convertToInt(i) is defined as follows:
+
+            lenArgInfo = GIRepository.CallableInfo.getArg functionInfo i
+            lenArgTypeInfo = GIRepository.ArgInfo.getType lenArgInfo
+
+              type(lenArgTypeInfo)    | convertToInt(i)
+            ==========================+========================================
+              int                     | <outParamName[N~[i]]>
+            --------------------------+----------------------------------------
+              LargeInt.int            | (LargeInt.toInt <outParamName[N~[i]]>)
+            --------------------------+----------------------------------------
+              Word8.word              | (Word8.toInt <outParamName[N~[i]]>)
+            --------------------------+----------------------------------------
 
 
   inParamName[l]
-    is the <l>th element in the list of names of non-VOID IN/INOUT
+    is the <l>th element in the list of names of non-VOID non-length IN/INOUT
     parameters of the function as given by `GIRepository.BaseInfo.getName`.
 
 
@@ -856,9 +887,9 @@ where
   lenParamExp[m]
     is defined as follows:
 
-      case <arrInParamName> of
-        SOME <arrInParamName> => <lenParamSomeExp>
-      | NONE                  => <lenParamNoneExp>
+      case <inParamName[L~[i]]> of
+        SOME <inParamName[L~[i]]> => <lenParamSomeExp>
+      | NONE                      => <lenParamNoneExp>
 
         if GIRepository.ArgInfo.mayBeNull arrArgInfo
 
@@ -867,20 +898,59 @@ where
 
         otherwise
 
-    where
+    where there exists a unique i, arrArgInfo and arrArgTypeInfo such that
 
-      arrInParamName is <inParamName[L~[M[m]]]>
+      arrArgInfo = GIRepository.CallableInfo.getArg functionInfo i
+      arrArgTypeInfo = GIRepository.ArgInfo.getType arrArgInfo
+      SOME (LengthParam <M[m]>) = GIRepository.TypeInfo.getArrayLength arrArgTypeInfo
+
+    where
 
       lenParamSomeExp
         is defined as follows:
 
-          LargeInt.fromInt (<ArrayStructId(arrArgTypeInfo)>.length <arrInParamName>)
+          argTypeInfo = GIRepository.ArgInfo.getType argInfo
+          tag = GIRepository.TypeInfo.get_tag argTypeInfo
 
-        where the corresponding array parameter is represented by arrArgInfo
-        that satisfies, for some arrArgTypeInfo:
+          Conversion from tag is as follows:
 
-          arrArgTypeInfo = GIRepository.ArgInfo.getType arrArgInfo
-          SOME (LengthParam <M[m]>) = GIRepository.TypeInfo.getArrayLength arrArgTypeInfo
+            ERROR     --->    <raise Error "not expected">
+            FILENAME  --->    <raise Error "not expected">
+            ARRAY     --->    <raise Error "not expected">
+            GLIST     --->    <raise Error "not expected">
+            GSLIST    --->    <raise Error "not expected">
+            GHASH     --->    <raise Error "not expected">
+            INT8      --->    <convertFromInt>
+            UINT8     --->    <convertFromInt>
+            INT16     --->    <convertFromInt>
+            UINT16    --->    <convertFromInt>
+            INT32     --->    <convertFromInt>
+            UINT32    --->    <convertFromInt>
+            INT64     --->    <convertFromInt>
+            UINT64    --->    <convertFromInt>
+            VOID      --->    <raise Error "not expected">
+            BOOLEAN   --->    <raise Error "not expected">
+            FLOAT     --->    <raise Error "not expected">
+            DOUBLE    --->    <raise Error "not expected">
+            UTF8      --->    <raise Error "not expected">
+            UNICHAR   --->    <raise Error "not expected">
+            INTERFACE --->    <raise Error "not expected">
+
+
+          convertFromInt is defined as follows:
+
+              type(argTypeInfo)   | convertFromInt
+            ======================+===================================
+              int                 | <lenIntExp>
+            ----------------------+-----------------------------------
+              LargeInt.int        | LargeInt.fromInt (<lenIntExp>)
+            ----------------------+-----------------------------------
+              Word8.word          | Word8.fromInt (<lenIntExp>)
+            ----------------------+-----------------------------------
+
+          lenIntExp is defined as follows:
+
+              <ArrayStructId(arrArgTypeInfo)>.length <inParamName[L~[i]]>
 
 
       lenParamNoneExp

@@ -32,19 +32,19 @@ signature GIO_DATA_INPUT_STREAM =
     val readLine :
       'a class
        -> 'b cancellable_class option
-       -> GUInt8CArray.t option * LargeInt.int
+       -> GUInt8CArray.t option * int
     val readLineFinish :
       'a class
        -> 'b async_result_class
-       -> GUInt8CArray.t option * LargeInt.int
+       -> GUInt8CArray.t option * int
     val readLineFinishUtf8 :
       'a class
        -> 'b async_result_class
-       -> string option * LargeInt.int
+       -> string option * int
     val readLineUtf8 :
       'a class
        -> 'b cancellable_class option
-       -> string option * LargeInt.int
+       -> string option * int
     val readUint16 :
       'a class
        -> 'b cancellable_class option
@@ -60,21 +60,21 @@ signature GIO_DATA_INPUT_STREAM =
     val readUntil :
       'a class
        -> string * 'b cancellable_class option
-       -> string * LargeInt.int
+       -> string * int
     val readUntilFinish :
       'a class
        -> 'b async_result_class
-       -> string * LargeInt.int
+       -> string * int
     val readUpto :
       'a class
        -> string
-           * LargeInt.int
+           * int
            * 'b cancellable_class option
-       -> string * LargeInt.int
+       -> string * int
     val readUptoFinish :
       'a class
        -> 'b async_result_class
-       -> string * LargeInt.int
+       -> string * int
     val setByteOrder :
       'a class
        -> data_stream_byte_order_t

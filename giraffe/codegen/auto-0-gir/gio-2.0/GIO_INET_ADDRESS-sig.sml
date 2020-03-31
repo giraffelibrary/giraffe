@@ -22,7 +22,7 @@ signature GIO_INET_ADDRESS =
     val getIsMcSiteLocal : 'a class -> bool
     val getIsMulticast : 'a class -> bool
     val getIsSiteLocal : 'a class -> bool
-    val getNativeSize : 'a class -> LargeInt.int
+    val getNativeSize : 'a class -> int
     val toString : 'a class -> string
     val familyProp :
       {

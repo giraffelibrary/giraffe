@@ -37,7 +37,7 @@ structure GLibChecksum :>
     fun reset self = (GLibChecksumRecord.FFI.withPtr ---> I) reset_ self
     fun update self data =
       let
-        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
+        val length = GUInt8CArrayN.length data
         val () =
           (
             GLibChecksumRecord.FFI.withPtr

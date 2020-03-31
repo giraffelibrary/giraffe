@@ -237,7 +237,7 @@ structure GLibVariant :>
       let
         val nChildren =
           case children of
-            SOME children => LargeInt.fromInt (GLibVariantRecordCPtrArrayN.length children)
+            SOME children => GLibVariantRecordCPtrArrayN.length children
           | NONE => GSize.null
         val retVal =
           (
@@ -260,7 +260,7 @@ structure GLibVariant :>
     fun newBytestring string = (GUInt8CArray.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) newBytestring_ string
     fun newBytestringArray strv =
       let
-        val length = LargeInt.fromInt (Utf8CPtrArrayN.length strv)
+        val length = Utf8CPtrArrayN.length strv
         val retVal = (Utf8CPtrArrayN.FFI.withPtr &&&> GSSize.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newBytestringArray_ (strv & length)
       in
         retVal
@@ -293,7 +293,7 @@ structure GLibVariant :>
     fun newObjectPath objectPath = (Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) newObjectPath_ objectPath
     fun newObjv strv =
       let
-        val length = LargeInt.fromInt (Utf8CPtrArrayN.length strv)
+        val length = Utf8CPtrArrayN.length strv
         val retVal = (Utf8CPtrArrayN.FFI.withPtr &&&> GSSize.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newObjv_ (strv & length)
       in
         retVal
@@ -302,14 +302,14 @@ structure GLibVariant :>
     fun newString string = (Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) newString_ string
     fun newStrv strv =
       let
-        val length = LargeInt.fromInt (Utf8CPtrArrayN.length strv)
+        val length = Utf8CPtrArrayN.length strv
         val retVal = (Utf8CPtrArrayN.FFI.withPtr &&&> GSSize.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newStrv_ (strv & length)
       in
         retVal
       end
     fun newTuple children =
       let
-        val nChildren = LargeInt.fromInt (GLibVariantRecordCPtrArrayN.length children)
+        val nChildren = GLibVariantRecordCPtrArrayN.length children
         val retVal = (GLibVariantRecordCPtrArrayN.FFI.withPtr &&&> GSize.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newTuple_ (children & nChildren)
       in
         retVal
@@ -338,19 +338,19 @@ structure GLibVariant :>
       let
         val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 1) dupBytestring_ (self & GSize.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun dupBytestringArray self =
       let
         val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) dupBytestringArray_ (self & GSize.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun dupObjv self =
       let
         val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) dupObjv_ (self & GSize.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun dupString self =
       let
@@ -362,7 +362,7 @@ structure GLibVariant :>
       let
         val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) dupStrv_ (self & GSize.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun equal self two = (GLibVariantRecord.FFI.withPtr &&&> GLibVariantRecord.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & two)
     fun getBoolean self = (GLibVariantRecord.FFI.withPtr ---> GBool.FFI.fromVal) getBoolean_ self
@@ -372,7 +372,7 @@ structure GLibVariant :>
       let
         val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 1) getBytestringArray_ (self & GSize.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun getChildValue self index = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr true) getChildValue_ (self & index)
     fun getDataAsBytes self = (GLibVariantRecord.FFI.withPtr ---> GLibBytesRecord.FFI.fromPtr true) getDataAsBytes_ self
@@ -387,7 +387,7 @@ structure GLibVariant :>
       let
         val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 1) getObjv_ (self & GSize.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun getSize self = (GLibVariantRecord.FFI.withPtr ---> GSize.FFI.fromVal) getSize_ self
     fun getString self =
@@ -400,7 +400,7 @@ structure GLibVariant :>
       let
         val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 1) getStrv_ (self & GSize.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun getType self = (GLibVariantRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) getType_ self
     fun getTypeString self = (GLibVariantRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTypeString_ self

@@ -47,7 +47,7 @@ structure GLibBytes :>
       let
         val size =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
+            SOME data => GUInt8CArrayN.length data
           | NONE => GSize.null
         val retVal = (GUInt8CArrayN.FFI.withOptPtr &&&> GSize.FFI.withVal ---> GLibBytesRecord.FFI.fromPtr true) new_ (data & size)
       in
@@ -59,7 +59,7 @@ structure GLibBytes :>
       let
         val size & retVal = (GLibBytesRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromOptPtr 0) getData_ (self & GSize.null)
       in
-        retVal (LargeInt.toInt size)
+        retVal size
       end
     fun getSize self = (GLibBytesRecord.FFI.withPtr ---> GSize.FFI.fromVal) getSize_ self
     fun hash self = (GLibBytesRecord.FFI.withPtr ---> GUInt.FFI.fromVal) hash_ self
@@ -80,6 +80,6 @@ structure GLibBytes :>
       let
         val size & retVal = (GLibBytesRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 1) unrefToData_ (self & GSize.null)
       in
-        retVal (LargeInt.toInt size)
+        retVal size
       end
   end

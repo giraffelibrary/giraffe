@@ -1136,7 +1136,7 @@ structure Gio : GIO =
       let
         val dataSize =
           case data of
-            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
+            SOME data => GUInt8CArrayN.length data
           | NONE => GSize.null
         val resultUncertain & retVal =
           (
@@ -1259,7 +1259,7 @@ structure Gio : GIO =
         cancellable
       ) =
       let
-        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val count = GUInt8CArrayN.length buffer
         val retVal =
           (
             GioInputStreamClass.FFI.withPtr
@@ -1290,7 +1290,7 @@ structure Gio : GIO =
         cancellable
       ) =
       let
-        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val count = GUInt8CArrayN.length buffer
         val retVal =
           (
             GioOutputStreamClass.FFI.withPtr
@@ -1321,7 +1321,7 @@ structure Gio : GIO =
         cancellable
       ) =
       let
-        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val count = GUInt8CArrayN.length buffer
         val bytesWritten & () =
           (
             GioOutputStreamClass.FFI.withPtr

@@ -18,7 +18,7 @@ signature GTK_ENTRY_BUFFER =
            * string
            * LargeInt.int
        -> unit
-    val getBytes : 'a class -> LargeInt.int
+    val getBytes : 'a class -> int
     val getLength : 'a class -> LargeInt.int
     val getMaxLength : 'a class -> LargeInt.int
     val getText : 'a class -> string

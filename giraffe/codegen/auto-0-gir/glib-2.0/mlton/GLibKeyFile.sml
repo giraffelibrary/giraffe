@@ -1058,7 +1058,7 @@ structure GLibKeyFile :>
                & []
             )
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun getComment self (groupName, key) =
       (
@@ -1110,7 +1110,7 @@ structure GLibKeyFile :>
                & []
             )
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun getGroups self =
       let
@@ -1168,7 +1168,7 @@ structure GLibKeyFile :>
                & []
             )
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun getKeys self groupName =
       let
@@ -1241,7 +1241,7 @@ structure GLibKeyFile :>
                & []
             )
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun getStartGroup self = (GLibKeyFileRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getStartGroup_ self
     fun getString self (groupName, key) =
@@ -1279,7 +1279,7 @@ structure GLibKeyFile :>
                & []
             )
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun getUint64 self (groupName, key) =
       (
@@ -1502,7 +1502,7 @@ structure GLibKeyFile :>
         list
       ) =
       let
-        val length = LargeInt.fromInt (GBoolCArrayN.length list)
+        val length = GBoolCArrayN.length list
         val () =
           (
             GLibKeyFileRecord.FFI.withPtr
@@ -1575,7 +1575,7 @@ structure GLibKeyFile :>
         list
       ) =
       let
-        val length = LargeInt.fromInt (GDoubleCArrayN.length list)
+        val length = GDoubleCArrayN.length list
         val () =
           (
             GLibKeyFileRecord.FFI.withPtr
@@ -1646,7 +1646,7 @@ structure GLibKeyFile :>
         list
       ) =
       let
-        val length = LargeInt.fromInt (GIntCArrayN.length list)
+        val length = GIntCArrayN.length list
         val () =
           (
             GLibKeyFileRecord.FFI.withPtr
@@ -1701,7 +1701,7 @@ structure GLibKeyFile :>
         list
       ) =
       let
-        val length = LargeInt.fromInt (Utf8CPtrArrayN.length list)
+        val length = Utf8CPtrArrayN.length list
         val () =
           (
             GLibKeyFileRecord.FFI.withPtr
@@ -1753,7 +1753,7 @@ structure GLibKeyFile :>
         list
       ) =
       let
-        val length = LargeInt.fromInt (Utf8CPtrArrayN.length list)
+        val length = Utf8CPtrArrayN.length list
         val () =
           (
             GLibKeyFileRecord.FFI.withPtr

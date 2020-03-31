@@ -12,11 +12,11 @@ signature G_LIB_BYTES =
        -> t
        -> bool
     val getData : t -> GUInt8CArrayN.t option
-    val getSize : t -> LargeInt.int
+    val getSize : t -> int
     val hash : t -> LargeInt.int
     val newFromBytes :
       t
-       -> LargeInt.int * LargeInt.int
+       -> int * int
        -> t
     val unrefToData : t -> GUInt8CArrayN.t
   end

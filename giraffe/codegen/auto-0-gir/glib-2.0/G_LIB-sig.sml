@@ -346,7 +346,7 @@ signature G_LIB =
     val computeChecksumForString :
       ChecksumType.t
        * string
-       * LargeInt.int
+       * int
        -> string
     val computeHmacForBytes :
       ChecksumType.t
@@ -362,16 +362,16 @@ signature G_LIB =
       ChecksumType.t
        * GUInt8CArrayN.t
        * string
-       * LargeInt.int
+       * int
        -> string
     val convert :
       string
-       * LargeInt.int
+       * int
        * string
        * string
        -> string
-           * LargeInt.int
-           * LargeInt.int
+           * int
+           * int
     val dcgettext :
       string option
        * string
@@ -387,7 +387,7 @@ signature G_LIB =
     val dpgettext :
       string option
        * string
-       * LargeInt.int
+       * int
        -> string
     val dpgettext2 :
       string option
@@ -398,13 +398,13 @@ signature G_LIB =
     val filenameDisplayBasename : string -> string
     val filenameDisplayName : string -> string
     val filenameFromUri : string -> string * string
-    val filenameFromUtf8 : string * LargeInt.int -> GUInt8CArrayN.t * LargeInt.int
+    val filenameFromUtf8 : string * int -> GUInt8CArrayN.t * int
     val filenameToUri : string * string option -> string
     val filenameToUtf8 :
-      string * LargeInt.int
+      string * int
        -> string
-           * LargeInt.int
-           * LargeInt.int
+           * int
+           * int
     val findProgramInPath : string -> string
     val formatSize : LargeInt.int -> string
     val formatSizeForDisplay : LargeInt.int -> string
@@ -442,15 +442,15 @@ signature G_LIB =
     val ioCreateWatch : IOChannelRecord.t * IOCondition.t -> SourceRecord.t
     val listenv : unit -> Utf8CPtrArray.t
     val localeFromUtf8 :
-      string * LargeInt.int
+      string * int
        -> string
-           * LargeInt.int
-           * LargeInt.int
+           * int
+           * int
     val localeToUtf8 :
-      string * LargeInt.int
+      string * int
        -> string
-           * LargeInt.int
-           * LargeInt.int
+           * int
+           * int
     val logRemoveHandler : string * LargeInt.int -> unit
     val logSetAlwaysFatal : LogLevelFlags.t -> LogLevelFlags.t
     val logSetFatalMask : string * LogLevelFlags.t -> LogLevelFlags.t
@@ -463,7 +463,7 @@ signature G_LIB =
     val logWriterSupportsColor : LargeInt.int -> bool
     val mainCurrentSource : unit -> SourceRecord.t
     val mainDepth : unit -> LargeInt.int
-    val markupEscapeText : string * LargeInt.int -> string
+    val markupEscapeText : string * int -> string
     val mkdirWithParents : string * LargeInt.int -> LargeInt.int
     val mkdtemp : string -> string option
     val mkdtempFull : string * LargeInt.int -> string option

@@ -8,8 +8,8 @@ signature GIO_MEMORY_OUTPUT_STREAM =
     val asSeekable : 'a class -> base seekable_class
     val getType : unit -> GObject.Type.t
     val newResizable : unit -> base class
-    val getDataSize : 'a class -> LargeInt.int
-    val getSize : 'a class -> LargeInt.int
+    val getDataSize : 'a class -> int
+    val getSize : 'a class -> int
     val stealAsBytes : 'a class -> GLib.BytesRecord.t
     val dataSizeProp : {get : 'a class -> LargeInt.int}
     val sizeProp :

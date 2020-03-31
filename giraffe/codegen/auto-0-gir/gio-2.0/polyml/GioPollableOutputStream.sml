@@ -30,7 +30,7 @@ structure GioPollableOutputStream :>
     fun isWritable self = (GioPollableOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ self
     fun writeNonblocking self (buffer, cancellable) =
       let
-        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val count = GUInt8CArrayN.length buffer
         val retVal =
           (
             GioPollableOutputStreamClass.FFI.withPtr

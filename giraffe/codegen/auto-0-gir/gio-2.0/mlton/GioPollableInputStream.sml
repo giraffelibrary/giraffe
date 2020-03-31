@@ -41,7 +41,7 @@ structure GioPollableInputStream :>
     fun isReadable self = (GioPollableInputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isReadable_ self
     fun readNonblocking self (buffer, cancellable) =
       let
-        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val count = GUInt8CArrayN.length buffer
         val retVal =
           (
             GioPollableInputStreamClass.FFI.withPtr

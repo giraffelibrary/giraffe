@@ -58,8 +58,8 @@ structure GioConverter :>
         flags
       ) =
       let
-        val inbufSize = LargeInt.fromInt (GUInt8CArrayN.length inbuf)
-        val outbufSize = LargeInt.fromInt (GUInt8CArrayN.length outbuf)
+        val inbufSize = GUInt8CArrayN.length inbuf
+        val outbufSize = GUInt8CArrayN.length outbuf
         val bytesRead
          & bytesWritten
          & retVal =

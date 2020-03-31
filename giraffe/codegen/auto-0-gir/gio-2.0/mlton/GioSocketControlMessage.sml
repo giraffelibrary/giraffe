@@ -38,7 +38,7 @@ structure GioSocketControlMessage :>
         data
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CArrayN.length data)
+        val size = GUInt8CArrayN.length data
         val retVal =
           (
             GInt.FFI.withVal

@@ -108,7 +108,7 @@ structure GtkRecentChooser :>
       let
         val length & retVal = (GtkRecentChooserClass.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) getUris_ (self & GSize.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun removeFilter self filter = (GtkRecentChooserClass.FFI.withPtr &&&> GtkRecentFilterClass.FFI.withPtr ---> I) removeFilter_ (self & filter)
     fun selectAll self = (GtkRecentChooserClass.FFI.withPtr ---> I) selectAll_ self

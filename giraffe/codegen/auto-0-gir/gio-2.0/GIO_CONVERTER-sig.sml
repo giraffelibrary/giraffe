@@ -11,7 +11,7 @@ signature GIO_CONVERTER =
            * GUInt8CArrayN.t
            * converter_flags_t
        -> converter_result_t
-           * LargeInt.int
-           * LargeInt.int
+           * int
+           * int
     val reset : 'a class -> unit
   end

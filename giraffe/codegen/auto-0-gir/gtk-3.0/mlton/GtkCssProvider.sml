@@ -107,7 +107,7 @@ structure GtkCssProvider :>
     fun getNamed (name, variant) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkCssProviderClass.FFI.fromPtr false) getNamed_ (name & variant)
     fun loadFromData self data =
       let
-        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
+        val length = GUInt8CArrayN.length data
         val () =
           (
             GtkCssProviderClass.FFI.withPtr

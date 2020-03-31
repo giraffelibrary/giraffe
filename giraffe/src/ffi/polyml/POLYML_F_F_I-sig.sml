@@ -105,33 +105,47 @@ signature POLYML_F_F_I =
           ctype : LowLevel.ctype
         }
 
-    val cVoid      : unit conversion
-    val cPointer   : Memory.Pointer.t conversion
-    val cBool      : int conversion
-    val cInt8      : LargeInt.int conversion
-    val cUint8     : LargeInt.int conversion
-    val cChar      : char conversion
-    val cUchar     : Word8.word conversion
-    val cInt16     : LargeInt.int conversion
-    val cUint16    : LargeInt.int conversion
-    val cInt32     : LargeInt.int conversion
-    val cUint32    : LargeInt.int conversion
-    val cInt64     : LargeInt.int conversion
-    val cUint64    : LargeInt.int conversion
-    val cShort     : LargeInt.int conversion
-    val cUshort    : LargeInt.int conversion
-    val cInt       : LargeInt.int conversion
-    val cUint      : LargeInt.int conversion
-    val cLong      : LargeInt.int conversion
-    val cUlong     : LargeInt.int conversion
-    val cString    : string conversion
-    val cByteArray : Word8Vector.vector conversion
-    val cFloat     : real conversion
-    val cDouble    : real conversion
-    val cConstStar : 'a conversion -> 'a conversion
-    val cStruct    : ('as, unit) func -> 'as conversion
+    val cVoid        : unit conversion
+    val cPointer     : Memory.Pointer.t conversion
+    val cBool        : int conversion
+    val cChar        : char conversion
+    val cUchar       : Word8.word conversion
+    val cInt8        : int conversion
+    val cInt8Large   : LargeInt.int conversion
+    val cUint8       : int conversion
+    val cUint8Large  : LargeInt.int conversion
+    val cInt16       : int conversion
+    val cInt16Large  : LargeInt.int conversion
+    val cUint16      : int conversion
+    val cUint16Large : LargeInt.int conversion
+    val cInt32       : int conversion
+    val cInt32Large  : LargeInt.int conversion
+    val cUint32      : int conversion
+    val cUint32Large : LargeInt.int conversion
+    val cInt64       : int conversion
+    val cInt64Large  : LargeInt.int conversion
+    val cUint64      : int conversion
+    val cUint64Large : LargeInt.int conversion
+    val cShort       : int conversion
+    val cShortLarge  : LargeInt.int conversion
+    val cUshort      : int conversion
+    val cUshortLarge : LargeInt.int conversion
+    val cInt         : int conversion
+    val cIntLarge    : LargeInt.int conversion
+    val cUint        : int conversion
+    val cUintLarge   : LargeInt.int conversion
+    val cLong        : int conversion
+    val cLongLarge   : LargeInt.int conversion
+    val cUlong       : int conversion
+    val cUlongLarge  : LargeInt.int conversion
+    val cString      : string conversion
+    val cByteArray   : Word8Vector.vector conversion
+    val cFloat       : real conversion
+    val cDouble      : real conversion
+    val cConstStar   : 'a conversion -> 'a conversion
+    val cStruct      : ('as, unit) func -> 'as conversion
     type 'a closure
-    val cFunction  : ('a -> 'b) closure conversion
+    val cFunction    : ('a -> 'b) closure conversion
 
     val closureWithAbi :
       Foreign.LibFFI.abi -> ('as, 'r) func -> ('as -> 'r) -> ('as -> 'r) closure

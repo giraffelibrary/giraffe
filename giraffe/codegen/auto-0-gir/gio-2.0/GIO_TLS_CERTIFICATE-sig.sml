@@ -7,7 +7,7 @@ signature GIO_TLS_CERTIFICATE =
     val getType : unit -> GObject.Type.t
     val newFromFile : string -> base class
     val newFromFiles : string * string -> base class
-    val newFromPem : string * LargeInt.int -> base class
+    val newFromPem : string * int -> base class
     val getIssuer : 'a class -> base class
     val isSame :
       'a class

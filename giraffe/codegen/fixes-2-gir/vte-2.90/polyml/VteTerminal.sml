@@ -531,7 +531,7 @@ structure VteTerminal :>
         palette
       ) =
       let
-        val paletteSize = LargeInt.fromInt (GdkRgbaRecordCArrayN.length palette)
+        val paletteSize = GdkRgbaRecordCArrayN.length palette
         val () =
           (
             VteTerminalClass.FFI.withPtr

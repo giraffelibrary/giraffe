@@ -221,7 +221,7 @@ structure GLibRegex :>
         matchOptions
       ) =
       let
-        val stringLen = LargeInt.fromInt (Utf8CPtrArrayN.length string)
+        val stringLen = Utf8CPtrArrayN.length string
         val matchInfo & () =
           (
             GLibRegexRecord.FFI.withPtr
@@ -254,7 +254,7 @@ structure GLibRegex :>
         matchOptions
       ) =
       let
-        val stringLen = LargeInt.fromInt (Utf8CPtrArrayN.length string)
+        val stringLen = Utf8CPtrArrayN.length string
         val matchInfo & () =
           (
             GLibRegexRecord.FFI.withPtr
@@ -288,7 +288,7 @@ structure GLibRegex :>
         matchOptions
       ) =
       let
-        val stringLen = LargeInt.fromInt (Utf8CPtrArrayN.length string)
+        val stringLen = Utf8CPtrArrayN.length string
         val retVal =
           (
             GLibRegexRecord.FFI.withPtr
@@ -322,7 +322,7 @@ structure GLibRegex :>
         matchOptions
       ) =
       let
-        val stringLen = LargeInt.fromInt (Utf8CPtrArrayN.length string)
+        val stringLen = Utf8CPtrArrayN.length string
         val retVal =
           (
             GLibRegexRecord.FFI.withPtr
@@ -369,7 +369,7 @@ structure GLibRegex :>
         maxTokens
       ) =
       let
-        val stringLen = LargeInt.fromInt (Utf8CPtrArrayN.length string)
+        val stringLen = Utf8CPtrArrayN.length string
         val retVal =
           (
             GLibRegexRecord.FFI.withPtr

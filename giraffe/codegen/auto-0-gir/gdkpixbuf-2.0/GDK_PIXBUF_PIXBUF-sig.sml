@@ -150,7 +150,7 @@ signature GDK_PIXBUF_PIXBUF =
        -> bool
        -> base class option
     val getBitsPerSample : 'a class -> LargeInt.int
-    val getByteLength : 'a class -> LargeInt.int
+    val getByteLength : 'a class -> int
     val getColorspace : 'a class -> colorspace_t
     val getHasAlpha : 'a class -> bool
     val getHeight : 'a class -> LargeInt.int

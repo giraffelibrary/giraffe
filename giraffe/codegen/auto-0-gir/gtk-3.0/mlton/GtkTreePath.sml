@@ -40,7 +40,7 @@ structure GtkTreePath :>
     fun newFirst () = (I ---> GtkTreePathRecord.FFI.fromPtr true) newFirst_ ()
     fun newFromIndices indices =
       let
-        val length = LargeInt.fromInt (GIntCArrayN.length indices)
+        val length = GIntCArrayN.length indices
         val retVal = (GIntCArrayN.FFI.withPtr &&&> GSize.FFI.withVal ---> GtkTreePathRecord.FFI.fromPtr true) newFromIndices_ (indices & length)
       in
         retVal

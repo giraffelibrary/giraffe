@@ -349,7 +349,7 @@ structure GioOutputStream :>
         )
     fun write self (buffer, cancellable) =
       let
-        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val count = GUInt8CArrayN.length buffer
         val retVal =
           (
             GioOutputStreamClass.FFI.withPtr
@@ -372,7 +372,7 @@ structure GioOutputStream :>
       end
     fun writeAll self (buffer, cancellable) =
       let
-        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val count = GUInt8CArrayN.length buffer
         val bytesWritten & () =
           (
             GioOutputStreamClass.FFI.withPtr

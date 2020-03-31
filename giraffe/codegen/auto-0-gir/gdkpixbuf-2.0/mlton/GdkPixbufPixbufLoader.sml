@@ -125,7 +125,7 @@ structure GdkPixbufPixbufLoader :>
         )
     fun write self buf =
       let
-        val count = LargeInt.fromInt (GUInt8CArrayN.length buf)
+        val count = GUInt8CArrayN.length buf
         val () =
           (
             GdkPixbufPixbufLoaderClass.FFI.withPtr

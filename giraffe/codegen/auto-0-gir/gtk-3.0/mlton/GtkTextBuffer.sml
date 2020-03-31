@@ -1045,7 +1045,7 @@ structure GtkTextBuffer :>
         data
       ) =
       let
-        val length = LargeInt.fromInt (GUInt8CArrayN.length data)
+        val length = GUInt8CArrayN.length data
         val () =
           (
             GtkTextBufferClass.FFI.withPtr
@@ -1636,7 +1636,7 @@ structure GtkTextBuffer :>
                & GSize.null
             )
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun setModified self setting = (GtkTextBufferClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setModified_ (self & setting)
     fun setText self (text, len) =

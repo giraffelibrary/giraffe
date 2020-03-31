@@ -12,7 +12,7 @@ signature GIO_RESOURCE =
     val getInfo :
       t
        -> string * resource_lookup_flags_t
-       -> LargeInt.int * LargeInt.int
+       -> int * LargeInt.int
     val lookupData :
       t
        -> string * resource_lookup_flags_t

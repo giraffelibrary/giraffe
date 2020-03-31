@@ -894,7 +894,7 @@ structure GdkPixbufPixbuf :>
                & []
             )
       in
-        buffer (LargeInt.toInt bufferSize)
+        buffer bufferSize
       end
     fun saveToStreamv
       self

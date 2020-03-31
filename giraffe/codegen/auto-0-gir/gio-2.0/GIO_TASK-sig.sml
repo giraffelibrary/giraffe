@@ -16,7 +16,7 @@ signature GIO_TASK =
     val getSourceObject : 'a class -> base GObject.ObjectClass.class
     val hadError : 'a class -> bool
     val propagateBoolean : 'a class -> unit
-    val propagateInt : 'a class -> LargeInt.int
+    val propagateInt : 'a class -> int
     val returnBoolean :
       'a class
        -> bool
@@ -24,7 +24,7 @@ signature GIO_TASK =
     val returnErrorIfCancelled : 'a class -> bool
     val returnInt :
       'a class
-       -> LargeInt.int
+       -> int
        -> unit
     val setCheckCancellable :
       'a class

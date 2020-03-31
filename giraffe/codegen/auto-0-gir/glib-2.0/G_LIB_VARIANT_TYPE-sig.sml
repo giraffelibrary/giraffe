@@ -16,7 +16,7 @@ signature G_LIB_VARIANT_TYPE =
        -> t
        -> bool
     val first : t -> t
-    val getStringLength : t -> LargeInt.int
+    val getStringLength : t -> int
     val hash : t -> LargeInt.int
     val isArray : t -> bool
     val isBasic : t -> bool
@@ -31,7 +31,7 @@ signature G_LIB_VARIANT_TYPE =
     val isTuple : t -> bool
     val isVariant : t -> bool
     val key : t -> t
-    val nItems : t -> LargeInt.int
+    val nItems : t -> int
     val next : t -> t
     val value : t -> t
     val checked : string -> t

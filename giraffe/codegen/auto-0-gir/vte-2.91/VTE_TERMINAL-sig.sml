@@ -22,7 +22,7 @@ signature VTE_TERMINAL =
        -> unit
     val feedChild :
       'a class
-       -> string option * LargeInt.int
+       -> string option * int
        -> unit
     val feedChildBinary :
       'a class

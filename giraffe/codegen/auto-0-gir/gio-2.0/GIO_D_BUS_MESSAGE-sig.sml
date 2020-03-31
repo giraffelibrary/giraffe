@@ -22,7 +22,7 @@ signature GIO_D_BUS_MESSAGE =
        * string
        * string
        -> base class
-    val bytesNeeded : GUInt8CArrayN.t -> LargeInt.int
+    val bytesNeeded : GUInt8CArrayN.t -> int
     val copy : 'a class -> base class
     val getArg0 : 'a class -> string
     val getBody : 'a class -> GLib.VariantRecord.t

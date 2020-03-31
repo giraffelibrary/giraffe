@@ -7,6 +7,6 @@ signature GIO_SOCKET_ADDRESS =
     val asSocketConnectable : 'a class -> base socket_connectable_class
     val getType : unit -> GObject.Type.t
     val getFamily : 'a class -> socket_family_t
-    val getNativeSize : 'a class -> LargeInt.int
+    val getNativeSize : 'a class -> int
     val familyProp : {get : 'a class -> socket_family_t}
   end

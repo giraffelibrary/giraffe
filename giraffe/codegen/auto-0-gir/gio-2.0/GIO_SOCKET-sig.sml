@@ -50,7 +50,7 @@ signature GIO_SOCKET =
        -> 'b socket_address_class * 'c cancellable_class option
        -> unit
     val connectionFactoryCreateConnection : 'a class -> base socket_connection_class
-    val getAvailableBytes : 'a class -> LargeInt.int
+    val getAvailableBytes : 'a class -> int
     val getBlocking : 'a class -> bool
     val getBroadcast : 'a class -> bool
     val getCredentials : 'a class -> base credentials_class
@@ -88,33 +88,33 @@ signature GIO_SOCKET =
     val receive :
       'a class
        -> GUInt8CArrayN.t * 'b cancellable_class option
-       -> LargeInt.int
+       -> int
     val receiveFrom :
       'a class
        -> GUInt8CArrayN.t * 'b cancellable_class option
-       -> LargeInt.int * base socket_address_class
+       -> int * base socket_address_class
     val receiveWithBlocking :
       'a class
        -> GUInt8CArrayN.t
            * bool
            * 'b cancellable_class option
-       -> LargeInt.int
+       -> int
     val send :
       'a class
        -> GUInt8CArrayN.t * 'b cancellable_class option
-       -> LargeInt.int
+       -> int
     val sendTo :
       'a class
        -> 'b socket_address_class option
            * GUInt8CArrayN.t
            * 'c cancellable_class option
-       -> LargeInt.int
+       -> int
     val sendWithBlocking :
       'a class
        -> GUInt8CArrayN.t
            * bool
            * 'b cancellable_class option
-       -> LargeInt.int
+       -> int
     val setBlocking :
       'a class
        -> bool

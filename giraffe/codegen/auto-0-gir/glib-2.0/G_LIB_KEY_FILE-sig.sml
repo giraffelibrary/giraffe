@@ -25,7 +25,7 @@ signature G_LIB_KEY_FILE =
       t
        -> string * string
        -> GDoubleCArrayN.t
-    val getGroups : t -> Utf8CPtrArray.t * LargeInt.int
+    val getGroups : t -> Utf8CPtrArray.t * int
     val getInt64 :
       t
        -> string * string
@@ -41,7 +41,7 @@ signature G_LIB_KEY_FILE =
     val getKeys :
       t
        -> string
-       -> Utf8CPtrArray.t * LargeInt.int
+       -> Utf8CPtrArray.t * int
     val getLocaleString :
       t
        -> string
@@ -82,7 +82,7 @@ signature G_LIB_KEY_FILE =
     val loadFromData :
       t
        -> string
-           * LargeInt.int
+           * int
            * key_file_flags_t
        -> unit
     val loadFromDataDirs :
@@ -205,5 +205,5 @@ signature G_LIB_KEY_FILE =
            * string
            * string
        -> unit
-    val toData : t -> string * LargeInt.int
+    val toData : t -> string * int
   end

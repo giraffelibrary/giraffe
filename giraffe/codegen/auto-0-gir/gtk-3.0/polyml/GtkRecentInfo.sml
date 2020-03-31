@@ -104,7 +104,7 @@ structure GtkRecentInfo :>
       let
         val length & retVal = (GtkRecentInfoRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) getApplications_ (self & GSize.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun getDescription self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDescription_ self
     fun getDisplayName self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
@@ -113,7 +113,7 @@ structure GtkRecentInfo :>
       let
         val length & retVal = (GtkRecentInfoRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) getGroups_ (self & GSize.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal length
       end
     fun getIcon self size = (GtkRecentInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getIcon_ (self & size)
     fun getMimeType self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMimeType_ self

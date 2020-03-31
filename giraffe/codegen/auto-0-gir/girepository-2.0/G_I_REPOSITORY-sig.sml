@@ -142,12 +142,12 @@ signature G_I_REPOSITORY =
     val signalInfoTrueStopsEmit : SignalInfoRecord.t -> bool
     val structInfoFindField : StructInfoRecord.t * string -> FieldInfoRecord.t
     val structInfoFindMethod : StructInfoRecord.t * string -> FunctionInfoRecord.t
-    val structInfoGetAlignment : StructInfoRecord.t -> LargeInt.int
+    val structInfoGetAlignment : StructInfoRecord.t -> int
     val structInfoGetField : StructInfoRecord.t * LargeInt.int -> FieldInfoRecord.t
     val structInfoGetMethod : StructInfoRecord.t * LargeInt.int -> FunctionInfoRecord.t
     val structInfoGetNFields : StructInfoRecord.t -> LargeInt.int
     val structInfoGetNMethods : StructInfoRecord.t -> LargeInt.int
-    val structInfoGetSize : StructInfoRecord.t -> LargeInt.int
+    val structInfoGetSize : StructInfoRecord.t -> int
     val structInfoIsForeign : StructInfoRecord.t -> bool
     val structInfoIsGtypeStruct : StructInfoRecord.t -> bool
     val typeInfoGetArrayFixedSize : TypeInfoRecord.t -> LargeInt.int
@@ -160,7 +160,7 @@ signature G_I_REPOSITORY =
     val typeInfoIsZeroTerminated : TypeInfoRecord.t -> bool
     val typeTagToString : TypeTag.t -> string
     val unionInfoFindMethod : UnionInfoRecord.t * string -> FunctionInfoRecord.t
-    val unionInfoGetAlignment : UnionInfoRecord.t -> LargeInt.int
+    val unionInfoGetAlignment : UnionInfoRecord.t -> int
     val unionInfoGetDiscriminator : UnionInfoRecord.t * LargeInt.int -> ConstantInfoRecord.t
     val unionInfoGetDiscriminatorOffset : UnionInfoRecord.t -> LargeInt.int
     val unionInfoGetDiscriminatorType : UnionInfoRecord.t -> TypeInfoRecord.t
@@ -168,7 +168,7 @@ signature G_I_REPOSITORY =
     val unionInfoGetMethod : UnionInfoRecord.t * LargeInt.int -> FunctionInfoRecord.t
     val unionInfoGetNFields : UnionInfoRecord.t -> LargeInt.int
     val unionInfoGetNMethods : UnionInfoRecord.t -> LargeInt.int
-    val unionInfoGetSize : UnionInfoRecord.t -> LargeInt.int
+    val unionInfoGetSize : UnionInfoRecord.t -> int
     val unionInfoIsDiscriminated : UnionInfoRecord.t -> bool
     val valueInfoGetValue : ValueInfoRecord.t -> LargeInt.int
     val vfuncInfoGetFlags : VFuncInfoRecord.t -> VFuncInfoFlags.t

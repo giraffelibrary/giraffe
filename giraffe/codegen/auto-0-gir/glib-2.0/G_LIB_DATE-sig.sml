@@ -115,10 +115,10 @@ signature G_LIB_DATE =
     val isLeapYear : date_year_t -> bool
     val strftime :
       string
-       * LargeInt.int
+       * int
        * string
        * t
-       -> LargeInt.int
+       -> int
     val validDay : date_day_t -> bool
     val validDmy :
       date_day_t

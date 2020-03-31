@@ -133,7 +133,7 @@ structure GtkClipboard :>
                & GSize.null
             )
       in
-        (retVal (LargeInt.toInt length), format)
+        (retVal length, format)
       end
     fun waitForTargets self =
       let

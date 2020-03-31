@@ -11,5 +11,5 @@ signature G_LIB_CHECKSUM =
       t
        -> GUInt8CArrayN.t
        -> unit
-    val typeGetLength : checksum_type_t -> LargeInt.int
+    val typeGetLength : checksum_type_t -> int
   end

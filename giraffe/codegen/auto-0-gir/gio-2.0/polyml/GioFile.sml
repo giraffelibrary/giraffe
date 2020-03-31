@@ -967,7 +967,7 @@ structure GioFile :>
                & []
             )
       in
-        (contents (LargeInt.toInt length), etagOut)
+        (contents length, etagOut)
       end
     fun loadContentsFinish self res =
       let
@@ -997,7 +997,7 @@ structure GioFile :>
                & []
             )
       in
-        (contents (LargeInt.toInt length), etagOut)
+        (contents length, etagOut)
       end
     fun loadPartialContentsFinish self res =
       let
@@ -1027,7 +1027,7 @@ structure GioFile :>
                & []
             )
       in
-        (contents (LargeInt.toInt length), etagOut)
+        (contents length, etagOut)
       end
     fun makeDirectory self cancellable =
       (
@@ -1406,7 +1406,7 @@ structure GioFile :>
         cancellable
       ) =
       let
-        val length = LargeInt.fromInt (GUInt8CArrayN.length contents)
+        val length = GUInt8CArrayN.length contents
         val newEtag & () =
           (
             GioFileClass.FFI.withPtr

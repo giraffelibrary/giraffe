@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -14,7 +14,7 @@ structure GLongType :> C_VALUE_EQ_NULL_TYPE where type t = LargeInt.int =
 
     structure PolyML =
       struct
-        val cVal = PolyMLFFI.cLong
+        val cVal = PolyMLFFI.cLongLarge
         val cPtr = PolyMLFFI.cPointer
       end
 
@@ -40,7 +40,7 @@ structure GLongType :> C_VALUE_EQ_NULL_TYPE where type t = LargeInt.int =
     in
       val g_malloc_sym = getSymbol "g_malloc"
       val g_free_sym = getSymbol "g_free"
-      fun malloc n = call g_malloc_sym (cUlong --> cPointer) (Word.toLargeInt n)
+      fun malloc n = call g_malloc_sym (cUlong --> cPointer) (Word.toInt n)
       val free = call g_free_sym (cPointer --> cVoid)
     end
   end

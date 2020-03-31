@@ -6,6 +6,6 @@ signature G_LIB_MARKUP_PARSE_CONTEXT =
     val getElement : t -> string
     val parse :
       t
-       -> string * LargeInt.int
+       -> string * int
        -> unit
   end

@@ -1381,21 +1381,21 @@ signature GIO =
        * GUInt8CArrayN.t
        * bool
        * 'b CancellableClass.class option
-       -> LargeInt.int
+       -> int
     val pollableStreamWrite :
       'a OutputStreamClass.class
        * GUInt8CArrayN.t
        * bool
        * 'b CancellableClass.class option
-       -> LargeInt.int
+       -> int
     val pollableStreamWriteAll :
       'a OutputStreamClass.class
        * GUInt8CArrayN.t
        * bool
        * 'b CancellableClass.class option
-       -> LargeInt.int
+       -> int
     val resourcesEnumerateChildren : string * ResourceLookupFlags.t -> Utf8CPtrArray.t
-    val resourcesGetInfo : string * ResourceLookupFlags.t -> LargeInt.int * LargeInt.int
+    val resourcesGetInfo : string * ResourceLookupFlags.t -> int * LargeInt.int
     val resourcesLookupData : string * ResourceLookupFlags.t -> GLib.BytesRecord.t
     val resourcesOpenStream : string * ResourceLookupFlags.t -> base InputStreamClass.class
     val resourcesRegister : ResourceRecord.t -> unit

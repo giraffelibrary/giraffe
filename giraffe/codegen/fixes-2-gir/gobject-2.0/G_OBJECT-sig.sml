@@ -490,8 +490,8 @@ signature G_OBJECT =
        * bool
        -> (LargeInt.int * GLib.Quark.t) option
     val signalTypeCclosureNew : Type.t * LargeInt.int -> ClosureRecord.t
-    val typeAddClassPrivate : Type.t * LargeInt.int -> unit
-    val typeAddInstancePrivate : Type.t * LargeInt.int -> LargeInt.int
+    val typeAddClassPrivate : Type.t * int -> unit
+    val typeAddInstancePrivate : Type.t * int -> LargeInt.int
     val typeAddInterfaceDynamic :
       Type.t
        * Type.t

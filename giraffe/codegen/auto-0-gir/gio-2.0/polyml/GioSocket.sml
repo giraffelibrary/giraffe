@@ -427,7 +427,7 @@ structure GioSocket :>
     fun listen self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) listen_ (self & [])
     fun receive self (buffer, cancellable) =
       let
-        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val size = GUInt8CArrayN.length buffer
         val retVal =
           (
             GioSocketClass.FFI.withPtr
@@ -450,7 +450,7 @@ structure GioSocket :>
       end
     fun receiveFrom self (buffer, cancellable) =
       let
-        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val size = GUInt8CArrayN.length buffer
         val address & retVal =
           (
             GioSocketClass.FFI.withPtr
@@ -481,7 +481,7 @@ structure GioSocket :>
         cancellable
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val size = GUInt8CArrayN.length buffer
         val retVal =
           (
             GioSocketClass.FFI.withPtr
@@ -506,7 +506,7 @@ structure GioSocket :>
       end
     fun send self (buffer, cancellable) =
       let
-        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val size = GUInt8CArrayN.length buffer
         val retVal =
           (
             GioSocketClass.FFI.withPtr
@@ -535,7 +535,7 @@ structure GioSocket :>
         cancellable
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val size = GUInt8CArrayN.length buffer
         val retVal =
           (
             GioSocketClass.FFI.withPtr
@@ -566,7 +566,7 @@ structure GioSocket :>
         cancellable
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
+        val size = GUInt8CArrayN.length buffer
         val retVal =
           (
             GioSocketClass.FFI.withPtr
