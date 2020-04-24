@@ -26,7 +26,7 @@ structure GSizeType :> C_VALUE_EQ_NULL_TYPE where type t = int =
 
     val toC = C_ULong.fromInt
     val updateC = Fn.const Fn.ignore
-    val fromC = C_ULong.toIntX
+    val fromC = C_ULong.toInt
 
     val new = null
     val delete = Fn.ignore
