@@ -345,7 +345,7 @@ signature GTK_WIDGET =
       'a class
        -> direction_type_t
        -> bool
-    val listActionPrefixes : 'a class -> Utf8CArray.t
+    val listActionPrefixes : 'a class -> Utf8CPtrArray.t
     val map : 'a class -> unit
     val mnemonicActivate :
       'a class

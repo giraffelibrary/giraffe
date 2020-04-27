@@ -71,7 +71,7 @@ structure GioMountOperation :>
                     flags
                   )
           )
-      fun askQuestionSig f = signal "ask-question" (get 0w1 string &&&> get 0w2 Utf8CArray.t ---> ret_void) (fn message & choices => f (message, choices))
+      fun askQuestionSig f = signal "ask-question" (get 0w1 string &&&> get 0w2 Utf8CPtrArray.t ---> ret_void) (fn message & choices => f (message, choices))
       fun replySig f = signal "reply" (get 0w1 GioMountOperationResult.t ---> ret_void) f
       fun showUnmountProgressSig f =
         signal "show-unmount-progress"

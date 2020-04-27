@@ -15,7 +15,7 @@ structure GioSubprocess :>
       val new_ =
         call (getSymbol "g_subprocess_newv")
           (
-            Utf8CArray.PolyML.cInPtr
+            Utf8CPtrArray.PolyML.cInPtr
              &&> GioSubprocessFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioSubprocessClass.PolyML.cPtr
@@ -119,7 +119,7 @@ structure GioSubprocess :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (argv, flags) =
       (
-        Utf8CArray.FFI.withPtr
+        Utf8CPtrArray.FFI.withPtr
          &&&> GioSubprocessFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioSubprocessClass.FFI.fromPtr true

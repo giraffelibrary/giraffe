@@ -21,8 +21,8 @@ structure GioSettingsSchemaSource :>
           (
             GioSettingsSchemaSourceRecord.PolyML.cPtr
              &&> GBool.PolyML.cVal
-             &&> Utf8CArray.PolyML.cOutRef
-             &&> Utf8CArray.PolyML.cOutRef
+             &&> Utf8CPtrArray.PolyML.cOutRef
+             &&> Utf8CPtrArray.PolyML.cOutRef
              --> cVoid
           )
       val lookup_ =
@@ -66,10 +66,10 @@ structure GioSettingsSchemaSource :>
           (
             GioSettingsSchemaSourceRecord.FFI.withPtr
              &&&> GBool.FFI.withVal
-             &&&> Utf8CArray.FFI.withRefOptPtr
-             &&&> Utf8CArray.FFI.withRefOptPtr
-             ---> Utf8CArray.FFI.fromPtr 2
-                   && Utf8CArray.FFI.fromPtr 2
+             &&&> Utf8CPtrArray.FFI.withRefOptPtr
+             &&&> Utf8CPtrArray.FFI.withRefOptPtr
+             ---> Utf8CPtrArray.FFI.fromPtr 2
+                   && Utf8CPtrArray.FFI.fromPtr 2
                    && I
           )
             listSchemas_

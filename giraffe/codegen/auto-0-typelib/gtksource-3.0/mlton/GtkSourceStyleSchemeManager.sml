@@ -37,8 +37,8 @@ structure GtkSourceStyleSchemeManager :>
               x2,
               x3
             )
-    val getSchemeIds_ = _import "gtk_source_style_scheme_manager_get_scheme_ids" : GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p -> unit Utf8CArray.FFI.out_p;
-    val getSearchPath_ = _import "gtk_source_style_scheme_manager_get_search_path" : GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val getSchemeIds_ = _import "gtk_source_style_scheme_manager_get_scheme_ids" : GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p -> unit Utf8CPtrArray.FFI.out_p;
+    val getSearchPath_ = _import "gtk_source_style_scheme_manager_get_search_path" : GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val prependSearchPath_ =
       fn
         x1 & (x2, x3) =>
@@ -60,8 +60,8 @@ structure GtkSourceStyleSchemeManager :>
           (
             _import "mlton_gtk_source_style_scheme_manager_set_search_path" :
               GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p
-               * Utf8CArray.MLton.p1
-               * unit Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * unit Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (
@@ -78,8 +78,8 @@ structure GtkSourceStyleSchemeManager :>
     fun appendSearchPath self path = (GtkSourceStyleSchemeManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) appendSearchPath_ (self & path)
     fun forceRescan self = (GtkSourceStyleSchemeManagerClass.FFI.withPtr ---> I) forceRescan_ self
     fun getScheme self schemeId = (GtkSourceStyleSchemeManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceStyleSchemeClass.FFI.fromPtr false) getScheme_ (self & schemeId)
-    fun getSchemeIds self = (GtkSourceStyleSchemeManagerClass.FFI.withPtr ---> Utf8CArray.FFI.fromOptPtr 0) getSchemeIds_ self
-    fun getSearchPath self = (GtkSourceStyleSchemeManagerClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 0) getSearchPath_ self
+    fun getSchemeIds self = (GtkSourceStyleSchemeManagerClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromOptPtr 0) getSchemeIds_ self
+    fun getSearchPath self = (GtkSourceStyleSchemeManagerClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getSearchPath_ self
     fun prependSearchPath self path = (GtkSourceStyleSchemeManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) prependSearchPath_ (self & path)
-    fun setSearchPath self path = (GtkSourceStyleSchemeManagerClass.FFI.withPtr &&&> Utf8CArray.FFI.withOptPtr ---> I) setSearchPath_ (self & path)
+    fun setSearchPath self path = (GtkSourceStyleSchemeManagerClass.FFI.withPtr &&&> Utf8CPtrArray.FFI.withOptPtr ---> I) setSearchPath_ (self & path)
   end

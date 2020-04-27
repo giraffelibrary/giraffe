@@ -113,7 +113,7 @@ signature ATK =
       ATK_REGISTRY
         where type 'a class = 'a RegistryClass.class
         where type 'a object_factory_class = 'a ObjectFactoryClass.class
-    structure ObjectClassCArrayN :
+    structure ObjectClassCPtrArrayN :
       C_ARRAY
         where type elem = base ObjectClass.class
     structure RelationSet :
@@ -143,7 +143,7 @@ signature ATK =
       ATK_TABLE_CELL
         where type 'a class = 'a TableCellClass.class
         where type 'a object_class = 'a ObjectClass.class
-    structure TextRangeRecordCArray :
+    structure TextRangeRecordCPtrArray :
       C_ARRAY
         where type elem = TextRangeRecord.t
     structure TextRange :
@@ -191,7 +191,7 @@ signature ATK =
     structure Relation :
       ATK_RELATION
         where type 'a class = 'a RelationClass.class
-        where type object_class_c_array_n_t = ObjectClassCArrayN.t
+        where type object_class_c_ptr_array_n_t = ObjectClassCPtrArrayN.t
         where type 'a object_class = 'a ObjectClass.class
         where type relation_type_t = RelationType.t
     structure Socket :
@@ -206,7 +206,7 @@ signature ATK =
     structure Text :
       ATK_TEXT
         where type 'a class = 'a TextClass.class
-        where type text_range_record_c_array_t = TextRangeRecordCArray.t
+        where type text_range_record_c_ptr_array_t = TextRangeRecordCPtrArray.t
         where type text_clip_type_t = TextClipType.t
         where type text_rectangle_t = TextRectangleRecord.t
         where type coord_type_t = CoordType.t

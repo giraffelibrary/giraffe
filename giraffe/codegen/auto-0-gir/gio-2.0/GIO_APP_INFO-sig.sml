@@ -36,7 +36,7 @@ signature GIO_APP_INFO =
     val getIcon : 'a class -> base icon_class
     val getId : 'a class -> string
     val getName : 'a class -> string
-    val getSupportedTypes : 'a class -> Utf8CArray.t
+    val getSupportedTypes : 'a class -> Utf8CPtrArray.t
     val removeSupportsType :
       'a class
        -> string

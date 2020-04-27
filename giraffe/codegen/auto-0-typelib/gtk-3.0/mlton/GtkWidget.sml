@@ -708,7 +708,7 @@ structure GtkWidget :>
     val isToplevel_ = _import "gtk_widget_is_toplevel" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val isVisible_ = _import "gtk_widget_is_visible" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;
     val keynavFailed_ = fn x1 & x2 => (_import "gtk_widget_keynav_failed" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GtkDirectionType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val listActionPrefixes_ = _import "gtk_widget_list_action_prefixes" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val listActionPrefixes_ = _import "gtk_widget_list_action_prefixes" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val map_ = _import "gtk_widget_map" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;
     val mnemonicActivate_ = fn x1 & x2 => (_import "gtk_widget_mnemonic_activate" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val modifyBase_ =
@@ -1973,7 +1973,7 @@ structure GtkWidget :>
     fun isToplevel self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isToplevel_ self
     fun isVisible self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isVisible_ self
     fun keynavFailed self direction = (GtkWidgetClass.FFI.withPtr &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal) keynavFailed_ (self & direction)
-    fun listActionPrefixes self = (GtkWidgetClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 1) listActionPrefixes_ self
+    fun listActionPrefixes self = (GtkWidgetClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 1) listActionPrefixes_ self
     fun map self = (GtkWidgetClass.FFI.withPtr ---> I) map_ self
     fun mnemonicActivate self groupCycling = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) mnemonicActivate_ (self & groupCycling)
     fun modifyBase self (state, color) =

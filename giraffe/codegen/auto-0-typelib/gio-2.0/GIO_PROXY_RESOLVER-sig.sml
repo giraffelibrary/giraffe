@@ -10,9 +10,9 @@ signature GIO_PROXY_RESOLVER =
     val lookup :
       'a class
        -> string * 'b cancellable_class option
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
     val lookupFinish :
       'a class
        -> 'b async_result_class
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
   end

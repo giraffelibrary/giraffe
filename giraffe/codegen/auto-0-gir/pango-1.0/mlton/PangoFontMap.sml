@@ -1,7 +1,7 @@
 structure PangoFontMap :>
   PANGO_FONT_MAP
     where type 'a class = 'a PangoFontMapClass.class
-    where type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
+    where type font_family_class_c_ptr_array_n_t = PangoFontFamilyClassCPtrArrayN.t
     where type 'a font_class = 'a PangoFontClass.class
     where type 'a fontset_class = 'a PangoFontsetClass.class
     where type language_t = PangoLanguageRecord.t
@@ -21,8 +21,8 @@ structure PangoFontMap :>
           (
             _import "mlton_pango_font_map_list_families" :
               PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p
-               * PangoFontFamilyClassCArrayN.MLton.r1
-               * (unit, PangoFontFamilyClassCArrayN.FFI.notnull) PangoFontFamilyClassCArrayN.MLton.r2
+               * PangoFontFamilyClassCPtrArrayN.MLton.r1
+               * (unit, PangoFontFamilyClassCPtrArrayN.FFI.notnull) PangoFontFamilyClassCPtrArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -70,7 +70,7 @@ structure PangoFontMap :>
               x4
             )
     type 'a class = 'a PangoFontMapClass.class
-    type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
+    type font_family_class_c_ptr_array_n_t = PangoFontFamilyClassCPtrArrayN.t
     type 'a font_class = 'a PangoFontClass.class
     type 'a fontset_class = 'a PangoFontsetClass.class
     type language_t = PangoLanguageRecord.t
@@ -89,9 +89,9 @@ structure PangoFontMap :>
          & () =
           (
             PangoFontMapClass.FFI.withPtr
-             &&&> PangoFontFamilyClassCArrayN.FFI.withRefOptPtr
+             &&&> PangoFontFamilyClassCPtrArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> PangoFontFamilyClassCArrayN.FFI.fromPtr 1
+             ---> PangoFontFamilyClassCPtrArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )

@@ -31,26 +31,26 @@ signature G_LIB_REGEX =
        -> match_info_t option
     val matchAllFull :
       t
-       -> Utf8CArrayN.t
+       -> Utf8CPtrArrayN.t
            * LargeInt.int
            * regex_match_flags_t
        -> match_info_t
     val matchFull :
       t
-       -> Utf8CArrayN.t
+       -> Utf8CPtrArrayN.t
            * LargeInt.int
            * regex_match_flags_t
        -> match_info_t
     val replace :
       t
-       -> Utf8CArrayN.t
+       -> Utf8CPtrArrayN.t
            * LargeInt.int
            * string
            * regex_match_flags_t
        -> string
     val replaceLiteral :
       t
-       -> Utf8CArrayN.t
+       -> Utf8CPtrArrayN.t
            * LargeInt.int
            * string
            * regex_match_flags_t
@@ -58,14 +58,14 @@ signature G_LIB_REGEX =
     val split :
       t
        -> string * regex_match_flags_t
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
     val splitFull :
       t
-       -> Utf8CArrayN.t
+       -> Utf8CPtrArrayN.t
            * LargeInt.int
            * regex_match_flags_t
            * LargeInt.int
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
     val checkReplacement : string -> bool
     val escapeNul : string * LargeInt.int -> string
     val matchSimple :
@@ -79,5 +79,5 @@ signature G_LIB_REGEX =
        * string
        * regex_compile_flags_t
        * regex_match_flags_t
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
   end

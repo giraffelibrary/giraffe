@@ -1,7 +1,7 @@
 structure GLibVariantType :>
   G_LIB_VARIANT_TYPE
     where type t = GLibVariantTypeRecord.t
-    where type variant_type_record_c_array_n_t = GLibVariantTypeRecordCArrayN.t =
+    where type variant_type_record_c_ptr_array_n_t = GLibVariantTypeRecordCPtrArrayN.t =
   struct
     local
       open PolyMLFFI
@@ -11,7 +11,7 @@ structure GLibVariantType :>
       val newArray_ = call (getSymbol "g_variant_type_new_array") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val newDictEntry_ = call (getSymbol "g_variant_type_new_dict_entry") (GLibVariantTypeRecord.PolyML.cPtr &&> GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val newMaybe_ = call (getSymbol "g_variant_type_new_maybe") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
-      val newTuple_ = call (getSymbol "g_variant_type_new_tuple") (GLibVariantTypeRecordCArrayN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GLibVariantTypeRecord.PolyML.cPtr)
+      val newTuple_ = call (getSymbol "g_variant_type_new_tuple") (GLibVariantTypeRecordCPtrArrayN.PolyML.cInPtr &&> GInt.PolyML.cVal --> GLibVariantTypeRecord.PolyML.cPtr)
       val copy_ = call (getSymbol "g_variant_type_copy") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val dupString_ = call (getSymbol "g_variant_type_dup_string") (GLibVariantTypeRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val element_ = call (getSymbol "g_variant_type_element") (GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
@@ -44,7 +44,7 @@ structure GLibVariantType :>
           )
     end
     type t = GLibVariantTypeRecord.t
-    type variant_type_record_c_array_n_t = GLibVariantTypeRecordCArrayN.t
+    type variant_type_record_c_ptr_array_n_t = GLibVariantTypeRecordCPtrArrayN.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new typeString = (Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) new_ typeString
     fun newArray element = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newArray_ element
@@ -52,8 +52,8 @@ structure GLibVariantType :>
     fun newMaybe element = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr true) newMaybe_ element
     fun newTuple items =
       let
-        val length = LargeInt.fromInt (GLibVariantTypeRecordCArrayN.length items)
-        val retVal = (GLibVariantTypeRecordCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GLibVariantTypeRecord.FFI.fromPtr true) newTuple_ (items & length)
+        val length = LargeInt.fromInt (GLibVariantTypeRecordCPtrArrayN.length items)
+        val retVal = (GLibVariantTypeRecordCPtrArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GLibVariantTypeRecord.FFI.fromPtr true) newTuple_ (items & length)
       in
         retVal
       end

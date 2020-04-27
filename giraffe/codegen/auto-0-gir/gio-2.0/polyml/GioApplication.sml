@@ -6,7 +6,7 @@ structure GioApplication :>
     where type 'a cancellable_class = 'a GioCancellableClass.class
     where type 'a notification_class = 'a GioNotificationClass.class
     where type 'a application_command_line_class = 'a GioApplicationCommandLineClass.class
-    where type file_class_c_array_n_t = GioFileClassCArrayN.t
+    where type file_class_c_ptr_array_n_t = GioFileClassCPtrArrayN.t
     where type 'a action_group_class = 'a GioActionGroupClass.class
     where type application_flags_t = GioApplicationFlags.t =
   struct
@@ -53,7 +53,7 @@ structure GioApplication :>
         call (getSymbol "g_application_open")
           (
             GioApplicationClass.PolyML.cPtr
-             &&> GioFileClassCArrayN.PolyML.cInPtr
+             &&> GioFileClassCPtrArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              --> cVoid
@@ -73,7 +73,7 @@ structure GioApplication :>
           (
             GioApplicationClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
-             &&> Utf8CArrayN.PolyML.cInOptPtr
+             &&> Utf8CPtrArrayN.PolyML.cInOptPtr
              --> GInt.PolyML.cVal
           )
       val sendNotification_ =
@@ -107,7 +107,7 @@ structure GioApplication :>
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a notification_class = 'a GioNotificationClass.class
     type 'a application_command_line_class = 'a GioApplicationCommandLineClass.class
-    type file_class_c_array_n_t = GioFileClassCArrayN.t
+    type file_class_c_ptr_array_n_t = GioFileClassCPtrArrayN.t
     type 'a action_group_class = 'a GioActionGroupClass.class
     type application_flags_t = GioApplicationFlags.t
     type t = base class
@@ -174,11 +174,11 @@ structure GioApplication :>
     fun markBusy self = (GioApplicationClass.FFI.withPtr ---> I) markBusy_ self
     fun open' self (files, hint) =
       let
-        val nFiles = LargeInt.fromInt (GioFileClassCArrayN.length files)
+        val nFiles = LargeInt.fromInt (GioFileClassCPtrArrayN.length files)
         val () =
           (
             GioApplicationClass.FFI.withPtr
-             &&&> GioFileClassCArrayN.FFI.withPtr
+             &&&> GioFileClassCPtrArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> Utf8.FFI.withPtr
              ---> I
@@ -212,13 +212,13 @@ structure GioApplication :>
       let
         val argc =
           case argv of
-            SOME argv => LargeInt.fromInt (Utf8CArrayN.length argv)
+            SOME argv => LargeInt.fromInt (Utf8CPtrArrayN.length argv)
           | NONE => GInt.null
         val retVal =
           (
             GioApplicationClass.FFI.withPtr
              &&&> GInt.FFI.withVal
-             &&&> Utf8CArrayN.FFI.withOptPtr
+             &&&> Utf8CPtrArrayN.FFI.withOptPtr
              ---> GInt.FFI.fromVal
           )
             run_
@@ -273,7 +273,7 @@ structure GioApplication :>
       fun openSig f =
         signal "open"
           (
-            get 0w1 GioFileClassCArrayN.t
+            get 0w1 GioFileClassCPtrArrayN.t
              &&&> get 0w2 int
              &&&> get 0w3 string
              ---> ret_void

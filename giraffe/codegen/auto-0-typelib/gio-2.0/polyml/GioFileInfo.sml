@@ -23,7 +23,7 @@ structure GioFileInfo :>
       val getAttributeObject_ = call (getSymbol "g_file_info_get_attribute_object") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GObjectObjectClass.PolyML.cPtr)
       val getAttributeStatus_ = call (getSymbol "g_file_info_get_attribute_status") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileAttributeStatus.PolyML.cVal)
       val getAttributeString_ = call (getSymbol "g_file_info_get_attribute_string") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getAttributeStringv_ = call (getSymbol "g_file_info_get_attribute_stringv") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CArray.PolyML.cOutPtr)
+      val getAttributeStringv_ = call (getSymbol "g_file_info_get_attribute_stringv") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CPtrArray.PolyML.cOutPtr)
       val getAttributeType_ = call (getSymbol "g_file_info_get_attribute_type") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioFileAttributeType.PolyML.cVal)
       val getAttributeUint32_ = call (getSymbol "g_file_info_get_attribute_uint32") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt32.PolyML.cVal)
       val getAttributeUint64_ = call (getSymbol "g_file_info_get_attribute_uint64") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GUInt64.PolyML.cVal)
@@ -45,7 +45,7 @@ structure GioFileInfo :>
       val getSymlinkTarget_ = call (getSymbol "g_file_info_get_symlink_target") (GioFileInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val hasAttribute_ = call (getSymbol "g_file_info_has_attribute") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val hasNamespace_ = call (getSymbol "g_file_info_has_namespace") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val listAttributes_ = call (getSymbol "g_file_info_list_attributes") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> Utf8CArray.PolyML.cOutOptPtr)
+      val listAttributes_ = call (getSymbol "g_file_info_list_attributes") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> Utf8CPtrArray.PolyML.cOutOptPtr)
       val removeAttribute_ = call (getSymbol "g_file_info_remove_attribute") (GioFileInfoClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val setAttributeBoolean_ =
         call (getSymbol "g_file_info_set_attribute_boolean")
@@ -155,7 +155,7 @@ structure GioFileInfo :>
     fun getAttributeObject self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getAttributeObject_ (self & attribute)
     fun getAttributeStatus self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileAttributeStatus.FFI.fromVal) getAttributeStatus_ (self & attribute)
     fun getAttributeString self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAttributeString_ (self & attribute)
-    fun getAttributeStringv self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 0) getAttributeStringv_ (self & attribute)
+    fun getAttributeStringv self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getAttributeStringv_ (self & attribute)
     fun getAttributeType self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileAttributeType.FFI.fromVal) getAttributeType_ (self & attribute)
     fun getAttributeUint32 self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt32.FFI.fromVal) getAttributeUint32_ (self & attribute)
     fun getAttributeUint64 self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt64.FFI.fromVal) getAttributeUint64_ (self & attribute)
@@ -182,7 +182,7 @@ structure GioFileInfo :>
     fun getSymlinkTarget self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSymlinkTarget_ self
     fun hasAttribute self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasAttribute_ (self & attribute)
     fun hasNamespace self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasNamespace_ (self & nameSpace)
-    fun listAttributes self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> Utf8CArray.FFI.fromOptPtr 2) listAttributes_ (self & nameSpace)
+    fun listAttributes self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> Utf8CPtrArray.FFI.fromOptPtr 2) listAttributes_ (self & nameSpace)
     fun removeAttribute self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) removeAttribute_ (self & attribute)
     fun setAttributeBoolean self (attribute, attrValue) =
       (

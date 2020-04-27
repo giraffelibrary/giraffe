@@ -5,7 +5,7 @@ signature GIO_I_O_MODULE =
     val asTypePlugin : 'a class -> base GObject.TypePluginClass.class
     val getType : unit -> GObject.Type.t
     val new : string -> base class
-    val query : unit -> Utf8CArray.t
+    val query : unit -> Utf8CPtrArray.t
     val load : 'a class -> unit
     val unload : 'a class -> unit
   end

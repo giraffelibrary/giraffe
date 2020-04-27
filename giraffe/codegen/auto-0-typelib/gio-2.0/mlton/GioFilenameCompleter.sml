@@ -27,7 +27,7 @@ structure GioFilenameCompleter :>
               GioFilenameCompleterClass.FFI.notnull GioFilenameCompleterClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -40,7 +40,7 @@ structure GioFilenameCompleter :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioFilenameCompleterClass.FFI.fromPtr true) new_ ()
     fun getCompletionSuffix self initialText = (GioFilenameCompleterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getCompletionSuffix_ (self & initialText)
-    fun getCompletions self initialText = (GioFilenameCompleterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getCompletions_ (self & initialText)
+    fun getCompletions self initialText = (GioFilenameCompleterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getCompletions_ (self & initialText)
     fun setDirsOnly self dirsOnly = (GioFilenameCompleterClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDirsOnly_ (self & dirsOnly)
     local
       open ClosureMarshal Signal

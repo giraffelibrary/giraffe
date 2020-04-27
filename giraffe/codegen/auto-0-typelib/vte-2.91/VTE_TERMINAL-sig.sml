@@ -1,7 +1,7 @@
 signature VTE_TERMINAL =
   sig
     type 'a class
-    type regex_record_c_array_n_t
+    type regex_record_c_ptr_array_n_t
     type pty_flags_t
     type regex_t
     type write_flags_t
@@ -20,15 +20,15 @@ signature VTE_TERMINAL =
     val eventCheckGregexSimple :
       'a class
        -> 'b Gdk.Event.union
-           * GLibRegexRecordCArrayN.t
+           * GLibRegexRecordCPtrArrayN.t
            * GLib.RegexMatchFlags.t
-       -> Utf8CArrayN.t option
+       -> Utf8CPtrArrayN.t option
     val eventCheckRegexSimple :
       'a class
        -> 'b Gdk.Event.union
-           * regex_record_c_array_n_t
+           * regex_record_c_ptr_array_n_t
            * LargeInt.int
-       -> Utf8CArrayN.t option
+       -> Utf8CPtrArrayN.t option
     val feed :
       'a class
        -> GUInt8CArrayN.t option

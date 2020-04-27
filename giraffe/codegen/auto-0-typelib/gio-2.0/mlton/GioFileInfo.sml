@@ -140,7 +140,7 @@ structure GioFileInfo :>
               GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -246,7 +246,7 @@ structure GioFileInfo :>
               GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
                * unit Utf8.MLton.p2
-               -> unit Utf8CArray.FFI.out_p;
+               -> unit Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -548,7 +548,7 @@ structure GioFileInfo :>
     fun getAttributeObject self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getAttributeObject_ (self & attribute)
     fun getAttributeStatus self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileAttributeStatus.FFI.fromVal) getAttributeStatus_ (self & attribute)
     fun getAttributeString self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAttributeString_ (self & attribute)
-    fun getAttributeStringv self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 0) getAttributeStringv_ (self & attribute)
+    fun getAttributeStringv self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getAttributeStringv_ (self & attribute)
     fun getAttributeType self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileAttributeType.FFI.fromVal) getAttributeType_ (self & attribute)
     fun getAttributeUint32 self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt32.FFI.fromVal) getAttributeUint32_ (self & attribute)
     fun getAttributeUint64 self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt64.FFI.fromVal) getAttributeUint64_ (self & attribute)
@@ -575,7 +575,7 @@ structure GioFileInfo :>
     fun getSymlinkTarget self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSymlinkTarget_ self
     fun hasAttribute self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasAttribute_ (self & attribute)
     fun hasNamespace self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasNamespace_ (self & nameSpace)
-    fun listAttributes self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> Utf8CArray.FFI.fromOptPtr 2) listAttributes_ (self & nameSpace)
+    fun listAttributes self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> Utf8CPtrArray.FFI.fromOptPtr 2) listAttributes_ (self & nameSpace)
     fun removeAttribute self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) removeAttribute_ (self & attribute)
     fun setAttributeBoolean self (attribute, attrValue) =
       (

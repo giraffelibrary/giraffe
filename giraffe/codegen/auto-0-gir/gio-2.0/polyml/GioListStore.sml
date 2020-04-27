@@ -25,7 +25,7 @@ structure GioListStore :>
             GioListStoreClass.PolyML.cPtr
              &&> GUInt.PolyML.cVal
              &&> GUInt.PolyML.cVal
-             &&> GObjectObjectClassCArrayN.PolyML.cInPtr
+             &&> GObjectObjectClassCPtrArrayN.PolyML.cInPtr
              &&> GUInt.PolyML.cVal
              --> cVoid
           )
@@ -60,13 +60,13 @@ structure GioListStore :>
         additions
       ) =
       let
-        val nAdditions = LargeInt.fromInt (GObjectObjectClassCArrayN.length additions)
+        val nAdditions = LargeInt.fromInt (GObjectObjectClassCPtrArrayN.length additions)
         val () =
           (
             GioListStoreClass.FFI.withPtr
              &&&> GUInt.FFI.withVal
              &&&> GUInt.FFI.withVal
-             &&&> GObjectObjectClassCArrayN.FFI.withPtr
+             &&&> GObjectObjectClassCPtrArrayN.FFI.withPtr
              &&&> GUInt.FFI.withVal
              ---> I
           )

@@ -56,7 +56,7 @@ structure GLibKeyFile :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GDoubleCArrayN.PolyML.cOutPtr
           )
-      val getGroups_ = call (getSymbol "g_key_file_get_groups") (GLibKeyFileRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CArray.PolyML.cOutPtr)
+      val getGroups_ = call (getSymbol "g_key_file_get_groups") (GLibKeyFileRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CPtrArray.PolyML.cOutPtr)
       val getInt64_ =
         call (getSymbol "g_key_file_get_int64")
           (
@@ -92,7 +92,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> GUInt64.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CArray.PolyML.cOutPtr
+             --> Utf8CPtrArray.PolyML.cOutPtr
           )
       val getLocaleString_ =
         call (getSymbol "g_key_file_get_locale_string")
@@ -113,7 +113,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInOptPtr
              &&> GUInt64.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CArrayN.PolyML.cOutPtr
+             --> Utf8CPtrArrayN.PolyML.cOutPtr
           )
       val getStartGroup_ = call (getSymbol "g_key_file_get_start_group") (GLibKeyFileRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getString_ =
@@ -133,7 +133,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> GUInt64.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CArrayN.PolyML.cOutPtr
+             --> Utf8CPtrArrayN.PolyML.cOutPtr
           )
       val getUint64_ =
         call (getSymbol "g_key_file_get_uint64")
@@ -188,7 +188,7 @@ structure GLibKeyFile :>
           (
             GLibKeyFileRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8CArray.PolyML.cInPtr
+             &&> Utf8CPtrArray.PolyML.cInPtr
              &&> Utf8.PolyML.cOutRef
              &&> GLibKeyFileFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -331,7 +331,7 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8CArrayN.PolyML.cInPtr
+             &&> Utf8CPtrArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              --> cVoid
           )
@@ -350,7 +350,7 @@ structure GLibKeyFile :>
             GLibKeyFileRecord.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8CArrayN.PolyML.cInPtr
+             &&> Utf8CPtrArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cVal
              --> cVoid
           )
@@ -477,7 +477,7 @@ structure GLibKeyFile :>
       end
     fun getGroups self =
       let
-        val length & retVal = (GLibKeyFileRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArray.FFI.fromPtr 2) getGroups_ (self & GUInt64.null)
+        val length & retVal = (GLibKeyFileRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 2) getGroups_ (self & GUInt64.null)
       in
         (retVal, length)
       end
@@ -541,7 +541,7 @@ structure GLibKeyFile :>
              &&&> Utf8.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GUInt64.FFI.fromVal && Utf8CArray.FFI.fromPtr 2
+             ---> GUInt64.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 2
           )
             getKeys_
             (
@@ -592,7 +592,7 @@ structure GLibKeyFile :>
              &&&> Utf8.FFI.withOptPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2
+             ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2
           )
             getLocaleStringList_
             (
@@ -631,7 +631,7 @@ structure GLibKeyFile :>
              &&&> Utf8.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2
+             ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2
           )
             getStringList_
             (
@@ -747,7 +747,7 @@ structure GLibKeyFile :>
           (
             GLibKeyFileRecord.FFI.withPtr
              &&&> Utf8.FFI.withPtr
-             &&&> Utf8CArray.FFI.withPtr
+             &&&> Utf8CPtrArray.FFI.withPtr
              &&&> Utf8.FFI.withRefOptPtr
              &&&> GLibKeyFileFlags.FFI.withVal
              &&&> GLibErrorRecord.handleError
@@ -1064,14 +1064,14 @@ structure GLibKeyFile :>
         list
       ) =
       let
-        val length = LargeInt.fromInt (Utf8CArrayN.length list)
+        val length = LargeInt.fromInt (Utf8CPtrArrayN.length list)
         val () =
           (
             GLibKeyFileRecord.FFI.withPtr
              &&&> Utf8.FFI.withPtr
              &&&> Utf8.FFI.withPtr
              &&&> Utf8.FFI.withPtr
-             &&&> Utf8CArrayN.FFI.withPtr
+             &&&> Utf8CPtrArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              ---> I
           )
@@ -1116,13 +1116,13 @@ structure GLibKeyFile :>
         list
       ) =
       let
-        val length = LargeInt.fromInt (Utf8CArrayN.length list)
+        val length = LargeInt.fromInt (Utf8CPtrArrayN.length list)
         val () =
           (
             GLibKeyFileRecord.FFI.withPtr
              &&&> Utf8.FFI.withPtr
              &&&> Utf8.FFI.withPtr
-             &&&> Utf8CArrayN.FFI.withPtr
+             &&&> Utf8CPtrArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withVal
              ---> I
           )

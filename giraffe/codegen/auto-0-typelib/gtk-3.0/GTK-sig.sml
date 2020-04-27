@@ -3009,8 +3009,8 @@ signature GTK =
        -> LargeInt.int
     val iconSizeRegisterAlias : string * LargeInt.int -> unit
     val iconThemeErrorQuark : unit -> LargeInt.int
-    val init : Utf8CArrayN.t -> Utf8CArrayN.t
-    val initCheck : Utf8CArrayN.t -> bool * Utf8CArrayN.t
+    val init : Utf8CPtrArrayN.t -> Utf8CPtrArrayN.t
+    val initCheck : Utf8CPtrArrayN.t -> bool * Utf8CPtrArrayN.t
     val keySnooperRemove : LargeInt.int -> unit
     val main : unit -> unit
     val mainDoEvent : 'a Gdk.Event.union -> unit
@@ -3262,7 +3262,7 @@ signature GTK =
        * LargeInt.int
        -> unit
     val paperSizeGetDefault : unit -> string
-    val parseArgs : Utf8CArrayN.t -> bool * Utf8CArrayN.t
+    val parseArgs : Utf8CPtrArrayN.t -> bool * Utf8CPtrArrayN.t
     val printErrorQuark : unit -> LargeInt.int
     val printRunPageSetupDialog :
       'a WindowClass.class option
@@ -3272,7 +3272,7 @@ signature GTK =
     val propagateEvent : 'a WidgetClass.class * 'b Gdk.Event.union -> unit
     val rcAddDefaultFile : string -> unit
     val rcFindModuleInPath : string -> string
-    val rcGetDefaultFiles : unit -> Utf8CArray.t
+    val rcGetDefaultFiles : unit -> Utf8CPtrArray.t
     val rcGetImModuleFile : unit -> string
     val rcGetImModulePath : unit -> string
     val rcGetModuleDir : unit -> string
@@ -3289,7 +3289,7 @@ signature GTK =
     val rcReparseAll : unit -> bool
     val rcReparseAllForSettings : 'a SettingsClass.class * bool -> bool
     val rcResetStyles : 'a SettingsClass.class -> unit
-    val rcSetDefaultFiles : Utf8CArray.t -> unit
+    val rcSetDefaultFiles : Utf8CPtrArray.t -> unit
     val recentChooserErrorQuark : unit -> LargeInt.int
     val recentManagerErrorQuark : unit -> LargeInt.int
     val renderActivity :
@@ -3496,10 +3496,10 @@ signature GTK =
     val stockLookup : string -> StockItemRecord.t option
     val targetTableFree : TargetEntryRecordCArrayN.t -> unit
     val targetTableNewFromList : TargetListRecord.t -> TargetEntryRecordCArrayN.t
-    val targetsIncludeImage : GdkAtomRecordCArrayN.t * bool -> bool
-    val targetsIncludeRichText : GdkAtomRecordCArrayN.t * 'a TextBufferClass.class -> bool
-    val targetsIncludeText : GdkAtomRecordCArrayN.t -> bool
-    val targetsIncludeUri : GdkAtomRecordCArrayN.t -> bool
+    val targetsIncludeImage : GdkAtomRecordCPtrArrayN.t * bool -> bool
+    val targetsIncludeRichText : GdkAtomRecordCPtrArrayN.t * 'a TextBufferClass.class -> bool
+    val targetsIncludeText : GdkAtomRecordCPtrArrayN.t -> bool
+    val targetsIncludeUri : GdkAtomRecordCPtrArrayN.t -> bool
     val testCreateSimpleWindow : string * string -> base WidgetClass.class
     val testFindLabel : 'a WidgetClass.class * string -> base WidgetClass.class
     val testFindSibling : 'a WidgetClass.class * GObject.Type.t -> base WidgetClass.class

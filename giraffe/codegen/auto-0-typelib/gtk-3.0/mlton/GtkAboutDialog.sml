@@ -16,8 +16,8 @@ structure GtkAboutDialog :>
               GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (
@@ -27,11 +27,11 @@ structure GtkAboutDialog :>
               x4,
               x5
             )
-    val getArtists_ = _import "gtk_about_dialog_get_artists" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
-    val getAuthors_ = _import "gtk_about_dialog_get_authors" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val getArtists_ = _import "gtk_about_dialog_get_artists" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val getAuthors_ = _import "gtk_about_dialog_get_authors" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val getComments_ = _import "gtk_about_dialog_get_comments" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getCopyright_ = _import "gtk_about_dialog_get_copyright" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getDocumenters_ = _import "gtk_about_dialog_get_documenters" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val getDocumenters_ = _import "gtk_about_dialog_get_documenters" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val getLicense_ = _import "gtk_about_dialog_get_license" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getLicenseType_ = _import "gtk_about_dialog_get_license_type" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> GtkLicense.FFI.val_;
     val getLogo_ = _import "gtk_about_dialog_get_logo" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
@@ -48,8 +48,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_artists" :
               GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (
@@ -63,8 +63,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_authors" :
               GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (
@@ -108,8 +108,8 @@ structure GtkAboutDialog :>
           (
             _import "mlton_gtk_about_dialog_set_documenters" :
               GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (
@@ -237,7 +237,7 @@ structure GtkAboutDialog :>
       (
         GtkAboutDialogClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
          ---> I
       )
         addCreditSection_
@@ -246,11 +246,11 @@ structure GtkAboutDialog :>
            & sectionName
            & people
         )
-    fun getArtists self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 0) getArtists_ self
-    fun getAuthors self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 0) getAuthors_ self
+    fun getArtists self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getArtists_ self
+    fun getAuthors self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getAuthors_ self
     fun getComments self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getComments_ self
     fun getCopyright self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCopyright_ self
-    fun getDocumenters self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 0) getDocumenters_ self
+    fun getDocumenters self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getDocumenters_ self
     fun getLicense self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLicense_ self
     fun getLicenseType self = (GtkAboutDialogClass.FFI.withPtr ---> GtkLicense.FFI.fromVal) getLicenseType_ self
     fun getLogo self = (GtkAboutDialogClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getLogo_ self
@@ -261,11 +261,11 @@ structure GtkAboutDialog :>
     fun getWebsite self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getWebsite_ self
     fun getWebsiteLabel self = (GtkAboutDialogClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getWebsiteLabel_ self
     fun getWrapLicense self = (GtkAboutDialogClass.FFI.withPtr ---> GBool.FFI.fromVal) getWrapLicense_ self
-    fun setArtists self artists = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8CArray.FFI.withPtr ---> I) setArtists_ (self & artists)
-    fun setAuthors self authors = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8CArray.FFI.withPtr ---> I) setAuthors_ (self & authors)
+    fun setArtists self artists = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8CPtrArray.FFI.withPtr ---> I) setArtists_ (self & artists)
+    fun setAuthors self authors = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8CPtrArray.FFI.withPtr ---> I) setAuthors_ (self & authors)
     fun setComments self comments = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setComments_ (self & comments)
     fun setCopyright self copyright = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setCopyright_ (self & copyright)
-    fun setDocumenters self documenters = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8CArray.FFI.withPtr ---> I) setDocumenters_ (self & documenters)
+    fun setDocumenters self documenters = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8CPtrArray.FFI.withPtr ---> I) setDocumenters_ (self & documenters)
     fun setLicense self license = (GtkAboutDialogClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setLicense_ (self & license)
     fun setLicenseType self licenseType = (GtkAboutDialogClass.FFI.withPtr &&&> GtkLicense.FFI.withVal ---> I) setLicenseType_ (self & licenseType)
     fun setLogo self logo = (GtkAboutDialogClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withOptPtr ---> I) setLogo_ (self & logo)

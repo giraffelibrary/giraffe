@@ -1,7 +1,7 @@
 structure GLibVariant :>
   G_LIB_VARIANT
     where type t = GLibVariantRecord.t
-    where type variant_record_c_array_n_t = GLibVariantRecordCArrayN.t
+    where type variant_record_c_ptr_array_n_t = GLibVariantRecordCPtrArrayN.t
     where type variant_class_t = GLibVariantClass.t
     where type bytes_t = GLibBytesRecord.t
     where type variant_type_t = GLibVariantTypeRecord.t =
@@ -14,8 +14,8 @@ structure GLibVariant :>
           (
             _import "mlton_g_variant_new_array" :
               unit GLibVariantTypeRecord.FFI.p
-               * GLibVariantRecordCArrayN.MLton.p1
-               * unit GLibVariantRecordCArrayN.MLton.p2
+               * GLibVariantRecordCPtrArrayN.MLton.p1
+               * unit GLibVariantRecordCPtrArrayN.MLton.p2
                * GUInt64.FFI.val_
                -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
           )
@@ -33,8 +33,8 @@ structure GLibVariant :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_variant_new_bytestring_array" :
-              Utf8CArrayN.MLton.p1
-               * Utf8CArrayN.FFI.notnull Utf8CArrayN.MLton.p2
+              Utf8CPtrArrayN.MLton.p1
+               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
                * GInt64.FFI.val_
                -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
           )
@@ -73,8 +73,8 @@ structure GLibVariant :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_variant_new_objv" :
-              Utf8CArrayN.MLton.p1
-               * Utf8CArrayN.FFI.notnull Utf8CArrayN.MLton.p2
+              Utf8CPtrArrayN.MLton.p1
+               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
                * GInt64.FFI.val_
                -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
           )
@@ -90,8 +90,8 @@ structure GLibVariant :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_variant_new_strv" :
-              Utf8CArrayN.MLton.p1
-               * Utf8CArrayN.FFI.notnull Utf8CArrayN.MLton.p2
+              Utf8CPtrArrayN.MLton.p1
+               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
                * GInt64.FFI.val_
                -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
           )
@@ -105,8 +105,8 @@ structure GLibVariant :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_variant_new_tuple" :
-              GLibVariantRecordCArrayN.MLton.p1
-               * GLibVariantRecordCArrayN.FFI.notnull GLibVariantRecordCArrayN.MLton.p2
+              GLibVariantRecordCPtrArrayN.MLton.p1
+               * GLibVariantRecordCPtrArrayN.FFI.notnull GLibVariantRecordCPtrArrayN.MLton.p2
                * GUInt64.FFI.val_
                -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
           )
@@ -142,15 +142,15 @@ structure GLibVariant :>
     val classify_ = _import "g_variant_classify" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibVariantClass.FFI.val_;
     val compare_ = fn x1 & x2 => (_import "g_variant_compare" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GInt32.FFI.val_;) (x1, x2)
     val dupBytestring_ = fn x1 & x2 => (_import "g_variant_dup_bytestring" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> GUInt8CArrayN.FFI.notnull GUInt8CArrayN.FFI.out_p;) (x1, x2)
-    val dupBytestringArray_ = fn x1 & x2 => (_import "g_variant_dup_bytestring_array" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CArrayN.FFI.notnull Utf8CArrayN.FFI.out_p;) (x1, x2)
-    val dupObjv_ = fn x1 & x2 => (_import "g_variant_dup_objv" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CArrayN.FFI.notnull Utf8CArrayN.FFI.out_p;) (x1, x2)
+    val dupBytestringArray_ = fn x1 & x2 => (_import "g_variant_dup_bytestring_array" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
+    val dupObjv_ = fn x1 & x2 => (_import "g_variant_dup_objv" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
     val dupString_ = fn x1 & x2 => (_import "g_variant_dup_string" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val dupStrv_ = fn x1 & x2 => (_import "g_variant_dup_strv" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CArrayN.FFI.notnull Utf8CArrayN.FFI.out_p;) (x1, x2)
+    val dupStrv_ = fn x1 & x2 => (_import "g_variant_dup_strv" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
     val equal_ = fn x1 & x2 => (_import "g_variant_equal" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val getBoolean_ = _import "g_variant_get_boolean" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GBool.FFI.val_;
     val getByte_ = _import "g_variant_get_byte" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GUInt8.FFI.val_;
     val getBytestring_ = _import "g_variant_get_bytestring" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GUInt8CArray.FFI.notnull GUInt8CArray.FFI.out_p;
-    val getBytestringArray_ = fn x1 & x2 => (_import "g_variant_get_bytestring_array" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CArrayN.FFI.notnull Utf8CArrayN.FFI.out_p;) (x1, x2)
+    val getBytestringArray_ = fn x1 & x2 => (_import "g_variant_get_bytestring_array" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
     val getChildValue_ = fn x1 & x2 => (_import "g_variant_get_child_value" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.val_ -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;) (x1, x2)
     val getDataAsBytes_ = _import "g_variant_get_data_as_bytes" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p;
     val getDouble_ = _import "g_variant_get_double" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GDouble.FFI.val_;
@@ -160,10 +160,10 @@ structure GLibVariant :>
     val getInt64_ = _import "g_variant_get_int64" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GInt64.FFI.val_;
     val getMaybe_ = _import "g_variant_get_maybe" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> unit GLibVariantRecord.FFI.p;
     val getNormalForm_ = _import "g_variant_get_normal_form" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val getObjv_ = fn x1 & x2 => (_import "g_variant_get_objv" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CArrayN.FFI.notnull Utf8CArrayN.FFI.out_p;) (x1, x2)
+    val getObjv_ = fn x1 & x2 => (_import "g_variant_get_objv" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
     val getSize_ = _import "g_variant_get_size" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GUInt64.FFI.val_;
     val getString_ = fn x1 & x2 => (_import "g_variant_get_string" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val getStrv_ = fn x1 & x2 => (_import "g_variant_get_strv" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CArrayN.FFI.notnull Utf8CArrayN.FFI.out_p;) (x1, x2)
+    val getStrv_ = fn x1 & x2 => (_import "g_variant_get_strv" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
     val getType_ = _import "g_variant_get_type" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
     val getTypeString_ = _import "g_variant_get_type_string" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getUint16_ = _import "g_variant_get_uint16" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GUInt16.FFI.val_;
@@ -229,7 +229,7 @@ structure GLibVariant :>
               x8
             )
     type t = GLibVariantRecord.t
-    type variant_record_c_array_n_t = GLibVariantRecordCArrayN.t
+    type variant_record_c_ptr_array_n_t = GLibVariantRecordCPtrArrayN.t
     type variant_class_t = GLibVariantClass.t
     type bytes_t = GLibBytesRecord.t
     type variant_type_t = GLibVariantTypeRecord.t
@@ -237,12 +237,12 @@ structure GLibVariant :>
       let
         val nChildren =
           case children of
-            SOME children => LargeInt.fromInt (GLibVariantRecordCArrayN.length children)
+            SOME children => LargeInt.fromInt (GLibVariantRecordCPtrArrayN.length children)
           | NONE => GUInt64.null
         val retVal =
           (
             GLibVariantTypeRecord.FFI.withOptPtr
-             &&&> GLibVariantRecordCArrayN.FFI.withOptPtr
+             &&&> GLibVariantRecordCPtrArrayN.FFI.withOptPtr
              &&&> GUInt64.FFI.withVal
              ---> GLibVariantRecord.FFI.fromPtr false
           )
@@ -260,8 +260,8 @@ structure GLibVariant :>
     fun newBytestring string = (GUInt8CArray.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) newBytestring_ string
     fun newBytestringArray strv =
       let
-        val length = LargeInt.fromInt (Utf8CArrayN.length strv)
-        val retVal = (Utf8CArrayN.FFI.withPtr &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newBytestringArray_ (strv & length)
+        val length = LargeInt.fromInt (Utf8CPtrArrayN.length strv)
+        val retVal = (Utf8CPtrArrayN.FFI.withPtr &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newBytestringArray_ (strv & length)
       in
         retVal
       end
@@ -293,8 +293,8 @@ structure GLibVariant :>
     fun newObjectPath objectPath = (Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) newObjectPath_ objectPath
     fun newObjv strv =
       let
-        val length = LargeInt.fromInt (Utf8CArrayN.length strv)
-        val retVal = (Utf8CArrayN.FFI.withPtr &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newObjv_ (strv & length)
+        val length = LargeInt.fromInt (Utf8CPtrArrayN.length strv)
+        val retVal = (Utf8CPtrArrayN.FFI.withPtr &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newObjv_ (strv & length)
       in
         retVal
       end
@@ -302,15 +302,15 @@ structure GLibVariant :>
     fun newString string = (Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) newString_ string
     fun newStrv strv =
       let
-        val length = LargeInt.fromInt (Utf8CArrayN.length strv)
-        val retVal = (Utf8CArrayN.FFI.withPtr &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newStrv_ (strv & length)
+        val length = LargeInt.fromInt (Utf8CPtrArrayN.length strv)
+        val retVal = (Utf8CPtrArrayN.FFI.withPtr &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newStrv_ (strv & length)
       in
         retVal
       end
     fun newTuple children =
       let
-        val nChildren = LargeInt.fromInt (GLibVariantRecordCArrayN.length children)
-        val retVal = (GLibVariantRecordCArrayN.FFI.withPtr &&&> GUInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newTuple_ (children & nChildren)
+        val nChildren = LargeInt.fromInt (GLibVariantRecordCPtrArrayN.length children)
+        val retVal = (GLibVariantRecordCPtrArrayN.FFI.withPtr &&&> GUInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newTuple_ (children & nChildren)
       in
         retVal
       end
@@ -342,13 +342,13 @@ structure GLibVariant :>
       end
     fun dupBytestringArray self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2) dupBytestringArray_ (self & GUInt64.null)
+        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) dupBytestringArray_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end
     fun dupObjv self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2) dupObjv_ (self & GUInt64.null)
+        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) dupObjv_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end
@@ -360,7 +360,7 @@ structure GLibVariant :>
       end
     fun dupStrv self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2) dupStrv_ (self & GUInt64.null)
+        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) dupStrv_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end
@@ -370,7 +370,7 @@ structure GLibVariant :>
     fun getBytestring self = (GLibVariantRecord.FFI.withPtr ---> GUInt8CArray.FFI.fromPtr 0) getBytestring_ self
     fun getBytestringArray self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 1) getBytestringArray_ (self & GUInt64.null)
+        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 1) getBytestringArray_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end
@@ -385,7 +385,7 @@ structure GLibVariant :>
     fun getNormalForm self = (GLibVariantRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getNormalForm_ self
     fun getObjv self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 1) getObjv_ (self & GUInt64.null)
+        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 1) getObjv_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end
@@ -398,7 +398,7 @@ structure GLibVariant :>
       end
     fun getStrv self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 1) getStrv_ (self & GUInt64.null)
+        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 1) getStrv_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end

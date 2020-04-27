@@ -6,7 +6,7 @@ local
   ../glib-2.0/mlton.mlb
 in
   ../glib-2.0/GUIntCArrayN.mlb
-  ../glib-2.0/Utf8CArrayN.mlb
+  ../glib-2.0/Utf8CPtrArrayN.mlb
   CLOSURE_MARSHAL-sig.sml
   SIGNAL-sig.sml
   PROPERTY-sig.sml

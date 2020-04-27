@@ -42,7 +42,7 @@ structure GIRepositoryRepository :>
           (getSymbol "g_irepository_get_dependencies")
           (GObjectObjectClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
-            --> Utf8CArray.PolyML.cOutOptPtr)
+            --> Utf8CPtrArray.PolyML.cOutOptPtr)
 
       val getNInfos_ =
         call
@@ -132,7 +132,7 @@ structure GIRepositoryRepository :>
       (
         GObjectObjectClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         ---> Utf8CArray.FFI.fromOptPtr 2
+         ---> Utf8CPtrArray.FFI.fromOptPtr 2
       )
         getDependencies_
         (repository & namespace_)
@@ -263,8 +263,8 @@ structure GIRepositoryRepository :>
 
     (* Wrap GIRepository functions to support `typelibvers_t` *)
 
-    fun convertUtf8CArrayToList a =
-      List.tabulate (Utf8CArray.length a, Utf8CArray.sub a)
+    fun convertUtf8CPtrArrayToList a =
+      List.tabulate (Utf8CPtrArray.length a, Utf8CPtrArray.sub a)
 
     fun require repository (namespace_, version, flags) =
       let
@@ -272,7 +272,7 @@ structure GIRepositoryRepository :>
         val dependencies =
           case getDependencies1 repository namespace_ of
             NONE      => ListDict.empty
-          | SOME deps => extendTypelibVers (map parseDependency (convertUtf8CArrayToList deps)) ListDict.empty
+          | SOME deps => extendTypelibVers (map parseDependency (convertUtf8CPtrArrayToList deps)) ListDict.empty
 
         val versions =
           ListDict.insert
@@ -284,7 +284,7 @@ structure GIRepositoryRepository :>
 
     fun getDependencies repository versions namespace_ = (
       ignore (getVersion repository versions namespace_);
-      Option.map convertUtf8CArrayToList (getDependencies1 repository namespace_)
+      Option.map convertUtf8CPtrArrayToList (getDependencies1 repository namespace_)
     )
 
     fun getNInfos repository versions namespace_ = (

@@ -149,8 +149,8 @@ structure Gdk : GDK =
       val getProgramClass_ = call (getSymbol "gdk_get_program_class") (cVoid --> Utf8.PolyML.cOutPtr)
       val getShowEvents_ = call (getSymbol "gdk_get_show_events") (cVoid --> GBool.PolyML.cVal)
       val glErrorQuark_ = call (getSymbol "gdk_gl_error_quark") (cVoid --> GUInt32.PolyML.cVal)
-      val init_ = call (getSymbol "gdk_init") (GInt32.PolyML.cRef &&> Utf8CArrayN.PolyML.cInOutRef --> cVoid)
-      val initCheck_ = call (getSymbol "gdk_init_check") (GInt32.PolyML.cRef &&> Utf8CArrayN.PolyML.cInOutRef --> GBool.PolyML.cVal)
+      val init_ = call (getSymbol "gdk_init") (GInt32.PolyML.cRef &&> Utf8CPtrArrayN.PolyML.cInOutRef --> cVoid)
+      val initCheck_ = call (getSymbol "gdk_init_check") (GInt32.PolyML.cRef &&> Utf8CPtrArrayN.PolyML.cInOutRef --> GBool.PolyML.cVal)
       val keyboardGrab_ =
         call (getSymbol "gdk_keyboard_grab")
           (
@@ -183,7 +183,7 @@ structure Gdk : GDK =
       val pangoContextGet_ = call (getSymbol "gdk_pango_context_get") (cVoid --> PangoContextClass.PolyML.cPtr)
       val pangoContextGetForDisplay_ = call (getSymbol "gdk_pango_context_get_for_display") (GdkDisplayClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
       val pangoContextGetForScreen_ = call (getSymbol "gdk_pango_context_get_for_screen") (GdkScreenClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
-      val parseArgs_ = call (getSymbol "gdk_parse_args") (GInt32.PolyML.cRef &&> Utf8CArrayN.PolyML.cInOutRef --> cVoid)
+      val parseArgs_ = call (getSymbol "gdk_parse_args") (GInt32.PolyML.cRef &&> Utf8CPtrArrayN.PolyML.cInOutRef --> cVoid)
       val pixbufGetFromSurface_ =
         call (getSymbol "gdk_pixbuf_get_from_surface")
           (
@@ -331,7 +331,7 @@ structure Gdk : GDK =
              &&> GInt32.PolyML.cVal
              &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GInt32.PolyML.cVal
-             &&> Utf8CArray.PolyML.cOutRef
+             &&> Utf8CPtrArray.PolyML.cOutRef
              --> GInt32.PolyML.cVal
           )
       val threadsEnter_ = call (getSymbol "gdk_threads_enter") (cVoid --> cVoid)
@@ -448,7 +448,7 @@ structure Gdk : GDK =
     structure DeviceManager = GdkDeviceManager
     structure DevicePad = GdkDevicePad
     structure DeviceTool = GdkDeviceTool
-    structure AtomRecordCArrayN = GdkAtomRecordCArrayN
+    structure AtomRecordCPtrArrayN = GdkAtomRecordCPtrArrayN
     structure DisplayManager = GdkDisplayManager
     structure DragContext = GdkDragContext
     structure DrawingContext = GdkDrawingContext
@@ -3074,14 +3074,14 @@ structure Gdk : GDK =
     fun glErrorQuark () = (I ---> GUInt32.FFI.fromVal) glErrorQuark_ ()
     fun init argv =
       let
-        val argc = LargeInt.fromInt (Utf8CArrayN.length argv)
+        val argc = LargeInt.fromInt (Utf8CPtrArrayN.length argv)
         val argc
          & argv
          & () =
           (
-            GInt32.FFI.withRefVal &&&> Utf8CArrayN.FFI.withRefDupPtr 2
+            GInt32.FFI.withRefVal &&&> Utf8CPtrArrayN.FFI.withRefDupPtr 2
              ---> GInt32.FFI.fromVal
-                   && Utf8CArrayN.FFI.fromPtr 2
+                   && Utf8CPtrArrayN.FFI.fromPtr 2
                    && I
           )
             init_
@@ -3091,14 +3091,14 @@ structure Gdk : GDK =
       end
     fun initCheck argv =
       let
-        val argc = LargeInt.fromInt (Utf8CArrayN.length argv)
+        val argc = LargeInt.fromInt (Utf8CPtrArrayN.length argv)
         val argc
          & argv
          & retVal =
           (
-            GInt32.FFI.withRefVal &&&> Utf8CArrayN.FFI.withRefDupPtr 2
+            GInt32.FFI.withRefVal &&&> Utf8CPtrArrayN.FFI.withRefDupPtr 2
              ---> GInt32.FFI.fromVal
-                   && Utf8CArrayN.FFI.fromPtr 2
+                   && Utf8CPtrArrayN.FFI.fromPtr 2
                    && GBool.FFI.fromVal
           )
             initCheck_
@@ -3164,14 +3164,14 @@ structure Gdk : GDK =
     fun pangoContextGetForScreen screen = (GdkScreenClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) pangoContextGetForScreen_ screen
     fun parseArgs argv =
       let
-        val argc = LargeInt.fromInt (Utf8CArrayN.length argv)
+        val argc = LargeInt.fromInt (Utf8CPtrArrayN.length argv)
         val argc
          & argv
          & () =
           (
-            GInt32.FFI.withRefVal &&&> Utf8CArrayN.FFI.withRefDupPtr 2
+            GInt32.FFI.withRefVal &&&> Utf8CPtrArrayN.FFI.withRefDupPtr 2
              ---> GInt32.FFI.fromVal
-                   && Utf8CArrayN.FFI.fromPtr 2
+                   && Utf8CPtrArrayN.FFI.fromPtr 2
                    && I
           )
             parseArgs_
@@ -3559,8 +3559,8 @@ structure Gdk : GDK =
              &&&> GInt32.FFI.withVal
              &&&> GUInt8CArrayN.FFI.withPtr
              &&&> GInt32.FFI.withVal
-             &&&> Utf8CArray.FFI.withRefOptPtr
-             ---> Utf8CArray.FFI.fromPtr 2 && GInt32.FFI.fromVal
+             &&&> Utf8CPtrArray.FFI.withRefOptPtr
+             ---> Utf8CPtrArray.FFI.fromPtr 2 && GInt32.FFI.fromVal
           )
             textPropertyToUtf8ListForDisplay_
             (

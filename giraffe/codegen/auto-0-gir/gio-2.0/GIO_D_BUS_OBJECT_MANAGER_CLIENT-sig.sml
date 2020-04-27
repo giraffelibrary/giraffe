@@ -25,7 +25,7 @@ signature GIO_D_BUS_OBJECT_MANAGER_CLIENT =
       (base d_bus_object_proxy_class
         * base d_bus_proxy_class
         * GLib.VariantRecord.t
-        * Utf8CArray.t
+        * Utf8CPtrArray.t
         -> unit)
        -> 'a class Signal.t
     val interfaceProxySignalSig :

@@ -34,9 +34,9 @@ signature GTK_CLIPBOARD =
       'a class
        -> 'b text_buffer_class
        -> GUInt8CArrayN.t option * Gdk.AtomRecord.t
-    val waitForTargets : 'a class -> GdkAtomRecordCArrayN.t option
+    val waitForTargets : 'a class -> GdkAtomRecordCPtrArrayN.t option
     val waitForText : 'a class -> string option
-    val waitForUris : 'a class -> Utf8CArray.t option
+    val waitForUris : 'a class -> Utf8CPtrArray.t option
     val waitIsImageAvailable : 'a class -> bool
     val waitIsRichTextAvailable :
       'a class

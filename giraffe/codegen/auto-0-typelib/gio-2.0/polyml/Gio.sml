@@ -104,7 +104,7 @@ structure Gio : GIO =
              &&> GBool.PolyML.cRef
              --> Utf8.PolyML.cOutPtr
           )
-      val contentTypeGuessForTree_ = call (getSymbol "g_content_type_guess_for_tree") (GioFileClass.PolyML.cPtr --> Utf8CArray.PolyML.cOutPtr)
+      val contentTypeGuessForTree_ = call (getSymbol "g_content_type_guess_for_tree") (GioFileClass.PolyML.cPtr --> Utf8CPtrArray.PolyML.cOutPtr)
       val contentTypeIsA_ = call (getSymbol "g_content_type_is_a") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val contentTypeIsUnknown_ = call (getSymbol "g_content_type_is_unknown") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val dbusAddressEscapeValue_ = call (getSymbol "g_dbus_address_escape_value") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
@@ -133,7 +133,7 @@ structure Gio : GIO =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GioIOStreamClass.PolyML.cPtr
           )
-      val dbusAnnotationInfoLookup_ = call (getSymbol "g_dbus_annotation_info_lookup") (GioDBusAnnotationInfoRecordCArray.PolyML.cInOptPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val dbusAnnotationInfoLookup_ = call (getSymbol "g_dbus_annotation_info_lookup") (GioDBusAnnotationInfoRecordCPtrArray.PolyML.cInOptPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val dbusErrorQuark_ = call (getSymbol "g_dbus_error_quark") (cVoid --> GUInt32.PolyML.cVal)
       val dbusGenerateGuid_ = call (getSymbol "g_dbus_generate_guid") (cVoid --> Utf8.PolyML.cOutPtr)
       val dbusGvalueToGvariant_ = call (getSymbol "g_dbus_gvalue_to_gvariant") (GObjectValueRecord.PolyML.cPtr &&> GLibVariantTypeRecord.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
@@ -248,7 +248,7 @@ structure Gio : GIO =
             Utf8.PolyML.cInPtr
              &&> GioResourceLookupFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CArray.PolyML.cOutPtr
+             --> Utf8CPtrArray.PolyML.cOutPtr
           )
       val resourcesGetInfo_ =
         call (getSymbol "g_resources_get_info")
@@ -530,7 +530,7 @@ structure Gio : GIO =
     structure AppInfo = GioAppInfo
     structure AppInfoMonitor = GioAppInfoMonitor
     structure AppLaunchContext = GioAppLaunchContext
-    structure FileClassCArrayN = GioFileClassCArrayN
+    structure FileClassCPtrArrayN = GioFileClassCPtrArrayN
     structure ApplicationCommandLine = GioApplicationCommandLine
     structure AsyncInitable = GioAsyncInitable
     structure AsyncResult = GioAsyncResult
@@ -668,7 +668,7 @@ structure Gio : GIO =
     structure VolumeMonitor = GioVolumeMonitor
     structure ZlibCompressor = GioZlibCompressor
     structure ZlibDecompressor = GioZlibDecompressor
-    structure DBusAnnotationInfoRecordCArray = GioDBusAnnotationInfoRecordCArray
+    structure DBusAnnotationInfoRecordCPtrArray = GioDBusAnnotationInfoRecordCPtrArray
     structure Application = GioApplication
     structure BufferedInputStreamClass = GioBufferedInputStreamClass
     structure BufferedOutputStreamClass = GioBufferedOutputStreamClass
@@ -1034,7 +1034,7 @@ structure Gio : GIO =
       in
         (retVal, resultUncertain)
       end
-    fun contentTypeGuessForTree root = (GioFileClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) contentTypeGuessForTree_ root
+    fun contentTypeGuessForTree root = (GioFileClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) contentTypeGuessForTree_ root
     fun contentTypeIsA (type', supertype) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsA_ (type' & supertype)
     fun contentTypeIsUnknown type' = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsUnknown_ type'
     fun dbusAddressEscapeValue string = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) dbusAddressEscapeValue_ string
@@ -1089,7 +1089,7 @@ structure Gio : GIO =
       in
         (retVal, outGuid)
       end
-    fun dbusAnnotationInfoLookup (annotations, name) = (GioDBusAnnotationInfoRecordCArray.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dbusAnnotationInfoLookup_ (annotations & name)
+    fun dbusAnnotationInfoLookup (annotations, name) = (GioDBusAnnotationInfoRecordCPtrArray.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dbusAnnotationInfoLookup_ (annotations & name)
     fun dbusErrorQuark () = (I ---> GUInt32.FFI.fromVal) dbusErrorQuark_ ()
     fun dbusGenerateGuid () = (I ---> Utf8.FFI.fromPtr 1) dbusGenerateGuid_ ()
     fun dbusGvalueToGvariant (gvalue, type') = (GObjectValueRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) dbusGvalueToGvariant_ (gvalue & type')
@@ -1311,7 +1311,7 @@ structure Gio : GIO =
         Utf8.FFI.withPtr
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr 2
       )
         resourcesEnumerateChildren_
         (

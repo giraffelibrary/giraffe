@@ -199,7 +199,7 @@ signature GDK =
         where type 'a class = 'a DeviceToolClass.class
         where type axis_flags_t = AxisFlags.t
         where type device_tool_type_t = DeviceToolType.t
-    structure AtomRecordCArrayN :
+    structure AtomRecordCPtrArrayN :
       C_ARRAY
         where type elem = AtomRecord.t
     structure DisplayManager :
@@ -323,7 +323,7 @@ signature GDK =
         where type modifier_type_t = ModifierType.t
         where type 'a event_union = 'a Event.union
         where type atom_t = AtomRecord.t
-        where type atom_record_c_array_n_t = AtomRecordCArrayN.t
+        where type atom_record_c_ptr_array_n_t = AtomRecordCPtrArrayN.t
         where type 'a window_class = 'a WindowClass.class
         where type 'a screen_class = 'a ScreenClass.class
         where type 'a monitor_class = 'a MonitorClass.class
@@ -2710,8 +2710,8 @@ signature GDK =
     val getProgramClass : unit -> string
     val getShowEvents : unit -> bool
     val glErrorQuark : unit -> LargeInt.int
-    val init : Utf8CArrayN.t -> Utf8CArrayN.t
-    val initCheck : Utf8CArrayN.t -> bool * Utf8CArrayN.t
+    val init : Utf8CPtrArrayN.t -> Utf8CPtrArrayN.t
+    val initCheck : Utf8CPtrArrayN.t -> bool * Utf8CPtrArrayN.t
     val keyboardGrab :
       'a WindowClass.class
        * bool
@@ -2734,7 +2734,7 @@ signature GDK =
     val pangoContextGet : unit -> base Pango.ContextClass.class
     val pangoContextGetForDisplay : 'a DisplayClass.class -> base Pango.ContextClass.class
     val pangoContextGetForScreen : 'a ScreenClass.class -> base Pango.ContextClass.class
-    val parseArgs : Utf8CArrayN.t -> Utf8CArrayN.t
+    val parseArgs : Utf8CPtrArrayN.t -> Utf8CPtrArrayN.t
     val pixbufGetFromSurface :
       Cairo.SurfaceRecord.t
        * LargeInt.int
@@ -2842,7 +2842,7 @@ signature GDK =
        * AtomRecord.t
        * LargeInt.int
        * GUInt8CArrayN.t
-       -> LargeInt.int * Utf8CArray.t
+       -> LargeInt.int * Utf8CPtrArray.t
     val threadsEnter : unit -> unit
     val threadsInit : unit -> unit
     val threadsLeave : unit -> unit

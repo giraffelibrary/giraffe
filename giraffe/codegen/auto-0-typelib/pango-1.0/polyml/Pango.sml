@@ -48,7 +48,7 @@ structure Pango : PANGO =
         call (getSymbol "pango_lookup_aliases")
           (
             Utf8.PolyML.cInPtr
-             &&> Utf8CArrayN.PolyML.cOutRef
+             &&> Utf8CPtrArrayN.PolyML.cOutRef
              &&> GInt32.PolyML.cRef
              --> cVoid
           )
@@ -131,7 +131,7 @@ structure Pango : PANGO =
              &&> PangoGlyphStringRecord.PolyML.cPtr
              --> cVoid
           )
-      val splitFileList_ = call (getSymbol "pango_split_file_list") (Utf8.PolyML.cInPtr --> Utf8CArray.PolyML.cOutPtr)
+      val splitFileList_ = call (getSymbol "pango_split_file_list") (Utf8.PolyML.cInPtr --> Utf8CPtrArray.PolyML.cOutPtr)
       val trimString_ = call (getSymbol "pango_trim_string") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val unicharDirection_ = call (getSymbol "pango_unichar_direction") (GChar.PolyML.cVal --> PangoDirection.PolyML.cVal)
       val unitsFromDouble_ = call (getSymbol "pango_units_from_double") (GDouble.PolyML.cVal --> GInt32.PolyML.cVal)
@@ -197,8 +197,8 @@ structure Pango : PANGO =
     structure EngineShapeClass = PangoEngineShapeClass
     structure Font = PangoFont
     structure FontFace = PangoFontFace
-    structure FontFaceClassCArrayN = PangoFontFaceClassCArrayN
-    structure FontFamilyClassCArrayN = PangoFontFamilyClassCArrayN
+    structure FontFaceClassCPtrArrayN = PangoFontFaceClassCPtrArrayN
+    structure FontFamilyClassCPtrArrayN = PangoFontFamilyClassCPtrArrayN
     structure FontMetrics = PangoFontMetrics
     structure Fontset = PangoFontset
     structure FontsetSimpleClass = PangoFontsetSimpleClass
@@ -323,9 +323,9 @@ structure Pango : PANGO =
          & () =
           (
             Utf8.FFI.withPtr
-             &&&> Utf8CArrayN.FFI.withRefOptPtr
+             &&&> Utf8CPtrArrayN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> Utf8CArrayN.FFI.fromPtr 2
+             ---> Utf8CPtrArrayN.FFI.fromPtr 2
                    && GInt32.FFI.fromVal
                    && I
           )
@@ -560,7 +560,7 @@ structure Pango : PANGO =
            & analysis
            & glyphs
         )
-    fun splitFileList str = (Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) splitFileList_ str
+    fun splitFileList str = (Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) splitFileList_ str
     fun trimString str = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) trimString_ str
     fun unicharDirection ch = (GChar.FFI.withVal ---> PangoDirection.FFI.fromVal) unicharDirection_ ch
     fun unitsFromDouble d = (GDouble.FFI.withVal ---> GInt32.FFI.fromVal) unitsFromDouble_ d

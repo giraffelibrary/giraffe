@@ -17,7 +17,7 @@ structure GioProxyResolver :>
              &&> Utf8.PolyML.cInPtr
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CArray.PolyML.cOutPtr
+             --> Utf8CPtrArray.PolyML.cOutPtr
           )
       val lookupFinish_ =
         call (getSymbol "g_proxy_resolver_lookup_finish")
@@ -25,7 +25,7 @@ structure GioProxyResolver :>
             GioProxyResolverClass.PolyML.cPtr
              &&> GioAsyncResultClass.PolyML.cPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CArray.PolyML.cOutPtr
+             --> Utf8CPtrArray.PolyML.cOutPtr
           )
     end
     type 'a class = 'a GioProxyResolverClass.class
@@ -41,7 +41,7 @@ structure GioProxyResolver :>
          &&&> Utf8.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr 2
       )
         lookup_
         (
@@ -55,7 +55,7 @@ structure GioProxyResolver :>
         GioProxyResolverClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr 2
       )
         lookupFinish_
         (

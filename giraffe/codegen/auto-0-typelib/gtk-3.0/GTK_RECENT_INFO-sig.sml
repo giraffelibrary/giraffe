@@ -16,11 +16,11 @@ signature GTK_RECENT_INFO =
             * LargeInt.int
             * LargeInt.int)
             option
-    val getApplications : t -> Utf8CArrayN.t
+    val getApplications : t -> Utf8CPtrArrayN.t
     val getDescription : t -> string
     val getDisplayName : t -> string
     val getGicon : t -> base Gio.IconClass.class option
-    val getGroups : t -> Utf8CArrayN.t
+    val getGroups : t -> Utf8CPtrArrayN.t
     val getIcon :
       t
        -> LargeInt.int

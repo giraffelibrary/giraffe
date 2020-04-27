@@ -99,7 +99,7 @@ structure GioAppInfo :>
     val getIcon_ = _import "g_app_info_get_icon" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
     val getId_ = _import "g_app_info_get_id" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val getName_ = _import "g_app_info_get_name" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getSupportedTypes_ = _import "g_app_info_get_supported_types" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val getSupportedTypes_ = _import "g_app_info_get_supported_types" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val removeSupportsType_ =
       fn
         x1
@@ -248,7 +248,7 @@ structure GioAppInfo :>
     fun getIcon self = (GioAppInfoClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getIcon_ self
     fun getId self = (GioAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getId_ self
     fun getName self = (GioAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getSupportedTypes self = (GioAppInfoClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 0) getSupportedTypes_ self
+    fun getSupportedTypes self = (GioAppInfoClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getSupportedTypes_ self
     fun removeSupportsType self contentType =
       (
         GioAppInfoClass.FFI.withPtr

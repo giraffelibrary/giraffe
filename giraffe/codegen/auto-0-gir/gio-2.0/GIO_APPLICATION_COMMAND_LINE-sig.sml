@@ -9,9 +9,9 @@ signature GIO_APPLICATION_COMMAND_LINE =
       'a class
        -> string
        -> base file_class
-    val getArguments : 'a class -> Utf8CArrayN.t
+    val getArguments : 'a class -> Utf8CPtrArrayN.t
     val getCwd : 'a class -> string option
-    val getEnviron : 'a class -> Utf8CArray.t
+    val getEnviron : 'a class -> Utf8CPtrArray.t
     val getExitStatus : 'a class -> LargeInt.int
     val getIsRemote : 'a class -> bool
     val getOptionsDict : 'a class -> GLib.VariantDictRecord.t

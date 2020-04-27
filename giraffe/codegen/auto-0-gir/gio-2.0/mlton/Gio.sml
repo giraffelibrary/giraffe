@@ -171,7 +171,7 @@ structure Gio : GIO =
               x5,
               x6
             )
-    val contentTypeGuessForTree_ = _import "g_content_type_guess_for_tree" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val contentTypeGuessForTree_ = _import "g_content_type_guess_for_tree" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val contentTypeIsA_ =
       fn
         (x1, x2) & (x3, x4) =>
@@ -411,7 +411,7 @@ structure Gio : GIO =
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -715,7 +715,7 @@ structure Gio : GIO =
     structure AppInfo = GioAppInfo
     structure AppInfoMonitor = GioAppInfoMonitor
     structure AppLaunchContext = GioAppLaunchContext
-    structure FileClassCArrayN = GioFileClassCArrayN
+    structure FileClassCPtrArrayN = GioFileClassCPtrArrayN
     structure ApplicationCommandLine = GioApplicationCommandLine
     structure AsyncInitable = GioAsyncInitable
     structure AsyncResult = GioAsyncResult
@@ -725,7 +725,7 @@ structure Gio : GIO =
     structure Converter = GioConverter
     structure Credentials = GioCredentials
     structure DBusActionGroup = GioDBusActionGroup
-    structure DBusAnnotationInfoRecordCArray = GioDBusAnnotationInfoRecordCArray
+    structure DBusAnnotationInfoRecordCPtrArray = GioDBusAnnotationInfoRecordCPtrArray
     structure DBusArgInfo = GioDBusArgInfo
     structure DBusAuthObserver = GioDBusAuthObserver
     structure DBusConnection = GioDBusConnection
@@ -1156,7 +1156,7 @@ structure Gio : GIO =
       in
         (retVal, resultUncertain)
       end
-    fun contentTypeGuessForTree root = (GioFileClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) contentTypeGuessForTree_ root
+    fun contentTypeGuessForTree root = (GioFileClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) contentTypeGuessForTree_ root
     fun contentTypeIsA (type', supertype) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsA_ (type' & supertype)
     fun contentTypeIsUnknown type' = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsUnknown_ type'
     fun dbusAddressEscapeValue string = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) dbusAddressEscapeValue_ string
@@ -1351,7 +1351,7 @@ structure Gio : GIO =
         Utf8.FFI.withPtr
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr 2
       )
         resourcesEnumerateChildren_
         (

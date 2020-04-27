@@ -239,8 +239,8 @@ signature VTE_TERMINAL =
       'a class
        -> pty_flags_t
            * string option
-           * Utf8CArray.t
-           * Utf8CArray.t option
+           * Utf8CPtrArray.t
+           * Utf8CPtrArray.t option
            * GLib.SpawnFlags.t
            * GLib.SpawnChildSetupFunc.t option
            * 'a Gio.CancellableClass.class option

@@ -20,7 +20,7 @@ structure GObjectObject :>
           (
             GObjectType.PolyML.cVal
              &&> GUInt.PolyML.cVal
-             &&> Utf8CArrayN.PolyML.cInPtr
+             &&> Utf8CPtrArrayN.PolyML.cInPtr
              &&> GObjectValueRecordCArrayN.PolyML.cInPtr
              --> GObjectObjectClass.PolyML.cPtr
           )
@@ -86,7 +86,7 @@ structure GObjectObject :>
         val objectType = ValueAccessor.gtype class
         val nProperties = LargeInt.fromInt (List.length parameters)
         val names =
-          Utf8CArrayN.fromSequence
+          Utf8CPtrArrayN.fromSequence
             (Vector.fromList (List.map Property.name parameters))
         val values =
           GObjectValueRecordCArrayN.fromSequence
@@ -95,7 +95,7 @@ structure GObjectObject :>
           (
             GObjectType.FFI.withVal
              &&&> GUInt.FFI.withVal
-             &&&> Utf8CArrayN.FFI.withPtr
+             &&&> Utf8CPtrArrayN.FFI.withPtr
              &&&> GObjectValueRecordCArrayN.FFI.withPtr
              ---> GObjectObjectClass.FFI.fromPtr true
           )

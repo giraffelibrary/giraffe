@@ -94,8 +94,8 @@ structure GtkBuilder :>
               GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GUInt.FFI.val_;
           )
@@ -118,8 +118,8 @@ structure GtkBuilder :>
               GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GUInt.FFI.val_;
           )
@@ -144,8 +144,8 @@ structure GtkBuilder :>
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GSize.FFI.val_
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GUInt.FFI.val_;
           )
@@ -357,7 +357,7 @@ structure GtkBuilder :>
       (
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )
@@ -372,7 +372,7 @@ structure GtkBuilder :>
       (
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )
@@ -394,7 +394,7 @@ structure GtkBuilder :>
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GSize.FFI.withVal
-         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )

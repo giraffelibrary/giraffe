@@ -18,12 +18,12 @@ in
   ../glib-2.0/GUInt8CArrayN.mlb
   ../glib-2.0/GInt32CArrayN.mlb
   ../glib-2.0/GUInt32CArray.mlb
-  ../glib-2.0/Utf8CArrayN.mlb
-  ../glib-2.0/Utf8CArray.mlb
+  ../glib-2.0/Utf8CPtrArrayN.mlb
+  ../glib-2.0/Utf8CPtrArray.mlb
   ../gdk-3.0/GdkRgbaRecordCArrayN.mlb
   ../gdk-3.0/GdkColorRecordCArrayN.mlb
   ../gdk-3.0/GdkPointRecordCArrayN.mlb
-  ../gdk-3.0/GdkAtomRecordCArrayN.mlb
+  ../gdk-3.0/GdkAtomRecordCPtrArrayN.mlb
   ../gobject-2.0/GObjectValueRecordCArrayN.mlb
   ../gobject-2.0/GObjectTypeCArrayN.mlb
   CHILD_SIGNAL-sig.sml

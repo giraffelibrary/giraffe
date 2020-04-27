@@ -16,7 +16,7 @@ structure GLibMatchInfo :>
              --> Utf8.PolyML.cOutOptPtr
           )
       val fetch_ = call (getSymbol "g_match_info_fetch") (GLibMatchInfoRecord.PolyML.cPtr &&> GInt32.PolyML.cVal --> Utf8.PolyML.cOutOptPtr)
-      val fetchAll_ = call (getSymbol "g_match_info_fetch_all") (GLibMatchInfoRecord.PolyML.cPtr --> Utf8CArray.PolyML.cOutPtr)
+      val fetchAll_ = call (getSymbol "g_match_info_fetch_all") (GLibMatchInfoRecord.PolyML.cPtr --> Utf8CPtrArray.PolyML.cOutPtr)
       val fetchNamed_ = call (getSymbol "g_match_info_fetch_named") (GLibMatchInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutOptPtr)
       val fetchNamedPos_ =
         call (getSymbol "g_match_info_fetch_named_pos")
@@ -60,7 +60,7 @@ structure GLibMatchInfo :>
            & []
         )
     fun fetch self matchNum = (GLibMatchInfoRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 1) fetch_ (self & matchNum)
-    fun fetchAll self = (GLibMatchInfoRecord.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) fetchAll_ self
+    fun fetchAll self = (GLibMatchInfoRecord.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) fetchAll_ self
     fun fetchNamed self name = (GLibMatchInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) fetchNamed_ (self & name)
     fun fetchNamedPos self name =
       let

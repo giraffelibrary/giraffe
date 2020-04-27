@@ -93,7 +93,7 @@ structure GdkPixbufPixbuf :>
              --> GdkPixbufPixbufClass.PolyML.cPtr
           )
       val newFromStreamFinish_ = call (getSymbol "gdk_pixbuf_new_from_stream_finish") (GioAsyncResultClass.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GdkPixbufPixbufClass.PolyML.cPtr)
-      val newFromXpmData_ = call (getSymbol "gdk_pixbuf_new_from_xpm_data") (Utf8CArray.PolyML.cInPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
+      val newFromXpmData_ = call (getSymbol "gdk_pixbuf_new_from_xpm_data") (Utf8CPtrArray.PolyML.cInPtr --> GdkPixbufPixbufClass.PolyML.cPtr)
       val calculateRowstride_ =
         call (getSymbol "gdk_pixbuf_calculate_rowstride")
           (
@@ -249,8 +249,8 @@ structure GdkPixbufPixbuf :>
              &&> GUInt8CArrayN.PolyML.cOutRef
              &&> GSize.PolyML.cRef
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8CArray.PolyML.cInPtr
-             &&> Utf8CArray.PolyML.cInPtr
+             &&> Utf8CPtrArray.PolyML.cInPtr
+             &&> Utf8CPtrArray.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
@@ -260,8 +260,8 @@ structure GdkPixbufPixbuf :>
             GdkPixbufPixbufClass.PolyML.cPtr
              &&> GioOutputStreamClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8CArray.PolyML.cInPtr
-             &&> Utf8CArray.PolyML.cInPtr
+             &&> Utf8CPtrArray.PolyML.cInPtr
+             &&> Utf8CPtrArray.PolyML.cInPtr
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
@@ -272,8 +272,8 @@ structure GdkPixbufPixbuf :>
             GdkPixbufPixbufClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8CArray.PolyML.cInPtr
-             &&> Utf8CArray.PolyML.cInPtr
+             &&> Utf8CPtrArray.PolyML.cInPtr
+             &&> Utf8CPtrArray.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
@@ -504,7 +504,7 @@ structure GdkPixbufPixbuf :>
            & []
         )
     fun newFromStreamFinish asyncResult = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromStreamFinish_ (asyncResult & [])
-    fun newFromXpmData data = (Utf8CArray.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromXpmData_ data
+    fun newFromXpmData data = (Utf8CPtrArray.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromXpmData_ data
     fun calculateRowstride
       (
         colorspace,
@@ -876,8 +876,8 @@ structure GdkPixbufPixbuf :>
              &&&> GUInt8CArrayN.FFI.withRefOptPtr
              &&&> GSize.FFI.withRefVal
              &&&> Utf8.FFI.withPtr
-             &&&> Utf8CArray.FFI.withPtr
-             &&&> Utf8CArray.FFI.withPtr
+             &&&> Utf8CPtrArray.FFI.withPtr
+             &&&> Utf8CPtrArray.FFI.withPtr
              &&&> GLibErrorRecord.handleError
              ---> GUInt8CArrayN.FFI.fromPtr 1
                    && GSize.FFI.fromVal
@@ -909,8 +909,8 @@ structure GdkPixbufPixbuf :>
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> GioOutputStreamClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> ignore
@@ -937,8 +937,8 @@ structure GdkPixbufPixbuf :>
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

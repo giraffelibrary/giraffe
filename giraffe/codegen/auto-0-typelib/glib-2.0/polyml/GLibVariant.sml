@@ -1,7 +1,7 @@
 structure GLibVariant :>
   G_LIB_VARIANT
     where type t = GLibVariantRecord.t
-    where type variant_record_c_array_n_t = GLibVariantRecordCArrayN.t
+    where type variant_record_c_ptr_array_n_t = GLibVariantRecordCPtrArrayN.t
     where type variant_class_t = GLibVariantClass.t
     where type bytes_t = GLibBytesRecord.t
     where type variant_type_t = GLibVariantTypeRecord.t =
@@ -13,14 +13,14 @@ structure GLibVariant :>
         call (getSymbol "g_variant_new_array")
           (
             GLibVariantTypeRecord.PolyML.cOptPtr
-             &&> GLibVariantRecordCArrayN.PolyML.cInOptPtr
+             &&> GLibVariantRecordCPtrArrayN.PolyML.cInOptPtr
              &&> GUInt64.PolyML.cVal
              --> GLibVariantRecord.PolyML.cPtr
           )
       val newBoolean_ = call (getSymbol "g_variant_new_boolean") (GBool.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
       val newByte_ = call (getSymbol "g_variant_new_byte") (GUInt8.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
       val newBytestring_ = call (getSymbol "g_variant_new_bytestring") (GUInt8CArray.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
-      val newBytestringArray_ = call (getSymbol "g_variant_new_bytestring_array") (Utf8CArrayN.PolyML.cInPtr &&> GInt64.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
+      val newBytestringArray_ = call (getSymbol "g_variant_new_bytestring_array") (Utf8CPtrArrayN.PolyML.cInPtr &&> GInt64.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
       val newDictEntry_ = call (getSymbol "g_variant_new_dict_entry") (GLibVariantRecord.PolyML.cPtr &&> GLibVariantRecord.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
       val newDouble_ = call (getSymbol "g_variant_new_double") (GDouble.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
       val newFromBytes_ =
@@ -37,11 +37,11 @@ structure GLibVariant :>
       val newInt64_ = call (getSymbol "g_variant_new_int64") (GInt64.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
       val newMaybe_ = call (getSymbol "g_variant_new_maybe") (GLibVariantTypeRecord.PolyML.cOptPtr &&> GLibVariantRecord.PolyML.cOptPtr --> GLibVariantRecord.PolyML.cPtr)
       val newObjectPath_ = call (getSymbol "g_variant_new_object_path") (Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
-      val newObjv_ = call (getSymbol "g_variant_new_objv") (Utf8CArrayN.PolyML.cInPtr &&> GInt64.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
+      val newObjv_ = call (getSymbol "g_variant_new_objv") (Utf8CPtrArrayN.PolyML.cInPtr &&> GInt64.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
       val newSignature_ = call (getSymbol "g_variant_new_signature") (Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
       val newString_ = call (getSymbol "g_variant_new_string") (Utf8.PolyML.cInPtr --> GLibVariantRecord.PolyML.cPtr)
-      val newStrv_ = call (getSymbol "g_variant_new_strv") (Utf8CArrayN.PolyML.cInPtr &&> GInt64.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
-      val newTuple_ = call (getSymbol "g_variant_new_tuple") (GLibVariantRecordCArrayN.PolyML.cInPtr &&> GUInt64.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
+      val newStrv_ = call (getSymbol "g_variant_new_strv") (Utf8CPtrArrayN.PolyML.cInPtr &&> GInt64.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
+      val newTuple_ = call (getSymbol "g_variant_new_tuple") (GLibVariantRecordCPtrArrayN.PolyML.cInPtr &&> GUInt64.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
       val newUint16_ = call (getSymbol "g_variant_new_uint16") (GUInt16.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
       val newUint32_ = call (getSymbol "g_variant_new_uint32") (GUInt32.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
       val newUint64_ = call (getSymbol "g_variant_new_uint64") (GUInt64.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
@@ -58,15 +58,15 @@ structure GLibVariant :>
       val classify_ = call (getSymbol "g_variant_classify") (GLibVariantRecord.PolyML.cPtr --> GLibVariantClass.PolyML.cVal)
       val compare_ = call (getSymbol "g_variant_compare") (GLibVariantRecord.PolyML.cPtr &&> GLibVariantRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
       val dupBytestring_ = call (getSymbol "g_variant_dup_bytestring") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> GUInt8CArrayN.PolyML.cOutPtr)
-      val dupBytestringArray_ = call (getSymbol "g_variant_dup_bytestring_array") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CArrayN.PolyML.cOutPtr)
-      val dupObjv_ = call (getSymbol "g_variant_dup_objv") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CArrayN.PolyML.cOutPtr)
+      val dupBytestringArray_ = call (getSymbol "g_variant_dup_bytestring_array") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CPtrArrayN.PolyML.cOutPtr)
+      val dupObjv_ = call (getSymbol "g_variant_dup_objv") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CPtrArrayN.PolyML.cOutPtr)
       val dupString_ = call (getSymbol "g_variant_dup_string") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8.PolyML.cOutPtr)
-      val dupStrv_ = call (getSymbol "g_variant_dup_strv") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CArrayN.PolyML.cOutPtr)
+      val dupStrv_ = call (getSymbol "g_variant_dup_strv") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CPtrArrayN.PolyML.cOutPtr)
       val equal_ = call (getSymbol "g_variant_equal") (GLibVariantRecord.PolyML.cPtr &&> GLibVariantRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getBoolean_ = call (getSymbol "g_variant_get_boolean") (GLibVariantRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getByte_ = call (getSymbol "g_variant_get_byte") (GLibVariantRecord.PolyML.cPtr --> GUInt8.PolyML.cVal)
       val getBytestring_ = call (getSymbol "g_variant_get_bytestring") (GLibVariantRecord.PolyML.cPtr --> GUInt8CArray.PolyML.cOutPtr)
-      val getBytestringArray_ = call (getSymbol "g_variant_get_bytestring_array") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CArrayN.PolyML.cOutPtr)
+      val getBytestringArray_ = call (getSymbol "g_variant_get_bytestring_array") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CPtrArrayN.PolyML.cOutPtr)
       val getChildValue_ = call (getSymbol "g_variant_get_child_value") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cVal --> GLibVariantRecord.PolyML.cPtr)
       val getDataAsBytes_ = call (getSymbol "g_variant_get_data_as_bytes") (GLibVariantRecord.PolyML.cPtr --> GLibBytesRecord.PolyML.cPtr)
       val getDouble_ = call (getSymbol "g_variant_get_double") (GLibVariantRecord.PolyML.cPtr --> GDouble.PolyML.cVal)
@@ -76,10 +76,10 @@ structure GLibVariant :>
       val getInt64_ = call (getSymbol "g_variant_get_int64") (GLibVariantRecord.PolyML.cPtr --> GInt64.PolyML.cVal)
       val getMaybe_ = call (getSymbol "g_variant_get_maybe") (GLibVariantRecord.PolyML.cPtr --> GLibVariantRecord.PolyML.cOptPtr)
       val getNormalForm_ = call (getSymbol "g_variant_get_normal_form") (GLibVariantRecord.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
-      val getObjv_ = call (getSymbol "g_variant_get_objv") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CArrayN.PolyML.cOutPtr)
+      val getObjv_ = call (getSymbol "g_variant_get_objv") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CPtrArrayN.PolyML.cOutPtr)
       val getSize_ = call (getSymbol "g_variant_get_size") (GLibVariantRecord.PolyML.cPtr --> GUInt64.PolyML.cVal)
       val getString_ = call (getSymbol "g_variant_get_string") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8.PolyML.cOutPtr)
-      val getStrv_ = call (getSymbol "g_variant_get_strv") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CArrayN.PolyML.cOutPtr)
+      val getStrv_ = call (getSymbol "g_variant_get_strv") (GLibVariantRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CPtrArrayN.PolyML.cOutPtr)
       val getType_ = call (getSymbol "g_variant_get_type") (GLibVariantRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val getTypeString_ = call (getSymbol "g_variant_get_type_string") (GLibVariantRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getUint16_ = call (getSymbol "g_variant_get_uint16") (GLibVariantRecord.PolyML.cPtr --> GUInt16.PolyML.cVal)
@@ -116,7 +116,7 @@ structure GLibVariant :>
           )
     end
     type t = GLibVariantRecord.t
-    type variant_record_c_array_n_t = GLibVariantRecordCArrayN.t
+    type variant_record_c_ptr_array_n_t = GLibVariantRecordCPtrArrayN.t
     type variant_class_t = GLibVariantClass.t
     type bytes_t = GLibBytesRecord.t
     type variant_type_t = GLibVariantTypeRecord.t
@@ -124,12 +124,12 @@ structure GLibVariant :>
       let
         val nChildren =
           case children of
-            SOME children => LargeInt.fromInt (GLibVariantRecordCArrayN.length children)
+            SOME children => LargeInt.fromInt (GLibVariantRecordCPtrArrayN.length children)
           | NONE => GUInt64.null
         val retVal =
           (
             GLibVariantTypeRecord.FFI.withOptPtr
-             &&&> GLibVariantRecordCArrayN.FFI.withOptPtr
+             &&&> GLibVariantRecordCPtrArrayN.FFI.withOptPtr
              &&&> GUInt64.FFI.withVal
              ---> GLibVariantRecord.FFI.fromPtr false
           )
@@ -147,8 +147,8 @@ structure GLibVariant :>
     fun newBytestring string = (GUInt8CArray.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) newBytestring_ string
     fun newBytestringArray strv =
       let
-        val length = LargeInt.fromInt (Utf8CArrayN.length strv)
-        val retVal = (Utf8CArrayN.FFI.withPtr &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newBytestringArray_ (strv & length)
+        val length = LargeInt.fromInt (Utf8CPtrArrayN.length strv)
+        val retVal = (Utf8CPtrArrayN.FFI.withPtr &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newBytestringArray_ (strv & length)
       in
         retVal
       end
@@ -180,8 +180,8 @@ structure GLibVariant :>
     fun newObjectPath objectPath = (Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) newObjectPath_ objectPath
     fun newObjv strv =
       let
-        val length = LargeInt.fromInt (Utf8CArrayN.length strv)
-        val retVal = (Utf8CArrayN.FFI.withPtr &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newObjv_ (strv & length)
+        val length = LargeInt.fromInt (Utf8CPtrArrayN.length strv)
+        val retVal = (Utf8CPtrArrayN.FFI.withPtr &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newObjv_ (strv & length)
       in
         retVal
       end
@@ -189,15 +189,15 @@ structure GLibVariant :>
     fun newString string = (Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) newString_ string
     fun newStrv strv =
       let
-        val length = LargeInt.fromInt (Utf8CArrayN.length strv)
-        val retVal = (Utf8CArrayN.FFI.withPtr &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newStrv_ (strv & length)
+        val length = LargeInt.fromInt (Utf8CPtrArrayN.length strv)
+        val retVal = (Utf8CPtrArrayN.FFI.withPtr &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newStrv_ (strv & length)
       in
         retVal
       end
     fun newTuple children =
       let
-        val nChildren = LargeInt.fromInt (GLibVariantRecordCArrayN.length children)
-        val retVal = (GLibVariantRecordCArrayN.FFI.withPtr &&&> GUInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newTuple_ (children & nChildren)
+        val nChildren = LargeInt.fromInt (GLibVariantRecordCPtrArrayN.length children)
+        val retVal = (GLibVariantRecordCPtrArrayN.FFI.withPtr &&&> GUInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newTuple_ (children & nChildren)
       in
         retVal
       end
@@ -229,13 +229,13 @@ structure GLibVariant :>
       end
     fun dupBytestringArray self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2) dupBytestringArray_ (self & GUInt64.null)
+        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) dupBytestringArray_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end
     fun dupObjv self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2) dupObjv_ (self & GUInt64.null)
+        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) dupObjv_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end
@@ -247,7 +247,7 @@ structure GLibVariant :>
       end
     fun dupStrv self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2) dupStrv_ (self & GUInt64.null)
+        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) dupStrv_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end
@@ -257,7 +257,7 @@ structure GLibVariant :>
     fun getBytestring self = (GLibVariantRecord.FFI.withPtr ---> GUInt8CArray.FFI.fromPtr 0) getBytestring_ self
     fun getBytestringArray self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 1) getBytestringArray_ (self & GUInt64.null)
+        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 1) getBytestringArray_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end
@@ -272,7 +272,7 @@ structure GLibVariant :>
     fun getNormalForm self = (GLibVariantRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getNormalForm_ self
     fun getObjv self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 1) getObjv_ (self & GUInt64.null)
+        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 1) getObjv_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end
@@ -285,7 +285,7 @@ structure GLibVariant :>
       end
     fun getStrv self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 1) getStrv_ (self & GUInt64.null)
+        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 1) getStrv_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end

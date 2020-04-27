@@ -37,8 +37,8 @@ structure GioListStore :>
               GioListStoreClass.FFI.notnull GioListStoreClass.FFI.p
                * GUInt32.FFI.val_
                * GUInt32.FFI.val_
-               * GObjectObjectClassCArrayN.MLton.p1
-               * GObjectObjectClassCArrayN.FFI.notnull GObjectObjectClassCArrayN.MLton.p2
+               * GObjectObjectClassCPtrArrayN.MLton.p1
+               * GObjectObjectClassCPtrArrayN.FFI.notnull GObjectObjectClassCPtrArrayN.MLton.p2
                * GUInt32.FFI.val_
                -> unit;
           )
@@ -80,13 +80,13 @@ structure GioListStore :>
         additions
       ) =
       let
-        val nAdditions = LargeInt.fromInt (GObjectObjectClassCArrayN.length additions)
+        val nAdditions = LargeInt.fromInt (GObjectObjectClassCPtrArrayN.length additions)
         val () =
           (
             GioListStoreClass.FFI.withPtr
              &&&> GUInt32.FFI.withVal
              &&&> GUInt32.FFI.withVal
-             &&&> GObjectObjectClassCArrayN.FFI.withPtr
+             &&&> GObjectObjectClassCPtrArrayN.FFI.withPtr
              &&&> GUInt32.FFI.withVal
              ---> I
           )

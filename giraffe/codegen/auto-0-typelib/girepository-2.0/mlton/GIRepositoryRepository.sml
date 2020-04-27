@@ -70,7 +70,7 @@ structure GIRepositoryRepository :>
               GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -85,7 +85,7 @@ structure GIRepositoryRepository :>
               GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -111,7 +111,7 @@ structure GIRepositoryRepository :>
               x3,
               x4
             )
-    val getLoadedNamespaces_ = _import "g_irepository_get_loaded_namespaces" : GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val getLoadedNamespaces_ = _import "g_irepository_get_loaded_namespaces" : GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val getNInfos_ =
       fn
         x1 & (x2, x3) =>
@@ -298,8 +298,8 @@ structure GIRepositoryRepository :>
            & name
         )
     fun getCPrefix self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCPrefix_ (self & namespace)
-    fun getDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getDependencies_ (self & namespace)
-    fun getImmediateDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getImmediateDependencies_ (self & namespace)
+    fun getDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getDependencies_ (self & namespace)
+    fun getImmediateDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getImmediateDependencies_ (self & namespace)
     fun getInfo self (namespace, index) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr
@@ -313,7 +313,7 @@ structure GIRepositoryRepository :>
            & namespace
            & index
         )
-    fun getLoadedNamespaces self = (GIRepositoryRepositoryClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getLoadedNamespaces_ self
+    fun getLoadedNamespaces self = (GIRepositoryRepositoryClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getLoadedNamespaces_ self
     fun getNInfos self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt32.FFI.fromVal) getNInfos_ (self & namespace)
     fun getSharedLibrary self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSharedLibrary_ (self & namespace)
     fun getTypelibPath self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTypelibPath_ (self & namespace)

@@ -7,7 +7,7 @@ structure GdkDisplay :>
     where type modifier_type_t = GdkModifierType.t
     where type 'a event_union = 'a GdkEvent.union
     where type atom_t = GdkAtomRecord.t
-    where type atom_record_c_array_n_t = GdkAtomRecordCArrayN.t
+    where type atom_record_c_ptr_array_n_t = GdkAtomRecordCPtrArrayN.t
     where type 'a window_class = 'a GdkWindowClass.class
     where type 'a screen_class = 'a GdkScreenClass.class
     where type 'a monitor_class = 'a GdkMonitorClass.class
@@ -146,8 +146,8 @@ structure GdkDisplay :>
               GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
                * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
                * GUInt32.FFI.val_
-               * GdkAtomRecordCArrayN.MLton.p1
-               * unit GdkAtomRecordCArrayN.MLton.p2
+               * GdkAtomRecordCPtrArrayN.MLton.p1
+               * unit GdkAtomRecordCPtrArrayN.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -194,7 +194,7 @@ structure GdkDisplay :>
     type modifier_type_t = GdkModifierType.t
     type 'a event_union = 'a GdkEvent.union
     type atom_t = GdkAtomRecord.t
-    type atom_record_c_array_n_t = GdkAtomRecordCArrayN.t
+    type atom_record_c_ptr_array_n_t = GdkAtomRecordCPtrArrayN.t
     type 'a window_class = 'a GdkWindowClass.class
     type 'a screen_class = 'a GdkScreenClass.class
     type 'a monitor_class = 'a GdkMonitorClass.class
@@ -339,14 +339,14 @@ structure GdkDisplay :>
       let
         val nTargets =
           case targets of
-            SOME targets => LargeInt.fromInt (GdkAtomRecordCArrayN.length targets)
+            SOME targets => LargeInt.fromInt (GdkAtomRecordCPtrArrayN.length targets)
           | NONE => GInt32.null
         val () =
           (
             GdkDisplayClass.FFI.withPtr
              &&&> GdkWindowClass.FFI.withPtr
              &&&> GUInt32.FFI.withVal
-             &&&> GdkAtomRecordCArrayN.FFI.withOptPtr
+             &&&> GdkAtomRecordCPtrArrayN.FFI.withOptPtr
              &&&> GInt32.FFI.withVal
              ---> I
           )

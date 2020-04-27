@@ -6,15 +6,15 @@ local
   ../gobject-2.0/mlton.mlb
   ../glib-2.0/mlton.mlb
 in
-  ../gobject-2.0/GObjectObjectClassCArrayN.mlb
+  ../gobject-2.0/GObjectObjectClassCPtrArrayN.mlb
   ../glib-2.0/GUInt8CArray.mlb
   ../glib-2.0/GUInt32CArrayN.mlb
-  ../glib-2.0/Utf8CArrayN.mlb
+  ../glib-2.0/Utf8CPtrArrayN.mlb
   ../glib-2.0/GInt32CArrayN.mlb
   ../glib-2.0/GInt8CArrayN.mlb
   ../glib-2.0/GUInt8CArrayN.mlb
-  ../glib-2.0/Utf8CArray.mlb
-  ../glib-2.0/Utf8CArrayCArray.mlb
+  ../glib-2.0/Utf8CPtrArray.mlb
+  ../glib-2.0/Utf8CPtrArrayCPtrArray.mlb
   GIO_ACTION_CLASS-sig.sml
   GIO_ACTION-sig.sml
   GIO_ACTION_GROUP_CLASS-sig.sml
@@ -631,7 +631,7 @@ in
     mlton/GioAppInfo.sml
     mlton/GioAppInfoMonitor.sml
     mlton/GioAppLaunchContext.sml
-    GioFileClassCArrayN.sml
+    GioFileClassCPtrArrayN.sml
     mlton/GioApplicationCommandLine.sml
     mlton/GioAsyncInitable.sml
     mlton/GioAsyncResult.sml
@@ -769,7 +769,7 @@ in
     mlton/GioVolumeMonitor.sml
     mlton/GioZlibCompressor.sml
     mlton/GioZlibDecompressor.sml
-    GioDBusAnnotationInfoRecordCArray.sml
+    GioDBusAnnotationInfoRecordCPtrArray.sml
     mlton/GioApplication.sml
     mlton/GioBufferedInputStreamClass.sml
     mlton/GioBufferedOutputStreamClass.sml

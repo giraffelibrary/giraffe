@@ -16,8 +16,8 @@ structure GioSubprocess :>
          & x4 =>
           (
             _import "mlton_g_subprocess_newv" :
-              Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+              Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                * GioSubprocessFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p;
@@ -228,7 +228,7 @@ structure GioSubprocess :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (argv, flags) =
       (
-        Utf8CArray.FFI.withPtr
+        Utf8CPtrArray.FFI.withPtr
          &&&> GioSubprocessFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioSubprocessClass.FFI.fromPtr true

@@ -10,8 +10,8 @@ structure GioThemedIcon :>
         (x1, x2) & x3 =>
           (
             _import "mlton_g_themed_icon_new_from_names" :
-              Utf8CArrayN.MLton.p1
-               * Utf8CArrayN.FFI.notnull Utf8CArrayN.MLton.p2
+              Utf8CPtrArrayN.MLton.p1
+               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
                * GInt32.FFI.val_
                -> GioThemedIconClass.FFI.notnull GioThemedIconClass.FFI.p;
           )
@@ -36,7 +36,7 @@ structure GioThemedIcon :>
               x2,
               x3
             )
-    val getNames_ = _import "g_themed_icon_get_names" : GioThemedIconClass.FFI.notnull GioThemedIconClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val getNames_ = _import "g_themed_icon_get_names" : GioThemedIconClass.FFI.notnull GioThemedIconClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val prependName_ =
       fn
         x1 & (x2, x3) =>
@@ -60,14 +60,14 @@ structure GioThemedIcon :>
     fun new iconname = (Utf8.FFI.withPtr ---> GioThemedIconClass.FFI.fromPtr true) new_ iconname
     fun newFromNames iconnames =
       let
-        val len = LargeInt.fromInt (Utf8CArrayN.length iconnames)
-        val retVal = (Utf8CArrayN.FFI.withPtr &&&> GInt32.FFI.withVal ---> GioThemedIconClass.FFI.fromPtr true) newFromNames_ (iconnames & len)
+        val len = LargeInt.fromInt (Utf8CPtrArrayN.length iconnames)
+        val retVal = (Utf8CPtrArrayN.FFI.withPtr &&&> GInt32.FFI.withVal ---> GioThemedIconClass.FFI.fromPtr true) newFromNames_ (iconnames & len)
       in
         retVal
       end
     fun newWithDefaultFallbacks iconname = (Utf8.FFI.withPtr ---> GioThemedIconClass.FFI.fromPtr true) newWithDefaultFallbacks_ iconname
     fun appendName self iconname = (GioThemedIconClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) appendName_ (self & iconname)
-    fun getNames self = (GioThemedIconClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 0) getNames_ self
+    fun getNames self = (GioThemedIconClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getNames_ self
     fun prependName self iconname = (GioThemedIconClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) prependName_ (self & iconname)
     local
       open Property

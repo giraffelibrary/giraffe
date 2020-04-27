@@ -12,9 +12,9 @@ signature GTK_SELECTION_DATA =
     val getPixbuf : t -> base GdkPixbuf.PixbufClass.class option
     val getSelection : t -> Gdk.AtomRecord.t
     val getTarget : t -> Gdk.AtomRecord.t
-    val getTargets : t -> GdkAtomRecordCArrayN.t option
+    val getTargets : t -> GdkAtomRecordCPtrArrayN.t option
     val getText : t -> string option
-    val getUris : t -> Utf8CArray.t
+    val getUris : t -> Utf8CPtrArray.t
     val set :
       t
        -> Gdk.AtomRecord.t
@@ -31,7 +31,7 @@ signature GTK_SELECTION_DATA =
        -> bool
     val setUris :
       t
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
        -> bool
     val targetsIncludeImage :
       t

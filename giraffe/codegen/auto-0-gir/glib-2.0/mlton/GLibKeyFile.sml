@@ -132,7 +132,7 @@ structure GLibKeyFile :>
               x6,
               x7
             )
-    val getGroups_ = fn x1 & x2 => (_import "g_key_file_get_groups" : GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p * GSize.FFI.ref_ -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;) (x1, x2)
+    val getGroups_ = fn x1 & x2 => (_import "g_key_file_get_groups" : GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;) (x1, x2)
     val getInt64_ =
       fn
         x1
@@ -221,7 +221,7 @@ structure GLibKeyFile :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GSize.FFI.ref_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -278,7 +278,7 @@ structure GLibKeyFile :>
                * unit Utf8.MLton.p2
                * GSize.FFI.ref_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CArrayN.FFI.notnull Utf8CArrayN.FFI.out_p;
+               -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;
           )
             (
               x1,
@@ -332,7 +332,7 @@ structure GLibKeyFile :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GSize.FFI.ref_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CArrayN.FFI.notnull Utf8CArrayN.FFI.out_p;
+               -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;
           )
             (
               x1,
@@ -491,8 +491,8 @@ structure GLibKeyFile :>
               GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                * Utf8.MLton.r1
                * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
                * GLibKeyFileFlags.FFI.val_
@@ -879,8 +879,8 @@ structure GLibKeyFile :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CArrayN.MLton.p1
-               * Utf8CArrayN.FFI.notnull Utf8CArrayN.MLton.p2
+               * Utf8CPtrArrayN.MLton.p1
+               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
                * GSize.FFI.val_
                -> unit;
           )
@@ -936,8 +936,8 @@ structure GLibKeyFile :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CArrayN.MLton.p1
-               * Utf8CArrayN.FFI.notnull Utf8CArrayN.MLton.p2
+               * Utf8CPtrArrayN.MLton.p1
+               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
                * GSize.FFI.val_
                -> unit;
           )
@@ -1114,7 +1114,7 @@ structure GLibKeyFile :>
       end
     fun getGroups self =
       let
-        val length & retVal = (GLibKeyFileRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CArray.FFI.fromPtr 2) getGroups_ (self & GSize.null)
+        val length & retVal = (GLibKeyFileRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 2) getGroups_ (self & GSize.null)
       in
         (retVal, length)
       end
@@ -1178,7 +1178,7 @@ structure GLibKeyFile :>
              &&&> Utf8.FFI.withPtr
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8CArray.FFI.fromPtr 2
+             ---> GSize.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 2
           )
             getKeys_
             (
@@ -1229,7 +1229,7 @@ structure GLibKeyFile :>
              &&&> Utf8.FFI.withOptPtr
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2
+             ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2
           )
             getLocaleStringList_
             (
@@ -1268,7 +1268,7 @@ structure GLibKeyFile :>
              &&&> Utf8.FFI.withPtr
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2
+             ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2
           )
             getStringList_
             (
@@ -1384,7 +1384,7 @@ structure GLibKeyFile :>
           (
             GLibKeyFileRecord.FFI.withPtr
              &&&> Utf8.FFI.withPtr
-             &&&> Utf8CArray.FFI.withPtr
+             &&&> Utf8CPtrArray.FFI.withPtr
              &&&> Utf8.FFI.withRefOptPtr
              &&&> GLibKeyFileFlags.FFI.withVal
              &&&> GLibErrorRecord.handleError
@@ -1701,14 +1701,14 @@ structure GLibKeyFile :>
         list
       ) =
       let
-        val length = LargeInt.fromInt (Utf8CArrayN.length list)
+        val length = LargeInt.fromInt (Utf8CPtrArrayN.length list)
         val () =
           (
             GLibKeyFileRecord.FFI.withPtr
              &&&> Utf8.FFI.withPtr
              &&&> Utf8.FFI.withPtr
              &&&> Utf8.FFI.withPtr
-             &&&> Utf8CArrayN.FFI.withPtr
+             &&&> Utf8CPtrArrayN.FFI.withPtr
              &&&> GSize.FFI.withVal
              ---> I
           )
@@ -1753,13 +1753,13 @@ structure GLibKeyFile :>
         list
       ) =
       let
-        val length = LargeInt.fromInt (Utf8CArrayN.length list)
+        val length = LargeInt.fromInt (Utf8CPtrArrayN.length list)
         val () =
           (
             GLibKeyFileRecord.FFI.withPtr
              &&&> Utf8.FFI.withPtr
              &&&> Utf8.FFI.withPtr
-             &&&> Utf8CArrayN.FFI.withPtr
+             &&&> Utf8CPtrArrayN.FFI.withPtr
              &&&> GSize.FFI.withVal
              ---> I
           )

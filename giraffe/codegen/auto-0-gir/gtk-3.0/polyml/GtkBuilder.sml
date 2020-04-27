@@ -42,7 +42,7 @@ structure GtkBuilder :>
           (
             GtkBuilderClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8CArray.PolyML.cInPtr
+             &&> Utf8CPtrArray.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GUInt.PolyML.cVal
           )
@@ -51,7 +51,7 @@ structure GtkBuilder :>
           (
             GtkBuilderClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
-             &&> Utf8CArray.PolyML.cInPtr
+             &&> Utf8CPtrArray.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GUInt.PolyML.cVal
           )
@@ -61,7 +61,7 @@ structure GtkBuilder :>
             GtkBuilderClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GSize.PolyML.cVal
-             &&> Utf8CArray.PolyML.cInPtr
+             &&> Utf8CPtrArray.PolyML.cInPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GUInt.PolyML.cVal
           )
@@ -165,7 +165,7 @@ structure GtkBuilder :>
       (
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )
@@ -180,7 +180,7 @@ structure GtkBuilder :>
       (
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )
@@ -202,7 +202,7 @@ structure GtkBuilder :>
         GtkBuilderClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> GSize.FFI.withVal
-         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
       )

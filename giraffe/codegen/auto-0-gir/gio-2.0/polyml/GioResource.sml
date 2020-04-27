@@ -16,7 +16,7 @@ structure GioResource :>
              &&> Utf8.PolyML.cInPtr
              &&> GioResourceLookupFlags.PolyML.cVal
              &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8CArray.PolyML.cOutPtr
+             --> Utf8CPtrArray.PolyML.cOutPtr
           )
       val getInfo_ =
         call (getSymbol "g_resource_get_info")
@@ -60,7 +60,7 @@ structure GioResource :>
          &&&> Utf8.FFI.withPtr
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr 2
       )
         enumerateChildren_
         (

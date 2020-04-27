@@ -1,7 +1,7 @@
 useExt "../glib-2.0/GUInt32CArrayN.sml";
-useExt "../glib-2.0/Utf8CArrayN.sml";
+useExt "../glib-2.0/Utf8CPtrArrayN.sml";
 useExt "../glib-2.0/GInt32CArrayN.sml";
-useExt "../glib-2.0/Utf8CArray.sml";
+useExt "../glib-2.0/Utf8CPtrArray.sml";
 useExt "../glib-2.0/GUInt8CArrayN.sml";
 use "GDK_EVENT_ANY_RECORD-sig.sml";
 use "GDK_EVENT_BUTTON_RECORD-sig.sml";
@@ -239,7 +239,7 @@ use "polyml/GdkDevice.sml";
 use "polyml/GdkDeviceManager.sml";
 use "polyml/GdkDevicePad.sml";
 use "polyml/GdkDeviceTool.sml";
-use "GdkAtomRecordCArrayN.sml";
+use "GdkAtomRecordCPtrArrayN.sml";
 use "polyml/GdkDisplayManager.sml";
 use "polyml/GdkDragContext.sml";
 use "polyml/GdkDrawingContext.sml";

@@ -64,7 +64,7 @@ structure GioMount :>
               GioMountClass.FFI.notnull GioMountClass.FFI.p
                * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -83,7 +83,7 @@ structure GioMount :>
                * GBool.FFI.val_
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -196,7 +196,7 @@ structure GioMount :>
         GioMountClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr 2
       )
         guessContentTypeFinish_
         (
@@ -210,7 +210,7 @@ structure GioMount :>
          &&&> GBool.FFI.withVal
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr 2
       )
         guessContentTypeSync_
         (

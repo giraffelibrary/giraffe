@@ -21,7 +21,7 @@ structure GtkScaleButton :>
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
-             &&> Utf8CArray.PolyML.cInOptPtr
+             &&> Utf8CPtrArray.PolyML.cInOptPtr
              --> GtkWidgetClass.PolyML.cPtr
           )
       val getAdjustment_ = call (getSymbol "gtk_scale_button_get_adjustment") (GtkScaleButtonClass.PolyML.cPtr --> GtkAdjustmentClass.PolyML.cPtr)
@@ -30,7 +30,7 @@ structure GtkScaleButton :>
       val getPopup_ = call (getSymbol "gtk_scale_button_get_popup") (GtkScaleButtonClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
       val getValue_ = call (getSymbol "gtk_scale_button_get_value") (GtkScaleButtonClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val setAdjustment_ = call (getSymbol "gtk_scale_button_set_adjustment") (GtkScaleButtonClass.PolyML.cPtr &&> GtkAdjustmentClass.PolyML.cPtr --> cVoid)
-      val setIcons_ = call (getSymbol "gtk_scale_button_set_icons") (GtkScaleButtonClass.PolyML.cPtr &&> Utf8CArray.PolyML.cInPtr --> cVoid)
+      val setIcons_ = call (getSymbol "gtk_scale_button_set_icons") (GtkScaleButtonClass.PolyML.cPtr &&> Utf8CPtrArray.PolyML.cInPtr --> cVoid)
       val setValue_ = call (getSymbol "gtk_scale_button_set_value") (GtkScaleButtonClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkScaleButtonClass.class
@@ -62,7 +62,7 @@ structure GtkScaleButton :>
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
-         &&&> Utf8CArray.FFI.withOptPtr
+         &&&> Utf8CPtrArray.FFI.withOptPtr
          ---> GtkScaleButtonClass.FFI.fromPtr false
       )
         new_
@@ -79,7 +79,7 @@ structure GtkScaleButton :>
     fun getPopup self = (GtkScaleButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getPopup_ self
     fun getValue self = (GtkScaleButtonClass.FFI.withPtr ---> GDouble.FFI.fromVal) getValue_ self
     fun setAdjustment self adjustment = (GtkScaleButtonClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setAdjustment_ (self & adjustment)
-    fun setIcons self icons = (GtkScaleButtonClass.FFI.withPtr &&&> Utf8CArray.FFI.withPtr ---> I) setIcons_ (self & icons)
+    fun setIcons self icons = (GtkScaleButtonClass.FFI.withPtr &&&> Utf8CPtrArray.FFI.withPtr ---> I) setIcons_ (self & icons)
     fun setValue self value = (GtkScaleButtonClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setValue_ (self & value)
     local
       open ClosureMarshal Signal

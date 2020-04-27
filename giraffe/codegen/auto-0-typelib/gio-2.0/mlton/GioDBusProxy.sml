@@ -212,7 +212,7 @@ structure GioDBusProxy :>
               x2,
               x3
             )
-    val getCachedPropertyNames_ = _import "g_dbus_proxy_get_cached_property_names" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val getCachedPropertyNames_ = _import "g_dbus_proxy_get_cached_property_names" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val getConnection_ = _import "g_dbus_proxy_get_connection" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
     val getDefaultTimeout_ = _import "g_dbus_proxy_get_default_timeout" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> GInt32.FFI.val_;
     val getFlags_ = _import "g_dbus_proxy_get_flags" : GioDBusProxyClass.FFI.notnull GioDBusProxyClass.FFI.p -> GioDBusProxyFlags.FFI.val_;
@@ -427,7 +427,7 @@ structure GioDBusProxy :>
         (retVal, outFdList)
       end
     fun getCachedProperty self propertyName = (GioDBusProxyClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getCachedProperty_ (self & propertyName)
-    fun getCachedPropertyNames self = (GioDBusProxyClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getCachedPropertyNames_ self
+    fun getCachedPropertyNames self = (GioDBusProxyClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getCachedPropertyNames_ self
     fun getConnection self = (GioDBusProxyClass.FFI.withPtr ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
     fun getDefaultTimeout self = (GioDBusProxyClass.FFI.withPtr ---> GInt32.FFI.fromVal) getDefaultTimeout_ self
     fun getFlags self = (GioDBusProxyClass.FFI.withPtr ---> GioDBusProxyFlags.FFI.fromVal) getFlags_ self
@@ -454,7 +454,7 @@ structure GioDBusProxy :>
     local
       open ClosureMarshal Signal
     in
-      fun gPropertiesChangedSig f = signal "g-properties-changed" (get 0w1 GLibVariantRecord.t &&&> get 0w2 Utf8CArray.t ---> ret_void) (fn changedProperties & invalidatedProperties => f (changedProperties, invalidatedProperties))
+      fun gPropertiesChangedSig f = signal "g-properties-changed" (get 0w1 GLibVariantRecord.t &&&> get 0w2 Utf8CPtrArray.t ---> ret_void) (fn changedProperties & invalidatedProperties => f (changedProperties, invalidatedProperties))
       fun gSignalSig f =
         signal "g-signal"
           (

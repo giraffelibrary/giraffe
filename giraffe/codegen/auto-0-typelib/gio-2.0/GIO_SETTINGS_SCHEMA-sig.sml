@@ -13,6 +13,6 @@ signature GIO_SETTINGS_SCHEMA =
       t
        -> string
        -> bool
-    val listChildren : t -> Utf8CArray.t
-    val listKeys : t -> Utf8CArray.t
+    val listChildren : t -> Utf8CPtrArray.t
+    val listKeys : t -> Utf8CPtrArray.t
   end

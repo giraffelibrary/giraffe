@@ -19,7 +19,7 @@ structure GioResource :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -126,7 +126,7 @@ structure GioResource :>
          &&&> Utf8.FFI.withPtr
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr 2
       )
         enumerateChildren_
         (

@@ -5,7 +5,7 @@ structure GioAppLaunchContext :>
   struct
     val getType_ = _import "g_app_launch_context_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "g_app_launch_context_new" : unit -> GioAppLaunchContextClass.FFI.notnull GioAppLaunchContextClass.FFI.p;
-    val getEnvironment_ = _import "g_app_launch_context_get_environment" : GioAppLaunchContextClass.FFI.notnull GioAppLaunchContextClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val getEnvironment_ = _import "g_app_launch_context_get_environment" : GioAppLaunchContextClass.FFI.notnull GioAppLaunchContextClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val launchFailed_ =
       fn
         x1 & (x2, x3) =>
@@ -62,7 +62,7 @@ structure GioAppLaunchContext :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioAppLaunchContextClass.FFI.fromPtr true) new_ ()
-    fun getEnvironment self = (GioAppLaunchContextClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getEnvironment_ self
+    fun getEnvironment self = (GioAppLaunchContextClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getEnvironment_ self
     fun launchFailed self startupNotifyId = (GioAppLaunchContextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) launchFailed_ (self & startupNotifyId)
     fun setenv self (variable, value) =
       (

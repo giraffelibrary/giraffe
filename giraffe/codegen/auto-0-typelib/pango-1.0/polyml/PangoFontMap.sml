@@ -1,7 +1,7 @@
 structure PangoFontMap :>
   PANGO_FONT_MAP
     where type 'a class = 'a PangoFontMapClass.class
-    where type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
+    where type font_family_class_c_ptr_array_n_t = PangoFontFamilyClassCPtrArrayN.t
     where type 'a font_class = 'a PangoFontClass.class
     where type 'a fontset_class = 'a PangoFontsetClass.class
     where type language_t = PangoLanguageRecord.t
@@ -20,7 +20,7 @@ structure PangoFontMap :>
         call (getSymbol "pango_font_map_list_families")
           (
             PangoFontMapClass.PolyML.cPtr
-             &&> PangoFontFamilyClassCArrayN.PolyML.cOutRef
+             &&> PangoFontFamilyClassCPtrArrayN.PolyML.cOutRef
              &&> GInt32.PolyML.cRef
              --> cVoid
           )
@@ -43,7 +43,7 @@ structure PangoFontMap :>
           )
     end
     type 'a class = 'a PangoFontMapClass.class
-    type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
+    type font_family_class_c_ptr_array_n_t = PangoFontFamilyClassCPtrArrayN.t
     type 'a font_class = 'a PangoFontClass.class
     type 'a fontset_class = 'a PangoFontsetClass.class
     type language_t = PangoLanguageRecord.t
@@ -62,9 +62,9 @@ structure PangoFontMap :>
          & () =
           (
             PangoFontMapClass.FFI.withPtr
-             &&&> PangoFontFamilyClassCArrayN.FFI.withRefOptPtr
+             &&&> PangoFontFamilyClassCPtrArrayN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> PangoFontFamilyClassCArrayN.FFI.fromPtr 1
+             ---> PangoFontFamilyClassCPtrArrayN.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
                    && I
           )

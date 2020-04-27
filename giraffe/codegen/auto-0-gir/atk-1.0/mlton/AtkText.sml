@@ -1,7 +1,7 @@
 structure AtkText :>
   ATK_TEXT
     where type 'a class = 'a AtkTextClass.class
-    where type text_range_record_c_array_t = AtkTextRangeRecordCArray.t
+    where type text_range_record_c_ptr_array_t = AtkTextRangeRecordCPtrArray.t
     where type text_clip_type_t = AtkTextClipType.t
     where type text_rectangle_t = AtkTextRectangleRecord.t
     where type coord_type_t = AtkCoordType.t
@@ -40,7 +40,7 @@ structure AtkText :>
                * AtkCoordType.FFI.val_
                * AtkTextClipType.FFI.val_
                * AtkTextClipType.FFI.val_
-               -> AtkTextRangeRecordCArray.FFI.notnull AtkTextRangeRecordCArray.FFI.out_p;
+               -> AtkTextRangeRecordCPtrArray.FFI.notnull AtkTextRangeRecordCPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -277,7 +277,7 @@ structure AtkText :>
               x4
             )
     type 'a class = 'a AtkTextClass.class
-    type text_range_record_c_array_t = AtkTextRangeRecordCArray.t
+    type text_range_record_c_ptr_array_t = AtkTextRangeRecordCPtrArray.t
     type text_clip_type_t = AtkTextClipType.t
     type text_rectangle_t = AtkTextRectangleRecord.t
     type coord_type_t = AtkCoordType.t
@@ -312,7 +312,7 @@ structure AtkText :>
          &&&> AtkCoordType.FFI.withVal
          &&&> AtkTextClipType.FFI.withVal
          &&&> AtkTextClipType.FFI.withVal
-         ---> AtkTextRangeRecordCArray.FFI.fromPtr 2
+         ---> AtkTextRangeRecordCPtrArray.FFI.fromPtr 2
       )
         getBoundedRanges_
         (

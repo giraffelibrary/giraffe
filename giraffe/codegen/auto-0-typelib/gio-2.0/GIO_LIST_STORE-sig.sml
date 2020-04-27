@@ -23,7 +23,7 @@ signature GIO_LIST_STORE =
       'a class
        -> LargeInt.int
            * LargeInt.int
-           * GObjectObjectClassCArrayN.t
+           * GObjectObjectClassCPtrArrayN.t
        -> unit
     val itemTypeProp :
       {

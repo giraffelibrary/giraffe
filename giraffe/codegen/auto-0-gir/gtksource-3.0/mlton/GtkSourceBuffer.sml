@@ -115,7 +115,7 @@ structure GtkSourceBuffer :>
               x3,
               x4
             )
-    val getContextClassesAtIter_ = fn x1 & x2 => (_import "gtk_source_buffer_get_context_classes_at_iter" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;) (x1, x2)
+    val getContextClassesAtIter_ = fn x1 & x2 => (_import "gtk_source_buffer_get_context_classes_at_iter" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;) (x1, x2)
     val getHighlightMatchingBrackets_ = _import "gtk_source_buffer_get_highlight_matching_brackets" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
     val getHighlightSyntax_ = _import "gtk_source_buffer_get_highlight_syntax" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
     val getImplicitTrailingNewline_ = _import "gtk_source_buffer_get_implicit_trailing_newline" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
@@ -348,7 +348,7 @@ structure GtkSourceBuffer :>
            & iter
            & category
         )
-    fun getContextClassesAtIter self iter = (GtkSourceBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getContextClassesAtIter_ (self & iter)
+    fun getContextClassesAtIter self iter = (GtkSourceBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getContextClassesAtIter_ (self & iter)
     fun getHighlightMatchingBrackets self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getHighlightMatchingBrackets_ self
     fun getHighlightSyntax self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getHighlightSyntax_ self
     fun getImplicitTrailingNewline self = (GtkSourceBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getImplicitTrailingNewline_ self

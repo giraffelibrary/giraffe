@@ -6,7 +6,7 @@ local
   ../gobject-2.0/mlton.mlb
   ../glib-2.0/mlton.mlb
 in
-  ../glib-2.0/Utf8CArray.mlb
+  ../glib-2.0/Utf8CPtrArray.mlb
   G_I_REPOSITORY_BASE_INFO_RECORD-sig.sml
   G_I_REPOSITORY_ARRAY_TYPE-sig.sml
   G_I_REPOSITORY_DIRECTION-sig.sml

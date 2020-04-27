@@ -43,7 +43,7 @@ signature GTK_SOURCE_BUFFER =
     val getContextClassesAtIter :
       'a class
        -> Gtk.TextIterRecord.t
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
     val getHighlightMatchingBrackets : 'a class -> bool
     val getHighlightSyntax : 'a class -> bool
     val getImplicitTrailingNewline : 'a class -> bool

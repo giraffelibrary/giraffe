@@ -8,7 +8,7 @@ signature GIO_RESOURCE =
     val enumerateChildren :
       t
        -> string * resource_lookup_flags_t
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
     val getInfo :
       t
        -> string * resource_lookup_flags_t

@@ -436,6 +436,15 @@ val isPtrElem =
         | _                 => SOME false
       end
 
+fun makeCArrayStrId (elemStrId, isPtr, zeroTerminated) =
+  concat [
+    elemStrId,
+    cStrId,
+    case isPtr of SOME _ => ptrStrId | NONE => "",
+    arrayStrId,
+    if zeroTerminated then "" else nStrId
+  ]
+
 fun makeCArrayIRef functionNamespace optContainerName length elem =
   let
     val elemRef =
@@ -478,8 +487,7 @@ fun makeCArrayIRef functionNamespace optContainerName length elem =
         ArrayLengthZeroTerminated => true
       | _                         => false
 
-    val arrayName =
-      concat [elemName, cStrId, arrayStrId, if zeroTerminated then "" else "N"]
+    val arrayName = makeCArrayStrId (elemName, isPtr, zeroTerminated)
 
     val arrayScope =
       if arrayNamespace <> functionNamespace

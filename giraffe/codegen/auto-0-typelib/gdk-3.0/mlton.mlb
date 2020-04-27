@@ -12,9 +12,9 @@ local
   ../cairo-1.0/mlton.mlb
 in
   ../glib-2.0/GUInt32CArrayN.mlb
-  ../glib-2.0/Utf8CArrayN.mlb
+  ../glib-2.0/Utf8CPtrArrayN.mlb
   ../glib-2.0/GInt32CArrayN.mlb
-  ../glib-2.0/Utf8CArray.mlb
+  ../glib-2.0/Utf8CPtrArray.mlb
   ../glib-2.0/GUInt8CArrayN.mlb
   GDK_EVENT_ANY_RECORD-sig.sml
   GDK_EVENT_BUTTON_RECORD-sig.sml
@@ -256,7 +256,7 @@ in
     mlton/GdkDeviceManager.sml
     mlton/GdkDevicePad.sml
     mlton/GdkDeviceTool.sml
-    GdkAtomRecordCArrayN.sml
+    GdkAtomRecordCPtrArrayN.sml
     mlton/GdkDisplayManager.sml
     mlton/GdkDragContext.sml
     mlton/GdkDrawingContext.sml

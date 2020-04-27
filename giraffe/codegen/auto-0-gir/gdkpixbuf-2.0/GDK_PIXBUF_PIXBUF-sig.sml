@@ -55,7 +55,7 @@ signature GDK_PIXBUF_PIXBUF =
        * 'b Gio.CancellableClass.class option
        -> base class
     val newFromStreamFinish : 'a Gio.AsyncResultClass.class -> base class
-    val newFromXpmData : Utf8CArray.t -> base class
+    val newFromXpmData : Utf8CPtrArray.t -> base class
     val calculateRowstride :
       colorspace_t
        * bool
@@ -187,23 +187,23 @@ signature GDK_PIXBUF_PIXBUF =
     val saveToBufferv :
       'a class
        -> string
-           * Utf8CArray.t
-           * Utf8CArray.t
+           * Utf8CPtrArray.t
+           * Utf8CPtrArray.t
        -> GUInt8CArrayN.t
     val saveToStreamv :
       'a class
        -> 'b Gio.OutputStreamClass.class
            * string
-           * Utf8CArray.t
-           * Utf8CArray.t
+           * Utf8CPtrArray.t
+           * Utf8CPtrArray.t
            * 'c Gio.CancellableClass.class option
        -> unit
     val savev :
       'a class
        -> string
            * string
-           * Utf8CArray.t
-           * Utf8CArray.t
+           * Utf8CPtrArray.t
+           * Utf8CPtrArray.t
        -> unit
     val scale :
       'a class

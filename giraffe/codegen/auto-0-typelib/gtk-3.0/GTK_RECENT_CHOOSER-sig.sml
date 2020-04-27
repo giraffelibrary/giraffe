@@ -22,7 +22,7 @@ signature GTK_RECENT_CHOOSER =
     val getShowPrivate : 'a class -> bool
     val getShowTips : 'a class -> bool
     val getSortType : 'a class -> recent_sort_type_t
-    val getUris : 'a class -> Utf8CArrayN.t
+    val getUris : 'a class -> Utf8CPtrArrayN.t
     val removeFilter :
       'a class
        -> 'b recent_filter_class

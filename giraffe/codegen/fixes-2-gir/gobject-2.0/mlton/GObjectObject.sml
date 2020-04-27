@@ -22,8 +22,8 @@ structure GObjectObject :>
             _import "mlton_g_object_new_with_properties" :
               GObjectType.FFI.val_
                * GUInt.FFI.val_
-               * Utf8CArrayN.MLton.p1
-               * Utf8CArrayN.FFI.notnull Utf8CArrayN.MLton.p2
+               * Utf8CPtrArrayN.MLton.p1
+               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
                * GObjectValueRecordCArrayN.MLton.p1
                * GObjectValueRecordCArrayN.FFI.notnull GObjectValueRecordCArrayN.MLton.p2
                -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
@@ -171,7 +171,7 @@ structure GObjectObject :>
         val objectType = ValueAccessor.gtype class
         val nProperties = LargeInt.fromInt (List.length parameters)
         val names =
-          Utf8CArrayN.fromSequence
+          Utf8CPtrArrayN.fromSequence
             (Vector.fromList (List.map Property.name parameters))
         val values =
           GObjectValueRecordCArrayN.fromSequence
@@ -180,7 +180,7 @@ structure GObjectObject :>
           (
             GObjectType.FFI.withVal
              &&&> GUInt.FFI.withVal
-             &&&> Utf8CArrayN.FFI.withPtr
+             &&&> Utf8CPtrArrayN.FFI.withPtr
              &&&> GObjectValueRecordCArrayN.FFI.withPtr
              ---> GObjectObjectClass.FFI.fromPtr true
           )

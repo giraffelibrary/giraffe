@@ -2,7 +2,7 @@ structure PangoContext :>
   PANGO_CONTEXT
     where type 'a class = 'a PangoContextClass.class
     where type font_metrics_t = PangoFontMetricsRecord.t
-    where type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
+    where type font_family_class_c_ptr_array_n_t = PangoFontFamilyClassCPtrArrayN.t
     where type 'a font_class = 'a PangoFontClass.class
     where type 'a fontset_class = 'a PangoFontsetClass.class
     where type direction_t = PangoDirection.t
@@ -40,7 +40,7 @@ structure PangoContext :>
         call (getSymbol "pango_context_list_families")
           (
             PangoContextClass.PolyML.cPtr
-             &&> PangoFontFamilyClassCArrayN.PolyML.cOutRef
+             &&> PangoFontFamilyClassCPtrArrayN.PolyML.cOutRef
              &&> GInt.PolyML.cRef
              --> cVoid
           )
@@ -63,7 +63,7 @@ structure PangoContext :>
     end
     type 'a class = 'a PangoContextClass.class
     type font_metrics_t = PangoFontMetricsRecord.t
-    type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
+    type font_family_class_c_ptr_array_n_t = PangoFontFamilyClassCPtrArrayN.t
     type 'a font_class = 'a PangoFontClass.class
     type 'a fontset_class = 'a PangoFontsetClass.class
     type direction_t = PangoDirection.t
@@ -106,9 +106,9 @@ structure PangoContext :>
          & () =
           (
             PangoContextClass.FFI.withPtr
-             &&&> PangoFontFamilyClassCArrayN.FFI.withRefOptPtr
+             &&&> PangoFontFamilyClassCPtrArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> PangoFontFamilyClassCArrayN.FFI.fromPtr 1
+             ---> PangoFontFamilyClassCPtrArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )

@@ -5,9 +5,9 @@ structure GdkPixbufPixbufFormat :>
     val getType_ = _import "gdk_pixbuf_format_get_type" : unit -> GObjectType.FFI.val_;
     val copy_ = _import "gdk_pixbuf_format_copy" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p;
     val getDescription_ = _import "gdk_pixbuf_format_get_description" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getExtensions_ = _import "gdk_pixbuf_format_get_extensions" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val getExtensions_ = _import "gdk_pixbuf_format_get_extensions" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val getLicense_ = _import "gdk_pixbuf_format_get_license" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getMimeTypes_ = _import "gdk_pixbuf_format_get_mime_types" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val getMimeTypes_ = _import "gdk_pixbuf_format_get_mime_types" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val getName_ = _import "gdk_pixbuf_format_get_name" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val isDisabled_ = _import "gdk_pixbuf_format_is_disabled" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> GBool.FFI.val_;
     val isSaveOptionSupported_ =
@@ -32,9 +32,9 @@ structure GdkPixbufPixbufFormat :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun copy self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> GdkPixbufPixbufFormatRecord.FFI.fromPtr true) copy_ self
     fun getDescription self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getDescription_ self
-    fun getExtensions self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getExtensions_ self
+    fun getExtensions self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getExtensions_ self
     fun getLicense self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getLicense_ self
-    fun getMimeTypes self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getMimeTypes_ self
+    fun getMimeTypes self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getMimeTypes_ self
     fun getName self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getName_ self
     fun isDisabled self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> GBool.FFI.fromVal) isDisabled_ self
     fun isSaveOptionSupported self optionKey = (GdkPixbufPixbufFormatRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) isSaveOptionSupported_ (self & optionKey)

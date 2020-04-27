@@ -36,10 +36,10 @@ structure GioSettingsSchemaSource :>
             _import "mlton_g_settings_schema_source_list_schemas" :
               GioSettingsSchemaSourceRecord.FFI.notnull GioSettingsSchemaSourceRecord.FFI.p
                * GBool.FFI.val_
-               * Utf8CArray.MLton.r1
-               * (unit, Utf8CArray.FFI.notnull) Utf8CArray.MLton.r2
-               * Utf8CArray.MLton.r1
-               * (unit, Utf8CArray.FFI.notnull) Utf8CArray.MLton.r2
+               * Utf8CPtrArray.MLton.r1
+               * (unit, Utf8CPtrArray.FFI.notnull) Utf8CPtrArray.MLton.r2
+               * Utf8CPtrArray.MLton.r1
+               * (unit, Utf8CPtrArray.FFI.notnull) Utf8CPtrArray.MLton.r2
                -> unit;
           )
             (
@@ -101,10 +101,10 @@ structure GioSettingsSchemaSource :>
           (
             GioSettingsSchemaSourceRecord.FFI.withPtr
              &&&> GBool.FFI.withVal
-             &&&> Utf8CArray.FFI.withRefOptPtr
-             &&&> Utf8CArray.FFI.withRefOptPtr
-             ---> Utf8CArray.FFI.fromPtr 2
-                   && Utf8CArray.FFI.fromPtr 2
+             &&&> Utf8CPtrArray.FFI.withRefOptPtr
+             &&&> Utf8CPtrArray.FFI.withRefOptPtr
+             ---> Utf8CPtrArray.FFI.fromPtr 2
+                   && Utf8CPtrArray.FFI.fromPtr 2
                    && I
           )
             listSchemas_

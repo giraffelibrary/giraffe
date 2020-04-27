@@ -239,8 +239,8 @@ structure VteTerminal :>
             VteTerminalClass.PolyML.cPtr
              &&> VtePtyFlags.PolyML.cVal
              &&> Utf8.PolyML.cInOptPtr
-             &&> Utf8CArray.PolyML.cInPtr
-             &&> Utf8CArray.PolyML.cInOptPtr
+             &&> Utf8CPtrArray.PolyML.cInPtr
+             &&> Utf8CPtrArray.PolyML.cInOptPtr
              &&> GLibSpawnFlags.PolyML.cVal
              &&> GLibSpawnChildSetupFunc.PolyML.cOptPtr
              &&> GLibSpawnChildSetupFunc.PolyML.cFunction
@@ -661,8 +661,8 @@ structure VteTerminal :>
             VteTerminalClass.FFI.withPtr
              &&&> VtePtyFlags.FFI.withVal
              &&&> Utf8.FFI.withOptPtr
-             &&&> Utf8CArray.FFI.withPtr
-             &&&> Utf8CArray.FFI.withOptPtr
+             &&&> Utf8CPtrArray.FFI.withPtr
+             &&&> Utf8CPtrArray.FFI.withOptPtr
              &&&> GLibSpawnFlags.FFI.withVal
              &&&> GLibSpawnChildSetupFunc.FFI.withOptPtrToDispatch
              &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback

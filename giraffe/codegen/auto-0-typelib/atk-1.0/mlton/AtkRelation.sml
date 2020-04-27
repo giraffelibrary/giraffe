@@ -1,7 +1,7 @@
 structure AtkRelation :>
   ATK_RELATION
     where type 'a class = 'a AtkRelationClass.class
-    where type object_class_c_array_n_t = AtkObjectClassCArrayN.t
+    where type object_class_c_ptr_array_n_t = AtkObjectClassCPtrArrayN.t
     where type 'a object_class = 'a AtkObjectClass.class
     where type relation_type_t = AtkRelationType.t =
   struct
@@ -13,8 +13,8 @@ structure AtkRelation :>
          & x4 =>
           (
             _import "mlton_atk_relation_new" :
-              AtkObjectClassCArrayN.MLton.p1
-               * AtkObjectClassCArrayN.FFI.notnull AtkObjectClassCArrayN.MLton.p2
+              AtkObjectClassCPtrArrayN.MLton.p1
+               * AtkObjectClassCPtrArrayN.FFI.notnull AtkObjectClassCPtrArrayN.MLton.p2
                * GInt32.FFI.val_
                * AtkRelationType.FFI.val_
                -> AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p;
@@ -29,17 +29,17 @@ structure AtkRelation :>
     val getRelationType_ = _import "atk_relation_get_relation_type" : AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p -> AtkRelationType.FFI.val_;
     val removeTarget_ = fn x1 & x2 => (_import "atk_relation_remove_target" : AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     type 'a class = 'a AtkRelationClass.class
-    type object_class_c_array_n_t = AtkObjectClassCArrayN.t
+    type object_class_c_ptr_array_n_t = AtkObjectClassCPtrArrayN.t
     type 'a object_class = 'a AtkObjectClass.class
     type relation_type_t = AtkRelationType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (targets, relationship) =
       let
-        val nTargets = LargeInt.fromInt (AtkObjectClassCArrayN.length targets)
+        val nTargets = LargeInt.fromInt (AtkObjectClassCPtrArrayN.length targets)
         val retVal =
           (
-            AtkObjectClassCArrayN.FFI.withPtr
+            AtkObjectClassCPtrArrayN.FFI.withPtr
              &&&> GInt32.FFI.withVal
              &&&> AtkRelationType.FFI.withVal
              ---> AtkRelationClass.FFI.fromPtr true

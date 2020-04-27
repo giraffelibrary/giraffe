@@ -30,16 +30,16 @@ signature G_I_REPOSITORY_REPOSITORY =
     val getDependencies :
       'a class
        -> string
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
     val getImmediateDependencies :
       'a class
        -> string
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
     val getInfo :
       'a class
        -> string * LargeInt.int
        -> base_info_t
-    val getLoadedNamespaces : 'a class -> Utf8CArray.t
+    val getLoadedNamespaces : 'a class -> Utf8CPtrArray.t
     val getNInfos :
       'a class
        -> string

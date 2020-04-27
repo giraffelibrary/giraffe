@@ -1,7 +1,7 @@
 structure PangoFontFamily :>
   PANGO_FONT_FAMILY
     where type 'a class = 'a PangoFontFamilyClass.class
-    where type font_face_class_c_array_n_t = PangoFontFaceClassCArrayN.t =
+    where type font_face_class_c_ptr_array_n_t = PangoFontFaceClassCPtrArrayN.t =
   struct
     val getType_ = _import "pango_font_family_get_type" : unit -> GObjectType.FFI.val_;
     val getName_ = _import "pango_font_family_get_name" : PangoFontFamilyClass.FFI.notnull PangoFontFamilyClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
@@ -14,8 +14,8 @@ structure PangoFontFamily :>
           (
             _import "mlton_pango_font_family_list_faces" :
               PangoFontFamilyClass.FFI.notnull PangoFontFamilyClass.FFI.p
-               * PangoFontFaceClassCArrayN.MLton.r1
-               * (unit, PangoFontFaceClassCArrayN.FFI.notnull) PangoFontFaceClassCArrayN.MLton.r2
+               * PangoFontFaceClassCPtrArrayN.MLton.r1
+               * (unit, PangoFontFaceClassCPtrArrayN.FFI.notnull) PangoFontFaceClassCPtrArrayN.MLton.r2
                * GInt32.FFI.ref_
                -> unit;
           )
@@ -26,7 +26,7 @@ structure PangoFontFamily :>
               x4
             )
     type 'a class = 'a PangoFontFamilyClass.class
-    type font_face_class_c_array_n_t = PangoFontFaceClassCArrayN.t
+    type font_face_class_c_ptr_array_n_t = PangoFontFaceClassCPtrArrayN.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getName self = (PangoFontFamilyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
@@ -38,9 +38,9 @@ structure PangoFontFamily :>
          & () =
           (
             PangoFontFamilyClass.FFI.withPtr
-             &&&> PangoFontFaceClassCArrayN.FFI.withRefOptPtr
+             &&&> PangoFontFaceClassCPtrArrayN.FFI.withRefOptPtr
              &&&> GInt32.FFI.withRefVal
-             ---> PangoFontFaceClassCArrayN.FFI.fromPtr 1
+             ---> PangoFontFaceClassCPtrArrayN.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
                    && I
           )

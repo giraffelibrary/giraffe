@@ -6,7 +6,7 @@ signature GIO_APPLICATION =
     type 'a cancellable_class
     type 'a notification_class
     type 'a application_command_line_class
-    type file_class_c_array_n_t
+    type file_class_c_ptr_array_n_t
     type 'a action_group_class
     type application_flags_t
     type t = base class
@@ -43,7 +43,7 @@ signature GIO_APPLICATION =
     val markBusy : 'a class -> unit
     val open' :
       'a class
-       -> file_class_c_array_n_t * string
+       -> file_class_c_ptr_array_n_t * string
        -> unit
     val quit : 'a class -> unit
     val register :
@@ -53,7 +53,7 @@ signature GIO_APPLICATION =
     val release : 'a class -> unit
     val run :
       'a class
-       -> Utf8CArrayN.t option
+       -> Utf8CPtrArrayN.t option
        -> LargeInt.int
     val sendNotification :
       'a class
@@ -92,7 +92,7 @@ signature GIO_APPLICATION =
     val activateSig : (unit -> unit) -> 'a class Signal.t
     val commandLineSig : (base application_command_line_class -> LargeInt.int) -> 'a class Signal.t
     val handleLocalOptionsSig : (GLib.VariantDictRecord.t -> LargeInt.int) -> 'a class Signal.t
-    val openSig : (file_class_c_array_n_t * string -> unit) -> 'a class Signal.t
+    val openSig : (file_class_c_ptr_array_n_t * string -> unit) -> 'a class Signal.t
     val shutdownSig : (unit -> unit) -> 'a class Signal.t
     val startupSig : (unit -> unit) -> 'a class Signal.t
     val actionGroupProp :

@@ -22,7 +22,7 @@ structure GtkRecentChooser :>
       val getShowPrivate_ = call (getSymbol "gtk_recent_chooser_get_show_private") (GtkRecentChooserClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getShowTips_ = call (getSymbol "gtk_recent_chooser_get_show_tips") (GtkRecentChooserClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getSortType_ = call (getSymbol "gtk_recent_chooser_get_sort_type") (GtkRecentChooserClass.PolyML.cPtr --> GtkRecentSortType.PolyML.cVal)
-      val getUris_ = call (getSymbol "gtk_recent_chooser_get_uris") (GtkRecentChooserClass.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CArrayN.PolyML.cOutPtr)
+      val getUris_ = call (getSymbol "gtk_recent_chooser_get_uris") (GtkRecentChooserClass.PolyML.cPtr &&> GUInt64.PolyML.cRef --> Utf8CPtrArrayN.PolyML.cOutPtr)
       val removeFilter_ = call (getSymbol "gtk_recent_chooser_remove_filter") (GtkRecentChooserClass.PolyML.cPtr &&> GtkRecentFilterClass.PolyML.cPtr --> cVoid)
       val selectAll_ = call (getSymbol "gtk_recent_chooser_select_all") (GtkRecentChooserClass.PolyML.cPtr --> cVoid)
       val selectUri_ =
@@ -74,7 +74,7 @@ structure GtkRecentChooser :>
     fun getSortType self = (GtkRecentChooserClass.FFI.withPtr ---> GtkRecentSortType.FFI.fromVal) getSortType_ self
     fun getUris self =
       let
-        val length & retVal = (GtkRecentChooserClass.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CArrayN.FFI.fromPtr 2) getUris_ (self & GUInt64.null)
+        val length & retVal = (GtkRecentChooserClass.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) getUris_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt length)
       end

@@ -14,7 +14,7 @@ signature GIO_VFS =
       'a class
        -> string
        -> base file_class
-    val getSupportedUriSchemes : 'a class -> Utf8CArray.t
+    val getSupportedUriSchemes : 'a class -> Utf8CPtrArray.t
     val isActive : 'a class -> bool
     val parseName :
       'a class

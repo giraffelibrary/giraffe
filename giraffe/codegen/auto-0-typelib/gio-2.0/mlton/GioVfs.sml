@@ -36,7 +36,7 @@ structure GioVfs :>
               x2,
               x3
             )
-    val getSupportedUriSchemes_ = _import "g_vfs_get_supported_uri_schemes" : GioVfsClass.FFI.notnull GioVfsClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val getSupportedUriSchemes_ = _import "g_vfs_get_supported_uri_schemes" : GioVfsClass.FFI.notnull GioVfsClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val isActive_ = _import "g_vfs_is_active" : GioVfsClass.FFI.notnull GioVfsClass.FFI.p -> GBool.FFI.val_;
     val parseName_ =
       fn
@@ -76,7 +76,7 @@ structure GioVfs :>
     fun getLocal () = (I ---> GioVfsClass.FFI.fromPtr false) getLocal_ ()
     fun getFileForPath self path = (GioVfsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getFileForPath_ (self & path)
     fun getFileForUri self uri = (GioVfsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getFileForUri_ (self & uri)
-    fun getSupportedUriSchemes self = (GioVfsClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 0) getSupportedUriSchemes_ self
+    fun getSupportedUriSchemes self = (GioVfsClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getSupportedUriSchemes_ self
     fun isActive self = (GioVfsClass.FFI.withPtr ---> GBool.FFI.fromVal) isActive_ self
     fun parseName self parseName = (GioVfsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) parseName_ (self & parseName)
     fun unregisterUriScheme self scheme = (GioVfsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) unregisterUriScheme_ (self & scheme)

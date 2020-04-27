@@ -1,7 +1,7 @@
 structure AtkText :>
   ATK_TEXT
     where type 'a class = 'a AtkTextClass.class
-    where type text_range_record_c_array_t = AtkTextRangeRecordCArray.t
+    where type text_range_record_c_ptr_array_t = AtkTextRangeRecordCPtrArray.t
     where type text_clip_type_t = AtkTextClipType.t
     where type text_rectangle_t = AtkTextRectangleRecord.t
     where type coord_type_t = AtkCoordType.t
@@ -28,7 +28,7 @@ structure AtkText :>
              &&> AtkCoordType.PolyML.cVal
              &&> AtkTextClipType.PolyML.cVal
              &&> AtkTextClipType.PolyML.cVal
-             --> AtkTextRangeRecordCArray.PolyML.cOutPtr
+             --> AtkTextRangeRecordCPtrArray.PolyML.cOutPtr
           )
       val getCaretOffset_ = call (getSymbol "atk_text_get_caret_offset") (AtkTextClass.PolyML.cPtr --> GInt32.PolyML.cVal)
       val getCharacterAtOffset_ = call (getSymbol "atk_text_get_character_at_offset") (AtkTextClass.PolyML.cPtr &&> GInt32.PolyML.cVal --> GChar.PolyML.cVal)
@@ -135,7 +135,7 @@ structure AtkText :>
           )
     end
     type 'a class = 'a AtkTextClass.class
-    type text_range_record_c_array_t = AtkTextRangeRecordCArray.t
+    type text_range_record_c_ptr_array_t = AtkTextRangeRecordCPtrArray.t
     type text_clip_type_t = AtkTextClipType.t
     type text_rectangle_t = AtkTextRectangleRecord.t
     type coord_type_t = AtkCoordType.t
@@ -170,7 +170,7 @@ structure AtkText :>
          &&&> AtkCoordType.FFI.withVal
          &&&> AtkTextClipType.FFI.withVal
          &&&> AtkTextClipType.FFI.withVal
-         ---> AtkTextRangeRecordCArray.FFI.fromPtr 2
+         ---> AtkTextRangeRecordCPtrArray.FFI.fromPtr 2
       )
         getBoundedRanges_
         (

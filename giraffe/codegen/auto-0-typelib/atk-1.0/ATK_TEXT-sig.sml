@@ -1,7 +1,7 @@
 signature ATK_TEXT =
   sig
     type 'a class
-    type text_range_record_c_array_t
+    type text_range_record_c_ptr_array_t
     type text_clip_type_t
     type text_rectangle_t
     type coord_type_t
@@ -19,7 +19,7 @@ signature ATK_TEXT =
            * coord_type_t
            * text_clip_type_t
            * text_clip_type_t
-       -> text_range_record_c_array_t
+       -> text_range_record_c_ptr_array_t
     val getCaretOffset : 'a class -> LargeInt.int
     val getCharacterAtOffset :
       'a class

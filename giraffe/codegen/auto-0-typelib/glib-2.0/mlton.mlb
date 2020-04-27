@@ -9,9 +9,9 @@ in
   GDoubleCArrayN.mlb
   GInt32CArrayN.mlb
   GUInt8CArrayN.mlb
-  Utf8CArrayN.mlb
+  Utf8CPtrArrayN.mlb
   GUInt8CArray.mlb
-  Utf8CArray.mlb
+  Utf8CPtrArray.mlb
   G_LIB_QUARK-sig.sml
   G_LIB_PID_TYPE-sig.sml
   G_LIB_PID-sig.sml
@@ -210,10 +210,10 @@ in
     mlton/GLibTestSuite.sml
     mlton/GLibTimeVal.sml
     mlton/GLibTimeZone.sml
-    GLibVariantRecordCArrayN.sml
+    GLibVariantRecordCPtrArrayN.sml
     mlton/GLibVariantBuilder.sml
     mlton/GLibVariantDict.sml
-    GLibVariantTypeRecordCArrayN.sml
+    GLibVariantTypeRecordCPtrArrayN.sml
     GLibDebugKeyRecordCArrayN.sml
     mlton/GLibChildWatchFunc.sml
     mlton/GLibBookmarkFileError.sml

@@ -234,7 +234,7 @@ signature GIO =
       GIO_APP_LAUNCH_CONTEXT
         where type 'a class = 'a AppLaunchContextClass.class
         where type 'a app_info_class = 'a AppInfoClass.class
-    structure FileClassCArrayN :
+    structure FileClassCPtrArrayN :
       C_ARRAY
         where type elem = base FileClass.class
     structure ApplicationCommandLine :
@@ -276,7 +276,7 @@ signature GIO =
         where type 'a action_group_class = 'a ActionGroupClass.class
         where type 'a remote_action_group_class = 'a RemoteActionGroupClass.class
         where type 'a d_bus_connection_class = 'a DBusConnectionClass.class
-    structure DBusAnnotationInfoRecordCArray :
+    structure DBusAnnotationInfoRecordCPtrArray :
       C_ARRAY
         where type elem = DBusAnnotationInfoRecord.t
     structure DBusArgInfo :
@@ -909,7 +909,7 @@ signature GIO =
         where type 'a cancellable_class = 'a CancellableClass.class
         where type 'a notification_class = 'a NotificationClass.class
         where type 'a application_command_line_class = 'a ApplicationCommandLineClass.class
-        where type file_class_c_array_n_t = FileClassCArrayN.t
+        where type file_class_c_ptr_array_n_t = FileClassCPtrArrayN.t
         where type 'a action_group_class = 'a ActionGroupClass.class
         where type application_flags_t = ApplicationFlags.t
     structure BufferedInputStreamClass :
@@ -927,7 +927,7 @@ signature GIO =
     structure DBusAnnotationInfo :
       GIO_D_BUS_ANNOTATION_INFO
         where type t = DBusAnnotationInfoRecord.t
-        where type d_bus_annotation_info_record_c_array_t = DBusAnnotationInfoRecordCArray.t
+        where type d_bus_annotation_info_record_c_ptr_array_t = DBusAnnotationInfoRecordCPtrArray.t
     structure DBusMenuModel :
       GIO_D_BUS_MENU_MODEL
         where type 'a class = 'a DBusMenuModelClass.class
@@ -1347,7 +1347,7 @@ signature GIO =
     val contentTypeGetMimeType : string -> string option
     val contentTypeGetSymbolicIcon : string -> base IconClass.class
     val contentTypeGuess : string option * GUInt8CArrayN.t option -> string * bool
-    val contentTypeGuessForTree : 'a FileClass.class -> Utf8CArray.t
+    val contentTypeGuessForTree : 'a FileClass.class -> Utf8CPtrArray.t
     val contentTypeIsA : string * string -> bool
     val contentTypeIsUnknown : string -> bool
     val dbusAddressEscapeValue : string -> string
@@ -1394,7 +1394,7 @@ signature GIO =
        * bool
        * 'b CancellableClass.class option
        -> LargeInt.int
-    val resourcesEnumerateChildren : string * ResourceLookupFlags.t -> Utf8CArray.t
+    val resourcesEnumerateChildren : string * ResourceLookupFlags.t -> Utf8CPtrArray.t
     val resourcesGetInfo : string * ResourceLookupFlags.t -> LargeInt.int * LargeInt.int
     val resourcesLookupData : string * ResourceLookupFlags.t -> GLib.BytesRecord.t
     val resourcesOpenStream : string * ResourceLookupFlags.t -> base InputStreamClass.class

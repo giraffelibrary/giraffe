@@ -2,7 +2,7 @@ structure PangoContext :>
   PANGO_CONTEXT
     where type 'a class = 'a PangoContextClass.class
     where type font_metrics_t = PangoFontMetricsRecord.t
-    where type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
+    where type font_family_class_c_ptr_array_n_t = PangoFontFamilyClassCPtrArrayN.t
     where type 'a font_class = 'a PangoFontClass.class
     where type 'a fontset_class = 'a PangoFontsetClass.class
     where type direction_t = PangoDirection.t
@@ -50,8 +50,8 @@ structure PangoContext :>
           (
             _import "mlton_pango_context_list_families" :
               PangoContextClass.FFI.notnull PangoContextClass.FFI.p
-               * PangoFontFamilyClassCArrayN.MLton.r1
-               * (unit, PangoFontFamilyClassCArrayN.FFI.notnull) PangoFontFamilyClassCArrayN.MLton.r2
+               * PangoFontFamilyClassCPtrArrayN.MLton.r1
+               * (unit, PangoFontFamilyClassCPtrArrayN.FFI.notnull) PangoFontFamilyClassCPtrArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -88,7 +88,7 @@ structure PangoContext :>
     val setMatrix_ = fn x1 & x2 => (_import "pango_context_set_matrix" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * unit PangoMatrixRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a PangoContextClass.class
     type font_metrics_t = PangoFontMetricsRecord.t
-    type font_family_class_c_array_n_t = PangoFontFamilyClassCArrayN.t
+    type font_family_class_c_ptr_array_n_t = PangoFontFamilyClassCPtrArrayN.t
     type 'a font_class = 'a PangoFontClass.class
     type 'a fontset_class = 'a PangoFontsetClass.class
     type direction_t = PangoDirection.t
@@ -131,9 +131,9 @@ structure PangoContext :>
          & () =
           (
             PangoContextClass.FFI.withPtr
-             &&&> PangoFontFamilyClassCArrayN.FFI.withRefOptPtr
+             &&&> PangoFontFamilyClassCPtrArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> PangoFontFamilyClassCArrayN.FFI.fromPtr 1
+             ---> PangoFontFamilyClassCPtrArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && I
           )

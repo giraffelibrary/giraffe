@@ -336,8 +336,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_init" :
               GInt.FFI.ref_
-               * Utf8CArrayN.MLton.r1
-               * (Utf8CArrayN.FFI.notnull, Utf8CArrayN.FFI.notnull) Utf8CArrayN.MLton.r2
+               * Utf8CPtrArrayN.MLton.r1
+               * (Utf8CPtrArrayN.FFI.notnull, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
                -> unit;
           )
             (
@@ -351,8 +351,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_init_check" :
               GInt.FFI.ref_
-               * Utf8CArrayN.MLton.r1
-               * (Utf8CArrayN.FFI.notnull, Utf8CArrayN.FFI.notnull) Utf8CArrayN.MLton.r2
+               * Utf8CPtrArrayN.MLton.r1
+               * (Utf8CPtrArrayN.FFI.notnull, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -1182,8 +1182,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_parse_args" :
               GInt.FFI.ref_
-               * Utf8CArrayN.MLton.r1
-               * (Utf8CArrayN.FFI.notnull, Utf8CArrayN.FFI.notnull) Utf8CArrayN.MLton.r2
+               * Utf8CPtrArrayN.MLton.r1
+               * (Utf8CPtrArrayN.FFI.notnull, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -1211,7 +1211,7 @@ structure Gtk : GTK =
     val propagateEvent_ = fn x1 & x2 => (_import "gtk_propagate_event" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GdkEvent.FFI.notnull GdkEvent.FFI.p -> unit;) (x1, x2)
     val rcAddDefaultFile_ = _import "mlton_gtk_rc_add_default_file" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
     val rcFindModuleInPath_ = _import "mlton_gtk_rc_find_module_in_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val rcGetDefaultFiles_ = _import "gtk_rc_get_default_files" : unit -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val rcGetDefaultFiles_ = _import "gtk_rc_get_default_files" : unit -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val rcGetImModuleFile_ = _import "gtk_rc_get_im_module_file" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val rcGetImModulePath_ = _import "gtk_rc_get_im_module_path" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
     val rcGetModuleDir_ = _import "gtk_rc_get_module_dir" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
@@ -1246,7 +1246,7 @@ structure Gtk : GTK =
     val rcReparseAll_ = _import "gtk_rc_reparse_all" : unit -> GBool.FFI.val_;
     val rcReparseAllForSettings_ = fn x1 & x2 => (_import "gtk_rc_reparse_all_for_settings" : GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val rcResetStyles_ = _import "gtk_rc_reset_styles" : GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p -> unit;
-    val rcSetDefaultFiles_ = _import "mlton_gtk_rc_set_default_files" : Utf8CArray.MLton.p1 * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2 -> unit;
+    val rcSetDefaultFiles_ = _import "mlton_gtk_rc_set_default_files" : Utf8CPtrArray.MLton.p1 * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2 -> unit;
     val renderActivity_ =
       fn
         x1
@@ -1981,8 +1981,8 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "mlton_gtk_targets_include_image" :
-              GdkAtomRecordCArrayN.MLton.p1
-               * GdkAtomRecordCArrayN.FFI.notnull GdkAtomRecordCArrayN.MLton.p2
+              GdkAtomRecordCPtrArrayN.MLton.p1
+               * GdkAtomRecordCPtrArrayN.FFI.notnull GdkAtomRecordCPtrArrayN.MLton.p2
                * GInt.FFI.val_
                * GBool.FFI.val_
                -> GBool.FFI.val_;
@@ -2000,8 +2000,8 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "mlton_gtk_targets_include_rich_text" :
-              GdkAtomRecordCArrayN.MLton.p1
-               * GdkAtomRecordCArrayN.FFI.notnull GdkAtomRecordCArrayN.MLton.p2
+              GdkAtomRecordCPtrArrayN.MLton.p1
+               * GdkAtomRecordCPtrArrayN.FFI.notnull GdkAtomRecordCPtrArrayN.MLton.p2
                * GInt.FFI.val_
                * GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
                -> GBool.FFI.val_;
@@ -2017,8 +2017,8 @@ structure Gtk : GTK =
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_targets_include_text" :
-              GdkAtomRecordCArrayN.MLton.p1
-               * GdkAtomRecordCArrayN.FFI.notnull GdkAtomRecordCArrayN.MLton.p2
+              GdkAtomRecordCPtrArrayN.MLton.p1
+               * GdkAtomRecordCPtrArrayN.FFI.notnull GdkAtomRecordCPtrArrayN.MLton.p2
                * GInt.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -2032,8 +2032,8 @@ structure Gtk : GTK =
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_targets_include_uri" :
-              GdkAtomRecordCArrayN.MLton.p1
-               * GdkAtomRecordCArrayN.FFI.notnull GdkAtomRecordCArrayN.MLton.p2
+              GdkAtomRecordCPtrArrayN.MLton.p1
+               * GdkAtomRecordCPtrArrayN.FFI.notnull GdkAtomRecordCPtrArrayN.MLton.p2
                * GInt.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -3568,14 +3568,14 @@ structure Gtk : GTK =
     fun grabGetCurrent () = (I ---> GtkWidgetClass.FFI.fromOptPtr false) grabGetCurrent_ ()
     fun init argv =
       let
-        val argc = LargeInt.fromInt (Utf8CArrayN.length argv)
+        val argc = LargeInt.fromInt (Utf8CPtrArrayN.length argv)
         val argc
          & argv
          & () =
           (
-            GInt.FFI.withRefVal &&&> Utf8CArrayN.FFI.withRefDupPtr 2
+            GInt.FFI.withRefVal &&&> Utf8CPtrArrayN.FFI.withRefDupPtr 2
              ---> GInt.FFI.fromVal
-                   && Utf8CArrayN.FFI.fromPtr 2
+                   && Utf8CPtrArrayN.FFI.fromPtr 2
                    && I
           )
             init_
@@ -3585,14 +3585,14 @@ structure Gtk : GTK =
       end
     fun initCheck argv =
       let
-        val argc = LargeInt.fromInt (Utf8CArrayN.length argv)
+        val argc = LargeInt.fromInt (Utf8CPtrArrayN.length argv)
         val argc
          & argv
          & retVal =
           (
-            GInt.FFI.withRefVal &&&> Utf8CArrayN.FFI.withRefDupPtr 2
+            GInt.FFI.withRefVal &&&> Utf8CPtrArrayN.FFI.withRefDupPtr 2
              ---> GInt.FFI.fromVal
-                   && Utf8CArrayN.FFI.fromPtr 2
+                   && Utf8CPtrArrayN.FFI.fromPtr 2
                    && GBool.FFI.fromVal
           )
             initCheck_
@@ -4398,14 +4398,14 @@ structure Gtk : GTK =
         )
     fun parseArgs argv =
       let
-        val argc = LargeInt.fromInt (Utf8CArrayN.length argv)
+        val argc = LargeInt.fromInt (Utf8CPtrArrayN.length argv)
         val argc
          & argv
          & retVal =
           (
-            GInt.FFI.withRefVal &&&> Utf8CArrayN.FFI.withRefDupPtr 2
+            GInt.FFI.withRefVal &&&> Utf8CPtrArrayN.FFI.withRefDupPtr 2
              ---> GInt.FFI.fromVal
-                   && Utf8CArrayN.FFI.fromPtr 2
+                   && Utf8CPtrArrayN.FFI.fromPtr 2
                    && GBool.FFI.fromVal
           )
             parseArgs_
@@ -4434,7 +4434,7 @@ structure Gtk : GTK =
     fun propagateEvent (widget, event) = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> I) propagateEvent_ (widget & event)
     fun rcAddDefaultFile filename = (Utf8.FFI.withPtr ---> I) rcAddDefaultFile_ filename
     fun rcFindModuleInPath moduleFile = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) rcFindModuleInPath_ moduleFile
-    fun rcGetDefaultFiles () = (I ---> Utf8CArray.FFI.fromPtr 0) rcGetDefaultFiles_ ()
+    fun rcGetDefaultFiles () = (I ---> Utf8CPtrArray.FFI.fromPtr 0) rcGetDefaultFiles_ ()
     fun rcGetImModuleFile () = (I ---> Utf8.FFI.fromPtr 1) rcGetImModuleFile_ ()
     fun rcGetImModulePath () = (I ---> Utf8.FFI.fromPtr 1) rcGetImModulePath_ ()
     fun rcGetModuleDir () = (I ---> Utf8.FFI.fromPtr 1) rcGetModuleDir_ ()
@@ -4466,7 +4466,7 @@ structure Gtk : GTK =
     fun rcReparseAll () = (I ---> GBool.FFI.fromVal) rcReparseAll_ ()
     fun rcReparseAllForSettings (settings, forceLoad) = (GtkSettingsClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) rcReparseAllForSettings_ (settings & forceLoad)
     fun rcResetStyles settings = (GtkSettingsClass.FFI.withPtr ---> I) rcResetStyles_ settings
-    fun rcSetDefaultFiles filenames = (Utf8CArray.FFI.withPtr ---> I) rcSetDefaultFiles_ filenames
+    fun rcSetDefaultFiles filenames = (Utf8CPtrArray.FFI.withPtr ---> I) rcSetDefaultFiles_ filenames
     fun renderActivity
       (
         context,
@@ -5208,10 +5208,10 @@ structure Gtk : GTK =
       end
     fun targetsIncludeImage (targets, writable) =
       let
-        val nTargets = LargeInt.fromInt (GdkAtomRecordCArrayN.length targets)
+        val nTargets = LargeInt.fromInt (GdkAtomRecordCPtrArrayN.length targets)
         val retVal =
           (
-            GdkAtomRecordCArrayN.FFI.withPtr
+            GdkAtomRecordCPtrArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> GBool.FFI.withVal
              ---> GBool.FFI.fromVal
@@ -5227,10 +5227,10 @@ structure Gtk : GTK =
       end
     fun targetsIncludeRichText (targets, buffer) =
       let
-        val nTargets = LargeInt.fromInt (GdkAtomRecordCArrayN.length targets)
+        val nTargets = LargeInt.fromInt (GdkAtomRecordCPtrArrayN.length targets)
         val retVal =
           (
-            GdkAtomRecordCArrayN.FFI.withPtr
+            GdkAtomRecordCPtrArrayN.FFI.withPtr
              &&&> GInt.FFI.withVal
              &&&> GtkTextBufferClass.FFI.withPtr
              ---> GBool.FFI.fromVal
@@ -5246,15 +5246,15 @@ structure Gtk : GTK =
       end
     fun targetsIncludeText targets =
       let
-        val nTargets = LargeInt.fromInt (GdkAtomRecordCArrayN.length targets)
-        val retVal = (GdkAtomRecordCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeText_ (targets & nTargets)
+        val nTargets = LargeInt.fromInt (GdkAtomRecordCPtrArrayN.length targets)
+        val retVal = (GdkAtomRecordCPtrArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeText_ (targets & nTargets)
       in
         retVal
       end
     fun targetsIncludeUri targets =
       let
-        val nTargets = LargeInt.fromInt (GdkAtomRecordCArrayN.length targets)
-        val retVal = (GdkAtomRecordCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeUri_ (targets & nTargets)
+        val nTargets = LargeInt.fromInt (GdkAtomRecordCPtrArrayN.length targets)
+        val retVal = (GdkAtomRecordCPtrArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeUri_ (targets & nTargets)
       in
         retVal
       end

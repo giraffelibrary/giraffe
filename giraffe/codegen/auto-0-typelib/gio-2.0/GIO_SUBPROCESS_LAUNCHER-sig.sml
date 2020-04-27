@@ -16,7 +16,7 @@ signature GIO_SUBPROCESS_LAUNCHER =
        -> unit
     val setEnviron :
       'a class
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
        -> unit
     val setFlags :
       'a class
@@ -42,7 +42,7 @@ signature GIO_SUBPROCESS_LAUNCHER =
        -> unit
     val spawnv :
       'a class
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
        -> base subprocess_class
     val takeFd :
       'a class

@@ -21,11 +21,11 @@ signature GTK_APPLICATION =
     val getAccelsForAction :
       'a class
        -> string
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
     val getActionsForAccel :
       'a class
        -> string
-       -> Utf8CArray.t
+       -> Utf8CPtrArray.t
     val getActiveWindow : 'a class -> base window_class option
     val getAppMenu : 'a class -> base Gio.MenuModelClass.class option
     val getMenuById :
@@ -47,7 +47,7 @@ signature GTK_APPLICATION =
       'a class
        -> application_inhibit_flags_t
        -> bool
-    val listActionDescriptions : 'a class -> Utf8CArray.t
+    val listActionDescriptions : 'a class -> Utf8CPtrArray.t
     val prefersAppMenu : 'a class -> bool
     val removeAccelerator :
       'a class
@@ -59,7 +59,7 @@ signature GTK_APPLICATION =
        -> unit
     val setAccelsForAction :
       'a class
-       -> string * Utf8CArray.t
+       -> string * Utf8CPtrArray.t
        -> unit
     val setAppMenu :
       'a class

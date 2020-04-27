@@ -53,7 +53,7 @@ structure GtkApplication :>
               GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -68,7 +68,7 @@ structure GtkApplication :>
               GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -117,7 +117,7 @@ structure GtkApplication :>
               x5
             )
     val isInhibited_ = fn x1 & x2 => (_import "gtk_application_is_inhibited" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p * GtkApplicationInhibitFlags.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val listActionDescriptions_ = _import "gtk_application_list_action_descriptions" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val listActionDescriptions_ = _import "gtk_application_list_action_descriptions" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val prefersAppMenu_ = _import "gtk_application_prefers_app_menu" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> GBool.FFI.val_;
     val removeAccelerator_ =
       fn
@@ -149,8 +149,8 @@ structure GtkApplication :>
               GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (
@@ -193,8 +193,8 @@ structure GtkApplication :>
            & parameter
         )
     fun addWindow self window = (GtkApplicationClass.FFI.withPtr &&&> GtkWindowClass.FFI.withPtr ---> I) addWindow_ (self & window)
-    fun getAccelsForAction self detailedActionName = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getAccelsForAction_ (self & detailedActionName)
-    fun getActionsForAccel self accel = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getActionsForAccel_ (self & accel)
+    fun getAccelsForAction self detailedActionName = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getAccelsForAction_ (self & detailedActionName)
+    fun getActionsForAccel self accel = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getActionsForAccel_ (self & accel)
     fun getActiveWindow self = (GtkApplicationClass.FFI.withPtr ---> GtkWindowClass.FFI.fromOptPtr false) getActiveWindow_ self
     fun getAppMenu self = (GtkApplicationClass.FFI.withPtr ---> GioMenuModelClass.FFI.fromOptPtr false) getAppMenu_ self
     fun getMenuById self id = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioMenuClass.FFI.fromPtr false) getMenuById_ (self & id)
@@ -222,7 +222,7 @@ structure GtkApplication :>
            & reason
         )
     fun isInhibited self flags = (GtkApplicationClass.FFI.withPtr &&&> GtkApplicationInhibitFlags.FFI.withVal ---> GBool.FFI.fromVal) isInhibited_ (self & flags)
-    fun listActionDescriptions self = (GtkApplicationClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) listActionDescriptions_ self
+    fun listActionDescriptions self = (GtkApplicationClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) listActionDescriptions_ self
     fun prefersAppMenu self = (GtkApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) prefersAppMenu_ self
     fun removeAccelerator self (actionName, parameter) =
       (
@@ -242,7 +242,7 @@ structure GtkApplication :>
       (
         GtkApplicationClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
          ---> I
       )
         setAccelsForAction_

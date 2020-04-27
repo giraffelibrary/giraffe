@@ -1,7 +1,7 @@
 structure VteTerminal :>
   VTE_TERMINAL
     where type 'a class = 'a VteTerminalClass.class
-    where type regex_record_c_array_n_t = VteRegexRecordCArrayN.t
+    where type regex_record_c_ptr_array_n_t = VteRegexRecordCPtrArrayN.t
     where type pty_flags_t = VtePtyFlags.t
     where type regex_t = VteRegexRecord.t
     where type write_flags_t = VteWriteFlags.t
@@ -22,10 +22,10 @@ structure VteTerminal :>
           (
             VteTerminalClass.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
-             &&> GLibRegexRecordCArrayN.PolyML.cInPtr
+             &&> GLibRegexRecordCPtrArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cRef
              &&> GLibRegexMatchFlags.PolyML.cVal
-             &&> Utf8CArrayN.PolyML.cOutRef
+             &&> Utf8CPtrArrayN.PolyML.cOutRef
              --> GBool.PolyML.cVal
           )
       val eventCheckRegexSimple_ =
@@ -33,10 +33,10 @@ structure VteTerminal :>
           (
             VteTerminalClass.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
-             &&> VteRegexRecordCArrayN.PolyML.cInPtr
+             &&> VteRegexRecordCPtrArrayN.PolyML.cInPtr
              &&> GUInt64.PolyML.cRef
              &&> GUInt32.PolyML.cVal
-             &&> Utf8CArrayN.PolyML.cOutRef
+             &&> Utf8CPtrArrayN.PolyML.cOutRef
              --> GBool.PolyML.cVal
           )
       val feed_ =
@@ -270,7 +270,7 @@ structure VteTerminal :>
           )
     end
     type 'a class = 'a VteTerminalClass.class
-    type regex_record_c_array_n_t = VteRegexRecordCArrayN.t
+    type regex_record_c_ptr_array_n_t = VteRegexRecordCPtrArrayN.t
     type pty_flags_t = VtePtyFlags.t
     type regex_t = VteRegexRecord.t
     type write_flags_t = VteWriteFlags.t
@@ -300,12 +300,12 @@ structure VteTerminal :>
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkEvent.FFI.withPtr
-             &&&> GLibRegexRecordCArrayN.FFI.withPtr
+             &&&> GLibRegexRecordCPtrArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GLibRegexMatchFlags.FFI.withVal
-             &&&> Utf8CArrayN.FFI.withRefOptPtr
+             &&&> Utf8CPtrArrayN.FFI.withRefOptPtr
              ---> GUInt64.FFI.fromVal
-                   && Utf8CArrayN.FFI.fromPtr 0
+                   && Utf8CPtrArrayN.FFI.fromPtr 0
                    && GBool.FFI.fromVal
           )
             eventCheckGregexSimple_
@@ -334,12 +334,12 @@ structure VteTerminal :>
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkEvent.FFI.withPtr
-             &&&> VteRegexRecordCArrayN.FFI.withPtr
+             &&&> VteRegexRecordCPtrArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GUInt32.FFI.withVal
-             &&&> Utf8CArrayN.FFI.withRefOptPtr
+             &&&> Utf8CPtrArrayN.FFI.withRefOptPtr
              ---> GUInt64.FFI.fromVal
-                   && Utf8CArrayN.FFI.fromPtr 0
+                   && Utf8CPtrArrayN.FFI.fromPtr 0
                    && GBool.FFI.fromVal
           )
             eventCheckRegexSimple_

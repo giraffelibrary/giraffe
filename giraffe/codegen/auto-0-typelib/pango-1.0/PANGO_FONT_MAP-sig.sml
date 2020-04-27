@@ -1,7 +1,7 @@
 signature PANGO_FONT_MAP =
   sig
     type 'a class
-    type font_family_class_c_array_n_t
+    type font_family_class_c_ptr_array_n_t
     type 'a font_class
     type 'a fontset_class
     type language_t
@@ -13,7 +13,7 @@ signature PANGO_FONT_MAP =
     val createContext : 'a class -> base context_class
     val getSerial : 'a class -> LargeInt.int
     val getShapeEngineType : 'a class -> string
-    val listFamilies : 'a class -> font_family_class_c_array_n_t
+    val listFamilies : 'a class -> font_family_class_c_ptr_array_n_t
     val loadFont :
       'a class
        -> 'b context_class * font_description_t

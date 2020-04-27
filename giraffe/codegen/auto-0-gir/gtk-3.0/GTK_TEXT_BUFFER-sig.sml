@@ -97,7 +97,7 @@ signature GTK_TEXT_BUFFER =
     val getBounds : 'a class -> text_iter_t * text_iter_t
     val getCharCount : 'a class -> LargeInt.int
     val getCopyTargetList : 'a class -> target_list_t
-    val getDeserializeFormats : 'a class -> GdkAtomRecordCArrayN.t
+    val getDeserializeFormats : 'a class -> GdkAtomRecordCPtrArrayN.t
     val getEndIter : 'a class -> text_iter_t
     val getHasSelection : 'a class -> bool
     val getInsert : 'a class -> base text_mark_class
@@ -134,7 +134,7 @@ signature GTK_TEXT_BUFFER =
     val getPasteTargetList : 'a class -> target_list_t
     val getSelectionBound : 'a class -> base text_mark_class
     val getSelectionBounds : 'a class -> (text_iter_t * text_iter_t) option
-    val getSerializeFormats : 'a class -> GdkAtomRecordCArrayN.t
+    val getSerializeFormats : 'a class -> GdkAtomRecordCPtrArrayN.t
     val getSlice :
       'a class
        -> text_iter_t

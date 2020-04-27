@@ -74,10 +74,10 @@ signature PANGO =
       PANGO_FONT_FACE
         where type 'a class = 'a FontFaceClass.class
         where type font_description_t = FontDescriptionRecord.t
-    structure FontFaceClassCArrayN :
+    structure FontFaceClassCPtrArrayN :
       C_ARRAY
         where type elem = base FontFaceClass.class
-    structure FontFamilyClassCArrayN :
+    structure FontFamilyClassCPtrArrayN :
       C_ARRAY
         where type elem = base FontFamilyClass.class
     structure FontMetrics :
@@ -153,11 +153,11 @@ signature PANGO =
     structure FontFamily :
       PANGO_FONT_FAMILY
         where type 'a class = 'a FontFamilyClass.class
-        where type font_face_class_c_array_n_t = FontFaceClassCArrayN.t
+        where type font_face_class_c_ptr_array_n_t = FontFaceClassCPtrArrayN.t
     structure FontMap :
       PANGO_FONT_MAP
         where type 'a class = 'a FontMapClass.class
-        where type font_family_class_c_array_n_t = FontFamilyClassCArrayN.t
+        where type font_family_class_c_ptr_array_n_t = FontFamilyClassCPtrArrayN.t
         where type 'a font_class = 'a FontClass.class
         where type 'a fontset_class = 'a FontsetClass.class
         where type language_t = LanguageRecord.t
@@ -194,7 +194,7 @@ signature PANGO =
       PANGO_CONTEXT
         where type 'a class = 'a ContextClass.class
         where type font_metrics_t = FontMetricsRecord.t
-        where type font_family_class_c_array_n_t = FontFamilyClassCArrayN.t
+        where type font_family_class_c_ptr_array_n_t = FontFamilyClassCPtrArrayN.t
         where type 'a font_class = 'a FontClass.class
         where type 'a fontset_class = 'a FontsetClass.class
         where type direction_t = Direction.t
@@ -258,7 +258,7 @@ signature PANGO =
     val isZeroWidth : char -> bool
     val languageFromString : string option -> LanguageRecord.t option
     val languageGetDefault : unit -> LanguageRecord.t
-    val lookupAliases : string -> Utf8CArrayN.t
+    val lookupAliases : string -> Utf8CPtrArrayN.t
     val markupParserFinish :
       GLib.MarkupParseContextRecord.t
        -> AttrListRecord.t
@@ -292,7 +292,7 @@ signature PANGO =
        * AnalysisRecord.t
        * GlyphStringRecord.t
        -> unit
-    val splitFileList : string -> Utf8CArray.t
+    val splitFileList : string -> Utf8CPtrArray.t
     val trimString : string -> string
     val unicharDirection : char -> Direction.t
     val unitsFromDouble : real -> LargeInt.int

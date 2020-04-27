@@ -20,7 +20,7 @@ structure GioProxyResolver :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -39,7 +39,7 @@ structure GioProxyResolver :>
               GioProxyResolverClass.FFI.notnull GioProxyResolverClass.FFI.p
                * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -59,7 +59,7 @@ structure GioProxyResolver :>
          &&&> Utf8.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr 2
       )
         lookup_
         (
@@ -73,7 +73,7 @@ structure GioProxyResolver :>
         GioProxyResolverClass.FFI.withPtr
          &&&> GioAsyncResultClass.FFI.withPtr
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr 2
       )
         lookupFinish_
         (

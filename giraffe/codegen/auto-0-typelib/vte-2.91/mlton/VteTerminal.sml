@@ -1,7 +1,7 @@
 structure VteTerminal :>
   VTE_TERMINAL
     where type 'a class = 'a VteTerminalClass.class
-    where type regex_record_c_array_n_t = VteRegexRecordCArrayN.t
+    where type regex_record_c_ptr_array_n_t = VteRegexRecordCPtrArrayN.t
     where type pty_flags_t = VtePtyFlags.t
     where type regex_t = VteRegexRecord.t
     where type write_flags_t = VteWriteFlags.t
@@ -26,12 +26,12 @@ structure VteTerminal :>
             _import "mlton_vte_terminal_event_check_gregex_simple" :
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
                * GdkEvent.FFI.notnull GdkEvent.FFI.p
-               * GLibRegexRecordCArrayN.MLton.p1
-               * GLibRegexRecordCArrayN.FFI.notnull GLibRegexRecordCArrayN.MLton.p2
+               * GLibRegexRecordCPtrArrayN.MLton.p1
+               * GLibRegexRecordCPtrArrayN.FFI.notnull GLibRegexRecordCPtrArrayN.MLton.p2
                * GUInt64.FFI.ref_
                * GLibRegexMatchFlags.FFI.val_
-               * Utf8CArrayN.MLton.r1
-               * (unit, Utf8CArrayN.FFI.notnull) Utf8CArrayN.MLton.r2
+               * Utf8CPtrArrayN.MLton.r1
+               * (unit, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -56,12 +56,12 @@ structure VteTerminal :>
             _import "mlton_vte_terminal_event_check_regex_simple" :
               VteTerminalClass.FFI.notnull VteTerminalClass.FFI.p
                * GdkEvent.FFI.notnull GdkEvent.FFI.p
-               * VteRegexRecordCArrayN.MLton.p1
-               * VteRegexRecordCArrayN.FFI.notnull VteRegexRecordCArrayN.MLton.p2
+               * VteRegexRecordCPtrArrayN.MLton.p1
+               * VteRegexRecordCPtrArrayN.FFI.notnull VteRegexRecordCPtrArrayN.MLton.p2
                * GUInt64.FFI.ref_
                * GUInt32.FFI.val_
-               * Utf8CArrayN.MLton.r1
-               * (unit, Utf8CArrayN.FFI.notnull) Utf8CArrayN.MLton.r2
+               * Utf8CPtrArrayN.MLton.r1
+               * (unit, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -524,7 +524,7 @@ structure VteTerminal :>
               x5
             )
     type 'a class = 'a VteTerminalClass.class
-    type regex_record_c_array_n_t = VteRegexRecordCArrayN.t
+    type regex_record_c_ptr_array_n_t = VteRegexRecordCPtrArrayN.t
     type pty_flags_t = VtePtyFlags.t
     type regex_t = VteRegexRecord.t
     type write_flags_t = VteWriteFlags.t
@@ -554,12 +554,12 @@ structure VteTerminal :>
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkEvent.FFI.withPtr
-             &&&> GLibRegexRecordCArrayN.FFI.withPtr
+             &&&> GLibRegexRecordCPtrArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GLibRegexMatchFlags.FFI.withVal
-             &&&> Utf8CArrayN.FFI.withRefOptPtr
+             &&&> Utf8CPtrArrayN.FFI.withRefOptPtr
              ---> GUInt64.FFI.fromVal
-                   && Utf8CArrayN.FFI.fromPtr 0
+                   && Utf8CPtrArrayN.FFI.fromPtr 0
                    && GBool.FFI.fromVal
           )
             eventCheckGregexSimple_
@@ -588,12 +588,12 @@ structure VteTerminal :>
           (
             VteTerminalClass.FFI.withPtr
              &&&> GdkEvent.FFI.withPtr
-             &&&> VteRegexRecordCArrayN.FFI.withPtr
+             &&&> VteRegexRecordCPtrArrayN.FFI.withPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> GUInt32.FFI.withVal
-             &&&> Utf8CArrayN.FFI.withRefOptPtr
+             &&&> Utf8CPtrArrayN.FFI.withRefOptPtr
              ---> GUInt64.FFI.fromVal
-                   && Utf8CArrayN.FFI.fromPtr 0
+                   && Utf8CPtrArrayN.FFI.fromPtr 0
                    && GBool.FFI.fromVal
           )
             eventCheckRegexSimple_

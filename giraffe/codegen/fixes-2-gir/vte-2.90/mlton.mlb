@@ -16,7 +16,7 @@ local
   ../gtk-3.0/mlton.mlb
 in
   ../glib-2.0/GUInt8CArrayN.mlb
-  ../glib-2.0/Utf8CArray.mlb
+  ../glib-2.0/Utf8CPtrArray.mlb
   ../gdk-3.0/GdkColorRecordCArrayN.mlb
   ../gdk-3.0/GdkRgbaRecordCArrayN.mlb
   VTE_PTY_CLASS-sig.sml

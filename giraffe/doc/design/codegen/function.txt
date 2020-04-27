@@ -26,6 +26,16 @@ Placeholders
   FunctionFlags = GIRepository.FunctionInfo.getFlags functionInfo
 
 
+Conditions
+
+  isValueRecord(structInfo)
+    indicates whether structName and structNamespace have been identified as a
+    value-like record in the configuration where
+
+      structName      = getName structInfo
+      structNamespace = BaseInfo.getNamespace structInfo
+
+
 
 ==Common==
 
@@ -37,9 +47,10 @@ Placeholders
       <ElemStructId(elemTypeInfo)><ArrayType(arrayTypeInfo)>
 
 
-  ArrayType(arrayTypeInfo) is
+  ArrayType(arrayTypeInfo)
+    is
 
-      CArray<N>
+      C<Ptr>Array<N>
 
     where
 
@@ -47,12 +58,24 @@ Placeholders
 
         isZeroTerminated = GIRepository.TypeInfo.isZeroTerminated arrayTypeInfo
 
-          isZeroTermin... | N
-        ==================+===================
-          false           | N
-        ------------------+-------------------
-          true            | <>
-        ------------------+-------------------
+          isZeroTerminated            | N
+        ==============================+===================
+          false                       | N
+        ------------------------------+-------------------
+          true                        | <>
+        ------------------------------+-------------------
+
+
+      Ptr is as follows:
+
+        elemTypeInfo = GIRepository.TypeInfo.getParamType arrayTypeInfo 0
+
+          isPointer(elemTypeInfo)     | Ptr
+        ==============================+===================
+          false                       | <>
+        ------------------------------+-------------------
+          true                        | Ptr
+        ------------------------------+-------------------
 
 
   ElemStructId(typeInfo)
@@ -194,6 +217,66 @@ Placeholders
 
         <>
           if not isGlobal and not isNamespace and isSelf and isOther
+
+
+  isPointer(typeInfo)
+    is defined as follows:
+
+      tag = GIRepository.TypeInfo.getTag typeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        FILENAME  --->    true
+        ARRAY     --->    true
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Error "not expected">
+        BOOLEAN   --->    false
+        CHAR      --->    false
+        UCHAR     --->    false
+        INT       --->    false
+        UINT      --->    false
+        SHORT     --->    false
+        USHORT    --->    false
+        LONG      --->    false
+        ULONG     --->    false
+        INT8      --->    false
+        UINT8     --->    false
+        INT16     --->    false
+        UINT16    --->    false
+        INT32     --->    false
+        UINT32    --->    false
+        INT64     --->    false
+        UINT64    --->    false
+        FLOAT     --->    false
+        DOUBLE    --->    false
+        SSIZE     --->    false
+        SIZE      --->    false
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
+        UTF8      --->    true
+        UNICHAR   --->    false
+        INTERFACE --->    isInterfacePointer(typeInfo)
+
+
+  isInterfacePointer(interfaceTypeInfo)
+    is defined as follows:
+
+    infoType = GIRepository.InfoType.getType interfaceTypeInfo
+
+    Conversion from infoType is as follows:
+
+      false
+        if infoType is FLAGS _ | ENUM _
+
+      isValueRecord(structInfo)
+        if infoType is STRUCT structInfo
+
+      true
+        otherwise
 
 
 

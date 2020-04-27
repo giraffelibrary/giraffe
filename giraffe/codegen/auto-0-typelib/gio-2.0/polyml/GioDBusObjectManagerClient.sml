@@ -52,7 +52,7 @@ structure GioDBusObjectManagerClient :>
             get 0w1 GioDBusObjectProxyClass.t
              &&&> get 0w2 GioDBusProxyClass.t
              &&&> get 0w3 GLibVariantRecord.t
-             &&&> get 0w4 Utf8CArray.t
+             &&&> get 0w4 Utf8CPtrArray.t
              ---> ret_void
           )
           (

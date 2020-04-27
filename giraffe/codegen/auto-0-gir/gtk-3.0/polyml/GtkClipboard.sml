@@ -48,12 +48,12 @@ structure GtkClipboard :>
         call (getSymbol "gtk_clipboard_wait_for_targets")
           (
             GtkClipboardClass.PolyML.cPtr
-             &&> GdkAtomRecordCArrayN.PolyML.cOutRef
+             &&> GdkAtomRecordCPtrArrayN.PolyML.cOutRef
              &&> GInt.PolyML.cRef
              --> GBool.PolyML.cVal
           )
       val waitForText_ = call (getSymbol "gtk_clipboard_wait_for_text") (GtkClipboardClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val waitForUris_ = call (getSymbol "gtk_clipboard_wait_for_uris") (GtkClipboardClass.PolyML.cPtr --> Utf8CArray.PolyML.cOutOptPtr)
+      val waitForUris_ = call (getSymbol "gtk_clipboard_wait_for_uris") (GtkClipboardClass.PolyML.cPtr --> Utf8CPtrArray.PolyML.cOutOptPtr)
       val waitIsImageAvailable_ = call (getSymbol "gtk_clipboard_wait_is_image_available") (GtkClipboardClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val waitIsRichTextAvailable_ = call (getSymbol "gtk_clipboard_wait_is_rich_text_available") (GtkClipboardClass.PolyML.cPtr &&> GtkTextBufferClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val waitIsTargetAvailable_ = call (getSymbol "gtk_clipboard_wait_is_target_available") (GtkClipboardClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GBool.PolyML.cVal)
@@ -142,9 +142,9 @@ structure GtkClipboard :>
          & retVal =
           (
             GtkClipboardClass.FFI.withPtr
-             &&&> GdkAtomRecordCArrayN.FFI.withRefOptPtr
+             &&&> GdkAtomRecordCPtrArrayN.FFI.withRefOptPtr
              &&&> GInt.FFI.withRefVal
-             ---> GdkAtomRecordCArrayN.FFI.fromPtr 1
+             ---> GdkAtomRecordCPtrArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
           )
@@ -158,7 +158,7 @@ structure GtkClipboard :>
         if retVal then SOME (targets (LargeInt.toInt nTargets)) else NONE
       end
     fun waitForText self = (GtkClipboardClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) waitForText_ self
-    fun waitForUris self = (GtkClipboardClass.FFI.withPtr ---> Utf8CArray.FFI.fromOptPtr 2) waitForUris_ self
+    fun waitForUris self = (GtkClipboardClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromOptPtr 2) waitForUris_ self
     fun waitIsImageAvailable self = (GtkClipboardClass.FFI.withPtr ---> GBool.FFI.fromVal) waitIsImageAvailable_ self
     fun waitIsRichTextAvailable self buffer = (GtkClipboardClass.FFI.withPtr &&&> GtkTextBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) waitIsRichTextAvailable_ (self & buffer)
     fun waitIsTargetAvailable self target = (GtkClipboardClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GBool.FFI.fromVal) waitIsTargetAvailable_ (self & target)

@@ -375,7 +375,7 @@ structure GtkWidget :>
       val isToplevel_ = call (getSymbol "gtk_widget_is_toplevel") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val isVisible_ = call (getSymbol "gtk_widget_is_visible") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val keynavFailed_ = call (getSymbol "gtk_widget_keynav_failed") (GtkWidgetClass.PolyML.cPtr &&> GtkDirectionType.PolyML.cVal --> GBool.PolyML.cVal)
-      val listActionPrefixes_ = call (getSymbol "gtk_widget_list_action_prefixes") (GtkWidgetClass.PolyML.cPtr --> Utf8CArray.PolyML.cOutPtr)
+      val listActionPrefixes_ = call (getSymbol "gtk_widget_list_action_prefixes") (GtkWidgetClass.PolyML.cPtr --> Utf8CPtrArray.PolyML.cOutPtr)
       val map_ = call (getSymbol "gtk_widget_map") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val mnemonicActivate_ = call (getSymbol "gtk_widget_mnemonic_activate") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> GBool.PolyML.cVal)
       val modifyBase_ =
@@ -1356,7 +1356,7 @@ structure GtkWidget :>
     fun isToplevel self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isToplevel_ self
     fun isVisible self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isVisible_ self
     fun keynavFailed self direction = (GtkWidgetClass.FFI.withPtr &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal) keynavFailed_ (self & direction)
-    fun listActionPrefixes self = (GtkWidgetClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 1) listActionPrefixes_ self
+    fun listActionPrefixes self = (GtkWidgetClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 1) listActionPrefixes_ self
     fun map self = (GtkWidgetClass.FFI.withPtr ---> I) map_ self
     fun mnemonicActivate self groupCycling = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) mnemonicActivate_ (self & groupCycling)
     fun modifyBase self (state, color) =

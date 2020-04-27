@@ -150,7 +150,7 @@ in
     mlton/AtkRange.sml
     mlton/AtkRectangle.sml
     mlton/AtkRegistry.sml
-    AtkObjectClassCArrayN.sml
+    AtkObjectClassCPtrArrayN.sml
     mlton/AtkRelationSet.sml
     mlton/AtkSelection.sml
     mlton/AtkSocketClass.sml
@@ -158,7 +158,7 @@ in
     mlton/AtkStreamableContent.sml
     mlton/AtkTable.sml
     mlton/AtkTableCell.sml
-    AtkTextRangeRecordCArray.sml
+    AtkTextRangeRecordCPtrArray.sml
     mlton/AtkTextRange.sml
     mlton/AtkTextRectangle.sml
     mlton/AtkUtil.sml

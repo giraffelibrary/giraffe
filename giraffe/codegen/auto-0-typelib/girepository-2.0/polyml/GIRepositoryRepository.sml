@@ -24,8 +24,8 @@ structure GIRepositoryRepository :>
              --> GIRepositoryBaseInfoRecord.PolyML.cPtr
           )
       val getCPrefix_ = call (getSymbol "g_irepository_get_c_prefix") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getDependencies_ = call (getSymbol "g_irepository_get_dependencies") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CArray.PolyML.cOutPtr)
-      val getImmediateDependencies_ = call (getSymbol "g_irepository_get_immediate_dependencies") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CArray.PolyML.cOutPtr)
+      val getDependencies_ = call (getSymbol "g_irepository_get_dependencies") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CPtrArray.PolyML.cOutPtr)
+      val getImmediateDependencies_ = call (getSymbol "g_irepository_get_immediate_dependencies") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CPtrArray.PolyML.cOutPtr)
       val getInfo_ =
         call (getSymbol "g_irepository_get_info")
           (
@@ -34,7 +34,7 @@ structure GIRepositoryRepository :>
              &&> GInt32.PolyML.cVal
              --> GIRepositoryBaseInfoRecord.PolyML.cPtr
           )
-      val getLoadedNamespaces_ = call (getSymbol "g_irepository_get_loaded_namespaces") (GIRepositoryRepositoryClass.PolyML.cPtr --> Utf8CArray.PolyML.cOutPtr)
+      val getLoadedNamespaces_ = call (getSymbol "g_irepository_get_loaded_namespaces") (GIRepositoryRepositoryClass.PolyML.cPtr --> Utf8CPtrArray.PolyML.cOutPtr)
       val getNInfos_ = call (getSymbol "g_irepository_get_n_infos") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GInt32.PolyML.cVal)
       val getSharedLibrary_ = call (getSymbol "g_irepository_get_shared_library") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val getTypelibPath_ = call (getSymbol "g_irepository_get_typelib_path") (GIRepositoryRepositoryClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
@@ -104,8 +104,8 @@ structure GIRepositoryRepository :>
            & name
         )
     fun getCPrefix self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCPrefix_ (self & namespace)
-    fun getDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getDependencies_ (self & namespace)
-    fun getImmediateDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getImmediateDependencies_ (self & namespace)
+    fun getDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getDependencies_ (self & namespace)
+    fun getImmediateDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getImmediateDependencies_ (self & namespace)
     fun getInfo self (namespace, index) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr
@@ -119,7 +119,7 @@ structure GIRepositoryRepository :>
            & namespace
            & index
         )
-    fun getLoadedNamespaces self = (GIRepositoryRepositoryClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getLoadedNamespaces_ self
+    fun getLoadedNamespaces self = (GIRepositoryRepositoryClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getLoadedNamespaces_ self
     fun getNInfos self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt32.FFI.fromVal) getNInfos_ (self & namespace)
     fun getSharedLibrary self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSharedLibrary_ (self & namespace)
     fun getTypelibPath self namespace = (GIRepositoryRepositoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTypelibPath_ (self & namespace)

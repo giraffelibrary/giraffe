@@ -1,0 +1,5 @@
+local
+  mlton.mlb
+in
+  structure VteRegexRecordCPtrArrayN
+end

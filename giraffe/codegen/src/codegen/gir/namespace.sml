@@ -6,18 +6,16 @@
 
 fun mkArrayStrModules (elemStrId, isPtr, zeroTerminated) =
   let
-    val suffixStrId = String.concat (
+    val elemArrayStrId = makeCArrayStrId (elemStrId, isPtr, zeroTerminated)
+
+    val funcId = String.concat (
       cStrId :: arrayStrId :: (if zeroTerminated then [] else [nStrId])
     )
-
-    val elemArrayStrId = elemStrId ^ suffixStrId
-
-    val funcId = suffixStrId
     val funcTypeId =
       let
         val prefixId = case isPtr of SOME _ => cPointerStrId | _ => cValueStrId
       in
-        prefixId ^ suffixStrId ^ typeStrId
+        prefixId ^ funcId ^ typeStrId
       end
     val elemArrayTypeStrId = elemArrayStrId ^ typeStrId
 
@@ -40,7 +38,7 @@ fun mkArrayStrModules (elemStrId, isPtr, zeroTerminated) =
                 mkStructStrDec ("Sequence", sequenceStruct)
               ]
             end
-        | _            =>
+        | NONE         =>
             let
               val elemStruct = mkNameStruct [elemStrId, cStrId, valueTypeStrId]
               val elemSequenceStruct =

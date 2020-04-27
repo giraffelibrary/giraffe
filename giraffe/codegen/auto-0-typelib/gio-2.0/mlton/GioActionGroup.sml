@@ -199,7 +199,7 @@ structure GioActionGroup :>
               x2,
               x3
             )
-    val listActions_ = _import "g_action_group_list_actions" : GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val listActions_ = _import "g_action_group_list_actions" : GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val queryAction_ =
       fn
         x1
@@ -294,7 +294,7 @@ structure GioActionGroup :>
     fun getActionStateHint self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getActionStateHint_ (self & actionName)
     fun getActionStateType self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getActionStateType_ (self & actionName)
     fun hasAction self actionName = (GioActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasAction_ (self & actionName)
-    fun listActions self = (GioActionGroupClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) listActions_ self
+    fun listActions self = (GioActionGroupClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) listActions_ self
     fun queryAction self actionName =
       let
         val enabled

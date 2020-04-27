@@ -228,7 +228,7 @@ structure GdkPixbufPixbuf :>
               x6
             )
     val newFromStreamFinish_ = fn x1 & x2 => (_import "gdk_pixbuf_new_from_stream_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;) (x1, x2)
-    val newFromXpmData_ = _import "mlton_gdk_pixbuf_new_from_xpm_data" : Utf8CArray.MLton.p1 * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2 -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+    val newFromXpmData_ = _import "mlton_gdk_pixbuf_new_from_xpm_data" : Utf8CPtrArray.MLton.p1 * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2 -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
     val calculateRowstride_ =
       fn
         x1
@@ -605,10 +605,10 @@ structure GdkPixbufPixbuf :>
                * GUInt64.FFI.ref_
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
@@ -640,10 +640,10 @@ structure GdkPixbufPixbuf :>
                * GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                * unit GioCancellableClass.FFI.p
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
@@ -675,10 +675,10 @@ structure GdkPixbufPixbuf :>
                * Utf8.FFI.notnull Utf8.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
-               * Utf8CArray.MLton.p1
-               * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
                * (unit, unit) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
@@ -969,7 +969,7 @@ structure GdkPixbufPixbuf :>
            & []
         )
     fun newFromStreamFinish asyncResult = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromStreamFinish_ (asyncResult & [])
-    fun newFromXpmData data = (Utf8CArray.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromXpmData_ data
+    fun newFromXpmData data = (Utf8CPtrArray.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromXpmData_ data
     fun calculateRowstride
       (
         colorspace,
@@ -1341,8 +1341,8 @@ structure GdkPixbufPixbuf :>
              &&&> GUInt8CArrayN.FFI.withRefOptPtr
              &&&> GUInt64.FFI.withRefVal
              &&&> Utf8.FFI.withPtr
-             &&&> Utf8CArray.FFI.withPtr
-             &&&> Utf8CArray.FFI.withPtr
+             &&&> Utf8CPtrArray.FFI.withPtr
+             &&&> Utf8CPtrArray.FFI.withPtr
              &&&> GLibErrorRecord.handleError
              ---> GUInt8CArrayN.FFI.fromPtr 1
                    && GUInt64.FFI.fromVal
@@ -1374,8 +1374,8 @@ structure GdkPixbufPixbuf :>
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> GioOutputStreamClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
          &&&> GioCancellableClass.FFI.withOptPtr
          &&&> GLibErrorRecord.handleError
          ---> ignore
@@ -1402,8 +1402,8 @@ structure GdkPixbufPixbuf :>
         GdkPixbufPixbufClass.FFI.withPtr
          &&&> Utf8.FFI.withPtr
          &&&> Utf8.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
-         &&&> Utf8CArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

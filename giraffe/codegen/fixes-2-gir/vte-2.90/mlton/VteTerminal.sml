@@ -77,10 +77,10 @@ structure VteTerminal :>
              * VtePtyFlags.FFI.val_
              * Utf8.MLton.p1
              * unit Utf8.MLton.p2
-             * Utf8CArray.MLton.p1
-             * Utf8CArray.FFI.notnull Utf8CArray.MLton.p2
-             * Utf8CArray.MLton.p1
-             * unit Utf8CArray.MLton.p2
+             * Utf8CPtrArray.MLton.p1
+             * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+             * Utf8CPtrArray.MLton.p1
+             * unit Utf8CPtrArray.MLton.p2
              * GLibSpawnFlags.FFI.val_
              * unit GLibSpawnChildSetupFunc.FFI.p
              * GLibSpawnChildSetupFunc.FFI.callback
@@ -527,8 +527,8 @@ structure VteTerminal :>
             VteTerminalClass.FFI.withPtr
              &&&> VtePtyFlags.FFI.withVal
              &&&> Utf8.FFI.withOptPtr
-             &&&> Utf8CArray.FFI.withPtr
-             &&&> Utf8CArray.FFI.withOptPtr
+             &&&> Utf8CPtrArray.FFI.withPtr
+             &&&> Utf8CPtrArray.FFI.withOptPtr
              &&&> GLibSpawnFlags.FFI.withVal
              &&&> GLibSpawnChildSetupFunc.FFI.withOptPtrToDispatch
              &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback

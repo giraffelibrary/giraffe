@@ -8,7 +8,7 @@ structure GioFilenameCompleter :>
       val getType_ = call (getSymbol "g_filename_completer_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_filename_completer_new") (cVoid --> GioFilenameCompleterClass.PolyML.cPtr)
       val getCompletionSuffix_ = call (getSymbol "g_filename_completer_get_completion_suffix") (GioFilenameCompleterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
-      val getCompletions_ = call (getSymbol "g_filename_completer_get_completions") (GioFilenameCompleterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CArray.PolyML.cOutPtr)
+      val getCompletions_ = call (getSymbol "g_filename_completer_get_completions") (GioFilenameCompleterClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8CPtrArray.PolyML.cOutPtr)
       val setDirsOnly_ = call (getSymbol "g_filename_completer_set_dirs_only") (GioFilenameCompleterClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GioFilenameCompleterClass.class
@@ -16,7 +16,7 @@ structure GioFilenameCompleter :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioFilenameCompleterClass.FFI.fromPtr true) new_ ()
     fun getCompletionSuffix self initialText = (GioFilenameCompleterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getCompletionSuffix_ (self & initialText)
-    fun getCompletions self initialText = (GioFilenameCompleterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) getCompletions_ (self & initialText)
+    fun getCompletions self initialText = (GioFilenameCompleterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getCompletions_ (self & initialText)
     fun setDirsOnly self dirsOnly = (GioFilenameCompleterClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDirsOnly_ (self & dirsOnly)
     local
       open ClosureMarshal Signal

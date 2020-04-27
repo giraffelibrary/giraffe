@@ -154,7 +154,7 @@ signature G_LIB =
       G_LIB_TIME_ZONE
         where type t = TimeZoneRecord.t
         where type time_type_t = TimeType.t
-    structure VariantRecordCArrayN :
+    structure VariantRecordCPtrArrayN :
       C_ARRAY
         where type elem = VariantRecord.t
     structure VariantBuilder :
@@ -167,7 +167,7 @@ signature G_LIB =
         where type t = VariantDictRecord.t
         where type variant_t = VariantRecord.t
         where type variant_type_t = VariantTypeRecord.t
-    structure VariantTypeRecordCArrayN :
+    structure VariantTypeRecordCPtrArrayN :
       C_ARRAY
         where type elem = VariantTypeRecord.t
     structure DebugKeyRecordCArrayN :
@@ -227,7 +227,7 @@ signature G_LIB =
     structure Variant :
       G_LIB_VARIANT
         where type t = VariantRecord.t
-        where type variant_record_c_array_n_t = VariantRecordCArrayN.t
+        where type variant_record_c_ptr_array_n_t = VariantRecordCPtrArrayN.t
         where type variant_class_t = VariantClass.t
         where type bytes_t = BytesRecord.t
         where type variant_type_t = VariantTypeRecord.t
@@ -238,7 +238,7 @@ signature G_LIB =
     structure VariantType :
       G_LIB_VARIANT_TYPE
         where type t = VariantTypeRecord.t
-        where type variant_type_record_c_array_n_t = VariantTypeRecordCArrayN.t
+        where type variant_type_record_c_ptr_array_n_t = VariantTypeRecordCPtrArrayN.t
     structure IOChannel :
       G_LIB_I_O_CHANNEL
         where type t = IOChannelRecord.t
@@ -332,8 +332,8 @@ signature G_LIB =
        -> unit
     val base64Decode : string -> GUInt8CArrayN.t
     val base64Encode : GUInt8CArrayN.t -> string
-    val buildFilenamev : Utf8CArray.t -> string
-    val buildPathv : string * Utf8CArray.t -> string
+    val buildFilenamev : Utf8CPtrArray.t -> string
+    val buildPathv : string * Utf8CPtrArray.t -> string
     val chdir : string -> LargeInt.int
     val checkVersion :
       LargeInt.int
@@ -400,7 +400,7 @@ signature G_LIB =
        * string
        * string
        -> string
-    val environGetenv : Utf8CArray.t option * string -> string
+    val environGetenv : Utf8CPtrArray.t option * string -> string
     val filenameDisplayBasename : string -> string
     val filenameDisplayName : string -> string
     val filenameFromUri : string -> string * string
@@ -419,18 +419,18 @@ signature G_LIB =
     val getCodeset : unit -> string
     val getCurrentDir : unit -> string
     val getCurrentTime : TimeValRecord.t -> unit
-    val getEnviron : unit -> Utf8CArray.t
+    val getEnviron : unit -> Utf8CPtrArray.t
     val getHomeDir : unit -> string
     val getHostName : unit -> string
-    val getLanguageNames : unit -> Utf8CArray.t
-    val getLocaleVariants : string -> Utf8CArray.t
+    val getLanguageNames : unit -> Utf8CPtrArray.t
+    val getLocaleVariants : string -> Utf8CPtrArray.t
     val getMonotonicTime : unit -> LargeInt.int
     val getNumProcessors : unit -> LargeInt.int
     val getPrgname : unit -> string
     val getRealName : unit -> string
     val getRealTime : unit -> LargeInt.int
-    val getSystemConfigDirs : unit -> Utf8CArray.t
-    val getSystemDataDirs : unit -> Utf8CArray.t
+    val getSystemConfigDirs : unit -> Utf8CPtrArray.t
+    val getSystemDataDirs : unit -> Utf8CPtrArray.t
     val getTmpDir : unit -> string
     val getUserCacheDir : unit -> string
     val getUserConfigDir : unit -> string
@@ -453,7 +453,7 @@ signature G_LIB =
        * IOFunc.t
        -> LargeInt.int
     val ioCreateWatch : IOChannelRecord.t * IOCondition.t -> SourceRecord.t
-    val listenv : unit -> Utf8CArray.t
+    val listenv : unit -> Utf8CPtrArray.t
     val localeFromUtf8 :
       string * LargeInt.int
        -> string
@@ -520,15 +520,15 @@ signature G_LIB =
        * string
        * bool
        -> bool
-    val shellParseArgv : string -> Utf8CArrayN.t
+    val shellParseArgv : string -> Utf8CPtrArrayN.t
     val shellQuote : string -> string
     val shellUnquote : string -> string
     val sliceGetConfig : SliceConfig.t -> LargeInt.int
     val sliceSetConfig : SliceConfig.t * LargeInt.int -> unit
     val spawnAsyncWithPipes :
       string option
-       * Utf8CArray.t
-       * Utf8CArray.t option
+       * Utf8CPtrArray.t
+       * Utf8CPtrArray.t option
        * SpawnFlags.t
        * SpawnChildSetupFunc.t option
        -> Pid.t
@@ -611,7 +611,7 @@ signature G_LIB =
        * string option
        * bool
        -> string
-    val uriListExtractUris : string -> Utf8CArray.t
+    val uriListExtractUris : string -> Utf8CPtrArray.t
     val uriParseScheme : string -> string
     val uriUnescapeSegment :
       string option

@@ -272,7 +272,7 @@ structure Gio : GIO =
               x5,
               x6
             )
-    val contentTypeGuessForTree_ = _import "g_content_type_guess_for_tree" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+    val contentTypeGuessForTree_ = _import "g_content_type_guess_for_tree" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
     val contentTypeIsA_ =
       fn
         (x1, x2) & (x3, x4) =>
@@ -357,8 +357,8 @@ structure Gio : GIO =
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_dbus_annotation_info_lookup" :
-              GioDBusAnnotationInfoRecordCArray.MLton.p1
-               * unit GioDBusAnnotationInfoRecordCArray.MLton.p2
+              GioDBusAnnotationInfoRecordCPtrArray.MLton.p1
+               * unit GioDBusAnnotationInfoRecordCPtrArray.MLton.p2
                * Utf8.MLton.p1
                * Utf8.FFI.notnull Utf8.MLton.p2
                -> Utf8.FFI.notnull Utf8.FFI.out_p;
@@ -666,7 +666,7 @@ structure Gio : GIO =
                * Utf8.FFI.notnull Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
                * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CArray.FFI.notnull Utf8CArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -1022,7 +1022,7 @@ structure Gio : GIO =
     structure AppInfo = GioAppInfo
     structure AppInfoMonitor = GioAppInfoMonitor
     structure AppLaunchContext = GioAppLaunchContext
-    structure FileClassCArrayN = GioFileClassCArrayN
+    structure FileClassCPtrArrayN = GioFileClassCPtrArrayN
     structure ApplicationCommandLine = GioApplicationCommandLine
     structure AsyncInitable = GioAsyncInitable
     structure AsyncResult = GioAsyncResult
@@ -1160,7 +1160,7 @@ structure Gio : GIO =
     structure VolumeMonitor = GioVolumeMonitor
     structure ZlibCompressor = GioZlibCompressor
     structure ZlibDecompressor = GioZlibDecompressor
-    structure DBusAnnotationInfoRecordCArray = GioDBusAnnotationInfoRecordCArray
+    structure DBusAnnotationInfoRecordCPtrArray = GioDBusAnnotationInfoRecordCPtrArray
     structure Application = GioApplication
     structure BufferedInputStreamClass = GioBufferedInputStreamClass
     structure BufferedOutputStreamClass = GioBufferedOutputStreamClass
@@ -1526,7 +1526,7 @@ structure Gio : GIO =
       in
         (retVal, resultUncertain)
       end
-    fun contentTypeGuessForTree root = (GioFileClass.FFI.withPtr ---> Utf8CArray.FFI.fromPtr 2) contentTypeGuessForTree_ root
+    fun contentTypeGuessForTree root = (GioFileClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) contentTypeGuessForTree_ root
     fun contentTypeIsA (type', supertype) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsA_ (type' & supertype)
     fun contentTypeIsUnknown type' = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsUnknown_ type'
     fun dbusAddressEscapeValue string = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) dbusAddressEscapeValue_ string
@@ -1581,7 +1581,7 @@ structure Gio : GIO =
       in
         (retVal, outGuid)
       end
-    fun dbusAnnotationInfoLookup (annotations, name) = (GioDBusAnnotationInfoRecordCArray.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dbusAnnotationInfoLookup_ (annotations & name)
+    fun dbusAnnotationInfoLookup (annotations, name) = (GioDBusAnnotationInfoRecordCPtrArray.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dbusAnnotationInfoLookup_ (annotations & name)
     fun dbusErrorQuark () = (I ---> GUInt32.FFI.fromVal) dbusErrorQuark_ ()
     fun dbusGenerateGuid () = (I ---> Utf8.FFI.fromPtr 1) dbusGenerateGuid_ ()
     fun dbusGvalueToGvariant (gvalue, type') = (GObjectValueRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) dbusGvalueToGvariant_ (gvalue & type')
@@ -1803,7 +1803,7 @@ structure Gio : GIO =
         Utf8.FFI.withPtr
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr 2
       )
         resourcesEnumerateChildren_
         (
