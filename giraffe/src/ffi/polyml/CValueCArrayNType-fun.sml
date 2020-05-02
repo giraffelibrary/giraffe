@@ -45,6 +45,12 @@ functor CValueCArrayNType(
         step 0
       end
 
+    fun get _ p i = Pointer.get (p, i)
+
+    fun set _ p (i, e) = Pointer.set (p, i, e)
+
+    fun len n _ = n
+
     val new = Pointer.new
 
     fun free d n p =
@@ -58,12 +64,6 @@ functor CValueCArrayNType(
           ()
         end
       else ()
-
-    fun get _ p i = Pointer.get (p, i)
-
-    fun set _ p (i, e) = Pointer.set (p, i, e)
-
-    fun len n _ = n
 
     fun dup d n p =
       if d <> 0
@@ -80,18 +80,31 @@ functor CValueCArrayNType(
 
     val toElem = CElemType.fromC
 
-    fun toC n v =
+    fun updateElem n p (i, e) =
+      if CElemType.isRef
+      then CElemType.updateC e (get n p i)
+      else set n p (i, CElemType.toC e)
+
+    fun init (n, f) =
       let
         val p = new n
-        fun updateElem (i, e) =
-          if CElemType.isRef
-          then CElemType.updateC e (get n p i)
-          else set n p (i, CElemType.toC e)
 
-        val () = ElemSequence.appi updateElem v
+        fun step i =
+          if i < n
+          then (updateElem n p (i, f i); step (i + 1))
+          else ()
+        val () = step 0
       in
         p
       end
 
-    fun fromC n p = ElemSequence.tabulate (len n p, CElemType.fromC o get n p)
+    fun toC n v =
+      let
+        val p = new n
+        val () = ElemSequence.appi (updateElem n p) v
+      in
+        p
+      end
+
+    fun fromC n p = ElemSequence.tabulate (len n p, toElem o get n p)
   end

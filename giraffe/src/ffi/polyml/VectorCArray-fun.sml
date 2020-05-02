@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2017, 2019 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -19,6 +19,7 @@ functor VectorCArray(CArray : C_ARRAY where type 'a C.ArrayType.from_p = 'a) :>
 
     val length = CArray.C.ArrayType.length
     val sub = CArray.C.ArrayType.sub
+    val tabulate = CArray.C.ArrayType.tabulate
 
     type sequence = CArray.sequence
     val fromSequence = Fn.id

@@ -292,6 +292,9 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
         CArray a => Finalizable.withValue (a, C.ArrayType.fromC)
       | SMLValue v => Finalizable.withValue (v, C.ArrayType.CVector.toVal)
 
+    fun tabulate (n, f) =
+      FFI.fromPtr ~1 (C.ArrayType.init (n, f))
+
     val length =
       fn
         CArray a => Finalizable.withValue (a, C.ArrayType.len)

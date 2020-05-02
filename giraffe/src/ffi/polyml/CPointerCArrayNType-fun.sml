@@ -44,7 +44,14 @@ functor CPointerCArrayNType(
         step 0
       end
 
+    fun get _ p i = Pointer.get (p, i)
+
+    fun set _ p (i, e) = Pointer.set (p, i, e)
+
+    fun len n _ = n
+
     val new = Pointer.new
+
     fun free d n p =
       if d <> 0
       then
@@ -56,11 +63,6 @@ functor CPointerCArrayNType(
           ()
         end
       else ()
-
-    fun get _ p i = Pointer.get (p, i)
-    fun set _ p (i, e) = Pointer.set (p, i, e)
-
-    fun len n _ = n
 
     fun dup d n p =
       if d <> 0
@@ -77,12 +79,26 @@ functor CPointerCArrayNType(
 
     val toElem = CElemType.fromC
 
+    fun updateElem n p (i, e) =
+      set n p (i, CElemType.toC e)
+
+    fun init (n, f) =
+      let
+        val p = new n
+
+        fun step i =
+          if i < n
+          then (updateElem n p (i, f i); step (i + 1))
+          else ()
+        val () = step 0
+      in
+        p
+      end
+
     fun toC n v =
       let
         val p = new n
-        fun updateElem (i, e) =
-          set n p (i, CElemType.toC e)
-        val () = Sequence.appi updateElem v
+        val () = Sequence.appi (updateElem n p) v
       in
         p
       end

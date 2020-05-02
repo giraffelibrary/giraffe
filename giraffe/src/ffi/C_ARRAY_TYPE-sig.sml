@@ -35,8 +35,19 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
     val free : int -> (notnull p -> unit) from_p
     val len  : (notnull p -> int) from_p
     val get  : (notnull p -> int -> e) from_p
+    val set  : (notnull p -> int * e -> unit) from_p
 
     val toElem : e -> elem
+
+    (**
+     * `init (n, f)` returns a pointer to a newly allocated C array with n
+     * elements (excluding any null terminator) where, for all i, 0 <= i < n,
+     * the element at (zero-based) index i, is the conversion of `f i` to C.
+     *
+     * `free ~1` must be applied to the pointer returned by `init`
+     * once it is not required.
+     *)
+    val init : int * (int -> elem) -> notnull p
 
     (**
      * Conversion to and from the C representation is provided by `toC`
@@ -45,7 +56,7 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
      * any exist.  For data that is reference-counted, copying increments
      * the reference count.
      *
-     * `free ~1` must be applied to the pointer returned by `toC t` once
+     * `free ~1` must be applied to the pointer returned by `toC` once
      * it is not required.
      *)
     val toC : (t -> notnull p) from_p

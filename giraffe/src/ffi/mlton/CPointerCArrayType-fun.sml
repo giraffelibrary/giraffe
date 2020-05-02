@@ -1,4 +1,4 @@
-(* Copyright (C) 2016, 2019 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -41,20 +41,6 @@ functor CPointerCArrayType(
         step 0
       end
 
-    val new = Pointer.new
-
-    fun free d p =
-      if d <> 0
-      then
-        let
-          fun freeElem (_, e) = CElemType.free (d - 1) e
-          val () = appi freeElem p
-          val () = Pointer.free p
-        in
-          ()
-        end
-      else ()
-
     fun get p i =
       CElemType.Pointer.toNotNull (Pointer.get (p, i))
         handle CElemType.Pointer.Null => raise Subscript
@@ -72,15 +58,34 @@ functor CPointerCArrayType(
         step 0
       end
 
+    fun new n =
+      let
+        val p = Pointer.new (n + 1)
+        val () = set p (n, CElemType.Pointer.null)
+      in
+        p
+      end
+
+    fun free d p =
+      if d <> 0
+      then
+        let
+          fun freeElem (_, e) = CElemType.free (d - 1) e
+          val () = appi freeElem p
+          val () = Pointer.free p
+        in
+          ()
+        end
+      else ()
+
     fun dup d p =
       if d <> 0
       then
         let
           val n = len p
-          val p' = new (n + 1)
+          val p' = new n
           fun updateElem (i, e) = set p' (i, CElemType.dup (d - 1) e)
           val () = appi updateElem p
-          val () = set p' (n, CElemType.Pointer.null)
         in
           p'
         end
@@ -111,18 +116,31 @@ functor CPointerCArrayType(
         fun toVal _ = raise NoSMLValue
       end
 
+    fun updateElem p (i, e) =
+      let
+        open CElemType
+      in
+        set p (i, Pointer.toOptNull (toC e))
+      end
+
+    fun init (n, f) =
+      let
+        val p = new n
+
+        fun step i =
+          if i < n
+          then (updateElem p (i, f i); step (i + 1))
+          else ()
+        val () = step 0
+      in
+        p
+      end
+
     fun toC v =
       let
         val n = Sequence.length v
-        val p = new (n + 1)
-        fun updateElem (i, e) =
-          let
-            open CElemType
-          in
-            set p (i, Pointer.toOptNull (toC e))
-          end
-        val () = Sequence.appi updateElem v
-        val () = set p (n, CElemType.Pointer.null)
+        val p = new n
+        val () = Sequence.appi (updateElem p) v
       in
         p
       end

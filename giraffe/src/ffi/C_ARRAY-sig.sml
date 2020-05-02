@@ -29,12 +29,19 @@ signature C_ARRAY =
     val length : t -> int
 
     (**
-     * `sub t i` returns the element at (zero-based) index `i` of `t`.  It
+     * `sub t i` returns the element at (zero-based) index i of t.  It
      * raises `Subscript` if `i < 0` or `length t <= i`.  Note, therefore,
      * that `i` cannot index a null terminator if one is present in the
      * internal representation.
      *)
     val sub : t -> int -> elem
+
+    (**
+     * `tabulate (n, f)` returns a C array t such that `length t` is n
+     * and, for all i, 0 <= i < n, `sub t i` is `f i`.  It raises
+     * `Size` if n < 0.
+     *)
+    val tabulate : int * (int -> elem) -> t
 
     (**
      * Conversion between SML values and C arrays.

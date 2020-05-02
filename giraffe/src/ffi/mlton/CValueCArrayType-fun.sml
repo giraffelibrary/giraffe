@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2017, 2019 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -42,20 +42,6 @@ functor CValueCArrayType(
         step 0
       end
 
-    val new = Pointer.new
-
-    fun free d p =
-      if d <> 0
-      then
-        let
-          fun freeElem (_, e) = CElemType.clear e
-          val () = appi freeElem p
-          val () = Pointer.free p
-        in
-          ()
-        end
-      else ()
-
     fun get p i = Pointer.get (p, i)
 
     fun set p (i, e) = Pointer.set (p, i, e)
@@ -70,15 +56,34 @@ functor CValueCArrayType(
         step 0
       end
 
+    fun new n =
+      let
+        val p = Pointer.new (n + 1)
+        val () = set p (n, CElemType.null ())
+      in
+        p
+      end
+
+    fun free d p =
+      if d <> 0
+      then
+        let
+          fun freeElem (_, e) = CElemType.clear e
+          val () = appi freeElem p
+          val () = Pointer.free p
+        in
+          ()
+        end
+      else ()
+
     fun dup d p =
       if d <> 0
       then
         let
           val n = len p
-          val p' = new (n + 1)
+          val p' = new n
           val updateElem = set p'
           val () = appi updateElem p
-          val () = set p' (n, CElemType.null ())
         in
           p'
         end
@@ -87,22 +92,34 @@ functor CValueCArrayType(
 
     val toElem = CElemType.fromC
 
-    fun toC v =
-      let
-        val n = ElemSequence.length v
-        val p = new (n + 1)
-        fun updateElem (i, e) =
-          if CElemType.isRef
-          then CElemType.updateC e (get p i)
-          else set p (i, CElemType.toC e)
+    fun updateElem p (i, e) =
+      if CElemType.isRef
+      then CElemType.updateC e (get p i)
+      else set p (i, CElemType.toC e)
 
-        val () = ElemSequence.appi updateElem v
-        val () = set p (n, CElemType.null ())
+    fun init (n, f) =
+      let
+        val p = new n
+
+        fun step i =
+          if i < n
+          then (updateElem p (i, f i); step (i + 1))
+          else ()
+        val () = step 0
       in
         p
       end
 
-    fun fromC p = ElemSequence.tabulate (len p, CElemType.fromC o get p)
+    fun toC v =
+      let
+        val n = ElemSequence.length v
+        val p = new n
+        val () = ElemSequence.appi (updateElem p) v
+      in
+        p
+      end
+
+    fun fromC p = ElemSequence.tabulate (len p, toElem o get p)
 
     structure CVector =
       struct
@@ -195,7 +212,7 @@ functor CValueCArrayType(
             fn c =>
               let
                 val n = Vector.length c  (* `c` includes null terminator *)
-                val p = new n
+                val p = Pointer.new n
                 fun updateElem (i, e) = set p (i, CElemType.toC e)
                 val () = Vector.appi updateElem c
               in

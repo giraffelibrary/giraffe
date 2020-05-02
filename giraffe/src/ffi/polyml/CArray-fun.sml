@@ -154,11 +154,15 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
         end
       end
 
-    fun fromSequence v = FFI.fromPtr ~1 (C.ArrayType.toC v)
+    fun fromSequence v =
+      FFI.fromPtr ~1 (C.ArrayType.toC v)
 
     val toSequence =
       fn
         a => Finalizable.withValue (a, C.ArrayType.fromC)
+
+    fun tabulate (n, f) =
+      FFI.fromPtr ~1 (C.ArrayType.init (n, f))
 
     val length =
       fn

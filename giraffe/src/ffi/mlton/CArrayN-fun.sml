@@ -316,6 +316,9 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
         (CArray (a, _), n) => Finalizable.withValue (a, C.ArrayType.fromC n)
       | (SMLValue v, _) => Finalizable.withValue (v, C.ArrayType.CVector.toVal)
 
+    fun tabulate (n, f) =
+      FFI.fromPtr ~1 (C.ArrayType.init (n, f)) n
+
     val length =
       fn
         (CArray (a, _), n) => Finalizable.withValue (a, C.ArrayType.len n)
