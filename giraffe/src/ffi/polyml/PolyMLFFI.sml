@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -48,19 +48,50 @@ structure PolyMLFFI :> POLYML_F_F_I =
 
         fun copy (dest, src, numWord8) =
           let
-            val numWord32 = numWord8 div 4
-            fun copyWord8 i = setWord8 (dest, i, getWord8 (src, i))
-            fun copyWord32 i = setWord32 (dest, i, getWord32 (src, i))
+            val (<<, >>) = (Word.<<, Word.>>)
+            infix 7 << >>
+            val numWord32 = numWord8 >> 0w2
+            fun copyWord8 i = set8 (dest, i, get8 (src, i))
+            fun copyWord32 i = set32 (dest, i, get32 (src, i))
             fun copy32 i =
               if i < numWord32
-              then (copyWord32 i; copy32 (i + 1))
+              then (copyWord32 i; copy32 (i + 0w1))
               else ()
             fun copy8 i =
               if i < numWord8
-              then (copyWord8 i; copy8 (i + 1))
+              then (copyWord8 i; copy8 (i + 0w1))
               else ()
-            val () = copy32 0
-            val () = copy8 (numWord32 * 4)
+            val () = copy32 0w0
+            val () = copy8 (numWord32 << 0w2)
+          in
+            ()
+          end
+
+        fun init (dest, word8, numWord8) =
+          let
+            val word32 =
+              let
+                val w = Word32.fromLarge (Word8.toLarge word8)
+                val << = Word32.<<
+                infix 7 <<
+              in
+                w + w << 0w8 + w << 0w16 + w << 0w24
+              end
+            val (<<, >>) = (Word.<<, Word.>>)
+            infix 7 << >>
+            val numWord32 = numWord8 >> 0w2
+            fun copyWord8 i = set8 (dest, i, word8)
+            fun copyWord32 i = set32 (dest, i, word32)
+            fun copy32 i =
+              if i < numWord32
+              then (copyWord32 i; copy32 (i + 0w1))
+              else ()
+            fun copy8 i =
+              if i < numWord8
+              then (copyWord8 i; copy8 (i + 0w1))
+              else ()
+            val () = copy32 0w0
+            val () = copy8 (numWord32 << 0w2)
           in
             ()
           end

@@ -87,7 +87,7 @@ structure <StructNamespace><StructName>Record :>
 =
   struct
                                                                                                                 -.
-    structure Pointer = CPointerInternal                                                                         |
+    structure Pointer = CPointer(GMemory)                                                                        |
     type opt = Pointer.opt                                                                                       | structType is ValueRecord _ | Record _
     type non_opt = Pointer.non_opt                                                                               |
     type 'a p = 'a Pointer.p                                                                                     |

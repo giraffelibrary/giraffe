@@ -9,7 +9,7 @@ functor PointerRecord(val name : string) :> RECORD =
   struct
     structure C =
       struct
-        structure Pointer :> C_POINTER = CPointerInternal
+        structure Pointer = CPointer(GMemory)
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p

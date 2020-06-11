@@ -20,7 +20,7 @@ structure GLibIOChannel :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibIOChannelRecord.PolyML.cPtr
           )
-      val unixNew_ = call (getSymbol "g_io_channel_unix_new") (FileDesc.PolyML.cVal --> GLibIOChannelRecord.PolyML.cPtr)
+      val unixNew_ = call (getSymbol "g_io_channel_unix_new") (GFileDesc.PolyML.cVal --> GLibIOChannelRecord.PolyML.cPtr)
       val close_ = call (getSymbol "g_io_channel_close") (GLibIOChannelRecord.PolyML.cPtr --> cVoid)
       val flush_ = call (getSymbol "g_io_channel_flush") (GLibIOChannelRecord.PolyML.cPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GLibIOStatus.PolyML.cVal)
       val getBufferCondition_ = call (getSymbol "g_io_channel_get_buffer_condition") (GLibIOChannelRecord.PolyML.cPtr --> GLibIOCondition.PolyML.cVal)
@@ -109,7 +109,7 @@ structure GLibIOChannel :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GLibIOStatus.PolyML.cVal
           )
-      val unixGetFd_ = call (getSymbol "g_io_channel_unix_get_fd") (GLibIOChannelRecord.PolyML.cPtr --> FileDesc.PolyML.cVal)
+      val unixGetFd_ = call (getSymbol "g_io_channel_unix_get_fd") (GLibIOChannelRecord.PolyML.cPtr --> GFileDesc.PolyML.cVal)
       val writeUnichar_ =
         call (getSymbol "g_io_channel_write_unichar")
           (
@@ -141,7 +141,7 @@ structure GLibIOChannel :>
            & mode
            & []
         )
-    fun unixNew fd = (FileDesc.FFI.withVal ---> GLibIOChannelRecord.FFI.fromPtr true) unixNew_ fd
+    fun unixNew fd = (GFileDesc.FFI.withVal ---> GLibIOChannelRecord.FFI.fromPtr true) unixNew_ fd
     fun close self = (GLibIOChannelRecord.FFI.withPtr ---> I) close_ self
     fun flush self = (GLibIOChannelRecord.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GLibIOStatus.FFI.fromVal) flush_ (self & [])
     fun getBufferCondition self = (GLibIOChannelRecord.FFI.withPtr ---> GLibIOCondition.FFI.fromVal) getBufferCondition_ self
@@ -309,7 +309,7 @@ structure GLibIOChannel :>
            & flush
            & []
         )
-    fun unixGetFd self = (GLibIOChannelRecord.FFI.withPtr ---> FileDesc.FFI.fromVal) unixGetFd_ self
+    fun unixGetFd self = (GLibIOChannelRecord.FFI.withPtr ---> GFileDesc.FFI.fromVal) unixGetFd_ self
     fun writeUnichar self thechar =
       (
         GLibIOChannelRecord.FFI.withPtr

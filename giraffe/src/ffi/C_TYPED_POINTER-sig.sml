@@ -28,9 +28,7 @@ signature C_TYPED_POINTER =
 
     (**
      * `new n` allocates an array of `n` elements and returns a pointer to
-     * the array.  `free p` frees the array pointed to by `p` which must be a
-     * pointer returned by `new`.
+     * the array.
      *)
     val new : int -> t
-    val free : t -> unit
   end

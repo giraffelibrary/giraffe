@@ -2,12 +2,13 @@ structure GIRepositoryArgument :>
   G_I_REPOSITORY_ARGUMENT
     where type typetag_t = GIRepositoryTypeTag.t =
   struct
-    type opt = CPointer.opt
-    type non_opt = CPointer.non_opt
-    type 'a p = 'a CPointer.p
+    structure Pointer = CPointer(GMemory)
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
+    type 'a p = 'a Pointer.p
 
-    val cPtr = CPointer.PolyML.cVal : non_opt p PolyMLFFI.conversion
-    val cOptPtr = CPointer.PolyML.cOptVal : opt p PolyMLFFI.conversion
+    val cPtr = Pointer.PolyML.cVal : non_opt p PolyMLFFI.conversion
+    val cOptPtr = Pointer.PolyML.cOptVal : opt p PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -135,10 +136,10 @@ structure GIRepositoryArgument :>
 
     structure FFI =
       struct
-        structure Pointer = CPointer
-        type opt = opt
-        type non_opt = non_opt
-        type 'a p = 'a p
+        structure Pointer = Pointer
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
+        type 'a p = 'a Pointer.p
 
         fun withNewPtr f () =
           let

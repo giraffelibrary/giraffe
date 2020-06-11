@@ -9,17 +9,18 @@ structure GObjectObjectClass :>
   G_OBJECT_OBJECT_CLASS
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
-    type opt = CPointer.opt
-    type non_opt = CPointer.non_opt
-    type 'a p = 'a CPointer.p
-    type ('a, 'b) r = ('a, 'b) CPointer.r
+    structure Pointer = CPointer(GMemory)
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
+    type 'a p = 'a Pointer.p
+    type ('a, 'b) r = ('a, 'b) Pointer.r
 
-    val cPtr = CPointer.PolyML.cVal : non_opt p PolyMLFFI.conversion
-    val cOptPtr = CPointer.PolyML.cOptVal : opt p PolyMLFFI.conversion
-    val cOutRef = CPointer.PolyML.cRef : ('a, non_opt) r PolyMLFFI.conversion
-    val cOutOptRef = CPointer.PolyML.cOptOutRef : ('a, opt) r PolyMLFFI.conversion
-    val cInOutRef = CPointer.PolyML.cInRef : (non_opt, non_opt) r PolyMLFFI.conversion
-    val cInOutOptRef = CPointer.PolyML.cOptOutRef : (opt, opt) r PolyMLFFI.conversion
+    val cPtr = Pointer.PolyML.cVal : non_opt p PolyMLFFI.conversion
+    val cOptPtr = Pointer.PolyML.cOptVal : opt p PolyMLFFI.conversion
+    val cOutRef = Pointer.PolyML.cRef : ('a, non_opt) r PolyMLFFI.conversion
+    val cOutOptRef = Pointer.PolyML.cOptOutRef : ('a, opt) r PolyMLFFI.conversion
+    val cInOutRef = Pointer.PolyML.cInRef : (non_opt, non_opt) r PolyMLFFI.conversion
+    val cInOutOptRef = Pointer.PolyML.cOptOutRef : (opt, opt) r PolyMLFFI.conversion
 
     fun initDebugFlags () =
       if GiraffeDebug.isEnabled
@@ -80,7 +81,7 @@ structure GObjectObjectClass :>
 
     structure C =
       struct
-        structure Pointer = CPointer
+        structure Pointer = Pointer
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p

@@ -6,7 +6,7 @@
  *)
 
 functor BoxedValueRecord(
-  structure Pointer : C_POINTER where type 'a p = MLton.Pointer.t
+  structure Pointer : C_POINTER
   type opt = Pointer.opt
   type non_opt = Pointer.non_opt
   type 'a p = 'a Pointer.p
@@ -20,12 +20,15 @@ functor BoxedValueRecord(
     where type 'a C.Pointer.p = 'a Pointer.p
     where type ('a, 'b) C.Pointer.r = ('a, 'b) Pointer.r =
   struct
-    val malloc_ = _import "g_malloc0" : GSize.FFI.val_ -> MLton.Pointer.t;
-    val free_ = _import "g_free" : MLton.Pointer.t -> unit;
-    val new_ = malloc_ o size_
+    val malloc0_ = Pointer.malloc0
+    val free_ = Pointer.free
+    val new0_ = malloc0_ o Word.fromInt o GSize.FFI.fromVal o size_
     fun dup_ ptr =
       let
-        val ptrNew = new_ ()
+        (* Ensure allocated memory is set to 0 in case `copy_` is a function
+         * that checks the destination, e.g. giraffe_g_value_copy (which
+         * first calls g_value_init. *)
+        val ptrNew = new0_ ()
         val () = copy_ (ptr & ptrNew)
       in
         ptrNew
@@ -42,19 +45,19 @@ functor BoxedValueRecord(
 
         structure ValueType =
           struct
-            type t = MLton.Pointer.t Finalizable.t
-            type v = MLton.Pointer.t
-            type p = MLton.Pointer.t
+            type t = non_opt p Finalizable.t
+            type v = non_opt p
+            type p = non_opt p
 
             structure MLtonVector =
               struct
-                val e = Finalizable.new MLton.Pointer.null
+                val e = Finalizable.new Pointer.null
               end
 
             val isRef = true
             val size = Fn.lazy (Word.fromInt o GSize.FFI.fromVal o size_)
 
-            fun toC _ = MLton.Pointer.null
+            fun toC _ = Pointer.null  (* acceptable because `isRef = true` *)
             fun updateC t dest = Finalizable.withValue (t, fn src => copy_ (src & dest))
             fun fromC v =
               let
@@ -64,14 +67,14 @@ functor BoxedValueRecord(
                 object
               end
 
-            val new = new_
+            val new = new0_
             val delete = free_
             val clear = clear_
 
             fun get p = p
             fun set (p, v) = copy_ (v & p)
-            fun malloc n = (GSize.FFI.withVal ---> I) malloc_ (Word.toInt n)
-            fun free p = (I ---> I) free_ p
+
+            structure Memory = Pointer.NonOptValueType.Memory
           end
 
         structure PointerType =
@@ -130,7 +133,7 @@ functor BoxedValueRecord(
 
         fun withNewPtr f () =
           let
-            val ptr = new_ ()
+            val ptr = new0_ ()
           in
             ptr & f ptr
           end

@@ -1,9 +1,17 @@
+(* Copyright (C) 2013-2020 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
 structure GdkEvent :> GDK_EVENT =
   struct
-    type opt = CPointer.opt
-    type non_opt = CPointer.non_opt
-    type 'a p = 'a CPointer.p
-    type ('a, 'b) r = ('a, 'b) CPointer.r
+    structure Pointer = CPointer(GMemory)
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
+    type 'a p = 'a Pointer.p
+    type ('a, 'b) r = ('a, 'b) Pointer.r
 
     val dup_ = _import "gdk_event_copy" : non_opt p -> non_opt p;
 
@@ -11,7 +19,7 @@ structure GdkEvent :> GDK_EVENT =
 
     structure C =
       struct
-        structure Pointer = CPointer
+        structure Pointer = Pointer
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p

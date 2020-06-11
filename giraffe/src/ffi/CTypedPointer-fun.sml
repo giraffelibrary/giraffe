@@ -9,7 +9,8 @@ functor CTypedPointer(CValueType : C_VALUE_TYPE) :>
   C_TYPED_POINTER
     where type e = CValueType.v =
   struct
-    open CPointerInternal
+    structure Pointer = CPointerInternal(CValueType.Memory)
+    open Pointer
 
     type e = CValueType.v
 
@@ -18,6 +19,5 @@ functor CTypedPointer(CValueType : C_VALUE_TYPE) :>
     fun set (p, i, x) = CValueType.set (offset (p, i), x)
     fun get (p, i) = CValueType.get (offset (p, i))
 
-    fun new n = CValueType.malloc (Word.fromInt n * CValueType.size ())
-    val free = CValueType.free
+    fun new n = malloc0 (Word.fromInt n * CValueType.size ())
   end

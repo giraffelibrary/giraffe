@@ -20,6 +20,7 @@ in
     mlton/CallbackTable-fun.sml
     HighLevelFFI.sml
     FINALIZABLE-sig.sml
+    C_MEMORY-sig.sml
     C_VALUE-sig.sml
     mlton/C_VALUE-sig.sml
     C_VALUE_EQ-sig.sml
@@ -47,10 +48,11 @@ in
     mlton/C_ARRAY-sig.sml
     C_ARRAY_N-sig.sml
     mlton/Finalizable.sml
+    ann "allowFFI true" in mlton/CMemory.sml end
     mlton/CRef-fun.sml
-    ann "allowFFI true" in mlton/CPointerInternal.sml end
+    mlton/CPointerInternal-fun.sml
+    CPointer-fun.sml
     CTypedPointer-fun.sml
-    CPointer.sml
     mlton/CScalar-fun.sml
     mlton/CScalarNull-fun.sml
     mlton/CScalarEq-fun.sml
@@ -68,34 +70,36 @@ in
     ann
       "allowFFI true"
     in
-      mlton/GCharType.sml
-      mlton/GShortType.sml
-      mlton/GUShortType.sml
-      mlton/GIntType.sml
-      mlton/GUIntType.sml
-      mlton/GLongType.sml
-      mlton/GULongType.sml
-      mlton/GBoolType.sml
-      mlton/GInt8Type.sml
-      mlton/GUInt8Type.sml
-      mlton/GInt16Type.sml
-      mlton/GUInt16Type.sml
-      mlton/GInt32Type.sml
-      mlton/GUInt32Type.sml
-      mlton/GInt64Type.sml
-      mlton/GUInt64Type.sml
-      mlton/GSSizeType.sml
-      mlton/GSizeType.sml
-      mlton/GFloatType.sml
-      mlton/GDoubleType.sml
-      mlton/FileDescType.sml
+      mlton/CharType-fun.sml
+      mlton/ShortType-fun.sml
+      mlton/UShortType-fun.sml
+      mlton/IntType-fun.sml
+      mlton/UIntType-fun.sml
+      mlton/LongType-fun.sml
+      mlton/ULongType-fun.sml
+      mlton/BoolType-fun.sml
+      mlton/Int8Type-fun.sml
+      mlton/UInt8Type-fun.sml
+      mlton/Int16Type-fun.sml
+      mlton/UInt16Type-fun.sml
+      mlton/Int32Type-fun.sml
+      mlton/UInt32Type-fun.sml
+      mlton/Int64Type-fun.sml
+      mlton/UInt64Type-fun.sml
+      mlton/SSizeType-fun.sml
+      mlton/SizeType-fun.sml
+      mlton/FloatType-fun.sml
+      mlton/DoubleType-fun.sml
+      mlton/FileDescType-fun.sml
     end
-    CScalars.sml
     MonoVectorSequence-fun.sml
     CValueVector-fun.sml
     CValueVectorSequence-fun.sml
     ListSequence.sml
     VectorSequence.sml
+    ann "allowFFI true" in mlton/GMemory.sml end
+    GScalarTypes.sml
+    GScalars.sml
     UTF8-sig.sml
     Utf8.sml
     CLASS-sig.sml
@@ -108,7 +112,7 @@ in
     ENUM-sig.sml
     mlton/PointerRecord-fun.sml
     mlton/BoxedRecord-fun.sml
-    ann "allowFFI true" in mlton/BoxedValueRecord-fun.sml end
+    mlton/BoxedValueRecord-fun.sml
     mlton/Flags-fun.sml
     mlton/Enum-fun.sml
   end

@@ -1,3 +1,10 @@
+(* Copyright (C) 2013-2020 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
 structure GLibSpawnChildSetupFunc :> G_LIB_SPAWN_CHILD_SETUP_FUNC =
   struct
     type func = unit -> unit
@@ -5,7 +12,7 @@ structure GLibSpawnChildSetupFunc :> G_LIB_SPAWN_CHILD_SETUP_FUNC =
 
     structure C =
       struct
-        structure Pointer = CPointerInternal
+        structure Pointer = CPointer(GMemory)
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
@@ -55,10 +62,11 @@ structure GLibSpawnChildSetupFunc :> G_LIB_SPAWN_CHILD_SETUP_FUNC =
             SOME callback => withCallback f callback
           | NONE          => f SpawnChildSetupCallbackTable.nullId
 
-        fun withPtrToDispatch f () = f (_address "giraffe_spawn_child_setup_dispatch" : MLton.Pointer.t;)
+        fun withPtrToDispatch f () =
+          f (_address "giraffe_spawn_child_setup_dispatch" : 'a p;)
         fun withOptPtrToDispatch f =
           fn
             true  => withPtrToDispatch f ()
-          | false => f MLton.Pointer.null
+          | false => f C.Pointer.null
       end
   end

@@ -1,4 +1,4 @@
-(* Copyright (C) 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -16,7 +16,7 @@ signature C_VALUE_EQ_TYPE =
     include C_VALUE_EQ
 
     (**
-     * The type `v` may be either immutable or mutable.  `isRef`is true
+     * The type `v` may be either immutable or mutable.  `isRef` is true
      * if `v` is mutable, i.e. a reference, and false otherwise.
      *)
     val isRef : bool
@@ -62,18 +62,19 @@ signature C_VALUE_EQ_TYPE =
      * resources for a new instance of type `v` and returns the new
      * uninitialized instance.  `delete` must be applied to the mutable value
      * returned by `new ()` once it is no longer required.  `delete v` frees
-     * all resources for `v`.  For example, if `v` is allocated on the heap,
-     * then the allocated memory is freed.
+     * remaining resources for `v` when it is in the uninitialized state.
+     * For example, if `v` is allocated on the heap, then the allocated
+     * memory is freed.  `clear ()` should be used to revert `v` to the
+     * uninitialized state if required.  
      *
      * If type `v` is immutable (`isRef` is false) then `new ()` returns some
      * value of type `v`.  `delete` serves no purpose and has no effect.
-     *
      *)
     val new : unit -> v
     val delete : v -> unit
 
     val get : p -> v
     val set : p * v -> unit
-    val malloc : word -> p
-    val free : p -> unit
+
+    structure Memory : C_MEMORY where type Pointer.t = p
   end

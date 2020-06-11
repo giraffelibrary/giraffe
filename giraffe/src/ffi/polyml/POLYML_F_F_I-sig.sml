@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -38,7 +38,8 @@ signature POLYML_F_F_I =
         val setPointer : Pointer.t * int * Pointer.t -> unit
 
         val malloc : word -> Pointer.t
-        val copy : Pointer.t * Pointer.t * int -> unit
+        val copy : Pointer.t * Pointer.t * word -> unit
+        val init : Pointer.t * Word8.word * word -> unit
         val free : Pointer.t -> unit
       end
 

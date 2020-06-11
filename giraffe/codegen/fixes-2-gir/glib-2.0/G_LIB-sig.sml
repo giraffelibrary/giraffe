@@ -346,7 +346,7 @@ signature G_LIB =
        * Pid.t
        * ChildWatchFunc.t
        -> LargeInt.int
-    val close : FileDesc.t -> unit
+    val close : GFileDesc.t -> unit
     val computeChecksumForBytes : ChecksumType.t * BytesRecord.t -> string
     val computeChecksumForData : ChecksumType.t * GUInt8CArrayN.t -> string
     val computeChecksumForString :
@@ -532,9 +532,9 @@ signature G_LIB =
        * SpawnFlags.t
        * SpawnChildSetupFunc.t option
        -> Pid.t
-           * FileDesc.t
-           * FileDesc.t
-           * FileDesc.t
+           * GFileDesc.t
+           * GFileDesc.t
+           * GFileDesc.t
     val spawnCheckExitStatus : LargeInt.int -> unit
     val spawnClosePid : Pid.t -> unit
     val spawnCommandLineAsync : string -> unit

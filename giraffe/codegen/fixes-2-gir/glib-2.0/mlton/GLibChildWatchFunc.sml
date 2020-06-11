@@ -1,3 +1,10 @@
+(* Copyright (C) 2013-2020 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
 structure GLibChildWatchFunc :>
   G_LIB_CHILD_WATCH_FUNC
     where type pid_t = GLibPid.t =
@@ -8,7 +15,7 @@ structure GLibChildWatchFunc :>
 
     structure C =
       struct
-        structure Pointer = CPointerInternal
+        structure Pointer = CPointer(GMemory)
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
@@ -62,16 +69,18 @@ structure GLibChildWatchFunc :>
             SOME callback => withCallback f callback
           | NONE          => f ChildWatchCallbackTable.nullId
 
-        fun withPtrToDispatch f () = f (_address "giraffe_child_watch_dispatch" : MLton.Pointer.t;)
+        fun withPtrToDispatch f () =
+          f (_address "giraffe_child_watch_dispatch" : 'a p;)
         fun withOptPtrToDispatch f =
           fn
             true  => withPtrToDispatch f ()
-          | false => f MLton.Pointer.null
+          | false => f C.Pointer.null
 
-        fun withPtrToDestroy f () = f (_address "giraffe_child_watch_destroy" : MLton.Pointer.t;)
+        fun withPtrToDestroy f () =
+          f (_address "giraffe_child_watch_destroy" : 'a p;)
         fun withOptPtrToDestroy f =
           fn
             true  => withPtrToDestroy f ()
-          | false => f MLton.Pointer.null
+          | false => f C.Pointer.null
       end
   end

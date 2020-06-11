@@ -9,7 +9,7 @@ signature G_LIB_I_O_CHANNEL =
     type i_o_channel_error_t
     val getType : unit -> GObject.Type.t
     val newFile : string * string -> t
-    val unixNew : FileDesc.t -> t
+    val unixNew : GFileDesc.t -> t
     val close : t -> unit
     val flush : t -> i_o_status_t
     val getBufferCondition : t -> i_o_condition_t
@@ -63,7 +63,7 @@ signature G_LIB_I_O_CHANNEL =
       t
        -> bool
        -> i_o_status_t
-    val unixGetFd : t -> FileDesc.t
+    val unixGetFd : t -> GFileDesc.t
     val writeUnichar :
       t
        -> char

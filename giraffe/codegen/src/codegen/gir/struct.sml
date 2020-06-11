@@ -58,13 +58,13 @@ end
 
 local
   (*
-   *     structure Pointer = CPointerInternal
+   *     structure Pointer = CPointer(GMemory)
    *     type opt = Pointer.opt
    *     type non_opt = Pointer.non_opt
    *     type 'a p = 'a Pointer.p
    *)
   fun addPointerStrDecs strDecs =
-    mkStructStrDec (pointerStrId, mkNameStruct ["CPointerInternal"])
+    mkStructStrDec (pointerStrId, mkInstStruct (cPointerStrId, mkNameStruct [gMemoryStrId]))
      :: StrDecDec (mkTypeDec (optTyName, prefixOptTy [pointerStrId]))
      :: StrDecDec (mkTypeDec (nonOptTyName, prefixNonOptTy [pointerStrId]))
      :: StrDecDec (mkTypeDec (ptrTyName aTyVar, prefixPtrTy [pointerStrId] aVarTy))

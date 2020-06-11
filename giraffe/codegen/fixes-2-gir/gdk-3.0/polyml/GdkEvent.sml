@@ -1,16 +1,24 @@
+(* Copyright (C) 2013-2020 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
 structure GdkEvent :> GDK_EVENT =
   struct
-    type opt = CPointer.opt
-    type non_opt = CPointer.non_opt
-    type 'a p = 'a CPointer.p
-    type ('a, 'b) r = ('a, 'b) CPointer.r
+    structure Pointer = CPointer(GMemory)
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
+    type 'a p = 'a Pointer.p
+    type ('a, 'b) r = ('a, 'b) Pointer.r
 
-    val cPtr = CPointer.PolyML.cVal : non_opt p PolyMLFFI.conversion
-    val cOptPtr = CPointer.PolyML.cOptVal : opt p PolyMLFFI.conversion
-    val cOutRef = CPointer.PolyML.cRef : ('a, non_opt) r PolyMLFFI.conversion
-    val cOutOptRef = CPointer.PolyML.cOptOutRef : ('a, opt) r PolyMLFFI.conversion
-    val cInOutRef = CPointer.PolyML.cInRef : (non_opt, non_opt) r PolyMLFFI.conversion
-    val cInOutOptRef = CPointer.PolyML.cOptOutRef : (opt, opt) r PolyMLFFI.conversion
+    val cPtr = Pointer.PolyML.cVal : non_opt p PolyMLFFI.conversion
+    val cOptPtr = Pointer.PolyML.cOptVal : opt p PolyMLFFI.conversion
+    val cOutRef = Pointer.PolyML.cRef : ('a, non_opt) r PolyMLFFI.conversion
+    val cOutOptRef = Pointer.PolyML.cOptOutRef : ('a, opt) r PolyMLFFI.conversion
+    val cInOutRef = Pointer.PolyML.cInRef : (non_opt, non_opt) r PolyMLFFI.conversion
+    val cInOutOptRef = Pointer.PolyML.cOptOutRef : (opt, opt) r PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -28,7 +36,7 @@ structure GdkEvent :> GDK_EVENT =
 
     structure C =
       struct
-        structure Pointer = CPointer
+        structure Pointer = Pointer
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p

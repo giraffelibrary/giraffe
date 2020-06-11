@@ -103,6 +103,15 @@ signature C_POINTER =
     val sub : word -> t -> t
 
     (**
+     * `malloc w`
+     * `malloc0 w`
+     * `free p`
+     *)
+    val malloc : word -> t
+    val malloc0 : word -> t
+    val free : t -> unit
+
+    (**
      * The type `('in, 'out) r` respresents a reference to a C pointer.  The
      * type parameter `'in` is a placeholder for a phantom type to indicate
      * whether the pointer stored to a reference is an optional pointer or a
@@ -137,8 +146,10 @@ signature C_POINTER =
       C_VALUE_TYPE
         where type t = non_opt p
         where type v = non_opt p
+        where type p = non_opt p
     structure OptValueType :
       C_VALUE_TYPE
         where type t = opt p
         where type v = opt p
+        where type p = opt p
   end

@@ -1,6 +1,6 @@
 structure GioDBusArgInfoRecord :> GIO_D_BUS_ARG_INFO_RECORD =
   struct
-    structure Pointer = CPointerInternal
+    structure Pointer = CPointer(GMemory)
     type opt = Pointer.opt
     type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p

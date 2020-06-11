@@ -17,6 +17,8 @@ signature C_POINTER =
       sig
         val toSysWord : 'a p -> SysWord.word
 
+        val symbolAsAddress : PolyMLFFI.symbol -> 'a p
+
         val cVal    : non_opt p PolyMLFFI.conversion
         val cOptVal : opt     p PolyMLFFI.conversion
 

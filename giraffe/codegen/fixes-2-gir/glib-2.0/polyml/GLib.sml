@@ -60,7 +60,7 @@ structure GLib : G_LIB =
              --> GUInt.PolyML.cVal
           )
       val childWatchSourceNew_ = call (getSymbol "giraffe_g_child_watch_source_new") (GLibPid.PolyML.cVal &&> GLibChildWatchFunc.PolyML.cFunction --> GLibSourceRecord.PolyML.cPtr)
-      val close_ = call (getSymbol "g_close") (FileDesc.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
+      val close_ = call (getSymbol "g_close") (GFileDesc.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val computeChecksumForBytes_ = call (getSymbol "g_compute_checksum_for_bytes") (GLibChecksumType.PolyML.cVal &&> GLibBytesRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val computeChecksumForData_ =
         call (getSymbol "g_compute_checksum_for_data")
@@ -371,9 +371,9 @@ structure GLib : G_LIB =
              &&> GLibSpawnChildSetupFunc.PolyML.cPtr
              &&> GLibSpawnChildSetupFunc.PolyML.cFunction
              &&> GLibPid.PolyML.cRef
-             &&> FileDesc.PolyML.cRef
-             &&> FileDesc.PolyML.cRef
-             &&> FileDesc.PolyML.cRef
+             &&> GFileDesc.PolyML.cRef
+             &&> GFileDesc.PolyML.cRef
+             &&> GFileDesc.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
@@ -823,7 +823,7 @@ structure GLib : G_LIB =
            & ()
         )
     fun childWatchSourceNew (pid, function) = (GLibPid.FFI.withVal &&&> GLibChildWatchFunc.FFI.withCallback ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ (pid & function)
-    fun close fd = (FileDesc.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) close_ (fd & [])
+    fun close fd = (GFileDesc.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) close_ (fd & [])
     fun computeChecksumForBytes (checksumType, data) = (GLibChecksumType.FFI.withVal &&&> GLibBytesRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) computeChecksumForBytes_ (checksumType & data)
     fun computeChecksumForData (checksumType, data) =
       let
@@ -1454,14 +1454,14 @@ structure GLib : G_LIB =
              &&&> GLibSpawnChildSetupFunc.FFI.withPtrToDispatch
              &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
              &&&> GLibPid.FFI.withRefVal
-             &&&> FileDesc.FFI.withRefVal
-             &&&> FileDesc.FFI.withRefVal
-             &&&> FileDesc.FFI.withRefVal
+             &&&> GFileDesc.FFI.withRefVal
+             &&&> GFileDesc.FFI.withRefVal
+             &&&> GFileDesc.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GLibPid.FFI.fromVal
-                   && FileDesc.FFI.fromVal
-                   && FileDesc.FFI.fromVal
-                   && FileDesc.FFI.fromVal
+                   && GFileDesc.FFI.fromVal
+                   && GFileDesc.FFI.fromVal
+                   && GFileDesc.FFI.fromVal
                    && ignore
           )
             spawnAsyncWithPipes_
@@ -1473,9 +1473,9 @@ structure GLib : G_LIB =
                & ()
                & childSetup
                & GLibPid.null
-               & FileDesc.null
-               & FileDesc.null
-               & FileDesc.null
+               & GFileDesc.null
+               & GFileDesc.null
+               & GFileDesc.null
                & [GLibSpawnError.handler]
             )
       in

@@ -1,4 +1,4 @@
-(* Copyright (C) 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -7,7 +7,7 @@
 
 signature C_VALUE_EQ =
   sig
-    include C_VALUE_EQ where type p = PolyMLFFI.Memory.Pointer.t
+    include C_VALUE_EQ
 
     structure PolyML :
       sig

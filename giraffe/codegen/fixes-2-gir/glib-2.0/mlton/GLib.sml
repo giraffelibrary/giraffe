@@ -198,7 +198,7 @@ structure GLib : G_LIB =
               x5
             )
     val childWatchSourceNew_ = fn x1 & x2 => (_import "giraffe_g_child_watch_source_new" : GLibPid.FFI.val_ * GLibChildWatchFunc.FFI.callback -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;) (x1, x2)
-    val close_ = fn x1 & x2 => (_import "g_close" : FileDesc.FFI.val_ * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
+    val close_ = fn x1 & x2 => (_import "g_close" : GFileDesc.FFI.val_ * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
     val computeChecksumForBytes_ = fn x1 & x2 => (_import "g_compute_checksum_for_bytes" : GLibChecksumType.FFI.val_ * GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
     val computeChecksumForData_ =
       fn
@@ -1015,9 +1015,9 @@ structure GLib : G_LIB =
                * GLibSpawnChildSetupFunc.FFI.non_opt GLibSpawnChildSetupFunc.FFI.p
                * GLibSpawnChildSetupFunc.FFI.callback
                * GLibPid.FFI.ref_
-               * FileDesc.FFI.ref_
-               * FileDesc.FFI.ref_
-               * FileDesc.FFI.ref_
+               * GFileDesc.FFI.ref_
+               * GFileDesc.FFI.ref_
+               * GFileDesc.FFI.ref_
                * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> bool;
           )
@@ -1656,7 +1656,7 @@ structure GLib : G_LIB =
            & ()
         )
     fun childWatchSourceNew (pid, function) = (GLibPid.FFI.withVal &&&> GLibChildWatchFunc.FFI.withCallback ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ (pid & function)
-    fun close fd = (FileDesc.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) close_ (fd & [])
+    fun close fd = (GFileDesc.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) close_ (fd & [])
     fun computeChecksumForBytes (checksumType, data) = (GLibChecksumType.FFI.withVal &&&> GLibBytesRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) computeChecksumForBytes_ (checksumType & data)
     fun computeChecksumForData (checksumType, data) =
       let
@@ -2287,14 +2287,14 @@ structure GLib : G_LIB =
              &&&> GLibSpawnChildSetupFunc.FFI.withPtrToDispatch
              &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
              &&&> GLibPid.FFI.withRefVal
-             &&&> FileDesc.FFI.withRefVal
-             &&&> FileDesc.FFI.withRefVal
-             &&&> FileDesc.FFI.withRefVal
+             &&&> GFileDesc.FFI.withRefVal
+             &&&> GFileDesc.FFI.withRefVal
+             &&&> GFileDesc.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GLibPid.FFI.fromVal
-                   && FileDesc.FFI.fromVal
-                   && FileDesc.FFI.fromVal
-                   && FileDesc.FFI.fromVal
+                   && GFileDesc.FFI.fromVal
+                   && GFileDesc.FFI.fromVal
+                   && GFileDesc.FFI.fromVal
                    && ignore
           )
             spawnAsyncWithPipes_
@@ -2306,9 +2306,9 @@ structure GLib : G_LIB =
                & ()
                & childSetup
                & GLibPid.null
-               & FileDesc.null
-               & FileDesc.null
-               & FileDesc.null
+               & GFileDesc.null
+               & GFileDesc.null
+               & GFileDesc.null
                & [GLibSpawnError.handler]
             )
       in
