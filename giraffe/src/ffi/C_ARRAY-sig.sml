@@ -44,17 +44,34 @@ signature C_ARRAY =
     val tabulate : int * (int -> elem) -> t
 
     (**
-     * Conversion between SML values and C arrays.
+     * Conversion between SML sequence and C array.
      *
      * The type `sequence` represents array values in SML.
      *
-     * When the elements of the SML sequence can represent the null terminator
-     * value, `fromSequence v` returns the C array that is the longest prefix
-     * of `v` not containing a null terminator.  For example, for a character
-     * array, i.e. where type `sequence` is `string`, we would have:
+     * For an array that is not null terminated, `fromSequence v` returns a
+     * C array whose elements are from `v` and `toSequence t` returns an SML
+     * sequence whose elements are from `t`.
+     *
+     * For an array that is null terminated, the elements of the SML sequence
+     * can represent the null terminator value.  `fromSequence v` returns a
+     * C array whose elements are from some prefix of `v` that includes at
+     * least all elements before the first null terminator if such an element
+     * exists and, otherwise, all elements.  Similarly, `toSequence t`
+     * returns an SML sequence whose elements are from some prefix of `t`
+     * that includes at least all elements before the first null terminator
+     * if such an element exists and, otherwise, all elements.
+     *
+     * For example, for a null-terminated character array, i.e. where type
+     * `sequence` is `string`, an implementation may have the following
+     * behaviour:
      *
      *   toSequence (fromSequence "a\000bc") = "a"
      *   toSequence (fromSequence "\000abc") = ""
+     *
+     * or, for any string `s`, an implementation may have the following
+     * property:
+     *
+     *   toSequence (fromSequence s) = s
      *
      *)
     type sequence
