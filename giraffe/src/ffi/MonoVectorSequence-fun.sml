@@ -12,6 +12,7 @@ functor MonoVectorSequence(ElemVector : MONO_VECTOR) :>
   struct
     type t = ElemVector.vector
     open ElemVector
+    fun toList v = List.tabulate (length v, fn i => sub (v, i))
     fun take (v, n) = tabulate (n, fn i => sub (v, i))
     structure Vector = ElemVector
     fun toVector v = v

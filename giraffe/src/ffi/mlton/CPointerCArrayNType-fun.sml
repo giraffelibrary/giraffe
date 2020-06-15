@@ -21,6 +21,9 @@ functor CPointerCArrayNType(
     fun sub t i = Sequence.sub (t, i)
     val tabulate = Sequence.tabulate
 
+    val fromList = Sequence.fromList
+    val toList = Sequence.toList
+
     type 'a from_p = int -> 'a
     structure Pointer = CTypedPointer(CElemType.Pointer.NotNullType)
     type notnull = Pointer.notnull

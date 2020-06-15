@@ -1,4 +1,4 @@
-(* Copyright (C) 2017, 2019 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -12,6 +12,8 @@ functor CValueVectorSequence(CElemType : C_VALUE_TYPE) :>
   struct
     type t = CElemType.t vector
     type elem = CElemType.t
+    val fromList = Vector.fromList
+    fun toList v = List.tabulate (Vector.length v, fn i => Vector.sub (v, i))
     val tabulate = Vector.tabulate
     val sub = Vector.sub
     val length = Vector.length

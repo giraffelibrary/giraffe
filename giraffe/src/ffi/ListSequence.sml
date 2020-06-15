@@ -1,4 +1,4 @@
-(* Copyright (C) 2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -19,6 +19,8 @@ structure ListSequence :> SEQUENCE where type 'a t = 'a list =
       in
         step 0
       end
+    val fromList = Fn.id
+    val toList = Fn.id
     val toVector = Vector.fromList
     fun fromVector v =
       List.tabulate (Vector.length v, fn i => Vector.sub (v, i))

@@ -9,6 +9,7 @@ structure VectorSequence :> SEQUENCE where type 'a t = 'a vector =
   struct
     open Vector
     type 'a t = 'a vector
+    fun toList v = List.tabulate (length v, fn i => sub (v, i))
     fun toVector v = v
     fun fromVector v = v
   end

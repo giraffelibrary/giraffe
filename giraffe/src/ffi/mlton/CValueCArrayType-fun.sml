@@ -22,6 +22,9 @@ functor CValueCArrayType(
     fun sub t i = ElemSequence.sub (t, i)
     val tabulate = ElemSequence.tabulate
 
+    val fromList = ElemSequence.fromList
+    val toList = ElemSequence.toList
+
     type 'a from_p = 'a
     structure Pointer = CTypedPointer(CElemType)
     type notnull = Pointer.notnull

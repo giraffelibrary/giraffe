@@ -21,6 +21,9 @@ functor CPointerCArrayNType(
     fun sub t i = Sequence.sub (t, i)
     val tabulate = Sequence.tabulate
 
+    val fromList = Sequence.fromList
+    val toList = Sequence.toList
+
     open PolyMLFFI
 
     type 'a from_p = int -> 'a

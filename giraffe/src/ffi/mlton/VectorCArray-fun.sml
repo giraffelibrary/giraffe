@@ -21,6 +21,9 @@ functor VectorCArray(CArray : C_ARRAY where type 'a C.ArrayType.from_p = 'a) :>
     val sub = CArray.C.ArrayType.sub
     val tabulate = CArray.C.ArrayType.tabulate
 
+    val fromList = CArray.C.ArrayType.fromList
+    val toList = CArray.C.ArrayType.toList
+
     type sequence = CArray.sequence
     val fromSequence = Fn.id
     val toSequence = Fn.id

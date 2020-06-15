@@ -13,6 +13,8 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
     val length : t -> int
     val sub : t -> int -> elem
     val tabulate : int * (int -> elem) -> t
+    val fromList : elem list -> t
+    val toList : t -> elem list
 
     structure Pointer : C_POINTER
     type notnull = Pointer.notnull

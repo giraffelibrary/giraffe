@@ -44,6 +44,38 @@ signature C_ARRAY =
     val tabulate : int * (int -> elem) -> t
 
     (**
+     * Conversion between SML list and C array.
+     *
+     * For an array that is not null terminated, `fromList es` returns a
+     * C array whose elements are from `es` and `toList t` returns an SML
+     * list whose elements are from `t`.
+     *
+     * For an array that is null terminated, the elements of the SML list can
+     * represent the null terminator value.  `fromList es` returns a C array
+     * whose elements are from some prefix of `es` that includes at least all
+     * elements before the first null terminator if such an element exists
+     * and, otherwise, all elements.  Similarly, `toList t` returns an SML
+     * list whose elements are from some prefix of `t` that includes at least
+     * all elements before the first null terminator if such an element
+     * exists and, otherwise, all elements.
+     *
+     * For example, for a null-terminated character array, i.e. where type
+     * `sequence` is `string` and type `elem` is `char`, an implementation
+     * may have the following behaviour:
+     *
+     *   toList (fromList [#"a", #"\000", #"b", #"c"]) = [#"a"]
+     *   toList (fromList [#"\000", #"a", #"b", #"c"]) = []
+     *
+     * or, for any character list `cs`, an implementation may have the
+     * following property:
+     *
+     *   toList (fromList cs) = cs
+     *
+     *)
+    val fromList : elem list -> t
+    val toList : t -> elem list
+
+    (**
      * Conversion between SML sequence and C array.
      *
      * The type `sequence` represents array values in SML.

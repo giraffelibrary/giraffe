@@ -1,4 +1,4 @@
-(* Copyright (C) 2016, 2019 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -15,6 +15,9 @@ signature MONO_SEQUENCE =
     val appi : (int * elem -> unit) -> t -> unit
     val findi : (int * elem -> bool) -> t -> (int * elem) option
     val take : t * int -> t
+
+    val fromList : elem list -> t
+    val toList : t -> elem list
 
     structure Vector : MONO_VECTOR where type elem = elem
     val toVector : t -> Vector.vector

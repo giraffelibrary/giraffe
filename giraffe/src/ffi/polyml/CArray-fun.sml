@@ -164,6 +164,27 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
     fun tabulate (n, f) =
       FFI.fromPtr ~1 (C.ArrayType.init (n, f))
 
+    fun fromList es =
+      let
+        val n = List.length es
+        val r = ref es
+        fun f _ =
+          case ! r of
+            e :: es' => (r := es'; e)
+          | []       => raise Fail "CArray().fromList: unreachable case"
+      in
+        tabulate (n, f)
+      end
+
+    val toList =
+      let
+        open C.ArrayType
+        fun tabulateFromC p = List.tabulate (len p, toElem o get p)
+      in
+        fn
+          a => Finalizable.withValue (a, tabulateFromC)
+      end
+
     val length =
       fn
         a => Finalizable.withValue (a, C.ArrayType.len)

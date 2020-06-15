@@ -21,7 +21,8 @@ functor CPointerCArrayType(
     fun sub t i = Sequence.sub (t, i)
     val tabulate = Sequence.tabulate
 
-    open PolyMLFFI
+    val fromList = Sequence.fromList
+    val toList = Sequence.toList
 
     type 'a from_p = 'a
     structure Pointer = CTypedPointer(CElemType.Pointer.OptNullType)
