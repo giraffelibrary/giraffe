@@ -15,14 +15,14 @@ structure GtkRecentAction :>
           (
             _import "mlton_gtk_recent_action_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkActionClass.FFI.notnull GtkActionClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkActionClass.FFI.non_opt GtkActionClass.FFI.p;
           )
             (
               x1,
@@ -44,15 +44,15 @@ structure GtkRecentAction :>
           (
             _import "mlton_gtk_recent_action_new_for_manager" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * unit GtkRecentManagerClass.FFI.p
-               -> GtkActionClass.FFI.notnull GtkActionClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * GtkRecentManagerClass.FFI.opt GtkRecentManagerClass.FFI.p
+               -> GtkActionClass.FFI.non_opt GtkActionClass.FFI.p;
           )
             (
               x1,
@@ -65,8 +65,8 @@ structure GtkRecentAction :>
               x8,
               x9
             )
-    val getShowNumbers_ = _import "gtk_recent_action_get_show_numbers" : GtkRecentActionClass.FFI.notnull GtkRecentActionClass.FFI.p -> GBool.FFI.val_;
-    val setShowNumbers_ = fn x1 & x2 => (_import "gtk_recent_action_set_show_numbers" : GtkRecentActionClass.FFI.notnull GtkRecentActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getShowNumbers_ = _import "gtk_recent_action_get_show_numbers" : GtkRecentActionClass.FFI.non_opt GtkRecentActionClass.FFI.p -> GBool.FFI.val_;
+    val setShowNumbers_ = fn x1 & x2 => (_import "gtk_recent_action_set_show_numbers" : GtkRecentActionClass.FFI.non_opt GtkRecentActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkRecentActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a recent_chooser_class = 'a GtkRecentChooserClass.class

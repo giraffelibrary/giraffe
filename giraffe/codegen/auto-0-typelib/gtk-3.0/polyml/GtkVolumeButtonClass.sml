@@ -1,7 +1,8 @@
 structure GtkVolumeButtonClass :>
   GTK_VOLUME_BUTTON_CLASS
     where type 'a scale_button_class = 'a GtkScaleButtonClass.class
-    where type C.notnull = GtkScaleButtonClass.C.notnull
+    where type C.opt = GtkScaleButtonClass.C.opt
+    where type C.non_opt = GtkScaleButtonClass.C.non_opt
     where type 'a C.p = 'a GtkScaleButtonClass.C.p =
   struct
     type 'a scale_button_class = 'a GtkScaleButtonClass.class

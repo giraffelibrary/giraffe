@@ -14,15 +14,15 @@ structure PangoLayout :>
     where type wrap_mode_t = PangoWrapMode.t =
   struct
     val getType_ = _import "pango_layout_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "pango_layout_new" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p;
-    val contextChanged_ = _import "pango_layout_context_changed" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> unit;
-    val copy_ = _import "pango_layout_copy" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p;
-    val getAlignment_ = _import "pango_layout_get_alignment" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> PangoAlignment.FFI.val_;
-    val getAttributes_ = _import "pango_layout_get_attributes" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p;
-    val getAutoDir_ = _import "pango_layout_get_auto_dir" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GBool.FFI.val_;
-    val getBaseline_ = _import "pango_layout_get_baseline" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
-    val getCharacterCount_ = _import "pango_layout_get_character_count" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
-    val getContext_ = _import "pango_layout_get_context" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
+    val new_ = _import "pango_layout_new" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p;
+    val contextChanged_ = _import "pango_layout_context_changed" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> unit;
+    val copy_ = _import "pango_layout_copy" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p;
+    val getAlignment_ = _import "pango_layout_get_alignment" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> PangoAlignment.FFI.val_;
+    val getAttributes_ = _import "pango_layout_get_attributes" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> PangoAttrListRecord.FFI.non_opt PangoAttrListRecord.FFI.p;
+    val getAutoDir_ = _import "pango_layout_get_auto_dir" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GBool.FFI.val_;
+    val getBaseline_ = _import "pango_layout_get_baseline" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
+    val getCharacterCount_ = _import "pango_layout_get_character_count" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
+    val getContext_ = _import "pango_layout_get_context" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> PangoContextClass.FFI.non_opt PangoContextClass.FFI.p;
     val getCursorPos_ =
       fn
         x1
@@ -31,10 +31,10 @@ structure PangoLayout :>
          & x4 =>
           (
             _import "pango_layout_get_cursor_pos" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * GInt32.FFI.val_
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -43,7 +43,7 @@ structure PangoLayout :>
               x3,
               x4
             )
-    val getEllipsize_ = _import "pango_layout_get_ellipsize" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> PangoEllipsizeMode.FFI.val_;
+    val getEllipsize_ = _import "pango_layout_get_ellipsize" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> PangoEllipsizeMode.FFI.val_;
     val getExtents_ =
       fn
         x1
@@ -51,9 +51,9 @@ structure PangoLayout :>
          & x3 =>
           (
             _import "pango_layout_get_extents" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -61,14 +61,14 @@ structure PangoLayout :>
               x2,
               x3
             )
-    val getFontDescription_ = _import "pango_layout_get_font_description" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> unit PangoFontDescriptionRecord.FFI.p;
-    val getHeight_ = _import "pango_layout_get_height" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
-    val getIndent_ = _import "pango_layout_get_indent" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
-    val getIter_ = _import "pango_layout_get_iter" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p;
-    val getJustify_ = _import "pango_layout_get_justify" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GBool.FFI.val_;
-    val getLine_ = fn x1 & x2 => (_import "pango_layout_get_line" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt32.FFI.val_ -> unit PangoLayoutLineRecord.FFI.p;) (x1, x2)
-    val getLineCount_ = _import "pango_layout_get_line_count" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
-    val getLineReadonly_ = fn x1 & x2 => (_import "pango_layout_get_line_readonly" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt32.FFI.val_ -> unit PangoLayoutLineRecord.FFI.p;) (x1, x2)
+    val getFontDescription_ = _import "pango_layout_get_font_description" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> PangoFontDescriptionRecord.FFI.opt PangoFontDescriptionRecord.FFI.p;
+    val getHeight_ = _import "pango_layout_get_height" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
+    val getIndent_ = _import "pango_layout_get_indent" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
+    val getIter_ = _import "pango_layout_get_iter" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p;
+    val getJustify_ = _import "pango_layout_get_justify" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GBool.FFI.val_;
+    val getLine_ = fn x1 & x2 => (_import "pango_layout_get_line" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * GInt32.FFI.val_ -> PangoLayoutLineRecord.FFI.opt PangoLayoutLineRecord.FFI.p;) (x1, x2)
+    val getLineCount_ = _import "pango_layout_get_line_count" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
+    val getLineReadonly_ = fn x1 & x2 => (_import "pango_layout_get_line_readonly" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * GInt32.FFI.val_ -> PangoLayoutLineRecord.FFI.opt PangoLayoutLineRecord.FFI.p;) (x1, x2)
     val getLogAttrs_ =
       fn
         x1
@@ -76,9 +76,9 @@ structure PangoLayout :>
          & x4 =>
           (
             _import "mlton_pango_layout_get_log_attrs" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * PangoLogAttrRecordCArrayN.MLton.r1
-               * (unit, PangoLogAttrRecordCArrayN.FFI.notnull) PangoLogAttrRecordCArrayN.MLton.r2
+               * (PangoLogAttrRecordCArrayN.FFI.opt, PangoLogAttrRecordCArrayN.FFI.non_opt) PangoLogAttrRecordCArrayN.MLton.r2
                * GInt32.FFI.ref_
                -> unit;
           )
@@ -88,7 +88,7 @@ structure PangoLayout :>
               x3,
               x4
             )
-    val getLogAttrsReadonly_ = fn x1 & x2 => (_import "pango_layout_get_log_attrs_readonly" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt32.FFI.ref_ -> PangoLogAttrRecordCArrayN.FFI.notnull PangoLogAttrRecordCArrayN.FFI.out_p;) (x1, x2)
+    val getLogAttrsReadonly_ = fn x1 & x2 => (_import "pango_layout_get_log_attrs_readonly" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * GInt32.FFI.ref_ -> PangoLogAttrRecordCArrayN.FFI.non_opt PangoLogAttrRecordCArrayN.FFI.out_p;) (x1, x2)
     val getPixelExtents_ =
       fn
         x1
@@ -96,9 +96,9 @@ structure PangoLayout :>
          & x3 =>
           (
             _import "pango_layout_get_pixel_extents" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -113,7 +113,7 @@ structure PangoLayout :>
          & x3 =>
           (
             _import "pango_layout_get_pixel_size" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> unit;
@@ -123,8 +123,8 @@ structure PangoLayout :>
               x2,
               x3
             )
-    val getSerial_ = _import "pango_layout_get_serial" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GUInt32.FFI.val_;
-    val getSingleParagraphMode_ = _import "pango_layout_get_single_paragraph_mode" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GBool.FFI.val_;
+    val getSerial_ = _import "pango_layout_get_serial" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GUInt32.FFI.val_;
+    val getSingleParagraphMode_ = _import "pango_layout_get_single_paragraph_mode" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GBool.FFI.val_;
     val getSize_ =
       fn
         x1
@@ -132,7 +132,7 @@ structure PangoLayout :>
          & x3 =>
           (
             _import "pango_layout_get_size" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> unit;
@@ -142,12 +142,12 @@ structure PangoLayout :>
               x2,
               x3
             )
-    val getSpacing_ = _import "pango_layout_get_spacing" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
-    val getTabs_ = _import "pango_layout_get_tabs" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> unit PangoTabArrayRecord.FFI.p;
-    val getText_ = _import "pango_layout_get_text" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getUnknownGlyphsCount_ = _import "pango_layout_get_unknown_glyphs_count" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
-    val getWidth_ = _import "pango_layout_get_width" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
-    val getWrap_ = _import "pango_layout_get_wrap" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> PangoWrapMode.FFI.val_;
+    val getSpacing_ = _import "pango_layout_get_spacing" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
+    val getTabs_ = _import "pango_layout_get_tabs" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> PangoTabArrayRecord.FFI.opt PangoTabArrayRecord.FFI.p;
+    val getText_ = _import "pango_layout_get_text" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getUnknownGlyphsCount_ = _import "pango_layout_get_unknown_glyphs_count" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
+    val getWidth_ = _import "pango_layout_get_width" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GInt32.FFI.val_;
+    val getWrap_ = _import "pango_layout_get_wrap" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> PangoWrapMode.FFI.val_;
     val indexToLineX_ =
       fn
         x1
@@ -157,7 +157,7 @@ structure PangoLayout :>
          & x5 =>
           (
             _import "pango_layout_index_to_line_x" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * GInt32.FFI.val_
                * GBool.FFI.val_
                * GInt32.FFI.ref_
@@ -178,9 +178,9 @@ structure PangoLayout :>
          & x3 =>
           (
             _import "pango_layout_index_to_pos" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * GInt32.FFI.val_
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -188,8 +188,8 @@ structure PangoLayout :>
               x2,
               x3
             )
-    val isEllipsized_ = _import "pango_layout_is_ellipsized" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GBool.FFI.val_;
-    val isWrapped_ = _import "pango_layout_is_wrapped" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> GBool.FFI.val_;
+    val isEllipsized_ = _import "pango_layout_is_ellipsized" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GBool.FFI.val_;
+    val isWrapped_ = _import "pango_layout_is_wrapped" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> GBool.FFI.val_;
     val moveCursorVisually_ =
       fn
         x1
@@ -201,7 +201,7 @@ structure PangoLayout :>
          & x7 =>
           (
             _import "pango_layout_move_cursor_visually" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * GBool.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.val_
@@ -219,14 +219,14 @@ structure PangoLayout :>
               x6,
               x7
             )
-    val setAlignment_ = fn x1 & x2 => (_import "pango_layout_set_alignment" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * PangoAlignment.FFI.val_ -> unit;) (x1, x2)
-    val setAttributes_ = fn x1 & x2 => (_import "pango_layout_set_attributes" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * unit PangoAttrListRecord.FFI.p -> unit;) (x1, x2)
-    val setAutoDir_ = fn x1 & x2 => (_import "pango_layout_set_auto_dir" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setEllipsize_ = fn x1 & x2 => (_import "pango_layout_set_ellipsize" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * PangoEllipsizeMode.FFI.val_ -> unit;) (x1, x2)
-    val setFontDescription_ = fn x1 & x2 => (_import "pango_layout_set_font_description" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * unit PangoFontDescriptionRecord.FFI.p -> unit;) (x1, x2)
-    val setHeight_ = fn x1 & x2 => (_import "pango_layout_set_height" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setIndent_ = fn x1 & x2 => (_import "pango_layout_set_indent" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setJustify_ = fn x1 & x2 => (_import "pango_layout_set_justify" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setAlignment_ = fn x1 & x2 => (_import "pango_layout_set_alignment" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * PangoAlignment.FFI.val_ -> unit;) (x1, x2)
+    val setAttributes_ = fn x1 & x2 => (_import "pango_layout_set_attributes" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * PangoAttrListRecord.FFI.opt PangoAttrListRecord.FFI.p -> unit;) (x1, x2)
+    val setAutoDir_ = fn x1 & x2 => (_import "pango_layout_set_auto_dir" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setEllipsize_ = fn x1 & x2 => (_import "pango_layout_set_ellipsize" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * PangoEllipsizeMode.FFI.val_ -> unit;) (x1, x2)
+    val setFontDescription_ = fn x1 & x2 => (_import "pango_layout_set_font_description" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * PangoFontDescriptionRecord.FFI.opt PangoFontDescriptionRecord.FFI.p -> unit;) (x1, x2)
+    val setHeight_ = fn x1 & x2 => (_import "pango_layout_set_height" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setIndent_ = fn x1 & x2 => (_import "pango_layout_set_indent" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setJustify_ = fn x1 & x2 => (_import "pango_layout_set_justify" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setMarkup_ =
       fn
         x1
@@ -234,9 +234,9 @@ structure PangoLayout :>
          & x4 =>
           (
             _import "mlton_pango_layout_set_markup" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -255,9 +255,9 @@ structure PangoLayout :>
          & x6 =>
           (
             _import "mlton_pango_layout_set_markup_with_accel" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                * GChar.FFI.val_
                * GChar.FFI.ref_
@@ -271,9 +271,9 @@ structure PangoLayout :>
               x5,
               x6
             )
-    val setSingleParagraphMode_ = fn x1 & x2 => (_import "pango_layout_set_single_paragraph_mode" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setSpacing_ = fn x1 & x2 => (_import "pango_layout_set_spacing" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setTabs_ = fn x1 & x2 => (_import "pango_layout_set_tabs" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * unit PangoTabArrayRecord.FFI.p -> unit;) (x1, x2)
+    val setSingleParagraphMode_ = fn x1 & x2 => (_import "pango_layout_set_single_paragraph_mode" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSpacing_ = fn x1 & x2 => (_import "pango_layout_set_spacing" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setTabs_ = fn x1 & x2 => (_import "pango_layout_set_tabs" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * PangoTabArrayRecord.FFI.opt PangoTabArrayRecord.FFI.p -> unit;) (x1, x2)
     val setText_ =
       fn
         x1
@@ -281,9 +281,9 @@ structure PangoLayout :>
          & x4 =>
           (
             _import "mlton_pango_layout_set_text" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -293,8 +293,8 @@ structure PangoLayout :>
               x3,
               x4
             )
-    val setWidth_ = fn x1 & x2 => (_import "pango_layout_set_width" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setWrap_ = fn x1 & x2 => (_import "pango_layout_set_wrap" : PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p * PangoWrapMode.FFI.val_ -> unit;) (x1, x2)
+    val setWidth_ = fn x1 & x2 => (_import "pango_layout_set_width" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setWrap_ = fn x1 & x2 => (_import "pango_layout_set_wrap" : PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p * PangoWrapMode.FFI.val_ -> unit;) (x1, x2)
     val xyToIndex_ =
       fn
         x1
@@ -304,7 +304,7 @@ structure PangoLayout :>
          & x5 =>
           (
             _import "pango_layout_xy_to_index" :
-              PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+              PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.ref_

@@ -7,7 +7,7 @@ structure GioFileOutputStream :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_file_output_stream_get_type" : unit -> GObjectType.FFI.val_;
-    val getEtag_ = _import "g_file_output_stream_get_etag" : GioFileOutputStreamClass.FFI.notnull GioFileOutputStreamClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getEtag_ = _import "g_file_output_stream_get_etag" : GioFileOutputStreamClass.FFI.non_opt GioFileOutputStreamClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val queryInfo_ =
       fn
         x1
@@ -16,12 +16,12 @@ structure GioFileOutputStream :>
          & x5 =>
           (
             _import "mlton_g_file_output_stream_query_info" :
-              GioFileOutputStreamClass.FFI.notnull GioFileOutputStreamClass.FFI.p
+              GioFileOutputStreamClass.FFI.non_opt GioFileOutputStreamClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p;
           )
             (
               x1,
@@ -37,10 +37,10 @@ structure GioFileOutputStream :>
          & x3 =>
           (
             _import "g_file_output_stream_query_info_finish" :
-              GioFileOutputStreamClass.FFI.notnull GioFileOutputStreamClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
+              GioFileOutputStreamClass.FFI.non_opt GioFileOutputStreamClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p;
           )
             (
               x1,

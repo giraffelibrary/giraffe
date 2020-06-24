@@ -5,9 +5,9 @@ structure GtkOverlay :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_overlay_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_overlay_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val addOverlay_ = fn x1 & x2 => (_import "gtk_overlay_add_overlay" : GtkOverlayClass.FFI.notnull GtkOverlayClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val getOverlayPassThrough_ = fn x1 & x2 => (_import "gtk_overlay_get_overlay_pass_through" : GtkOverlayClass.FFI.notnull GtkOverlayClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val new_ = _import "gtk_overlay_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val addOverlay_ = fn x1 & x2 => (_import "gtk_overlay_add_overlay" : GtkOverlayClass.FFI.non_opt GtkOverlayClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val getOverlayPassThrough_ = fn x1 & x2 => (_import "gtk_overlay_get_overlay_pass_through" : GtkOverlayClass.FFI.non_opt GtkOverlayClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val reorderOverlay_ =
       fn
         x1
@@ -15,8 +15,8 @@ structure GtkOverlay :>
          & x3 =>
           (
             _import "gtk_overlay_reorder_overlay" :
-              GtkOverlayClass.FFI.notnull GtkOverlayClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkOverlayClass.FFI.non_opt GtkOverlayClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt32.FFI.val_
                -> unit;
           )
@@ -32,8 +32,8 @@ structure GtkOverlay :>
          & x3 =>
           (
             _import "gtk_overlay_set_overlay_pass_through" :
-              GtkOverlayClass.FFI.notnull GtkOverlayClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkOverlayClass.FFI.non_opt GtkOverlayClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )

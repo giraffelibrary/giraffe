@@ -1,7 +1,8 @@
 structure GioMemoryInputStreamClass :>
   GIO_MEMORY_INPUT_STREAM_CLASS
     where type 'a input_stream_class = 'a GioInputStreamClass.class
-    where type C.notnull = GioInputStreamClass.C.notnull
+    where type C.opt = GioInputStreamClass.C.opt
+    where type C.non_opt = GioInputStreamClass.C.non_opt
     where type 'a C.p = 'a GioInputStreamClass.C.p =
   struct
     type 'a input_stream_class = 'a GioInputStreamClass.class

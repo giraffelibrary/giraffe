@@ -4,8 +4,8 @@ structure GtkOrientable :>
     where type orientation_t = GtkOrientation.t =
   struct
     val getType_ = _import "gtk_orientable_get_type" : unit -> GObjectType.FFI.val_;
-    val getOrientation_ = _import "gtk_orientable_get_orientation" : GtkOrientableClass.FFI.notnull GtkOrientableClass.FFI.p -> GtkOrientation.FFI.val_;
-    val setOrientation_ = fn x1 & x2 => (_import "gtk_orientable_set_orientation" : GtkOrientableClass.FFI.notnull GtkOrientableClass.FFI.p * GtkOrientation.FFI.val_ -> unit;) (x1, x2)
+    val getOrientation_ = _import "gtk_orientable_get_orientation" : GtkOrientableClass.FFI.non_opt GtkOrientableClass.FFI.p -> GtkOrientation.FFI.val_;
+    val setOrientation_ = fn x1 & x2 => (_import "gtk_orientable_set_orientation" : GtkOrientableClass.FFI.non_opt GtkOrientableClass.FFI.p * GtkOrientation.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkOrientableClass.class
     type orientation_t = GtkOrientation.t
     type t = base class

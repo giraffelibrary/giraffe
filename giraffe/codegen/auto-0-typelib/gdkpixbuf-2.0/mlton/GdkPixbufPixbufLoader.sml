@@ -6,16 +6,16 @@ structure GdkPixbufPixbufLoader :>
     where type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class =
   struct
     val getType_ = _import "gdk_pixbuf_loader_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gdk_pixbuf_loader_new" : unit -> GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p;
+    val new_ = _import "gdk_pixbuf_loader_new" : unit -> GdkPixbufPixbufLoaderClass.FFI.non_opt GdkPixbufPixbufLoaderClass.FFI.p;
     val newWithMimeType_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gdk_pixbuf_loader_new_with_mime_type" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufLoaderClass.FFI.non_opt GdkPixbufPixbufLoaderClass.FFI.p;
           )
             (
               x1,
@@ -28,19 +28,19 @@ structure GdkPixbufPixbufLoader :>
           (
             _import "mlton_gdk_pixbuf_loader_new_with_type" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufLoaderClass.FFI.non_opt GdkPixbufPixbufLoaderClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val close_ = fn x1 & x2 => (_import "gdk_pixbuf_loader_close" : GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
-    val getAnimation_ = _import "gdk_pixbuf_loader_get_animation" : GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p -> GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p;
-    val getFormat_ = _import "gdk_pixbuf_loader_get_format" : GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p -> unit GdkPixbufPixbufFormatRecord.FFI.p;
-    val getPixbuf_ = _import "gdk_pixbuf_loader_get_pixbuf" : GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+    val close_ = fn x1 & x2 => (_import "gdk_pixbuf_loader_close" : GdkPixbufPixbufLoaderClass.FFI.non_opt GdkPixbufPixbufLoaderClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
+    val getAnimation_ = _import "gdk_pixbuf_loader_get_animation" : GdkPixbufPixbufLoaderClass.FFI.non_opt GdkPixbufPixbufLoaderClass.FFI.p -> GdkPixbufPixbufAnimationClass.FFI.non_opt GdkPixbufPixbufAnimationClass.FFI.p;
+    val getFormat_ = _import "gdk_pixbuf_loader_get_format" : GdkPixbufPixbufLoaderClass.FFI.non_opt GdkPixbufPixbufLoaderClass.FFI.p -> GdkPixbufPixbufFormatRecord.FFI.opt GdkPixbufPixbufFormatRecord.FFI.p;
+    val getPixbuf_ = _import "gdk_pixbuf_loader_get_pixbuf" : GdkPixbufPixbufLoaderClass.FFI.non_opt GdkPixbufPixbufLoaderClass.FFI.p -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
     val setSize_ =
       fn
         x1
@@ -48,7 +48,7 @@ structure GdkPixbufPixbufLoader :>
          & x3 =>
           (
             _import "gdk_pixbuf_loader_set_size" :
-              GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p
+              GdkPixbufPixbufLoaderClass.FFI.non_opt GdkPixbufPixbufLoaderClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -66,11 +66,11 @@ structure GdkPixbufPixbufLoader :>
          & x5 =>
           (
             _import "mlton_gdk_pixbuf_loader_write" :
-              GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p
+              GdkPixbufPixbufLoaderClass.FFI.non_opt GdkPixbufPixbufLoaderClass.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -87,9 +87,9 @@ structure GdkPixbufPixbufLoader :>
          & x3 =>
           (
             _import "gdk_pixbuf_loader_write_bytes" :
-              GdkPixbufPixbufLoaderClass.FFI.notnull GdkPixbufPixbufLoaderClass.FFI.p
-               * GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GdkPixbufPixbufLoaderClass.FFI.non_opt GdkPixbufPixbufLoaderClass.FFI.p
+               * GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

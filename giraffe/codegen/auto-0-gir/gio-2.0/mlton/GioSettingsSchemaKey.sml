@@ -3,13 +3,13 @@ structure GioSettingsSchemaKey :>
     where type t = GioSettingsSchemaKeyRecord.t =
   struct
     val getType_ = _import "g_settings_schema_key_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefaultValue_ = _import "g_settings_schema_key_get_default_value" : GioSettingsSchemaKeyRecord.FFI.notnull GioSettingsSchemaKeyRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val getDescription_ = _import "g_settings_schema_key_get_description" : GioSettingsSchemaKeyRecord.FFI.notnull GioSettingsSchemaKeyRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getName_ = _import "g_settings_schema_key_get_name" : GioSettingsSchemaKeyRecord.FFI.notnull GioSettingsSchemaKeyRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getRange_ = _import "g_settings_schema_key_get_range" : GioSettingsSchemaKeyRecord.FFI.notnull GioSettingsSchemaKeyRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val getSummary_ = _import "g_settings_schema_key_get_summary" : GioSettingsSchemaKeyRecord.FFI.notnull GioSettingsSchemaKeyRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getValueType_ = _import "g_settings_schema_key_get_value_type" : GioSettingsSchemaKeyRecord.FFI.notnull GioSettingsSchemaKeyRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
-    val rangeCheck_ = fn x1 & x2 => (_import "g_settings_schema_key_range_check" : GioSettingsSchemaKeyRecord.FFI.notnull GioSettingsSchemaKeyRecord.FFI.p * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getDefaultValue_ = _import "g_settings_schema_key_get_default_value" : GioSettingsSchemaKeyRecord.FFI.non_opt GioSettingsSchemaKeyRecord.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val getDescription_ = _import "g_settings_schema_key_get_description" : GioSettingsSchemaKeyRecord.FFI.non_opt GioSettingsSchemaKeyRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getName_ = _import "g_settings_schema_key_get_name" : GioSettingsSchemaKeyRecord.FFI.non_opt GioSettingsSchemaKeyRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getRange_ = _import "g_settings_schema_key_get_range" : GioSettingsSchemaKeyRecord.FFI.non_opt GioSettingsSchemaKeyRecord.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val getSummary_ = _import "g_settings_schema_key_get_summary" : GioSettingsSchemaKeyRecord.FFI.non_opt GioSettingsSchemaKeyRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getValueType_ = _import "g_settings_schema_key_get_value_type" : GioSettingsSchemaKeyRecord.FFI.non_opt GioSettingsSchemaKeyRecord.FFI.p -> GLibVariantTypeRecord.FFI.non_opt GLibVariantTypeRecord.FFI.p;
+    val rangeCheck_ = fn x1 & x2 => (_import "g_settings_schema_key_range_check" : GioSettingsSchemaKeyRecord.FFI.non_opt GioSettingsSchemaKeyRecord.FFI.p * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     type t = GioSettingsSchemaKeyRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefaultValue self = (GioSettingsSchemaKeyRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getDefaultValue_ self

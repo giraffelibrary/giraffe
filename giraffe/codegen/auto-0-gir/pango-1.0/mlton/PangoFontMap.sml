@@ -9,10 +9,10 @@ structure PangoFontMap :>
     where type 'a context_class = 'a PangoContextClass.class =
   struct
     val getType_ = _import "pango_font_map_get_type" : unit -> GObjectType.FFI.val_;
-    val changed_ = _import "pango_font_map_changed" : PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p -> unit;
-    val createContext_ = _import "pango_font_map_create_context" : PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
-    val getSerial_ = _import "pango_font_map_get_serial" : PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p -> GUInt.FFI.val_;
-    val getShapeEngineType_ = _import "pango_font_map_get_shape_engine_type" : PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val changed_ = _import "pango_font_map_changed" : PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p -> unit;
+    val createContext_ = _import "pango_font_map_create_context" : PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p -> PangoContextClass.FFI.non_opt PangoContextClass.FFI.p;
+    val getSerial_ = _import "pango_font_map_get_serial" : PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p -> GUInt.FFI.val_;
+    val getShapeEngineType_ = _import "pango_font_map_get_shape_engine_type" : PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val listFamilies_ =
       fn
         x1
@@ -20,9 +20,9 @@ structure PangoFontMap :>
          & x4 =>
           (
             _import "mlton_pango_font_map_list_families" :
-              PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p
+              PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p
                * PangoFontFamilyClassCPtrArrayN.MLton.r1
-               * (unit, PangoFontFamilyClassCPtrArrayN.FFI.notnull) PangoFontFamilyClassCPtrArrayN.MLton.r2
+               * (PangoFontFamilyClassCPtrArrayN.FFI.opt, PangoFontFamilyClassCPtrArrayN.FFI.non_opt) PangoFontFamilyClassCPtrArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -39,10 +39,10 @@ structure PangoFontMap :>
          & x3 =>
           (
             _import "pango_font_map_load_font" :
-              PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p
-               * PangoContextClass.FFI.notnull PangoContextClass.FFI.p
-               * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p
-               -> unit PangoFontClass.FFI.p;
+              PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p
+               * PangoContextClass.FFI.non_opt PangoContextClass.FFI.p
+               * PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p
+               -> PangoFontClass.FFI.opt PangoFontClass.FFI.p;
           )
             (
               x1,
@@ -57,11 +57,11 @@ structure PangoFontMap :>
          & x4 =>
           (
             _import "pango_font_map_load_fontset" :
-              PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p
-               * PangoContextClass.FFI.notnull PangoContextClass.FFI.p
-               * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p
-               * PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p
-               -> unit PangoFontsetClass.FFI.p;
+              PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p
+               * PangoContextClass.FFI.non_opt PangoContextClass.FFI.p
+               * PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p
+               * PangoLanguageRecord.FFI.non_opt PangoLanguageRecord.FFI.p
+               -> PangoFontsetClass.FFI.opt PangoFontsetClass.FFI.p;
           )
             (
               x1,

@@ -4,13 +4,13 @@ structure GtkCssSection :>
     where type css_section_type_t = GtkCssSectionType.t =
   struct
     val getType_ = _import "gtk_css_section_get_type" : unit -> GObjectType.FFI.val_;
-    val getEndLine_ = _import "gtk_css_section_get_end_line" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GUInt.FFI.val_;
-    val getEndPosition_ = _import "gtk_css_section_get_end_position" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GUInt.FFI.val_;
-    val getFile_ = _import "gtk_css_section_get_file" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
-    val getParent_ = _import "gtk_css_section_get_parent" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> unit GtkCssSectionRecord.FFI.p;
-    val getSectionType_ = _import "gtk_css_section_get_section_type" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GtkCssSectionType.FFI.val_;
-    val getStartLine_ = _import "gtk_css_section_get_start_line" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GUInt.FFI.val_;
-    val getStartPosition_ = _import "gtk_css_section_get_start_position" : GtkCssSectionRecord.FFI.notnull GtkCssSectionRecord.FFI.p -> GUInt.FFI.val_;
+    val getEndLine_ = _import "gtk_css_section_get_end_line" : GtkCssSectionRecord.FFI.non_opt GtkCssSectionRecord.FFI.p -> GUInt.FFI.val_;
+    val getEndPosition_ = _import "gtk_css_section_get_end_position" : GtkCssSectionRecord.FFI.non_opt GtkCssSectionRecord.FFI.p -> GUInt.FFI.val_;
+    val getFile_ = _import "gtk_css_section_get_file" : GtkCssSectionRecord.FFI.non_opt GtkCssSectionRecord.FFI.p -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
+    val getParent_ = _import "gtk_css_section_get_parent" : GtkCssSectionRecord.FFI.non_opt GtkCssSectionRecord.FFI.p -> GtkCssSectionRecord.FFI.opt GtkCssSectionRecord.FFI.p;
+    val getSectionType_ = _import "gtk_css_section_get_section_type" : GtkCssSectionRecord.FFI.non_opt GtkCssSectionRecord.FFI.p -> GtkCssSectionType.FFI.val_;
+    val getStartLine_ = _import "gtk_css_section_get_start_line" : GtkCssSectionRecord.FFI.non_opt GtkCssSectionRecord.FFI.p -> GUInt.FFI.val_;
+    val getStartPosition_ = _import "gtk_css_section_get_start_position" : GtkCssSectionRecord.FFI.non_opt GtkCssSectionRecord.FFI.p -> GUInt.FFI.val_;
     type t = GtkCssSectionRecord.t
     type css_section_type_t = GtkCssSectionType.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

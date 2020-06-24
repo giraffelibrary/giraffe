@@ -4,20 +4,20 @@ structure GtkSourceStyleScheme :>
     where type 'a style_class = 'a GtkSourceStyleClass.class =
   struct
     val getType_ = _import "gtk_source_style_scheme_get_type" : unit -> GObjectType.FFI.val_;
-    val getAuthors_ = _import "gtk_source_style_scheme_get_authors" : GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p -> unit Utf8CPtrArray.FFI.out_p;
-    val getDescription_ = _import "gtk_source_style_scheme_get_description" : GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getFilename_ = _import "gtk_source_style_scheme_get_filename" : GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getId_ = _import "gtk_source_style_scheme_get_id" : GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getName_ = _import "gtk_source_style_scheme_get_name" : GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getAuthors_ = _import "gtk_source_style_scheme_get_authors" : GtkSourceStyleSchemeClass.FFI.non_opt GtkSourceStyleSchemeClass.FFI.p -> Utf8CPtrArray.FFI.opt Utf8CPtrArray.FFI.out_p;
+    val getDescription_ = _import "gtk_source_style_scheme_get_description" : GtkSourceStyleSchemeClass.FFI.non_opt GtkSourceStyleSchemeClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getFilename_ = _import "gtk_source_style_scheme_get_filename" : GtkSourceStyleSchemeClass.FFI.non_opt GtkSourceStyleSchemeClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getId_ = _import "gtk_source_style_scheme_get_id" : GtkSourceStyleSchemeClass.FFI.non_opt GtkSourceStyleSchemeClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getName_ = _import "gtk_source_style_scheme_get_name" : GtkSourceStyleSchemeClass.FFI.non_opt GtkSourceStyleSchemeClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getStyle_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_style_scheme_get_style" :
-              GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p
+              GtkSourceStyleSchemeClass.FFI.non_opt GtkSourceStyleSchemeClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GtkSourceStyleClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkSourceStyleClass.FFI.opt GtkSourceStyleClass.FFI.p;
           )
             (
               x1,

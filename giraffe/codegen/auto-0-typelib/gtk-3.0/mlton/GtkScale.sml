@@ -8,7 +8,7 @@ structure GtkScale :>
     where type position_type_t = GtkPositionType.t =
   struct
     val getType_ = _import "gtk_scale_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "gtk_scale_new" : GtkOrientation.FFI.val_ * unit GtkAdjustmentClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val new_ = fn x1 & x2 => (_import "gtk_scale_new" : GtkOrientation.FFI.val_ * GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
     val newWithRange_ =
       fn
         x1
@@ -21,7 +21,7 @@ structure GtkScale :>
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -37,11 +37,11 @@ structure GtkScale :>
          & (x4, x5) =>
           (
             _import "mlton_gtk_scale_add_mark" :
-              GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p
+              GtkScaleClass.FFI.non_opt GtkScaleClass.FFI.p
                * GDouble.FFI.val_
                * GtkPositionType.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -51,11 +51,11 @@ structure GtkScale :>
               x4,
               x5
             )
-    val clearMarks_ = _import "gtk_scale_clear_marks" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> unit;
-    val getDigits_ = _import "gtk_scale_get_digits" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> GInt32.FFI.val_;
-    val getDrawValue_ = _import "gtk_scale_get_draw_value" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> GBool.FFI.val_;
-    val getHasOrigin_ = _import "gtk_scale_get_has_origin" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> GBool.FFI.val_;
-    val getLayout_ = _import "gtk_scale_get_layout" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> unit PangoLayoutClass.FFI.p;
+    val clearMarks_ = _import "gtk_scale_clear_marks" : GtkScaleClass.FFI.non_opt GtkScaleClass.FFI.p -> unit;
+    val getDigits_ = _import "gtk_scale_get_digits" : GtkScaleClass.FFI.non_opt GtkScaleClass.FFI.p -> GInt32.FFI.val_;
+    val getDrawValue_ = _import "gtk_scale_get_draw_value" : GtkScaleClass.FFI.non_opt GtkScaleClass.FFI.p -> GBool.FFI.val_;
+    val getHasOrigin_ = _import "gtk_scale_get_has_origin" : GtkScaleClass.FFI.non_opt GtkScaleClass.FFI.p -> GBool.FFI.val_;
+    val getLayout_ = _import "gtk_scale_get_layout" : GtkScaleClass.FFI.non_opt GtkScaleClass.FFI.p -> PangoLayoutClass.FFI.opt PangoLayoutClass.FFI.p;
     val getLayoutOffsets_ =
       fn
         x1
@@ -63,7 +63,7 @@ structure GtkScale :>
          & x3 =>
           (
             _import "gtk_scale_get_layout_offsets" :
-              GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p
+              GtkScaleClass.FFI.non_opt GtkScaleClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> unit;
@@ -73,11 +73,11 @@ structure GtkScale :>
               x2,
               x3
             )
-    val getValuePos_ = _import "gtk_scale_get_value_pos" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p -> GtkPositionType.FFI.val_;
-    val setDigits_ = fn x1 & x2 => (_import "gtk_scale_set_digits" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setDrawValue_ = fn x1 & x2 => (_import "gtk_scale_set_draw_value" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHasOrigin_ = fn x1 & x2 => (_import "gtk_scale_set_has_origin" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setValuePos_ = fn x1 & x2 => (_import "gtk_scale_set_value_pos" : GtkScaleClass.FFI.notnull GtkScaleClass.FFI.p * GtkPositionType.FFI.val_ -> unit;) (x1, x2)
+    val getValuePos_ = _import "gtk_scale_get_value_pos" : GtkScaleClass.FFI.non_opt GtkScaleClass.FFI.p -> GtkPositionType.FFI.val_;
+    val setDigits_ = fn x1 & x2 => (_import "gtk_scale_set_digits" : GtkScaleClass.FFI.non_opt GtkScaleClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setDrawValue_ = fn x1 & x2 => (_import "gtk_scale_set_draw_value" : GtkScaleClass.FFI.non_opt GtkScaleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHasOrigin_ = fn x1 & x2 => (_import "gtk_scale_set_has_origin" : GtkScaleClass.FFI.non_opt GtkScaleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setValuePos_ = fn x1 & x2 => (_import "gtk_scale_set_value_pos" : GtkScaleClass.FFI.non_opt GtkScaleClass.FFI.p * GtkPositionType.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkScaleClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

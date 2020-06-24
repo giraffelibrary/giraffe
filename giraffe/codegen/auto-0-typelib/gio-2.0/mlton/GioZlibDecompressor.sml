@@ -6,8 +6,8 @@ structure GioZlibDecompressor :>
     where type zlib_compressor_format_t = GioZlibCompressorFormat.t =
   struct
     val getType_ = _import "g_zlib_decompressor_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_zlib_decompressor_new" : GioZlibCompressorFormat.FFI.val_ -> GioZlibDecompressorClass.FFI.notnull GioZlibDecompressorClass.FFI.p;
-    val getFileInfo_ = _import "g_zlib_decompressor_get_file_info" : GioZlibDecompressorClass.FFI.notnull GioZlibDecompressorClass.FFI.p -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
+    val new_ = _import "g_zlib_decompressor_new" : GioZlibCompressorFormat.FFI.val_ -> GioZlibDecompressorClass.FFI.non_opt GioZlibDecompressorClass.FFI.p;
+    val getFileInfo_ = _import "g_zlib_decompressor_get_file_info" : GioZlibDecompressorClass.FFI.non_opt GioZlibDecompressorClass.FFI.p -> GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p;
     type 'a class = 'a GioZlibDecompressorClass.class
     type 'a converter_class = 'a GioConverterClass.class
     type 'a file_info_class = 'a GioFileInfoClass.class

@@ -15,10 +15,10 @@ structure GtkAppChooserDialog :>
          & x3 =>
           (
             _import "gtk_app_chooser_dialog_new" :
-              unit GtkWindowClass.FFI.p
+              GtkWindowClass.FFI.opt GtkWindowClass.FFI.p
                * GtkDialogFlags.FFI.val_
-               * GioFileClass.FFI.notnull GioFileClass.FFI.p
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * GioFileClass.FFI.non_opt GioFileClass.FFI.p
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -32,11 +32,11 @@ structure GtkAppChooserDialog :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_app_chooser_dialog_new_for_content_type" :
-              unit GtkWindowClass.FFI.p
+              GtkWindowClass.FFI.opt GtkWindowClass.FFI.p
                * GtkDialogFlags.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -44,16 +44,16 @@ structure GtkAppChooserDialog :>
               x3,
               x4
             )
-    val getHeading_ = _import "gtk_app_chooser_dialog_get_heading" : GtkAppChooserDialogClass.FFI.notnull GtkAppChooserDialogClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getWidget_ = _import "gtk_app_chooser_dialog_get_widget" : GtkAppChooserDialogClass.FFI.notnull GtkAppChooserDialogClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getHeading_ = _import "gtk_app_chooser_dialog_get_heading" : GtkAppChooserDialogClass.FFI.non_opt GtkAppChooserDialogClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getWidget_ = _import "gtk_app_chooser_dialog_get_widget" : GtkAppChooserDialogClass.FFI.non_opt GtkAppChooserDialogClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val setHeading_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_app_chooser_dialog_set_heading" :
-              GtkAppChooserDialogClass.FFI.notnull GtkAppChooserDialogClass.FFI.p
+              GtkAppChooserDialogClass.FFI.non_opt GtkAppChooserDialogClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

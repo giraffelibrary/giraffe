@@ -4,11 +4,11 @@ structure VtePty :>
     where type pty_flags_t = VtePtyFlags.t =
   struct
     val getType_ = _import "vte_pty_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "vte_pty_new" : VtePtyFlags.FFI.val_ * (unit, unit) GLibErrorRecord.FFI.r -> VtePtyClass.FFI.notnull VtePtyClass.FFI.p;) (x1, x2)
-    val newForeign_ = fn x1 & x2 => (_import "vte_pty_new_foreign" : GInt32.FFI.val_ * (unit, unit) GLibErrorRecord.FFI.r -> VtePtyClass.FFI.notnull VtePtyClass.FFI.p;) (x1, x2)
-    val childSetup_ = _import "vte_pty_child_setup" : VtePtyClass.FFI.notnull VtePtyClass.FFI.p -> unit;
-    val close_ = _import "vte_pty_close" : VtePtyClass.FFI.notnull VtePtyClass.FFI.p -> unit;
-    val getFd_ = _import "vte_pty_get_fd" : VtePtyClass.FFI.notnull VtePtyClass.FFI.p -> GInt32.FFI.val_;
+    val new_ = fn x1 & x2 => (_import "vte_pty_new" : VtePtyFlags.FFI.val_ * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> VtePtyClass.FFI.non_opt VtePtyClass.FFI.p;) (x1, x2)
+    val newForeign_ = fn x1 & x2 => (_import "vte_pty_new_foreign" : GInt32.FFI.val_ * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> VtePtyClass.FFI.non_opt VtePtyClass.FFI.p;) (x1, x2)
+    val childSetup_ = _import "vte_pty_child_setup" : VtePtyClass.FFI.non_opt VtePtyClass.FFI.p -> unit;
+    val close_ = _import "vte_pty_close" : VtePtyClass.FFI.non_opt VtePtyClass.FFI.p -> unit;
+    val getFd_ = _import "vte_pty_get_fd" : VtePtyClass.FFI.non_opt VtePtyClass.FFI.p -> GInt32.FFI.val_;
     val getSize_ =
       fn
         x1
@@ -17,10 +17,10 @@ structure VtePty :>
          & x4 =>
           (
             _import "vte_pty_get_size" :
-              VtePtyClass.FFI.notnull VtePtyClass.FFI.p
+              VtePtyClass.FFI.non_opt VtePtyClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -37,10 +37,10 @@ structure VtePty :>
          & x4 =>
           (
             _import "vte_pty_set_size" :
-              VtePtyClass.FFI.notnull VtePtyClass.FFI.p
+              VtePtyClass.FFI.non_opt VtePtyClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -54,9 +54,9 @@ structure VtePty :>
         x1 & (x2, x3) =>
           (
             _import "mlton_vte_pty_set_term" :
-              VtePtyClass.FFI.notnull VtePtyClass.FFI.p
+              VtePtyClass.FFI.non_opt VtePtyClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -71,9 +71,9 @@ structure VtePty :>
          & x3 =>
           (
             _import "vte_pty_set_utf8" :
-              VtePtyClass.FFI.notnull VtePtyClass.FFI.p
+              VtePtyClass.FFI.non_opt VtePtyClass.FFI.p
                * GBool.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

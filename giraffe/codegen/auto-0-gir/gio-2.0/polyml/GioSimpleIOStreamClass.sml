@@ -1,7 +1,8 @@
 structure GioSimpleIOStreamClass :>
   GIO_SIMPLE_I_O_STREAM_CLASS
     where type 'a i_o_stream_class = 'a GioIOStreamClass.class
-    where type C.notnull = GioIOStreamClass.C.notnull
+    where type C.opt = GioIOStreamClass.C.opt
+    where type C.non_opt = GioIOStreamClass.C.non_opt
     where type 'a C.p = 'a GioIOStreamClass.C.p =
   struct
     type 'a i_o_stream_class = 'a GioIOStreamClass.class

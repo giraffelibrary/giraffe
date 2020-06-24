@@ -1,7 +1,8 @@
 structure GtkNotebookClass :>
   GTK_NOTEBOOK_CLASS
     where type 'a container_class = 'a GtkContainerClass.class
-    where type C.notnull = GtkContainerClass.C.notnull
+    where type C.opt = GtkContainerClass.C.opt
+    where type C.non_opt = GtkContainerClass.C.non_opt
     where type 'a C.p = 'a GtkContainerClass.C.p =
   struct
     type 'a container_class = 'a GtkContainerClass.class

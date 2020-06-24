@@ -19,8 +19,8 @@ structure GioDBusConnection :>
     where type 'a i_o_stream_class = 'a GioIOStreamClass.class =
   struct
     val getType_ = _import "g_dbus_connection_get_type" : unit -> GObjectType.FFI.val_;
-    val newFinish_ = fn x1 & x2 => (_import "g_dbus_connection_new_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;) (x1, x2)
-    val newForAddressFinish_ = fn x1 & x2 => (_import "g_dbus_connection_new_for_address_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;) (x1, x2)
+    val newFinish_ = fn x1 & x2 => (_import "g_dbus_connection_new_finish" : GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p;) (x1, x2)
+    val newForAddressFinish_ = fn x1 & x2 => (_import "g_dbus_connection_new_for_address_finish" : GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p;) (x1, x2)
     val newForAddressSync_ =
       fn
         (x1, x2)
@@ -31,12 +31,12 @@ structure GioDBusConnection :>
           (
             _import "mlton_g_dbus_connection_new_for_address_sync" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioDBusConnectionFlags.FFI.val_
-               * unit GioDBusAuthObserverClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
+               * GioDBusAuthObserverClass.FFI.opt GioDBusAuthObserverClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p;
           )
             (
               x1,
@@ -56,14 +56,14 @@ structure GioDBusConnection :>
          & x7 =>
           (
             _import "mlton_g_dbus_connection_new_sync" :
-              GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p
+              GioIOStreamClass.FFI.non_opt GioIOStreamClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GioDBusConnectionFlags.FFI.val_
-               * unit GioDBusAuthObserverClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
+               * GioDBusAuthObserverClass.FFI.opt GioDBusAuthObserverClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p;
           )
             (
               x1,
@@ -81,10 +81,10 @@ structure GioDBusConnection :>
          & x3 =>
           (
             _import "g_dbus_connection_call_finish" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -106,22 +106,22 @@ structure GioDBusConnection :>
          & x15 =>
           (
             _import "mlton_g_dbus_connection_call_sync" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.FFI.p
-               * unit GLibVariantTypeRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
+               * GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p
                * GioDBusCallFlags.FFI.val_
                * GInt32.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -148,11 +148,11 @@ structure GioDBusConnection :>
          & x4 =>
           (
             _import "g_dbus_connection_call_with_unix_fd_list_finish" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
-               * (unit, GioUnixFDListClass.FFI.notnull) GioUnixFDListClass.FFI.r
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
+               * (GioUnixFDListClass.FFI.opt, GioUnixFDListClass.FFI.non_opt) GioUnixFDListClass.FFI.r
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -177,24 +177,24 @@ structure GioDBusConnection :>
          & x17 =>
           (
             _import "mlton_g_dbus_connection_call_with_unix_fd_list_sync" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.FFI.p
-               * unit GLibVariantTypeRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
+               * GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p
                * GioDBusCallFlags.FFI.val_
                * GInt32.FFI.val_
-               * unit GioUnixFDListClass.FFI.p
-               * (unit, GioUnixFDListClass.FFI.notnull) GioUnixFDListClass.FFI.r
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               * GioUnixFDListClass.FFI.opt GioUnixFDListClass.FFI.p
+               * (GioUnixFDListClass.FFI.opt, GioUnixFDListClass.FFI.non_opt) GioUnixFDListClass.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -222,9 +222,9 @@ structure GioDBusConnection :>
          & x3 =>
           (
             _import "g_dbus_connection_close_finish" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -239,9 +239,9 @@ structure GioDBusConnection :>
          & x3 =>
           (
             _import "g_dbus_connection_close_sync" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -260,17 +260,17 @@ structure GioDBusConnection :>
          & x11 =>
           (
             _import "mlton_g_dbus_connection_emit_signal" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -294,11 +294,11 @@ structure GioDBusConnection :>
          & x5 =>
           (
             _import "mlton_g_dbus_connection_export_action_group" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt32.FFI.val_;
           )
             (
@@ -316,11 +316,11 @@ structure GioDBusConnection :>
          & x5 =>
           (
             _import "mlton_g_dbus_connection_export_menu_model" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt32.FFI.val_;
           )
             (
@@ -337,9 +337,9 @@ structure GioDBusConnection :>
          & x3 =>
           (
             _import "g_dbus_connection_flush_finish" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -354,9 +354,9 @@ structure GioDBusConnection :>
          & x3 =>
           (
             _import "g_dbus_connection_flush_sync" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -364,14 +364,14 @@ structure GioDBusConnection :>
               x2,
               x3
             )
-    val getCapabilities_ = _import "g_dbus_connection_get_capabilities" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GioDBusCapabilityFlags.FFI.val_;
-    val getExitOnClose_ = _import "g_dbus_connection_get_exit_on_close" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GBool.FFI.val_;
-    val getGuid_ = _import "g_dbus_connection_get_guid" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getLastSerial_ = _import "g_dbus_connection_get_last_serial" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GUInt32.FFI.val_;
-    val getPeerCredentials_ = _import "g_dbus_connection_get_peer_credentials" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> unit GioCredentialsClass.FFI.p;
-    val getStream_ = _import "g_dbus_connection_get_stream" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p;
-    val getUniqueName_ = _import "g_dbus_connection_get_unique_name" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val isClosed_ = _import "g_dbus_connection_is_closed" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GBool.FFI.val_;
+    val getCapabilities_ = _import "g_dbus_connection_get_capabilities" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p -> GioDBusCapabilityFlags.FFI.val_;
+    val getExitOnClose_ = _import "g_dbus_connection_get_exit_on_close" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p -> GBool.FFI.val_;
+    val getGuid_ = _import "g_dbus_connection_get_guid" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getLastSerial_ = _import "g_dbus_connection_get_last_serial" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p -> GUInt32.FFI.val_;
+    val getPeerCredentials_ = _import "g_dbus_connection_get_peer_credentials" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p -> GioCredentialsClass.FFI.opt GioCredentialsClass.FFI.p;
+    val getStream_ = _import "g_dbus_connection_get_stream" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p -> GioIOStreamClass.FFI.non_opt GioIOStreamClass.FFI.p;
+    val getUniqueName_ = _import "g_dbus_connection_get_unique_name" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val isClosed_ = _import "g_dbus_connection_is_closed" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p -> GBool.FFI.val_;
     val registerObject_ =
       fn
         x1
@@ -383,14 +383,14 @@ structure GioDBusConnection :>
          & x8 =>
           (
             _import "mlton_g_dbus_connection_register_object_with_closures" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GioDBusInterfaceInfoRecord.FFI.notnull GioDBusInterfaceInfoRecord.FFI.p
-               * unit GObjectClosureRecord.FFI.p
-               * unit GObjectClosureRecord.FFI.p
-               * unit GObjectClosureRecord.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioDBusInterfaceInfoRecord.FFI.non_opt GioDBusInterfaceInfoRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt32.FFI.val_;
           )
             (
@@ -403,7 +403,7 @@ structure GioDBusConnection :>
               x7,
               x8
             )
-    val removeFilter_ = fn x1 & x2 => (_import "g_dbus_connection_remove_filter" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val removeFilter_ = fn x1 & x2 => (_import "g_dbus_connection_remove_filter" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
     val sendMessage_ =
       fn
         x1
@@ -413,11 +413,11 @@ structure GioDBusConnection :>
          & x5 =>
           (
             _import "g_dbus_connection_send_message" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
-               * GioDBusMessageClass.FFI.notnull GioDBusMessageClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
+               * GioDBusMessageClass.FFI.non_opt GioDBusMessageClass.FFI.p
                * GioDBusSendMessageFlags.FFI.val_
                * GUInt32.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -434,10 +434,10 @@ structure GioDBusConnection :>
          & x3 =>
           (
             _import "g_dbus_connection_send_message_with_reply_finish" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioDBusMessageClass.FFI.notnull GioDBusMessageClass.FFI.p;
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioDBusMessageClass.FFI.non_opt GioDBusMessageClass.FFI.p;
           )
             (
               x1,
@@ -455,14 +455,14 @@ structure GioDBusConnection :>
          & x7 =>
           (
             _import "g_dbus_connection_send_message_with_reply_sync" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
-               * GioDBusMessageClass.FFI.notnull GioDBusMessageClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
+               * GioDBusMessageClass.FFI.non_opt GioDBusMessageClass.FFI.p
                * GioDBusSendMessageFlags.FFI.val_
                * GInt32.FFI.val_
                * GUInt32.FFI.ref_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioDBusMessageClass.FFI.notnull GioDBusMessageClass.FFI.p;
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioDBusMessageClass.FFI.non_opt GioDBusMessageClass.FFI.p;
           )
             (
               x1,
@@ -473,13 +473,13 @@ structure GioDBusConnection :>
               x6,
               x7
             )
-    val setExitOnClose_ = fn x1 & x2 => (_import "g_dbus_connection_set_exit_on_close" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val signalUnsubscribe_ = fn x1 & x2 => (_import "g_dbus_connection_signal_unsubscribe" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val startMessageProcessing_ = _import "g_dbus_connection_start_message_processing" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> unit;
-    val unexportActionGroup_ = fn x1 & x2 => (_import "g_dbus_connection_unexport_action_group" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val unexportMenuModel_ = fn x1 & x2 => (_import "g_dbus_connection_unexport_menu_model" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val unregisterObject_ = fn x1 & x2 => (_import "g_dbus_connection_unregister_object" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GUInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val unregisterSubtree_ = fn x1 & x2 => (_import "g_dbus_connection_unregister_subtree" : GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p * GUInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val setExitOnClose_ = fn x1 & x2 => (_import "g_dbus_connection_set_exit_on_close" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val signalUnsubscribe_ = fn x1 & x2 => (_import "g_dbus_connection_signal_unsubscribe" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val startMessageProcessing_ = _import "g_dbus_connection_start_message_processing" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p -> unit;
+    val unexportActionGroup_ = fn x1 & x2 => (_import "g_dbus_connection_unexport_action_group" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val unexportMenuModel_ = fn x1 & x2 => (_import "g_dbus_connection_unexport_menu_model" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val unregisterObject_ = fn x1 & x2 => (_import "g_dbus_connection_unregister_object" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p * GUInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val unregisterSubtree_ = fn x1 & x2 => (_import "g_dbus_connection_unregister_subtree" : GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p * GUInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     type 'a class = 'a GioDBusConnectionClass.class
     type 'a async_initable_class = 'a GioAsyncInitableClass.class
     type 'a initable_class = 'a GioInitableClass.class

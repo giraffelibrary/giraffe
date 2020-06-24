@@ -5,8 +5,8 @@ structure GtkAccelGroup :>
     where type accel_group_entry_record_c_array_n_t = GtkAccelGroupEntryRecordCArrayN.t =
   struct
     val getType_ = _import "gtk_accel_group_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_accel_group_new" : unit -> GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p;
-    val fromAccelClosure_ = _import "gtk_accel_group_from_accel_closure" : GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p -> unit GtkAccelGroupClass.FFI.p;
+    val new_ = _import "gtk_accel_group_new" : unit -> GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p;
+    val fromAccelClosure_ = _import "gtk_accel_group_from_accel_closure" : GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p -> GtkAccelGroupClass.FFI.opt GtkAccelGroupClass.FFI.p;
     val activate_ =
       fn
         x1
@@ -16,9 +16,9 @@ structure GtkAccelGroup :>
          & x5 =>
           (
             _import "gtk_accel_group_activate" :
-              GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p
+              GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p
                * GLibQuark.FFI.val_
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
                -> GBool.FFI.val_;
@@ -39,11 +39,11 @@ structure GtkAccelGroup :>
          & x5 =>
           (
             _import "gtk_accel_group_connect" :
-              GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p
+              GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
                * GtkAccelFlags.FFI.val_
-               * GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
                -> unit;
           )
             (
@@ -60,10 +60,10 @@ structure GtkAccelGroup :>
          & x4 =>
           (
             _import "mlton_gtk_accel_group_connect_by_path" :
-              GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p
+              GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
                -> unit;
           )
             (
@@ -72,7 +72,7 @@ structure GtkAccelGroup :>
               x3,
               x4
             )
-    val disconnect_ = fn x1 & x2 => (_import "gtk_accel_group_disconnect" : GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p * unit GObjectClosureRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val disconnect_ = fn x1 & x2 => (_import "gtk_accel_group_disconnect" : GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val disconnectKey_ =
       fn
         x1
@@ -80,7 +80,7 @@ structure GtkAccelGroup :>
          & x3 =>
           (
             _import "gtk_accel_group_disconnect_key" :
-              GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p
+              GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
                -> GBool.FFI.val_;
@@ -90,9 +90,9 @@ structure GtkAccelGroup :>
               x2,
               x3
             )
-    val getIsLocked_ = _import "gtk_accel_group_get_is_locked" : GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p -> GBool.FFI.val_;
-    val getModifierMask_ = _import "gtk_accel_group_get_modifier_mask" : GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p -> GdkModifierType.FFI.val_;
-    val lock_ = _import "gtk_accel_group_lock" : GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p -> unit;
+    val getIsLocked_ = _import "gtk_accel_group_get_is_locked" : GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p -> GBool.FFI.val_;
+    val getModifierMask_ = _import "gtk_accel_group_get_modifier_mask" : GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p -> GdkModifierType.FFI.val_;
+    val lock_ = _import "gtk_accel_group_lock" : GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p -> unit;
     val query_ =
       fn
         x1
@@ -101,11 +101,11 @@ structure GtkAccelGroup :>
          & x4 =>
           (
             _import "gtk_accel_group_query" :
-              GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p
+              GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
                * GUInt.FFI.ref_
-               -> unit GtkAccelGroupEntryRecordCArrayN.FFI.out_p;
+               -> GtkAccelGroupEntryRecordCArrayN.FFI.opt GtkAccelGroupEntryRecordCArrayN.FFI.out_p;
           )
             (
               x1,
@@ -113,7 +113,7 @@ structure GtkAccelGroup :>
               x3,
               x4
             )
-    val unlock_ = _import "gtk_accel_group_unlock" : GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p -> unit;
+    val unlock_ = _import "gtk_accel_group_unlock" : GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p -> unit;
     type 'a class = 'a GtkAccelGroupClass.class
     type accel_flags_t = GtkAccelFlags.t
     type accel_group_entry_record_c_array_n_t = GtkAccelGroupEntryRecordCArrayN.t

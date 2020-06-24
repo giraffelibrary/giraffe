@@ -16,7 +16,7 @@ structure GtkAlignment :>
                * GFloat.FFI.val_
                * GFloat.FFI.val_
                * GFloat.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -33,7 +33,7 @@ structure GtkAlignment :>
          & x5 =>
           (
             _import "gtk_alignment_get_padding" :
-              GtkAlignmentClass.FFI.notnull GtkAlignmentClass.FFI.p
+              GtkAlignmentClass.FFI.non_opt GtkAlignmentClass.FFI.p
                * GUInt32.FFI.ref_
                * GUInt32.FFI.ref_
                * GUInt32.FFI.ref_
@@ -56,7 +56,7 @@ structure GtkAlignment :>
          & x5 =>
           (
             _import "gtk_alignment_set" :
-              GtkAlignmentClass.FFI.notnull GtkAlignmentClass.FFI.p
+              GtkAlignmentClass.FFI.non_opt GtkAlignmentClass.FFI.p
                * GFloat.FFI.val_
                * GFloat.FFI.val_
                * GFloat.FFI.val_
@@ -79,7 +79,7 @@ structure GtkAlignment :>
          & x5 =>
           (
             _import "gtk_alignment_set_padding" :
-              GtkAlignmentClass.FFI.notnull GtkAlignmentClass.FFI.p
+              GtkAlignmentClass.FFI.non_opt GtkAlignmentClass.FFI.p
                * GUInt32.FFI.val_
                * GUInt32.FFI.val_
                * GUInt32.FFI.val_

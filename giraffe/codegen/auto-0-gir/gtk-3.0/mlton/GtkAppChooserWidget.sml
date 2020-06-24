@@ -7,21 +7,21 @@ structure GtkAppChooserWidget :>
     where type 'a menu_class = 'a GtkMenuClass.class =
   struct
     val getType_ = _import "gtk_app_chooser_widget_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_gtk_app_chooser_widget_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getDefaultText_ = _import "gtk_app_chooser_widget_get_default_text" : GtkAppChooserWidgetClass.FFI.notnull GtkAppChooserWidgetClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getShowAll_ = _import "gtk_app_chooser_widget_get_show_all" : GtkAppChooserWidgetClass.FFI.notnull GtkAppChooserWidgetClass.FFI.p -> GBool.FFI.val_;
-    val getShowDefault_ = _import "gtk_app_chooser_widget_get_show_default" : GtkAppChooserWidgetClass.FFI.notnull GtkAppChooserWidgetClass.FFI.p -> GBool.FFI.val_;
-    val getShowFallback_ = _import "gtk_app_chooser_widget_get_show_fallback" : GtkAppChooserWidgetClass.FFI.notnull GtkAppChooserWidgetClass.FFI.p -> GBool.FFI.val_;
-    val getShowOther_ = _import "gtk_app_chooser_widget_get_show_other" : GtkAppChooserWidgetClass.FFI.notnull GtkAppChooserWidgetClass.FFI.p -> GBool.FFI.val_;
-    val getShowRecommended_ = _import "gtk_app_chooser_widget_get_show_recommended" : GtkAppChooserWidgetClass.FFI.notnull GtkAppChooserWidgetClass.FFI.p -> GBool.FFI.val_;
+    val new_ = _import "mlton_gtk_app_chooser_widget_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getDefaultText_ = _import "gtk_app_chooser_widget_get_default_text" : GtkAppChooserWidgetClass.FFI.non_opt GtkAppChooserWidgetClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getShowAll_ = _import "gtk_app_chooser_widget_get_show_all" : GtkAppChooserWidgetClass.FFI.non_opt GtkAppChooserWidgetClass.FFI.p -> GBool.FFI.val_;
+    val getShowDefault_ = _import "gtk_app_chooser_widget_get_show_default" : GtkAppChooserWidgetClass.FFI.non_opt GtkAppChooserWidgetClass.FFI.p -> GBool.FFI.val_;
+    val getShowFallback_ = _import "gtk_app_chooser_widget_get_show_fallback" : GtkAppChooserWidgetClass.FFI.non_opt GtkAppChooserWidgetClass.FFI.p -> GBool.FFI.val_;
+    val getShowOther_ = _import "gtk_app_chooser_widget_get_show_other" : GtkAppChooserWidgetClass.FFI.non_opt GtkAppChooserWidgetClass.FFI.p -> GBool.FFI.val_;
+    val getShowRecommended_ = _import "gtk_app_chooser_widget_get_show_recommended" : GtkAppChooserWidgetClass.FFI.non_opt GtkAppChooserWidgetClass.FFI.p -> GBool.FFI.val_;
     val setDefaultText_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_app_chooser_widget_set_default_text" :
-              GtkAppChooserWidgetClass.FFI.notnull GtkAppChooserWidgetClass.FFI.p
+              GtkAppChooserWidgetClass.FFI.non_opt GtkAppChooserWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -29,11 +29,11 @@ structure GtkAppChooserWidget :>
               x2,
               x3
             )
-    val setShowAll_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_all" : GtkAppChooserWidgetClass.FFI.notnull GtkAppChooserWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowDefault_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_default" : GtkAppChooserWidgetClass.FFI.notnull GtkAppChooserWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowFallback_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_fallback" : GtkAppChooserWidgetClass.FFI.notnull GtkAppChooserWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowOther_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_other" : GtkAppChooserWidgetClass.FFI.notnull GtkAppChooserWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowRecommended_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_recommended" : GtkAppChooserWidgetClass.FFI.notnull GtkAppChooserWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowAll_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_all" : GtkAppChooserWidgetClass.FFI.non_opt GtkAppChooserWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowDefault_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_default" : GtkAppChooserWidgetClass.FFI.non_opt GtkAppChooserWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowFallback_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_fallback" : GtkAppChooserWidgetClass.FFI.non_opt GtkAppChooserWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowOther_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_other" : GtkAppChooserWidgetClass.FFI.non_opt GtkAppChooserWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowRecommended_ = fn x1 & x2 => (_import "gtk_app_chooser_widget_set_show_recommended" : GtkAppChooserWidgetClass.FFI.non_opt GtkAppChooserWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkAppChooserWidgetClass.class
     type 'a app_chooser_class = 'a GtkAppChooserClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

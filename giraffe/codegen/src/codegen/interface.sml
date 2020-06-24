@@ -182,14 +182,20 @@ in
        *     where type ('a, 'b) value_accessor_t =       | isGObject
        *       ('a, 'b) ValueAccessor.t                   |
        *                                                 -'
-       *     where type C.notnull =
-       *       <ParentObjectNamespace><ParentObjectName>Class.C.notnull
+       *     where type C.opt =
+       *       <ParentObjectNamespace><ParentObjectName>Class.C.opt
+       *     where type C.non_opt =
+       *       <ParentObjectNamespace><ParentObjectName>Class.C.non_opt
        *     where type 'a C.p =
        *       'a <ParentObjectNamespace><ParentObjectName>Class.C.p
        *)
-      val cNotnullQual =
+      val cOptQual =
         toList1 [
-          (([], cNotnullLId), TyRef ([], cons1 (parentClassStrId, cNotnullLId)))
+          (([], cOptLId), TyRef ([], cons1 (parentClassStrId, cOptLId)))
+        ]
+      val cNonOptQual =
+        toList1 [
+          (([], cNonOptLId), TyRef ([], cons1 (parentClassStrId, cNonOptLId)))
         ]
       val cPtrQual =
         toList1 [
@@ -199,7 +205,7 @@ in
           )
         ]
 
-      val sigQual'1 : qual list = [cNotnullQual, cPtrQual]
+      val sigQual'1 : qual list = [cOptQual, cNonOptQual, cPtrQual]
       val sigQual'2 =
         revMapAppend makeLocalTypeStrModuleQual (revAccessorLocalTypes, sigQual'1)
       val sigQual'3 =

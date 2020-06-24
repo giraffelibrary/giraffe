@@ -3,22 +3,22 @@ structure GtkFontChooser :>
     where type 'a class = 'a GtkFontChooserClass.class =
   struct
     val getType_ = _import "gtk_font_chooser_get_type" : unit -> GObjectType.FFI.val_;
-    val getFont_ = _import "gtk_font_chooser_get_font" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getFontDesc_ = _import "gtk_font_chooser_get_font_desc" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> unit PangoFontDescriptionRecord.FFI.p;
-    val getFontFace_ = _import "gtk_font_chooser_get_font_face" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> unit PangoFontFaceClass.FFI.p;
-    val getFontFamily_ = _import "gtk_font_chooser_get_font_family" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> unit PangoFontFamilyClass.FFI.p;
-    val getFontMap_ = _import "gtk_font_chooser_get_font_map" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> unit PangoFontMapClass.FFI.p;
-    val getFontSize_ = _import "gtk_font_chooser_get_font_size" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> GInt.FFI.val_;
-    val getPreviewText_ = _import "gtk_font_chooser_get_preview_text" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getShowPreviewEntry_ = _import "gtk_font_chooser_get_show_preview_entry" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p -> GBool.FFI.val_;
+    val getFont_ = _import "gtk_font_chooser_get_font" : GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getFontDesc_ = _import "gtk_font_chooser_get_font_desc" : GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p -> PangoFontDescriptionRecord.FFI.opt PangoFontDescriptionRecord.FFI.p;
+    val getFontFace_ = _import "gtk_font_chooser_get_font_face" : GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p -> PangoFontFaceClass.FFI.opt PangoFontFaceClass.FFI.p;
+    val getFontFamily_ = _import "gtk_font_chooser_get_font_family" : GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p -> PangoFontFamilyClass.FFI.opt PangoFontFamilyClass.FFI.p;
+    val getFontMap_ = _import "gtk_font_chooser_get_font_map" : GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p -> PangoFontMapClass.FFI.opt PangoFontMapClass.FFI.p;
+    val getFontSize_ = _import "gtk_font_chooser_get_font_size" : GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p -> GInt.FFI.val_;
+    val getPreviewText_ = _import "gtk_font_chooser_get_preview_text" : GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getShowPreviewEntry_ = _import "gtk_font_chooser_get_show_preview_entry" : GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p -> GBool.FFI.val_;
     val setFont_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_font_chooser_set_font" :
-              GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p
+              GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -26,16 +26,16 @@ structure GtkFontChooser :>
               x2,
               x3
             )
-    val setFontDesc_ = fn x1 & x2 => (_import "gtk_font_chooser_set_font_desc" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> unit;) (x1, x2)
-    val setFontMap_ = fn x1 & x2 => (_import "gtk_font_chooser_set_font_map" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p * unit PangoFontMapClass.FFI.p -> unit;) (x1, x2)
+    val setFontDesc_ = fn x1 & x2 => (_import "gtk_font_chooser_set_font_desc" : GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p * PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p -> unit;) (x1, x2)
+    val setFontMap_ = fn x1 & x2 => (_import "gtk_font_chooser_set_font_map" : GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p * PangoFontMapClass.FFI.opt PangoFontMapClass.FFI.p -> unit;) (x1, x2)
     val setPreviewText_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_font_chooser_set_preview_text" :
-              GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p
+              GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -43,7 +43,7 @@ structure GtkFontChooser :>
               x2,
               x3
             )
-    val setShowPreviewEntry_ = fn x1 & x2 => (_import "gtk_font_chooser_set_show_preview_entry" : GtkFontChooserClass.FFI.notnull GtkFontChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowPreviewEntry_ = fn x1 & x2 => (_import "gtk_font_chooser_set_show_preview_entry" : GtkFontChooserClass.FFI.non_opt GtkFontChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkFontChooserClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

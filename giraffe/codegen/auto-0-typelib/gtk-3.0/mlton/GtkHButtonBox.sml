@@ -5,7 +5,7 @@ structure GtkHButtonBox :>
     where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
     val getType_ = _import "gtk_hbutton_box_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_hbutton_box_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_hbutton_box_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     type 'a class = 'a GtkHButtonBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

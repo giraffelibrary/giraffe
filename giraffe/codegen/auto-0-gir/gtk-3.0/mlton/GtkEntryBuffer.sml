@@ -9,9 +9,9 @@ structure GtkEntryBuffer :>
           (
             _import "mlton_gtk_entry_buffer_new" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
-               -> GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p;
+               -> GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p;
           )
             (
               x1,
@@ -25,7 +25,7 @@ structure GtkEntryBuffer :>
          & x3 =>
           (
             _import "gtk_entry_buffer_delete_text" :
-              GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p
+              GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p
                * GUInt.FFI.val_
                * GInt.FFI.val_
                -> GUInt.FFI.val_;
@@ -42,7 +42,7 @@ structure GtkEntryBuffer :>
          & x3 =>
           (
             _import "gtk_entry_buffer_emit_deleted_text" :
-              GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p
+              GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p
                * GUInt.FFI.val_
                * GUInt.FFI.val_
                -> unit;
@@ -60,10 +60,10 @@ structure GtkEntryBuffer :>
          & x5 =>
           (
             _import "mlton_gtk_entry_buffer_emit_inserted_text" :
-              GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p
+              GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p
                * GUInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt.FFI.val_
                -> unit;
           )
@@ -74,10 +74,10 @@ structure GtkEntryBuffer :>
               x4,
               x5
             )
-    val getBytes_ = _import "gtk_entry_buffer_get_bytes" : GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p -> GSize.FFI.val_;
-    val getLength_ = _import "gtk_entry_buffer_get_length" : GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p -> GUInt.FFI.val_;
-    val getMaxLength_ = _import "gtk_entry_buffer_get_max_length" : GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p -> GInt.FFI.val_;
-    val getText_ = _import "gtk_entry_buffer_get_text" : GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getBytes_ = _import "gtk_entry_buffer_get_bytes" : GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p -> GSize.FFI.val_;
+    val getLength_ = _import "gtk_entry_buffer_get_length" : GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p -> GUInt.FFI.val_;
+    val getMaxLength_ = _import "gtk_entry_buffer_get_max_length" : GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p -> GInt.FFI.val_;
+    val getText_ = _import "gtk_entry_buffer_get_text" : GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val insertText_ =
       fn
         x1
@@ -86,10 +86,10 @@ structure GtkEntryBuffer :>
          & x5 =>
           (
             _import "mlton_gtk_entry_buffer_insert_text" :
-              GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p
+              GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p
                * GUInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                -> GUInt.FFI.val_;
           )
@@ -100,7 +100,7 @@ structure GtkEntryBuffer :>
               x4,
               x5
             )
-    val setMaxLength_ = fn x1 & x2 => (_import "gtk_entry_buffer_set_max_length" : GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setMaxLength_ = fn x1 & x2 => (_import "gtk_entry_buffer_set_max_length" : GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setText_ =
       fn
         x1
@@ -108,9 +108,9 @@ structure GtkEntryBuffer :>
          & x4 =>
           (
             _import "mlton_gtk_entry_buffer_set_text" :
-              GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p
+              GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )

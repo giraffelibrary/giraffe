@@ -3,10 +3,10 @@ structure GioIOModule :>
     where type 'a class = 'a GioIOModuleClass.class =
   struct
     val getType_ = _import "g_io_module_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_g_io_module_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioIOModuleClass.FFI.notnull GioIOModuleClass.FFI.p;
-    val query_ = _import "g_io_module_query" : unit -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val load_ = _import "g_io_module_load" : GioIOModuleClass.FFI.notnull GioIOModuleClass.FFI.p -> unit;
-    val unload_ = _import "g_io_module_unload" : GioIOModuleClass.FFI.notnull GioIOModuleClass.FFI.p -> unit;
+    val new_ = _import "mlton_g_io_module_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioIOModuleClass.FFI.non_opt GioIOModuleClass.FFI.p;
+    val query_ = _import "g_io_module_query" : unit -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val load_ = _import "g_io_module_load" : GioIOModuleClass.FFI.non_opt GioIOModuleClass.FFI.p -> unit;
+    val unload_ = _import "g_io_module_unload" : GioIOModuleClass.FFI.non_opt GioIOModuleClass.FFI.p -> unit;
     type 'a class = 'a GioIOModuleClass.class
     type t = base class
     fun asTypePlugin self = (GObjectObjectClass.FFI.withPtr ---> GObjectTypePluginClass.FFI.fromPtr false) I self

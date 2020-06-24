@@ -5,7 +5,7 @@ structure GioMenu :>
     where type 'a menu_model_class = 'a GioMenuModelClass.class =
   struct
     val getType_ = _import "g_menu_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_menu_new" : unit -> GioMenuClass.FFI.notnull GioMenuClass.FFI.p;
+    val new_ = _import "g_menu_new" : unit -> GioMenuClass.FFI.non_opt GioMenuClass.FFI.p;
     val append_ =
       fn
         x1
@@ -13,11 +13,11 @@ structure GioMenu :>
          & (x4, x5) =>
           (
             _import "mlton_g_menu_append" :
-              GioMenuClass.FFI.notnull GioMenuClass.FFI.p
+              GioMenuClass.FFI.non_opt GioMenuClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -27,7 +27,7 @@ structure GioMenu :>
               x4,
               x5
             )
-    val appendItem_ = fn x1 & x2 => (_import "g_menu_append_item" : GioMenuClass.FFI.notnull GioMenuClass.FFI.p * GioMenuItemClass.FFI.notnull GioMenuItemClass.FFI.p -> unit;) (x1, x2)
+    val appendItem_ = fn x1 & x2 => (_import "g_menu_append_item" : GioMenuClass.FFI.non_opt GioMenuClass.FFI.p * GioMenuItemClass.FFI.non_opt GioMenuItemClass.FFI.p -> unit;) (x1, x2)
     val appendSection_ =
       fn
         x1
@@ -35,10 +35,10 @@ structure GioMenu :>
          & x4 =>
           (
             _import "mlton_g_menu_append_section" :
-              GioMenuClass.FFI.notnull GioMenuClass.FFI.p
+              GioMenuClass.FFI.non_opt GioMenuClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p
                -> unit;
           )
             (
@@ -54,10 +54,10 @@ structure GioMenu :>
          & x4 =>
           (
             _import "mlton_g_menu_append_submenu" :
-              GioMenuClass.FFI.notnull GioMenuClass.FFI.p
+              GioMenuClass.FFI.non_opt GioMenuClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p
                -> unit;
           )
             (
@@ -66,7 +66,7 @@ structure GioMenu :>
               x3,
               x4
             )
-    val freeze_ = _import "g_menu_freeze" : GioMenuClass.FFI.notnull GioMenuClass.FFI.p -> unit;
+    val freeze_ = _import "g_menu_freeze" : GioMenuClass.FFI.non_opt GioMenuClass.FFI.p -> unit;
     val insert_ =
       fn
         x1
@@ -75,12 +75,12 @@ structure GioMenu :>
          & (x5, x6) =>
           (
             _import "mlton_g_menu_insert" :
-              GioMenuClass.FFI.notnull GioMenuClass.FFI.p
+              GioMenuClass.FFI.non_opt GioMenuClass.FFI.p
                * GInt32.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -98,9 +98,9 @@ structure GioMenu :>
          & x3 =>
           (
             _import "g_menu_insert_item" :
-              GioMenuClass.FFI.notnull GioMenuClass.FFI.p
+              GioMenuClass.FFI.non_opt GioMenuClass.FFI.p
                * GInt32.FFI.val_
-               * GioMenuItemClass.FFI.notnull GioMenuItemClass.FFI.p
+               * GioMenuItemClass.FFI.non_opt GioMenuItemClass.FFI.p
                -> unit;
           )
             (
@@ -116,11 +116,11 @@ structure GioMenu :>
          & x5 =>
           (
             _import "mlton_g_menu_insert_section" :
-              GioMenuClass.FFI.notnull GioMenuClass.FFI.p
+              GioMenuClass.FFI.non_opt GioMenuClass.FFI.p
                * GInt32.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p
                -> unit;
           )
             (
@@ -138,11 +138,11 @@ structure GioMenu :>
          & x5 =>
           (
             _import "mlton_g_menu_insert_submenu" :
-              GioMenuClass.FFI.notnull GioMenuClass.FFI.p
+              GioMenuClass.FFI.non_opt GioMenuClass.FFI.p
                * GInt32.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p
                -> unit;
           )
             (
@@ -159,11 +159,11 @@ structure GioMenu :>
          & (x4, x5) =>
           (
             _import "mlton_g_menu_prepend" :
-              GioMenuClass.FFI.notnull GioMenuClass.FFI.p
+              GioMenuClass.FFI.non_opt GioMenuClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -173,7 +173,7 @@ structure GioMenu :>
               x4,
               x5
             )
-    val prependItem_ = fn x1 & x2 => (_import "g_menu_prepend_item" : GioMenuClass.FFI.notnull GioMenuClass.FFI.p * GioMenuItemClass.FFI.notnull GioMenuItemClass.FFI.p -> unit;) (x1, x2)
+    val prependItem_ = fn x1 & x2 => (_import "g_menu_prepend_item" : GioMenuClass.FFI.non_opt GioMenuClass.FFI.p * GioMenuItemClass.FFI.non_opt GioMenuItemClass.FFI.p -> unit;) (x1, x2)
     val prependSection_ =
       fn
         x1
@@ -181,10 +181,10 @@ structure GioMenu :>
          & x4 =>
           (
             _import "mlton_g_menu_prepend_section" :
-              GioMenuClass.FFI.notnull GioMenuClass.FFI.p
+              GioMenuClass.FFI.non_opt GioMenuClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p
                -> unit;
           )
             (
@@ -200,10 +200,10 @@ structure GioMenu :>
          & x4 =>
           (
             _import "mlton_g_menu_prepend_submenu" :
-              GioMenuClass.FFI.notnull GioMenuClass.FFI.p
+              GioMenuClass.FFI.non_opt GioMenuClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p
                -> unit;
           )
             (
@@ -212,8 +212,8 @@ structure GioMenu :>
               x3,
               x4
             )
-    val remove_ = fn x1 & x2 => (_import "g_menu_remove" : GioMenuClass.FFI.notnull GioMenuClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val removeAll_ = _import "g_menu_remove_all" : GioMenuClass.FFI.notnull GioMenuClass.FFI.p -> unit;
+    val remove_ = fn x1 & x2 => (_import "g_menu_remove" : GioMenuClass.FFI.non_opt GioMenuClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val removeAll_ = _import "g_menu_remove_all" : GioMenuClass.FFI.non_opt GioMenuClass.FFI.p -> unit;
     type 'a class = 'a GioMenuClass.class
     type 'a menu_item_class = 'a GioMenuItemClass.class
     type 'a menu_model_class = 'a GioMenuModelClass.class

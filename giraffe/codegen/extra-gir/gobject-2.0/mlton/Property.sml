@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2017-2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2017-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -18,10 +18,10 @@ structure Property :>
          & x4 =>
           (
             _import "mlton_g_object_get_property" :
-              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -38,10 +38,10 @@ structure Property :>
          & x4 =>
           (
             _import "mlton_g_object_set_property" :
-              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (

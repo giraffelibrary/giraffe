@@ -2,16 +2,16 @@ structure GLibTimeVal :>
   G_LIB_TIME_VAL
     where type t = GLibTimeValRecord.t =
   struct
-    val add_ = fn x1 & x2 => (_import "g_time_val_add" : GLibTimeValRecord.FFI.notnull GLibTimeValRecord.FFI.p * GLong.FFI.val_ -> unit;) (x1, x2)
-    val toIso8601_ = _import "g_time_val_to_iso8601" : GLibTimeValRecord.FFI.notnull GLibTimeValRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val add_ = fn x1 & x2 => (_import "g_time_val_add" : GLibTimeValRecord.FFI.non_opt GLibTimeValRecord.FFI.p * GLong.FFI.val_ -> unit;) (x1, x2)
+    val toIso8601_ = _import "g_time_val_to_iso8601" : GLibTimeValRecord.FFI.non_opt GLibTimeValRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val fromIso8601_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_time_val_from_iso8601" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GLibTimeValRecord.FFI.notnull GLibTimeValRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibTimeValRecord.FFI.non_opt GLibTimeValRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (

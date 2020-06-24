@@ -18,10 +18,10 @@ structure GtkSpinButton :>
          & x3 =>
           (
             _import "gtk_spin_button_new" :
-              unit GtkAdjustmentClass.FFI.p
+              GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p
                * GDouble.FFI.val_
                * GUInt.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -38,7 +38,7 @@ structure GtkSpinButton :>
               GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -53,8 +53,8 @@ structure GtkSpinButton :>
          & x4 =>
           (
             _import "gtk_spin_button_configure" :
-              GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p
-               * unit GtkAdjustmentClass.FFI.p
+              GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p
+               * GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p
                * GDouble.FFI.val_
                * GUInt.FFI.val_
                -> unit;
@@ -65,8 +65,8 @@ structure GtkSpinButton :>
               x3,
               x4
             )
-    val getAdjustment_ = _import "gtk_spin_button_get_adjustment" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
-    val getDigits_ = _import "gtk_spin_button_get_digits" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p -> GUInt.FFI.val_;
+    val getAdjustment_ = _import "gtk_spin_button_get_adjustment" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
+    val getDigits_ = _import "gtk_spin_button_get_digits" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p -> GUInt.FFI.val_;
     val getIncrements_ =
       fn
         x1
@@ -74,7 +74,7 @@ structure GtkSpinButton :>
          & x3 =>
           (
             _import "gtk_spin_button_get_increments" :
-              GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p
+              GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                -> unit;
@@ -84,7 +84,7 @@ structure GtkSpinButton :>
               x2,
               x3
             )
-    val getNumeric_ = _import "gtk_spin_button_get_numeric" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p -> GBool.FFI.val_;
+    val getNumeric_ = _import "gtk_spin_button_get_numeric" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p -> GBool.FFI.val_;
     val getRange_ =
       fn
         x1
@@ -92,7 +92,7 @@ structure GtkSpinButton :>
          & x3 =>
           (
             _import "gtk_spin_button_get_range" :
-              GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p
+              GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                -> unit;
@@ -102,13 +102,13 @@ structure GtkSpinButton :>
               x2,
               x3
             )
-    val getSnapToTicks_ = _import "gtk_spin_button_get_snap_to_ticks" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p -> GBool.FFI.val_;
-    val getUpdatePolicy_ = _import "gtk_spin_button_get_update_policy" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p -> GtkSpinButtonUpdatePolicy.FFI.val_;
-    val getValue_ = _import "gtk_spin_button_get_value" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p -> GDouble.FFI.val_;
-    val getValueAsInt_ = _import "gtk_spin_button_get_value_as_int" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p -> GInt.FFI.val_;
-    val getWrap_ = _import "gtk_spin_button_get_wrap" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p -> GBool.FFI.val_;
-    val setAdjustment_ = fn x1 & x2 => (_import "gtk_spin_button_set_adjustment" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p * GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
-    val setDigits_ = fn x1 & x2 => (_import "gtk_spin_button_set_digits" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val getSnapToTicks_ = _import "gtk_spin_button_get_snap_to_ticks" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p -> GBool.FFI.val_;
+    val getUpdatePolicy_ = _import "gtk_spin_button_get_update_policy" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p -> GtkSpinButtonUpdatePolicy.FFI.val_;
+    val getValue_ = _import "gtk_spin_button_get_value" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p -> GDouble.FFI.val_;
+    val getValueAsInt_ = _import "gtk_spin_button_get_value_as_int" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p -> GInt.FFI.val_;
+    val getWrap_ = _import "gtk_spin_button_get_wrap" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p -> GBool.FFI.val_;
+    val setAdjustment_ = fn x1 & x2 => (_import "gtk_spin_button_set_adjustment" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p * GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val setDigits_ = fn x1 & x2 => (_import "gtk_spin_button_set_digits" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val setIncrements_ =
       fn
         x1
@@ -116,7 +116,7 @@ structure GtkSpinButton :>
          & x3 =>
           (
             _import "gtk_spin_button_set_increments" :
-              GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p
+              GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                -> unit;
@@ -126,7 +126,7 @@ structure GtkSpinButton :>
               x2,
               x3
             )
-    val setNumeric_ = fn x1 & x2 => (_import "gtk_spin_button_set_numeric" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setNumeric_ = fn x1 & x2 => (_import "gtk_spin_button_set_numeric" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setRange_ =
       fn
         x1
@@ -134,7 +134,7 @@ structure GtkSpinButton :>
          & x3 =>
           (
             _import "gtk_spin_button_set_range" :
-              GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p
+              GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                -> unit;
@@ -144,10 +144,10 @@ structure GtkSpinButton :>
               x2,
               x3
             )
-    val setSnapToTicks_ = fn x1 & x2 => (_import "gtk_spin_button_set_snap_to_ticks" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setUpdatePolicy_ = fn x1 & x2 => (_import "gtk_spin_button_set_update_policy" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p * GtkSpinButtonUpdatePolicy.FFI.val_ -> unit;) (x1, x2)
-    val setValue_ = fn x1 & x2 => (_import "gtk_spin_button_set_value" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setWrap_ = fn x1 & x2 => (_import "gtk_spin_button_set_wrap" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSnapToTicks_ = fn x1 & x2 => (_import "gtk_spin_button_set_snap_to_ticks" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUpdatePolicy_ = fn x1 & x2 => (_import "gtk_spin_button_set_update_policy" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p * GtkSpinButtonUpdatePolicy.FFI.val_ -> unit;) (x1, x2)
+    val setValue_ = fn x1 & x2 => (_import "gtk_spin_button_set_value" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setWrap_ = fn x1 & x2 => (_import "gtk_spin_button_set_wrap" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val spin_ =
       fn
         x1
@@ -155,7 +155,7 @@ structure GtkSpinButton :>
          & x3 =>
           (
             _import "gtk_spin_button_spin" :
-              GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p
+              GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p
                * GtkSpinType.FFI.val_
                * GDouble.FFI.val_
                -> unit;
@@ -165,7 +165,7 @@ structure GtkSpinButton :>
               x2,
               x3
             )
-    val update_ = _import "gtk_spin_button_update" : GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p -> unit;
+    val update_ = _import "gtk_spin_button_update" : GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p -> unit;
     type 'a class = 'a GtkSpinButtonClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_editable_class = 'a GtkCellEditableClass.class

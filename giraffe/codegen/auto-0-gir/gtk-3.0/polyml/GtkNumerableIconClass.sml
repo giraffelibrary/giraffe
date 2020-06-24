@@ -1,6 +1,7 @@
 structure GtkNumerableIconClass :>
   GTK_NUMERABLE_ICON_CLASS
-    where type C.notnull = GioEmblemedIconClass.C.notnull
+    where type C.opt = GioEmblemedIconClass.C.opt
+    where type C.non_opt = GioEmblemedIconClass.C.non_opt
     where type 'a C.p = 'a GioEmblemedIconClass.C.p =
   struct
     open GioEmblemedIconClass

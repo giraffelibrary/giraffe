@@ -7,7 +7,7 @@ structure GioSettings :>
     where type settings_schema_t = GioSettingsSchemaRecord.t =
   struct
     val getType_ = _import "g_settings_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_g_settings_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p;
+    val new_ = _import "mlton_g_settings_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p;
     val newFull_ =
       fn
         x1
@@ -15,11 +15,11 @@ structure GioSettings :>
          & (x3, x4) =>
           (
             _import "mlton_g_settings_new_full" :
-              GioSettingsSchemaRecord.FFI.notnull GioSettingsSchemaRecord.FFI.p
-               * unit GioSettingsBackendRecord.FFI.p
+              GioSettingsSchemaRecord.FFI.non_opt GioSettingsSchemaRecord.FFI.p
+               * GioSettingsBackendRecord.FFI.opt GioSettingsBackendRecord.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p;
           )
             (
               x1,
@@ -33,9 +33,9 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_new_with_backend" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GioSettingsBackendRecord.FFI.notnull GioSettingsBackendRecord.FFI.p
-               -> GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioSettingsBackendRecord.FFI.non_opt GioSettingsBackendRecord.FFI.p
+               -> GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p;
           )
             (
               x1,
@@ -50,11 +50,11 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_new_with_backend_and_path" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GioSettingsBackendRecord.FFI.notnull GioSettingsBackendRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioSettingsBackendRecord.FFI.non_opt GioSettingsBackendRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p;
           )
             (
               x1,
@@ -69,10 +69,10 @@ structure GioSettings :>
           (
             _import "mlton_g_settings_new_with_path" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p;
           )
             (
               x1,
@@ -80,17 +80,17 @@ structure GioSettings :>
               x3,
               x4
             )
-    val listRelocatableSchemas_ = _import "g_settings_list_relocatable_schemas" : unit -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val listSchemas_ = _import "g_settings_list_schemas" : unit -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val listRelocatableSchemas_ = _import "g_settings_list_relocatable_schemas" : unit -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val listSchemas_ = _import "g_settings_list_schemas" : unit -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val sync_ = _import "g_settings_sync" : unit -> unit;
     val unbind_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_unbind" :
-              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -98,7 +98,7 @@ structure GioSettings :>
               x2,
               x3
             )
-    val apply_ = _import "g_settings_apply" : GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p -> unit;
+    val apply_ = _import "g_settings_apply" : GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p -> unit;
     val bind_ =
       fn
         x1
@@ -108,12 +108,12 @@ structure GioSettings :>
          & x7 =>
           (
             _import "mlton_g_settings_bind" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioSettingsBindFlags.FFI.val_
                -> unit;
           )
@@ -135,12 +135,12 @@ structure GioSettings :>
          & x7 =>
           (
             _import "mlton_g_settings_bind_writable" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GBool.FFI.val_
                -> unit;
           )
@@ -158,25 +158,25 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_create_action" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioActionClass.FFI.notnull GioActionClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioActionClass.FFI.non_opt GioActionClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val delay_ = _import "g_settings_delay" : GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p -> unit;
+    val delay_ = _import "g_settings_delay" : GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p -> unit;
     val getBoolean_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_boolean" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -189,10 +189,10 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_child" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p;
           )
             (
               x1,
@@ -204,10 +204,10 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_default_value" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GLibVariantRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -219,9 +219,9 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_double" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GDouble.FFI.val_;
           )
             (
@@ -234,9 +234,9 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_enum" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GInt.FFI.val_;
           )
             (
@@ -249,9 +249,9 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_flags" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GUInt.FFI.val_;
           )
             (
@@ -259,15 +259,15 @@ structure GioSettings :>
               x2,
               x3
             )
-    val getHasUnapplied_ = _import "g_settings_get_has_unapplied" : GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p -> GBool.FFI.val_;
+    val getHasUnapplied_ = _import "g_settings_get_has_unapplied" : GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p -> GBool.FFI.val_;
     val getInt_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_int" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GInt.FFI.val_;
           )
             (
@@ -280,9 +280,9 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_int64" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GInt64.FFI.val_;
           )
             (
@@ -295,10 +295,10 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_range" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -310,10 +310,10 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_string" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -325,10 +325,10 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_strv" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -340,9 +340,9 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_uint" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GUInt.FFI.val_;
           )
             (
@@ -355,9 +355,9 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_uint64" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GUInt64.FFI.val_;
           )
             (
@@ -370,10 +370,10 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_user_value" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GLibVariantRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -385,10 +385,10 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_get_value" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -400,9 +400,9 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_is_writable" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -410,8 +410,8 @@ structure GioSettings :>
               x2,
               x3
             )
-    val listChildren_ = _import "g_settings_list_children" : GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val listKeys_ = _import "g_settings_list_keys" : GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val listChildren_ = _import "g_settings_list_children" : GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val listKeys_ = _import "g_settings_list_keys" : GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val rangeCheck_ =
       fn
         x1
@@ -419,10 +419,10 @@ structure GioSettings :>
          & x4 =>
           (
             _import "mlton_g_settings_range_check" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -436,9 +436,9 @@ structure GioSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_settings_reset" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -446,7 +446,7 @@ structure GioSettings :>
               x2,
               x3
             )
-    val revert_ = _import "g_settings_revert" : GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p -> unit;
+    val revert_ = _import "g_settings_revert" : GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p -> unit;
     val setBoolean_ =
       fn
         x1
@@ -454,9 +454,9 @@ structure GioSettings :>
          & x4 =>
           (
             _import "mlton_g_settings_set_boolean" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GBool.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -473,9 +473,9 @@ structure GioSettings :>
          & x4 =>
           (
             _import "mlton_g_settings_set_double" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GDouble.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -492,9 +492,9 @@ structure GioSettings :>
          & x4 =>
           (
             _import "mlton_g_settings_set_enum" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -511,9 +511,9 @@ structure GioSettings :>
          & x4 =>
           (
             _import "mlton_g_settings_set_flags" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -530,9 +530,9 @@ structure GioSettings :>
          & x4 =>
           (
             _import "mlton_g_settings_set_int" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -549,9 +549,9 @@ structure GioSettings :>
          & x4 =>
           (
             _import "mlton_g_settings_set_int64" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt64.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -568,11 +568,11 @@ structure GioSettings :>
          & (x4, x5) =>
           (
             _import "mlton_g_settings_set_string" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -589,11 +589,11 @@ structure GioSettings :>
          & (x4, x5) =>
           (
             _import "mlton_g_settings_set_strv" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8CPtrArray.MLton.p1
-               * unit Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.opt Utf8CPtrArray.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -610,9 +610,9 @@ structure GioSettings :>
          & x4 =>
           (
             _import "mlton_g_settings_set_uint" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -629,9 +629,9 @@ structure GioSettings :>
          & x4 =>
           (
             _import "mlton_g_settings_set_uint64" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt64.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -648,10 +648,10 @@ structure GioSettings :>
          & x4 =>
           (
             _import "mlton_g_settings_set_value" :
-              GioSettingsClass.FFI.notnull GioSettingsClass.FFI.p
+              GioSettingsClass.FFI.non_opt GioSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (

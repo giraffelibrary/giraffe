@@ -11,11 +11,11 @@ structure GLibMatchInfo :>
          & x4 =>
           (
             _import "mlton_g_match_info_expand_references" :
-              GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p
+              GLibMatchInfoRecord.FFI.non_opt GLibMatchInfoRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> unit Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8.FFI.opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -23,17 +23,17 @@ structure GLibMatchInfo :>
               x3,
               x4
             )
-    val fetch_ = fn x1 & x2 => (_import "g_match_info_fetch" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p * GInt32.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
-    val fetchAll_ = _import "g_match_info_fetch_all" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val fetch_ = fn x1 & x2 => (_import "g_match_info_fetch" : GLibMatchInfoRecord.FFI.non_opt GLibMatchInfoRecord.FFI.p * GInt32.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val fetchAll_ = _import "g_match_info_fetch_all" : GLibMatchInfoRecord.FFI.non_opt GLibMatchInfoRecord.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val fetchNamed_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_match_info_fetch_named" :
-              GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p
+              GLibMatchInfoRecord.FFI.non_opt GLibMatchInfoRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -48,9 +48,9 @@ structure GLibMatchInfo :>
          & x5 =>
           (
             _import "mlton_g_match_info_fetch_named_pos" :
-              GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p
+              GLibMatchInfoRecord.FFI.non_opt GLibMatchInfoRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> GBool.FFI.val_;
@@ -70,7 +70,7 @@ structure GLibMatchInfo :>
          & x4 =>
           (
             _import "g_match_info_fetch_pos" :
-              GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p
+              GLibMatchInfoRecord.FFI.non_opt GLibMatchInfoRecord.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
@@ -82,12 +82,12 @@ structure GLibMatchInfo :>
               x3,
               x4
             )
-    val getMatchCount_ = _import "g_match_info_get_match_count" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p -> GInt32.FFI.val_;
-    val getRegex_ = _import "g_match_info_get_regex" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p -> GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p;
-    val getString_ = _import "g_match_info_get_string" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val isPartialMatch_ = _import "g_match_info_is_partial_match" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p -> GBool.FFI.val_;
-    val matches_ = _import "g_match_info_matches" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p -> GBool.FFI.val_;
-    val next_ = fn x1 & x2 => (_import "g_match_info_next" : GLibMatchInfoRecord.FFI.notnull GLibMatchInfoRecord.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
+    val getMatchCount_ = _import "g_match_info_get_match_count" : GLibMatchInfoRecord.FFI.non_opt GLibMatchInfoRecord.FFI.p -> GInt32.FFI.val_;
+    val getRegex_ = _import "g_match_info_get_regex" : GLibMatchInfoRecord.FFI.non_opt GLibMatchInfoRecord.FFI.p -> GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p;
+    val getString_ = _import "g_match_info_get_string" : GLibMatchInfoRecord.FFI.non_opt GLibMatchInfoRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val isPartialMatch_ = _import "g_match_info_is_partial_match" : GLibMatchInfoRecord.FFI.non_opt GLibMatchInfoRecord.FFI.p -> GBool.FFI.val_;
+    val matches_ = _import "g_match_info_matches" : GLibMatchInfoRecord.FFI.non_opt GLibMatchInfoRecord.FFI.p -> GBool.FFI.val_;
+    val next_ = fn x1 & x2 => (_import "g_match_info_next" : GLibMatchInfoRecord.FFI.non_opt GLibMatchInfoRecord.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
     type t = GLibMatchInfoRecord.t
     type regex_t = GLibRegexRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

@@ -13,14 +13,14 @@ structure GtkToggleAction :>
           (
             _import "mlton_gtk_toggle_action_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkToggleActionClass.FFI.notnull GtkToggleActionClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkToggleActionClass.FFI.non_opt GtkToggleActionClass.FFI.p;
           )
             (
               x1,
@@ -32,11 +32,11 @@ structure GtkToggleAction :>
               x7,
               x8
             )
-    val getActive_ = _import "gtk_toggle_action_get_active" : GtkToggleActionClass.FFI.notnull GtkToggleActionClass.FFI.p -> GBool.FFI.val_;
-    val getDrawAsRadio_ = _import "gtk_toggle_action_get_draw_as_radio" : GtkToggleActionClass.FFI.notnull GtkToggleActionClass.FFI.p -> GBool.FFI.val_;
-    val setActive_ = fn x1 & x2 => (_import "gtk_toggle_action_set_active" : GtkToggleActionClass.FFI.notnull GtkToggleActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setDrawAsRadio_ = fn x1 & x2 => (_import "gtk_toggle_action_set_draw_as_radio" : GtkToggleActionClass.FFI.notnull GtkToggleActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val toggled_ = _import "gtk_toggle_action_toggled" : GtkToggleActionClass.FFI.notnull GtkToggleActionClass.FFI.p -> unit;
+    val getActive_ = _import "gtk_toggle_action_get_active" : GtkToggleActionClass.FFI.non_opt GtkToggleActionClass.FFI.p -> GBool.FFI.val_;
+    val getDrawAsRadio_ = _import "gtk_toggle_action_get_draw_as_radio" : GtkToggleActionClass.FFI.non_opt GtkToggleActionClass.FFI.p -> GBool.FFI.val_;
+    val setActive_ = fn x1 & x2 => (_import "gtk_toggle_action_set_active" : GtkToggleActionClass.FFI.non_opt GtkToggleActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setDrawAsRadio_ = fn x1 & x2 => (_import "gtk_toggle_action_set_draw_as_radio" : GtkToggleActionClass.FFI.non_opt GtkToggleActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val toggled_ = _import "gtk_toggle_action_toggled" : GtkToggleActionClass.FFI.non_opt GtkToggleActionClass.FFI.p -> unit;
     type 'a class = 'a GtkToggleActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class

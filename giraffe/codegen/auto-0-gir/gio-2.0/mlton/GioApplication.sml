@@ -17,18 +17,18 @@ structure GioApplication :>
           (
             _import "mlton_g_application_new" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GioApplicationFlags.FFI.val_
-               -> GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p;
+               -> GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getDefault_ = _import "g_application_get_default" : unit -> GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p;
-    val idIsValid_ = _import "mlton_g_application_id_is_valid" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
-    val activate_ = _import "g_application_activate" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> unit;
+    val getDefault_ = _import "g_application_get_default" : unit -> GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p;
+    val idIsValid_ = _import "mlton_g_application_id_is_valid" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
+    val activate_ = _import "g_application_activate" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> unit;
     val addMainOption_ =
       fn
         x1
@@ -40,16 +40,16 @@ structure GioApplication :>
          & (x9, x10) =>
           (
             _import "mlton_g_application_add_main_option" :
-              GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
+              GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GChar.FFI.val_
                * GLibOptionFlags.FFI.val_
                * GLibOptionArg.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -71,10 +71,10 @@ structure GioApplication :>
          & (x3, x4) =>
           (
             _import "mlton_g_application_bind_busy_property" :
-              GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+              GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -83,17 +83,17 @@ structure GioApplication :>
               x3,
               x4
             )
-    val getApplicationId_ = _import "g_application_get_application_id" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getDbusConnection_ = _import "g_application_get_dbus_connection" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
-    val getDbusObjectPath_ = _import "g_application_get_dbus_object_path" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getFlags_ = _import "g_application_get_flags" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> GioApplicationFlags.FFI.val_;
-    val getInactivityTimeout_ = _import "g_application_get_inactivity_timeout" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> GUInt.FFI.val_;
-    val getIsBusy_ = _import "g_application_get_is_busy" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> GBool.FFI.val_;
-    val getIsRegistered_ = _import "g_application_get_is_registered" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> GBool.FFI.val_;
-    val getIsRemote_ = _import "g_application_get_is_remote" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> GBool.FFI.val_;
-    val getResourceBasePath_ = _import "g_application_get_resource_base_path" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> unit Utf8.FFI.out_p;
-    val hold_ = _import "g_application_hold" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> unit;
-    val markBusy_ = _import "g_application_mark_busy" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> unit;
+    val getApplicationId_ = _import "g_application_get_application_id" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getDbusConnection_ = _import "g_application_get_dbus_connection" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p;
+    val getDbusObjectPath_ = _import "g_application_get_dbus_object_path" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getFlags_ = _import "g_application_get_flags" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> GioApplicationFlags.FFI.val_;
+    val getInactivityTimeout_ = _import "g_application_get_inactivity_timeout" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> GUInt.FFI.val_;
+    val getIsBusy_ = _import "g_application_get_is_busy" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> GBool.FFI.val_;
+    val getIsRegistered_ = _import "g_application_get_is_registered" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> GBool.FFI.val_;
+    val getIsRemote_ = _import "g_application_get_is_remote" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> GBool.FFI.val_;
+    val getResourceBasePath_ = _import "g_application_get_resource_base_path" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val hold_ = _import "g_application_hold" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> unit;
+    val markBusy_ = _import "g_application_mark_busy" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> unit;
     val open_ =
       fn
         x1
@@ -102,12 +102,12 @@ structure GioApplication :>
          & (x5, x6) =>
           (
             _import "mlton_g_application_open" :
-              GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
+              GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p
                * GioFileClassCPtrArrayN.MLton.p1
-               * GioFileClassCPtrArrayN.FFI.notnull GioFileClassCPtrArrayN.MLton.p2
+               * GioFileClassCPtrArrayN.FFI.non_opt GioFileClassCPtrArrayN.MLton.p2
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -118,7 +118,7 @@ structure GioApplication :>
               x5,
               x6
             )
-    val quit_ = _import "g_application_quit" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> unit;
+    val quit_ = _import "g_application_quit" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> unit;
     val register_ =
       fn
         x1
@@ -126,9 +126,9 @@ structure GioApplication :>
          & x3 =>
           (
             _import "g_application_register" :
-              GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -136,7 +136,7 @@ structure GioApplication :>
               x2,
               x3
             )
-    val release_ = _import "g_application_release" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> unit;
+    val release_ = _import "g_application_release" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> unit;
     val run_ =
       fn
         x1
@@ -144,10 +144,10 @@ structure GioApplication :>
          & (x3, x4) =>
           (
             _import "mlton_g_application_run" :
-              GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
+              GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p
                * GInt.FFI.val_
                * Utf8CPtrArrayN.MLton.p1
-               * unit Utf8CPtrArrayN.MLton.p2
+               * Utf8CPtrArrayN.FFI.opt Utf8CPtrArrayN.MLton.p2
                -> GInt.FFI.val_;
           )
             (
@@ -163,10 +163,10 @@ structure GioApplication :>
          & x4 =>
           (
             _import "mlton_g_application_send_notification" :
-              GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
+              GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * GioNotificationClass.FFI.notnull GioNotificationClass.FFI.p
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * GioNotificationClass.FFI.non_opt GioNotificationClass.FFI.p
                -> unit;
           )
             (
@@ -175,15 +175,15 @@ structure GioApplication :>
               x3,
               x4
             )
-    val setActionGroup_ = fn x1 & x2 => (_import "g_application_set_action_group" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p * unit GioActionGroupClass.FFI.p -> unit;) (x1, x2)
+    val setActionGroup_ = fn x1 & x2 => (_import "g_application_set_action_group" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p * GioActionGroupClass.FFI.opt GioActionGroupClass.FFI.p -> unit;) (x1, x2)
     val setApplicationId_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_application_set_application_id" :
-              GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
+              GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -191,17 +191,17 @@ structure GioApplication :>
               x2,
               x3
             )
-    val setDefault_ = _import "g_application_set_default" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> unit;
-    val setFlags_ = fn x1 & x2 => (_import "g_application_set_flags" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p * GioApplicationFlags.FFI.val_ -> unit;) (x1, x2)
-    val setInactivityTimeout_ = fn x1 & x2 => (_import "g_application_set_inactivity_timeout" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val setDefault_ = _import "g_application_set_default" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> unit;
+    val setFlags_ = fn x1 & x2 => (_import "g_application_set_flags" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p * GioApplicationFlags.FFI.val_ -> unit;) (x1, x2)
+    val setInactivityTimeout_ = fn x1 & x2 => (_import "g_application_set_inactivity_timeout" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val setResourceBasePath_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_application_set_resource_base_path" :
-              GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
+              GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -216,10 +216,10 @@ structure GioApplication :>
          & (x3, x4) =>
           (
             _import "mlton_g_application_unbind_busy_property" :
-              GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+              GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -228,15 +228,15 @@ structure GioApplication :>
               x3,
               x4
             )
-    val unmarkBusy_ = _import "g_application_unmark_busy" : GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p -> unit;
+    val unmarkBusy_ = _import "g_application_unmark_busy" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p -> unit;
     val withdrawNotification_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_application_withdraw_notification" :
-              GioApplicationClass.FFI.notnull GioApplicationClass.FFI.p
+              GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

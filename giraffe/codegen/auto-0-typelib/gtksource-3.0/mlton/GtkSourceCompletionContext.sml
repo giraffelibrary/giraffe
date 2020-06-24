@@ -5,8 +5,8 @@ structure GtkSourceCompletionContext :>
     where type 'a completion_class = 'a GtkSourceCompletionClass.class =
   struct
     val getType_ = _import "gtk_source_completion_context_get_type" : unit -> GObjectType.FFI.val_;
-    val getActivation_ = _import "gtk_source_completion_context_get_activation" : GtkSourceCompletionContextClass.FFI.notnull GtkSourceCompletionContextClass.FFI.p -> GtkSourceCompletionActivation.FFI.val_;
-    val getIter_ = fn x1 & x2 => (_import "gtk_source_completion_context_get_iter" : GtkSourceCompletionContextClass.FFI.notnull GtkSourceCompletionContextClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getActivation_ = _import "gtk_source_completion_context_get_activation" : GtkSourceCompletionContextClass.FFI.non_opt GtkSourceCompletionContextClass.FFI.p -> GtkSourceCompletionActivation.FFI.val_;
+    val getIter_ = fn x1 & x2 => (_import "gtk_source_completion_context_get_iter" : GtkSourceCompletionContextClass.FFI.non_opt GtkSourceCompletionContextClass.FFI.p * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     type 'a class = 'a GtkSourceCompletionContextClass.class
     type completion_activation_t = GtkSourceCompletionActivation.t
     type 'a completion_class = 'a GtkSourceCompletionClass.class

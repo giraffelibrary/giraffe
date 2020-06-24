@@ -1,7 +1,8 @@
 structure GioProxyAddressEnumeratorClass :>
   GIO_PROXY_ADDRESS_ENUMERATOR_CLASS
     where type 'a socket_address_enumerator_class = 'a GioSocketAddressEnumeratorClass.class
-    where type C.notnull = GioSocketAddressEnumeratorClass.C.notnull
+    where type C.opt = GioSocketAddressEnumeratorClass.C.opt
+    where type C.non_opt = GioSocketAddressEnumeratorClass.C.non_opt
     where type 'a C.p = 'a GioSocketAddressEnumeratorClass.C.p =
   struct
     type 'a socket_address_enumerator_class = 'a GioSocketAddressEnumeratorClass.class

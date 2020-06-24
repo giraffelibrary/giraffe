@@ -6,11 +6,11 @@ structure GioDrive :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_drive_get_type" : unit -> GObjectType.FFI.val_;
-    val canEject_ = _import "g_drive_can_eject" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
-    val canPollForMedia_ = _import "g_drive_can_poll_for_media" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
-    val canStart_ = _import "g_drive_can_start" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
-    val canStartDegraded_ = _import "g_drive_can_start_degraded" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
-    val canStop_ = _import "g_drive_can_stop" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
+    val canEject_ = _import "g_drive_can_eject" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GBool.FFI.val_;
+    val canPollForMedia_ = _import "g_drive_can_poll_for_media" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GBool.FFI.val_;
+    val canStart_ = _import "g_drive_can_start" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GBool.FFI.val_;
+    val canStartDegraded_ = _import "g_drive_can_start_degraded" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GBool.FFI.val_;
+    val canStop_ = _import "g_drive_can_stop" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GBool.FFI.val_;
     val ejectFinish_ =
       fn
         x1
@@ -18,9 +18,9 @@ structure GioDrive :>
          & x3 =>
           (
             _import "g_drive_eject_finish" :
-              GioDriveClass.FFI.notnull GioDriveClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDriveClass.FFI.non_opt GioDriveClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -35,9 +35,9 @@ structure GioDrive :>
          & x3 =>
           (
             _import "g_drive_eject_with_operation_finish" :
-              GioDriveClass.FFI.notnull GioDriveClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDriveClass.FFI.non_opt GioDriveClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -45,32 +45,32 @@ structure GioDrive :>
               x2,
               x3
             )
-    val enumerateIdentifiers_ = _import "g_drive_enumerate_identifiers" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val getIcon_ = _import "g_drive_get_icon" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
+    val enumerateIdentifiers_ = _import "g_drive_enumerate_identifiers" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val getIcon_ = _import "g_drive_get_icon" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
     val getIdentifier_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_drive_get_identifier" :
-              GioDriveClass.FFI.notnull GioDriveClass.FFI.p
+              GioDriveClass.FFI.non_opt GioDriveClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getName_ = _import "g_drive_get_name" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getSortKey_ = _import "g_drive_get_sort_key" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getStartStopType_ = _import "g_drive_get_start_stop_type" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GioDriveStartStopType.FFI.val_;
-    val getSymbolicIcon_ = _import "g_drive_get_symbolic_icon" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val hasMedia_ = _import "g_drive_has_media" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
-    val hasVolumes_ = _import "g_drive_has_volumes" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
-    val isMediaCheckAutomatic_ = _import "g_drive_is_media_check_automatic" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
-    val isMediaRemovable_ = _import "g_drive_is_media_removable" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
-    val isRemovable_ = _import "g_drive_is_removable" : GioDriveClass.FFI.notnull GioDriveClass.FFI.p -> GBool.FFI.val_;
+    val getName_ = _import "g_drive_get_name" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getSortKey_ = _import "g_drive_get_sort_key" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getStartStopType_ = _import "g_drive_get_start_stop_type" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GioDriveStartStopType.FFI.val_;
+    val getSymbolicIcon_ = _import "g_drive_get_symbolic_icon" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val hasMedia_ = _import "g_drive_has_media" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GBool.FFI.val_;
+    val hasVolumes_ = _import "g_drive_has_volumes" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GBool.FFI.val_;
+    val isMediaCheckAutomatic_ = _import "g_drive_is_media_check_automatic" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GBool.FFI.val_;
+    val isMediaRemovable_ = _import "g_drive_is_media_removable" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GBool.FFI.val_;
+    val isRemovable_ = _import "g_drive_is_removable" : GioDriveClass.FFI.non_opt GioDriveClass.FFI.p -> GBool.FFI.val_;
     val pollForMediaFinish_ =
       fn
         x1
@@ -78,9 +78,9 @@ structure GioDrive :>
          & x3 =>
           (
             _import "g_drive_poll_for_media_finish" :
-              GioDriveClass.FFI.notnull GioDriveClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDriveClass.FFI.non_opt GioDriveClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -95,9 +95,9 @@ structure GioDrive :>
          & x3 =>
           (
             _import "g_drive_start_finish" :
-              GioDriveClass.FFI.notnull GioDriveClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDriveClass.FFI.non_opt GioDriveClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -112,9 +112,9 @@ structure GioDrive :>
          & x3 =>
           (
             _import "g_drive_stop_finish" :
-              GioDriveClass.FFI.notnull GioDriveClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDriveClass.FFI.non_opt GioDriveClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

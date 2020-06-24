@@ -1,7 +1,8 @@
 structure GioSimplePermissionClass :>
   GIO_SIMPLE_PERMISSION_CLASS
     where type 'a permission_class = 'a GioPermissionClass.class
-    where type C.notnull = GioPermissionClass.C.notnull
+    where type C.opt = GioPermissionClass.C.opt
+    where type C.non_opt = GioPermissionClass.C.non_opt
     where type 'a C.p = 'a GioPermissionClass.C.p =
   struct
     type 'a permission_class = 'a GioPermissionClass.class

@@ -14,7 +14,7 @@ structure GtkStyleContext :>
     where type text_direction_t = GtkTextDirection.t =
   struct
     val getType_ = _import "gtk_style_context_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_style_context_new" : unit -> GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p;
+    val new_ = _import "gtk_style_context_new" : unit -> GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p;
     val addProviderForScreen_ =
       fn
         x1
@@ -22,8 +22,8 @@ structure GtkStyleContext :>
          & x3 =>
           (
             _import "gtk_style_context_add_provider_for_screen" :
-              GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p
-               * GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p
+              GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p
+               * GtkStyleProviderClass.FFI.non_opt GtkStyleProviderClass.FFI.p
                * GUInt32.FFI.val_
                -> unit;
           )
@@ -32,16 +32,16 @@ structure GtkStyleContext :>
               x2,
               x3
             )
-    val removeProviderForScreen_ = fn x1 & x2 => (_import "gtk_style_context_remove_provider_for_screen" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p * GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p -> unit;) (x1, x2)
-    val resetWidgets_ = _import "gtk_style_context_reset_widgets" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> unit;
+    val removeProviderForScreen_ = fn x1 & x2 => (_import "gtk_style_context_remove_provider_for_screen" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p * GtkStyleProviderClass.FFI.non_opt GtkStyleProviderClass.FFI.p -> unit;) (x1, x2)
+    val resetWidgets_ = _import "gtk_style_context_reset_widgets" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> unit;
     val addClass_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_style_context_add_class" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -56,8 +56,8 @@ structure GtkStyleContext :>
          & x3 =>
           (
             _import "gtk_style_context_add_provider" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * GtkStyleProviderClass.FFI.non_opt GtkStyleProviderClass.FFI.p
                * GUInt32.FFI.val_
                -> unit;
           )
@@ -73,9 +73,9 @@ structure GtkStyleContext :>
          & x4 =>
           (
             _import "mlton_gtk_style_context_add_region" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GtkRegionFlags.FFI.val_
                -> unit;
           )
@@ -92,9 +92,9 @@ structure GtkStyleContext :>
          & x3 =>
           (
             _import "gtk_style_context_get_background_color" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * GtkStateFlags.FFI.val_
-               * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p
+               * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p
                -> unit;
           )
             (
@@ -109,9 +109,9 @@ structure GtkStyleContext :>
          & x3 =>
           (
             _import "gtk_style_context_get_border" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * GtkStateFlags.FFI.val_
-               * GtkBorderRecord.FFI.notnull GtkBorderRecord.FFI.p
+               * GtkBorderRecord.FFI.non_opt GtkBorderRecord.FFI.p
                -> unit;
           )
             (
@@ -126,9 +126,9 @@ structure GtkStyleContext :>
          & x3 =>
           (
             _import "gtk_style_context_get_border_color" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * GtkStateFlags.FFI.val_
-               * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p
+               * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p
                -> unit;
           )
             (
@@ -143,9 +143,9 @@ structure GtkStyleContext :>
          & x3 =>
           (
             _import "gtk_style_context_get_color" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * GtkStateFlags.FFI.val_
-               * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p
+               * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p
                -> unit;
           )
             (
@@ -153,10 +153,10 @@ structure GtkStyleContext :>
               x2,
               x3
             )
-    val getDirection_ = _import "gtk_style_context_get_direction" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GtkTextDirection.FFI.val_;
-    val getFont_ = fn x1 & x2 => (_import "gtk_style_context_get_font" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * GtkStateFlags.FFI.val_ -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;) (x1, x2)
-    val getFrameClock_ = _import "gtk_style_context_get_frame_clock" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> unit GdkFrameClockClass.FFI.p;
-    val getJunctionSides_ = _import "gtk_style_context_get_junction_sides" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GtkJunctionSides.FFI.val_;
+    val getDirection_ = _import "gtk_style_context_get_direction" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> GtkTextDirection.FFI.val_;
+    val getFont_ = fn x1 & x2 => (_import "gtk_style_context_get_font" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p * GtkStateFlags.FFI.val_ -> PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p;) (x1, x2)
+    val getFrameClock_ = _import "gtk_style_context_get_frame_clock" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> GdkFrameClockClass.FFI.opt GdkFrameClockClass.FFI.p;
+    val getJunctionSides_ = _import "gtk_style_context_get_junction_sides" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> GtkJunctionSides.FFI.val_;
     val getMargin_ =
       fn
         x1
@@ -164,9 +164,9 @@ structure GtkStyleContext :>
          & x3 =>
           (
             _import "gtk_style_context_get_margin" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * GtkStateFlags.FFI.val_
-               * GtkBorderRecord.FFI.notnull GtkBorderRecord.FFI.p
+               * GtkBorderRecord.FFI.non_opt GtkBorderRecord.FFI.p
                -> unit;
           )
             (
@@ -181,9 +181,9 @@ structure GtkStyleContext :>
          & x3 =>
           (
             _import "gtk_style_context_get_padding" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * GtkStateFlags.FFI.val_
-               * GtkBorderRecord.FFI.notnull GtkBorderRecord.FFI.p
+               * GtkBorderRecord.FFI.non_opt GtkBorderRecord.FFI.p
                -> unit;
           )
             (
@@ -191,26 +191,26 @@ structure GtkStyleContext :>
               x2,
               x3
             )
-    val getParent_ = _import "gtk_style_context_get_parent" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> unit GtkStyleContextClass.FFI.p;
-    val getPath_ = _import "gtk_style_context_get_path" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p;
-    val getScale_ = _import "gtk_style_context_get_scale" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GInt32.FFI.val_;
-    val getScreen_ = _import "gtk_style_context_get_screen" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p;
+    val getParent_ = _import "gtk_style_context_get_parent" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> GtkStyleContextClass.FFI.opt GtkStyleContextClass.FFI.p;
+    val getPath_ = _import "gtk_style_context_get_path" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p;
+    val getScale_ = _import "gtk_style_context_get_scale" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> GInt32.FFI.val_;
+    val getScreen_ = _import "gtk_style_context_get_screen" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p;
     val getSection_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_style_context_get_section" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GtkCssSectionRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkCssSectionRecord.FFI.opt GtkCssSectionRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getState_ = _import "gtk_style_context_get_state" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GtkStateFlags.FFI.val_;
+    val getState_ = _import "gtk_style_context_get_state" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> GtkStateFlags.FFI.val_;
     val getStyleProperty_ =
       fn
         x1
@@ -218,10 +218,10 @@ structure GtkStyleContext :>
          & x4 =>
           (
             _import "mlton_gtk_style_context_get_style_property" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -235,9 +235,9 @@ structure GtkStyleContext :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_style_context_has_class" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -252,9 +252,9 @@ structure GtkStyleContext :>
          & x4 =>
           (
             _import "mlton_gtk_style_context_has_region" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GtkRegionFlags.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -264,7 +264,7 @@ structure GtkStyleContext :>
               x3,
               x4
             )
-    val invalidate_ = _import "gtk_style_context_invalidate" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> unit;
+    val invalidate_ = _import "gtk_style_context_invalidate" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> unit;
     val lookupColor_ =
       fn
         x1
@@ -272,10 +272,10 @@ structure GtkStyleContext :>
          & x4 =>
           (
             _import "mlton_gtk_style_context_lookup_color" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -289,25 +289,25 @@ structure GtkStyleContext :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_style_context_lookup_icon_set" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GtkIconSetRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkIconSetRecord.FFI.opt GtkIconSetRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val popAnimatableRegion_ = _import "gtk_style_context_pop_animatable_region" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> unit;
+    val popAnimatableRegion_ = _import "gtk_style_context_pop_animatable_region" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> unit;
     val removeClass_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_style_context_remove_class" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -315,15 +315,15 @@ structure GtkStyleContext :>
               x2,
               x3
             )
-    val removeProvider_ = fn x1 & x2 => (_import "gtk_style_context_remove_provider" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p -> unit;) (x1, x2)
+    val removeProvider_ = fn x1 & x2 => (_import "gtk_style_context_remove_provider" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p * GtkStyleProviderClass.FFI.non_opt GtkStyleProviderClass.FFI.p -> unit;) (x1, x2)
     val removeRegion_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_style_context_remove_region" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -331,8 +331,8 @@ structure GtkStyleContext :>
               x2,
               x3
             )
-    val restore_ = _import "gtk_style_context_restore" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> unit;
-    val save_ = _import "gtk_style_context_save" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> unit;
+    val restore_ = _import "gtk_style_context_restore" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> unit;
+    val save_ = _import "gtk_style_context_save" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> unit;
     val scrollAnimations_ =
       fn
         x1
@@ -341,8 +341,8 @@ structure GtkStyleContext :>
          & x4 =>
           (
             _import "gtk_style_context_scroll_animations" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -353,15 +353,15 @@ structure GtkStyleContext :>
               x3,
               x4
             )
-    val setBackground_ = fn x1 & x2 => (_import "gtk_style_context_set_background" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;) (x1, x2)
-    val setDirection_ = fn x1 & x2 => (_import "gtk_style_context_set_direction" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * GtkTextDirection.FFI.val_ -> unit;) (x1, x2)
-    val setFrameClock_ = fn x1 & x2 => (_import "gtk_style_context_set_frame_clock" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * GdkFrameClockClass.FFI.notnull GdkFrameClockClass.FFI.p -> unit;) (x1, x2)
-    val setJunctionSides_ = fn x1 & x2 => (_import "gtk_style_context_set_junction_sides" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * GtkJunctionSides.FFI.val_ -> unit;) (x1, x2)
-    val setParent_ = fn x1 & x2 => (_import "gtk_style_context_set_parent" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * unit GtkStyleContextClass.FFI.p -> unit;) (x1, x2)
-    val setPath_ = fn x1 & x2 => (_import "gtk_style_context_set_path" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> unit;) (x1, x2)
-    val setScale_ = fn x1 & x2 => (_import "gtk_style_context_set_scale" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setScreen_ = fn x1 & x2 => (_import "gtk_style_context_set_screen" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> unit;) (x1, x2)
-    val setState_ = fn x1 & x2 => (_import "gtk_style_context_set_state" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * GtkStateFlags.FFI.val_ -> unit;) (x1, x2)
+    val setBackground_ = fn x1 & x2 => (_import "gtk_style_context_set_background" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;) (x1, x2)
+    val setDirection_ = fn x1 & x2 => (_import "gtk_style_context_set_direction" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p * GtkTextDirection.FFI.val_ -> unit;) (x1, x2)
+    val setFrameClock_ = fn x1 & x2 => (_import "gtk_style_context_set_frame_clock" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p * GdkFrameClockClass.FFI.non_opt GdkFrameClockClass.FFI.p -> unit;) (x1, x2)
+    val setJunctionSides_ = fn x1 & x2 => (_import "gtk_style_context_set_junction_sides" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p * GtkJunctionSides.FFI.val_ -> unit;) (x1, x2)
+    val setParent_ = fn x1 & x2 => (_import "gtk_style_context_set_parent" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p * GtkStyleContextClass.FFI.opt GtkStyleContextClass.FFI.p -> unit;) (x1, x2)
+    val setPath_ = fn x1 & x2 => (_import "gtk_style_context_set_path" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p * GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p -> unit;) (x1, x2)
+    val setScale_ = fn x1 & x2 => (_import "gtk_style_context_set_scale" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setScreen_ = fn x1 & x2 => (_import "gtk_style_context_set_screen" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p * GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> unit;) (x1, x2)
+    val setState_ = fn x1 & x2 => (_import "gtk_style_context_set_state" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p * GtkStateFlags.FFI.val_ -> unit;) (x1, x2)
     val stateIsRunning_ =
       fn
         x1
@@ -369,7 +369,7 @@ structure GtkStyleContext :>
          & x3 =>
           (
             _import "gtk_style_context_state_is_running" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * GtkStateType.FFI.val_
                * GDouble.FFI.ref_
                -> GBool.FFI.val_;
@@ -379,7 +379,7 @@ structure GtkStyleContext :>
               x2,
               x3
             )
-    val toString_ = fn x1 & x2 => (_import "gtk_style_context_to_string" : GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p * GtkStyleContextPrintFlags.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val toString_ = fn x1 & x2 => (_import "gtk_style_context_to_string" : GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p * GtkStyleContextPrintFlags.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
     type 'a class = 'a GtkStyleContextClass.class
     type border_t = GtkBorderRecord.t
     type css_section_t = GtkCssSectionRecord.t

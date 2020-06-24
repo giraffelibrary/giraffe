@@ -6,17 +6,17 @@ structure GtkStyleProperties :>
     where type state_flags_t = GtkStateFlags.t =
   struct
     val getType_ = _import "gtk_style_properties_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_style_properties_new" : unit -> GtkStylePropertiesClass.FFI.notnull GtkStylePropertiesClass.FFI.p;
-    val clear_ = _import "gtk_style_properties_clear" : GtkStylePropertiesClass.FFI.notnull GtkStylePropertiesClass.FFI.p -> unit;
+    val new_ = _import "gtk_style_properties_new" : unit -> GtkStylePropertiesClass.FFI.non_opt GtkStylePropertiesClass.FFI.p;
+    val clear_ = _import "gtk_style_properties_clear" : GtkStylePropertiesClass.FFI.non_opt GtkStylePropertiesClass.FFI.p -> unit;
     val lookupColor_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_style_properties_lookup_color" :
-              GtkStylePropertiesClass.FFI.notnull GtkStylePropertiesClass.FFI.p
+              GtkStylePropertiesClass.FFI.non_opt GtkStylePropertiesClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkSymbolicColorRecord.FFI.non_opt GtkSymbolicColorRecord.FFI.p;
           )
             (
               x1,
@@ -30,10 +30,10 @@ structure GtkStyleProperties :>
          & x4 =>
           (
             _import "mlton_gtk_style_properties_map_color" :
-              GtkStylePropertiesClass.FFI.notnull GtkStylePropertiesClass.FFI.p
+              GtkStylePropertiesClass.FFI.non_opt GtkStylePropertiesClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GtkSymbolicColorRecord.FFI.notnull GtkSymbolicColorRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GtkSymbolicColorRecord.FFI.non_opt GtkSymbolicColorRecord.FFI.p
                -> unit;
           )
             (
@@ -49,8 +49,8 @@ structure GtkStyleProperties :>
          & x3 =>
           (
             _import "gtk_style_properties_merge" :
-              GtkStylePropertiesClass.FFI.notnull GtkStylePropertiesClass.FFI.p
-               * GtkStylePropertiesClass.FFI.notnull GtkStylePropertiesClass.FFI.p
+              GtkStylePropertiesClass.FFI.non_opt GtkStylePropertiesClass.FFI.p
+               * GtkStylePropertiesClass.FFI.non_opt GtkStylePropertiesClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -67,11 +67,11 @@ structure GtkStyleProperties :>
          & x5 =>
           (
             _import "mlton_gtk_style_properties_set_property" :
-              GtkStylePropertiesClass.FFI.notnull GtkStylePropertiesClass.FFI.p
+              GtkStylePropertiesClass.FFI.non_opt GtkStylePropertiesClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GtkStateFlags.FFI.val_
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -88,9 +88,9 @@ structure GtkStyleProperties :>
          & x4 =>
           (
             _import "mlton_gtk_style_properties_unset_property" :
-              GtkStylePropertiesClass.FFI.notnull GtkStylePropertiesClass.FFI.p
+              GtkStylePropertiesClass.FFI.non_opt GtkStylePropertiesClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GtkStateFlags.FFI.val_
                -> unit;
           )

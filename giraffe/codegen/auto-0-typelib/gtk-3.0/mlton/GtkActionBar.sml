@@ -5,11 +5,11 @@ structure GtkActionBar :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_action_bar_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_action_bar_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getCenterWidget_ = _import "gtk_action_bar_get_center_widget" : GtkActionBarClass.FFI.notnull GtkActionBarClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val packEnd_ = fn x1 & x2 => (_import "gtk_action_bar_pack_end" : GtkActionBarClass.FFI.notnull GtkActionBarClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val packStart_ = fn x1 & x2 => (_import "gtk_action_bar_pack_start" : GtkActionBarClass.FFI.notnull GtkActionBarClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setCenterWidget_ = fn x1 & x2 => (_import "gtk_action_bar_set_center_widget" : GtkActionBarClass.FFI.notnull GtkActionBarClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_action_bar_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getCenterWidget_ = _import "gtk_action_bar_get_center_widget" : GtkActionBarClass.FFI.non_opt GtkActionBarClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val packEnd_ = fn x1 & x2 => (_import "gtk_action_bar_pack_end" : GtkActionBarClass.FFI.non_opt GtkActionBarClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val packStart_ = fn x1 & x2 => (_import "gtk_action_bar_pack_start" : GtkActionBarClass.FFI.non_opt GtkActionBarClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setCenterWidget_ = fn x1 & x2 => (_import "gtk_action_bar_set_center_widget" : GtkActionBarClass.FFI.non_opt GtkActionBarClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkActionBarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class

@@ -3211,18 +3211,18 @@ local
     fun mltonStructId prefixIds id =
       case List.rev prefixIds of
         "FFI" :: revIds => List.rev (id :: "MLton" :: revIds)
-      | _               => raise Fail "mltonStructId requires struct called \"C\""
+      | _               => raise Fail "mltonStructId requires struct called \"FFI\""
 
     fun mkOptTy prefixIds isOpt =
-      if isOpt then unitTy else mkNotnullTy prefixIds
+      (if isOpt then prefixOptTy else prefixNonOptTy) prefixIds
   in
     (* `<A>.MLton.p1 * <opt> <A>.MLton.p2`
      *
      *   where <opt> is
-     *     unit
+     *     <A>.FFI.opt
      *       if `isOpt`
      *
-     *     <A>.C.notnull
+     *     <A>.FFI.non_opt
      *       otherwise
      *)
     fun arrayPtrTy prefixIds isOpt =
@@ -3234,17 +3234,17 @@ local
     (* `<A>.MLton.r1 * (<inopt>, <outopt>) <A>.MLton.r2`
      *
      *   where <inopt> is
-     *     unit
+     *     <A>.FFI.opt
      *       if `isOpt orelse not isInOut`
      *
-     *     <A>.C.notnull
+     *     <A>.FFI.non_opt
      *       otherwise
      *
      *   where <outopt> is
-     *     unit
+     *     <A>.FFI.opt
      *       if `isOpt`
      *
-     *     <A>.C.notnull
+     *     <A>.FFI.non_opt
      *       otherwise
      *)
     fun arrayRefTy prefixIds isInOut isOpt =
@@ -3260,13 +3260,13 @@ local
       ]
   end
 
-  fun typeTy isUtf8 prefixIds spec =
+  fun typeTy isArrayPar prefixIds spec =
     let
       val ty =
         case spec of
           VAL                         => mkLIdTy (prefixIds @ ["val_"])
         | PTR {optDir, isOpt}         =>
-            if isUtf8
+            if isArrayPar
             then
               arrayPtrTy prefixIds isOpt
             else
@@ -3276,13 +3276,13 @@ local
                     NONE     => ""
                   | SOME In  => "in_"
                   | SOME Out => "out_"
-                val ty = if isOpt then unitTy else mkNotnullTy prefixIds
+                val ty = (if isOpt then prefixOptTy else prefixNonOptTy) prefixIds
               in
                 TyRef ([ty], toList1 (prefixIds @ [concat [dirStr, "p"]]))
               end
         | REF NONE                    => mkLIdTy (prefixIds @ ["ref_"])
         | REF (SOME {isInOut, isOpt}) =>
-            if isUtf8
+            if isArrayPar
             then
               arrayRefTy prefixIds isInOut isOpt
             else
@@ -3293,12 +3293,12 @@ local
                 val tys'0 = []
                 val tys'1 =
                   case isOutOpt of
-                    false => mkNotnullTy prefixIds :: tys'0
-                  | true  => unitTy :: tys'0
+                    false => prefixNonOptTy prefixIds :: tys'0
+                  | true  => prefixOptTy prefixIds :: tys'0
                 val tys'2 =
                   case isInOpt of
-                    false => mkNotnullTy prefixIds :: tys'1
-                  | true  => unitTy :: tys'1
+                    false => prefixNonOptTy prefixIds :: tys'1
+                  | true  => prefixOptTy prefixIds :: tys'1
               in
                 TyRef (tys'2, toList1 (prefixIds @ ["r"]))
               end

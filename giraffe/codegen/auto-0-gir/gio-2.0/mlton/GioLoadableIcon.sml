@@ -15,13 +15,13 @@ structure GioLoadableIcon :>
          & x6 =>
           (
             _import "mlton_g_loadable_icon_load" :
-              GioLoadableIconClass.FFI.notnull GioLoadableIconClass.FFI.p
+              GioLoadableIconClass.FFI.non_opt GioLoadableIconClass.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p;
           )
             (
               x1,
@@ -39,12 +39,12 @@ structure GioLoadableIcon :>
          & x5 =>
           (
             _import "mlton_g_loadable_icon_load_finish" :
-              GioLoadableIconClass.FFI.notnull GioLoadableIconClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+              GioLoadableIconClass.FFI.non_opt GioLoadableIconClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p;
           )
             (
               x1,

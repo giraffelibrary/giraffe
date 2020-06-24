@@ -10,40 +10,40 @@ structure GioApplicationCommandLine :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_application_command_line_create_file_for_arg" :
-              GioApplicationCommandLineClass.FFI.notnull GioApplicationCommandLineClass.FFI.p
+              GioApplicationCommandLineClass.FFI.non_opt GioApplicationCommandLineClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getArguments_ = fn x1 & x2 => (_import "g_application_command_line_get_arguments" : GioApplicationCommandLineClass.FFI.notnull GioApplicationCommandLineClass.FFI.p * GInt32.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
-    val getCwd_ = _import "g_application_command_line_get_cwd" : GioApplicationCommandLineClass.FFI.notnull GioApplicationCommandLineClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getEnviron_ = _import "g_application_command_line_get_environ" : GioApplicationCommandLineClass.FFI.notnull GioApplicationCommandLineClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val getExitStatus_ = _import "g_application_command_line_get_exit_status" : GioApplicationCommandLineClass.FFI.notnull GioApplicationCommandLineClass.FFI.p -> GInt32.FFI.val_;
-    val getIsRemote_ = _import "g_application_command_line_get_is_remote" : GioApplicationCommandLineClass.FFI.notnull GioApplicationCommandLineClass.FFI.p -> GBool.FFI.val_;
-    val getOptionsDict_ = _import "g_application_command_line_get_options_dict" : GioApplicationCommandLineClass.FFI.notnull GioApplicationCommandLineClass.FFI.p -> GLibVariantDictRecord.FFI.notnull GLibVariantDictRecord.FFI.p;
-    val getPlatformData_ = _import "g_application_command_line_get_platform_data" : GioApplicationCommandLineClass.FFI.notnull GioApplicationCommandLineClass.FFI.p -> unit GLibVariantRecord.FFI.p;
-    val getStdin_ = _import "g_application_command_line_get_stdin" : GioApplicationCommandLineClass.FFI.notnull GioApplicationCommandLineClass.FFI.p -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
+    val getArguments_ = fn x1 & x2 => (_import "g_application_command_line_get_arguments" : GioApplicationCommandLineClass.FFI.non_opt GioApplicationCommandLineClass.FFI.p * GInt32.FFI.ref_ -> Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
+    val getCwd_ = _import "g_application_command_line_get_cwd" : GioApplicationCommandLineClass.FFI.non_opt GioApplicationCommandLineClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getEnviron_ = _import "g_application_command_line_get_environ" : GioApplicationCommandLineClass.FFI.non_opt GioApplicationCommandLineClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val getExitStatus_ = _import "g_application_command_line_get_exit_status" : GioApplicationCommandLineClass.FFI.non_opt GioApplicationCommandLineClass.FFI.p -> GInt32.FFI.val_;
+    val getIsRemote_ = _import "g_application_command_line_get_is_remote" : GioApplicationCommandLineClass.FFI.non_opt GioApplicationCommandLineClass.FFI.p -> GBool.FFI.val_;
+    val getOptionsDict_ = _import "g_application_command_line_get_options_dict" : GioApplicationCommandLineClass.FFI.non_opt GioApplicationCommandLineClass.FFI.p -> GLibVariantDictRecord.FFI.non_opt GLibVariantDictRecord.FFI.p;
+    val getPlatformData_ = _import "g_application_command_line_get_platform_data" : GioApplicationCommandLineClass.FFI.non_opt GioApplicationCommandLineClass.FFI.p -> GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p;
+    val getStdin_ = _import "g_application_command_line_get_stdin" : GioApplicationCommandLineClass.FFI.non_opt GioApplicationCommandLineClass.FFI.p -> GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p;
     val getenv_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_application_command_line_getenv" :
-              GioApplicationCommandLineClass.FFI.notnull GioApplicationCommandLineClass.FFI.p
+              GioApplicationCommandLineClass.FFI.non_opt GioApplicationCommandLineClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val setExitStatus_ = fn x1 & x2 => (_import "g_application_command_line_set_exit_status" : GioApplicationCommandLineClass.FFI.notnull GioApplicationCommandLineClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setExitStatus_ = fn x1 & x2 => (_import "g_application_command_line_set_exit_status" : GioApplicationCommandLineClass.FFI.non_opt GioApplicationCommandLineClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioApplicationCommandLineClass.class
     type 'a file_class = 'a GioFileClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class

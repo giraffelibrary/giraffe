@@ -11,9 +11,9 @@ structure GtkTargetList :>
           (
             _import "mlton_gtk_target_list_new" :
               GtkTargetEntryRecordCArrayN.MLton.p1
-               * unit GtkTargetEntryRecordCArrayN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.FFI.opt GtkTargetEntryRecordCArrayN.MLton.p2
                * GUInt32.FFI.val_
-               -> GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p;
+               -> GtkTargetListRecord.FFI.non_opt GtkTargetListRecord.FFI.p;
           )
             (
               x1,
@@ -28,8 +28,8 @@ structure GtkTargetList :>
          & x4 =>
           (
             _import "gtk_target_list_add" :
-              GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GtkTargetListRecord.FFI.non_opt GtkTargetListRecord.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GUInt32.FFI.val_
                * GUInt32.FFI.val_
                -> unit;
@@ -47,7 +47,7 @@ structure GtkTargetList :>
          & x3 =>
           (
             _import "gtk_target_list_add_image_targets" :
-              GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p
+              GtkTargetListRecord.FFI.non_opt GtkTargetListRecord.FFI.p
                * GUInt32.FFI.val_
                * GBool.FFI.val_
                -> unit;
@@ -65,10 +65,10 @@ structure GtkTargetList :>
          & x4 =>
           (
             _import "gtk_target_list_add_rich_text_targets" :
-              GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p
+              GtkTargetListRecord.FFI.non_opt GtkTargetListRecord.FFI.p
                * GUInt32.FFI.val_
                * GBool.FFI.val_
-               * GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextBufferClass.FFI.non_opt GtkTextBufferClass.FFI.p
                -> unit;
           )
             (
@@ -84,9 +84,9 @@ structure GtkTargetList :>
          & x4 =>
           (
             _import "mlton_gtk_target_list_add_table" :
-              GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p
+              GtkTargetListRecord.FFI.non_opt GtkTargetListRecord.FFI.p
                * GtkTargetEntryRecordCArrayN.MLton.p1
-               * GtkTargetEntryRecordCArrayN.FFI.notnull GtkTargetEntryRecordCArrayN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.FFI.non_opt GtkTargetEntryRecordCArrayN.MLton.p2
                * GUInt32.FFI.val_
                -> unit;
           )
@@ -96,8 +96,8 @@ structure GtkTargetList :>
               x3,
               x4
             )
-    val addTextTargets_ = fn x1 & x2 => (_import "gtk_target_list_add_text_targets" : GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val addUriTargets_ = fn x1 & x2 => (_import "gtk_target_list_add_uri_targets" : GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val addTextTargets_ = fn x1 & x2 => (_import "gtk_target_list_add_text_targets" : GtkTargetListRecord.FFI.non_opt GtkTargetListRecord.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val addUriTargets_ = fn x1 & x2 => (_import "gtk_target_list_add_uri_targets" : GtkTargetListRecord.FFI.non_opt GtkTargetListRecord.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
     val find_ =
       fn
         x1
@@ -105,8 +105,8 @@ structure GtkTargetList :>
          & x3 =>
           (
             _import "gtk_target_list_find" :
-              GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GtkTargetListRecord.FFI.non_opt GtkTargetListRecord.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GUInt32.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -115,7 +115,7 @@ structure GtkTargetList :>
               x2,
               x3
             )
-    val remove_ = fn x1 & x2 => (_import "gtk_target_list_remove" : GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> unit;) (x1, x2)
+    val remove_ = fn x1 & x2 => (_import "gtk_target_list_remove" : GtkTargetListRecord.FFI.non_opt GtkTargetListRecord.FFI.p * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p -> unit;) (x1, x2)
     type t = GtkTargetListRecord.t
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
     type target_entry_record_c_array_n_t = GtkTargetEntryRecordCArrayN.t

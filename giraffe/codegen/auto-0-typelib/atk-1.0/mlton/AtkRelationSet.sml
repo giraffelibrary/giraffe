@@ -6,8 +6,8 @@ structure AtkRelationSet :>
     where type 'a relation_class = 'a AtkRelationClass.class =
   struct
     val getType_ = _import "atk_relation_set_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "atk_relation_set_new" : unit -> AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p;
-    val add_ = fn x1 & x2 => (_import "atk_relation_set_add" : AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p * AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "atk_relation_set_new" : unit -> AtkRelationSetClass.FFI.non_opt AtkRelationSetClass.FFI.p;
+    val add_ = fn x1 & x2 => (_import "atk_relation_set_add" : AtkRelationSetClass.FFI.non_opt AtkRelationSetClass.FFI.p * AtkRelationClass.FFI.non_opt AtkRelationClass.FFI.p -> unit;) (x1, x2)
     val addRelationByType_ =
       fn
         x1
@@ -15,9 +15,9 @@ structure AtkRelationSet :>
          & x3 =>
           (
             _import "atk_relation_set_add_relation_by_type" :
-              AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p
+              AtkRelationSetClass.FFI.non_opt AtkRelationSetClass.FFI.p
                * AtkRelationType.FFI.val_
-               * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               * AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p
                -> unit;
           )
             (
@@ -25,7 +25,7 @@ structure AtkRelationSet :>
               x2,
               x3
             )
-    val contains_ = fn x1 & x2 => (_import "atk_relation_set_contains" : AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p * AtkRelationType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val contains_ = fn x1 & x2 => (_import "atk_relation_set_contains" : AtkRelationSetClass.FFI.non_opt AtkRelationSetClass.FFI.p * AtkRelationType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val containsTarget_ =
       fn
         x1
@@ -33,9 +33,9 @@ structure AtkRelationSet :>
          & x3 =>
           (
             _import "atk_relation_set_contains_target" :
-              AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p
+              AtkRelationSetClass.FFI.non_opt AtkRelationSetClass.FFI.p
                * AtkRelationType.FFI.val_
-               * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               * AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -43,10 +43,10 @@ structure AtkRelationSet :>
               x2,
               x3
             )
-    val getNRelations_ = _import "atk_relation_set_get_n_relations" : AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p -> GInt32.FFI.val_;
-    val getRelation_ = fn x1 & x2 => (_import "atk_relation_set_get_relation" : AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p * GInt32.FFI.val_ -> AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p;) (x1, x2)
-    val getRelationByType_ = fn x1 & x2 => (_import "atk_relation_set_get_relation_by_type" : AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p * AtkRelationType.FFI.val_ -> AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p;) (x1, x2)
-    val remove_ = fn x1 & x2 => (_import "atk_relation_set_remove" : AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p * AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p -> unit;) (x1, x2)
+    val getNRelations_ = _import "atk_relation_set_get_n_relations" : AtkRelationSetClass.FFI.non_opt AtkRelationSetClass.FFI.p -> GInt32.FFI.val_;
+    val getRelation_ = fn x1 & x2 => (_import "atk_relation_set_get_relation" : AtkRelationSetClass.FFI.non_opt AtkRelationSetClass.FFI.p * GInt32.FFI.val_ -> AtkRelationClass.FFI.non_opt AtkRelationClass.FFI.p;) (x1, x2)
+    val getRelationByType_ = fn x1 & x2 => (_import "atk_relation_set_get_relation_by_type" : AtkRelationSetClass.FFI.non_opt AtkRelationSetClass.FFI.p * AtkRelationType.FFI.val_ -> AtkRelationClass.FFI.non_opt AtkRelationClass.FFI.p;) (x1, x2)
+    val remove_ = fn x1 & x2 => (_import "atk_relation_set_remove" : AtkRelationSetClass.FFI.non_opt AtkRelationSetClass.FFI.p * AtkRelationClass.FFI.non_opt AtkRelationClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a AtkRelationSetClass.class
     type 'a object_class = 'a AtkObjectClass.class
     type relation_type_t = AtkRelationType.t

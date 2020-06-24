@@ -10,11 +10,11 @@ structure GtkRecentInfo :>
          & x4 =>
           (
             _import "mlton_gtk_recent_info_create_app_info" :
-              GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p
+              GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> unit GioAppInfoClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioAppInfoClass.FFI.opt GioAppInfoClass.FFI.p;
           )
             (
               x1,
@@ -22,9 +22,9 @@ structure GtkRecentInfo :>
               x3,
               x4
             )
-    val exists_ = _import "gtk_recent_info_exists" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> GBool.FFI.val_;
-    val getAdded_ = _import "gtk_recent_info_get_added" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> GInt64.FFI.val_;
-    val getAge_ = _import "gtk_recent_info_get_age" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> GInt32.FFI.val_;
+    val exists_ = _import "gtk_recent_info_exists" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> GBool.FFI.val_;
+    val getAdded_ = _import "gtk_recent_info_get_added" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> GInt64.FFI.val_;
+    val getAge_ = _import "gtk_recent_info_get_age" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> GInt32.FFI.val_;
     val getApplicationInfo_ =
       fn
         x1
@@ -34,11 +34,11 @@ structure GtkRecentInfo :>
          & x7 =>
           (
             _import "mlton_gtk_recent_info_get_application_info" :
-              GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p
+              GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
                * GUInt32.FFI.ref_
                * GInt64.FFI.ref_
                -> GBool.FFI.val_;
@@ -52,27 +52,27 @@ structure GtkRecentInfo :>
               x6,
               x7
             )
-    val getApplications_ = fn x1 & x2 => (_import "gtk_recent_info_get_applications" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
-    val getDescription_ = _import "gtk_recent_info_get_description" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getDisplayName_ = _import "gtk_recent_info_get_display_name" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getGicon_ = _import "gtk_recent_info_get_gicon" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> unit GioIconClass.FFI.p;
-    val getGroups_ = fn x1 & x2 => (_import "gtk_recent_info_get_groups" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
-    val getIcon_ = fn x1 & x2 => (_import "gtk_recent_info_get_icon" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p * GInt32.FFI.val_ -> unit GdkPixbufPixbufClass.FFI.p;) (x1, x2)
-    val getMimeType_ = _import "gtk_recent_info_get_mime_type" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getModified_ = _import "gtk_recent_info_get_modified" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> GInt64.FFI.val_;
-    val getPrivateHint_ = _import "gtk_recent_info_get_private_hint" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> GBool.FFI.val_;
-    val getShortName_ = _import "gtk_recent_info_get_short_name" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getUri_ = _import "gtk_recent_info_get_uri" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getUriDisplay_ = _import "gtk_recent_info_get_uri_display" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> unit Utf8.FFI.out_p;
-    val getVisited_ = _import "gtk_recent_info_get_visited" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> GInt64.FFI.val_;
+    val getApplications_ = fn x1 & x2 => (_import "gtk_recent_info_get_applications" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
+    val getDescription_ = _import "gtk_recent_info_get_description" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getDisplayName_ = _import "gtk_recent_info_get_display_name" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getGicon_ = _import "gtk_recent_info_get_gicon" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> GioIconClass.FFI.opt GioIconClass.FFI.p;
+    val getGroups_ = fn x1 & x2 => (_import "gtk_recent_info_get_groups" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p * GUInt64.FFI.ref_ -> Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
+    val getIcon_ = fn x1 & x2 => (_import "gtk_recent_info_get_icon" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p * GInt32.FFI.val_ -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;) (x1, x2)
+    val getMimeType_ = _import "gtk_recent_info_get_mime_type" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getModified_ = _import "gtk_recent_info_get_modified" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> GInt64.FFI.val_;
+    val getPrivateHint_ = _import "gtk_recent_info_get_private_hint" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> GBool.FFI.val_;
+    val getShortName_ = _import "gtk_recent_info_get_short_name" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getUri_ = _import "gtk_recent_info_get_uri" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getUriDisplay_ = _import "gtk_recent_info_get_uri_display" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getVisited_ = _import "gtk_recent_info_get_visited" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> GInt64.FFI.val_;
     val hasApplication_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_recent_info_has_application" :
-              GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p
+              GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -85,9 +85,9 @@ structure GtkRecentInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_recent_info_has_group" :
-              GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p
+              GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -95,9 +95,9 @@ structure GtkRecentInfo :>
               x2,
               x3
             )
-    val isLocal_ = _import "gtk_recent_info_is_local" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> GBool.FFI.val_;
-    val lastApplication_ = _import "gtk_recent_info_last_application" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val match_ = fn x1 & x2 => (_import "gtk_recent_info_match" : GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p * GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val isLocal_ = _import "gtk_recent_info_is_local" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> GBool.FFI.val_;
+    val lastApplication_ = _import "gtk_recent_info_last_application" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val match_ = fn x1 & x2 => (_import "gtk_recent_info_match" : GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p * GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     type t = GtkRecentInfoRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun createAppInfo self appName =

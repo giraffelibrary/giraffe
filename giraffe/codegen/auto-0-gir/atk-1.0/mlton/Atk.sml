@@ -1,17 +1,17 @@
 structure Atk : ATK =
   struct
-    val focusTrackerNotify_ = _import "atk_focus_tracker_notify" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> unit;
+    val focusTrackerNotify_ = _import "atk_focus_tracker_notify" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> unit;
     val getBinaryAge_ = _import "atk_get_binary_age" : unit -> GUInt.FFI.val_;
-    val getDefaultRegistry_ = _import "atk_get_default_registry" : unit -> AtkRegistryClass.FFI.notnull AtkRegistryClass.FFI.p;
-    val getFocusObject_ = _import "atk_get_focus_object" : unit -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
+    val getDefaultRegistry_ = _import "atk_get_default_registry" : unit -> AtkRegistryClass.FFI.non_opt AtkRegistryClass.FFI.p;
+    val getFocusObject_ = _import "atk_get_focus_object" : unit -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;
     val getInterfaceAge_ = _import "atk_get_interface_age" : unit -> GUInt.FFI.val_;
     val getMajorVersion_ = _import "atk_get_major_version" : unit -> GUInt.FFI.val_;
     val getMicroVersion_ = _import "atk_get_micro_version" : unit -> GUInt.FFI.val_;
     val getMinorVersion_ = _import "atk_get_minor_version" : unit -> GUInt.FFI.val_;
-    val getRoot_ = _import "atk_get_root" : unit -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
-    val getToolkitName_ = _import "atk_get_toolkit_name" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getToolkitVersion_ = _import "atk_get_toolkit_version" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getVersion_ = _import "atk_get_version" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getRoot_ = _import "atk_get_root" : unit -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;
+    val getToolkitName_ = _import "atk_get_toolkit_name" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getToolkitVersion_ = _import "atk_get_toolkit_version" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getVersion_ = _import "atk_get_version" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val removeFocusTracker_ = _import "atk_remove_focus_tracker" : GUInt.FFI.val_ -> unit;
     val removeGlobalEventListener_ = _import "atk_remove_global_event_listener" : GUInt.FFI.val_ -> unit;
     val removeKeyEventListener_ = _import "atk_remove_key_event_listener" : GUInt.FFI.val_ -> unit;

@@ -3,8 +3,8 @@ structure PangoAttrList :>
     where type t = PangoAttrListRecord.t =
   struct
     val getType_ = _import "pango_attr_list_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "pango_attr_list_new" : unit -> PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p;
-    val copy_ = _import "pango_attr_list_copy" : PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p -> unit PangoAttrListRecord.FFI.p;
+    val new_ = _import "pango_attr_list_new" : unit -> PangoAttrListRecord.FFI.non_opt PangoAttrListRecord.FFI.p;
+    val copy_ = _import "pango_attr_list_copy" : PangoAttrListRecord.FFI.non_opt PangoAttrListRecord.FFI.p -> PangoAttrListRecord.FFI.opt PangoAttrListRecord.FFI.p;
     val splice_ =
       fn
         x1
@@ -13,8 +13,8 @@ structure PangoAttrList :>
          & x4 =>
           (
             _import "pango_attr_list_splice" :
-              PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p
-               * PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p
+              PangoAttrListRecord.FFI.non_opt PangoAttrListRecord.FFI.p
+               * PangoAttrListRecord.FFI.non_opt PangoAttrListRecord.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;

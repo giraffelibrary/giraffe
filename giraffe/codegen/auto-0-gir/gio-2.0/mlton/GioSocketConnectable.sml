@@ -4,9 +4,9 @@ structure GioSocketConnectable :>
     where type 'a socket_address_enumerator_class = 'a GioSocketAddressEnumeratorClass.class =
   struct
     val getType_ = _import "g_socket_connectable_get_type" : unit -> GObjectType.FFI.val_;
-    val enumerate_ = _import "g_socket_connectable_enumerate" : GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p -> GioSocketAddressEnumeratorClass.FFI.notnull GioSocketAddressEnumeratorClass.FFI.p;
-    val proxyEnumerate_ = _import "g_socket_connectable_proxy_enumerate" : GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p -> GioSocketAddressEnumeratorClass.FFI.notnull GioSocketAddressEnumeratorClass.FFI.p;
-    val toString_ = _import "g_socket_connectable_to_string" : GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val enumerate_ = _import "g_socket_connectable_enumerate" : GioSocketConnectableClass.FFI.non_opt GioSocketConnectableClass.FFI.p -> GioSocketAddressEnumeratorClass.FFI.non_opt GioSocketAddressEnumeratorClass.FFI.p;
+    val proxyEnumerate_ = _import "g_socket_connectable_proxy_enumerate" : GioSocketConnectableClass.FFI.non_opt GioSocketConnectableClass.FFI.p -> GioSocketAddressEnumeratorClass.FFI.non_opt GioSocketAddressEnumeratorClass.FFI.p;
+    val toString_ = _import "g_socket_connectable_to_string" : GioSocketConnectableClass.FFI.non_opt GioSocketConnectableClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     type 'a class = 'a GioSocketConnectableClass.class
     type 'a socket_address_enumerator_class = 'a GioSocketAddressEnumeratorClass.class
     type t = base class

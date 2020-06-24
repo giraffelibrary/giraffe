@@ -6,9 +6,9 @@ structure GioZlibCompressor :>
     where type zlib_compressor_format_t = GioZlibCompressorFormat.t =
   struct
     val getType_ = _import "g_zlib_compressor_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "g_zlib_compressor_new" : GioZlibCompressorFormat.FFI.val_ * GInt32.FFI.val_ -> GioZlibCompressorClass.FFI.notnull GioZlibCompressorClass.FFI.p;) (x1, x2)
-    val getFileInfo_ = _import "g_zlib_compressor_get_file_info" : GioZlibCompressorClass.FFI.notnull GioZlibCompressorClass.FFI.p -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
-    val setFileInfo_ = fn x1 & x2 => (_import "g_zlib_compressor_set_file_info" : GioZlibCompressorClass.FFI.notnull GioZlibCompressorClass.FFI.p * unit GioFileInfoClass.FFI.p -> unit;) (x1, x2)
+    val new_ = fn x1 & x2 => (_import "g_zlib_compressor_new" : GioZlibCompressorFormat.FFI.val_ * GInt32.FFI.val_ -> GioZlibCompressorClass.FFI.non_opt GioZlibCompressorClass.FFI.p;) (x1, x2)
+    val getFileInfo_ = _import "g_zlib_compressor_get_file_info" : GioZlibCompressorClass.FFI.non_opt GioZlibCompressorClass.FFI.p -> GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p;
+    val setFileInfo_ = fn x1 & x2 => (_import "g_zlib_compressor_set_file_info" : GioZlibCompressorClass.FFI.non_opt GioZlibCompressorClass.FFI.p * GioFileInfoClass.FFI.opt GioFileInfoClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GioZlibCompressorClass.class
     type 'a converter_class = 'a GioConverterClass.class
     type 'a file_info_class = 'a GioFileInfoClass.class

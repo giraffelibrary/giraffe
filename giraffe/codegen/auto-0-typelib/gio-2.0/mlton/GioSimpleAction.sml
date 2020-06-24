@@ -10,9 +10,9 @@ structure GioSimpleAction :>
           (
             _import "mlton_g_simple_action_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantTypeRecord.FFI.p
-               -> GioSimpleActionClass.FFI.notnull GioSimpleActionClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p
+               -> GioSimpleActionClass.FFI.non_opt GioSimpleActionClass.FFI.p;
           )
             (
               x1,
@@ -27,10 +27,10 @@ structure GioSimpleAction :>
           (
             _import "mlton_g_simple_action_new_stateful" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantTypeRecord.FFI.p
-               * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p
-               -> GioSimpleActionClass.FFI.notnull GioSimpleActionClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p
+               * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p
+               -> GioSimpleActionClass.FFI.non_opt GioSimpleActionClass.FFI.p;
           )
             (
               x1,
@@ -38,9 +38,9 @@ structure GioSimpleAction :>
               x3,
               x4
             )
-    val setEnabled_ = fn x1 & x2 => (_import "g_simple_action_set_enabled" : GioSimpleActionClass.FFI.notnull GioSimpleActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setState_ = fn x1 & x2 => (_import "g_simple_action_set_state" : GioSimpleActionClass.FFI.notnull GioSimpleActionClass.FFI.p * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> unit;) (x1, x2)
-    val setStateHint_ = fn x1 & x2 => (_import "g_simple_action_set_state_hint" : GioSimpleActionClass.FFI.notnull GioSimpleActionClass.FFI.p * unit GLibVariantRecord.FFI.p -> unit;) (x1, x2)
+    val setEnabled_ = fn x1 & x2 => (_import "g_simple_action_set_enabled" : GioSimpleActionClass.FFI.non_opt GioSimpleActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setState_ = fn x1 & x2 => (_import "g_simple_action_set_state" : GioSimpleActionClass.FFI.non_opt GioSimpleActionClass.FFI.p * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> unit;) (x1, x2)
+    val setStateHint_ = fn x1 & x2 => (_import "g_simple_action_set_state_hint" : GioSimpleActionClass.FFI.non_opt GioSimpleActionClass.FFI.p * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GioSimpleActionClass.class
     type 'a action_class = 'a GioActionClass.class
     type t = base class

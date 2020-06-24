@@ -6,9 +6,9 @@ structure GtkGesturePan :>
     where type orientation_t = GtkOrientation.t =
   struct
     val getType_ = _import "gtk_gesture_pan_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "gtk_gesture_pan_new" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GtkOrientation.FFI.val_ -> GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p;) (x1, x2)
-    val getOrientation_ = _import "gtk_gesture_pan_get_orientation" : GtkGesturePanClass.FFI.notnull GtkGesturePanClass.FFI.p -> GtkOrientation.FFI.val_;
-    val setOrientation_ = fn x1 & x2 => (_import "gtk_gesture_pan_set_orientation" : GtkGesturePanClass.FFI.notnull GtkGesturePanClass.FFI.p * GtkOrientation.FFI.val_ -> unit;) (x1, x2)
+    val new_ = fn x1 & x2 => (_import "gtk_gesture_pan_new" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GtkOrientation.FFI.val_ -> GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p;) (x1, x2)
+    val getOrientation_ = _import "gtk_gesture_pan_get_orientation" : GtkGesturePanClass.FFI.non_opt GtkGesturePanClass.FFI.p -> GtkOrientation.FFI.val_;
+    val setOrientation_ = fn x1 & x2 => (_import "gtk_gesture_pan_set_orientation" : GtkGesturePanClass.FFI.non_opt GtkGesturePanClass.FFI.p * GtkOrientation.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkGesturePanClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type pan_direction_t = GtkPanDirection.t

@@ -5,27 +5,27 @@ structure GtkProgressBar :>
     where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
     val getType_ = _import "gtk_progress_bar_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_progress_bar_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getEllipsize_ = _import "gtk_progress_bar_get_ellipsize" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> PangoEllipsizeMode.FFI.val_;
-    val getFraction_ = _import "gtk_progress_bar_get_fraction" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> GDouble.FFI.val_;
-    val getInverted_ = _import "gtk_progress_bar_get_inverted" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> GBool.FFI.val_;
-    val getPulseStep_ = _import "gtk_progress_bar_get_pulse_step" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> GDouble.FFI.val_;
-    val getShowText_ = _import "gtk_progress_bar_get_show_text" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> GBool.FFI.val_;
-    val getText_ = _import "gtk_progress_bar_get_text" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> unit Utf8.FFI.out_p;
-    val pulse_ = _import "gtk_progress_bar_pulse" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p -> unit;
-    val setEllipsize_ = fn x1 & x2 => (_import "gtk_progress_bar_set_ellipsize" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p * PangoEllipsizeMode.FFI.val_ -> unit;) (x1, x2)
-    val setFraction_ = fn x1 & x2 => (_import "gtk_progress_bar_set_fraction" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setInverted_ = fn x1 & x2 => (_import "gtk_progress_bar_set_inverted" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setPulseStep_ = fn x1 & x2 => (_import "gtk_progress_bar_set_pulse_step" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setShowText_ = fn x1 & x2 => (_import "gtk_progress_bar_set_show_text" : GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_progress_bar_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getEllipsize_ = _import "gtk_progress_bar_get_ellipsize" : GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p -> PangoEllipsizeMode.FFI.val_;
+    val getFraction_ = _import "gtk_progress_bar_get_fraction" : GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p -> GDouble.FFI.val_;
+    val getInverted_ = _import "gtk_progress_bar_get_inverted" : GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p -> GBool.FFI.val_;
+    val getPulseStep_ = _import "gtk_progress_bar_get_pulse_step" : GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p -> GDouble.FFI.val_;
+    val getShowText_ = _import "gtk_progress_bar_get_show_text" : GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p -> GBool.FFI.val_;
+    val getText_ = _import "gtk_progress_bar_get_text" : GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val pulse_ = _import "gtk_progress_bar_pulse" : GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p -> unit;
+    val setEllipsize_ = fn x1 & x2 => (_import "gtk_progress_bar_set_ellipsize" : GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p * PangoEllipsizeMode.FFI.val_ -> unit;) (x1, x2)
+    val setFraction_ = fn x1 & x2 => (_import "gtk_progress_bar_set_fraction" : GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setInverted_ = fn x1 & x2 => (_import "gtk_progress_bar_set_inverted" : GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPulseStep_ = fn x1 & x2 => (_import "gtk_progress_bar_set_pulse_step" : GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setShowText_ = fn x1 & x2 => (_import "gtk_progress_bar_set_show_text" : GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setText_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_progress_bar_set_text" :
-              GtkProgressBarClass.FFI.notnull GtkProgressBarClass.FFI.p
+              GtkProgressBarClass.FFI.non_opt GtkProgressBarClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (

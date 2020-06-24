@@ -4,8 +4,8 @@ structure GioSeekable :>
     where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
     val getType_ = _import "g_seekable_get_type" : unit -> GObjectType.FFI.val_;
-    val canSeek_ = _import "g_seekable_can_seek" : GioSeekableClass.FFI.notnull GioSeekableClass.FFI.p -> GBool.FFI.val_;
-    val canTruncate_ = _import "g_seekable_can_truncate" : GioSeekableClass.FFI.notnull GioSeekableClass.FFI.p -> GBool.FFI.val_;
+    val canSeek_ = _import "g_seekable_can_seek" : GioSeekableClass.FFI.non_opt GioSeekableClass.FFI.p -> GBool.FFI.val_;
+    val canTruncate_ = _import "g_seekable_can_truncate" : GioSeekableClass.FFI.non_opt GioSeekableClass.FFI.p -> GBool.FFI.val_;
     val seek_ =
       fn
         x1
@@ -15,11 +15,11 @@ structure GioSeekable :>
          & x5 =>
           (
             _import "g_seekable_seek" :
-              GioSeekableClass.FFI.notnull GioSeekableClass.FFI.p
+              GioSeekableClass.FFI.non_opt GioSeekableClass.FFI.p
                * GInt64.FFI.val_
                * GLibSeekType.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -29,7 +29,7 @@ structure GioSeekable :>
               x4,
               x5
             )
-    val tell_ = _import "g_seekable_tell" : GioSeekableClass.FFI.notnull GioSeekableClass.FFI.p -> GInt64.FFI.val_;
+    val tell_ = _import "g_seekable_tell" : GioSeekableClass.FFI.non_opt GioSeekableClass.FFI.p -> GInt64.FFI.val_;
     val truncate_ =
       fn
         x1
@@ -38,10 +38,10 @@ structure GioSeekable :>
          & x4 =>
           (
             _import "g_seekable_truncate" :
-              GioSeekableClass.FFI.notnull GioSeekableClass.FFI.p
+              GioSeekableClass.FFI.non_opt GioSeekableClass.FFI.p
                * GInt64.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

@@ -5,8 +5,8 @@ structure GioBytesIcon :>
     where type 'a loadable_icon_class = 'a GioLoadableIconClass.class =
   struct
     val getType_ = _import "g_bytes_icon_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_bytes_icon_new" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p -> GioBytesIconClass.FFI.notnull GioBytesIconClass.FFI.p;
-    val getBytes_ = _import "g_bytes_icon_get_bytes" : GioBytesIconClass.FFI.notnull GioBytesIconClass.FFI.p -> GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p;
+    val new_ = _import "g_bytes_icon_new" : GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> GioBytesIconClass.FFI.non_opt GioBytesIconClass.FFI.p;
+    val getBytes_ = _import "g_bytes_icon_get_bytes" : GioBytesIconClass.FFI.non_opt GioBytesIconClass.FFI.p -> GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p;
     type 'a class = 'a GioBytesIconClass.class
     type 'a icon_class = 'a GioIconClass.class
     type 'a loadable_icon_class = 'a GioLoadableIconClass.class

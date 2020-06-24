@@ -4,7 +4,7 @@ structure GtkGestureSwipe :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_gesture_swipe_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_gesture_swipe_new" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p;
+    val new_ = _import "gtk_gesture_swipe_new" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p;
     val getVelocity_ =
       fn
         x1
@@ -12,7 +12,7 @@ structure GtkGestureSwipe :>
          & x3 =>
           (
             _import "gtk_gesture_swipe_get_velocity" :
-              GtkGestureSwipeClass.FFI.notnull GtkGestureSwipeClass.FFI.p
+              GtkGestureSwipeClass.FFI.non_opt GtkGestureSwipeClass.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                -> GBool.FFI.val_;

@@ -1,7 +1,8 @@
 structure PangoEngineShapeClass :>
   PANGO_ENGINE_SHAPE_CLASS
     where type 'a engine_class = 'a PangoEngineClass.class
-    where type C.notnull = PangoEngineClass.C.notnull
+    where type C.opt = PangoEngineClass.C.opt
+    where type C.non_opt = PangoEngineClass.C.non_opt
     where type 'a C.p = 'a PangoEngineClass.C.p =
   struct
     type 'a engine_class = 'a PangoEngineClass.class

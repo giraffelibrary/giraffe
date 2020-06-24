@@ -4,24 +4,24 @@ structure GdkDisplayManager :>
     where type 'a display_class = 'a GdkDisplayClass.class =
   struct
     val getType_ = _import "gdk_display_manager_get_type" : unit -> GObjectType.FFI.val_;
-    val get_ = _import "gdk_display_manager_get" : unit -> GdkDisplayManagerClass.FFI.notnull GdkDisplayManagerClass.FFI.p;
-    val getDefaultDisplay_ = _import "gdk_display_manager_get_default_display" : GdkDisplayManagerClass.FFI.notnull GdkDisplayManagerClass.FFI.p -> unit GdkDisplayClass.FFI.p;
+    val get_ = _import "gdk_display_manager_get" : unit -> GdkDisplayManagerClass.FFI.non_opt GdkDisplayManagerClass.FFI.p;
+    val getDefaultDisplay_ = _import "gdk_display_manager_get_default_display" : GdkDisplayManagerClass.FFI.non_opt GdkDisplayManagerClass.FFI.p -> GdkDisplayClass.FFI.opt GdkDisplayClass.FFI.p;
     val openDisplay_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gdk_display_manager_open_display" :
-              GdkDisplayManagerClass.FFI.notnull GdkDisplayManagerClass.FFI.p
+              GdkDisplayManagerClass.FFI.non_opt GdkDisplayManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GdkDisplayClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GdkDisplayClass.FFI.opt GdkDisplayClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val setDefaultDisplay_ = fn x1 & x2 => (_import "gdk_display_manager_set_default_display" : GdkDisplayManagerClass.FFI.notnull GdkDisplayManagerClass.FFI.p * GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> unit;) (x1, x2)
+    val setDefaultDisplay_ = fn x1 & x2 => (_import "gdk_display_manager_set_default_display" : GdkDisplayManagerClass.FFI.non_opt GdkDisplayManagerClass.FFI.p * GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GdkDisplayManagerClass.class
     type 'a display_class = 'a GdkDisplayClass.class
     type t = base class

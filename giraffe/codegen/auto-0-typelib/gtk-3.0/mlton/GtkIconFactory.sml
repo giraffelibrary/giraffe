@@ -5,8 +5,8 @@ structure GtkIconFactory :>
     where type icon_set_t = GtkIconSetRecord.t =
   struct
     val getType_ = _import "gtk_icon_factory_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_icon_factory_new" : unit -> GtkIconFactoryClass.FFI.notnull GtkIconFactoryClass.FFI.p;
-    val lookupDefault_ = _import "mlton_gtk_icon_factory_lookup_default" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p;
+    val new_ = _import "gtk_icon_factory_new" : unit -> GtkIconFactoryClass.FFI.non_opt GtkIconFactoryClass.FFI.p;
+    val lookupDefault_ = _import "mlton_gtk_icon_factory_lookup_default" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p;
     val add_ =
       fn
         x1
@@ -14,10 +14,10 @@ structure GtkIconFactory :>
          & x4 =>
           (
             _import "mlton_gtk_icon_factory_add" :
-              GtkIconFactoryClass.FFI.notnull GtkIconFactoryClass.FFI.p
+              GtkIconFactoryClass.FFI.non_opt GtkIconFactoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p
                -> unit;
           )
             (
@@ -26,23 +26,23 @@ structure GtkIconFactory :>
               x3,
               x4
             )
-    val addDefault_ = _import "gtk_icon_factory_add_default" : GtkIconFactoryClass.FFI.notnull GtkIconFactoryClass.FFI.p -> unit;
+    val addDefault_ = _import "gtk_icon_factory_add_default" : GtkIconFactoryClass.FFI.non_opt GtkIconFactoryClass.FFI.p -> unit;
     val lookup_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_factory_lookup" :
-              GtkIconFactoryClass.FFI.notnull GtkIconFactoryClass.FFI.p
+              GtkIconFactoryClass.FFI.non_opt GtkIconFactoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val removeDefault_ = _import "gtk_icon_factory_remove_default" : GtkIconFactoryClass.FFI.notnull GtkIconFactoryClass.FFI.p -> unit;
+    val removeDefault_ = _import "gtk_icon_factory_remove_default" : GtkIconFactoryClass.FFI.non_opt GtkIconFactoryClass.FFI.p -> unit;
     type 'a class = 'a GtkIconFactoryClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type icon_set_t = GtkIconSetRecord.t

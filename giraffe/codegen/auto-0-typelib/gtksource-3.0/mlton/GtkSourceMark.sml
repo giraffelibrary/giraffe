@@ -9,10 +9,10 @@ structure GtkSourceMark :>
           (
             _import "mlton_gtk_source_mark_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkSourceMarkClass.FFI.notnull GtkSourceMarkClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkSourceMarkClass.FFI.non_opt GtkSourceMarkClass.FFI.p;
           )
             (
               x1,
@@ -20,16 +20,16 @@ structure GtkSourceMark :>
               x3,
               x4
             )
-    val getCategory_ = _import "gtk_source_mark_get_category" : GtkSourceMarkClass.FFI.notnull GtkSourceMarkClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getCategory_ = _import "gtk_source_mark_get_category" : GtkSourceMarkClass.FFI.non_opt GtkSourceMarkClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val next_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_mark_next" :
-              GtkSourceMarkClass.FFI.notnull GtkSourceMarkClass.FFI.p
+              GtkSourceMarkClass.FFI.non_opt GtkSourceMarkClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> unit GtkSourceMarkClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkSourceMarkClass.FFI.opt GtkSourceMarkClass.FFI.p;
           )
             (
               x1,
@@ -41,10 +41,10 @@ structure GtkSourceMark :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_mark_prev" :
-              GtkSourceMarkClass.FFI.notnull GtkSourceMarkClass.FFI.p
+              GtkSourceMarkClass.FFI.non_opt GtkSourceMarkClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GtkSourceMarkClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkSourceMarkClass.FFI.opt GtkSourceMarkClass.FFI.p;
           )
             (
               x1,

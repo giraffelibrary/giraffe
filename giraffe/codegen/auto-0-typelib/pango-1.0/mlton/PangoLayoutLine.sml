@@ -11,9 +11,9 @@ structure PangoLayoutLine :>
          & x3 =>
           (
             _import "pango_layout_line_get_extents" :
-              PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+              PangoLayoutLineRecord.FFI.non_opt PangoLayoutLineRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -28,9 +28,9 @@ structure PangoLayoutLine :>
          & x3 =>
           (
             _import "pango_layout_line_get_pixel_extents" :
-              PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+              PangoLayoutLineRecord.FFI.non_opt PangoLayoutLineRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -47,11 +47,11 @@ structure PangoLayoutLine :>
          & x6 =>
           (
             _import "mlton_pango_layout_line_get_x_ranges" :
-              PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p
+              PangoLayoutLineRecord.FFI.non_opt PangoLayoutLineRecord.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GInt32CArrayN.MLton.r1
-               * (unit, GInt32CArrayN.FFI.notnull) GInt32CArrayN.MLton.r2
+               * (GInt32CArrayN.FFI.opt, GInt32CArrayN.FFI.non_opt) GInt32CArrayN.MLton.r2
                * GInt32.FFI.ref_
                -> unit;
           )
@@ -71,7 +71,7 @@ structure PangoLayoutLine :>
          & x4 =>
           (
             _import "pango_layout_line_index_to_x" :
-              PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p
+              PangoLayoutLineRecord.FFI.non_opt PangoLayoutLineRecord.FFI.p
                * GInt32.FFI.val_
                * GBool.FFI.val_
                * GInt32.FFI.ref_
@@ -91,7 +91,7 @@ structure PangoLayoutLine :>
          & x4 =>
           (
             _import "pango_layout_line_x_to_index" :
-              PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p
+              PangoLayoutLineRecord.FFI.non_opt PangoLayoutLineRecord.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_

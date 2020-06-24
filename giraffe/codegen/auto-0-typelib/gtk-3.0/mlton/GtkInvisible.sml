@@ -4,10 +4,10 @@ structure GtkInvisible :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_invisible_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_invisible_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newForScreen_ = _import "gtk_invisible_new_for_screen" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getScreen_ = _import "gtk_invisible_get_screen" : GtkInvisibleClass.FFI.notnull GtkInvisibleClass.FFI.p -> GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p;
-    val setScreen_ = fn x1 & x2 => (_import "gtk_invisible_set_screen" : GtkInvisibleClass.FFI.notnull GtkInvisibleClass.FFI.p * GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_invisible_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newForScreen_ = _import "gtk_invisible_new_for_screen" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getScreen_ = _import "gtk_invisible_get_screen" : GtkInvisibleClass.FFI.non_opt GtkInvisibleClass.FFI.p -> GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p;
+    val setScreen_ = fn x1 & x2 => (_import "gtk_invisible_set_screen" : GtkInvisibleClass.FFI.non_opt GtkInvisibleClass.FFI.p * GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkInvisibleClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class

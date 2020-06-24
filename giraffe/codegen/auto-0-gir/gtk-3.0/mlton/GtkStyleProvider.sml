@@ -7,8 +7,8 @@ structure GtkStyleProvider :>
     where type widget_path_t = GtkWidgetPathRecord.t =
   struct
     val getType_ = _import "gtk_style_provider_get_type" : unit -> GObjectType.FFI.val_;
-    val getIconFactory_ = fn x1 & x2 => (_import "gtk_style_provider_get_icon_factory" : GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p * GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> unit GtkIconFactoryClass.FFI.p;) (x1, x2)
-    val getStyle_ = fn x1 & x2 => (_import "gtk_style_provider_get_style" : GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p * GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> unit GtkStylePropertiesClass.FFI.p;) (x1, x2)
+    val getIconFactory_ = fn x1 & x2 => (_import "gtk_style_provider_get_icon_factory" : GtkStyleProviderClass.FFI.non_opt GtkStyleProviderClass.FFI.p * GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p -> GtkIconFactoryClass.FFI.opt GtkIconFactoryClass.FFI.p;) (x1, x2)
+    val getStyle_ = fn x1 & x2 => (_import "gtk_style_provider_get_style" : GtkStyleProviderClass.FFI.non_opt GtkStyleProviderClass.FFI.p * GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p -> GtkStylePropertiesClass.FFI.opt GtkStylePropertiesClass.FFI.p;) (x1, x2)
     val getStyleProperty_ =
       fn
         x1
@@ -18,11 +18,11 @@ structure GtkStyleProvider :>
          & x5 =>
           (
             _import "gtk_style_provider_get_style_property" :
-              GtkStyleProviderClass.FFI.notnull GtkStyleProviderClass.FFI.p
-               * GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkStyleProviderClass.FFI.non_opt GtkStyleProviderClass.FFI.p
+               * GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GtkStateFlags.FFI.val_
-               * GObjectParamSpecClass.FFI.notnull GObjectParamSpecClass.FFI.p
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (

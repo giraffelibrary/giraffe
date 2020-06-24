@@ -28,9 +28,10 @@ signature G_I_REPOSITORY_ARGUMENT =
 
     structure FFI :
       sig
-        type notnull
+        type opt
+        type non_opt
         type 'a p
-        val withNewPtr : (notnull p -> 'a) -> unit -> (notnull p, 'a) pair
-        val fromPtr : typetag_t -> notnull p -> t
+        val withNewPtr : (non_opt p -> 'a) -> unit -> (non_opt p, 'a) pair
+        val fromPtr : typetag_t -> non_opt p -> t
       end
   end

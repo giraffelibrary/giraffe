@@ -19,7 +19,7 @@ structure GtkAdjustment :>
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
-               -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
+               -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
           )
             (
               x1,
@@ -29,7 +29,7 @@ structure GtkAdjustment :>
               x5,
               x6
             )
-    val changed_ = _import "gtk_adjustment_changed" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> unit;
+    val changed_ = _import "gtk_adjustment_changed" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> unit;
     val clampPage_ =
       fn
         x1
@@ -37,7 +37,7 @@ structure GtkAdjustment :>
          & x3 =>
           (
             _import "gtk_adjustment_clamp_page" :
-              GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p
+              GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                -> unit;
@@ -58,7 +58,7 @@ structure GtkAdjustment :>
          & x7 =>
           (
             _import "gtk_adjustment_configure" :
-              GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p
+              GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -76,20 +76,20 @@ structure GtkAdjustment :>
               x6,
               x7
             )
-    val getLower_ = _import "gtk_adjustment_get_lower" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
-    val getMinimumIncrement_ = _import "gtk_adjustment_get_minimum_increment" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
-    val getPageIncrement_ = _import "gtk_adjustment_get_page_increment" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
-    val getPageSize_ = _import "gtk_adjustment_get_page_size" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
-    val getStepIncrement_ = _import "gtk_adjustment_get_step_increment" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
-    val getUpper_ = _import "gtk_adjustment_get_upper" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
-    val getValue_ = _import "gtk_adjustment_get_value" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
-    val setLower_ = fn x1 & x2 => (_import "gtk_adjustment_set_lower" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setPageIncrement_ = fn x1 & x2 => (_import "gtk_adjustment_set_page_increment" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setPageSize_ = fn x1 & x2 => (_import "gtk_adjustment_set_page_size" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setStepIncrement_ = fn x1 & x2 => (_import "gtk_adjustment_set_step_increment" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setUpper_ = fn x1 & x2 => (_import "gtk_adjustment_set_upper" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setValue_ = fn x1 & x2 => (_import "gtk_adjustment_set_value" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val valueChanged_ = _import "gtk_adjustment_value_changed" : GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> unit;
+    val getLower_ = _import "gtk_adjustment_get_lower" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
+    val getMinimumIncrement_ = _import "gtk_adjustment_get_minimum_increment" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
+    val getPageIncrement_ = _import "gtk_adjustment_get_page_increment" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
+    val getPageSize_ = _import "gtk_adjustment_get_page_size" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
+    val getStepIncrement_ = _import "gtk_adjustment_get_step_increment" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
+    val getUpper_ = _import "gtk_adjustment_get_upper" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
+    val getValue_ = _import "gtk_adjustment_get_value" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> GDouble.FFI.val_;
+    val setLower_ = fn x1 & x2 => (_import "gtk_adjustment_set_lower" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setPageIncrement_ = fn x1 & x2 => (_import "gtk_adjustment_set_page_increment" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setPageSize_ = fn x1 & x2 => (_import "gtk_adjustment_set_page_size" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setStepIncrement_ = fn x1 & x2 => (_import "gtk_adjustment_set_step_increment" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setUpper_ = fn x1 & x2 => (_import "gtk_adjustment_set_upper" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setValue_ = fn x1 & x2 => (_import "gtk_adjustment_set_value" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val valueChanged_ = _import "gtk_adjustment_value_changed" : GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> unit;
     type 'a class = 'a GtkAdjustmentClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

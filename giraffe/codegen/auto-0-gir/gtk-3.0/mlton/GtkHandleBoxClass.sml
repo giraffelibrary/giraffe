@@ -1,7 +1,8 @@
 structure GtkHandleBoxClass :>
   GTK_HANDLE_BOX_CLASS
     where type 'a bin_class = 'a GtkBinClass.class
-    where type C.notnull = GtkBinClass.C.notnull
+    where type C.opt = GtkBinClass.C.opt
+    where type C.non_opt = GtkBinClass.C.non_opt
     where type 'a C.p = 'a GtkBinClass.C.p =
   struct
     type 'a bin_class = 'a GtkBinClass.class
@@ -9,10 +10,10 @@ structure GtkHandleBoxClass :>
     type 'a handle_box = unit
     type 'a class = 'a handle_box class
     val getType_ = _import "gtk_handle_box_get_type" : unit -> GObjectType.FFI.val_;
-    val getValue_ = _import "g_value_get_object" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.notnull FFI.p;
-    val getOptValue_ = _import "g_value_get_object" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit FFI.p;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_object" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.notnull FFI.p -> unit;) (x1, x2)
-    val setOptValue_ = fn x1 & x2 => (_import "g_value_set_object" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * unit FFI.p -> unit;) (x1, x2)
+    val getValue_ = _import "g_value_get_object" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.non_opt FFI.p;
+    val getOptValue_ = _import "g_value_get_object" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.opt FFI.p;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_object" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.non_opt FFI.p -> unit;) (x1, x2)
+    val setOptValue_ = fn x1 & x2 => (_import "g_value_set_object" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.opt FFI.p -> unit;) (x1, x2)
     val t =
       ValueAccessor.C.createAccessor
         {

@@ -12,7 +12,7 @@ structure GtkAccelMap :>
           (
             _import "mlton_gtk_accel_map_add_entry" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
                -> unit;
@@ -23,7 +23,7 @@ structure GtkAccelMap :>
               x3,
               x4
             )
-    val addFilter_ = _import "mlton_gtk_accel_map_add_filter" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val addFilter_ = _import "mlton_gtk_accel_map_add_filter" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val changeEntry_ =
       fn
         (x1, x2)
@@ -33,7 +33,7 @@ structure GtkAccelMap :>
           (
             _import "mlton_gtk_accel_map_change_entry" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
                * GBool.FFI.val_
@@ -46,18 +46,18 @@ structure GtkAccelMap :>
               x4,
               x5
             )
-    val get_ = _import "gtk_accel_map_get" : unit -> GtkAccelMapClass.FFI.notnull GtkAccelMapClass.FFI.p;
-    val load_ = _import "mlton_gtk_accel_map_load" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val get_ = _import "gtk_accel_map_get" : unit -> GtkAccelMapClass.FFI.non_opt GtkAccelMapClass.FFI.p;
+    val load_ = _import "mlton_gtk_accel_map_load" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val loadFd_ = _import "gtk_accel_map_load_fd" : GInt.FFI.val_ -> unit;
-    val lockPath_ = _import "mlton_gtk_accel_map_lock_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val lockPath_ = _import "mlton_gtk_accel_map_lock_path" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val lookupEntry_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_accel_map_lookup_entry" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GtkAccelKeyRecord.FFI.notnull GtkAccelKeyRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GtkAccelKeyRecord.FFI.non_opt GtkAccelKeyRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -65,9 +65,9 @@ structure GtkAccelMap :>
               x2,
               x3
             )
-    val save_ = _import "mlton_gtk_accel_map_save" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val save_ = _import "mlton_gtk_accel_map_save" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val saveFd_ = _import "gtk_accel_map_save_fd" : GInt.FFI.val_ -> unit;
-    val unlockPath_ = _import "mlton_gtk_accel_map_unlock_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val unlockPath_ = _import "mlton_gtk_accel_map_unlock_path" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     type 'a class = 'a GtkAccelMapClass.class
     type accel_key_t = GtkAccelKeyRecord.t
     type t = base class

@@ -4,10 +4,10 @@ structure GLibChecksum :>
     where type checksum_type_t = GLibChecksumType.t =
   struct
     val getType_ = _import "g_checksum_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_checksum_new" : GLibChecksumType.FFI.val_ -> GLibChecksumRecord.FFI.notnull GLibChecksumRecord.FFI.p;
-    val copy_ = _import "g_checksum_copy" : GLibChecksumRecord.FFI.notnull GLibChecksumRecord.FFI.p -> GLibChecksumRecord.FFI.notnull GLibChecksumRecord.FFI.p;
-    val getString_ = _import "g_checksum_get_string" : GLibChecksumRecord.FFI.notnull GLibChecksumRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val reset_ = _import "g_checksum_reset" : GLibChecksumRecord.FFI.notnull GLibChecksumRecord.FFI.p -> unit;
+    val new_ = _import "g_checksum_new" : GLibChecksumType.FFI.val_ -> GLibChecksumRecord.FFI.non_opt GLibChecksumRecord.FFI.p;
+    val copy_ = _import "g_checksum_copy" : GLibChecksumRecord.FFI.non_opt GLibChecksumRecord.FFI.p -> GLibChecksumRecord.FFI.non_opt GLibChecksumRecord.FFI.p;
+    val getString_ = _import "g_checksum_get_string" : GLibChecksumRecord.FFI.non_opt GLibChecksumRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val reset_ = _import "g_checksum_reset" : GLibChecksumRecord.FFI.non_opt GLibChecksumRecord.FFI.p -> unit;
     val update_ =
       fn
         x1
@@ -15,9 +15,9 @@ structure GLibChecksum :>
          & x4 =>
           (
             _import "mlton_g_checksum_update" :
-              GLibChecksumRecord.FFI.notnull GLibChecksumRecord.FFI.p
+              GLibChecksumRecord.FFI.non_opt GLibChecksumRecord.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GSSize.FFI.val_
                -> unit;
           )

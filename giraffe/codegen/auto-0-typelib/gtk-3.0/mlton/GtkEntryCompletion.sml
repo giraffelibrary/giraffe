@@ -9,35 +9,35 @@ structure GtkEntryCompletion :>
     where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
     val getType_ = _import "gtk_entry_completion_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_entry_completion_new" : unit -> GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p;
-    val newWithArea_ = _import "gtk_entry_completion_new_with_area" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p;
-    val complete_ = _import "gtk_entry_completion_complete" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> unit;
+    val new_ = _import "gtk_entry_completion_new" : unit -> GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p;
+    val newWithArea_ = _import "gtk_entry_completion_new_with_area" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p -> GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p;
+    val complete_ = _import "gtk_entry_completion_complete" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p -> unit;
     val computePrefix_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_entry_completion_compute_prefix" :
-              GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p
+              GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.opt Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val deleteAction_ = fn x1 & x2 => (_import "gtk_entry_completion_delete_action" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val getCompletionPrefix_ = _import "gtk_entry_completion_get_completion_prefix" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getEntry_ = _import "gtk_entry_completion_get_entry" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getInlineCompletion_ = _import "gtk_entry_completion_get_inline_completion" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
-    val getInlineSelection_ = _import "gtk_entry_completion_get_inline_selection" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
-    val getMinimumKeyLength_ = _import "gtk_entry_completion_get_minimum_key_length" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GInt32.FFI.val_;
-    val getModel_ = _import "gtk_entry_completion_get_model" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> unit GtkTreeModelClass.FFI.p;
-    val getPopupCompletion_ = _import "gtk_entry_completion_get_popup_completion" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
-    val getPopupSetWidth_ = _import "gtk_entry_completion_get_popup_set_width" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
-    val getPopupSingleMatch_ = _import "gtk_entry_completion_get_popup_single_match" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
-    val getTextColumn_ = _import "gtk_entry_completion_get_text_column" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> GInt32.FFI.val_;
+    val deleteAction_ = fn x1 & x2 => (_import "gtk_entry_completion_delete_action" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val getCompletionPrefix_ = _import "gtk_entry_completion_get_completion_prefix" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getEntry_ = _import "gtk_entry_completion_get_entry" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getInlineCompletion_ = _import "gtk_entry_completion_get_inline_completion" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
+    val getInlineSelection_ = _import "gtk_entry_completion_get_inline_selection" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
+    val getMinimumKeyLength_ = _import "gtk_entry_completion_get_minimum_key_length" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p -> GInt32.FFI.val_;
+    val getModel_ = _import "gtk_entry_completion_get_model" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p -> GtkTreeModelClass.FFI.opt GtkTreeModelClass.FFI.p;
+    val getPopupCompletion_ = _import "gtk_entry_completion_get_popup_completion" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
+    val getPopupSetWidth_ = _import "gtk_entry_completion_get_popup_set_width" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
+    val getPopupSingleMatch_ = _import "gtk_entry_completion_get_popup_single_match" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p -> GBool.FFI.val_;
+    val getTextColumn_ = _import "gtk_entry_completion_get_text_column" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p -> GInt32.FFI.val_;
     val insertActionMarkup_ =
       fn
         x1
@@ -45,10 +45,10 @@ structure GtkEntryCompletion :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_entry_completion_insert_action_markup" :
-              GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p
+              GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p
                * GInt32.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -64,10 +64,10 @@ structure GtkEntryCompletion :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_entry_completion_insert_action_text" :
-              GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p
+              GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p
                * GInt32.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -76,15 +76,15 @@ structure GtkEntryCompletion :>
               x3,
               x4
             )
-    val insertPrefix_ = _import "gtk_entry_completion_insert_prefix" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p -> unit;
-    val setInlineCompletion_ = fn x1 & x2 => (_import "gtk_entry_completion_set_inline_completion" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setInlineSelection_ = fn x1 & x2 => (_import "gtk_entry_completion_set_inline_selection" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setMinimumKeyLength_ = fn x1 & x2 => (_import "gtk_entry_completion_set_minimum_key_length" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setModel_ = fn x1 & x2 => (_import "gtk_entry_completion_set_model" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p * unit GtkTreeModelClass.FFI.p -> unit;) (x1, x2)
-    val setPopupCompletion_ = fn x1 & x2 => (_import "gtk_entry_completion_set_popup_completion" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setPopupSetWidth_ = fn x1 & x2 => (_import "gtk_entry_completion_set_popup_set_width" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setPopupSingleMatch_ = fn x1 & x2 => (_import "gtk_entry_completion_set_popup_single_match" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setTextColumn_ = fn x1 & x2 => (_import "gtk_entry_completion_set_text_column" : GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val insertPrefix_ = _import "gtk_entry_completion_insert_prefix" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p -> unit;
+    val setInlineCompletion_ = fn x1 & x2 => (_import "gtk_entry_completion_set_inline_completion" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setInlineSelection_ = fn x1 & x2 => (_import "gtk_entry_completion_set_inline_selection" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setMinimumKeyLength_ = fn x1 & x2 => (_import "gtk_entry_completion_set_minimum_key_length" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setModel_ = fn x1 & x2 => (_import "gtk_entry_completion_set_model" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p * GtkTreeModelClass.FFI.opt GtkTreeModelClass.FFI.p -> unit;) (x1, x2)
+    val setPopupCompletion_ = fn x1 & x2 => (_import "gtk_entry_completion_set_popup_completion" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPopupSetWidth_ = fn x1 & x2 => (_import "gtk_entry_completion_set_popup_set_width" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPopupSingleMatch_ = fn x1 & x2 => (_import "gtk_entry_completion_set_popup_single_match" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setTextColumn_ = fn x1 & x2 => (_import "gtk_entry_completion_set_text_column" : GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkEntryCompletionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class

@@ -5,7 +5,7 @@ structure GtkAboutDialog :>
     where type license_t = GtkLicense.t =
   struct
     val getType_ = _import "gtk_about_dialog_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_about_dialog_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_about_dialog_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val addCreditSection_ =
       fn
         x1
@@ -13,11 +13,11 @@ structure GtkAboutDialog :>
          & (x4, x5) =>
           (
             _import "mlton_gtk_about_dialog_add_credit_section" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (
@@ -27,29 +27,29 @@ structure GtkAboutDialog :>
               x4,
               x5
             )
-    val getArtists_ = _import "gtk_about_dialog_get_artists" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val getAuthors_ = _import "gtk_about_dialog_get_authors" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val getComments_ = _import "gtk_about_dialog_get_comments" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getCopyright_ = _import "gtk_about_dialog_get_copyright" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getDocumenters_ = _import "gtk_about_dialog_get_documenters" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val getLicense_ = _import "gtk_about_dialog_get_license" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getLicenseType_ = _import "gtk_about_dialog_get_license_type" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> GtkLicense.FFI.val_;
-    val getLogo_ = _import "gtk_about_dialog_get_logo" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
-    val getLogoIconName_ = _import "gtk_about_dialog_get_logo_icon_name" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getProgramName_ = _import "gtk_about_dialog_get_program_name" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getTranslatorCredits_ = _import "gtk_about_dialog_get_translator_credits" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getVersion_ = _import "gtk_about_dialog_get_version" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getWebsite_ = _import "gtk_about_dialog_get_website" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getWebsiteLabel_ = _import "gtk_about_dialog_get_website_label" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getWrapLicense_ = _import "gtk_about_dialog_get_wrap_license" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p -> GBool.FFI.val_;
+    val getArtists_ = _import "gtk_about_dialog_get_artists" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val getAuthors_ = _import "gtk_about_dialog_get_authors" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val getComments_ = _import "gtk_about_dialog_get_comments" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getCopyright_ = _import "gtk_about_dialog_get_copyright" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getDocumenters_ = _import "gtk_about_dialog_get_documenters" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val getLicense_ = _import "gtk_about_dialog_get_license" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getLicenseType_ = _import "gtk_about_dialog_get_license_type" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> GtkLicense.FFI.val_;
+    val getLogo_ = _import "gtk_about_dialog_get_logo" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
+    val getLogoIconName_ = _import "gtk_about_dialog_get_logo_icon_name" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getProgramName_ = _import "gtk_about_dialog_get_program_name" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getTranslatorCredits_ = _import "gtk_about_dialog_get_translator_credits" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getVersion_ = _import "gtk_about_dialog_get_version" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getWebsite_ = _import "gtk_about_dialog_get_website" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getWebsiteLabel_ = _import "gtk_about_dialog_get_website_label" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getWrapLicense_ = _import "gtk_about_dialog_get_wrap_license" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p -> GBool.FFI.val_;
     val setArtists_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_about_dialog_set_artists" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (
@@ -62,9 +62,9 @@ structure GtkAboutDialog :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_about_dialog_set_authors" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (
@@ -77,9 +77,9 @@ structure GtkAboutDialog :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_about_dialog_set_comments" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -92,9 +92,9 @@ structure GtkAboutDialog :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_about_dialog_set_copyright" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -107,9 +107,9 @@ structure GtkAboutDialog :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_about_dialog_set_documenters" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (
@@ -122,9 +122,9 @@ structure GtkAboutDialog :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_about_dialog_set_license" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -132,16 +132,16 @@ structure GtkAboutDialog :>
               x2,
               x3
             )
-    val setLicenseType_ = fn x1 & x2 => (_import "gtk_about_dialog_set_license_type" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p * GtkLicense.FFI.val_ -> unit;) (x1, x2)
-    val setLogo_ = fn x1 & x2 => (_import "gtk_about_dialog_set_logo" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p * unit GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
+    val setLicenseType_ = fn x1 & x2 => (_import "gtk_about_dialog_set_license_type" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p * GtkLicense.FFI.val_ -> unit;) (x1, x2)
+    val setLogo_ = fn x1 & x2 => (_import "gtk_about_dialog_set_logo" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p * GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
     val setLogoIconName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_about_dialog_set_logo_icon_name" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -154,9 +154,9 @@ structure GtkAboutDialog :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_about_dialog_set_program_name" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -169,9 +169,9 @@ structure GtkAboutDialog :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_about_dialog_set_translator_credits" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -184,9 +184,9 @@ structure GtkAboutDialog :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_about_dialog_set_version" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -199,9 +199,9 @@ structure GtkAboutDialog :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_about_dialog_set_website" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -214,9 +214,9 @@ structure GtkAboutDialog :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_about_dialog_set_website_label" :
-              GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p
+              GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -224,7 +224,7 @@ structure GtkAboutDialog :>
               x2,
               x3
             )
-    val setWrapLicense_ = fn x1 & x2 => (_import "gtk_about_dialog_set_wrap_license" : GtkAboutDialogClass.FFI.notnull GtkAboutDialogClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setWrapLicense_ = fn x1 & x2 => (_import "gtk_about_dialog_set_wrap_license" : GtkAboutDialogClass.FFI.non_opt GtkAboutDialogClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkAboutDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type license_t = GtkLicense.t

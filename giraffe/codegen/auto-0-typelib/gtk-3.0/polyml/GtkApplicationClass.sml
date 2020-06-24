@@ -1,6 +1,7 @@
 structure GtkApplicationClass :>
   GTK_APPLICATION_CLASS
-    where type C.notnull = GioApplicationClass.C.notnull
+    where type C.opt = GioApplicationClass.C.opt
+    where type C.non_opt = GioApplicationClass.C.non_opt
     where type 'a C.p = 'a GioApplicationClass.C.p =
   struct
     open GioApplicationClass

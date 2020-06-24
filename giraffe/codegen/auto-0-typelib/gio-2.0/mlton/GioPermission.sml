@@ -12,9 +12,9 @@ structure GioPermission :>
          & x3 =>
           (
             _import "g_permission_acquire" :
-              GioPermissionClass.FFI.notnull GioPermissionClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioPermissionClass.FFI.non_opt GioPermissionClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -29,9 +29,9 @@ structure GioPermission :>
          & x3 =>
           (
             _import "g_permission_acquire_finish" :
-              GioPermissionClass.FFI.notnull GioPermissionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioPermissionClass.FFI.non_opt GioPermissionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -39,9 +39,9 @@ structure GioPermission :>
               x2,
               x3
             )
-    val getAllowed_ = _import "g_permission_get_allowed" : GioPermissionClass.FFI.notnull GioPermissionClass.FFI.p -> GBool.FFI.val_;
-    val getCanAcquire_ = _import "g_permission_get_can_acquire" : GioPermissionClass.FFI.notnull GioPermissionClass.FFI.p -> GBool.FFI.val_;
-    val getCanRelease_ = _import "g_permission_get_can_release" : GioPermissionClass.FFI.notnull GioPermissionClass.FFI.p -> GBool.FFI.val_;
+    val getAllowed_ = _import "g_permission_get_allowed" : GioPermissionClass.FFI.non_opt GioPermissionClass.FFI.p -> GBool.FFI.val_;
+    val getCanAcquire_ = _import "g_permission_get_can_acquire" : GioPermissionClass.FFI.non_opt GioPermissionClass.FFI.p -> GBool.FFI.val_;
+    val getCanRelease_ = _import "g_permission_get_can_release" : GioPermissionClass.FFI.non_opt GioPermissionClass.FFI.p -> GBool.FFI.val_;
     val implUpdate_ =
       fn
         x1
@@ -50,7 +50,7 @@ structure GioPermission :>
          & x4 =>
           (
             _import "g_permission_impl_update" :
-              GioPermissionClass.FFI.notnull GioPermissionClass.FFI.p
+              GioPermissionClass.FFI.non_opt GioPermissionClass.FFI.p
                * GBool.FFI.val_
                * GBool.FFI.val_
                * GBool.FFI.val_
@@ -69,9 +69,9 @@ structure GioPermission :>
          & x3 =>
           (
             _import "g_permission_release" :
-              GioPermissionClass.FFI.notnull GioPermissionClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioPermissionClass.FFI.non_opt GioPermissionClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -86,9 +86,9 @@ structure GioPermission :>
          & x3 =>
           (
             _import "g_permission_release_finish" :
-              GioPermissionClass.FFI.notnull GioPermissionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioPermissionClass.FFI.non_opt GioPermissionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

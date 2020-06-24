@@ -3,20 +3,20 @@ structure GtkSourceGutterRendererPixbuf :>
     where type 'a class = 'a GtkSourceGutterRendererPixbufClass.class =
   struct
     val getType_ = _import "gtk_source_gutter_renderer_pixbuf_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_gutter_renderer_pixbuf_new" : unit -> GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p;
-    val getGicon_ = _import "gtk_source_gutter_renderer_pixbuf_get_gicon" : GtkSourceGutterRendererPixbufClass.FFI.notnull GtkSourceGutterRendererPixbufClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val getIconName_ = _import "gtk_source_gutter_renderer_pixbuf_get_icon_name" : GtkSourceGutterRendererPixbufClass.FFI.notnull GtkSourceGutterRendererPixbufClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPixbuf_ = _import "gtk_source_gutter_renderer_pixbuf_get_pixbuf" : GtkSourceGutterRendererPixbufClass.FFI.notnull GtkSourceGutterRendererPixbufClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
-    val getStockId_ = _import "gtk_source_gutter_renderer_pixbuf_get_stock_id" : GtkSourceGutterRendererPixbufClass.FFI.notnull GtkSourceGutterRendererPixbufClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val setGicon_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_pixbuf_set_gicon" : GtkSourceGutterRendererPixbufClass.FFI.notnull GtkSourceGutterRendererPixbufClass.FFI.p * unit GioIconClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_source_gutter_renderer_pixbuf_new" : unit -> GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p;
+    val getGicon_ = _import "gtk_source_gutter_renderer_pixbuf_get_gicon" : GtkSourceGutterRendererPixbufClass.FFI.non_opt GtkSourceGutterRendererPixbufClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val getIconName_ = _import "gtk_source_gutter_renderer_pixbuf_get_icon_name" : GtkSourceGutterRendererPixbufClass.FFI.non_opt GtkSourceGutterRendererPixbufClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPixbuf_ = _import "gtk_source_gutter_renderer_pixbuf_get_pixbuf" : GtkSourceGutterRendererPixbufClass.FFI.non_opt GtkSourceGutterRendererPixbufClass.FFI.p -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
+    val getStockId_ = _import "gtk_source_gutter_renderer_pixbuf_get_stock_id" : GtkSourceGutterRendererPixbufClass.FFI.non_opt GtkSourceGutterRendererPixbufClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val setGicon_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_pixbuf_set_gicon" : GtkSourceGutterRendererPixbufClass.FFI.non_opt GtkSourceGutterRendererPixbufClass.FFI.p * GioIconClass.FFI.opt GioIconClass.FFI.p -> unit;) (x1, x2)
     val setIconName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_gutter_renderer_pixbuf_set_icon_name" :
-              GtkSourceGutterRendererPixbufClass.FFI.notnull GtkSourceGutterRendererPixbufClass.FFI.p
+              GtkSourceGutterRendererPixbufClass.FFI.non_opt GtkSourceGutterRendererPixbufClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -24,15 +24,15 @@ structure GtkSourceGutterRendererPixbuf :>
               x2,
               x3
             )
-    val setPixbuf_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_pixbuf_set_pixbuf" : GtkSourceGutterRendererPixbufClass.FFI.notnull GtkSourceGutterRendererPixbufClass.FFI.p * unit GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
+    val setPixbuf_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_pixbuf_set_pixbuf" : GtkSourceGutterRendererPixbufClass.FFI.non_opt GtkSourceGutterRendererPixbufClass.FFI.p * GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
     val setStockId_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_gutter_renderer_pixbuf_set_stock_id" :
-              GtkSourceGutterRendererPixbufClass.FFI.notnull GtkSourceGutterRendererPixbufClass.FFI.p
+              GtkSourceGutterRendererPixbufClass.FFI.non_opt GtkSourceGutterRendererPixbufClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (

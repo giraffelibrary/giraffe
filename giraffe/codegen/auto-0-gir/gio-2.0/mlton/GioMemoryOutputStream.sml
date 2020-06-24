@@ -5,10 +5,10 @@ structure GioMemoryOutputStream :>
     where type 'a seekable_class = 'a GioSeekableClass.class =
   struct
     val getType_ = _import "g_memory_output_stream_get_type" : unit -> GObjectType.FFI.val_;
-    val newResizable_ = _import "g_memory_output_stream_new_resizable" : unit -> GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p;
-    val getDataSize_ = _import "g_memory_output_stream_get_data_size" : GioMemoryOutputStreamClass.FFI.notnull GioMemoryOutputStreamClass.FFI.p -> GSize.FFI.val_;
-    val getSize_ = _import "g_memory_output_stream_get_size" : GioMemoryOutputStreamClass.FFI.notnull GioMemoryOutputStreamClass.FFI.p -> GSize.FFI.val_;
-    val stealAsBytes_ = _import "g_memory_output_stream_steal_as_bytes" : GioMemoryOutputStreamClass.FFI.notnull GioMemoryOutputStreamClass.FFI.p -> GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p;
+    val newResizable_ = _import "g_memory_output_stream_new_resizable" : unit -> GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p;
+    val getDataSize_ = _import "g_memory_output_stream_get_data_size" : GioMemoryOutputStreamClass.FFI.non_opt GioMemoryOutputStreamClass.FFI.p -> GSize.FFI.val_;
+    val getSize_ = _import "g_memory_output_stream_get_size" : GioMemoryOutputStreamClass.FFI.non_opt GioMemoryOutputStreamClass.FFI.p -> GSize.FFI.val_;
+    val stealAsBytes_ = _import "g_memory_output_stream_steal_as_bytes" : GioMemoryOutputStreamClass.FFI.non_opt GioMemoryOutputStreamClass.FFI.p -> GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p;
     type 'a class = 'a GioMemoryOutputStreamClass.class
     type 'a pollable_output_stream_class = 'a GioPollableOutputStreamClass.class
     type 'a seekable_class = 'a GioSeekableClass.class

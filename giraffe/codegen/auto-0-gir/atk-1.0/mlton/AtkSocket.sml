@@ -4,15 +4,15 @@ structure AtkSocket :>
     where type 'a component_class = 'a AtkComponentClass.class =
   struct
     val getType_ = _import "atk_socket_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "atk_socket_new" : unit -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
+    val new_ = _import "atk_socket_new" : unit -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;
     val embed_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_socket_embed" :
-              AtkSocketClass.FFI.notnull AtkSocketClass.FFI.p
+              AtkSocketClass.FFI.non_opt AtkSocketClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -20,7 +20,7 @@ structure AtkSocket :>
               x2,
               x3
             )
-    val isOccupied_ = _import "atk_socket_is_occupied" : AtkSocketClass.FFI.notnull AtkSocketClass.FFI.p -> GBool.FFI.val_;
+    val isOccupied_ = _import "atk_socket_is_occupied" : AtkSocketClass.FFI.non_opt AtkSocketClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a AtkSocketClass.class
     type 'a component_class = 'a AtkComponentClass.class
     type t = base class

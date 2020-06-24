@@ -25,10 +25,10 @@ structure GtkCellArea :>
          & x6 =>
           (
             _import "gtk_cell_area_activate" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                * GtkCellRendererState.FFI.val_
                * GBool.FFI.val_
                -> GBool.FFI.val_;
@@ -51,11 +51,11 @@ structure GtkCellArea :>
          & x6 =>
           (
             _import "gtk_cell_area_activate_cell" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
-               * GdkEvent.FFI.notnull GdkEvent.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
+               * GdkEvent.FFI.non_opt GdkEvent.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                * GtkCellRendererState.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -67,7 +67,7 @@ structure GtkCellArea :>
               x5,
               x6
             )
-    val add_ = fn x1 & x2 => (_import "gtk_cell_area_add" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> unit;) (x1, x2)
+    val add_ = fn x1 & x2 => (_import "gtk_cell_area_add" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p -> unit;) (x1, x2)
     val addFocusSibling_ =
       fn
         x1
@@ -75,9 +75,9 @@ structure GtkCellArea :>
          & x3 =>
           (
             _import "gtk_cell_area_add_focus_sibling" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                -> unit;
           )
             (
@@ -94,9 +94,9 @@ structure GtkCellArea :>
          & x5 =>
           (
             _import "gtk_cell_area_apply_attributes" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                * GBool.FFI.val_
                * GBool.FFI.val_
                -> unit;
@@ -116,10 +116,10 @@ structure GtkCellArea :>
          & x5 =>
           (
             _import "mlton_gtk_cell_area_attribute_connect" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )
@@ -137,10 +137,10 @@ structure GtkCellArea :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_cell_area_attribute_disconnect" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -156,10 +156,10 @@ structure GtkCellArea :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_cell_area_attribute_get_column" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GInt.FFI.val_;
           )
             (
@@ -176,11 +176,11 @@ structure GtkCellArea :>
          & x5 =>
           (
             _import "mlton_gtk_cell_area_cell_get_property" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -198,11 +198,11 @@ structure GtkCellArea :>
          & x5 =>
           (
             _import "mlton_gtk_cell_area_cell_set_property" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -212,8 +212,8 @@ structure GtkCellArea :>
               x4,
               x5
             )
-    val copyContext_ = fn x1 & x2 => (_import "gtk_cell_area_copy_context" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p * GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p -> GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p;) (x1, x2)
-    val createContext_ = _import "gtk_cell_area_create_context" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p;
+    val copyContext_ = fn x1 & x2 => (_import "gtk_cell_area_copy_context" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p * GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p -> GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p;) (x1, x2)
+    val createContext_ = _import "gtk_cell_area_create_context" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p -> GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p;
     val event_ =
       fn
         x1
@@ -224,11 +224,11 @@ structure GtkCellArea :>
          & x6 =>
           (
             _import "gtk_cell_area_event" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * GdkEvent.FFI.notnull GdkEvent.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GdkEvent.FFI.non_opt GdkEvent.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                * GtkCellRendererState.FFI.val_
                -> GInt.FFI.val_;
           )
@@ -240,7 +240,7 @@ structure GtkCellArea :>
               x5,
               x6
             )
-    val focus_ = fn x1 & x2 => (_import "gtk_cell_area_focus" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p * GtkDirectionType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val focus_ = fn x1 & x2 => (_import "gtk_cell_area_focus" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p * GtkDirectionType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val getCellAllocation_ =
       fn
         x1
@@ -251,12 +251,12 @@ structure GtkCellArea :>
          & x6 =>
           (
             _import "gtk_cell_area_get_cell_allocation" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -278,14 +278,14 @@ structure GtkCellArea :>
          & x7 =>
           (
             _import "gtk_cell_area_get_cell_at_position" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               -> GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p;
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               -> GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p;
           )
             (
               x1,
@@ -296,11 +296,11 @@ structure GtkCellArea :>
               x6,
               x7
             )
-    val getCurrentPathString_ = _import "gtk_cell_area_get_current_path_string" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getEditWidget_ = _import "gtk_cell_area_get_edit_widget" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkCellEditableClass.FFI.notnull GtkCellEditableClass.FFI.p;
-    val getEditedCell_ = _import "gtk_cell_area_get_edited_cell" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p;
-    val getFocusCell_ = _import "gtk_cell_area_get_focus_cell" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p;
-    val getFocusFromSibling_ = fn x1 & x2 => (_import "gtk_cell_area_get_focus_from_sibling" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> unit GtkCellRendererClass.FFI.p;) (x1, x2)
+    val getCurrentPathString_ = _import "gtk_cell_area_get_current_path_string" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getEditWidget_ = _import "gtk_cell_area_get_edit_widget" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p -> GtkCellEditableClass.FFI.non_opt GtkCellEditableClass.FFI.p;
+    val getEditedCell_ = _import "gtk_cell_area_get_edited_cell" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p -> GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p;
+    val getFocusCell_ = _import "gtk_cell_area_get_focus_cell" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p -> GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p;
+    val getFocusFromSibling_ = fn x1 & x2 => (_import "gtk_cell_area_get_focus_from_sibling" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p -> GtkCellRendererClass.FFI.opt GtkCellRendererClass.FFI.p;) (x1, x2)
     val getPreferredHeight_ =
       fn
         x1
@@ -310,9 +310,9 @@ structure GtkCellArea :>
          & x5 =>
           (
             _import "gtk_cell_area_get_preferred_height" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -334,9 +334,9 @@ structure GtkCellArea :>
          & x6 =>
           (
             _import "gtk_cell_area_get_preferred_height_for_width" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.ref_
                * GInt.FFI.ref_
@@ -359,9 +359,9 @@ structure GtkCellArea :>
          & x5 =>
           (
             _import "gtk_cell_area_get_preferred_width" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -383,9 +383,9 @@ structure GtkCellArea :>
          & x6 =>
           (
             _import "gtk_cell_area_get_preferred_width_for_height" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.ref_
                * GInt.FFI.ref_
@@ -399,8 +399,8 @@ structure GtkCellArea :>
               x5,
               x6
             )
-    val getRequestMode_ = _import "gtk_cell_area_get_request_mode" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkSizeRequestMode.FFI.val_;
-    val hasRenderer_ = fn x1 & x2 => (_import "gtk_cell_area_has_renderer" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getRequestMode_ = _import "gtk_cell_area_get_request_mode" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p -> GtkSizeRequestMode.FFI.val_;
+    val hasRenderer_ = fn x1 & x2 => (_import "gtk_cell_area_has_renderer" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val innerCellArea_ =
       fn
         x1
@@ -409,10 +409,10 @@ structure GtkCellArea :>
          & x4 =>
           (
             _import "gtk_cell_area_inner_cell_area" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -421,7 +421,7 @@ structure GtkCellArea :>
               x3,
               x4
             )
-    val isActivatable_ = _import "gtk_cell_area_is_activatable" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GBool.FFI.val_;
+    val isActivatable_ = _import "gtk_cell_area_is_activatable" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p -> GBool.FFI.val_;
     val isFocusSibling_ =
       fn
         x1
@@ -429,9 +429,9 @@ structure GtkCellArea :>
          & x3 =>
           (
             _import "gtk_cell_area_is_focus_sibling" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -439,7 +439,7 @@ structure GtkCellArea :>
               x2,
               x3
             )
-    val remove_ = fn x1 & x2 => (_import "gtk_cell_area_remove" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> unit;) (x1, x2)
+    val remove_ = fn x1 & x2 => (_import "gtk_cell_area_remove" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p -> unit;) (x1, x2)
     val removeFocusSibling_ =
       fn
         x1
@@ -447,9 +447,9 @@ structure GtkCellArea :>
          & x3 =>
           (
             _import "gtk_cell_area_remove_focus_sibling" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                -> unit;
           )
             (
@@ -469,12 +469,12 @@ structure GtkCellArea :>
          & x8 =>
           (
             _import "gtk_cell_area_render" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                * GtkCellRendererState.FFI.val_
                * GBool.FFI.val_
                -> unit;
@@ -500,10 +500,10 @@ structure GtkCellArea :>
          & x7 =>
           (
             _import "gtk_cell_area_request_renderer" :
-              GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                * GtkOrientation.FFI.val_
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.ref_
                * GInt.FFI.ref_
@@ -518,8 +518,8 @@ structure GtkCellArea :>
               x6,
               x7
             )
-    val setFocusCell_ = fn x1 & x2 => (_import "gtk_cell_area_set_focus_cell" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> unit;) (x1, x2)
-    val stopEditing_ = fn x1 & x2 => (_import "gtk_cell_area_stop_editing" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setFocusCell_ = fn x1 & x2 => (_import "gtk_cell_area_set_focus_cell" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p -> unit;) (x1, x2)
+    val stopEditing_ = fn x1 & x2 => (_import "gtk_cell_area_stop_editing" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkCellAreaClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class

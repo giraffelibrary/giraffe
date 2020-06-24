@@ -1,4 +1,4 @@
-(* Copyright (C) 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -10,7 +10,8 @@ signature C_POINTER_TYPE =
     type t
 
     structure Pointer : C_POINTER
-    type notnull = Pointer.notnull
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
 
     (**
@@ -24,8 +25,8 @@ signature C_POINTER_TYPE =
      * freeing decrements the reference count and deallocates memory iff
      * the count reaches zero.
      *)
-    val dup  : int -> notnull p -> notnull p
-    val free : int -> notnull p -> unit
+    val dup  : int -> non_opt p -> non_opt p
+    val free : int -> non_opt p -> unit
 
     (**
      * Conversion to and from the C representation is provided by `toC`
@@ -37,6 +38,6 @@ signature C_POINTER_TYPE =
      * `free ~1` must be applied to the pointer returned by `toC t` once
      * it is not required.
      *)
-    val toC : t -> notnull p
-    val fromC : notnull p -> t
+    val toC : t -> non_opt p
+    val fromC : non_opt p -> t
   end

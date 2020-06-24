@@ -5,9 +5,9 @@ structure GdkDeviceTool :>
     where type device_tool_type_t = GdkDeviceToolType.t =
   struct
     val getType_ = _import "gdk_device_tool_get_type" : unit -> GObjectType.FFI.val_;
-    val getHardwareId_ = _import "gdk_device_tool_get_hardware_id" : GdkDeviceToolClass.FFI.notnull GdkDeviceToolClass.FFI.p -> GUInt64.FFI.val_;
-    val getSerial_ = _import "gdk_device_tool_get_serial" : GdkDeviceToolClass.FFI.notnull GdkDeviceToolClass.FFI.p -> GUInt64.FFI.val_;
-    val getToolType_ = _import "gdk_device_tool_get_tool_type" : GdkDeviceToolClass.FFI.notnull GdkDeviceToolClass.FFI.p -> GdkDeviceToolType.FFI.val_;
+    val getHardwareId_ = _import "gdk_device_tool_get_hardware_id" : GdkDeviceToolClass.FFI.non_opt GdkDeviceToolClass.FFI.p -> GUInt64.FFI.val_;
+    val getSerial_ = _import "gdk_device_tool_get_serial" : GdkDeviceToolClass.FFI.non_opt GdkDeviceToolClass.FFI.p -> GUInt64.FFI.val_;
+    val getToolType_ = _import "gdk_device_tool_get_tool_type" : GdkDeviceToolClass.FFI.non_opt GdkDeviceToolClass.FFI.p -> GdkDeviceToolType.FFI.val_;
     type 'a class = 'a GdkDeviceToolClass.class
     type axis_flags_t = GdkAxisFlags.t
     type device_tool_type_t = GdkDeviceToolType.t

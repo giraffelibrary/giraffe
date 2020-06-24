@@ -5,14 +5,14 @@ structure AtkHyperlink :>
     where type 'a object_class = 'a AtkObjectClass.class =
   struct
     val getType_ = _import "atk_hyperlink_get_type" : unit -> GObjectType.FFI.val_;
-    val getEndIndex_ = _import "atk_hyperlink_get_end_index" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GInt.FFI.val_;
-    val getNAnchors_ = _import "atk_hyperlink_get_n_anchors" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GInt.FFI.val_;
-    val getObject_ = fn x1 & x2 => (_import "atk_hyperlink_get_object" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p * GInt.FFI.val_ -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;) (x1, x2)
-    val getStartIndex_ = _import "atk_hyperlink_get_start_index" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GInt.FFI.val_;
-    val getUri_ = fn x1 & x2 => (_import "atk_hyperlink_get_uri" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p * GInt.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val isInline_ = _import "atk_hyperlink_is_inline" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GBool.FFI.val_;
-    val isSelectedLink_ = _import "atk_hyperlink_is_selected_link" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GBool.FFI.val_;
-    val isValid_ = _import "atk_hyperlink_is_valid" : AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p -> GBool.FFI.val_;
+    val getEndIndex_ = _import "atk_hyperlink_get_end_index" : AtkHyperlinkClass.FFI.non_opt AtkHyperlinkClass.FFI.p -> GInt.FFI.val_;
+    val getNAnchors_ = _import "atk_hyperlink_get_n_anchors" : AtkHyperlinkClass.FFI.non_opt AtkHyperlinkClass.FFI.p -> GInt.FFI.val_;
+    val getObject_ = fn x1 & x2 => (_import "atk_hyperlink_get_object" : AtkHyperlinkClass.FFI.non_opt AtkHyperlinkClass.FFI.p * GInt.FFI.val_ -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;) (x1, x2)
+    val getStartIndex_ = _import "atk_hyperlink_get_start_index" : AtkHyperlinkClass.FFI.non_opt AtkHyperlinkClass.FFI.p -> GInt.FFI.val_;
+    val getUri_ = fn x1 & x2 => (_import "atk_hyperlink_get_uri" : AtkHyperlinkClass.FFI.non_opt AtkHyperlinkClass.FFI.p * GInt.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val isInline_ = _import "atk_hyperlink_is_inline" : AtkHyperlinkClass.FFI.non_opt AtkHyperlinkClass.FFI.p -> GBool.FFI.val_;
+    val isSelectedLink_ = _import "atk_hyperlink_is_selected_link" : AtkHyperlinkClass.FFI.non_opt AtkHyperlinkClass.FFI.p -> GBool.FFI.val_;
+    val isValid_ = _import "atk_hyperlink_is_valid" : AtkHyperlinkClass.FFI.non_opt AtkHyperlinkClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a AtkHyperlinkClass.class
     type 'a action_class = 'a AtkActionClass.class
     type 'a object_class = 'a AtkObjectClass.class

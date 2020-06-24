@@ -1,7 +1,8 @@
 structure GtkSpinnerClass :>
   GTK_SPINNER_CLASS
     where type 'a widget_class = 'a GtkWidgetClass.class
-    where type C.notnull = GtkWidgetClass.C.notnull
+    where type C.opt = GtkWidgetClass.C.opt
+    where type C.non_opt = GtkWidgetClass.C.non_opt
     where type 'a C.p = 'a GtkWidgetClass.C.p =
   struct
     type 'a widget_class = 'a GtkWidgetClass.class

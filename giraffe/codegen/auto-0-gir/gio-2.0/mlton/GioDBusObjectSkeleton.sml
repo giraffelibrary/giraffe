@@ -6,18 +6,18 @@ structure GioDBusObjectSkeleton :>
     where type 'a d_bus_interface_skeleton_class = 'a GioDBusInterfaceSkeletonClass.class =
   struct
     val getType_ = _import "g_dbus_object_skeleton_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_g_dbus_object_skeleton_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioDBusObjectSkeletonClass.FFI.notnull GioDBusObjectSkeletonClass.FFI.p;
-    val addInterface_ = fn x1 & x2 => (_import "g_dbus_object_skeleton_add_interface" : GioDBusObjectSkeletonClass.FFI.notnull GioDBusObjectSkeletonClass.FFI.p * GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p -> unit;) (x1, x2)
-    val flush_ = _import "g_dbus_object_skeleton_flush" : GioDBusObjectSkeletonClass.FFI.notnull GioDBusObjectSkeletonClass.FFI.p -> unit;
-    val removeInterface_ = fn x1 & x2 => (_import "g_dbus_object_skeleton_remove_interface" : GioDBusObjectSkeletonClass.FFI.notnull GioDBusObjectSkeletonClass.FFI.p * GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "mlton_g_dbus_object_skeleton_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioDBusObjectSkeletonClass.FFI.non_opt GioDBusObjectSkeletonClass.FFI.p;
+    val addInterface_ = fn x1 & x2 => (_import "g_dbus_object_skeleton_add_interface" : GioDBusObjectSkeletonClass.FFI.non_opt GioDBusObjectSkeletonClass.FFI.p * GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p -> unit;) (x1, x2)
+    val flush_ = _import "g_dbus_object_skeleton_flush" : GioDBusObjectSkeletonClass.FFI.non_opt GioDBusObjectSkeletonClass.FFI.p -> unit;
+    val removeInterface_ = fn x1 & x2 => (_import "g_dbus_object_skeleton_remove_interface" : GioDBusObjectSkeletonClass.FFI.non_opt GioDBusObjectSkeletonClass.FFI.p * GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p -> unit;) (x1, x2)
     val removeInterfaceByName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_object_skeleton_remove_interface_by_name" :
-              GioDBusObjectSkeletonClass.FFI.notnull GioDBusObjectSkeletonClass.FFI.p
+              GioDBusObjectSkeletonClass.FFI.non_opt GioDBusObjectSkeletonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -30,9 +30,9 @@ structure GioDBusObjectSkeleton :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_object_skeleton_set_object_path" :
-              GioDBusObjectSkeletonClass.FFI.notnull GioDBusObjectSkeletonClass.FFI.p
+              GioDBusObjectSkeletonClass.FFI.non_opt GioDBusObjectSkeletonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

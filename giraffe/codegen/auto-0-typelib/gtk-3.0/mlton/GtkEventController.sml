@@ -5,11 +5,11 @@ structure GtkEventController :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_event_controller_get_type" : unit -> GObjectType.FFI.val_;
-    val getPropagationPhase_ = _import "gtk_event_controller_get_propagation_phase" : GtkEventControllerClass.FFI.notnull GtkEventControllerClass.FFI.p -> GtkPropagationPhase.FFI.val_;
-    val getWidget_ = _import "gtk_event_controller_get_widget" : GtkEventControllerClass.FFI.notnull GtkEventControllerClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val handleEvent_ = fn x1 & x2 => (_import "gtk_event_controller_handle_event" : GtkEventControllerClass.FFI.notnull GtkEventControllerClass.FFI.p * GdkEvent.FFI.notnull GdkEvent.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val reset_ = _import "gtk_event_controller_reset" : GtkEventControllerClass.FFI.notnull GtkEventControllerClass.FFI.p -> unit;
-    val setPropagationPhase_ = fn x1 & x2 => (_import "gtk_event_controller_set_propagation_phase" : GtkEventControllerClass.FFI.notnull GtkEventControllerClass.FFI.p * GtkPropagationPhase.FFI.val_ -> unit;) (x1, x2)
+    val getPropagationPhase_ = _import "gtk_event_controller_get_propagation_phase" : GtkEventControllerClass.FFI.non_opt GtkEventControllerClass.FFI.p -> GtkPropagationPhase.FFI.val_;
+    val getWidget_ = _import "gtk_event_controller_get_widget" : GtkEventControllerClass.FFI.non_opt GtkEventControllerClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val handleEvent_ = fn x1 & x2 => (_import "gtk_event_controller_handle_event" : GtkEventControllerClass.FFI.non_opt GtkEventControllerClass.FFI.p * GdkEvent.FFI.non_opt GdkEvent.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val reset_ = _import "gtk_event_controller_reset" : GtkEventControllerClass.FFI.non_opt GtkEventControllerClass.FFI.p -> unit;
+    val setPropagationPhase_ = fn x1 & x2 => (_import "gtk_event_controller_set_propagation_phase" : GtkEventControllerClass.FFI.non_opt GtkEventControllerClass.FFI.p * GtkPropagationPhase.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkEventControllerClass.class
     type propagation_phase_t = GtkPropagationPhase.t
     type 'a widget_class = 'a GtkWidgetClass.class

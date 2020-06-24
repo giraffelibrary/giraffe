@@ -9,10 +9,10 @@ structure GioDesktopAppInfoLookup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_desktop_app_info_lookup_get_default_for_uri_scheme" :
-              GioDesktopAppInfoLookupClass.FFI.notnull GioDesktopAppInfoLookupClass.FFI.p
+              GioDesktopAppInfoLookupClass.FFI.non_opt GioDesktopAppInfoLookupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p;
           )
             (
               x1,

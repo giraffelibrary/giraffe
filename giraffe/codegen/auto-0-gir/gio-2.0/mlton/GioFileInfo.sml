@@ -8,19 +8,19 @@ structure GioFileInfo :>
     where type 'a icon_class = 'a GioIconClass.class =
   struct
     val getType_ = _import "g_file_info_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_file_info_new" : unit -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
-    val clearStatus_ = _import "g_file_info_clear_status" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> unit;
-    val copyInto_ = fn x1 & x2 => (_import "g_file_info_copy_into" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p * GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> unit;) (x1, x2)
-    val dup_ = _import "g_file_info_dup" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
+    val new_ = _import "g_file_info_new" : unit -> GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p;
+    val clearStatus_ = _import "g_file_info_clear_status" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> unit;
+    val copyInto_ = fn x1 & x2 => (_import "g_file_info_copy_into" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p * GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> unit;) (x1, x2)
+    val dup_ = _import "g_file_info_dup" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p;
     val getAttributeAsString_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_get_attribute_as_string" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -32,9 +32,9 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_get_attribute_boolean" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -47,10 +47,10 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_get_attribute_byte_string" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -62,9 +62,9 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_get_attribute_int32" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GInt32.FFI.val_;
           )
             (
@@ -77,9 +77,9 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_get_attribute_int64" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GInt64.FFI.val_;
           )
             (
@@ -92,10 +92,10 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_get_attribute_object" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p;
           )
             (
               x1,
@@ -107,9 +107,9 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_get_attribute_status" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GioFileAttributeStatus.FFI.val_;
           )
             (
@@ -122,10 +122,10 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_get_attribute_string" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -137,10 +137,10 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_get_attribute_stringv" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -152,9 +152,9 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_get_attribute_type" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GioFileAttributeType.FFI.val_;
           )
             (
@@ -167,9 +167,9 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_get_attribute_uint32" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GUInt32.FFI.val_;
           )
             (
@@ -182,9 +182,9 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_get_attribute_uint64" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GUInt64.FFI.val_;
           )
             (
@@ -192,30 +192,30 @@ structure GioFileInfo :>
               x2,
               x3
             )
-    val getContentType_ = _import "g_file_info_get_content_type" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getDeletionDate_ = _import "g_file_info_get_deletion_date" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
-    val getDisplayName_ = _import "g_file_info_get_display_name" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getEditName_ = _import "g_file_info_get_edit_name" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getEtag_ = _import "g_file_info_get_etag" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getFileType_ = _import "g_file_info_get_file_type" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> GioFileType.FFI.val_;
-    val getIcon_ = _import "g_file_info_get_icon" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val getIsBackup_ = _import "g_file_info_get_is_backup" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> GBool.FFI.val_;
-    val getIsHidden_ = _import "g_file_info_get_is_hidden" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> GBool.FFI.val_;
-    val getIsSymlink_ = _import "g_file_info_get_is_symlink" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> GBool.FFI.val_;
-    val getModificationTime_ = fn x1 & x2 => (_import "g_file_info_get_modification_time" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p * GLibTimeValRecord.FFI.notnull GLibTimeValRecord.FFI.p -> unit;) (x1, x2)
-    val getName_ = _import "g_file_info_get_name" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getSize_ = _import "g_file_info_get_size" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> GInt64.FFI.val_;
-    val getSortOrder_ = _import "g_file_info_get_sort_order" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> GInt32.FFI.val_;
-    val getSymbolicIcon_ = _import "g_file_info_get_symbolic_icon" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val getSymlinkTarget_ = _import "g_file_info_get_symlink_target" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getContentType_ = _import "g_file_info_get_content_type" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getDeletionDate_ = _import "g_file_info_get_deletion_date" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
+    val getDisplayName_ = _import "g_file_info_get_display_name" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getEditName_ = _import "g_file_info_get_edit_name" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getEtag_ = _import "g_file_info_get_etag" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getFileType_ = _import "g_file_info_get_file_type" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> GioFileType.FFI.val_;
+    val getIcon_ = _import "g_file_info_get_icon" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val getIsBackup_ = _import "g_file_info_get_is_backup" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> GBool.FFI.val_;
+    val getIsHidden_ = _import "g_file_info_get_is_hidden" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> GBool.FFI.val_;
+    val getIsSymlink_ = _import "g_file_info_get_is_symlink" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> GBool.FFI.val_;
+    val getModificationTime_ = fn x1 & x2 => (_import "g_file_info_get_modification_time" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p * GLibTimeValRecord.FFI.non_opt GLibTimeValRecord.FFI.p -> unit;) (x1, x2)
+    val getName_ = _import "g_file_info_get_name" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getSize_ = _import "g_file_info_get_size" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> GInt64.FFI.val_;
+    val getSortOrder_ = _import "g_file_info_get_sort_order" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> GInt32.FFI.val_;
+    val getSymbolicIcon_ = _import "g_file_info_get_symbolic_icon" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val getSymlinkTarget_ = _import "g_file_info_get_symlink_target" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val hasAttribute_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_has_attribute" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -228,9 +228,9 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_has_namespace" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -243,10 +243,10 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_list_attributes" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> unit Utf8CPtrArray.FFI.out_p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> Utf8CPtrArray.FFI.opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -258,9 +258,9 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_remove_attribute" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -275,9 +275,9 @@ structure GioFileInfo :>
          & x4 =>
           (
             _import "mlton_g_file_info_set_attribute_boolean" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GBool.FFI.val_
                -> unit;
           )
@@ -294,11 +294,11 @@ structure GioFileInfo :>
          & (x4, x5) =>
           (
             _import "mlton_g_file_info_set_attribute_byte_string" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -315,9 +315,9 @@ structure GioFileInfo :>
          & x4 =>
           (
             _import "mlton_g_file_info_set_attribute_int32" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -334,9 +334,9 @@ structure GioFileInfo :>
          & x4 =>
           (
             _import "mlton_g_file_info_set_attribute_int64" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt64.FFI.val_
                -> unit;
           )
@@ -346,7 +346,7 @@ structure GioFileInfo :>
               x3,
               x4
             )
-    val setAttributeMask_ = fn x1 & x2 => (_import "g_file_info_set_attribute_mask" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p * GioFileAttributeMatcherRecord.FFI.notnull GioFileAttributeMatcherRecord.FFI.p -> unit;) (x1, x2)
+    val setAttributeMask_ = fn x1 & x2 => (_import "g_file_info_set_attribute_mask" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p * GioFileAttributeMatcherRecord.FFI.non_opt GioFileAttributeMatcherRecord.FFI.p -> unit;) (x1, x2)
     val setAttributeObject_ =
       fn
         x1
@@ -354,10 +354,10 @@ structure GioFileInfo :>
          & x4 =>
           (
             _import "mlton_g_file_info_set_attribute_object" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                -> unit;
           )
             (
@@ -373,9 +373,9 @@ structure GioFileInfo :>
          & x4 =>
           (
             _import "mlton_g_file_info_set_attribute_status" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioFileAttributeStatus.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -392,11 +392,11 @@ structure GioFileInfo :>
          & (x4, x5) =>
           (
             _import "mlton_g_file_info_set_attribute_string" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -413,9 +413,9 @@ structure GioFileInfo :>
          & x4 =>
           (
             _import "mlton_g_file_info_set_attribute_uint32" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt32.FFI.val_
                -> unit;
           )
@@ -432,9 +432,9 @@ structure GioFileInfo :>
          & x4 =>
           (
             _import "mlton_g_file_info_set_attribute_uint64" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt64.FFI.val_
                -> unit;
           )
@@ -449,9 +449,9 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_set_content_type" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -464,9 +464,9 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_set_display_name" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -479,9 +479,9 @@ structure GioFileInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_set_edit_name" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -489,19 +489,19 @@ structure GioFileInfo :>
               x2,
               x3
             )
-    val setFileType_ = fn x1 & x2 => (_import "g_file_info_set_file_type" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p * GioFileType.FFI.val_ -> unit;) (x1, x2)
-    val setIcon_ = fn x1 & x2 => (_import "g_file_info_set_icon" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p * GioIconClass.FFI.notnull GioIconClass.FFI.p -> unit;) (x1, x2)
-    val setIsHidden_ = fn x1 & x2 => (_import "g_file_info_set_is_hidden" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setIsSymlink_ = fn x1 & x2 => (_import "g_file_info_set_is_symlink" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setModificationTime_ = fn x1 & x2 => (_import "g_file_info_set_modification_time" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p * GLibTimeValRecord.FFI.notnull GLibTimeValRecord.FFI.p -> unit;) (x1, x2)
+    val setFileType_ = fn x1 & x2 => (_import "g_file_info_set_file_type" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p * GioFileType.FFI.val_ -> unit;) (x1, x2)
+    val setIcon_ = fn x1 & x2 => (_import "g_file_info_set_icon" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p * GioIconClass.FFI.non_opt GioIconClass.FFI.p -> unit;) (x1, x2)
+    val setIsHidden_ = fn x1 & x2 => (_import "g_file_info_set_is_hidden" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setIsSymlink_ = fn x1 & x2 => (_import "g_file_info_set_is_symlink" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setModificationTime_ = fn x1 & x2 => (_import "g_file_info_set_modification_time" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p * GLibTimeValRecord.FFI.non_opt GLibTimeValRecord.FFI.p -> unit;) (x1, x2)
     val setName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_set_name" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -509,17 +509,17 @@ structure GioFileInfo :>
               x2,
               x3
             )
-    val setSize_ = fn x1 & x2 => (_import "g_file_info_set_size" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p * GInt64.FFI.val_ -> unit;) (x1, x2)
-    val setSortOrder_ = fn x1 & x2 => (_import "g_file_info_set_sort_order" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setSymbolicIcon_ = fn x1 & x2 => (_import "g_file_info_set_symbolic_icon" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p * GioIconClass.FFI.notnull GioIconClass.FFI.p -> unit;) (x1, x2)
+    val setSize_ = fn x1 & x2 => (_import "g_file_info_set_size" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p * GInt64.FFI.val_ -> unit;) (x1, x2)
+    val setSortOrder_ = fn x1 & x2 => (_import "g_file_info_set_sort_order" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setSymbolicIcon_ = fn x1 & x2 => (_import "g_file_info_set_symbolic_icon" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p * GioIconClass.FFI.non_opt GioIconClass.FFI.p -> unit;) (x1, x2)
     val setSymlinkTarget_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_info_set_symlink_target" :
-              GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p
+              GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -527,7 +527,7 @@ structure GioFileInfo :>
               x2,
               x3
             )
-    val unsetAttributeMask_ = _import "g_file_info_unset_attribute_mask" : GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> unit;
+    val unsetAttributeMask_ = _import "g_file_info_unset_attribute_mask" : GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> unit;
     type 'a class = 'a GioFileInfoClass.class
     type file_attribute_type_t = GioFileAttributeType.t
     type file_attribute_matcher_t = GioFileAttributeMatcherRecord.t

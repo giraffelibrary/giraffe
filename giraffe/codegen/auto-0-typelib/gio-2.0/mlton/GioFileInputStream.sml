@@ -15,12 +15,12 @@ structure GioFileInputStream :>
          & x5 =>
           (
             _import "mlton_g_file_input_stream_query_info" :
-              GioFileInputStreamClass.FFI.notnull GioFileInputStreamClass.FFI.p
+              GioFileInputStreamClass.FFI.non_opt GioFileInputStreamClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p;
           )
             (
               x1,
@@ -36,10 +36,10 @@ structure GioFileInputStream :>
          & x3 =>
           (
             _import "g_file_input_stream_query_info_finish" :
-              GioFileInputStreamClass.FFI.notnull GioFileInputStreamClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p;
+              GioFileInputStreamClass.FFI.non_opt GioFileInputStreamClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p;
           )
             (
               x1,

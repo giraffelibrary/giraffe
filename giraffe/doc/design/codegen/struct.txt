@@ -88,11 +88,12 @@ structure <StructNamespace><StructName>Record :>
   struct
                                                                                                                 -.
     structure Pointer = CPointerInternal                                                                         |
-    type notnull = Pointer.notnull                                                                               | structType is ValueRecord _ | Record _
+    type opt = Pointer.opt                                                                                       | structType is ValueRecord _ | Record _
+    type non_opt = Pointer.non_opt                                                                               |
     type 'a p = 'a Pointer.p                                                                                     |
                                                                                                                 -'
                                                                                                                 -.
-    val cPtr = Pointer.PolyML.cVal : notnull p PolyMLFFI.conversion                                              |
+    val cPtr = Pointer.PolyML.cVal : non_opt p PolyMLFFI.conversion                                              |
                                                                                                                  |
     local                                                                                                        |
       open PolyMLFFI                                                                                             |
@@ -154,7 +155,7 @@ structure <StructNamespace><StructName>Record :>
                                                                     -.                     |                     |
     val memcpy_ =                                                    |                     |                     |
       fn x1 & x2 & x3 =>                                             |                     |                     |
-        (_import "memcpy" : notnull p * notnull p * GSize.FFI.val_ -> unit;)               |                     |
+        (_import "memcpy" : non_opt p * non_opt p * GSize.FFI.val_ -> unit;)               |                     |
         (x1, x2, x3)                                                 |                     |                     |
                                                                      | funcs is NONE       | structType is       |
     val copy_ =                                                      |                     |  ValueRecord funcs  |
@@ -166,23 +167,24 @@ structure <StructNamespace><StructName>Record :>
                                                                     -.                     |                     |
     val copy_ =                                                      |                     |                     |
       fn x1 & x2 =>                                                  |                     |                     |
-        (_import "<copy>" : notnull p * notnull p -> unit;)          | funcs is            |                     |
+        (_import "<copy>" : non_opt p * non_opt p -> unit;)          | funcs is            |                     |
         (x1, x2)                                                     |  SOME {copy, clear} |                     |
                                                                      |                     |                     |
     val clear_ =                                                     |                     |                     |
-      _import "<clear>" : notnull p -> unit;                         |                     |                     |
+      _import "<clear>" : non_opt p -> unit;                         |                     |                     |
                                                                     -'                    -'                     |
                                                                                           -.                     |
-    val dup_ = _import "<dup>" : notnull p -> notnull p;                                   | structType is       |
+    val dup_ = _import "<dup>" : non_opt p -> non_opt p;                                   | structType is       |
                                                                                            |  Record {dup, free} |
-    val free_ = _import "<free>" : notnull p -> unit;                                      |                     |
+    val free_ = _import "<free>" : non_opt p -> unit;                                      |                     |
                                                                                           -'                    -'
                                                                                           -.
     structure Record =                                                                     |
       BoxedValueRecord(                                                                    |
         structure Pointer = Pointer                                                        |
-        type notnull = notnull                                                             |
-        type 'a p = 'a p                                                                   | structType is ValueRecord _
+        type opt = opt                                                                     |
+        type non_opt = non_opt                                                             | structType is ValueRecord _
+        type 'a p = 'a p                                                                   |
         val copy_ = copy_                                                                  |
         val clear_ = clear_                                                                |
         val size_ = size_                                                                  |
@@ -192,8 +194,9 @@ structure <StructNamespace><StructName>Record :>
     structure Record =                                                                     |
       BoxedRecord(                                                                         |
         structure Pointer = Pointer                                                        |
-        type notnull = notnull                                                             |
-        type 'a p = 'a p                                                                   | structType is Record _
+        type opt = opt                                                                     |
+        type non_opt = non_opt                                                             | structType is Record _
+        type 'a p = 'a p                                                                   |
         val dup_ = dup_                                                                    |
         val take_ = ignore                                                                 |
         val free_ = free_                                                                  |
@@ -246,7 +249,7 @@ structure <StructNamespace><StructName>Record :>
                                                                              |               |
     val getValue_ =                                                          |               |
       _import "g_value_get_<valueType>" :                                    |               |
-        GObjectValueRecord.FFI.p -> FFI.notnull FFI.p;                       |               |
+        GObjectValueRecord.FFI.p -> FFI.non_opt FFI.p;                       |               |
                                                                              |               |
     val getOptValue_ =                                                       |               |
       _import "g_value_get_<valueType>" :                                    |               |
@@ -254,7 +257,7 @@ structure <StructNamespace><StructName>Record :>
                                                                              |               |
     val setValue_ =                                                          |               |
       _import "g_value_set_<valueType>" :                                    |               |
-        GObjectValueRecord.FFI.p * FFI.notnull FFI.p -> unit;                |               |
+        GObjectValueRecord.FFI.p * FFI.non_opt FFI.p -> unit;                |               |
                                                                              |               |
     val setOptValue_ =                                                       |               |
       _import "g_value_set_<valueType>" :                                    |               |

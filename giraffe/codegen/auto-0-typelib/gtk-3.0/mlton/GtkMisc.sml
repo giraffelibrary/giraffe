@@ -11,7 +11,7 @@ structure GtkMisc :>
          & x3 =>
           (
             _import "gtk_misc_get_alignment" :
-              GtkMiscClass.FFI.notnull GtkMiscClass.FFI.p
+              GtkMiscClass.FFI.non_opt GtkMiscClass.FFI.p
                * GFloat.FFI.ref_
                * GFloat.FFI.ref_
                -> unit;
@@ -28,7 +28,7 @@ structure GtkMisc :>
          & x3 =>
           (
             _import "gtk_misc_get_padding" :
-              GtkMiscClass.FFI.notnull GtkMiscClass.FFI.p
+              GtkMiscClass.FFI.non_opt GtkMiscClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> unit;
@@ -45,7 +45,7 @@ structure GtkMisc :>
          & x3 =>
           (
             _import "gtk_misc_set_alignment" :
-              GtkMiscClass.FFI.notnull GtkMiscClass.FFI.p
+              GtkMiscClass.FFI.non_opt GtkMiscClass.FFI.p
                * GFloat.FFI.val_
                * GFloat.FFI.val_
                -> unit;
@@ -62,7 +62,7 @@ structure GtkMisc :>
          & x3 =>
           (
             _import "gtk_misc_set_padding" :
-              GtkMiscClass.FFI.notnull GtkMiscClass.FFI.p
+              GtkMiscClass.FFI.non_opt GtkMiscClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;

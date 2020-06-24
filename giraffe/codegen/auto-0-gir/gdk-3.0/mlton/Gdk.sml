@@ -1,7 +1,7 @@
 structure Gdk : GDK =
   struct
     val beep_ = _import "gdk_beep" : unit -> unit;
-    val cairoCreate_ = _import "gdk_cairo_create" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p;
+    val cairoCreate_ = _import "gdk_cairo_create" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p;
     val cairoDrawFromGl_ =
       fn
         x1
@@ -15,8 +15,8 @@ structure Gdk : GDK =
          & x9 =>
           (
             _import "gdk_cairo_draw_from_gl" :
-              CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -37,12 +37,12 @@ structure Gdk : GDK =
               x8,
               x9
             )
-    val cairoGetClipRectangle_ = fn x1 & x2 => (_import "gdk_cairo_get_clip_rectangle" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val cairoGetDrawingContext_ = _import "gdk_cairo_get_drawing_context" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p -> unit GdkDrawingContextClass.FFI.p;
-    val cairoRectangle_ = fn x1 & x2 => (_import "gdk_cairo_rectangle" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
-    val cairoRegion_ = fn x1 & x2 => (_import "gdk_cairo_region" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * CairoRegionRecord.FFI.notnull CairoRegionRecord.FFI.p -> unit;) (x1, x2)
-    val cairoRegionCreateFromSurface_ = _import "gdk_cairo_region_create_from_surface" : CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p -> CairoRegionRecord.FFI.notnull CairoRegionRecord.FFI.p;
-    val cairoSetSourceColor_ = fn x1 & x2 => (_import "gdk_cairo_set_source_color" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
+    val cairoGetClipRectangle_ = fn x1 & x2 => (_import "gdk_cairo_get_clip_rectangle" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val cairoGetDrawingContext_ = _import "gdk_cairo_get_drawing_context" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p -> GdkDrawingContextClass.FFI.opt GdkDrawingContextClass.FFI.p;
+    val cairoRectangle_ = fn x1 & x2 => (_import "gdk_cairo_rectangle" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val cairoRegion_ = fn x1 & x2 => (_import "gdk_cairo_region" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p * CairoRegionRecord.FFI.non_opt CairoRegionRecord.FFI.p -> unit;) (x1, x2)
+    val cairoRegionCreateFromSurface_ = _import "gdk_cairo_region_create_from_surface" : CairoSurfaceRecord.FFI.non_opt CairoSurfaceRecord.FFI.p -> CairoRegionRecord.FFI.non_opt CairoRegionRecord.FFI.p;
+    val cairoSetSourceColor_ = fn x1 & x2 => (_import "gdk_cairo_set_source_color" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p * GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> unit;) (x1, x2)
     val cairoSetSourcePixbuf_ =
       fn
         x1
@@ -51,8 +51,8 @@ structure Gdk : GDK =
          & x4 =>
           (
             _import "gdk_cairo_set_source_pixbuf" :
-              CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p
+              CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                -> unit;
@@ -63,7 +63,7 @@ structure Gdk : GDK =
               x3,
               x4
             )
-    val cairoSetSourceRgba_ = fn x1 & x2 => (_import "gdk_cairo_set_source_rgba" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val cairoSetSourceRgba_ = fn x1 & x2 => (_import "gdk_cairo_set_source_rgba" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val cairoSetSourceWindow_ =
       fn
         x1
@@ -72,8 +72,8 @@ structure Gdk : GDK =
          & x4 =>
           (
             _import "gdk_cairo_set_source_window" :
-              CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                -> unit;
@@ -91,10 +91,10 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_cairo_surface_create_from_pixbuf" :
-              GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p
+              GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p
                * GInt.FFI.val_
-               * unit GdkWindowClass.FFI.p
-               -> CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p;
+               * GdkWindowClass.FFI.opt GdkWindowClass.FFI.p
+               -> CairoSurfaceRecord.FFI.non_opt CairoSurfaceRecord.FFI.p;
           )
             (
               x1,
@@ -102,10 +102,10 @@ structure Gdk : GDK =
               x3
             )
     val disableMultidevice_ = _import "gdk_disable_multidevice" : unit -> unit;
-    val dragAbort_ = fn x1 & x2 => (_import "gdk_drag_abort" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val dragDrop_ = fn x1 & x2 => (_import "gdk_drag_drop" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val dragDropDone_ = fn x1 & x2 => (_import "gdk_drag_drop_done" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val dragDropSucceeded_ = _import "gdk_drag_drop_succeeded" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GBool.FFI.val_;
+    val dragAbort_ = fn x1 & x2 => (_import "gdk_drag_abort" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val dragDrop_ = fn x1 & x2 => (_import "gdk_drag_drop" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val dragDropDone_ = fn x1 & x2 => (_import "gdk_drag_drop_done" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val dragDropSucceeded_ = _import "gdk_drag_drop_succeeded" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> GBool.FFI.val_;
     val dragFindWindowForScreen_ =
       fn
         x1
@@ -117,12 +117,12 @@ structure Gdk : GDK =
          & x7 =>
           (
             _import "gdk_drag_find_window_for_screen" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               * (unit, GdkWindowClass.FFI.notnull) GdkWindowClass.FFI.r
+               * (GdkWindowClass.FFI.opt, GdkWindowClass.FFI.non_opt) GdkWindowClass.FFI.r
                * GdkDragProtocol.FFI.ref_
                -> unit;
           )
@@ -135,7 +135,7 @@ structure Gdk : GDK =
               x6,
               x7
             )
-    val dragGetSelection_ = _import "gdk_drag_get_selection" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;
+    val dragGetSelection_ = _import "gdk_drag_get_selection" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p;
     val dragMotion_ =
       fn
         x1
@@ -148,8 +148,8 @@ structure Gdk : GDK =
          & x8 =>
           (
             _import "gdk_drag_motion" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GdkDragProtocol.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -175,7 +175,7 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_drag_status" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
                * GdkDragAction.FFI.val_
                * GUInt32.FFI.val_
                -> unit;
@@ -192,7 +192,7 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_drop_finish" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
                * GBool.FFI.val_
                * GUInt32.FFI.val_
                -> unit;
@@ -209,7 +209,7 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_drop_reply" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
                * GBool.FFI.val_
                * GUInt32.FFI.val_
                -> unit;
@@ -229,8 +229,8 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_events_get_angle" :
-              GdkEvent.FFI.notnull GdkEvent.FFI.p
-               * GdkEvent.FFI.notnull GdkEvent.FFI.p
+              GdkEvent.FFI.non_opt GdkEvent.FFI.p
+               * GdkEvent.FFI.non_opt GdkEvent.FFI.p
                * GDouble.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -247,8 +247,8 @@ structure Gdk : GDK =
          & x4 =>
           (
             _import "gdk_events_get_center" :
-              GdkEvent.FFI.notnull GdkEvent.FFI.p
-               * GdkEvent.FFI.notnull GdkEvent.FFI.p
+              GdkEvent.FFI.non_opt GdkEvent.FFI.p
+               * GdkEvent.FFI.non_opt GdkEvent.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                -> GBool.FFI.val_;
@@ -266,8 +266,8 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_events_get_distance" :
-              GdkEvent.FFI.notnull GdkEvent.FFI.p
-               * GdkEvent.FFI.notnull GdkEvent.FFI.p
+              GdkEvent.FFI.non_opt GdkEvent.FFI.p
+               * GdkEvent.FFI.non_opt GdkEvent.FFI.p
                * GDouble.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -278,10 +278,10 @@ structure Gdk : GDK =
             )
     val eventsPending_ = _import "gdk_events_pending" : unit -> GBool.FFI.val_;
     val flush_ = _import "gdk_flush" : unit -> unit;
-    val getDefaultRootWindow_ = _import "gdk_get_default_root_window" : unit -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val getDisplay_ = _import "gdk_get_display" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getDisplayArgName_ = _import "gdk_get_display_arg_name" : unit -> unit Utf8.FFI.out_p;
-    val getProgramClass_ = _import "gdk_get_program_class" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getDefaultRootWindow_ = _import "gdk_get_default_root_window" : unit -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val getDisplay_ = _import "gdk_get_display" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getDisplayArgName_ = _import "gdk_get_display_arg_name" : unit -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getProgramClass_ = _import "gdk_get_program_class" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getShowEvents_ = _import "gdk_get_show_events" : unit -> GBool.FFI.val_;
     val init_ =
       fn
@@ -290,7 +290,7 @@ structure Gdk : GDK =
             _import "mlton_gdk_init" :
               GInt.FFI.ref_
                * Utf8CPtrArrayN.MLton.r1
-               * (Utf8CPtrArrayN.FFI.notnull, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
+               * (Utf8CPtrArrayN.FFI.non_opt, Utf8CPtrArrayN.FFI.non_opt) Utf8CPtrArrayN.MLton.r2
                -> unit;
           )
             (
@@ -305,7 +305,7 @@ structure Gdk : GDK =
             _import "mlton_gdk_init_check" :
               GInt.FFI.ref_
                * Utf8CPtrArrayN.MLton.r1
-               * (Utf8CPtrArrayN.FFI.notnull, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
+               * (Utf8CPtrArrayN.FFI.non_opt, Utf8CPtrArrayN.FFI.non_opt) Utf8CPtrArrayN.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -320,7 +320,7 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_keyboard_grab" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GBool.FFI.val_
                * GUInt32.FFI.val_
                -> GdkGrabStatus.FFI.val_;
@@ -348,21 +348,21 @@ structure Gdk : GDK =
               x2,
               x3
             )
-    val keyvalFromName_ = _import "mlton_gdk_keyval_from_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GUInt.FFI.val_;
+    val keyvalFromName_ = _import "mlton_gdk_keyval_from_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GUInt.FFI.val_;
     val keyvalIsLower_ = _import "gdk_keyval_is_lower" : GUInt.FFI.val_ -> GBool.FFI.val_;
     val keyvalIsUpper_ = _import "gdk_keyval_is_upper" : GUInt.FFI.val_ -> GBool.FFI.val_;
-    val keyvalName_ = _import "gdk_keyval_name" : GUInt.FFI.val_ -> unit Utf8.FFI.out_p;
+    val keyvalName_ = _import "gdk_keyval_name" : GUInt.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;
     val keyvalToLower_ = _import "gdk_keyval_to_lower" : GUInt.FFI.val_ -> GUInt.FFI.val_;
     val keyvalToUnicode_ = _import "gdk_keyval_to_unicode" : GUInt.FFI.val_ -> GUInt32.FFI.val_;
     val keyvalToUpper_ = _import "gdk_keyval_to_upper" : GUInt.FFI.val_ -> GUInt.FFI.val_;
     val notifyStartupComplete_ = _import "gdk_notify_startup_complete" : unit -> unit;
-    val notifyStartupCompleteWithId_ = _import "mlton_gdk_notify_startup_complete_with_id" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
-    val offscreenWindowGetEmbedder_ = _import "gdk_offscreen_window_get_embedder" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit GdkWindowClass.FFI.p;
-    val offscreenWindowGetSurface_ = _import "gdk_offscreen_window_get_surface" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit CairoSurfaceRecord.FFI.p;
-    val offscreenWindowSetEmbedder_ = fn x1 & x2 => (_import "gdk_offscreen_window_set_embedder" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;) (x1, x2)
-    val pangoContextGet_ = _import "gdk_pango_context_get" : unit -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
-    val pangoContextGetForDisplay_ = _import "gdk_pango_context_get_for_display" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
-    val pangoContextGetForScreen_ = _import "gdk_pango_context_get_for_screen" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
+    val notifyStartupCompleteWithId_ = _import "mlton_gdk_notify_startup_complete_with_id" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
+    val offscreenWindowGetEmbedder_ = _import "gdk_offscreen_window_get_embedder" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
+    val offscreenWindowGetSurface_ = _import "gdk_offscreen_window_get_surface" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> CairoSurfaceRecord.FFI.opt CairoSurfaceRecord.FFI.p;
+    val offscreenWindowSetEmbedder_ = fn x1 & x2 => (_import "gdk_offscreen_window_set_embedder" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;) (x1, x2)
+    val pangoContextGet_ = _import "gdk_pango_context_get" : unit -> PangoContextClass.FFI.non_opt PangoContextClass.FFI.p;
+    val pangoContextGetForDisplay_ = _import "gdk_pango_context_get_for_display" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> PangoContextClass.FFI.non_opt PangoContextClass.FFI.p;
+    val pangoContextGetForScreen_ = _import "gdk_pango_context_get_for_screen" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> PangoContextClass.FFI.non_opt PangoContextClass.FFI.p;
     val parseArgs_ =
       fn
         x1 & (x2, x3) =>
@@ -370,7 +370,7 @@ structure Gdk : GDK =
             _import "mlton_gdk_parse_args" :
               GInt.FFI.ref_
                * Utf8CPtrArrayN.MLton.r1
-               * (Utf8CPtrArrayN.FFI.notnull, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
+               * (Utf8CPtrArrayN.FFI.non_opt, Utf8CPtrArrayN.FFI.non_opt) Utf8CPtrArrayN.MLton.r2
                -> unit;
           )
             (
@@ -387,12 +387,12 @@ structure Gdk : GDK =
          & x5 =>
           (
             _import "gdk_pixbuf_get_from_surface" :
-              CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p
+              CairoSurfaceRecord.FFI.non_opt CairoSurfaceRecord.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> unit GdkPixbufPixbufClass.FFI.p;
+               -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -410,12 +410,12 @@ structure Gdk : GDK =
          & x5 =>
           (
             _import "gdk_pixbuf_get_from_window" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> unit GdkPixbufPixbufClass.FFI.p;
+               -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -434,11 +434,11 @@ structure Gdk : GDK =
          & x6 =>
           (
             _import "gdk_pointer_grab" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GBool.FFI.val_
                * GdkEventMask.FFI.val_
-               * unit GdkWindowClass.FFI.p
-               * unit GdkCursorClass.FFI.p
+               * GdkWindowClass.FFI.opt GdkWindowClass.FFI.p
+               * GdkCursorClass.FFI.opt GdkCursorClass.FFI.p
                * GUInt32.FFI.val_
                -> GdkGrabStatus.FFI.val_;
           )
@@ -453,7 +453,7 @@ structure Gdk : GDK =
     val pointerIsGrabbed_ = _import "gdk_pointer_is_grabbed" : unit -> GBool.FFI.val_;
     val pointerUngrab_ = _import "gdk_pointer_ungrab" : GUInt32.FFI.val_ -> unit;
     val preParseLibgtkOnly_ = _import "gdk_pre_parse_libgtk_only" : unit -> unit;
-    val propertyDelete_ = fn x1 & x2 => (_import "gdk_property_delete" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> unit;) (x1, x2)
+    val propertyDelete_ = fn x1 & x2 => (_import "gdk_property_delete" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p -> unit;) (x1, x2)
     val propertyGet_ =
       fn
         x1
@@ -468,17 +468,17 @@ structure Gdk : GDK =
          & (x10, x11) =>
           (
             _import "mlton_gdk_property_get" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GULong.FFI.val_
                * GULong.FFI.val_
                * GInt.FFI.val_
-               * (unit, GdkAtomRecord.FFI.notnull) GdkAtomRecord.FFI.r
+               * (GdkAtomRecord.FFI.opt, GdkAtomRecord.FFI.non_opt) GdkAtomRecord.FFI.r
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                * GUInt8CArrayN.MLton.r1
-               * (unit, GUInt8CArrayN.FFI.notnull) GUInt8CArrayN.MLton.r2
+               * (GUInt8CArrayN.FFI.opt, GUInt8CArrayN.FFI.non_opt) GUInt8CArrayN.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -500,7 +500,7 @@ structure Gdk : GDK =
           (
             _import "mlton_gdk_query_depths" :
               GIntCArrayN.MLton.r1
-               * (unit, GIntCArrayN.FFI.notnull) GIntCArrayN.MLton.r2
+               * (GIntCArrayN.FFI.opt, GIntCArrayN.FFI.non_opt) GIntCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -515,7 +515,7 @@ structure Gdk : GDK =
           (
             _import "mlton_gdk_query_visual_types" :
               GdkVisualTypeCArrayN.MLton.r1
-               * (unit, GdkVisualTypeCArrayN.FFI.notnull) GdkVisualTypeCArrayN.MLton.r2
+               * (GdkVisualTypeCArrayN.FFI.opt, GdkVisualTypeCArrayN.FFI.non_opt) GdkVisualTypeCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -532,9 +532,9 @@ structure Gdk : GDK =
          & x4 =>
           (
             _import "gdk_selection_convert" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GUInt32.FFI.val_
                -> unit;
           )
@@ -544,8 +544,8 @@ structure Gdk : GDK =
               x3,
               x4
             )
-    val selectionOwnerGet_ = _import "gdk_selection_owner_get" : GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> unit GdkWindowClass.FFI.p;
-    val selectionOwnerGetForDisplay_ = fn x1 & x2 => (_import "gdk_selection_owner_get_for_display" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> unit GdkWindowClass.FFI.p;) (x1, x2)
+    val selectionOwnerGet_ = _import "gdk_selection_owner_get" : GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
+    val selectionOwnerGetForDisplay_ = fn x1 & x2 => (_import "gdk_selection_owner_get_for_display" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;) (x1, x2)
     val selectionOwnerSet_ =
       fn
         x1
@@ -554,8 +554,8 @@ structure Gdk : GDK =
          & x4 =>
           (
             _import "gdk_selection_owner_set" :
-              unit GdkWindowClass.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GdkWindowClass.FFI.opt GdkWindowClass.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GUInt32.FFI.val_
                * GBool.FFI.val_
                -> GBool.FFI.val_;
@@ -575,9 +575,9 @@ structure Gdk : GDK =
          & x5 =>
           (
             _import "gdk_selection_owner_set_for_display" :
-              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
-               * unit GdkWindowClass.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
+               * GdkWindowClass.FFI.opt GdkWindowClass.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GUInt32.FFI.val_
                * GBool.FFI.val_
                -> GBool.FFI.val_;
@@ -598,10 +598,10 @@ structure Gdk : GDK =
          & x5 =>
           (
             _import "gdk_selection_send_notify" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GUInt32.FFI.val_
                -> unit;
           )
@@ -622,11 +622,11 @@ structure Gdk : GDK =
          & x6 =>
           (
             _import "gdk_selection_send_notify_for_display" :
-              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GUInt32.FFI.val_
                -> unit;
           )
@@ -638,9 +638,9 @@ structure Gdk : GDK =
               x5,
               x6
             )
-    val setAllowedBackends_ = _import "mlton_gdk_set_allowed_backends" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val setAllowedBackends_ = _import "mlton_gdk_set_allowed_backends" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val setDoubleClickTime_ = _import "gdk_set_double_click_time" : GUInt.FFI.val_ -> unit;
-    val setProgramClass_ = _import "mlton_gdk_set_program_class" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val setProgramClass_ = _import "mlton_gdk_set_program_class" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val setShowEvents_ = _import "gdk_set_show_events" : GBool.FFI.val_ -> unit;
     val settingGet_ =
       fn
@@ -648,8 +648,8 @@ structure Gdk : GDK =
           (
             _import "mlton_gdk_setting_get" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -664,7 +664,7 @@ structure Gdk : GDK =
          & x3 =>
           (
             _import "gdk_synthesize_window_state" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GdkWindowState.FFI.val_
                * GdkWindowState.FFI.val_
                -> unit;
@@ -674,7 +674,7 @@ structure Gdk : GDK =
               x2,
               x3
             )
-    val testRenderSync_ = _import "gdk_test_render_sync" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
+    val testRenderSync_ = _import "gdk_test_render_sync" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
     val testSimulateButton_ =
       fn
         x1
@@ -685,7 +685,7 @@ structure Gdk : GDK =
          & x6 =>
           (
             _import "gdk_test_simulate_button" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GUInt.FFI.val_
@@ -711,7 +711,7 @@ structure Gdk : GDK =
          & x6 =>
           (
             _import "gdk_test_simulate_key" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GUInt.FFI.val_
@@ -737,14 +737,14 @@ structure Gdk : GDK =
          & (x7, x8) =>
           (
             _import "mlton_gdk_text_property_to_utf8_list_for_display" :
-              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GInt.FFI.val_
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GInt.FFI.val_
                * Utf8CPtrArray.MLton.r1
-               * (unit, Utf8CPtrArray.FFI.notnull) Utf8CPtrArray.MLton.r2
+               * (Utf8CPtrArray.FFI.opt, Utf8CPtrArray.FFI.non_opt) Utf8CPtrArray.MLton.r2
                -> GInt.FFI.val_;
           )
             (
@@ -761,7 +761,7 @@ structure Gdk : GDK =
     val threadsInit_ = _import "gdk_threads_init" : unit -> unit;
     val threadsLeave_ = _import "gdk_threads_leave" : unit -> unit;
     val unicodeToKeyval_ = _import "gdk_unicode_to_keyval" : GUInt32.FFI.val_ -> GUInt.FFI.val_;
-    val utf8ToStringTarget_ = _import "mlton_gdk_utf8_to_string_target" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit Utf8.FFI.out_p;
+    val utf8ToStringTarget_ = _import "mlton_gdk_utf8_to_string_target" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.opt Utf8.FFI.out_p;
     structure AnchorHints = GdkAnchorHints
     structure AppLaunchContextClass = GdkAppLaunchContextClass
     structure AtomRecord = GdkAtomRecord

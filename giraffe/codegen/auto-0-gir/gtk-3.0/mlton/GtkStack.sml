@@ -6,7 +6,7 @@ structure GtkStack :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_stack_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_stack_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_stack_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val addNamed_ =
       fn
         x1
@@ -14,10 +14,10 @@ structure GtkStack :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_stack_add_named" :
-              GtkStackClass.FFI.notnull GtkStackClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkStackClass.FFI.non_opt GtkStackClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -34,12 +34,12 @@ structure GtkStack :>
          & (x5, x6) =>
           (
             _import "mlton_gtk_stack_add_titled" :
-              GtkStackClass.FFI.notnull GtkStackClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkStackClass.FFI.non_opt GtkStackClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -55,32 +55,32 @@ structure GtkStack :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_stack_get_child_by_name" :
-              GtkStackClass.FFI.notnull GtkStackClass.FFI.p
+              GtkStackClass.FFI.non_opt GtkStackClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GtkWidgetClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getHhomogeneous_ = _import "gtk_stack_get_hhomogeneous" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> GBool.FFI.val_;
-    val getHomogeneous_ = _import "gtk_stack_get_homogeneous" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> GBool.FFI.val_;
-    val getInterpolateSize_ = _import "gtk_stack_get_interpolate_size" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> GBool.FFI.val_;
-    val getTransitionDuration_ = _import "gtk_stack_get_transition_duration" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> GUInt.FFI.val_;
-    val getTransitionRunning_ = _import "gtk_stack_get_transition_running" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> GBool.FFI.val_;
-    val getTransitionType_ = _import "gtk_stack_get_transition_type" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> GtkStackTransitionType.FFI.val_;
-    val getVhomogeneous_ = _import "gtk_stack_get_vhomogeneous" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> GBool.FFI.val_;
-    val getVisibleChild_ = _import "gtk_stack_get_visible_child" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getVisibleChildName_ = _import "gtk_stack_get_visible_child_name" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p -> unit Utf8.FFI.out_p;
-    val setHhomogeneous_ = fn x1 & x2 => (_import "gtk_stack_set_hhomogeneous" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHomogeneous_ = fn x1 & x2 => (_import "gtk_stack_set_homogeneous" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setInterpolateSize_ = fn x1 & x2 => (_import "gtk_stack_set_interpolate_size" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setTransitionDuration_ = fn x1 & x2 => (_import "gtk_stack_set_transition_duration" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val setTransitionType_ = fn x1 & x2 => (_import "gtk_stack_set_transition_type" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p * GtkStackTransitionType.FFI.val_ -> unit;) (x1, x2)
-    val setVhomogeneous_ = fn x1 & x2 => (_import "gtk_stack_set_vhomogeneous" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setVisibleChild_ = fn x1 & x2 => (_import "gtk_stack_set_visible_child" : GtkStackClass.FFI.notnull GtkStackClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val getHhomogeneous_ = _import "gtk_stack_get_hhomogeneous" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p -> GBool.FFI.val_;
+    val getHomogeneous_ = _import "gtk_stack_get_homogeneous" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p -> GBool.FFI.val_;
+    val getInterpolateSize_ = _import "gtk_stack_get_interpolate_size" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p -> GBool.FFI.val_;
+    val getTransitionDuration_ = _import "gtk_stack_get_transition_duration" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p -> GUInt.FFI.val_;
+    val getTransitionRunning_ = _import "gtk_stack_get_transition_running" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p -> GBool.FFI.val_;
+    val getTransitionType_ = _import "gtk_stack_get_transition_type" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p -> GtkStackTransitionType.FFI.val_;
+    val getVhomogeneous_ = _import "gtk_stack_get_vhomogeneous" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p -> GBool.FFI.val_;
+    val getVisibleChild_ = _import "gtk_stack_get_visible_child" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getVisibleChildName_ = _import "gtk_stack_get_visible_child_name" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val setHhomogeneous_ = fn x1 & x2 => (_import "gtk_stack_set_hhomogeneous" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHomogeneous_ = fn x1 & x2 => (_import "gtk_stack_set_homogeneous" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setInterpolateSize_ = fn x1 & x2 => (_import "gtk_stack_set_interpolate_size" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setTransitionDuration_ = fn x1 & x2 => (_import "gtk_stack_set_transition_duration" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val setTransitionType_ = fn x1 & x2 => (_import "gtk_stack_set_transition_type" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p * GtkStackTransitionType.FFI.val_ -> unit;) (x1, x2)
+    val setVhomogeneous_ = fn x1 & x2 => (_import "gtk_stack_set_vhomogeneous" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setVisibleChild_ = fn x1 & x2 => (_import "gtk_stack_set_visible_child" : GtkStackClass.FFI.non_opt GtkStackClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     val setVisibleChildFull_ =
       fn
         x1
@@ -88,9 +88,9 @@ structure GtkStack :>
          & x4 =>
           (
             _import "mlton_gtk_stack_set_visible_child_full" :
-              GtkStackClass.FFI.notnull GtkStackClass.FFI.p
+              GtkStackClass.FFI.non_opt GtkStackClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GtkStackTransitionType.FFI.val_
                -> unit;
           )
@@ -105,9 +105,9 @@ structure GtkStack :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_stack_set_visible_child_name" :
-              GtkStackClass.FFI.notnull GtkStackClass.FFI.p
+              GtkStackClass.FFI.non_opt GtkStackClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

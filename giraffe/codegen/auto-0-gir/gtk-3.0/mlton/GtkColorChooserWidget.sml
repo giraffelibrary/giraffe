@@ -6,7 +6,7 @@ structure GtkColorChooserWidget :>
     where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
     val getType_ = _import "gtk_color_chooser_widget_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_color_chooser_widget_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_color_chooser_widget_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     type 'a class = 'a GtkColorChooserWidgetClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a color_chooser_class = 'a GtkColorChooserClass.class

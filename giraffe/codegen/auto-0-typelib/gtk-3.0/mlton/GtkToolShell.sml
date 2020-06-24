@@ -7,15 +7,15 @@ structure GtkToolShell :>
     where type 'a size_group_class = 'a GtkSizeGroupClass.class =
   struct
     val getType_ = _import "gtk_tool_shell_get_type" : unit -> GObjectType.FFI.val_;
-    val getEllipsizeMode_ = _import "gtk_tool_shell_get_ellipsize_mode" : GtkToolShellClass.FFI.notnull GtkToolShellClass.FFI.p -> PangoEllipsizeMode.FFI.val_;
-    val getIconSize_ = _import "gtk_tool_shell_get_icon_size" : GtkToolShellClass.FFI.notnull GtkToolShellClass.FFI.p -> GInt32.FFI.val_;
-    val getOrientation_ = _import "gtk_tool_shell_get_orientation" : GtkToolShellClass.FFI.notnull GtkToolShellClass.FFI.p -> GtkOrientation.FFI.val_;
-    val getReliefStyle_ = _import "gtk_tool_shell_get_relief_style" : GtkToolShellClass.FFI.notnull GtkToolShellClass.FFI.p -> GtkReliefStyle.FFI.val_;
-    val getStyle_ = _import "gtk_tool_shell_get_style" : GtkToolShellClass.FFI.notnull GtkToolShellClass.FFI.p -> GtkToolbarStyle.FFI.val_;
-    val getTextAlignment_ = _import "gtk_tool_shell_get_text_alignment" : GtkToolShellClass.FFI.notnull GtkToolShellClass.FFI.p -> GFloat.FFI.val_;
-    val getTextOrientation_ = _import "gtk_tool_shell_get_text_orientation" : GtkToolShellClass.FFI.notnull GtkToolShellClass.FFI.p -> GtkOrientation.FFI.val_;
-    val getTextSizeGroup_ = _import "gtk_tool_shell_get_text_size_group" : GtkToolShellClass.FFI.notnull GtkToolShellClass.FFI.p -> GtkSizeGroupClass.FFI.notnull GtkSizeGroupClass.FFI.p;
-    val rebuildMenu_ = _import "gtk_tool_shell_rebuild_menu" : GtkToolShellClass.FFI.notnull GtkToolShellClass.FFI.p -> unit;
+    val getEllipsizeMode_ = _import "gtk_tool_shell_get_ellipsize_mode" : GtkToolShellClass.FFI.non_opt GtkToolShellClass.FFI.p -> PangoEllipsizeMode.FFI.val_;
+    val getIconSize_ = _import "gtk_tool_shell_get_icon_size" : GtkToolShellClass.FFI.non_opt GtkToolShellClass.FFI.p -> GInt32.FFI.val_;
+    val getOrientation_ = _import "gtk_tool_shell_get_orientation" : GtkToolShellClass.FFI.non_opt GtkToolShellClass.FFI.p -> GtkOrientation.FFI.val_;
+    val getReliefStyle_ = _import "gtk_tool_shell_get_relief_style" : GtkToolShellClass.FFI.non_opt GtkToolShellClass.FFI.p -> GtkReliefStyle.FFI.val_;
+    val getStyle_ = _import "gtk_tool_shell_get_style" : GtkToolShellClass.FFI.non_opt GtkToolShellClass.FFI.p -> GtkToolbarStyle.FFI.val_;
+    val getTextAlignment_ = _import "gtk_tool_shell_get_text_alignment" : GtkToolShellClass.FFI.non_opt GtkToolShellClass.FFI.p -> GFloat.FFI.val_;
+    val getTextOrientation_ = _import "gtk_tool_shell_get_text_orientation" : GtkToolShellClass.FFI.non_opt GtkToolShellClass.FFI.p -> GtkOrientation.FFI.val_;
+    val getTextSizeGroup_ = _import "gtk_tool_shell_get_text_size_group" : GtkToolShellClass.FFI.non_opt GtkToolShellClass.FFI.p -> GtkSizeGroupClass.FFI.non_opt GtkSizeGroupClass.FFI.p;
+    val rebuildMenu_ = _import "gtk_tool_shell_rebuild_menu" : GtkToolShellClass.FFI.non_opt GtkToolShellClass.FFI.p -> unit;
     type 'a class = 'a GtkToolShellClass.class
     type relief_style_t = GtkReliefStyle.t
     type toolbar_style_t = GtkToolbarStyle.t

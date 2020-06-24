@@ -4,16 +4,16 @@ structure GioActionMap :>
     where type 'a action_class = 'a GioActionClass.class =
   struct
     val getType_ = _import "g_action_map_get_type" : unit -> GObjectType.FFI.val_;
-    val addAction_ = fn x1 & x2 => (_import "g_action_map_add_action" : GioActionMapClass.FFI.notnull GioActionMapClass.FFI.p * GioActionClass.FFI.notnull GioActionClass.FFI.p -> unit;) (x1, x2)
+    val addAction_ = fn x1 & x2 => (_import "g_action_map_add_action" : GioActionMapClass.FFI.non_opt GioActionMapClass.FFI.p * GioActionClass.FFI.non_opt GioActionClass.FFI.p -> unit;) (x1, x2)
     val lookupAction_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_map_lookup_action" :
-              GioActionMapClass.FFI.notnull GioActionMapClass.FFI.p
+              GioActionMapClass.FFI.non_opt GioActionMapClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioActionClass.FFI.notnull GioActionClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioActionClass.FFI.non_opt GioActionClass.FFI.p;
           )
             (
               x1,
@@ -25,9 +25,9 @@ structure GioActionMap :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_map_remove_action" :
-              GioActionMapClass.FFI.notnull GioActionMapClass.FFI.p
+              GioActionMapClass.FFI.non_opt GioActionMapClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

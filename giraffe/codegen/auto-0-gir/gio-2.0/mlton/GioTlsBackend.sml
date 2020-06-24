@@ -4,16 +4,16 @@ structure GioTlsBackend :>
     where type 'a tls_database_class = 'a GioTlsDatabaseClass.class =
   struct
     val getType_ = _import "g_tls_backend_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefault_ = _import "g_tls_backend_get_default" : unit -> GioTlsBackendClass.FFI.notnull GioTlsBackendClass.FFI.p;
-    val getCertificateType_ = _import "g_tls_backend_get_certificate_type" : GioTlsBackendClass.FFI.notnull GioTlsBackendClass.FFI.p -> GObjectType.FFI.val_;
-    val getClientConnectionType_ = _import "g_tls_backend_get_client_connection_type" : GioTlsBackendClass.FFI.notnull GioTlsBackendClass.FFI.p -> GObjectType.FFI.val_;
-    val getDefaultDatabase_ = _import "g_tls_backend_get_default_database" : GioTlsBackendClass.FFI.notnull GioTlsBackendClass.FFI.p -> GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p;
-    val getDtlsClientConnectionType_ = _import "g_tls_backend_get_dtls_client_connection_type" : GioTlsBackendClass.FFI.notnull GioTlsBackendClass.FFI.p -> GObjectType.FFI.val_;
-    val getDtlsServerConnectionType_ = _import "g_tls_backend_get_dtls_server_connection_type" : GioTlsBackendClass.FFI.notnull GioTlsBackendClass.FFI.p -> GObjectType.FFI.val_;
-    val getFileDatabaseType_ = _import "g_tls_backend_get_file_database_type" : GioTlsBackendClass.FFI.notnull GioTlsBackendClass.FFI.p -> GObjectType.FFI.val_;
-    val getServerConnectionType_ = _import "g_tls_backend_get_server_connection_type" : GioTlsBackendClass.FFI.notnull GioTlsBackendClass.FFI.p -> GObjectType.FFI.val_;
-    val supportsDtls_ = _import "g_tls_backend_supports_dtls" : GioTlsBackendClass.FFI.notnull GioTlsBackendClass.FFI.p -> GBool.FFI.val_;
-    val supportsTls_ = _import "g_tls_backend_supports_tls" : GioTlsBackendClass.FFI.notnull GioTlsBackendClass.FFI.p -> GBool.FFI.val_;
+    val getDefault_ = _import "g_tls_backend_get_default" : unit -> GioTlsBackendClass.FFI.non_opt GioTlsBackendClass.FFI.p;
+    val getCertificateType_ = _import "g_tls_backend_get_certificate_type" : GioTlsBackendClass.FFI.non_opt GioTlsBackendClass.FFI.p -> GObjectType.FFI.val_;
+    val getClientConnectionType_ = _import "g_tls_backend_get_client_connection_type" : GioTlsBackendClass.FFI.non_opt GioTlsBackendClass.FFI.p -> GObjectType.FFI.val_;
+    val getDefaultDatabase_ = _import "g_tls_backend_get_default_database" : GioTlsBackendClass.FFI.non_opt GioTlsBackendClass.FFI.p -> GioTlsDatabaseClass.FFI.non_opt GioTlsDatabaseClass.FFI.p;
+    val getDtlsClientConnectionType_ = _import "g_tls_backend_get_dtls_client_connection_type" : GioTlsBackendClass.FFI.non_opt GioTlsBackendClass.FFI.p -> GObjectType.FFI.val_;
+    val getDtlsServerConnectionType_ = _import "g_tls_backend_get_dtls_server_connection_type" : GioTlsBackendClass.FFI.non_opt GioTlsBackendClass.FFI.p -> GObjectType.FFI.val_;
+    val getFileDatabaseType_ = _import "g_tls_backend_get_file_database_type" : GioTlsBackendClass.FFI.non_opt GioTlsBackendClass.FFI.p -> GObjectType.FFI.val_;
+    val getServerConnectionType_ = _import "g_tls_backend_get_server_connection_type" : GioTlsBackendClass.FFI.non_opt GioTlsBackendClass.FFI.p -> GObjectType.FFI.val_;
+    val supportsDtls_ = _import "g_tls_backend_supports_dtls" : GioTlsBackendClass.FFI.non_opt GioTlsBackendClass.FFI.p -> GBool.FFI.val_;
+    val supportsTls_ = _import "g_tls_backend_supports_tls" : GioTlsBackendClass.FFI.non_opt GioTlsBackendClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GioTlsBackendClass.class
     type 'a tls_database_class = 'a GioTlsDatabaseClass.class
     type t = base class

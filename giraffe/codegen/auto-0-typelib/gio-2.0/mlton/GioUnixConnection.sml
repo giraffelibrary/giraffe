@@ -13,10 +13,10 @@ structure GioUnixConnection :>
          & x3 =>
           (
             _import "g_unix_connection_receive_credentials" :
-              GioUnixConnectionClass.FFI.notnull GioUnixConnectionClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioCredentialsClass.FFI.notnull GioCredentialsClass.FFI.p;
+              GioUnixConnectionClass.FFI.non_opt GioUnixConnectionClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioCredentialsClass.FFI.non_opt GioCredentialsClass.FFI.p;
           )
             (
               x1,
@@ -30,10 +30,10 @@ structure GioUnixConnection :>
          & x3 =>
           (
             _import "g_unix_connection_receive_credentials_finish" :
-              GioUnixConnectionClass.FFI.notnull GioUnixConnectionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioCredentialsClass.FFI.notnull GioCredentialsClass.FFI.p;
+              GioUnixConnectionClass.FFI.non_opt GioUnixConnectionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioCredentialsClass.FFI.non_opt GioCredentialsClass.FFI.p;
           )
             (
               x1,
@@ -47,9 +47,9 @@ structure GioUnixConnection :>
          & x3 =>
           (
             _import "g_unix_connection_receive_fd" :
-              GioUnixConnectionClass.FFI.notnull GioUnixConnectionClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioUnixConnectionClass.FFI.non_opt GioUnixConnectionClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GInt32.FFI.val_;
           )
             (
@@ -64,9 +64,9 @@ structure GioUnixConnection :>
          & x3 =>
           (
             _import "g_unix_connection_send_credentials" :
-              GioUnixConnectionClass.FFI.notnull GioUnixConnectionClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioUnixConnectionClass.FFI.non_opt GioUnixConnectionClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -81,9 +81,9 @@ structure GioUnixConnection :>
          & x3 =>
           (
             _import "g_unix_connection_send_credentials_finish" :
-              GioUnixConnectionClass.FFI.notnull GioUnixConnectionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioUnixConnectionClass.FFI.non_opt GioUnixConnectionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -99,10 +99,10 @@ structure GioUnixConnection :>
          & x4 =>
           (
             _import "g_unix_connection_send_fd" :
-              GioUnixConnectionClass.FFI.notnull GioUnixConnectionClass.FFI.p
+              GioUnixConnectionClass.FFI.non_opt GioUnixConnectionClass.FFI.p
                * GInt32.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

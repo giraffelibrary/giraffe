@@ -4,8 +4,8 @@ structure GtkGestureZoom :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_gesture_zoom_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_gesture_zoom_new" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p;
-    val getScaleDelta_ = _import "gtk_gesture_zoom_get_scale_delta" : GtkGestureZoomClass.FFI.notnull GtkGestureZoomClass.FFI.p -> GDouble.FFI.val_;
+    val new_ = _import "gtk_gesture_zoom_new" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p;
+    val getScaleDelta_ = _import "gtk_gesture_zoom_get_scale_delta" : GtkGestureZoomClass.FFI.non_opt GtkGestureZoomClass.FFI.p -> GDouble.FFI.val_;
     type 'a class = 'a GtkGestureZoomClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class

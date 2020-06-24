@@ -3,7 +3,7 @@ structure GioAction :>
     where type 'a class = 'a GioActionClass.class =
   struct
     val getType_ = _import "g_action_get_type" : unit -> GObjectType.FFI.val_;
-    val nameIsValid_ = _import "mlton_g_action_name_is_valid" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
+    val nameIsValid_ = _import "mlton_g_action_name_is_valid" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
     val parseDetailedName_ =
       fn
         (x1, x2)
@@ -13,11 +13,11 @@ structure GioAction :>
           (
             _import "mlton_g_action_parse_detailed_name" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
-               * (unit, GLibVariantRecord.FFI.notnull) GLibVariantRecord.FFI.r
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * (GLibVariantRecord.FFI.opt, GLibVariantRecord.FFI.non_opt) GLibVariantRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -34,23 +34,23 @@ structure GioAction :>
           (
             _import "mlton_g_action_print_detailed_name" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.FFI.p
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val activate_ = fn x1 & x2 => (_import "g_action_activate" : GioActionClass.FFI.notnull GioActionClass.FFI.p * unit GLibVariantRecord.FFI.p -> unit;) (x1, x2)
-    val changeState_ = fn x1 & x2 => (_import "g_action_change_state" : GioActionClass.FFI.notnull GioActionClass.FFI.p * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> unit;) (x1, x2)
-    val getEnabled_ = _import "g_action_get_enabled" : GioActionClass.FFI.notnull GioActionClass.FFI.p -> GBool.FFI.val_;
-    val getName_ = _import "g_action_get_name" : GioActionClass.FFI.notnull GioActionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getParameterType_ = _import "g_action_get_parameter_type" : GioActionClass.FFI.notnull GioActionClass.FFI.p -> unit GLibVariantTypeRecord.FFI.p;
-    val getState_ = _import "g_action_get_state" : GioActionClass.FFI.notnull GioActionClass.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val getStateHint_ = _import "g_action_get_state_hint" : GioActionClass.FFI.notnull GioActionClass.FFI.p -> unit GLibVariantRecord.FFI.p;
-    val getStateType_ = _import "g_action_get_state_type" : GioActionClass.FFI.notnull GioActionClass.FFI.p -> unit GLibVariantTypeRecord.FFI.p;
+    val activate_ = fn x1 & x2 => (_import "g_action_activate" : GioActionClass.FFI.non_opt GioActionClass.FFI.p * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p -> unit;) (x1, x2)
+    val changeState_ = fn x1 & x2 => (_import "g_action_change_state" : GioActionClass.FFI.non_opt GioActionClass.FFI.p * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> unit;) (x1, x2)
+    val getEnabled_ = _import "g_action_get_enabled" : GioActionClass.FFI.non_opt GioActionClass.FFI.p -> GBool.FFI.val_;
+    val getName_ = _import "g_action_get_name" : GioActionClass.FFI.non_opt GioActionClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getParameterType_ = _import "g_action_get_parameter_type" : GioActionClass.FFI.non_opt GioActionClass.FFI.p -> GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p;
+    val getState_ = _import "g_action_get_state" : GioActionClass.FFI.non_opt GioActionClass.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val getStateHint_ = _import "g_action_get_state_hint" : GioActionClass.FFI.non_opt GioActionClass.FFI.p -> GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p;
+    val getStateType_ = _import "g_action_get_state_type" : GioActionClass.FFI.non_opt GioActionClass.FFI.p -> GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p;
     type 'a class = 'a GioActionClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

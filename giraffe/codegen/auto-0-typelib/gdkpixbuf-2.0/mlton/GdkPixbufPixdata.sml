@@ -11,11 +11,11 @@ structure GdkPixbufPixdata :>
          & x5 =>
           (
             _import "mlton_gdk_pixdata_deserialize" :
-              GdkPixbufPixdataRecord.FFI.notnull GdkPixbufPixdataRecord.FFI.p
+              GdkPixbufPixdataRecord.FFI.non_opt GdkPixbufPixdataRecord.FFI.p
                * GUInt32.FFI.val_
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -25,7 +25,7 @@ structure GdkPixbufPixdata :>
               x4,
               x5
             )
-    val serialize_ = fn x1 & x2 => (_import "gdk_pixdata_serialize" : GdkPixbufPixdataRecord.FFI.notnull GdkPixbufPixdataRecord.FFI.p * GUInt32.FFI.ref_ -> GUInt8CArrayN.FFI.notnull GUInt8CArrayN.FFI.out_p;) (x1, x2)
+    val serialize_ = fn x1 & x2 => (_import "gdk_pixdata_serialize" : GdkPixbufPixdataRecord.FFI.non_opt GdkPixbufPixdataRecord.FFI.p * GUInt32.FFI.ref_ -> GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.FFI.out_p;) (x1, x2)
     val toCsource_ =
       fn
         x1
@@ -33,11 +33,11 @@ structure GdkPixbufPixdata :>
          & x4 =>
           (
             _import "mlton_gdk_pixdata_to_csource" :
-              GdkPixbufPixdataRecord.FFI.notnull GdkPixbufPixdataRecord.FFI.p
+              GdkPixbufPixdataRecord.FFI.non_opt GdkPixbufPixdataRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GdkPixbufPixdataDumpType.FFI.val_
-               -> GLibStringRecord.FFI.notnull GLibStringRecord.FFI.p;
+               -> GLibStringRecord.FFI.non_opt GLibStringRecord.FFI.p;
           )
             (
               x1,

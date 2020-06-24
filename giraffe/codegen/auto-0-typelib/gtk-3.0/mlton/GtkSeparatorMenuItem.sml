@@ -6,7 +6,7 @@ structure GtkSeparatorMenuItem :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_separator_menu_item_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_separator_menu_item_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_separator_menu_item_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     type 'a class = 'a GtkSeparatorMenuItemClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

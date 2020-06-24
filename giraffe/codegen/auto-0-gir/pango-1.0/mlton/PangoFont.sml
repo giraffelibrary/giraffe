@@ -9,9 +9,9 @@ structure PangoFont :>
     where type language_t = PangoLanguageRecord.t =
   struct
     val getType_ = _import "pango_font_get_type" : unit -> GObjectType.FFI.val_;
-    val describe_ = _import "pango_font_describe" : PangoFontClass.FFI.notnull PangoFontClass.FFI.p -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;
-    val describeWithAbsoluteSize_ = _import "pango_font_describe_with_absolute_size" : PangoFontClass.FFI.notnull PangoFontClass.FFI.p -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;
-    val getFontMap_ = _import "pango_font_get_font_map" : PangoFontClass.FFI.notnull PangoFontClass.FFI.p -> unit PangoFontMapClass.FFI.p;
+    val describe_ = _import "pango_font_describe" : PangoFontClass.FFI.non_opt PangoFontClass.FFI.p -> PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p;
+    val describeWithAbsoluteSize_ = _import "pango_font_describe_with_absolute_size" : PangoFontClass.FFI.non_opt PangoFontClass.FFI.p -> PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p;
+    val getFontMap_ = _import "pango_font_get_font_map" : PangoFontClass.FFI.non_opt PangoFontClass.FFI.p -> PangoFontMapClass.FFI.opt PangoFontMapClass.FFI.p;
     val getGlyphExtents_ =
       fn
         x1
@@ -20,10 +20,10 @@ structure PangoFont :>
          & x4 =>
           (
             _import "pango_font_get_glyph_extents" :
-              PangoFontClass.FFI.notnull PangoFontClass.FFI.p
+              PangoFontClass.FFI.non_opt PangoFontClass.FFI.p
                * PangoGlyph.FFI.val_
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -32,7 +32,7 @@ structure PangoFont :>
               x3,
               x4
             )
-    val getMetrics_ = fn x1 & x2 => (_import "pango_font_get_metrics" : PangoFontClass.FFI.notnull PangoFontClass.FFI.p * unit PangoLanguageRecord.FFI.p -> PangoFontMetricsRecord.FFI.notnull PangoFontMetricsRecord.FFI.p;) (x1, x2)
+    val getMetrics_ = fn x1 & x2 => (_import "pango_font_get_metrics" : PangoFontClass.FFI.non_opt PangoFontClass.FFI.p * PangoLanguageRecord.FFI.opt PangoLanguageRecord.FFI.p -> PangoFontMetricsRecord.FFI.non_opt PangoFontMetricsRecord.FFI.p;) (x1, x2)
     type 'a class = 'a PangoFontClass.class
     type font_description_t = PangoFontDescriptionRecord.t
     type 'a font_map_class = 'a PangoFontMapClass.class

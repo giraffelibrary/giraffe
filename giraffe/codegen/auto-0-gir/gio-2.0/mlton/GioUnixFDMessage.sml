@@ -4,8 +4,8 @@ structure GioUnixFDMessage :>
     where type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class =
   struct
     val getType_ = _import "g_unix_fd_message_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_unix_fd_message_new" : unit -> GioSocketControlMessageClass.FFI.notnull GioSocketControlMessageClass.FFI.p;
-    val newWithFdList_ = _import "g_unix_fd_message_new_with_fd_list" : GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p -> GioSocketControlMessageClass.FFI.notnull GioSocketControlMessageClass.FFI.p;
+    val new_ = _import "g_unix_fd_message_new" : unit -> GioSocketControlMessageClass.FFI.non_opt GioSocketControlMessageClass.FFI.p;
+    val newWithFdList_ = _import "g_unix_fd_message_new_with_fd_list" : GioUnixFDListClass.FFI.non_opt GioUnixFDListClass.FFI.p -> GioSocketControlMessageClass.FFI.non_opt GioSocketControlMessageClass.FFI.p;
     val appendFd_ =
       fn
         x1
@@ -13,9 +13,9 @@ structure GioUnixFDMessage :>
          & x3 =>
           (
             _import "g_unix_fd_message_append_fd" :
-              GioUnixFDMessageClass.FFI.notnull GioUnixFDMessageClass.FFI.p
+              GioUnixFDMessageClass.FFI.non_opt GioUnixFDMessageClass.FFI.p
                * GInt.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -23,8 +23,8 @@ structure GioUnixFDMessage :>
               x2,
               x3
             )
-    val getFdList_ = _import "g_unix_fd_message_get_fd_list" : GioUnixFDMessageClass.FFI.notnull GioUnixFDMessageClass.FFI.p -> GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p;
-    val stealFds_ = fn x1 & x2 => (_import "g_unix_fd_message_steal_fds" : GioUnixFDMessageClass.FFI.notnull GioUnixFDMessageClass.FFI.p * GInt.FFI.ref_ -> GIntCArrayN.FFI.notnull GIntCArrayN.FFI.out_p;) (x1, x2)
+    val getFdList_ = _import "g_unix_fd_message_get_fd_list" : GioUnixFDMessageClass.FFI.non_opt GioUnixFDMessageClass.FFI.p -> GioUnixFDListClass.FFI.non_opt GioUnixFDListClass.FFI.p;
+    val stealFds_ = fn x1 & x2 => (_import "g_unix_fd_message_steal_fds" : GioUnixFDMessageClass.FFI.non_opt GioUnixFDMessageClass.FFI.p * GInt.FFI.ref_ -> GIntCArrayN.FFI.non_opt GIntCArrayN.FFI.out_p;) (x1, x2)
     type 'a class = 'a GioUnixFDMessageClass.class
     type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     type t = base class

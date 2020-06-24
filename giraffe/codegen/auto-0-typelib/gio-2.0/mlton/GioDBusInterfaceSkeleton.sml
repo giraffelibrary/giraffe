@@ -16,11 +16,11 @@ structure GioDBusInterfaceSkeleton :>
          & x5 =>
           (
             _import "mlton_g_dbus_interface_skeleton_export" :
-              GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p
-               * GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+              GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p
+               * GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -30,16 +30,16 @@ structure GioDBusInterfaceSkeleton :>
               x4,
               x5
             )
-    val flush_ = _import "g_dbus_interface_skeleton_flush" : GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p -> unit;
-    val getConnection_ = _import "g_dbus_interface_skeleton_get_connection" : GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
-    val getFlags_ = _import "g_dbus_interface_skeleton_get_flags" : GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p -> GioDBusInterfaceSkeletonFlags.FFI.val_;
-    val getInfo_ = _import "g_dbus_interface_skeleton_get_info" : GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p -> GioDBusInterfaceInfoRecord.FFI.notnull GioDBusInterfaceInfoRecord.FFI.p;
-    val getObjectPath_ = _import "g_dbus_interface_skeleton_get_object_path" : GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getProperties_ = _import "g_dbus_interface_skeleton_get_properties" : GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val hasConnection_ = fn x1 & x2 => (_import "g_dbus_interface_skeleton_has_connection" : GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p * GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val setFlags_ = fn x1 & x2 => (_import "g_dbus_interface_skeleton_set_flags" : GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p * GioDBusInterfaceSkeletonFlags.FFI.val_ -> unit;) (x1, x2)
-    val unexport_ = _import "g_dbus_interface_skeleton_unexport" : GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p -> unit;
-    val unexportFromConnection_ = fn x1 & x2 => (_import "g_dbus_interface_skeleton_unexport_from_connection" : GioDBusInterfaceSkeletonClass.FFI.notnull GioDBusInterfaceSkeletonClass.FFI.p * GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p -> unit;) (x1, x2)
+    val flush_ = _import "g_dbus_interface_skeleton_flush" : GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p -> unit;
+    val getConnection_ = _import "g_dbus_interface_skeleton_get_connection" : GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p -> GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p;
+    val getFlags_ = _import "g_dbus_interface_skeleton_get_flags" : GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p -> GioDBusInterfaceSkeletonFlags.FFI.val_;
+    val getInfo_ = _import "g_dbus_interface_skeleton_get_info" : GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p -> GioDBusInterfaceInfoRecord.FFI.non_opt GioDBusInterfaceInfoRecord.FFI.p;
+    val getObjectPath_ = _import "g_dbus_interface_skeleton_get_object_path" : GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getProperties_ = _import "g_dbus_interface_skeleton_get_properties" : GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val hasConnection_ = fn x1 & x2 => (_import "g_dbus_interface_skeleton_has_connection" : GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p * GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val setFlags_ = fn x1 & x2 => (_import "g_dbus_interface_skeleton_set_flags" : GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p * GioDBusInterfaceSkeletonFlags.FFI.val_ -> unit;) (x1, x2)
+    val unexport_ = _import "g_dbus_interface_skeleton_unexport" : GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p -> unit;
+    val unexportFromConnection_ = fn x1 & x2 => (_import "g_dbus_interface_skeleton_unexport_from_connection" : GioDBusInterfaceSkeletonClass.FFI.non_opt GioDBusInterfaceSkeletonClass.FFI.p * GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GioDBusInterfaceSkeletonClass.class
     type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
     type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t

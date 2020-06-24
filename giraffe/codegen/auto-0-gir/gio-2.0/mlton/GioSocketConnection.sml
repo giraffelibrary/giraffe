@@ -54,10 +54,10 @@ structure GioSocketConnection :>
          & x4 =>
           (
             _import "g_socket_connection_connect" :
-              GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p
-               * GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p
+               * GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -73,9 +73,9 @@ structure GioSocketConnection :>
          & x3 =>
           (
             _import "g_socket_connection_connect_finish" :
-              GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -83,10 +83,10 @@ structure GioSocketConnection :>
               x2,
               x3
             )
-    val getLocalAddress_ = fn x1 & x2 => (_import "g_socket_connection_get_local_address" : GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;) (x1, x2)
-    val getRemoteAddress_ = fn x1 & x2 => (_import "g_socket_connection_get_remote_address" : GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;) (x1, x2)
-    val getSocket_ = _import "g_socket_connection_get_socket" : GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p -> GioSocketClass.FFI.notnull GioSocketClass.FFI.p;
-    val isConnected_ = _import "g_socket_connection_is_connected" : GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p -> GBool.FFI.val_;
+    val getLocalAddress_ = fn x1 & x2 => (_import "g_socket_connection_get_local_address" : GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p;) (x1, x2)
+    val getRemoteAddress_ = fn x1 & x2 => (_import "g_socket_connection_get_remote_address" : GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p;) (x1, x2)
+    val getSocket_ = _import "g_socket_connection_get_socket" : GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p -> GioSocketClass.FFI.non_opt GioSocketClass.FFI.p;
+    val isConnected_ = _import "g_socket_connection_is_connected" : GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GioSocketConnectionClass.class
     type socket_type_t = GioSocketType.t
     type socket_family_t = GioSocketFamily.t

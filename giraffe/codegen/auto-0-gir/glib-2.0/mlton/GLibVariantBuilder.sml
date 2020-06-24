@@ -5,11 +5,11 @@ structure GLibVariantBuilder :>
     where type variant_type_t = GLibVariantTypeRecord.t =
   struct
     val getType_ = _import "g_variant_builder_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_variant_builder_new" : GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GLibVariantBuilderRecord.FFI.notnull GLibVariantBuilderRecord.FFI.p;
-    val addValue_ = fn x1 & x2 => (_import "g_variant_builder_add_value" : GLibVariantBuilderRecord.FFI.notnull GLibVariantBuilderRecord.FFI.p * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> unit;) (x1, x2)
-    val close_ = _import "g_variant_builder_close" : GLibVariantBuilderRecord.FFI.notnull GLibVariantBuilderRecord.FFI.p -> unit;
-    val end_ = _import "g_variant_builder_end" : GLibVariantBuilderRecord.FFI.notnull GLibVariantBuilderRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val open_ = fn x1 & x2 => (_import "g_variant_builder_open" : GLibVariantBuilderRecord.FFI.notnull GLibVariantBuilderRecord.FFI.p * GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "g_variant_builder_new" : GLibVariantTypeRecord.FFI.non_opt GLibVariantTypeRecord.FFI.p -> GLibVariantBuilderRecord.FFI.non_opt GLibVariantBuilderRecord.FFI.p;
+    val addValue_ = fn x1 & x2 => (_import "g_variant_builder_add_value" : GLibVariantBuilderRecord.FFI.non_opt GLibVariantBuilderRecord.FFI.p * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> unit;) (x1, x2)
+    val close_ = _import "g_variant_builder_close" : GLibVariantBuilderRecord.FFI.non_opt GLibVariantBuilderRecord.FFI.p -> unit;
+    val end_ = _import "g_variant_builder_end" : GLibVariantBuilderRecord.FFI.non_opt GLibVariantBuilderRecord.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val open_ = fn x1 & x2 => (_import "g_variant_builder_open" : GLibVariantBuilderRecord.FFI.non_opt GLibVariantBuilderRecord.FFI.p * GLibVariantTypeRecord.FFI.non_opt GLibVariantTypeRecord.FFI.p -> unit;) (x1, x2)
     type t = GLibVariantBuilderRecord.t
     type variant_t = GLibVariantRecord.t
     type variant_type_t = GLibVariantTypeRecord.t

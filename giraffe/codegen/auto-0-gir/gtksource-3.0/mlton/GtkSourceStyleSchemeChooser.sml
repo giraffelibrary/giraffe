@@ -4,8 +4,8 @@ structure GtkSourceStyleSchemeChooser :>
     where type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class =
   struct
     val getType_ = _import "gtk_source_style_scheme_chooser_get_type" : unit -> GObjectType.FFI.val_;
-    val getStyleScheme_ = _import "gtk_source_style_scheme_chooser_get_style_scheme" : GtkSourceStyleSchemeChooserClass.FFI.notnull GtkSourceStyleSchemeChooserClass.FFI.p -> GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p;
-    val setStyleScheme_ = fn x1 & x2 => (_import "gtk_source_style_scheme_chooser_set_style_scheme" : GtkSourceStyleSchemeChooserClass.FFI.notnull GtkSourceStyleSchemeChooserClass.FFI.p * GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p -> unit;) (x1, x2)
+    val getStyleScheme_ = _import "gtk_source_style_scheme_chooser_get_style_scheme" : GtkSourceStyleSchemeChooserClass.FFI.non_opt GtkSourceStyleSchemeChooserClass.FFI.p -> GtkSourceStyleSchemeClass.FFI.non_opt GtkSourceStyleSchemeClass.FFI.p;
+    val setStyleScheme_ = fn x1 & x2 => (_import "gtk_source_style_scheme_chooser_set_style_scheme" : GtkSourceStyleSchemeChooserClass.FFI.non_opt GtkSourceStyleSchemeChooserClass.FFI.p * GtkSourceStyleSchemeClass.FFI.non_opt GtkSourceStyleSchemeClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkSourceStyleSchemeChooserClass.class
     type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class
     type t = base class

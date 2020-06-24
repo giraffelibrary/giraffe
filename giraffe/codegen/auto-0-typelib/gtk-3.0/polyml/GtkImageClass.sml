@@ -1,7 +1,8 @@
 structure GtkImageClass :>
   GTK_IMAGE_CLASS
     where type 'a misc_class = 'a GtkMiscClass.class
-    where type C.notnull = GtkMiscClass.C.notnull
+    where type C.opt = GtkMiscClass.C.opt
+    where type C.non_opt = GtkMiscClass.C.non_opt
     where type 'a C.p = 'a GtkMiscClass.C.p =
   struct
     type 'a misc_class = 'a GtkMiscClass.class

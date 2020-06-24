@@ -4,7 +4,7 @@ structure GtkCellRendererAccel :>
     where type cell_renderer_accel_mode_t = GtkCellRendererAccelMode.t =
   struct
     val getType_ = _import "gtk_cell_renderer_accel_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_cell_renderer_accel_new" : unit -> GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p;
+    val new_ = _import "gtk_cell_renderer_accel_new" : unit -> GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p;
     type 'a class = 'a GtkCellRendererAccelClass.class
     type cell_renderer_accel_mode_t = GtkCellRendererAccelMode.t
     type t = base class

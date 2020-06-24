@@ -6,16 +6,16 @@ structure GtkRadioToolButton :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_radio_tool_button_get_type" : unit -> GObjectType.FFI.val_;
-    val newFromWidget_ = _import "gtk_radio_tool_button_new_from_widget" : unit GtkRadioToolButtonClass.FFI.p -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;
+    val newFromWidget_ = _import "gtk_radio_tool_button_new_from_widget" : GtkRadioToolButtonClass.FFI.opt GtkRadioToolButtonClass.FFI.p -> GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p;
     val newWithStockFromWidget_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_radio_tool_button_new_with_stock_from_widget" :
-              unit GtkRadioToolButtonClass.FFI.p
+              GtkRadioToolButtonClass.FFI.opt GtkRadioToolButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p;
           )
             (
               x1,

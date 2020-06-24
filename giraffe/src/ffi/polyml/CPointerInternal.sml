@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -18,22 +18,24 @@ structure CPointerInternal :>
     open PolyMLFFI
 
     type 'a p = Memory.Pointer.t
-    type notnull = unit
-    type t = notnull p
+    type opt = unit
+    type non_opt = unit
+    type t = non_opt p
 
     fun eq (p, q) = p = q
     val null = Memory.Pointer.null
     fun isNull p = p = null
     exception Null
 
-    fun toNotNull p = if isNull p then raise Null else p
-    fun fromNotNull p = p
-    fun toOptNull p = p
+    fun notNullId p = if not (isNull p) then p else raise Null
+    val toNonOptPtr = notNullId
+    val toOptPtr = notNullId
 
-    fun toOpt p = SOME (toNotNull p) handle Null => NONE
-    val fromOpt = fn NONE => null | SOME x => x
-    fun mapOpt f = fromOpt o Option.map f o toOpt
-    fun appOpt f = Option.app f o toOpt
+    fun toOpt p = if isNull p then NONE else SOME p
+    val fromOpt = fn NONE => null | SOME p => toOptPtr p
+
+    fun mapNonNullPtr f p = if isNull p then p else toOptPtr (f p)
+    fun appNonNullPtr f p = if isNull p then () else f p
 
     val fromVal = Fn.id
     val fromOptVal = toOpt
@@ -62,8 +64,8 @@ structure CPointerInternal :>
     fun withRefVal f = withVal (withRef f)
     fun withRefOptVal f = withOptVal (withRef f)
 
-    val add = Memory.Pointer.add
-    val sub = Memory.Pointer.sub
+    fun add w p = Memory.Pointer.add (p, w)
+    fun sub w p = Memory.Pointer.sub (p, w)
 
     structure Type =
       struct
@@ -101,8 +103,8 @@ structure CPointerInternal :>
           val free = call g_free_sym (cPointer --> cVoid)
         end
       end
-    structure NotNullType = Type
-    structure OptNullType = Type
+    structure NonOptValueType = Type
+    structure OptValueType = Type
 
     structure PolyML =
       struct

@@ -4,9 +4,9 @@ structure GtkContainerCellAccessible :>
     where type 'a cell_accessible_class = 'a GtkCellAccessibleClass.class =
   struct
     val getType_ = _import "gtk_container_cell_accessible_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_container_cell_accessible_new" : unit -> GtkContainerCellAccessibleClass.FFI.notnull GtkContainerCellAccessibleClass.FFI.p;
-    val addChild_ = fn x1 & x2 => (_import "gtk_container_cell_accessible_add_child" : GtkContainerCellAccessibleClass.FFI.notnull GtkContainerCellAccessibleClass.FFI.p * GtkCellAccessibleClass.FFI.notnull GtkCellAccessibleClass.FFI.p -> unit;) (x1, x2)
-    val removeChild_ = fn x1 & x2 => (_import "gtk_container_cell_accessible_remove_child" : GtkContainerCellAccessibleClass.FFI.notnull GtkContainerCellAccessibleClass.FFI.p * GtkCellAccessibleClass.FFI.notnull GtkCellAccessibleClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_container_cell_accessible_new" : unit -> GtkContainerCellAccessibleClass.FFI.non_opt GtkContainerCellAccessibleClass.FFI.p;
+    val addChild_ = fn x1 & x2 => (_import "gtk_container_cell_accessible_add_child" : GtkContainerCellAccessibleClass.FFI.non_opt GtkContainerCellAccessibleClass.FFI.p * GtkCellAccessibleClass.FFI.non_opt GtkCellAccessibleClass.FFI.p -> unit;) (x1, x2)
+    val removeChild_ = fn x1 & x2 => (_import "gtk_container_cell_accessible_remove_child" : GtkContainerCellAccessibleClass.FFI.non_opt GtkContainerCellAccessibleClass.FFI.p * GtkCellAccessibleClass.FFI.non_opt GtkCellAccessibleClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkContainerCellAccessibleClass.class
     type 'a cell_accessible_class = 'a GtkCellAccessibleClass.class
     type t = base class

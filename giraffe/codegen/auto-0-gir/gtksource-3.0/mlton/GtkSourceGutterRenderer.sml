@@ -13,10 +13,10 @@ structure GtkSourceGutterRenderer :>
          & x4 =>
           (
             _import "gtk_source_gutter_renderer_activate" :
-              GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GdkEvent.FFI.notnull GdkEvent.FFI.p
+              GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GdkEvent.FFI.non_opt GdkEvent.FFI.p
                -> unit;
           )
             (
@@ -35,12 +35,12 @@ structure GtkSourceGutterRenderer :>
          & x6 =>
           (
             _import "gtk_source_gutter_renderer_begin" :
-              GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -62,12 +62,12 @@ structure GtkSourceGutterRenderer :>
          & x7 =>
           (
             _import "gtk_source_gutter_renderer_draw" :
-              GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * GtkSourceGutterRendererState.FFI.val_
                -> unit;
           )
@@ -80,7 +80,7 @@ structure GtkSourceGutterRenderer :>
               x6,
               x7
             )
-    val end_ = _import "gtk_source_gutter_renderer_end" : GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p -> unit;
+    val end_ = _import "gtk_source_gutter_renderer_end" : GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p -> unit;
     val getAlignment_ =
       fn
         x1
@@ -88,7 +88,7 @@ structure GtkSourceGutterRenderer :>
          & x3 =>
           (
             _import "gtk_source_gutter_renderer_get_alignment" :
-              GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
+              GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p
                * GFloat.FFI.ref_
                * GFloat.FFI.ref_
                -> unit;
@@ -98,8 +98,8 @@ structure GtkSourceGutterRenderer :>
               x2,
               x3
             )
-    val getAlignmentMode_ = _import "gtk_source_gutter_renderer_get_alignment_mode" : GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p -> GtkSourceGutterRendererAlignmentMode.FFI.val_;
-    val getBackground_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_get_background" : GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getAlignmentMode_ = _import "gtk_source_gutter_renderer_get_alignment_mode" : GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p -> GtkSourceGutterRendererAlignmentMode.FFI.val_;
+    val getBackground_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_get_background" : GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val getPadding_ =
       fn
         x1
@@ -107,7 +107,7 @@ structure GtkSourceGutterRenderer :>
          & x3 =>
           (
             _import "gtk_source_gutter_renderer_get_padding" :
-              GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
+              GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -117,10 +117,10 @@ structure GtkSourceGutterRenderer :>
               x2,
               x3
             )
-    val getSize_ = _import "gtk_source_gutter_renderer_get_size" : GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p -> GInt.FFI.val_;
-    val getView_ = _import "gtk_source_gutter_renderer_get_view" : GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p -> GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p;
-    val getVisible_ = _import "gtk_source_gutter_renderer_get_visible" : GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p -> GBool.FFI.val_;
-    val getWindowType_ = _import "gtk_source_gutter_renderer_get_window_type" : GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p -> GtkTextWindowType.FFI.val_;
+    val getSize_ = _import "gtk_source_gutter_renderer_get_size" : GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p -> GInt.FFI.val_;
+    val getView_ = _import "gtk_source_gutter_renderer_get_view" : GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p -> GtkTextViewClass.FFI.non_opt GtkTextViewClass.FFI.p;
+    val getVisible_ = _import "gtk_source_gutter_renderer_get_visible" : GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p -> GBool.FFI.val_;
+    val getWindowType_ = _import "gtk_source_gutter_renderer_get_window_type" : GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p -> GtkTextWindowType.FFI.val_;
     val queryActivatable_ =
       fn
         x1
@@ -129,10 +129,10 @@ structure GtkSourceGutterRenderer :>
          & x4 =>
           (
             _import "gtk_source_gutter_renderer_query_activatable" :
-              GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GdkEvent.FFI.notnull GdkEvent.FFI.p
+              GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GdkEvent.FFI.non_opt GdkEvent.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -149,9 +149,9 @@ structure GtkSourceGutterRenderer :>
          & x4 =>
           (
             _import "gtk_source_gutter_renderer_query_data" :
-              GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * GtkSourceGutterRendererState.FFI.val_
                -> unit;
           )
@@ -171,12 +171,12 @@ structure GtkSourceGutterRenderer :>
          & x6 =>
           (
             _import "gtk_source_gutter_renderer_query_tooltip" :
-              GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               * GtkTooltipClass.FFI.notnull GtkTooltipClass.FFI.p
+               * GtkTooltipClass.FFI.non_opt GtkTooltipClass.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -187,7 +187,7 @@ structure GtkSourceGutterRenderer :>
               x5,
               x6
             )
-    val queueDraw_ = _import "gtk_source_gutter_renderer_queue_draw" : GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p -> unit;
+    val queueDraw_ = _import "gtk_source_gutter_renderer_queue_draw" : GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p -> unit;
     val setAlignment_ =
       fn
         x1
@@ -195,7 +195,7 @@ structure GtkSourceGutterRenderer :>
          & x3 =>
           (
             _import "gtk_source_gutter_renderer_set_alignment" :
-              GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
+              GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p
                * GFloat.FFI.val_
                * GFloat.FFI.val_
                -> unit;
@@ -205,8 +205,8 @@ structure GtkSourceGutterRenderer :>
               x2,
               x3
             )
-    val setAlignmentMode_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_set_alignment_mode" : GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p * GtkSourceGutterRendererAlignmentMode.FFI.val_ -> unit;) (x1, x2)
-    val setBackground_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_set_background" : GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p * unit GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setAlignmentMode_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_set_alignment_mode" : GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p * GtkSourceGutterRendererAlignmentMode.FFI.val_ -> unit;) (x1, x2)
+    val setBackground_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_set_background" : GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     val setPadding_ =
       fn
         x1
@@ -214,7 +214,7 @@ structure GtkSourceGutterRenderer :>
          & x3 =>
           (
             _import "gtk_source_gutter_renderer_set_padding" :
-              GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
+              GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -224,8 +224,8 @@ structure GtkSourceGutterRenderer :>
               x2,
               x3
             )
-    val setSize_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_set_size" : GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setVisible_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_set_visible" : GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSize_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_set_size" : GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setVisible_ = fn x1 & x2 => (_import "gtk_source_gutter_renderer_set_visible" : GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkSourceGutterRendererClass.class
     type gutter_renderer_state_t = GtkSourceGutterRendererState.t
     type gutter_renderer_alignment_mode_t = GtkSourceGutterRendererAlignmentMode.t

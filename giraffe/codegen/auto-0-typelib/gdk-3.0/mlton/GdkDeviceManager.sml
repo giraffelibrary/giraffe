@@ -5,8 +5,8 @@ structure GdkDeviceManager :>
     where type 'a display_class = 'a GdkDisplayClass.class =
   struct
     val getType_ = _import "gdk_device_manager_get_type" : unit -> GObjectType.FFI.val_;
-    val getClientPointer_ = _import "gdk_device_manager_get_client_pointer" : GdkDeviceManagerClass.FFI.notnull GdkDeviceManagerClass.FFI.p -> GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p;
-    val getDisplay_ = _import "gdk_device_manager_get_display" : GdkDeviceManagerClass.FFI.notnull GdkDeviceManagerClass.FFI.p -> unit GdkDisplayClass.FFI.p;
+    val getClientPointer_ = _import "gdk_device_manager_get_client_pointer" : GdkDeviceManagerClass.FFI.non_opt GdkDeviceManagerClass.FFI.p -> GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p;
+    val getDisplay_ = _import "gdk_device_manager_get_display" : GdkDeviceManagerClass.FFI.non_opt GdkDeviceManagerClass.FFI.p -> GdkDisplayClass.FFI.opt GdkDisplayClass.FFI.p;
     type 'a class = 'a GdkDeviceManagerClass.class
     type 'a device_class = 'a GdkDeviceClass.class
     type 'a display_class = 'a GdkDisplayClass.class

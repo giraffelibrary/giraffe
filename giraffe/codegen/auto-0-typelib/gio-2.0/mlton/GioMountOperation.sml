@@ -6,24 +6,24 @@ structure GioMountOperation :>
     where type password_save_t = GioPasswordSave.t =
   struct
     val getType_ = _import "g_mount_operation_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_mount_operation_new" : unit -> GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p;
-    val getAnonymous_ = _import "g_mount_operation_get_anonymous" : GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p -> GBool.FFI.val_;
-    val getChoice_ = _import "g_mount_operation_get_choice" : GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p -> GInt32.FFI.val_;
-    val getDomain_ = _import "g_mount_operation_get_domain" : GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPassword_ = _import "g_mount_operation_get_password" : GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPasswordSave_ = _import "g_mount_operation_get_password_save" : GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p -> GioPasswordSave.FFI.val_;
-    val getUsername_ = _import "g_mount_operation_get_username" : GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val reply_ = fn x1 & x2 => (_import "g_mount_operation_reply" : GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p * GioMountOperationResult.FFI.val_ -> unit;) (x1, x2)
-    val setAnonymous_ = fn x1 & x2 => (_import "g_mount_operation_set_anonymous" : GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setChoice_ = fn x1 & x2 => (_import "g_mount_operation_set_choice" : GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "g_mount_operation_new" : unit -> GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p;
+    val getAnonymous_ = _import "g_mount_operation_get_anonymous" : GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p -> GBool.FFI.val_;
+    val getChoice_ = _import "g_mount_operation_get_choice" : GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p -> GInt32.FFI.val_;
+    val getDomain_ = _import "g_mount_operation_get_domain" : GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPassword_ = _import "g_mount_operation_get_password" : GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPasswordSave_ = _import "g_mount_operation_get_password_save" : GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p -> GioPasswordSave.FFI.val_;
+    val getUsername_ = _import "g_mount_operation_get_username" : GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val reply_ = fn x1 & x2 => (_import "g_mount_operation_reply" : GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p * GioMountOperationResult.FFI.val_ -> unit;) (x1, x2)
+    val setAnonymous_ = fn x1 & x2 => (_import "g_mount_operation_set_anonymous" : GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setChoice_ = fn x1 & x2 => (_import "g_mount_operation_set_choice" : GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setDomain_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_mount_operation_set_domain" :
-              GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p
+              GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -36,9 +36,9 @@ structure GioMountOperation :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_mount_operation_set_password" :
-              GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p
+              GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -46,15 +46,15 @@ structure GioMountOperation :>
               x2,
               x3
             )
-    val setPasswordSave_ = fn x1 & x2 => (_import "g_mount_operation_set_password_save" : GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p * GioPasswordSave.FFI.val_ -> unit;) (x1, x2)
+    val setPasswordSave_ = fn x1 & x2 => (_import "g_mount_operation_set_password_save" : GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p * GioPasswordSave.FFI.val_ -> unit;) (x1, x2)
     val setUsername_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_mount_operation_set_username" :
-              GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p
+              GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

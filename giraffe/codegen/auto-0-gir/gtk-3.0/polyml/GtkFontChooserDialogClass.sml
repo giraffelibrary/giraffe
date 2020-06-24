@@ -1,7 +1,8 @@
 structure GtkFontChooserDialogClass :>
   GTK_FONT_CHOOSER_DIALOG_CLASS
     where type 'a dialog_class = 'a GtkDialogClass.class
-    where type C.notnull = GtkDialogClass.C.notnull
+    where type C.opt = GtkDialogClass.C.opt
+    where type C.non_opt = GtkDialogClass.C.non_opt
     where type 'a C.p = 'a GtkDialogClass.C.p =
   struct
     type 'a dialog_class = 'a GtkDialogClass.class

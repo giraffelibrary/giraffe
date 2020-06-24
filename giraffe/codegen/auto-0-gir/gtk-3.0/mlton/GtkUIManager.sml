@@ -9,7 +9,7 @@ structure GtkUIManager :>
     where type 'a action_class = 'a GtkActionClass.class =
   struct
     val getType_ = _import "gtk_ui_manager_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_ui_manager_new" : unit -> GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p;
+    val new_ = _import "gtk_ui_manager_new" : unit -> GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p;
     val addUi_ =
       fn
         x1
@@ -21,14 +21,14 @@ structure GtkUIManager :>
          & x10 =>
           (
             _import "mlton_gtk_ui_manager_add_ui" :
-              GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p
+              GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p
                * GUInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GtkUIManagerItemType.FFI.val_
                * GBool.FFI.val_
                -> unit;
@@ -52,10 +52,10 @@ structure GtkUIManager :>
          & x4 =>
           (
             _import "mlton_gtk_ui_manager_add_ui_from_file" :
-              GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p
+              GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt.FFI.val_;
           )
             (
@@ -71,10 +71,10 @@ structure GtkUIManager :>
          & x4 =>
           (
             _import "mlton_gtk_ui_manager_add_ui_from_resource" :
-              GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p
+              GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt.FFI.val_;
           )
             (
@@ -91,11 +91,11 @@ structure GtkUIManager :>
          & x5 =>
           (
             _import "mlton_gtk_ui_manager_add_ui_from_string" :
-              GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p
+              GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GSSize.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt.FFI.val_;
           )
             (
@@ -105,34 +105,34 @@ structure GtkUIManager :>
               x4,
               x5
             )
-    val ensureUpdate_ = _import "gtk_ui_manager_ensure_update" : GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p -> unit;
-    val getAccelGroup_ = _import "gtk_ui_manager_get_accel_group" : GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p -> GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p;
+    val ensureUpdate_ = _import "gtk_ui_manager_ensure_update" : GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p -> unit;
+    val getAccelGroup_ = _import "gtk_ui_manager_get_accel_group" : GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p -> GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p;
     val getAction_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_ui_manager_get_action" :
-              GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p
+              GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkActionClass.FFI.notnull GtkActionClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkActionClass.FFI.non_opt GtkActionClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getAddTearoffs_ = _import "gtk_ui_manager_get_add_tearoffs" : GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p -> GBool.FFI.val_;
-    val getUi_ = _import "gtk_ui_manager_get_ui" : GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getAddTearoffs_ = _import "gtk_ui_manager_get_add_tearoffs" : GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p -> GBool.FFI.val_;
+    val getUi_ = _import "gtk_ui_manager_get_ui" : GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getWidget_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_ui_manager_get_widget" :
-              GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p
+              GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -146,8 +146,8 @@ structure GtkUIManager :>
          & x3 =>
           (
             _import "gtk_ui_manager_insert_action_group" :
-              GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p
-               * GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p
+              GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p
+               * GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p
                * GInt.FFI.val_
                -> unit;
           )
@@ -156,10 +156,10 @@ structure GtkUIManager :>
               x2,
               x3
             )
-    val newMergeId_ = _import "gtk_ui_manager_new_merge_id" : GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p -> GUInt.FFI.val_;
-    val removeActionGroup_ = fn x1 & x2 => (_import "gtk_ui_manager_remove_action_group" : GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p * GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p -> unit;) (x1, x2)
-    val removeUi_ = fn x1 & x2 => (_import "gtk_ui_manager_remove_ui" : GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val setAddTearoffs_ = fn x1 & x2 => (_import "gtk_ui_manager_set_add_tearoffs" : GtkUIManagerClass.FFI.notnull GtkUIManagerClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val newMergeId_ = _import "gtk_ui_manager_new_merge_id" : GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p -> GUInt.FFI.val_;
+    val removeActionGroup_ = fn x1 & x2 => (_import "gtk_ui_manager_remove_action_group" : GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p * GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p -> unit;) (x1, x2)
+    val removeUi_ = fn x1 & x2 => (_import "gtk_ui_manager_remove_ui" : GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val setAddTearoffs_ = fn x1 & x2 => (_import "gtk_ui_manager_set_add_tearoffs" : GtkUIManagerClass.FFI.non_opt GtkUIManagerClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkUIManagerClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type u_i_manager_item_type_t = GtkUIManagerItemType.t

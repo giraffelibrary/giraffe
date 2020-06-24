@@ -16,14 +16,14 @@ structure GtkFileChooserNative :>
           (
             _import "mlton_gtk_file_chooser_native_new" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * unit GtkWindowClass.FFI.p
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * GtkWindowClass.FFI.opt GtkWindowClass.FFI.p
                * GtkFileChooserAction.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkFileChooserNativeClass.FFI.notnull GtkFileChooserNativeClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkFileChooserNativeClass.FFI.non_opt GtkFileChooserNativeClass.FFI.p;
           )
             (
               x1,
@@ -35,16 +35,16 @@ structure GtkFileChooserNative :>
               x7,
               x8
             )
-    val getAcceptLabel_ = _import "gtk_file_chooser_native_get_accept_label" : GtkFileChooserNativeClass.FFI.notnull GtkFileChooserNativeClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getCancelLabel_ = _import "gtk_file_chooser_native_get_cancel_label" : GtkFileChooserNativeClass.FFI.notnull GtkFileChooserNativeClass.FFI.p -> unit Utf8.FFI.out_p;
+    val getAcceptLabel_ = _import "gtk_file_chooser_native_get_accept_label" : GtkFileChooserNativeClass.FFI.non_opt GtkFileChooserNativeClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getCancelLabel_ = _import "gtk_file_chooser_native_get_cancel_label" : GtkFileChooserNativeClass.FFI.non_opt GtkFileChooserNativeClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
     val setAcceptLabel_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_file_chooser_native_set_accept_label" :
-              GtkFileChooserNativeClass.FFI.notnull GtkFileChooserNativeClass.FFI.p
+              GtkFileChooserNativeClass.FFI.non_opt GtkFileChooserNativeClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -57,9 +57,9 @@ structure GtkFileChooserNative :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_file_chooser_native_set_cancel_label" :
-              GtkFileChooserNativeClass.FFI.notnull GtkFileChooserNativeClass.FFI.p
+              GtkFileChooserNativeClass.FFI.non_opt GtkFileChooserNativeClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (

@@ -11,7 +11,7 @@ structure GdkDevicePad :>
          & x3 =>
           (
             _import "gdk_device_pad_get_feature_group" :
-              GdkDevicePadClass.FFI.notnull GdkDevicePadClass.FFI.p
+              GdkDevicePadClass.FFI.non_opt GdkDevicePadClass.FFI.p
                * GdkDevicePadFeature.FFI.val_
                * GInt.FFI.val_
                -> GInt.FFI.val_;
@@ -21,9 +21,9 @@ structure GdkDevicePad :>
               x2,
               x3
             )
-    val getGroupNModes_ = fn x1 & x2 => (_import "gdk_device_pad_get_group_n_modes" : GdkDevicePadClass.FFI.notnull GdkDevicePadClass.FFI.p * GInt.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
-    val getNFeatures_ = fn x1 & x2 => (_import "gdk_device_pad_get_n_features" : GdkDevicePadClass.FFI.notnull GdkDevicePadClass.FFI.p * GdkDevicePadFeature.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
-    val getNGroups_ = _import "gdk_device_pad_get_n_groups" : GdkDevicePadClass.FFI.notnull GdkDevicePadClass.FFI.p -> GInt.FFI.val_;
+    val getGroupNModes_ = fn x1 & x2 => (_import "gdk_device_pad_get_group_n_modes" : GdkDevicePadClass.FFI.non_opt GdkDevicePadClass.FFI.p * GInt.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
+    val getNFeatures_ = fn x1 & x2 => (_import "gdk_device_pad_get_n_features" : GdkDevicePadClass.FFI.non_opt GdkDevicePadClass.FFI.p * GdkDevicePadFeature.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
+    val getNGroups_ = _import "gdk_device_pad_get_n_groups" : GdkDevicePadClass.FFI.non_opt GdkDevicePadClass.FFI.p -> GInt.FFI.val_;
     type 'a class = 'a GdkDevicePadClass.class
     type device_pad_feature_t = GdkDevicePadFeature.t
     type t = base class

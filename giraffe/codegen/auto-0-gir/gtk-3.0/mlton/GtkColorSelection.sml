@@ -5,7 +5,7 @@ structure GtkColorSelection :>
     where type 'a orientable_class = 'a GtkOrientableClass.class =
   struct
     val getType_ = _import "gtk_color_selection_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_color_selection_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_color_selection_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val paletteFromString_ =
       fn
         (x1, x2)
@@ -14,9 +14,9 @@ structure GtkColorSelection :>
           (
             _import "mlton_gtk_color_selection_palette_from_string" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GdkColorRecordCArrayN.MLton.r1
-               * (unit, GdkColorRecordCArrayN.FFI.notnull) GdkColorRecordCArrayN.MLton.r2
+               * (GdkColorRecordCArrayN.FFI.opt, GdkColorRecordCArrayN.FFI.non_opt) GdkColorRecordCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -33,32 +33,32 @@ structure GtkColorSelection :>
           (
             _import "mlton_gtk_color_selection_palette_to_string" :
               GdkColorRecordCArrayN.MLton.p1
-               * GdkColorRecordCArrayN.FFI.notnull GdkColorRecordCArrayN.MLton.p2
+               * GdkColorRecordCArrayN.FFI.non_opt GdkColorRecordCArrayN.MLton.p2
                * GInt.FFI.val_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getCurrentAlpha_ = _import "gtk_color_selection_get_current_alpha" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p -> GUInt16.FFI.val_;
-    val getCurrentColor_ = fn x1 & x2 => (_import "gtk_color_selection_get_current_color" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
-    val getCurrentRgba_ = fn x1 & x2 => (_import "gtk_color_selection_get_current_rgba" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val getHasOpacityControl_ = _import "gtk_color_selection_get_has_opacity_control" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p -> GBool.FFI.val_;
-    val getHasPalette_ = _import "gtk_color_selection_get_has_palette" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p -> GBool.FFI.val_;
-    val getPreviousAlpha_ = _import "gtk_color_selection_get_previous_alpha" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p -> GUInt16.FFI.val_;
-    val getPreviousColor_ = fn x1 & x2 => (_import "gtk_color_selection_get_previous_color" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
-    val getPreviousRgba_ = fn x1 & x2 => (_import "gtk_color_selection_get_previous_rgba" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val isAdjusting_ = _import "gtk_color_selection_is_adjusting" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p -> GBool.FFI.val_;
-    val setCurrentAlpha_ = fn x1 & x2 => (_import "gtk_color_selection_set_current_alpha" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GUInt16.FFI.val_ -> unit;) (x1, x2)
-    val setCurrentColor_ = fn x1 & x2 => (_import "gtk_color_selection_set_current_color" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
-    val setCurrentRgba_ = fn x1 & x2 => (_import "gtk_color_selection_set_current_rgba" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val setHasOpacityControl_ = fn x1 & x2 => (_import "gtk_color_selection_set_has_opacity_control" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHasPalette_ = fn x1 & x2 => (_import "gtk_color_selection_set_has_palette" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setPreviousAlpha_ = fn x1 & x2 => (_import "gtk_color_selection_set_previous_alpha" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GUInt16.FFI.val_ -> unit;) (x1, x2)
-    val setPreviousColor_ = fn x1 & x2 => (_import "gtk_color_selection_set_previous_color" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
-    val setPreviousRgba_ = fn x1 & x2 => (_import "gtk_color_selection_set_previous_rgba" : GtkColorSelectionClass.FFI.notnull GtkColorSelectionClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val getCurrentAlpha_ = _import "gtk_color_selection_get_current_alpha" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p -> GUInt16.FFI.val_;
+    val getCurrentColor_ = fn x1 & x2 => (_import "gtk_color_selection_get_current_color" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p * GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> unit;) (x1, x2)
+    val getCurrentRgba_ = fn x1 & x2 => (_import "gtk_color_selection_get_current_rgba" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val getHasOpacityControl_ = _import "gtk_color_selection_get_has_opacity_control" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p -> GBool.FFI.val_;
+    val getHasPalette_ = _import "gtk_color_selection_get_has_palette" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p -> GBool.FFI.val_;
+    val getPreviousAlpha_ = _import "gtk_color_selection_get_previous_alpha" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p -> GUInt16.FFI.val_;
+    val getPreviousColor_ = fn x1 & x2 => (_import "gtk_color_selection_get_previous_color" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p * GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> unit;) (x1, x2)
+    val getPreviousRgba_ = fn x1 & x2 => (_import "gtk_color_selection_get_previous_rgba" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val isAdjusting_ = _import "gtk_color_selection_is_adjusting" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p -> GBool.FFI.val_;
+    val setCurrentAlpha_ = fn x1 & x2 => (_import "gtk_color_selection_set_current_alpha" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p * GUInt16.FFI.val_ -> unit;) (x1, x2)
+    val setCurrentColor_ = fn x1 & x2 => (_import "gtk_color_selection_set_current_color" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p * GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> unit;) (x1, x2)
+    val setCurrentRgba_ = fn x1 & x2 => (_import "gtk_color_selection_set_current_rgba" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setHasOpacityControl_ = fn x1 & x2 => (_import "gtk_color_selection_set_has_opacity_control" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHasPalette_ = fn x1 & x2 => (_import "gtk_color_selection_set_has_palette" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPreviousAlpha_ = fn x1 & x2 => (_import "gtk_color_selection_set_previous_alpha" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p * GUInt16.FFI.val_ -> unit;) (x1, x2)
+    val setPreviousColor_ = fn x1 & x2 => (_import "gtk_color_selection_set_previous_color" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p * GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> unit;) (x1, x2)
+    val setPreviousRgba_ = fn x1 & x2 => (_import "gtk_color_selection_set_previous_rgba" : GtkColorSelectionClass.FFI.non_opt GtkColorSelectionClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkColorSelectionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

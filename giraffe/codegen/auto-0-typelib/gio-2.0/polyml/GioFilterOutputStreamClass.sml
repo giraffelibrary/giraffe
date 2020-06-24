@@ -1,7 +1,8 @@
 structure GioFilterOutputStreamClass :>
   GIO_FILTER_OUTPUT_STREAM_CLASS
     where type 'a output_stream_class = 'a GioOutputStreamClass.class
-    where type C.notnull = GioOutputStreamClass.C.notnull
+    where type C.opt = GioOutputStreamClass.C.opt
+    where type C.non_opt = GioOutputStreamClass.C.non_opt
     where type 'a C.p = 'a GioOutputStreamClass.C.p =
   struct
     type 'a output_stream_class = 'a GioOutputStreamClass.class

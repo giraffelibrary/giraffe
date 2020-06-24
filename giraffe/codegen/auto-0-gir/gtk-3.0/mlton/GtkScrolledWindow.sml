@@ -12,18 +12,18 @@ structure GtkScrolledWindow :>
     where type corner_type_t = GtkCornerType.t =
   struct
     val getType_ = _import "gtk_scrolled_window_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "gtk_scrolled_window_new" : unit GtkAdjustmentClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
-    val addWithViewport_ = fn x1 & x2 => (_import "gtk_scrolled_window_add_with_viewport" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val getCaptureButtonPress_ = _import "gtk_scrolled_window_get_capture_button_press" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GBool.FFI.val_;
-    val getHadjustment_ = _import "gtk_scrolled_window_get_hadjustment" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
-    val getHscrollbar_ = _import "gtk_scrolled_window_get_hscrollbar" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getKineticScrolling_ = _import "gtk_scrolled_window_get_kinetic_scrolling" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GBool.FFI.val_;
-    val getMaxContentHeight_ = _import "gtk_scrolled_window_get_max_content_height" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GInt.FFI.val_;
-    val getMaxContentWidth_ = _import "gtk_scrolled_window_get_max_content_width" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GInt.FFI.val_;
-    val getMinContentHeight_ = _import "gtk_scrolled_window_get_min_content_height" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GInt.FFI.val_;
-    val getMinContentWidth_ = _import "gtk_scrolled_window_get_min_content_width" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GInt.FFI.val_;
-    val getOverlayScrolling_ = _import "gtk_scrolled_window_get_overlay_scrolling" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GBool.FFI.val_;
-    val getPlacement_ = _import "gtk_scrolled_window_get_placement" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GtkCornerType.FFI.val_;
+    val new_ = fn x1 & x2 => (_import "gtk_scrolled_window_new" : GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p * GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val addWithViewport_ = fn x1 & x2 => (_import "gtk_scrolled_window_add_with_viewport" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val getCaptureButtonPress_ = _import "gtk_scrolled_window_get_capture_button_press" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GBool.FFI.val_;
+    val getHadjustment_ = _import "gtk_scrolled_window_get_hadjustment" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
+    val getHscrollbar_ = _import "gtk_scrolled_window_get_hscrollbar" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getKineticScrolling_ = _import "gtk_scrolled_window_get_kinetic_scrolling" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GBool.FFI.val_;
+    val getMaxContentHeight_ = _import "gtk_scrolled_window_get_max_content_height" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GInt.FFI.val_;
+    val getMaxContentWidth_ = _import "gtk_scrolled_window_get_max_content_width" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GInt.FFI.val_;
+    val getMinContentHeight_ = _import "gtk_scrolled_window_get_min_content_height" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GInt.FFI.val_;
+    val getMinContentWidth_ = _import "gtk_scrolled_window_get_min_content_width" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GInt.FFI.val_;
+    val getOverlayScrolling_ = _import "gtk_scrolled_window_get_overlay_scrolling" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GBool.FFI.val_;
+    val getPlacement_ = _import "gtk_scrolled_window_get_placement" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GtkCornerType.FFI.val_;
     val getPolicy_ =
       fn
         x1
@@ -31,7 +31,7 @@ structure GtkScrolledWindow :>
          & x3 =>
           (
             _import "gtk_scrolled_window_get_policy" :
-              GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p
+              GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p
                * GtkPolicyType.FFI.ref_
                * GtkPolicyType.FFI.ref_
                -> unit;
@@ -41,20 +41,20 @@ structure GtkScrolledWindow :>
               x2,
               x3
             )
-    val getPropagateNaturalHeight_ = _import "gtk_scrolled_window_get_propagate_natural_height" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GBool.FFI.val_;
-    val getPropagateNaturalWidth_ = _import "gtk_scrolled_window_get_propagate_natural_width" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GBool.FFI.val_;
-    val getShadowType_ = _import "gtk_scrolled_window_get_shadow_type" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GtkShadowType.FFI.val_;
-    val getVadjustment_ = _import "gtk_scrolled_window_get_vadjustment" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
-    val getVscrollbar_ = _import "gtk_scrolled_window_get_vscrollbar" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val setCaptureButtonPress_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_capture_button_press" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHadjustment_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_hadjustment" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
-    val setKineticScrolling_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_kinetic_scrolling" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setMaxContentHeight_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_max_content_height" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setMaxContentWidth_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_max_content_width" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setMinContentHeight_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_min_content_height" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setMinContentWidth_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_min_content_width" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setOverlayScrolling_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_overlay_scrolling" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setPlacement_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_placement" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GtkCornerType.FFI.val_ -> unit;) (x1, x2)
+    val getPropagateNaturalHeight_ = _import "gtk_scrolled_window_get_propagate_natural_height" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GBool.FFI.val_;
+    val getPropagateNaturalWidth_ = _import "gtk_scrolled_window_get_propagate_natural_width" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GBool.FFI.val_;
+    val getShadowType_ = _import "gtk_scrolled_window_get_shadow_type" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GtkShadowType.FFI.val_;
+    val getVadjustment_ = _import "gtk_scrolled_window_get_vadjustment" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
+    val getVscrollbar_ = _import "gtk_scrolled_window_get_vscrollbar" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val setCaptureButtonPress_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_capture_button_press" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHadjustment_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_hadjustment" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val setKineticScrolling_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_kinetic_scrolling" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setMaxContentHeight_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_max_content_height" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setMaxContentWidth_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_max_content_width" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setMinContentHeight_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_min_content_height" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setMinContentWidth_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_min_content_width" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setOverlayScrolling_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_overlay_scrolling" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPlacement_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_placement" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GtkCornerType.FFI.val_ -> unit;) (x1, x2)
     val setPolicy_ =
       fn
         x1
@@ -62,7 +62,7 @@ structure GtkScrolledWindow :>
          & x3 =>
           (
             _import "gtk_scrolled_window_set_policy" :
-              GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p
+              GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p
                * GtkPolicyType.FFI.val_
                * GtkPolicyType.FFI.val_
                -> unit;
@@ -72,11 +72,11 @@ structure GtkScrolledWindow :>
               x2,
               x3
             )
-    val setPropagateNaturalHeight_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_propagate_natural_height" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setPropagateNaturalWidth_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_propagate_natural_width" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShadowType_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_shadow_type" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GtkShadowType.FFI.val_ -> unit;) (x1, x2)
-    val setVadjustment_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_vadjustment" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p * GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
-    val unsetPlacement_ = _import "gtk_scrolled_window_unset_placement" : GtkScrolledWindowClass.FFI.notnull GtkScrolledWindowClass.FFI.p -> unit;
+    val setPropagateNaturalHeight_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_propagate_natural_height" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPropagateNaturalWidth_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_propagate_natural_width" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShadowType_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_shadow_type" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GtkShadowType.FFI.val_ -> unit;) (x1, x2)
+    val setVadjustment_ = fn x1 & x2 => (_import "gtk_scrolled_window_set_vadjustment" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p * GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val unsetPlacement_ = _import "gtk_scrolled_window_unset_placement" : GtkScrolledWindowClass.FFI.non_opt GtkScrolledWindowClass.FFI.p -> unit;
     type 'a class = 'a GtkScrolledWindowClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class

@@ -7,10 +7,10 @@ structure PangoLayoutIter :>
     where type layout_run_t = PangoLayoutRunRecord.t =
   struct
     val getType_ = _import "pango_layout_iter_get_type" : unit -> GObjectType.FFI.val_;
-    val atLastLine_ = _import "pango_layout_iter_at_last_line" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
-    val copy_ = _import "pango_layout_iter_copy" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> unit PangoLayoutIterRecord.FFI.p;
-    val getBaseline_ = _import "pango_layout_iter_get_baseline" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> GInt.FFI.val_;
-    val getCharExtents_ = fn x1 & x2 => (_import "pango_layout_iter_get_char_extents" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val atLastLine_ = _import "pango_layout_iter_at_last_line" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
+    val copy_ = _import "pango_layout_iter_copy" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> PangoLayoutIterRecord.FFI.opt PangoLayoutIterRecord.FFI.p;
+    val getBaseline_ = _import "pango_layout_iter_get_baseline" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> GInt.FFI.val_;
+    val getCharExtents_ = fn x1 & x2 => (_import "pango_layout_iter_get_char_extents" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p -> unit;) (x1, x2)
     val getClusterExtents_ =
       fn
         x1
@@ -18,9 +18,9 @@ structure PangoLayoutIter :>
          & x3 =>
           (
             _import "pango_layout_iter_get_cluster_extents" :
-              PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+              PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -28,8 +28,8 @@ structure PangoLayoutIter :>
               x2,
               x3
             )
-    val getIndex_ = _import "pango_layout_iter_get_index" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> GInt.FFI.val_;
-    val getLayout_ = _import "pango_layout_iter_get_layout" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p;
+    val getIndex_ = _import "pango_layout_iter_get_index" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> GInt.FFI.val_;
+    val getLayout_ = _import "pango_layout_iter_get_layout" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p;
     val getLayoutExtents_ =
       fn
         x1
@@ -37,9 +37,9 @@ structure PangoLayoutIter :>
          & x3 =>
           (
             _import "pango_layout_iter_get_layout_extents" :
-              PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+              PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -47,7 +47,7 @@ structure PangoLayoutIter :>
               x2,
               x3
             )
-    val getLine_ = _import "pango_layout_iter_get_line" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p;
+    val getLine_ = _import "pango_layout_iter_get_line" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> PangoLayoutLineRecord.FFI.non_opt PangoLayoutLineRecord.FFI.p;
     val getLineExtents_ =
       fn
         x1
@@ -55,9 +55,9 @@ structure PangoLayoutIter :>
          & x3 =>
           (
             _import "pango_layout_iter_get_line_extents" :
-              PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+              PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -65,7 +65,7 @@ structure PangoLayoutIter :>
               x2,
               x3
             )
-    val getLineReadonly_ = _import "pango_layout_iter_get_line_readonly" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p;
+    val getLineReadonly_ = _import "pango_layout_iter_get_line_readonly" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> PangoLayoutLineRecord.FFI.non_opt PangoLayoutLineRecord.FFI.p;
     val getLineYrange_ =
       fn
         x1
@@ -73,7 +73,7 @@ structure PangoLayoutIter :>
          & x3 =>
           (
             _import "pango_layout_iter_get_line_yrange" :
-              PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p
+              PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -83,7 +83,7 @@ structure PangoLayoutIter :>
               x2,
               x3
             )
-    val getRun_ = _import "pango_layout_iter_get_run" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> unit PangoLayoutRunRecord.FFI.p;
+    val getRun_ = _import "pango_layout_iter_get_run" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> PangoLayoutRunRecord.FFI.opt PangoLayoutRunRecord.FFI.p;
     val getRunExtents_ =
       fn
         x1
@@ -91,9 +91,9 @@ structure PangoLayoutIter :>
          & x3 =>
           (
             _import "pango_layout_iter_get_run_extents" :
-              PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+              PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -101,11 +101,11 @@ structure PangoLayoutIter :>
               x2,
               x3
             )
-    val getRunReadonly_ = _import "pango_layout_iter_get_run_readonly" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> unit PangoLayoutRunRecord.FFI.p;
-    val nextChar_ = _import "pango_layout_iter_next_char" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
-    val nextCluster_ = _import "pango_layout_iter_next_cluster" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
-    val nextLine_ = _import "pango_layout_iter_next_line" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
-    val nextRun_ = _import "pango_layout_iter_next_run" : PangoLayoutIterRecord.FFI.notnull PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
+    val getRunReadonly_ = _import "pango_layout_iter_get_run_readonly" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> PangoLayoutRunRecord.FFI.opt PangoLayoutRunRecord.FFI.p;
+    val nextChar_ = _import "pango_layout_iter_next_char" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
+    val nextCluster_ = _import "pango_layout_iter_next_cluster" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
+    val nextLine_ = _import "pango_layout_iter_next_line" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
+    val nextRun_ = _import "pango_layout_iter_next_run" : PangoLayoutIterRecord.FFI.non_opt PangoLayoutIterRecord.FFI.p -> GBool.FFI.val_;
     type t = PangoLayoutIterRecord.t
     type 'a layout_class = 'a PangoLayoutClass.class
     type layout_line_t = PangoLayoutLineRecord.t

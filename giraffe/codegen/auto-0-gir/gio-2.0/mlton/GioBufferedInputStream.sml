@@ -7,8 +7,8 @@ structure GioBufferedInputStream :>
     where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
     val getType_ = _import "g_buffered_input_stream_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_buffered_input_stream_new" : GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
-    val newSized_ = fn x1 & x2 => (_import "g_buffered_input_stream_new_sized" : GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p * GSize.FFI.val_ -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;) (x1, x2)
+    val new_ = _import "g_buffered_input_stream_new" : GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p -> GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p;
+    val newSized_ = fn x1 & x2 => (_import "g_buffered_input_stream_new_sized" : GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p * GSize.FFI.val_ -> GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p;) (x1, x2)
     val fill_ =
       fn
         x1
@@ -17,10 +17,10 @@ structure GioBufferedInputStream :>
          & x4 =>
           (
             _import "g_buffered_input_stream_fill" :
-              GioBufferedInputStreamClass.FFI.notnull GioBufferedInputStreamClass.FFI.p
+              GioBufferedInputStreamClass.FFI.non_opt GioBufferedInputStreamClass.FFI.p
                * GSSize.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GSSize.FFI.val_;
           )
             (
@@ -36,9 +36,9 @@ structure GioBufferedInputStream :>
          & x3 =>
           (
             _import "g_buffered_input_stream_fill_finish" :
-              GioBufferedInputStreamClass.FFI.notnull GioBufferedInputStreamClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioBufferedInputStreamClass.FFI.non_opt GioBufferedInputStreamClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GSSize.FFI.val_;
           )
             (
@@ -46,8 +46,8 @@ structure GioBufferedInputStream :>
               x2,
               x3
             )
-    val getAvailable_ = _import "g_buffered_input_stream_get_available" : GioBufferedInputStreamClass.FFI.notnull GioBufferedInputStreamClass.FFI.p -> GSize.FFI.val_;
-    val getBufferSize_ = _import "g_buffered_input_stream_get_buffer_size" : GioBufferedInputStreamClass.FFI.notnull GioBufferedInputStreamClass.FFI.p -> GSize.FFI.val_;
+    val getAvailable_ = _import "g_buffered_input_stream_get_available" : GioBufferedInputStreamClass.FFI.non_opt GioBufferedInputStreamClass.FFI.p -> GSize.FFI.val_;
+    val getBufferSize_ = _import "g_buffered_input_stream_get_buffer_size" : GioBufferedInputStreamClass.FFI.non_opt GioBufferedInputStreamClass.FFI.p -> GSize.FFI.val_;
     val peek_ =
       fn
         x1
@@ -56,9 +56,9 @@ structure GioBufferedInputStream :>
          & x5 =>
           (
             _import "mlton_g_buffered_input_stream_peek" :
-              GioBufferedInputStreamClass.FFI.notnull GioBufferedInputStreamClass.FFI.p
+              GioBufferedInputStreamClass.FFI.non_opt GioBufferedInputStreamClass.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GSize.FFI.val_
                * GSize.FFI.val_
                -> GSize.FFI.val_;
@@ -70,7 +70,7 @@ structure GioBufferedInputStream :>
               x4,
               x5
             )
-    val peekBuffer_ = fn x1 & x2 => (_import "g_buffered_input_stream_peek_buffer" : GioBufferedInputStreamClass.FFI.notnull GioBufferedInputStreamClass.FFI.p * GSize.FFI.ref_ -> GUInt8CArrayN.FFI.notnull GUInt8CArrayN.FFI.out_p;) (x1, x2)
+    val peekBuffer_ = fn x1 & x2 => (_import "g_buffered_input_stream_peek_buffer" : GioBufferedInputStreamClass.FFI.non_opt GioBufferedInputStreamClass.FFI.p * GSize.FFI.ref_ -> GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.FFI.out_p;) (x1, x2)
     val readByte_ =
       fn
         x1
@@ -78,9 +78,9 @@ structure GioBufferedInputStream :>
          & x3 =>
           (
             _import "g_buffered_input_stream_read_byte" :
-              GioBufferedInputStreamClass.FFI.notnull GioBufferedInputStreamClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioBufferedInputStreamClass.FFI.non_opt GioBufferedInputStreamClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GInt.FFI.val_;
           )
             (
@@ -88,7 +88,7 @@ structure GioBufferedInputStream :>
               x2,
               x3
             )
-    val setBufferSize_ = fn x1 & x2 => (_import "g_buffered_input_stream_set_buffer_size" : GioBufferedInputStreamClass.FFI.notnull GioBufferedInputStreamClass.FFI.p * GSize.FFI.val_ -> unit;) (x1, x2)
+    val setBufferSize_ = fn x1 & x2 => (_import "g_buffered_input_stream_set_buffer_size" : GioBufferedInputStreamClass.FFI.non_opt GioBufferedInputStreamClass.FFI.p * GSize.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioBufferedInputStreamClass.class
     type 'a seekable_class = 'a GioSeekableClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class

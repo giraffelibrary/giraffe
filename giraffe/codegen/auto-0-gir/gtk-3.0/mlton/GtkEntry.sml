@@ -19,17 +19,17 @@ structure GtkEntry :>
     where type shadow_type_t = GtkShadowType.t =
   struct
     val getType_ = _import "gtk_entry_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_entry_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithBuffer_ = _import "gtk_entry_new_with_buffer" : GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getActivatesDefault_ = _import "gtk_entry_get_activates_default" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GBool.FFI.val_;
-    val getAlignment_ = _import "gtk_entry_get_alignment" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GFloat.FFI.val_;
-    val getAttributes_ = _import "gtk_entry_get_attributes" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> unit PangoAttrListRecord.FFI.p;
-    val getBuffer_ = _import "gtk_entry_get_buffer" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p;
-    val getCompletion_ = _import "gtk_entry_get_completion" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GtkEntryCompletionClass.FFI.notnull GtkEntryCompletionClass.FFI.p;
-    val getCurrentIconDragSource_ = _import "gtk_entry_get_current_icon_drag_source" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GInt.FFI.val_;
-    val getCursorHadjustment_ = _import "gtk_entry_get_cursor_hadjustment" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> unit GtkAdjustmentClass.FFI.p;
-    val getHasFrame_ = _import "gtk_entry_get_has_frame" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GBool.FFI.val_;
-    val getIconActivatable_ = fn x1 & x2 => (_import "gtk_entry_get_icon_activatable" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val new_ = _import "gtk_entry_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithBuffer_ = _import "gtk_entry_new_with_buffer" : GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getActivatesDefault_ = _import "gtk_entry_get_activates_default" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GBool.FFI.val_;
+    val getAlignment_ = _import "gtk_entry_get_alignment" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GFloat.FFI.val_;
+    val getAttributes_ = _import "gtk_entry_get_attributes" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> PangoAttrListRecord.FFI.opt PangoAttrListRecord.FFI.p;
+    val getBuffer_ = _import "gtk_entry_get_buffer" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p;
+    val getCompletion_ = _import "gtk_entry_get_completion" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GtkEntryCompletionClass.FFI.non_opt GtkEntryCompletionClass.FFI.p;
+    val getCurrentIconDragSource_ = _import "gtk_entry_get_current_icon_drag_source" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GInt.FFI.val_;
+    val getCursorHadjustment_ = _import "gtk_entry_get_cursor_hadjustment" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p;
+    val getHasFrame_ = _import "gtk_entry_get_has_frame" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GBool.FFI.val_;
+    val getIconActivatable_ = fn x1 & x2 => (_import "gtk_entry_get_icon_activatable" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val getIconArea_ =
       fn
         x1
@@ -37,9 +37,9 @@ structure GtkEntry :>
          & x3 =>
           (
             _import "gtk_entry_get_icon_area" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * GtkEntryIconPosition.FFI.val_
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -54,7 +54,7 @@ structure GtkEntry :>
          & x3 =>
           (
             _import "gtk_entry_get_icon_at_pos" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> GInt.FFI.val_;
@@ -64,19 +64,19 @@ structure GtkEntry :>
               x2,
               x3
             )
-    val getIconGicon_ = fn x1 & x2 => (_import "gtk_entry_get_icon_gicon" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> unit GioIconClass.FFI.p;) (x1, x2)
-    val getIconName_ = fn x1 & x2 => (_import "gtk_entry_get_icon_name" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
-    val getIconPixbuf_ = fn x1 & x2 => (_import "gtk_entry_get_icon_pixbuf" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> unit GdkPixbufPixbufClass.FFI.p;) (x1, x2)
-    val getIconSensitive_ = fn x1 & x2 => (_import "gtk_entry_get_icon_sensitive" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val getIconStock_ = fn x1 & x2 => (_import "gtk_entry_get_icon_stock" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val getIconStorageType_ = fn x1 & x2 => (_import "gtk_entry_get_icon_storage_type" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> GtkImageType.FFI.val_;) (x1, x2)
-    val getIconTooltipMarkup_ = fn x1 & x2 => (_import "gtk_entry_get_icon_tooltip_markup" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
-    val getIconTooltipText_ = fn x1 & x2 => (_import "gtk_entry_get_icon_tooltip_text" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
-    val getInnerBorder_ = _import "gtk_entry_get_inner_border" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> unit GtkBorderRecord.FFI.p;
-    val getInputHints_ = _import "gtk_entry_get_input_hints" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GtkInputHints.FFI.val_;
-    val getInputPurpose_ = _import "gtk_entry_get_input_purpose" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GtkInputPurpose.FFI.val_;
-    val getInvisibleChar_ = _import "gtk_entry_get_invisible_char" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GChar.FFI.val_;
-    val getLayout_ = _import "gtk_entry_get_layout" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p;
+    val getIconGicon_ = fn x1 & x2 => (_import "gtk_entry_get_icon_gicon" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> GioIconClass.FFI.opt GioIconClass.FFI.p;) (x1, x2)
+    val getIconName_ = fn x1 & x2 => (_import "gtk_entry_get_icon_name" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val getIconPixbuf_ = fn x1 & x2 => (_import "gtk_entry_get_icon_pixbuf" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;) (x1, x2)
+    val getIconSensitive_ = fn x1 & x2 => (_import "gtk_entry_get_icon_sensitive" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val getIconStock_ = fn x1 & x2 => (_import "gtk_entry_get_icon_stock" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val getIconStorageType_ = fn x1 & x2 => (_import "gtk_entry_get_icon_storage_type" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> GtkImageType.FFI.val_;) (x1, x2)
+    val getIconTooltipMarkup_ = fn x1 & x2 => (_import "gtk_entry_get_icon_tooltip_markup" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val getIconTooltipText_ = fn x1 & x2 => (_import "gtk_entry_get_icon_tooltip_text" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkEntryIconPosition.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val getInnerBorder_ = _import "gtk_entry_get_inner_border" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GtkBorderRecord.FFI.opt GtkBorderRecord.FFI.p;
+    val getInputHints_ = _import "gtk_entry_get_input_hints" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GtkInputHints.FFI.val_;
+    val getInputPurpose_ = _import "gtk_entry_get_input_purpose" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GtkInputPurpose.FFI.val_;
+    val getInvisibleChar_ = _import "gtk_entry_get_invisible_char" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GChar.FFI.val_;
+    val getLayout_ = _import "gtk_entry_get_layout" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p;
     val getLayoutOffsets_ =
       fn
         x1
@@ -84,7 +84,7 @@ structure GtkEntry :>
          & x3 =>
           (
             _import "gtk_entry_get_layout_offsets" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -94,30 +94,30 @@ structure GtkEntry :>
               x2,
               x3
             )
-    val getMaxLength_ = _import "gtk_entry_get_max_length" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GInt.FFI.val_;
-    val getMaxWidthChars_ = _import "gtk_entry_get_max_width_chars" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GInt.FFI.val_;
-    val getOverwriteMode_ = _import "gtk_entry_get_overwrite_mode" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GBool.FFI.val_;
-    val getPlaceholderText_ = _import "gtk_entry_get_placeholder_text" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getProgressFraction_ = _import "gtk_entry_get_progress_fraction" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GDouble.FFI.val_;
-    val getProgressPulseStep_ = _import "gtk_entry_get_progress_pulse_step" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GDouble.FFI.val_;
-    val getTabs_ = _import "gtk_entry_get_tabs" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> unit PangoTabArrayRecord.FFI.p;
-    val getText_ = _import "gtk_entry_get_text" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getTextArea_ = fn x1 & x2 => (_import "gtk_entry_get_text_area" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
-    val getTextLength_ = _import "gtk_entry_get_text_length" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GUInt16.FFI.val_;
-    val getVisibility_ = _import "gtk_entry_get_visibility" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GBool.FFI.val_;
-    val getWidthChars_ = _import "gtk_entry_get_width_chars" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> GInt.FFI.val_;
-    val grabFocusWithoutSelecting_ = _import "gtk_entry_grab_focus_without_selecting" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> unit;
-    val imContextFilterKeypress_ = fn x1 & x2 => (_import "gtk_entry_im_context_filter_keypress" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GdkEventKeyRecord.FFI.notnull GdkEventKeyRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val layoutIndexToTextIndex_ = fn x1 & x2 => (_import "gtk_entry_layout_index_to_text_index" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GInt.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
-    val progressPulse_ = _import "gtk_entry_progress_pulse" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> unit;
-    val resetImContext_ = _import "gtk_entry_reset_im_context" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> unit;
-    val setActivatesDefault_ = fn x1 & x2 => (_import "gtk_entry_set_activates_default" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setAlignment_ = fn x1 & x2 => (_import "gtk_entry_set_alignment" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GFloat.FFI.val_ -> unit;) (x1, x2)
-    val setAttributes_ = fn x1 & x2 => (_import "gtk_entry_set_attributes" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * PangoAttrListRecord.FFI.notnull PangoAttrListRecord.FFI.p -> unit;) (x1, x2)
-    val setBuffer_ = fn x1 & x2 => (_import "gtk_entry_set_buffer" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GtkEntryBufferClass.FFI.notnull GtkEntryBufferClass.FFI.p -> unit;) (x1, x2)
-    val setCompletion_ = fn x1 & x2 => (_import "gtk_entry_set_completion" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * unit GtkEntryCompletionClass.FFI.p -> unit;) (x1, x2)
-    val setCursorHadjustment_ = fn x1 & x2 => (_import "gtk_entry_set_cursor_hadjustment" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
-    val setHasFrame_ = fn x1 & x2 => (_import "gtk_entry_set_has_frame" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getMaxLength_ = _import "gtk_entry_get_max_length" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GInt.FFI.val_;
+    val getMaxWidthChars_ = _import "gtk_entry_get_max_width_chars" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GInt.FFI.val_;
+    val getOverwriteMode_ = _import "gtk_entry_get_overwrite_mode" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GBool.FFI.val_;
+    val getPlaceholderText_ = _import "gtk_entry_get_placeholder_text" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getProgressFraction_ = _import "gtk_entry_get_progress_fraction" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GDouble.FFI.val_;
+    val getProgressPulseStep_ = _import "gtk_entry_get_progress_pulse_step" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GDouble.FFI.val_;
+    val getTabs_ = _import "gtk_entry_get_tabs" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> PangoTabArrayRecord.FFI.opt PangoTabArrayRecord.FFI.p;
+    val getText_ = _import "gtk_entry_get_text" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getTextArea_ = fn x1 & x2 => (_import "gtk_entry_get_text_area" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val getTextLength_ = _import "gtk_entry_get_text_length" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GUInt16.FFI.val_;
+    val getVisibility_ = _import "gtk_entry_get_visibility" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GBool.FFI.val_;
+    val getWidthChars_ = _import "gtk_entry_get_width_chars" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> GInt.FFI.val_;
+    val grabFocusWithoutSelecting_ = _import "gtk_entry_grab_focus_without_selecting" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> unit;
+    val imContextFilterKeypress_ = fn x1 & x2 => (_import "gtk_entry_im_context_filter_keypress" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GdkEventKeyRecord.FFI.non_opt GdkEventKeyRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val layoutIndexToTextIndex_ = fn x1 & x2 => (_import "gtk_entry_layout_index_to_text_index" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GInt.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
+    val progressPulse_ = _import "gtk_entry_progress_pulse" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> unit;
+    val resetImContext_ = _import "gtk_entry_reset_im_context" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> unit;
+    val setActivatesDefault_ = fn x1 & x2 => (_import "gtk_entry_set_activates_default" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setAlignment_ = fn x1 & x2 => (_import "gtk_entry_set_alignment" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GFloat.FFI.val_ -> unit;) (x1, x2)
+    val setAttributes_ = fn x1 & x2 => (_import "gtk_entry_set_attributes" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * PangoAttrListRecord.FFI.non_opt PangoAttrListRecord.FFI.p -> unit;) (x1, x2)
+    val setBuffer_ = fn x1 & x2 => (_import "gtk_entry_set_buffer" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkEntryBufferClass.FFI.non_opt GtkEntryBufferClass.FFI.p -> unit;) (x1, x2)
+    val setCompletion_ = fn x1 & x2 => (_import "gtk_entry_set_completion" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkEntryCompletionClass.FFI.opt GtkEntryCompletionClass.FFI.p -> unit;) (x1, x2)
+    val setCursorHadjustment_ = fn x1 & x2 => (_import "gtk_entry_set_cursor_hadjustment" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val setHasFrame_ = fn x1 & x2 => (_import "gtk_entry_set_has_frame" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setIconActivatable_ =
       fn
         x1
@@ -125,7 +125,7 @@ structure GtkEntry :>
          & x3 =>
           (
             _import "gtk_entry_set_icon_activatable" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * GtkEntryIconPosition.FFI.val_
                * GBool.FFI.val_
                -> unit;
@@ -143,9 +143,9 @@ structure GtkEntry :>
          & x4 =>
           (
             _import "gtk_entry_set_icon_drag_source" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * GtkEntryIconPosition.FFI.val_
-               * GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p
+               * GtkTargetListRecord.FFI.non_opt GtkTargetListRecord.FFI.p
                * GdkDragAction.FFI.val_
                -> unit;
           )
@@ -162,9 +162,9 @@ structure GtkEntry :>
          & x3 =>
           (
             _import "gtk_entry_set_icon_from_gicon" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * GtkEntryIconPosition.FFI.val_
-               * unit GioIconClass.FFI.p
+               * GioIconClass.FFI.opt GioIconClass.FFI.p
                -> unit;
           )
             (
@@ -179,10 +179,10 @@ structure GtkEntry :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_entry_set_icon_from_icon_name" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * GtkEntryIconPosition.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -198,9 +198,9 @@ structure GtkEntry :>
          & x3 =>
           (
             _import "gtk_entry_set_icon_from_pixbuf" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * GtkEntryIconPosition.FFI.val_
-               * unit GdkPixbufPixbufClass.FFI.p
+               * GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p
                -> unit;
           )
             (
@@ -215,10 +215,10 @@ structure GtkEntry :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_entry_set_icon_from_stock" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * GtkEntryIconPosition.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -234,7 +234,7 @@ structure GtkEntry :>
          & x3 =>
           (
             _import "gtk_entry_set_icon_sensitive" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * GtkEntryIconPosition.FFI.val_
                * GBool.FFI.val_
                -> unit;
@@ -251,10 +251,10 @@ structure GtkEntry :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_entry_set_icon_tooltip_markup" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * GtkEntryIconPosition.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -270,10 +270,10 @@ structure GtkEntry :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_entry_set_icon_tooltip_text" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * GtkEntryIconPosition.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -282,21 +282,21 @@ structure GtkEntry :>
               x3,
               x4
             )
-    val setInnerBorder_ = fn x1 & x2 => (_import "gtk_entry_set_inner_border" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * unit GtkBorderRecord.FFI.p -> unit;) (x1, x2)
-    val setInputHints_ = fn x1 & x2 => (_import "gtk_entry_set_input_hints" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GtkInputHints.FFI.val_ -> unit;) (x1, x2)
-    val setInputPurpose_ = fn x1 & x2 => (_import "gtk_entry_set_input_purpose" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GtkInputPurpose.FFI.val_ -> unit;) (x1, x2)
-    val setInvisibleChar_ = fn x1 & x2 => (_import "gtk_entry_set_invisible_char" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GChar.FFI.val_ -> unit;) (x1, x2)
-    val setMaxLength_ = fn x1 & x2 => (_import "gtk_entry_set_max_length" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setMaxWidthChars_ = fn x1 & x2 => (_import "gtk_entry_set_max_width_chars" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setOverwriteMode_ = fn x1 & x2 => (_import "gtk_entry_set_overwrite_mode" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setInnerBorder_ = fn x1 & x2 => (_import "gtk_entry_set_inner_border" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkBorderRecord.FFI.opt GtkBorderRecord.FFI.p -> unit;) (x1, x2)
+    val setInputHints_ = fn x1 & x2 => (_import "gtk_entry_set_input_hints" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkInputHints.FFI.val_ -> unit;) (x1, x2)
+    val setInputPurpose_ = fn x1 & x2 => (_import "gtk_entry_set_input_purpose" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GtkInputPurpose.FFI.val_ -> unit;) (x1, x2)
+    val setInvisibleChar_ = fn x1 & x2 => (_import "gtk_entry_set_invisible_char" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GChar.FFI.val_ -> unit;) (x1, x2)
+    val setMaxLength_ = fn x1 & x2 => (_import "gtk_entry_set_max_length" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setMaxWidthChars_ = fn x1 & x2 => (_import "gtk_entry_set_max_width_chars" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setOverwriteMode_ = fn x1 & x2 => (_import "gtk_entry_set_overwrite_mode" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setPlaceholderText_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_entry_set_placeholder_text" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -304,17 +304,17 @@ structure GtkEntry :>
               x2,
               x3
             )
-    val setProgressFraction_ = fn x1 & x2 => (_import "gtk_entry_set_progress_fraction" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setProgressPulseStep_ = fn x1 & x2 => (_import "gtk_entry_set_progress_pulse_step" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setTabs_ = fn x1 & x2 => (_import "gtk_entry_set_tabs" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * PangoTabArrayRecord.FFI.notnull PangoTabArrayRecord.FFI.p -> unit;) (x1, x2)
+    val setProgressFraction_ = fn x1 & x2 => (_import "gtk_entry_set_progress_fraction" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setProgressPulseStep_ = fn x1 & x2 => (_import "gtk_entry_set_progress_pulse_step" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setTabs_ = fn x1 & x2 => (_import "gtk_entry_set_tabs" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * PangoTabArrayRecord.FFI.non_opt PangoTabArrayRecord.FFI.p -> unit;) (x1, x2)
     val setText_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_entry_set_text" :
-              GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p
+              GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -322,10 +322,10 @@ structure GtkEntry :>
               x2,
               x3
             )
-    val setVisibility_ = fn x1 & x2 => (_import "gtk_entry_set_visibility" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setWidthChars_ = fn x1 & x2 => (_import "gtk_entry_set_width_chars" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val textIndexToLayoutIndex_ = fn x1 & x2 => (_import "gtk_entry_text_index_to_layout_index" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p * GInt.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
-    val unsetInvisibleChar_ = _import "gtk_entry_unset_invisible_char" : GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> unit;
+    val setVisibility_ = fn x1 & x2 => (_import "gtk_entry_set_visibility" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setWidthChars_ = fn x1 & x2 => (_import "gtk_entry_set_width_chars" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val textIndexToLayoutIndex_ = fn x1 & x2 => (_import "gtk_entry_text_index_to_layout_index" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p * GInt.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
+    val unsetInvisibleChar_ = _import "gtk_entry_unset_invisible_char" : GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> unit;
     type 'a class = 'a GtkEntryClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_editable_class = 'a GtkCellEditableClass.class

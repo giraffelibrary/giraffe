@@ -1,7 +1,8 @@
 structure GtkRadioToolButtonClass :>
   GTK_RADIO_TOOL_BUTTON_CLASS
     where type 'a toggle_tool_button_class = 'a GtkToggleToolButtonClass.class
-    where type C.notnull = GtkToggleToolButtonClass.C.notnull
+    where type C.opt = GtkToggleToolButtonClass.C.opt
+    where type C.non_opt = GtkToggleToolButtonClass.C.non_opt
     where type 'a C.p = 'a GtkToggleToolButtonClass.C.p =
   struct
     type 'a toggle_tool_button_class = 'a GtkToggleToolButtonClass.class

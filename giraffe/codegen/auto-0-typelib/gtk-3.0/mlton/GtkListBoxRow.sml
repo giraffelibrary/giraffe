@@ -5,16 +5,16 @@ structure GtkListBoxRow :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_list_box_row_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_list_box_row_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val changed_ = _import "gtk_list_box_row_changed" : GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p -> unit;
-    val getActivatable_ = _import "gtk_list_box_row_get_activatable" : GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p -> GBool.FFI.val_;
-    val getHeader_ = _import "gtk_list_box_row_get_header" : GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getIndex_ = _import "gtk_list_box_row_get_index" : GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p -> GInt32.FFI.val_;
-    val getSelectable_ = _import "gtk_list_box_row_get_selectable" : GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p -> GBool.FFI.val_;
-    val isSelected_ = _import "gtk_list_box_row_is_selected" : GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p -> GBool.FFI.val_;
-    val setActivatable_ = fn x1 & x2 => (_import "gtk_list_box_row_set_activatable" : GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHeader_ = fn x1 & x2 => (_import "gtk_list_box_row_set_header" : GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setSelectable_ = fn x1 & x2 => (_import "gtk_list_box_row_set_selectable" : GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_list_box_row_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val changed_ = _import "gtk_list_box_row_changed" : GtkListBoxRowClass.FFI.non_opt GtkListBoxRowClass.FFI.p -> unit;
+    val getActivatable_ = _import "gtk_list_box_row_get_activatable" : GtkListBoxRowClass.FFI.non_opt GtkListBoxRowClass.FFI.p -> GBool.FFI.val_;
+    val getHeader_ = _import "gtk_list_box_row_get_header" : GtkListBoxRowClass.FFI.non_opt GtkListBoxRowClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getIndex_ = _import "gtk_list_box_row_get_index" : GtkListBoxRowClass.FFI.non_opt GtkListBoxRowClass.FFI.p -> GInt32.FFI.val_;
+    val getSelectable_ = _import "gtk_list_box_row_get_selectable" : GtkListBoxRowClass.FFI.non_opt GtkListBoxRowClass.FFI.p -> GBool.FFI.val_;
+    val isSelected_ = _import "gtk_list_box_row_is_selected" : GtkListBoxRowClass.FFI.non_opt GtkListBoxRowClass.FFI.p -> GBool.FFI.val_;
+    val setActivatable_ = fn x1 & x2 => (_import "gtk_list_box_row_set_activatable" : GtkListBoxRowClass.FFI.non_opt GtkListBoxRowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHeader_ = fn x1 & x2 => (_import "gtk_list_box_row_set_header" : GtkListBoxRowClass.FFI.non_opt GtkListBoxRowClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setSelectable_ = fn x1 & x2 => (_import "gtk_list_box_row_set_selectable" : GtkListBoxRowClass.FFI.non_opt GtkListBoxRowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkListBoxRowClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class

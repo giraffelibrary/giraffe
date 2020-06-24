@@ -6,7 +6,7 @@ structure GtkHScrollbar :>
     where type 'a adjustment_class = 'a GtkAdjustmentClass.class =
   struct
     val getType_ = _import "gtk_hscrollbar_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_hscrollbar_new" : unit GtkAdjustmentClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_hscrollbar_new" : GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     type 'a class = 'a GtkHScrollbarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

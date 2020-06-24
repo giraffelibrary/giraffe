@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2017-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -17,10 +17,10 @@ structure Signal :>
       fn x1 & (x2, x3) & x4 & x5 =>
         (
           _import "mlton_g_signal_connect_closure" :
-            GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+            GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
              * Utf8.MLton.p1
-             * Utf8.FFI.notnull Utf8.MLton.p2
-             * GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p
+             * Utf8.FFI.non_opt Utf8.MLton.p2
+             * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
              * GBool.FFI.val_
              -> GULong.FFI.val_;
         )
@@ -30,7 +30,7 @@ structure Signal :>
       fn x1 & x2 =>
         (
           _import "g_signal_handler_disconnect" :
-            GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+            GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
              * GULong.FFI.val_
              -> unit;
         )
@@ -40,7 +40,7 @@ structure Signal :>
       fn x1 & x2 =>
         (
           _import "g_signal_handler_is_connected" :
-            GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+            GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
              * GULong.FFI.val_
              -> GBool.FFI.val_;
         )

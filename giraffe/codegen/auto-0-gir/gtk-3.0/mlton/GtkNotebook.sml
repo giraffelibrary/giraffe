@@ -9,7 +9,7 @@ structure GtkNotebook :>
     where type position_type_t = GtkPositionType.t =
   struct
     val getType_ = _import "gtk_notebook_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_notebook_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_notebook_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val appendPage_ =
       fn
         x1
@@ -17,9 +17,9 @@ structure GtkNotebook :>
          & x3 =>
           (
             _import "gtk_notebook_append_page" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                -> GInt.FFI.val_;
           )
             (
@@ -35,10 +35,10 @@ structure GtkNotebook :>
          & x4 =>
           (
             _import "gtk_notebook_append_page_menu" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                -> GInt.FFI.val_;
           )
             (
@@ -47,24 +47,24 @@ structure GtkNotebook :>
               x3,
               x4
             )
-    val detachTab_ = fn x1 & x2 => (_import "gtk_notebook_detach_tab" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val getActionWidget_ = fn x1 & x2 => (_import "gtk_notebook_get_action_widget" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GtkPackType.FFI.val_ -> unit GtkWidgetClass.FFI.p;) (x1, x2)
-    val getCurrentPage_ = _import "gtk_notebook_get_current_page" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> GInt.FFI.val_;
-    val getGroupName_ = _import "gtk_notebook_get_group_name" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getMenuLabel_ = fn x1 & x2 => (_import "gtk_notebook_get_menu_label" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit GtkWidgetClass.FFI.p;) (x1, x2)
-    val getMenuLabelText_ = fn x1 & x2 => (_import "gtk_notebook_get_menu_label_text" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit Utf8.FFI.out_p;) (x1, x2)
-    val getNPages_ = _import "gtk_notebook_get_n_pages" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> GInt.FFI.val_;
-    val getNthPage_ = fn x1 & x2 => (_import "gtk_notebook_get_nth_page" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GInt.FFI.val_ -> unit GtkWidgetClass.FFI.p;) (x1, x2)
-    val getScrollable_ = _import "gtk_notebook_get_scrollable" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> GBool.FFI.val_;
-    val getShowBorder_ = _import "gtk_notebook_get_show_border" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> GBool.FFI.val_;
-    val getShowTabs_ = _import "gtk_notebook_get_show_tabs" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> GBool.FFI.val_;
-    val getTabDetachable_ = fn x1 & x2 => (_import "gtk_notebook_get_tab_detachable" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getTabHborder_ = _import "gtk_notebook_get_tab_hborder" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> GUInt16.FFI.val_;
-    val getTabLabel_ = fn x1 & x2 => (_import "gtk_notebook_get_tab_label" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit GtkWidgetClass.FFI.p;) (x1, x2)
-    val getTabLabelText_ = fn x1 & x2 => (_import "gtk_notebook_get_tab_label_text" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit Utf8.FFI.out_p;) (x1, x2)
-    val getTabPos_ = _import "gtk_notebook_get_tab_pos" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> GtkPositionType.FFI.val_;
-    val getTabReorderable_ = fn x1 & x2 => (_import "gtk_notebook_get_tab_reorderable" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getTabVborder_ = _import "gtk_notebook_get_tab_vborder" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> GUInt16.FFI.val_;
+    val detachTab_ = fn x1 & x2 => (_import "gtk_notebook_detach_tab" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val getActionWidget_ = fn x1 & x2 => (_import "gtk_notebook_get_action_widget" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GtkPackType.FFI.val_ -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val getCurrentPage_ = _import "gtk_notebook_get_current_page" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> GInt.FFI.val_;
+    val getGroupName_ = _import "gtk_notebook_get_group_name" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getMenuLabel_ = fn x1 & x2 => (_import "gtk_notebook_get_menu_label" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val getMenuLabelText_ = fn x1 & x2 => (_import "gtk_notebook_get_menu_label_text" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val getNPages_ = _import "gtk_notebook_get_n_pages" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> GInt.FFI.val_;
+    val getNthPage_ = fn x1 & x2 => (_import "gtk_notebook_get_nth_page" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GInt.FFI.val_ -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val getScrollable_ = _import "gtk_notebook_get_scrollable" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> GBool.FFI.val_;
+    val getShowBorder_ = _import "gtk_notebook_get_show_border" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> GBool.FFI.val_;
+    val getShowTabs_ = _import "gtk_notebook_get_show_tabs" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> GBool.FFI.val_;
+    val getTabDetachable_ = fn x1 & x2 => (_import "gtk_notebook_get_tab_detachable" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getTabHborder_ = _import "gtk_notebook_get_tab_hborder" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> GUInt16.FFI.val_;
+    val getTabLabel_ = fn x1 & x2 => (_import "gtk_notebook_get_tab_label" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val getTabLabelText_ = fn x1 & x2 => (_import "gtk_notebook_get_tab_label_text" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val getTabPos_ = _import "gtk_notebook_get_tab_pos" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> GtkPositionType.FFI.val_;
+    val getTabReorderable_ = fn x1 & x2 => (_import "gtk_notebook_get_tab_reorderable" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getTabVborder_ = _import "gtk_notebook_get_tab_vborder" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> GUInt16.FFI.val_;
     val insertPage_ =
       fn
         x1
@@ -73,9 +73,9 @@ structure GtkNotebook :>
          & x4 =>
           (
             _import "gtk_notebook_insert_page" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                -> GInt.FFI.val_;
           )
@@ -94,10 +94,10 @@ structure GtkNotebook :>
          & x5 =>
           (
             _import "gtk_notebook_insert_page_menu" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                -> GInt.FFI.val_;
           )
@@ -108,10 +108,10 @@ structure GtkNotebook :>
               x4,
               x5
             )
-    val nextPage_ = _import "gtk_notebook_next_page" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> unit;
-    val pageNum_ = fn x1 & x2 => (_import "gtk_notebook_page_num" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val popupDisable_ = _import "gtk_notebook_popup_disable" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> unit;
-    val popupEnable_ = _import "gtk_notebook_popup_enable" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> unit;
+    val nextPage_ = _import "gtk_notebook_next_page" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> unit;
+    val pageNum_ = fn x1 & x2 => (_import "gtk_notebook_page_num" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val popupDisable_ = _import "gtk_notebook_popup_disable" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> unit;
+    val popupEnable_ = _import "gtk_notebook_popup_enable" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> unit;
     val prependPage_ =
       fn
         x1
@@ -119,9 +119,9 @@ structure GtkNotebook :>
          & x3 =>
           (
             _import "gtk_notebook_prepend_page" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                -> GInt.FFI.val_;
           )
             (
@@ -137,10 +137,10 @@ structure GtkNotebook :>
          & x4 =>
           (
             _import "gtk_notebook_prepend_page_menu" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                -> GInt.FFI.val_;
           )
             (
@@ -149,8 +149,8 @@ structure GtkNotebook :>
               x3,
               x4
             )
-    val prevPage_ = _import "gtk_notebook_prev_page" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p -> unit;
-    val removePage_ = fn x1 & x2 => (_import "gtk_notebook_remove_page" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val prevPage_ = _import "gtk_notebook_prev_page" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p -> unit;
+    val removePage_ = fn x1 & x2 => (_import "gtk_notebook_remove_page" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val reorderChild_ =
       fn
         x1
@@ -158,8 +158,8 @@ structure GtkNotebook :>
          & x3 =>
           (
             _import "gtk_notebook_reorder_child" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                -> unit;
           )
@@ -175,8 +175,8 @@ structure GtkNotebook :>
          & x3 =>
           (
             _import "gtk_notebook_set_action_widget" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GtkPackType.FFI.val_
                -> unit;
           )
@@ -185,15 +185,15 @@ structure GtkNotebook :>
               x2,
               x3
             )
-    val setCurrentPage_ = fn x1 & x2 => (_import "gtk_notebook_set_current_page" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setCurrentPage_ = fn x1 & x2 => (_import "gtk_notebook_set_current_page" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setGroupName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_notebook_set_group_name" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -208,9 +208,9 @@ structure GtkNotebook :>
          & x3 =>
           (
             _import "gtk_notebook_set_menu_label" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                -> unit;
           )
             (
@@ -225,10 +225,10 @@ structure GtkNotebook :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_notebook_set_menu_label_text" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -237,9 +237,9 @@ structure GtkNotebook :>
               x3,
               x4
             )
-    val setScrollable_ = fn x1 & x2 => (_import "gtk_notebook_set_scrollable" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowBorder_ = fn x1 & x2 => (_import "gtk_notebook_set_show_border" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowTabs_ = fn x1 & x2 => (_import "gtk_notebook_set_show_tabs" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setScrollable_ = fn x1 & x2 => (_import "gtk_notebook_set_scrollable" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowBorder_ = fn x1 & x2 => (_import "gtk_notebook_set_show_border" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowTabs_ = fn x1 & x2 => (_import "gtk_notebook_set_show_tabs" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setTabDetachable_ =
       fn
         x1
@@ -247,8 +247,8 @@ structure GtkNotebook :>
          & x3 =>
           (
             _import "gtk_notebook_set_tab_detachable" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -264,9 +264,9 @@ structure GtkNotebook :>
          & x3 =>
           (
             _import "gtk_notebook_set_tab_label" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                -> unit;
           )
             (
@@ -281,10 +281,10 @@ structure GtkNotebook :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_notebook_set_tab_label_text" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -293,7 +293,7 @@ structure GtkNotebook :>
               x3,
               x4
             )
-    val setTabPos_ = fn x1 & x2 => (_import "gtk_notebook_set_tab_pos" : GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p * GtkPositionType.FFI.val_ -> unit;) (x1, x2)
+    val setTabPos_ = fn x1 & x2 => (_import "gtk_notebook_set_tab_pos" : GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p * GtkPositionType.FFI.val_ -> unit;) (x1, x2)
     val setTabReorderable_ =
       fn
         x1
@@ -301,8 +301,8 @@ structure GtkNotebook :>
          & x3 =>
           (
             _import "gtk_notebook_set_tab_reorderable" :
-              GtkNotebookClass.FFI.notnull GtkNotebookClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkNotebookClass.FFI.non_opt GtkNotebookClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )

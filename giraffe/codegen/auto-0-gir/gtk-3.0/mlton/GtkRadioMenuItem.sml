@@ -6,16 +6,16 @@ structure GtkRadioMenuItem :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_radio_menu_item_get_type" : unit -> GObjectType.FFI.val_;
-    val newFromWidget_ = _import "gtk_radio_menu_item_new_from_widget" : unit GtkRadioMenuItemClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val newFromWidget_ = _import "gtk_radio_menu_item_new_from_widget" : GtkRadioMenuItemClass.FFI.opt GtkRadioMenuItemClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val newWithLabelFromWidget_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_radio_menu_item_new_with_label_from_widget" :
-              unit GtkRadioMenuItemClass.FFI.p
+              GtkRadioMenuItemClass.FFI.opt GtkRadioMenuItemClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -27,17 +27,17 @@ structure GtkRadioMenuItem :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_radio_menu_item_new_with_mnemonic_from_widget" :
-              unit GtkRadioMenuItemClass.FFI.p
+              GtkRadioMenuItemClass.FFI.opt GtkRadioMenuItemClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val joinGroup_ = fn x1 & x2 => (_import "gtk_radio_menu_item_join_group" : GtkRadioMenuItemClass.FFI.notnull GtkRadioMenuItemClass.FFI.p * unit GtkRadioMenuItemClass.FFI.p -> unit;) (x1, x2)
+    val joinGroup_ = fn x1 & x2 => (_import "gtk_radio_menu_item_join_group" : GtkRadioMenuItemClass.FFI.non_opt GtkRadioMenuItemClass.FFI.p * GtkRadioMenuItemClass.FFI.opt GtkRadioMenuItemClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkRadioMenuItemClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

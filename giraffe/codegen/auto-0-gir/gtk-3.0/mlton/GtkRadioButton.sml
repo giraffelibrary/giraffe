@@ -6,16 +6,16 @@ structure GtkRadioButton :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_radio_button_get_type" : unit -> GObjectType.FFI.val_;
-    val newFromWidget_ = _import "gtk_radio_button_new_from_widget" : unit GtkRadioButtonClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val newFromWidget_ = _import "gtk_radio_button_new_from_widget" : GtkRadioButtonClass.FFI.opt GtkRadioButtonClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val newWithLabelFromWidget_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_radio_button_new_with_label_from_widget" :
-              unit GtkRadioButtonClass.FFI.p
+              GtkRadioButtonClass.FFI.opt GtkRadioButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -27,17 +27,17 @@ structure GtkRadioButton :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_radio_button_new_with_mnemonic_from_widget" :
-              unit GtkRadioButtonClass.FFI.p
+              GtkRadioButtonClass.FFI.opt GtkRadioButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val joinGroup_ = fn x1 & x2 => (_import "gtk_radio_button_join_group" : GtkRadioButtonClass.FFI.notnull GtkRadioButtonClass.FFI.p * unit GtkRadioButtonClass.FFI.p -> unit;) (x1, x2)
+    val joinGroup_ = fn x1 & x2 => (_import "gtk_radio_button_join_group" : GtkRadioButtonClass.FFI.non_opt GtkRadioButtonClass.FFI.p * GtkRadioButtonClass.FFI.opt GtkRadioButtonClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkRadioButtonClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

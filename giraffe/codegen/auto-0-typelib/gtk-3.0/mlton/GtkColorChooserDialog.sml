@@ -12,9 +12,9 @@ structure GtkColorChooserDialog :>
           (
             _import "mlton_gtk_color_chooser_dialog_new" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * unit GtkWindowClass.FFI.p
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * GtkWindowClass.FFI.opt GtkWindowClass.FFI.p
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,

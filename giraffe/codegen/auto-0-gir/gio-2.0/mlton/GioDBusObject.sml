@@ -9,17 +9,17 @@ structure GioDBusObject :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_object_get_interface" :
-              GioDBusObjectClass.FFI.notnull GioDBusObjectClass.FFI.p
+              GioDBusObjectClass.FFI.non_opt GioDBusObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioDBusInterfaceClass.FFI.notnull GioDBusInterfaceClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioDBusInterfaceClass.FFI.non_opt GioDBusInterfaceClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getObjectPath_ = _import "g_dbus_object_get_object_path" : GioDBusObjectClass.FFI.notnull GioDBusObjectClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getObjectPath_ = _import "g_dbus_object_get_object_path" : GioDBusObjectClass.FFI.non_opt GioDBusObjectClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     type 'a class = 'a GioDBusObjectClass.class
     type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
     type t = base class

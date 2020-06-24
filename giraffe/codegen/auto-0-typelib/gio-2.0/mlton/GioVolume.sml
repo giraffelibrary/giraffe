@@ -8,8 +8,8 @@ structure GioVolume :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_volume_get_type" : unit -> GObjectType.FFI.val_;
-    val canEject_ = _import "g_volume_can_eject" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> GBool.FFI.val_;
-    val canMount_ = _import "g_volume_can_mount" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> GBool.FFI.val_;
+    val canEject_ = _import "g_volume_can_eject" : GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p -> GBool.FFI.val_;
+    val canMount_ = _import "g_volume_can_mount" : GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p -> GBool.FFI.val_;
     val ejectFinish_ =
       fn
         x1
@@ -17,9 +17,9 @@ structure GioVolume :>
          & x3 =>
           (
             _import "g_volume_eject_finish" :
-              GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -34,9 +34,9 @@ structure GioVolume :>
          & x3 =>
           (
             _import "g_volume_eject_with_operation_finish" :
-              GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -44,30 +44,30 @@ structure GioVolume :>
               x2,
               x3
             )
-    val enumerateIdentifiers_ = _import "g_volume_enumerate_identifiers" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val getActivationRoot_ = _import "g_volume_get_activation_root" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> unit GioFileClass.FFI.p;
-    val getDrive_ = _import "g_volume_get_drive" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> GioDriveClass.FFI.notnull GioDriveClass.FFI.p;
-    val getIcon_ = _import "g_volume_get_icon" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
+    val enumerateIdentifiers_ = _import "g_volume_enumerate_identifiers" : GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val getActivationRoot_ = _import "g_volume_get_activation_root" : GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p -> GioFileClass.FFI.opt GioFileClass.FFI.p;
+    val getDrive_ = _import "g_volume_get_drive" : GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p -> GioDriveClass.FFI.non_opt GioDriveClass.FFI.p;
+    val getIcon_ = _import "g_volume_get_icon" : GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
     val getIdentifier_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_volume_get_identifier" :
-              GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p
+              GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getMount_ = _import "g_volume_get_mount" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> GioMountClass.FFI.notnull GioMountClass.FFI.p;
-    val getName_ = _import "g_volume_get_name" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getSortKey_ = _import "g_volume_get_sort_key" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getSymbolicIcon_ = _import "g_volume_get_symbolic_icon" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val getUuid_ = _import "g_volume_get_uuid" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getMount_ = _import "g_volume_get_mount" : GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p -> GioMountClass.FFI.non_opt GioMountClass.FFI.p;
+    val getName_ = _import "g_volume_get_name" : GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getSortKey_ = _import "g_volume_get_sort_key" : GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getSymbolicIcon_ = _import "g_volume_get_symbolic_icon" : GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val getUuid_ = _import "g_volume_get_uuid" : GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val mountFinish_ =
       fn
         x1
@@ -75,9 +75,9 @@ structure GioVolume :>
          & x3 =>
           (
             _import "g_volume_mount_finish" :
-              GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -85,7 +85,7 @@ structure GioVolume :>
               x2,
               x3
             )
-    val shouldAutomount_ = _import "g_volume_should_automount" : GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p -> GBool.FFI.val_;
+    val shouldAutomount_ = _import "g_volume_should_automount" : GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GioVolumeClass.class
     type 'a file_class = 'a GioFileClass.class
     type 'a drive_class = 'a GioDriveClass.class

@@ -17,10 +17,10 @@ structure GioSubprocess :>
           (
             _import "mlton_g_subprocess_newv" :
               Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
                * GioSubprocessFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p;
           )
             (
               x1,
@@ -38,12 +38,12 @@ structure GioSubprocess :>
          & x6 =>
           (
             _import "g_subprocess_communicate" :
-              GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p
-               * unit GLibBytesRecord.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, GLibBytesRecord.FFI.notnull) GLibBytesRecord.FFI.r
-               * (unit, GLibBytesRecord.FFI.notnull) GLibBytesRecord.FFI.r
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p
+               * GLibBytesRecord.FFI.opt GLibBytesRecord.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibBytesRecord.FFI.opt, GLibBytesRecord.FFI.non_opt) GLibBytesRecord.FFI.r
+               * (GLibBytesRecord.FFI.opt, GLibBytesRecord.FFI.non_opt) GLibBytesRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -63,11 +63,11 @@ structure GioSubprocess :>
          & x5 =>
           (
             _import "g_subprocess_communicate_finish" :
-              GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, GLibBytesRecord.FFI.notnull) GLibBytesRecord.FFI.r
-               * (unit, GLibBytesRecord.FFI.notnull) GLibBytesRecord.FFI.r
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibBytesRecord.FFI.opt, GLibBytesRecord.FFI.non_opt) GLibBytesRecord.FFI.r
+               * (GLibBytesRecord.FFI.opt, GLibBytesRecord.FFI.non_opt) GLibBytesRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -87,15 +87,15 @@ structure GioSubprocess :>
          & x9 =>
           (
             _import "mlton_g_subprocess_communicate_utf8" :
-              GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p
+              GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * unit GioCancellableClass.FFI.p
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -118,13 +118,13 @@ structure GioSubprocess :>
          & x7 =>
           (
             _import "mlton_g_subprocess_communicate_utf8_finish" :
-              GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+              GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -136,18 +136,18 @@ structure GioSubprocess :>
               x6,
               x7
             )
-    val forceExit_ = _import "g_subprocess_force_exit" : GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p -> unit;
-    val getExitStatus_ = _import "g_subprocess_get_exit_status" : GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p -> GInt.FFI.val_;
-    val getIdentifier_ = _import "g_subprocess_get_identifier" : GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getIfExited_ = _import "g_subprocess_get_if_exited" : GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p -> GBool.FFI.val_;
-    val getIfSignaled_ = _import "g_subprocess_get_if_signaled" : GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p -> GBool.FFI.val_;
-    val getStatus_ = _import "g_subprocess_get_status" : GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p -> GInt.FFI.val_;
-    val getStderrPipe_ = _import "g_subprocess_get_stderr_pipe" : GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
-    val getStdinPipe_ = _import "g_subprocess_get_stdin_pipe" : GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p -> GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p;
-    val getStdoutPipe_ = _import "g_subprocess_get_stdout_pipe" : GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
-    val getSuccessful_ = _import "g_subprocess_get_successful" : GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p -> GBool.FFI.val_;
-    val getTermSig_ = _import "g_subprocess_get_term_sig" : GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p -> GInt.FFI.val_;
-    val sendSignal_ = fn x1 & x2 => (_import "g_subprocess_send_signal" : GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val forceExit_ = _import "g_subprocess_force_exit" : GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p -> unit;
+    val getExitStatus_ = _import "g_subprocess_get_exit_status" : GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p -> GInt.FFI.val_;
+    val getIdentifier_ = _import "g_subprocess_get_identifier" : GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getIfExited_ = _import "g_subprocess_get_if_exited" : GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p -> GBool.FFI.val_;
+    val getIfSignaled_ = _import "g_subprocess_get_if_signaled" : GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p -> GBool.FFI.val_;
+    val getStatus_ = _import "g_subprocess_get_status" : GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p -> GInt.FFI.val_;
+    val getStderrPipe_ = _import "g_subprocess_get_stderr_pipe" : GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p -> GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p;
+    val getStdinPipe_ = _import "g_subprocess_get_stdin_pipe" : GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p -> GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p;
+    val getStdoutPipe_ = _import "g_subprocess_get_stdout_pipe" : GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p -> GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p;
+    val getSuccessful_ = _import "g_subprocess_get_successful" : GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p -> GBool.FFI.val_;
+    val getTermSig_ = _import "g_subprocess_get_term_sig" : GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p -> GInt.FFI.val_;
+    val sendSignal_ = fn x1 & x2 => (_import "g_subprocess_send_signal" : GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val wait_ =
       fn
         x1
@@ -155,9 +155,9 @@ structure GioSubprocess :>
          & x3 =>
           (
             _import "g_subprocess_wait" :
-              GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -172,9 +172,9 @@ structure GioSubprocess :>
          & x3 =>
           (
             _import "g_subprocess_wait_check" :
-              GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -189,9 +189,9 @@ structure GioSubprocess :>
          & x3 =>
           (
             _import "g_subprocess_wait_check_finish" :
-              GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -206,9 +206,9 @@ structure GioSubprocess :>
          & x3 =>
           (
             _import "g_subprocess_wait_finish" :
-              GioSubprocessClass.FFI.notnull GioSubprocessClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioSubprocessClass.FFI.non_opt GioSubprocessClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

@@ -602,19 +602,19 @@ end
  *                                                            |
  *     val getValue_ =                                        |
  *       _import "g_value_get_<valueType>" :                  |
- *         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> <retType>;
+ *         GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> <retType>;
  *                                                            |
  *                                           -.               |
  *     val getOptValue_ =                     |               |
  *       _import "g_value_get_<valueType>" :  | isPtr         |
- *         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+ *         GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
  *          -> <retOptType>;                  |               | MLton only
  *                                           -'               |
  *                                                            |
  *     val setValue_ =                                        |
  *       fn x1 & x2 =>                                        |
  *         (_import "g_value_set_<valueType>" :               |
- *            GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+ *            GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
  *             * <parType>                                    |
  *             -> unit;)                                      |
  *         (x1, x2)                                           |
@@ -623,7 +623,7 @@ end
  *     val setOptValue_ =                     | isPtr         |
  *       fn x1 & x2 =>                        |               |
  *         (_import "g_value_set_<valueType>" :               |
- *            GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+ *            GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
  *             * <parOptType>                 |               |
  *             -> unit;)                      |               |
  *         (x1, x2)                           |               |
@@ -654,10 +654,20 @@ end
  *   parType and retType
  *     are defined as
  *
- *         C.notnull C.p
+ *         FFI.non_opt FFI.p
  *           if isPtr
  *
- *         C.val_
+ *         FFI.val_
+ *           otherwise
+ *
+ *
+ *   parOptType and retOptType
+ *     are defined as
+ *
+ *         FFI.opt FFI.p
+ *           if isPtr
+ *
+ *         FFI.val_
  *           otherwise
  *
  *
@@ -671,43 +681,53 @@ end
  *           otherwise
  *
  *
+ *   parOptConv and retOptConv
+ *     are defined as
+ *
+ *         PolyML.cOptPtr
+ *           if isPtr
+ *
+ *         PolyML.cVal
+ *           otherwise
+ *
+ *
  *   fromFun
  *     is defined as
  *
- *         C.fromPtr false
+ *         FFI.fromPtr false
  *           if isPtr
  *
- *         C.fromVal
+ *         FFI.fromVal
  *           otherwise
  *
  *
  *   fromOptFun
  *     is defined as
  *
- *         C.fromOptPtr false
+ *         FFI.fromOptPtr false
  *           if isPtr
  *
- *         C.fromVal
+ *         FFI.fromVal
  *           otherwise
  *
  *
  *   withFun
  *     is defined as
  *
- *         C.withPtr
+ *         FFI.withPtr
  *           if isPtr
  *
- *         C.withVal
+ *         FFI.withVal
  *           otherwise
  *
  *
  *   withOptFun
  *     is defined as
  *
- *         C.withOptPtr
+ *         FFI.withOptPtr
  *           if isPtr
  *
- *         C.withVal
+ *         FFI.withVal
  *           otherwise
  *
  *
@@ -825,8 +845,8 @@ local
   (*
    *     val get<Opt>Value_ =
    *       _import "g_value_get_<valueType>" :
-   *         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
-   *          -> <retType>;
+   *         GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
+   *          -> <ret<Opt>Type>;
    *)
   fun getValueStrDecLowLevelMLton (valueIRef, valueType) ptrOpt =
     let
@@ -855,7 +875,7 @@ local
   (*
    *     val set<Opt>Value_ =
    *       _import "g_value_set_<valueType>" :
-   *         GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * <parType>
+   *         GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * <par<Opt>Type>
    *          -> unit;
    *)
   fun setValueStrDecLowLevelMLton (valueIRef, valueType) ptrOpt =
@@ -914,7 +934,7 @@ local
    *     val get<Opt>Value_ =
    *       call
    *         (getSymbol "g_value_get_<valueType>")
-   *         (GObjectValueRecord.PolyML.cPtr --> <retConv>);
+   *         (GObjectValueRecord.PolyML.cPtr --> <ret<Opt>Conv>);
    *)
   fun getValueStrDecLowLevelPolyML (valueIRef, valueType) ptrOpt =
     let
@@ -942,7 +962,7 @@ local
    *     val set<Opt>Value_ =
    *       call
    *         (getSymbol "g_value_set_<valueType>")
-   *         (GObjectValueRecord.PolyML.cPtr &&> <parConv> --> cVoid);
+   *         (GObjectValueRecord.PolyML.cPtr &&> <par<Opt>Conv> --> cVoid);
    *)
   fun setValueStrDecLowLevelPolyML (valueIRef, valueType) ptrOpt =
     let

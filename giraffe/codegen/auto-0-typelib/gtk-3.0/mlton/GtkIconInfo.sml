@@ -7,7 +7,7 @@ structure GtkIconInfo :>
     where type 'a style_class = 'a GtkStyleClass.class =
   struct
     val getType_ = _import "gtk_icon_info_get_type" : unit -> GObjectType.FFI.val_;
-    val newForPixbuf_ = fn x1 & x2 => (_import "gtk_icon_info_new_for_pixbuf" : GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p;) (x1, x2)
+    val newForPixbuf_ = fn x1 & x2 => (_import "gtk_icon_info_new_for_pixbuf" : GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p * GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p -> GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p;) (x1, x2)
     val getAttachPoints_ =
       fn
         x1
@@ -15,9 +15,9 @@ structure GtkIconInfo :>
          & x4 =>
           (
             _import "mlton_gtk_icon_info_get_attach_points" :
-              GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p
+              GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p
                * GdkPointRecordCArrayN.MLton.r1
-               * (unit, GdkPointRecordCArrayN.FFI.notnull) GdkPointRecordCArrayN.MLton.r2
+               * (GdkPointRecordCArrayN.FFI.opt, GdkPointRecordCArrayN.FFI.non_opt) GdkPointRecordCArrayN.MLton.r2
                * GInt32.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -27,14 +27,14 @@ structure GtkIconInfo :>
               x3,
               x4
             )
-    val getBaseScale_ = _import "gtk_icon_info_get_base_scale" : GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p -> GInt32.FFI.val_;
-    val getBaseSize_ = _import "gtk_icon_info_get_base_size" : GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p -> GInt32.FFI.val_;
-    val getBuiltinPixbuf_ = _import "gtk_icon_info_get_builtin_pixbuf" : GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p -> unit GdkPixbufPixbufClass.FFI.p;
-    val getDisplayName_ = _import "gtk_icon_info_get_display_name" : GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getEmbeddedRect_ = fn x1 & x2 => (_import "gtk_icon_info_get_embedded_rect" : GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getFilename_ = _import "gtk_icon_info_get_filename" : GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p -> unit Utf8.FFI.out_p;
-    val isSymbolic_ = _import "gtk_icon_info_is_symbolic" : GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p -> GBool.FFI.val_;
-    val loadIcon_ = fn x1 & x2 => (_import "gtk_icon_info_load_icon" : GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;) (x1, x2)
+    val getBaseScale_ = _import "gtk_icon_info_get_base_scale" : GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p -> GInt32.FFI.val_;
+    val getBaseSize_ = _import "gtk_icon_info_get_base_size" : GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p -> GInt32.FFI.val_;
+    val getBuiltinPixbuf_ = _import "gtk_icon_info_get_builtin_pixbuf" : GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
+    val getDisplayName_ = _import "gtk_icon_info_get_display_name" : GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getEmbeddedRect_ = fn x1 & x2 => (_import "gtk_icon_info_get_embedded_rect" : GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getFilename_ = _import "gtk_icon_info_get_filename" : GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val isSymbolic_ = _import "gtk_icon_info_is_symbolic" : GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p -> GBool.FFI.val_;
+    val loadIcon_ = fn x1 & x2 => (_import "gtk_icon_info_load_icon" : GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;) (x1, x2)
     val loadIconFinish_ =
       fn
         x1
@@ -42,10 +42,10 @@ structure GtkIconInfo :>
          & x3 =>
           (
             _import "gtk_icon_info_load_icon_finish" :
-              GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+              GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -59,10 +59,10 @@ structure GtkIconInfo :>
          & x3 =>
           (
             _import "gtk_icon_info_load_surface" :
-              GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p
-               * unit GdkWindowClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p;
+              GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p
+               * GdkWindowClass.FFI.opt GdkWindowClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> CairoSurfaceRecord.FFI.non_opt CairoSurfaceRecord.FFI.p;
           )
             (
               x1,
@@ -80,14 +80,14 @@ structure GtkIconInfo :>
          & x7 =>
           (
             _import "gtk_icon_info_load_symbolic" :
-              GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p
-               * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p
-               * unit GdkRgbaRecord.FFI.p
-               * unit GdkRgbaRecord.FFI.p
-               * unit GdkRgbaRecord.FFI.p
+              GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p
+               * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p
+               * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p
+               * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p
+               * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p
                * GBool.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -106,11 +106,11 @@ structure GtkIconInfo :>
          & x4 =>
           (
             _import "gtk_icon_info_load_symbolic_finish" :
-              GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+              GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
                * GBool.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -126,11 +126,11 @@ structure GtkIconInfo :>
          & x4 =>
           (
             _import "gtk_icon_info_load_symbolic_for_context" :
-              GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p
-               * GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p
+               * GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * GBool.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -146,11 +146,11 @@ structure GtkIconInfo :>
          & x4 =>
           (
             _import "gtk_icon_info_load_symbolic_for_context_finish" :
-              GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+              GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
                * GBool.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -167,12 +167,12 @@ structure GtkIconInfo :>
          & x5 =>
           (
             _import "gtk_icon_info_load_symbolic_for_style" :
-              GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p
-               * GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
+              GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p
+               * GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
                * GtkStateType.FFI.val_
                * GBool.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -181,7 +181,7 @@ structure GtkIconInfo :>
               x4,
               x5
             )
-    val setRawCoordinates_ = fn x1 & x2 => (_import "gtk_icon_info_set_raw_coordinates" : GtkIconInfoClass.FFI.notnull GtkIconInfoClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setRawCoordinates_ = fn x1 & x2 => (_import "gtk_icon_info_set_raw_coordinates" : GtkIconInfoClass.FFI.non_opt GtkIconInfoClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkIconInfoClass.class
     type 'a icon_theme_class = 'a GtkIconThemeClass.class
     type 'a style_context_class = 'a GtkStyleContextClass.class

@@ -11,7 +11,8 @@ structure GLibIOFunc :>
     structure C =
       struct
         structure Pointer = CPointerInternal
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
       end
 
@@ -20,7 +21,7 @@ structure GLibIOFunc :>
     local
       fun dispatch
         (
-          channel : GLibIOChannelRecord.FFI.notnull GLibIOChannelRecord.FFI.p,
+          channel : GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p,
           condition : GLibIOCondition.FFI.val_,
           id : IOCallbackTable.id
         ) : bool =
@@ -47,7 +48,7 @@ structure GLibIOFunc :>
     in
       val _ =
         _export "giraffe_io_dispatch_smlside"
-          : (GLibIOChannelRecord.FFI.notnull GLibIOChannelRecord.FFI.p
+          : (GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
               * GLibIOCondition.FFI.val_
               * IOCallbackTable.id
               -> bool)
@@ -60,7 +61,8 @@ structure GLibIOFunc :>
 
     structure FFI =
       struct
-        type notnull = C.notnull
+        type opt = C.opt
+        type non_opt = C.non_opt
         type 'a p = 'a C.p
 
         type callback = IOCallbackTable.id

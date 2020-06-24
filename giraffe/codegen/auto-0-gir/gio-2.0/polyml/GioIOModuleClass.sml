@@ -1,6 +1,7 @@
 structure GioIOModuleClass :>
   GIO_I_O_MODULE_CLASS
-    where type C.notnull = GObjectTypeModuleClass.C.notnull
+    where type C.opt = GObjectTypeModuleClass.C.opt
+    where type C.non_opt = GObjectTypeModuleClass.C.non_opt
     where type 'a C.p = 'a GObjectTypeModuleClass.C.p =
   struct
     open GObjectTypeModuleClass

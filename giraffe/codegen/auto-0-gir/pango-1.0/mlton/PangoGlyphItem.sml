@@ -3,7 +3,7 @@ structure PangoGlyphItem :>
     where type t = PangoGlyphItemRecord.t =
   struct
     val getType_ = _import "pango_glyph_item_get_type" : unit -> GObjectType.FFI.val_;
-    val copy_ = _import "pango_glyph_item_copy" : PangoGlyphItemRecord.FFI.notnull PangoGlyphItemRecord.FFI.p -> unit PangoGlyphItemRecord.FFI.p;
+    val copy_ = _import "pango_glyph_item_copy" : PangoGlyphItemRecord.FFI.non_opt PangoGlyphItemRecord.FFI.p -> PangoGlyphItemRecord.FFI.opt PangoGlyphItemRecord.FFI.p;
     val split_ =
       fn
         x1
@@ -11,11 +11,11 @@ structure PangoGlyphItem :>
          & x4 =>
           (
             _import "mlton_pango_glyph_item_split" :
-              PangoGlyphItemRecord.FFI.notnull PangoGlyphItemRecord.FFI.p
+              PangoGlyphItemRecord.FFI.non_opt PangoGlyphItemRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
-               -> PangoGlyphItemRecord.FFI.notnull PangoGlyphItemRecord.FFI.p;
+               -> PangoGlyphItemRecord.FFI.non_opt PangoGlyphItemRecord.FFI.p;
           )
             (
               x1,

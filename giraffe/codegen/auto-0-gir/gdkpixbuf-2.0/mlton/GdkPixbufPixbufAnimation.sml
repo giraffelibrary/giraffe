@@ -11,9 +11,9 @@ structure GdkPixbufPixbufAnimation :>
           (
             _import "mlton_gdk_pixbuf_animation_new_from_file" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufAnimationClass.FFI.non_opt GdkPixbufPixbufAnimationClass.FFI.p;
           )
             (
               x1,
@@ -26,9 +26,9 @@ structure GdkPixbufPixbufAnimation :>
           (
             _import "mlton_gdk_pixbuf_animation_new_from_resource" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufAnimationClass.FFI.non_opt GdkPixbufPixbufAnimationClass.FFI.p;
           )
             (
               x1,
@@ -42,22 +42,22 @@ structure GdkPixbufPixbufAnimation :>
          & x3 =>
           (
             _import "gdk_pixbuf_animation_new_from_stream" :
-              GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p;
+              GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufAnimationClass.FFI.non_opt GdkPixbufPixbufAnimationClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newFromStreamFinish_ = fn x1 & x2 => (_import "gdk_pixbuf_animation_new_from_stream_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p;) (x1, x2)
-    val getHeight_ = _import "gdk_pixbuf_animation_get_height" : GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p -> GInt.FFI.val_;
-    val getIter_ = fn x1 & x2 => (_import "gdk_pixbuf_animation_get_iter" : GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p * unit GLibTimeValRecord.FFI.p -> GdkPixbufPixbufAnimationIterClass.FFI.notnull GdkPixbufPixbufAnimationIterClass.FFI.p;) (x1, x2)
-    val getStaticImage_ = _import "gdk_pixbuf_animation_get_static_image" : GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
-    val getWidth_ = _import "gdk_pixbuf_animation_get_width" : GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p -> GInt.FFI.val_;
-    val isStaticImage_ = _import "gdk_pixbuf_animation_is_static_image" : GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p -> GBool.FFI.val_;
+    val newFromStreamFinish_ = fn x1 & x2 => (_import "gdk_pixbuf_animation_new_from_stream_finish" : GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GdkPixbufPixbufAnimationClass.FFI.non_opt GdkPixbufPixbufAnimationClass.FFI.p;) (x1, x2)
+    val getHeight_ = _import "gdk_pixbuf_animation_get_height" : GdkPixbufPixbufAnimationClass.FFI.non_opt GdkPixbufPixbufAnimationClass.FFI.p -> GInt.FFI.val_;
+    val getIter_ = fn x1 & x2 => (_import "gdk_pixbuf_animation_get_iter" : GdkPixbufPixbufAnimationClass.FFI.non_opt GdkPixbufPixbufAnimationClass.FFI.p * GLibTimeValRecord.FFI.opt GLibTimeValRecord.FFI.p -> GdkPixbufPixbufAnimationIterClass.FFI.non_opt GdkPixbufPixbufAnimationIterClass.FFI.p;) (x1, x2)
+    val getStaticImage_ = _import "gdk_pixbuf_animation_get_static_image" : GdkPixbufPixbufAnimationClass.FFI.non_opt GdkPixbufPixbufAnimationClass.FFI.p -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
+    val getWidth_ = _import "gdk_pixbuf_animation_get_width" : GdkPixbufPixbufAnimationClass.FFI.non_opt GdkPixbufPixbufAnimationClass.FFI.p -> GInt.FFI.val_;
+    val isStaticImage_ = _import "gdk_pixbuf_animation_is_static_image" : GdkPixbufPixbufAnimationClass.FFI.non_opt GdkPixbufPixbufAnimationClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GdkPixbufPixbufAnimationClass.class
     type 'a pixbuf_animation_iter_class = 'a GdkPixbufPixbufAnimationIterClass.class
     type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class

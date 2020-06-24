@@ -1,7 +1,8 @@
 structure GtkCheckButtonClass :>
   GTK_CHECK_BUTTON_CLASS
     where type 'a toggle_button_class = 'a GtkToggleButtonClass.class
-    where type C.notnull = GtkToggleButtonClass.C.notnull
+    where type C.opt = GtkToggleButtonClass.C.opt
+    where type C.non_opt = GtkToggleButtonClass.C.non_opt
     where type 'a C.p = 'a GtkToggleButtonClass.C.p =
   struct
     type 'a toggle_button_class = 'a GtkToggleButtonClass.class

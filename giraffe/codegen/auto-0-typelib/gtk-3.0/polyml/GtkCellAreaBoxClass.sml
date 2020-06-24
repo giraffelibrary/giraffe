@@ -1,7 +1,8 @@
 structure GtkCellAreaBoxClass :>
   GTK_CELL_AREA_BOX_CLASS
     where type 'a cell_area_class = 'a GtkCellAreaClass.class
-    where type C.notnull = GtkCellAreaClass.C.notnull
+    where type C.opt = GtkCellAreaClass.C.opt
+    where type C.non_opt = GtkCellAreaClass.C.non_opt
     where type 'a C.p = 'a GtkCellAreaClass.C.p =
   struct
     type 'a cell_area_class = 'a GtkCellAreaClass.class

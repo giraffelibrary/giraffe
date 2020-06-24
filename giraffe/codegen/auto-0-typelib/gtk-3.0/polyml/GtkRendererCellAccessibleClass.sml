@@ -1,7 +1,8 @@
 structure GtkRendererCellAccessibleClass :>
   GTK_RENDERER_CELL_ACCESSIBLE_CLASS
     where type 'a cell_accessible_class = 'a GtkCellAccessibleClass.class
-    where type C.notnull = GtkCellAccessibleClass.C.notnull
+    where type C.opt = GtkCellAccessibleClass.C.opt
+    where type C.non_opt = GtkCellAccessibleClass.C.non_opt
     where type 'a C.p = 'a GtkCellAccessibleClass.C.p =
   struct
     type 'a cell_accessible_class = 'a GtkCellAccessibleClass.class

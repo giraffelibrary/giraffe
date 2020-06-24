@@ -27,10 +27,11 @@ functor CPointerCArrayNType(
     open PolyMLFFI
 
     type 'a from_p = int -> 'a
-    structure Pointer = CTypedPointer(CElemType.Pointer.NotNullType)
-    type notnull = Pointer.notnull
+    structure Pointer = CTypedPointer(CElemType.Pointer.NonOptValueType)
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
-    type e = CElemType.notnull CElemType.p
+    type e = CElemType.non_opt CElemType.p
 
     fun appi n f p =
       let

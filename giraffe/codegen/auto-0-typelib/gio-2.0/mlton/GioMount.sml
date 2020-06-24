@@ -9,8 +9,8 @@ structure GioMount :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_mount_get_type" : unit -> GObjectType.FFI.val_;
-    val canEject_ = _import "g_mount_can_eject" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GBool.FFI.val_;
-    val canUnmount_ = _import "g_mount_can_unmount" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GBool.FFI.val_;
+    val canEject_ = _import "g_mount_can_eject" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> GBool.FFI.val_;
+    val canUnmount_ = _import "g_mount_can_unmount" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> GBool.FFI.val_;
     val ejectFinish_ =
       fn
         x1
@@ -18,9 +18,9 @@ structure GioMount :>
          & x3 =>
           (
             _import "g_mount_eject_finish" :
-              GioMountClass.FFI.notnull GioMountClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioMountClass.FFI.non_opt GioMountClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -35,9 +35,9 @@ structure GioMount :>
          & x3 =>
           (
             _import "g_mount_eject_with_operation_finish" :
-              GioMountClass.FFI.notnull GioMountClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioMountClass.FFI.non_opt GioMountClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -45,15 +45,15 @@ structure GioMount :>
               x2,
               x3
             )
-    val getDefaultLocation_ = _import "g_mount_get_default_location" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
-    val getDrive_ = _import "g_mount_get_drive" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GioDriveClass.FFI.notnull GioDriveClass.FFI.p;
-    val getIcon_ = _import "g_mount_get_icon" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val getName_ = _import "g_mount_get_name" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getRoot_ = _import "g_mount_get_root" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
-    val getSortKey_ = _import "g_mount_get_sort_key" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getSymbolicIcon_ = _import "g_mount_get_symbolic_icon" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val getUuid_ = _import "g_mount_get_uuid" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getVolume_ = _import "g_mount_get_volume" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p;
+    val getDefaultLocation_ = _import "g_mount_get_default_location" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
+    val getDrive_ = _import "g_mount_get_drive" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> GioDriveClass.FFI.non_opt GioDriveClass.FFI.p;
+    val getIcon_ = _import "g_mount_get_icon" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val getName_ = _import "g_mount_get_name" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getRoot_ = _import "g_mount_get_root" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
+    val getSortKey_ = _import "g_mount_get_sort_key" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getSymbolicIcon_ = _import "g_mount_get_symbolic_icon" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val getUuid_ = _import "g_mount_get_uuid" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getVolume_ = _import "g_mount_get_volume" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p;
     val guessContentTypeFinish_ =
       fn
         x1
@@ -61,10 +61,10 @@ structure GioMount :>
          & x3 =>
           (
             _import "g_mount_guess_content_type_finish" :
-              GioMountClass.FFI.notnull GioMountClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+              GioMountClass.FFI.non_opt GioMountClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -79,11 +79,11 @@ structure GioMount :>
          & x4 =>
           (
             _import "g_mount_guess_content_type_sync" :
-              GioMountClass.FFI.notnull GioMountClass.FFI.p
+              GioMountClass.FFI.non_opt GioMountClass.FFI.p
                * GBool.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -91,7 +91,7 @@ structure GioMount :>
               x3,
               x4
             )
-    val isShadowed_ = _import "g_mount_is_shadowed" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GBool.FFI.val_;
+    val isShadowed_ = _import "g_mount_is_shadowed" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> GBool.FFI.val_;
     val remountFinish_ =
       fn
         x1
@@ -99,9 +99,9 @@ structure GioMount :>
          & x3 =>
           (
             _import "g_mount_remount_finish" :
-              GioMountClass.FFI.notnull GioMountClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioMountClass.FFI.non_opt GioMountClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -109,7 +109,7 @@ structure GioMount :>
               x2,
               x3
             )
-    val shadow_ = _import "g_mount_shadow" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> unit;
+    val shadow_ = _import "g_mount_shadow" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> unit;
     val unmountFinish_ =
       fn
         x1
@@ -117,9 +117,9 @@ structure GioMount :>
          & x3 =>
           (
             _import "g_mount_unmount_finish" :
-              GioMountClass.FFI.notnull GioMountClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioMountClass.FFI.non_opt GioMountClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -134,9 +134,9 @@ structure GioMount :>
          & x3 =>
           (
             _import "g_mount_unmount_with_operation_finish" :
-              GioMountClass.FFI.notnull GioMountClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioMountClass.FFI.non_opt GioMountClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -144,7 +144,7 @@ structure GioMount :>
               x2,
               x3
             )
-    val unshadow_ = _import "g_mount_unshadow" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> unit;
+    val unshadow_ = _import "g_mount_unshadow" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> unit;
     type 'a class = 'a GioMountClass.class
     type 'a drive_class = 'a GioDriveClass.class
     type 'a file_class = 'a GioFileClass.class

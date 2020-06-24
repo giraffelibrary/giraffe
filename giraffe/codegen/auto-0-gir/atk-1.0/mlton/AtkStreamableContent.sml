@@ -3,17 +3,17 @@ structure AtkStreamableContent :>
     where type 'a class = 'a AtkStreamableContentClass.class =
   struct
     val getType_ = _import "atk_streamable_content_get_type" : unit -> GObjectType.FFI.val_;
-    val getMimeType_ = fn x1 & x2 => (_import "atk_streamable_content_get_mime_type" : AtkStreamableContentClass.FFI.notnull AtkStreamableContentClass.FFI.p * GInt.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val getNMimeTypes_ = _import "atk_streamable_content_get_n_mime_types" : AtkStreamableContentClass.FFI.notnull AtkStreamableContentClass.FFI.p -> GInt.FFI.val_;
+    val getMimeType_ = fn x1 & x2 => (_import "atk_streamable_content_get_mime_type" : AtkStreamableContentClass.FFI.non_opt AtkStreamableContentClass.FFI.p * GInt.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val getNMimeTypes_ = _import "atk_streamable_content_get_n_mime_types" : AtkStreamableContentClass.FFI.non_opt AtkStreamableContentClass.FFI.p -> GInt.FFI.val_;
     val getStream_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_streamable_content_get_stream" :
-              AtkStreamableContentClass.FFI.notnull AtkStreamableContentClass.FFI.p
+              AtkStreamableContentClass.FFI.non_opt AtkStreamableContentClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GLibIOChannelRecord.FFI.notnull GLibIOChannelRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p;
           )
             (
               x1,
@@ -25,10 +25,10 @@ structure AtkStreamableContent :>
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_streamable_content_get_uri" :
-              AtkStreamableContentClass.FFI.notnull AtkStreamableContentClass.FFI.p
+              AtkStreamableContentClass.FFI.non_opt AtkStreamableContentClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.opt Utf8.FFI.out_p;
           )
             (
               x1,

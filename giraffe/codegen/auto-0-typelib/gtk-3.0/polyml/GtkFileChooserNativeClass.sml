@@ -1,7 +1,8 @@
 structure GtkFileChooserNativeClass :>
   GTK_FILE_CHOOSER_NATIVE_CLASS
     where type 'a native_dialog_class = 'a GtkNativeDialogClass.class
-    where type C.notnull = GtkNativeDialogClass.C.notnull
+    where type C.opt = GtkNativeDialogClass.C.opt
+    where type C.non_opt = GtkNativeDialogClass.C.non_opt
     where type 'a C.p = 'a GtkNativeDialogClass.C.p =
   struct
     type 'a native_dialog_class = 'a GtkNativeDialogClass.class

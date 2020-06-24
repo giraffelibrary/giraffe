@@ -7,8 +7,8 @@ structure GtkPopover :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_popover_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_popover_new" : unit GtkWidgetClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newFromModel_ = fn x1 & x2 => (_import "gtk_popover_new_from_model" : unit GtkWidgetClass.FFI.p * GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val new_ = _import "gtk_popover_new" : GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newFromModel_ = fn x1 & x2 => (_import "gtk_popover_new_from_model" : GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p * GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
     val bindModel_ =
       fn
         x1
@@ -16,10 +16,10 @@ structure GtkPopover :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_popover_bind_model" :
-              GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p
-               * unit GioMenuModelClass.FFI.p
+              GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p
+               * GioMenuModelClass.FFI.opt GioMenuModelClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -28,22 +28,22 @@ structure GtkPopover :>
               x3,
               x4
             )
-    val getConstrainTo_ = _import "gtk_popover_get_constrain_to" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p -> GtkPopoverConstraint.FFI.val_;
-    val getDefaultWidget_ = _import "gtk_popover_get_default_widget" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getModal_ = _import "gtk_popover_get_modal" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p -> GBool.FFI.val_;
-    val getPointingTo_ = fn x1 & x2 => (_import "gtk_popover_get_pointing_to" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getPosition_ = _import "gtk_popover_get_position" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p -> GtkPositionType.FFI.val_;
-    val getRelativeTo_ = _import "gtk_popover_get_relative_to" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getTransitionsEnabled_ = _import "gtk_popover_get_transitions_enabled" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p -> GBool.FFI.val_;
-    val popdown_ = _import "gtk_popover_popdown" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p -> unit;
-    val popup_ = _import "gtk_popover_popup" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p -> unit;
-    val setConstrainTo_ = fn x1 & x2 => (_import "gtk_popover_set_constrain_to" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p * GtkPopoverConstraint.FFI.val_ -> unit;) (x1, x2)
-    val setDefaultWidget_ = fn x1 & x2 => (_import "gtk_popover_set_default_widget" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setModal_ = fn x1 & x2 => (_import "gtk_popover_set_modal" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setPointingTo_ = fn x1 & x2 => (_import "gtk_popover_set_pointing_to" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
-    val setPosition_ = fn x1 & x2 => (_import "gtk_popover_set_position" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p * GtkPositionType.FFI.val_ -> unit;) (x1, x2)
-    val setRelativeTo_ = fn x1 & x2 => (_import "gtk_popover_set_relative_to" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setTransitionsEnabled_ = fn x1 & x2 => (_import "gtk_popover_set_transitions_enabled" : GtkPopoverClass.FFI.notnull GtkPopoverClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getConstrainTo_ = _import "gtk_popover_get_constrain_to" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p -> GtkPopoverConstraint.FFI.val_;
+    val getDefaultWidget_ = _import "gtk_popover_get_default_widget" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getModal_ = _import "gtk_popover_get_modal" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p -> GBool.FFI.val_;
+    val getPointingTo_ = fn x1 & x2 => (_import "gtk_popover_get_pointing_to" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getPosition_ = _import "gtk_popover_get_position" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p -> GtkPositionType.FFI.val_;
+    val getRelativeTo_ = _import "gtk_popover_get_relative_to" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getTransitionsEnabled_ = _import "gtk_popover_get_transitions_enabled" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p -> GBool.FFI.val_;
+    val popdown_ = _import "gtk_popover_popdown" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p -> unit;
+    val popup_ = _import "gtk_popover_popup" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p -> unit;
+    val setConstrainTo_ = fn x1 & x2 => (_import "gtk_popover_set_constrain_to" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p * GtkPopoverConstraint.FFI.val_ -> unit;) (x1, x2)
+    val setDefaultWidget_ = fn x1 & x2 => (_import "gtk_popover_set_default_widget" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setModal_ = fn x1 & x2 => (_import "gtk_popover_set_modal" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPointingTo_ = fn x1 & x2 => (_import "gtk_popover_set_pointing_to" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val setPosition_ = fn x1 & x2 => (_import "gtk_popover_set_position" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p * GtkPositionType.FFI.val_ -> unit;) (x1, x2)
+    val setRelativeTo_ = fn x1 & x2 => (_import "gtk_popover_set_relative_to" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setTransitionsEnabled_ = fn x1 & x2 => (_import "gtk_popover_set_transitions_enabled" : GtkPopoverClass.FFI.non_opt GtkPopoverClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkPopoverClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type popover_constraint_t = GtkPopoverConstraint.t

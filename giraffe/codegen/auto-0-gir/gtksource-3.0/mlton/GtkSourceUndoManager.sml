@@ -3,14 +3,14 @@ structure GtkSourceUndoManager :>
     where type 'a class = 'a GtkSourceUndoManagerClass.class =
   struct
     val getType_ = _import "gtk_source_undo_manager_get_type" : unit -> GObjectType.FFI.val_;
-    val beginNotUndoableAction_ = _import "gtk_source_undo_manager_begin_not_undoable_action" : GtkSourceUndoManagerClass.FFI.notnull GtkSourceUndoManagerClass.FFI.p -> unit;
-    val canRedo_ = _import "gtk_source_undo_manager_can_redo" : GtkSourceUndoManagerClass.FFI.notnull GtkSourceUndoManagerClass.FFI.p -> GBool.FFI.val_;
-    val canRedoChanged_ = _import "gtk_source_undo_manager_can_redo_changed" : GtkSourceUndoManagerClass.FFI.notnull GtkSourceUndoManagerClass.FFI.p -> unit;
-    val canUndo_ = _import "gtk_source_undo_manager_can_undo" : GtkSourceUndoManagerClass.FFI.notnull GtkSourceUndoManagerClass.FFI.p -> GBool.FFI.val_;
-    val canUndoChanged_ = _import "gtk_source_undo_manager_can_undo_changed" : GtkSourceUndoManagerClass.FFI.notnull GtkSourceUndoManagerClass.FFI.p -> unit;
-    val endNotUndoableAction_ = _import "gtk_source_undo_manager_end_not_undoable_action" : GtkSourceUndoManagerClass.FFI.notnull GtkSourceUndoManagerClass.FFI.p -> unit;
-    val redo_ = _import "gtk_source_undo_manager_redo" : GtkSourceUndoManagerClass.FFI.notnull GtkSourceUndoManagerClass.FFI.p -> unit;
-    val undo_ = _import "gtk_source_undo_manager_undo" : GtkSourceUndoManagerClass.FFI.notnull GtkSourceUndoManagerClass.FFI.p -> unit;
+    val beginNotUndoableAction_ = _import "gtk_source_undo_manager_begin_not_undoable_action" : GtkSourceUndoManagerClass.FFI.non_opt GtkSourceUndoManagerClass.FFI.p -> unit;
+    val canRedo_ = _import "gtk_source_undo_manager_can_redo" : GtkSourceUndoManagerClass.FFI.non_opt GtkSourceUndoManagerClass.FFI.p -> GBool.FFI.val_;
+    val canRedoChanged_ = _import "gtk_source_undo_manager_can_redo_changed" : GtkSourceUndoManagerClass.FFI.non_opt GtkSourceUndoManagerClass.FFI.p -> unit;
+    val canUndo_ = _import "gtk_source_undo_manager_can_undo" : GtkSourceUndoManagerClass.FFI.non_opt GtkSourceUndoManagerClass.FFI.p -> GBool.FFI.val_;
+    val canUndoChanged_ = _import "gtk_source_undo_manager_can_undo_changed" : GtkSourceUndoManagerClass.FFI.non_opt GtkSourceUndoManagerClass.FFI.p -> unit;
+    val endNotUndoableAction_ = _import "gtk_source_undo_manager_end_not_undoable_action" : GtkSourceUndoManagerClass.FFI.non_opt GtkSourceUndoManagerClass.FFI.p -> unit;
+    val redo_ = _import "gtk_source_undo_manager_redo" : GtkSourceUndoManagerClass.FFI.non_opt GtkSourceUndoManagerClass.FFI.p -> unit;
+    val undo_ = _import "gtk_source_undo_manager_undo" : GtkSourceUndoManagerClass.FFI.non_opt GtkSourceUndoManagerClass.FFI.p -> unit;
     type 'a class = 'a GtkSourceUndoManagerClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

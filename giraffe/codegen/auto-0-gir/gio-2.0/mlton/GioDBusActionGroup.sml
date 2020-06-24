@@ -13,12 +13,12 @@ structure GioDBusActionGroup :>
          & (x4, x5) =>
           (
             _import "mlton_g_dbus_action_group_get" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioDBusActionGroupClass.FFI.notnull GioDBusActionGroupClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioDBusActionGroupClass.FFI.non_opt GioDBusActionGroupClass.FFI.p;
           )
             (
               x1,

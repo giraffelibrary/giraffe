@@ -4,13 +4,13 @@ structure AtkSelection :>
     where type 'a object_class = 'a AtkObjectClass.class =
   struct
     val getType_ = _import "atk_selection_get_type" : unit -> GObjectType.FFI.val_;
-    val addSelection_ = fn x1 & x2 => (_import "atk_selection_add_selection" : AtkSelectionClass.FFI.notnull AtkSelectionClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val clearSelection_ = _import "atk_selection_clear_selection" : AtkSelectionClass.FFI.notnull AtkSelectionClass.FFI.p -> GBool.FFI.val_;
-    val getSelectionCount_ = _import "atk_selection_get_selection_count" : AtkSelectionClass.FFI.notnull AtkSelectionClass.FFI.p -> GInt.FFI.val_;
-    val isChildSelected_ = fn x1 & x2 => (_import "atk_selection_is_child_selected" : AtkSelectionClass.FFI.notnull AtkSelectionClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val refSelection_ = fn x1 & x2 => (_import "atk_selection_ref_selection" : AtkSelectionClass.FFI.notnull AtkSelectionClass.FFI.p * GInt.FFI.val_ -> unit AtkObjectClass.FFI.p;) (x1, x2)
-    val removeSelection_ = fn x1 & x2 => (_import "atk_selection_remove_selection" : AtkSelectionClass.FFI.notnull AtkSelectionClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val selectAllSelection_ = _import "atk_selection_select_all_selection" : AtkSelectionClass.FFI.notnull AtkSelectionClass.FFI.p -> GBool.FFI.val_;
+    val addSelection_ = fn x1 & x2 => (_import "atk_selection_add_selection" : AtkSelectionClass.FFI.non_opt AtkSelectionClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val clearSelection_ = _import "atk_selection_clear_selection" : AtkSelectionClass.FFI.non_opt AtkSelectionClass.FFI.p -> GBool.FFI.val_;
+    val getSelectionCount_ = _import "atk_selection_get_selection_count" : AtkSelectionClass.FFI.non_opt AtkSelectionClass.FFI.p -> GInt.FFI.val_;
+    val isChildSelected_ = fn x1 & x2 => (_import "atk_selection_is_child_selected" : AtkSelectionClass.FFI.non_opt AtkSelectionClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val refSelection_ = fn x1 & x2 => (_import "atk_selection_ref_selection" : AtkSelectionClass.FFI.non_opt AtkSelectionClass.FFI.p * GInt.FFI.val_ -> AtkObjectClass.FFI.opt AtkObjectClass.FFI.p;) (x1, x2)
+    val removeSelection_ = fn x1 & x2 => (_import "atk_selection_remove_selection" : AtkSelectionClass.FFI.non_opt AtkSelectionClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val selectAllSelection_ = _import "atk_selection_select_all_selection" : AtkSelectionClass.FFI.non_opt AtkSelectionClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a AtkSelectionClass.class
     type 'a object_class = 'a AtkObjectClass.class
     type t = base class

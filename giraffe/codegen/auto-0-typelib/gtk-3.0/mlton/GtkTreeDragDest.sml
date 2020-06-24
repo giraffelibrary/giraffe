@@ -12,9 +12,9 @@ structure GtkTreeDragDest :>
          & x3 =>
           (
             _import "gtk_tree_drag_dest_drag_data_received" :
-              GtkTreeDragDestClass.FFI.notnull GtkTreeDragDestClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
-               * GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p
+              GtkTreeDragDestClass.FFI.non_opt GtkTreeDragDestClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
+               * GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -29,9 +29,9 @@ structure GtkTreeDragDest :>
          & x3 =>
           (
             _import "gtk_tree_drag_dest_row_drop_possible" :
-              GtkTreeDragDestClass.FFI.notnull GtkTreeDragDestClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
-               * GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p
+              GtkTreeDragDestClass.FFI.non_opt GtkTreeDragDestClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
+               * GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (

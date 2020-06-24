@@ -25,10 +25,11 @@ functor CPointerCArrayType(
     val toList = Sequence.toList
 
     type 'a from_p = 'a
-    structure Pointer = CTypedPointer(CElemType.Pointer.OptNullType)
-    type notnull = Pointer.notnull
+    structure Pointer = CTypedPointer(CElemType.Pointer.OptValueType)
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
-    type e = CElemType.notnull CElemType.p
+    type e = CElemType.non_opt CElemType.p
 
     fun appi f p =
       let
@@ -45,11 +46,11 @@ functor CPointerCArrayType(
       end
 
     fun get p i =
-      CElemType.Pointer.toNotNull (Pointer.get (p, i))
+      CElemType.Pointer.toNonOptPtr (Pointer.get (p, i))
         handle CElemType.Pointer.Null => raise Subscript
 
     fun set p (i, e) =
-      Pointer.set (p, i, CElemType.Pointer.toOptNull e)
+      Pointer.set (p, i, CElemType.Pointer.toOptPtr e)
 
     fun len p =
       let
@@ -64,7 +65,7 @@ functor CPointerCArrayType(
     fun new n =
       let
         val p = Pointer.new (n + 1)
-        val () = set p (n, CElemType.Pointer.null)
+        val () = Pointer.set (p, n, CElemType.Pointer.null)
       in
         p
       end
@@ -123,7 +124,7 @@ functor CPointerCArrayType(
       let
         open CElemType
       in
-        set p (i, Pointer.toOptNull (toC e))
+        set p (i, Pointer.toNonOptPtr (toC e))
       end
 
     fun init (n, f) =

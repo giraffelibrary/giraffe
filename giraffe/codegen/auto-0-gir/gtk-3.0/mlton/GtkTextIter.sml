@@ -8,13 +8,13 @@ structure GtkTextIter :>
     where type 'a text_tag_class = 'a GtkTextTagClass.class =
   struct
     val getType_ = _import "gtk_text_iter_get_type" : unit -> GObjectType.FFI.val_;
-    val assign_ = fn x1 & x2 => (_import "gtk_text_iter_assign" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> unit;) (x1, x2)
-    val backwardChar_ = _import "gtk_text_iter_backward_char" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val backwardChars_ = fn x1 & x2 => (_import "gtk_text_iter_backward_chars" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val backwardCursorPosition_ = _import "gtk_text_iter_backward_cursor_position" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val backwardCursorPositions_ = fn x1 & x2 => (_import "gtk_text_iter_backward_cursor_positions" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val backwardLine_ = _import "gtk_text_iter_backward_line" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val backwardLines_ = fn x1 & x2 => (_import "gtk_text_iter_backward_lines" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val assign_ = fn x1 & x2 => (_import "gtk_text_iter_assign" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> unit;) (x1, x2)
+    val backwardChar_ = _import "gtk_text_iter_backward_char" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val backwardChars_ = fn x1 & x2 => (_import "gtk_text_iter_backward_chars" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val backwardCursorPosition_ = _import "gtk_text_iter_backward_cursor_position" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val backwardCursorPositions_ = fn x1 & x2 => (_import "gtk_text_iter_backward_cursor_positions" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val backwardLine_ = _import "gtk_text_iter_backward_line" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val backwardLines_ = fn x1 & x2 => (_import "gtk_text_iter_backward_lines" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val backwardSearch_ =
       fn
         x1
@@ -25,13 +25,13 @@ structure GtkTextIter :>
          & x7 =>
           (
             _import "mlton_gtk_text_iter_backward_search" :
-              GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GtkTextSearchFlags.FFI.val_
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * unit GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.opt GtkTextIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -43,33 +43,33 @@ structure GtkTextIter :>
               x6,
               x7
             )
-    val backwardSentenceStart_ = _import "gtk_text_iter_backward_sentence_start" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val backwardSentenceStarts_ = fn x1 & x2 => (_import "gtk_text_iter_backward_sentence_starts" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val backwardToTagToggle_ = fn x1 & x2 => (_import "gtk_text_iter_backward_to_tag_toggle" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * unit GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val backwardVisibleCursorPosition_ = _import "gtk_text_iter_backward_visible_cursor_position" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val backwardVisibleCursorPositions_ = fn x1 & x2 => (_import "gtk_text_iter_backward_visible_cursor_positions" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val backwardVisibleLine_ = _import "gtk_text_iter_backward_visible_line" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val backwardVisibleLines_ = fn x1 & x2 => (_import "gtk_text_iter_backward_visible_lines" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val backwardVisibleWordStart_ = _import "gtk_text_iter_backward_visible_word_start" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val backwardVisibleWordStarts_ = fn x1 & x2 => (_import "gtk_text_iter_backward_visible_word_starts" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val backwardWordStart_ = _import "gtk_text_iter_backward_word_start" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val backwardWordStarts_ = fn x1 & x2 => (_import "gtk_text_iter_backward_word_starts" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val beginsTag_ = fn x1 & x2 => (_import "gtk_text_iter_begins_tag" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * unit GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val canInsert_ = fn x1 & x2 => (_import "gtk_text_iter_can_insert" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val compare_ = fn x1 & x2 => (_import "gtk_text_iter_compare" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val copy_ = _import "gtk_text_iter_copy" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p;
-    val editable_ = fn x1 & x2 => (_import "gtk_text_iter_editable" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val endsLine_ = _import "gtk_text_iter_ends_line" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val endsSentence_ = _import "gtk_text_iter_ends_sentence" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val endsTag_ = fn x1 & x2 => (_import "gtk_text_iter_ends_tag" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * unit GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val endsWord_ = _import "gtk_text_iter_ends_word" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val equal_ = fn x1 & x2 => (_import "gtk_text_iter_equal" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val forwardChar_ = _import "gtk_text_iter_forward_char" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val forwardChars_ = fn x1 & x2 => (_import "gtk_text_iter_forward_chars" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val forwardCursorPosition_ = _import "gtk_text_iter_forward_cursor_position" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val forwardCursorPositions_ = fn x1 & x2 => (_import "gtk_text_iter_forward_cursor_positions" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val forwardLine_ = _import "gtk_text_iter_forward_line" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val forwardLines_ = fn x1 & x2 => (_import "gtk_text_iter_forward_lines" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val backwardSentenceStart_ = _import "gtk_text_iter_backward_sentence_start" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val backwardSentenceStarts_ = fn x1 & x2 => (_import "gtk_text_iter_backward_sentence_starts" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val backwardToTagToggle_ = fn x1 & x2 => (_import "gtk_text_iter_backward_to_tag_toggle" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextTagClass.FFI.opt GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val backwardVisibleCursorPosition_ = _import "gtk_text_iter_backward_visible_cursor_position" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val backwardVisibleCursorPositions_ = fn x1 & x2 => (_import "gtk_text_iter_backward_visible_cursor_positions" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val backwardVisibleLine_ = _import "gtk_text_iter_backward_visible_line" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val backwardVisibleLines_ = fn x1 & x2 => (_import "gtk_text_iter_backward_visible_lines" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val backwardVisibleWordStart_ = _import "gtk_text_iter_backward_visible_word_start" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val backwardVisibleWordStarts_ = fn x1 & x2 => (_import "gtk_text_iter_backward_visible_word_starts" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val backwardWordStart_ = _import "gtk_text_iter_backward_word_start" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val backwardWordStarts_ = fn x1 & x2 => (_import "gtk_text_iter_backward_word_starts" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val beginsTag_ = fn x1 & x2 => (_import "gtk_text_iter_begins_tag" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextTagClass.FFI.opt GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val canInsert_ = fn x1 & x2 => (_import "gtk_text_iter_can_insert" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val compare_ = fn x1 & x2 => (_import "gtk_text_iter_compare" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val copy_ = _import "gtk_text_iter_copy" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p;
+    val editable_ = fn x1 & x2 => (_import "gtk_text_iter_editable" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val endsLine_ = _import "gtk_text_iter_ends_line" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val endsSentence_ = _import "gtk_text_iter_ends_sentence" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val endsTag_ = fn x1 & x2 => (_import "gtk_text_iter_ends_tag" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextTagClass.FFI.opt GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val endsWord_ = _import "gtk_text_iter_ends_word" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val equal_ = fn x1 & x2 => (_import "gtk_text_iter_equal" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val forwardChar_ = _import "gtk_text_iter_forward_char" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val forwardChars_ = fn x1 & x2 => (_import "gtk_text_iter_forward_chars" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val forwardCursorPosition_ = _import "gtk_text_iter_forward_cursor_position" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val forwardCursorPositions_ = fn x1 & x2 => (_import "gtk_text_iter_forward_cursor_positions" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val forwardLine_ = _import "gtk_text_iter_forward_line" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val forwardLines_ = fn x1 & x2 => (_import "gtk_text_iter_forward_lines" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val forwardSearch_ =
       fn
         x1
@@ -80,13 +80,13 @@ structure GtkTextIter :>
          & x7 =>
           (
             _import "mlton_gtk_text_iter_forward_search" :
-              GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GtkTextSearchFlags.FFI.val_
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * unit GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.opt GtkTextIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -98,38 +98,38 @@ structure GtkTextIter :>
               x6,
               x7
             )
-    val forwardSentenceEnd_ = _import "gtk_text_iter_forward_sentence_end" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val forwardSentenceEnds_ = fn x1 & x2 => (_import "gtk_text_iter_forward_sentence_ends" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val forwardToEnd_ = _import "gtk_text_iter_forward_to_end" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> unit;
-    val forwardToLineEnd_ = _import "gtk_text_iter_forward_to_line_end" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val forwardToTagToggle_ = fn x1 & x2 => (_import "gtk_text_iter_forward_to_tag_toggle" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * unit GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val forwardVisibleCursorPosition_ = _import "gtk_text_iter_forward_visible_cursor_position" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val forwardVisibleCursorPositions_ = fn x1 & x2 => (_import "gtk_text_iter_forward_visible_cursor_positions" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val forwardVisibleLine_ = _import "gtk_text_iter_forward_visible_line" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val forwardVisibleLines_ = fn x1 & x2 => (_import "gtk_text_iter_forward_visible_lines" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val forwardVisibleWordEnd_ = _import "gtk_text_iter_forward_visible_word_end" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val forwardVisibleWordEnds_ = fn x1 & x2 => (_import "gtk_text_iter_forward_visible_word_ends" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val forwardWordEnd_ = _import "gtk_text_iter_forward_word_end" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val forwardWordEnds_ = fn x1 & x2 => (_import "gtk_text_iter_forward_word_ends" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val getAttributes_ = fn x1 & x2 => (_import "gtk_text_iter_get_attributes" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GtkTextAttributesRecord.FFI.notnull GtkTextAttributesRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getBuffer_ = _import "gtk_text_iter_get_buffer" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p;
-    val getBytesInLine_ = _import "gtk_text_iter_get_bytes_in_line" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
-    val getChar_ = _import "gtk_text_iter_get_char" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GChar.FFI.val_;
-    val getCharsInLine_ = _import "gtk_text_iter_get_chars_in_line" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
-    val getChildAnchor_ = _import "gtk_text_iter_get_child_anchor" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GtkTextChildAnchorClass.FFI.notnull GtkTextChildAnchorClass.FFI.p;
-    val getLanguage_ = _import "gtk_text_iter_get_language" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p;
-    val getLine_ = _import "gtk_text_iter_get_line" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
-    val getLineIndex_ = _import "gtk_text_iter_get_line_index" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
-    val getLineOffset_ = _import "gtk_text_iter_get_line_offset" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
-    val getOffset_ = _import "gtk_text_iter_get_offset" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
-    val getPixbuf_ = _import "gtk_text_iter_get_pixbuf" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
-    val getSlice_ = fn x1 & x2 => (_import "gtk_text_iter_get_slice" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val getText_ = fn x1 & x2 => (_import "gtk_text_iter_get_text" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val getVisibleLineIndex_ = _import "gtk_text_iter_get_visible_line_index" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
-    val getVisibleLineOffset_ = _import "gtk_text_iter_get_visible_line_offset" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
-    val getVisibleSlice_ = fn x1 & x2 => (_import "gtk_text_iter_get_visible_slice" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val getVisibleText_ = fn x1 & x2 => (_import "gtk_text_iter_get_visible_text" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val hasTag_ = fn x1 & x2 => (_import "gtk_text_iter_has_tag" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val forwardSentenceEnd_ = _import "gtk_text_iter_forward_sentence_end" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val forwardSentenceEnds_ = fn x1 & x2 => (_import "gtk_text_iter_forward_sentence_ends" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val forwardToEnd_ = _import "gtk_text_iter_forward_to_end" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> unit;
+    val forwardToLineEnd_ = _import "gtk_text_iter_forward_to_line_end" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val forwardToTagToggle_ = fn x1 & x2 => (_import "gtk_text_iter_forward_to_tag_toggle" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextTagClass.FFI.opt GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val forwardVisibleCursorPosition_ = _import "gtk_text_iter_forward_visible_cursor_position" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val forwardVisibleCursorPositions_ = fn x1 & x2 => (_import "gtk_text_iter_forward_visible_cursor_positions" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val forwardVisibleLine_ = _import "gtk_text_iter_forward_visible_line" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val forwardVisibleLines_ = fn x1 & x2 => (_import "gtk_text_iter_forward_visible_lines" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val forwardVisibleWordEnd_ = _import "gtk_text_iter_forward_visible_word_end" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val forwardVisibleWordEnds_ = fn x1 & x2 => (_import "gtk_text_iter_forward_visible_word_ends" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val forwardWordEnd_ = _import "gtk_text_iter_forward_word_end" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val forwardWordEnds_ = fn x1 & x2 => (_import "gtk_text_iter_forward_word_ends" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val getAttributes_ = fn x1 & x2 => (_import "gtk_text_iter_get_attributes" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextAttributesRecord.FFI.non_opt GtkTextAttributesRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getBuffer_ = _import "gtk_text_iter_get_buffer" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GtkTextBufferClass.FFI.non_opt GtkTextBufferClass.FFI.p;
+    val getBytesInLine_ = _import "gtk_text_iter_get_bytes_in_line" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
+    val getChar_ = _import "gtk_text_iter_get_char" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GChar.FFI.val_;
+    val getCharsInLine_ = _import "gtk_text_iter_get_chars_in_line" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
+    val getChildAnchor_ = _import "gtk_text_iter_get_child_anchor" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GtkTextChildAnchorClass.FFI.non_opt GtkTextChildAnchorClass.FFI.p;
+    val getLanguage_ = _import "gtk_text_iter_get_language" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> PangoLanguageRecord.FFI.non_opt PangoLanguageRecord.FFI.p;
+    val getLine_ = _import "gtk_text_iter_get_line" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
+    val getLineIndex_ = _import "gtk_text_iter_get_line_index" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
+    val getLineOffset_ = _import "gtk_text_iter_get_line_offset" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
+    val getOffset_ = _import "gtk_text_iter_get_offset" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
+    val getPixbuf_ = _import "gtk_text_iter_get_pixbuf" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
+    val getSlice_ = fn x1 & x2 => (_import "gtk_text_iter_get_slice" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val getText_ = fn x1 & x2 => (_import "gtk_text_iter_get_text" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val getVisibleLineIndex_ = _import "gtk_text_iter_get_visible_line_index" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
+    val getVisibleLineOffset_ = _import "gtk_text_iter_get_visible_line_offset" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GInt.FFI.val_;
+    val getVisibleSlice_ = fn x1 & x2 => (_import "gtk_text_iter_get_visible_slice" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val getVisibleText_ = fn x1 & x2 => (_import "gtk_text_iter_get_visible_text" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val hasTag_ = fn x1 & x2 => (_import "gtk_text_iter_has_tag" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextTagClass.FFI.non_opt GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val inRange_ =
       fn
         x1
@@ -137,9 +137,9 @@ structure GtkTextIter :>
          & x3 =>
           (
             _import "gtk_text_iter_in_range" :
-              GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -147,23 +147,23 @@ structure GtkTextIter :>
               x2,
               x3
             )
-    val insideSentence_ = _import "gtk_text_iter_inside_sentence" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val insideWord_ = _import "gtk_text_iter_inside_word" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val isCursorPosition_ = _import "gtk_text_iter_is_cursor_position" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val isEnd_ = _import "gtk_text_iter_is_end" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val isStart_ = _import "gtk_text_iter_is_start" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val order_ = fn x1 & x2 => (_import "gtk_text_iter_order" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> unit;) (x1, x2)
-    val setLine_ = fn x1 & x2 => (_import "gtk_text_iter_set_line" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setLineIndex_ = fn x1 & x2 => (_import "gtk_text_iter_set_line_index" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setLineOffset_ = fn x1 & x2 => (_import "gtk_text_iter_set_line_offset" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setOffset_ = fn x1 & x2 => (_import "gtk_text_iter_set_offset" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setVisibleLineIndex_ = fn x1 & x2 => (_import "gtk_text_iter_set_visible_line_index" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setVisibleLineOffset_ = fn x1 & x2 => (_import "gtk_text_iter_set_visible_line_offset" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val startsLine_ = _import "gtk_text_iter_starts_line" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val startsSentence_ = _import "gtk_text_iter_starts_sentence" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val startsTag_ = fn x1 & x2 => (_import "gtk_text_iter_starts_tag" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * unit GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val startsWord_ = _import "gtk_text_iter_starts_word" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
-    val togglesTag_ = fn x1 & x2 => (_import "gtk_text_iter_toggles_tag" : GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p * unit GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val insideSentence_ = _import "gtk_text_iter_inside_sentence" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val insideWord_ = _import "gtk_text_iter_inside_word" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val isCursorPosition_ = _import "gtk_text_iter_is_cursor_position" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val isEnd_ = _import "gtk_text_iter_is_end" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val isStart_ = _import "gtk_text_iter_is_start" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val order_ = fn x1 & x2 => (_import "gtk_text_iter_order" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> unit;) (x1, x2)
+    val setLine_ = fn x1 & x2 => (_import "gtk_text_iter_set_line" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setLineIndex_ = fn x1 & x2 => (_import "gtk_text_iter_set_line_index" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setLineOffset_ = fn x1 & x2 => (_import "gtk_text_iter_set_line_offset" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setOffset_ = fn x1 & x2 => (_import "gtk_text_iter_set_offset" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setVisibleLineIndex_ = fn x1 & x2 => (_import "gtk_text_iter_set_visible_line_index" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setVisibleLineOffset_ = fn x1 & x2 => (_import "gtk_text_iter_set_visible_line_offset" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val startsLine_ = _import "gtk_text_iter_starts_line" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val startsSentence_ = _import "gtk_text_iter_starts_sentence" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val startsTag_ = fn x1 & x2 => (_import "gtk_text_iter_starts_tag" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextTagClass.FFI.opt GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val startsWord_ = _import "gtk_text_iter_starts_word" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GBool.FFI.val_;
+    val togglesTag_ = fn x1 & x2 => (_import "gtk_text_iter_toggles_tag" : GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p * GtkTextTagClass.FFI.opt GtkTextTagClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     type t = GtkTextIterRecord.t
     type text_search_flags_t = GtkTextSearchFlags.t
     type text_attributes_t = GtkTextAttributesRecord.t

@@ -1,7 +1,7 @@
 structure GtkSource : GTK_SOURCE =
   struct
-    val utilsEscapeSearchText_ = _import "mlton_gtk_source_utils_escape_search_text" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val utilsUnescapeSearchText_ = _import "mlton_gtk_source_utils_unescape_search_text" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val utilsEscapeSearchText_ = _import "mlton_gtk_source_utils_escape_search_text" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val utilsUnescapeSearchText_ = _import "mlton_gtk_source_utils_unescape_search_text" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     structure BackgroundPatternType = GtkSourceBackgroundPatternType
     structure BracketMatchType = GtkSourceBracketMatchType
     structure BufferClass = GtkSourceBufferClass

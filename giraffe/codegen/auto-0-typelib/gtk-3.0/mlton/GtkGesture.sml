@@ -4,7 +4,7 @@ structure GtkGesture :>
     where type event_sequence_state_t = GtkEventSequenceState.t =
   struct
     val getType_ = _import "gtk_gesture_get_type" : unit -> GObjectType.FFI.val_;
-    val getBoundingBox_ = fn x1 & x2 => (_import "gtk_gesture_get_bounding_box" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getBoundingBox_ = fn x1 & x2 => (_import "gtk_gesture_get_bounding_box" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val getBoundingBoxCenter_ =
       fn
         x1
@@ -12,7 +12,7 @@ structure GtkGesture :>
          & x3 =>
           (
             _import "gtk_gesture_get_bounding_box_center" :
-              GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p
+              GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                -> GBool.FFI.val_;
@@ -22,9 +22,9 @@ structure GtkGesture :>
               x2,
               x3
             )
-    val getDevice_ = _import "gtk_gesture_get_device" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p -> unit GdkDeviceClass.FFI.p;
-    val getLastEvent_ = fn x1 & x2 => (_import "gtk_gesture_get_last_event" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p * GdkEventSequenceRecord.FFI.notnull GdkEventSequenceRecord.FFI.p -> unit GdkEvent.FFI.p;) (x1, x2)
-    val getLastUpdatedSequence_ = _import "gtk_gesture_get_last_updated_sequence" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p -> unit GdkEventSequenceRecord.FFI.p;
+    val getDevice_ = _import "gtk_gesture_get_device" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p -> GdkDeviceClass.FFI.opt GdkDeviceClass.FFI.p;
+    val getLastEvent_ = fn x1 & x2 => (_import "gtk_gesture_get_last_event" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p * GdkEventSequenceRecord.FFI.non_opt GdkEventSequenceRecord.FFI.p -> GdkEvent.FFI.opt GdkEvent.FFI.p;) (x1, x2)
+    val getLastUpdatedSequence_ = _import "gtk_gesture_get_last_updated_sequence" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p -> GdkEventSequenceRecord.FFI.opt GdkEventSequenceRecord.FFI.p;
     val getPoint_ =
       fn
         x1
@@ -33,8 +33,8 @@ structure GtkGesture :>
          & x4 =>
           (
             _import "gtk_gesture_get_point" :
-              GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p
-               * unit GdkEventSequenceRecord.FFI.p
+              GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p
+               * GdkEventSequenceRecord.FFI.opt GdkEventSequenceRecord.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                -> GBool.FFI.val_;
@@ -45,13 +45,13 @@ structure GtkGesture :>
               x3,
               x4
             )
-    val getSequenceState_ = fn x1 & x2 => (_import "gtk_gesture_get_sequence_state" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p * GdkEventSequenceRecord.FFI.notnull GdkEventSequenceRecord.FFI.p -> GtkEventSequenceState.FFI.val_;) (x1, x2)
-    val getWindow_ = _import "gtk_gesture_get_window" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p -> unit GdkWindowClass.FFI.p;
-    val group_ = fn x1 & x2 => (_import "gtk_gesture_group" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p * GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p -> unit;) (x1, x2)
-    val handlesSequence_ = fn x1 & x2 => (_import "gtk_gesture_handles_sequence" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p * unit GdkEventSequenceRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val isActive_ = _import "gtk_gesture_is_active" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p -> GBool.FFI.val_;
-    val isGroupedWith_ = fn x1 & x2 => (_import "gtk_gesture_is_grouped_with" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p * GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val isRecognized_ = _import "gtk_gesture_is_recognized" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p -> GBool.FFI.val_;
+    val getSequenceState_ = fn x1 & x2 => (_import "gtk_gesture_get_sequence_state" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p * GdkEventSequenceRecord.FFI.non_opt GdkEventSequenceRecord.FFI.p -> GtkEventSequenceState.FFI.val_;) (x1, x2)
+    val getWindow_ = _import "gtk_gesture_get_window" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
+    val group_ = fn x1 & x2 => (_import "gtk_gesture_group" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p * GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p -> unit;) (x1, x2)
+    val handlesSequence_ = fn x1 & x2 => (_import "gtk_gesture_handles_sequence" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p * GdkEventSequenceRecord.FFI.opt GdkEventSequenceRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val isActive_ = _import "gtk_gesture_is_active" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p -> GBool.FFI.val_;
+    val isGroupedWith_ = fn x1 & x2 => (_import "gtk_gesture_is_grouped_with" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p * GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val isRecognized_ = _import "gtk_gesture_is_recognized" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p -> GBool.FFI.val_;
     val setSequenceState_ =
       fn
         x1
@@ -59,8 +59,8 @@ structure GtkGesture :>
          & x3 =>
           (
             _import "gtk_gesture_set_sequence_state" :
-              GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p
-               * GdkEventSequenceRecord.FFI.notnull GdkEventSequenceRecord.FFI.p
+              GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p
+               * GdkEventSequenceRecord.FFI.non_opt GdkEventSequenceRecord.FFI.p
                * GtkEventSequenceState.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -69,9 +69,9 @@ structure GtkGesture :>
               x2,
               x3
             )
-    val setState_ = fn x1 & x2 => (_import "gtk_gesture_set_state" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p * GtkEventSequenceState.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val setWindow_ = fn x1 & x2 => (_import "gtk_gesture_set_window" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p * unit GdkWindowClass.FFI.p -> unit;) (x1, x2)
-    val ungroup_ = _import "gtk_gesture_ungroup" : GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p -> unit;
+    val setState_ = fn x1 & x2 => (_import "gtk_gesture_set_state" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p * GtkEventSequenceState.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val setWindow_ = fn x1 & x2 => (_import "gtk_gesture_set_window" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p * GdkWindowClass.FFI.opt GdkWindowClass.FFI.p -> unit;) (x1, x2)
+    val ungroup_ = _import "gtk_gesture_ungroup" : GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p -> unit;
     type 'a class = 'a GtkGestureClass.class
     type event_sequence_state_t = GtkEventSequenceState.t
     type t = base class

@@ -4,8 +4,8 @@ structure PangoFontFamily :>
     where type font_face_class_c_ptr_array_n_t = PangoFontFaceClassCPtrArrayN.t =
   struct
     val getType_ = _import "pango_font_family_get_type" : unit -> GObjectType.FFI.val_;
-    val getName_ = _import "pango_font_family_get_name" : PangoFontFamilyClass.FFI.notnull PangoFontFamilyClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val isMonospace_ = _import "pango_font_family_is_monospace" : PangoFontFamilyClass.FFI.notnull PangoFontFamilyClass.FFI.p -> GBool.FFI.val_;
+    val getName_ = _import "pango_font_family_get_name" : PangoFontFamilyClass.FFI.non_opt PangoFontFamilyClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val isMonospace_ = _import "pango_font_family_is_monospace" : PangoFontFamilyClass.FFI.non_opt PangoFontFamilyClass.FFI.p -> GBool.FFI.val_;
     val listFaces_ =
       fn
         x1
@@ -13,9 +13,9 @@ structure PangoFontFamily :>
          & x4 =>
           (
             _import "mlton_pango_font_family_list_faces" :
-              PangoFontFamilyClass.FFI.notnull PangoFontFamilyClass.FFI.p
+              PangoFontFamilyClass.FFI.non_opt PangoFontFamilyClass.FFI.p
                * PangoFontFaceClassCPtrArrayN.MLton.r1
-               * (unit, PangoFontFaceClassCPtrArrayN.FFI.notnull) PangoFontFaceClassCPtrArrayN.MLton.r2
+               * (PangoFontFaceClassCPtrArrayN.FFI.opt, PangoFontFaceClassCPtrArrayN.FFI.non_opt) PangoFontFaceClassCPtrArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )

@@ -59,13 +59,15 @@ end
 local
   (*
    *     structure Pointer = CPointerInternal
-   *     type notnull = Pointer.notnull
+   *     type opt = Pointer.opt
+   *     type non_opt = Pointer.non_opt
    *     type 'a p = 'a Pointer.p
    *)
   fun addPointerStrDecs strDecs =
     mkStructStrDec (pointerStrId, mkNameStruct ["CPointerInternal"])
-     :: StrDecDec (mkTypeDec (notnullTyName, mkNotnullTy [pointerStrId]))
-     :: StrDecDec (mkTypeDec (ptrTyName aTyVar, mkPtrTy [pointerStrId] aVarTy))
+     :: StrDecDec (mkTypeDec (optTyName, prefixOptTy [pointerStrId]))
+     :: StrDecDec (mkTypeDec (nonOptTyName, prefixNonOptTy [pointerStrId]))
+     :: StrDecDec (mkTypeDec (ptrTyName aTyVar, prefixPtrTy [pointerStrId] aVarTy))
      :: strDecs
 
   val cPtrTy = makeLowLevelTy false [] (PTR {optDir = NONE, isOpt = false})
@@ -104,7 +106,7 @@ local
    *     val memcpy_ =
    *       fn x1 & x2 & x3 =>
    *         (_import "memcpy"
-   *           : notnull p * notnull p * GSize.FFI.val_ -> unit;)
+   *           : non_opt p * non_opt p * GSize.FFI.val_ -> unit;)
    *         (x1, x2, x3)
    *)
   val memcpyStrDecMLton =
@@ -163,11 +165,11 @@ local
                     (*
                      *     val copy_ =
                      *       fn x1 & x2 =>
-                     *         (_import "<copy>" : notnull p * notnull p -> unit;)
+                     *         (_import "<copy>" : non_opt p * non_opt p -> unit;)
                      *         (x1, x2)
                      *
                      *     val clear_ =
-                     *       _import "<clear>" : notnull p -> unit;
+                     *       _import "<clear>" : non_opt p -> unit;
                      *) 
                     callStrDecLowLevelMLton (copyUId,  copy,  [cPtrTy, cPtrTy], unitTy) ::
                     callStrDecLowLevelMLton (clearUId, clear, [cPtrTy],         unitTy) ::
@@ -177,7 +179,7 @@ local
                      *     val memcpy_ =
                      *       fn x1 & x2 & x3 =>
                      *         (_import "memcpy"
-                     *           : notnull p * notnull p * GSize.FFI.val_ -> unit;)
+                     *           : non_opt p * non_opt p * GSize.FFI.val_ -> unit;)
                      *         (x1, x2, x3)
                      *
                      *     val copy_ =
@@ -194,9 +196,9 @@ local
             end
         | Record {dup, free} =>
             (* 
-             *     val dup_ = _import "<dup>" : notnull p -> notnull p;
+             *     val dup_ = _import "<dup>" : non_opt p -> non_opt p;
              * 
-             *     val free_ = _import "<free>" : notnull p -> unit;
+             *     val free_ = _import "<free>" : non_opt p -> unit;
              *)
             callStrDecLowLevelMLton (dupUId,  dup,  [cPtrTy], cPtrTy) ::
             callStrDecLowLevelMLton (freeUId, free, [cPtrTy], unitTy) ::
@@ -351,7 +353,8 @@ local
    *     structure Record =
    *       BoxedValueRecord(
    *         structure Pointer = Pointer
-   *         type notnull = notnull
+   *         type opt = opt
+   *         type non_opt = non_opt
    *         type 'a p = 'a p
    *         val copy_ = copy_
    *         val clear_ = clear_
@@ -365,7 +368,8 @@ local
         "BoxedValueRecord",
         mkStrDecsFunArg [
           mkStructStrDec (pointerStrId, mkNameStruct [pointerStrId]),
-          StrDecDec (mkTypeDec (notnullTyName, notnullTy)),
+          StrDecDec (mkTypeDec (optTyName, optTy)),
+          StrDecDec (mkTypeDec (nonOptTyName, nonOptTy)),
           StrDecDec (mkTypeDec (ptrTyName aTyVar, ptrTy aVarTy)),
           StrDecDec (mkIdValDec (copyUId, mkIdLNameExp copyUId)),
           StrDecDec (mkIdValDec (clearUId, mkIdLNameExp clearUId)),
@@ -378,7 +382,8 @@ local
    *     structure Record =
    *       BoxedRecord(
    *         structure Pointer = Pointer
-   *         type notnull = notnull
+   *         type opt = opt
+   *         type non_opt = non_opt
    *         type 'a p = 'a p
    *         val dup_ = dup_
    *         val take_ = ignore
@@ -392,7 +397,8 @@ local
         "BoxedRecord",
         mkStrDecsFunArg [
           mkStructStrDec (pointerStrId, mkNameStruct [pointerStrId]),
-          StrDecDec (mkTypeDec (notnullTyName, notnullTy)),
+          StrDecDec (mkTypeDec (optTyName, optTy)),
+          StrDecDec (mkTypeDec (nonOptTyName, nonOptTy)),
           StrDecDec (mkTypeDec (ptrTyName aTyVar, ptrTy aVarTy)),
           StrDecDec (mkIdValDec (dupUId, mkIdLNameExp dupUId)),
           StrDecDec (mkIdValDec (takeUId, mkIdLNameExp ignoreId)),

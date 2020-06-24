@@ -4,10 +4,10 @@ structure GdkDrawingContext :>
     where type 'a window_class = 'a GdkWindowClass.class =
   struct
     val getType_ = _import "gdk_drawing_context_get_type" : unit -> GObjectType.FFI.val_;
-    val getCairoContext_ = _import "gdk_drawing_context_get_cairo_context" : GdkDrawingContextClass.FFI.notnull GdkDrawingContextClass.FFI.p -> CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p;
-    val getClip_ = _import "gdk_drawing_context_get_clip" : GdkDrawingContextClass.FFI.notnull GdkDrawingContextClass.FFI.p -> unit CairoRegionRecord.FFI.p;
-    val getWindow_ = _import "gdk_drawing_context_get_window" : GdkDrawingContextClass.FFI.notnull GdkDrawingContextClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val isValid_ = _import "gdk_drawing_context_is_valid" : GdkDrawingContextClass.FFI.notnull GdkDrawingContextClass.FFI.p -> GBool.FFI.val_;
+    val getCairoContext_ = _import "gdk_drawing_context_get_cairo_context" : GdkDrawingContextClass.FFI.non_opt GdkDrawingContextClass.FFI.p -> CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p;
+    val getClip_ = _import "gdk_drawing_context_get_clip" : GdkDrawingContextClass.FFI.non_opt GdkDrawingContextClass.FFI.p -> CairoRegionRecord.FFI.opt CairoRegionRecord.FFI.p;
+    val getWindow_ = _import "gdk_drawing_context_get_window" : GdkDrawingContextClass.FFI.non_opt GdkDrawingContextClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val isValid_ = _import "gdk_drawing_context_is_valid" : GdkDrawingContextClass.FFI.non_opt GdkDrawingContextClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GdkDrawingContextClass.class
     type 'a window_class = 'a GdkWindowClass.class
     type t = base class

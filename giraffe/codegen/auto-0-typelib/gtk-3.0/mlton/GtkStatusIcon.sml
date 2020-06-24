@@ -7,12 +7,12 @@ structure GtkStatusIcon :>
     where type image_type_t = GtkImageType.t =
   struct
     val getType_ = _import "gtk_status_icon_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_status_icon_new" : unit -> GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p;
-    val newFromFile_ = _import "mlton_gtk_status_icon_new_from_file" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p;
-    val newFromGicon_ = _import "gtk_status_icon_new_from_gicon" : GioIconClass.FFI.notnull GioIconClass.FFI.p -> GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p;
-    val newFromIconName_ = _import "mlton_gtk_status_icon_new_from_icon_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p;
-    val newFromPixbuf_ = _import "gtk_status_icon_new_from_pixbuf" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p;
-    val newFromStock_ = _import "mlton_gtk_status_icon_new_from_stock" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p;
+    val new_ = _import "gtk_status_icon_new" : unit -> GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p;
+    val newFromFile_ = _import "mlton_gtk_status_icon_new_from_file" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p;
+    val newFromGicon_ = _import "gtk_status_icon_new_from_gicon" : GioIconClass.FFI.non_opt GioIconClass.FFI.p -> GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p;
+    val newFromIconName_ = _import "mlton_gtk_status_icon_new_from_icon_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p;
+    val newFromPixbuf_ = _import "gtk_status_icon_new_from_pixbuf" : GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p -> GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p;
+    val newFromStock_ = _import "mlton_gtk_status_icon_new_from_stock" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p;
     val positionMenu_ =
       fn
         x1
@@ -22,11 +22,11 @@ structure GtkStatusIcon :>
          & x5 =>
           (
             _import "gtk_status_icon_position_menu" :
-              GtkMenuClass.FFI.notnull GtkMenuClass.FFI.p
+              GtkMenuClass.FFI.non_opt GtkMenuClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                * GBool.FFI.ref_
-               * GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p
+               * GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p
                -> unit;
           )
             (
@@ -44,9 +44,9 @@ structure GtkStatusIcon :>
          & x4 =>
           (
             _import "gtk_status_icon_get_geometry" :
-              GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p
-               * (unit, GdkScreenClass.FFI.notnull) GdkScreenClass.FFI.r
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p
+               * (GdkScreenClass.FFI.opt, GdkScreenClass.FFI.non_opt) GdkScreenClass.FFI.r
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                * GtkOrientation.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -56,28 +56,28 @@ structure GtkStatusIcon :>
               x3,
               x4
             )
-    val getGicon_ = _import "gtk_status_icon_get_gicon" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> unit GioIconClass.FFI.p;
-    val getHasTooltip_ = _import "gtk_status_icon_get_has_tooltip" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GBool.FFI.val_;
-    val getIconName_ = _import "gtk_status_icon_get_icon_name" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getPixbuf_ = _import "gtk_status_icon_get_pixbuf" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> unit GdkPixbufPixbufClass.FFI.p;
-    val getScreen_ = _import "gtk_status_icon_get_screen" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p;
-    val getSize_ = _import "gtk_status_icon_get_size" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GInt32.FFI.val_;
-    val getStock_ = _import "gtk_status_icon_get_stock" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getStorageType_ = _import "gtk_status_icon_get_storage_type" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GtkImageType.FFI.val_;
-    val getTitle_ = _import "gtk_status_icon_get_title" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getTooltipMarkup_ = _import "gtk_status_icon_get_tooltip_markup" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getTooltipText_ = _import "gtk_status_icon_get_tooltip_text" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getVisible_ = _import "gtk_status_icon_get_visible" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GBool.FFI.val_;
-    val getX11WindowId_ = _import "gtk_status_icon_get_x11_window_id" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GUInt32.FFI.val_;
-    val isEmbedded_ = _import "gtk_status_icon_is_embedded" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p -> GBool.FFI.val_;
+    val getGicon_ = _import "gtk_status_icon_get_gicon" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> GioIconClass.FFI.opt GioIconClass.FFI.p;
+    val getHasTooltip_ = _import "gtk_status_icon_get_has_tooltip" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> GBool.FFI.val_;
+    val getIconName_ = _import "gtk_status_icon_get_icon_name" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getPixbuf_ = _import "gtk_status_icon_get_pixbuf" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
+    val getScreen_ = _import "gtk_status_icon_get_screen" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p;
+    val getSize_ = _import "gtk_status_icon_get_size" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> GInt32.FFI.val_;
+    val getStock_ = _import "gtk_status_icon_get_stock" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getStorageType_ = _import "gtk_status_icon_get_storage_type" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> GtkImageType.FFI.val_;
+    val getTitle_ = _import "gtk_status_icon_get_title" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getTooltipMarkup_ = _import "gtk_status_icon_get_tooltip_markup" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getTooltipText_ = _import "gtk_status_icon_get_tooltip_text" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getVisible_ = _import "gtk_status_icon_get_visible" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> GBool.FFI.val_;
+    val getX11WindowId_ = _import "gtk_status_icon_get_x11_window_id" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> GUInt32.FFI.val_;
+    val isEmbedded_ = _import "gtk_status_icon_is_embedded" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p -> GBool.FFI.val_;
     val setFromFile_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_status_icon_set_from_file" :
-              GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p
+              GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -85,15 +85,15 @@ structure GtkStatusIcon :>
               x2,
               x3
             )
-    val setFromGicon_ = fn x1 & x2 => (_import "gtk_status_icon_set_from_gicon" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p * GioIconClass.FFI.notnull GioIconClass.FFI.p -> unit;) (x1, x2)
+    val setFromGicon_ = fn x1 & x2 => (_import "gtk_status_icon_set_from_gicon" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p * GioIconClass.FFI.non_opt GioIconClass.FFI.p -> unit;) (x1, x2)
     val setFromIconName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_status_icon_set_from_icon_name" :
-              GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p
+              GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -101,15 +101,15 @@ structure GtkStatusIcon :>
               x2,
               x3
             )
-    val setFromPixbuf_ = fn x1 & x2 => (_import "gtk_status_icon_set_from_pixbuf" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p * unit GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
+    val setFromPixbuf_ = fn x1 & x2 => (_import "gtk_status_icon_set_from_pixbuf" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p * GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
     val setFromStock_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_status_icon_set_from_stock" :
-              GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p
+              GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -117,15 +117,15 @@ structure GtkStatusIcon :>
               x2,
               x3
             )
-    val setHasTooltip_ = fn x1 & x2 => (_import "gtk_status_icon_set_has_tooltip" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHasTooltip_ = fn x1 & x2 => (_import "gtk_status_icon_set_has_tooltip" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_status_icon_set_name" :
-              GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p
+              GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -133,15 +133,15 @@ structure GtkStatusIcon :>
               x2,
               x3
             )
-    val setScreen_ = fn x1 & x2 => (_import "gtk_status_icon_set_screen" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p * GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> unit;) (x1, x2)
+    val setScreen_ = fn x1 & x2 => (_import "gtk_status_icon_set_screen" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p * GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_status_icon_set_title" :
-              GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p
+              GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -154,9 +154,9 @@ structure GtkStatusIcon :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_status_icon_set_tooltip_markup" :
-              GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p
+              GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -169,9 +169,9 @@ structure GtkStatusIcon :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_status_icon_set_tooltip_text" :
-              GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p
+              GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -179,7 +179,7 @@ structure GtkStatusIcon :>
               x2,
               x3
             )
-    val setVisible_ = fn x1 & x2 => (_import "gtk_status_icon_set_visible" : GtkStatusIconClass.FFI.notnull GtkStatusIconClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setVisible_ = fn x1 & x2 => (_import "gtk_status_icon_set_visible" : GtkStatusIconClass.FFI.non_opt GtkStatusIconClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkStatusIconClass.class
     type 'a menu_class = 'a GtkMenuClass.class
     type 'a tooltip_class = 'a GtkTooltipClass.class

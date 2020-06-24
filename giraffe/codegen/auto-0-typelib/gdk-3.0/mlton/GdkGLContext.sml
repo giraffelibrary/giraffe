@@ -6,10 +6,10 @@ structure GdkGLContext :>
   struct
     val getType_ = _import "gdk_gl_context_get_type" : unit -> GObjectType.FFI.val_;
     val clearCurrent_ = _import "gdk_gl_context_clear_current" : unit -> unit;
-    val getCurrent_ = _import "gdk_gl_context_get_current" : unit -> unit GdkGLContextClass.FFI.p;
-    val getDebugEnabled_ = _import "gdk_gl_context_get_debug_enabled" : GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p -> GBool.FFI.val_;
-    val getDisplay_ = _import "gdk_gl_context_get_display" : GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p -> unit GdkDisplayClass.FFI.p;
-    val getForwardCompatible_ = _import "gdk_gl_context_get_forward_compatible" : GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p -> GBool.FFI.val_;
+    val getCurrent_ = _import "gdk_gl_context_get_current" : unit -> GdkGLContextClass.FFI.opt GdkGLContextClass.FFI.p;
+    val getDebugEnabled_ = _import "gdk_gl_context_get_debug_enabled" : GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p -> GBool.FFI.val_;
+    val getDisplay_ = _import "gdk_gl_context_get_display" : GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p -> GdkDisplayClass.FFI.opt GdkDisplayClass.FFI.p;
+    val getForwardCompatible_ = _import "gdk_gl_context_get_forward_compatible" : GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p -> GBool.FFI.val_;
     val getRequiredVersion_ =
       fn
         x1
@@ -17,7 +17,7 @@ structure GdkGLContext :>
          & x3 =>
           (
             _import "gdk_gl_context_get_required_version" :
-              GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p
+              GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> unit;
@@ -27,8 +27,8 @@ structure GdkGLContext :>
               x2,
               x3
             )
-    val getSharedContext_ = _import "gdk_gl_context_get_shared_context" : GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p -> unit GdkGLContextClass.FFI.p;
-    val getUseEs_ = _import "gdk_gl_context_get_use_es" : GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p -> GBool.FFI.val_;
+    val getSharedContext_ = _import "gdk_gl_context_get_shared_context" : GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p -> GdkGLContextClass.FFI.opt GdkGLContextClass.FFI.p;
+    val getUseEs_ = _import "gdk_gl_context_get_use_es" : GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p -> GBool.FFI.val_;
     val getVersion_ =
       fn
         x1
@@ -36,7 +36,7 @@ structure GdkGLContext :>
          & x3 =>
           (
             _import "gdk_gl_context_get_version" :
-              GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p
+              GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> unit;
@@ -46,12 +46,12 @@ structure GdkGLContext :>
               x2,
               x3
             )
-    val getWindow_ = _import "gdk_gl_context_get_window" : GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p -> unit GdkWindowClass.FFI.p;
-    val isLegacy_ = _import "gdk_gl_context_is_legacy" : GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p -> GBool.FFI.val_;
-    val makeCurrent_ = _import "gdk_gl_context_make_current" : GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p -> unit;
-    val realize_ = fn x1 & x2 => (_import "gdk_gl_context_realize" : GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
-    val setDebugEnabled_ = fn x1 & x2 => (_import "gdk_gl_context_set_debug_enabled" : GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setForwardCompatible_ = fn x1 & x2 => (_import "gdk_gl_context_set_forward_compatible" : GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getWindow_ = _import "gdk_gl_context_get_window" : GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
+    val isLegacy_ = _import "gdk_gl_context_is_legacy" : GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p -> GBool.FFI.val_;
+    val makeCurrent_ = _import "gdk_gl_context_make_current" : GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p -> unit;
+    val realize_ = fn x1 & x2 => (_import "gdk_gl_context_realize" : GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
+    val setDebugEnabled_ = fn x1 & x2 => (_import "gdk_gl_context_set_debug_enabled" : GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setForwardCompatible_ = fn x1 & x2 => (_import "gdk_gl_context_set_forward_compatible" : GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setRequiredVersion_ =
       fn
         x1
@@ -59,7 +59,7 @@ structure GdkGLContext :>
          & x3 =>
           (
             _import "gdk_gl_context_set_required_version" :
-              GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p
+              GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -69,7 +69,7 @@ structure GdkGLContext :>
               x2,
               x3
             )
-    val setUseEs_ = fn x1 & x2 => (_import "gdk_gl_context_set_use_es" : GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setUseEs_ = fn x1 & x2 => (_import "gdk_gl_context_set_use_es" : GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GdkGLContextClass.class
     type 'a display_class = 'a GdkDisplayClass.class
     type 'a window_class = 'a GdkWindowClass.class

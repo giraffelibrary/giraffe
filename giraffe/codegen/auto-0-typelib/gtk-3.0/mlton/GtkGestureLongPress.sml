@@ -4,7 +4,7 @@ structure GtkGestureLongPress :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_gesture_long_press_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_gesture_long_press_new" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p;
+    val new_ = _import "gtk_gesture_long_press_new" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p;
     type 'a class = 'a GtkGestureLongPressClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class

@@ -17,14 +17,14 @@ structure GLibDateTime :>
          & x7 =>
           (
             _import "g_date_time_new" :
-              GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p
+              GLibTimeZoneRecord.FFI.non_opt GLibTimeZoneRecord.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GDouble.FFI.val_
-               -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
+               -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
           )
             (
               x1,
@@ -35,10 +35,10 @@ structure GLibDateTime :>
               x6,
               x7
             )
-    val newFromTimevalLocal_ = _import "g_date_time_new_from_timeval_local" : GLibTimeValRecord.FFI.notnull GLibTimeValRecord.FFI.p -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
-    val newFromTimevalUtc_ = _import "g_date_time_new_from_timeval_utc" : GLibTimeValRecord.FFI.notnull GLibTimeValRecord.FFI.p -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
-    val newFromUnixLocal_ = _import "g_date_time_new_from_unix_local" : GInt64.FFI.val_ -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
-    val newFromUnixUtc_ = _import "g_date_time_new_from_unix_utc" : GInt64.FFI.val_ -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
+    val newFromTimevalLocal_ = _import "g_date_time_new_from_timeval_local" : GLibTimeValRecord.FFI.non_opt GLibTimeValRecord.FFI.p -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
+    val newFromTimevalUtc_ = _import "g_date_time_new_from_timeval_utc" : GLibTimeValRecord.FFI.non_opt GLibTimeValRecord.FFI.p -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
+    val newFromUnixLocal_ = _import "g_date_time_new_from_unix_local" : GInt64.FFI.val_ -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
+    val newFromUnixUtc_ = _import "g_date_time_new_from_unix_utc" : GInt64.FFI.val_ -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
     val newLocal_ =
       fn
         x1
@@ -55,7 +55,7 @@ structure GLibDateTime :>
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GDouble.FFI.val_
-               -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
+               -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
           )
             (
               x1,
@@ -65,9 +65,9 @@ structure GLibDateTime :>
               x5,
               x6
             )
-    val newNow_ = _import "g_date_time_new_now" : GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
-    val newNowLocal_ = _import "g_date_time_new_now_local" : unit -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
-    val newNowUtc_ = _import "g_date_time_new_now_utc" : unit -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
+    val newNow_ = _import "g_date_time_new_now" : GLibTimeZoneRecord.FFI.non_opt GLibTimeZoneRecord.FFI.p -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
+    val newNowLocal_ = _import "g_date_time_new_now_local" : unit -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
+    val newNowUtc_ = _import "g_date_time_new_now_utc" : unit -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
     val newUtc_ =
       fn
         x1
@@ -84,7 +84,7 @@ structure GLibDateTime :>
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GDouble.FFI.val_
-               -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
+               -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
           )
             (
               x1,
@@ -94,8 +94,8 @@ structure GLibDateTime :>
               x5,
               x6
             )
-    val add_ = fn x1 & x2 => (_import "g_date_time_add" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p * GLibTimeSpan.FFI.val_ -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;) (x1, x2)
-    val addDays_ = fn x1 & x2 => (_import "g_date_time_add_days" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p * GInt.FFI.val_ -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;) (x1, x2)
+    val add_ = fn x1 & x2 => (_import "g_date_time_add" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p * GLibTimeSpan.FFI.val_ -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;) (x1, x2)
+    val addDays_ = fn x1 & x2 => (_import "g_date_time_add_days" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p * GInt.FFI.val_ -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;) (x1, x2)
     val addFull_ =
       fn
         x1
@@ -107,14 +107,14 @@ structure GLibDateTime :>
          & x7 =>
           (
             _import "g_date_time_add_full" :
-              GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p
+              GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GDouble.FFI.val_
-               -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
+               -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
           )
             (
               x1,
@@ -125,42 +125,42 @@ structure GLibDateTime :>
               x6,
               x7
             )
-    val addHours_ = fn x1 & x2 => (_import "g_date_time_add_hours" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p * GInt.FFI.val_ -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;) (x1, x2)
-    val addMinutes_ = fn x1 & x2 => (_import "g_date_time_add_minutes" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p * GInt.FFI.val_ -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;) (x1, x2)
-    val addMonths_ = fn x1 & x2 => (_import "g_date_time_add_months" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p * GInt.FFI.val_ -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;) (x1, x2)
-    val addSeconds_ = fn x1 & x2 => (_import "g_date_time_add_seconds" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p * GDouble.FFI.val_ -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;) (x1, x2)
-    val addWeeks_ = fn x1 & x2 => (_import "g_date_time_add_weeks" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p * GInt.FFI.val_ -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;) (x1, x2)
-    val addYears_ = fn x1 & x2 => (_import "g_date_time_add_years" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p * GInt.FFI.val_ -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;) (x1, x2)
-    val difference_ = fn x1 & x2 => (_import "g_date_time_difference" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p * GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GLibTimeSpan.FFI.val_;) (x1, x2)
+    val addHours_ = fn x1 & x2 => (_import "g_date_time_add_hours" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p * GInt.FFI.val_ -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;) (x1, x2)
+    val addMinutes_ = fn x1 & x2 => (_import "g_date_time_add_minutes" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p * GInt.FFI.val_ -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;) (x1, x2)
+    val addMonths_ = fn x1 & x2 => (_import "g_date_time_add_months" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p * GInt.FFI.val_ -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;) (x1, x2)
+    val addSeconds_ = fn x1 & x2 => (_import "g_date_time_add_seconds" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p * GDouble.FFI.val_ -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;) (x1, x2)
+    val addWeeks_ = fn x1 & x2 => (_import "g_date_time_add_weeks" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p * GInt.FFI.val_ -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;) (x1, x2)
+    val addYears_ = fn x1 & x2 => (_import "g_date_time_add_years" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p * GInt.FFI.val_ -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;) (x1, x2)
+    val difference_ = fn x1 & x2 => (_import "g_date_time_difference" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p * GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GLibTimeSpan.FFI.val_;) (x1, x2)
     val format_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_date_time_format" :
-              GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p
+              GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getDayOfMonth_ = _import "g_date_time_get_day_of_month" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
-    val getDayOfWeek_ = _import "g_date_time_get_day_of_week" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
-    val getDayOfYear_ = _import "g_date_time_get_day_of_year" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
-    val getHour_ = _import "g_date_time_get_hour" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
-    val getMicrosecond_ = _import "g_date_time_get_microsecond" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
-    val getMinute_ = _import "g_date_time_get_minute" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
-    val getMonth_ = _import "g_date_time_get_month" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
-    val getSecond_ = _import "g_date_time_get_second" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
-    val getSeconds_ = _import "g_date_time_get_seconds" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GDouble.FFI.val_;
-    val getTimezoneAbbreviation_ = _import "g_date_time_get_timezone_abbreviation" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getUtcOffset_ = _import "g_date_time_get_utc_offset" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GLibTimeSpan.FFI.val_;
-    val getWeekNumberingYear_ = _import "g_date_time_get_week_numbering_year" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
-    val getWeekOfYear_ = _import "g_date_time_get_week_of_year" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
-    val getYear_ = _import "g_date_time_get_year" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
+    val getDayOfMonth_ = _import "g_date_time_get_day_of_month" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
+    val getDayOfWeek_ = _import "g_date_time_get_day_of_week" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
+    val getDayOfYear_ = _import "g_date_time_get_day_of_year" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
+    val getHour_ = _import "g_date_time_get_hour" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
+    val getMicrosecond_ = _import "g_date_time_get_microsecond" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
+    val getMinute_ = _import "g_date_time_get_minute" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
+    val getMonth_ = _import "g_date_time_get_month" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
+    val getSecond_ = _import "g_date_time_get_second" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
+    val getSeconds_ = _import "g_date_time_get_seconds" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GDouble.FFI.val_;
+    val getTimezoneAbbreviation_ = _import "g_date_time_get_timezone_abbreviation" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getUtcOffset_ = _import "g_date_time_get_utc_offset" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GLibTimeSpan.FFI.val_;
+    val getWeekNumberingYear_ = _import "g_date_time_get_week_numbering_year" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
+    val getWeekOfYear_ = _import "g_date_time_get_week_of_year" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
+    val getYear_ = _import "g_date_time_get_year" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GInt.FFI.val_;
     val getYmd_ =
       fn
         x1
@@ -169,7 +169,7 @@ structure GLibDateTime :>
          & x4 =>
           (
             _import "g_date_time_get_ymd" :
-              GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p
+              GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                * GInt.FFI.ref_
@@ -181,12 +181,12 @@ structure GLibDateTime :>
               x3,
               x4
             )
-    val isDaylightSavings_ = _import "g_date_time_is_daylight_savings" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GBool.FFI.val_;
-    val toLocal_ = _import "g_date_time_to_local" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
-    val toTimeval_ = fn x1 & x2 => (_import "g_date_time_to_timeval" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p * GLibTimeValRecord.FFI.notnull GLibTimeValRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val toTimezone_ = fn x1 & x2 => (_import "g_date_time_to_timezone" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p * GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;) (x1, x2)
-    val toUnix_ = _import "g_date_time_to_unix" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GInt64.FFI.val_;
-    val toUtc_ = _import "g_date_time_to_utc" : GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p -> GLibDateTimeRecord.FFI.notnull GLibDateTimeRecord.FFI.p;
+    val isDaylightSavings_ = _import "g_date_time_is_daylight_savings" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GBool.FFI.val_;
+    val toLocal_ = _import "g_date_time_to_local" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
+    val toTimeval_ = fn x1 & x2 => (_import "g_date_time_to_timeval" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p * GLibTimeValRecord.FFI.non_opt GLibTimeValRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val toTimezone_ = fn x1 & x2 => (_import "g_date_time_to_timezone" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p * GLibTimeZoneRecord.FFI.non_opt GLibTimeZoneRecord.FFI.p -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;) (x1, x2)
+    val toUnix_ = _import "g_date_time_to_unix" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GInt64.FFI.val_;
+    val toUtc_ = _import "g_date_time_to_utc" : GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p -> GLibDateTimeRecord.FFI.non_opt GLibDateTimeRecord.FFI.p;
     type t = GLibDateTimeRecord.t
     type time_span_t = GLibTimeSpan.t
     type time_val_t = GLibTimeValRecord.t

@@ -4,15 +4,15 @@ structure GtkPopoverMenu :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_popover_menu_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_popover_menu_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_popover_menu_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val openSubmenu_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_popover_menu_open_submenu" :
-              GtkPopoverMenuClass.FFI.notnull GtkPopoverMenuClass.FFI.p
+              GtkPopoverMenuClass.FFI.non_opt GtkPopoverMenuClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

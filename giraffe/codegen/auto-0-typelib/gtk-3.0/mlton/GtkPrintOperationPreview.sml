@@ -5,9 +5,9 @@ structure GtkPrintOperationPreview :>
     where type 'a print_context_class = 'a GtkPrintContextClass.class =
   struct
     val getType_ = _import "gtk_print_operation_preview_get_type" : unit -> GObjectType.FFI.val_;
-    val endPreview_ = _import "gtk_print_operation_preview_end_preview" : GtkPrintOperationPreviewClass.FFI.notnull GtkPrintOperationPreviewClass.FFI.p -> unit;
-    val isSelected_ = fn x1 & x2 => (_import "gtk_print_operation_preview_is_selected" : GtkPrintOperationPreviewClass.FFI.notnull GtkPrintOperationPreviewClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val renderPage_ = fn x1 & x2 => (_import "gtk_print_operation_preview_render_page" : GtkPrintOperationPreviewClass.FFI.notnull GtkPrintOperationPreviewClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val endPreview_ = _import "gtk_print_operation_preview_end_preview" : GtkPrintOperationPreviewClass.FFI.non_opt GtkPrintOperationPreviewClass.FFI.p -> unit;
+    val isSelected_ = fn x1 & x2 => (_import "gtk_print_operation_preview_is_selected" : GtkPrintOperationPreviewClass.FFI.non_opt GtkPrintOperationPreviewClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val renderPage_ = fn x1 & x2 => (_import "gtk_print_operation_preview_render_page" : GtkPrintOperationPreviewClass.FFI.non_opt GtkPrintOperationPreviewClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkPrintOperationPreviewClass.class
     type 'a page_setup_class = 'a GtkPageSetupClass.class
     type 'a print_context_class = 'a GtkPrintContextClass.class

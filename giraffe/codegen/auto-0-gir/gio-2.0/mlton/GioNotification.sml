@@ -5,7 +5,7 @@ structure GioNotification :>
     where type notification_priority_t = GioNotificationPriority.t =
   struct
     val getType_ = _import "g_notification_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_g_notification_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioNotificationClass.FFI.notnull GioNotificationClass.FFI.p;
+    val new_ = _import "mlton_g_notification_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioNotificationClass.FFI.non_opt GioNotificationClass.FFI.p;
     val addButton_ =
       fn
         x1
@@ -13,11 +13,11 @@ structure GioNotification :>
          & (x4, x5) =>
           (
             _import "mlton_g_notification_add_button" :
-              GioNotificationClass.FFI.notnull GioNotificationClass.FFI.p
+              GioNotificationClass.FFI.non_opt GioNotificationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -35,12 +35,12 @@ structure GioNotification :>
          & x6 =>
           (
             _import "mlton_g_notification_add_button_with_target_value" :
-              GioNotificationClass.FFI.notnull GioNotificationClass.FFI.p
+              GioNotificationClass.FFI.non_opt GioNotificationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
                -> unit;
           )
             (
@@ -56,9 +56,9 @@ structure GioNotification :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_notification_set_body" :
-              GioNotificationClass.FFI.notnull GioNotificationClass.FFI.p
+              GioNotificationClass.FFI.non_opt GioNotificationClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -71,9 +71,9 @@ structure GioNotification :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_notification_set_default_action" :
-              GioNotificationClass.FFI.notnull GioNotificationClass.FFI.p
+              GioNotificationClass.FFI.non_opt GioNotificationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -88,10 +88,10 @@ structure GioNotification :>
          & x4 =>
           (
             _import "mlton_g_notification_set_default_action_and_target_value" :
-              GioNotificationClass.FFI.notnull GioNotificationClass.FFI.p
+              GioNotificationClass.FFI.non_opt GioNotificationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
                -> unit;
           )
             (
@@ -100,16 +100,16 @@ structure GioNotification :>
               x3,
               x4
             )
-    val setIcon_ = fn x1 & x2 => (_import "g_notification_set_icon" : GioNotificationClass.FFI.notnull GioNotificationClass.FFI.p * GioIconClass.FFI.notnull GioIconClass.FFI.p -> unit;) (x1, x2)
-    val setPriority_ = fn x1 & x2 => (_import "g_notification_set_priority" : GioNotificationClass.FFI.notnull GioNotificationClass.FFI.p * GioNotificationPriority.FFI.val_ -> unit;) (x1, x2)
+    val setIcon_ = fn x1 & x2 => (_import "g_notification_set_icon" : GioNotificationClass.FFI.non_opt GioNotificationClass.FFI.p * GioIconClass.FFI.non_opt GioIconClass.FFI.p -> unit;) (x1, x2)
+    val setPriority_ = fn x1 & x2 => (_import "g_notification_set_priority" : GioNotificationClass.FFI.non_opt GioNotificationClass.FFI.p * GioNotificationPriority.FFI.val_ -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_notification_set_title" :
-              GioNotificationClass.FFI.notnull GioNotificationClass.FFI.p
+              GioNotificationClass.FFI.non_opt GioNotificationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -117,7 +117,7 @@ structure GioNotification :>
               x2,
               x3
             )
-    val setUrgent_ = fn x1 & x2 => (_import "g_notification_set_urgent" : GioNotificationClass.FFI.notnull GioNotificationClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUrgent_ = fn x1 & x2 => (_import "g_notification_set_urgent" : GioNotificationClass.FFI.non_opt GioNotificationClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioNotificationClass.class
     type 'a icon_class = 'a GioIconClass.class
     type notification_priority_t = GioNotificationPriority.t

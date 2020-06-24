@@ -1,7 +1,8 @@
 structure GtkGestureMultiPressClass :>
   GTK_GESTURE_MULTI_PRESS_CLASS
     where type 'a gesture_single_class = 'a GtkGestureSingleClass.class
-    where type C.notnull = GtkGestureSingleClass.C.notnull
+    where type C.opt = GtkGestureSingleClass.C.opt
+    where type C.non_opt = GtkGestureSingleClass.C.non_opt
     where type 'a C.p = 'a GtkGestureSingleClass.C.p =
   struct
     type 'a gesture_single_class = 'a GtkGestureSingleClass.class

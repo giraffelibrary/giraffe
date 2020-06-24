@@ -9,9 +9,9 @@ structure GioTlsFileDatabase :>
           (
             _import "mlton_g_tls_file_database_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioTlsFileDatabaseClass.FFI.notnull GioTlsFileDatabaseClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioTlsFileDatabaseClass.FFI.non_opt GioTlsFileDatabaseClass.FFI.p;
           )
             (
               x1,

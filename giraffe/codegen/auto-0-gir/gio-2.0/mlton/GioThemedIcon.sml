@@ -4,31 +4,31 @@ structure GioThemedIcon :>
     where type 'a icon_class = 'a GioIconClass.class =
   struct
     val getType_ = _import "g_themed_icon_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_g_themed_icon_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioThemedIconClass.FFI.notnull GioThemedIconClass.FFI.p;
+    val new_ = _import "mlton_g_themed_icon_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioThemedIconClass.FFI.non_opt GioThemedIconClass.FFI.p;
     val newFromNames_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_themed_icon_new_from_names" :
               Utf8CPtrArrayN.MLton.p1
-               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
+               * Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.MLton.p2
                * GInt.FFI.val_
-               -> GioThemedIconClass.FFI.notnull GioThemedIconClass.FFI.p;
+               -> GioThemedIconClass.FFI.non_opt GioThemedIconClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newWithDefaultFallbacks_ = _import "mlton_g_themed_icon_new_with_default_fallbacks" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioThemedIconClass.FFI.notnull GioThemedIconClass.FFI.p;
+    val newWithDefaultFallbacks_ = _import "mlton_g_themed_icon_new_with_default_fallbacks" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioThemedIconClass.FFI.non_opt GioThemedIconClass.FFI.p;
     val appendName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_themed_icon_append_name" :
-              GioThemedIconClass.FFI.notnull GioThemedIconClass.FFI.p
+              GioThemedIconClass.FFI.non_opt GioThemedIconClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -36,15 +36,15 @@ structure GioThemedIcon :>
               x2,
               x3
             )
-    val getNames_ = _import "g_themed_icon_get_names" : GioThemedIconClass.FFI.notnull GioThemedIconClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val getNames_ = _import "g_themed_icon_get_names" : GioThemedIconClass.FFI.non_opt GioThemedIconClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val prependName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_themed_icon_prepend_name" :
-              GioThemedIconClass.FFI.notnull GioThemedIconClass.FFI.p
+              GioThemedIconClass.FFI.non_opt GioThemedIconClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

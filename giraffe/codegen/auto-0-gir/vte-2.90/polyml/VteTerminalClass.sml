@@ -1,6 +1,7 @@
 structure VteTerminalClass :>
   VTE_TERMINAL_CLASS
-    where type C.notnull = GtkWidgetClass.C.notnull
+    where type C.opt = GtkWidgetClass.C.opt
+    where type C.non_opt = GtkWidgetClass.C.non_opt
     where type 'a C.p = 'a GtkWidgetClass.C.p =
   struct
     open GtkWidgetClass

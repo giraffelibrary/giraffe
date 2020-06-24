@@ -1,7 +1,8 @@
 structure GtkMenuClass :>
   GTK_MENU_CLASS
     where type 'a menu_shell_class = 'a GtkMenuShellClass.class
-    where type C.notnull = GtkMenuShellClass.C.notnull
+    where type C.opt = GtkMenuShellClass.C.opt
+    where type C.non_opt = GtkMenuShellClass.C.non_opt
     where type 'a C.p = 'a GtkMenuShellClass.C.p =
   struct
     type 'a menu_shell_class = 'a GtkMenuShellClass.class

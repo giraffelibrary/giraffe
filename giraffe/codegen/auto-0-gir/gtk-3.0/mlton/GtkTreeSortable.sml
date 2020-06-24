@@ -11,7 +11,7 @@ structure GtkTreeSortable :>
          & x3 =>
           (
             _import "gtk_tree_sortable_get_sort_column_id" :
-              GtkTreeSortableClass.FFI.notnull GtkTreeSortableClass.FFI.p
+              GtkTreeSortableClass.FFI.non_opt GtkTreeSortableClass.FFI.p
                * GInt.FFI.ref_
                * GtkSortType.FFI.ref_
                -> GBool.FFI.val_;
@@ -21,7 +21,7 @@ structure GtkTreeSortable :>
               x2,
               x3
             )
-    val hasDefaultSortFunc_ = _import "gtk_tree_sortable_has_default_sort_func" : GtkTreeSortableClass.FFI.notnull GtkTreeSortableClass.FFI.p -> GBool.FFI.val_;
+    val hasDefaultSortFunc_ = _import "gtk_tree_sortable_has_default_sort_func" : GtkTreeSortableClass.FFI.non_opt GtkTreeSortableClass.FFI.p -> GBool.FFI.val_;
     val setSortColumnId_ =
       fn
         x1
@@ -29,7 +29,7 @@ structure GtkTreeSortable :>
          & x3 =>
           (
             _import "gtk_tree_sortable_set_sort_column_id" :
-              GtkTreeSortableClass.FFI.notnull GtkTreeSortableClass.FFI.p
+              GtkTreeSortableClass.FFI.non_opt GtkTreeSortableClass.FFI.p
                * GInt.FFI.val_
                * GtkSortType.FFI.val_
                -> unit;
@@ -39,7 +39,7 @@ structure GtkTreeSortable :>
               x2,
               x3
             )
-    val sortColumnChanged_ = _import "gtk_tree_sortable_sort_column_changed" : GtkTreeSortableClass.FFI.notnull GtkTreeSortableClass.FFI.p -> unit;
+    val sortColumnChanged_ = _import "gtk_tree_sortable_sort_column_changed" : GtkTreeSortableClass.FFI.non_opt GtkTreeSortableClass.FFI.p -> unit;
     type 'a class = 'a GtkTreeSortableClass.class
     type sort_type_t = GtkSortType.t
     type t = base class

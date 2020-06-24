@@ -7,8 +7,8 @@ structure GtkTextTag :>
     where type wrap_mode_t = GtkWrapMode.t =
   struct
     val getType_ = _import "gtk_text_tag_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_gtk_text_tag_new" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p;
-    val changed_ = fn x1 & x2 => (_import "gtk_text_tag_changed" : GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "mlton_gtk_text_tag_new" : Utf8.MLton.p1 * Utf8.FFI.opt Utf8.MLton.p2 -> GtkTextTagClass.FFI.non_opt GtkTextTagClass.FFI.p;
+    val changed_ = fn x1 & x2 => (_import "gtk_text_tag_changed" : GtkTextTagClass.FFI.non_opt GtkTextTagClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val event_ =
       fn
         x1
@@ -17,10 +17,10 @@ structure GtkTextTag :>
          & x4 =>
           (
             _import "gtk_text_tag_event" :
-              GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
-               * GdkEvent.FFI.notnull GdkEvent.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkTextTagClass.FFI.non_opt GtkTextTagClass.FFI.p
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
+               * GdkEvent.FFI.non_opt GdkEvent.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -29,8 +29,8 @@ structure GtkTextTag :>
               x3,
               x4
             )
-    val getPriority_ = _import "gtk_text_tag_get_priority" : GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p -> GInt32.FFI.val_;
-    val setPriority_ = fn x1 & x2 => (_import "gtk_text_tag_set_priority" : GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val getPriority_ = _import "gtk_text_tag_get_priority" : GtkTextTagClass.FFI.non_opt GtkTextTagClass.FFI.p -> GInt32.FFI.val_;
+    val setPriority_ = fn x1 & x2 => (_import "gtk_text_tag_set_priority" : GtkTextTagClass.FFI.non_opt GtkTextTagClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkTextTagClass.class
     type text_iter_t = GtkTextIterRecord.t
     type text_direction_t = GtkTextDirection.t

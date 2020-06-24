@@ -8,18 +8,18 @@ structure GioIOExtensionPoint :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_io_extension_point_get_extension_by_name" :
-              GioIOExtensionPointRecord.FFI.notnull GioIOExtensionPointRecord.FFI.p
+              GioIOExtensionPointRecord.FFI.non_opt GioIOExtensionPointRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioIOExtensionRecord.FFI.notnull GioIOExtensionRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioIOExtensionRecord.FFI.non_opt GioIOExtensionRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getRequiredType_ = _import "g_io_extension_point_get_required_type" : GioIOExtensionPointRecord.FFI.notnull GioIOExtensionPointRecord.FFI.p -> GObjectType.FFI.val_;
-    val setRequiredType_ = fn x1 & x2 => (_import "g_io_extension_point_set_required_type" : GioIOExtensionPointRecord.FFI.notnull GioIOExtensionPointRecord.FFI.p * GObjectType.FFI.val_ -> unit;) (x1, x2)
+    val getRequiredType_ = _import "g_io_extension_point_get_required_type" : GioIOExtensionPointRecord.FFI.non_opt GioIOExtensionPointRecord.FFI.p -> GObjectType.FFI.val_;
+    val setRequiredType_ = fn x1 & x2 => (_import "g_io_extension_point_set_required_type" : GioIOExtensionPointRecord.FFI.non_opt GioIOExtensionPointRecord.FFI.p * GObjectType.FFI.val_ -> unit;) (x1, x2)
     val implement_ =
       fn
         (x1, x2)
@@ -29,12 +29,12 @@ structure GioIOExtensionPoint :>
           (
             _import "mlton_g_io_extension_point_implement" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GObjectType.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
-               -> GioIOExtensionRecord.FFI.notnull GioIOExtensionRecord.FFI.p;
+               -> GioIOExtensionRecord.FFI.non_opt GioIOExtensionRecord.FFI.p;
           )
             (
               x1,
@@ -44,8 +44,8 @@ structure GioIOExtensionPoint :>
               x5,
               x6
             )
-    val lookup_ = _import "mlton_g_io_extension_point_lookup" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioIOExtensionPointRecord.FFI.notnull GioIOExtensionPointRecord.FFI.p;
-    val register_ = _import "mlton_g_io_extension_point_register" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioIOExtensionPointRecord.FFI.notnull GioIOExtensionPointRecord.FFI.p;
+    val lookup_ = _import "mlton_g_io_extension_point_lookup" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioIOExtensionPointRecord.FFI.non_opt GioIOExtensionPointRecord.FFI.p;
+    val register_ = _import "mlton_g_io_extension_point_register" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioIOExtensionPointRecord.FFI.non_opt GioIOExtensionPointRecord.FFI.p;
     type t = GioIOExtensionPointRecord.t
     type i_o_extension_t = GioIOExtensionRecord.t
     fun getExtensionByName self name = (GioIOExtensionPointRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioIOExtensionRecord.FFI.fromPtr false) getExtensionByName_ (self & name)

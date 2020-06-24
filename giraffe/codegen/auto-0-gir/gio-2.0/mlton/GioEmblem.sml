@@ -5,10 +5,10 @@ structure GioEmblem :>
     where type emblem_origin_t = GioEmblemOrigin.t =
   struct
     val getType_ = _import "g_emblem_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_emblem_new" : GioIconClass.FFI.notnull GioIconClass.FFI.p -> GioEmblemClass.FFI.notnull GioEmblemClass.FFI.p;
-    val newWithOrigin_ = fn x1 & x2 => (_import "g_emblem_new_with_origin" : GioIconClass.FFI.notnull GioIconClass.FFI.p * GioEmblemOrigin.FFI.val_ -> GioEmblemClass.FFI.notnull GioEmblemClass.FFI.p;) (x1, x2)
-    val getIcon_ = _import "g_emblem_get_icon" : GioEmblemClass.FFI.notnull GioEmblemClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val getOrigin_ = _import "g_emblem_get_origin" : GioEmblemClass.FFI.notnull GioEmblemClass.FFI.p -> GioEmblemOrigin.FFI.val_;
+    val new_ = _import "g_emblem_new" : GioIconClass.FFI.non_opt GioIconClass.FFI.p -> GioEmblemClass.FFI.non_opt GioEmblemClass.FFI.p;
+    val newWithOrigin_ = fn x1 & x2 => (_import "g_emblem_new_with_origin" : GioIconClass.FFI.non_opt GioIconClass.FFI.p * GioEmblemOrigin.FFI.val_ -> GioEmblemClass.FFI.non_opt GioEmblemClass.FFI.p;) (x1, x2)
+    val getIcon_ = _import "g_emblem_get_icon" : GioEmblemClass.FFI.non_opt GioEmblemClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val getOrigin_ = _import "g_emblem_get_origin" : GioEmblemClass.FFI.non_opt GioEmblemClass.FFI.p -> GioEmblemOrigin.FFI.val_;
     type 'a class = 'a GioEmblemClass.class
     type 'a icon_class = 'a GioIconClass.class
     type emblem_origin_t = GioEmblemOrigin.t

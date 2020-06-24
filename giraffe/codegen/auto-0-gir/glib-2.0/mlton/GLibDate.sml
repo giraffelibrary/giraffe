@@ -9,7 +9,7 @@ structure GLibDate :>
     where type date_year_t = GLibDateYear.t =
   struct
     val getType_ = _import "g_date_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_date_new" : unit -> GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p;
+    val new_ = _import "g_date_new" : unit -> GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p;
     val newDmy_ =
       fn
         x1
@@ -20,17 +20,17 @@ structure GLibDate :>
               GLibDateDay.FFI.val_
                * GLibDateMonth.FFI.val_
                * GLibDateYear.FFI.val_
-               -> GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p;
+               -> GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newJulian_ = _import "g_date_new_julian" : GUInt32.FFI.val_ -> GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p;
-    val addDays_ = fn x1 & x2 => (_import "g_date_add_days" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val addMonths_ = fn x1 & x2 => (_import "g_date_add_months" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val addYears_ = fn x1 & x2 => (_import "g_date_add_years" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val newJulian_ = _import "g_date_new_julian" : GUInt32.FFI.val_ -> GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p;
+    val addDays_ = fn x1 & x2 => (_import "g_date_add_days" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val addMonths_ = fn x1 & x2 => (_import "g_date_add_months" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val addYears_ = fn x1 & x2 => (_import "g_date_add_years" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val clamp_ =
       fn
         x1
@@ -38,9 +38,9 @@ structure GLibDate :>
          & x3 =>
           (
             _import "g_date_clamp" :
-              GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p
-               * GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p
-               * GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p
+              GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p
+               * GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p
+               * GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p
                -> unit;
           )
             (
@@ -48,22 +48,22 @@ structure GLibDate :>
               x2,
               x3
             )
-    val clear_ = fn x1 & x2 => (_import "g_date_clear" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val compare_ = fn x1 & x2 => (_import "g_date_compare" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val daysBetween_ = fn x1 & x2 => (_import "g_date_days_between" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val getDay_ = _import "g_date_get_day" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GLibDateDay.FFI.val_;
-    val getDayOfYear_ = _import "g_date_get_day_of_year" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GUInt.FFI.val_;
-    val getIso8601WeekOfYear_ = _import "g_date_get_iso8601_week_of_year" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GUInt.FFI.val_;
-    val getJulian_ = _import "g_date_get_julian" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GUInt32.FFI.val_;
-    val getMondayWeekOfYear_ = _import "g_date_get_monday_week_of_year" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GUInt.FFI.val_;
-    val getMonth_ = _import "g_date_get_month" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GLibDateMonth.FFI.val_;
-    val getSundayWeekOfYear_ = _import "g_date_get_sunday_week_of_year" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GUInt.FFI.val_;
-    val getWeekday_ = _import "g_date_get_weekday" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GLibDateWeekday.FFI.val_;
-    val getYear_ = _import "g_date_get_year" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GLibDateYear.FFI.val_;
-    val isFirstOfMonth_ = _import "g_date_is_first_of_month" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GBool.FFI.val_;
-    val isLastOfMonth_ = _import "g_date_is_last_of_month" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GBool.FFI.val_;
-    val order_ = fn x1 & x2 => (_import "g_date_order" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> unit;) (x1, x2)
-    val setDay_ = fn x1 & x2 => (_import "g_date_set_day" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GLibDateDay.FFI.val_ -> unit;) (x1, x2)
+    val clear_ = fn x1 & x2 => (_import "g_date_clear" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val compare_ = fn x1 & x2 => (_import "g_date_compare" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val daysBetween_ = fn x1 & x2 => (_import "g_date_days_between" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val getDay_ = _import "g_date_get_day" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GLibDateDay.FFI.val_;
+    val getDayOfYear_ = _import "g_date_get_day_of_year" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GUInt.FFI.val_;
+    val getIso8601WeekOfYear_ = _import "g_date_get_iso8601_week_of_year" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GUInt.FFI.val_;
+    val getJulian_ = _import "g_date_get_julian" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GUInt32.FFI.val_;
+    val getMondayWeekOfYear_ = _import "g_date_get_monday_week_of_year" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GUInt.FFI.val_;
+    val getMonth_ = _import "g_date_get_month" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GLibDateMonth.FFI.val_;
+    val getSundayWeekOfYear_ = _import "g_date_get_sunday_week_of_year" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GUInt.FFI.val_;
+    val getWeekday_ = _import "g_date_get_weekday" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GLibDateWeekday.FFI.val_;
+    val getYear_ = _import "g_date_get_year" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GLibDateYear.FFI.val_;
+    val isFirstOfMonth_ = _import "g_date_is_first_of_month" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GBool.FFI.val_;
+    val isLastOfMonth_ = _import "g_date_is_last_of_month" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GBool.FFI.val_;
+    val order_ = fn x1 & x2 => (_import "g_date_order" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> unit;) (x1, x2)
+    val setDay_ = fn x1 & x2 => (_import "g_date_set_day" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GLibDateDay.FFI.val_ -> unit;) (x1, x2)
     val setDmy_ =
       fn
         x1
@@ -72,7 +72,7 @@ structure GLibDate :>
          & x4 =>
           (
             _import "g_date_set_dmy" :
-              GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p
+              GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p
                * GLibDateDay.FFI.val_
                * GLibDateMonth.FFI.val_
                * GLibDateYear.FFI.val_
@@ -84,16 +84,16 @@ structure GLibDate :>
               x3,
               x4
             )
-    val setJulian_ = fn x1 & x2 => (_import "g_date_set_julian" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val setMonth_ = fn x1 & x2 => (_import "g_date_set_month" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GLibDateMonth.FFI.val_ -> unit;) (x1, x2)
+    val setJulian_ = fn x1 & x2 => (_import "g_date_set_julian" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val setMonth_ = fn x1 & x2 => (_import "g_date_set_month" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GLibDateMonth.FFI.val_ -> unit;) (x1, x2)
     val setParse_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_date_set_parse" :
-              GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p
+              GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -101,14 +101,14 @@ structure GLibDate :>
               x2,
               x3
             )
-    val setTime_ = fn x1 & x2 => (_import "g_date_set_time" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GLibTime.FFI.val_ -> unit;) (x1, x2)
-    val setTimeT_ = fn x1 & x2 => (_import "g_date_set_time_t" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GLong.FFI.val_ -> unit;) (x1, x2)
-    val setTimeVal_ = fn x1 & x2 => (_import "g_date_set_time_val" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GLibTimeValRecord.FFI.notnull GLibTimeValRecord.FFI.p -> unit;) (x1, x2)
-    val setYear_ = fn x1 & x2 => (_import "g_date_set_year" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GLibDateYear.FFI.val_ -> unit;) (x1, x2)
-    val subtractDays_ = fn x1 & x2 => (_import "g_date_subtract_days" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val subtractMonths_ = fn x1 & x2 => (_import "g_date_subtract_months" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val subtractYears_ = fn x1 & x2 => (_import "g_date_subtract_years" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val valid_ = _import "g_date_valid" : GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p -> GBool.FFI.val_;
+    val setTime_ = fn x1 & x2 => (_import "g_date_set_time" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GLibTime.FFI.val_ -> unit;) (x1, x2)
+    val setTimeT_ = fn x1 & x2 => (_import "g_date_set_time_t" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GLong.FFI.val_ -> unit;) (x1, x2)
+    val setTimeVal_ = fn x1 & x2 => (_import "g_date_set_time_val" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GLibTimeValRecord.FFI.non_opt GLibTimeValRecord.FFI.p -> unit;) (x1, x2)
+    val setYear_ = fn x1 & x2 => (_import "g_date_set_year" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GLibDateYear.FFI.val_ -> unit;) (x1, x2)
+    val subtractDays_ = fn x1 & x2 => (_import "g_date_subtract_days" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val subtractMonths_ = fn x1 & x2 => (_import "g_date_subtract_months" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val subtractYears_ = fn x1 & x2 => (_import "g_date_subtract_years" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val valid_ = _import "g_date_valid" : GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p -> GBool.FFI.val_;
     val getDaysInMonth_ = fn x1 & x2 => (_import "g_date_get_days_in_month" : GLibDateMonth.FFI.val_ * GLibDateYear.FFI.val_ -> GUInt8.FFI.val_;) (x1, x2)
     val getMondayWeeksInYear_ = _import "g_date_get_monday_weeks_in_year" : GLibDateYear.FFI.val_ -> GUInt8.FFI.val_;
     val getSundayWeeksInYear_ = _import "g_date_get_sunday_weeks_in_year" : GLibDateYear.FFI.val_ -> GUInt8.FFI.val_;
@@ -122,11 +122,11 @@ structure GLibDate :>
           (
             _import "mlton_g_date_strftime" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GSize.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GLibDateRecord.FFI.notnull GLibDateRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibDateRecord.FFI.non_opt GLibDateRecord.FFI.p
                -> GSize.FFI.val_;
           )
             (

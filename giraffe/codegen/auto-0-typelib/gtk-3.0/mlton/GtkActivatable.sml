@@ -4,12 +4,12 @@ structure GtkActivatable :>
     where type 'a action_class = 'a GtkActionClass.class =
   struct
     val getType_ = _import "gtk_activatable_get_type" : unit -> GObjectType.FFI.val_;
-    val doSetRelatedAction_ = fn x1 & x2 => (_import "gtk_activatable_do_set_related_action" : GtkActivatableClass.FFI.notnull GtkActivatableClass.FFI.p * GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> unit;) (x1, x2)
-    val getRelatedAction_ = _import "gtk_activatable_get_related_action" : GtkActivatableClass.FFI.notnull GtkActivatableClass.FFI.p -> GtkActionClass.FFI.notnull GtkActionClass.FFI.p;
-    val getUseActionAppearance_ = _import "gtk_activatable_get_use_action_appearance" : GtkActivatableClass.FFI.notnull GtkActivatableClass.FFI.p -> GBool.FFI.val_;
-    val setRelatedAction_ = fn x1 & x2 => (_import "gtk_activatable_set_related_action" : GtkActivatableClass.FFI.notnull GtkActivatableClass.FFI.p * GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> unit;) (x1, x2)
-    val setUseActionAppearance_ = fn x1 & x2 => (_import "gtk_activatable_set_use_action_appearance" : GtkActivatableClass.FFI.notnull GtkActivatableClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val syncActionProperties_ = fn x1 & x2 => (_import "gtk_activatable_sync_action_properties" : GtkActivatableClass.FFI.notnull GtkActivatableClass.FFI.p * unit GtkActionClass.FFI.p -> unit;) (x1, x2)
+    val doSetRelatedAction_ = fn x1 & x2 => (_import "gtk_activatable_do_set_related_action" : GtkActivatableClass.FFI.non_opt GtkActivatableClass.FFI.p * GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> unit;) (x1, x2)
+    val getRelatedAction_ = _import "gtk_activatable_get_related_action" : GtkActivatableClass.FFI.non_opt GtkActivatableClass.FFI.p -> GtkActionClass.FFI.non_opt GtkActionClass.FFI.p;
+    val getUseActionAppearance_ = _import "gtk_activatable_get_use_action_appearance" : GtkActivatableClass.FFI.non_opt GtkActivatableClass.FFI.p -> GBool.FFI.val_;
+    val setRelatedAction_ = fn x1 & x2 => (_import "gtk_activatable_set_related_action" : GtkActivatableClass.FFI.non_opt GtkActivatableClass.FFI.p * GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> unit;) (x1, x2)
+    val setUseActionAppearance_ = fn x1 & x2 => (_import "gtk_activatable_set_use_action_appearance" : GtkActivatableClass.FFI.non_opt GtkActivatableClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val syncActionProperties_ = fn x1 & x2 => (_import "gtk_activatable_sync_action_properties" : GtkActivatableClass.FFI.non_opt GtkActivatableClass.FFI.p * GtkActionClass.FFI.opt GtkActionClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkActivatableClass.class
     type 'a action_class = 'a GtkActionClass.class
     type t = base class

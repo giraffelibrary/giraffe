@@ -6,7 +6,7 @@ structure GtkHScale :>
     where type 'a adjustment_class = 'a GtkAdjustmentClass.class =
   struct
     val getType_ = _import "gtk_hscale_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_hscale_new" : unit GtkAdjustmentClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_hscale_new" : GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val newWithRange_ =
       fn
         x1
@@ -17,7 +17,7 @@ structure GtkHScale :>
               GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,

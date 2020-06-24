@@ -4,16 +4,16 @@ structure GioAppLaunchContext :>
     where type 'a app_info_class = 'a GioAppInfoClass.class =
   struct
     val getType_ = _import "g_app_launch_context_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_app_launch_context_new" : unit -> GioAppLaunchContextClass.FFI.notnull GioAppLaunchContextClass.FFI.p;
-    val getEnvironment_ = _import "g_app_launch_context_get_environment" : GioAppLaunchContextClass.FFI.notnull GioAppLaunchContextClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val new_ = _import "g_app_launch_context_new" : unit -> GioAppLaunchContextClass.FFI.non_opt GioAppLaunchContextClass.FFI.p;
+    val getEnvironment_ = _import "g_app_launch_context_get_environment" : GioAppLaunchContextClass.FFI.non_opt GioAppLaunchContextClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val launchFailed_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_app_launch_context_launch_failed" :
-              GioAppLaunchContextClass.FFI.notnull GioAppLaunchContextClass.FFI.p
+              GioAppLaunchContextClass.FFI.non_opt GioAppLaunchContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -28,11 +28,11 @@ structure GioAppLaunchContext :>
          & (x4, x5) =>
           (
             _import "mlton_g_app_launch_context_setenv" :
-              GioAppLaunchContextClass.FFI.notnull GioAppLaunchContextClass.FFI.p
+              GioAppLaunchContextClass.FFI.non_opt GioAppLaunchContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -47,9 +47,9 @@ structure GioAppLaunchContext :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_app_launch_context_unsetenv" :
-              GioAppLaunchContextClass.FFI.notnull GioAppLaunchContextClass.FFI.p
+              GioAppLaunchContextClass.FFI.non_opt GioAppLaunchContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

@@ -14,28 +14,28 @@ structure GtkFileChooserButton :>
           (
             _import "mlton_gtk_file_chooser_button_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GtkFileChooserAction.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newWithDialog_ = _import "gtk_file_chooser_button_new_with_dialog" : GtkDialogClass.FFI.notnull GtkDialogClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getFocusOnClick_ = _import "gtk_file_chooser_button_get_focus_on_click" : GtkFileChooserButtonClass.FFI.notnull GtkFileChooserButtonClass.FFI.p -> GBool.FFI.val_;
-    val getTitle_ = _import "gtk_file_chooser_button_get_title" : GtkFileChooserButtonClass.FFI.notnull GtkFileChooserButtonClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getWidthChars_ = _import "gtk_file_chooser_button_get_width_chars" : GtkFileChooserButtonClass.FFI.notnull GtkFileChooserButtonClass.FFI.p -> GInt32.FFI.val_;
-    val setFocusOnClick_ = fn x1 & x2 => (_import "gtk_file_chooser_button_set_focus_on_click" : GtkFileChooserButtonClass.FFI.notnull GtkFileChooserButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val newWithDialog_ = _import "gtk_file_chooser_button_new_with_dialog" : GtkDialogClass.FFI.non_opt GtkDialogClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getFocusOnClick_ = _import "gtk_file_chooser_button_get_focus_on_click" : GtkFileChooserButtonClass.FFI.non_opt GtkFileChooserButtonClass.FFI.p -> GBool.FFI.val_;
+    val getTitle_ = _import "gtk_file_chooser_button_get_title" : GtkFileChooserButtonClass.FFI.non_opt GtkFileChooserButtonClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getWidthChars_ = _import "gtk_file_chooser_button_get_width_chars" : GtkFileChooserButtonClass.FFI.non_opt GtkFileChooserButtonClass.FFI.p -> GInt32.FFI.val_;
+    val setFocusOnClick_ = fn x1 & x2 => (_import "gtk_file_chooser_button_set_focus_on_click" : GtkFileChooserButtonClass.FFI.non_opt GtkFileChooserButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_file_chooser_button_set_title" :
-              GtkFileChooserButtonClass.FFI.notnull GtkFileChooserButtonClass.FFI.p
+              GtkFileChooserButtonClass.FFI.non_opt GtkFileChooserButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -43,7 +43,7 @@ structure GtkFileChooserButton :>
               x2,
               x3
             )
-    val setWidthChars_ = fn x1 & x2 => (_import "gtk_file_chooser_button_set_width_chars" : GtkFileChooserButtonClass.FFI.notnull GtkFileChooserButtonClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setWidthChars_ = fn x1 & x2 => (_import "gtk_file_chooser_button_set_width_chars" : GtkFileChooserButtonClass.FFI.non_opt GtkFileChooserButtonClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkFileChooserButtonClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

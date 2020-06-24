@@ -5,8 +5,8 @@ structure GioProxyResolver :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_proxy_resolver_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefault_ = _import "g_proxy_resolver_get_default" : unit -> GioProxyResolverClass.FFI.notnull GioProxyResolverClass.FFI.p;
-    val isSupported_ = _import "g_proxy_resolver_is_supported" : GioProxyResolverClass.FFI.notnull GioProxyResolverClass.FFI.p -> GBool.FFI.val_;
+    val getDefault_ = _import "g_proxy_resolver_get_default" : unit -> GioProxyResolverClass.FFI.non_opt GioProxyResolverClass.FFI.p;
+    val isSupported_ = _import "g_proxy_resolver_is_supported" : GioProxyResolverClass.FFI.non_opt GioProxyResolverClass.FFI.p -> GBool.FFI.val_;
     val lookup_ =
       fn
         x1
@@ -15,12 +15,12 @@ structure GioProxyResolver :>
          & x5 =>
           (
             _import "mlton_g_proxy_resolver_lookup" :
-              GioProxyResolverClass.FFI.notnull GioProxyResolverClass.FFI.p
+              GioProxyResolverClass.FFI.non_opt GioProxyResolverClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -36,10 +36,10 @@ structure GioProxyResolver :>
          & x3 =>
           (
             _import "g_proxy_resolver_lookup_finish" :
-              GioProxyResolverClass.FFI.notnull GioProxyResolverClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+              GioProxyResolverClass.FFI.non_opt GioProxyResolverClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,

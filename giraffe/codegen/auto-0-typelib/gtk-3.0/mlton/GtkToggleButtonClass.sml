@@ -1,7 +1,8 @@
 structure GtkToggleButtonClass :>
   GTK_TOGGLE_BUTTON_CLASS
     where type 'a button_class = 'a GtkButtonClass.class
-    where type C.notnull = GtkButtonClass.C.notnull
+    where type C.opt = GtkButtonClass.C.opt
+    where type C.non_opt = GtkButtonClass.C.non_opt
     where type 'a C.p = 'a GtkButtonClass.C.p =
   struct
     type 'a button_class = 'a GtkButtonClass.class
@@ -9,10 +10,10 @@ structure GtkToggleButtonClass :>
     type 'a toggle_button = unit
     type 'a class = 'a toggle_button class
     val getType_ = _import "gtk_toggle_button_get_type" : unit -> GObjectType.FFI.val_;
-    val getValue_ = _import "g_value_get_object" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.notnull FFI.p;
-    val getOptValue_ = _import "g_value_get_object" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit FFI.p;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_object" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.notnull FFI.p -> unit;) (x1, x2)
-    val setOptValue_ = fn x1 & x2 => (_import "g_value_set_object" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * unit FFI.p -> unit;) (x1, x2)
+    val getValue_ = _import "g_value_get_object" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.non_opt FFI.p;
+    val getOptValue_ = _import "g_value_get_object" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.opt FFI.p;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_object" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.non_opt FFI.p -> unit;) (x1, x2)
+    val setOptValue_ = fn x1 & x2 => (_import "g_value_set_object" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.opt FFI.p -> unit;) (x1, x2)
     val t =
       ValueAccessor.C.createAccessor
         {

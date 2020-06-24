@@ -7,7 +7,7 @@ structure GtkTreeModelFilter :>
     where type tree_path_t = GtkTreePathRecord.t =
   struct
     val getType_ = _import "gtk_tree_model_filter_get_type" : unit -> GObjectType.FFI.val_;
-    val clearCache_ = _import "gtk_tree_model_filter_clear_cache" : GtkTreeModelFilterClass.FFI.notnull GtkTreeModelFilterClass.FFI.p -> unit;
+    val clearCache_ = _import "gtk_tree_model_filter_clear_cache" : GtkTreeModelFilterClass.FFI.non_opt GtkTreeModelFilterClass.FFI.p -> unit;
     val convertChildIterToIter_ =
       fn
         x1
@@ -15,9 +15,9 @@ structure GtkTreeModelFilter :>
          & x3 =>
           (
             _import "gtk_tree_model_filter_convert_child_iter_to_iter" :
-              GtkTreeModelFilterClass.FFI.notnull GtkTreeModelFilterClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkTreeModelFilterClass.FFI.non_opt GtkTreeModelFilterClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -25,7 +25,7 @@ structure GtkTreeModelFilter :>
               x2,
               x3
             )
-    val convertChildPathToPath_ = fn x1 & x2 => (_import "gtk_tree_model_filter_convert_child_path_to_path" : GtkTreeModelFilterClass.FFI.notnull GtkTreeModelFilterClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit GtkTreePathRecord.FFI.p;) (x1, x2)
+    val convertChildPathToPath_ = fn x1 & x2 => (_import "gtk_tree_model_filter_convert_child_path_to_path" : GtkTreeModelFilterClass.FFI.non_opt GtkTreeModelFilterClass.FFI.p * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p -> GtkTreePathRecord.FFI.opt GtkTreePathRecord.FFI.p;) (x1, x2)
     val convertIterToChildIter_ =
       fn
         x1
@@ -33,9 +33,9 @@ structure GtkTreeModelFilter :>
          & x3 =>
           (
             _import "gtk_tree_model_filter_convert_iter_to_child_iter" :
-              GtkTreeModelFilterClass.FFI.notnull GtkTreeModelFilterClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkTreeModelFilterClass.FFI.non_opt GtkTreeModelFilterClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                -> unit;
           )
             (
@@ -43,10 +43,10 @@ structure GtkTreeModelFilter :>
               x2,
               x3
             )
-    val convertPathToChildPath_ = fn x1 & x2 => (_import "gtk_tree_model_filter_convert_path_to_child_path" : GtkTreeModelFilterClass.FFI.notnull GtkTreeModelFilterClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit GtkTreePathRecord.FFI.p;) (x1, x2)
-    val getModel_ = _import "gtk_tree_model_filter_get_model" : GtkTreeModelFilterClass.FFI.notnull GtkTreeModelFilterClass.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;
-    val refilter_ = _import "gtk_tree_model_filter_refilter" : GtkTreeModelFilterClass.FFI.notnull GtkTreeModelFilterClass.FFI.p -> unit;
-    val setVisibleColumn_ = fn x1 & x2 => (_import "gtk_tree_model_filter_set_visible_column" : GtkTreeModelFilterClass.FFI.notnull GtkTreeModelFilterClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val convertPathToChildPath_ = fn x1 & x2 => (_import "gtk_tree_model_filter_convert_path_to_child_path" : GtkTreeModelFilterClass.FFI.non_opt GtkTreeModelFilterClass.FFI.p * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p -> GtkTreePathRecord.FFI.opt GtkTreePathRecord.FFI.p;) (x1, x2)
+    val getModel_ = _import "gtk_tree_model_filter_get_model" : GtkTreeModelFilterClass.FFI.non_opt GtkTreeModelFilterClass.FFI.p -> GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p;
+    val refilter_ = _import "gtk_tree_model_filter_refilter" : GtkTreeModelFilterClass.FFI.non_opt GtkTreeModelFilterClass.FFI.p -> unit;
+    val setVisibleColumn_ = fn x1 & x2 => (_import "gtk_tree_model_filter_set_visible_column" : GtkTreeModelFilterClass.FFI.non_opt GtkTreeModelFilterClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkTreeModelFilterClass.class
     type 'a tree_drag_source_class = 'a GtkTreeDragSourceClass.class
     type tree_iter_t = GtkTreeIterRecord.t

@@ -11,7 +11,7 @@ structure GtkCellAreaContext :>
          & x3 =>
           (
             _import "gtk_cell_area_context_allocate" :
-              GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
+              GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -28,7 +28,7 @@ structure GtkCellAreaContext :>
          & x3 =>
           (
             _import "gtk_cell_area_context_get_allocation" :
-              GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
+              GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -38,7 +38,7 @@ structure GtkCellAreaContext :>
               x2,
               x3
             )
-    val getArea_ = _import "gtk_cell_area_context_get_area" : GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p -> GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p;
+    val getArea_ = _import "gtk_cell_area_context_get_area" : GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p -> GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p;
     val getPreferredHeight_ =
       fn
         x1
@@ -46,7 +46,7 @@ structure GtkCellAreaContext :>
          & x3 =>
           (
             _import "gtk_cell_area_context_get_preferred_height" :
-              GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
+              GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -64,7 +64,7 @@ structure GtkCellAreaContext :>
          & x4 =>
           (
             _import "gtk_cell_area_context_get_preferred_height_for_width" :
-              GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
+              GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.ref_
                * GInt.FFI.ref_
@@ -83,7 +83,7 @@ structure GtkCellAreaContext :>
          & x3 =>
           (
             _import "gtk_cell_area_context_get_preferred_width" :
-              GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
+              GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -101,7 +101,7 @@ structure GtkCellAreaContext :>
          & x4 =>
           (
             _import "gtk_cell_area_context_get_preferred_width_for_height" :
-              GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
+              GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.ref_
                * GInt.FFI.ref_
@@ -120,7 +120,7 @@ structure GtkCellAreaContext :>
          & x3 =>
           (
             _import "gtk_cell_area_context_push_preferred_height" :
-              GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
+              GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -137,7 +137,7 @@ structure GtkCellAreaContext :>
          & x3 =>
           (
             _import "gtk_cell_area_context_push_preferred_width" :
-              GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p
+              GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -147,7 +147,7 @@ structure GtkCellAreaContext :>
               x2,
               x3
             )
-    val reset_ = _import "gtk_cell_area_context_reset" : GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p -> unit;
+    val reset_ = _import "gtk_cell_area_context_reset" : GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p -> unit;
     type 'a class = 'a GtkCellAreaContextClass.class
     type 'a cell_area_class = 'a GtkCellAreaClass.class
     type t = base class

@@ -1,6 +1,7 @@
 structure GdkAppLaunchContextClass :>
   GDK_APP_LAUNCH_CONTEXT_CLASS
-    where type C.notnull = GioAppLaunchContextClass.C.notnull
+    where type C.opt = GioAppLaunchContextClass.C.opt
+    where type C.non_opt = GioAppLaunchContextClass.C.non_opt
     where type 'a C.p = 'a GioAppLaunchContextClass.C.p =
   struct
     open GioAppLaunchContextClass

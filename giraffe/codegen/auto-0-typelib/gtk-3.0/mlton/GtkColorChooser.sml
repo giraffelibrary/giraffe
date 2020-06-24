@@ -13,12 +13,12 @@ structure GtkColorChooser :>
          & (x5, x6) =>
           (
             _import "mlton_gtk_color_chooser_add_palette" :
-              GtkColorChooserClass.FFI.notnull GtkColorChooserClass.FFI.p
+              GtkColorChooserClass.FFI.non_opt GtkColorChooserClass.FFI.p
                * GtkOrientation.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GdkRgbaRecordCArrayN.MLton.p1
-               * unit GdkRgbaRecordCArrayN.MLton.p2
+               * GdkRgbaRecordCArrayN.FFI.opt GdkRgbaRecordCArrayN.MLton.p2
                -> unit;
           )
             (
@@ -29,10 +29,10 @@ structure GtkColorChooser :>
               x5,
               x6
             )
-    val getRgba_ = fn x1 & x2 => (_import "gtk_color_chooser_get_rgba" : GtkColorChooserClass.FFI.notnull GtkColorChooserClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val getUseAlpha_ = _import "gtk_color_chooser_get_use_alpha" : GtkColorChooserClass.FFI.notnull GtkColorChooserClass.FFI.p -> GBool.FFI.val_;
-    val setRgba_ = fn x1 & x2 => (_import "gtk_color_chooser_set_rgba" : GtkColorChooserClass.FFI.notnull GtkColorChooserClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val setUseAlpha_ = fn x1 & x2 => (_import "gtk_color_chooser_set_use_alpha" : GtkColorChooserClass.FFI.notnull GtkColorChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getRgba_ = fn x1 & x2 => (_import "gtk_color_chooser_get_rgba" : GtkColorChooserClass.FFI.non_opt GtkColorChooserClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val getUseAlpha_ = _import "gtk_color_chooser_get_use_alpha" : GtkColorChooserClass.FFI.non_opt GtkColorChooserClass.FFI.p -> GBool.FFI.val_;
+    val setRgba_ = fn x1 & x2 => (_import "gtk_color_chooser_set_rgba" : GtkColorChooserClass.FFI.non_opt GtkColorChooserClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setUseAlpha_ = fn x1 & x2 => (_import "gtk_color_chooser_set_use_alpha" : GtkColorChooserClass.FFI.non_opt GtkColorChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkColorChooserClass.class
     type orientation_t = GtkOrientation.t
     type t = base class

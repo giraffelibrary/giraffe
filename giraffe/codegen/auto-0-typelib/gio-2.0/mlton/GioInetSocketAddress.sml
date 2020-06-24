@@ -5,26 +5,26 @@ structure GioInetSocketAddress :>
     where type 'a inet_address_class = 'a GioInetAddressClass.class =
   struct
     val getType_ = _import "g_inet_socket_address_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "g_inet_socket_address_new" : GioInetAddressClass.FFI.notnull GioInetAddressClass.FFI.p * GUInt16.FFI.val_ -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;) (x1, x2)
+    val new_ = fn x1 & x2 => (_import "g_inet_socket_address_new" : GioInetAddressClass.FFI.non_opt GioInetAddressClass.FFI.p * GUInt16.FFI.val_ -> GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p;) (x1, x2)
     val newFromString_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_inet_socket_address_new_from_string" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt32.FFI.val_
-               -> unit GioSocketAddressClass.FFI.p;
+               -> GioSocketAddressClass.FFI.opt GioSocketAddressClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getAddress_ = _import "g_inet_socket_address_get_address" : GioInetSocketAddressClass.FFI.notnull GioInetSocketAddressClass.FFI.p -> GioInetAddressClass.FFI.notnull GioInetAddressClass.FFI.p;
-    val getFlowinfo_ = _import "g_inet_socket_address_get_flowinfo" : GioInetSocketAddressClass.FFI.notnull GioInetSocketAddressClass.FFI.p -> GUInt32.FFI.val_;
-    val getPort_ = _import "g_inet_socket_address_get_port" : GioInetSocketAddressClass.FFI.notnull GioInetSocketAddressClass.FFI.p -> GUInt16.FFI.val_;
-    val getScopeId_ = _import "g_inet_socket_address_get_scope_id" : GioInetSocketAddressClass.FFI.notnull GioInetSocketAddressClass.FFI.p -> GUInt32.FFI.val_;
+    val getAddress_ = _import "g_inet_socket_address_get_address" : GioInetSocketAddressClass.FFI.non_opt GioInetSocketAddressClass.FFI.p -> GioInetAddressClass.FFI.non_opt GioInetAddressClass.FFI.p;
+    val getFlowinfo_ = _import "g_inet_socket_address_get_flowinfo" : GioInetSocketAddressClass.FFI.non_opt GioInetSocketAddressClass.FFI.p -> GUInt32.FFI.val_;
+    val getPort_ = _import "g_inet_socket_address_get_port" : GioInetSocketAddressClass.FFI.non_opt GioInetSocketAddressClass.FFI.p -> GUInt16.FFI.val_;
+    val getScopeId_ = _import "g_inet_socket_address_get_scope_id" : GioInetSocketAddressClass.FFI.non_opt GioInetSocketAddressClass.FFI.p -> GUInt32.FFI.val_;
     type 'a class = 'a GioInetSocketAddressClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type 'a inet_address_class = 'a GioInetAddressClass.class

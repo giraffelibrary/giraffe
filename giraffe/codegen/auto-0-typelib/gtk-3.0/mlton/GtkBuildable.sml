@@ -12,11 +12,11 @@ structure GtkBuildable :>
          & (x4, x5) =>
           (
             _import "mlton_gtk_buildable_add_child" :
-              GtkBuildableClass.FFI.notnull GtkBuildableClass.FFI.p
-               * GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+              GtkBuildableClass.FFI.non_opt GtkBuildableClass.FFI.p
+               * GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -33,11 +33,11 @@ structure GtkBuildable :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_buildable_construct_child" :
-              GtkBuildableClass.FFI.notnull GtkBuildableClass.FFI.p
-               * GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuildableClass.FFI.non_opt GtkBuildableClass.FFI.p
+               * GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p;
           )
             (
               x1,
@@ -52,11 +52,11 @@ structure GtkBuildable :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_buildable_get_internal_child" :
-              GtkBuildableClass.FFI.notnull GtkBuildableClass.FFI.p
-               * GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuildableClass.FFI.non_opt GtkBuildableClass.FFI.p
+               * GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p;
           )
             (
               x1,
@@ -64,8 +64,8 @@ structure GtkBuildable :>
               x3,
               x4
             )
-    val getName_ = _import "gtk_buildable_get_name" : GtkBuildableClass.FFI.notnull GtkBuildableClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val parserFinished_ = fn x1 & x2 => (_import "gtk_buildable_parser_finished" : GtkBuildableClass.FFI.notnull GtkBuildableClass.FFI.p * GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p -> unit;) (x1, x2)
+    val getName_ = _import "gtk_buildable_get_name" : GtkBuildableClass.FFI.non_opt GtkBuildableClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val parserFinished_ = fn x1 & x2 => (_import "gtk_buildable_parser_finished" : GtkBuildableClass.FFI.non_opt GtkBuildableClass.FFI.p * GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p -> unit;) (x1, x2)
     val setBuildableProperty_ =
       fn
         x1
@@ -74,11 +74,11 @@ structure GtkBuildable :>
          & x5 =>
           (
             _import "mlton_gtk_buildable_set_buildable_property" :
-              GtkBuildableClass.FFI.notnull GtkBuildableClass.FFI.p
-               * GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuildableClass.FFI.non_opt GtkBuildableClass.FFI.p
+               * GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -93,9 +93,9 @@ structure GtkBuildable :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_buildable_set_name" :
-              GtkBuildableClass.FFI.notnull GtkBuildableClass.FFI.p
+              GtkBuildableClass.FFI.non_opt GtkBuildableClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

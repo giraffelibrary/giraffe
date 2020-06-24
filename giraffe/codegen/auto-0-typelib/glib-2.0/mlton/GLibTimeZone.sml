@@ -4,9 +4,9 @@ structure GLibTimeZone :>
     where type time_type_t = GLibTimeType.t =
   struct
     val getType_ = _import "g_time_zone_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_g_time_zone_new" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p;
-    val newLocal_ = _import "g_time_zone_new_local" : unit -> GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p;
-    val newUtc_ = _import "g_time_zone_new_utc" : unit -> GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p;
+    val new_ = _import "mlton_g_time_zone_new" : Utf8.MLton.p1 * Utf8.FFI.opt Utf8.MLton.p2 -> GLibTimeZoneRecord.FFI.non_opt GLibTimeZoneRecord.FFI.p;
+    val newLocal_ = _import "g_time_zone_new_local" : unit -> GLibTimeZoneRecord.FFI.non_opt GLibTimeZoneRecord.FFI.p;
+    val newUtc_ = _import "g_time_zone_new_utc" : unit -> GLibTimeZoneRecord.FFI.non_opt GLibTimeZoneRecord.FFI.p;
     val findInterval_ =
       fn
         x1
@@ -14,7 +14,7 @@ structure GLibTimeZone :>
          & x3 =>
           (
             _import "g_time_zone_find_interval" :
-              GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p
+              GLibTimeZoneRecord.FFI.non_opt GLibTimeZoneRecord.FFI.p
                * GLibTimeType.FFI.val_
                * GInt64.FFI.val_
                -> GInt32.FFI.val_;
@@ -24,9 +24,9 @@ structure GLibTimeZone :>
               x2,
               x3
             )
-    val getAbbreviation_ = fn x1 & x2 => (_import "g_time_zone_get_abbreviation" : GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p * GInt32.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val getOffset_ = fn x1 & x2 => (_import "g_time_zone_get_offset" : GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
-    val isDst_ = fn x1 & x2 => (_import "g_time_zone_is_dst" : GLibTimeZoneRecord.FFI.notnull GLibTimeZoneRecord.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val getAbbreviation_ = fn x1 & x2 => (_import "g_time_zone_get_abbreviation" : GLibTimeZoneRecord.FFI.non_opt GLibTimeZoneRecord.FFI.p * GInt32.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val getOffset_ = fn x1 & x2 => (_import "g_time_zone_get_offset" : GLibTimeZoneRecord.FFI.non_opt GLibTimeZoneRecord.FFI.p * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
+    val isDst_ = fn x1 & x2 => (_import "g_time_zone_is_dst" : GLibTimeZoneRecord.FFI.non_opt GLibTimeZoneRecord.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     type t = GLibTimeZoneRecord.t
     type time_type_t = GLibTimeType.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

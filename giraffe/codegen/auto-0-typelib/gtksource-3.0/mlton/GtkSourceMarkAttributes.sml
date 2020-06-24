@@ -4,14 +4,14 @@ structure GtkSourceMarkAttributes :>
     where type 'a mark_class = 'a GtkSourceMarkClass.class =
   struct
     val getType_ = _import "gtk_source_mark_attributes_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_mark_attributes_new" : unit -> GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p;
-    val getBackground_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_get_background" : GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getGicon_ = _import "gtk_source_mark_attributes_get_gicon" : GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val getIconName_ = _import "gtk_source_mark_attributes_get_icon_name" : GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPixbuf_ = _import "gtk_source_mark_attributes_get_pixbuf" : GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
-    val getStockId_ = _import "gtk_source_mark_attributes_get_stock_id" : GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getTooltipMarkup_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_get_tooltip_markup" : GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p * GtkSourceMarkClass.FFI.notnull GtkSourceMarkClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val getTooltipText_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_get_tooltip_text" : GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p * GtkSourceMarkClass.FFI.notnull GtkSourceMarkClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val new_ = _import "gtk_source_mark_attributes_new" : unit -> GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p;
+    val getBackground_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_get_background" : GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getGicon_ = _import "gtk_source_mark_attributes_get_gicon" : GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val getIconName_ = _import "gtk_source_mark_attributes_get_icon_name" : GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPixbuf_ = _import "gtk_source_mark_attributes_get_pixbuf" : GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
+    val getStockId_ = _import "gtk_source_mark_attributes_get_stock_id" : GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getTooltipMarkup_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_get_tooltip_markup" : GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p * GtkSourceMarkClass.FFI.non_opt GtkSourceMarkClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val getTooltipText_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_get_tooltip_text" : GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p * GtkSourceMarkClass.FFI.non_opt GtkSourceMarkClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
     val renderIcon_ =
       fn
         x1
@@ -19,26 +19,26 @@ structure GtkSourceMarkAttributes :>
          & x3 =>
           (
             _import "gtk_source_mark_attributes_render_icon" :
-              GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt32.FFI.val_
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val setBackground_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_set_background" : GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val setGicon_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_set_gicon" : GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p * GioIconClass.FFI.notnull GioIconClass.FFI.p -> unit;) (x1, x2)
+    val setBackground_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_set_background" : GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setGicon_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_set_gicon" : GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p * GioIconClass.FFI.non_opt GioIconClass.FFI.p -> unit;) (x1, x2)
     val setIconName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_mark_attributes_set_icon_name" :
-              GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p
+              GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -46,15 +46,15 @@ structure GtkSourceMarkAttributes :>
               x2,
               x3
             )
-    val setPixbuf_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_set_pixbuf" : GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
+    val setPixbuf_ = fn x1 & x2 => (_import "gtk_source_mark_attributes_set_pixbuf" : GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p * GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
     val setStockId_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_mark_attributes_set_stock_id" :
-              GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p
+              GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

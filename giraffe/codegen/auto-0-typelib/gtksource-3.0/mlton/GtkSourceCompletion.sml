@@ -14,9 +14,9 @@ structure GtkSourceCompletion :>
          & x3 =>
           (
             _import "gtk_source_completion_add_provider" :
-              GtkSourceCompletionClass.FFI.notnull GtkSourceCompletionClass.FFI.p
-               * GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GtkSourceCompletionClass.FFI.non_opt GtkSourceCompletionClass.FFI.p
+               * GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -24,12 +24,12 @@ structure GtkSourceCompletion :>
               x2,
               x3
             )
-    val blockInteractive_ = _import "gtk_source_completion_block_interactive" : GtkSourceCompletionClass.FFI.notnull GtkSourceCompletionClass.FFI.p -> unit;
-    val createContext_ = fn x1 & x2 => (_import "gtk_source_completion_create_context" : GtkSourceCompletionClass.FFI.notnull GtkSourceCompletionClass.FFI.p * unit GtkTextIterRecord.FFI.p -> GtkSourceCompletionContextClass.FFI.notnull GtkSourceCompletionContextClass.FFI.p;) (x1, x2)
-    val getInfoWindow_ = _import "gtk_source_completion_get_info_window" : GtkSourceCompletionClass.FFI.notnull GtkSourceCompletionClass.FFI.p -> GtkSourceCompletionInfoClass.FFI.notnull GtkSourceCompletionInfoClass.FFI.p;
-    val getView_ = _import "gtk_source_completion_get_view" : GtkSourceCompletionClass.FFI.notnull GtkSourceCompletionClass.FFI.p -> unit GtkSourceViewClass.FFI.p;
-    val hide_ = _import "gtk_source_completion_hide" : GtkSourceCompletionClass.FFI.notnull GtkSourceCompletionClass.FFI.p -> unit;
-    val moveWindow_ = fn x1 & x2 => (_import "gtk_source_completion_move_window" : GtkSourceCompletionClass.FFI.notnull GtkSourceCompletionClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> unit;) (x1, x2)
+    val blockInteractive_ = _import "gtk_source_completion_block_interactive" : GtkSourceCompletionClass.FFI.non_opt GtkSourceCompletionClass.FFI.p -> unit;
+    val createContext_ = fn x1 & x2 => (_import "gtk_source_completion_create_context" : GtkSourceCompletionClass.FFI.non_opt GtkSourceCompletionClass.FFI.p * GtkTextIterRecord.FFI.opt GtkTextIterRecord.FFI.p -> GtkSourceCompletionContextClass.FFI.non_opt GtkSourceCompletionContextClass.FFI.p;) (x1, x2)
+    val getInfoWindow_ = _import "gtk_source_completion_get_info_window" : GtkSourceCompletionClass.FFI.non_opt GtkSourceCompletionClass.FFI.p -> GtkSourceCompletionInfoClass.FFI.non_opt GtkSourceCompletionInfoClass.FFI.p;
+    val getView_ = _import "gtk_source_completion_get_view" : GtkSourceCompletionClass.FFI.non_opt GtkSourceCompletionClass.FFI.p -> GtkSourceViewClass.FFI.opt GtkSourceViewClass.FFI.p;
+    val hide_ = _import "gtk_source_completion_hide" : GtkSourceCompletionClass.FFI.non_opt GtkSourceCompletionClass.FFI.p -> unit;
+    val moveWindow_ = fn x1 & x2 => (_import "gtk_source_completion_move_window" : GtkSourceCompletionClass.FFI.non_opt GtkSourceCompletionClass.FFI.p * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> unit;) (x1, x2)
     val removeProvider_ =
       fn
         x1
@@ -37,9 +37,9 @@ structure GtkSourceCompletion :>
          & x3 =>
           (
             _import "gtk_source_completion_remove_provider" :
-              GtkSourceCompletionClass.FFI.notnull GtkSourceCompletionClass.FFI.p
-               * GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GtkSourceCompletionClass.FFI.non_opt GtkSourceCompletionClass.FFI.p
+               * GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -47,7 +47,7 @@ structure GtkSourceCompletion :>
               x2,
               x3
             )
-    val unblockInteractive_ = _import "gtk_source_completion_unblock_interactive" : GtkSourceCompletionClass.FFI.notnull GtkSourceCompletionClass.FFI.p -> unit;
+    val unblockInteractive_ = _import "gtk_source_completion_unblock_interactive" : GtkSourceCompletionClass.FFI.non_opt GtkSourceCompletionClass.FFI.p -> unit;
     type 'a class = 'a GtkSourceCompletionClass.class
     type 'a completion_info_class = 'a GtkSourceCompletionInfoClass.class
     type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class

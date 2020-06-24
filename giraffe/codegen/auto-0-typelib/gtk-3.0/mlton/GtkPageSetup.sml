@@ -6,23 +6,23 @@ structure GtkPageSetup :>
     where type unit_t = GtkUnit.t =
   struct
     val getType_ = _import "gtk_page_setup_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_page_setup_new" : unit -> GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p;
+    val new_ = _import "gtk_page_setup_new" : unit -> GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p;
     val newFromFile_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_page_setup_new_from_file" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newFromGvariant_ = _import "gtk_page_setup_new_from_gvariant" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p;
+    val newFromGvariant_ = _import "gtk_page_setup_new_from_gvariant" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p;
     val newFromKeyFile_ =
       fn
         x1
@@ -30,11 +30,11 @@ structure GtkPageSetup :>
          & x4 =>
           (
             _import "mlton_gtk_page_setup_new_from_key_file" :
-              GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
+              GLibKeyFileRecord.FFI.non_opt GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p;
           )
             (
               x1,
@@ -42,17 +42,17 @@ structure GtkPageSetup :>
               x3,
               x4
             )
-    val copy_ = _import "gtk_page_setup_copy" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p -> GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p;
-    val getBottomMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_bottom_margin" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getLeftMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_left_margin" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getOrientation_ = _import "gtk_page_setup_get_orientation" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p -> GtkPageOrientation.FFI.val_;
-    val getPageHeight_ = fn x1 & x2 => (_import "gtk_page_setup_get_page_height" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getPageWidth_ = fn x1 & x2 => (_import "gtk_page_setup_get_page_width" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getPaperHeight_ = fn x1 & x2 => (_import "gtk_page_setup_get_paper_height" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getPaperSize_ = _import "gtk_page_setup_get_paper_size" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p -> GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p;
-    val getPaperWidth_ = fn x1 & x2 => (_import "gtk_page_setup_get_paper_width" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getRightMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_right_margin" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getTopMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_top_margin" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val copy_ = _import "gtk_page_setup_copy" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p -> GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p;
+    val getBottomMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_bottom_margin" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getLeftMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_left_margin" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getOrientation_ = _import "gtk_page_setup_get_orientation" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p -> GtkPageOrientation.FFI.val_;
+    val getPageHeight_ = fn x1 & x2 => (_import "gtk_page_setup_get_page_height" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getPageWidth_ = fn x1 & x2 => (_import "gtk_page_setup_get_page_width" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getPaperHeight_ = fn x1 & x2 => (_import "gtk_page_setup_get_paper_height" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getPaperSize_ = _import "gtk_page_setup_get_paper_size" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p -> GtkPaperSizeRecord.FFI.non_opt GtkPaperSizeRecord.FFI.p;
+    val getPaperWidth_ = fn x1 & x2 => (_import "gtk_page_setup_get_paper_width" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getRightMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_right_margin" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getTopMargin_ = fn x1 & x2 => (_import "gtk_page_setup_get_top_margin" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
     val loadFile_ =
       fn
         x1
@@ -60,10 +60,10 @@ structure GtkPageSetup :>
          & x4 =>
           (
             _import "mlton_gtk_page_setup_load_file" :
-              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
+              GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -80,11 +80,11 @@ structure GtkPageSetup :>
          & x5 =>
           (
             _import "mlton_gtk_page_setup_load_key_file" :
-              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
-               * GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
+              GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p
+               * GLibKeyFileRecord.FFI.non_opt GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -101,7 +101,7 @@ structure GtkPageSetup :>
          & x3 =>
           (
             _import "gtk_page_setup_set_bottom_margin" :
-              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
+              GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p
                * GDouble.FFI.val_
                * GtkUnit.FFI.val_
                -> unit;
@@ -118,7 +118,7 @@ structure GtkPageSetup :>
          & x3 =>
           (
             _import "gtk_page_setup_set_left_margin" :
-              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
+              GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p
                * GDouble.FFI.val_
                * GtkUnit.FFI.val_
                -> unit;
@@ -128,9 +128,9 @@ structure GtkPageSetup :>
               x2,
               x3
             )
-    val setOrientation_ = fn x1 & x2 => (_import "gtk_page_setup_set_orientation" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkPageOrientation.FFI.val_ -> unit;) (x1, x2)
-    val setPaperSize_ = fn x1 & x2 => (_import "gtk_page_setup_set_paper_size" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p -> unit;) (x1, x2)
-    val setPaperSizeAndDefaultMargins_ = fn x1 & x2 => (_import "gtk_page_setup_set_paper_size_and_default_margins" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p * GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p -> unit;) (x1, x2)
+    val setOrientation_ = fn x1 & x2 => (_import "gtk_page_setup_set_orientation" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p * GtkPageOrientation.FFI.val_ -> unit;) (x1, x2)
+    val setPaperSize_ = fn x1 & x2 => (_import "gtk_page_setup_set_paper_size" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p * GtkPaperSizeRecord.FFI.non_opt GtkPaperSizeRecord.FFI.p -> unit;) (x1, x2)
+    val setPaperSizeAndDefaultMargins_ = fn x1 & x2 => (_import "gtk_page_setup_set_paper_size_and_default_margins" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p * GtkPaperSizeRecord.FFI.non_opt GtkPaperSizeRecord.FFI.p -> unit;) (x1, x2)
     val setRightMargin_ =
       fn
         x1
@@ -138,7 +138,7 @@ structure GtkPageSetup :>
          & x3 =>
           (
             _import "gtk_page_setup_set_right_margin" :
-              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
+              GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p
                * GDouble.FFI.val_
                * GtkUnit.FFI.val_
                -> unit;
@@ -155,7 +155,7 @@ structure GtkPageSetup :>
          & x3 =>
           (
             _import "gtk_page_setup_set_top_margin" :
-              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
+              GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p
                * GDouble.FFI.val_
                * GtkUnit.FFI.val_
                -> unit;
@@ -172,10 +172,10 @@ structure GtkPageSetup :>
          & x4 =>
           (
             _import "mlton_gtk_page_setup_to_file" :
-              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
+              GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -184,7 +184,7 @@ structure GtkPageSetup :>
               x3,
               x4
             )
-    val toGvariant_ = _import "gtk_page_setup_to_gvariant" : GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+    val toGvariant_ = _import "gtk_page_setup_to_gvariant" : GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
     val toKeyFile_ =
       fn
         x1
@@ -192,10 +192,10 @@ structure GtkPageSetup :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_page_setup_to_key_file" :
-              GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p
-               * GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
+              GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p
+               * GLibKeyFileRecord.FFI.non_opt GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

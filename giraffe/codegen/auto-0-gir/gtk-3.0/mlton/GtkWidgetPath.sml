@@ -6,9 +6,9 @@ structure GtkWidgetPath :>
     where type state_flags_t = GtkStateFlags.t =
   struct
     val getType_ = _import "gtk_widget_path_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_widget_path_new" : unit -> GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p;
-    val appendForWidget_ = fn x1 & x2 => (_import "gtk_widget_path_append_for_widget" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val appendType_ = fn x1 & x2 => (_import "gtk_widget_path_append_type" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GObjectType.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
+    val new_ = _import "gtk_widget_path_new" : unit -> GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p;
+    val appendForWidget_ = fn x1 & x2 => (_import "gtk_widget_path_append_for_widget" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val appendType_ = fn x1 & x2 => (_import "gtk_widget_path_append_type" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GObjectType.FFI.val_ -> GInt.FFI.val_;) (x1, x2)
     val appendWithSiblings_ =
       fn
         x1
@@ -16,8 +16,8 @@ structure GtkWidgetPath :>
          & x3 =>
           (
             _import "gtk_widget_path_append_with_siblings" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
-               * GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
+               * GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GUInt.FFI.val_
                -> GInt.FFI.val_;
           )
@@ -26,10 +26,10 @@ structure GtkWidgetPath :>
               x2,
               x3
             )
-    val copy_ = _import "gtk_widget_path_copy" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p;
-    val getObjectType_ = _import "gtk_widget_path_get_object_type" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> GObjectType.FFI.val_;
-    val hasParent_ = fn x1 & x2 => (_import "gtk_widget_path_has_parent" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val isType_ = fn x1 & x2 => (_import "gtk_widget_path_is_type" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val copy_ = _import "gtk_widget_path_copy" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p -> GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p;
+    val getObjectType_ = _import "gtk_widget_path_get_object_type" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p -> GObjectType.FFI.val_;
+    val hasParent_ = fn x1 & x2 => (_import "gtk_widget_path_has_parent" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val isType_ = fn x1 & x2 => (_import "gtk_widget_path_is_type" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val iterAddClass_ =
       fn
         x1
@@ -37,10 +37,10 @@ structure GtkWidgetPath :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_widget_path_iter_add_class" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -57,10 +57,10 @@ structure GtkWidgetPath :>
          & x5 =>
           (
             _import "mlton_gtk_widget_path_iter_add_region" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GtkRegionFlags.FFI.val_
                -> unit;
           )
@@ -71,14 +71,14 @@ structure GtkWidgetPath :>
               x4,
               x5
             )
-    val iterClearClasses_ = fn x1 & x2 => (_import "gtk_widget_path_iter_clear_classes" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val iterClearRegions_ = fn x1 & x2 => (_import "gtk_widget_path_iter_clear_regions" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val iterGetName_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_name" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
-    val iterGetObjectName_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_object_name" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
-    val iterGetObjectType_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_object_type" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> GObjectType.FFI.val_;) (x1, x2)
-    val iterGetSiblingIndex_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_sibling_index" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> GUInt.FFI.val_;) (x1, x2)
-    val iterGetSiblings_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_siblings" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p;) (x1, x2)
-    val iterGetState_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_state" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> GtkStateFlags.FFI.val_;) (x1, x2)
+    val iterClearClasses_ = fn x1 & x2 => (_import "gtk_widget_path_iter_clear_classes" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val iterClearRegions_ = fn x1 & x2 => (_import "gtk_widget_path_iter_clear_regions" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val iterGetName_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_name" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val iterGetObjectName_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_object_name" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val iterGetObjectType_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_object_type" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> GObjectType.FFI.val_;) (x1, x2)
+    val iterGetSiblingIndex_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_sibling_index" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> GUInt.FFI.val_;) (x1, x2)
+    val iterGetSiblings_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_siblings" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p;) (x1, x2)
+    val iterGetState_ = fn x1 & x2 => (_import "gtk_widget_path_iter_get_state" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GInt.FFI.val_ -> GtkStateFlags.FFI.val_;) (x1, x2)
     val iterHasClass_ =
       fn
         x1
@@ -86,10 +86,10 @@ structure GtkWidgetPath :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_widget_path_iter_has_class" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -105,10 +105,10 @@ structure GtkWidgetPath :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_widget_path_iter_has_name" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -124,7 +124,7 @@ structure GtkWidgetPath :>
          & x3 =>
           (
             _import "gtk_widget_path_iter_has_qclass" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * GLibQuark.FFI.val_
                -> GBool.FFI.val_;
@@ -141,7 +141,7 @@ structure GtkWidgetPath :>
          & x3 =>
           (
             _import "gtk_widget_path_iter_has_qname" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * GLibQuark.FFI.val_
                -> GBool.FFI.val_;
@@ -159,7 +159,7 @@ structure GtkWidgetPath :>
          & x4 =>
           (
             _import "gtk_widget_path_iter_has_qregion" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * GLibQuark.FFI.val_
                * GtkRegionFlags.FFI.ref_
@@ -179,10 +179,10 @@ structure GtkWidgetPath :>
          & x5 =>
           (
             _import "mlton_gtk_widget_path_iter_has_region" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GtkRegionFlags.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -200,10 +200,10 @@ structure GtkWidgetPath :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_widget_path_iter_remove_class" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -219,10 +219,10 @@ structure GtkWidgetPath :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_widget_path_iter_remove_region" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -238,10 +238,10 @@ structure GtkWidgetPath :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_widget_path_iter_set_name" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -257,10 +257,10 @@ structure GtkWidgetPath :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_widget_path_iter_set_object_name" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -276,7 +276,7 @@ structure GtkWidgetPath :>
          & x3 =>
           (
             _import "gtk_widget_path_iter_set_object_type" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * GObjectType.FFI.val_
                -> unit;
@@ -293,7 +293,7 @@ structure GtkWidgetPath :>
          & x3 =>
           (
             _import "gtk_widget_path_iter_set_state" :
-              GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p
+              GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p
                * GInt.FFI.val_
                * GtkStateFlags.FFI.val_
                -> unit;
@@ -303,9 +303,9 @@ structure GtkWidgetPath :>
               x2,
               x3
             )
-    val length_ = _import "gtk_widget_path_length" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> GInt.FFI.val_;
-    val prependType_ = fn x1 & x2 => (_import "gtk_widget_path_prepend_type" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p * GObjectType.FFI.val_ -> unit;) (x1, x2)
-    val toString_ = _import "gtk_widget_path_to_string" : GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val length_ = _import "gtk_widget_path_length" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p -> GInt.FFI.val_;
+    val prependType_ = fn x1 & x2 => (_import "gtk_widget_path_prepend_type" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p * GObjectType.FFI.val_ -> unit;) (x1, x2)
+    val toString_ = _import "gtk_widget_path_to_string" : GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     type t = GtkWidgetPathRecord.t
     type 'a widget_class = 'a GtkWidgetClass.class
     type region_flags_t = GtkRegionFlags.t

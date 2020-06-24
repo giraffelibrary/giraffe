@@ -10,10 +10,10 @@ structure GioDBusAnnotationInfo :>
           (
             _import "mlton_g_dbus_annotation_info_lookup" :
               GioDBusAnnotationInfoRecordCPtrArray.MLton.p1
-               * unit GioDBusAnnotationInfoRecordCPtrArray.MLton.p2
+               * GioDBusAnnotationInfoRecordCPtrArray.FFI.opt GioDBusAnnotationInfoRecordCPtrArray.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,

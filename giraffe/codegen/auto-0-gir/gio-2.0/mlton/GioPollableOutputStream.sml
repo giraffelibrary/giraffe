@@ -4,9 +4,9 @@ structure GioPollableOutputStream :>
     where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
     val getType_ = _import "g_pollable_output_stream_get_type" : unit -> GObjectType.FFI.val_;
-    val canPoll_ = _import "g_pollable_output_stream_can_poll" : GioPollableOutputStreamClass.FFI.notnull GioPollableOutputStreamClass.FFI.p -> GBool.FFI.val_;
-    val createSource_ = fn x1 & x2 => (_import "g_pollable_output_stream_create_source" : GioPollableOutputStreamClass.FFI.notnull GioPollableOutputStreamClass.FFI.p * unit GioCancellableClass.FFI.p -> GLibSourceRecord.FFI.notnull GLibSourceRecord.FFI.p;) (x1, x2)
-    val isWritable_ = _import "g_pollable_output_stream_is_writable" : GioPollableOutputStreamClass.FFI.notnull GioPollableOutputStreamClass.FFI.p -> GBool.FFI.val_;
+    val canPoll_ = _import "g_pollable_output_stream_can_poll" : GioPollableOutputStreamClass.FFI.non_opt GioPollableOutputStreamClass.FFI.p -> GBool.FFI.val_;
+    val createSource_ = fn x1 & x2 => (_import "g_pollable_output_stream_create_source" : GioPollableOutputStreamClass.FFI.non_opt GioPollableOutputStreamClass.FFI.p * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;) (x1, x2)
+    val isWritable_ = _import "g_pollable_output_stream_is_writable" : GioPollableOutputStreamClass.FFI.non_opt GioPollableOutputStreamClass.FFI.p -> GBool.FFI.val_;
     val writeNonblocking_ =
       fn
         x1
@@ -16,12 +16,12 @@ structure GioPollableOutputStream :>
          & x6 =>
           (
             _import "mlton_g_pollable_output_stream_write_nonblocking" :
-              GioPollableOutputStreamClass.FFI.notnull GioPollableOutputStreamClass.FFI.p
+              GioPollableOutputStreamClass.FFI.non_opt GioPollableOutputStreamClass.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GSize.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GSSize.FFI.val_;
           )
             (

@@ -15,7 +15,7 @@ structure AtkComponent :>
          & x4 =>
           (
             _import "atk_component_contains" :
-              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+              AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * AtkCoordType.FFI.val_
@@ -27,7 +27,7 @@ structure AtkComponent :>
               x3,
               x4
             )
-    val getAlpha_ = _import "atk_component_get_alpha" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p -> GDouble.FFI.val_;
+    val getAlpha_ = _import "atk_component_get_alpha" : AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p -> GDouble.FFI.val_;
     val getExtents_ =
       fn
         x1
@@ -38,7 +38,7 @@ structure AtkComponent :>
          & x6 =>
           (
             _import "atk_component_get_extents" :
-              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+              AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
@@ -54,8 +54,8 @@ structure AtkComponent :>
               x5,
               x6
             )
-    val getLayer_ = _import "atk_component_get_layer" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p -> AtkLayer.FFI.val_;
-    val getMdiZorder_ = _import "atk_component_get_mdi_zorder" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p -> GInt32.FFI.val_;
+    val getLayer_ = _import "atk_component_get_layer" : AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p -> AtkLayer.FFI.val_;
+    val getMdiZorder_ = _import "atk_component_get_mdi_zorder" : AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p -> GInt32.FFI.val_;
     val getPosition_ =
       fn
         x1
@@ -64,7 +64,7 @@ structure AtkComponent :>
          & x4 =>
           (
             _import "atk_component_get_position" :
-              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+              AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                * AtkCoordType.FFI.val_
@@ -83,7 +83,7 @@ structure AtkComponent :>
          & x3 =>
           (
             _import "atk_component_get_size" :
-              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+              AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> unit;
@@ -93,7 +93,7 @@ structure AtkComponent :>
               x2,
               x3
             )
-    val grabFocus_ = _import "atk_component_grab_focus" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p -> GBool.FFI.val_;
+    val grabFocus_ = _import "atk_component_grab_focus" : AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p -> GBool.FFI.val_;
     val refAccessibleAtPoint_ =
       fn
         x1
@@ -102,11 +102,11 @@ structure AtkComponent :>
          & x4 =>
           (
             _import "atk_component_ref_accessible_at_point" :
-              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+              AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * AtkCoordType.FFI.val_
-               -> unit AtkObjectClass.FFI.p;
+               -> AtkObjectClass.FFI.opt AtkObjectClass.FFI.p;
           )
             (
               x1,
@@ -114,7 +114,7 @@ structure AtkComponent :>
               x3,
               x4
             )
-    val removeFocusHandler_ = fn x1 & x2 => (_import "atk_component_remove_focus_handler" : AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val removeFocusHandler_ = fn x1 & x2 => (_import "atk_component_remove_focus_handler" : AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
     val setExtents_ =
       fn
         x1
@@ -125,7 +125,7 @@ structure AtkComponent :>
          & x6 =>
           (
             _import "atk_component_set_extents" :
-              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+              AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.val_
@@ -149,7 +149,7 @@ structure AtkComponent :>
          & x4 =>
           (
             _import "atk_component_set_position" :
-              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+              AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * AtkCoordType.FFI.val_
@@ -168,7 +168,7 @@ structure AtkComponent :>
          & x3 =>
           (
             _import "atk_component_set_size" :
-              AtkComponentClass.FFI.notnull AtkComponentClass.FFI.p
+              AtkComponentClass.FFI.non_opt AtkComponentClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> GBool.FFI.val_;

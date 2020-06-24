@@ -2931,7 +2931,7 @@ where
         ==================+===========================
           IN              | <opt> <A>.in_p
         ------------------+---------------------------
-          OUT             | (unit, <opt>) <A>.r
+          OUT             | (<A>.opt, <opt>) <A>.r
         ------------------+---------------------------
           INOUT           | (<opt>, <opt>) <A>.r
         ------------------+---------------------------
@@ -2944,18 +2944,10 @@ where
 
           mayBeNull       | opt
         ==================+===================
-          false           | <A>.notnull
+          false           | <A>.non_opt
         ------------------+-------------------
-          true            | unit
+          true            | <A>.opt
         ------------------+-------------------
-
-      inopt and outopt cannot be determined because GIR does not capture
-      sufficient information.  For now, they are defined as follows:
-
-          | inopt           outopt
-        ==+===================================
-          | <A>.notnull     <A>.notnull
-        --+-----------------------------------
 
           Note: currently for OUT and INOUT parameters, mayBeNull indicates
             whether a null reference argument is allowed, rather than a non-null
@@ -2985,9 +2977,9 @@ where
         ==================+===========================
           IN              | <opt> <A>.in_p
         ------------------+---------------------------
-          OUT             | (unit, <outopt>) <A>.r
+          OUT             | (<A>.opt, <opt>) <A>.r
         ------------------+---------------------------
-          INOUT           | (<inopt>, <outopt>) <A>.r
+          INOUT           | (<opt>, <opt>) <A>.r
         ------------------+---------------------------
 
       A is <ArrayStructId(argTypeInfo)>.FFI
@@ -2998,9 +2990,9 @@ where
 
           mayBeNull       | opt
         ==================+===================
-          false           | <A>.notnull
+          false           | <A>.non_opt
         ------------------+-------------------
-          true            | unit
+          true            | <A>.opt
         ------------------+-------------------
 
           Note: currently for OUT and INOUT parameters, mayBeNull indicates
@@ -3044,7 +3036,7 @@ where
             ==================+===========================
               IN              | <opt> <A>.p
             ------------------+---------------------------
-              OUT             | (unit, <opt>) <A>.r
+              OUT             | (<A>.opt, <opt>) <A>.r
             ------------------+---------------------------
               INOUT           | (<opt>, <opt>) <A>.r
             ------------------+---------------------------
@@ -3060,9 +3052,9 @@ where
 
               mayBeNull       | opt
             ==================+===================
-              false           | <A>.notnull
+              false           | <A>.non_opt
             ------------------+-------------------
-              true            | unit
+              true            | <A>.opt
             ------------------+-------------------
 
               Note: currently for OUT and INOUT parameters, mayBeNull indicates
@@ -3099,11 +3091,11 @@ where
               IN            ------------------------------------
                               true            <opt> <A>.p
             ----------------------------------------------------
-                              false           <A>.notnull <A>.p
+                              false           <A>.non_opt <A>.p
               OUT           ------------------------------------
-                              true            (unit, <opt>) <A>.r
+                              true            (<A>.opt, <opt>) <A>.r
             ----------------------------------------------------
-                              false           <A>.notnull <A>.p
+                              false           <A>.non_opt <A>.p
               INOUT         ------------------------------------
                               true            (<opt>, <opt>) <A>.r
             ----------------------------------------------------
@@ -3120,9 +3112,9 @@ where
 
               mayBeNull       | opt
             ==================+===================
-              false           | <A>.notnull
+              false           | <A>.non_opt
             ------------------+-------------------
-              true            | unit
+              true            | <A>.opt
             ------------------+-------------------
 
               Note: currently for OUT and INOUT parameters, mayBeNull indicates
@@ -3268,9 +3260,9 @@ where
 
           mayReturnNull   | opt
         ==================+===================
-          false           | <A>.notnull
+          false           | <A>.non_opt
         ------------------+-------------------
-          true            | unit
+          true            | <A>.opt
         ------------------+-------------------
 
 
@@ -3288,9 +3280,9 @@ where
 
           mayReturnNull   | opt
         ==================+===================
-          false           | <A>.notnull
+          false           | <A>.non_opt
         ------------------+-------------------
-          true            | unit
+          true            | <A>.opt
         ------------------+-------------------
 
 
@@ -3325,9 +3317,9 @@ where
 
               mayReturnNull   | opt
             ==================+===================
-              false           | <A>.notnull
+              false           | <A>.non_opt
             ------------------+-------------------
-              true            | unit
+              true            | <A>.opt
             ------------------+-------------------
 
 
@@ -3361,9 +3353,9 @@ where
 
               mayReturnNull   | opt
             ==================+===================
-              false           | <A>.notnull
+              false           | <A>.non_opt
             ------------------+-------------------
-              true            | unit
+              true            | <A>.opt
             ------------------+-------------------
 
         It is necessary to handle the case when `isPointer` is false explicitly.

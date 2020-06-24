@@ -7,8 +7,8 @@ structure GtkActionGroup :>
     where type 'a accel_group_class = 'a GtkAccelGroupClass.class =
   struct
     val getType_ = _import "gtk_action_group_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_gtk_action_group_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p;
-    val addAction_ = fn x1 & x2 => (_import "gtk_action_group_add_action" : GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p * GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "mlton_gtk_action_group_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p;
+    val addAction_ = fn x1 & x2 => (_import "gtk_action_group_add_action" : GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p * GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> unit;) (x1, x2)
     val addActionWithAccel_ =
       fn
         x1
@@ -16,10 +16,10 @@ structure GtkActionGroup :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_action_group_add_action_with_accel" :
-              GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p
-               * GtkActionClass.FFI.notnull GtkActionClass.FFI.p
+              GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p
+               * GtkActionClass.FFI.non_opt GtkActionClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -28,36 +28,36 @@ structure GtkActionGroup :>
               x3,
               x4
             )
-    val getAccelGroup_ = _import "gtk_action_group_get_accel_group" : GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p -> GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p;
+    val getAccelGroup_ = _import "gtk_action_group_get_accel_group" : GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p -> GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p;
     val getAction_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_group_get_action" :
-              GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p
+              GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkActionClass.FFI.notnull GtkActionClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkActionClass.FFI.non_opt GtkActionClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getName_ = _import "gtk_action_group_get_name" : GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getSensitive_ = _import "gtk_action_group_get_sensitive" : GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p -> GBool.FFI.val_;
-    val getVisible_ = _import "gtk_action_group_get_visible" : GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p -> GBool.FFI.val_;
-    val removeAction_ = fn x1 & x2 => (_import "gtk_action_group_remove_action" : GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p * GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> unit;) (x1, x2)
-    val setAccelGroup_ = fn x1 & x2 => (_import "gtk_action_group_set_accel_group" : GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p * unit GtkAccelGroupClass.FFI.p -> unit;) (x1, x2)
-    val setSensitive_ = fn x1 & x2 => (_import "gtk_action_group_set_sensitive" : GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getName_ = _import "gtk_action_group_get_name" : GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getSensitive_ = _import "gtk_action_group_get_sensitive" : GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p -> GBool.FFI.val_;
+    val getVisible_ = _import "gtk_action_group_get_visible" : GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p -> GBool.FFI.val_;
+    val removeAction_ = fn x1 & x2 => (_import "gtk_action_group_remove_action" : GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p * GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> unit;) (x1, x2)
+    val setAccelGroup_ = fn x1 & x2 => (_import "gtk_action_group_set_accel_group" : GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p * GtkAccelGroupClass.FFI.opt GtkAccelGroupClass.FFI.p -> unit;) (x1, x2)
+    val setSensitive_ = fn x1 & x2 => (_import "gtk_action_group_set_sensitive" : GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setTranslationDomain_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_group_set_translation_domain" :
-              GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p
+              GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -65,16 +65,16 @@ structure GtkActionGroup :>
               x2,
               x3
             )
-    val setVisible_ = fn x1 & x2 => (_import "gtk_action_group_set_visible" : GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setVisible_ = fn x1 & x2 => (_import "gtk_action_group_set_visible" : GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val translateString_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_group_translate_string" :
-              GtkActionGroupClass.FFI.notnull GtkActionGroupClass.FFI.p
+              GtkActionGroupClass.FFI.non_opt GtkActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,

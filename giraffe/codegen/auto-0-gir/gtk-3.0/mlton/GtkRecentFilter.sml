@@ -6,16 +6,16 @@ structure GtkRecentFilter :>
     where type recent_filter_flags_t = GtkRecentFilterFlags.t =
   struct
     val getType_ = _import "gtk_recent_filter_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_recent_filter_new" : unit -> GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p;
-    val addAge_ = fn x1 & x2 => (_import "gtk_recent_filter_add_age" : GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_recent_filter_new" : unit -> GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p;
+    val addAge_ = fn x1 & x2 => (_import "gtk_recent_filter_add_age" : GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val addApplication_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_recent_filter_add_application" :
-              GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p
+              GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -28,9 +28,9 @@ structure GtkRecentFilter :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_recent_filter_add_group" :
-              GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p
+              GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -43,9 +43,9 @@ structure GtkRecentFilter :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_recent_filter_add_mime_type" :
-              GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p
+              GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -58,9 +58,9 @@ structure GtkRecentFilter :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_recent_filter_add_pattern" :
-              GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p
+              GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -68,18 +68,18 @@ structure GtkRecentFilter :>
               x2,
               x3
             )
-    val addPixbufFormats_ = _import "gtk_recent_filter_add_pixbuf_formats" : GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p -> unit;
-    val filter_ = fn x1 & x2 => (_import "gtk_recent_filter_filter" : GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p * GtkRecentFilterInfoRecord.FFI.notnull GtkRecentFilterInfoRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getName_ = _import "gtk_recent_filter_get_name" : GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getNeeded_ = _import "gtk_recent_filter_get_needed" : GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p -> GtkRecentFilterFlags.FFI.val_;
+    val addPixbufFormats_ = _import "gtk_recent_filter_add_pixbuf_formats" : GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p -> unit;
+    val filter_ = fn x1 & x2 => (_import "gtk_recent_filter_filter" : GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p * GtkRecentFilterInfoRecord.FFI.non_opt GtkRecentFilterInfoRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getName_ = _import "gtk_recent_filter_get_name" : GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getNeeded_ = _import "gtk_recent_filter_get_needed" : GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p -> GtkRecentFilterFlags.FFI.val_;
     val setName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_recent_filter_set_name" :
-              GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p
+              GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

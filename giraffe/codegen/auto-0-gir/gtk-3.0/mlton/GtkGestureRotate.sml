@@ -4,8 +4,8 @@ structure GtkGestureRotate :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_gesture_rotate_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_gesture_rotate_new" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p;
-    val getAngleDelta_ = _import "gtk_gesture_rotate_get_angle_delta" : GtkGestureRotateClass.FFI.notnull GtkGestureRotateClass.FFI.p -> GDouble.FFI.val_;
+    val new_ = _import "gtk_gesture_rotate_new" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p;
+    val getAngleDelta_ = _import "gtk_gesture_rotate_get_angle_delta" : GtkGestureRotateClass.FFI.non_opt GtkGestureRotateClass.FFI.p -> GDouble.FFI.val_;
     type 'a class = 'a GtkGestureRotateClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class

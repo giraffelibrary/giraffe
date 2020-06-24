@@ -10,8 +10,8 @@ structure GtkSourceBuffer :>
     where type 'a undo_manager_class = 'a GtkSourceUndoManagerClass.class =
   struct
     val getType_ = _import "gtk_source_buffer_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_buffer_new" : unit GtkTextTagTableClass.FFI.p -> GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p;
-    val newWithLanguage_ = _import "gtk_source_buffer_new_with_language" : GtkSourceLanguageClass.FFI.notnull GtkSourceLanguageClass.FFI.p -> GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p;
+    val new_ = _import "gtk_source_buffer_new" : GtkTextTagTableClass.FFI.opt GtkTextTagTableClass.FFI.p -> GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p;
+    val newWithLanguage_ = _import "gtk_source_buffer_new_with_language" : GtkSourceLanguageClass.FFI.non_opt GtkSourceLanguageClass.FFI.p -> GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p;
     val backwardIterToSourceMark_ =
       fn
         x1
@@ -19,10 +19,10 @@ structure GtkSourceBuffer :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_source_buffer_backward_iter_to_source_mark" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -31,9 +31,9 @@ structure GtkSourceBuffer :>
               x3,
               x4
             )
-    val beginNotUndoableAction_ = _import "gtk_source_buffer_begin_not_undoable_action" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> unit;
-    val canRedo_ = _import "gtk_source_buffer_can_redo" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
-    val canUndo_ = _import "gtk_source_buffer_can_undo" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
+    val beginNotUndoableAction_ = _import "gtk_source_buffer_begin_not_undoable_action" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> unit;
+    val canRedo_ = _import "gtk_source_buffer_can_redo" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
+    val canUndo_ = _import "gtk_source_buffer_can_undo" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
     val changeCase_ =
       fn
         x1
@@ -42,10 +42,10 @@ structure GtkSourceBuffer :>
          & x4 =>
           (
             _import "gtk_source_buffer_change_case" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
                * GtkSourceChangeCaseType.FFI.val_
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -62,13 +62,13 @@ structure GtkSourceBuffer :>
          & x6 =>
           (
             _import "mlton_gtk_source_buffer_create_source_mark" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               -> GtkSourceMarkClass.FFI.notnull GtkSourceMarkClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               -> GtkSourceMarkClass.FFI.non_opt GtkSourceMarkClass.FFI.p;
           )
             (
               x1,
@@ -78,7 +78,7 @@ structure GtkSourceBuffer :>
               x5,
               x6
             )
-    val endNotUndoableAction_ = _import "gtk_source_buffer_end_not_undoable_action" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> unit;
+    val endNotUndoableAction_ = _import "gtk_source_buffer_end_not_undoable_action" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> unit;
     val ensureHighlight_ =
       fn
         x1
@@ -86,9 +86,9 @@ structure GtkSourceBuffer :>
          & x3 =>
           (
             _import "gtk_source_buffer_ensure_highlight" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -103,10 +103,10 @@ structure GtkSourceBuffer :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_source_buffer_forward_iter_to_source_mark" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -115,14 +115,14 @@ structure GtkSourceBuffer :>
               x3,
               x4
             )
-    val getContextClassesAtIter_ = fn x1 & x2 => (_import "gtk_source_buffer_get_context_classes_at_iter" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;) (x1, x2)
-    val getHighlightMatchingBrackets_ = _import "gtk_source_buffer_get_highlight_matching_brackets" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
-    val getHighlightSyntax_ = _import "gtk_source_buffer_get_highlight_syntax" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
-    val getImplicitTrailingNewline_ = _import "gtk_source_buffer_get_implicit_trailing_newline" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
-    val getLanguage_ = _import "gtk_source_buffer_get_language" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> unit GtkSourceLanguageClass.FFI.p;
-    val getMaxUndoLevels_ = _import "gtk_source_buffer_get_max_undo_levels" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GInt32.FFI.val_;
-    val getStyleScheme_ = _import "gtk_source_buffer_get_style_scheme" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> unit GtkSourceStyleSchemeClass.FFI.p;
-    val getUndoManager_ = _import "gtk_source_buffer_get_undo_manager" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> unit GtkSourceUndoManagerClass.FFI.p;
+    val getContextClassesAtIter_ = fn x1 & x2 => (_import "gtk_source_buffer_get_context_classes_at_iter" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;) (x1, x2)
+    val getHighlightMatchingBrackets_ = _import "gtk_source_buffer_get_highlight_matching_brackets" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
+    val getHighlightSyntax_ = _import "gtk_source_buffer_get_highlight_syntax" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
+    val getImplicitTrailingNewline_ = _import "gtk_source_buffer_get_implicit_trailing_newline" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> GBool.FFI.val_;
+    val getLanguage_ = _import "gtk_source_buffer_get_language" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> GtkSourceLanguageClass.FFI.opt GtkSourceLanguageClass.FFI.p;
+    val getMaxUndoLevels_ = _import "gtk_source_buffer_get_max_undo_levels" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> GInt32.FFI.val_;
+    val getStyleScheme_ = _import "gtk_source_buffer_get_style_scheme" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> GtkSourceStyleSchemeClass.FFI.opt GtkSourceStyleSchemeClass.FFI.p;
+    val getUndoManager_ = _import "gtk_source_buffer_get_undo_manager" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> GtkSourceUndoManagerClass.FFI.opt GtkSourceUndoManagerClass.FFI.p;
     val iterBackwardToContextClassToggle_ =
       fn
         x1
@@ -130,10 +130,10 @@ structure GtkSourceBuffer :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_source_buffer_iter_backward_to_context_class_toggle" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -149,10 +149,10 @@ structure GtkSourceBuffer :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_source_buffer_iter_forward_to_context_class_toggle" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -168,10 +168,10 @@ structure GtkSourceBuffer :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_source_buffer_iter_has_context_class" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -187,9 +187,9 @@ structure GtkSourceBuffer :>
          & x3 =>
           (
             _import "gtk_source_buffer_join_lines" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -197,7 +197,7 @@ structure GtkSourceBuffer :>
               x2,
               x3
             )
-    val redo_ = _import "gtk_source_buffer_redo" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> unit;
+    val redo_ = _import "gtk_source_buffer_redo" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> unit;
     val removeSourceMarks_ =
       fn
         x1
@@ -206,11 +206,11 @@ structure GtkSourceBuffer :>
          & (x4, x5) =>
           (
             _import "mlton_gtk_source_buffer_remove_source_marks" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -220,13 +220,13 @@ structure GtkSourceBuffer :>
               x4,
               x5
             )
-    val setHighlightMatchingBrackets_ = fn x1 & x2 => (_import "gtk_source_buffer_set_highlight_matching_brackets" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHighlightSyntax_ = fn x1 & x2 => (_import "gtk_source_buffer_set_highlight_syntax" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setImplicitTrailingNewline_ = fn x1 & x2 => (_import "gtk_source_buffer_set_implicit_trailing_newline" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setLanguage_ = fn x1 & x2 => (_import "gtk_source_buffer_set_language" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * unit GtkSourceLanguageClass.FFI.p -> unit;) (x1, x2)
-    val setMaxUndoLevels_ = fn x1 & x2 => (_import "gtk_source_buffer_set_max_undo_levels" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setStyleScheme_ = fn x1 & x2 => (_import "gtk_source_buffer_set_style_scheme" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * unit GtkSourceStyleSchemeClass.FFI.p -> unit;) (x1, x2)
-    val setUndoManager_ = fn x1 & x2 => (_import "gtk_source_buffer_set_undo_manager" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * unit GtkSourceUndoManagerClass.FFI.p -> unit;) (x1, x2)
+    val setHighlightMatchingBrackets_ = fn x1 & x2 => (_import "gtk_source_buffer_set_highlight_matching_brackets" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHighlightSyntax_ = fn x1 & x2 => (_import "gtk_source_buffer_set_highlight_syntax" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setImplicitTrailingNewline_ = fn x1 & x2 => (_import "gtk_source_buffer_set_implicit_trailing_newline" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setLanguage_ = fn x1 & x2 => (_import "gtk_source_buffer_set_language" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p * GtkSourceLanguageClass.FFI.opt GtkSourceLanguageClass.FFI.p -> unit;) (x1, x2)
+    val setMaxUndoLevels_ = fn x1 & x2 => (_import "gtk_source_buffer_set_max_undo_levels" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setStyleScheme_ = fn x1 & x2 => (_import "gtk_source_buffer_set_style_scheme" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p * GtkSourceStyleSchemeClass.FFI.opt GtkSourceStyleSchemeClass.FFI.p -> unit;) (x1, x2)
+    val setUndoManager_ = fn x1 & x2 => (_import "gtk_source_buffer_set_undo_manager" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p * GtkSourceUndoManagerClass.FFI.opt GtkSourceUndoManagerClass.FFI.p -> unit;) (x1, x2)
     val sortLines_ =
       fn
         x1
@@ -236,9 +236,9 @@ structure GtkSourceBuffer :>
          & x5 =>
           (
             _import "gtk_source_buffer_sort_lines" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * GtkSourceSortFlags.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -250,7 +250,7 @@ structure GtkSourceBuffer :>
               x4,
               x5
             )
-    val undo_ = _import "gtk_source_buffer_undo" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> unit;
+    val undo_ = _import "gtk_source_buffer_undo" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> unit;
     type 'a class = 'a GtkSourceBufferClass.class
     type change_case_type_t = GtkSourceChangeCaseType.t
     type 'a mark_class = 'a GtkSourceMarkClass.class

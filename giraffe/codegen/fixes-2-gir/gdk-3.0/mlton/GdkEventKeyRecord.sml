@@ -1,7 +1,7 @@
 structure GdkEventKeyRecord :>
   GDK_EVENT_KEY_RECORD
     where type 'a event_union = 'a GdkEvent.union
-    where type C.notnull = GdkEvent.C.notnull
+    where type C.non_opt = GdkEvent.C.non_opt
     where type 'a C.p = 'a GdkEvent.C.p
     where type 'a window_class = 'a GdkWindowClass.class
     where type modifier_type_t = GdkModifierType.t =
@@ -14,21 +14,21 @@ structure GdkEventKeyRecord :>
       KEY_PRESS
     | KEY_RELEASE
 
-    val getWindow_ = _import "giraffe_gdk_event_key_get_window" : FFI.notnull FFI.p -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
+    val getWindow_ = _import "giraffe_gdk_event_key_get_window" : FFI.non_opt FFI.p -> GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p;
 
-    val getSendEvent_ = _import "giraffe_gdk_event_key_get_send_event" : FFI.notnull FFI.p -> GBool.FFI.val_;
+    val getSendEvent_ = _import "giraffe_gdk_event_key_get_send_event" : FFI.non_opt FFI.p -> GBool.FFI.val_;
 
-    val getTime_ = _import "giraffe_gdk_event_key_get_time" : FFI.notnull FFI.p -> GUInt32.FFI.val_;
+    val getTime_ = _import "giraffe_gdk_event_key_get_time" : FFI.non_opt FFI.p -> GUInt32.FFI.val_;
 
-    val getState_ = _import "giraffe_gdk_event_key_get_state" : FFI.notnull FFI.p -> GdkModifierType.FFI.val_;
+    val getState_ = _import "giraffe_gdk_event_key_get_state" : FFI.non_opt FFI.p -> GdkModifierType.FFI.val_;
 
-    val getKeyval_ = _import "giraffe_gdk_event_key_get_keyval" : FFI.notnull FFI.p -> GUInt32.FFI.val_;
+    val getKeyval_ = _import "giraffe_gdk_event_key_get_keyval" : FFI.non_opt FFI.p -> GUInt32.FFI.val_;
 
-    val getHardwareKeycode_ = _import "giraffe_gdk_event_key_get_hardware_keycode" : FFI.notnull FFI.p -> GUInt32.FFI.val_;
+    val getHardwareKeycode_ = _import "giraffe_gdk_event_key_get_hardware_keycode" : FFI.non_opt FFI.p -> GUInt32.FFI.val_;
 
-    val getGroup_ = _import "giraffe_gdk_event_key_get_group" : FFI.notnull FFI.p -> GUInt8.FFI.val_;
+    val getGroup_ = _import "giraffe_gdk_event_key_get_group" : FFI.non_opt FFI.p -> GUInt8.FFI.val_;
 
-    val getIsModifier_ = _import "giraffe_gdk_event_key_get_is_modifier" : FFI.notnull FFI.p -> GBool.FFI.val_;
+    val getIsModifier_ = _import "giraffe_gdk_event_key_get_is_modifier" : FFI.non_opt FFI.p -> GBool.FFI.val_;
 
     type 'a window_class = 'a GdkWindowClass.class
     type modifier_type_t = GdkModifierType.t

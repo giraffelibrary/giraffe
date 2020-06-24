@@ -10,9 +10,9 @@ structure GtkFlowBox :>
     where type selection_mode_t = GtkSelectionMode.t =
   struct
     val getType_ = _import "gtk_flow_box_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_flow_box_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getActivateOnSingleClick_ = _import "gtk_flow_box_get_activate_on_single_click" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p -> GBool.FFI.val_;
-    val getChildAtIndex_ = fn x1 & x2 => (_import "gtk_flow_box_get_child_at_index" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GInt.FFI.val_ -> unit GtkFlowBoxChildClass.FFI.p;) (x1, x2)
+    val new_ = _import "gtk_flow_box_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getActivateOnSingleClick_ = _import "gtk_flow_box_get_activate_on_single_click" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p -> GBool.FFI.val_;
+    val getChildAtIndex_ = fn x1 & x2 => (_import "gtk_flow_box_get_child_at_index" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p * GInt.FFI.val_ -> GtkFlowBoxChildClass.FFI.opt GtkFlowBoxChildClass.FFI.p;) (x1, x2)
     val getChildAtPos_ =
       fn
         x1
@@ -20,22 +20,22 @@ structure GtkFlowBox :>
          & x3 =>
           (
             _import "gtk_flow_box_get_child_at_pos" :
-              GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p
+              GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> unit GtkFlowBoxChildClass.FFI.p;
+               -> GtkFlowBoxChildClass.FFI.opt GtkFlowBoxChildClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getColumnSpacing_ = _import "gtk_flow_box_get_column_spacing" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p -> GUInt.FFI.val_;
-    val getHomogeneous_ = _import "gtk_flow_box_get_homogeneous" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p -> GBool.FFI.val_;
-    val getMaxChildrenPerLine_ = _import "gtk_flow_box_get_max_children_per_line" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p -> GUInt.FFI.val_;
-    val getMinChildrenPerLine_ = _import "gtk_flow_box_get_min_children_per_line" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p -> GUInt.FFI.val_;
-    val getRowSpacing_ = _import "gtk_flow_box_get_row_spacing" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p -> GUInt.FFI.val_;
-    val getSelectionMode_ = _import "gtk_flow_box_get_selection_mode" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p -> GtkSelectionMode.FFI.val_;
+    val getColumnSpacing_ = _import "gtk_flow_box_get_column_spacing" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p -> GUInt.FFI.val_;
+    val getHomogeneous_ = _import "gtk_flow_box_get_homogeneous" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p -> GBool.FFI.val_;
+    val getMaxChildrenPerLine_ = _import "gtk_flow_box_get_max_children_per_line" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p -> GUInt.FFI.val_;
+    val getMinChildrenPerLine_ = _import "gtk_flow_box_get_min_children_per_line" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p -> GUInt.FFI.val_;
+    val getRowSpacing_ = _import "gtk_flow_box_get_row_spacing" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p -> GUInt.FFI.val_;
+    val getSelectionMode_ = _import "gtk_flow_box_get_selection_mode" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p -> GtkSelectionMode.FFI.val_;
     val insert_ =
       fn
         x1
@@ -43,8 +43,8 @@ structure GtkFlowBox :>
          & x3 =>
           (
             _import "gtk_flow_box_insert" :
-              GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                -> unit;
           )
@@ -53,21 +53,21 @@ structure GtkFlowBox :>
               x2,
               x3
             )
-    val invalidateFilter_ = _import "gtk_flow_box_invalidate_filter" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p -> unit;
-    val invalidateSort_ = _import "gtk_flow_box_invalidate_sort" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p -> unit;
-    val selectAll_ = _import "gtk_flow_box_select_all" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p -> unit;
-    val selectChild_ = fn x1 & x2 => (_import "gtk_flow_box_select_child" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GtkFlowBoxChildClass.FFI.notnull GtkFlowBoxChildClass.FFI.p -> unit;) (x1, x2)
-    val setActivateOnSingleClick_ = fn x1 & x2 => (_import "gtk_flow_box_set_activate_on_single_click" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setColumnSpacing_ = fn x1 & x2 => (_import "gtk_flow_box_set_column_spacing" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val setHadjustment_ = fn x1 & x2 => (_import "gtk_flow_box_set_hadjustment" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
-    val setHomogeneous_ = fn x1 & x2 => (_import "gtk_flow_box_set_homogeneous" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setMaxChildrenPerLine_ = fn x1 & x2 => (_import "gtk_flow_box_set_max_children_per_line" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val setMinChildrenPerLine_ = fn x1 & x2 => (_import "gtk_flow_box_set_min_children_per_line" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val setRowSpacing_ = fn x1 & x2 => (_import "gtk_flow_box_set_row_spacing" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val setSelectionMode_ = fn x1 & x2 => (_import "gtk_flow_box_set_selection_mode" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GtkSelectionMode.FFI.val_ -> unit;) (x1, x2)
-    val setVadjustment_ = fn x1 & x2 => (_import "gtk_flow_box_set_vadjustment" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
-    val unselectAll_ = _import "gtk_flow_box_unselect_all" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p -> unit;
-    val unselectChild_ = fn x1 & x2 => (_import "gtk_flow_box_unselect_child" : GtkFlowBoxClass.FFI.notnull GtkFlowBoxClass.FFI.p * GtkFlowBoxChildClass.FFI.notnull GtkFlowBoxChildClass.FFI.p -> unit;) (x1, x2)
+    val invalidateFilter_ = _import "gtk_flow_box_invalidate_filter" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p -> unit;
+    val invalidateSort_ = _import "gtk_flow_box_invalidate_sort" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p -> unit;
+    val selectAll_ = _import "gtk_flow_box_select_all" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p -> unit;
+    val selectChild_ = fn x1 & x2 => (_import "gtk_flow_box_select_child" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p * GtkFlowBoxChildClass.FFI.non_opt GtkFlowBoxChildClass.FFI.p -> unit;) (x1, x2)
+    val setActivateOnSingleClick_ = fn x1 & x2 => (_import "gtk_flow_box_set_activate_on_single_click" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setColumnSpacing_ = fn x1 & x2 => (_import "gtk_flow_box_set_column_spacing" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val setHadjustment_ = fn x1 & x2 => (_import "gtk_flow_box_set_hadjustment" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p * GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val setHomogeneous_ = fn x1 & x2 => (_import "gtk_flow_box_set_homogeneous" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setMaxChildrenPerLine_ = fn x1 & x2 => (_import "gtk_flow_box_set_max_children_per_line" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val setMinChildrenPerLine_ = fn x1 & x2 => (_import "gtk_flow_box_set_min_children_per_line" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val setRowSpacing_ = fn x1 & x2 => (_import "gtk_flow_box_set_row_spacing" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val setSelectionMode_ = fn x1 & x2 => (_import "gtk_flow_box_set_selection_mode" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p * GtkSelectionMode.FFI.val_ -> unit;) (x1, x2)
+    val setVadjustment_ = fn x1 & x2 => (_import "gtk_flow_box_set_vadjustment" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p * GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val unselectAll_ = _import "gtk_flow_box_unselect_all" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p -> unit;
+    val unselectChild_ = fn x1 & x2 => (_import "gtk_flow_box_unselect_child" : GtkFlowBoxClass.FFI.non_opt GtkFlowBoxClass.FFI.p * GtkFlowBoxChildClass.FFI.non_opt GtkFlowBoxChildClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkFlowBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

@@ -2,7 +2,8 @@ structure GObjectParamSpecPointerClass :>
   G_OBJECT_PARAM_SPEC_POINTER_CLASS
     where type 'a param_spec_class = 'a GObjectParamSpecClass.class
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
-    where type C.notnull = GObjectParamSpecClass.C.notnull
+    where type C.opt = GObjectParamSpecClass.C.opt
+    where type C.non_opt = GObjectParamSpecClass.C.non_opt
     where type 'a C.p = 'a GObjectParamSpecClass.C.p =
   struct
     type 'a param_spec_class = 'a GObjectParamSpecClass.class

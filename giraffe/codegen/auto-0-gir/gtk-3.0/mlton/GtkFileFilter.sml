@@ -6,16 +6,16 @@ structure GtkFileFilter :>
     where type file_filter_flags_t = GtkFileFilterFlags.t =
   struct
     val getType_ = _import "gtk_file_filter_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_file_filter_new" : unit -> GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p;
-    val newFromGvariant_ = _import "gtk_file_filter_new_from_gvariant" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p;
+    val new_ = _import "gtk_file_filter_new" : unit -> GtkFileFilterClass.FFI.non_opt GtkFileFilterClass.FFI.p;
+    val newFromGvariant_ = _import "gtk_file_filter_new_from_gvariant" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GtkFileFilterClass.FFI.non_opt GtkFileFilterClass.FFI.p;
     val addMimeType_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_file_filter_add_mime_type" :
-              GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p
+              GtkFileFilterClass.FFI.non_opt GtkFileFilterClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -28,9 +28,9 @@ structure GtkFileFilter :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_file_filter_add_pattern" :
-              GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p
+              GtkFileFilterClass.FFI.non_opt GtkFileFilterClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -38,18 +38,18 @@ structure GtkFileFilter :>
               x2,
               x3
             )
-    val addPixbufFormats_ = _import "gtk_file_filter_add_pixbuf_formats" : GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p -> unit;
-    val filter_ = fn x1 & x2 => (_import "gtk_file_filter_filter" : GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p * GtkFileFilterInfoRecord.FFI.notnull GtkFileFilterInfoRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getName_ = _import "gtk_file_filter_get_name" : GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getNeeded_ = _import "gtk_file_filter_get_needed" : GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p -> GtkFileFilterFlags.FFI.val_;
+    val addPixbufFormats_ = _import "gtk_file_filter_add_pixbuf_formats" : GtkFileFilterClass.FFI.non_opt GtkFileFilterClass.FFI.p -> unit;
+    val filter_ = fn x1 & x2 => (_import "gtk_file_filter_filter" : GtkFileFilterClass.FFI.non_opt GtkFileFilterClass.FFI.p * GtkFileFilterInfoRecord.FFI.non_opt GtkFileFilterInfoRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getName_ = _import "gtk_file_filter_get_name" : GtkFileFilterClass.FFI.non_opt GtkFileFilterClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getNeeded_ = _import "gtk_file_filter_get_needed" : GtkFileFilterClass.FFI.non_opt GtkFileFilterClass.FFI.p -> GtkFileFilterFlags.FFI.val_;
     val setName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_file_filter_set_name" :
-              GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p
+              GtkFileFilterClass.FFI.non_opt GtkFileFilterClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -57,7 +57,7 @@ structure GtkFileFilter :>
               x2,
               x3
             )
-    val toGvariant_ = _import "gtk_file_filter_to_gvariant" : GtkFileFilterClass.FFI.notnull GtkFileFilterClass.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+    val toGvariant_ = _import "gtk_file_filter_to_gvariant" : GtkFileFilterClass.FFI.non_opt GtkFileFilterClass.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
     type 'a class = 'a GtkFileFilterClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type file_filter_info_t = GtkFileFilterInfoRecord.t

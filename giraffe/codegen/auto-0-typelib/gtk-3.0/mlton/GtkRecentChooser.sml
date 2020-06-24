@@ -7,21 +7,21 @@ structure GtkRecentChooser :>
     where type recent_sort_type_t = GtkRecentSortType.t =
   struct
     val getType_ = _import "gtk_recent_chooser_get_type" : unit -> GObjectType.FFI.val_;
-    val addFilter_ = fn x1 & x2 => (_import "gtk_recent_chooser_add_filter" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p -> unit;) (x1, x2)
-    val getCurrentItem_ = _import "gtk_recent_chooser_get_current_item" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GtkRecentInfoRecord.FFI.notnull GtkRecentInfoRecord.FFI.p;
-    val getCurrentUri_ = _import "gtk_recent_chooser_get_current_uri" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getFilter_ = _import "gtk_recent_chooser_get_filter" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p;
-    val getLimit_ = _import "gtk_recent_chooser_get_limit" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GInt32.FFI.val_;
-    val getLocalOnly_ = _import "gtk_recent_chooser_get_local_only" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
-    val getSelectMultiple_ = _import "gtk_recent_chooser_get_select_multiple" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
-    val getShowIcons_ = _import "gtk_recent_chooser_get_show_icons" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
-    val getShowNotFound_ = _import "gtk_recent_chooser_get_show_not_found" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
-    val getShowPrivate_ = _import "gtk_recent_chooser_get_show_private" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
-    val getShowTips_ = _import "gtk_recent_chooser_get_show_tips" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
-    val getSortType_ = _import "gtk_recent_chooser_get_sort_type" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> GtkRecentSortType.FFI.val_;
-    val getUris_ = fn x1 & x2 => (_import "gtk_recent_chooser_get_uris" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GUInt64.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
-    val removeFilter_ = fn x1 & x2 => (_import "gtk_recent_chooser_remove_filter" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GtkRecentFilterClass.FFI.notnull GtkRecentFilterClass.FFI.p -> unit;) (x1, x2)
-    val selectAll_ = _import "gtk_recent_chooser_select_all" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> unit;
+    val addFilter_ = fn x1 & x2 => (_import "gtk_recent_chooser_add_filter" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p -> unit;) (x1, x2)
+    val getCurrentItem_ = _import "gtk_recent_chooser_get_current_item" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GtkRecentInfoRecord.FFI.non_opt GtkRecentInfoRecord.FFI.p;
+    val getCurrentUri_ = _import "gtk_recent_chooser_get_current_uri" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getFilter_ = _import "gtk_recent_chooser_get_filter" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p;
+    val getLimit_ = _import "gtk_recent_chooser_get_limit" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GInt32.FFI.val_;
+    val getLocalOnly_ = _import "gtk_recent_chooser_get_local_only" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
+    val getSelectMultiple_ = _import "gtk_recent_chooser_get_select_multiple" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
+    val getShowIcons_ = _import "gtk_recent_chooser_get_show_icons" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
+    val getShowNotFound_ = _import "gtk_recent_chooser_get_show_not_found" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
+    val getShowPrivate_ = _import "gtk_recent_chooser_get_show_private" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
+    val getShowTips_ = _import "gtk_recent_chooser_get_show_tips" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
+    val getSortType_ = _import "gtk_recent_chooser_get_sort_type" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GtkRecentSortType.FFI.val_;
+    val getUris_ = fn x1 & x2 => (_import "gtk_recent_chooser_get_uris" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GUInt64.FFI.ref_ -> Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
+    val removeFilter_ = fn x1 & x2 => (_import "gtk_recent_chooser_remove_filter" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p -> unit;) (x1, x2)
+    val selectAll_ = _import "gtk_recent_chooser_select_all" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> unit;
     val selectUri_ =
       fn
         x1
@@ -29,10 +29,10 @@ structure GtkRecentChooser :>
          & x4 =>
           (
             _import "mlton_gtk_recent_chooser_select_uri" :
-              GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p
+              GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -48,10 +48,10 @@ structure GtkRecentChooser :>
          & x4 =>
           (
             _import "mlton_gtk_recent_chooser_set_current_uri" :
-              GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p
+              GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -60,24 +60,24 @@ structure GtkRecentChooser :>
               x3,
               x4
             )
-    val setFilter_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_filter" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * unit GtkRecentFilterClass.FFI.p -> unit;) (x1, x2)
-    val setLimit_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_limit" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setLocalOnly_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_local_only" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setSelectMultiple_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_select_multiple" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowIcons_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_show_icons" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowNotFound_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_show_not_found" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowPrivate_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_show_private" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowTips_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_show_tips" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setSortType_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_sort_type" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p * GtkRecentSortType.FFI.val_ -> unit;) (x1, x2)
-    val unselectAll_ = _import "gtk_recent_chooser_unselect_all" : GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p -> unit;
+    val setFilter_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_filter" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GtkRecentFilterClass.FFI.opt GtkRecentFilterClass.FFI.p -> unit;) (x1, x2)
+    val setLimit_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_limit" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setLocalOnly_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_local_only" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSelectMultiple_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_select_multiple" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowIcons_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_show_icons" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowNotFound_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_show_not_found" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowPrivate_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_show_private" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowTips_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_show_tips" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSortType_ = fn x1 & x2 => (_import "gtk_recent_chooser_set_sort_type" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GtkRecentSortType.FFI.val_ -> unit;) (x1, x2)
+    val unselectAll_ = _import "gtk_recent_chooser_unselect_all" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> unit;
     val unselectUri_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_recent_chooser_unselect_uri" :
-              GtkRecentChooserClass.FFI.notnull GtkRecentChooserClass.FFI.p
+              GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

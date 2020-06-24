@@ -5,27 +5,27 @@ structure GtkIconSource :>
     where type state_type_t = GtkStateType.t =
   struct
     val getType_ = _import "gtk_icon_source_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_icon_source_new" : unit -> GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p;
-    val copy_ = _import "gtk_icon_source_copy" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p -> GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p;
-    val getDirection_ = _import "gtk_icon_source_get_direction" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p -> GtkTextDirection.FFI.val_;
-    val getDirectionWildcarded_ = _import "gtk_icon_source_get_direction_wildcarded" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p -> GBool.FFI.val_;
-    val getFilename_ = _import "gtk_icon_source_get_filename" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getIconName_ = _import "gtk_icon_source_get_icon_name" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPixbuf_ = _import "gtk_icon_source_get_pixbuf" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
-    val getSize_ = _import "gtk_icon_source_get_size" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p -> GInt32.FFI.val_;
-    val getSizeWildcarded_ = _import "gtk_icon_source_get_size_wildcarded" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p -> GBool.FFI.val_;
-    val getState_ = _import "gtk_icon_source_get_state" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p -> GtkStateType.FFI.val_;
-    val getStateWildcarded_ = _import "gtk_icon_source_get_state_wildcarded" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p -> GBool.FFI.val_;
-    val setDirection_ = fn x1 & x2 => (_import "gtk_icon_source_set_direction" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p * GtkTextDirection.FFI.val_ -> unit;) (x1, x2)
-    val setDirectionWildcarded_ = fn x1 & x2 => (_import "gtk_icon_source_set_direction_wildcarded" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_icon_source_new" : unit -> GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p;
+    val copy_ = _import "gtk_icon_source_copy" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p -> GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p;
+    val getDirection_ = _import "gtk_icon_source_get_direction" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p -> GtkTextDirection.FFI.val_;
+    val getDirectionWildcarded_ = _import "gtk_icon_source_get_direction_wildcarded" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p -> GBool.FFI.val_;
+    val getFilename_ = _import "gtk_icon_source_get_filename" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getIconName_ = _import "gtk_icon_source_get_icon_name" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPixbuf_ = _import "gtk_icon_source_get_pixbuf" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
+    val getSize_ = _import "gtk_icon_source_get_size" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p -> GInt32.FFI.val_;
+    val getSizeWildcarded_ = _import "gtk_icon_source_get_size_wildcarded" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p -> GBool.FFI.val_;
+    val getState_ = _import "gtk_icon_source_get_state" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p -> GtkStateType.FFI.val_;
+    val getStateWildcarded_ = _import "gtk_icon_source_get_state_wildcarded" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p -> GBool.FFI.val_;
+    val setDirection_ = fn x1 & x2 => (_import "gtk_icon_source_set_direction" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p * GtkTextDirection.FFI.val_ -> unit;) (x1, x2)
+    val setDirectionWildcarded_ = fn x1 & x2 => (_import "gtk_icon_source_set_direction_wildcarded" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setFilename_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_source_set_filename" :
-              GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p
+              GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -38,9 +38,9 @@ structure GtkIconSource :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_source_set_icon_name" :
-              GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p
+              GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -48,11 +48,11 @@ structure GtkIconSource :>
               x2,
               x3
             )
-    val setPixbuf_ = fn x1 & x2 => (_import "gtk_icon_source_set_pixbuf" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
-    val setSize_ = fn x1 & x2 => (_import "gtk_icon_source_set_size" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setSizeWildcarded_ = fn x1 & x2 => (_import "gtk_icon_source_set_size_wildcarded" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setState_ = fn x1 & x2 => (_import "gtk_icon_source_set_state" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p * GtkStateType.FFI.val_ -> unit;) (x1, x2)
-    val setStateWildcarded_ = fn x1 & x2 => (_import "gtk_icon_source_set_state_wildcarded" : GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPixbuf_ = fn x1 & x2 => (_import "gtk_icon_source_set_pixbuf" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p * GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
+    val setSize_ = fn x1 & x2 => (_import "gtk_icon_source_set_size" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setSizeWildcarded_ = fn x1 & x2 => (_import "gtk_icon_source_set_size_wildcarded" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setState_ = fn x1 & x2 => (_import "gtk_icon_source_set_state" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p * GtkStateType.FFI.val_ -> unit;) (x1, x2)
+    val setStateWildcarded_ = fn x1 & x2 => (_import "gtk_icon_source_set_state_wildcarded" : GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type t = GtkIconSourceRecord.t
     type text_direction_t = GtkTextDirection.t
     type state_type_t = GtkStateType.t

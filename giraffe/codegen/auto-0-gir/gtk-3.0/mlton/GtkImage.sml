@@ -6,46 +6,46 @@ structure GtkImage :>
     where type image_type_t = GtkImageType.t =
   struct
     val getType_ = _import "gtk_image_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_image_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newFromAnimation_ = _import "gtk_image_new_from_animation" : GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newFromFile_ = _import "mlton_gtk_image_new_from_file" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newFromGicon_ = fn x1 & x2 => (_import "gtk_image_new_from_gicon" : GioIconClass.FFI.notnull GioIconClass.FFI.p * GInt.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val new_ = _import "gtk_image_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newFromAnimation_ = _import "gtk_image_new_from_animation" : GdkPixbufPixbufAnimationClass.FFI.non_opt GdkPixbufPixbufAnimationClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newFromFile_ = _import "mlton_gtk_image_new_from_file" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newFromGicon_ = fn x1 & x2 => (_import "gtk_image_new_from_gicon" : GioIconClass.FFI.non_opt GioIconClass.FFI.p * GInt.FFI.val_ -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
     val newFromIconName_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_image_new_from_icon_name" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newFromIconSet_ = fn x1 & x2 => (_import "gtk_image_new_from_icon_set" : GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p * GInt.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
-    val newFromPixbuf_ = _import "gtk_image_new_from_pixbuf" : unit GdkPixbufPixbufClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newFromResource_ = _import "mlton_gtk_image_new_from_resource" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val newFromIconSet_ = fn x1 & x2 => (_import "gtk_image_new_from_icon_set" : GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p * GInt.FFI.val_ -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val newFromPixbuf_ = _import "gtk_image_new_from_pixbuf" : GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newFromResource_ = _import "mlton_gtk_image_new_from_resource" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val newFromStock_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_image_new_from_stock" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newFromSurface_ = _import "gtk_image_new_from_surface" : unit CairoSurfaceRecord.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val clear_ = _import "gtk_image_clear" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p -> unit;
-    val getAnimation_ = _import "gtk_image_get_animation" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p -> unit GdkPixbufPixbufAnimationClass.FFI.p;
+    val newFromSurface_ = _import "gtk_image_new_from_surface" : CairoSurfaceRecord.FFI.opt CairoSurfaceRecord.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val clear_ = _import "gtk_image_clear" : GtkImageClass.FFI.non_opt GtkImageClass.FFI.p -> unit;
+    val getAnimation_ = _import "gtk_image_get_animation" : GtkImageClass.FFI.non_opt GtkImageClass.FFI.p -> GdkPixbufPixbufAnimationClass.FFI.opt GdkPixbufPixbufAnimationClass.FFI.p;
     val getGicon_ =
       fn
         x1
@@ -53,8 +53,8 @@ structure GtkImage :>
          & x3 =>
           (
             _import "gtk_image_get_gicon" :
-              GtkImageClass.FFI.notnull GtkImageClass.FFI.p
-               * (unit, GioIconClass.FFI.notnull) GioIconClass.FFI.r
+              GtkImageClass.FFI.non_opt GtkImageClass.FFI.p
+               * (GioIconClass.FFI.opt, GioIconClass.FFI.non_opt) GioIconClass.FFI.r
                * GInt.FFI.ref_
                -> unit;
           )
@@ -70,9 +70,9 @@ structure GtkImage :>
          & x4 =>
           (
             _import "mlton_gtk_image_get_icon_name" :
-              GtkImageClass.FFI.notnull GtkImageClass.FFI.p
+              GtkImageClass.FFI.non_opt GtkImageClass.FFI.p
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -89,8 +89,8 @@ structure GtkImage :>
          & x3 =>
           (
             _import "gtk_image_get_icon_set" :
-              GtkImageClass.FFI.notnull GtkImageClass.FFI.p
-               * (unit, GtkIconSetRecord.FFI.notnull) GtkIconSetRecord.FFI.r
+              GtkImageClass.FFI.non_opt GtkImageClass.FFI.p
+               * (GtkIconSetRecord.FFI.opt, GtkIconSetRecord.FFI.non_opt) GtkIconSetRecord.FFI.r
                * GInt.FFI.ref_
                -> unit;
           )
@@ -99,8 +99,8 @@ structure GtkImage :>
               x2,
               x3
             )
-    val getPixbuf_ = _import "gtk_image_get_pixbuf" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p -> unit GdkPixbufPixbufClass.FFI.p;
-    val getPixelSize_ = _import "gtk_image_get_pixel_size" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p -> GInt.FFI.val_;
+    val getPixbuf_ = _import "gtk_image_get_pixbuf" : GtkImageClass.FFI.non_opt GtkImageClass.FFI.p -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
+    val getPixelSize_ = _import "gtk_image_get_pixel_size" : GtkImageClass.FFI.non_opt GtkImageClass.FFI.p -> GInt.FFI.val_;
     val getStock_ =
       fn
         x1
@@ -108,9 +108,9 @@ structure GtkImage :>
          & x4 =>
           (
             _import "mlton_gtk_image_get_stock" :
-              GtkImageClass.FFI.notnull GtkImageClass.FFI.p
+              GtkImageClass.FFI.non_opt GtkImageClass.FFI.p
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -120,16 +120,16 @@ structure GtkImage :>
               x3,
               x4
             )
-    val getStorageType_ = _import "gtk_image_get_storage_type" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p -> GtkImageType.FFI.val_;
-    val setFromAnimation_ = fn x1 & x2 => (_import "gtk_image_set_from_animation" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p * GdkPixbufPixbufAnimationClass.FFI.notnull GdkPixbufPixbufAnimationClass.FFI.p -> unit;) (x1, x2)
+    val getStorageType_ = _import "gtk_image_get_storage_type" : GtkImageClass.FFI.non_opt GtkImageClass.FFI.p -> GtkImageType.FFI.val_;
+    val setFromAnimation_ = fn x1 & x2 => (_import "gtk_image_set_from_animation" : GtkImageClass.FFI.non_opt GtkImageClass.FFI.p * GdkPixbufPixbufAnimationClass.FFI.non_opt GdkPixbufPixbufAnimationClass.FFI.p -> unit;) (x1, x2)
     val setFromFile_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_image_set_from_file" :
-              GtkImageClass.FFI.notnull GtkImageClass.FFI.p
+              GtkImageClass.FFI.non_opt GtkImageClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -144,8 +144,8 @@ structure GtkImage :>
          & x3 =>
           (
             _import "gtk_image_set_from_gicon" :
-              GtkImageClass.FFI.notnull GtkImageClass.FFI.p
-               * GioIconClass.FFI.notnull GioIconClass.FFI.p
+              GtkImageClass.FFI.non_opt GtkImageClass.FFI.p
+               * GioIconClass.FFI.non_opt GioIconClass.FFI.p
                * GInt.FFI.val_
                -> unit;
           )
@@ -161,9 +161,9 @@ structure GtkImage :>
          & x4 =>
           (
             _import "mlton_gtk_image_set_from_icon_name" :
-              GtkImageClass.FFI.notnull GtkImageClass.FFI.p
+              GtkImageClass.FFI.non_opt GtkImageClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )
@@ -180,8 +180,8 @@ structure GtkImage :>
          & x3 =>
           (
             _import "gtk_image_set_from_icon_set" :
-              GtkImageClass.FFI.notnull GtkImageClass.FFI.p
-               * GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p
+              GtkImageClass.FFI.non_opt GtkImageClass.FFI.p
+               * GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p
                * GInt.FFI.val_
                -> unit;
           )
@@ -190,15 +190,15 @@ structure GtkImage :>
               x2,
               x3
             )
-    val setFromPixbuf_ = fn x1 & x2 => (_import "gtk_image_set_from_pixbuf" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p * unit GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
+    val setFromPixbuf_ = fn x1 & x2 => (_import "gtk_image_set_from_pixbuf" : GtkImageClass.FFI.non_opt GtkImageClass.FFI.p * GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
     val setFromResource_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_image_set_from_resource" :
-              GtkImageClass.FFI.notnull GtkImageClass.FFI.p
+              GtkImageClass.FFI.non_opt GtkImageClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -213,9 +213,9 @@ structure GtkImage :>
          & x4 =>
           (
             _import "mlton_gtk_image_set_from_stock" :
-              GtkImageClass.FFI.notnull GtkImageClass.FFI.p
+              GtkImageClass.FFI.non_opt GtkImageClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )
@@ -225,8 +225,8 @@ structure GtkImage :>
               x3,
               x4
             )
-    val setFromSurface_ = fn x1 & x2 => (_import "gtk_image_set_from_surface" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p * unit CairoSurfaceRecord.FFI.p -> unit;) (x1, x2)
-    val setPixelSize_ = fn x1 & x2 => (_import "gtk_image_set_pixel_size" : GtkImageClass.FFI.notnull GtkImageClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setFromSurface_ = fn x1 & x2 => (_import "gtk_image_set_from_surface" : GtkImageClass.FFI.non_opt GtkImageClass.FFI.p * CairoSurfaceRecord.FFI.opt CairoSurfaceRecord.FFI.p -> unit;) (x1, x2)
+    val setPixelSize_ = fn x1 & x2 => (_import "gtk_image_set_pixel_size" : GtkImageClass.FFI.non_opt GtkImageClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkImageClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type icon_set_t = GtkIconSetRecord.t

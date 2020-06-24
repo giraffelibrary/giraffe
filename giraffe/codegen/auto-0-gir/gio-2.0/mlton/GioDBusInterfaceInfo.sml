@@ -6,8 +6,8 @@ structure GioDBusInterfaceInfo :>
     where type d_bus_signal_info_t = GioDBusSignalInfoRecord.t =
   struct
     val getType_ = _import "g_dbus_interface_info_get_type" : unit -> GObjectType.FFI.val_;
-    val cacheBuild_ = _import "g_dbus_interface_info_cache_build" : GioDBusInterfaceInfoRecord.FFI.notnull GioDBusInterfaceInfoRecord.FFI.p -> unit;
-    val cacheRelease_ = _import "g_dbus_interface_info_cache_release" : GioDBusInterfaceInfoRecord.FFI.notnull GioDBusInterfaceInfoRecord.FFI.p -> unit;
+    val cacheBuild_ = _import "g_dbus_interface_info_cache_build" : GioDBusInterfaceInfoRecord.FFI.non_opt GioDBusInterfaceInfoRecord.FFI.p -> unit;
+    val cacheRelease_ = _import "g_dbus_interface_info_cache_release" : GioDBusInterfaceInfoRecord.FFI.non_opt GioDBusInterfaceInfoRecord.FFI.p -> unit;
     val generateXml_ =
       fn
         x1
@@ -15,9 +15,9 @@ structure GioDBusInterfaceInfo :>
          & x3 =>
           (
             _import "g_dbus_interface_info_generate_xml" :
-              GioDBusInterfaceInfoRecord.FFI.notnull GioDBusInterfaceInfoRecord.FFI.p
+              GioDBusInterfaceInfoRecord.FFI.non_opt GioDBusInterfaceInfoRecord.FFI.p
                * GUInt.FFI.val_
-               * GLibStringRecord.FFI.notnull GLibStringRecord.FFI.p
+               * GLibStringRecord.FFI.non_opt GLibStringRecord.FFI.p
                -> unit;
           )
             (
@@ -30,10 +30,10 @@ structure GioDBusInterfaceInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_interface_info_lookup_method" :
-              GioDBusInterfaceInfoRecord.FFI.notnull GioDBusInterfaceInfoRecord.FFI.p
+              GioDBusInterfaceInfoRecord.FFI.non_opt GioDBusInterfaceInfoRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioDBusMethodInfoRecord.FFI.notnull GioDBusMethodInfoRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioDBusMethodInfoRecord.FFI.non_opt GioDBusMethodInfoRecord.FFI.p;
           )
             (
               x1,
@@ -45,10 +45,10 @@ structure GioDBusInterfaceInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_interface_info_lookup_property" :
-              GioDBusInterfaceInfoRecord.FFI.notnull GioDBusInterfaceInfoRecord.FFI.p
+              GioDBusInterfaceInfoRecord.FFI.non_opt GioDBusInterfaceInfoRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioDBusPropertyInfoRecord.FFI.notnull GioDBusPropertyInfoRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioDBusPropertyInfoRecord.FFI.non_opt GioDBusPropertyInfoRecord.FFI.p;
           )
             (
               x1,
@@ -60,10 +60,10 @@ structure GioDBusInterfaceInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_interface_info_lookup_signal" :
-              GioDBusInterfaceInfoRecord.FFI.notnull GioDBusInterfaceInfoRecord.FFI.p
+              GioDBusInterfaceInfoRecord.FFI.non_opt GioDBusInterfaceInfoRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioDBusSignalInfoRecord.FFI.notnull GioDBusSignalInfoRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioDBusSignalInfoRecord.FFI.non_opt GioDBusSignalInfoRecord.FFI.p;
           )
             (
               x1,

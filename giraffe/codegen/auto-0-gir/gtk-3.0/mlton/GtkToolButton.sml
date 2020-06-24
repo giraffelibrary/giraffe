@@ -12,31 +12,31 @@ structure GtkToolButton :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_tool_button_new" :
-              unit GtkWidgetClass.FFI.p
+              GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newFromStock_ = _import "mlton_gtk_tool_button_new_from_stock" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;
-    val getIconName_ = _import "gtk_tool_button_get_icon_name" : GtkToolButtonClass.FFI.notnull GtkToolButtonClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getIconWidget_ = _import "gtk_tool_button_get_icon_widget" : GtkToolButtonClass.FFI.notnull GtkToolButtonClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getLabel_ = _import "gtk_tool_button_get_label" : GtkToolButtonClass.FFI.notnull GtkToolButtonClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getLabelWidget_ = _import "gtk_tool_button_get_label_widget" : GtkToolButtonClass.FFI.notnull GtkToolButtonClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getStockId_ = _import "gtk_tool_button_get_stock_id" : GtkToolButtonClass.FFI.notnull GtkToolButtonClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getUseUnderline_ = _import "gtk_tool_button_get_use_underline" : GtkToolButtonClass.FFI.notnull GtkToolButtonClass.FFI.p -> GBool.FFI.val_;
+    val newFromStock_ = _import "mlton_gtk_tool_button_new_from_stock" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p;
+    val getIconName_ = _import "gtk_tool_button_get_icon_name" : GtkToolButtonClass.FFI.non_opt GtkToolButtonClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getIconWidget_ = _import "gtk_tool_button_get_icon_widget" : GtkToolButtonClass.FFI.non_opt GtkToolButtonClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getLabel_ = _import "gtk_tool_button_get_label" : GtkToolButtonClass.FFI.non_opt GtkToolButtonClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getLabelWidget_ = _import "gtk_tool_button_get_label_widget" : GtkToolButtonClass.FFI.non_opt GtkToolButtonClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getStockId_ = _import "gtk_tool_button_get_stock_id" : GtkToolButtonClass.FFI.non_opt GtkToolButtonClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getUseUnderline_ = _import "gtk_tool_button_get_use_underline" : GtkToolButtonClass.FFI.non_opt GtkToolButtonClass.FFI.p -> GBool.FFI.val_;
     val setIconName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_tool_button_set_icon_name" :
-              GtkToolButtonClass.FFI.notnull GtkToolButtonClass.FFI.p
+              GtkToolButtonClass.FFI.non_opt GtkToolButtonClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -44,15 +44,15 @@ structure GtkToolButton :>
               x2,
               x3
             )
-    val setIconWidget_ = fn x1 & x2 => (_import "gtk_tool_button_set_icon_widget" : GtkToolButtonClass.FFI.notnull GtkToolButtonClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setIconWidget_ = fn x1 & x2 => (_import "gtk_tool_button_set_icon_widget" : GtkToolButtonClass.FFI.non_opt GtkToolButtonClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     val setLabel_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_tool_button_set_label" :
-              GtkToolButtonClass.FFI.notnull GtkToolButtonClass.FFI.p
+              GtkToolButtonClass.FFI.non_opt GtkToolButtonClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -60,15 +60,15 @@ structure GtkToolButton :>
               x2,
               x3
             )
-    val setLabelWidget_ = fn x1 & x2 => (_import "gtk_tool_button_set_label_widget" : GtkToolButtonClass.FFI.notnull GtkToolButtonClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setLabelWidget_ = fn x1 & x2 => (_import "gtk_tool_button_set_label_widget" : GtkToolButtonClass.FFI.non_opt GtkToolButtonClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     val setStockId_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_tool_button_set_stock_id" :
-              GtkToolButtonClass.FFI.notnull GtkToolButtonClass.FFI.p
+              GtkToolButtonClass.FFI.non_opt GtkToolButtonClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -76,7 +76,7 @@ structure GtkToolButton :>
               x2,
               x3
             )
-    val setUseUnderline_ = fn x1 & x2 => (_import "gtk_tool_button_set_use_underline" : GtkToolButtonClass.FFI.notnull GtkToolButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUseUnderline_ = fn x1 & x2 => (_import "gtk_tool_button_set_use_underline" : GtkToolButtonClass.FFI.non_opt GtkToolButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkToolButtonClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

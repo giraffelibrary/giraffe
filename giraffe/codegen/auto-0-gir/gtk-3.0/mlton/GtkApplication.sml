@@ -11,9 +11,9 @@ structure GtkApplication :>
           (
             _import "mlton_gtk_application_new" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GioApplicationFlags.FFI.val_
-               -> GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p;
+               -> GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p;
           )
             (
               x1,
@@ -28,12 +28,12 @@ structure GtkApplication :>
          & x6 =>
           (
             _import "mlton_gtk_application_add_accelerator" :
-              GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p
+              GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
                -> unit;
           )
             (
@@ -44,16 +44,16 @@ structure GtkApplication :>
               x5,
               x6
             )
-    val addWindow_ = fn x1 & x2 => (_import "gtk_application_add_window" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p * GtkWindowClass.FFI.notnull GtkWindowClass.FFI.p -> unit;) (x1, x2)
+    val addWindow_ = fn x1 & x2 => (_import "gtk_application_add_window" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p * GtkWindowClass.FFI.non_opt GtkWindowClass.FFI.p -> unit;) (x1, x2)
     val getAccelsForAction_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_application_get_accels_for_action" :
-              GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p
+              GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -65,35 +65,35 @@ structure GtkApplication :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_application_get_actions_for_accel" :
-              GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p
+              GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getActiveWindow_ = _import "gtk_application_get_active_window" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> unit GtkWindowClass.FFI.p;
-    val getAppMenu_ = _import "gtk_application_get_app_menu" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> unit GioMenuModelClass.FFI.p;
+    val getActiveWindow_ = _import "gtk_application_get_active_window" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p -> GtkWindowClass.FFI.opt GtkWindowClass.FFI.p;
+    val getAppMenu_ = _import "gtk_application_get_app_menu" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p -> GioMenuModelClass.FFI.opt GioMenuModelClass.FFI.p;
     val getMenuById_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_application_get_menu_by_id" :
-              GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p
+              GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioMenuClass.FFI.notnull GioMenuClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioMenuClass.FFI.non_opt GioMenuClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getMenubar_ = _import "gtk_application_get_menubar" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p;
-    val getWindowById_ = fn x1 & x2 => (_import "gtk_application_get_window_by_id" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p * GUInt.FFI.val_ -> unit GtkWindowClass.FFI.p;) (x1, x2)
+    val getMenubar_ = _import "gtk_application_get_menubar" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p -> GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p;
+    val getWindowById_ = fn x1 & x2 => (_import "gtk_application_get_window_by_id" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p * GUInt.FFI.val_ -> GtkWindowClass.FFI.opt GtkWindowClass.FFI.p;) (x1, x2)
     val inhibit_ =
       fn
         x1
@@ -102,11 +102,11 @@ structure GtkApplication :>
          & (x4, x5) =>
           (
             _import "mlton_gtk_application_inhibit" :
-              GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p
-               * unit GtkWindowClass.FFI.p
+              GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p
+               * GtkWindowClass.FFI.opt GtkWindowClass.FFI.p
                * GtkApplicationInhibitFlags.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> GUInt.FFI.val_;
           )
             (
@@ -116,9 +116,9 @@ structure GtkApplication :>
               x4,
               x5
             )
-    val isInhibited_ = fn x1 & x2 => (_import "gtk_application_is_inhibited" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p * GtkApplicationInhibitFlags.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val listActionDescriptions_ = _import "gtk_application_list_action_descriptions" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val prefersAppMenu_ = _import "gtk_application_prefers_app_menu" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> GBool.FFI.val_;
+    val isInhibited_ = fn x1 & x2 => (_import "gtk_application_is_inhibited" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p * GtkApplicationInhibitFlags.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val listActionDescriptions_ = _import "gtk_application_list_action_descriptions" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val prefersAppMenu_ = _import "gtk_application_prefers_app_menu" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p -> GBool.FFI.val_;
     val removeAccelerator_ =
       fn
         x1
@@ -126,10 +126,10 @@ structure GtkApplication :>
          & x4 =>
           (
             _import "mlton_gtk_application_remove_accelerator" :
-              GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p
+              GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
                -> unit;
           )
             (
@@ -138,7 +138,7 @@ structure GtkApplication :>
               x3,
               x4
             )
-    val removeWindow_ = fn x1 & x2 => (_import "gtk_application_remove_window" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p * GtkWindowClass.FFI.notnull GtkWindowClass.FFI.p -> unit;) (x1, x2)
+    val removeWindow_ = fn x1 & x2 => (_import "gtk_application_remove_window" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p * GtkWindowClass.FFI.non_opt GtkWindowClass.FFI.p -> unit;) (x1, x2)
     val setAccelsForAction_ =
       fn
         x1
@@ -146,11 +146,11 @@ structure GtkApplication :>
          & (x4, x5) =>
           (
             _import "mlton_gtk_application_set_accels_for_action" :
-              GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p
+              GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (
@@ -160,9 +160,9 @@ structure GtkApplication :>
               x4,
               x5
             )
-    val setAppMenu_ = fn x1 & x2 => (_import "gtk_application_set_app_menu" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p * unit GioMenuModelClass.FFI.p -> unit;) (x1, x2)
-    val setMenubar_ = fn x1 & x2 => (_import "gtk_application_set_menubar" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p * unit GioMenuModelClass.FFI.p -> unit;) (x1, x2)
-    val uninhibit_ = fn x1 & x2 => (_import "gtk_application_uninhibit" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val setAppMenu_ = fn x1 & x2 => (_import "gtk_application_set_app_menu" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p * GioMenuModelClass.FFI.opt GioMenuModelClass.FFI.p -> unit;) (x1, x2)
+    val setMenubar_ = fn x1 & x2 => (_import "gtk_application_set_menubar" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p * GioMenuModelClass.FFI.opt GioMenuModelClass.FFI.p -> unit;) (x1, x2)
+    val uninhibit_ = fn x1 & x2 => (_import "gtk_application_uninhibit" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkApplicationClass.class
     type application_inhibit_flags_t = GtkApplicationInhibitFlags.t
     type 'a window_class = 'a GtkWindowClass.class

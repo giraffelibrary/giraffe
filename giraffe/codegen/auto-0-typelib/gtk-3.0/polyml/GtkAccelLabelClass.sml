@@ -1,7 +1,8 @@
 structure GtkAccelLabelClass :>
   GTK_ACCEL_LABEL_CLASS
     where type 'a label_class = 'a GtkLabelClass.class
-    where type C.notnull = GtkLabelClass.C.notnull
+    where type C.opt = GtkLabelClass.C.opt
+    where type C.non_opt = GtkLabelClass.C.non_opt
     where type 'a C.p = 'a GtkLabelClass.C.p =
   struct
     type 'a label_class = 'a GtkLabelClass.class

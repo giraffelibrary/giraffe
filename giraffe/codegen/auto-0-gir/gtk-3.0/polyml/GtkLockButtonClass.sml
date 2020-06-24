@@ -1,7 +1,8 @@
 structure GtkLockButtonClass :>
   GTK_LOCK_BUTTON_CLASS
     where type 'a button_class = 'a GtkButtonClass.class
-    where type C.notnull = GtkButtonClass.C.notnull
+    where type C.opt = GtkButtonClass.C.opt
+    where type C.non_opt = GtkButtonClass.C.non_opt
     where type 'a C.p = 'a GtkButtonClass.C.p =
   struct
     type 'a button_class = 'a GtkButtonClass.class

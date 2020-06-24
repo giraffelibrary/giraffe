@@ -10,10 +10,10 @@ structure GioSimpleProxyResolver :>
           (
             _import "mlton_g_simple_proxy_resolver_new" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GioProxyResolverClass.FFI.notnull GioProxyResolverClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GioProxyResolverClass.FFI.non_opt GioProxyResolverClass.FFI.p;
           )
             (
               x1,
@@ -26,9 +26,9 @@ structure GioSimpleProxyResolver :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_simple_proxy_resolver_set_default_proxy" :
-              GioSimpleProxyResolverClass.FFI.notnull GioSimpleProxyResolverClass.FFI.p
+              GioSimpleProxyResolverClass.FFI.non_opt GioSimpleProxyResolverClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -41,9 +41,9 @@ structure GioSimpleProxyResolver :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_simple_proxy_resolver_set_ignore_hosts" :
-              GioSimpleProxyResolverClass.FFI.notnull GioSimpleProxyResolverClass.FFI.p
+              GioSimpleProxyResolverClass.FFI.non_opt GioSimpleProxyResolverClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -58,11 +58,11 @@ structure GioSimpleProxyResolver :>
          & (x4, x5) =>
           (
             _import "mlton_g_simple_proxy_resolver_set_uri_proxy" :
-              GioSimpleProxyResolverClass.FFI.notnull GioSimpleProxyResolverClass.FFI.p
+              GioSimpleProxyResolverClass.FFI.non_opt GioSimpleProxyResolverClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

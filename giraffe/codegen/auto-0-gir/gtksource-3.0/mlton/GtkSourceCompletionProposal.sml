@@ -3,16 +3,16 @@ structure GtkSourceCompletionProposal :>
     where type 'a class = 'a GtkSourceCompletionProposalClass.class =
   struct
     val getType_ = _import "gtk_source_completion_proposal_get_type" : unit -> GObjectType.FFI.val_;
-    val changed_ = _import "gtk_source_completion_proposal_changed" : GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p -> unit;
-    val equal_ = fn x1 & x2 => (_import "gtk_source_completion_proposal_equal" : GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p * GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getGicon_ = _import "gtk_source_completion_proposal_get_gicon" : GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p -> unit GioIconClass.FFI.p;
-    val getIcon_ = _import "gtk_source_completion_proposal_get_icon" : GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p -> unit GdkPixbufPixbufClass.FFI.p;
-    val getIconName_ = _import "gtk_source_completion_proposal_get_icon_name" : GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getInfo_ = _import "gtk_source_completion_proposal_get_info" : GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getLabel_ = _import "gtk_source_completion_proposal_get_label" : GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getMarkup_ = _import "gtk_source_completion_proposal_get_markup" : GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getText_ = _import "gtk_source_completion_proposal_get_text" : GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val hash_ = _import "gtk_source_completion_proposal_hash" : GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p -> GUInt.FFI.val_;
+    val changed_ = _import "gtk_source_completion_proposal_changed" : GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p -> unit;
+    val equal_ = fn x1 & x2 => (_import "gtk_source_completion_proposal_equal" : GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p * GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getGicon_ = _import "gtk_source_completion_proposal_get_gicon" : GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p -> GioIconClass.FFI.opt GioIconClass.FFI.p;
+    val getIcon_ = _import "gtk_source_completion_proposal_get_icon" : GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
+    val getIconName_ = _import "gtk_source_completion_proposal_get_icon_name" : GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getInfo_ = _import "gtk_source_completion_proposal_get_info" : GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getLabel_ = _import "gtk_source_completion_proposal_get_label" : GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getMarkup_ = _import "gtk_source_completion_proposal_get_markup" : GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getText_ = _import "gtk_source_completion_proposal_get_text" : GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val hash_ = _import "gtk_source_completion_proposal_hash" : GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p -> GUInt.FFI.val_;
     type 'a class = 'a GtkSourceCompletionProposalClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

@@ -4,11 +4,11 @@ structure GtkEventBox :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_event_box_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_event_box_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getAboveChild_ = _import "gtk_event_box_get_above_child" : GtkEventBoxClass.FFI.notnull GtkEventBoxClass.FFI.p -> GBool.FFI.val_;
-    val getVisibleWindow_ = _import "gtk_event_box_get_visible_window" : GtkEventBoxClass.FFI.notnull GtkEventBoxClass.FFI.p -> GBool.FFI.val_;
-    val setAboveChild_ = fn x1 & x2 => (_import "gtk_event_box_set_above_child" : GtkEventBoxClass.FFI.notnull GtkEventBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setVisibleWindow_ = fn x1 & x2 => (_import "gtk_event_box_set_visible_window" : GtkEventBoxClass.FFI.notnull GtkEventBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_event_box_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getAboveChild_ = _import "gtk_event_box_get_above_child" : GtkEventBoxClass.FFI.non_opt GtkEventBoxClass.FFI.p -> GBool.FFI.val_;
+    val getVisibleWindow_ = _import "gtk_event_box_get_visible_window" : GtkEventBoxClass.FFI.non_opt GtkEventBoxClass.FFI.p -> GBool.FFI.val_;
+    val setAboveChild_ = fn x1 & x2 => (_import "gtk_event_box_set_above_child" : GtkEventBoxClass.FFI.non_opt GtkEventBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setVisibleWindow_ = fn x1 & x2 => (_import "gtk_event_box_set_visible_window" : GtkEventBoxClass.FFI.non_opt GtkEventBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkEventBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class

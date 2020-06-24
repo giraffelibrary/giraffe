@@ -27,7 +27,8 @@ functor CValueCArrayNType(
 
     type 'a from_p = int -> 'a
     structure Pointer = CTypedPointer(CElemType)
-    type notnull = Pointer.notnull
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
     type e = Pointer.e
 

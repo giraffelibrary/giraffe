@@ -1,6 +1,6 @@
 structure Gio : GIO =
   struct
-    val actionNameIsValid_ = _import "mlton_g_action_name_is_valid" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
+    val actionNameIsValid_ = _import "mlton_g_action_name_is_valid" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
     val actionParseDetailedName_ =
       fn
         (x1, x2)
@@ -10,11 +10,11 @@ structure Gio : GIO =
           (
             _import "mlton_g_action_parse_detailed_name" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
-               * (unit, GLibVariantRecord.FFI.notnull) GLibVariantRecord.FFI.r
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * (GLibVariantRecord.FFI.opt, GLibVariantRecord.FFI.non_opt) GLibVariantRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -31,9 +31,9 @@ structure Gio : GIO =
           (
             _import "mlton_g_action_print_detailed_name" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.FFI.p
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -49,12 +49,12 @@ structure Gio : GIO =
           (
             _import "mlton_g_app_info_create_from_commandline" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GioAppInfoCreateFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p;
           )
             (
               x1,
@@ -70,16 +70,16 @@ structure Gio : GIO =
           (
             _import "mlton_g_app_info_get_default_for_type" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GBool.FFI.val_
-               -> GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p;
+               -> GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val appInfoGetDefaultForUriScheme_ = _import "mlton_g_app_info_get_default_for_uri_scheme" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p;
+    val appInfoGetDefaultForUriScheme_ = _import "mlton_g_app_info_get_default_for_uri_scheme" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p;
     val appInfoLaunchDefaultForUri_ =
       fn
         (x1, x2)
@@ -88,9 +88,9 @@ structure Gio : GIO =
           (
             _import "mlton_g_app_info_launch_default_for_uri" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GioAppLaunchContextClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioAppLaunchContextClass.FFI.opt GioAppLaunchContextClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -99,9 +99,9 @@ structure Gio : GIO =
               x3,
               x4
             )
-    val appInfoLaunchDefaultForUriFinish_ = fn x1 & x2 => (_import "g_app_info_launch_default_for_uri_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
-    val appInfoResetTypeAssociations_ = _import "mlton_g_app_info_reset_type_associations" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
-    val busGetFinish_ = fn x1 & x2 => (_import "g_bus_get_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;) (x1, x2)
+    val appInfoLaunchDefaultForUriFinish_ = fn x1 & x2 => (_import "g_app_info_launch_default_for_uri_finish" : GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
+    val appInfoResetTypeAssociations_ = _import "mlton_g_app_info_reset_type_associations" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
+    val busGetFinish_ = fn x1 & x2 => (_import "g_bus_get_finish" : GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p;) (x1, x2)
     val busGetSync_ =
       fn
         x1
@@ -110,9 +110,9 @@ structure Gio : GIO =
           (
             _import "g_bus_get_sync" :
               GioBusType.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p;
           )
             (
               x1,
@@ -128,12 +128,12 @@ structure Gio : GIO =
          & x6 =>
           (
             _import "mlton_g_bus_own_name_on_connection_with_closures" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioBusNameOwnerFlags.FFI.val_
-               * unit GObjectClosureRecord.FFI.p
-               * unit GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
                -> GUInt32.FFI.val_;
           )
             (
@@ -156,11 +156,11 @@ structure Gio : GIO =
             _import "mlton_g_bus_own_name_with_closures" :
               GioBusType.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioBusNameOwnerFlags.FFI.val_
-               * unit GObjectClosureRecord.FFI.p
-               * unit GObjectClosureRecord.FFI.p
-               * unit GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
                -> GUInt32.FFI.val_;
           )
             (
@@ -183,12 +183,12 @@ structure Gio : GIO =
          & x6 =>
           (
             _import "mlton_g_bus_watch_name_on_connection_with_closures" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioBusNameWatcherFlags.FFI.val_
-               * unit GObjectClosureRecord.FFI.p
-               * unit GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
                -> GUInt32.FFI.val_;
           )
             (
@@ -210,10 +210,10 @@ structure Gio : GIO =
             _import "mlton_g_bus_watch_name_with_closures" :
               GioBusType.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioBusNameWatcherFlags.FFI.val_
-               * unit GObjectClosureRecord.FFI.p
-               * unit GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.opt GObjectClosureRecord.FFI.p
                -> GUInt32.FFI.val_;
           )
             (
@@ -224,16 +224,16 @@ structure Gio : GIO =
               x5,
               x6
             )
-    val contentTypeCanBeExecutable_ = _import "mlton_g_content_type_can_be_executable" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
+    val contentTypeCanBeExecutable_ = _import "mlton_g_content_type_can_be_executable" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
     val contentTypeEquals_ =
       fn
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_content_type_equals" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -242,12 +242,12 @@ structure Gio : GIO =
               x3,
               x4
             )
-    val contentTypeFromMimeType_ = _import "mlton_g_content_type_from_mime_type" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit Utf8.FFI.out_p;
-    val contentTypeGetDescription_ = _import "mlton_g_content_type_get_description" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val contentTypeGetGenericIconName_ = _import "mlton_g_content_type_get_generic_icon_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit Utf8.FFI.out_p;
-    val contentTypeGetIcon_ = _import "mlton_g_content_type_get_icon" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val contentTypeGetMimeType_ = _import "mlton_g_content_type_get_mime_type" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit Utf8.FFI.out_p;
-    val contentTypeGetSymbolicIcon_ = _import "mlton_g_content_type_get_symbolic_icon" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
+    val contentTypeFromMimeType_ = _import "mlton_g_content_type_from_mime_type" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val contentTypeGetDescription_ = _import "mlton_g_content_type_get_description" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val contentTypeGetGenericIconName_ = _import "mlton_g_content_type_get_generic_icon_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val contentTypeGetIcon_ = _import "mlton_g_content_type_get_icon" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val contentTypeGetMimeType_ = _import "mlton_g_content_type_get_mime_type" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val contentTypeGetSymbolicIcon_ = _import "mlton_g_content_type_get_symbolic_icon" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
     val contentTypeGuess_ =
       fn
         (x1, x2)
@@ -257,12 +257,12 @@ structure Gio : GIO =
           (
             _import "mlton_g_content_type_guess" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GUInt8CArrayN.MLton.p1
-               * unit GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.opt GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GBool.FFI.ref_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -272,16 +272,16 @@ structure Gio : GIO =
               x5,
               x6
             )
-    val contentTypeGuessForTree_ = _import "g_content_type_guess_for_tree" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val contentTypeGuessForTree_ = _import "g_content_type_guess_for_tree" : GioFileClass.FFI.non_opt GioFileClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val contentTypeIsA_ =
       fn
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_content_type_is_a" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -290,8 +290,8 @@ structure Gio : GIO =
               x3,
               x4
             )
-    val contentTypeIsUnknown_ = _import "mlton_g_content_type_is_unknown" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
-    val dbusAddressEscapeValue_ = _import "mlton_g_dbus_address_escape_value" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val contentTypeIsUnknown_ = _import "mlton_g_content_type_is_unknown" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
+    val dbusAddressEscapeValue_ = _import "mlton_g_dbus_address_escape_value" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val dbusAddressGetForBusSync_ =
       fn
         x1
@@ -300,9 +300,9 @@ structure Gio : GIO =
           (
             _import "g_dbus_address_get_for_bus_sync" :
               GioBusType.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -316,11 +316,11 @@ structure Gio : GIO =
          & x4 =>
           (
             _import "mlton_g_dbus_address_get_stream_finish" :
-              GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+              GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p;
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioIOStreamClass.FFI.non_opt GioIOStreamClass.FFI.p;
           )
             (
               x1,
@@ -337,12 +337,12 @@ structure Gio : GIO =
           (
             _import "mlton_g_dbus_address_get_stream_sync" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p;
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioIOStreamClass.FFI.non_opt GioIOStreamClass.FFI.p;
           )
             (
               x1,
@@ -358,10 +358,10 @@ structure Gio : GIO =
           (
             _import "mlton_g_dbus_annotation_info_lookup" :
               GioDBusAnnotationInfoRecordCPtrArray.MLton.p1
-               * unit GioDBusAnnotationInfoRecordCPtrArray.MLton.p2
+               * GioDBusAnnotationInfoRecordCPtrArray.FFI.opt GioDBusAnnotationInfoRecordCPtrArray.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -370,22 +370,22 @@ structure Gio : GIO =
               x4
             )
     val dbusErrorQuark_ = _import "g_dbus_error_quark" : unit -> GUInt32.FFI.val_;
-    val dbusGenerateGuid_ = _import "g_dbus_generate_guid" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val dbusGvalueToGvariant_ = fn x1 & x2 => (_import "g_dbus_gvalue_to_gvariant" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;) (x1, x2)
-    val dbusGvariantToGvalue_ = fn x1 & x2 => (_import "g_dbus_gvariant_to_gvalue" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit;) (x1, x2)
-    val dbusIsAddress_ = _import "mlton_g_dbus_is_address" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
-    val dbusIsGuid_ = _import "mlton_g_dbus_is_guid" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
-    val dbusIsInterfaceName_ = _import "mlton_g_dbus_is_interface_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
-    val dbusIsMemberName_ = _import "mlton_g_dbus_is_member_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
-    val dbusIsName_ = _import "mlton_g_dbus_is_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
+    val dbusGenerateGuid_ = _import "g_dbus_generate_guid" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val dbusGvalueToGvariant_ = fn x1 & x2 => (_import "g_dbus_gvalue_to_gvariant" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GLibVariantTypeRecord.FFI.non_opt GLibVariantTypeRecord.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;) (x1, x2)
+    val dbusGvariantToGvalue_ = fn x1 & x2 => (_import "g_dbus_gvariant_to_gvalue" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit;) (x1, x2)
+    val dbusIsAddress_ = _import "mlton_g_dbus_is_address" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
+    val dbusIsGuid_ = _import "mlton_g_dbus_is_guid" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
+    val dbusIsInterfaceName_ = _import "mlton_g_dbus_is_interface_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
+    val dbusIsMemberName_ = _import "mlton_g_dbus_is_member_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
+    val dbusIsName_ = _import "mlton_g_dbus_is_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
     val dbusIsSupportedAddress_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_dbus_is_supported_address" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -393,7 +393,7 @@ structure Gio : GIO =
               x2,
               x3
             )
-    val dbusIsUniqueName_ = _import "mlton_g_dbus_is_unique_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
+    val dbusIsUniqueName_ = _import "mlton_g_dbus_is_unique_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
     val dtlsClientConnectionNew_ =
       fn
         x1
@@ -401,10 +401,10 @@ structure Gio : GIO =
          & x3 =>
           (
             _import "g_dtls_client_connection_new" :
-              GioDatagramBasedClass.FFI.notnull GioDatagramBasedClass.FFI.p
-               * unit GioSocketConnectableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioDtlsClientConnectionClass.FFI.notnull GioDtlsClientConnectionClass.FFI.p;
+              GioDatagramBasedClass.FFI.non_opt GioDatagramBasedClass.FFI.p
+               * GioSocketConnectableClass.FFI.opt GioSocketConnectableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioDtlsClientConnectionClass.FFI.non_opt GioDtlsClientConnectionClass.FFI.p;
           )
             (
               x1,
@@ -418,27 +418,27 @@ structure Gio : GIO =
          & x3 =>
           (
             _import "g_dtls_server_connection_new" :
-              GioDatagramBasedClass.FFI.notnull GioDatagramBasedClass.FFI.p
-               * unit GioTlsCertificateClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioDtlsServerConnectionClass.FFI.notnull GioDtlsServerConnectionClass.FFI.p;
+              GioDatagramBasedClass.FFI.non_opt GioDatagramBasedClass.FFI.p
+               * GioTlsCertificateClass.FFI.opt GioTlsCertificateClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioDtlsServerConnectionClass.FFI.non_opt GioDtlsServerConnectionClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val fileNewForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+    val fileNewForCommandlineArg_ = _import "mlton_g_file_new_for_commandline_arg" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
     val fileNewForCommandlineArgAndCwd_ =
       fn
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_g_file_new_for_commandline_arg_and_cwd" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
           )
             (
               x1,
@@ -446,8 +446,8 @@ structure Gio : GIO =
               x3,
               x4
             )
-    val fileNewForPath_ = _import "mlton_g_file_new_for_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
-    val fileNewForUri_ = _import "mlton_g_file_new_for_uri" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+    val fileNewForPath_ = _import "mlton_g_file_new_for_path" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
+    val fileNewForUri_ = _import "mlton_g_file_new_for_uri" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
     val fileNewTmp_ =
       fn
         (x1, x2)
@@ -456,10 +456,10 @@ structure Gio : GIO =
           (
             _import "mlton_g_file_new_tmp" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * (unit, GioFileIOStreamClass.FFI.notnull) GioFileIOStreamClass.FFI.r
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * (GioFileIOStreamClass.FFI.opt, GioFileIOStreamClass.FFI.non_opt) GioFileIOStreamClass.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
           )
             (
               x1,
@@ -467,17 +467,17 @@ structure Gio : GIO =
               x3,
               x4
             )
-    val fileParseName_ = _import "mlton_g_file_parse_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
-    val iconDeserialize_ = _import "g_icon_deserialize" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
+    val fileParseName_ = _import "mlton_g_file_parse_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
+    val iconDeserialize_ = _import "g_icon_deserialize" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
     val iconNewForString_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_icon_new_for_string" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
           )
             (
               x1,
@@ -495,12 +495,12 @@ structure Gio : GIO =
           (
             _import "mlton_g_io_extension_point_implement" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GObjectType.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
-               -> GioIOExtensionRecord.FFI.notnull GioIOExtensionRecord.FFI.p;
+               -> GioIOExtensionRecord.FFI.non_opt GioIOExtensionRecord.FFI.p;
           )
             (
               x1,
@@ -510,17 +510,17 @@ structure Gio : GIO =
               x5,
               x6
             )
-    val ioExtensionPointLookup_ = _import "mlton_g_io_extension_point_lookup" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioIOExtensionPointRecord.FFI.notnull GioIOExtensionPointRecord.FFI.p;
-    val ioExtensionPointRegister_ = _import "mlton_g_io_extension_point_register" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioIOExtensionPointRecord.FFI.notnull GioIOExtensionPointRecord.FFI.p;
-    val ioModulesScanAllInDirectory_ = _import "mlton_g_io_modules_scan_all_in_directory" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val ioExtensionPointLookup_ = _import "mlton_g_io_extension_point_lookup" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioIOExtensionPointRecord.FFI.non_opt GioIOExtensionPointRecord.FFI.p;
+    val ioExtensionPointRegister_ = _import "mlton_g_io_extension_point_register" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioIOExtensionPointRecord.FFI.non_opt GioIOExtensionPointRecord.FFI.p;
+    val ioModulesScanAllInDirectory_ = _import "mlton_g_io_modules_scan_all_in_directory" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val ioModulesScanAllInDirectoryWithScope_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_io_modules_scan_all_in_directory_with_scope" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GioIOModuleScopeRecord.FFI.notnull GioIOModuleScopeRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioIOModuleScopeRecord.FFI.non_opt GioIOModuleScopeRecord.FFI.p
                -> unit;
           )
             (
@@ -529,9 +529,9 @@ structure Gio : GIO =
               x3
             )
     val ioSchedulerCancelAllJobs_ = _import "g_io_scheduler_cancel_all_jobs" : unit -> unit;
-    val networkMonitorGetDefault_ = _import "g_network_monitor_get_default" : unit -> GioNetworkMonitorClass.FFI.notnull GioNetworkMonitorClass.FFI.p;
+    val networkMonitorGetDefault_ = _import "g_network_monitor_get_default" : unit -> GioNetworkMonitorClass.FFI.non_opt GioNetworkMonitorClass.FFI.p;
     val networkingInit_ = _import "g_networking_init" : unit -> unit;
-    val pollableSourceNew_ = _import "g_pollable_source_new" : GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p -> GLibSourceRecord.FFI.notnull GLibSourceRecord.FFI.p;
+    val pollableSourceNew_ = _import "g_pollable_source_new" : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
     val pollableSourceNewFull_ =
       fn
         x1
@@ -539,10 +539,10 @@ structure Gio : GIO =
          & x3 =>
           (
             _import "g_pollable_source_new_full" :
-              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
-               * unit GLibSourceRecord.FFI.p
-               * unit GioCancellableClass.FFI.p
-               -> GLibSourceRecord.FFI.notnull GLibSourceRecord.FFI.p;
+              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
+               * GLibSourceRecord.FFI.opt GLibSourceRecord.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
           )
             (
               x1,
@@ -559,13 +559,13 @@ structure Gio : GIO =
          & x7 =>
           (
             _import "mlton_g_pollable_stream_read" :
-              GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
+              GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GBool.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GInt64.FFI.val_;
           )
             (
@@ -587,13 +587,13 @@ structure Gio : GIO =
          & x7 =>
           (
             _import "mlton_g_pollable_stream_write" :
-              GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p
+              GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GBool.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GInt64.FFI.val_;
           )
             (
@@ -616,14 +616,14 @@ structure Gio : GIO =
          & x8 =>
           (
             _import "mlton_g_pollable_stream_write_all" :
-              GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p
+              GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GBool.FFI.val_
                * GUInt64.FFI.ref_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -636,8 +636,8 @@ structure Gio : GIO =
               x7,
               x8
             )
-    val proxyGetDefaultForProtocol_ = _import "mlton_g_proxy_get_default_for_protocol" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioProxyClass.FFI.notnull GioProxyClass.FFI.p;
-    val proxyResolverGetDefault_ = _import "g_proxy_resolver_get_default" : unit -> GioProxyResolverClass.FFI.notnull GioProxyResolverClass.FFI.p;
+    val proxyGetDefaultForProtocol_ = _import "mlton_g_proxy_get_default_for_protocol" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioProxyClass.FFI.non_opt GioProxyClass.FFI.p;
+    val proxyResolverGetDefault_ = _import "g_proxy_resolver_get_default" : unit -> GioProxyResolverClass.FFI.non_opt GioProxyResolverClass.FFI.p;
     val resolverErrorQuark_ = _import "g_resolver_error_quark" : unit -> GUInt32.FFI.val_;
     val resourceErrorQuark_ = _import "g_resource_error_quark" : unit -> GUInt32.FFI.val_;
     val resourceLoad_ =
@@ -646,9 +646,9 @@ structure Gio : GIO =
           (
             _import "mlton_g_resource_load" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioResourceRecord.FFI.non_opt GioResourceRecord.FFI.p;
           )
             (
               x1,
@@ -663,10 +663,10 @@ structure Gio : GIO =
           (
             _import "mlton_g_resources_enumerate_children" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -684,11 +684,11 @@ structure Gio : GIO =
           (
             _import "mlton_g_resources_get_info" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
                * GUInt64.FFI.ref_
                * GUInt32.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -707,10 +707,10 @@ structure Gio : GIO =
           (
             _import "mlton_g_resources_lookup_data" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p;
           )
             (
               x1,
@@ -726,10 +726,10 @@ structure Gio : GIO =
           (
             _import "mlton_g_resources_open_stream" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p;
           )
             (
               x1,
@@ -737,10 +737,10 @@ structure Gio : GIO =
               x3,
               x4
             )
-    val resourcesRegister_ = _import "g_resources_register" : GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p -> unit;
-    val resourcesUnregister_ = _import "g_resources_unregister" : GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p -> unit;
-    val settingsSchemaSourceGetDefault_ = _import "g_settings_schema_source_get_default" : unit -> GioSettingsSchemaSourceRecord.FFI.notnull GioSettingsSchemaSourceRecord.FFI.p;
-    val tlsBackendGetDefault_ = _import "g_tls_backend_get_default" : unit -> GioTlsBackendClass.FFI.notnull GioTlsBackendClass.FFI.p;
+    val resourcesRegister_ = _import "g_resources_register" : GioResourceRecord.FFI.non_opt GioResourceRecord.FFI.p -> unit;
+    val resourcesUnregister_ = _import "g_resources_unregister" : GioResourceRecord.FFI.non_opt GioResourceRecord.FFI.p -> unit;
+    val settingsSchemaSourceGetDefault_ = _import "g_settings_schema_source_get_default" : unit -> GioSettingsSchemaSourceRecord.FFI.non_opt GioSettingsSchemaSourceRecord.FFI.p;
+    val tlsBackendGetDefault_ = _import "g_tls_backend_get_default" : unit -> GioTlsBackendClass.FFI.non_opt GioTlsBackendClass.FFI.p;
     val tlsClientConnectionNew_ =
       fn
         x1
@@ -748,10 +748,10 @@ structure Gio : GIO =
          & x3 =>
           (
             _import "g_tls_client_connection_new" :
-              GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p
-               * unit GioSocketConnectableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioTlsClientConnectionClass.FFI.notnull GioTlsClientConnectionClass.FFI.p;
+              GioIOStreamClass.FFI.non_opt GioIOStreamClass.FFI.p
+               * GioSocketConnectableClass.FFI.opt GioSocketConnectableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioTlsClientConnectionClass.FFI.non_opt GioTlsClientConnectionClass.FFI.p;
           )
             (
               x1,
@@ -765,9 +765,9 @@ structure Gio : GIO =
           (
             _import "mlton_g_tls_file_database_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioTlsFileDatabaseClass.FFI.notnull GioTlsFileDatabaseClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioTlsFileDatabaseClass.FFI.non_opt GioTlsFileDatabaseClass.FFI.p;
           )
             (
               x1,
@@ -781,29 +781,29 @@ structure Gio : GIO =
          & x3 =>
           (
             _import "g_tls_server_connection_new" :
-              GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p
-               * unit GioTlsCertificateClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioTlsServerConnectionClass.FFI.notnull GioTlsServerConnectionClass.FFI.p;
+              GioIOStreamClass.FFI.non_opt GioIOStreamClass.FFI.p
+               * GioTlsCertificateClass.FFI.opt GioTlsCertificateClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioTlsServerConnectionClass.FFI.non_opt GioTlsServerConnectionClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val unixIsMountPathSystemInternal_ = _import "mlton_g_unix_is_mount_path_system_internal" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
-    val unixMountCompare_ = fn x1 & x2 => (_import "g_unix_mount_compare" : GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p * GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p -> GInt32.FFI.val_;) (x1, x2)
-    val unixMountFree_ = _import "g_unix_mount_free" : GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p -> unit;
-    val unixMountGetDevicePath_ = _import "g_unix_mount_get_device_path" : GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val unixMountGetFsType_ = _import "g_unix_mount_get_fs_type" : GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val unixMountGetMountPath_ = _import "g_unix_mount_get_mount_path" : GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val unixMountGuessCanEject_ = _import "g_unix_mount_guess_can_eject" : GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p -> GBool.FFI.val_;
-    val unixMountGuessIcon_ = _import "g_unix_mount_guess_icon" : GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val unixMountGuessName_ = _import "g_unix_mount_guess_name" : GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val unixMountGuessShouldDisplay_ = _import "g_unix_mount_guess_should_display" : GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p -> GBool.FFI.val_;
-    val unixMountGuessSymbolicIcon_ = _import "g_unix_mount_guess_symbolic_icon" : GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val unixMountIsReadonly_ = _import "g_unix_mount_is_readonly" : GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p -> GBool.FFI.val_;
-    val unixMountIsSystemInternal_ = _import "g_unix_mount_is_system_internal" : GioUnixMountEntryRecord.FFI.notnull GioUnixMountEntryRecord.FFI.p -> GBool.FFI.val_;
+    val unixIsMountPathSystemInternal_ = _import "mlton_g_unix_is_mount_path_system_internal" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
+    val unixMountCompare_ = fn x1 & x2 => (_import "g_unix_mount_compare" : GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p * GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p -> GInt32.FFI.val_;) (x1, x2)
+    val unixMountFree_ = _import "g_unix_mount_free" : GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p -> unit;
+    val unixMountGetDevicePath_ = _import "g_unix_mount_get_device_path" : GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val unixMountGetFsType_ = _import "g_unix_mount_get_fs_type" : GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val unixMountGetMountPath_ = _import "g_unix_mount_get_mount_path" : GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val unixMountGuessCanEject_ = _import "g_unix_mount_guess_can_eject" : GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p -> GBool.FFI.val_;
+    val unixMountGuessIcon_ = _import "g_unix_mount_guess_icon" : GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val unixMountGuessName_ = _import "g_unix_mount_guess_name" : GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val unixMountGuessShouldDisplay_ = _import "g_unix_mount_guess_should_display" : GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p -> GBool.FFI.val_;
+    val unixMountGuessSymbolicIcon_ = _import "g_unix_mount_guess_symbolic_icon" : GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val unixMountIsReadonly_ = _import "g_unix_mount_is_readonly" : GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p -> GBool.FFI.val_;
+    val unixMountIsSystemInternal_ = _import "g_unix_mount_is_system_internal" : GioUnixMountEntryRecord.FFI.non_opt GioUnixMountEntryRecord.FFI.p -> GBool.FFI.val_;
     val unixMountPointsChangedSince_ = _import "g_unix_mount_points_changed_since" : GUInt64.FFI.val_ -> GBool.FFI.val_;
     val unixMountsChangedSince_ = _import "g_unix_mounts_changed_since" : GUInt64.FFI.val_ -> GBool.FFI.val_;
     structure ActionClass = GioActionClass

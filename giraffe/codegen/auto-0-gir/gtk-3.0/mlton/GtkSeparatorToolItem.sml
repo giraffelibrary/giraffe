@@ -5,9 +5,9 @@ structure GtkSeparatorToolItem :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_separator_tool_item_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_separator_tool_item_new" : unit -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;
-    val getDraw_ = _import "gtk_separator_tool_item_get_draw" : GtkSeparatorToolItemClass.FFI.notnull GtkSeparatorToolItemClass.FFI.p -> GBool.FFI.val_;
-    val setDraw_ = fn x1 & x2 => (_import "gtk_separator_tool_item_set_draw" : GtkSeparatorToolItemClass.FFI.notnull GtkSeparatorToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_separator_tool_item_new" : unit -> GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p;
+    val getDraw_ = _import "gtk_separator_tool_item_get_draw" : GtkSeparatorToolItemClass.FFI.non_opt GtkSeparatorToolItemClass.FFI.p -> GBool.FFI.val_;
+    val setDraw_ = fn x1 & x2 => (_import "gtk_separator_tool_item_set_draw" : GtkSeparatorToolItemClass.FFI.non_opt GtkSeparatorToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkSeparatorToolItemClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

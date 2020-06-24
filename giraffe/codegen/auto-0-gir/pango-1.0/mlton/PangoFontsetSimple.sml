@@ -5,9 +5,9 @@ structure PangoFontsetSimple :>
     where type 'a font_class = 'a PangoFontClass.class =
   struct
     val getType_ = _import "pango_fontset_simple_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "pango_fontset_simple_new" : PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p -> PangoFontsetSimpleClass.FFI.notnull PangoFontsetSimpleClass.FFI.p;
-    val append_ = fn x1 & x2 => (_import "pango_fontset_simple_append" : PangoFontsetSimpleClass.FFI.notnull PangoFontsetSimpleClass.FFI.p * PangoFontClass.FFI.notnull PangoFontClass.FFI.p -> unit;) (x1, x2)
-    val size_ = _import "pango_fontset_simple_size" : PangoFontsetSimpleClass.FFI.notnull PangoFontsetSimpleClass.FFI.p -> GInt.FFI.val_;
+    val new_ = _import "pango_fontset_simple_new" : PangoLanguageRecord.FFI.non_opt PangoLanguageRecord.FFI.p -> PangoFontsetSimpleClass.FFI.non_opt PangoFontsetSimpleClass.FFI.p;
+    val append_ = fn x1 & x2 => (_import "pango_fontset_simple_append" : PangoFontsetSimpleClass.FFI.non_opt PangoFontsetSimpleClass.FFI.p * PangoFontClass.FFI.non_opt PangoFontClass.FFI.p -> unit;) (x1, x2)
+    val size_ = _import "pango_fontset_simple_size" : PangoFontsetSimpleClass.FFI.non_opt PangoFontsetSimpleClass.FFI.p -> GInt.FFI.val_;
     type 'a class = 'a PangoFontsetSimpleClass.class
     type language_t = PangoLanguageRecord.t
     type 'a font_class = 'a PangoFontClass.class

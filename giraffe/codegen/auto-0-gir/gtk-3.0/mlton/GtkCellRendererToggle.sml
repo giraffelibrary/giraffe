@@ -3,13 +3,13 @@ structure GtkCellRendererToggle :>
     where type 'a class = 'a GtkCellRendererToggleClass.class =
   struct
     val getType_ = _import "gtk_cell_renderer_toggle_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_cell_renderer_toggle_new" : unit -> GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p;
-    val getActivatable_ = _import "gtk_cell_renderer_toggle_get_activatable" : GtkCellRendererToggleClass.FFI.notnull GtkCellRendererToggleClass.FFI.p -> GBool.FFI.val_;
-    val getActive_ = _import "gtk_cell_renderer_toggle_get_active" : GtkCellRendererToggleClass.FFI.notnull GtkCellRendererToggleClass.FFI.p -> GBool.FFI.val_;
-    val getRadio_ = _import "gtk_cell_renderer_toggle_get_radio" : GtkCellRendererToggleClass.FFI.notnull GtkCellRendererToggleClass.FFI.p -> GBool.FFI.val_;
-    val setActivatable_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_activatable" : GtkCellRendererToggleClass.FFI.notnull GtkCellRendererToggleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setActive_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_active" : GtkCellRendererToggleClass.FFI.notnull GtkCellRendererToggleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setRadio_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_radio" : GtkCellRendererToggleClass.FFI.notnull GtkCellRendererToggleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_cell_renderer_toggle_new" : unit -> GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p;
+    val getActivatable_ = _import "gtk_cell_renderer_toggle_get_activatable" : GtkCellRendererToggleClass.FFI.non_opt GtkCellRendererToggleClass.FFI.p -> GBool.FFI.val_;
+    val getActive_ = _import "gtk_cell_renderer_toggle_get_active" : GtkCellRendererToggleClass.FFI.non_opt GtkCellRendererToggleClass.FFI.p -> GBool.FFI.val_;
+    val getRadio_ = _import "gtk_cell_renderer_toggle_get_radio" : GtkCellRendererToggleClass.FFI.non_opt GtkCellRendererToggleClass.FFI.p -> GBool.FFI.val_;
+    val setActivatable_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_activatable" : GtkCellRendererToggleClass.FFI.non_opt GtkCellRendererToggleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setActive_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_active" : GtkCellRendererToggleClass.FFI.non_opt GtkCellRendererToggleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setRadio_ = fn x1 & x2 => (_import "gtk_cell_renderer_toggle_set_radio" : GtkCellRendererToggleClass.FFI.non_opt GtkCellRendererToggleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkCellRendererToggleClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

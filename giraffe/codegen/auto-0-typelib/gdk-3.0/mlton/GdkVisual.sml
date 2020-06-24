@@ -6,14 +6,14 @@ structure GdkVisual :>
     where type visual_type_t = GdkVisualType.t =
   struct
     val getType_ = _import "gdk_visual_get_type" : unit -> GObjectType.FFI.val_;
-    val getBest_ = _import "gdk_visual_get_best" : unit -> GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p;
+    val getBest_ = _import "gdk_visual_get_best" : unit -> GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p;
     val getBestDepth_ = _import "gdk_visual_get_best_depth" : unit -> GInt32.FFI.val_;
     val getBestType_ = _import "gdk_visual_get_best_type" : unit -> GdkVisualType.FFI.val_;
-    val getBestWithBoth_ = fn x1 & x2 => (_import "gdk_visual_get_best_with_both" : GInt32.FFI.val_ * GdkVisualType.FFI.val_ -> unit GdkVisualClass.FFI.p;) (x1, x2)
-    val getBestWithDepth_ = _import "gdk_visual_get_best_with_depth" : GInt32.FFI.val_ -> GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p;
-    val getBestWithType_ = _import "gdk_visual_get_best_with_type" : GdkVisualType.FFI.val_ -> GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p;
-    val getSystem_ = _import "gdk_visual_get_system" : unit -> GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p;
-    val getBitsPerRgb_ = _import "gdk_visual_get_bits_per_rgb" : GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p -> GInt32.FFI.val_;
+    val getBestWithBoth_ = fn x1 & x2 => (_import "gdk_visual_get_best_with_both" : GInt32.FFI.val_ * GdkVisualType.FFI.val_ -> GdkVisualClass.FFI.opt GdkVisualClass.FFI.p;) (x1, x2)
+    val getBestWithDepth_ = _import "gdk_visual_get_best_with_depth" : GInt32.FFI.val_ -> GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p;
+    val getBestWithType_ = _import "gdk_visual_get_best_with_type" : GdkVisualType.FFI.val_ -> GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p;
+    val getSystem_ = _import "gdk_visual_get_system" : unit -> GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p;
+    val getBitsPerRgb_ = _import "gdk_visual_get_bits_per_rgb" : GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p -> GInt32.FFI.val_;
     val getBluePixelDetails_ =
       fn
         x1
@@ -22,7 +22,7 @@ structure GdkVisual :>
          & x4 =>
           (
             _import "gdk_visual_get_blue_pixel_details" :
-              GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p
+              GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p
                * GUInt32.FFI.ref_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
@@ -34,9 +34,9 @@ structure GdkVisual :>
               x3,
               x4
             )
-    val getByteOrder_ = _import "gdk_visual_get_byte_order" : GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p -> GdkByteOrder.FFI.val_;
-    val getColormapSize_ = _import "gdk_visual_get_colormap_size" : GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p -> GInt32.FFI.val_;
-    val getDepth_ = _import "gdk_visual_get_depth" : GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p -> GInt32.FFI.val_;
+    val getByteOrder_ = _import "gdk_visual_get_byte_order" : GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p -> GdkByteOrder.FFI.val_;
+    val getColormapSize_ = _import "gdk_visual_get_colormap_size" : GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p -> GInt32.FFI.val_;
+    val getDepth_ = _import "gdk_visual_get_depth" : GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p -> GInt32.FFI.val_;
     val getGreenPixelDetails_ =
       fn
         x1
@@ -45,7 +45,7 @@ structure GdkVisual :>
          & x4 =>
           (
             _import "gdk_visual_get_green_pixel_details" :
-              GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p
+              GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p
                * GUInt32.FFI.ref_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
@@ -65,7 +65,7 @@ structure GdkVisual :>
          & x4 =>
           (
             _import "gdk_visual_get_red_pixel_details" :
-              GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p
+              GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p
                * GUInt32.FFI.ref_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
@@ -77,8 +77,8 @@ structure GdkVisual :>
               x3,
               x4
             )
-    val getScreen_ = _import "gdk_visual_get_screen" : GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p -> GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p;
-    val getVisualType_ = _import "gdk_visual_get_visual_type" : GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p -> GdkVisualType.FFI.val_;
+    val getScreen_ = _import "gdk_visual_get_screen" : GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p -> GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p;
+    val getVisualType_ = _import "gdk_visual_get_visual_type" : GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p -> GdkVisualType.FFI.val_;
     type 'a class = 'a GdkVisualClass.class
     type byte_order_t = GdkByteOrder.t
     type 'a screen_class = 'a GdkScreenClass.class

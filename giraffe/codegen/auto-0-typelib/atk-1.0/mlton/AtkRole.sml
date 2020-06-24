@@ -383,8 +383,8 @@ structure AtkRole :> ATK_ROLE =
       )
     open Enum
     val getType_ = _import "atk_role_get_type" : unit -> GObjectType.FFI.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       ValueAccessor.C.createAccessor
         {
@@ -392,10 +392,10 @@ structure AtkRole :> ATK_ROLE =
           getValue = (I ---> FFI.fromVal) getValue_,
           setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val forName_ = _import "mlton_atk_role_for_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
-    val getLocalizedName_ = _import "atk_role_get_localized_name" : FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getName_ = _import "atk_role_get_name" : FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val register_ = _import "mlton_atk_role_register" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
+    val forName_ = _import "mlton_atk_role_for_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> FFI.val_;
+    val getLocalizedName_ = _import "atk_role_get_localized_name" : FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getName_ = _import "atk_role_get_name" : FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val register_ = _import "mlton_atk_role_register" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> FFI.val_;
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name
     fun getLocalizedName role = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getLocalizedName_ role

@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -13,7 +13,7 @@ functor CTypedPointer(CValueType : C_VALUE_TYPE) :>
 
     type e = CValueType.v
 
-    fun offset (p, i) = add (p, Word.fromInt i * CValueType.size ())
+    fun offset (p, i) = add (Word.fromInt i * CValueType.size ()) p
 
     fun set (p, i, x) = CValueType.set (offset (p, i), x)
     fun get (p, i) = CValueType.get (offset (p, i))

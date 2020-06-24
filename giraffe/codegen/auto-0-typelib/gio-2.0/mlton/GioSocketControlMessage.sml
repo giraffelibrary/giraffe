@@ -15,8 +15,8 @@ structure GioSocketControlMessage :>
                * GInt32.FFI.val_
                * GUInt64.FFI.val_
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
-               -> GioSocketControlMessageClass.FFI.notnull GioSocketControlMessageClass.FFI.p;
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
+               -> GioSocketControlMessageClass.FFI.non_opt GioSocketControlMessageClass.FFI.p;
           )
             (
               x1,
@@ -25,9 +25,9 @@ structure GioSocketControlMessage :>
               x4,
               x5
             )
-    val getLevel_ = _import "g_socket_control_message_get_level" : GioSocketControlMessageClass.FFI.notnull GioSocketControlMessageClass.FFI.p -> GInt32.FFI.val_;
-    val getMsgType_ = _import "g_socket_control_message_get_msg_type" : GioSocketControlMessageClass.FFI.notnull GioSocketControlMessageClass.FFI.p -> GInt32.FFI.val_;
-    val getSize_ = _import "g_socket_control_message_get_size" : GioSocketControlMessageClass.FFI.notnull GioSocketControlMessageClass.FFI.p -> GUInt64.FFI.val_;
+    val getLevel_ = _import "g_socket_control_message_get_level" : GioSocketControlMessageClass.FFI.non_opt GioSocketControlMessageClass.FFI.p -> GInt32.FFI.val_;
+    val getMsgType_ = _import "g_socket_control_message_get_msg_type" : GioSocketControlMessageClass.FFI.non_opt GioSocketControlMessageClass.FFI.p -> GInt32.FFI.val_;
+    val getSize_ = _import "g_socket_control_message_get_size" : GioSocketControlMessageClass.FFI.non_opt GioSocketControlMessageClass.FFI.p -> GUInt64.FFI.val_;
     type 'a class = 'a GioSocketControlMessageClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

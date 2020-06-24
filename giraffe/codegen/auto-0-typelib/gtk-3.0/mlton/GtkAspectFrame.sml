@@ -14,12 +14,12 @@ structure GtkAspectFrame :>
           (
             _import "mlton_gtk_aspect_frame_new" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GFloat.FFI.val_
                * GFloat.FFI.val_
                * GFloat.FFI.val_
                * GBool.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -38,7 +38,7 @@ structure GtkAspectFrame :>
          & x5 =>
           (
             _import "gtk_aspect_frame_set" :
-              GtkAspectFrameClass.FFI.notnull GtkAspectFrameClass.FFI.p
+              GtkAspectFrameClass.FFI.non_opt GtkAspectFrameClass.FFI.p
                * GFloat.FFI.val_
                * GFloat.FFI.val_
                * GFloat.FFI.val_

@@ -7,7 +7,7 @@ structure GioNetworkMonitor :>
     where type network_connectivity_t = GioNetworkConnectivity.t =
   struct
     val getType_ = _import "g_network_monitor_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefault_ = _import "g_network_monitor_get_default" : unit -> GioNetworkMonitorClass.FFI.notnull GioNetworkMonitorClass.FFI.p;
+    val getDefault_ = _import "g_network_monitor_get_default" : unit -> GioNetworkMonitorClass.FFI.non_opt GioNetworkMonitorClass.FFI.p;
     val canReach_ =
       fn
         x1
@@ -16,10 +16,10 @@ structure GioNetworkMonitor :>
          & x4 =>
           (
             _import "g_network_monitor_can_reach" :
-              GioNetworkMonitorClass.FFI.notnull GioNetworkMonitorClass.FFI.p
-               * GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioNetworkMonitorClass.FFI.non_opt GioNetworkMonitorClass.FFI.p
+               * GioSocketConnectableClass.FFI.non_opt GioSocketConnectableClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -35,9 +35,9 @@ structure GioNetworkMonitor :>
          & x3 =>
           (
             _import "g_network_monitor_can_reach_finish" :
-              GioNetworkMonitorClass.FFI.notnull GioNetworkMonitorClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioNetworkMonitorClass.FFI.non_opt GioNetworkMonitorClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -45,9 +45,9 @@ structure GioNetworkMonitor :>
               x2,
               x3
             )
-    val getConnectivity_ = _import "g_network_monitor_get_connectivity" : GioNetworkMonitorClass.FFI.notnull GioNetworkMonitorClass.FFI.p -> GioNetworkConnectivity.FFI.val_;
-    val getNetworkAvailable_ = _import "g_network_monitor_get_network_available" : GioNetworkMonitorClass.FFI.notnull GioNetworkMonitorClass.FFI.p -> GBool.FFI.val_;
-    val getNetworkMetered_ = _import "g_network_monitor_get_network_metered" : GioNetworkMonitorClass.FFI.notnull GioNetworkMonitorClass.FFI.p -> GBool.FFI.val_;
+    val getConnectivity_ = _import "g_network_monitor_get_connectivity" : GioNetworkMonitorClass.FFI.non_opt GioNetworkMonitorClass.FFI.p -> GioNetworkConnectivity.FFI.val_;
+    val getNetworkAvailable_ = _import "g_network_monitor_get_network_available" : GioNetworkMonitorClass.FFI.non_opt GioNetworkMonitorClass.FFI.p -> GBool.FFI.val_;
+    val getNetworkMetered_ = _import "g_network_monitor_get_network_metered" : GioNetworkMonitorClass.FFI.non_opt GioNetworkMonitorClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GioNetworkMonitorClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class

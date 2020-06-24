@@ -14,10 +14,10 @@ structure AtkRelation :>
           (
             _import "mlton_atk_relation_new" :
               AtkObjectClassCPtrArrayN.MLton.p1
-               * AtkObjectClassCPtrArrayN.FFI.notnull AtkObjectClassCPtrArrayN.MLton.p2
+               * AtkObjectClassCPtrArrayN.FFI.non_opt AtkObjectClassCPtrArrayN.MLton.p2
                * GInt32.FFI.val_
                * AtkRelationType.FFI.val_
-               -> AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p;
+               -> AtkRelationClass.FFI.non_opt AtkRelationClass.FFI.p;
           )
             (
               x1,
@@ -25,9 +25,9 @@ structure AtkRelation :>
               x3,
               x4
             )
-    val addTarget_ = fn x1 & x2 => (_import "atk_relation_add_target" : AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> unit;) (x1, x2)
-    val getRelationType_ = _import "atk_relation_get_relation_type" : AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p -> AtkRelationType.FFI.val_;
-    val removeTarget_ = fn x1 & x2 => (_import "atk_relation_remove_target" : AtkRelationClass.FFI.notnull AtkRelationClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val addTarget_ = fn x1 & x2 => (_import "atk_relation_add_target" : AtkRelationClass.FFI.non_opt AtkRelationClass.FFI.p * AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> unit;) (x1, x2)
+    val getRelationType_ = _import "atk_relation_get_relation_type" : AtkRelationClass.FFI.non_opt AtkRelationClass.FFI.p -> AtkRelationType.FFI.val_;
+    val removeTarget_ = fn x1 & x2 => (_import "atk_relation_remove_target" : AtkRelationClass.FFI.non_opt AtkRelationClass.FFI.p * AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     type 'a class = 'a AtkRelationClass.class
     type object_class_c_ptr_array_n_t = AtkObjectClassCPtrArrayN.t
     type 'a object_class = 'a AtkObjectClass.class

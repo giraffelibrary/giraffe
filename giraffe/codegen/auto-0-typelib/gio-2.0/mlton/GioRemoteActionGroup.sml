@@ -11,11 +11,11 @@ structure GioRemoteActionGroup :>
          & x5 =>
           (
             _import "mlton_g_remote_action_group_activate_action_full" :
-              GioRemoteActionGroupClass.FFI.notnull GioRemoteActionGroupClass.FFI.p
+              GioRemoteActionGroupClass.FFI.non_opt GioRemoteActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.FFI.p
-               * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
+               * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p
                -> unit;
           )
             (
@@ -33,11 +33,11 @@ structure GioRemoteActionGroup :>
          & x5 =>
           (
             _import "mlton_g_remote_action_group_change_action_state_full" :
-              GioRemoteActionGroupClass.FFI.notnull GioRemoteActionGroupClass.FFI.p
+              GioRemoteActionGroupClass.FFI.non_opt GioRemoteActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p
-               * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p
+               * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p
                -> unit;
           )
             (

@@ -5,20 +5,20 @@ structure GtkFontSelectionDialog :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_font_selection_dialog_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_gtk_font_selection_dialog_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getCancelButton_ = _import "gtk_font_selection_dialog_get_cancel_button" : GtkFontSelectionDialogClass.FFI.notnull GtkFontSelectionDialogClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getFontName_ = _import "gtk_font_selection_dialog_get_font_name" : GtkFontSelectionDialogClass.FFI.notnull GtkFontSelectionDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getFontSelection_ = _import "gtk_font_selection_dialog_get_font_selection" : GtkFontSelectionDialogClass.FFI.notnull GtkFontSelectionDialogClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getOkButton_ = _import "gtk_font_selection_dialog_get_ok_button" : GtkFontSelectionDialogClass.FFI.notnull GtkFontSelectionDialogClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getPreviewText_ = _import "gtk_font_selection_dialog_get_preview_text" : GtkFontSelectionDialogClass.FFI.notnull GtkFontSelectionDialogClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val new_ = _import "mlton_gtk_font_selection_dialog_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getCancelButton_ = _import "gtk_font_selection_dialog_get_cancel_button" : GtkFontSelectionDialogClass.FFI.non_opt GtkFontSelectionDialogClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getFontName_ = _import "gtk_font_selection_dialog_get_font_name" : GtkFontSelectionDialogClass.FFI.non_opt GtkFontSelectionDialogClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getFontSelection_ = _import "gtk_font_selection_dialog_get_font_selection" : GtkFontSelectionDialogClass.FFI.non_opt GtkFontSelectionDialogClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getOkButton_ = _import "gtk_font_selection_dialog_get_ok_button" : GtkFontSelectionDialogClass.FFI.non_opt GtkFontSelectionDialogClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getPreviewText_ = _import "gtk_font_selection_dialog_get_preview_text" : GtkFontSelectionDialogClass.FFI.non_opt GtkFontSelectionDialogClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val setFontName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_font_selection_dialog_set_font_name" :
-              GtkFontSelectionDialogClass.FFI.notnull GtkFontSelectionDialogClass.FFI.p
+              GtkFontSelectionDialogClass.FFI.non_opt GtkFontSelectionDialogClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -31,9 +31,9 @@ structure GtkFontSelectionDialog :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_font_selection_dialog_set_preview_text" :
-              GtkFontSelectionDialogClass.FFI.notnull GtkFontSelectionDialogClass.FFI.p
+              GtkFontSelectionDialogClass.FFI.non_opt GtkFontSelectionDialogClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

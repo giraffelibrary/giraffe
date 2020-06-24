@@ -4,8 +4,8 @@ structure GObjectTypePlugin :>
     where type type_t = GObjectType.t =
   struct
     val getType_ = _import "g_type_plugin_get_type" : unit -> GObjectType.FFI.val_;
-    val unuse_ = _import "g_type_plugin_unuse" : GObjectTypePluginClass.FFI.notnull GObjectTypePluginClass.FFI.p -> unit;
-    val use_ = _import "g_type_plugin_use" : GObjectTypePluginClass.FFI.notnull GObjectTypePluginClass.FFI.p -> unit;
+    val unuse_ = _import "g_type_plugin_unuse" : GObjectTypePluginClass.FFI.non_opt GObjectTypePluginClass.FFI.p -> unit;
+    val use_ = _import "g_type_plugin_use" : GObjectTypePluginClass.FFI.non_opt GObjectTypePluginClass.FFI.p -> unit;
     type 'a class = 'a GObjectTypePluginClass.class
     type type_t = GObjectType.t
     type t = base class

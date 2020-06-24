@@ -12,11 +12,11 @@ structure GioSrvTarget :>
           (
             _import "mlton_g_srv_target_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt16.FFI.val_
                * GUInt16.FFI.val_
                * GUInt16.FFI.val_
-               -> GioSrvTargetRecord.FFI.notnull GioSrvTargetRecord.FFI.p;
+               -> GioSrvTargetRecord.FFI.non_opt GioSrvTargetRecord.FFI.p;
           )
             (
               x1,
@@ -25,11 +25,11 @@ structure GioSrvTarget :>
               x4,
               x5
             )
-    val copy_ = _import "g_srv_target_copy" : GioSrvTargetRecord.FFI.notnull GioSrvTargetRecord.FFI.p -> GioSrvTargetRecord.FFI.notnull GioSrvTargetRecord.FFI.p;
-    val getHostname_ = _import "g_srv_target_get_hostname" : GioSrvTargetRecord.FFI.notnull GioSrvTargetRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPort_ = _import "g_srv_target_get_port" : GioSrvTargetRecord.FFI.notnull GioSrvTargetRecord.FFI.p -> GUInt16.FFI.val_;
-    val getPriority_ = _import "g_srv_target_get_priority" : GioSrvTargetRecord.FFI.notnull GioSrvTargetRecord.FFI.p -> GUInt16.FFI.val_;
-    val getWeight_ = _import "g_srv_target_get_weight" : GioSrvTargetRecord.FFI.notnull GioSrvTargetRecord.FFI.p -> GUInt16.FFI.val_;
+    val copy_ = _import "g_srv_target_copy" : GioSrvTargetRecord.FFI.non_opt GioSrvTargetRecord.FFI.p -> GioSrvTargetRecord.FFI.non_opt GioSrvTargetRecord.FFI.p;
+    val getHostname_ = _import "g_srv_target_get_hostname" : GioSrvTargetRecord.FFI.non_opt GioSrvTargetRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPort_ = _import "g_srv_target_get_port" : GioSrvTargetRecord.FFI.non_opt GioSrvTargetRecord.FFI.p -> GUInt16.FFI.val_;
+    val getPriority_ = _import "g_srv_target_get_priority" : GioSrvTargetRecord.FFI.non_opt GioSrvTargetRecord.FFI.p -> GUInt16.FFI.val_;
+    val getWeight_ = _import "g_srv_target_get_weight" : GioSrvTargetRecord.FFI.non_opt GioSrvTargetRecord.FFI.p -> GUInt16.FFI.val_;
     type t = GioSrvTargetRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new

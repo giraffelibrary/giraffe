@@ -5,7 +5,7 @@ structure GtkHsv :>
     where type direction_type_t = GtkDirectionType.t =
   struct
     val getType_ = _import "gtk_hsv_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_hsv_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_hsv_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val toRgb_ =
       fn
         x1
@@ -40,7 +40,7 @@ structure GtkHsv :>
          & x4 =>
           (
             _import "gtk_hsv_get_color" :
-              GtkHsvClass.FFI.notnull GtkHsvClass.FFI.p
+              GtkHsvClass.FFI.non_opt GtkHsvClass.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
@@ -59,7 +59,7 @@ structure GtkHsv :>
          & x3 =>
           (
             _import "gtk_hsv_get_metrics" :
-              GtkHsvClass.FFI.notnull GtkHsvClass.FFI.p
+              GtkHsvClass.FFI.non_opt GtkHsvClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> unit;
@@ -69,7 +69,7 @@ structure GtkHsv :>
               x2,
               x3
             )
-    val isAdjusting_ = _import "gtk_hsv_is_adjusting" : GtkHsvClass.FFI.notnull GtkHsvClass.FFI.p -> GBool.FFI.val_;
+    val isAdjusting_ = _import "gtk_hsv_is_adjusting" : GtkHsvClass.FFI.non_opt GtkHsvClass.FFI.p -> GBool.FFI.val_;
     val setColor_ =
       fn
         x1
@@ -78,7 +78,7 @@ structure GtkHsv :>
          & x4 =>
           (
             _import "gtk_hsv_set_color" :
-              GtkHsvClass.FFI.notnull GtkHsvClass.FFI.p
+              GtkHsvClass.FFI.non_opt GtkHsvClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -97,7 +97,7 @@ structure GtkHsv :>
          & x3 =>
           (
             _import "gtk_hsv_set_metrics" :
-              GtkHsvClass.FFI.notnull GtkHsvClass.FFI.p
+              GtkHsvClass.FFI.non_opt GtkHsvClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;

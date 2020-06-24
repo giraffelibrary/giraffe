@@ -1,16 +1,17 @@
 structure GtkFileFilterClass :>
   GTK_FILE_FILTER_CLASS
-    where type C.notnull = GObjectInitiallyUnownedClass.C.notnull
+    where type C.opt = GObjectInitiallyUnownedClass.C.opt
+    where type C.non_opt = GObjectInitiallyUnownedClass.C.non_opt
     where type 'a C.p = 'a GObjectInitiallyUnownedClass.C.p =
   struct
     open GObjectInitiallyUnownedClass
     type 'a file_filter = unit
     type 'a class = 'a file_filter class
     val getType_ = _import "gtk_file_filter_get_type" : unit -> GObjectType.FFI.val_;
-    val getValue_ = _import "g_value_get_object" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.notnull FFI.p;
-    val getOptValue_ = _import "g_value_get_object" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit FFI.p;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_object" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.notnull FFI.p -> unit;) (x1, x2)
-    val setOptValue_ = fn x1 & x2 => (_import "g_value_set_object" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * unit FFI.p -> unit;) (x1, x2)
+    val getValue_ = _import "g_value_get_object" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.non_opt FFI.p;
+    val getOptValue_ = _import "g_value_get_object" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.opt FFI.p;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_object" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.non_opt FFI.p -> unit;) (x1, x2)
+    val setOptValue_ = fn x1 & x2 => (_import "g_value_set_object" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.opt FFI.p -> unit;) (x1, x2)
     val t =
       ValueAccessor.C.createAccessor
         {

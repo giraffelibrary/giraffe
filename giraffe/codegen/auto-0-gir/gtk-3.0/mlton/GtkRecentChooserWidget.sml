@@ -7,8 +7,8 @@ structure GtkRecentChooserWidget :>
     where type 'a recent_manager_class = 'a GtkRecentManagerClass.class =
   struct
     val getType_ = _import "gtk_recent_chooser_widget_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_recent_chooser_widget_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newForManager_ = _import "gtk_recent_chooser_widget_new_for_manager" : GtkRecentManagerClass.FFI.notnull GtkRecentManagerClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_recent_chooser_widget_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newForManager_ = _import "gtk_recent_chooser_widget_new_for_manager" : GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     type 'a class = 'a GtkRecentChooserWidgetClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

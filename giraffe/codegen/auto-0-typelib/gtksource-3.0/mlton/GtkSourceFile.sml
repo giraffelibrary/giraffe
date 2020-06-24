@@ -6,17 +6,17 @@ structure GtkSourceFile :>
     where type newline_type_t = GtkSourceNewlineType.t =
   struct
     val getType_ = _import "gtk_source_file_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_file_new" : unit -> GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p;
-    val checkFileOnDisk_ = _import "gtk_source_file_check_file_on_disk" : GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p -> unit;
-    val getCompressionType_ = _import "gtk_source_file_get_compression_type" : GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p -> GtkSourceCompressionType.FFI.val_;
-    val getEncoding_ = _import "gtk_source_file_get_encoding" : GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p -> GtkSourceEncodingRecord.FFI.notnull GtkSourceEncodingRecord.FFI.p;
-    val getLocation_ = _import "gtk_source_file_get_location" : GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
-    val getNewlineType_ = _import "gtk_source_file_get_newline_type" : GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p -> GtkSourceNewlineType.FFI.val_;
-    val isDeleted_ = _import "gtk_source_file_is_deleted" : GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p -> GBool.FFI.val_;
-    val isExternallyModified_ = _import "gtk_source_file_is_externally_modified" : GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p -> GBool.FFI.val_;
-    val isLocal_ = _import "gtk_source_file_is_local" : GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p -> GBool.FFI.val_;
-    val isReadonly_ = _import "gtk_source_file_is_readonly" : GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p -> GBool.FFI.val_;
-    val setLocation_ = fn x1 & x2 => (_import "gtk_source_file_set_location" : GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p * unit GioFileClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_source_file_new" : unit -> GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p;
+    val checkFileOnDisk_ = _import "gtk_source_file_check_file_on_disk" : GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p -> unit;
+    val getCompressionType_ = _import "gtk_source_file_get_compression_type" : GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p -> GtkSourceCompressionType.FFI.val_;
+    val getEncoding_ = _import "gtk_source_file_get_encoding" : GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p -> GtkSourceEncodingRecord.FFI.non_opt GtkSourceEncodingRecord.FFI.p;
+    val getLocation_ = _import "gtk_source_file_get_location" : GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
+    val getNewlineType_ = _import "gtk_source_file_get_newline_type" : GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p -> GtkSourceNewlineType.FFI.val_;
+    val isDeleted_ = _import "gtk_source_file_is_deleted" : GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p -> GBool.FFI.val_;
+    val isExternallyModified_ = _import "gtk_source_file_is_externally_modified" : GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p -> GBool.FFI.val_;
+    val isLocal_ = _import "gtk_source_file_is_local" : GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p -> GBool.FFI.val_;
+    val isReadonly_ = _import "gtk_source_file_is_readonly" : GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p -> GBool.FFI.val_;
+    val setLocation_ = fn x1 & x2 => (_import "gtk_source_file_set_location" : GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p * GioFileClass.FFI.opt GioFileClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkSourceFileClass.class
     type compression_type_t = GtkSourceCompressionType.t
     type encoding_t = GtkSourceEncodingRecord.t

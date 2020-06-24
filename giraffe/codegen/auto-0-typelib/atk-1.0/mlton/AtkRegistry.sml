@@ -4,8 +4,8 @@ structure AtkRegistry :>
     where type 'a object_factory_class = 'a AtkObjectFactoryClass.class =
   struct
     val getType_ = _import "atk_registry_get_type" : unit -> GObjectType.FFI.val_;
-    val getFactory_ = fn x1 & x2 => (_import "atk_registry_get_factory" : AtkRegistryClass.FFI.notnull AtkRegistryClass.FFI.p * GObjectType.FFI.val_ -> AtkObjectFactoryClass.FFI.notnull AtkObjectFactoryClass.FFI.p;) (x1, x2)
-    val getFactoryType_ = fn x1 & x2 => (_import "atk_registry_get_factory_type" : AtkRegistryClass.FFI.notnull AtkRegistryClass.FFI.p * GObjectType.FFI.val_ -> GObjectType.FFI.val_;) (x1, x2)
+    val getFactory_ = fn x1 & x2 => (_import "atk_registry_get_factory" : AtkRegistryClass.FFI.non_opt AtkRegistryClass.FFI.p * GObjectType.FFI.val_ -> AtkObjectFactoryClass.FFI.non_opt AtkObjectFactoryClass.FFI.p;) (x1, x2)
+    val getFactoryType_ = fn x1 & x2 => (_import "atk_registry_get_factory_type" : AtkRegistryClass.FFI.non_opt AtkRegistryClass.FFI.p * GObjectType.FFI.val_ -> GObjectType.FFI.val_;) (x1, x2)
     val setFactoryType_ =
       fn
         x1
@@ -13,7 +13,7 @@ structure AtkRegistry :>
          & x3 =>
           (
             _import "atk_registry_set_factory_type" :
-              AtkRegistryClass.FFI.notnull AtkRegistryClass.FFI.p
+              AtkRegistryClass.FFI.non_opt AtkRegistryClass.FFI.p
                * GObjectType.FFI.val_
                * GObjectType.FFI.val_
                -> unit;

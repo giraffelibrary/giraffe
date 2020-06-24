@@ -17,10 +17,10 @@ structure GioTlsInteraction :>
          & x4 =>
           (
             _import "g_tls_interaction_ask_password" :
-              GioTlsInteractionClass.FFI.notnull GioTlsInteractionClass.FFI.p
-               * GioTlsPasswordClass.FFI.notnull GioTlsPasswordClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioTlsInteractionClass.FFI.non_opt GioTlsInteractionClass.FFI.p
+               * GioTlsPasswordClass.FFI.non_opt GioTlsPasswordClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GioTlsInteractionResult.FFI.val_;
           )
             (
@@ -36,9 +36,9 @@ structure GioTlsInteraction :>
          & x3 =>
           (
             _import "g_tls_interaction_ask_password_finish" :
-              GioTlsInteractionClass.FFI.notnull GioTlsInteractionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioTlsInteractionClass.FFI.non_opt GioTlsInteractionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GioTlsInteractionResult.FFI.val_;
           )
             (
@@ -54,10 +54,10 @@ structure GioTlsInteraction :>
          & x4 =>
           (
             _import "g_tls_interaction_invoke_ask_password" :
-              GioTlsInteractionClass.FFI.notnull GioTlsInteractionClass.FFI.p
-               * GioTlsPasswordClass.FFI.notnull GioTlsPasswordClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioTlsInteractionClass.FFI.non_opt GioTlsInteractionClass.FFI.p
+               * GioTlsPasswordClass.FFI.non_opt GioTlsPasswordClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GioTlsInteractionResult.FFI.val_;
           )
             (
@@ -75,11 +75,11 @@ structure GioTlsInteraction :>
          & x5 =>
           (
             _import "g_tls_interaction_invoke_request_certificate" :
-              GioTlsInteractionClass.FFI.notnull GioTlsInteractionClass.FFI.p
-               * GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p
+              GioTlsInteractionClass.FFI.non_opt GioTlsInteractionClass.FFI.p
+               * GioTlsConnectionClass.FFI.non_opt GioTlsConnectionClass.FFI.p
                * GioTlsCertificateRequestFlags.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GioTlsInteractionResult.FFI.val_;
           )
             (
@@ -98,11 +98,11 @@ structure GioTlsInteraction :>
          & x5 =>
           (
             _import "g_tls_interaction_request_certificate" :
-              GioTlsInteractionClass.FFI.notnull GioTlsInteractionClass.FFI.p
-               * GioTlsConnectionClass.FFI.notnull GioTlsConnectionClass.FFI.p
+              GioTlsInteractionClass.FFI.non_opt GioTlsInteractionClass.FFI.p
+               * GioTlsConnectionClass.FFI.non_opt GioTlsConnectionClass.FFI.p
                * GioTlsCertificateRequestFlags.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GioTlsInteractionResult.FFI.val_;
           )
             (
@@ -119,9 +119,9 @@ structure GioTlsInteraction :>
          & x3 =>
           (
             _import "g_tls_interaction_request_certificate_finish" :
-              GioTlsInteractionClass.FFI.notnull GioTlsInteractionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioTlsInteractionClass.FFI.non_opt GioTlsInteractionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GioTlsInteractionResult.FFI.val_;
           )
             (

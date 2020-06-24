@@ -11,19 +11,19 @@ structure GtkMenuButton :>
     where type 'a menu_class = 'a GtkMenuClass.class =
   struct
     val getType_ = _import "gtk_menu_button_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_menu_button_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getAlignWidget_ = _import "gtk_menu_button_get_align_widget" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getDirection_ = _import "gtk_menu_button_get_direction" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> GtkArrowType.FFI.val_;
-    val getMenuModel_ = _import "gtk_menu_button_get_menu_model" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> unit GioMenuModelClass.FFI.p;
-    val getPopover_ = _import "gtk_menu_button_get_popover" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> unit GtkPopoverClass.FFI.p;
-    val getPopup_ = _import "gtk_menu_button_get_popup" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> unit GtkMenuClass.FFI.p;
-    val getUsePopover_ = _import "gtk_menu_button_get_use_popover" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p -> GBool.FFI.val_;
-    val setAlignWidget_ = fn x1 & x2 => (_import "gtk_menu_button_set_align_widget" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setDirection_ = fn x1 & x2 => (_import "gtk_menu_button_set_direction" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p * GtkArrowType.FFI.val_ -> unit;) (x1, x2)
-    val setMenuModel_ = fn x1 & x2 => (_import "gtk_menu_button_set_menu_model" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p * unit GioMenuModelClass.FFI.p -> unit;) (x1, x2)
-    val setPopover_ = fn x1 & x2 => (_import "gtk_menu_button_set_popover" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setPopup_ = fn x1 & x2 => (_import "gtk_menu_button_set_popup" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setUsePopover_ = fn x1 & x2 => (_import "gtk_menu_button_set_use_popover" : GtkMenuButtonClass.FFI.notnull GtkMenuButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_menu_button_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getAlignWidget_ = _import "gtk_menu_button_get_align_widget" : GtkMenuButtonClass.FFI.non_opt GtkMenuButtonClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getDirection_ = _import "gtk_menu_button_get_direction" : GtkMenuButtonClass.FFI.non_opt GtkMenuButtonClass.FFI.p -> GtkArrowType.FFI.val_;
+    val getMenuModel_ = _import "gtk_menu_button_get_menu_model" : GtkMenuButtonClass.FFI.non_opt GtkMenuButtonClass.FFI.p -> GioMenuModelClass.FFI.opt GioMenuModelClass.FFI.p;
+    val getPopover_ = _import "gtk_menu_button_get_popover" : GtkMenuButtonClass.FFI.non_opt GtkMenuButtonClass.FFI.p -> GtkPopoverClass.FFI.opt GtkPopoverClass.FFI.p;
+    val getPopup_ = _import "gtk_menu_button_get_popup" : GtkMenuButtonClass.FFI.non_opt GtkMenuButtonClass.FFI.p -> GtkMenuClass.FFI.opt GtkMenuClass.FFI.p;
+    val getUsePopover_ = _import "gtk_menu_button_get_use_popover" : GtkMenuButtonClass.FFI.non_opt GtkMenuButtonClass.FFI.p -> GBool.FFI.val_;
+    val setAlignWidget_ = fn x1 & x2 => (_import "gtk_menu_button_set_align_widget" : GtkMenuButtonClass.FFI.non_opt GtkMenuButtonClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setDirection_ = fn x1 & x2 => (_import "gtk_menu_button_set_direction" : GtkMenuButtonClass.FFI.non_opt GtkMenuButtonClass.FFI.p * GtkArrowType.FFI.val_ -> unit;) (x1, x2)
+    val setMenuModel_ = fn x1 & x2 => (_import "gtk_menu_button_set_menu_model" : GtkMenuButtonClass.FFI.non_opt GtkMenuButtonClass.FFI.p * GioMenuModelClass.FFI.opt GioMenuModelClass.FFI.p -> unit;) (x1, x2)
+    val setPopover_ = fn x1 & x2 => (_import "gtk_menu_button_set_popover" : GtkMenuButtonClass.FFI.non_opt GtkMenuButtonClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setPopup_ = fn x1 & x2 => (_import "gtk_menu_button_set_popup" : GtkMenuButtonClass.FFI.non_opt GtkMenuButtonClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setUsePopover_ = fn x1 & x2 => (_import "gtk_menu_button_set_use_popover" : GtkMenuButtonClass.FFI.non_opt GtkMenuButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkMenuButtonClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

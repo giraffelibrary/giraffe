@@ -7,14 +7,16 @@
 
 functor BoxedValueRecord(
   structure Pointer : C_POINTER where type 'a p = PolyMLFFI.Memory.Pointer.t
-  type notnull = Pointer.notnull
+  type opt = Pointer.opt
+  type non_opt = Pointer.non_opt
   type 'a p = 'a Pointer.p
-  val copy_ : (notnull p, notnull p) pair -> unit
-  val clear_ : notnull p -> unit
+  val copy_ : (non_opt p, non_opt p) pair -> unit
+  val clear_ : non_opt p -> unit
   val size_ : unit -> GSize.FFI.val_
 ) :>
   VALUE_RECORD
-    where type C.Pointer.notnull = Pointer.notnull
+    where type C.Pointer.opt = Pointer.opt
+    where type C.Pointer.non_opt = Pointer.non_opt
     where type 'a C.Pointer.p = 'a Pointer.p
     where type ('a, 'b) C.Pointer.r = ('a, 'b) Pointer.r =
   struct
@@ -37,7 +39,8 @@ functor BoxedValueRecord(
     structure C =
       struct
         structure Pointer = Pointer
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
@@ -81,10 +84,11 @@ functor BoxedValueRecord(
         structure PointerType =
           struct
             structure Pointer = Pointer
-            type notnull = Pointer.notnull
+            type opt = Pointer.opt
+            type non_opt = Pointer.non_opt
             type 'a p = 'a Pointer.p
 
-            type t = notnull p Finalizable.t
+            type t = non_opt p Finalizable.t
 
             fun dup d = if d <> 0 then dup_ else Fn.id
 
@@ -103,12 +107,13 @@ functor BoxedValueRecord(
           end
       end
 
-    type t = C.notnull C.p Finalizable.t
+    type t = C.non_opt C.p Finalizable.t
 
     structure FFI =
       struct
         structure Pointer = C.Pointer
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 

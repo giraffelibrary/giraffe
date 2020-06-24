@@ -1,7 +1,8 @@
 structure AtkPlugClass :>
   ATK_PLUG_CLASS
     where type 'a object_class = 'a AtkObjectClass.class
-    where type C.notnull = AtkObjectClass.C.notnull
+    where type C.opt = AtkObjectClass.C.opt
+    where type C.non_opt = AtkObjectClass.C.non_opt
     where type 'a C.p = 'a AtkObjectClass.C.p =
   struct
     type 'a object_class = 'a AtkObjectClass.class

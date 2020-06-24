@@ -5,7 +5,7 @@ structure GioInputStream :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_input_stream_get_type" : unit -> GObjectType.FFI.val_;
-    val clearPending_ = _import "g_input_stream_clear_pending" : GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p -> unit;
+    val clearPending_ = _import "g_input_stream_clear_pending" : GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p -> unit;
     val close_ =
       fn
         x1
@@ -13,9 +13,9 @@ structure GioInputStream :>
          & x3 =>
           (
             _import "g_input_stream_close" :
-              GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -30,9 +30,9 @@ structure GioInputStream :>
          & x3 =>
           (
             _import "g_input_stream_close_finish" :
-              GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -40,8 +40,8 @@ structure GioInputStream :>
               x2,
               x3
             )
-    val hasPending_ = _import "g_input_stream_has_pending" : GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p -> GBool.FFI.val_;
-    val isClosed_ = _import "g_input_stream_is_closed" : GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p -> GBool.FFI.val_;
+    val hasPending_ = _import "g_input_stream_has_pending" : GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p -> GBool.FFI.val_;
+    val isClosed_ = _import "g_input_stream_is_closed" : GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p -> GBool.FFI.val_;
     val read_ =
       fn
         x1
@@ -51,12 +51,12 @@ structure GioInputStream :>
          & x6 =>
           (
             _import "mlton_g_input_stream_read" :
-              GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
+              GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GSize.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GSSize.FFI.val_;
           )
             (
@@ -77,13 +77,13 @@ structure GioInputStream :>
          & x7 =>
           (
             _import "mlton_g_input_stream_read_all" :
-              GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
+              GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GSize.FFI.val_
                * GSize.FFI.ref_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -103,10 +103,10 @@ structure GioInputStream :>
          & x4 =>
           (
             _import "g_input_stream_read_all_finish" :
-              GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
+              GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
                * GSize.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -123,11 +123,11 @@ structure GioInputStream :>
          & x4 =>
           (
             _import "g_input_stream_read_bytes" :
-              GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
+              GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
                * GSize.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p;
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p;
           )
             (
               x1,
@@ -142,10 +142,10 @@ structure GioInputStream :>
          & x3 =>
           (
             _import "g_input_stream_read_bytes_finish" :
-              GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p;
+              GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p;
           )
             (
               x1,
@@ -159,9 +159,9 @@ structure GioInputStream :>
          & x3 =>
           (
             _import "g_input_stream_read_finish" :
-              GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GSSize.FFI.val_;
           )
             (
@@ -169,7 +169,7 @@ structure GioInputStream :>
               x2,
               x3
             )
-    val setPending_ = fn x1 & x2 => (_import "g_input_stream_set_pending" : GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
+    val setPending_ = fn x1 & x2 => (_import "g_input_stream_set_pending" : GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
     val skip_ =
       fn
         x1
@@ -178,10 +178,10 @@ structure GioInputStream :>
          & x4 =>
           (
             _import "g_input_stream_skip" :
-              GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
+              GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
                * GSize.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GSSize.FFI.val_;
           )
             (
@@ -197,9 +197,9 @@ structure GioInputStream :>
          & x3 =>
           (
             _import "g_input_stream_skip_finish" :
-              GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GSSize.FFI.val_;
           )
             (

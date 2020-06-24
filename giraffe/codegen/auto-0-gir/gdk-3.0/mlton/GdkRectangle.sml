@@ -3,7 +3,7 @@ structure GdkRectangle :>
     where type t = GdkRectangleRecord.t =
   struct
     val getType_ = _import "gdk_rectangle_get_type" : unit -> GObjectType.FFI.val_;
-    val equal_ = fn x1 & x2 => (_import "gdk_rectangle_equal" : GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val equal_ = fn x1 & x2 => (_import "gdk_rectangle_equal" : GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val intersect_ =
       fn
         x1
@@ -11,9 +11,9 @@ structure GdkRectangle :>
          & x3 =>
           (
             _import "gdk_rectangle_intersect" :
-              GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -28,9 +28,9 @@ structure GdkRectangle :>
          & x3 =>
           (
             _import "gdk_rectangle_union" :
-              GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                -> unit;
           )
             (

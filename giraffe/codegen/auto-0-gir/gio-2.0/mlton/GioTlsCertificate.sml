@@ -11,9 +11,9 @@ structure GioTlsCertificate :>
           (
             _import "mlton_g_tls_certificate_new_from_file" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioTlsCertificateClass.FFI.non_opt GioTlsCertificateClass.FFI.p;
           )
             (
               x1,
@@ -28,11 +28,11 @@ structure GioTlsCertificate :>
           (
             _import "mlton_g_tls_certificate_new_from_files" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioTlsCertificateClass.FFI.non_opt GioTlsCertificateClass.FFI.p;
           )
             (
               x1,
@@ -49,10 +49,10 @@ structure GioTlsCertificate :>
           (
             _import "mlton_g_tls_certificate_new_from_pem" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GSSize.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioTlsCertificateClass.FFI.non_opt GioTlsCertificateClass.FFI.p;
           )
             (
               x1,
@@ -60,8 +60,8 @@ structure GioTlsCertificate :>
               x3,
               x4
             )
-    val getIssuer_ = _import "g_tls_certificate_get_issuer" : GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
-    val isSame_ = fn x1 & x2 => (_import "g_tls_certificate_is_same" : GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p * GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getIssuer_ = _import "g_tls_certificate_get_issuer" : GioTlsCertificateClass.FFI.non_opt GioTlsCertificateClass.FFI.p -> GioTlsCertificateClass.FFI.non_opt GioTlsCertificateClass.FFI.p;
+    val isSame_ = fn x1 & x2 => (_import "g_tls_certificate_is_same" : GioTlsCertificateClass.FFI.non_opt GioTlsCertificateClass.FFI.p * GioTlsCertificateClass.FFI.non_opt GioTlsCertificateClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val verify_ =
       fn
         x1
@@ -69,9 +69,9 @@ structure GioTlsCertificate :>
          & x3 =>
           (
             _import "g_tls_certificate_verify" :
-              GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p
-               * unit GioSocketConnectableClass.FFI.p
-               * unit GioTlsCertificateClass.FFI.p
+              GioTlsCertificateClass.FFI.non_opt GioTlsCertificateClass.FFI.p
+               * GioSocketConnectableClass.FFI.opt GioSocketConnectableClass.FFI.p
+               * GioTlsCertificateClass.FFI.opt GioTlsCertificateClass.FFI.p
                -> GioTlsCertificateFlags.FFI.val_;
           )
             (

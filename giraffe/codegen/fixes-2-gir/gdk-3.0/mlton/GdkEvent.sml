@@ -1,27 +1,30 @@
 structure GdkEvent :> GDK_EVENT =
   struct
-    type notnull = CPointer.notnull
+    type opt = CPointer.opt
+    type non_opt = CPointer.non_opt
     type 'a p = 'a CPointer.p
     type ('a, 'b) r = ('a, 'b) CPointer.r
 
-    val dup_ = _import "gdk_event_copy" : notnull p -> notnull p;
+    val dup_ = _import "gdk_event_copy" : non_opt p -> non_opt p;
 
-    val free_ = _import "gdk_event_free" : notnull p -> unit;
+    val free_ = _import "gdk_event_free" : non_opt p -> unit;
 
     structure C =
       struct
         structure Pointer = CPointer
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
         structure PointerType =
           struct
             structure Pointer = Pointer
-            type notnull = Pointer.notnull
+            type opt = Pointer.opt
+            type non_opt = Pointer.non_opt
             type 'a p = 'a Pointer.p
 
-            type t = notnull p Finalizable.t
+            type t = non_opt p Finalizable.t
 
             fun dup d = if d <> 0 then dup_ else Fn.id
 
@@ -40,8 +43,8 @@ structure GdkEvent :> GDK_EVENT =
 
             structure CVector =
               struct
-                type cvector = notnull p
-                val v = let open Pointer in toNotNull (sub (null, 0w1)) end
+                type cvector = non_opt p
+                val v = Pointer.null
                 val free = free ~1
                 val fromPointer = dup ~1
                 val toPointer = dup ~1
@@ -51,14 +54,15 @@ structure GdkEvent :> GDK_EVENT =
           end
       end
 
-    type 'a union = notnull p Finalizable.t
+    type 'a union = non_opt p Finalizable.t
     type t = base union
     fun toBase obj = obj
 
     structure FFI =
       struct
         structure Pointer = C.Pointer
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
@@ -98,22 +102,22 @@ structure GdkEvent :> GDK_EVENT =
 
     val getValue_ =
       _import "g_value_get_boxed" :
-        GObject.ValueRecord.FFI.notnull GObject.ValueRecord.FFI.p -> FFI.notnull FFI.p;
+        GObject.ValueRecord.FFI.non_opt GObject.ValueRecord.FFI.p -> FFI.non_opt FFI.p;
 
     val getOptValue_ =
       _import "g_value_get_boxed" :
-        GObject.ValueRecord.FFI.notnull GObject.ValueRecord.FFI.p -> unit FFI.p;
+        GObject.ValueRecord.FFI.non_opt GObject.ValueRecord.FFI.p -> FFI.opt FFI.p;
 
     val setValue_ =
       fn x1 & x2 =>
         (_import "g_value_set_boxed" :
-           GObject.ValueRecord.FFI.notnull GObject.ValueRecord.FFI.p * FFI.notnull FFI.p -> unit;)
+           GObject.ValueRecord.FFI.non_opt GObject.ValueRecord.FFI.p * FFI.non_opt FFI.p -> unit;)
         (x1, x2)
 
     val setOptValue_ =
       fn x1 & x2 =>
         (_import "g_value_set_boxed" :
-           GObject.ValueRecord.FFI.notnull GObject.ValueRecord.FFI.p * unit FFI.p -> unit;)
+           GObject.ValueRecord.FFI.non_opt GObject.ValueRecord.FFI.p * FFI.opt FFI.p -> unit;)
         (x1, x2)
 
     val t =

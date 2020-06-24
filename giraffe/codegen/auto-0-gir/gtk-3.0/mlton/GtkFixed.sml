@@ -5,7 +5,7 @@ structure GtkFixed :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_fixed_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_fixed_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_fixed_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val move_ =
       fn
         x1
@@ -14,8 +14,8 @@ structure GtkFixed :>
          & x4 =>
           (
             _import "gtk_fixed_move" :
-              GtkFixedClass.FFI.notnull GtkFixedClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkFixedClass.FFI.non_opt GtkFixedClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -34,8 +34,8 @@ structure GtkFixed :>
          & x4 =>
           (
             _import "gtk_fixed_put" :
-              GtkFixedClass.FFI.notnull GtkFixedClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkFixedClass.FFI.non_opt GtkFixedClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;

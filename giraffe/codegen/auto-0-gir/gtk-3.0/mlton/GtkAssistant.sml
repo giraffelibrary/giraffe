@@ -6,19 +6,19 @@ structure GtkAssistant :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_assistant_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_assistant_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val addActionWidget_ = fn x1 & x2 => (_import "gtk_assistant_add_action_widget" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val appendPage_ = fn x1 & x2 => (_import "gtk_assistant_append_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val commit_ = _import "gtk_assistant_commit" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> unit;
-    val getCurrentPage_ = _import "gtk_assistant_get_current_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> GInt.FFI.val_;
-    val getNPages_ = _import "gtk_assistant_get_n_pages" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> GInt.FFI.val_;
-    val getNthPage_ = fn x1 & x2 => (_import "gtk_assistant_get_nth_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GInt.FFI.val_ -> unit GtkWidgetClass.FFI.p;) (x1, x2)
-    val getPageComplete_ = fn x1 & x2 => (_import "gtk_assistant_get_page_complete" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getPageHasPadding_ = fn x1 & x2 => (_import "gtk_assistant_get_page_has_padding" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getPageHeaderImage_ = fn x1 & x2 => (_import "gtk_assistant_get_page_header_image" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;) (x1, x2)
-    val getPageSideImage_ = fn x1 & x2 => (_import "gtk_assistant_get_page_side_image" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;) (x1, x2)
-    val getPageTitle_ = fn x1 & x2 => (_import "gtk_assistant_get_page_title" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val getPageType_ = fn x1 & x2 => (_import "gtk_assistant_get_page_type" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkAssistantPageType.FFI.val_;) (x1, x2)
+    val new_ = _import "gtk_assistant_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val addActionWidget_ = fn x1 & x2 => (_import "gtk_assistant_add_action_widget" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val appendPage_ = fn x1 & x2 => (_import "gtk_assistant_append_page" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val commit_ = _import "gtk_assistant_commit" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p -> unit;
+    val getCurrentPage_ = _import "gtk_assistant_get_current_page" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p -> GInt.FFI.val_;
+    val getNPages_ = _import "gtk_assistant_get_n_pages" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p -> GInt.FFI.val_;
+    val getNthPage_ = fn x1 & x2 => (_import "gtk_assistant_get_nth_page" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GInt.FFI.val_ -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val getPageComplete_ = fn x1 & x2 => (_import "gtk_assistant_get_page_complete" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getPageHasPadding_ = fn x1 & x2 => (_import "gtk_assistant_get_page_has_padding" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getPageHeaderImage_ = fn x1 & x2 => (_import "gtk_assistant_get_page_header_image" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;) (x1, x2)
+    val getPageSideImage_ = fn x1 & x2 => (_import "gtk_assistant_get_page_side_image" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;) (x1, x2)
+    val getPageTitle_ = fn x1 & x2 => (_import "gtk_assistant_get_page_title" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val getPageType_ = fn x1 & x2 => (_import "gtk_assistant_get_page_type" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GtkAssistantPageType.FFI.val_;) (x1, x2)
     val insertPage_ =
       fn
         x1
@@ -26,8 +26,8 @@ structure GtkAssistant :>
          & x3 =>
           (
             _import "gtk_assistant_insert_page" :
-              GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                -> GInt.FFI.val_;
           )
@@ -36,12 +36,12 @@ structure GtkAssistant :>
               x2,
               x3
             )
-    val nextPage_ = _import "gtk_assistant_next_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> unit;
-    val prependPage_ = fn x1 & x2 => (_import "gtk_assistant_prepend_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val previousPage_ = _import "gtk_assistant_previous_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> unit;
-    val removeActionWidget_ = fn x1 & x2 => (_import "gtk_assistant_remove_action_widget" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val removePage_ = fn x1 & x2 => (_import "gtk_assistant_remove_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setCurrentPage_ = fn x1 & x2 => (_import "gtk_assistant_set_current_page" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val nextPage_ = _import "gtk_assistant_next_page" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p -> unit;
+    val prependPage_ = fn x1 & x2 => (_import "gtk_assistant_prepend_page" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val previousPage_ = _import "gtk_assistant_previous_page" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p -> unit;
+    val removeActionWidget_ = fn x1 & x2 => (_import "gtk_assistant_remove_action_widget" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val removePage_ = fn x1 & x2 => (_import "gtk_assistant_remove_page" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setCurrentPage_ = fn x1 & x2 => (_import "gtk_assistant_set_current_page" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setPageComplete_ =
       fn
         x1
@@ -49,8 +49,8 @@ structure GtkAssistant :>
          & x3 =>
           (
             _import "gtk_assistant_set_page_complete" :
-              GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -66,8 +66,8 @@ structure GtkAssistant :>
          & x3 =>
           (
             _import "gtk_assistant_set_page_has_padding" :
-              GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -83,9 +83,9 @@ structure GtkAssistant :>
          & x3 =>
           (
             _import "gtk_assistant_set_page_header_image" :
-              GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * unit GdkPixbufPixbufClass.FFI.p
+              GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p
                -> unit;
           )
             (
@@ -100,9 +100,9 @@ structure GtkAssistant :>
          & x3 =>
           (
             _import "gtk_assistant_set_page_side_image" :
-              GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * unit GdkPixbufPixbufClass.FFI.p
+              GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p
                -> unit;
           )
             (
@@ -117,10 +117,10 @@ structure GtkAssistant :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_assistant_set_page_title" :
-              GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -136,8 +136,8 @@ structure GtkAssistant :>
          & x3 =>
           (
             _import "gtk_assistant_set_page_type" :
-              GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GtkAssistantPageType.FFI.val_
                -> unit;
           )
@@ -146,7 +146,7 @@ structure GtkAssistant :>
               x2,
               x3
             )
-    val updateButtonsState_ = _import "gtk_assistant_update_buttons_state" : GtkAssistantClass.FFI.notnull GtkAssistantClass.FFI.p -> unit;
+    val updateButtonsState_ = _import "gtk_assistant_update_buttons_state" : GtkAssistantClass.FFI.non_opt GtkAssistantClass.FFI.p -> unit;
     type 'a class = 'a GtkAssistantClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type assistant_page_type_t = GtkAssistantPageType.t

@@ -1,7 +1,8 @@
 structure GtkSearchEntryClass :>
   GTK_SEARCH_ENTRY_CLASS
     where type 'a entry_class = 'a GtkEntryClass.class
-    where type C.notnull = GtkEntryClass.C.notnull
+    where type C.opt = GtkEntryClass.C.opt
+    where type C.non_opt = GtkEntryClass.C.non_opt
     where type 'a C.p = 'a GtkEntryClass.C.p =
   struct
     type 'a entry_class = 'a GtkEntryClass.class

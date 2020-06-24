@@ -11,40 +11,40 @@ structure GtkComboBox :>
     where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
     val getType_ = _import "gtk_combo_box_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_combo_box_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithArea_ = _import "gtk_combo_box_new_with_area" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithAreaAndEntry_ = _import "gtk_combo_box_new_with_area_and_entry" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithEntry_ = _import "gtk_combo_box_new_with_entry" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithModel_ = _import "gtk_combo_box_new_with_model" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithModelAndEntry_ = _import "gtk_combo_box_new_with_model_and_entry" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getActive_ = _import "gtk_combo_box_get_active" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
-    val getActiveId_ = _import "gtk_combo_box_get_active_id" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getActiveIter_ = fn x1 & x2 => (_import "gtk_combo_box_get_active_iter" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getAddTearoffs_ = _import "gtk_combo_box_get_add_tearoffs" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GBool.FFI.val_;
-    val getButtonSensitivity_ = _import "gtk_combo_box_get_button_sensitivity" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GtkSensitivityType.FFI.val_;
-    val getColumnSpanColumn_ = _import "gtk_combo_box_get_column_span_column" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
-    val getEntryTextColumn_ = _import "gtk_combo_box_get_entry_text_column" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
-    val getFocusOnClick_ = _import "gtk_combo_box_get_focus_on_click" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GBool.FFI.val_;
-    val getHasEntry_ = _import "gtk_combo_box_get_has_entry" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GBool.FFI.val_;
-    val getIdColumn_ = _import "gtk_combo_box_get_id_column" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
-    val getModel_ = _import "gtk_combo_box_get_model" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;
-    val getPopupAccessible_ = _import "gtk_combo_box_get_popup_accessible" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
-    val getPopupFixedWidth_ = _import "gtk_combo_box_get_popup_fixed_width" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GBool.FFI.val_;
-    val getRowSpanColumn_ = _import "gtk_combo_box_get_row_span_column" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
-    val getTitle_ = _import "gtk_combo_box_get_title" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getWrapWidth_ = _import "gtk_combo_box_get_wrap_width" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
-    val popdown_ = _import "gtk_combo_box_popdown" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> unit;
-    val popup_ = _import "gtk_combo_box_popup" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p -> unit;
-    val popupForDevice_ = fn x1 & x2 => (_import "gtk_combo_box_popup_for_device" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit;) (x1, x2)
-    val setActive_ = fn x1 & x2 => (_import "gtk_combo_box_set_active" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_combo_box_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithArea_ = _import "gtk_combo_box_new_with_area" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithAreaAndEntry_ = _import "gtk_combo_box_new_with_area_and_entry" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithEntry_ = _import "gtk_combo_box_new_with_entry" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithModel_ = _import "gtk_combo_box_new_with_model" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithModelAndEntry_ = _import "gtk_combo_box_new_with_model_and_entry" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getActive_ = _import "gtk_combo_box_get_active" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
+    val getActiveId_ = _import "gtk_combo_box_get_active_id" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getActiveIter_ = fn x1 & x2 => (_import "gtk_combo_box_get_active_iter" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getAddTearoffs_ = _import "gtk_combo_box_get_add_tearoffs" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> GBool.FFI.val_;
+    val getButtonSensitivity_ = _import "gtk_combo_box_get_button_sensitivity" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> GtkSensitivityType.FFI.val_;
+    val getColumnSpanColumn_ = _import "gtk_combo_box_get_column_span_column" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
+    val getEntryTextColumn_ = _import "gtk_combo_box_get_entry_text_column" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
+    val getFocusOnClick_ = _import "gtk_combo_box_get_focus_on_click" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> GBool.FFI.val_;
+    val getHasEntry_ = _import "gtk_combo_box_get_has_entry" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> GBool.FFI.val_;
+    val getIdColumn_ = _import "gtk_combo_box_get_id_column" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
+    val getModel_ = _import "gtk_combo_box_get_model" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p;
+    val getPopupAccessible_ = _import "gtk_combo_box_get_popup_accessible" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;
+    val getPopupFixedWidth_ = _import "gtk_combo_box_get_popup_fixed_width" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> GBool.FFI.val_;
+    val getRowSpanColumn_ = _import "gtk_combo_box_get_row_span_column" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
+    val getTitle_ = _import "gtk_combo_box_get_title" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getWrapWidth_ = _import "gtk_combo_box_get_wrap_width" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> GInt.FFI.val_;
+    val popdown_ = _import "gtk_combo_box_popdown" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> unit;
+    val popup_ = _import "gtk_combo_box_popup" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p -> unit;
+    val popupForDevice_ = fn x1 & x2 => (_import "gtk_combo_box_popup_for_device" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> unit;) (x1, x2)
+    val setActive_ = fn x1 & x2 => (_import "gtk_combo_box_set_active" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setActiveId_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_combo_box_set_active_id" :
-              GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p
+              GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -52,24 +52,24 @@ structure GtkComboBox :>
               x2,
               x3
             )
-    val setActiveIter_ = fn x1 & x2 => (_import "gtk_combo_box_set_active_iter" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * unit GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
-    val setAddTearoffs_ = fn x1 & x2 => (_import "gtk_combo_box_set_add_tearoffs" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setButtonSensitivity_ = fn x1 & x2 => (_import "gtk_combo_box_set_button_sensitivity" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GtkSensitivityType.FFI.val_ -> unit;) (x1, x2)
-    val setColumnSpanColumn_ = fn x1 & x2 => (_import "gtk_combo_box_set_column_span_column" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setEntryTextColumn_ = fn x1 & x2 => (_import "gtk_combo_box_set_entry_text_column" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setFocusOnClick_ = fn x1 & x2 => (_import "gtk_combo_box_set_focus_on_click" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setIdColumn_ = fn x1 & x2 => (_import "gtk_combo_box_set_id_column" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setModel_ = fn x1 & x2 => (_import "gtk_combo_box_set_model" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * unit GtkTreeModelClass.FFI.p -> unit;) (x1, x2)
-    val setPopupFixedWidth_ = fn x1 & x2 => (_import "gtk_combo_box_set_popup_fixed_width" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setRowSpanColumn_ = fn x1 & x2 => (_import "gtk_combo_box_set_row_span_column" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setActiveIter_ = fn x1 & x2 => (_import "gtk_combo_box_set_active_iter" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GtkTreeIterRecord.FFI.opt GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
+    val setAddTearoffs_ = fn x1 & x2 => (_import "gtk_combo_box_set_add_tearoffs" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setButtonSensitivity_ = fn x1 & x2 => (_import "gtk_combo_box_set_button_sensitivity" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GtkSensitivityType.FFI.val_ -> unit;) (x1, x2)
+    val setColumnSpanColumn_ = fn x1 & x2 => (_import "gtk_combo_box_set_column_span_column" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setEntryTextColumn_ = fn x1 & x2 => (_import "gtk_combo_box_set_entry_text_column" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setFocusOnClick_ = fn x1 & x2 => (_import "gtk_combo_box_set_focus_on_click" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setIdColumn_ = fn x1 & x2 => (_import "gtk_combo_box_set_id_column" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setModel_ = fn x1 & x2 => (_import "gtk_combo_box_set_model" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GtkTreeModelClass.FFI.opt GtkTreeModelClass.FFI.p -> unit;) (x1, x2)
+    val setPopupFixedWidth_ = fn x1 & x2 => (_import "gtk_combo_box_set_popup_fixed_width" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setRowSpanColumn_ = fn x1 & x2 => (_import "gtk_combo_box_set_row_span_column" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_combo_box_set_title" :
-              GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p
+              GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -77,7 +77,7 @@ structure GtkComboBox :>
               x2,
               x3
             )
-    val setWrapWidth_ = fn x1 & x2 => (_import "gtk_combo_box_set_wrap_width" : GtkComboBoxClass.FFI.notnull GtkComboBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setWrapWidth_ = fn x1 & x2 => (_import "gtk_combo_box_set_wrap_width" : GtkComboBoxClass.FFI.non_opt GtkComboBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkComboBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_editable_class = 'a GtkCellEditableClass.class

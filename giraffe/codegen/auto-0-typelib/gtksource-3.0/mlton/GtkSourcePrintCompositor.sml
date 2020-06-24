@@ -5,8 +5,8 @@ structure GtkSourcePrintCompositor :>
     where type 'a buffer_class = 'a GtkSourceBufferClass.class =
   struct
     val getType_ = _import "gtk_source_print_compositor_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_print_compositor_new" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p;
-    val newFromView_ = _import "gtk_source_print_compositor_new_from_view" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p;
+    val new_ = _import "gtk_source_print_compositor_new" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p;
+    val newFromView_ = _import "gtk_source_print_compositor_new_from_view" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p;
     val drawPage_ =
       fn
         x1
@@ -14,8 +14,8 @@ structure GtkSourcePrintCompositor :>
          & x3 =>
           (
             _import "gtk_source_print_compositor_draw_page" :
-              GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p
-               * GtkPrintContextClass.FFI.notnull GtkPrintContextClass.FFI.p
+              GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p
+               * GtkPrintContextClass.FFI.non_opt GtkPrintContextClass.FFI.p
                * GInt32.FFI.val_
                -> unit;
           )
@@ -24,32 +24,32 @@ structure GtkSourcePrintCompositor :>
               x2,
               x3
             )
-    val getBodyFontName_ = _import "gtk_source_print_compositor_get_body_font_name" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getBottomMargin_ = fn x1 & x2 => (_import "gtk_source_print_compositor_get_bottom_margin" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getBuffer_ = _import "gtk_source_print_compositor_get_buffer" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p;
-    val getFooterFontName_ = _import "gtk_source_print_compositor_get_footer_font_name" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getHeaderFontName_ = _import "gtk_source_print_compositor_get_header_font_name" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getHighlightSyntax_ = _import "gtk_source_print_compositor_get_highlight_syntax" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> GBool.FFI.val_;
-    val getLeftMargin_ = fn x1 & x2 => (_import "gtk_source_print_compositor_get_left_margin" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getLineNumbersFontName_ = _import "gtk_source_print_compositor_get_line_numbers_font_name" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getNPages_ = _import "gtk_source_print_compositor_get_n_pages" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> GInt32.FFI.val_;
-    val getPaginationProgress_ = _import "gtk_source_print_compositor_get_pagination_progress" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> GDouble.FFI.val_;
-    val getPrintFooter_ = _import "gtk_source_print_compositor_get_print_footer" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> GBool.FFI.val_;
-    val getPrintHeader_ = _import "gtk_source_print_compositor_get_print_header" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> GBool.FFI.val_;
-    val getPrintLineNumbers_ = _import "gtk_source_print_compositor_get_print_line_numbers" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> GUInt32.FFI.val_;
-    val getRightMargin_ = fn x1 & x2 => (_import "gtk_source_print_compositor_get_right_margin" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getTabWidth_ = _import "gtk_source_print_compositor_get_tab_width" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> GUInt32.FFI.val_;
-    val getTopMargin_ = fn x1 & x2 => (_import "gtk_source_print_compositor_get_top_margin" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getWrapMode_ = _import "gtk_source_print_compositor_get_wrap_mode" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p -> GtkWrapMode.FFI.val_;
-    val paginate_ = fn x1 & x2 => (_import "gtk_source_print_compositor_paginate" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p * GtkPrintContextClass.FFI.notnull GtkPrintContextClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getBodyFontName_ = _import "gtk_source_print_compositor_get_body_font_name" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getBottomMargin_ = fn x1 & x2 => (_import "gtk_source_print_compositor_get_bottom_margin" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getBuffer_ = _import "gtk_source_print_compositor_get_buffer" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p;
+    val getFooterFontName_ = _import "gtk_source_print_compositor_get_footer_font_name" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getHeaderFontName_ = _import "gtk_source_print_compositor_get_header_font_name" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getHighlightSyntax_ = _import "gtk_source_print_compositor_get_highlight_syntax" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> GBool.FFI.val_;
+    val getLeftMargin_ = fn x1 & x2 => (_import "gtk_source_print_compositor_get_left_margin" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getLineNumbersFontName_ = _import "gtk_source_print_compositor_get_line_numbers_font_name" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getNPages_ = _import "gtk_source_print_compositor_get_n_pages" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> GInt32.FFI.val_;
+    val getPaginationProgress_ = _import "gtk_source_print_compositor_get_pagination_progress" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> GDouble.FFI.val_;
+    val getPrintFooter_ = _import "gtk_source_print_compositor_get_print_footer" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> GBool.FFI.val_;
+    val getPrintHeader_ = _import "gtk_source_print_compositor_get_print_header" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> GBool.FFI.val_;
+    val getPrintLineNumbers_ = _import "gtk_source_print_compositor_get_print_line_numbers" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> GUInt32.FFI.val_;
+    val getRightMargin_ = fn x1 & x2 => (_import "gtk_source_print_compositor_get_right_margin" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getTabWidth_ = _import "gtk_source_print_compositor_get_tab_width" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> GUInt32.FFI.val_;
+    val getTopMargin_ = fn x1 & x2 => (_import "gtk_source_print_compositor_get_top_margin" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getWrapMode_ = _import "gtk_source_print_compositor_get_wrap_mode" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p -> GtkWrapMode.FFI.val_;
+    val paginate_ = fn x1 & x2 => (_import "gtk_source_print_compositor_paginate" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p * GtkPrintContextClass.FFI.non_opt GtkPrintContextClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val setBodyFontName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_print_compositor_set_body_font_name" :
-              GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p
+              GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -64,7 +64,7 @@ structure GtkSourcePrintCompositor :>
          & x3 =>
           (
             _import "gtk_source_print_compositor_set_bottom_margin" :
-              GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p
+              GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p
                * GDouble.FFI.val_
                * GtkUnit.FFI.val_
                -> unit;
@@ -79,9 +79,9 @@ structure GtkSourcePrintCompositor :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_print_compositor_set_footer_font_name" :
-              GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p
+              GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -98,14 +98,14 @@ structure GtkSourcePrintCompositor :>
          & (x7, x8) =>
           (
             _import "mlton_gtk_source_print_compositor_set_footer_format" :
-              GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p
+              GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p
                * GBool.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -123,9 +123,9 @@ structure GtkSourcePrintCompositor :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_print_compositor_set_header_font_name" :
-              GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p
+              GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -142,14 +142,14 @@ structure GtkSourcePrintCompositor :>
          & (x7, x8) =>
           (
             _import "mlton_gtk_source_print_compositor_set_header_format" :
-              GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p
+              GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p
                * GBool.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -162,7 +162,7 @@ structure GtkSourcePrintCompositor :>
               x7,
               x8
             )
-    val setHighlightSyntax_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_highlight_syntax" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHighlightSyntax_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_highlight_syntax" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setLeftMargin_ =
       fn
         x1
@@ -170,7 +170,7 @@ structure GtkSourcePrintCompositor :>
          & x3 =>
           (
             _import "gtk_source_print_compositor_set_left_margin" :
-              GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p
+              GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p
                * GDouble.FFI.val_
                * GtkUnit.FFI.val_
                -> unit;
@@ -185,9 +185,9 @@ structure GtkSourcePrintCompositor :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_print_compositor_set_line_numbers_font_name" :
-              GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p
+              GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -195,9 +195,9 @@ structure GtkSourcePrintCompositor :>
               x2,
               x3
             )
-    val setPrintFooter_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_print_footer" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setPrintHeader_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_print_header" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setPrintLineNumbers_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_print_line_numbers" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val setPrintFooter_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_print_footer" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPrintHeader_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_print_header" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPrintLineNumbers_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_print_line_numbers" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
     val setRightMargin_ =
       fn
         x1
@@ -205,7 +205,7 @@ structure GtkSourcePrintCompositor :>
          & x3 =>
           (
             _import "gtk_source_print_compositor_set_right_margin" :
-              GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p
+              GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p
                * GDouble.FFI.val_
                * GtkUnit.FFI.val_
                -> unit;
@@ -215,7 +215,7 @@ structure GtkSourcePrintCompositor :>
               x2,
               x3
             )
-    val setTabWidth_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_tab_width" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val setTabWidth_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_tab_width" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
     val setTopMargin_ =
       fn
         x1
@@ -223,7 +223,7 @@ structure GtkSourcePrintCompositor :>
          & x3 =>
           (
             _import "gtk_source_print_compositor_set_top_margin" :
-              GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p
+              GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p
                * GDouble.FFI.val_
                * GtkUnit.FFI.val_
                -> unit;
@@ -233,7 +233,7 @@ structure GtkSourcePrintCompositor :>
               x2,
               x3
             )
-    val setWrapMode_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_wrap_mode" : GtkSourcePrintCompositorClass.FFI.notnull GtkSourcePrintCompositorClass.FFI.p * GtkWrapMode.FFI.val_ -> unit;) (x1, x2)
+    val setWrapMode_ = fn x1 & x2 => (_import "gtk_source_print_compositor_set_wrap_mode" : GtkSourcePrintCompositorClass.FFI.non_opt GtkSourcePrintCompositorClass.FFI.p * GtkWrapMode.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkSourcePrintCompositorClass.class
     type 'a view_class = 'a GtkSourceViewClass.class
     type 'a buffer_class = 'a GtkSourceBufferClass.class

@@ -4,7 +4,7 @@ structure GtkGestureDrag :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_gesture_drag_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_gesture_drag_new" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p;
+    val new_ = _import "gtk_gesture_drag_new" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p;
     val getOffset_ =
       fn
         x1
@@ -12,7 +12,7 @@ structure GtkGestureDrag :>
          & x3 =>
           (
             _import "gtk_gesture_drag_get_offset" :
-              GtkGestureDragClass.FFI.notnull GtkGestureDragClass.FFI.p
+              GtkGestureDragClass.FFI.non_opt GtkGestureDragClass.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                -> GBool.FFI.val_;
@@ -29,7 +29,7 @@ structure GtkGestureDrag :>
          & x3 =>
           (
             _import "gtk_gesture_drag_get_start_point" :
-              GtkGestureDragClass.FFI.notnull GtkGestureDragClass.FFI.p
+              GtkGestureDragClass.FFI.non_opt GtkGestureDragClass.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                -> GBool.FFI.val_;

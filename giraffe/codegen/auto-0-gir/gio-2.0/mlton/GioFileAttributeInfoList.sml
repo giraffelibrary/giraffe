@@ -6,7 +6,7 @@ structure GioFileAttributeInfoList :>
     where type file_attribute_info_t = GioFileAttributeInfoRecord.t =
   struct
     val getType_ = _import "g_file_attribute_info_list_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_file_attribute_info_list_new" : unit -> GioFileAttributeInfoListRecord.FFI.notnull GioFileAttributeInfoListRecord.FFI.p;
+    val new_ = _import "g_file_attribute_info_list_new" : unit -> GioFileAttributeInfoListRecord.FFI.non_opt GioFileAttributeInfoListRecord.FFI.p;
     val add_ =
       fn
         x1
@@ -15,9 +15,9 @@ structure GioFileAttributeInfoList :>
          & x5 =>
           (
             _import "mlton_g_file_attribute_info_list_add" :
-              GioFileAttributeInfoListRecord.FFI.notnull GioFileAttributeInfoListRecord.FFI.p
+              GioFileAttributeInfoListRecord.FFI.non_opt GioFileAttributeInfoListRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioFileAttributeType.FFI.val_
                * GioFileAttributeInfoFlags.FFI.val_
                -> unit;
@@ -29,16 +29,16 @@ structure GioFileAttributeInfoList :>
               x4,
               x5
             )
-    val dup_ = _import "g_file_attribute_info_list_dup" : GioFileAttributeInfoListRecord.FFI.notnull GioFileAttributeInfoListRecord.FFI.p -> GioFileAttributeInfoListRecord.FFI.notnull GioFileAttributeInfoListRecord.FFI.p;
+    val dup_ = _import "g_file_attribute_info_list_dup" : GioFileAttributeInfoListRecord.FFI.non_opt GioFileAttributeInfoListRecord.FFI.p -> GioFileAttributeInfoListRecord.FFI.non_opt GioFileAttributeInfoListRecord.FFI.p;
     val lookup_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_file_attribute_info_list_lookup" :
-              GioFileAttributeInfoListRecord.FFI.notnull GioFileAttributeInfoListRecord.FFI.p
+              GioFileAttributeInfoListRecord.FFI.non_opt GioFileAttributeInfoListRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioFileAttributeInfoRecord.FFI.notnull GioFileAttributeInfoRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioFileAttributeInfoRecord.FFI.non_opt GioFileAttributeInfoRecord.FFI.p;
           )
             (
               x1,

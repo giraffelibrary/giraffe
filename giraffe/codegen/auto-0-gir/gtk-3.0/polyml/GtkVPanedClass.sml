@@ -1,7 +1,8 @@
 structure GtkVPanedClass :>
   GTK_V_PANED_CLASS
     where type 'a paned_class = 'a GtkPanedClass.class
-    where type C.notnull = GtkPanedClass.C.notnull
+    where type C.opt = GtkPanedClass.C.opt
+    where type C.non_opt = GtkPanedClass.C.non_opt
     where type 'a C.p = 'a GtkPanedClass.C.p =
   struct
     type 'a paned_class = 'a GtkPanedClass.class

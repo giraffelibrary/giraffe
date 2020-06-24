@@ -5,10 +5,10 @@ structure GioUnixOutputStream :>
     where type 'a pollable_output_stream_class = 'a GioPollableOutputStreamClass.class =
   struct
     val getType_ = _import "g_unix_output_stream_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "g_unix_output_stream_new" : GInt.FFI.val_ * GBool.FFI.val_ -> GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p;) (x1, x2)
-    val getCloseFd_ = _import "g_unix_output_stream_get_close_fd" : GioUnixOutputStreamClass.FFI.notnull GioUnixOutputStreamClass.FFI.p -> GBool.FFI.val_;
-    val getFd_ = _import "g_unix_output_stream_get_fd" : GioUnixOutputStreamClass.FFI.notnull GioUnixOutputStreamClass.FFI.p -> GInt.FFI.val_;
-    val setCloseFd_ = fn x1 & x2 => (_import "g_unix_output_stream_set_close_fd" : GioUnixOutputStreamClass.FFI.notnull GioUnixOutputStreamClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = fn x1 & x2 => (_import "g_unix_output_stream_new" : GInt.FFI.val_ * GBool.FFI.val_ -> GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p;) (x1, x2)
+    val getCloseFd_ = _import "g_unix_output_stream_get_close_fd" : GioUnixOutputStreamClass.FFI.non_opt GioUnixOutputStreamClass.FFI.p -> GBool.FFI.val_;
+    val getFd_ = _import "g_unix_output_stream_get_fd" : GioUnixOutputStreamClass.FFI.non_opt GioUnixOutputStreamClass.FFI.p -> GInt.FFI.val_;
+    val setCloseFd_ = fn x1 & x2 => (_import "g_unix_output_stream_set_close_fd" : GioUnixOutputStreamClass.FFI.non_opt GioUnixOutputStreamClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioUnixOutputStreamClass.class
     type 'a file_descriptor_based_class = 'a GioFileDescriptorBasedClass.class
     type 'a pollable_output_stream_class = 'a GioPollableOutputStreamClass.class

@@ -4,9 +4,9 @@ structure GioFilterInputStream :>
     where type 'a input_stream_class = 'a GioInputStreamClass.class =
   struct
     val getType_ = _import "g_filter_input_stream_get_type" : unit -> GObjectType.FFI.val_;
-    val getBaseStream_ = _import "g_filter_input_stream_get_base_stream" : GioFilterInputStreamClass.FFI.notnull GioFilterInputStreamClass.FFI.p -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
-    val getCloseBaseStream_ = _import "g_filter_input_stream_get_close_base_stream" : GioFilterInputStreamClass.FFI.notnull GioFilterInputStreamClass.FFI.p -> GBool.FFI.val_;
-    val setCloseBaseStream_ = fn x1 & x2 => (_import "g_filter_input_stream_set_close_base_stream" : GioFilterInputStreamClass.FFI.notnull GioFilterInputStreamClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getBaseStream_ = _import "g_filter_input_stream_get_base_stream" : GioFilterInputStreamClass.FFI.non_opt GioFilterInputStreamClass.FFI.p -> GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p;
+    val getCloseBaseStream_ = _import "g_filter_input_stream_get_close_base_stream" : GioFilterInputStreamClass.FFI.non_opt GioFilterInputStreamClass.FFI.p -> GBool.FFI.val_;
+    val setCloseBaseStream_ = fn x1 & x2 => (_import "g_filter_input_stream_set_close_base_stream" : GioFilterInputStreamClass.FFI.non_opt GioFilterInputStreamClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioFilterInputStreamClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class
     type t = base class

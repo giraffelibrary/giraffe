@@ -4,12 +4,12 @@ structure GtkMountOperation :>
     where type 'a window_class = 'a GtkWindowClass.class =
   struct
     val getType_ = _import "gtk_mount_operation_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_mount_operation_new" : unit GtkWindowClass.FFI.p -> GioMountOperationClass.FFI.notnull GioMountOperationClass.FFI.p;
-    val getParent_ = _import "gtk_mount_operation_get_parent" : GtkMountOperationClass.FFI.notnull GtkMountOperationClass.FFI.p -> GtkWindowClass.FFI.notnull GtkWindowClass.FFI.p;
-    val getScreen_ = _import "gtk_mount_operation_get_screen" : GtkMountOperationClass.FFI.notnull GtkMountOperationClass.FFI.p -> GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p;
-    val isShowing_ = _import "gtk_mount_operation_is_showing" : GtkMountOperationClass.FFI.notnull GtkMountOperationClass.FFI.p -> GBool.FFI.val_;
-    val setParent_ = fn x1 & x2 => (_import "gtk_mount_operation_set_parent" : GtkMountOperationClass.FFI.notnull GtkMountOperationClass.FFI.p * unit GtkWindowClass.FFI.p -> unit;) (x1, x2)
-    val setScreen_ = fn x1 & x2 => (_import "gtk_mount_operation_set_screen" : GtkMountOperationClass.FFI.notnull GtkMountOperationClass.FFI.p * GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_mount_operation_new" : GtkWindowClass.FFI.opt GtkWindowClass.FFI.p -> GioMountOperationClass.FFI.non_opt GioMountOperationClass.FFI.p;
+    val getParent_ = _import "gtk_mount_operation_get_parent" : GtkMountOperationClass.FFI.non_opt GtkMountOperationClass.FFI.p -> GtkWindowClass.FFI.non_opt GtkWindowClass.FFI.p;
+    val getScreen_ = _import "gtk_mount_operation_get_screen" : GtkMountOperationClass.FFI.non_opt GtkMountOperationClass.FFI.p -> GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p;
+    val isShowing_ = _import "gtk_mount_operation_is_showing" : GtkMountOperationClass.FFI.non_opt GtkMountOperationClass.FFI.p -> GBool.FFI.val_;
+    val setParent_ = fn x1 & x2 => (_import "gtk_mount_operation_set_parent" : GtkMountOperationClass.FFI.non_opt GtkMountOperationClass.FFI.p * GtkWindowClass.FFI.opt GtkWindowClass.FFI.p -> unit;) (x1, x2)
+    val setScreen_ = fn x1 & x2 => (_import "gtk_mount_operation_set_screen" : GtkMountOperationClass.FFI.non_opt GtkMountOperationClass.FFI.p * GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkMountOperationClass.class
     type 'a window_class = 'a GtkWindowClass.class
     type t = base class

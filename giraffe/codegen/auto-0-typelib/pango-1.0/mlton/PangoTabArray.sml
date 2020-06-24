@@ -4,10 +4,10 @@ structure PangoTabArray :>
     where type tab_align_t = PangoTabAlign.t =
   struct
     val getType_ = _import "pango_tab_array_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "pango_tab_array_new" : GInt32.FFI.val_ * GBool.FFI.val_ -> PangoTabArrayRecord.FFI.notnull PangoTabArrayRecord.FFI.p;) (x1, x2)
-    val copy_ = _import "pango_tab_array_copy" : PangoTabArrayRecord.FFI.notnull PangoTabArrayRecord.FFI.p -> PangoTabArrayRecord.FFI.notnull PangoTabArrayRecord.FFI.p;
-    val getPositionsInPixels_ = _import "pango_tab_array_get_positions_in_pixels" : PangoTabArrayRecord.FFI.notnull PangoTabArrayRecord.FFI.p -> GBool.FFI.val_;
-    val getSize_ = _import "pango_tab_array_get_size" : PangoTabArrayRecord.FFI.notnull PangoTabArrayRecord.FFI.p -> GInt32.FFI.val_;
+    val new_ = fn x1 & x2 => (_import "pango_tab_array_new" : GInt32.FFI.val_ * GBool.FFI.val_ -> PangoTabArrayRecord.FFI.non_opt PangoTabArrayRecord.FFI.p;) (x1, x2)
+    val copy_ = _import "pango_tab_array_copy" : PangoTabArrayRecord.FFI.non_opt PangoTabArrayRecord.FFI.p -> PangoTabArrayRecord.FFI.non_opt PangoTabArrayRecord.FFI.p;
+    val getPositionsInPixels_ = _import "pango_tab_array_get_positions_in_pixels" : PangoTabArrayRecord.FFI.non_opt PangoTabArrayRecord.FFI.p -> GBool.FFI.val_;
+    val getSize_ = _import "pango_tab_array_get_size" : PangoTabArrayRecord.FFI.non_opt PangoTabArrayRecord.FFI.p -> GInt32.FFI.val_;
     val getTab_ =
       fn
         x1
@@ -16,7 +16,7 @@ structure PangoTabArray :>
          & x4 =>
           (
             _import "pango_tab_array_get_tab" :
-              PangoTabArrayRecord.FFI.notnull PangoTabArrayRecord.FFI.p
+              PangoTabArrayRecord.FFI.non_opt PangoTabArrayRecord.FFI.p
                * GInt32.FFI.val_
                * PangoTabAlign.FFI.ref_
                * GInt32.FFI.ref_
@@ -28,7 +28,7 @@ structure PangoTabArray :>
               x3,
               x4
             )
-    val resize_ = fn x1 & x2 => (_import "pango_tab_array_resize" : PangoTabArrayRecord.FFI.notnull PangoTabArrayRecord.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val resize_ = fn x1 & x2 => (_import "pango_tab_array_resize" : PangoTabArrayRecord.FFI.non_opt PangoTabArrayRecord.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setTab_ =
       fn
         x1
@@ -37,7 +37,7 @@ structure PangoTabArray :>
          & x4 =>
           (
             _import "pango_tab_array_set_tab" :
-              PangoTabArrayRecord.FFI.notnull PangoTabArrayRecord.FFI.p
+              PangoTabArrayRecord.FFI.non_opt PangoTabArrayRecord.FFI.p
                * GInt32.FFI.val_
                * PangoTabAlign.FFI.val_
                * GInt32.FFI.val_

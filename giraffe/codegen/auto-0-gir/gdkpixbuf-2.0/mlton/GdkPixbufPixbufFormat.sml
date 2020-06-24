@@ -3,21 +3,21 @@ structure GdkPixbufPixbufFormat :>
     where type t = GdkPixbufPixbufFormatRecord.t =
   struct
     val getType_ = _import "gdk_pixbuf_format_get_type" : unit -> GObjectType.FFI.val_;
-    val copy_ = _import "gdk_pixbuf_format_copy" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p;
-    val getDescription_ = _import "gdk_pixbuf_format_get_description" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getExtensions_ = _import "gdk_pixbuf_format_get_extensions" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val getLicense_ = _import "gdk_pixbuf_format_get_license" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getMimeTypes_ = _import "gdk_pixbuf_format_get_mime_types" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val getName_ = _import "gdk_pixbuf_format_get_name" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val isDisabled_ = _import "gdk_pixbuf_format_is_disabled" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> GBool.FFI.val_;
+    val copy_ = _import "gdk_pixbuf_format_copy" : GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p -> GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p;
+    val getDescription_ = _import "gdk_pixbuf_format_get_description" : GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getExtensions_ = _import "gdk_pixbuf_format_get_extensions" : GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val getLicense_ = _import "gdk_pixbuf_format_get_license" : GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getMimeTypes_ = _import "gdk_pixbuf_format_get_mime_types" : GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val getName_ = _import "gdk_pixbuf_format_get_name" : GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val isDisabled_ = _import "gdk_pixbuf_format_is_disabled" : GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p -> GBool.FFI.val_;
     val isSaveOptionSupported_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gdk_pixbuf_format_is_save_option_supported" :
-              GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p
+              GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -25,9 +25,9 @@ structure GdkPixbufPixbufFormat :>
               x2,
               x3
             )
-    val isScalable_ = _import "gdk_pixbuf_format_is_scalable" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> GBool.FFI.val_;
-    val isWritable_ = _import "gdk_pixbuf_format_is_writable" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p -> GBool.FFI.val_;
-    val setDisabled_ = fn x1 & x2 => (_import "gdk_pixbuf_format_set_disabled" : GdkPixbufPixbufFormatRecord.FFI.notnull GdkPixbufPixbufFormatRecord.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val isScalable_ = _import "gdk_pixbuf_format_is_scalable" : GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p -> GBool.FFI.val_;
+    val isWritable_ = _import "gdk_pixbuf_format_is_writable" : GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p -> GBool.FFI.val_;
+    val setDisabled_ = fn x1 & x2 => (_import "gdk_pixbuf_format_set_disabled" : GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type t = GdkPixbufPixbufFormatRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun copy self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> GdkPixbufPixbufFormatRecord.FFI.fromPtr true) copy_ self

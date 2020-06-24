@@ -5,12 +5,12 @@ structure GioBufferedOutputStream :>
     where type 'a output_stream_class = 'a GioOutputStreamClass.class =
   struct
     val getType_ = _import "g_buffered_output_stream_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_buffered_output_stream_new" : GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p -> GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p;
-    val newSized_ = fn x1 & x2 => (_import "g_buffered_output_stream_new_sized" : GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p * GUInt64.FFI.val_ -> GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p;) (x1, x2)
-    val getAutoGrow_ = _import "g_buffered_output_stream_get_auto_grow" : GioBufferedOutputStreamClass.FFI.notnull GioBufferedOutputStreamClass.FFI.p -> GBool.FFI.val_;
-    val getBufferSize_ = _import "g_buffered_output_stream_get_buffer_size" : GioBufferedOutputStreamClass.FFI.notnull GioBufferedOutputStreamClass.FFI.p -> GUInt64.FFI.val_;
-    val setAutoGrow_ = fn x1 & x2 => (_import "g_buffered_output_stream_set_auto_grow" : GioBufferedOutputStreamClass.FFI.notnull GioBufferedOutputStreamClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setBufferSize_ = fn x1 & x2 => (_import "g_buffered_output_stream_set_buffer_size" : GioBufferedOutputStreamClass.FFI.notnull GioBufferedOutputStreamClass.FFI.p * GUInt64.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "g_buffered_output_stream_new" : GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p -> GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p;
+    val newSized_ = fn x1 & x2 => (_import "g_buffered_output_stream_new_sized" : GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p * GUInt64.FFI.val_ -> GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p;) (x1, x2)
+    val getAutoGrow_ = _import "g_buffered_output_stream_get_auto_grow" : GioBufferedOutputStreamClass.FFI.non_opt GioBufferedOutputStreamClass.FFI.p -> GBool.FFI.val_;
+    val getBufferSize_ = _import "g_buffered_output_stream_get_buffer_size" : GioBufferedOutputStreamClass.FFI.non_opt GioBufferedOutputStreamClass.FFI.p -> GUInt64.FFI.val_;
+    val setAutoGrow_ = fn x1 & x2 => (_import "g_buffered_output_stream_set_auto_grow" : GioBufferedOutputStreamClass.FFI.non_opt GioBufferedOutputStreamClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setBufferSize_ = fn x1 & x2 => (_import "g_buffered_output_stream_set_buffer_size" : GioBufferedOutputStreamClass.FFI.non_opt GioBufferedOutputStreamClass.FFI.p * GUInt64.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioBufferedOutputStreamClass.class
     type 'a seekable_class = 'a GioSeekableClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class

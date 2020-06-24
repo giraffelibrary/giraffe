@@ -1,6 +1,6 @@
 structure Vte : VTE =
   struct
-    val getUserShell_ = _import "vte_get_user_shell" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getUserShell_ = _import "vte_get_user_shell" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     structure PtyClass = VtePtyClass
     structure PtyError = VtePtyError
     exception PtyError = VtePtyError

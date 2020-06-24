@@ -7,23 +7,23 @@ structure GtkColorButton :>
     where type 'a color_chooser_class = 'a GtkColorChooserClass.class =
   struct
     val getType_ = _import "gtk_color_button_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_color_button_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithColor_ = _import "gtk_color_button_new_with_color" : GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithRgba_ = _import "gtk_color_button_new_with_rgba" : GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getAlpha_ = _import "gtk_color_button_get_alpha" : GtkColorButtonClass.FFI.notnull GtkColorButtonClass.FFI.p -> GUInt16.FFI.val_;
-    val getColor_ = fn x1 & x2 => (_import "gtk_color_button_get_color" : GtkColorButtonClass.FFI.notnull GtkColorButtonClass.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
-    val getTitle_ = _import "gtk_color_button_get_title" : GtkColorButtonClass.FFI.notnull GtkColorButtonClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getUseAlpha_ = _import "gtk_color_button_get_use_alpha" : GtkColorButtonClass.FFI.notnull GtkColorButtonClass.FFI.p -> GBool.FFI.val_;
-    val setAlpha_ = fn x1 & x2 => (_import "gtk_color_button_set_alpha" : GtkColorButtonClass.FFI.notnull GtkColorButtonClass.FFI.p * GUInt16.FFI.val_ -> unit;) (x1, x2)
-    val setColor_ = fn x1 & x2 => (_import "gtk_color_button_set_color" : GtkColorButtonClass.FFI.notnull GtkColorButtonClass.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_color_button_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithColor_ = _import "gtk_color_button_new_with_color" : GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithRgba_ = _import "gtk_color_button_new_with_rgba" : GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getAlpha_ = _import "gtk_color_button_get_alpha" : GtkColorButtonClass.FFI.non_opt GtkColorButtonClass.FFI.p -> GUInt16.FFI.val_;
+    val getColor_ = fn x1 & x2 => (_import "gtk_color_button_get_color" : GtkColorButtonClass.FFI.non_opt GtkColorButtonClass.FFI.p * GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> unit;) (x1, x2)
+    val getTitle_ = _import "gtk_color_button_get_title" : GtkColorButtonClass.FFI.non_opt GtkColorButtonClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getUseAlpha_ = _import "gtk_color_button_get_use_alpha" : GtkColorButtonClass.FFI.non_opt GtkColorButtonClass.FFI.p -> GBool.FFI.val_;
+    val setAlpha_ = fn x1 & x2 => (_import "gtk_color_button_set_alpha" : GtkColorButtonClass.FFI.non_opt GtkColorButtonClass.FFI.p * GUInt16.FFI.val_ -> unit;) (x1, x2)
+    val setColor_ = fn x1 & x2 => (_import "gtk_color_button_set_color" : GtkColorButtonClass.FFI.non_opt GtkColorButtonClass.FFI.p * GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_color_button_set_title" :
-              GtkColorButtonClass.FFI.notnull GtkColorButtonClass.FFI.p
+              GtkColorButtonClass.FFI.non_opt GtkColorButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -31,7 +31,7 @@ structure GtkColorButton :>
               x2,
               x3
             )
-    val setUseAlpha_ = fn x1 & x2 => (_import "gtk_color_button_set_use_alpha" : GtkColorButtonClass.FFI.notnull GtkColorButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUseAlpha_ = fn x1 & x2 => (_import "gtk_color_button_set_use_alpha" : GtkColorButtonClass.FFI.non_opt GtkColorButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkColorButtonClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

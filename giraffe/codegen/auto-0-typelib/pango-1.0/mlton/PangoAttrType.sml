@@ -92,8 +92,8 @@ structure PangoAttrType :> PANGO_ATTR_TYPE =
       )
     open Enum
     val getType_ = _import "pango_attr_type_get_type" : unit -> GObjectType.FFI.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       ValueAccessor.C.createAccessor
         {
@@ -101,8 +101,8 @@ structure PangoAttrType :> PANGO_ATTR_TYPE =
           getValue = (I ---> FFI.fromVal) getValue_,
           setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val getName_ = _import "pango_attr_type_get_name" : FFI.val_ -> unit Utf8.FFI.out_p;
-    val register_ = _import "mlton_pango_attr_type_register" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> FFI.val_;
+    val getName_ = _import "pango_attr_type_get_name" : FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val register_ = _import "mlton_pango_attr_type_register" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> FFI.val_;
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getName type' = (FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getName_ type'
     fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name

@@ -7,11 +7,11 @@ structure GdkSeat :>
     where type 'a display_class = 'a GdkDisplayClass.class =
   struct
     val getType_ = _import "gdk_seat_get_type" : unit -> GObjectType.FFI.val_;
-    val getCapabilities_ = _import "gdk_seat_get_capabilities" : GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p -> GdkSeatCapabilities.FFI.val_;
-    val getDisplay_ = _import "gdk_seat_get_display" : GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
-    val getKeyboard_ = _import "gdk_seat_get_keyboard" : GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p -> unit GdkDeviceClass.FFI.p;
-    val getPointer_ = _import "gdk_seat_get_pointer" : GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p -> unit GdkDeviceClass.FFI.p;
-    val ungrab_ = _import "gdk_seat_ungrab" : GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p -> unit;
+    val getCapabilities_ = _import "gdk_seat_get_capabilities" : GdkSeatClass.FFI.non_opt GdkSeatClass.FFI.p -> GdkSeatCapabilities.FFI.val_;
+    val getDisplay_ = _import "gdk_seat_get_display" : GdkSeatClass.FFI.non_opt GdkSeatClass.FFI.p -> GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p;
+    val getKeyboard_ = _import "gdk_seat_get_keyboard" : GdkSeatClass.FFI.non_opt GdkSeatClass.FFI.p -> GdkDeviceClass.FFI.opt GdkDeviceClass.FFI.p;
+    val getPointer_ = _import "gdk_seat_get_pointer" : GdkSeatClass.FFI.non_opt GdkSeatClass.FFI.p -> GdkDeviceClass.FFI.opt GdkDeviceClass.FFI.p;
+    val ungrab_ = _import "gdk_seat_ungrab" : GdkSeatClass.FFI.non_opt GdkSeatClass.FFI.p -> unit;
     type 'a class = 'a GdkSeatClass.class
     type seat_capabilities_t = GdkSeatCapabilities.t
     type 'a device_class = 'a GdkDeviceClass.class

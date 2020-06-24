@@ -9,20 +9,20 @@ structure GLibBytes :>
           (
             _import "mlton_g_bytes_new" :
               GUInt8CArrayN.MLton.p1
-               * unit GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.opt GUInt8CArrayN.MLton.p2
                * GSize.FFI.val_
-               -> GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p;
+               -> GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val compare_ = fn x1 & x2 => (_import "g_bytes_compare" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p * GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val equal_ = fn x1 & x2 => (_import "g_bytes_equal" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p * GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getData_ = fn x1 & x2 => (_import "g_bytes_get_data" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p * GSize.FFI.ref_ -> unit GUInt8CArrayN.FFI.out_p;) (x1, x2)
-    val getSize_ = _import "g_bytes_get_size" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p -> GSize.FFI.val_;
-    val hash_ = _import "g_bytes_hash" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p -> GUInt.FFI.val_;
+    val compare_ = fn x1 & x2 => (_import "g_bytes_compare" : GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p * GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val equal_ = fn x1 & x2 => (_import "g_bytes_equal" : GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p * GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getData_ = fn x1 & x2 => (_import "g_bytes_get_data" : GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p * GSize.FFI.ref_ -> GUInt8CArrayN.FFI.opt GUInt8CArrayN.FFI.out_p;) (x1, x2)
+    val getSize_ = _import "g_bytes_get_size" : GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> GSize.FFI.val_;
+    val hash_ = _import "g_bytes_hash" : GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> GUInt.FFI.val_;
     val newFromBytes_ =
       fn
         x1
@@ -30,17 +30,17 @@ structure GLibBytes :>
          & x3 =>
           (
             _import "g_bytes_new_from_bytes" :
-              GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p
+              GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p
                * GSize.FFI.val_
                * GSize.FFI.val_
-               -> GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p;
+               -> GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val unrefToData_ = fn x1 & x2 => (_import "g_bytes_unref_to_data" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p * GSize.FFI.ref_ -> GUInt8CArrayN.FFI.notnull GUInt8CArrayN.FFI.out_p;) (x1, x2)
+    val unrefToData_ = fn x1 & x2 => (_import "g_bytes_unref_to_data" : GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p * GSize.FFI.ref_ -> GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.FFI.out_p;) (x1, x2)
     type t = GLibBytesRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new data =

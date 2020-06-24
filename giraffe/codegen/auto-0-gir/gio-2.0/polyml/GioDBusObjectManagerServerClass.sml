@@ -1,6 +1,7 @@
 structure GioDBusObjectManagerServerClass :>
   GIO_D_BUS_OBJECT_MANAGER_SERVER_CLASS
-    where type C.notnull = GObjectObjectClass.C.notnull
+    where type C.opt = GObjectObjectClass.C.opt
+    where type C.non_opt = GObjectObjectClass.C.non_opt
     where type 'a C.p = 'a GObjectObjectClass.C.p =
   struct
     open GObjectObjectClass

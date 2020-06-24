@@ -4,9 +4,9 @@ structure GtkGestureMultiPress :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_gesture_multi_press_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_gesture_multi_press_new" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkGestureClass.FFI.notnull GtkGestureClass.FFI.p;
-    val getArea_ = fn x1 & x2 => (_import "gtk_gesture_multi_press_get_area" : GtkGestureMultiPressClass.FFI.notnull GtkGestureMultiPressClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val setArea_ = fn x1 & x2 => (_import "gtk_gesture_multi_press_set_area" : GtkGestureMultiPressClass.FFI.notnull GtkGestureMultiPressClass.FFI.p * unit GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_gesture_multi_press_new" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GtkGestureClass.FFI.non_opt GtkGestureClass.FFI.p;
+    val getArea_ = fn x1 & x2 => (_import "gtk_gesture_multi_press_get_area" : GtkGestureMultiPressClass.FFI.non_opt GtkGestureMultiPressClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val setArea_ = fn x1 & x2 => (_import "gtk_gesture_multi_press_set_area" : GtkGestureMultiPressClass.FFI.non_opt GtkGestureMultiPressClass.FFI.p * GdkRectangleRecord.FFI.opt GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkGestureMultiPressClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class

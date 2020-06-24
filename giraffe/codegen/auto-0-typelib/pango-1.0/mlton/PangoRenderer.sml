@@ -11,8 +11,8 @@ structure PangoRenderer :>
     where type matrix_t = PangoMatrixRecord.t =
   struct
     val getType_ = _import "pango_renderer_get_type" : unit -> GObjectType.FFI.val_;
-    val activate_ = _import "pango_renderer_activate" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> unit;
-    val deactivate_ = _import "pango_renderer_deactivate" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> unit;
+    val activate_ = _import "pango_renderer_activate" : PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p -> unit;
+    val deactivate_ = _import "pango_renderer_deactivate" : PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p -> unit;
     val drawErrorUnderline_ =
       fn
         x1
@@ -22,7 +22,7 @@ structure PangoRenderer :>
          & x5 =>
           (
             _import "pango_renderer_draw_error_underline" :
-              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+              PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.val_
@@ -45,8 +45,8 @@ structure PangoRenderer :>
          & x5 =>
           (
             _import "pango_renderer_draw_glyph" :
-              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
-               * PangoFontClass.FFI.notnull PangoFontClass.FFI.p
+              PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p
+               * PangoFontClass.FFI.non_opt PangoFontClass.FFI.p
                * GUInt32.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -68,10 +68,10 @@ structure PangoRenderer :>
          & x6 =>
           (
             _import "mlton_pango_renderer_draw_glyph_item" :
-              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+              PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * PangoGlyphItemRecord.FFI.notnull PangoGlyphItemRecord.FFI.p
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * PangoGlyphItemRecord.FFI.non_opt PangoGlyphItemRecord.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -93,9 +93,9 @@ structure PangoRenderer :>
          & x5 =>
           (
             _import "pango_renderer_draw_glyphs" :
-              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
-               * PangoFontClass.FFI.notnull PangoFontClass.FFI.p
-               * PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p
+              PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p
+               * PangoFontClass.FFI.non_opt PangoFontClass.FFI.p
+               * PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -115,8 +115,8 @@ structure PangoRenderer :>
          & x4 =>
           (
             _import "pango_renderer_draw_layout" :
-              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
-               * PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+              PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p
+               * PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -135,8 +135,8 @@ structure PangoRenderer :>
          & x4 =>
           (
             _import "pango_renderer_draw_layout_line" :
-              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
-               * PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p
+              PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p
+               * PangoLayoutLineRecord.FFI.non_opt PangoLayoutLineRecord.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -157,7 +157,7 @@ structure PangoRenderer :>
          & x6 =>
           (
             _import "pango_renderer_draw_rectangle" :
-              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+              PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p
                * PangoRenderPart.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.val_
@@ -185,7 +185,7 @@ structure PangoRenderer :>
          & x8 =>
           (
             _import "pango_renderer_draw_trapezoid" :
-              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+              PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p
                * PangoRenderPart.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -205,12 +205,12 @@ structure PangoRenderer :>
               x7,
               x8
             )
-    val getAlpha_ = fn x1 & x2 => (_import "pango_renderer_get_alpha" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p * PangoRenderPart.FFI.val_ -> GUInt16.FFI.val_;) (x1, x2)
-    val getColor_ = fn x1 & x2 => (_import "pango_renderer_get_color" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p * PangoRenderPart.FFI.val_ -> unit PangoColorRecord.FFI.p;) (x1, x2)
-    val getLayout_ = _import "pango_renderer_get_layout" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> unit PangoLayoutClass.FFI.p;
-    val getLayoutLine_ = _import "pango_renderer_get_layout_line" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> unit PangoLayoutLineRecord.FFI.p;
-    val getMatrix_ = _import "pango_renderer_get_matrix" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p -> unit PangoMatrixRecord.FFI.p;
-    val partChanged_ = fn x1 & x2 => (_import "pango_renderer_part_changed" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p * PangoRenderPart.FFI.val_ -> unit;) (x1, x2)
+    val getAlpha_ = fn x1 & x2 => (_import "pango_renderer_get_alpha" : PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p * PangoRenderPart.FFI.val_ -> GUInt16.FFI.val_;) (x1, x2)
+    val getColor_ = fn x1 & x2 => (_import "pango_renderer_get_color" : PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p * PangoRenderPart.FFI.val_ -> PangoColorRecord.FFI.opt PangoColorRecord.FFI.p;) (x1, x2)
+    val getLayout_ = _import "pango_renderer_get_layout" : PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p -> PangoLayoutClass.FFI.opt PangoLayoutClass.FFI.p;
+    val getLayoutLine_ = _import "pango_renderer_get_layout_line" : PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p -> PangoLayoutLineRecord.FFI.opt PangoLayoutLineRecord.FFI.p;
+    val getMatrix_ = _import "pango_renderer_get_matrix" : PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p -> PangoMatrixRecord.FFI.opt PangoMatrixRecord.FFI.p;
+    val partChanged_ = fn x1 & x2 => (_import "pango_renderer_part_changed" : PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p * PangoRenderPart.FFI.val_ -> unit;) (x1, x2)
     val setAlpha_ =
       fn
         x1
@@ -218,7 +218,7 @@ structure PangoRenderer :>
          & x3 =>
           (
             _import "pango_renderer_set_alpha" :
-              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+              PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p
                * PangoRenderPart.FFI.val_
                * GUInt16.FFI.val_
                -> unit;
@@ -235,9 +235,9 @@ structure PangoRenderer :>
          & x3 =>
           (
             _import "pango_renderer_set_color" :
-              PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p
+              PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p
                * PangoRenderPart.FFI.val_
-               * unit PangoColorRecord.FFI.p
+               * PangoColorRecord.FFI.opt PangoColorRecord.FFI.p
                -> unit;
           )
             (
@@ -245,7 +245,7 @@ structure PangoRenderer :>
               x2,
               x3
             )
-    val setMatrix_ = fn x1 & x2 => (_import "pango_renderer_set_matrix" : PangoRendererClass.FFI.notnull PangoRendererClass.FFI.p * unit PangoMatrixRecord.FFI.p -> unit;) (x1, x2)
+    val setMatrix_ = fn x1 & x2 => (_import "pango_renderer_set_matrix" : PangoRendererClass.FFI.non_opt PangoRendererClass.FFI.p * PangoMatrixRecord.FFI.opt PangoMatrixRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a PangoRendererClass.class
     type glyph_item_t = PangoGlyphItemRecord.t
     type glyph_string_t = PangoGlyphStringRecord.t

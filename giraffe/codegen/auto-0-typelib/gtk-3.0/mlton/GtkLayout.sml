@@ -7,9 +7,9 @@ structure GtkLayout :>
     where type 'a adjustment_class = 'a GtkAdjustmentClass.class =
   struct
     val getType_ = _import "gtk_layout_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "gtk_layout_new" : unit GtkAdjustmentClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
-    val getBinWindow_ = _import "gtk_layout_get_bin_window" : GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val getHadjustment_ = _import "gtk_layout_get_hadjustment" : GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
+    val new_ = fn x1 & x2 => (_import "gtk_layout_new" : GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p * GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val getBinWindow_ = _import "gtk_layout_get_bin_window" : GtkLayoutClass.FFI.non_opt GtkLayoutClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val getHadjustment_ = _import "gtk_layout_get_hadjustment" : GtkLayoutClass.FFI.non_opt GtkLayoutClass.FFI.p -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
     val getSize_ =
       fn
         x1
@@ -17,7 +17,7 @@ structure GtkLayout :>
          & x3 =>
           (
             _import "gtk_layout_get_size" :
-              GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p
+              GtkLayoutClass.FFI.non_opt GtkLayoutClass.FFI.p
                * GUInt32.FFI.ref_
                * GUInt32.FFI.ref_
                -> unit;
@@ -27,7 +27,7 @@ structure GtkLayout :>
               x2,
               x3
             )
-    val getVadjustment_ = _import "gtk_layout_get_vadjustment" : GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
+    val getVadjustment_ = _import "gtk_layout_get_vadjustment" : GtkLayoutClass.FFI.non_opt GtkLayoutClass.FFI.p -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
     val move_ =
       fn
         x1
@@ -36,8 +36,8 @@ structure GtkLayout :>
          & x4 =>
           (
             _import "gtk_layout_move" :
-              GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkLayoutClass.FFI.non_opt GtkLayoutClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -56,8 +56,8 @@ structure GtkLayout :>
          & x4 =>
           (
             _import "gtk_layout_put" :
-              GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkLayoutClass.FFI.non_opt GtkLayoutClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -68,7 +68,7 @@ structure GtkLayout :>
               x3,
               x4
             )
-    val setHadjustment_ = fn x1 & x2 => (_import "gtk_layout_set_hadjustment" : GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val setHadjustment_ = fn x1 & x2 => (_import "gtk_layout_set_hadjustment" : GtkLayoutClass.FFI.non_opt GtkLayoutClass.FFI.p * GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
     val setSize_ =
       fn
         x1
@@ -76,7 +76,7 @@ structure GtkLayout :>
          & x3 =>
           (
             _import "gtk_layout_set_size" :
-              GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p
+              GtkLayoutClass.FFI.non_opt GtkLayoutClass.FFI.p
                * GUInt32.FFI.val_
                * GUInt32.FFI.val_
                -> unit;
@@ -86,7 +86,7 @@ structure GtkLayout :>
               x2,
               x3
             )
-    val setVadjustment_ = fn x1 & x2 => (_import "gtk_layout_set_vadjustment" : GtkLayoutClass.FFI.notnull GtkLayoutClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val setVadjustment_ = fn x1 & x2 => (_import "gtk_layout_set_vadjustment" : GtkLayoutClass.FFI.non_opt GtkLayoutClass.FFI.p * GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkLayoutClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a scrollable_class = 'a GtkScrollableClass.class

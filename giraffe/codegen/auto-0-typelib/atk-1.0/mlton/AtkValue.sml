@@ -4,12 +4,12 @@ structure AtkValue :>
     where type range_t = AtkRangeRecord.t =
   struct
     val getType_ = _import "atk_value_get_type" : unit -> GObjectType.FFI.val_;
-    val getCurrentValue_ = fn x1 & x2 => (_import "atk_value_get_current_value" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit;) (x1, x2)
-    val getIncrement_ = _import "atk_value_get_increment" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p -> GDouble.FFI.val_;
-    val getMaximumValue_ = fn x1 & x2 => (_import "atk_value_get_maximum_value" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit;) (x1, x2)
-    val getMinimumIncrement_ = fn x1 & x2 => (_import "atk_value_get_minimum_increment" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit;) (x1, x2)
-    val getMinimumValue_ = fn x1 & x2 => (_import "atk_value_get_minimum_value" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit;) (x1, x2)
-    val getRange_ = _import "atk_value_get_range" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p -> unit AtkRangeRecord.FFI.p;
+    val getCurrentValue_ = fn x1 & x2 => (_import "atk_value_get_current_value" : AtkValueClass.FFI.non_opt AtkValueClass.FFI.p * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit;) (x1, x2)
+    val getIncrement_ = _import "atk_value_get_increment" : AtkValueClass.FFI.non_opt AtkValueClass.FFI.p -> GDouble.FFI.val_;
+    val getMaximumValue_ = fn x1 & x2 => (_import "atk_value_get_maximum_value" : AtkValueClass.FFI.non_opt AtkValueClass.FFI.p * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit;) (x1, x2)
+    val getMinimumIncrement_ = fn x1 & x2 => (_import "atk_value_get_minimum_increment" : AtkValueClass.FFI.non_opt AtkValueClass.FFI.p * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit;) (x1, x2)
+    val getMinimumValue_ = fn x1 & x2 => (_import "atk_value_get_minimum_value" : AtkValueClass.FFI.non_opt AtkValueClass.FFI.p * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit;) (x1, x2)
+    val getRange_ = _import "atk_value_get_range" : AtkValueClass.FFI.non_opt AtkValueClass.FFI.p -> AtkRangeRecord.FFI.opt AtkRangeRecord.FFI.p;
     val getValueAndText_ =
       fn
         x1
@@ -17,10 +17,10 @@ structure AtkValue :>
          & (x3, x4) =>
           (
             _import "mlton_atk_value_get_value_and_text" :
-              AtkValueClass.FFI.notnull AtkValueClass.FFI.p
+              AtkValueClass.FFI.non_opt AtkValueClass.FFI.p
                * GDouble.FFI.ref_
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
                -> unit;
           )
             (
@@ -29,8 +29,8 @@ structure AtkValue :>
               x3,
               x4
             )
-    val setCurrentValue_ = fn x1 & x2 => (_import "atk_value_set_current_value" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val setValue_ = fn x1 & x2 => (_import "atk_value_set_value" : AtkValueClass.FFI.notnull AtkValueClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setCurrentValue_ = fn x1 & x2 => (_import "atk_value_set_current_value" : AtkValueClass.FFI.non_opt AtkValueClass.FFI.p * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val setValue_ = fn x1 & x2 => (_import "atk_value_set_value" : AtkValueClass.FFI.non_opt AtkValueClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a AtkValueClass.class
     type range_t = AtkRangeRecord.t
     type t = base class

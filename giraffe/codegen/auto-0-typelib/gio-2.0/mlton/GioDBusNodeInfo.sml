@@ -10,9 +10,9 @@ structure GioDBusNodeInfo :>
           (
             _import "mlton_g_dbus_node_info_new_for_xml" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioDBusNodeInfoRecord.FFI.notnull GioDBusNodeInfoRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioDBusNodeInfoRecord.FFI.non_opt GioDBusNodeInfoRecord.FFI.p;
           )
             (
               x1,
@@ -24,10 +24,10 @@ structure GioDBusNodeInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_node_info_lookup_interface" :
-              GioDBusNodeInfoRecord.FFI.notnull GioDBusNodeInfoRecord.FFI.p
+              GioDBusNodeInfoRecord.FFI.non_opt GioDBusNodeInfoRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioDBusInterfaceInfoRecord.FFI.notnull GioDBusInterfaceInfoRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioDBusInterfaceInfoRecord.FFI.non_opt GioDBusInterfaceInfoRecord.FFI.p;
           )
             (
               x1,

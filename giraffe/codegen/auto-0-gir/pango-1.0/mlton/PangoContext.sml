@@ -14,16 +14,16 @@ structure PangoContext :>
     where type matrix_t = PangoMatrixRecord.t =
   struct
     val getType_ = _import "pango_context_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "pango_context_new" : unit -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
-    val changed_ = _import "pango_context_changed" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> unit;
-    val getBaseDir_ = _import "pango_context_get_base_dir" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoDirection.FFI.val_;
-    val getBaseGravity_ = _import "pango_context_get_base_gravity" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoGravity.FFI.val_;
-    val getFontDescription_ = _import "pango_context_get_font_description" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;
-    val getFontMap_ = _import "pango_context_get_font_map" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p;
-    val getGravity_ = _import "pango_context_get_gravity" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoGravity.FFI.val_;
-    val getGravityHint_ = _import "pango_context_get_gravity_hint" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoGravityHint.FFI.val_;
-    val getLanguage_ = _import "pango_context_get_language" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p;
-    val getMatrix_ = _import "pango_context_get_matrix" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> unit PangoMatrixRecord.FFI.p;
+    val new_ = _import "pango_context_new" : unit -> PangoContextClass.FFI.non_opt PangoContextClass.FFI.p;
+    val changed_ = _import "pango_context_changed" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> unit;
+    val getBaseDir_ = _import "pango_context_get_base_dir" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> PangoDirection.FFI.val_;
+    val getBaseGravity_ = _import "pango_context_get_base_gravity" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> PangoGravity.FFI.val_;
+    val getFontDescription_ = _import "pango_context_get_font_description" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p;
+    val getFontMap_ = _import "pango_context_get_font_map" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p;
+    val getGravity_ = _import "pango_context_get_gravity" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> PangoGravity.FFI.val_;
+    val getGravityHint_ = _import "pango_context_get_gravity_hint" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> PangoGravityHint.FFI.val_;
+    val getLanguage_ = _import "pango_context_get_language" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> PangoLanguageRecord.FFI.non_opt PangoLanguageRecord.FFI.p;
+    val getMatrix_ = _import "pango_context_get_matrix" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> PangoMatrixRecord.FFI.opt PangoMatrixRecord.FFI.p;
     val getMetrics_ =
       fn
         x1
@@ -31,17 +31,17 @@ structure PangoContext :>
          & x3 =>
           (
             _import "pango_context_get_metrics" :
-              PangoContextClass.FFI.notnull PangoContextClass.FFI.p
-               * unit PangoFontDescriptionRecord.FFI.p
-               * unit PangoLanguageRecord.FFI.p
-               -> PangoFontMetricsRecord.FFI.notnull PangoFontMetricsRecord.FFI.p;
+              PangoContextClass.FFI.non_opt PangoContextClass.FFI.p
+               * PangoFontDescriptionRecord.FFI.opt PangoFontDescriptionRecord.FFI.p
+               * PangoLanguageRecord.FFI.opt PangoLanguageRecord.FFI.p
+               -> PangoFontMetricsRecord.FFI.non_opt PangoFontMetricsRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getSerial_ = _import "pango_context_get_serial" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> GUInt.FFI.val_;
+    val getSerial_ = _import "pango_context_get_serial" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> GUInt.FFI.val_;
     val listFamilies_ =
       fn
         x1
@@ -49,9 +49,9 @@ structure PangoContext :>
          & x4 =>
           (
             _import "mlton_pango_context_list_families" :
-              PangoContextClass.FFI.notnull PangoContextClass.FFI.p
+              PangoContextClass.FFI.non_opt PangoContextClass.FFI.p
                * PangoFontFamilyClassCPtrArrayN.MLton.r1
-               * (unit, PangoFontFamilyClassCPtrArrayN.FFI.notnull) PangoFontFamilyClassCPtrArrayN.MLton.r2
+               * (PangoFontFamilyClassCPtrArrayN.FFI.opt, PangoFontFamilyClassCPtrArrayN.FFI.non_opt) PangoFontFamilyClassCPtrArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -61,7 +61,7 @@ structure PangoContext :>
               x3,
               x4
             )
-    val loadFont_ = fn x1 & x2 => (_import "pango_context_load_font" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> unit PangoFontClass.FFI.p;) (x1, x2)
+    val loadFont_ = fn x1 & x2 => (_import "pango_context_load_font" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p * PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p -> PangoFontClass.FFI.opt PangoFontClass.FFI.p;) (x1, x2)
     val loadFontset_ =
       fn
         x1
@@ -69,23 +69,23 @@ structure PangoContext :>
          & x3 =>
           (
             _import "pango_context_load_fontset" :
-              PangoContextClass.FFI.notnull PangoContextClass.FFI.p
-               * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p
-               * PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p
-               -> unit PangoFontsetClass.FFI.p;
+              PangoContextClass.FFI.non_opt PangoContextClass.FFI.p
+               * PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p
+               * PangoLanguageRecord.FFI.non_opt PangoLanguageRecord.FFI.p
+               -> PangoFontsetClass.FFI.opt PangoFontsetClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val setBaseDir_ = fn x1 & x2 => (_import "pango_context_set_base_dir" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * PangoDirection.FFI.val_ -> unit;) (x1, x2)
-    val setBaseGravity_ = fn x1 & x2 => (_import "pango_context_set_base_gravity" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * PangoGravity.FFI.val_ -> unit;) (x1, x2)
-    val setFontDescription_ = fn x1 & x2 => (_import "pango_context_set_font_description" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p -> unit;) (x1, x2)
-    val setFontMap_ = fn x1 & x2 => (_import "pango_context_set_font_map" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p -> unit;) (x1, x2)
-    val setGravityHint_ = fn x1 & x2 => (_import "pango_context_set_gravity_hint" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * PangoGravityHint.FFI.val_ -> unit;) (x1, x2)
-    val setLanguage_ = fn x1 & x2 => (_import "pango_context_set_language" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p -> unit;) (x1, x2)
-    val setMatrix_ = fn x1 & x2 => (_import "pango_context_set_matrix" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * unit PangoMatrixRecord.FFI.p -> unit;) (x1, x2)
+    val setBaseDir_ = fn x1 & x2 => (_import "pango_context_set_base_dir" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p * PangoDirection.FFI.val_ -> unit;) (x1, x2)
+    val setBaseGravity_ = fn x1 & x2 => (_import "pango_context_set_base_gravity" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p * PangoGravity.FFI.val_ -> unit;) (x1, x2)
+    val setFontDescription_ = fn x1 & x2 => (_import "pango_context_set_font_description" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p * PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p -> unit;) (x1, x2)
+    val setFontMap_ = fn x1 & x2 => (_import "pango_context_set_font_map" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p * PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p -> unit;) (x1, x2)
+    val setGravityHint_ = fn x1 & x2 => (_import "pango_context_set_gravity_hint" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p * PangoGravityHint.FFI.val_ -> unit;) (x1, x2)
+    val setLanguage_ = fn x1 & x2 => (_import "pango_context_set_language" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p * PangoLanguageRecord.FFI.non_opt PangoLanguageRecord.FFI.p -> unit;) (x1, x2)
+    val setMatrix_ = fn x1 & x2 => (_import "pango_context_set_matrix" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p * PangoMatrixRecord.FFI.opt PangoMatrixRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a PangoContextClass.class
     type font_metrics_t = PangoFontMetricsRecord.t
     type font_family_class_c_ptr_array_n_t = PangoFontFamilyClassCPtrArrayN.t

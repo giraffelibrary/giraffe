@@ -6,17 +6,17 @@ structure GioSimpleActionGroup :>
     where type 'a action_class = 'a GioActionClass.class =
   struct
     val getType_ = _import "g_simple_action_group_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_simple_action_group_new" : unit -> GioSimpleActionGroupClass.FFI.notnull GioSimpleActionGroupClass.FFI.p;
-    val insert_ = fn x1 & x2 => (_import "g_simple_action_group_insert" : GioSimpleActionGroupClass.FFI.notnull GioSimpleActionGroupClass.FFI.p * GioActionClass.FFI.notnull GioActionClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "g_simple_action_group_new" : unit -> GioSimpleActionGroupClass.FFI.non_opt GioSimpleActionGroupClass.FFI.p;
+    val insert_ = fn x1 & x2 => (_import "g_simple_action_group_insert" : GioSimpleActionGroupClass.FFI.non_opt GioSimpleActionGroupClass.FFI.p * GioActionClass.FFI.non_opt GioActionClass.FFI.p -> unit;) (x1, x2)
     val lookup_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_simple_action_group_lookup" :
-              GioSimpleActionGroupClass.FFI.notnull GioSimpleActionGroupClass.FFI.p
+              GioSimpleActionGroupClass.FFI.non_opt GioSimpleActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioActionClass.FFI.notnull GioActionClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioActionClass.FFI.non_opt GioActionClass.FFI.p;
           )
             (
               x1,
@@ -28,9 +28,9 @@ structure GioSimpleActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_simple_action_group_remove" :
-              GioSimpleActionGroupClass.FFI.notnull GioSimpleActionGroupClass.FFI.p
+              GioSimpleActionGroupClass.FFI.non_opt GioSimpleActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

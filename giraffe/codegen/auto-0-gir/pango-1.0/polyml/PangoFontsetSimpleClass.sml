@@ -1,7 +1,8 @@
 structure PangoFontsetSimpleClass :>
   PANGO_FONTSET_SIMPLE_CLASS
     where type 'a fontset_class = 'a PangoFontsetClass.class
-    where type C.notnull = PangoFontsetClass.C.notnull
+    where type C.opt = PangoFontsetClass.C.opt
+    where type C.non_opt = PangoFontsetClass.C.non_opt
     where type 'a C.p = 'a PangoFontsetClass.C.p =
   struct
     type 'a fontset_class = 'a PangoFontsetClass.class

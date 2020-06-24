@@ -8,14 +8,14 @@ structure GtkPaned :>
     where type scroll_type_t = GtkScrollType.t =
   struct
     val getType_ = _import "gtk_paned_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_paned_new" : GtkOrientation.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val add1_ = fn x1 & x2 => (_import "gtk_paned_add1" : GtkPanedClass.FFI.notnull GtkPanedClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val add2_ = fn x1 & x2 => (_import "gtk_paned_add2" : GtkPanedClass.FFI.notnull GtkPanedClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val getChild1_ = _import "gtk_paned_get_child1" : GtkPanedClass.FFI.notnull GtkPanedClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getChild2_ = _import "gtk_paned_get_child2" : GtkPanedClass.FFI.notnull GtkPanedClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getHandleWindow_ = _import "gtk_paned_get_handle_window" : GtkPanedClass.FFI.notnull GtkPanedClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val getPosition_ = _import "gtk_paned_get_position" : GtkPanedClass.FFI.notnull GtkPanedClass.FFI.p -> GInt.FFI.val_;
-    val getWideHandle_ = _import "gtk_paned_get_wide_handle" : GtkPanedClass.FFI.notnull GtkPanedClass.FFI.p -> GBool.FFI.val_;
+    val new_ = _import "gtk_paned_new" : GtkOrientation.FFI.val_ -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val add1_ = fn x1 & x2 => (_import "gtk_paned_add1" : GtkPanedClass.FFI.non_opt GtkPanedClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val add2_ = fn x1 & x2 => (_import "gtk_paned_add2" : GtkPanedClass.FFI.non_opt GtkPanedClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val getChild1_ = _import "gtk_paned_get_child1" : GtkPanedClass.FFI.non_opt GtkPanedClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getChild2_ = _import "gtk_paned_get_child2" : GtkPanedClass.FFI.non_opt GtkPanedClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getHandleWindow_ = _import "gtk_paned_get_handle_window" : GtkPanedClass.FFI.non_opt GtkPanedClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val getPosition_ = _import "gtk_paned_get_position" : GtkPanedClass.FFI.non_opt GtkPanedClass.FFI.p -> GInt.FFI.val_;
+    val getWideHandle_ = _import "gtk_paned_get_wide_handle" : GtkPanedClass.FFI.non_opt GtkPanedClass.FFI.p -> GBool.FFI.val_;
     val pack1_ =
       fn
         x1
@@ -24,8 +24,8 @@ structure GtkPaned :>
          & x4 =>
           (
             _import "gtk_paned_pack1" :
-              GtkPanedClass.FFI.notnull GtkPanedClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkPanedClass.FFI.non_opt GtkPanedClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                * GBool.FFI.val_
                -> unit;
@@ -44,8 +44,8 @@ structure GtkPaned :>
          & x4 =>
           (
             _import "gtk_paned_pack2" :
-              GtkPanedClass.FFI.notnull GtkPanedClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkPanedClass.FFI.non_opt GtkPanedClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                * GBool.FFI.val_
                -> unit;
@@ -56,8 +56,8 @@ structure GtkPaned :>
               x3,
               x4
             )
-    val setPosition_ = fn x1 & x2 => (_import "gtk_paned_set_position" : GtkPanedClass.FFI.notnull GtkPanedClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setWideHandle_ = fn x1 & x2 => (_import "gtk_paned_set_wide_handle" : GtkPanedClass.FFI.notnull GtkPanedClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPosition_ = fn x1 & x2 => (_import "gtk_paned_set_position" : GtkPanedClass.FFI.non_opt GtkPanedClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setWideHandle_ = fn x1 & x2 => (_import "gtk_paned_set_wide_handle" : GtkPanedClass.FFI.non_opt GtkPanedClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkPanedClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

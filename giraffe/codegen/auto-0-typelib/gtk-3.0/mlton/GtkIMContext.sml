@@ -12,7 +12,7 @@ structure GtkIMContext :>
          & x3 =>
           (
             _import "gtk_im_context_delete_surrounding" :
-              GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p
+              GtkIMContextClass.FFI.non_opt GtkIMContextClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> GBool.FFI.val_;
@@ -22,9 +22,9 @@ structure GtkIMContext :>
               x2,
               x3
             )
-    val filterKeypress_ = fn x1 & x2 => (_import "gtk_im_context_filter_keypress" : GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p * GdkEventKeyRecord.FFI.notnull GdkEventKeyRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val focusIn_ = _import "gtk_im_context_focus_in" : GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p -> unit;
-    val focusOut_ = _import "gtk_im_context_focus_out" : GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p -> unit;
+    val filterKeypress_ = fn x1 & x2 => (_import "gtk_im_context_filter_keypress" : GtkIMContextClass.FFI.non_opt GtkIMContextClass.FFI.p * GdkEventKeyRecord.FFI.non_opt GdkEventKeyRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val focusIn_ = _import "gtk_im_context_focus_in" : GtkIMContextClass.FFI.non_opt GtkIMContextClass.FFI.p -> unit;
+    val focusOut_ = _import "gtk_im_context_focus_out" : GtkIMContextClass.FFI.non_opt GtkIMContextClass.FFI.p -> unit;
     val getPreeditString_ =
       fn
         x1
@@ -33,10 +33,10 @@ structure GtkIMContext :>
          & x5 =>
           (
             _import "mlton_gtk_im_context_get_preedit_string" :
-              GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p
+              GtkIMContextClass.FFI.non_opt GtkIMContextClass.FFI.p
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
-               * (unit, PangoAttrListRecord.FFI.notnull) PangoAttrListRecord.FFI.r
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * (PangoAttrListRecord.FFI.opt, PangoAttrListRecord.FFI.non_opt) PangoAttrListRecord.FFI.r
                * GInt32.FFI.ref_
                -> unit;
           )
@@ -54,9 +54,9 @@ structure GtkIMContext :>
          & x4 =>
           (
             _import "mlton_gtk_im_context_get_surrounding" :
-              GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p
+              GtkIMContextClass.FFI.non_opt GtkIMContextClass.FFI.p
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
                * GInt32.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -66,9 +66,9 @@ structure GtkIMContext :>
               x3,
               x4
             )
-    val reset_ = _import "gtk_im_context_reset" : GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p -> unit;
-    val setClientWindow_ = fn x1 & x2 => (_import "gtk_im_context_set_client_window" : GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p * unit GdkWindowClass.FFI.p -> unit;) (x1, x2)
-    val setCursorLocation_ = fn x1 & x2 => (_import "gtk_im_context_set_cursor_location" : GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val reset_ = _import "gtk_im_context_reset" : GtkIMContextClass.FFI.non_opt GtkIMContextClass.FFI.p -> unit;
+    val setClientWindow_ = fn x1 & x2 => (_import "gtk_im_context_set_client_window" : GtkIMContextClass.FFI.non_opt GtkIMContextClass.FFI.p * GdkWindowClass.FFI.opt GdkWindowClass.FFI.p -> unit;) (x1, x2)
+    val setCursorLocation_ = fn x1 & x2 => (_import "gtk_im_context_set_cursor_location" : GtkIMContextClass.FFI.non_opt GtkIMContextClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
     val setSurrounding_ =
       fn
         x1
@@ -77,9 +77,9 @@ structure GtkIMContext :>
          & x5 =>
           (
             _import "mlton_gtk_im_context_set_surrounding" :
-              GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p
+              GtkIMContextClass.FFI.non_opt GtkIMContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -91,7 +91,7 @@ structure GtkIMContext :>
               x4,
               x5
             )
-    val setUsePreedit_ = fn x1 & x2 => (_import "gtk_im_context_set_use_preedit" : GtkIMContextClass.FFI.notnull GtkIMContextClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUsePreedit_ = fn x1 & x2 => (_import "gtk_im_context_set_use_preedit" : GtkIMContextClass.FFI.non_opt GtkIMContextClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkIMContextClass.class
     type input_hints_t = GtkInputHints.t
     type input_purpose_t = GtkInputPurpose.t

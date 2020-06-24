@@ -8,31 +8,31 @@ structure GtkImageMenuItem :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_image_menu_item_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_image_menu_item_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_image_menu_item_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val newFromStock_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_image_menu_item_new_from_stock" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GtkAccelGroupClass.FFI.p
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GtkAccelGroupClass.FFI.opt GtkAccelGroupClass.FFI.p
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newWithLabel_ = _import "mlton_gtk_image_menu_item_new_with_label" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithMnemonic_ = _import "mlton_gtk_image_menu_item_new_with_mnemonic" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getAlwaysShowImage_ = _import "gtk_image_menu_item_get_always_show_image" : GtkImageMenuItemClass.FFI.notnull GtkImageMenuItemClass.FFI.p -> GBool.FFI.val_;
-    val getImage_ = _import "gtk_image_menu_item_get_image" : GtkImageMenuItemClass.FFI.notnull GtkImageMenuItemClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getUseStock_ = _import "gtk_image_menu_item_get_use_stock" : GtkImageMenuItemClass.FFI.notnull GtkImageMenuItemClass.FFI.p -> GBool.FFI.val_;
-    val setAccelGroup_ = fn x1 & x2 => (_import "gtk_image_menu_item_set_accel_group" : GtkImageMenuItemClass.FFI.notnull GtkImageMenuItemClass.FFI.p * GtkAccelGroupClass.FFI.notnull GtkAccelGroupClass.FFI.p -> unit;) (x1, x2)
-    val setAlwaysShowImage_ = fn x1 & x2 => (_import "gtk_image_menu_item_set_always_show_image" : GtkImageMenuItemClass.FFI.notnull GtkImageMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setImage_ = fn x1 & x2 => (_import "gtk_image_menu_item_set_image" : GtkImageMenuItemClass.FFI.notnull GtkImageMenuItemClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setUseStock_ = fn x1 & x2 => (_import "gtk_image_menu_item_set_use_stock" : GtkImageMenuItemClass.FFI.notnull GtkImageMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val newWithLabel_ = _import "mlton_gtk_image_menu_item_new_with_label" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithMnemonic_ = _import "mlton_gtk_image_menu_item_new_with_mnemonic" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getAlwaysShowImage_ = _import "gtk_image_menu_item_get_always_show_image" : GtkImageMenuItemClass.FFI.non_opt GtkImageMenuItemClass.FFI.p -> GBool.FFI.val_;
+    val getImage_ = _import "gtk_image_menu_item_get_image" : GtkImageMenuItemClass.FFI.non_opt GtkImageMenuItemClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getUseStock_ = _import "gtk_image_menu_item_get_use_stock" : GtkImageMenuItemClass.FFI.non_opt GtkImageMenuItemClass.FFI.p -> GBool.FFI.val_;
+    val setAccelGroup_ = fn x1 & x2 => (_import "gtk_image_menu_item_set_accel_group" : GtkImageMenuItemClass.FFI.non_opt GtkImageMenuItemClass.FFI.p * GtkAccelGroupClass.FFI.non_opt GtkAccelGroupClass.FFI.p -> unit;) (x1, x2)
+    val setAlwaysShowImage_ = fn x1 & x2 => (_import "gtk_image_menu_item_set_always_show_image" : GtkImageMenuItemClass.FFI.non_opt GtkImageMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setImage_ = fn x1 & x2 => (_import "gtk_image_menu_item_set_image" : GtkImageMenuItemClass.FFI.non_opt GtkImageMenuItemClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setUseStock_ = fn x1 & x2 => (_import "gtk_image_menu_item_set_use_stock" : GtkImageMenuItemClass.FFI.non_opt GtkImageMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkImageMenuItemClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

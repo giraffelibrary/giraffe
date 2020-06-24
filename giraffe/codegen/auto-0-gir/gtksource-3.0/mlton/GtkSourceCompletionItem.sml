@@ -13,13 +13,13 @@ structure GtkSourceCompletionItem :>
           (
             _import "mlton_gtk_source_completion_item_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GdkPixbufPixbufClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkSourceCompletionItemClass.FFI.notnull GtkSourceCompletionItemClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkSourceCompletionItemClass.FFI.non_opt GtkSourceCompletionItemClass.FFI.p;
           )
             (
               x1,
@@ -39,14 +39,14 @@ structure GtkSourceCompletionItem :>
           (
             _import "mlton_gtk_source_completion_item_new_from_stock" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkSourceCompletionItemClass.FFI.notnull GtkSourceCompletionItemClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkSourceCompletionItemClass.FFI.non_opt GtkSourceCompletionItemClass.FFI.p;
           )
             (
               x1,
@@ -67,13 +67,13 @@ structure GtkSourceCompletionItem :>
           (
             _import "mlton_gtk_source_completion_item_new_with_markup" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GdkPixbufPixbufClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkSourceCompletionItemClass.FFI.notnull GtkSourceCompletionItemClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkSourceCompletionItemClass.FFI.non_opt GtkSourceCompletionItemClass.FFI.p;
           )
             (
               x1,

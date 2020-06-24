@@ -10,21 +10,21 @@ structure GtkTextMark :>
           (
             _import "mlton_gtk_text_mark_new" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GBool.FFI.val_
-               -> GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p;
+               -> GtkTextMarkClass.FFI.non_opt GtkTextMarkClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getBuffer_ = _import "gtk_text_mark_get_buffer" : GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p -> GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p;
-    val getDeleted_ = _import "gtk_text_mark_get_deleted" : GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p -> GBool.FFI.val_;
-    val getLeftGravity_ = _import "gtk_text_mark_get_left_gravity" : GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p -> GBool.FFI.val_;
-    val getName_ = _import "gtk_text_mark_get_name" : GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getVisible_ = _import "gtk_text_mark_get_visible" : GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p -> GBool.FFI.val_;
-    val setVisible_ = fn x1 & x2 => (_import "gtk_text_mark_set_visible" : GtkTextMarkClass.FFI.notnull GtkTextMarkClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getBuffer_ = _import "gtk_text_mark_get_buffer" : GtkTextMarkClass.FFI.non_opt GtkTextMarkClass.FFI.p -> GtkTextBufferClass.FFI.non_opt GtkTextBufferClass.FFI.p;
+    val getDeleted_ = _import "gtk_text_mark_get_deleted" : GtkTextMarkClass.FFI.non_opt GtkTextMarkClass.FFI.p -> GBool.FFI.val_;
+    val getLeftGravity_ = _import "gtk_text_mark_get_left_gravity" : GtkTextMarkClass.FFI.non_opt GtkTextMarkClass.FFI.p -> GBool.FFI.val_;
+    val getName_ = _import "gtk_text_mark_get_name" : GtkTextMarkClass.FFI.non_opt GtkTextMarkClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getVisible_ = _import "gtk_text_mark_get_visible" : GtkTextMarkClass.FFI.non_opt GtkTextMarkClass.FFI.p -> GBool.FFI.val_;
+    val setVisible_ = fn x1 & x2 => (_import "gtk_text_mark_set_visible" : GtkTextMarkClass.FFI.non_opt GtkTextMarkClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkTextMarkClass.class
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
     type t = base class

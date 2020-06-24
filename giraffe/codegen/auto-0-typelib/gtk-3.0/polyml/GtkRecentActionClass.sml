@@ -1,7 +1,8 @@
 structure GtkRecentActionClass :>
   GTK_RECENT_ACTION_CLASS
     where type 'a action_class = 'a GtkActionClass.class
-    where type C.notnull = GtkActionClass.C.notnull
+    where type C.opt = GtkActionClass.C.opt
+    where type C.non_opt = GtkActionClass.C.non_opt
     where type 'a C.p = 'a GtkActionClass.C.p =
   struct
     type 'a action_class = 'a GtkActionClass.class

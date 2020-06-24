@@ -8,20 +8,20 @@ structure AtkDocument :>
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_document_get_attribute_value" :
-              AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p
+              AtkDocumentClass.FFI.non_opt AtkDocumentClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.opt Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getCurrentPageNumber_ = _import "atk_document_get_current_page_number" : AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p -> GInt.FFI.val_;
-    val getDocumentType_ = _import "atk_document_get_document_type" : AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getLocale_ = _import "atk_document_get_locale" : AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPageCount_ = _import "atk_document_get_page_count" : AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p -> GInt.FFI.val_;
+    val getCurrentPageNumber_ = _import "atk_document_get_current_page_number" : AtkDocumentClass.FFI.non_opt AtkDocumentClass.FFI.p -> GInt.FFI.val_;
+    val getDocumentType_ = _import "atk_document_get_document_type" : AtkDocumentClass.FFI.non_opt AtkDocumentClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getLocale_ = _import "atk_document_get_locale" : AtkDocumentClass.FFI.non_opt AtkDocumentClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPageCount_ = _import "atk_document_get_page_count" : AtkDocumentClass.FFI.non_opt AtkDocumentClass.FFI.p -> GInt.FFI.val_;
     val setAttributeValue_ =
       fn
         x1
@@ -29,11 +29,11 @@ structure AtkDocument :>
          & (x4, x5) =>
           (
             _import "mlton_atk_document_set_attribute_value" :
-              AtkDocumentClass.FFI.notnull AtkDocumentClass.FFI.p
+              AtkDocumentClass.FFI.non_opt AtkDocumentClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (

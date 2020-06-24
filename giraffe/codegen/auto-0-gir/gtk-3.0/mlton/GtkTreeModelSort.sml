@@ -8,7 +8,7 @@ structure GtkTreeModelSort :>
     where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
     val getType_ = _import "gtk_tree_model_sort_get_type" : unit -> GObjectType.FFI.val_;
-    val clearCache_ = _import "gtk_tree_model_sort_clear_cache" : GtkTreeModelSortClass.FFI.notnull GtkTreeModelSortClass.FFI.p -> unit;
+    val clearCache_ = _import "gtk_tree_model_sort_clear_cache" : GtkTreeModelSortClass.FFI.non_opt GtkTreeModelSortClass.FFI.p -> unit;
     val convertChildIterToIter_ =
       fn
         x1
@@ -16,9 +16,9 @@ structure GtkTreeModelSort :>
          & x3 =>
           (
             _import "gtk_tree_model_sort_convert_child_iter_to_iter" :
-              GtkTreeModelSortClass.FFI.notnull GtkTreeModelSortClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkTreeModelSortClass.FFI.non_opt GtkTreeModelSortClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -26,7 +26,7 @@ structure GtkTreeModelSort :>
               x2,
               x3
             )
-    val convertChildPathToPath_ = fn x1 & x2 => (_import "gtk_tree_model_sort_convert_child_path_to_path" : GtkTreeModelSortClass.FFI.notnull GtkTreeModelSortClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit GtkTreePathRecord.FFI.p;) (x1, x2)
+    val convertChildPathToPath_ = fn x1 & x2 => (_import "gtk_tree_model_sort_convert_child_path_to_path" : GtkTreeModelSortClass.FFI.non_opt GtkTreeModelSortClass.FFI.p * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p -> GtkTreePathRecord.FFI.opt GtkTreePathRecord.FFI.p;) (x1, x2)
     val convertIterToChildIter_ =
       fn
         x1
@@ -34,9 +34,9 @@ structure GtkTreeModelSort :>
          & x3 =>
           (
             _import "gtk_tree_model_sort_convert_iter_to_child_iter" :
-              GtkTreeModelSortClass.FFI.notnull GtkTreeModelSortClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkTreeModelSortClass.FFI.non_opt GtkTreeModelSortClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                -> unit;
           )
             (
@@ -44,10 +44,10 @@ structure GtkTreeModelSort :>
               x2,
               x3
             )
-    val convertPathToChildPath_ = fn x1 & x2 => (_import "gtk_tree_model_sort_convert_path_to_child_path" : GtkTreeModelSortClass.FFI.notnull GtkTreeModelSortClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit GtkTreePathRecord.FFI.p;) (x1, x2)
-    val getModel_ = _import "gtk_tree_model_sort_get_model" : GtkTreeModelSortClass.FFI.notnull GtkTreeModelSortClass.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;
-    val iterIsValid_ = fn x1 & x2 => (_import "gtk_tree_model_sort_iter_is_valid" : GtkTreeModelSortClass.FFI.notnull GtkTreeModelSortClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val resetDefaultSortFunc_ = _import "gtk_tree_model_sort_reset_default_sort_func" : GtkTreeModelSortClass.FFI.notnull GtkTreeModelSortClass.FFI.p -> unit;
+    val convertPathToChildPath_ = fn x1 & x2 => (_import "gtk_tree_model_sort_convert_path_to_child_path" : GtkTreeModelSortClass.FFI.non_opt GtkTreeModelSortClass.FFI.p * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p -> GtkTreePathRecord.FFI.opt GtkTreePathRecord.FFI.p;) (x1, x2)
+    val getModel_ = _import "gtk_tree_model_sort_get_model" : GtkTreeModelSortClass.FFI.non_opt GtkTreeModelSortClass.FFI.p -> GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p;
+    val iterIsValid_ = fn x1 & x2 => (_import "gtk_tree_model_sort_iter_is_valid" : GtkTreeModelSortClass.FFI.non_opt GtkTreeModelSortClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val resetDefaultSortFunc_ = _import "gtk_tree_model_sort_reset_default_sort_func" : GtkTreeModelSortClass.FFI.non_opt GtkTreeModelSortClass.FFI.p -> unit;
     type 'a class = 'a GtkTreeModelSortClass.class
     type 'a tree_drag_source_class = 'a GtkTreeDragSourceClass.class
     type 'a tree_sortable_class = 'a GtkTreeSortableClass.class

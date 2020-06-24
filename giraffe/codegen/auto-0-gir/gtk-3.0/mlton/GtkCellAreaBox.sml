@@ -7,8 +7,8 @@ structure GtkCellAreaBox :>
     where type 'a cell_renderer_class = 'a GtkCellRendererClass.class =
   struct
     val getType_ = _import "gtk_cell_area_box_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_cell_area_box_new" : unit -> GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p;
-    val getSpacing_ = _import "gtk_cell_area_box_get_spacing" : GtkCellAreaBoxClass.FFI.notnull GtkCellAreaBoxClass.FFI.p -> GInt.FFI.val_;
+    val new_ = _import "gtk_cell_area_box_new" : unit -> GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p;
+    val getSpacing_ = _import "gtk_cell_area_box_get_spacing" : GtkCellAreaBoxClass.FFI.non_opt GtkCellAreaBoxClass.FFI.p -> GInt.FFI.val_;
     val packEnd_ =
       fn
         x1
@@ -18,8 +18,8 @@ structure GtkCellAreaBox :>
          & x5 =>
           (
             _import "gtk_cell_area_box_pack_end" :
-              GtkCellAreaBoxClass.FFI.notnull GtkCellAreaBoxClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellAreaBoxClass.FFI.non_opt GtkCellAreaBoxClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                * GBool.FFI.val_
                * GBool.FFI.val_
                * GBool.FFI.val_
@@ -41,8 +41,8 @@ structure GtkCellAreaBox :>
          & x5 =>
           (
             _import "gtk_cell_area_box_pack_start" :
-              GtkCellAreaBoxClass.FFI.notnull GtkCellAreaBoxClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellAreaBoxClass.FFI.non_opt GtkCellAreaBoxClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                * GBool.FFI.val_
                * GBool.FFI.val_
                * GBool.FFI.val_
@@ -55,7 +55,7 @@ structure GtkCellAreaBox :>
               x4,
               x5
             )
-    val setSpacing_ = fn x1 & x2 => (_import "gtk_cell_area_box_set_spacing" : GtkCellAreaBoxClass.FFI.notnull GtkCellAreaBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setSpacing_ = fn x1 & x2 => (_import "gtk_cell_area_box_set_spacing" : GtkCellAreaBoxClass.FFI.non_opt GtkCellAreaBoxClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkCellAreaBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class

@@ -1,6 +1,7 @@
 structure GtkSourceBufferClass :>
   GTK_SOURCE_BUFFER_CLASS
-    where type C.notnull = GtkTextBufferClass.C.notnull
+    where type C.opt = GtkTextBufferClass.C.opt
+    where type C.non_opt = GtkTextBufferClass.C.non_opt
     where type 'a C.p = 'a GtkTextBufferClass.C.p =
   struct
     open GtkTextBufferClass

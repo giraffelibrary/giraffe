@@ -3,7 +3,7 @@ structure GtkSourceGutterRendererText :>
     where type 'a class = 'a GtkSourceGutterRendererTextClass.class =
   struct
     val getType_ = _import "gtk_source_gutter_renderer_text_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_gutter_renderer_text_new" : unit -> GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p;
+    val new_ = _import "gtk_source_gutter_renderer_text_new" : unit -> GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p;
     val measure_ =
       fn
         x1
@@ -12,9 +12,9 @@ structure GtkSourceGutterRendererText :>
          & x5 =>
           (
             _import "mlton_gtk_source_gutter_renderer_text_measure" :
-              GtkSourceGutterRendererTextClass.FFI.notnull GtkSourceGutterRendererTextClass.FFI.p
+              GtkSourceGutterRendererTextClass.FFI.non_opt GtkSourceGutterRendererTextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> unit;
@@ -34,9 +34,9 @@ structure GtkSourceGutterRendererText :>
          & x5 =>
           (
             _import "mlton_gtk_source_gutter_renderer_text_measure_markup" :
-              GtkSourceGutterRendererTextClass.FFI.notnull GtkSourceGutterRendererTextClass.FFI.p
+              GtkSourceGutterRendererTextClass.FFI.non_opt GtkSourceGutterRendererTextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> unit;
@@ -55,9 +55,9 @@ structure GtkSourceGutterRendererText :>
          & x4 =>
           (
             _import "mlton_gtk_source_gutter_renderer_text_set_markup" :
-              GtkSourceGutterRendererTextClass.FFI.notnull GtkSourceGutterRendererTextClass.FFI.p
+              GtkSourceGutterRendererTextClass.FFI.non_opt GtkSourceGutterRendererTextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -74,9 +74,9 @@ structure GtkSourceGutterRendererText :>
          & x4 =>
           (
             _import "mlton_gtk_source_gutter_renderer_text_set_text" :
-              GtkSourceGutterRendererTextClass.FFI.notnull GtkSourceGutterRendererTextClass.FFI.p
+              GtkSourceGutterRendererTextClass.FFI.non_opt GtkSourceGutterRendererTextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )

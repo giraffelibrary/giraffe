@@ -3,11 +3,11 @@ structure PangoCairoFontMap :>
     where type 'a class = 'a PangoCairoFontMapClass.class =
   struct
     val getType_ = _import "pango_cairo_font_map_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefault_ = _import "pango_cairo_font_map_get_default" : unit -> PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p;
-    val new_ = _import "pango_cairo_font_map_new" : unit -> PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p;
-    val getResolution_ = _import "pango_cairo_font_map_get_resolution" : PangoCairoFontMapClass.FFI.notnull PangoCairoFontMapClass.FFI.p -> GDouble.FFI.val_;
-    val setDefault_ = _import "pango_cairo_font_map_set_default" : PangoCairoFontMapClass.FFI.notnull PangoCairoFontMapClass.FFI.p -> unit;
-    val setResolution_ = fn x1 & x2 => (_import "pango_cairo_font_map_set_resolution" : PangoCairoFontMapClass.FFI.notnull PangoCairoFontMapClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val getDefault_ = _import "pango_cairo_font_map_get_default" : unit -> PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p;
+    val new_ = _import "pango_cairo_font_map_new" : unit -> PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p;
+    val getResolution_ = _import "pango_cairo_font_map_get_resolution" : PangoCairoFontMapClass.FFI.non_opt PangoCairoFontMapClass.FFI.p -> GDouble.FFI.val_;
+    val setDefault_ = _import "pango_cairo_font_map_set_default" : PangoCairoFontMapClass.FFI.non_opt PangoCairoFontMapClass.FFI.p -> unit;
+    val setResolution_ = fn x1 & x2 => (_import "pango_cairo_font_map_set_resolution" : PangoCairoFontMapClass.FFI.non_opt PangoCairoFontMapClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a PangoCairoFontMapClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

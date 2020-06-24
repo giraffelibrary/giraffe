@@ -7,7 +7,7 @@ structure GtkModelButton :>
     where type button_role_t = GtkButtonRole.t =
   struct
     val getType_ = _import "gtk_model_button_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_model_button_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_model_button_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     type 'a class = 'a GtkModelButtonClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

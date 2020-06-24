@@ -5,9 +5,9 @@ structure GtkCellAccessibleParent :>
     where type 'a cell_accessible_class = 'a GtkCellAccessibleClass.class =
   struct
     val getType_ = _import "gtk_cell_accessible_parent_get_type" : unit -> GObjectType.FFI.val_;
-    val activate_ = fn x1 & x2 => (_import "gtk_cell_accessible_parent_activate" : GtkCellAccessibleParentClass.FFI.notnull GtkCellAccessibleParentClass.FFI.p * GtkCellAccessibleClass.FFI.notnull GtkCellAccessibleClass.FFI.p -> unit;) (x1, x2)
-    val edit_ = fn x1 & x2 => (_import "gtk_cell_accessible_parent_edit" : GtkCellAccessibleParentClass.FFI.notnull GtkCellAccessibleParentClass.FFI.p * GtkCellAccessibleClass.FFI.notnull GtkCellAccessibleClass.FFI.p -> unit;) (x1, x2)
-    val expandCollapse_ = fn x1 & x2 => (_import "gtk_cell_accessible_parent_expand_collapse" : GtkCellAccessibleParentClass.FFI.notnull GtkCellAccessibleParentClass.FFI.p * GtkCellAccessibleClass.FFI.notnull GtkCellAccessibleClass.FFI.p -> unit;) (x1, x2)
+    val activate_ = fn x1 & x2 => (_import "gtk_cell_accessible_parent_activate" : GtkCellAccessibleParentClass.FFI.non_opt GtkCellAccessibleParentClass.FFI.p * GtkCellAccessibleClass.FFI.non_opt GtkCellAccessibleClass.FFI.p -> unit;) (x1, x2)
+    val edit_ = fn x1 & x2 => (_import "gtk_cell_accessible_parent_edit" : GtkCellAccessibleParentClass.FFI.non_opt GtkCellAccessibleParentClass.FFI.p * GtkCellAccessibleClass.FFI.non_opt GtkCellAccessibleClass.FFI.p -> unit;) (x1, x2)
+    val expandCollapse_ = fn x1 & x2 => (_import "gtk_cell_accessible_parent_expand_collapse" : GtkCellAccessibleParentClass.FFI.non_opt GtkCellAccessibleParentClass.FFI.p * GtkCellAccessibleClass.FFI.non_opt GtkCellAccessibleClass.FFI.p -> unit;) (x1, x2)
     val getCellArea_ =
       fn
         x1
@@ -15,9 +15,9 @@ structure GtkCellAccessibleParent :>
          & x3 =>
           (
             _import "gtk_cell_accessible_parent_get_cell_area" :
-              GtkCellAccessibleParentClass.FFI.notnull GtkCellAccessibleParentClass.FFI.p
-               * GtkCellAccessibleClass.FFI.notnull GtkCellAccessibleClass.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkCellAccessibleParentClass.FFI.non_opt GtkCellAccessibleParentClass.FFI.p
+               * GtkCellAccessibleClass.FFI.non_opt GtkCellAccessibleClass.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -25,9 +25,9 @@ structure GtkCellAccessibleParent :>
               x2,
               x3
             )
-    val getChildIndex_ = fn x1 & x2 => (_import "gtk_cell_accessible_parent_get_child_index" : GtkCellAccessibleParentClass.FFI.notnull GtkCellAccessibleParentClass.FFI.p * GtkCellAccessibleClass.FFI.notnull GtkCellAccessibleClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val getRendererState_ = fn x1 & x2 => (_import "gtk_cell_accessible_parent_get_renderer_state" : GtkCellAccessibleParentClass.FFI.notnull GtkCellAccessibleParentClass.FFI.p * GtkCellAccessibleClass.FFI.notnull GtkCellAccessibleClass.FFI.p -> GtkCellRendererState.FFI.val_;) (x1, x2)
-    val grabFocus_ = fn x1 & x2 => (_import "gtk_cell_accessible_parent_grab_focus" : GtkCellAccessibleParentClass.FFI.notnull GtkCellAccessibleParentClass.FFI.p * GtkCellAccessibleClass.FFI.notnull GtkCellAccessibleClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getChildIndex_ = fn x1 & x2 => (_import "gtk_cell_accessible_parent_get_child_index" : GtkCellAccessibleParentClass.FFI.non_opt GtkCellAccessibleParentClass.FFI.p * GtkCellAccessibleClass.FFI.non_opt GtkCellAccessibleClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val getRendererState_ = fn x1 & x2 => (_import "gtk_cell_accessible_parent_get_renderer_state" : GtkCellAccessibleParentClass.FFI.non_opt GtkCellAccessibleParentClass.FFI.p * GtkCellAccessibleClass.FFI.non_opt GtkCellAccessibleClass.FFI.p -> GtkCellRendererState.FFI.val_;) (x1, x2)
+    val grabFocus_ = fn x1 & x2 => (_import "gtk_cell_accessible_parent_grab_focus" : GtkCellAccessibleParentClass.FFI.non_opt GtkCellAccessibleParentClass.FFI.p * GtkCellAccessibleClass.FFI.non_opt GtkCellAccessibleClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val updateRelationset_ =
       fn
         x1
@@ -35,9 +35,9 @@ structure GtkCellAccessibleParent :>
          & x3 =>
           (
             _import "gtk_cell_accessible_parent_update_relationset" :
-              GtkCellAccessibleParentClass.FFI.notnull GtkCellAccessibleParentClass.FFI.p
-               * GtkCellAccessibleClass.FFI.notnull GtkCellAccessibleClass.FFI.p
-               * AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p
+              GtkCellAccessibleParentClass.FFI.non_opt GtkCellAccessibleParentClass.FFI.p
+               * GtkCellAccessibleClass.FFI.non_opt GtkCellAccessibleClass.FFI.p
+               * AtkRelationSetClass.FFI.non_opt AtkRelationSetClass.FFI.p
                -> unit;
           )
             (

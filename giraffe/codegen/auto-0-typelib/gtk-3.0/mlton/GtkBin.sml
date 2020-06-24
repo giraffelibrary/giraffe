@@ -5,7 +5,7 @@ structure GtkBin :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_bin_get_type" : unit -> GObjectType.FFI.val_;
-    val getChild_ = _import "gtk_bin_get_child" : GtkBinClass.FFI.notnull GtkBinClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val getChild_ = _import "gtk_bin_get_child" : GtkBinClass.FFI.non_opt GtkBinClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     type 'a class = 'a GtkBinClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class

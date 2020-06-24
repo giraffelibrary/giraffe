@@ -4,18 +4,18 @@ structure GtkCssProvider :>
     where type 'a style_provider_class = 'a GtkStyleProviderClass.class =
   struct
     val getType_ = _import "gtk_css_provider_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_css_provider_new" : unit -> GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p;
-    val getDefault_ = _import "gtk_css_provider_get_default" : unit -> GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p;
+    val new_ = _import "gtk_css_provider_new" : unit -> GtkCssProviderClass.FFI.non_opt GtkCssProviderClass.FFI.p;
+    val getDefault_ = _import "gtk_css_provider_get_default" : unit -> GtkCssProviderClass.FFI.non_opt GtkCssProviderClass.FFI.p;
     val getNamed_ =
       fn
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_gtk_css_provider_get_named" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkCssProviderClass.FFI.non_opt GtkCssProviderClass.FFI.p;
           )
             (
               x1,
@@ -31,11 +31,11 @@ structure GtkCssProvider :>
          & x5 =>
           (
             _import "mlton_gtk_css_provider_load_from_data" :
-              GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p
+              GtkCssProviderClass.FFI.non_opt GtkCssProviderClass.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GSSize.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -52,9 +52,9 @@ structure GtkCssProvider :>
          & x3 =>
           (
             _import "gtk_css_provider_load_from_file" :
-              GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p
-               * GioFileClass.FFI.notnull GioFileClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GtkCssProviderClass.FFI.non_opt GtkCssProviderClass.FFI.p
+               * GioFileClass.FFI.non_opt GioFileClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -69,10 +69,10 @@ structure GtkCssProvider :>
          & x4 =>
           (
             _import "mlton_gtk_css_provider_load_from_path" :
-              GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p
+              GtkCssProviderClass.FFI.non_opt GtkCssProviderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -86,9 +86,9 @@ structure GtkCssProvider :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_css_provider_load_from_resource" :
-              GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p
+              GtkCssProviderClass.FFI.non_opt GtkCssProviderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -96,7 +96,7 @@ structure GtkCssProvider :>
               x2,
               x3
             )
-    val toString_ = _import "gtk_css_provider_to_string" : GtkCssProviderClass.FFI.notnull GtkCssProviderClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val toString_ = _import "gtk_css_provider_to_string" : GtkCssProviderClass.FFI.non_opt GtkCssProviderClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     type 'a class = 'a GtkCssProviderClass.class
     type 'a style_provider_class = 'a GtkStyleProviderClass.class
     type t = base class

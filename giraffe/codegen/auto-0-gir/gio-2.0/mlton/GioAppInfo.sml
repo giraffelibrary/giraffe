@@ -16,12 +16,12 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_create_from_commandline" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GioAppInfoCreateFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p;
           )
             (
               x1,
@@ -37,16 +37,16 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_get_default_for_type" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GBool.FFI.val_
-               -> GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p;
+               -> GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getDefaultForUriScheme_ = _import "mlton_g_app_info_get_default_for_uri_scheme" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p;
+    val getDefaultForUriScheme_ = _import "mlton_g_app_info_get_default_for_uri_scheme" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p;
     val launchDefaultForUri_ =
       fn
         (x1, x2)
@@ -55,9 +55,9 @@ structure GioAppInfo :>
           (
             _import "mlton_g_app_info_launch_default_for_uri" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GioAppLaunchContextClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioAppLaunchContextClass.FFI.opt GioAppLaunchContextClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -66,8 +66,8 @@ structure GioAppInfo :>
               x3,
               x4
             )
-    val launchDefaultForUriFinish_ = fn x1 & x2 => (_import "g_app_info_launch_default_for_uri_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
-    val resetTypeAssociations_ = _import "mlton_g_app_info_reset_type_associations" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val launchDefaultForUriFinish_ = fn x1 & x2 => (_import "g_app_info_launch_default_for_uri_finish" : GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
+    val resetTypeAssociations_ = _import "mlton_g_app_info_reset_type_associations" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val addSupportsType_ =
       fn
         x1
@@ -75,10 +75,10 @@ structure GioAppInfo :>
          & x4 =>
           (
             _import "mlton_g_app_info_add_supports_type" :
-              GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p
+              GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -87,19 +87,19 @@ structure GioAppInfo :>
               x3,
               x4
             )
-    val canDelete_ = _import "g_app_info_can_delete" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> GBool.FFI.val_;
-    val canRemoveSupportsType_ = _import "g_app_info_can_remove_supports_type" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> GBool.FFI.val_;
-    val delete_ = _import "g_app_info_delete" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> GBool.FFI.val_;
-    val dup_ = _import "g_app_info_dup" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p;
-    val equal_ = fn x1 & x2 => (_import "g_app_info_equal" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p * GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getCommandline_ = _import "g_app_info_get_commandline" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getDescription_ = _import "g_app_info_get_description" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getDisplayName_ = _import "g_app_info_get_display_name" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getExecutable_ = _import "g_app_info_get_executable" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getIcon_ = _import "g_app_info_get_icon" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val getId_ = _import "g_app_info_get_id" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getName_ = _import "g_app_info_get_name" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getSupportedTypes_ = _import "g_app_info_get_supported_types" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val canDelete_ = _import "g_app_info_can_delete" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> GBool.FFI.val_;
+    val canRemoveSupportsType_ = _import "g_app_info_can_remove_supports_type" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> GBool.FFI.val_;
+    val delete_ = _import "g_app_info_delete" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> GBool.FFI.val_;
+    val dup_ = _import "g_app_info_dup" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p;
+    val equal_ = fn x1 & x2 => (_import "g_app_info_equal" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p * GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getCommandline_ = _import "g_app_info_get_commandline" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getDescription_ = _import "g_app_info_get_description" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getDisplayName_ = _import "g_app_info_get_display_name" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getExecutable_ = _import "g_app_info_get_executable" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getIcon_ = _import "g_app_info_get_icon" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val getId_ = _import "g_app_info_get_id" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getName_ = _import "g_app_info_get_name" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getSupportedTypes_ = _import "g_app_info_get_supported_types" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val removeSupportsType_ =
       fn
         x1
@@ -107,10 +107,10 @@ structure GioAppInfo :>
          & x4 =>
           (
             _import "mlton_g_app_info_remove_supports_type" :
-              GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p
+              GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -126,10 +126,10 @@ structure GioAppInfo :>
          & x4 =>
           (
             _import "mlton_g_app_info_set_as_default_for_extension" :
-              GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p
+              GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -145,10 +145,10 @@ structure GioAppInfo :>
          & x4 =>
           (
             _import "mlton_g_app_info_set_as_default_for_type" :
-              GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p
+              GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -164,10 +164,10 @@ structure GioAppInfo :>
          & x4 =>
           (
             _import "mlton_g_app_info_set_as_last_used_for_type" :
-              GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p
+              GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -176,9 +176,9 @@ structure GioAppInfo :>
               x3,
               x4
             )
-    val shouldShow_ = _import "g_app_info_should_show" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> GBool.FFI.val_;
-    val supportsFiles_ = _import "g_app_info_supports_files" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> GBool.FFI.val_;
-    val supportsUris_ = _import "g_app_info_supports_uris" : GioAppInfoClass.FFI.notnull GioAppInfoClass.FFI.p -> GBool.FFI.val_;
+    val shouldShow_ = _import "g_app_info_should_show" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> GBool.FFI.val_;
+    val supportsFiles_ = _import "g_app_info_supports_files" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> GBool.FFI.val_;
+    val supportsUris_ = _import "g_app_info_supports_uris" : GioAppInfoClass.FFI.non_opt GioAppInfoClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GioAppInfoClass.class
     type app_info_create_flags_t = GioAppInfoCreateFlags.t
     type 'a app_launch_context_class = 'a GioAppLaunchContextClass.class

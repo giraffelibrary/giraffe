@@ -5,8 +5,8 @@ structure GtkColorSelectionDialog :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_color_selection_dialog_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_gtk_color_selection_dialog_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getColorSelection_ = _import "gtk_color_selection_dialog_get_color_selection" : GtkColorSelectionDialogClass.FFI.notnull GtkColorSelectionDialogClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "mlton_gtk_color_selection_dialog_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getColorSelection_ = _import "gtk_color_selection_dialog_get_color_selection" : GtkColorSelectionDialogClass.FFI.non_opt GtkColorSelectionDialogClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     type 'a class = 'a GtkColorSelectionDialogClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class

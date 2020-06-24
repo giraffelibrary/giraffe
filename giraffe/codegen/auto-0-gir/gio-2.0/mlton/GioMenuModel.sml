@@ -13,12 +13,12 @@ structure GioMenuModel :>
          & x5 =>
           (
             _import "mlton_g_menu_model_get_item_attribute_value" :
-              GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p
+              GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantTypeRecord.FFI.p
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -34,11 +34,11 @@ structure GioMenuModel :>
          & (x3, x4) =>
           (
             _import "mlton_g_menu_model_get_item_link" :
-              GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p
+              GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p;
           )
             (
               x1,
@@ -46,8 +46,8 @@ structure GioMenuModel :>
               x3,
               x4
             )
-    val getNItems_ = _import "g_menu_model_get_n_items" : GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p -> GInt.FFI.val_;
-    val isMutable_ = _import "g_menu_model_is_mutable" : GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p -> GBool.FFI.val_;
+    val getNItems_ = _import "g_menu_model_get_n_items" : GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p -> GInt.FFI.val_;
+    val isMutable_ = _import "g_menu_model_is_mutable" : GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p -> GBool.FFI.val_;
     val itemsChanged_ =
       fn
         x1
@@ -56,7 +56,7 @@ structure GioMenuModel :>
          & x4 =>
           (
             _import "g_menu_model_items_changed" :
-              GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p
+              GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -68,8 +68,8 @@ structure GioMenuModel :>
               x3,
               x4
             )
-    val iterateItemAttributes_ = fn x1 & x2 => (_import "g_menu_model_iterate_item_attributes" : GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p * GInt.FFI.val_ -> GioMenuAttributeIterClass.FFI.notnull GioMenuAttributeIterClass.FFI.p;) (x1, x2)
-    val iterateItemLinks_ = fn x1 & x2 => (_import "g_menu_model_iterate_item_links" : GioMenuModelClass.FFI.notnull GioMenuModelClass.FFI.p * GInt.FFI.val_ -> GioMenuLinkIterClass.FFI.notnull GioMenuLinkIterClass.FFI.p;) (x1, x2)
+    val iterateItemAttributes_ = fn x1 & x2 => (_import "g_menu_model_iterate_item_attributes" : GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p * GInt.FFI.val_ -> GioMenuAttributeIterClass.FFI.non_opt GioMenuAttributeIterClass.FFI.p;) (x1, x2)
+    val iterateItemLinks_ = fn x1 & x2 => (_import "g_menu_model_iterate_item_links" : GioMenuModelClass.FFI.non_opt GioMenuModelClass.FFI.p * GInt.FFI.val_ -> GioMenuLinkIterClass.FFI.non_opt GioMenuLinkIterClass.FFI.p;) (x1, x2)
     type 'a class = 'a GioMenuModelClass.class
     type 'a menu_attribute_iter_class = 'a GioMenuAttributeIterClass.class
     type 'a menu_link_iter_class = 'a GioMenuLinkIterClass.class

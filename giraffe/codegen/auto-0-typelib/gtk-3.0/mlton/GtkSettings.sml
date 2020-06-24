@@ -11,17 +11,17 @@ structure GtkSettings :>
     where type policy_type_t = GtkPolicyType.t =
   struct
     val getType_ = _import "gtk_settings_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefault_ = _import "gtk_settings_get_default" : unit -> unit GtkSettingsClass.FFI.p;
-    val getForScreen_ = _import "gtk_settings_get_for_screen" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p;
-    val installProperty_ = _import "gtk_settings_install_property" : GObjectParamSpecClass.FFI.notnull GObjectParamSpecClass.FFI.p -> unit;
+    val getDefault_ = _import "gtk_settings_get_default" : unit -> GtkSettingsClass.FFI.opt GtkSettingsClass.FFI.p;
+    val getForScreen_ = _import "gtk_settings_get_for_screen" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GtkSettingsClass.FFI.non_opt GtkSettingsClass.FFI.p;
+    val installProperty_ = _import "gtk_settings_install_property" : GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p -> unit;
     val resetProperty_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_settings_reset_property" :
-              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
+              GtkSettingsClass.FFI.non_opt GtkSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -37,12 +37,12 @@ structure GtkSettings :>
          & (x5, x6) =>
           (
             _import "mlton_gtk_settings_set_double_property" :
-              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
+              GtkSettingsClass.FFI.non_opt GtkSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GDouble.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -61,12 +61,12 @@ structure GtkSettings :>
          & (x5, x6) =>
           (
             _import "mlton_gtk_settings_set_long_property" :
-              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
+              GtkSettingsClass.FFI.non_opt GtkSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt64.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -84,10 +84,10 @@ structure GtkSettings :>
          & x4 =>
           (
             _import "mlton_gtk_settings_set_property_value" :
-              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
+              GtkSettingsClass.FFI.non_opt GtkSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GtkSettingsValueRecord.FFI.notnull GtkSettingsValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GtkSettingsValueRecord.FFI.non_opt GtkSettingsValueRecord.FFI.p
                -> unit;
           )
             (
@@ -104,13 +104,13 @@ structure GtkSettings :>
          & (x6, x7) =>
           (
             _import "mlton_gtk_settings_set_string_property" :
-              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
+              GtkSettingsClass.FFI.non_opt GtkSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

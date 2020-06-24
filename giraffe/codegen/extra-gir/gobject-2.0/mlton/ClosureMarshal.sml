@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2016-2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -18,7 +18,8 @@ structure ClosureMarshal :>
         structure C =
           struct
             structure Pointer = CTypedPointer (GObjectValueRecord.C.ValueType)
-            type notnull = Pointer.notnull
+            type opt = Pointer.opt
+            type non_opt = Pointer.non_opt
             type 'a p = 'a Pointer.p
             fun get a vs n = ValueAccessor.C.get a (Pointer.get (vs, n))
             fun set a vs n = ValueAccessor.C.set a (Pointer.get (vs, n))
@@ -26,8 +27,8 @@ structure ClosureMarshal :>
       end
 
     type state =
-      GObjectValueRecord.C.notnull GObjectValueRecord.C.p
-       * GObjectValueRecordArray.C.notnull GObjectValueRecordArray.C.p
+      GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
+       * GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p
        * GUInt32.FFI.val_
     type c_callback = state -> unit
 
@@ -36,8 +37,8 @@ structure ClosureMarshal :>
     local
       val dispatch :
         ClosureCallbackTable.id
-         * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
-         * GObjectValueRecordArray.C.notnull GObjectValueRecordArray.C.p
+         * GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
+         * GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p
          * GUInt32.FFI.val_
          -> unit =
         fn (id, v, vs, size) =>
@@ -58,8 +59,8 @@ structure ClosureMarshal :>
       val _ =
         _export "giraffe_closure_dispatch_smlside" :
           (ClosureCallbackTable.id
-            * GObjectValueRecord.C.notnull GObjectValueRecord.C.p
-            * GObjectValueRecordArray.C.notnull GObjectValueRecordArray.C.p
+            * GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
+            * GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p
             * GUInt32.FFI.val_
             -> unit)
            -> unit;

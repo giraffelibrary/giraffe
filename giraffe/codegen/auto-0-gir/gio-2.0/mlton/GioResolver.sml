@@ -6,7 +6,7 @@ structure GioResolver :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_resolver_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefault_ = _import "g_resolver_get_default" : unit -> GioResolverClass.FFI.notnull GioResolverClass.FFI.p;
+    val getDefault_ = _import "g_resolver_get_default" : unit -> GioResolverClass.FFI.non_opt GioResolverClass.FFI.p;
     val lookupByAddress_ =
       fn
         x1
@@ -15,11 +15,11 @@ structure GioResolver :>
          & x4 =>
           (
             _import "g_resolver_lookup_by_address" :
-              GioResolverClass.FFI.notnull GioResolverClass.FFI.p
-               * GioInetAddressClass.FFI.notnull GioInetAddressClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+              GioResolverClass.FFI.non_opt GioResolverClass.FFI.p
+               * GioInetAddressClass.FFI.non_opt GioInetAddressClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -34,17 +34,17 @@ structure GioResolver :>
          & x3 =>
           (
             _import "g_resolver_lookup_by_address_finish" :
-              GioResolverClass.FFI.notnull GioResolverClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+              GioResolverClass.FFI.non_opt GioResolverClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val setDefault_ = _import "g_resolver_set_default" : GioResolverClass.FFI.notnull GioResolverClass.FFI.p -> unit;
+    val setDefault_ = _import "g_resolver_set_default" : GioResolverClass.FFI.non_opt GioResolverClass.FFI.p -> unit;
     type 'a class = 'a GioResolverClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a inet_address_class = 'a GioInetAddressClass.class

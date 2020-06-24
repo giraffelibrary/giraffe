@@ -1,7 +1,8 @@
 structure GioProxyAddressClass :>
   GIO_PROXY_ADDRESS_CLASS
     where type 'a inet_socket_address_class = 'a GioInetSocketAddressClass.class
-    where type C.notnull = GioInetSocketAddressClass.C.notnull
+    where type C.opt = GioInetSocketAddressClass.C.opt
+    where type C.non_opt = GioInetSocketAddressClass.C.non_opt
     where type 'a C.p = 'a GioInetSocketAddressClass.C.p =
   struct
     type 'a inet_socket_address_class = 'a GioInetSocketAddressClass.class

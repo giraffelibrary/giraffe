@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -9,91 +9,86 @@ signature C_POINTER =
   sig
     (**
      * The type `'a p` respresents a C pointer.  The type parameter is a
-     * placeholder for a phantom type to indicate whether the pointer is an
-     * optionally-null pointer or a non-null pointer as follows:
+     * placeholder for a phantom type that determines whether the pointer is
+     * an optional pointer, where the null value represents no value, or a
+     * non-optional pointer as follows:
      *
-     *   `unit p`       optionally-null pointer
-     *   `notnull p`    non-null pointer (see type `notnull` below)
+     *   `opt p`       optional pointer
+     *   `non_opt p`   non-optional pointer
      *
-     * It rarely makes sense for a function to have a parameter of type
-     * `unit p` because this requires a optionally-null pointer but does not
-     * allow a non-null pointer.  Thus functions would typically use the type
-     * `'a p` for pointer parameters that can be null.  One scenario in which
-     * `unit p` may be desirable for a function parameter is when there is a
-     * corresponding function with a parameter of type `notnull p`.  This
-     * ensures a particular function is called depending on the null-ness of
-     * the pointer argument, which may have advantages, e.g. efficiency.
+     * Note that null can be a valid value for a non-optional pointer.  For
+     * example, malloc returns a non-optional pointer but the function in the
+     * C standard library may return null if the number of bytes to allocate
+     * is zero.  In this case, null is fine because the pointer would never
+     * be dereferenced as there are no bytes to dereference.
      *
-     * If the type `notnull p` is used for the return value or reference
-     * parameter of a foreign function, care should be taken to ensure that
-     * a `notnull p` value really is a non-null pointer.
+     * The types `opt` and `non_opt` are the phantom type used to indicate
+     * that a pointer is optional and non-optional, respectively.
      *)
     eqtype 'a p
+    eqtype opt
+    eqtype non_opt
 
     (**
-     * The type `notnull` is the phantom type used to indicate that a pointer
-     * is not null.  The only way to construct the type `notnull p` is via
-     * the function `toNotNull`.
-     *
-     * The type `t` is an abbreviation for a non-null pointer.
+     * The type `t` is an abbreviation for a non-optional pointer.
      *)
-    eqtype notnull
-    type t = notnull p
+    type t = non_opt p
 
     (**
-     * `eq` is an equality test on pointers.
+     * `eq` is an equality test on pointers that may be of different types.
+     * (The built-in equality provides a test on pointers of the same type.)
      *)
     val eq : 'a p * 'b p -> bool
 
     (**
-     * `null` is the null pointer.  `isNull` tests for the null pointer.  The
-     * exception `Null` should be raised by any function that would otherwise
-     * dereference a null pointer.
+     * `null` is the null pointer which can be treated as either an optional
+     * or a non-optional pointer.  `isNull` tests whether an optional or
+     * non-optional pointer is null.  The exception `Null` should be raised
+     * by any function that requires a null optional pointer to be treated as
+     * a null non-optional pointer or vice-versa.
      *)
-    val null : unit p
+    val null : 'a p
     val isNull : 'a p -> bool
     exception Null
 
     (**
-     * `toNotNull` converts a pointer to a non-null pointer by returning the
-     * pointer if it is not null and raising `Null` otherwise.  `fromNotNull`
-     * converts a non-null pointer to any type of pointer.
+     * `toNonOptPtr` and `toOptPtr` convert between an optional pointer and a
+     * non-optional pointer.  Both functions return the pointer unchanged if
+     * it is not null and raise `Null` otherwise.
      *)
-    val toNotNull : 'a p -> notnull p
-    val fromNotNull : notnull p -> 'a p
+    val toNonOptPtr : 'a p -> t
+    val toOptPtr : 'a p -> opt p
 
     (**
-     * `toOptNull` casts any pointer to a optionally-null pointer.  In an
-     * implementation, this should simply be the identity function.
-     *)
-    val toOptNull : 'a p -> unit p
-
-    (**
-     * `toOpt` and `fromOpt` convert between optionally-null pointers and
-     * optional pointers.  When `toOpt` returns `SOME p`, the return type
-     * indicates that `p` is a non-null pointer.
+     * `toOpt` and `fromOpt` convert between an optional pointer and an
+     * option value where the value is a non-optional pointer.
      *
      * These functions can be defined in terms of other member of this
      * signature as follows:
      *
-     *   fun toOpt p = SOME (toNotNull p) handle Null => NONE
-     *   val fromOpt = fn NONE => null | SOME x => x
+     *   fun toOpt p = SOME (toNonOptPtr p) handle Null => NONE
+     *   val fromOpt = fn NONE => null | SOME p => toOptPtr p
      *)
-    val toOpt : 'a p -> notnull p option
-    val fromOpt : 'a p option -> unit p
+    val toOpt : opt p -> t option
+    val fromOpt : t option -> opt p
 
     (**
-     * `mapOpt f p` and `appOpt f p` apply the function `f` on a non-null
-     * pointer to any pointer `p`.  `f` is applied only in the case that `p`
-     * is not null.  `mapOpt` cannot be defined in terms of other functions
-     * in this signature.
+     * `mapNonNullPtr f p` maps the function `f` on non-optional pointers to
+     * the pointer `p` if it is not null.  `f` can assume that its argument
+     * is non-null.  `Null` is raised if `f p` returns null.
      *)
-    val mapOpt : (notnull p -> notnull p) -> 'a p -> 'a p
-    val appOpt : (notnull p -> unit) -> 'a p -> unit
+    val mapNonNullPtr : (t -> t) -> 'a p -> 'a p
 
     (**
-     * `add (p, w)` returns a pointer `w` bytes after `p`.
-     * `sub (p, w)` returns a pointer `w` bytes before `p`.
+     * `appOptPtr f p` applies the function `f` on non-optional pointers to
+     * the pointer `p` if it is not null.  `f` can assume that its argument
+     * is non-null.
+     *)
+    val appNonNullPtr : (t -> unit) -> 'a p -> unit
+
+    (**
+     * `add w p` returns a pointer `w` bytes after `p`.
+     * `sub w p` returns a pointer `w` bytes before `p`.
      * If the type word is not wide enough to represent the full address
      * space, `w` is sign-extended to the type of addresses.
      * 
@@ -104,47 +99,46 @@ signature C_POINTER =
      * On a 64 bit platform, SysWord.wordSize = 64 and Word.wordSize = 63
      * so a negative offset is not properly handled.
      *)
-    val add : 'a p * word -> 'a p
-    val sub : 'a p * word -> 'a p
+    val add : word -> t -> t
+    val sub : word -> t -> t
 
     (**
      * The type `('in, 'out) r` respresents a reference to a C pointer.  The
      * type parameter `'in` is a placeholder for a phantom type to indicate
-     * whether the pointer stored to a reference is an optionally-null
-     * pointer or a non-null pointer as follows:
+     * whether the pointer stored to a reference is an optional pointer or a
+     * non-optional pointer as follows:
      *
-     *   `unit p`       optionally-null pointer
-     *   `notnull p`    non-null pointer
+     *   `opt`          optional pointer
+     *   `non_opt`      non-optional pointer
      *
      * Similarly, the type parameter `'out` indicates whether the pointer
-     * loaded from a reference is an optionally-null pointer or a non-null
-     * pointer but /this is assumed/ and, therefore, /reading a pointer from
-     * a reference does not preserve null-type-safety/.
+     * loaded from a reference is an optional pointer or a non-optional
+     * pointer.
      *)
     type ('in, 'out) r
 
     (**
      * Support for using a pointer value in the high-level FFI.
      *)
-    val fromVal    : notnull p -> t
-    val fromOptVal : 'a p      -> t option
+    val fromVal    : non_opt p -> t
+    val fromOptVal : opt p     -> t option
 
-    val withVal    : ('a p   -> 'b) -> t        -> 'b
-    val withOptVal : (unit p -> 'a) -> t option -> 'a
+    val withVal    : (non_opt p -> 'a) -> t        -> 'a
+    val withOptVal : (opt p     -> 'a) -> t option -> 'a
 
     val withNullRef   : (('a, 'b) r   -> 'c) -> unit     -> 'c
-    val withRefVal    : (('a, 'b) r   -> 'c) -> t        -> ('b p, 'c) pair
-    val withRefOptVal : ((unit, 'a) r -> 'b) -> t option -> ('a p, 'b) pair
+    val withRefVal    : ((non_opt, 'a) r -> 'b) -> t        -> ('a p, 'b) pair
+    val withRefOptVal : ((opt, 'a) r     -> 'b) -> t option -> ('a p, 'b) pair
 
     (**
      * C type representation of a pointer
      *)
-    structure NotNullType :
+    structure NonOptValueType :
       C_VALUE_TYPE
-        where type t = notnull p
-        where type v = notnull p
-    structure OptNullType :
+        where type t = non_opt p
+        where type v = non_opt p
+    structure OptValueType :
       C_VALUE_TYPE
-        where type t = unit p
-        where type v = unit p
+        where type t = opt p
+        where type v = opt p
   end

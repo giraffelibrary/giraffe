@@ -1,7 +1,8 @@
 structure GtkSpinButtonAccessibleClass :>
   GTK_SPIN_BUTTON_ACCESSIBLE_CLASS
     where type 'a entry_accessible_class = 'a GtkEntryAccessibleClass.class
-    where type C.notnull = GtkEntryAccessibleClass.C.notnull
+    where type C.opt = GtkEntryAccessibleClass.C.opt
+    where type C.non_opt = GtkEntryAccessibleClass.C.non_opt
     where type 'a C.p = 'a GtkEntryAccessibleClass.C.p =
   struct
     type 'a entry_accessible_class = 'a GtkEntryAccessibleClass.class

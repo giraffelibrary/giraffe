@@ -11,25 +11,25 @@ structure GtkSourceView :>
     where type smart_home_end_type_t = GtkSourceSmartHomeEndType.t =
   struct
     val getType_ = _import "gtk_source_view_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_view_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithBuffer_ = _import "gtk_source_view_new_with_buffer" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getAutoIndent_ = _import "gtk_source_view_get_auto_indent" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
-    val getBackgroundPattern_ = _import "gtk_source_view_get_background_pattern" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GtkSourceBackgroundPatternType.FFI.val_;
-    val getCompletion_ = _import "gtk_source_view_get_completion" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GtkSourceCompletionClass.FFI.notnull GtkSourceCompletionClass.FFI.p;
-    val getDrawSpaces_ = _import "gtk_source_view_get_draw_spaces" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GtkSourceDrawSpacesFlags.FFI.val_;
-    val getGutter_ = fn x1 & x2 => (_import "gtk_source_view_get_gutter" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GtkTextWindowType.FFI.val_ -> GtkSourceGutterClass.FFI.notnull GtkSourceGutterClass.FFI.p;) (x1, x2)
-    val getHighlightCurrentLine_ = _import "gtk_source_view_get_highlight_current_line" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
-    val getIndentOnTab_ = _import "gtk_source_view_get_indent_on_tab" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
-    val getIndentWidth_ = _import "gtk_source_view_get_indent_width" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GInt.FFI.val_;
-    val getInsertSpacesInsteadOfTabs_ = _import "gtk_source_view_get_insert_spaces_instead_of_tabs" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
-    val getRightMarginPosition_ = _import "gtk_source_view_get_right_margin_position" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GUInt.FFI.val_;
-    val getShowLineMarks_ = _import "gtk_source_view_get_show_line_marks" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
-    val getShowLineNumbers_ = _import "gtk_source_view_get_show_line_numbers" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
-    val getShowRightMargin_ = _import "gtk_source_view_get_show_right_margin" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
-    val getSmartBackspace_ = _import "gtk_source_view_get_smart_backspace" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
-    val getSmartHomeEnd_ = _import "gtk_source_view_get_smart_home_end" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GtkSourceSmartHomeEndType.FFI.val_;
-    val getTabWidth_ = _import "gtk_source_view_get_tab_width" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> GUInt.FFI.val_;
-    val getVisualColumn_ = fn x1 & x2 => (_import "gtk_source_view_get_visual_column" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p -> GUInt.FFI.val_;) (x1, x2)
+    val new_ = _import "gtk_source_view_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithBuffer_ = _import "gtk_source_view_new_with_buffer" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getAutoIndent_ = _import "gtk_source_view_get_auto_indent" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
+    val getBackgroundPattern_ = _import "gtk_source_view_get_background_pattern" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GtkSourceBackgroundPatternType.FFI.val_;
+    val getCompletion_ = _import "gtk_source_view_get_completion" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GtkSourceCompletionClass.FFI.non_opt GtkSourceCompletionClass.FFI.p;
+    val getDrawSpaces_ = _import "gtk_source_view_get_draw_spaces" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GtkSourceDrawSpacesFlags.FFI.val_;
+    val getGutter_ = fn x1 & x2 => (_import "gtk_source_view_get_gutter" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GtkTextWindowType.FFI.val_ -> GtkSourceGutterClass.FFI.non_opt GtkSourceGutterClass.FFI.p;) (x1, x2)
+    val getHighlightCurrentLine_ = _import "gtk_source_view_get_highlight_current_line" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
+    val getIndentOnTab_ = _import "gtk_source_view_get_indent_on_tab" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
+    val getIndentWidth_ = _import "gtk_source_view_get_indent_width" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GInt.FFI.val_;
+    val getInsertSpacesInsteadOfTabs_ = _import "gtk_source_view_get_insert_spaces_instead_of_tabs" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
+    val getRightMarginPosition_ = _import "gtk_source_view_get_right_margin_position" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GUInt.FFI.val_;
+    val getShowLineMarks_ = _import "gtk_source_view_get_show_line_marks" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
+    val getShowLineNumbers_ = _import "gtk_source_view_get_show_line_numbers" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
+    val getShowRightMargin_ = _import "gtk_source_view_get_show_right_margin" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
+    val getSmartBackspace_ = _import "gtk_source_view_get_smart_backspace" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GBool.FFI.val_;
+    val getSmartHomeEnd_ = _import "gtk_source_view_get_smart_home_end" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GtkSourceSmartHomeEndType.FFI.val_;
+    val getTabWidth_ = _import "gtk_source_view_get_tab_width" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> GUInt.FFI.val_;
+    val getVisualColumn_ = fn x1 & x2 => (_import "gtk_source_view_get_visual_column" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p -> GUInt.FFI.val_;) (x1, x2)
     val indentLines_ =
       fn
         x1
@@ -37,9 +37,9 @@ structure GtkSourceView :>
          & x3 =>
           (
             _import "gtk_source_view_indent_lines" :
-              GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -47,13 +47,13 @@ structure GtkSourceView :>
               x2,
               x3
             )
-    val setAutoIndent_ = fn x1 & x2 => (_import "gtk_source_view_set_auto_indent" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setBackgroundPattern_ = fn x1 & x2 => (_import "gtk_source_view_set_background_pattern" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GtkSourceBackgroundPatternType.FFI.val_ -> unit;) (x1, x2)
-    val setDrawSpaces_ = fn x1 & x2 => (_import "gtk_source_view_set_draw_spaces" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GtkSourceDrawSpacesFlags.FFI.val_ -> unit;) (x1, x2)
-    val setHighlightCurrentLine_ = fn x1 & x2 => (_import "gtk_source_view_set_highlight_current_line" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setIndentOnTab_ = fn x1 & x2 => (_import "gtk_source_view_set_indent_on_tab" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setIndentWidth_ = fn x1 & x2 => (_import "gtk_source_view_set_indent_width" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setInsertSpacesInsteadOfTabs_ = fn x1 & x2 => (_import "gtk_source_view_set_insert_spaces_instead_of_tabs" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setAutoIndent_ = fn x1 & x2 => (_import "gtk_source_view_set_auto_indent" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setBackgroundPattern_ = fn x1 & x2 => (_import "gtk_source_view_set_background_pattern" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GtkSourceBackgroundPatternType.FFI.val_ -> unit;) (x1, x2)
+    val setDrawSpaces_ = fn x1 & x2 => (_import "gtk_source_view_set_draw_spaces" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GtkSourceDrawSpacesFlags.FFI.val_ -> unit;) (x1, x2)
+    val setHighlightCurrentLine_ = fn x1 & x2 => (_import "gtk_source_view_set_highlight_current_line" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setIndentOnTab_ = fn x1 & x2 => (_import "gtk_source_view_set_indent_on_tab" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setIndentWidth_ = fn x1 & x2 => (_import "gtk_source_view_set_indent_width" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setInsertSpacesInsteadOfTabs_ = fn x1 & x2 => (_import "gtk_source_view_set_insert_spaces_instead_of_tabs" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setMarkAttributes_ =
       fn
         x1
@@ -62,10 +62,10 @@ structure GtkSourceView :>
          & x5 =>
           (
             _import "mlton_gtk_source_view_set_mark_attributes" :
-              GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p
+              GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GtkSourceMarkAttributesClass.FFI.notnull GtkSourceMarkAttributesClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GtkSourceMarkAttributesClass.FFI.non_opt GtkSourceMarkAttributesClass.FFI.p
                * GInt.FFI.val_
                -> unit;
           )
@@ -76,13 +76,13 @@ structure GtkSourceView :>
               x4,
               x5
             )
-    val setRightMarginPosition_ = fn x1 & x2 => (_import "gtk_source_view_set_right_margin_position" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
-    val setShowLineMarks_ = fn x1 & x2 => (_import "gtk_source_view_set_show_line_marks" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowLineNumbers_ = fn x1 & x2 => (_import "gtk_source_view_set_show_line_numbers" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowRightMargin_ = fn x1 & x2 => (_import "gtk_source_view_set_show_right_margin" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setSmartBackspace_ = fn x1 & x2 => (_import "gtk_source_view_set_smart_backspace" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setSmartHomeEnd_ = fn x1 & x2 => (_import "gtk_source_view_set_smart_home_end" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GtkSourceSmartHomeEndType.FFI.val_ -> unit;) (x1, x2)
-    val setTabWidth_ = fn x1 & x2 => (_import "gtk_source_view_set_tab_width" : GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val setRightMarginPosition_ = fn x1 & x2 => (_import "gtk_source_view_set_right_margin_position" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val setShowLineMarks_ = fn x1 & x2 => (_import "gtk_source_view_set_show_line_marks" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowLineNumbers_ = fn x1 & x2 => (_import "gtk_source_view_set_show_line_numbers" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowRightMargin_ = fn x1 & x2 => (_import "gtk_source_view_set_show_right_margin" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSmartBackspace_ = fn x1 & x2 => (_import "gtk_source_view_set_smart_backspace" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSmartHomeEnd_ = fn x1 & x2 => (_import "gtk_source_view_set_smart_home_end" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GtkSourceSmartHomeEndType.FFI.val_ -> unit;) (x1, x2)
+    val setTabWidth_ = fn x1 & x2 => (_import "gtk_source_view_set_tab_width" : GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val unindentLines_ =
       fn
         x1
@@ -90,9 +90,9 @@ structure GtkSourceView :>
          & x3 =>
           (
             _import "gtk_source_view_unindent_lines" :
-              GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> unit;
           )
             (

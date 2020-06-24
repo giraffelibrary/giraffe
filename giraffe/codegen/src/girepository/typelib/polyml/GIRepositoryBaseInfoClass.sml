@@ -1,15 +1,16 @@
 structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
   struct
-    type notnull = CPointer.notnull
+    type opt = CPointer.opt
+    type non_opt = CPointer.non_opt
     type 'a p = 'a CPointer.p
     type ('a, 'b) r = ('a, 'b) CPointer.r
 
-    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
-    val cOutRef = CPointer.PolyML.cRef : (unit, notnull) r PolyMLFFI.conversion
-    val cOutOptRef = CPointer.PolyML.cOptOutRef : (unit, unit) r PolyMLFFI.conversion
-    val cInOutRef = CPointer.PolyML.cInRef : (notnull, notnull) r PolyMLFFI.conversion
-    val cInOutOptRef = CPointer.PolyML.cOptOutRef : (unit, unit) r PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : non_opt p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : opt p PolyMLFFI.conversion
+    val cOutRef = CPointer.PolyML.cRef : ('a, non_opt) r PolyMLFFI.conversion
+    val cOutOptRef = CPointer.PolyML.cOptOutRef : ('a, opt) r PolyMLFFI.conversion
+    val cInOutRef = CPointer.PolyML.cInRef : (non_opt, non_opt) r PolyMLFFI.conversion
+    val cInOutOptRef = CPointer.PolyML.cOptOutRef : (opt, opt) r PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -30,17 +31,19 @@ structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
     structure C =
       struct
         structure Pointer = CPointer
-        type notnull = notnull
+        type opt = opt
+        type non_opt = non_opt
         type 'a p = 'a p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
         structure PointerType =
           struct
             structure Pointer = Pointer
-            type notnull = Pointer.notnull
+            type opt = Pointer.opt
+            type non_opt = Pointer.non_opt
             type 'a p = 'a Pointer.p
 
-            type t = notnull p Finalizable.t
+            type t = non_opt p Finalizable.t
 
             fun dup d = if d <> 0 then ref_ else Fn.id
 
@@ -59,14 +62,15 @@ structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
           end
       end
 
-    type 'a class = notnull p Finalizable.t
+    type 'a class = non_opt p Finalizable.t
     type t = base class
     fun toBase obj = obj
 
     structure FFI =
       struct
         structure Pointer = CPointer
-        type notnull = notnull
+        type opt = opt
+        type non_opt = non_opt
         type 'a p = 'a p
         type ('a, 'b) r = ('a, 'b) r
 

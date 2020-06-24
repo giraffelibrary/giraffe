@@ -11,7 +11,8 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
     where type sequence = CArrayType.t
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
     where type 'a C.p = 'a CArrayType.p
-    where type C.notnull = CArrayType.notnull =
+    where type C.opt = CArrayType.opt
+    where type C.non_opt = CArrayType.non_opt =
   struct
     type elem = CArrayType.elem
     type sequence = CArrayType.t
@@ -19,7 +20,8 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
     structure C =
       struct
         structure Pointer = CArrayType.Pointer
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
@@ -46,7 +48,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
      * have ownership.)
      *)
     datatype array =
-      CArray of C.notnull C.p Finalizable.t
+      CArray of C.non_opt C.p Finalizable.t
     | SMLValue of C.ArrayType.CVector.cvector Finalizable.t
 
     type t = array
@@ -116,7 +118,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
          * representative non-null pointer.
          *)
 
-        val nonNullPointer = Pointer.sub (Pointer.null, 0w1)
+        val nonNullPointer = Pointer.toOptPtr (Pointer.sub 0w1 Pointer.null)
 
 
         (**
@@ -126,7 +128,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
          * C-side transformation that derives a single pointer str from
          * sml_str and c_str according to the following table:
          *
-         *   CVector.cvector     unit p      |
+         *   CVector.cvector     opt p       |
          *                                   |
          *   gchar *             gchar *     | gchar *
          *   sml_str             c_str       | str
@@ -143,20 +145,20 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
          * The local functions `fromPointer` and `fromSMLValue` construct the
          * SML-side values for sml_str and c_str.
          *)
-        type 'a in_p = CVector.cvector * unit p
+        type 'a in_p = CVector.cvector * opt p
 
         local
           fun fromPointer (p : 'a p) : 'b in_p =
             if Pointer.isNull p
             then (CVector.v1, nonNullPointer)
-            else (CVector.v2, Pointer.toOptNull p)
+            else (CVector.v2, Pointer.toOptPtr p)
 
           fun fromSMLValue (v : CVector.cvector) : 'a in_p = (v, Pointer.null)
 
           fun withPointer f p = f (fromPointer p)
 
           fun withDupPointer free f p =
-            p & withPointer f p handle e => (Pointer.appOpt free p; raise e)
+            p & withPointer f p handle e => (Pointer.appNonNullPtr free p; raise e)
         in
           fun withPtr f =
             fn
@@ -182,10 +184,10 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
             fn
               SOME (CArray a) =>
                 Finalizable.withValue
-                  (a, withDupPointer (free d) f o Pointer.toOptNull o dup d)
+                  (a, withDupPointer (free d) f o Pointer.toOptPtr o dup d)
             | SOME (SMLValue v) =>
                 Finalizable.withValue
-                  (v, withDupPointer (free ~1) f o Pointer.toOptNull o CVector.toPointer)
+                  (v, withDupPointer (free ~1) f o Pointer.toOptPtr o CVector.toPointer)
             | NONE => withDupPointer ignore f Pointer.null
         end
 
@@ -197,7 +199,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
          * a C-side transformation that derives a single pointer str_ptr from
          * sml_str and c_str_ptr according to the following table:
          *
-         *   CVector.cvector     unit p               |
+         *   CVector.cvector     opt p                |
          *                                            |
          *   gchar *             gchar **             | gchar **
          *   sml_str             c_str_ptr            | str_ptr
@@ -216,7 +218,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
          * The local functions `null`, `fromPointer` and `fromSMLValue`
          * construct the SML-side values for sml_str and c_str_ptr.
          *)
-        type ('a, 'b) r = CVector.cvector * (unit, 'b) Pointer.r
+        type ('a, 'b) r = CVector.cvector * (opt, 'b) Pointer.r
 
         fun toRef x = Pointer.MLton.toRef x
         fun fromRef x = Pointer.MLton.fromRef x
@@ -229,7 +231,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
           fun fromPointer (p : 'a p) : ('b, 'c) r =
             if Pointer.isNull p
             then (CVector.v2, toRef nonNullPointer)
-            else (CVector.v3, toRef (Pointer.toOptNull p))
+            else (CVector.v3, toRef (Pointer.toOptPtr p))
 
           fun fromSMLValue (v : CVector.cvector) : ('a, 'b) r =
                  (v,          toRef Pointer.null)
@@ -242,7 +244,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
             let val q & y = f (fromPointer p) in q & y end
 
           fun withRefDupPointer free f p =
-            withRefPointer f p handle e => (Pointer.appOpt free p; raise e)
+            withRefPointer f p handle e => (Pointer.appNonNullPtr free p; raise e)
         in
           fun withNullRef f () = f (null ())
 
@@ -340,9 +342,9 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
     structure MLton =
       struct
         type p1 = C.ArrayType.CVector.cvector
-        type 'a p2 = unit C.Pointer.p
+        type 'a p2 = FFI.opt C.Pointer.p
 
         type r1 = C.ArrayType.CVector.cvector
-        type ('a, 'b) r2 = (unit, 'b) C.Pointer.r
+        type ('a, 'b) r2 = (FFI.opt, 'b) C.Pointer.r
       end
   end

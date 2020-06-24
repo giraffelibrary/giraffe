@@ -3,15 +3,17 @@ structure GObjectValueRecord :>
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
     structure Pointer = CPointerInternal
-    type notnull = Pointer.notnull
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
     val size_ = fn () => 24
-    val copy_ = fn x1 & x2 => (_import "giraffe_g_value_copy" : notnull p * notnull p -> unit;) (x1, x2)
-    val clear_ = _import "giraffe_g_value_clear" : notnull p -> unit;
+    val copy_ = fn x1 & x2 => (_import "giraffe_g_value_copy" : non_opt p * non_opt p -> unit;) (x1, x2)
+    val clear_ = _import "giraffe_g_value_clear" : non_opt p -> unit;
     structure Record =
       BoxedValueRecord(
         structure Pointer = Pointer
-        type notnull = notnull
+        type opt = opt
+        type non_opt = non_opt
         type 'a p = 'a p
         val copy_ = copy_
         val clear_ = clear_
@@ -19,10 +21,10 @@ structure GObjectValueRecord :>
       )
     open Record
     val getType_ = _import "g_value_get_type" : unit -> GObjectType.FFI.val_;
-    val getValue_ = _import "g_value_get_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.notnull FFI.p;
-    val getOptValue_ = _import "g_value_get_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit FFI.p;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.notnull FFI.p -> unit;) (x1, x2)
-    val setOptValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * unit FFI.p -> unit;) (x1, x2)
+    val getValue_ = _import "g_value_get_boxed" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.non_opt FFI.p;
+    val getOptValue_ = _import "g_value_get_boxed" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.opt FFI.p;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.non_opt FFI.p -> unit;) (x1, x2)
+    val setOptValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.opt FFI.p -> unit;) (x1, x2)
     type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     val t =
       ValueAccessor.C.createAccessor

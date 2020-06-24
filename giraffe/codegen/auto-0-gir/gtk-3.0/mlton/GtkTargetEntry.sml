@@ -11,10 +11,10 @@ structure GtkTargetEntry :>
           (
             _import "mlton_gtk_target_entry_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt.FFI.val_
                * GUInt.FFI.val_
-               -> GtkTargetEntryRecord.FFI.notnull GtkTargetEntryRecord.FFI.p;
+               -> GtkTargetEntryRecord.FFI.non_opt GtkTargetEntryRecord.FFI.p;
           )
             (
               x1,
@@ -22,7 +22,7 @@ structure GtkTargetEntry :>
               x3,
               x4
             )
-    val copy_ = _import "gtk_target_entry_copy" : GtkTargetEntryRecord.FFI.notnull GtkTargetEntryRecord.FFI.p -> GtkTargetEntryRecord.FFI.notnull GtkTargetEntryRecord.FFI.p;
+    val copy_ = _import "gtk_target_entry_copy" : GtkTargetEntryRecord.FFI.non_opt GtkTargetEntryRecord.FFI.p -> GtkTargetEntryRecord.FFI.non_opt GtkTargetEntryRecord.FFI.p;
     type t = GtkTargetEntryRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new

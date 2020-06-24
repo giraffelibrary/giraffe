@@ -7,22 +7,22 @@ structure GtkFontButton :>
     where type 'a font_chooser_class = 'a GtkFontChooserClass.class =
   struct
     val getType_ = _import "gtk_font_button_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_font_button_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithFont_ = _import "mlton_gtk_font_button_new_with_font" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getFontName_ = _import "gtk_font_button_get_font_name" : GtkFontButtonClass.FFI.notnull GtkFontButtonClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getShowSize_ = _import "gtk_font_button_get_show_size" : GtkFontButtonClass.FFI.notnull GtkFontButtonClass.FFI.p -> GBool.FFI.val_;
-    val getShowStyle_ = _import "gtk_font_button_get_show_style" : GtkFontButtonClass.FFI.notnull GtkFontButtonClass.FFI.p -> GBool.FFI.val_;
-    val getTitle_ = _import "gtk_font_button_get_title" : GtkFontButtonClass.FFI.notnull GtkFontButtonClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getUseFont_ = _import "gtk_font_button_get_use_font" : GtkFontButtonClass.FFI.notnull GtkFontButtonClass.FFI.p -> GBool.FFI.val_;
-    val getUseSize_ = _import "gtk_font_button_get_use_size" : GtkFontButtonClass.FFI.notnull GtkFontButtonClass.FFI.p -> GBool.FFI.val_;
+    val new_ = _import "gtk_font_button_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithFont_ = _import "mlton_gtk_font_button_new_with_font" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getFontName_ = _import "gtk_font_button_get_font_name" : GtkFontButtonClass.FFI.non_opt GtkFontButtonClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getShowSize_ = _import "gtk_font_button_get_show_size" : GtkFontButtonClass.FFI.non_opt GtkFontButtonClass.FFI.p -> GBool.FFI.val_;
+    val getShowStyle_ = _import "gtk_font_button_get_show_style" : GtkFontButtonClass.FFI.non_opt GtkFontButtonClass.FFI.p -> GBool.FFI.val_;
+    val getTitle_ = _import "gtk_font_button_get_title" : GtkFontButtonClass.FFI.non_opt GtkFontButtonClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getUseFont_ = _import "gtk_font_button_get_use_font" : GtkFontButtonClass.FFI.non_opt GtkFontButtonClass.FFI.p -> GBool.FFI.val_;
+    val getUseSize_ = _import "gtk_font_button_get_use_size" : GtkFontButtonClass.FFI.non_opt GtkFontButtonClass.FFI.p -> GBool.FFI.val_;
     val setFontName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_font_button_set_font_name" :
-              GtkFontButtonClass.FFI.notnull GtkFontButtonClass.FFI.p
+              GtkFontButtonClass.FFI.non_opt GtkFontButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -30,16 +30,16 @@ structure GtkFontButton :>
               x2,
               x3
             )
-    val setShowSize_ = fn x1 & x2 => (_import "gtk_font_button_set_show_size" : GtkFontButtonClass.FFI.notnull GtkFontButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowStyle_ = fn x1 & x2 => (_import "gtk_font_button_set_show_style" : GtkFontButtonClass.FFI.notnull GtkFontButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowSize_ = fn x1 & x2 => (_import "gtk_font_button_set_show_size" : GtkFontButtonClass.FFI.non_opt GtkFontButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowStyle_ = fn x1 & x2 => (_import "gtk_font_button_set_show_style" : GtkFontButtonClass.FFI.non_opt GtkFontButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_font_button_set_title" :
-              GtkFontButtonClass.FFI.notnull GtkFontButtonClass.FFI.p
+              GtkFontButtonClass.FFI.non_opt GtkFontButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -47,8 +47,8 @@ structure GtkFontButton :>
               x2,
               x3
             )
-    val setUseFont_ = fn x1 & x2 => (_import "gtk_font_button_set_use_font" : GtkFontButtonClass.FFI.notnull GtkFontButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setUseSize_ = fn x1 & x2 => (_import "gtk_font_button_set_use_size" : GtkFontButtonClass.FFI.notnull GtkFontButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUseFont_ = fn x1 & x2 => (_import "gtk_font_button_set_use_font" : GtkFontButtonClass.FFI.non_opt GtkFontButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUseSize_ = fn x1 & x2 => (_import "gtk_font_button_set_use_size" : GtkFontButtonClass.FFI.non_opt GtkFontButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkFontButtonClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

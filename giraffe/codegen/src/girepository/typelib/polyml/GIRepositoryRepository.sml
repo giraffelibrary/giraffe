@@ -78,7 +78,7 @@ structure GIRepositoryRepository :>
           (getSymbol "g_irepository_get_c_prefix")
           (GObjectObjectClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
-            --> Utf8.PolyML.cOutPtr)
+            --> Utf8.PolyML.cOutOptPtr)
     end
 
 

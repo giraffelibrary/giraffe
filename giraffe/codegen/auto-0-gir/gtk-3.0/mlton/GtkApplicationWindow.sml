@@ -6,12 +6,12 @@ structure GtkApplicationWindow :>
     where type 'a shortcuts_window_class = 'a GtkShortcutsWindowClass.class =
   struct
     val getType_ = _import "gtk_application_window_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_application_window_new" : GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getHelpOverlay_ = _import "gtk_application_window_get_help_overlay" : GtkApplicationWindowClass.FFI.notnull GtkApplicationWindowClass.FFI.p -> unit GtkShortcutsWindowClass.FFI.p;
-    val getId_ = _import "gtk_application_window_get_id" : GtkApplicationWindowClass.FFI.notnull GtkApplicationWindowClass.FFI.p -> GUInt.FFI.val_;
-    val getShowMenubar_ = _import "gtk_application_window_get_show_menubar" : GtkApplicationWindowClass.FFI.notnull GtkApplicationWindowClass.FFI.p -> GBool.FFI.val_;
-    val setHelpOverlay_ = fn x1 & x2 => (_import "gtk_application_window_set_help_overlay" : GtkApplicationWindowClass.FFI.notnull GtkApplicationWindowClass.FFI.p * unit GtkShortcutsWindowClass.FFI.p -> unit;) (x1, x2)
-    val setShowMenubar_ = fn x1 & x2 => (_import "gtk_application_window_set_show_menubar" : GtkApplicationWindowClass.FFI.notnull GtkApplicationWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_application_window_new" : GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getHelpOverlay_ = _import "gtk_application_window_get_help_overlay" : GtkApplicationWindowClass.FFI.non_opt GtkApplicationWindowClass.FFI.p -> GtkShortcutsWindowClass.FFI.opt GtkShortcutsWindowClass.FFI.p;
+    val getId_ = _import "gtk_application_window_get_id" : GtkApplicationWindowClass.FFI.non_opt GtkApplicationWindowClass.FFI.p -> GUInt.FFI.val_;
+    val getShowMenubar_ = _import "gtk_application_window_get_show_menubar" : GtkApplicationWindowClass.FFI.non_opt GtkApplicationWindowClass.FFI.p -> GBool.FFI.val_;
+    val setHelpOverlay_ = fn x1 & x2 => (_import "gtk_application_window_set_help_overlay" : GtkApplicationWindowClass.FFI.non_opt GtkApplicationWindowClass.FFI.p * GtkShortcutsWindowClass.FFI.opt GtkShortcutsWindowClass.FFI.p -> unit;) (x1, x2)
+    val setShowMenubar_ = fn x1 & x2 => (_import "gtk_application_window_set_show_menubar" : GtkApplicationWindowClass.FFI.non_opt GtkApplicationWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkApplicationWindowClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a application_class = 'a GtkApplicationClass.class

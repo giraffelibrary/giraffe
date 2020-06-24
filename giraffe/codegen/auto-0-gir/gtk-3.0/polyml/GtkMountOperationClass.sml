@@ -1,6 +1,7 @@
 structure GtkMountOperationClass :>
   GTK_MOUNT_OPERATION_CLASS
-    where type C.notnull = GioMountOperationClass.C.notnull
+    where type C.opt = GioMountOperationClass.C.opt
+    where type C.non_opt = GioMountOperationClass.C.non_opt
     where type 'a C.p = 'a GioMountOperationClass.C.p =
   struct
     open GioMountOperationClass

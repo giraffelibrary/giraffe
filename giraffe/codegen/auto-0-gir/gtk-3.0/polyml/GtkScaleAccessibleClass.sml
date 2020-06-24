@@ -1,7 +1,8 @@
 structure GtkScaleAccessibleClass :>
   GTK_SCALE_ACCESSIBLE_CLASS
     where type 'a range_accessible_class = 'a GtkRangeAccessibleClass.class
-    where type C.notnull = GtkRangeAccessibleClass.C.notnull
+    where type C.opt = GtkRangeAccessibleClass.C.opt
+    where type C.non_opt = GtkRangeAccessibleClass.C.non_opt
     where type 'a C.p = 'a GtkRangeAccessibleClass.C.p =
   struct
     type 'a range_accessible_class = 'a GtkRangeAccessibleClass.class

@@ -3,9 +3,9 @@ structure PangoMatrix :>
     where type t = PangoMatrixRecord.t =
   struct
     val getType_ = _import "pango_matrix_get_type" : unit -> GObjectType.FFI.val_;
-    val concat_ = fn x1 & x2 => (_import "pango_matrix_concat" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p * PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> unit;) (x1, x2)
-    val copy_ = _import "pango_matrix_copy" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> unit PangoMatrixRecord.FFI.p;
-    val getFontScaleFactor_ = _import "pango_matrix_get_font_scale_factor" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p -> GDouble.FFI.val_;
+    val concat_ = fn x1 & x2 => (_import "pango_matrix_concat" : PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p * PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p -> unit;) (x1, x2)
+    val copy_ = _import "pango_matrix_copy" : PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p -> PangoMatrixRecord.FFI.opt PangoMatrixRecord.FFI.p;
+    val getFontScaleFactor_ = _import "pango_matrix_get_font_scale_factor" : PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p -> GDouble.FFI.val_;
     val getFontScaleFactors_ =
       fn
         x1
@@ -13,7 +13,7 @@ structure PangoMatrix :>
          & x3 =>
           (
             _import "pango_matrix_get_font_scale_factors" :
-              PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p
+              PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                -> unit;
@@ -23,7 +23,7 @@ structure PangoMatrix :>
               x2,
               x3
             )
-    val rotate_ = fn x1 & x2 => (_import "pango_matrix_rotate" : PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val rotate_ = fn x1 & x2 => (_import "pango_matrix_rotate" : PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
     val scale_ =
       fn
         x1
@@ -31,7 +31,7 @@ structure PangoMatrix :>
          & x3 =>
           (
             _import "pango_matrix_scale" :
-              PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p
+              PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                -> unit;
@@ -48,7 +48,7 @@ structure PangoMatrix :>
          & x3 =>
           (
             _import "pango_matrix_transform_distance" :
-              PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p
+              PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                -> unit;
@@ -65,7 +65,7 @@ structure PangoMatrix :>
          & x3 =>
           (
             _import "pango_matrix_transform_point" :
-              PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p
+              PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                -> unit;
@@ -82,7 +82,7 @@ structure PangoMatrix :>
          & x3 =>
           (
             _import "pango_matrix_translate" :
-              PangoMatrixRecord.FFI.notnull PangoMatrixRecord.FFI.p
+              PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                -> unit;

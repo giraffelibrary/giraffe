@@ -6,7 +6,7 @@ structure GtkSourceSearchContext :>
     where type 'a search_settings_class = 'a GtkSourceSearchSettingsClass.class =
   struct
     val getType_ = _import "gtk_source_search_context_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "gtk_source_search_context_new" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * unit GtkSourceSearchSettingsClass.FFI.p -> GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p;) (x1, x2)
+    val new_ = fn x1 & x2 => (_import "gtk_source_search_context_new" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p * GtkSourceSearchSettingsClass.FFI.opt GtkSourceSearchSettingsClass.FFI.p -> GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p;) (x1, x2)
     val backward_ =
       fn
         x1
@@ -15,10 +15,10 @@ structure GtkSourceSearchContext :>
          & x4 =>
           (
             _import "gtk_source_search_context_backward" :
-              GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -36,10 +36,10 @@ structure GtkSourceSearchContext :>
          & x5 =>
           (
             _import "gtk_source_search_context_backward2" :
-              GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * GBool.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -59,11 +59,11 @@ structure GtkSourceSearchContext :>
          & x5 =>
           (
             _import "gtk_source_search_context_backward_finish" :
-              GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -83,12 +83,12 @@ structure GtkSourceSearchContext :>
          & x6 =>
           (
             _import "gtk_source_search_context_backward_finish2" :
-              GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * GBool.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -107,10 +107,10 @@ structure GtkSourceSearchContext :>
          & x4 =>
           (
             _import "gtk_source_search_context_forward" :
-              GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -128,10 +128,10 @@ structure GtkSourceSearchContext :>
          & x5 =>
           (
             _import "gtk_source_search_context_forward2" :
-              GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * GBool.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -151,11 +151,11 @@ structure GtkSourceSearchContext :>
          & x5 =>
           (
             _import "gtk_source_search_context_forward_finish" :
-              GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -175,12 +175,12 @@ structure GtkSourceSearchContext :>
          & x6 =>
           (
             _import "gtk_source_search_context_forward_finish2" :
-              GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * GBool.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -191,9 +191,9 @@ structure GtkSourceSearchContext :>
               x5,
               x6
             )
-    val getBuffer_ = _import "gtk_source_search_context_get_buffer" : GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p -> GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p;
-    val getHighlight_ = _import "gtk_source_search_context_get_highlight" : GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p -> GBool.FFI.val_;
-    val getMatchStyle_ = _import "gtk_source_search_context_get_match_style" : GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p -> GtkSourceStyleClass.FFI.notnull GtkSourceStyleClass.FFI.p;
+    val getBuffer_ = _import "gtk_source_search_context_get_buffer" : GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p -> GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p;
+    val getHighlight_ = _import "gtk_source_search_context_get_highlight" : GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p -> GBool.FFI.val_;
+    val getMatchStyle_ = _import "gtk_source_search_context_get_match_style" : GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p -> GtkSourceStyleClass.FFI.non_opt GtkSourceStyleClass.FFI.p;
     val getOccurrencePosition_ =
       fn
         x1
@@ -201,9 +201,9 @@ structure GtkSourceSearchContext :>
          & x3 =>
           (
             _import "gtk_source_search_context_get_occurrence_position" :
-              GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> GInt32.FFI.val_;
           )
             (
@@ -211,8 +211,8 @@ structure GtkSourceSearchContext :>
               x2,
               x3
             )
-    val getOccurrencesCount_ = _import "gtk_source_search_context_get_occurrences_count" : GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p -> GInt32.FFI.val_;
-    val getSettings_ = _import "gtk_source_search_context_get_settings" : GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p -> GtkSourceSearchSettingsClass.FFI.notnull GtkSourceSearchSettingsClass.FFI.p;
+    val getOccurrencesCount_ = _import "gtk_source_search_context_get_occurrences_count" : GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p -> GInt32.FFI.val_;
+    val getSettings_ = _import "gtk_source_search_context_get_settings" : GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p -> GtkSourceSearchSettingsClass.FFI.non_opt GtkSourceSearchSettingsClass.FFI.p;
     val replace_ =
       fn
         x1
@@ -223,13 +223,13 @@ structure GtkSourceSearchContext :>
          & x7 =>
           (
             _import "mlton_gtk_source_search_context_replace" :
-              GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -251,13 +251,13 @@ structure GtkSourceSearchContext :>
          & x7 =>
           (
             _import "mlton_gtk_source_search_context_replace2" :
-              GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -277,11 +277,11 @@ structure GtkSourceSearchContext :>
          & x5 =>
           (
             _import "mlton_gtk_source_search_context_replace_all" :
-              GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p
+              GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt32.FFI.val_;
           )
             (
@@ -291,9 +291,9 @@ structure GtkSourceSearchContext :>
               x4,
               x5
             )
-    val setHighlight_ = fn x1 & x2 => (_import "gtk_source_search_context_set_highlight" : GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setMatchStyle_ = fn x1 & x2 => (_import "gtk_source_search_context_set_match_style" : GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p * unit GtkSourceStyleClass.FFI.p -> unit;) (x1, x2)
-    val setSettings_ = fn x1 & x2 => (_import "gtk_source_search_context_set_settings" : GtkSourceSearchContextClass.FFI.notnull GtkSourceSearchContextClass.FFI.p * unit GtkSourceSearchSettingsClass.FFI.p -> unit;) (x1, x2)
+    val setHighlight_ = fn x1 & x2 => (_import "gtk_source_search_context_set_highlight" : GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setMatchStyle_ = fn x1 & x2 => (_import "gtk_source_search_context_set_match_style" : GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p * GtkSourceStyleClass.FFI.opt GtkSourceStyleClass.FFI.p -> unit;) (x1, x2)
+    val setSettings_ = fn x1 & x2 => (_import "gtk_source_search_context_set_settings" : GtkSourceSearchContextClass.FFI.non_opt GtkSourceSearchContextClass.FFI.p * GtkSourceSearchSettingsClass.FFI.opt GtkSourceSearchSettingsClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkSourceSearchContextClass.class
     type 'a buffer_class = 'a GtkSourceBufferClass.class
     type 'a style_class = 'a GtkSourceStyleClass.class

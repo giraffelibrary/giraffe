@@ -3,8 +3,8 @@ structure GtkCellRendererText :>
     where type 'a class = 'a GtkCellRendererTextClass.class =
   struct
     val getType_ = _import "gtk_cell_renderer_text_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_cell_renderer_text_new" : unit -> GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p;
-    val setFixedHeightFromFont_ = fn x1 & x2 => (_import "gtk_cell_renderer_text_set_fixed_height_from_font" : GtkCellRendererTextClass.FFI.notnull GtkCellRendererTextClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_cell_renderer_text_new" : unit -> GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p;
+    val setFixedHeightFromFont_ = fn x1 & x2 => (_import "gtk_cell_renderer_text_set_fixed_height_from_font" : GtkCellRendererTextClass.FFI.non_opt GtkCellRendererTextClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkCellRendererTextClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

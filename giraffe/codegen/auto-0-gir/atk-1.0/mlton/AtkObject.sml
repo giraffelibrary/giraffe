@@ -16,9 +16,9 @@ structure AtkObject :>
          & x3 =>
           (
             _import "atk_object_add_relationship" :
-              AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+              AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p
                * AtkRelationType.FFI.val_
-               * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               * AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -26,15 +26,15 @@ structure AtkObject :>
               x2,
               x3
             )
-    val getDescription_ = _import "atk_object_get_description" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getIndexInParent_ = _import "atk_object_get_index_in_parent" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> GInt.FFI.val_;
-    val getLayer_ = _import "atk_object_get_layer" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkLayer.FFI.val_;
-    val getMdiZorder_ = _import "atk_object_get_mdi_zorder" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> GInt.FFI.val_;
-    val getNAccessibleChildren_ = _import "atk_object_get_n_accessible_children" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> GInt.FFI.val_;
-    val getName_ = _import "atk_object_get_name" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getObjectLocale_ = _import "atk_object_get_object_locale" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getParent_ = _import "atk_object_get_parent" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
-    val getRole_ = _import "atk_object_get_role" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkRole.FFI.val_;
+    val getDescription_ = _import "atk_object_get_description" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getIndexInParent_ = _import "atk_object_get_index_in_parent" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> GInt.FFI.val_;
+    val getLayer_ = _import "atk_object_get_layer" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> AtkLayer.FFI.val_;
+    val getMdiZorder_ = _import "atk_object_get_mdi_zorder" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> GInt.FFI.val_;
+    val getNAccessibleChildren_ = _import "atk_object_get_n_accessible_children" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> GInt.FFI.val_;
+    val getName_ = _import "atk_object_get_name" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getObjectLocale_ = _import "atk_object_get_object_locale" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getParent_ = _import "atk_object_get_parent" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;
+    val getRole_ = _import "atk_object_get_role" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> AtkRole.FFI.val_;
     val notifyStateChange_ =
       fn
         x1
@@ -42,7 +42,7 @@ structure AtkObject :>
          & x3 =>
           (
             _import "atk_object_notify_state_change" :
-              AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+              AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p
                * AtkState.FFI.val_
                * GBool.FFI.val_
                -> unit;
@@ -52,11 +52,11 @@ structure AtkObject :>
               x2,
               x3
             )
-    val peekParent_ = _import "atk_object_peek_parent" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
-    val refAccessibleChild_ = fn x1 & x2 => (_import "atk_object_ref_accessible_child" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p * GInt.FFI.val_ -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;) (x1, x2)
-    val refRelationSet_ = _import "atk_object_ref_relation_set" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkRelationSetClass.FFI.notnull AtkRelationSetClass.FFI.p;
-    val refStateSet_ = _import "atk_object_ref_state_set" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p;
-    val removePropertyChangeHandler_ = fn x1 & x2 => (_import "atk_object_remove_property_change_handler" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val peekParent_ = _import "atk_object_peek_parent" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;
+    val refAccessibleChild_ = fn x1 & x2 => (_import "atk_object_ref_accessible_child" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p * GInt.FFI.val_ -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;) (x1, x2)
+    val refRelationSet_ = _import "atk_object_ref_relation_set" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> AtkRelationSetClass.FFI.non_opt AtkRelationSetClass.FFI.p;
+    val refStateSet_ = _import "atk_object_ref_state_set" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p;
+    val removePropertyChangeHandler_ = fn x1 & x2 => (_import "atk_object_remove_property_change_handler" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val removeRelationship_ =
       fn
         x1
@@ -64,9 +64,9 @@ structure AtkObject :>
          & x3 =>
           (
             _import "atk_object_remove_relationship" :
-              AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+              AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p
                * AtkRelationType.FFI.val_
-               * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               * AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -79,9 +79,9 @@ structure AtkObject :>
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_object_set_description" :
-              AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+              AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -94,9 +94,9 @@ structure AtkObject :>
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_object_set_name" :
-              AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+              AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -104,8 +104,8 @@ structure AtkObject :>
               x2,
               x3
             )
-    val setParent_ = fn x1 & x2 => (_import "atk_object_set_parent" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> unit;) (x1, x2)
-    val setRole_ = fn x1 & x2 => (_import "atk_object_set_role" : AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p * AtkRole.FFI.val_ -> unit;) (x1, x2)
+    val setParent_ = fn x1 & x2 => (_import "atk_object_set_parent" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p * AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> unit;) (x1, x2)
+    val setRole_ = fn x1 & x2 => (_import "atk_object_set_role" : AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p * AtkRole.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a AtkObjectClass.class
     type layer_t = AtkLayer.t
     type state_t = AtkState.t

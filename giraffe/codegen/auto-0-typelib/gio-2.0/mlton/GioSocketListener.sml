@@ -11,7 +11,7 @@ structure GioSocketListener :>
     where type socket_listener_event_t = GioSocketListenerEvent.t =
   struct
     val getType_ = _import "g_socket_listener_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_socket_listener_new" : unit -> GioSocketListenerClass.FFI.notnull GioSocketListenerClass.FFI.p;
+    val new_ = _import "g_socket_listener_new" : unit -> GioSocketListenerClass.FFI.non_opt GioSocketListenerClass.FFI.p;
     val accept_ =
       fn
         x1
@@ -20,11 +20,11 @@ structure GioSocketListener :>
          & x4 =>
           (
             _import "g_socket_listener_accept" :
-              GioSocketListenerClass.FFI.notnull GioSocketListenerClass.FFI.p
-               * (unit, GObjectObjectClass.FFI.notnull) GObjectObjectClass.FFI.r
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p;
+              GioSocketListenerClass.FFI.non_opt GioSocketListenerClass.FFI.p
+               * (GObjectObjectClass.FFI.opt, GObjectObjectClass.FFI.non_opt) GObjectObjectClass.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p;
           )
             (
               x1,
@@ -40,11 +40,11 @@ structure GioSocketListener :>
          & x4 =>
           (
             _import "g_socket_listener_accept_finish" :
-              GioSocketListenerClass.FFI.notnull GioSocketListenerClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, GObjectObjectClass.FFI.notnull) GObjectObjectClass.FFI.r
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p;
+              GioSocketListenerClass.FFI.non_opt GioSocketListenerClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GObjectObjectClass.FFI.opt, GObjectObjectClass.FFI.non_opt) GObjectObjectClass.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p;
           )
             (
               x1,
@@ -60,11 +60,11 @@ structure GioSocketListener :>
          & x4 =>
           (
             _import "g_socket_listener_accept_socket" :
-              GioSocketListenerClass.FFI.notnull GioSocketListenerClass.FFI.p
-               * (unit, GObjectObjectClass.FFI.notnull) GObjectObjectClass.FFI.r
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketClass.FFI.notnull GioSocketClass.FFI.p;
+              GioSocketListenerClass.FFI.non_opt GioSocketListenerClass.FFI.p
+               * (GObjectObjectClass.FFI.opt, GObjectObjectClass.FFI.non_opt) GObjectObjectClass.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketClass.FFI.non_opt GioSocketClass.FFI.p;
           )
             (
               x1,
@@ -80,11 +80,11 @@ structure GioSocketListener :>
          & x4 =>
           (
             _import "g_socket_listener_accept_socket_finish" :
-              GioSocketListenerClass.FFI.notnull GioSocketListenerClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, GObjectObjectClass.FFI.notnull) GObjectObjectClass.FFI.r
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketClass.FFI.notnull GioSocketClass.FFI.p;
+              GioSocketListenerClass.FFI.non_opt GioSocketListenerClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GObjectObjectClass.FFI.opt, GObjectObjectClass.FFI.non_opt) GObjectObjectClass.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketClass.FFI.non_opt GioSocketClass.FFI.p;
           )
             (
               x1,
@@ -103,13 +103,13 @@ structure GioSocketListener :>
          & x7 =>
           (
             _import "g_socket_listener_add_address" :
-              GioSocketListenerClass.FFI.notnull GioSocketListenerClass.FFI.p
-               * GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p
+              GioSocketListenerClass.FFI.non_opt GioSocketListenerClass.FFI.p
+               * GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p
                * GioSocketType.FFI.val_
                * GioSocketProtocol.FFI.val_
-               * unit GObjectObjectClass.FFI.p
-               * (unit, GioSocketAddressClass.FFI.notnull) GioSocketAddressClass.FFI.r
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GObjectObjectClass.FFI.opt GObjectObjectClass.FFI.p
+               * (GioSocketAddressClass.FFI.opt, GioSocketAddressClass.FFI.non_opt) GioSocketAddressClass.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -128,9 +128,9 @@ structure GioSocketListener :>
          & x3 =>
           (
             _import "g_socket_listener_add_any_inet_port" :
-              GioSocketListenerClass.FFI.notnull GioSocketListenerClass.FFI.p
-               * unit GObjectObjectClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioSocketListenerClass.FFI.non_opt GioSocketListenerClass.FFI.p
+               * GObjectObjectClass.FFI.opt GObjectObjectClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt16.FFI.val_;
           )
             (
@@ -146,10 +146,10 @@ structure GioSocketListener :>
          & x4 =>
           (
             _import "g_socket_listener_add_inet_port" :
-              GioSocketListenerClass.FFI.notnull GioSocketListenerClass.FFI.p
+              GioSocketListenerClass.FFI.non_opt GioSocketListenerClass.FFI.p
                * GUInt16.FFI.val_
-               * unit GObjectObjectClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GObjectObjectClass.FFI.opt GObjectObjectClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -166,10 +166,10 @@ structure GioSocketListener :>
          & x4 =>
           (
             _import "g_socket_listener_add_socket" :
-              GioSocketListenerClass.FFI.notnull GioSocketListenerClass.FFI.p
-               * GioSocketClass.FFI.notnull GioSocketClass.FFI.p
-               * unit GObjectObjectClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioSocketListenerClass.FFI.non_opt GioSocketListenerClass.FFI.p
+               * GioSocketClass.FFI.non_opt GioSocketClass.FFI.p
+               * GObjectObjectClass.FFI.opt GObjectObjectClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -178,8 +178,8 @@ structure GioSocketListener :>
               x3,
               x4
             )
-    val close_ = _import "g_socket_listener_close" : GioSocketListenerClass.FFI.notnull GioSocketListenerClass.FFI.p -> unit;
-    val setBacklog_ = fn x1 & x2 => (_import "g_socket_listener_set_backlog" : GioSocketListenerClass.FFI.notnull GioSocketListenerClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val close_ = _import "g_socket_listener_close" : GioSocketListenerClass.FFI.non_opt GioSocketListenerClass.FFI.p -> unit;
+    val setBacklog_ = fn x1 & x2 => (_import "g_socket_listener_set_backlog" : GioSocketListenerClass.FFI.non_opt GioSocketListenerClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioSocketListenerClass.class
     type 'a socket_connection_class = 'a GioSocketConnectionClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class

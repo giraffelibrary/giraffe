@@ -3,14 +3,14 @@ structure GtkGestureSingle :>
     where type 'a class = 'a GtkGestureSingleClass.class =
   struct
     val getType_ = _import "gtk_gesture_single_get_type" : unit -> GObjectType.FFI.val_;
-    val getButton_ = _import "gtk_gesture_single_get_button" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p -> GUInt32.FFI.val_;
-    val getCurrentButton_ = _import "gtk_gesture_single_get_current_button" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p -> GUInt32.FFI.val_;
-    val getCurrentSequence_ = _import "gtk_gesture_single_get_current_sequence" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p -> unit GdkEventSequenceRecord.FFI.p;
-    val getExclusive_ = _import "gtk_gesture_single_get_exclusive" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p -> GBool.FFI.val_;
-    val getTouchOnly_ = _import "gtk_gesture_single_get_touch_only" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p -> GBool.FFI.val_;
-    val setButton_ = fn x1 & x2 => (_import "gtk_gesture_single_set_button" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val setExclusive_ = fn x1 & x2 => (_import "gtk_gesture_single_set_exclusive" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setTouchOnly_ = fn x1 & x2 => (_import "gtk_gesture_single_set_touch_only" : GtkGestureSingleClass.FFI.notnull GtkGestureSingleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getButton_ = _import "gtk_gesture_single_get_button" : GtkGestureSingleClass.FFI.non_opt GtkGestureSingleClass.FFI.p -> GUInt32.FFI.val_;
+    val getCurrentButton_ = _import "gtk_gesture_single_get_current_button" : GtkGestureSingleClass.FFI.non_opt GtkGestureSingleClass.FFI.p -> GUInt32.FFI.val_;
+    val getCurrentSequence_ = _import "gtk_gesture_single_get_current_sequence" : GtkGestureSingleClass.FFI.non_opt GtkGestureSingleClass.FFI.p -> GdkEventSequenceRecord.FFI.opt GdkEventSequenceRecord.FFI.p;
+    val getExclusive_ = _import "gtk_gesture_single_get_exclusive" : GtkGestureSingleClass.FFI.non_opt GtkGestureSingleClass.FFI.p -> GBool.FFI.val_;
+    val getTouchOnly_ = _import "gtk_gesture_single_get_touch_only" : GtkGestureSingleClass.FFI.non_opt GtkGestureSingleClass.FFI.p -> GBool.FFI.val_;
+    val setButton_ = fn x1 & x2 => (_import "gtk_gesture_single_set_button" : GtkGestureSingleClass.FFI.non_opt GtkGestureSingleClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val setExclusive_ = fn x1 & x2 => (_import "gtk_gesture_single_set_exclusive" : GtkGestureSingleClass.FFI.non_opt GtkGestureSingleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setTouchOnly_ = fn x1 & x2 => (_import "gtk_gesture_single_set_touch_only" : GtkGestureSingleClass.FFI.non_opt GtkGestureSingleClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkGestureSingleClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

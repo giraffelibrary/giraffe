@@ -6,15 +6,15 @@ structure GtkStatusbar :>
     where type 'a box_class = 'a GtkBoxClass.class =
   struct
     val getType_ = _import "gtk_statusbar_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_statusbar_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_statusbar_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val getContextId_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_statusbar_get_context_id" :
-              GtkStatusbarClass.FFI.notnull GtkStatusbarClass.FFI.p
+              GtkStatusbarClass.FFI.non_opt GtkStatusbarClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GUInt.FFI.val_;
           )
             (
@@ -22,8 +22,8 @@ structure GtkStatusbar :>
               x2,
               x3
             )
-    val getMessageArea_ = _import "gtk_statusbar_get_message_area" : GtkStatusbarClass.FFI.notnull GtkStatusbarClass.FFI.p -> GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p;
-    val pop_ = fn x1 & x2 => (_import "gtk_statusbar_pop" : GtkStatusbarClass.FFI.notnull GtkStatusbarClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val getMessageArea_ = _import "gtk_statusbar_get_message_area" : GtkStatusbarClass.FFI.non_opt GtkStatusbarClass.FFI.p -> GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p;
+    val pop_ = fn x1 & x2 => (_import "gtk_statusbar_pop" : GtkStatusbarClass.FFI.non_opt GtkStatusbarClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val push_ =
       fn
         x1
@@ -31,10 +31,10 @@ structure GtkStatusbar :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_statusbar_push" :
-              GtkStatusbarClass.FFI.notnull GtkStatusbarClass.FFI.p
+              GtkStatusbarClass.FFI.non_opt GtkStatusbarClass.FFI.p
                * GUInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GUInt.FFI.val_;
           )
             (
@@ -50,7 +50,7 @@ structure GtkStatusbar :>
          & x3 =>
           (
             _import "gtk_statusbar_remove" :
-              GtkStatusbarClass.FFI.notnull GtkStatusbarClass.FFI.p
+              GtkStatusbarClass.FFI.non_opt GtkStatusbarClass.FFI.p
                * GUInt.FFI.val_
                * GUInt.FFI.val_
                -> unit;
@@ -60,7 +60,7 @@ structure GtkStatusbar :>
               x2,
               x3
             )
-    val removeAll_ = fn x1 & x2 => (_import "gtk_statusbar_remove_all" : GtkStatusbarClass.FFI.notnull GtkStatusbarClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val removeAll_ = fn x1 & x2 => (_import "gtk_statusbar_remove_all" : GtkStatusbarClass.FFI.non_opt GtkStatusbarClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkStatusbarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

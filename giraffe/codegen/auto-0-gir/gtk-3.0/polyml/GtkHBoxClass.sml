@@ -1,7 +1,8 @@
 structure GtkHBoxClass :>
   GTK_H_BOX_CLASS
     where type 'a box_class = 'a GtkBoxClass.class
-    where type C.notnull = GtkBoxClass.C.notnull
+    where type C.opt = GtkBoxClass.C.opt
+    where type C.non_opt = GtkBoxClass.C.non_opt
     where type 'a C.p = 'a GtkBoxClass.C.p =
   struct
     type 'a box_class = 'a GtkBoxClass.class

@@ -6,11 +6,11 @@ structure GtkSwitch :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_switch_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_switch_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getActive_ = _import "gtk_switch_get_active" : GtkSwitchClass.FFI.notnull GtkSwitchClass.FFI.p -> GBool.FFI.val_;
-    val getState_ = _import "gtk_switch_get_state" : GtkSwitchClass.FFI.notnull GtkSwitchClass.FFI.p -> GBool.FFI.val_;
-    val setActive_ = fn x1 & x2 => (_import "gtk_switch_set_active" : GtkSwitchClass.FFI.notnull GtkSwitchClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setState_ = fn x1 & x2 => (_import "gtk_switch_set_state" : GtkSwitchClass.FFI.notnull GtkSwitchClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_switch_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getActive_ = _import "gtk_switch_get_active" : GtkSwitchClass.FFI.non_opt GtkSwitchClass.FFI.p -> GBool.FFI.val_;
+    val getState_ = _import "gtk_switch_get_state" : GtkSwitchClass.FFI.non_opt GtkSwitchClass.FFI.p -> GBool.FFI.val_;
+    val setActive_ = fn x1 & x2 => (_import "gtk_switch_set_active" : GtkSwitchClass.FFI.non_opt GtkSwitchClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setState_ = fn x1 & x2 => (_import "gtk_switch_set_state" : GtkSwitchClass.FFI.non_opt GtkSwitchClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkSwitchClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

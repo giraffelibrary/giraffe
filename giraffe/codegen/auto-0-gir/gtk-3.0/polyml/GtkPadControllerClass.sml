@@ -1,7 +1,8 @@
 structure GtkPadControllerClass :>
   GTK_PAD_CONTROLLER_CLASS
     where type 'a event_controller_class = 'a GtkEventControllerClass.class
-    where type C.notnull = GtkEventControllerClass.C.notnull
+    where type C.opt = GtkEventControllerClass.C.opt
+    where type C.non_opt = GtkEventControllerClass.C.non_opt
     where type 'a C.p = 'a GtkEventControllerClass.C.p =
   struct
     type 'a event_controller_class = 'a GtkEventControllerClass.class

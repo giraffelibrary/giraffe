@@ -14,9 +14,9 @@ structure GioFileEnumerator :>
          & x3 =>
           (
             _import "g_file_enumerator_close" :
-              GioFileEnumeratorClass.FFI.notnull GioFileEnumeratorClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioFileEnumeratorClass.FFI.non_opt GioFileEnumeratorClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -31,9 +31,9 @@ structure GioFileEnumerator :>
          & x3 =>
           (
             _import "g_file_enumerator_close_finish" :
-              GioFileEnumeratorClass.FFI.notnull GioFileEnumeratorClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioFileEnumeratorClass.FFI.non_opt GioFileEnumeratorClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -41,10 +41,10 @@ structure GioFileEnumerator :>
               x2,
               x3
             )
-    val getChild_ = fn x1 & x2 => (_import "g_file_enumerator_get_child" : GioFileEnumeratorClass.FFI.notnull GioFileEnumeratorClass.FFI.p * GioFileInfoClass.FFI.notnull GioFileInfoClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;) (x1, x2)
-    val getContainer_ = _import "g_file_enumerator_get_container" : GioFileEnumeratorClass.FFI.notnull GioFileEnumeratorClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
-    val hasPending_ = _import "g_file_enumerator_has_pending" : GioFileEnumeratorClass.FFI.notnull GioFileEnumeratorClass.FFI.p -> GBool.FFI.val_;
-    val isClosed_ = _import "g_file_enumerator_is_closed" : GioFileEnumeratorClass.FFI.notnull GioFileEnumeratorClass.FFI.p -> GBool.FFI.val_;
+    val getChild_ = fn x1 & x2 => (_import "g_file_enumerator_get_child" : GioFileEnumeratorClass.FFI.non_opt GioFileEnumeratorClass.FFI.p * GioFileInfoClass.FFI.non_opt GioFileInfoClass.FFI.p -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;) (x1, x2)
+    val getContainer_ = _import "g_file_enumerator_get_container" : GioFileEnumeratorClass.FFI.non_opt GioFileEnumeratorClass.FFI.p -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
+    val hasPending_ = _import "g_file_enumerator_has_pending" : GioFileEnumeratorClass.FFI.non_opt GioFileEnumeratorClass.FFI.p -> GBool.FFI.val_;
+    val isClosed_ = _import "g_file_enumerator_is_closed" : GioFileEnumeratorClass.FFI.non_opt GioFileEnumeratorClass.FFI.p -> GBool.FFI.val_;
     val iterate_ =
       fn
         x1
@@ -54,11 +54,11 @@ structure GioFileEnumerator :>
          & x5 =>
           (
             _import "g_file_enumerator_iterate" :
-              GioFileEnumeratorClass.FFI.notnull GioFileEnumeratorClass.FFI.p
-               * (unit, GioFileInfoClass.FFI.notnull) GioFileInfoClass.FFI.r
-               * (unit, GioFileClass.FFI.notnull) GioFileClass.FFI.r
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioFileEnumeratorClass.FFI.non_opt GioFileEnumeratorClass.FFI.p
+               * (GioFileInfoClass.FFI.opt, GioFileInfoClass.FFI.non_opt) GioFileInfoClass.FFI.r
+               * (GioFileClass.FFI.opt, GioFileClass.FFI.non_opt) GioFileClass.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -75,17 +75,17 @@ structure GioFileEnumerator :>
          & x3 =>
           (
             _import "g_file_enumerator_next_file" :
-              GioFileEnumeratorClass.FFI.notnull GioFileEnumeratorClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> unit GioFileInfoClass.FFI.p;
+              GioFileEnumeratorClass.FFI.non_opt GioFileEnumeratorClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioFileInfoClass.FFI.opt GioFileInfoClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val setPending_ = fn x1 & x2 => (_import "g_file_enumerator_set_pending" : GioFileEnumeratorClass.FFI.notnull GioFileEnumeratorClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPending_ = fn x1 & x2 => (_import "g_file_enumerator_set_pending" : GioFileEnumeratorClass.FFI.non_opt GioFileEnumeratorClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioFileEnumeratorClass.class
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type 'a file_info_class = 'a GioFileInfoClass.class

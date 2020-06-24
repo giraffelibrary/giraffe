@@ -1,15 +1,15 @@
 structure Pango : PANGO =
   struct
-    val configKeyGet_ = _import "mlton_pango_config_key_get" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val configKeyGetSystem_ = _import "mlton_pango_config_key_get_system" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val extentsToPixels_ = fn x1 & x2 => (_import "pango_extents_to_pixels" : unit PangoRectangleRecord.FFI.p * unit PangoRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val configKeyGet_ = _import "mlton_pango_config_key_get" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val configKeyGetSystem_ = _import "mlton_pango_config_key_get_system" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val extentsToPixels_ = fn x1 & x2 => (_import "pango_extents_to_pixels" : PangoRectangleRecord.FFI.opt PangoRectangleRecord.FFI.p * PangoRectangleRecord.FFI.opt PangoRectangleRecord.FFI.p -> unit;) (x1, x2)
     val findBaseDir_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_pango_find_base_dir" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                -> PangoDirection.FFI.val_;
           )
@@ -27,7 +27,7 @@ structure Pango : PANGO =
           (
             _import "mlton_pango_find_paragraph_boundary" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.ref_
                * GInt.FFI.ref_
@@ -40,8 +40,8 @@ structure Pango : PANGO =
               x4,
               x5
             )
-    val getLibSubdirectory_ = _import "pango_get_lib_subdirectory" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getSysconfSubdirectory_ = _import "pango_get_sysconf_subdirectory" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getLibSubdirectory_ = _import "pango_get_lib_subdirectory" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getSysconfSubdirectory_ = _import "pango_get_sysconf_subdirectory" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val isZeroWidth_ = _import "pango_is_zero_width" : GChar.FFI.val_ -> GBool.FFI.val_;
     val lookupAliases_ =
       fn
@@ -51,9 +51,9 @@ structure Pango : PANGO =
           (
             _import "mlton_pango_lookup_aliases" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8CPtrArrayN.MLton.r1
-               * (unit, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
+               * (Utf8CPtrArrayN.FFI.opt, Utf8CPtrArrayN.FFI.non_opt) Utf8CPtrArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -73,12 +73,12 @@ structure Pango : PANGO =
          & x6 =>
           (
             _import "mlton_pango_markup_parser_finish" :
-              GLibMarkupParseContextRecord.FFI.notnull GLibMarkupParseContextRecord.FFI.p
-               * (unit, PangoAttrListRecord.FFI.notnull) PangoAttrListRecord.FFI.r
+              GLibMarkupParseContextRecord.FFI.non_opt GLibMarkupParseContextRecord.FFI.p
+               * (PangoAttrListRecord.FFI.opt, PangoAttrListRecord.FFI.non_opt) PangoAttrListRecord.FFI.r
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
                * GChar.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -89,7 +89,7 @@ structure Pango : PANGO =
               x5,
               x6
             )
-    val markupParserNew_ = _import "pango_markup_parser_new" : GChar.FFI.val_ -> GLibMarkupParseContextRecord.FFI.notnull GLibMarkupParseContextRecord.FFI.p;
+    val markupParserNew_ = _import "pango_markup_parser_new" : GChar.FFI.val_ -> GLibMarkupParseContextRecord.FFI.non_opt GLibMarkupParseContextRecord.FFI.p;
     val parseEnum_ =
       fn
         x1
@@ -101,11 +101,11 @@ structure Pango : PANGO =
             _import "mlton_pango_parse_enum" :
               GObjectType.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.ref_
                * GBool.FFI.val_
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -129,14 +129,14 @@ structure Pango : PANGO =
           (
             _import "mlton_pango_parse_markup" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GChar.FFI.val_
-               * (unit, PangoAttrListRecord.FFI.notnull) PangoAttrListRecord.FFI.r
+               * (PangoAttrListRecord.FFI.opt, PangoAttrListRecord.FFI.non_opt) PangoAttrListRecord.FFI.r
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
                * GChar.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -158,7 +158,7 @@ structure Pango : PANGO =
           (
             _import "mlton_pango_parse_stretch" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * PangoStretch.FFI.ref_
                * GBool.FFI.val_
                -> GBool.FFI.val_;
@@ -177,7 +177,7 @@ structure Pango : PANGO =
           (
             _import "mlton_pango_parse_style" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * PangoStyle.FFI.ref_
                * GBool.FFI.val_
                -> GBool.FFI.val_;
@@ -196,7 +196,7 @@ structure Pango : PANGO =
           (
             _import "mlton_pango_parse_variant" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * PangoVariant.FFI.ref_
                * GBool.FFI.val_
                -> GBool.FFI.val_;
@@ -215,7 +215,7 @@ structure Pango : PANGO =
           (
             _import "mlton_pango_parse_weight" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * PangoWeight.FFI.ref_
                * GBool.FFI.val_
                -> GBool.FFI.val_;
@@ -238,13 +238,13 @@ structure Pango : PANGO =
           (
             _import "mlton_pango_shape_full" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
-               * PangoAnalysisRecord.FFI.notnull PangoAnalysisRecord.FFI.p
-               * PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p
+               * PangoAnalysisRecord.FFI.non_opt PangoAnalysisRecord.FFI.p
+               * PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p
                -> unit;
           )
             (
@@ -257,8 +257,8 @@ structure Pango : PANGO =
               x7,
               x8
             )
-    val splitFileList_ = _import "mlton_pango_split_file_list" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val trimString_ = _import "mlton_pango_trim_string" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val splitFileList_ = _import "mlton_pango_split_file_list" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val trimString_ = _import "mlton_pango_trim_string" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val unicharDirection_ = _import "pango_unichar_direction" : GChar.FFI.val_ -> PangoDirection.FFI.val_;
     val unitsFromDouble_ = _import "pango_units_from_double" : GDouble.FFI.val_ -> GInt.FFI.val_;
     val unitsToDouble_ = _import "pango_units_to_double" : GInt.FFI.val_ -> GDouble.FFI.val_;
@@ -273,14 +273,14 @@ structure Pango : PANGO =
               GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> unit Utf8.FFI.out_p;
+               -> Utf8.FFI.opt Utf8.FFI.out_p;
           )
             (
               x1,
               x2,
               x3
             )
-    val versionString_ = _import "pango_version_string" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val versionString_ = _import "pango_version_string" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     structure Glyph = PangoGlyph
     structure GlyphUnit = PangoGlyphUnit
     structure Alignment = PangoAlignment

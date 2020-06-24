@@ -15,8 +15,8 @@ structure GtkMenuShell :>
          & x3 =>
           (
             _import "gtk_menu_shell_activate_item" :
-              GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -25,7 +25,7 @@ structure GtkMenuShell :>
               x2,
               x3
             )
-    val append_ = fn x1 & x2 => (_import "gtk_menu_shell_append" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p * GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit;) (x1, x2)
+    val append_ = fn x1 & x2 => (_import "gtk_menu_shell_append" : GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p * GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p -> unit;) (x1, x2)
     val bindModel_ =
       fn
         x1
@@ -34,10 +34,10 @@ structure GtkMenuShell :>
          & x5 =>
           (
             _import "mlton_gtk_menu_shell_bind_model" :
-              GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p
-               * unit GioMenuModelClass.FFI.p
+              GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p
+               * GioMenuModelClass.FFI.opt GioMenuModelClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GBool.FFI.val_
                -> unit;
           )
@@ -48,12 +48,12 @@ structure GtkMenuShell :>
               x4,
               x5
             )
-    val cancel_ = _import "gtk_menu_shell_cancel" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p -> unit;
-    val deactivate_ = _import "gtk_menu_shell_deactivate" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p -> unit;
-    val deselect_ = _import "gtk_menu_shell_deselect" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p -> unit;
-    val getParentShell_ = _import "gtk_menu_shell_get_parent_shell" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getSelectedItem_ = _import "gtk_menu_shell_get_selected_item" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getTakeFocus_ = _import "gtk_menu_shell_get_take_focus" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p -> GBool.FFI.val_;
+    val cancel_ = _import "gtk_menu_shell_cancel" : GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p -> unit;
+    val deactivate_ = _import "gtk_menu_shell_deactivate" : GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p -> unit;
+    val deselect_ = _import "gtk_menu_shell_deselect" : GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p -> unit;
+    val getParentShell_ = _import "gtk_menu_shell_get_parent_shell" : GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getSelectedItem_ = _import "gtk_menu_shell_get_selected_item" : GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getTakeFocus_ = _import "gtk_menu_shell_get_take_focus" : GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p -> GBool.FFI.val_;
     val insert_ =
       fn
         x1
@@ -61,8 +61,8 @@ structure GtkMenuShell :>
          & x3 =>
           (
             _import "gtk_menu_shell_insert" :
-              GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                -> unit;
           )
@@ -71,10 +71,10 @@ structure GtkMenuShell :>
               x2,
               x3
             )
-    val prepend_ = fn x1 & x2 => (_import "gtk_menu_shell_prepend" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val selectFirst_ = fn x1 & x2 => (_import "gtk_menu_shell_select_first" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val selectItem_ = fn x1 & x2 => (_import "gtk_menu_shell_select_item" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setTakeFocus_ = fn x1 & x2 => (_import "gtk_menu_shell_set_take_focus" : GtkMenuShellClass.FFI.notnull GtkMenuShellClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val prepend_ = fn x1 & x2 => (_import "gtk_menu_shell_prepend" : GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val selectFirst_ = fn x1 & x2 => (_import "gtk_menu_shell_select_first" : GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val selectItem_ = fn x1 & x2 => (_import "gtk_menu_shell_select_item" : GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setTakeFocus_ = fn x1 & x2 => (_import "gtk_menu_shell_set_take_focus" : GtkMenuShellClass.FFI.non_opt GtkMenuShellClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkMenuShellClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a menu_item_class = 'a GtkMenuItemClass.class

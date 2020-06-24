@@ -5,8 +5,8 @@ structure GtkRecentManager :>
     where type recent_info_t = GtkRecentInfoRecord.t =
   struct
     val getType_ = _import "gtk_recent_manager_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_recent_manager_new" : unit -> GtkRecentManagerClass.FFI.notnull GtkRecentManagerClass.FFI.p;
-    val getDefault_ = _import "gtk_recent_manager_get_default" : unit -> GtkRecentManagerClass.FFI.notnull GtkRecentManagerClass.FFI.p;
+    val new_ = _import "gtk_recent_manager_new" : unit -> GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p;
+    val getDefault_ = _import "gtk_recent_manager_get_default" : unit -> GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p;
     val addFull_ =
       fn
         x1
@@ -14,10 +14,10 @@ structure GtkRecentManager :>
          & x4 =>
           (
             _import "mlton_gtk_recent_manager_add_full" :
-              GtkRecentManagerClass.FFI.notnull GtkRecentManagerClass.FFI.p
+              GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GtkRecentDataRecord.FFI.notnull GtkRecentDataRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GtkRecentDataRecord.FFI.non_opt GtkRecentDataRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -31,9 +31,9 @@ structure GtkRecentManager :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_recent_manager_add_item" :
-              GtkRecentManagerClass.FFI.notnull GtkRecentManagerClass.FFI.p
+              GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -46,9 +46,9 @@ structure GtkRecentManager :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_recent_manager_has_item" :
-              GtkRecentManagerClass.FFI.notnull GtkRecentManagerClass.FFI.p
+              GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -63,11 +63,11 @@ structure GtkRecentManager :>
          & x4 =>
           (
             _import "mlton_gtk_recent_manager_lookup_item" :
-              GtkRecentManagerClass.FFI.notnull GtkRecentManagerClass.FFI.p
+              GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> unit GtkRecentInfoRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GtkRecentInfoRecord.FFI.opt GtkRecentInfoRecord.FFI.p;
           )
             (
               x1,
@@ -83,12 +83,12 @@ structure GtkRecentManager :>
          & x6 =>
           (
             _import "mlton_gtk_recent_manager_move_item" :
-              GtkRecentManagerClass.FFI.notnull GtkRecentManagerClass.FFI.p
+              GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -99,7 +99,7 @@ structure GtkRecentManager :>
               x5,
               x6
             )
-    val purgeItems_ = fn x1 & x2 => (_import "gtk_recent_manager_purge_items" : GtkRecentManagerClass.FFI.notnull GtkRecentManagerClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GInt32.FFI.val_;) (x1, x2)
+    val purgeItems_ = fn x1 & x2 => (_import "gtk_recent_manager_purge_items" : GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GInt32.FFI.val_;) (x1, x2)
     val removeItem_ =
       fn
         x1
@@ -107,10 +107,10 @@ structure GtkRecentManager :>
          & x4 =>
           (
             _import "mlton_gtk_recent_manager_remove_item" :
-              GtkRecentManagerClass.FFI.notnull GtkRecentManagerClass.FFI.p
+              GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

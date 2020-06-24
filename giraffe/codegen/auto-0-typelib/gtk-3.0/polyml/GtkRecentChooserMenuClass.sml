@@ -1,7 +1,8 @@
 structure GtkRecentChooserMenuClass :>
   GTK_RECENT_CHOOSER_MENU_CLASS
     where type 'a menu_class = 'a GtkMenuClass.class
-    where type C.notnull = GtkMenuClass.C.notnull
+    where type C.opt = GtkMenuClass.C.opt
+    where type C.non_opt = GtkMenuClass.C.non_opt
     where type 'a C.p = 'a GtkMenuClass.C.p =
   struct
     type 'a menu_class = 'a GtkMenuClass.class

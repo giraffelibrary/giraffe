@@ -9,13 +9,15 @@ structure GLibChildWatchFunc :>
     structure C =
       struct
         structure Pointer = CPointerInternal
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
       end
 
     structure FFI =
       struct
-        type notnull = C.notnull
+        type opt = C.opt
+        type non_opt = C.non_opt
         type 'a p = 'a C.p
 
         type callback = ((GLibPid.FFI.val_, GInt32.FFI.val_) pair -> unit) PolyMLFFI.closure

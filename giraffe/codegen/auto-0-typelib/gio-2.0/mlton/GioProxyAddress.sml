@@ -16,18 +16,18 @@ structure GioProxyAddress :>
          & (x10, x11) =>
           (
             _import "mlton_g_proxy_address_new" :
-              GioInetAddressClass.FFI.notnull GioInetAddressClass.FFI.p
+              GioInetAddressClass.FFI.non_opt GioInetAddressClass.FFI.p
                * GUInt16.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt16.FFI.val_
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p;
           )
             (
               x1,
@@ -42,13 +42,13 @@ structure GioProxyAddress :>
               x10,
               x11
             )
-    val getDestinationHostname_ = _import "g_proxy_address_get_destination_hostname" : GioProxyAddressClass.FFI.notnull GioProxyAddressClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getDestinationPort_ = _import "g_proxy_address_get_destination_port" : GioProxyAddressClass.FFI.notnull GioProxyAddressClass.FFI.p -> GUInt16.FFI.val_;
-    val getDestinationProtocol_ = _import "g_proxy_address_get_destination_protocol" : GioProxyAddressClass.FFI.notnull GioProxyAddressClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPassword_ = _import "g_proxy_address_get_password" : GioProxyAddressClass.FFI.notnull GioProxyAddressClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getProtocol_ = _import "g_proxy_address_get_protocol" : GioProxyAddressClass.FFI.notnull GioProxyAddressClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getUri_ = _import "g_proxy_address_get_uri" : GioProxyAddressClass.FFI.notnull GioProxyAddressClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getUsername_ = _import "g_proxy_address_get_username" : GioProxyAddressClass.FFI.notnull GioProxyAddressClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getDestinationHostname_ = _import "g_proxy_address_get_destination_hostname" : GioProxyAddressClass.FFI.non_opt GioProxyAddressClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getDestinationPort_ = _import "g_proxy_address_get_destination_port" : GioProxyAddressClass.FFI.non_opt GioProxyAddressClass.FFI.p -> GUInt16.FFI.val_;
+    val getDestinationProtocol_ = _import "g_proxy_address_get_destination_protocol" : GioProxyAddressClass.FFI.non_opt GioProxyAddressClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPassword_ = _import "g_proxy_address_get_password" : GioProxyAddressClass.FFI.non_opt GioProxyAddressClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getProtocol_ = _import "g_proxy_address_get_protocol" : GioProxyAddressClass.FFI.non_opt GioProxyAddressClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getUri_ = _import "g_proxy_address_get_uri" : GioProxyAddressClass.FFI.non_opt GioProxyAddressClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getUsername_ = _import "g_proxy_address_get_username" : GioProxyAddressClass.FFI.non_opt GioProxyAddressClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     type 'a class = 'a GioProxyAddressClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type 'a inet_address_class = 'a GioInetAddressClass.class

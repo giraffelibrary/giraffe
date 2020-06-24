@@ -1,7 +1,8 @@
 structure GioUnixFDMessageClass :>
   GIO_UNIX_F_D_MESSAGE_CLASS
     where type 'a socket_control_message_class = 'a GioSocketControlMessageClass.class
-    where type C.notnull = GioSocketControlMessageClass.C.notnull
+    where type C.opt = GioSocketControlMessageClass.C.opt
+    where type C.non_opt = GioSocketControlMessageClass.C.non_opt
     where type 'a C.p = 'a GioSocketControlMessageClass.C.p =
   struct
     type 'a socket_control_message_class = 'a GioSocketControlMessageClass.class

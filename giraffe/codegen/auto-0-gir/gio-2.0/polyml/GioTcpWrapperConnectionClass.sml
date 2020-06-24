@@ -1,7 +1,8 @@
 structure GioTcpWrapperConnectionClass :>
   GIO_TCP_WRAPPER_CONNECTION_CLASS
     where type 'a tcp_connection_class = 'a GioTcpConnectionClass.class
-    where type C.notnull = GioTcpConnectionClass.C.notnull
+    where type C.opt = GioTcpConnectionClass.C.opt
+    where type C.non_opt = GioTcpConnectionClass.C.non_opt
     where type 'a C.p = 'a GioTcpConnectionClass.C.p =
   struct
     type 'a tcp_connection_class = 'a GioTcpConnectionClass.class

@@ -15,11 +15,11 @@ structure GLibRegex :>
           (
             _import "mlton_g_regex_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GLibRegexCompileFlags.FFI.val_
                * GLibRegexMatchFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> unit GLibRegexRecord.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GLibRegexRecord.FFI.opt GLibRegexRecord.FFI.p;
           )
             (
               x1,
@@ -28,21 +28,21 @@ structure GLibRegex :>
               x4,
               x5
             )
-    val getCaptureCount_ = _import "g_regex_get_capture_count" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> GInt.FFI.val_;
-    val getCompileFlags_ = _import "g_regex_get_compile_flags" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> GLibRegexCompileFlags.FFI.val_;
-    val getHasCrOrLf_ = _import "g_regex_get_has_cr_or_lf" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> GBool.FFI.val_;
-    val getMatchFlags_ = _import "g_regex_get_match_flags" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> GLibRegexMatchFlags.FFI.val_;
-    val getMaxBackref_ = _import "g_regex_get_max_backref" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> GInt.FFI.val_;
-    val getMaxLookbehind_ = _import "g_regex_get_max_lookbehind" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> GInt.FFI.val_;
-    val getPattern_ = _import "g_regex_get_pattern" : GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getCaptureCount_ = _import "g_regex_get_capture_count" : GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p -> GInt.FFI.val_;
+    val getCompileFlags_ = _import "g_regex_get_compile_flags" : GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p -> GLibRegexCompileFlags.FFI.val_;
+    val getHasCrOrLf_ = _import "g_regex_get_has_cr_or_lf" : GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p -> GBool.FFI.val_;
+    val getMatchFlags_ = _import "g_regex_get_match_flags" : GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p -> GLibRegexMatchFlags.FFI.val_;
+    val getMaxBackref_ = _import "g_regex_get_max_backref" : GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p -> GInt.FFI.val_;
+    val getMaxLookbehind_ = _import "g_regex_get_max_lookbehind" : GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p -> GInt.FFI.val_;
+    val getPattern_ = _import "g_regex_get_pattern" : GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getStringNumber_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_regex_get_string_number" :
-              GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p
+              GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GInt.FFI.val_;
           )
             (
@@ -58,11 +58,11 @@ structure GLibRegex :>
          & x5 =>
           (
             _import "mlton_g_regex_match" :
-              GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p
+              GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GLibRegexMatchFlags.FFI.val_
-               * (unit, GLibMatchInfoRecord.FFI.notnull) GLibMatchInfoRecord.FFI.r
+               * (GLibMatchInfoRecord.FFI.opt, GLibMatchInfoRecord.FFI.non_opt) GLibMatchInfoRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -80,11 +80,11 @@ structure GLibRegex :>
          & x5 =>
           (
             _import "mlton_g_regex_match_all" :
-              GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p
+              GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GLibRegexMatchFlags.FFI.val_
-               * (unit, GLibMatchInfoRecord.FFI.notnull) GLibMatchInfoRecord.FFI.r
+               * (GLibMatchInfoRecord.FFI.opt, GLibMatchInfoRecord.FFI.non_opt) GLibMatchInfoRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -105,14 +105,14 @@ structure GLibRegex :>
          & x8 =>
           (
             _import "mlton_g_regex_match_all_full" :
-              GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p
+              GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p
                * Utf8CPtrArrayN.MLton.p1
-               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
+               * Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.MLton.p2
                * GSSize.FFI.val_
                * GInt.FFI.val_
                * GLibRegexMatchFlags.FFI.val_
-               * (unit, GLibMatchInfoRecord.FFI.notnull) GLibMatchInfoRecord.FFI.r
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibMatchInfoRecord.FFI.opt, GLibMatchInfoRecord.FFI.non_opt) GLibMatchInfoRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -136,14 +136,14 @@ structure GLibRegex :>
          & x8 =>
           (
             _import "mlton_g_regex_match_full" :
-              GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p
+              GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p
                * Utf8CPtrArrayN.MLton.p1
-               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
+               * Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.MLton.p2
                * GSSize.FFI.val_
                * GInt.FFI.val_
                * GLibRegexMatchFlags.FFI.val_
-               * (unit, GLibMatchInfoRecord.FFI.notnull) GLibMatchInfoRecord.FFI.r
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibMatchInfoRecord.FFI.opt, GLibMatchInfoRecord.FFI.non_opt) GLibMatchInfoRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -167,16 +167,16 @@ structure GLibRegex :>
          & x9 =>
           (
             _import "mlton_g_regex_replace" :
-              GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p
+              GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p
                * Utf8CPtrArrayN.MLton.p1
-               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
+               * Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.MLton.p2
                * GSSize.FFI.val_
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GLibRegexMatchFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -200,16 +200,16 @@ structure GLibRegex :>
          & x9 =>
           (
             _import "mlton_g_regex_replace_literal" :
-              GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p
+              GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p
                * Utf8CPtrArrayN.MLton.p1
-               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
+               * Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.MLton.p2
                * GSSize.FFI.val_
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GLibRegexMatchFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -229,11 +229,11 @@ structure GLibRegex :>
          & x4 =>
           (
             _import "mlton_g_regex_split" :
-              GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p
+              GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GLibRegexMatchFlags.FFI.val_
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -252,15 +252,15 @@ structure GLibRegex :>
          & x8 =>
           (
             _import "mlton_g_regex_split_full" :
-              GLibRegexRecord.FFI.notnull GLibRegexRecord.FFI.p
+              GLibRegexRecord.FFI.non_opt GLibRegexRecord.FFI.p
                * Utf8CPtrArrayN.MLton.p1
-               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
+               * Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.MLton.p2
                * GSSize.FFI.val_
                * GInt.FFI.val_
                * GLibRegexMatchFlags.FFI.val_
                * GInt.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -280,9 +280,9 @@ structure GLibRegex :>
           (
             _import "mlton_g_regex_check_replacement" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GBool.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -297,9 +297,9 @@ structure GLibRegex :>
           (
             _import "mlton_g_regex_escape_nul" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -315,9 +315,9 @@ structure GLibRegex :>
           (
             _import "mlton_g_regex_match_simple" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GLibRegexCompileFlags.FFI.val_
                * GLibRegexMatchFlags.FFI.val_
                -> GBool.FFI.val_;
@@ -339,12 +339,12 @@ structure GLibRegex :>
           (
             _import "mlton_g_regex_split_simple" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GLibRegexCompileFlags.FFI.val_
                * GLibRegexMatchFlags.FFI.val_
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,

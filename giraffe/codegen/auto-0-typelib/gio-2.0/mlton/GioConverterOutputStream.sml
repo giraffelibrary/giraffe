@@ -6,8 +6,8 @@ structure GioConverterOutputStream :>
     where type 'a converter_class = 'a GioConverterClass.class =
   struct
     val getType_ = _import "g_converter_output_stream_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "g_converter_output_stream_new" : GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p * GioConverterClass.FFI.notnull GioConverterClass.FFI.p -> GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p;) (x1, x2)
-    val getConverter_ = _import "g_converter_output_stream_get_converter" : GioConverterOutputStreamClass.FFI.notnull GioConverterOutputStreamClass.FFI.p -> GioConverterClass.FFI.notnull GioConverterClass.FFI.p;
+    val new_ = fn x1 & x2 => (_import "g_converter_output_stream_new" : GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p * GioConverterClass.FFI.non_opt GioConverterClass.FFI.p -> GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p;) (x1, x2)
+    val getConverter_ = _import "g_converter_output_stream_get_converter" : GioConverterOutputStreamClass.FFI.non_opt GioConverterOutputStreamClass.FFI.p -> GioConverterClass.FFI.non_opt GioConverterClass.FFI.p;
     type 'a class = 'a GioConverterOutputStreamClass.class
     type 'a pollable_output_stream_class = 'a GioPollableOutputStreamClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class

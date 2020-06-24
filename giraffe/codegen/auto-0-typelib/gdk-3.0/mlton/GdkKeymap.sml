@@ -8,11 +8,11 @@ structure GdkKeymap :>
     where type modifier_type_t = GdkModifierType.t =
   struct
     val getType_ = _import "gdk_keymap_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefault_ = _import "gdk_keymap_get_default" : unit -> GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p;
-    val getForDisplay_ = _import "gdk_keymap_get_for_display" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p;
-    val addVirtualModifiers_ = fn x1 & x2 => (_import "gdk_keymap_add_virtual_modifiers" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p * GdkModifierType.FFI.ref_ -> unit;) (x1, x2)
-    val getCapsLockState_ = _import "gdk_keymap_get_caps_lock_state" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p -> GBool.FFI.val_;
-    val getDirection_ = _import "gdk_keymap_get_direction" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p -> PangoDirection.FFI.val_;
+    val getDefault_ = _import "gdk_keymap_get_default" : unit -> GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p;
+    val getForDisplay_ = _import "gdk_keymap_get_for_display" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p;
+    val addVirtualModifiers_ = fn x1 & x2 => (_import "gdk_keymap_add_virtual_modifiers" : GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p * GdkModifierType.FFI.ref_ -> unit;) (x1, x2)
+    val getCapsLockState_ = _import "gdk_keymap_get_caps_lock_state" : GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p -> GBool.FFI.val_;
+    val getDirection_ = _import "gdk_keymap_get_direction" : GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p -> PangoDirection.FFI.val_;
     val getEntriesForKeycode_ =
       fn
         x1
@@ -22,12 +22,12 @@ structure GdkKeymap :>
          & x7 =>
           (
             _import "mlton_gdk_keymap_get_entries_for_keycode" :
-              GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p
+              GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p
                * GUInt32.FFI.val_
                * GdkKeymapKeyRecordCArrayN.MLton.r1
-               * (unit, GdkKeymapKeyRecordCArrayN.FFI.notnull) GdkKeymapKeyRecordCArrayN.MLton.r2
+               * (GdkKeymapKeyRecordCArrayN.FFI.opt, GdkKeymapKeyRecordCArrayN.FFI.non_opt) GdkKeymapKeyRecordCArrayN.MLton.r2
                * GUInt32CArrayN.MLton.r1
-               * (unit, GUInt32CArrayN.FFI.notnull) GUInt32CArrayN.MLton.r2
+               * (GUInt32CArrayN.FFI.opt, GUInt32CArrayN.FFI.non_opt) GUInt32CArrayN.MLton.r2
                * GInt32.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -48,10 +48,10 @@ structure GdkKeymap :>
          & x5 =>
           (
             _import "mlton_gdk_keymap_get_entries_for_keyval" :
-              GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p
+              GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p
                * GUInt32.FFI.val_
                * GdkKeymapKeyRecordCArrayN.MLton.r1
-               * (unit, GdkKeymapKeyRecordCArrayN.FFI.notnull) GdkKeymapKeyRecordCArrayN.MLton.r2
+               * (GdkKeymapKeyRecordCArrayN.FFI.opt, GdkKeymapKeyRecordCArrayN.FFI.non_opt) GdkKeymapKeyRecordCArrayN.MLton.r2
                * GInt32.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -62,13 +62,13 @@ structure GdkKeymap :>
               x4,
               x5
             )
-    val getModifierMask_ = fn x1 & x2 => (_import "gdk_keymap_get_modifier_mask" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p * GdkModifierIntent.FFI.val_ -> GdkModifierType.FFI.val_;) (x1, x2)
-    val getModifierState_ = _import "gdk_keymap_get_modifier_state" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p -> GUInt32.FFI.val_;
-    val getNumLockState_ = _import "gdk_keymap_get_num_lock_state" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p -> GBool.FFI.val_;
-    val getScrollLockState_ = _import "gdk_keymap_get_scroll_lock_state" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p -> GBool.FFI.val_;
-    val haveBidiLayouts_ = _import "gdk_keymap_have_bidi_layouts" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p -> GBool.FFI.val_;
-    val lookupKey_ = fn x1 & x2 => (_import "gdk_keymap_lookup_key" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p * GdkKeymapKeyRecord.FFI.notnull GdkKeymapKeyRecord.FFI.p -> GUInt32.FFI.val_;) (x1, x2)
-    val mapVirtualModifiers_ = fn x1 & x2 => (_import "gdk_keymap_map_virtual_modifiers" : GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p * GdkModifierType.FFI.ref_ -> GBool.FFI.val_;) (x1, x2)
+    val getModifierMask_ = fn x1 & x2 => (_import "gdk_keymap_get_modifier_mask" : GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p * GdkModifierIntent.FFI.val_ -> GdkModifierType.FFI.val_;) (x1, x2)
+    val getModifierState_ = _import "gdk_keymap_get_modifier_state" : GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p -> GUInt32.FFI.val_;
+    val getNumLockState_ = _import "gdk_keymap_get_num_lock_state" : GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p -> GBool.FFI.val_;
+    val getScrollLockState_ = _import "gdk_keymap_get_scroll_lock_state" : GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p -> GBool.FFI.val_;
+    val haveBidiLayouts_ = _import "gdk_keymap_have_bidi_layouts" : GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p -> GBool.FFI.val_;
+    val lookupKey_ = fn x1 & x2 => (_import "gdk_keymap_lookup_key" : GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p * GdkKeymapKeyRecord.FFI.non_opt GdkKeymapKeyRecord.FFI.p -> GUInt32.FFI.val_;) (x1, x2)
+    val mapVirtualModifiers_ = fn x1 & x2 => (_import "gdk_keymap_map_virtual_modifiers" : GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p * GdkModifierType.FFI.ref_ -> GBool.FFI.val_;) (x1, x2)
     val translateKeyboardState_ =
       fn
         x1
@@ -81,7 +81,7 @@ structure GdkKeymap :>
          & x8 =>
           (
             _import "gdk_keymap_translate_keyboard_state" :
-              GdkKeymapClass.FFI.notnull GdkKeymapClass.FFI.p
+              GdkKeymapClass.FFI.non_opt GdkKeymapClass.FFI.p
                * GUInt32.FFI.val_
                * GdkModifierType.FFI.val_
                * GInt32.FFI.val_

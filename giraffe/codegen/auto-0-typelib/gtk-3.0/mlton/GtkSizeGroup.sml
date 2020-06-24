@@ -6,13 +6,13 @@ structure GtkSizeGroup :>
     where type size_group_mode_t = GtkSizeGroupMode.t =
   struct
     val getType_ = _import "gtk_size_group_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_size_group_new" : GtkSizeGroupMode.FFI.val_ -> GtkSizeGroupClass.FFI.notnull GtkSizeGroupClass.FFI.p;
-    val addWidget_ = fn x1 & x2 => (_import "gtk_size_group_add_widget" : GtkSizeGroupClass.FFI.notnull GtkSizeGroupClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val getIgnoreHidden_ = _import "gtk_size_group_get_ignore_hidden" : GtkSizeGroupClass.FFI.notnull GtkSizeGroupClass.FFI.p -> GBool.FFI.val_;
-    val getMode_ = _import "gtk_size_group_get_mode" : GtkSizeGroupClass.FFI.notnull GtkSizeGroupClass.FFI.p -> GtkSizeGroupMode.FFI.val_;
-    val removeWidget_ = fn x1 & x2 => (_import "gtk_size_group_remove_widget" : GtkSizeGroupClass.FFI.notnull GtkSizeGroupClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setIgnoreHidden_ = fn x1 & x2 => (_import "gtk_size_group_set_ignore_hidden" : GtkSizeGroupClass.FFI.notnull GtkSizeGroupClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setMode_ = fn x1 & x2 => (_import "gtk_size_group_set_mode" : GtkSizeGroupClass.FFI.notnull GtkSizeGroupClass.FFI.p * GtkSizeGroupMode.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_size_group_new" : GtkSizeGroupMode.FFI.val_ -> GtkSizeGroupClass.FFI.non_opt GtkSizeGroupClass.FFI.p;
+    val addWidget_ = fn x1 & x2 => (_import "gtk_size_group_add_widget" : GtkSizeGroupClass.FFI.non_opt GtkSizeGroupClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val getIgnoreHidden_ = _import "gtk_size_group_get_ignore_hidden" : GtkSizeGroupClass.FFI.non_opt GtkSizeGroupClass.FFI.p -> GBool.FFI.val_;
+    val getMode_ = _import "gtk_size_group_get_mode" : GtkSizeGroupClass.FFI.non_opt GtkSizeGroupClass.FFI.p -> GtkSizeGroupMode.FFI.val_;
+    val removeWidget_ = fn x1 & x2 => (_import "gtk_size_group_remove_widget" : GtkSizeGroupClass.FFI.non_opt GtkSizeGroupClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setIgnoreHidden_ = fn x1 & x2 => (_import "gtk_size_group_set_ignore_hidden" : GtkSizeGroupClass.FFI.non_opt GtkSizeGroupClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setMode_ = fn x1 & x2 => (_import "gtk_size_group_set_mode" : GtkSizeGroupClass.FFI.non_opt GtkSizeGroupClass.FFI.p * GtkSizeGroupMode.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkSizeGroupClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class

@@ -1,7 +1,8 @@
 structure GtkHScaleClass :>
   GTK_H_SCALE_CLASS
     where type 'a scale_class = 'a GtkScaleClass.class
-    where type C.notnull = GtkScaleClass.C.notnull
+    where type C.opt = GtkScaleClass.C.opt
+    where type C.non_opt = GtkScaleClass.C.non_opt
     where type 'a C.p = 'a GtkScaleClass.C.p =
   struct
     type 'a scale_class = 'a GtkScaleClass.class

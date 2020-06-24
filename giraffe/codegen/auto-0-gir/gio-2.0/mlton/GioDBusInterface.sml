@@ -5,9 +5,9 @@ structure GioDBusInterface :>
     where type 'a d_bus_object_class = 'a GioDBusObjectClass.class =
   struct
     val getType_ = _import "g_dbus_interface_get_type" : unit -> GObjectType.FFI.val_;
-    val getObject_ = _import "g_dbus_interface_dup_object" : GioDBusInterfaceClass.FFI.notnull GioDBusInterfaceClass.FFI.p -> GioDBusObjectClass.FFI.notnull GioDBusObjectClass.FFI.p;
-    val getInfo_ = _import "g_dbus_interface_get_info" : GioDBusInterfaceClass.FFI.notnull GioDBusInterfaceClass.FFI.p -> GioDBusInterfaceInfoRecord.FFI.notnull GioDBusInterfaceInfoRecord.FFI.p;
-    val setObject_ = fn x1 & x2 => (_import "g_dbus_interface_set_object" : GioDBusInterfaceClass.FFI.notnull GioDBusInterfaceClass.FFI.p * unit GioDBusObjectClass.FFI.p -> unit;) (x1, x2)
+    val getObject_ = _import "g_dbus_interface_dup_object" : GioDBusInterfaceClass.FFI.non_opt GioDBusInterfaceClass.FFI.p -> GioDBusObjectClass.FFI.non_opt GioDBusObjectClass.FFI.p;
+    val getInfo_ = _import "g_dbus_interface_get_info" : GioDBusInterfaceClass.FFI.non_opt GioDBusInterfaceClass.FFI.p -> GioDBusInterfaceInfoRecord.FFI.non_opt GioDBusInterfaceInfoRecord.FFI.p;
+    val setObject_ = fn x1 & x2 => (_import "g_dbus_interface_set_object" : GioDBusInterfaceClass.FFI.non_opt GioDBusInterfaceClass.FFI.p * GioDBusObjectClass.FFI.opt GioDBusObjectClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GioDBusInterfaceClass.class
     type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
     type 'a d_bus_object_class = 'a GioDBusObjectClass.class

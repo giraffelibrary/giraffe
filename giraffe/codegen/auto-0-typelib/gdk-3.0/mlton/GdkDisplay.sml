@@ -14,20 +14,20 @@ structure GdkDisplay :>
     where type 'a seat_class = 'a GdkSeatClass.class =
   struct
     val getType_ = _import "gdk_display_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefault_ = _import "gdk_display_get_default" : unit -> unit GdkDisplayClass.FFI.p;
-    val open_ = _import "mlton_gdk_display_open" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit GdkDisplayClass.FFI.p;
-    val openDefaultLibgtkOnly_ = _import "gdk_display_open_default_libgtk_only" : unit -> unit GdkDisplayClass.FFI.p;
-    val beep_ = _import "gdk_display_beep" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> unit;
-    val close_ = _import "gdk_display_close" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> unit;
-    val deviceIsGrabbed_ = fn x1 & x2 => (_import "gdk_display_device_is_grabbed" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val flush_ = _import "gdk_display_flush" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> unit;
-    val getAppLaunchContext_ = _import "gdk_display_get_app_launch_context" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GdkAppLaunchContextClass.FFI.notnull GdkAppLaunchContextClass.FFI.p;
-    val getDefaultCursorSize_ = _import "gdk_display_get_default_cursor_size" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GUInt32.FFI.val_;
-    val getDefaultGroup_ = _import "gdk_display_get_default_group" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val getDefaultScreen_ = _import "gdk_display_get_default_screen" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p;
-    val getDefaultSeat_ = _import "gdk_display_get_default_seat" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p;
-    val getDeviceManager_ = _import "gdk_display_get_device_manager" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> unit GdkDeviceManagerClass.FFI.p;
-    val getEvent_ = _import "gdk_display_get_event" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> unit GdkEvent.FFI.p;
+    val getDefault_ = _import "gdk_display_get_default" : unit -> GdkDisplayClass.FFI.opt GdkDisplayClass.FFI.p;
+    val open_ = _import "mlton_gdk_display_open" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GdkDisplayClass.FFI.opt GdkDisplayClass.FFI.p;
+    val openDefaultLibgtkOnly_ = _import "gdk_display_open_default_libgtk_only" : unit -> GdkDisplayClass.FFI.opt GdkDisplayClass.FFI.p;
+    val beep_ = _import "gdk_display_beep" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> unit;
+    val close_ = _import "gdk_display_close" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> unit;
+    val deviceIsGrabbed_ = fn x1 & x2 => (_import "gdk_display_device_is_grabbed" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val flush_ = _import "gdk_display_flush" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> unit;
+    val getAppLaunchContext_ = _import "gdk_display_get_app_launch_context" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GdkAppLaunchContextClass.FFI.non_opt GdkAppLaunchContextClass.FFI.p;
+    val getDefaultCursorSize_ = _import "gdk_display_get_default_cursor_size" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GUInt32.FFI.val_;
+    val getDefaultGroup_ = _import "gdk_display_get_default_group" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val getDefaultScreen_ = _import "gdk_display_get_default_screen" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p;
+    val getDefaultSeat_ = _import "gdk_display_get_default_seat" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GdkSeatClass.FFI.non_opt GdkSeatClass.FFI.p;
+    val getDeviceManager_ = _import "gdk_display_get_device_manager" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GdkDeviceManagerClass.FFI.opt GdkDeviceManagerClass.FFI.p;
+    val getEvent_ = _import "gdk_display_get_event" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GdkEvent.FFI.opt GdkEvent.FFI.p;
     val getMaximalCursorSize_ =
       fn
         x1
@@ -35,7 +35,7 @@ structure GdkDisplay :>
          & x3 =>
           (
             _import "gdk_display_get_maximal_cursor_size" :
-              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
+              GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
                * GUInt32.FFI.ref_
                * GUInt32.FFI.ref_
                -> unit;
@@ -45,7 +45,7 @@ structure GdkDisplay :>
               x2,
               x3
             )
-    val getMonitor_ = fn x1 & x2 => (_import "gdk_display_get_monitor" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GInt32.FFI.val_ -> unit GdkMonitorClass.FFI.p;) (x1, x2)
+    val getMonitor_ = fn x1 & x2 => (_import "gdk_display_get_monitor" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p * GInt32.FFI.val_ -> GdkMonitorClass.FFI.opt GdkMonitorClass.FFI.p;) (x1, x2)
     val getMonitorAtPoint_ =
       fn
         x1
@@ -53,20 +53,20 @@ structure GdkDisplay :>
          & x3 =>
           (
             _import "gdk_display_get_monitor_at_point" :
-              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
+              GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
-               -> GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p;
+               -> GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getMonitorAtWindow_ = fn x1 & x2 => (_import "gdk_display_get_monitor_at_window" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p;) (x1, x2)
-    val getNMonitors_ = _import "gdk_display_get_n_monitors" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GInt32.FFI.val_;
-    val getNScreens_ = _import "gdk_display_get_n_screens" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GInt32.FFI.val_;
-    val getName_ = _import "gdk_display_get_name" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getMonitorAtWindow_ = fn x1 & x2 => (_import "gdk_display_get_monitor_at_window" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p;) (x1, x2)
+    val getNMonitors_ = _import "gdk_display_get_n_monitors" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GInt32.FFI.val_;
+    val getNScreens_ = _import "gdk_display_get_n_screens" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GInt32.FFI.val_;
+    val getName_ = _import "gdk_display_get_name" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getPointer_ =
       fn
         x1
@@ -76,8 +76,8 @@ structure GdkDisplay :>
          & x5 =>
           (
             _import "gdk_display_get_pointer" :
-              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
-               * (unit, GdkScreenClass.FFI.notnull) GdkScreenClass.FFI.r
+              GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
+               * (GdkScreenClass.FFI.opt, GdkScreenClass.FFI.non_opt) GdkScreenClass.FFI.r
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                * GdkModifierType.FFI.ref_
@@ -90,8 +90,8 @@ structure GdkDisplay :>
               x4,
               x5
             )
-    val getPrimaryMonitor_ = _import "gdk_display_get_primary_monitor" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> unit GdkMonitorClass.FFI.p;
-    val getScreen_ = fn x1 & x2 => (_import "gdk_display_get_screen" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GInt32.FFI.val_ -> GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p;) (x1, x2)
+    val getPrimaryMonitor_ = _import "gdk_display_get_primary_monitor" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GdkMonitorClass.FFI.opt GdkMonitorClass.FFI.p;
+    val getScreen_ = fn x1 & x2 => (_import "gdk_display_get_screen" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p * GInt32.FFI.val_ -> GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p;) (x1, x2)
     val getWindowAtPointer_ =
       fn
         x1
@@ -99,27 +99,27 @@ structure GdkDisplay :>
          & x3 =>
           (
             _import "gdk_display_get_window_at_pointer" :
-              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
+              GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
-               -> unit GdkWindowClass.FFI.p;
+               -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val hasPending_ = _import "gdk_display_has_pending" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
-    val isClosed_ = _import "gdk_display_is_closed" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
-    val keyboardUngrab_ = fn x1 & x2 => (_import "gdk_display_keyboard_ungrab" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val hasPending_ = _import "gdk_display_has_pending" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GBool.FFI.val_;
+    val isClosed_ = _import "gdk_display_is_closed" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GBool.FFI.val_;
+    val keyboardUngrab_ = fn x1 & x2 => (_import "gdk_display_keyboard_ungrab" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
     val notifyStartupComplete_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gdk_display_notify_startup_complete" :
-              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
+              GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -127,13 +127,13 @@ structure GdkDisplay :>
               x2,
               x3
             )
-    val peekEvent_ = _import "gdk_display_peek_event" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> unit GdkEvent.FFI.p;
-    val pointerIsGrabbed_ = _import "gdk_display_pointer_is_grabbed" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
-    val pointerUngrab_ = fn x1 & x2 => (_import "gdk_display_pointer_ungrab" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val putEvent_ = fn x1 & x2 => (_import "gdk_display_put_event" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GdkEvent.FFI.notnull GdkEvent.FFI.p -> unit;) (x1, x2)
-    val requestSelectionNotification_ = fn x1 & x2 => (_import "gdk_display_request_selection_notification" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val setDoubleClickDistance_ = fn x1 & x2 => (_import "gdk_display_set_double_click_distance" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val setDoubleClickTime_ = fn x1 & x2 => (_import "gdk_display_set_double_click_time" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val peekEvent_ = _import "gdk_display_peek_event" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GdkEvent.FFI.opt GdkEvent.FFI.p;
+    val pointerIsGrabbed_ = _import "gdk_display_pointer_is_grabbed" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GBool.FFI.val_;
+    val pointerUngrab_ = fn x1 & x2 => (_import "gdk_display_pointer_ungrab" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val putEvent_ = fn x1 & x2 => (_import "gdk_display_put_event" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p * GdkEvent.FFI.non_opt GdkEvent.FFI.p -> unit;) (x1, x2)
+    val requestSelectionNotification_ = fn x1 & x2 => (_import "gdk_display_request_selection_notification" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val setDoubleClickDistance_ = fn x1 & x2 => (_import "gdk_display_set_double_click_distance" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val setDoubleClickTime_ = fn x1 & x2 => (_import "gdk_display_set_double_click_time" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
     val storeClipboard_ =
       fn
         x1
@@ -143,11 +143,11 @@ structure GdkDisplay :>
          & x6 =>
           (
             _import "mlton_gdk_display_store_clipboard" :
-              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GUInt32.FFI.val_
                * GdkAtomRecordCPtrArrayN.MLton.p1
-               * unit GdkAtomRecordCPtrArrayN.MLton.p2
+               * GdkAtomRecordCPtrArrayN.FFI.opt GdkAtomRecordCPtrArrayN.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -159,14 +159,14 @@ structure GdkDisplay :>
               x5,
               x6
             )
-    val supportsClipboardPersistence_ = _import "gdk_display_supports_clipboard_persistence" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
-    val supportsComposite_ = _import "gdk_display_supports_composite" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
-    val supportsCursorAlpha_ = _import "gdk_display_supports_cursor_alpha" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
-    val supportsCursorColor_ = _import "gdk_display_supports_cursor_color" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
-    val supportsInputShapes_ = _import "gdk_display_supports_input_shapes" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
-    val supportsSelectionNotification_ = _import "gdk_display_supports_selection_notification" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
-    val supportsShapes_ = _import "gdk_display_supports_shapes" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> GBool.FFI.val_;
-    val sync_ = _import "gdk_display_sync" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p -> unit;
+    val supportsClipboardPersistence_ = _import "gdk_display_supports_clipboard_persistence" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GBool.FFI.val_;
+    val supportsComposite_ = _import "gdk_display_supports_composite" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GBool.FFI.val_;
+    val supportsCursorAlpha_ = _import "gdk_display_supports_cursor_alpha" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GBool.FFI.val_;
+    val supportsCursorColor_ = _import "gdk_display_supports_cursor_color" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GBool.FFI.val_;
+    val supportsInputShapes_ = _import "gdk_display_supports_input_shapes" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GBool.FFI.val_;
+    val supportsSelectionNotification_ = _import "gdk_display_supports_selection_notification" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GBool.FFI.val_;
+    val supportsShapes_ = _import "gdk_display_supports_shapes" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> GBool.FFI.val_;
+    val sync_ = _import "gdk_display_sync" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p -> unit;
     val warpPointer_ =
       fn
         x1
@@ -175,8 +175,8 @@ structure GdkDisplay :>
          & x4 =>
           (
             _import "gdk_display_warp_pointer" :
-              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
-               * GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p
+              GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
+               * GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;

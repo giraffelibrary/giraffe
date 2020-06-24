@@ -8,7 +8,7 @@ structure GtkInfoBar :>
     where type message_type_t = GtkMessageType.t =
   struct
     val getType_ = _import "gtk_info_bar_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_info_bar_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_info_bar_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val addActionWidget_ =
       fn
         x1
@@ -16,8 +16,8 @@ structure GtkInfoBar :>
          & x3 =>
           (
             _import "gtk_info_bar_add_action_widget" :
-              GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkInfoBarClass.FFI.non_opt GtkInfoBarClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                -> unit;
           )
@@ -33,11 +33,11 @@ structure GtkInfoBar :>
          & x4 =>
           (
             _import "mlton_gtk_info_bar_add_button" :
-              GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p
+              GtkInfoBarClass.FFI.non_opt GtkInfoBarClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
-               -> GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p;
+               -> GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p;
           )
             (
               x1,
@@ -45,13 +45,13 @@ structure GtkInfoBar :>
               x3,
               x4
             )
-    val getActionArea_ = _import "gtk_info_bar_get_action_area" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getContentArea_ = _import "gtk_info_bar_get_content_area" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getMessageType_ = _import "gtk_info_bar_get_message_type" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p -> GtkMessageType.FFI.val_;
-    val getShowCloseButton_ = _import "gtk_info_bar_get_show_close_button" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p -> GBool.FFI.val_;
-    val response_ = fn x1 & x2 => (_import "gtk_info_bar_response" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setDefaultResponse_ = fn x1 & x2 => (_import "gtk_info_bar_set_default_response" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setMessageType_ = fn x1 & x2 => (_import "gtk_info_bar_set_message_type" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p * GtkMessageType.FFI.val_ -> unit;) (x1, x2)
+    val getActionArea_ = _import "gtk_info_bar_get_action_area" : GtkInfoBarClass.FFI.non_opt GtkInfoBarClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getContentArea_ = _import "gtk_info_bar_get_content_area" : GtkInfoBarClass.FFI.non_opt GtkInfoBarClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getMessageType_ = _import "gtk_info_bar_get_message_type" : GtkInfoBarClass.FFI.non_opt GtkInfoBarClass.FFI.p -> GtkMessageType.FFI.val_;
+    val getShowCloseButton_ = _import "gtk_info_bar_get_show_close_button" : GtkInfoBarClass.FFI.non_opt GtkInfoBarClass.FFI.p -> GBool.FFI.val_;
+    val response_ = fn x1 & x2 => (_import "gtk_info_bar_response" : GtkInfoBarClass.FFI.non_opt GtkInfoBarClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setDefaultResponse_ = fn x1 & x2 => (_import "gtk_info_bar_set_default_response" : GtkInfoBarClass.FFI.non_opt GtkInfoBarClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setMessageType_ = fn x1 & x2 => (_import "gtk_info_bar_set_message_type" : GtkInfoBarClass.FFI.non_opt GtkInfoBarClass.FFI.p * GtkMessageType.FFI.val_ -> unit;) (x1, x2)
     val setResponseSensitive_ =
       fn
         x1
@@ -59,7 +59,7 @@ structure GtkInfoBar :>
          & x3 =>
           (
             _import "gtk_info_bar_set_response_sensitive" :
-              GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p
+              GtkInfoBarClass.FFI.non_opt GtkInfoBarClass.FFI.p
                * GInt.FFI.val_
                * GBool.FFI.val_
                -> unit;
@@ -69,7 +69,7 @@ structure GtkInfoBar :>
               x2,
               x3
             )
-    val setShowCloseButton_ = fn x1 & x2 => (_import "gtk_info_bar_set_show_close_button" : GtkInfoBarClass.FFI.notnull GtkInfoBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowCloseButton_ = fn x1 & x2 => (_import "gtk_info_bar_set_show_close_button" : GtkInfoBarClass.FFI.non_opt GtkInfoBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkInfoBarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

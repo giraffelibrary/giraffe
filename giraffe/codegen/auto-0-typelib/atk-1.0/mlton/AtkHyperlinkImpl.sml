@@ -4,7 +4,7 @@ structure AtkHyperlinkImpl :>
     where type 'a hyperlink_class = 'a AtkHyperlinkClass.class =
   struct
     val getType_ = _import "atk_hyperlink_impl_get_type" : unit -> GObjectType.FFI.val_;
-    val getHyperlink_ = _import "atk_hyperlink_impl_get_hyperlink" : AtkHyperlinkImplClass.FFI.notnull AtkHyperlinkImplClass.FFI.p -> AtkHyperlinkClass.FFI.notnull AtkHyperlinkClass.FFI.p;
+    val getHyperlink_ = _import "atk_hyperlink_impl_get_hyperlink" : AtkHyperlinkImplClass.FFI.non_opt AtkHyperlinkImplClass.FFI.p -> AtkHyperlinkClass.FFI.non_opt AtkHyperlinkClass.FFI.p;
     type 'a class = 'a AtkHyperlinkImplClass.class
     type 'a hyperlink_class = 'a AtkHyperlinkClass.class
     type t = base class

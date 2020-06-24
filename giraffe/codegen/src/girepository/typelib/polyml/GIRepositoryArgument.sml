@@ -2,11 +2,12 @@ structure GIRepositoryArgument :>
   G_I_REPOSITORY_ARGUMENT
     where type typetag_t = GIRepositoryTypeTag.t =
   struct
-    type notnull = CPointer.notnull
+    type opt = CPointer.opt
+    type non_opt = CPointer.non_opt
     type 'a p = 'a CPointer.p
 
-    val cPtr = CPointer.PolyML.cVal : notnull p PolyMLFFI.conversion
-    val cOptPtr = CPointer.PolyML.cOptVal : unit p PolyMLFFI.conversion
+    val cPtr = CPointer.PolyML.cVal : non_opt p PolyMLFFI.conversion
+    val cOptPtr = CPointer.PolyML.cOptVal : opt p PolyMLFFI.conversion
 
     local
       open PolyMLFFI
@@ -135,7 +136,8 @@ structure GIRepositoryArgument :>
     structure FFI =
       struct
         structure Pointer = CPointer
-        type notnull = notnull
+        type opt = opt
+        type non_opt = non_opt
         type 'a p = 'a p
 
         fun withNewPtr f () =

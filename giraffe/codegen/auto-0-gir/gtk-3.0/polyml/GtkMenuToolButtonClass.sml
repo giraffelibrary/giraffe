@@ -1,7 +1,8 @@
 structure GtkMenuToolButtonClass :>
   GTK_MENU_TOOL_BUTTON_CLASS
     where type 'a tool_button_class = 'a GtkToolButtonClass.class
-    where type C.notnull = GtkToolButtonClass.C.notnull
+    where type C.opt = GtkToolButtonClass.C.opt
+    where type C.non_opt = GtkToolButtonClass.C.non_opt
     where type 'a C.p = 'a GtkToolButtonClass.C.p =
   struct
     type 'a tool_button_class = 'a GtkToolButtonClass.class

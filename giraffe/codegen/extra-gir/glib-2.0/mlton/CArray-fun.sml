@@ -11,7 +11,8 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
     where type sequence = CArrayType.t
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
     where type 'a C.p = 'a CArrayType.p
-    where type C.notnull = CArrayType.notnull
+    where type C.opt = CArrayType.opt
+    where type C.non_opt = CArrayType.non_opt
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
     structure Array = CArray(CArrayType)
@@ -23,11 +24,11 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
  * 
     val getValue_ =
       _import "g_value_get_pointer" :
-        GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.notnull FFI.out_p;
+        GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.non_opt FFI.out_p;
 
     val getOptValue_ =
       _import "g_value_get_pointer" :
-        GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit FFI.out_p;
+        GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit FFI.out_p;
 
     type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
 

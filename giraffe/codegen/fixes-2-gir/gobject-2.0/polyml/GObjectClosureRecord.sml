@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2015-2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2015-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -10,7 +10,8 @@ structure GObjectClosureRecord :>
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
     structure Pointer = CPointerInternal
-    type notnull = Pointer.notnull
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
     val cPtr = Pointer.PolyML.cVal
     local
@@ -58,7 +59,8 @@ structure GObjectClosureRecord :>
     structure Record =
       BoxedRecord(
         structure Pointer = Pointer
-        type notnull = notnull
+        type opt = opt
+        type non_opt = non_opt
         type 'a p = 'a p
         val dup_ = dup_
         val take_ = take_

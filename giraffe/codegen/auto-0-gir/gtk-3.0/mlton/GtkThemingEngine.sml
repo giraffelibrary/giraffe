@@ -10,7 +10,7 @@ structure GtkThemingEngine :>
     where type state_type_t = GtkStateType.t =
   struct
     val getType_ = _import "gtk_theming_engine_get_type" : unit -> GObjectType.FFI.val_;
-    val load_ = _import "mlton_gtk_theming_engine_load" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit GtkThemingEngineClass.FFI.p;
+    val load_ = _import "mlton_gtk_theming_engine_load" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkThemingEngineClass.FFI.opt GtkThemingEngineClass.FFI.p;
     val getBackgroundColor_ =
       fn
         x1
@@ -18,9 +18,9 @@ structure GtkThemingEngine :>
          & x3 =>
           (
             _import "gtk_theming_engine_get_background_color" :
-              GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p
+              GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p
                * GtkStateFlags.FFI.val_
-               * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p
+               * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p
                -> unit;
           )
             (
@@ -35,9 +35,9 @@ structure GtkThemingEngine :>
          & x3 =>
           (
             _import "gtk_theming_engine_get_border" :
-              GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p
+              GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p
                * GtkStateFlags.FFI.val_
-               * GtkBorderRecord.FFI.notnull GtkBorderRecord.FFI.p
+               * GtkBorderRecord.FFI.non_opt GtkBorderRecord.FFI.p
                -> unit;
           )
             (
@@ -52,9 +52,9 @@ structure GtkThemingEngine :>
          & x3 =>
           (
             _import "gtk_theming_engine_get_border_color" :
-              GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p
+              GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p
                * GtkStateFlags.FFI.val_
-               * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p
+               * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p
                -> unit;
           )
             (
@@ -69,9 +69,9 @@ structure GtkThemingEngine :>
          & x3 =>
           (
             _import "gtk_theming_engine_get_color" :
-              GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p
+              GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p
                * GtkStateFlags.FFI.val_
-               * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p
+               * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p
                -> unit;
           )
             (
@@ -79,9 +79,9 @@ structure GtkThemingEngine :>
               x2,
               x3
             )
-    val getDirection_ = _import "gtk_theming_engine_get_direction" : GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p -> GtkTextDirection.FFI.val_;
-    val getFont_ = fn x1 & x2 => (_import "gtk_theming_engine_get_font" : GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p * GtkStateFlags.FFI.val_ -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;) (x1, x2)
-    val getJunctionSides_ = _import "gtk_theming_engine_get_junction_sides" : GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p -> GtkJunctionSides.FFI.val_;
+    val getDirection_ = _import "gtk_theming_engine_get_direction" : GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p -> GtkTextDirection.FFI.val_;
+    val getFont_ = fn x1 & x2 => (_import "gtk_theming_engine_get_font" : GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p * GtkStateFlags.FFI.val_ -> PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p;) (x1, x2)
+    val getJunctionSides_ = _import "gtk_theming_engine_get_junction_sides" : GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p -> GtkJunctionSides.FFI.val_;
     val getMargin_ =
       fn
         x1
@@ -89,9 +89,9 @@ structure GtkThemingEngine :>
          & x3 =>
           (
             _import "gtk_theming_engine_get_margin" :
-              GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p
+              GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p
                * GtkStateFlags.FFI.val_
-               * GtkBorderRecord.FFI.notnull GtkBorderRecord.FFI.p
+               * GtkBorderRecord.FFI.non_opt GtkBorderRecord.FFI.p
                -> unit;
           )
             (
@@ -106,9 +106,9 @@ structure GtkThemingEngine :>
          & x3 =>
           (
             _import "gtk_theming_engine_get_padding" :
-              GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p
+              GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p
                * GtkStateFlags.FFI.val_
-               * GtkBorderRecord.FFI.notnull GtkBorderRecord.FFI.p
+               * GtkBorderRecord.FFI.non_opt GtkBorderRecord.FFI.p
                -> unit;
           )
             (
@@ -116,9 +116,9 @@ structure GtkThemingEngine :>
               x2,
               x3
             )
-    val getPath_ = _import "gtk_theming_engine_get_path" : GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p -> GtkWidgetPathRecord.FFI.notnull GtkWidgetPathRecord.FFI.p;
-    val getScreen_ = _import "gtk_theming_engine_get_screen" : GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p -> unit GdkScreenClass.FFI.p;
-    val getState_ = _import "gtk_theming_engine_get_state" : GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p -> GtkStateFlags.FFI.val_;
+    val getPath_ = _import "gtk_theming_engine_get_path" : GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p -> GtkWidgetPathRecord.FFI.non_opt GtkWidgetPathRecord.FFI.p;
+    val getScreen_ = _import "gtk_theming_engine_get_screen" : GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p -> GdkScreenClass.FFI.opt GdkScreenClass.FFI.p;
+    val getState_ = _import "gtk_theming_engine_get_state" : GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p -> GtkStateFlags.FFI.val_;
     val getStyleProperty_ =
       fn
         x1
@@ -126,10 +126,10 @@ structure GtkThemingEngine :>
          & x4 =>
           (
             _import "mlton_gtk_theming_engine_get_style_property" :
-              GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p
+              GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -143,9 +143,9 @@ structure GtkThemingEngine :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_theming_engine_has_class" :
-              GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p
+              GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -160,9 +160,9 @@ structure GtkThemingEngine :>
          & x4 =>
           (
             _import "mlton_gtk_theming_engine_has_region" :
-              GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p
+              GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GtkRegionFlags.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -179,10 +179,10 @@ structure GtkThemingEngine :>
          & x4 =>
           (
             _import "mlton_gtk_theming_engine_lookup_color" :
-              GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p
+              GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -198,7 +198,7 @@ structure GtkThemingEngine :>
          & x3 =>
           (
             _import "gtk_theming_engine_state_is_running" :
-              GtkThemingEngineClass.FFI.notnull GtkThemingEngineClass.FFI.p
+              GtkThemingEngineClass.FFI.non_opt GtkThemingEngineClass.FFI.p
                * GtkStateType.FFI.val_
                * GDouble.FFI.ref_
                -> GBool.FFI.val_;

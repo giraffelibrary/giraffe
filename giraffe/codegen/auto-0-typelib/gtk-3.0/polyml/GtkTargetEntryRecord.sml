@@ -1,7 +1,8 @@
 structure GtkTargetEntryRecord :> GTK_TARGET_ENTRY_RECORD =
   struct
     structure Pointer = CPointerInternal
-    type notnull = Pointer.notnull
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
     val cPtr = Pointer.PolyML.cVal
     local
@@ -14,7 +15,8 @@ structure GtkTargetEntryRecord :> GTK_TARGET_ENTRY_RECORD =
     structure Record =
       BoxedValueRecord(
         structure Pointer = Pointer
-        type notnull = notnull
+        type opt = opt
+        type non_opt = non_opt
         type 'a p = 'a p
         val copy_ = copy_
         val clear_ = clear_

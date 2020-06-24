@@ -13,23 +13,23 @@ structure GioTlsClientConnection :>
          & x3 =>
           (
             _import "g_tls_client_connection_new" :
-              GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p
-               * unit GioSocketConnectableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioTlsClientConnectionClass.FFI.notnull GioTlsClientConnectionClass.FFI.p;
+              GioIOStreamClass.FFI.non_opt GioIOStreamClass.FFI.p
+               * GioSocketConnectableClass.FFI.opt GioSocketConnectableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioTlsClientConnectionClass.FFI.non_opt GioTlsClientConnectionClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val copySessionState_ = fn x1 & x2 => (_import "g_tls_client_connection_copy_session_state" : GioTlsClientConnectionClass.FFI.notnull GioTlsClientConnectionClass.FFI.p * GioTlsClientConnectionClass.FFI.notnull GioTlsClientConnectionClass.FFI.p -> unit;) (x1, x2)
-    val getServerIdentity_ = _import "g_tls_client_connection_get_server_identity" : GioTlsClientConnectionClass.FFI.notnull GioTlsClientConnectionClass.FFI.p -> GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p;
-    val getUseSsl3_ = _import "g_tls_client_connection_get_use_ssl3" : GioTlsClientConnectionClass.FFI.notnull GioTlsClientConnectionClass.FFI.p -> GBool.FFI.val_;
-    val getValidationFlags_ = _import "g_tls_client_connection_get_validation_flags" : GioTlsClientConnectionClass.FFI.notnull GioTlsClientConnectionClass.FFI.p -> GioTlsCertificateFlags.FFI.val_;
-    val setServerIdentity_ = fn x1 & x2 => (_import "g_tls_client_connection_set_server_identity" : GioTlsClientConnectionClass.FFI.notnull GioTlsClientConnectionClass.FFI.p * GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p -> unit;) (x1, x2)
-    val setUseSsl3_ = fn x1 & x2 => (_import "g_tls_client_connection_set_use_ssl3" : GioTlsClientConnectionClass.FFI.notnull GioTlsClientConnectionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setValidationFlags_ = fn x1 & x2 => (_import "g_tls_client_connection_set_validation_flags" : GioTlsClientConnectionClass.FFI.notnull GioTlsClientConnectionClass.FFI.p * GioTlsCertificateFlags.FFI.val_ -> unit;) (x1, x2)
+    val copySessionState_ = fn x1 & x2 => (_import "g_tls_client_connection_copy_session_state" : GioTlsClientConnectionClass.FFI.non_opt GioTlsClientConnectionClass.FFI.p * GioTlsClientConnectionClass.FFI.non_opt GioTlsClientConnectionClass.FFI.p -> unit;) (x1, x2)
+    val getServerIdentity_ = _import "g_tls_client_connection_get_server_identity" : GioTlsClientConnectionClass.FFI.non_opt GioTlsClientConnectionClass.FFI.p -> GioSocketConnectableClass.FFI.non_opt GioSocketConnectableClass.FFI.p;
+    val getUseSsl3_ = _import "g_tls_client_connection_get_use_ssl3" : GioTlsClientConnectionClass.FFI.non_opt GioTlsClientConnectionClass.FFI.p -> GBool.FFI.val_;
+    val getValidationFlags_ = _import "g_tls_client_connection_get_validation_flags" : GioTlsClientConnectionClass.FFI.non_opt GioTlsClientConnectionClass.FFI.p -> GioTlsCertificateFlags.FFI.val_;
+    val setServerIdentity_ = fn x1 & x2 => (_import "g_tls_client_connection_set_server_identity" : GioTlsClientConnectionClass.FFI.non_opt GioTlsClientConnectionClass.FFI.p * GioSocketConnectableClass.FFI.non_opt GioSocketConnectableClass.FFI.p -> unit;) (x1, x2)
+    val setUseSsl3_ = fn x1 & x2 => (_import "g_tls_client_connection_set_use_ssl3" : GioTlsClientConnectionClass.FFI.non_opt GioTlsClientConnectionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setValidationFlags_ = fn x1 & x2 => (_import "g_tls_client_connection_set_validation_flags" : GioTlsClientConnectionClass.FFI.non_opt GioTlsClientConnectionClass.FFI.p * GioTlsCertificateFlags.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioTlsClientConnectionClass.class
     type 'a i_o_stream_class = 'a GioIOStreamClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class

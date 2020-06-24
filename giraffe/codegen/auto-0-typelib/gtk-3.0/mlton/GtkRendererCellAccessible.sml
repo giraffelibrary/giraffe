@@ -4,7 +4,7 @@ structure GtkRendererCellAccessible :>
     where type 'a cell_renderer_class = 'a GtkCellRendererClass.class =
   struct
     val getType_ = _import "gtk_renderer_cell_accessible_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_renderer_cell_accessible_new" : GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
+    val new_ = _import "gtk_renderer_cell_accessible_new" : GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;
     type 'a class = 'a GtkRendererCellAccessibleClass.class
     type 'a cell_renderer_class = 'a GtkCellRendererClass.class
     type t = base class

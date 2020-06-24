@@ -6,17 +6,17 @@ structure GtkLinkButton :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_link_button_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_gtk_link_button_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "mlton_gtk_link_button_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val newWithLabel_ =
       fn
         (x1, x2) & (x3, x4) =>
           (
             _import "mlton_gtk_link_button_new_with_label" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -24,16 +24,16 @@ structure GtkLinkButton :>
               x3,
               x4
             )
-    val getUri_ = _import "gtk_link_button_get_uri" : GtkLinkButtonClass.FFI.notnull GtkLinkButtonClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getVisited_ = _import "gtk_link_button_get_visited" : GtkLinkButtonClass.FFI.notnull GtkLinkButtonClass.FFI.p -> GBool.FFI.val_;
+    val getUri_ = _import "gtk_link_button_get_uri" : GtkLinkButtonClass.FFI.non_opt GtkLinkButtonClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getVisited_ = _import "gtk_link_button_get_visited" : GtkLinkButtonClass.FFI.non_opt GtkLinkButtonClass.FFI.p -> GBool.FFI.val_;
     val setUri_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_link_button_set_uri" :
-              GtkLinkButtonClass.FFI.notnull GtkLinkButtonClass.FFI.p
+              GtkLinkButtonClass.FFI.non_opt GtkLinkButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -41,7 +41,7 @@ structure GtkLinkButton :>
               x2,
               x3
             )
-    val setVisited_ = fn x1 & x2 => (_import "gtk_link_button_set_visited" : GtkLinkButtonClass.FFI.notnull GtkLinkButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setVisited_ = fn x1 & x2 => (_import "gtk_link_button_set_visited" : GtkLinkButtonClass.FFI.non_opt GtkLinkButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkLinkButtonClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

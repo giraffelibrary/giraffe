@@ -3,16 +3,16 @@ structure GtkActionable :>
     where type 'a class = 'a GtkActionableClass.class =
   struct
     val getType_ = _import "gtk_actionable_get_type" : unit -> GObjectType.FFI.val_;
-    val getActionName_ = _import "gtk_actionable_get_action_name" : GtkActionableClass.FFI.notnull GtkActionableClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getActionTargetValue_ = _import "gtk_actionable_get_action_target_value" : GtkActionableClass.FFI.notnull GtkActionableClass.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+    val getActionName_ = _import "gtk_actionable_get_action_name" : GtkActionableClass.FFI.non_opt GtkActionableClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getActionTargetValue_ = _import "gtk_actionable_get_action_target_value" : GtkActionableClass.FFI.non_opt GtkActionableClass.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
     val setActionName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_actionable_set_action_name" :
-              GtkActionableClass.FFI.notnull GtkActionableClass.FFI.p
+              GtkActionableClass.FFI.non_opt GtkActionableClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -20,15 +20,15 @@ structure GtkActionable :>
               x2,
               x3
             )
-    val setActionTargetValue_ = fn x1 & x2 => (_import "gtk_actionable_set_action_target_value" : GtkActionableClass.FFI.notnull GtkActionableClass.FFI.p * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> unit;) (x1, x2)
+    val setActionTargetValue_ = fn x1 & x2 => (_import "gtk_actionable_set_action_target_value" : GtkActionableClass.FFI.non_opt GtkActionableClass.FFI.p * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> unit;) (x1, x2)
     val setDetailedActionName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_actionable_set_detailed_action_name" :
-              GtkActionableClass.FFI.notnull GtkActionableClass.FFI.p
+              GtkActionableClass.FFI.non_opt GtkActionableClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

@@ -1,6 +1,7 @@
 structure GtkSourceTagClass :>
   GTK_SOURCE_TAG_CLASS
-    where type C.notnull = GtkTextTagClass.C.notnull
+    where type C.opt = GtkTextTagClass.C.opt
+    where type C.non_opt = GtkTextTagClass.C.non_opt
     where type 'a C.p = 'a GtkTextTagClass.C.p =
   struct
     open GtkTextTagClass

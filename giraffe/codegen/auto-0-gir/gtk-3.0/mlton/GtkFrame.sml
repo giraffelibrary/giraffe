@@ -6,8 +6,8 @@ structure GtkFrame :>
     where type shadow_type_t = GtkShadowType.t =
   struct
     val getType_ = _import "gtk_frame_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_gtk_frame_new" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getLabel_ = _import "gtk_frame_get_label" : GtkFrameClass.FFI.notnull GtkFrameClass.FFI.p -> unit Utf8.FFI.out_p;
+    val new_ = _import "mlton_gtk_frame_new" : Utf8.MLton.p1 * Utf8.FFI.opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getLabel_ = _import "gtk_frame_get_label" : GtkFrameClass.FFI.non_opt GtkFrameClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
     val getLabelAlign_ =
       fn
         x1
@@ -15,7 +15,7 @@ structure GtkFrame :>
          & x3 =>
           (
             _import "gtk_frame_get_label_align" :
-              GtkFrameClass.FFI.notnull GtkFrameClass.FFI.p
+              GtkFrameClass.FFI.non_opt GtkFrameClass.FFI.p
                * GFloat.FFI.ref_
                * GFloat.FFI.ref_
                -> unit;
@@ -25,16 +25,16 @@ structure GtkFrame :>
               x2,
               x3
             )
-    val getLabelWidget_ = _import "gtk_frame_get_label_widget" : GtkFrameClass.FFI.notnull GtkFrameClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getShadowType_ = _import "gtk_frame_get_shadow_type" : GtkFrameClass.FFI.notnull GtkFrameClass.FFI.p -> GtkShadowType.FFI.val_;
+    val getLabelWidget_ = _import "gtk_frame_get_label_widget" : GtkFrameClass.FFI.non_opt GtkFrameClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getShadowType_ = _import "gtk_frame_get_shadow_type" : GtkFrameClass.FFI.non_opt GtkFrameClass.FFI.p -> GtkShadowType.FFI.val_;
     val setLabel_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_frame_set_label" :
-              GtkFrameClass.FFI.notnull GtkFrameClass.FFI.p
+              GtkFrameClass.FFI.non_opt GtkFrameClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -49,7 +49,7 @@ structure GtkFrame :>
          & x3 =>
           (
             _import "gtk_frame_set_label_align" :
-              GtkFrameClass.FFI.notnull GtkFrameClass.FFI.p
+              GtkFrameClass.FFI.non_opt GtkFrameClass.FFI.p
                * GFloat.FFI.val_
                * GFloat.FFI.val_
                -> unit;
@@ -59,8 +59,8 @@ structure GtkFrame :>
               x2,
               x3
             )
-    val setLabelWidget_ = fn x1 & x2 => (_import "gtk_frame_set_label_widget" : GtkFrameClass.FFI.notnull GtkFrameClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setShadowType_ = fn x1 & x2 => (_import "gtk_frame_set_shadow_type" : GtkFrameClass.FFI.notnull GtkFrameClass.FFI.p * GtkShadowType.FFI.val_ -> unit;) (x1, x2)
+    val setLabelWidget_ = fn x1 & x2 => (_import "gtk_frame_set_label_widget" : GtkFrameClass.FFI.non_opt GtkFrameClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setShadowType_ = fn x1 & x2 => (_import "gtk_frame_set_shadow_type" : GtkFrameClass.FFI.non_opt GtkFrameClass.FFI.p * GtkShadowType.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkFrameClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class

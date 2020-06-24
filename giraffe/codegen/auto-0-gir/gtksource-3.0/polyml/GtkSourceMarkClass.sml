@@ -1,6 +1,7 @@
 structure GtkSourceMarkClass :>
   GTK_SOURCE_MARK_CLASS
-    where type C.notnull = GtkTextMarkClass.C.notnull
+    where type C.opt = GtkTextMarkClass.C.opt
+    where type C.non_opt = GtkTextMarkClass.C.non_opt
     where type 'a C.p = 'a GtkTextMarkClass.C.p =
   struct
     open GtkTextMarkClass

@@ -1,6 +1,7 @@
 structure GtkSourceViewClass :>
   GTK_SOURCE_VIEW_CLASS
-    where type C.notnull = GtkTextViewClass.C.notnull
+    where type C.opt = GtkTextViewClass.C.opt
+    where type C.non_opt = GtkTextViewClass.C.non_opt
     where type 'a C.p = 'a GtkTextViewClass.C.p =
   struct
     open GtkTextViewClass

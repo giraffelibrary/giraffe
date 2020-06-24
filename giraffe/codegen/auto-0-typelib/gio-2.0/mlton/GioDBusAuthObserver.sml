@@ -5,15 +5,15 @@ structure GioDBusAuthObserver :>
     where type 'a i_o_stream_class = 'a GioIOStreamClass.class =
   struct
     val getType_ = _import "g_dbus_auth_observer_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_dbus_auth_observer_new" : unit -> GioDBusAuthObserverClass.FFI.notnull GioDBusAuthObserverClass.FFI.p;
+    val new_ = _import "g_dbus_auth_observer_new" : unit -> GioDBusAuthObserverClass.FFI.non_opt GioDBusAuthObserverClass.FFI.p;
     val allowMechanism_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_auth_observer_allow_mechanism" :
-              GioDBusAuthObserverClass.FFI.notnull GioDBusAuthObserverClass.FFI.p
+              GioDBusAuthObserverClass.FFI.non_opt GioDBusAuthObserverClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -28,9 +28,9 @@ structure GioDBusAuthObserver :>
          & x3 =>
           (
             _import "g_dbus_auth_observer_authorize_authenticated_peer" :
-              GioDBusAuthObserverClass.FFI.notnull GioDBusAuthObserverClass.FFI.p
-               * GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p
-               * unit GioCredentialsClass.FFI.p
+              GioDBusAuthObserverClass.FFI.non_opt GioDBusAuthObserverClass.FFI.p
+               * GioIOStreamClass.FFI.non_opt GioIOStreamClass.FFI.p
+               * GioCredentialsClass.FFI.opt GioCredentialsClass.FFI.p
                -> GBool.FFI.val_;
           )
             (

@@ -4,7 +4,7 @@ structure GtkCellRendererSpinner :>
     where type icon_size_t = GtkIconSize.t =
   struct
     val getType_ = _import "gtk_cell_renderer_spinner_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_cell_renderer_spinner_new" : unit -> GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p;
+    val new_ = _import "gtk_cell_renderer_spinner_new" : unit -> GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p;
     type 'a class = 'a GtkCellRendererSpinnerClass.class
     type icon_size_t = GtkIconSize.t
     type t = base class

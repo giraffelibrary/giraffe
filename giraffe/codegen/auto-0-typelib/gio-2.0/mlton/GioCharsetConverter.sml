@@ -13,11 +13,11 @@ structure GioCharsetConverter :>
           (
             _import "mlton_g_charset_converter_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioCharsetConverterClass.FFI.notnull GioCharsetConverterClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioCharsetConverterClass.FFI.non_opt GioCharsetConverterClass.FFI.p;
           )
             (
               x1,
@@ -26,9 +26,9 @@ structure GioCharsetConverter :>
               x4,
               x5
             )
-    val getNumFallbacks_ = _import "g_charset_converter_get_num_fallbacks" : GioCharsetConverterClass.FFI.notnull GioCharsetConverterClass.FFI.p -> GUInt32.FFI.val_;
-    val getUseFallback_ = _import "g_charset_converter_get_use_fallback" : GioCharsetConverterClass.FFI.notnull GioCharsetConverterClass.FFI.p -> GBool.FFI.val_;
-    val setUseFallback_ = fn x1 & x2 => (_import "g_charset_converter_set_use_fallback" : GioCharsetConverterClass.FFI.notnull GioCharsetConverterClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getNumFallbacks_ = _import "g_charset_converter_get_num_fallbacks" : GioCharsetConverterClass.FFI.non_opt GioCharsetConverterClass.FFI.p -> GUInt32.FFI.val_;
+    val getUseFallback_ = _import "g_charset_converter_get_use_fallback" : GioCharsetConverterClass.FFI.non_opt GioCharsetConverterClass.FFI.p -> GBool.FFI.val_;
+    val setUseFallback_ = fn x1 & x2 => (_import "g_charset_converter_set_use_fallback" : GioCharsetConverterClass.FFI.non_opt GioCharsetConverterClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioCharsetConverterClass.class
     type 'a converter_class = 'a GioConverterClass.class
     type 'a initable_class = 'a GioInitableClass.class

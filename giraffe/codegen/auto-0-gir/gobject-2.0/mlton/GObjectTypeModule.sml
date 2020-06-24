@@ -14,10 +14,10 @@ structure GObjectTypeModule :>
          & x4 =>
           (
             _import "mlton_g_type_module_register_enum" :
-              GObjectTypeModuleClass.FFI.notnull GObjectTypeModuleClass.FFI.p
+              GObjectTypeModuleClass.FFI.non_opt GObjectTypeModuleClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectEnumValueRecord.FFI.notnull GObjectEnumValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectEnumValueRecord.FFI.non_opt GObjectEnumValueRecord.FFI.p
                -> GObjectType.FFI.val_;
           )
             (
@@ -33,10 +33,10 @@ structure GObjectTypeModule :>
          & x4 =>
           (
             _import "mlton_g_type_module_register_flags" :
-              GObjectTypeModuleClass.FFI.notnull GObjectTypeModuleClass.FFI.p
+              GObjectTypeModuleClass.FFI.non_opt GObjectTypeModuleClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectFlagsValueRecord.FFI.notnull GObjectFlagsValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectFlagsValueRecord.FFI.non_opt GObjectFlagsValueRecord.FFI.p
                -> GObjectType.FFI.val_;
           )
             (
@@ -50,9 +50,9 @@ structure GObjectTypeModule :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_type_module_set_name" :
-              GObjectTypeModuleClass.FFI.notnull GObjectTypeModuleClass.FFI.p
+              GObjectTypeModuleClass.FFI.non_opt GObjectTypeModuleClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -60,8 +60,8 @@ structure GObjectTypeModule :>
               x2,
               x3
             )
-    val unuse_ = _import "g_type_module_unuse" : GObjectTypeModuleClass.FFI.notnull GObjectTypeModuleClass.FFI.p -> unit;
-    val use_ = _import "g_type_module_use" : GObjectTypeModuleClass.FFI.notnull GObjectTypeModuleClass.FFI.p -> GBool.FFI.val_;
+    val unuse_ = _import "g_type_module_unuse" : GObjectTypeModuleClass.FFI.non_opt GObjectTypeModuleClass.FFI.p -> unit;
+    val use_ = _import "g_type_module_use" : GObjectTypeModuleClass.FFI.non_opt GObjectTypeModuleClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GObjectTypeModuleClass.class
     type 'a type_plugin_class = 'a GObjectTypePluginClass.class
     type enum_value_t = GObjectEnumValueRecord.t

@@ -13,10 +13,10 @@ structure GioDtlsServerConnection :>
          & x3 =>
           (
             _import "g_dtls_server_connection_new" :
-              GioDatagramBasedClass.FFI.notnull GioDatagramBasedClass.FFI.p
-               * unit GioTlsCertificateClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioDtlsServerConnectionClass.FFI.notnull GioDtlsServerConnectionClass.FFI.p;
+              GioDatagramBasedClass.FFI.non_opt GioDatagramBasedClass.FFI.p
+               * GioTlsCertificateClass.FFI.opt GioTlsCertificateClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioDtlsServerConnectionClass.FFI.non_opt GioDtlsServerConnectionClass.FFI.p;
           )
             (
               x1,

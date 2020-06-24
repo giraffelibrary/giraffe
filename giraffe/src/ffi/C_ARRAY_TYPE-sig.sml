@@ -17,7 +17,8 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
     val toList : t -> elem list
 
     structure Pointer : C_POINTER
-    type notnull = Pointer.notnull
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
     type e
 
@@ -33,11 +34,11 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
      * the count reaches zero.
      *)
     type 'a from_p
-    val dup  : int -> (notnull p -> notnull p) from_p
-    val free : int -> (notnull p -> unit) from_p
-    val len  : (notnull p -> int) from_p
-    val get  : (notnull p -> int -> e) from_p
-    val set  : (notnull p -> int * e -> unit) from_p
+    val dup  : int -> (non_opt p -> non_opt p) from_p
+    val free : int -> (non_opt p -> unit) from_p
+    val len  : (non_opt p -> int) from_p
+    val get  : (non_opt p -> int -> e) from_p
+    val set  : (non_opt p -> int * e -> unit) from_p
 
     val toElem : e -> elem
 
@@ -49,7 +50,7 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
      * `free ~1` must be applied to the pointer returned by `init`
      * once it is not required.
      *)
-    val init : int * (int -> elem) -> notnull p
+    val init : int * (int -> elem) -> non_opt p
 
     (**
      * Conversion to and from the C representation is provided by `toC`
@@ -61,6 +62,6 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
      * `free ~1` must be applied to the pointer returned by `toC` once
      * it is not required.
      *)
-    val toC : (t -> notnull p) from_p
-    val fromC : (notnull p -> t) from_p
+    val toC : (t -> non_opt p) from_p
+    val fromC : (non_opt p -> t) from_p
   end

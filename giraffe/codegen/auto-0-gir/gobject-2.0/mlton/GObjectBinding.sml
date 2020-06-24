@@ -7,12 +7,12 @@ structure GObjectBinding :>
     where type 'object_class property_t = 'object_class Property.t =
   struct
     val getType_ = _import "g_binding_get_type" : unit -> GObjectType.FFI.val_;
-    val getFlags_ = _import "g_binding_get_flags" : GObjectBindingClass.FFI.notnull GObjectBindingClass.FFI.p -> GObjectBindingFlags.FFI.val_;
-    val getSource_ = _import "g_binding_get_source" : GObjectBindingClass.FFI.notnull GObjectBindingClass.FFI.p -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
-    val getSourceProperty_ = _import "g_binding_get_source_property" : GObjectBindingClass.FFI.notnull GObjectBindingClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getTarget_ = _import "g_binding_get_target" : GObjectBindingClass.FFI.notnull GObjectBindingClass.FFI.p -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
-    val getTargetProperty_ = _import "g_binding_get_target_property" : GObjectBindingClass.FFI.notnull GObjectBindingClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val unbind_ = _import "g_binding_unbind" : GObjectBindingClass.FFI.notnull GObjectBindingClass.FFI.p -> unit;
+    val getFlags_ = _import "g_binding_get_flags" : GObjectBindingClass.FFI.non_opt GObjectBindingClass.FFI.p -> GObjectBindingFlags.FFI.val_;
+    val getSource_ = _import "g_binding_get_source" : GObjectBindingClass.FFI.non_opt GObjectBindingClass.FFI.p -> GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p;
+    val getSourceProperty_ = _import "g_binding_get_source_property" : GObjectBindingClass.FFI.non_opt GObjectBindingClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getTarget_ = _import "g_binding_get_target" : GObjectBindingClass.FFI.non_opt GObjectBindingClass.FFI.p -> GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p;
+    val getTargetProperty_ = _import "g_binding_get_target_property" : GObjectBindingClass.FFI.non_opt GObjectBindingClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val unbind_ = _import "g_binding_unbind" : GObjectBindingClass.FFI.non_opt GObjectBindingClass.FFI.p -> unit;
     type 'a class = 'a GObjectBindingClass.class
     type type_t = GObjectType.t
     type binding_flags_t = GObjectBindingFlags.t

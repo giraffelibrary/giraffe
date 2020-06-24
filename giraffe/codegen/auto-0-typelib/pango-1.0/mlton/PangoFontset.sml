@@ -5,8 +5,8 @@ structure PangoFontset :>
     where type font_metrics_t = PangoFontMetricsRecord.t =
   struct
     val getType_ = _import "pango_fontset_get_type" : unit -> GObjectType.FFI.val_;
-    val getFont_ = fn x1 & x2 => (_import "pango_fontset_get_font" : PangoFontsetClass.FFI.notnull PangoFontsetClass.FFI.p * GUInt32.FFI.val_ -> PangoFontClass.FFI.notnull PangoFontClass.FFI.p;) (x1, x2)
-    val getMetrics_ = _import "pango_fontset_get_metrics" : PangoFontsetClass.FFI.notnull PangoFontsetClass.FFI.p -> PangoFontMetricsRecord.FFI.notnull PangoFontMetricsRecord.FFI.p;
+    val getFont_ = fn x1 & x2 => (_import "pango_fontset_get_font" : PangoFontsetClass.FFI.non_opt PangoFontsetClass.FFI.p * GUInt32.FFI.val_ -> PangoFontClass.FFI.non_opt PangoFontClass.FFI.p;) (x1, x2)
+    val getMetrics_ = _import "pango_fontset_get_metrics" : PangoFontsetClass.FFI.non_opt PangoFontsetClass.FFI.p -> PangoFontMetricsRecord.FFI.non_opt PangoFontMetricsRecord.FFI.p;
     type 'a class = 'a PangoFontsetClass.class
     type 'a font_class = 'a PangoFontClass.class
     type font_metrics_t = PangoFontMetricsRecord.t

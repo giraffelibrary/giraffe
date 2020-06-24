@@ -4,10 +4,10 @@ structure GtkSocket :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_socket_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_socket_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val addId_ = fn x1 & x2 => (_import "gtk_socket_add_id" : GtkSocketClass.FFI.notnull GtkSocketClass.FFI.p * XlibWindow.FFI.val_ -> unit;) (x1, x2)
-    val getId_ = _import "gtk_socket_get_id" : GtkSocketClass.FFI.notnull GtkSocketClass.FFI.p -> XlibWindow.FFI.val_;
-    val getPlugWindow_ = _import "gtk_socket_get_plug_window" : GtkSocketClass.FFI.notnull GtkSocketClass.FFI.p -> unit GdkWindowClass.FFI.p;
+    val new_ = _import "gtk_socket_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val addId_ = fn x1 & x2 => (_import "gtk_socket_add_id" : GtkSocketClass.FFI.non_opt GtkSocketClass.FFI.p * XlibWindow.FFI.val_ -> unit;) (x1, x2)
+    val getId_ = _import "gtk_socket_get_id" : GtkSocketClass.FFI.non_opt GtkSocketClass.FFI.p -> XlibWindow.FFI.val_;
+    val getPlugWindow_ = _import "gtk_socket_get_plug_window" : GtkSocketClass.FFI.non_opt GtkSocketClass.FFI.p -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
     type 'a class = 'a GtkSocketClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class

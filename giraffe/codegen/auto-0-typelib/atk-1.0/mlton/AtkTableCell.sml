@@ -4,7 +4,7 @@ structure AtkTableCell :>
     where type 'a object_class = 'a AtkObjectClass.class =
   struct
     val getType_ = _import "atk_table_cell_get_type" : unit -> GObjectType.FFI.val_;
-    val getColumnSpan_ = _import "atk_table_cell_get_column_span" : AtkTableCellClass.FFI.notnull AtkTableCellClass.FFI.p -> GInt32.FFI.val_;
+    val getColumnSpan_ = _import "atk_table_cell_get_column_span" : AtkTableCellClass.FFI.non_opt AtkTableCellClass.FFI.p -> GInt32.FFI.val_;
     val getPosition_ =
       fn
         x1
@@ -12,7 +12,7 @@ structure AtkTableCell :>
          & x3 =>
           (
             _import "atk_table_cell_get_position" :
-              AtkTableCellClass.FFI.notnull AtkTableCellClass.FFI.p
+              AtkTableCellClass.FFI.non_opt AtkTableCellClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> GBool.FFI.val_;
@@ -31,7 +31,7 @@ structure AtkTableCell :>
          & x5 =>
           (
             _import "atk_table_cell_get_row_column_span" :
-              AtkTableCellClass.FFI.notnull AtkTableCellClass.FFI.p
+              AtkTableCellClass.FFI.non_opt AtkTableCellClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
@@ -45,8 +45,8 @@ structure AtkTableCell :>
               x4,
               x5
             )
-    val getRowSpan_ = _import "atk_table_cell_get_row_span" : AtkTableCellClass.FFI.notnull AtkTableCellClass.FFI.p -> GInt32.FFI.val_;
-    val getTable_ = _import "atk_table_cell_get_table" : AtkTableCellClass.FFI.notnull AtkTableCellClass.FFI.p -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
+    val getRowSpan_ = _import "atk_table_cell_get_row_span" : AtkTableCellClass.FFI.non_opt AtkTableCellClass.FFI.p -> GInt32.FFI.val_;
+    val getTable_ = _import "atk_table_cell_get_table" : AtkTableCellClass.FFI.non_opt AtkTableCellClass.FFI.p -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;
     type 'a class = 'a AtkTableCellClass.class
     type 'a object_class = 'a AtkObjectClass.class
     type t = base class

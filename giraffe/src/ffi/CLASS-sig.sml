@@ -1,3 +1,10 @@
+(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
 signature CLASS =
   sig
     type 'a class
@@ -7,30 +14,33 @@ signature CLASS =
     structure C :
       sig
         structure Pointer : C_POINTER
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
         structure PointerType :
           C_POINTER_TYPE
             where type t = t
-            where type notnull = notnull
+            where type opt = opt
+            where type non_opt = non_opt
             where type 'a p = 'a p
       end
 
     structure FFI :
       sig
-        type notnull = C.notnull
+        type opt = C.opt
+        type non_opt = C.non_opt
         type 'a p = 'a C.p
         type ('a, 'b) r = ('a, 'b) C.r
 
-        val withPtr : (notnull p -> 'b) -> 'a class -> 'b
-        val withOptPtr : (unit p -> 'b) -> 'a class option -> 'b
+        val withPtr : (non_opt p -> 'b) -> 'a class -> 'b
+        val withOptPtr : (opt p -> 'b) -> 'a class option -> 'b
 
-        val withRefPtr : (('a, 'b) r -> 'c) -> 'd class -> ('b p, 'c) pair
-        val withRefOptPtr : ((unit, 'a) r -> 'b) -> 'c class option -> ('a p, 'b) pair
+        val withRefPtr : ((non_opt, 'a) r -> 'b) -> 'c class -> ('a p, 'b) pair
+        val withRefOptPtr : ((opt, 'a) r -> 'b) -> 'c class option -> ('a p, 'b) pair
 
-        val fromPtr : bool -> notnull p -> base class
-        val fromOptPtr : bool -> unit p -> base class option
+        val fromPtr : bool -> non_opt p -> base class
+        val fromOptPtr : bool -> opt p -> base class option
       end
   end

@@ -3,7 +3,7 @@ structure GioMenuAttributeIter :>
     where type 'a class = 'a GioMenuAttributeIterClass.class =
   struct
     val getType_ = _import "g_menu_attribute_iter_get_type" : unit -> GObjectType.FFI.val_;
-    val getName_ = _import "g_menu_attribute_iter_get_name" : GioMenuAttributeIterClass.FFI.notnull GioMenuAttributeIterClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getName_ = _import "g_menu_attribute_iter_get_name" : GioMenuAttributeIterClass.FFI.non_opt GioMenuAttributeIterClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getNext_ =
       fn
         x1
@@ -11,10 +11,10 @@ structure GioMenuAttributeIter :>
          & x4 =>
           (
             _import "mlton_g_menu_attribute_iter_get_next" :
-              GioMenuAttributeIterClass.FFI.notnull GioMenuAttributeIterClass.FFI.p
+              GioMenuAttributeIterClass.FFI.non_opt GioMenuAttributeIterClass.FFI.p
                * Utf8.MLton.r1
-               * (unit, Utf8.FFI.notnull) Utf8.MLton.r2
-               * (unit, GLibVariantRecord.FFI.notnull) GLibVariantRecord.FFI.r
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * (GLibVariantRecord.FFI.opt, GLibVariantRecord.FFI.non_opt) GLibVariantRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -23,8 +23,8 @@ structure GioMenuAttributeIter :>
               x3,
               x4
             )
-    val getValue_ = _import "g_menu_attribute_iter_get_value" : GioMenuAttributeIterClass.FFI.notnull GioMenuAttributeIterClass.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val next_ = _import "g_menu_attribute_iter_next" : GioMenuAttributeIterClass.FFI.notnull GioMenuAttributeIterClass.FFI.p -> GBool.FFI.val_;
+    val getValue_ = _import "g_menu_attribute_iter_get_value" : GioMenuAttributeIterClass.FFI.non_opt GioMenuAttributeIterClass.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val next_ = _import "g_menu_attribute_iter_next" : GioMenuAttributeIterClass.FFI.non_opt GioMenuAttributeIterClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GioMenuAttributeIterClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

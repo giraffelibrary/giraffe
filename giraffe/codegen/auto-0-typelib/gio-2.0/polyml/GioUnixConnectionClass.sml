@@ -1,7 +1,8 @@
 structure GioUnixConnectionClass :>
   GIO_UNIX_CONNECTION_CLASS
     where type 'a socket_connection_class = 'a GioSocketConnectionClass.class
-    where type C.notnull = GioSocketConnectionClass.C.notnull
+    where type C.opt = GioSocketConnectionClass.C.opt
+    where type C.non_opt = GioSocketConnectionClass.C.non_opt
     where type 'a C.p = 'a GioSocketConnectionClass.C.p =
   struct
     type 'a socket_connection_class = 'a GioSocketConnectionClass.class

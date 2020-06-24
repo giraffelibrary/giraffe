@@ -16,9 +16,9 @@ structure GtkToolPalette :>
     where type toolbar_style_t = GtkToolbarStyle.t =
   struct
     val getType_ = _import "gtk_tool_palette_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_tool_palette_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getDragTargetGroup_ = _import "gtk_tool_palette_get_drag_target_group" : unit -> GtkTargetEntryRecord.FFI.notnull GtkTargetEntryRecord.FFI.p;
-    val getDragTargetItem_ = _import "gtk_tool_palette_get_drag_target_item" : unit -> GtkTargetEntryRecord.FFI.notnull GtkTargetEntryRecord.FFI.p;
+    val new_ = _import "gtk_tool_palette_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getDragTargetGroup_ = _import "gtk_tool_palette_get_drag_target_group" : unit -> GtkTargetEntryRecord.FFI.non_opt GtkTargetEntryRecord.FFI.p;
+    val getDragTargetItem_ = _import "gtk_tool_palette_get_drag_target_item" : unit -> GtkTargetEntryRecord.FFI.non_opt GtkTargetEntryRecord.FFI.p;
     val addDragDest_ =
       fn
         x1
@@ -28,8 +28,8 @@ structure GtkToolPalette :>
          & x5 =>
           (
             _import "gtk_tool_palette_add_drag_dest" :
-              GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GtkDestDefaults.FFI.val_
                * GtkToolPaletteDragTargets.FFI.val_
                * GdkDragAction.FFI.val_
@@ -42,7 +42,7 @@ structure GtkToolPalette :>
               x4,
               x5
             )
-    val getDragItem_ = fn x1 & x2 => (_import "gtk_tool_palette_get_drag_item" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p * GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val getDragItem_ = fn x1 & x2 => (_import "gtk_tool_palette_get_drag_item" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p * GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
     val getDropGroup_ =
       fn
         x1
@@ -50,10 +50,10 @@ structure GtkToolPalette :>
          & x3 =>
           (
             _import "gtk_tool_palette_get_drop_group" :
-              GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p
+              GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> unit GtkToolItemGroupClass.FFI.p;
+               -> GtkToolItemGroupClass.FFI.opt GtkToolItemGroupClass.FFI.p;
           )
             (
               x1,
@@ -67,24 +67,24 @@ structure GtkToolPalette :>
          & x3 =>
           (
             _import "gtk_tool_palette_get_drop_item" :
-              GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p
+              GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> unit GtkToolItemClass.FFI.p;
+               -> GtkToolItemClass.FFI.opt GtkToolItemClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getExclusive_ = fn x1 & x2 => (_import "gtk_tool_palette_get_exclusive" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p * GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getExpand_ = fn x1 & x2 => (_import "gtk_tool_palette_get_expand" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p * GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getGroupPosition_ = fn x1 & x2 => (_import "gtk_tool_palette_get_group_position" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p * GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val getHadjustment_ = _import "gtk_tool_palette_get_hadjustment" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
-    val getIconSize_ = _import "gtk_tool_palette_get_icon_size" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p -> GInt.FFI.val_;
-    val getStyle_ = _import "gtk_tool_palette_get_style" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p -> GtkToolbarStyle.FFI.val_;
-    val getVadjustment_ = _import "gtk_tool_palette_get_vadjustment" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
-    val setDragSource_ = fn x1 & x2 => (_import "gtk_tool_palette_set_drag_source" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p * GtkToolPaletteDragTargets.FFI.val_ -> unit;) (x1, x2)
+    val getExclusive_ = fn x1 & x2 => (_import "gtk_tool_palette_get_exclusive" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p * GtkToolItemGroupClass.FFI.non_opt GtkToolItemGroupClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getExpand_ = fn x1 & x2 => (_import "gtk_tool_palette_get_expand" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p * GtkToolItemGroupClass.FFI.non_opt GtkToolItemGroupClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getGroupPosition_ = fn x1 & x2 => (_import "gtk_tool_palette_get_group_position" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p * GtkToolItemGroupClass.FFI.non_opt GtkToolItemGroupClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val getHadjustment_ = _import "gtk_tool_palette_get_hadjustment" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
+    val getIconSize_ = _import "gtk_tool_palette_get_icon_size" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p -> GInt.FFI.val_;
+    val getStyle_ = _import "gtk_tool_palette_get_style" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p -> GtkToolbarStyle.FFI.val_;
+    val getVadjustment_ = _import "gtk_tool_palette_get_vadjustment" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
+    val setDragSource_ = fn x1 & x2 => (_import "gtk_tool_palette_set_drag_source" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p * GtkToolPaletteDragTargets.FFI.val_ -> unit;) (x1, x2)
     val setExclusive_ =
       fn
         x1
@@ -92,8 +92,8 @@ structure GtkToolPalette :>
          & x3 =>
           (
             _import "gtk_tool_palette_set_exclusive" :
-              GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p
-               * GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p
+              GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p
+               * GtkToolItemGroupClass.FFI.non_opt GtkToolItemGroupClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -109,8 +109,8 @@ structure GtkToolPalette :>
          & x3 =>
           (
             _import "gtk_tool_palette_set_expand" :
-              GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p
-               * GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p
+              GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p
+               * GtkToolItemGroupClass.FFI.non_opt GtkToolItemGroupClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -126,8 +126,8 @@ structure GtkToolPalette :>
          & x3 =>
           (
             _import "gtk_tool_palette_set_group_position" :
-              GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p
-               * GtkToolItemGroupClass.FFI.notnull GtkToolItemGroupClass.FFI.p
+              GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p
+               * GtkToolItemGroupClass.FFI.non_opt GtkToolItemGroupClass.FFI.p
                * GInt.FFI.val_
                -> unit;
           )
@@ -136,10 +136,10 @@ structure GtkToolPalette :>
               x2,
               x3
             )
-    val setIconSize_ = fn x1 & x2 => (_import "gtk_tool_palette_set_icon_size" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setStyle_ = fn x1 & x2 => (_import "gtk_tool_palette_set_style" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p * GtkToolbarStyle.FFI.val_ -> unit;) (x1, x2)
-    val unsetIconSize_ = _import "gtk_tool_palette_unset_icon_size" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p -> unit;
-    val unsetStyle_ = _import "gtk_tool_palette_unset_style" : GtkToolPaletteClass.FFI.notnull GtkToolPaletteClass.FFI.p -> unit;
+    val setIconSize_ = fn x1 & x2 => (_import "gtk_tool_palette_set_icon_size" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setStyle_ = fn x1 & x2 => (_import "gtk_tool_palette_set_style" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p * GtkToolbarStyle.FFI.val_ -> unit;) (x1, x2)
+    val unsetIconSize_ = _import "gtk_tool_palette_unset_icon_size" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p -> unit;
+    val unsetStyle_ = _import "gtk_tool_palette_unset_style" : GtkToolPaletteClass.FFI.non_opt GtkToolPaletteClass.FFI.p -> unit;
     type 'a class = 'a GtkToolPaletteClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

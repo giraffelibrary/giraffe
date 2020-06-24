@@ -1,7 +1,8 @@
 structure GtkMenuAccessibleClass :>
   GTK_MENU_ACCESSIBLE_CLASS
     where type 'a menu_shell_accessible_class = 'a GtkMenuShellAccessibleClass.class
-    where type C.notnull = GtkMenuShellAccessibleClass.C.notnull
+    where type C.opt = GtkMenuShellAccessibleClass.C.opt
+    where type C.non_opt = GtkMenuShellAccessibleClass.C.non_opt
     where type 'a C.p = 'a GtkMenuShellAccessibleClass.C.p =
   struct
     type 'a menu_shell_accessible_class = 'a GtkMenuShellAccessibleClass.class

@@ -1,7 +1,8 @@
 structure GtkCheckMenuItemClass :>
   GTK_CHECK_MENU_ITEM_CLASS
     where type 'a menu_item_class = 'a GtkMenuItemClass.class
-    where type C.notnull = GtkMenuItemClass.C.notnull
+    where type C.opt = GtkMenuItemClass.C.opt
+    where type C.non_opt = GtkMenuItemClass.C.non_opt
     where type 'a C.p = 'a GtkMenuItemClass.C.p =
   struct
     type 'a menu_item_class = 'a GtkMenuItemClass.class

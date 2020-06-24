@@ -3,18 +3,18 @@ structure GdkColor :>
     where type t = GdkColorRecord.t =
   struct
     val getType_ = _import "gdk_color_get_type" : unit -> GObjectType.FFI.val_;
-    val copy_ = _import "gdk_color_copy" : GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p;
-    val equal_ = fn x1 & x2 => (_import "gdk_color_equal" : GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val hash_ = _import "gdk_color_hash" : GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> GUInt.FFI.val_;
-    val toString_ = _import "gdk_color_to_string" : GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val copy_ = _import "gdk_color_copy" : GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p;
+    val equal_ = fn x1 & x2 => (_import "gdk_color_equal" : GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p * GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val hash_ = _import "gdk_color_hash" : GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> GUInt.FFI.val_;
+    val toString_ = _import "gdk_color_to_string" : GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val parse_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gdk_color_parse" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (

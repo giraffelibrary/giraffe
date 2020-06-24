@@ -18,17 +18,17 @@ structure GioConverter :>
          & x11 =>
           (
             _import "mlton_g_converter_convert" :
-              GioConverterClass.FFI.notnull GioConverterClass.FFI.p
+              GioConverterClass.FFI.non_opt GioConverterClass.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GUInt64.FFI.val_
                * GioConverterFlags.FFI.val_
                * GUInt64.FFI.ref_
                * GUInt64.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GioConverterResult.FFI.val_;
           )
             (
@@ -44,7 +44,7 @@ structure GioConverter :>
               x10,
               x11
             )
-    val reset_ = _import "g_converter_reset" : GioConverterClass.FFI.notnull GioConverterClass.FFI.p -> unit;
+    val reset_ = _import "g_converter_reset" : GioConverterClass.FFI.non_opt GioConverterClass.FFI.p -> unit;
     type 'a class = 'a GioConverterClass.class
     type converter_result_t = GioConverterResult.t
     type converter_flags_t = GioConverterFlags.t

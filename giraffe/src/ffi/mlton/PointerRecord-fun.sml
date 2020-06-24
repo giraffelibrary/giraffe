@@ -1,4 +1,4 @@
-(* Copyright (C) 2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -10,17 +10,19 @@ functor PointerRecord(val name : string) :> RECORD =
     structure C =
       struct
         structure Pointer :> C_POINTER = CPointerInternal
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
         structure PointerType =
           struct
             structure Pointer = Pointer
-            type notnull = Pointer.notnull
+            type opt = Pointer.opt
+            type non_opt = Pointer.non_opt
             type 'a p = 'a Pointer.p
 
-            type t = notnull p
+            type t = non_opt p
 
             fun dup _ = Fn.id
 
@@ -32,8 +34,8 @@ functor PointerRecord(val name : string) :> RECORD =
 
             structure CVector =
               struct
-                type cvector = notnull p
-                val v = let open Pointer in toNotNull (sub (null, 0w1)) end
+                type cvector = non_opt p
+                val v = Pointer.null
                 val free = free ~1
                 val fromPointer = dup ~1
                 val toPointer = dup ~1
@@ -43,12 +45,13 @@ functor PointerRecord(val name : string) :> RECORD =
           end
       end
 
-    type t = C.notnull C.p
+    type t = C.non_opt C.p
 
     structure FFI =
       struct
         structure Pointer = C.Pointer
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 

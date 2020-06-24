@@ -13,10 +13,10 @@ structure GioSocketAddressEnumerator :>
          & x3 =>
           (
             _import "g_socket_address_enumerator_next" :
-              GioSocketAddressEnumeratorClass.FFI.notnull GioSocketAddressEnumeratorClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
+              GioSocketAddressEnumeratorClass.FFI.non_opt GioSocketAddressEnumeratorClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p;
           )
             (
               x1,
@@ -30,10 +30,10 @@ structure GioSocketAddressEnumerator :>
          & x3 =>
           (
             _import "g_socket_address_enumerator_next_finish" :
-              GioSocketAddressEnumeratorClass.FFI.notnull GioSocketAddressEnumeratorClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
+              GioSocketAddressEnumeratorClass.FFI.non_opt GioSocketAddressEnumeratorClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p;
           )
             (
               x1,

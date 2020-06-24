@@ -12,12 +12,12 @@ structure GioDBusObjectManager :>
          & (x4, x5) =>
           (
             _import "mlton_g_dbus_object_manager_get_interface" :
-              GioDBusObjectManagerClass.FFI.notnull GioDBusObjectManagerClass.FFI.p
+              GioDBusObjectManagerClass.FFI.non_opt GioDBusObjectManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioDBusInterfaceClass.FFI.notnull GioDBusInterfaceClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioDBusInterfaceClass.FFI.non_opt GioDBusInterfaceClass.FFI.p;
           )
             (
               x1,
@@ -31,17 +31,17 @@ structure GioDBusObjectManager :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_object_manager_get_object" :
-              GioDBusObjectManagerClass.FFI.notnull GioDBusObjectManagerClass.FFI.p
+              GioDBusObjectManagerClass.FFI.non_opt GioDBusObjectManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioDBusObjectClass.FFI.notnull GioDBusObjectClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioDBusObjectClass.FFI.non_opt GioDBusObjectClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getObjectPath_ = _import "g_dbus_object_manager_get_object_path" : GioDBusObjectManagerClass.FFI.notnull GioDBusObjectManagerClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getObjectPath_ = _import "g_dbus_object_manager_get_object_path" : GioDBusObjectManagerClass.FFI.non_opt GioDBusObjectManagerClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     type 'a class = 'a GioDBusObjectManagerClass.class
     type 'a d_bus_interface_class = 'a GioDBusInterfaceClass.class
     type 'a d_bus_object_class = 'a GioDBusObjectClass.class

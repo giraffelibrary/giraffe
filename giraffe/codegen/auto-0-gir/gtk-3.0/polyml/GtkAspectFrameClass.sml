@@ -1,7 +1,8 @@
 structure GtkAspectFrameClass :>
   GTK_ASPECT_FRAME_CLASS
     where type 'a frame_class = 'a GtkFrameClass.class
-    where type C.notnull = GtkFrameClass.C.notnull
+    where type C.opt = GtkFrameClass.C.opt
+    where type C.non_opt = GtkFrameClass.C.non_opt
     where type 'a C.p = 'a GtkFrameClass.C.p =
   struct
     type 'a frame_class = 'a GtkFrameClass.class

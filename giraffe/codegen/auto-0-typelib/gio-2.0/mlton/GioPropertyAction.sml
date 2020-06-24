@@ -12,11 +12,11 @@ structure GioPropertyAction :>
           (
             _import "mlton_g_property_action_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioPropertyActionClass.FFI.notnull GioPropertyActionClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioPropertyActionClass.FFI.non_opt GioPropertyActionClass.FFI.p;
           )
             (
               x1,

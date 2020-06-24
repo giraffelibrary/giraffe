@@ -16,14 +16,14 @@ structure GtkAction :>
           (
             _import "mlton_gtk_action_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkActionClass.FFI.notnull GtkActionClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkActionClass.FFI.non_opt GtkActionClass.FFI.p;
           )
             (
               x1,
@@ -35,40 +35,40 @@ structure GtkAction :>
               x7,
               x8
             )
-    val activate_ = _import "gtk_action_activate" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> unit;
-    val blockActivate_ = _import "gtk_action_block_activate" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> unit;
-    val connectAccelerator_ = _import "gtk_action_connect_accelerator" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> unit;
-    val createIcon_ = fn x1 & x2 => (_import "gtk_action_create_icon" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p * GInt.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
-    val createMenu_ = _import "gtk_action_create_menu" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val createMenuItem_ = _import "gtk_action_create_menu_item" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val createToolItem_ = _import "gtk_action_create_tool_item" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val disconnectAccelerator_ = _import "gtk_action_disconnect_accelerator" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> unit;
-    val getAccelClosure_ = _import "gtk_action_get_accel_closure" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p;
-    val getAccelPath_ = _import "gtk_action_get_accel_path" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getAlwaysShowImage_ = _import "gtk_action_get_always_show_image" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GBool.FFI.val_;
-    val getGicon_ = _import "gtk_action_get_gicon" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val getIconName_ = _import "gtk_action_get_icon_name" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getIsImportant_ = _import "gtk_action_get_is_important" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GBool.FFI.val_;
-    val getLabel_ = _import "gtk_action_get_label" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getName_ = _import "gtk_action_get_name" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getSensitive_ = _import "gtk_action_get_sensitive" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GBool.FFI.val_;
-    val getShortLabel_ = _import "gtk_action_get_short_label" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getStockId_ = _import "gtk_action_get_stock_id" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getTooltip_ = _import "gtk_action_get_tooltip" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getVisible_ = _import "gtk_action_get_visible" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GBool.FFI.val_;
-    val getVisibleHorizontal_ = _import "gtk_action_get_visible_horizontal" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GBool.FFI.val_;
-    val getVisibleVertical_ = _import "gtk_action_get_visible_vertical" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GBool.FFI.val_;
-    val isSensitive_ = _import "gtk_action_is_sensitive" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GBool.FFI.val_;
-    val isVisible_ = _import "gtk_action_is_visible" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> GBool.FFI.val_;
-    val setAccelGroup_ = fn x1 & x2 => (_import "gtk_action_set_accel_group" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p * unit GtkAccelGroupClass.FFI.p -> unit;) (x1, x2)
+    val activate_ = _import "gtk_action_activate" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> unit;
+    val blockActivate_ = _import "gtk_action_block_activate" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> unit;
+    val connectAccelerator_ = _import "gtk_action_connect_accelerator" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> unit;
+    val createIcon_ = fn x1 & x2 => (_import "gtk_action_create_icon" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p * GInt.FFI.val_ -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val createMenu_ = _import "gtk_action_create_menu" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val createMenuItem_ = _import "gtk_action_create_menu_item" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val createToolItem_ = _import "gtk_action_create_tool_item" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val disconnectAccelerator_ = _import "gtk_action_disconnect_accelerator" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> unit;
+    val getAccelClosure_ = _import "gtk_action_get_accel_closure" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p;
+    val getAccelPath_ = _import "gtk_action_get_accel_path" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getAlwaysShowImage_ = _import "gtk_action_get_always_show_image" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GBool.FFI.val_;
+    val getGicon_ = _import "gtk_action_get_gicon" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val getIconName_ = _import "gtk_action_get_icon_name" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getIsImportant_ = _import "gtk_action_get_is_important" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GBool.FFI.val_;
+    val getLabel_ = _import "gtk_action_get_label" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getName_ = _import "gtk_action_get_name" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getSensitive_ = _import "gtk_action_get_sensitive" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GBool.FFI.val_;
+    val getShortLabel_ = _import "gtk_action_get_short_label" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getStockId_ = _import "gtk_action_get_stock_id" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getTooltip_ = _import "gtk_action_get_tooltip" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getVisible_ = _import "gtk_action_get_visible" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GBool.FFI.val_;
+    val getVisibleHorizontal_ = _import "gtk_action_get_visible_horizontal" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GBool.FFI.val_;
+    val getVisibleVertical_ = _import "gtk_action_get_visible_vertical" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GBool.FFI.val_;
+    val isSensitive_ = _import "gtk_action_is_sensitive" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GBool.FFI.val_;
+    val isVisible_ = _import "gtk_action_is_visible" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> GBool.FFI.val_;
+    val setAccelGroup_ = fn x1 & x2 => (_import "gtk_action_set_accel_group" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p * GtkAccelGroupClass.FFI.opt GtkAccelGroupClass.FFI.p -> unit;) (x1, x2)
     val setAccelPath_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_set_accel_path" :
-              GtkActionClass.FFI.notnull GtkActionClass.FFI.p
+              GtkActionClass.FFI.non_opt GtkActionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -76,16 +76,16 @@ structure GtkAction :>
               x2,
               x3
             )
-    val setAlwaysShowImage_ = fn x1 & x2 => (_import "gtk_action_set_always_show_image" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setGicon_ = fn x1 & x2 => (_import "gtk_action_set_gicon" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p * GioIconClass.FFI.notnull GioIconClass.FFI.p -> unit;) (x1, x2)
+    val setAlwaysShowImage_ = fn x1 & x2 => (_import "gtk_action_set_always_show_image" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setGicon_ = fn x1 & x2 => (_import "gtk_action_set_gicon" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p * GioIconClass.FFI.non_opt GioIconClass.FFI.p -> unit;) (x1, x2)
     val setIconName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_set_icon_name" :
-              GtkActionClass.FFI.notnull GtkActionClass.FFI.p
+              GtkActionClass.FFI.non_opt GtkActionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -93,15 +93,15 @@ structure GtkAction :>
               x2,
               x3
             )
-    val setIsImportant_ = fn x1 & x2 => (_import "gtk_action_set_is_important" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setIsImportant_ = fn x1 & x2 => (_import "gtk_action_set_is_important" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setLabel_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_set_label" :
-              GtkActionClass.FFI.notnull GtkActionClass.FFI.p
+              GtkActionClass.FFI.non_opt GtkActionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -109,15 +109,15 @@ structure GtkAction :>
               x2,
               x3
             )
-    val setSensitive_ = fn x1 & x2 => (_import "gtk_action_set_sensitive" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSensitive_ = fn x1 & x2 => (_import "gtk_action_set_sensitive" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setShortLabel_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_set_short_label" :
-              GtkActionClass.FFI.notnull GtkActionClass.FFI.p
+              GtkActionClass.FFI.non_opt GtkActionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -130,9 +130,9 @@ structure GtkAction :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_set_stock_id" :
-              GtkActionClass.FFI.notnull GtkActionClass.FFI.p
+              GtkActionClass.FFI.non_opt GtkActionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -145,9 +145,9 @@ structure GtkAction :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_action_set_tooltip" :
-              GtkActionClass.FFI.notnull GtkActionClass.FFI.p
+              GtkActionClass.FFI.non_opt GtkActionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -155,10 +155,10 @@ structure GtkAction :>
               x2,
               x3
             )
-    val setVisible_ = fn x1 & x2 => (_import "gtk_action_set_visible" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setVisibleHorizontal_ = fn x1 & x2 => (_import "gtk_action_set_visible_horizontal" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setVisibleVertical_ = fn x1 & x2 => (_import "gtk_action_set_visible_vertical" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val unblockActivate_ = _import "gtk_action_unblock_activate" : GtkActionClass.FFI.notnull GtkActionClass.FFI.p -> unit;
+    val setVisible_ = fn x1 & x2 => (_import "gtk_action_set_visible" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setVisibleHorizontal_ = fn x1 & x2 => (_import "gtk_action_set_visible_horizontal" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setVisibleVertical_ = fn x1 & x2 => (_import "gtk_action_set_visible_vertical" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val unblockActivate_ = _import "gtk_action_unblock_activate" : GtkActionClass.FFI.non_opt GtkActionClass.FFI.p -> unit;
     type 'a class = 'a GtkActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class

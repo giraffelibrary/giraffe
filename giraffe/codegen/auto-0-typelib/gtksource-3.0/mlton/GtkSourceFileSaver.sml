@@ -9,7 +9,7 @@ structure GtkSourceFileSaver :>
     where type newline_type_t = GtkSourceNewlineType.t =
   struct
     val getType_ = _import "gtk_source_file_saver_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "gtk_source_file_saver_new" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p -> GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p;) (x1, x2)
+    val new_ = fn x1 & x2 => (_import "gtk_source_file_saver_new" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p * GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p -> GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p;) (x1, x2)
     val newWithTarget_ =
       fn
         x1
@@ -17,23 +17,23 @@ structure GtkSourceFileSaver :>
          & x3 =>
           (
             _import "gtk_source_file_saver_new_with_target" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
-               * GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p
-               * GioFileClass.FFI.notnull GioFileClass.FFI.p
-               -> GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p;
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
+               * GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p
+               * GioFileClass.FFI.non_opt GioFileClass.FFI.p
+               -> GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getBuffer_ = _import "gtk_source_file_saver_get_buffer" : GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p -> GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p;
-    val getCompressionType_ = _import "gtk_source_file_saver_get_compression_type" : GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p -> GtkSourceCompressionType.FFI.val_;
-    val getEncoding_ = _import "gtk_source_file_saver_get_encoding" : GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p -> GtkSourceEncodingRecord.FFI.notnull GtkSourceEncodingRecord.FFI.p;
-    val getFile_ = _import "gtk_source_file_saver_get_file" : GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p -> GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p;
-    val getFlags_ = _import "gtk_source_file_saver_get_flags" : GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p -> GtkSourceFileSaverFlags.FFI.val_;
-    val getLocation_ = _import "gtk_source_file_saver_get_location" : GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
-    val getNewlineType_ = _import "gtk_source_file_saver_get_newline_type" : GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p -> GtkSourceNewlineType.FFI.val_;
+    val getBuffer_ = _import "gtk_source_file_saver_get_buffer" : GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p -> GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p;
+    val getCompressionType_ = _import "gtk_source_file_saver_get_compression_type" : GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p -> GtkSourceCompressionType.FFI.val_;
+    val getEncoding_ = _import "gtk_source_file_saver_get_encoding" : GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p -> GtkSourceEncodingRecord.FFI.non_opt GtkSourceEncodingRecord.FFI.p;
+    val getFile_ = _import "gtk_source_file_saver_get_file" : GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p -> GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p;
+    val getFlags_ = _import "gtk_source_file_saver_get_flags" : GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p -> GtkSourceFileSaverFlags.FFI.val_;
+    val getLocation_ = _import "gtk_source_file_saver_get_location" : GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
+    val getNewlineType_ = _import "gtk_source_file_saver_get_newline_type" : GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p -> GtkSourceNewlineType.FFI.val_;
     val saveFinish_ =
       fn
         x1
@@ -41,9 +41,9 @@ structure GtkSourceFileSaver :>
          & x3 =>
           (
             _import "gtk_source_file_saver_save_finish" :
-              GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -51,10 +51,10 @@ structure GtkSourceFileSaver :>
               x2,
               x3
             )
-    val setCompressionType_ = fn x1 & x2 => (_import "gtk_source_file_saver_set_compression_type" : GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p * GtkSourceCompressionType.FFI.val_ -> unit;) (x1, x2)
-    val setEncoding_ = fn x1 & x2 => (_import "gtk_source_file_saver_set_encoding" : GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p * unit GtkSourceEncodingRecord.FFI.p -> unit;) (x1, x2)
-    val setFlags_ = fn x1 & x2 => (_import "gtk_source_file_saver_set_flags" : GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p * GtkSourceFileSaverFlags.FFI.val_ -> unit;) (x1, x2)
-    val setNewlineType_ = fn x1 & x2 => (_import "gtk_source_file_saver_set_newline_type" : GtkSourceFileSaverClass.FFI.notnull GtkSourceFileSaverClass.FFI.p * GtkSourceNewlineType.FFI.val_ -> unit;) (x1, x2)
+    val setCompressionType_ = fn x1 & x2 => (_import "gtk_source_file_saver_set_compression_type" : GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p * GtkSourceCompressionType.FFI.val_ -> unit;) (x1, x2)
+    val setEncoding_ = fn x1 & x2 => (_import "gtk_source_file_saver_set_encoding" : GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p * GtkSourceEncodingRecord.FFI.opt GtkSourceEncodingRecord.FFI.p -> unit;) (x1, x2)
+    val setFlags_ = fn x1 & x2 => (_import "gtk_source_file_saver_set_flags" : GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p * GtkSourceFileSaverFlags.FFI.val_ -> unit;) (x1, x2)
+    val setNewlineType_ = fn x1 & x2 => (_import "gtk_source_file_saver_set_newline_type" : GtkSourceFileSaverClass.FFI.non_opt GtkSourceFileSaverClass.FFI.p * GtkSourceNewlineType.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkSourceFileSaverClass.class
     type 'a buffer_class = 'a GtkSourceBufferClass.class
     type compression_type_t = GtkSourceCompressionType.t

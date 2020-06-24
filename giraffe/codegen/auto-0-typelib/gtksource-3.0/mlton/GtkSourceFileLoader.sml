@@ -8,7 +8,7 @@ structure GtkSourceFileLoader :>
     where type 'a file_class = 'a GtkSourceFileClass.class =
   struct
     val getType_ = _import "gtk_source_file_loader_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "gtk_source_file_loader_new" : GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p * GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p -> GtkSourceFileLoaderClass.FFI.notnull GtkSourceFileLoaderClass.FFI.p;) (x1, x2)
+    val new_ = fn x1 & x2 => (_import "gtk_source_file_loader_new" : GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p * GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p -> GtkSourceFileLoaderClass.FFI.non_opt GtkSourceFileLoaderClass.FFI.p;) (x1, x2)
     val newFromStream_ =
       fn
         x1
@@ -16,23 +16,23 @@ structure GtkSourceFileLoader :>
          & x3 =>
           (
             _import "gtk_source_file_loader_new_from_stream" :
-              GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p
-               * GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p
-               * GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p
-               -> GtkSourceFileLoaderClass.FFI.notnull GtkSourceFileLoaderClass.FFI.p;
+              GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p
+               * GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p
+               * GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p
+               -> GtkSourceFileLoaderClass.FFI.non_opt GtkSourceFileLoaderClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getBuffer_ = _import "gtk_source_file_loader_get_buffer" : GtkSourceFileLoaderClass.FFI.notnull GtkSourceFileLoaderClass.FFI.p -> GtkSourceBufferClass.FFI.notnull GtkSourceBufferClass.FFI.p;
-    val getCompressionType_ = _import "gtk_source_file_loader_get_compression_type" : GtkSourceFileLoaderClass.FFI.notnull GtkSourceFileLoaderClass.FFI.p -> GtkSourceCompressionType.FFI.val_;
-    val getEncoding_ = _import "gtk_source_file_loader_get_encoding" : GtkSourceFileLoaderClass.FFI.notnull GtkSourceFileLoaderClass.FFI.p -> GtkSourceEncodingRecord.FFI.notnull GtkSourceEncodingRecord.FFI.p;
-    val getFile_ = _import "gtk_source_file_loader_get_file" : GtkSourceFileLoaderClass.FFI.notnull GtkSourceFileLoaderClass.FFI.p -> GtkSourceFileClass.FFI.notnull GtkSourceFileClass.FFI.p;
-    val getInputStream_ = _import "gtk_source_file_loader_get_input_stream" : GtkSourceFileLoaderClass.FFI.notnull GtkSourceFileLoaderClass.FFI.p -> unit GioInputStreamClass.FFI.p;
-    val getLocation_ = _import "gtk_source_file_loader_get_location" : GtkSourceFileLoaderClass.FFI.notnull GtkSourceFileLoaderClass.FFI.p -> unit GioFileClass.FFI.p;
-    val getNewlineType_ = _import "gtk_source_file_loader_get_newline_type" : GtkSourceFileLoaderClass.FFI.notnull GtkSourceFileLoaderClass.FFI.p -> GtkSourceNewlineType.FFI.val_;
+    val getBuffer_ = _import "gtk_source_file_loader_get_buffer" : GtkSourceFileLoaderClass.FFI.non_opt GtkSourceFileLoaderClass.FFI.p -> GtkSourceBufferClass.FFI.non_opt GtkSourceBufferClass.FFI.p;
+    val getCompressionType_ = _import "gtk_source_file_loader_get_compression_type" : GtkSourceFileLoaderClass.FFI.non_opt GtkSourceFileLoaderClass.FFI.p -> GtkSourceCompressionType.FFI.val_;
+    val getEncoding_ = _import "gtk_source_file_loader_get_encoding" : GtkSourceFileLoaderClass.FFI.non_opt GtkSourceFileLoaderClass.FFI.p -> GtkSourceEncodingRecord.FFI.non_opt GtkSourceEncodingRecord.FFI.p;
+    val getFile_ = _import "gtk_source_file_loader_get_file" : GtkSourceFileLoaderClass.FFI.non_opt GtkSourceFileLoaderClass.FFI.p -> GtkSourceFileClass.FFI.non_opt GtkSourceFileClass.FFI.p;
+    val getInputStream_ = _import "gtk_source_file_loader_get_input_stream" : GtkSourceFileLoaderClass.FFI.non_opt GtkSourceFileLoaderClass.FFI.p -> GioInputStreamClass.FFI.opt GioInputStreamClass.FFI.p;
+    val getLocation_ = _import "gtk_source_file_loader_get_location" : GtkSourceFileLoaderClass.FFI.non_opt GtkSourceFileLoaderClass.FFI.p -> GioFileClass.FFI.opt GioFileClass.FFI.p;
+    val getNewlineType_ = _import "gtk_source_file_loader_get_newline_type" : GtkSourceFileLoaderClass.FFI.non_opt GtkSourceFileLoaderClass.FFI.p -> GtkSourceNewlineType.FFI.val_;
     val loadFinish_ =
       fn
         x1
@@ -40,9 +40,9 @@ structure GtkSourceFileLoader :>
          & x3 =>
           (
             _import "gtk_source_file_loader_load_finish" :
-              GtkSourceFileLoaderClass.FFI.notnull GtkSourceFileLoaderClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GtkSourceFileLoaderClass.FFI.non_opt GtkSourceFileLoaderClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

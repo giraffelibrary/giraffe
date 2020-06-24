@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2015-2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2015-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -13,13 +13,13 @@ structure GObjectValue :>
     val init_ =
       fn x1 & x2 =>
         (_import "g_value_init" :
-           GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GObjectType.FFI.val_
-            -> GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p;)
+           GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GObjectType.FFI.val_
+            -> GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p;)
         (x1, x2)
 
     val reset_ =
       _import "g_value_reset" :
-        GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p;
+        GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p;
 
     val getType_ =
       _import "g_value_get_type" : unit -> GObjectType.FFI.val_;
@@ -27,16 +27,16 @@ structure GObjectValue :>
     val holds_ =
       fn x1 & x2 =>
         (_import "giraffe_g_value_holds" :
-           GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GObjectType.FFI.val_ -> GBool.FFI.val_;)
+           GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GObjectType.FFI.val_ -> GBool.FFI.val_;)
         (x1, x2)
 
     val gtypeOf_ =
       _import "giraffe_g_value_type" :
-        GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GObjectType.FFI.val_;
+        GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GObjectType.FFI.val_;
 
     val isValue_ =
       _import "giraffe_g_is_value" :
-        GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GBool.FFI.val_;
+        GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GBool.FFI.val_;
 
     type t = GObjectValueRecord.t
     type type_t = GObjectType.t

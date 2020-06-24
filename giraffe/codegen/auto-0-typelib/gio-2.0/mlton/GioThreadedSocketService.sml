@@ -4,7 +4,7 @@ structure GioThreadedSocketService :>
     where type 'a socket_connection_class = 'a GioSocketConnectionClass.class =
   struct
     val getType_ = _import "g_threaded_socket_service_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_threaded_socket_service_new" : GInt32.FFI.val_ -> GioSocketServiceClass.FFI.notnull GioSocketServiceClass.FFI.p;
+    val new_ = _import "g_threaded_socket_service_new" : GInt32.FFI.val_ -> GioSocketServiceClass.FFI.non_opt GioSocketServiceClass.FFI.p;
     type 'a class = 'a GioThreadedSocketServiceClass.class
     type 'a socket_connection_class = 'a GioSocketConnectionClass.class
     type t = base class

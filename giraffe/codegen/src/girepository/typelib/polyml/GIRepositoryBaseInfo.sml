@@ -9,7 +9,7 @@ structure GIRepositoryBaseInfo :>
       val getName_ =
         call
           (getSymbol "g_base_info_get_name")
-          (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr);
+          (GIRepositoryBaseInfoClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr);
 
       val getNamespace_ =
         call

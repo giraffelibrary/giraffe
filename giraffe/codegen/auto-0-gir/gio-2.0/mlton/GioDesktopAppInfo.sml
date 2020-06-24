@@ -5,20 +5,20 @@ structure GioDesktopAppInfo :>
     where type 'a app_launch_context_class = 'a GioAppLaunchContextClass.class =
   struct
     val getType_ = _import "g_desktop_app_info_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_g_desktop_app_info_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p;
-    val newFromFilename_ = _import "mlton_g_desktop_app_info_new_from_filename" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p;
-    val newFromKeyfile_ = _import "g_desktop_app_info_new_from_keyfile" : GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p -> GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p;
-    val search_ = _import "mlton_g_desktop_app_info_search" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8CPtrArrayCPtrArray.FFI.notnull Utf8CPtrArrayCPtrArray.FFI.out_p;
-    val setDesktopEnv_ = _import "mlton_g_desktop_app_info_set_desktop_env" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val new_ = _import "mlton_g_desktop_app_info_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p;
+    val newFromFilename_ = _import "mlton_g_desktop_app_info_new_from_filename" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p;
+    val newFromKeyfile_ = _import "g_desktop_app_info_new_from_keyfile" : GLibKeyFileRecord.FFI.non_opt GLibKeyFileRecord.FFI.p -> GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p;
+    val search_ = _import "mlton_g_desktop_app_info_search" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8CPtrArrayCPtrArray.FFI.non_opt Utf8CPtrArrayCPtrArray.FFI.out_p;
+    val setDesktopEnv_ = _import "mlton_g_desktop_app_info_set_desktop_env" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val getActionName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_desktop_app_info_get_action_name" :
-              GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p
+              GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -30,9 +30,9 @@ structure GioDesktopAppInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_desktop_app_info_get_boolean" :
-              GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p
+              GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -40,20 +40,20 @@ structure GioDesktopAppInfo :>
               x2,
               x3
             )
-    val getCategories_ = _import "g_desktop_app_info_get_categories" : GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getFilename_ = _import "g_desktop_app_info_get_filename" : GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getGenericName_ = _import "g_desktop_app_info_get_generic_name" : GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getIsHidden_ = _import "g_desktop_app_info_get_is_hidden" : GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p -> GBool.FFI.val_;
-    val getKeywords_ = _import "g_desktop_app_info_get_keywords" : GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val getNodisplay_ = _import "g_desktop_app_info_get_nodisplay" : GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p -> GBool.FFI.val_;
+    val getCategories_ = _import "g_desktop_app_info_get_categories" : GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getFilename_ = _import "g_desktop_app_info_get_filename" : GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getGenericName_ = _import "g_desktop_app_info_get_generic_name" : GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getIsHidden_ = _import "g_desktop_app_info_get_is_hidden" : GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p -> GBool.FFI.val_;
+    val getKeywords_ = _import "g_desktop_app_info_get_keywords" : GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val getNodisplay_ = _import "g_desktop_app_info_get_nodisplay" : GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p -> GBool.FFI.val_;
     val getShowIn_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_desktop_app_info_get_show_in" :
-              GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p
+              GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -61,16 +61,16 @@ structure GioDesktopAppInfo :>
               x2,
               x3
             )
-    val getStartupWmClass_ = _import "g_desktop_app_info_get_startup_wm_class" : GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getStartupWmClass_ = _import "g_desktop_app_info_get_startup_wm_class" : GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getString_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_desktop_app_info_get_string" :
-              GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p
+              GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -82,9 +82,9 @@ structure GioDesktopAppInfo :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_desktop_app_info_has_key" :
-              GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p
+              GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -99,10 +99,10 @@ structure GioDesktopAppInfo :>
          & x4 =>
           (
             _import "mlton_g_desktop_app_info_launch_action" :
-              GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p
+              GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GioAppLaunchContextClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioAppLaunchContextClass.FFI.opt GioAppLaunchContextClass.FFI.p
                -> unit;
           )
             (
@@ -111,7 +111,7 @@ structure GioDesktopAppInfo :>
               x3,
               x4
             )
-    val listActions_ = _import "g_desktop_app_info_list_actions" : GioDesktopAppInfoClass.FFI.notnull GioDesktopAppInfoClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val listActions_ = _import "g_desktop_app_info_list_actions" : GioDesktopAppInfoClass.FFI.non_opt GioDesktopAppInfoClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     type 'a class = 'a GioDesktopAppInfoClass.class
     type 'a app_info_class = 'a GioAppInfoClass.class
     type 'a app_launch_context_class = 'a GioAppLaunchContextClass.class

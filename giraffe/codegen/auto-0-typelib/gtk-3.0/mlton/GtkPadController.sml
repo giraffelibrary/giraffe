@@ -12,10 +12,10 @@ structure GtkPadController :>
          & x3 =>
           (
             _import "gtk_pad_controller_new" :
-              GtkWindowClass.FFI.notnull GtkWindowClass.FFI.p
-               * GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
-               * unit GdkDeviceClass.FFI.p
-               -> GtkPadControllerClass.FFI.notnull GtkPadControllerClass.FFI.p;
+              GtkWindowClass.FFI.non_opt GtkWindowClass.FFI.p
+               * GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
+               * GdkDeviceClass.FFI.opt GdkDeviceClass.FFI.p
+               -> GtkPadControllerClass.FFI.non_opt GtkPadControllerClass.FFI.p;
           )
             (
               x1,
@@ -32,14 +32,14 @@ structure GtkPadController :>
          & (x7, x8) =>
           (
             _import "mlton_gtk_pad_controller_set_action" :
-              GtkPadControllerClass.FFI.notnull GtkPadControllerClass.FFI.p
+              GtkPadControllerClass.FFI.non_opt GtkPadControllerClass.FFI.p
                * GtkPadActionType.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

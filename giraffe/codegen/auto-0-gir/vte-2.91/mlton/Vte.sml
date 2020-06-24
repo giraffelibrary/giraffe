@@ -1,10 +1,10 @@
 structure Vte : VTE =
   struct
-    val getFeatures_ = _import "vte_get_features" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getFeatures_ = _import "vte_get_features" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getMajorVersion_ = _import "vte_get_major_version" : unit -> GUInt.FFI.val_;
     val getMicroVersion_ = _import "vte_get_micro_version" : unit -> GUInt.FFI.val_;
     val getMinorVersion_ = _import "vte_get_minor_version" : unit -> GUInt.FFI.val_;
-    val getUserShell_ = _import "vte_get_user_shell" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getUserShell_ = _import "vte_get_user_shell" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     structure CursorBlinkMode = VteCursorBlinkMode
     structure CursorShape = VteCursorShape
     structure EraseBinding = VteEraseBinding

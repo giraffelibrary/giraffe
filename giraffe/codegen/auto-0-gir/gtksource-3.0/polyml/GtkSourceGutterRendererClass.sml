@@ -1,6 +1,7 @@
 structure GtkSourceGutterRendererClass :>
   GTK_SOURCE_GUTTER_RENDERER_CLASS
-    where type C.notnull = GObjectInitiallyUnownedClass.C.notnull
+    where type C.opt = GObjectInitiallyUnownedClass.C.opt
+    where type C.non_opt = GObjectInitiallyUnownedClass.C.non_opt
     where type 'a C.p = 'a GObjectInitiallyUnownedClass.C.p =
   struct
     open GObjectInitiallyUnownedClass

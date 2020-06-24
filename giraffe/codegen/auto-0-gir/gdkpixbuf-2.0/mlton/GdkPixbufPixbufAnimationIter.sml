@@ -4,10 +4,10 @@ structure GdkPixbufPixbufAnimationIter :>
     where type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class =
   struct
     val getType_ = _import "gdk_pixbuf_animation_iter_get_type" : unit -> GObjectType.FFI.val_;
-    val advance_ = fn x1 & x2 => (_import "gdk_pixbuf_animation_iter_advance" : GdkPixbufPixbufAnimationIterClass.FFI.notnull GdkPixbufPixbufAnimationIterClass.FFI.p * unit GLibTimeValRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getDelayTime_ = _import "gdk_pixbuf_animation_iter_get_delay_time" : GdkPixbufPixbufAnimationIterClass.FFI.notnull GdkPixbufPixbufAnimationIterClass.FFI.p -> GInt.FFI.val_;
-    val getPixbuf_ = _import "gdk_pixbuf_animation_iter_get_pixbuf" : GdkPixbufPixbufAnimationIterClass.FFI.notnull GdkPixbufPixbufAnimationIterClass.FFI.p -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
-    val onCurrentlyLoadingFrame_ = _import "gdk_pixbuf_animation_iter_on_currently_loading_frame" : GdkPixbufPixbufAnimationIterClass.FFI.notnull GdkPixbufPixbufAnimationIterClass.FFI.p -> GBool.FFI.val_;
+    val advance_ = fn x1 & x2 => (_import "gdk_pixbuf_animation_iter_advance" : GdkPixbufPixbufAnimationIterClass.FFI.non_opt GdkPixbufPixbufAnimationIterClass.FFI.p * GLibTimeValRecord.FFI.opt GLibTimeValRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getDelayTime_ = _import "gdk_pixbuf_animation_iter_get_delay_time" : GdkPixbufPixbufAnimationIterClass.FFI.non_opt GdkPixbufPixbufAnimationIterClass.FFI.p -> GInt.FFI.val_;
+    val getPixbuf_ = _import "gdk_pixbuf_animation_iter_get_pixbuf" : GdkPixbufPixbufAnimationIterClass.FFI.non_opt GdkPixbufPixbufAnimationIterClass.FFI.p -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
+    val onCurrentlyLoadingFrame_ = _import "gdk_pixbuf_animation_iter_on_currently_loading_frame" : GdkPixbufPixbufAnimationIterClass.FFI.non_opt GdkPixbufPixbufAnimationIterClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GdkPixbufPixbufAnimationIterClass.class
     type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class
     type t = base class

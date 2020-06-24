@@ -12,12 +12,12 @@ structure GioNetworkService :>
           (
             _import "mlton_g_network_service_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioNetworkServiceClass.FFI.notnull GioNetworkServiceClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioNetworkServiceClass.FFI.non_opt GioNetworkServiceClass.FFI.p;
           )
             (
               x1,
@@ -27,18 +27,18 @@ structure GioNetworkService :>
               x5,
               x6
             )
-    val getDomain_ = _import "g_network_service_get_domain" : GioNetworkServiceClass.FFI.notnull GioNetworkServiceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getProtocol_ = _import "g_network_service_get_protocol" : GioNetworkServiceClass.FFI.notnull GioNetworkServiceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getScheme_ = _import "g_network_service_get_scheme" : GioNetworkServiceClass.FFI.notnull GioNetworkServiceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getService_ = _import "g_network_service_get_service" : GioNetworkServiceClass.FFI.notnull GioNetworkServiceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getDomain_ = _import "g_network_service_get_domain" : GioNetworkServiceClass.FFI.non_opt GioNetworkServiceClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getProtocol_ = _import "g_network_service_get_protocol" : GioNetworkServiceClass.FFI.non_opt GioNetworkServiceClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getScheme_ = _import "g_network_service_get_scheme" : GioNetworkServiceClass.FFI.non_opt GioNetworkServiceClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getService_ = _import "g_network_service_get_service" : GioNetworkServiceClass.FFI.non_opt GioNetworkServiceClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val setScheme_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_network_service_set_scheme" :
-              GioNetworkServiceClass.FFI.notnull GioNetworkServiceClass.FFI.p
+              GioNetworkServiceClass.FFI.non_opt GioNetworkServiceClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

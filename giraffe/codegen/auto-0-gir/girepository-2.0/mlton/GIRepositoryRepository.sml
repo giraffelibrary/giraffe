@@ -13,8 +13,8 @@ structure GIRepositoryRepository :>
           (
             _import "mlton_g_irepository_dump" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -22,11 +22,11 @@ structure GIRepositoryRepository :>
               x2,
               x3
             )
-    val getDefault_ = _import "g_irepository_get_default" : unit -> GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p;
-    val prependLibraryPath_ = _import "mlton_g_irepository_prepend_library_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
-    val prependSearchPath_ = _import "mlton_g_irepository_prepend_search_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
-    val findByErrorDomain_ = fn x1 & x2 => (_import "g_irepository_find_by_error_domain" : GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p * GLibQuark.FFI.val_ -> GIRepositoryEnumInfoRecord.FFI.notnull GIRepositoryEnumInfoRecord.FFI.p;) (x1, x2)
-    val findByGtype_ = fn x1 & x2 => (_import "g_irepository_find_by_gtype" : GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p * GObjectType.FFI.val_ -> GIRepositoryBaseInfoRecord.FFI.notnull GIRepositoryBaseInfoRecord.FFI.p;) (x1, x2)
+    val getDefault_ = _import "g_irepository_get_default" : unit -> GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p;
+    val prependLibraryPath_ = _import "mlton_g_irepository_prepend_library_path" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
+    val prependSearchPath_ = _import "mlton_g_irepository_prepend_search_path" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
+    val findByErrorDomain_ = fn x1 & x2 => (_import "g_irepository_find_by_error_domain" : GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p * GLibQuark.FFI.val_ -> GIRepositoryEnumInfoRecord.FFI.non_opt GIRepositoryEnumInfoRecord.FFI.p;) (x1, x2)
+    val findByGtype_ = fn x1 & x2 => (_import "g_irepository_find_by_gtype" : GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p * GObjectType.FFI.val_ -> GIRepositoryBaseInfoRecord.FFI.non_opt GIRepositoryBaseInfoRecord.FFI.p;) (x1, x2)
     val findByName_ =
       fn
         x1
@@ -34,12 +34,12 @@ structure GIRepositoryRepository :>
          & (x4, x5) =>
           (
             _import "mlton_g_irepository_find_by_name" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GIRepositoryBaseInfoRecord.FFI.notnull GIRepositoryBaseInfoRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GIRepositoryBaseInfoRecord.FFI.non_opt GIRepositoryBaseInfoRecord.FFI.p;
           )
             (
               x1,
@@ -53,10 +53,10 @@ structure GIRepositoryRepository :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_c_prefix" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -68,10 +68,10 @@ structure GIRepositoryRepository :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_dependencies" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -83,10 +83,10 @@ structure GIRepositoryRepository :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_immediate_dependencies" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -100,11 +100,11 @@ structure GIRepositoryRepository :>
          & x4 =>
           (
             _import "mlton_g_irepository_get_info" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
-               -> GIRepositoryBaseInfoRecord.FFI.notnull GIRepositoryBaseInfoRecord.FFI.p;
+               -> GIRepositoryBaseInfoRecord.FFI.non_opt GIRepositoryBaseInfoRecord.FFI.p;
           )
             (
               x1,
@@ -112,15 +112,15 @@ structure GIRepositoryRepository :>
               x3,
               x4
             )
-    val getLoadedNamespaces_ = _import "g_irepository_get_loaded_namespaces" : GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val getLoadedNamespaces_ = _import "g_irepository_get_loaded_namespaces" : GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val getNInfos_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_n_infos" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GInt.FFI.val_;
           )
             (
@@ -133,10 +133,10 @@ structure GIRepositoryRepository :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_shared_library" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -148,10 +148,10 @@ structure GIRepositoryRepository :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_typelib_path" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -163,10 +163,10 @@ structure GIRepositoryRepository :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_irepository_get_version" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -180,11 +180,11 @@ structure GIRepositoryRepository :>
          & (x4, x5) =>
           (
             _import "mlton_g_irepository_is_registered" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -202,11 +202,11 @@ structure GIRepositoryRepository :>
          & x4 =>
           (
             _import "g_irepository_load_typelib" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
-               * GIRepositoryTypelibRecord.FFI.notnull GIRepositoryTypelibRecord.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
+               * GIRepositoryTypelibRecord.FFI.non_opt GIRepositoryTypelibRecord.FFI.p
                * GIRepositoryRepositoryLoadFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -223,14 +223,14 @@ structure GIRepositoryRepository :>
          & x7 =>
           (
             _import "mlton_g_irepository_require" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GIRepositoryRepositoryLoadFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GIRepositoryTypelibRecord.FFI.notnull GIRepositoryTypelibRecord.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GIRepositoryTypelibRecord.FFI.non_opt GIRepositoryTypelibRecord.FFI.p;
           )
             (
               x1,
@@ -251,16 +251,16 @@ structure GIRepositoryRepository :>
          & x9 =>
           (
             _import "mlton_g_irepository_require_private" :
-              GIRepositoryRepositoryClass.FFI.notnull GIRepositoryRepositoryClass.FFI.p
+              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GIRepositoryRepositoryLoadFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GIRepositoryTypelibRecord.FFI.notnull GIRepositoryTypelibRecord.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GIRepositoryTypelibRecord.FFI.non_opt GIRepositoryTypelibRecord.FFI.p;
           )
             (
               x1,

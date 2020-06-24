@@ -4,25 +4,25 @@ structure GtkSourceLanguageManager :>
     where type 'a language_class = 'a GtkSourceLanguageClass.class =
   struct
     val getType_ = _import "gtk_source_language_manager_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_language_manager_new" : unit -> GtkSourceLanguageManagerClass.FFI.notnull GtkSourceLanguageManagerClass.FFI.p;
-    val getDefault_ = _import "gtk_source_language_manager_get_default" : unit -> GtkSourceLanguageManagerClass.FFI.notnull GtkSourceLanguageManagerClass.FFI.p;
+    val new_ = _import "gtk_source_language_manager_new" : unit -> GtkSourceLanguageManagerClass.FFI.non_opt GtkSourceLanguageManagerClass.FFI.p;
+    val getDefault_ = _import "gtk_source_language_manager_get_default" : unit -> GtkSourceLanguageManagerClass.FFI.non_opt GtkSourceLanguageManagerClass.FFI.p;
     val getLanguage_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_language_manager_get_language" :
-              GtkSourceLanguageManagerClass.FFI.notnull GtkSourceLanguageManagerClass.FFI.p
+              GtkSourceLanguageManagerClass.FFI.non_opt GtkSourceLanguageManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GtkSourceLanguageClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkSourceLanguageClass.FFI.opt GtkSourceLanguageClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getLanguageIds_ = _import "gtk_source_language_manager_get_language_ids" : GtkSourceLanguageManagerClass.FFI.notnull GtkSourceLanguageManagerClass.FFI.p -> unit Utf8CPtrArray.FFI.out_p;
-    val getSearchPath_ = _import "gtk_source_language_manager_get_search_path" : GtkSourceLanguageManagerClass.FFI.notnull GtkSourceLanguageManagerClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val getLanguageIds_ = _import "gtk_source_language_manager_get_language_ids" : GtkSourceLanguageManagerClass.FFI.non_opt GtkSourceLanguageManagerClass.FFI.p -> Utf8CPtrArray.FFI.opt Utf8CPtrArray.FFI.out_p;
+    val getSearchPath_ = _import "gtk_source_language_manager_get_search_path" : GtkSourceLanguageManagerClass.FFI.non_opt GtkSourceLanguageManagerClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val guessLanguage_ =
       fn
         x1
@@ -30,12 +30,12 @@ structure GtkSourceLanguageManager :>
          & (x4, x5) =>
           (
             _import "mlton_gtk_source_language_manager_guess_language" :
-              GtkSourceLanguageManagerClass.FFI.notnull GtkSourceLanguageManagerClass.FFI.p
+              GtkSourceLanguageManagerClass.FFI.non_opt GtkSourceLanguageManagerClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> unit GtkSourceLanguageClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkSourceLanguageClass.FFI.opt GtkSourceLanguageClass.FFI.p;
           )
             (
               x1,
@@ -49,9 +49,9 @@ structure GtkSourceLanguageManager :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_language_manager_set_search_path" :
-              GtkSourceLanguageManagerClass.FFI.notnull GtkSourceLanguageManagerClass.FFI.p
+              GtkSourceLanguageManagerClass.FFI.non_opt GtkSourceLanguageManagerClass.FFI.p
                * Utf8CPtrArray.MLton.p1
-               * unit Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.opt Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (

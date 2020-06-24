@@ -11,18 +11,20 @@ structure GLibIOFunc :>
     structure C =
       struct
         structure Pointer = CPointerInternal
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
       end
 
     structure FFI =
       struct
-        type notnull = C.notnull
+        type opt = C.opt
+        type non_opt = C.non_opt
         type 'a p = 'a C.p
 
         type callback = (
           (
-            GLibIOChannelRecord.FFI.notnull GLibIOChannelRecord.FFI.p,
+            GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p,
             GLibIOCondition.FFI.val_
           ) pair
            -> GBool.FFI.val_
@@ -42,7 +44,7 @@ structure GLibIOFunc :>
           f (
             makeClosure (
               fn
-                (source : GLibIOChannelRecord.FFI.notnull GLibIOChannelRecord.FFI.p)
+                (source : GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p)
                  & (condition : GLibIOCondition.FFI.val_)
               =>
                 GBool.FFI.withVal I (

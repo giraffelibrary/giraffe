@@ -6,19 +6,19 @@ structure GtkPlacesSidebar :>
     where type places_open_flags_t = GtkPlacesOpenFlags.t =
   struct
     val getType_ = _import "gtk_places_sidebar_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_places_sidebar_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val addShortcut_ = fn x1 & x2 => (_import "gtk_places_sidebar_add_shortcut" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p * GioFileClass.FFI.notnull GioFileClass.FFI.p -> unit;) (x1, x2)
-    val getLocalOnly_ = _import "gtk_places_sidebar_get_local_only" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
-    val getLocation_ = _import "gtk_places_sidebar_get_location" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p -> unit GioFileClass.FFI.p;
-    val getNthBookmark_ = fn x1 & x2 => (_import "gtk_places_sidebar_get_nth_bookmark" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p * GInt32.FFI.val_ -> unit GioFileClass.FFI.p;) (x1, x2)
-    val getOpenFlags_ = _import "gtk_places_sidebar_get_open_flags" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p -> GtkPlacesOpenFlags.FFI.val_;
-    val getShowConnectToServer_ = _import "gtk_places_sidebar_get_show_connect_to_server" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
-    val getShowDesktop_ = _import "gtk_places_sidebar_get_show_desktop" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
-    val getShowEnterLocation_ = _import "gtk_places_sidebar_get_show_enter_location" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
-    val getShowOtherLocations_ = _import "gtk_places_sidebar_get_show_other_locations" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
-    val getShowRecent_ = _import "gtk_places_sidebar_get_show_recent" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
-    val getShowTrash_ = _import "gtk_places_sidebar_get_show_trash" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
-    val removeShortcut_ = fn x1 & x2 => (_import "gtk_places_sidebar_remove_shortcut" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p * GioFileClass.FFI.notnull GioFileClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_places_sidebar_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val addShortcut_ = fn x1 & x2 => (_import "gtk_places_sidebar_add_shortcut" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p * GioFileClass.FFI.non_opt GioFileClass.FFI.p -> unit;) (x1, x2)
+    val getLocalOnly_ = _import "gtk_places_sidebar_get_local_only" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
+    val getLocation_ = _import "gtk_places_sidebar_get_location" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p -> GioFileClass.FFI.opt GioFileClass.FFI.p;
+    val getNthBookmark_ = fn x1 & x2 => (_import "gtk_places_sidebar_get_nth_bookmark" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p * GInt32.FFI.val_ -> GioFileClass.FFI.opt GioFileClass.FFI.p;) (x1, x2)
+    val getOpenFlags_ = _import "gtk_places_sidebar_get_open_flags" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p -> GtkPlacesOpenFlags.FFI.val_;
+    val getShowConnectToServer_ = _import "gtk_places_sidebar_get_show_connect_to_server" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
+    val getShowDesktop_ = _import "gtk_places_sidebar_get_show_desktop" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
+    val getShowEnterLocation_ = _import "gtk_places_sidebar_get_show_enter_location" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
+    val getShowOtherLocations_ = _import "gtk_places_sidebar_get_show_other_locations" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
+    val getShowRecent_ = _import "gtk_places_sidebar_get_show_recent" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
+    val getShowTrash_ = _import "gtk_places_sidebar_get_show_trash" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p -> GBool.FFI.val_;
+    val removeShortcut_ = fn x1 & x2 => (_import "gtk_places_sidebar_remove_shortcut" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p * GioFileClass.FFI.non_opt GioFileClass.FFI.p -> unit;) (x1, x2)
     val setDropTargetsVisible_ =
       fn
         x1
@@ -26,9 +26,9 @@ structure GtkPlacesSidebar :>
          & x3 =>
           (
             _import "gtk_places_sidebar_set_drop_targets_visible" :
-              GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p
+              GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p
                * GBool.FFI.val_
-               * GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
+               * GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
                -> unit;
           )
             (
@@ -36,15 +36,15 @@ structure GtkPlacesSidebar :>
               x2,
               x3
             )
-    val setLocalOnly_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_local_only" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setLocation_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_location" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p * unit GioFileClass.FFI.p -> unit;) (x1, x2)
-    val setOpenFlags_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_open_flags" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p * GtkPlacesOpenFlags.FFI.val_ -> unit;) (x1, x2)
-    val setShowConnectToServer_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_show_connect_to_server" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowDesktop_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_show_desktop" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowEnterLocation_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_show_enter_location" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowOtherLocations_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_show_other_locations" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowRecent_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_show_recent" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowTrash_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_show_trash" : GtkPlacesSidebarClass.FFI.notnull GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setLocalOnly_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_local_only" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setLocation_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_location" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p * GioFileClass.FFI.opt GioFileClass.FFI.p -> unit;) (x1, x2)
+    val setOpenFlags_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_open_flags" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p * GtkPlacesOpenFlags.FFI.val_ -> unit;) (x1, x2)
+    val setShowConnectToServer_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_show_connect_to_server" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowDesktop_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_show_desktop" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowEnterLocation_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_show_enter_location" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowOtherLocations_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_show_other_locations" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowRecent_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_show_recent" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowTrash_ = fn x1 & x2 => (_import "gtk_places_sidebar_set_show_trash" : GtkPlacesSidebarClass.FFI.non_opt GtkPlacesSidebarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkPlacesSidebarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class

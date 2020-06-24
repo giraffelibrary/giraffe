@@ -11,7 +11,8 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
     where type sequence = CArrayType.t
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
     where type 'a C.p = 'a CArrayType.p
-    where type C.notnull = CArrayType.notnull
+    where type C.opt = CArrayType.opt
+    where type C.non_opt = CArrayType.non_opt
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
     structure Array = CArrayN(CArrayType)

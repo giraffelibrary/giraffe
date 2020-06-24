@@ -6,17 +6,17 @@ structure GioVolumeMonitor :>
     where type 'a volume_class = 'a GioVolumeClass.class =
   struct
     val getType_ = _import "g_volume_monitor_get_type" : unit -> GObjectType.FFI.val_;
-    val adoptOrphanMount_ = _import "g_volume_monitor_adopt_orphan_mount" : GioMountClass.FFI.notnull GioMountClass.FFI.p -> GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p;
-    val get_ = _import "g_volume_monitor_get" : unit -> GioVolumeMonitorClass.FFI.notnull GioVolumeMonitorClass.FFI.p;
+    val adoptOrphanMount_ = _import "g_volume_monitor_adopt_orphan_mount" : GioMountClass.FFI.non_opt GioMountClass.FFI.p -> GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p;
+    val get_ = _import "g_volume_monitor_get" : unit -> GioVolumeMonitorClass.FFI.non_opt GioVolumeMonitorClass.FFI.p;
     val getMountForUuid_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_volume_monitor_get_mount_for_uuid" :
-              GioVolumeMonitorClass.FFI.notnull GioVolumeMonitorClass.FFI.p
+              GioVolumeMonitorClass.FFI.non_opt GioVolumeMonitorClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioMountClass.FFI.notnull GioMountClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioMountClass.FFI.non_opt GioMountClass.FFI.p;
           )
             (
               x1,
@@ -28,10 +28,10 @@ structure GioVolumeMonitor :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_volume_monitor_get_volume_for_uuid" :
-              GioVolumeMonitorClass.FFI.notnull GioVolumeMonitorClass.FFI.p
+              GioVolumeMonitorClass.FFI.non_opt GioVolumeMonitorClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioVolumeClass.FFI.notnull GioVolumeClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioVolumeClass.FFI.non_opt GioVolumeClass.FFI.p;
           )
             (
               x1,

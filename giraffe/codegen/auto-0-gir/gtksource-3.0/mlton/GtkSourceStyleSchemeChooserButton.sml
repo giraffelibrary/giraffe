@@ -4,7 +4,7 @@ structure GtkSourceStyleSchemeChooserButton :>
     where type 'a style_scheme_chooser_class = 'a GtkSourceStyleSchemeChooserClass.class =
   struct
     val getType_ = _import "gtk_source_style_scheme_chooser_button_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_style_scheme_chooser_button_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_source_style_scheme_chooser_button_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     type 'a class = 'a GtkSourceStyleSchemeChooserButtonClass.class
     type 'a style_scheme_chooser_class = 'a GtkSourceStyleSchemeChooserClass.class
     type t = base class

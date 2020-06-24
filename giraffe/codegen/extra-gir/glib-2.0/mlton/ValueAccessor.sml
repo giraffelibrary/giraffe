@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2015-2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2015-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -14,13 +14,13 @@ structure ValueAccessor :>
     val init_ =
       fn x1 & x2 =>
         (_import "g_value_init" :
-           GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * GObjectType.FFI.val_
-            -> GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p;)
+           GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GObjectType.FFI.val_
+            -> GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p;)
         (x1, x2)
 
     val isValue_ =
       _import "giraffe_g_is_value" :
-        GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> GBool.FFI.val_;
+        GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GBool.FFI.val_;
 
     type type_t = GObjectType.t
     type value_t = GObjectValueRecord.t
@@ -81,7 +81,7 @@ structure ValueAccessor :>
 
     structure Types =
       struct
-        type 'a get = GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> 'a
+        type 'a get = GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> 'a
 
         val get_boolean_ = _import "g_value_get_boolean" : GBool.FFI.val_ get;
 
@@ -103,12 +103,12 @@ structure ValueAccessor :>
 
         val get_char_ = _import "g_value_get_char" : GChar.FFI.val_ get;
 
-        val get_string_ = _import "g_value_get_string" : Utf8.FFI.notnull Utf8.FFI.out_p get;
+        val get_string_ = _import "g_value_get_string" : Utf8.FFI.non_opt Utf8.FFI.out_p get;
 
-        val get_string_opt_ = _import "g_value_get_string" : unit Utf8.FFI.out_p get;
+        val get_string_opt_ = _import "g_value_get_string" : Utf8.FFI.opt Utf8.FFI.out_p get;
 
 
-        type 'a set = GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * 'a -> unit
+        type 'a set = GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * 'a -> unit
 
         val set_boolean_ =
           fn x1 & x2 =>
@@ -163,13 +163,13 @@ structure ValueAccessor :>
         val set_string_ =
           fn x1 & (x2, x3) =>
             (_import "mlton_g_value_set_string" :
-               GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;)
+               GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;)
             (x1, x2, x3)
 
         val set_string_opt_ =
           fn x1 & (x2, x3) =>
             (_import "mlton_g_value_set_string" :
-               GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * Utf8.MLton.p1 * unit Utf8.MLton.p2 -> unit;)
+               GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * Utf8.MLton.p1 * Utf8.FFI.opt Utf8.MLton.p2 -> unit;)
             (x1, x2, x3)
 
 

@@ -8,26 +8,26 @@ structure GtkMenuItem :>
     where type 'a menu_class = 'a GtkMenuClass.class =
   struct
     val getType_ = _import "gtk_menu_item_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_menu_item_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithLabel_ = _import "mlton_gtk_menu_item_new_with_label" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithMnemonic_ = _import "mlton_gtk_menu_item_new_with_mnemonic" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val activate_ = _import "gtk_menu_item_activate" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit;
-    val deselect_ = _import "gtk_menu_item_deselect" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit;
-    val getAccelPath_ = _import "gtk_menu_item_get_accel_path" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getLabel_ = _import "gtk_menu_item_get_label" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getReserveIndicator_ = _import "gtk_menu_item_get_reserve_indicator" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> GBool.FFI.val_;
-    val getRightJustified_ = _import "gtk_menu_item_get_right_justified" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> GBool.FFI.val_;
-    val getSubmenu_ = _import "gtk_menu_item_get_submenu" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getUseUnderline_ = _import "gtk_menu_item_get_use_underline" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> GBool.FFI.val_;
-    val select_ = _import "gtk_menu_item_select" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p -> unit;
+    val new_ = _import "gtk_menu_item_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithLabel_ = _import "mlton_gtk_menu_item_new_with_label" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithMnemonic_ = _import "mlton_gtk_menu_item_new_with_mnemonic" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val activate_ = _import "gtk_menu_item_activate" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p -> unit;
+    val deselect_ = _import "gtk_menu_item_deselect" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p -> unit;
+    val getAccelPath_ = _import "gtk_menu_item_get_accel_path" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getLabel_ = _import "gtk_menu_item_get_label" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getReserveIndicator_ = _import "gtk_menu_item_get_reserve_indicator" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p -> GBool.FFI.val_;
+    val getRightJustified_ = _import "gtk_menu_item_get_right_justified" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p -> GBool.FFI.val_;
+    val getSubmenu_ = _import "gtk_menu_item_get_submenu" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getUseUnderline_ = _import "gtk_menu_item_get_use_underline" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p -> GBool.FFI.val_;
+    val select_ = _import "gtk_menu_item_select" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p -> unit;
     val setAccelPath_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_menu_item_set_accel_path" :
-              GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p
+              GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -40,9 +40,9 @@ structure GtkMenuItem :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_menu_item_set_label" :
-              GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p
+              GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -50,12 +50,12 @@ structure GtkMenuItem :>
               x2,
               x3
             )
-    val setReserveIndicator_ = fn x1 & x2 => (_import "gtk_menu_item_set_reserve_indicator" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setRightJustified_ = fn x1 & x2 => (_import "gtk_menu_item_set_right_justified" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setSubmenu_ = fn x1 & x2 => (_import "gtk_menu_item_set_submenu" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * unit GtkMenuClass.FFI.p -> unit;) (x1, x2)
-    val setUseUnderline_ = fn x1 & x2 => (_import "gtk_menu_item_set_use_underline" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val toggleSizeAllocate_ = fn x1 & x2 => (_import "gtk_menu_item_toggle_size_allocate" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val toggleSizeRequest_ = fn x1 & x2 => (_import "gtk_menu_item_toggle_size_request" : GtkMenuItemClass.FFI.notnull GtkMenuItemClass.FFI.p * GInt32.FFI.ref_ -> unit;) (x1, x2)
+    val setReserveIndicator_ = fn x1 & x2 => (_import "gtk_menu_item_set_reserve_indicator" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setRightJustified_ = fn x1 & x2 => (_import "gtk_menu_item_set_right_justified" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSubmenu_ = fn x1 & x2 => (_import "gtk_menu_item_set_submenu" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p * GtkMenuClass.FFI.opt GtkMenuClass.FFI.p -> unit;) (x1, x2)
+    val setUseUnderline_ = fn x1 & x2 => (_import "gtk_menu_item_set_use_underline" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val toggleSizeAllocate_ = fn x1 & x2 => (_import "gtk_menu_item_toggle_size_allocate" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val toggleSizeRequest_ = fn x1 & x2 => (_import "gtk_menu_item_toggle_size_request" : GtkMenuItemClass.FFI.non_opt GtkMenuItemClass.FFI.p * GInt32.FFI.ref_ -> unit;) (x1, x2)
     type 'a class = 'a GtkMenuItemClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

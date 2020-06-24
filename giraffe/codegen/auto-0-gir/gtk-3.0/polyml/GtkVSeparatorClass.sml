@@ -1,7 +1,8 @@
 structure GtkVSeparatorClass :>
   GTK_V_SEPARATOR_CLASS
     where type 'a separator_class = 'a GtkSeparatorClass.class
-    where type C.notnull = GtkSeparatorClass.C.notnull
+    where type C.opt = GtkSeparatorClass.C.opt
+    where type C.non_opt = GtkSeparatorClass.C.non_opt
     where type 'a C.p = 'a GtkSeparatorClass.C.p =
   struct
     type 'a separator_class = 'a GtkSeparatorClass.class

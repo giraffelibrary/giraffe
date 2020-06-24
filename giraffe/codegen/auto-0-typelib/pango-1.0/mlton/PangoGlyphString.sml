@@ -6,8 +6,8 @@ structure PangoGlyphString :>
     where type analysis_t = PangoAnalysisRecord.t =
   struct
     val getType_ = _import "pango_glyph_string_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "pango_glyph_string_new" : unit -> PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p;
-    val copy_ = _import "pango_glyph_string_copy" : PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p -> unit PangoGlyphStringRecord.FFI.p;
+    val new_ = _import "pango_glyph_string_new" : unit -> PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p;
+    val copy_ = _import "pango_glyph_string_copy" : PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p -> PangoGlyphStringRecord.FFI.opt PangoGlyphStringRecord.FFI.p;
     val extents_ =
       fn
         x1
@@ -16,10 +16,10 @@ structure PangoGlyphString :>
          & x4 =>
           (
             _import "pango_glyph_string_extents" :
-              PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p
-               * PangoFontClass.FFI.notnull PangoFontClass.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+              PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p
+               * PangoFontClass.FFI.non_opt PangoFontClass.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -38,12 +38,12 @@ structure PangoGlyphString :>
          & x6 =>
           (
             _import "pango_glyph_string_extents_range" :
-              PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p
+              PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
-               * PangoFontClass.FFI.notnull PangoFontClass.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
-               * PangoRectangleRecord.FFI.notnull PangoRectangleRecord.FFI.p
+               * PangoFontClass.FFI.non_opt PangoFontClass.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
+               * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -54,7 +54,7 @@ structure PangoGlyphString :>
               x5,
               x6
             )
-    val getWidth_ = _import "pango_glyph_string_get_width" : PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p -> GInt32.FFI.val_;
+    val getWidth_ = _import "pango_glyph_string_get_width" : PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p -> GInt32.FFI.val_;
     val indexToX_ =
       fn
         x1
@@ -66,11 +66,11 @@ structure PangoGlyphString :>
          & x8 =>
           (
             _import "mlton_pango_glyph_string_index_to_x" :
-              PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p
+              PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
-               * PangoAnalysisRecord.FFI.notnull PangoAnalysisRecord.FFI.p
+               * PangoAnalysisRecord.FFI.non_opt PangoAnalysisRecord.FFI.p
                * GInt32.FFI.val_
                * GBool.FFI.val_
                * GInt32.FFI.ref_
@@ -86,7 +86,7 @@ structure PangoGlyphString :>
               x7,
               x8
             )
-    val setSize_ = fn x1 & x2 => (_import "pango_glyph_string_set_size" : PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setSize_ = fn x1 & x2 => (_import "pango_glyph_string_set_size" : PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val xToIndex_ =
       fn
         x1
@@ -98,11 +98,11 @@ structure PangoGlyphString :>
          & x8 =>
           (
             _import "mlton_pango_glyph_string_x_to_index" :
-              PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p
+              PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
-               * PangoAnalysisRecord.FFI.notnull PangoAnalysisRecord.FFI.p
+               * PangoAnalysisRecord.FFI.non_opt PangoAnalysisRecord.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_

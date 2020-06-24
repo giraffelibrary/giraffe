@@ -7,10 +7,10 @@ structure GtkRecentChooserMenu :>
     where type 'a recent_manager_class = 'a GtkRecentManagerClass.class =
   struct
     val getType_ = _import "gtk_recent_chooser_menu_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_recent_chooser_menu_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newForManager_ = _import "gtk_recent_chooser_menu_new_for_manager" : GtkRecentManagerClass.FFI.notnull GtkRecentManagerClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getShowNumbers_ = _import "gtk_recent_chooser_menu_get_show_numbers" : GtkRecentChooserMenuClass.FFI.notnull GtkRecentChooserMenuClass.FFI.p -> GBool.FFI.val_;
-    val setShowNumbers_ = fn x1 & x2 => (_import "gtk_recent_chooser_menu_set_show_numbers" : GtkRecentChooserMenuClass.FFI.notnull GtkRecentChooserMenuClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_recent_chooser_menu_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newForManager_ = _import "gtk_recent_chooser_menu_new_for_manager" : GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getShowNumbers_ = _import "gtk_recent_chooser_menu_get_show_numbers" : GtkRecentChooserMenuClass.FFI.non_opt GtkRecentChooserMenuClass.FFI.p -> GBool.FFI.val_;
+    val setShowNumbers_ = fn x1 & x2 => (_import "gtk_recent_chooser_menu_set_show_numbers" : GtkRecentChooserMenuClass.FFI.non_opt GtkRecentChooserMenuClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkRecentChooserMenuClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

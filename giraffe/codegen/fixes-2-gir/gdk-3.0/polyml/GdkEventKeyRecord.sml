@@ -1,7 +1,7 @@
 structure GdkEventKeyRecord :>
   GDK_EVENT_KEY_RECORD
     where type 'a event_union = 'a GdkEvent.union
-    where type C.notnull = GdkEvent.C.notnull
+    where type C.non_opt = GdkEvent.C.non_opt
     where type 'a C.p = 'a GdkEvent.C.p
     where type 'a window_class = 'a GdkWindowClass.class
     where type modifier_type_t = GdkModifierType.t =

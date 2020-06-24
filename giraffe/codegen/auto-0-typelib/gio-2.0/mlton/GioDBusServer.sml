@@ -19,14 +19,14 @@ structure GioDBusServer :>
           (
             _import "mlton_g_dbus_server_new_sync" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioDBusServerFlags.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GioDBusAuthObserverClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioDBusServerClass.FFI.notnull GioDBusServerClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioDBusAuthObserverClass.FFI.opt GioDBusAuthObserverClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioDBusServerClass.FFI.non_opt GioDBusServerClass.FFI.p;
           )
             (
               x1,
@@ -38,12 +38,12 @@ structure GioDBusServer :>
               x7,
               x8
             )
-    val getClientAddress_ = _import "g_dbus_server_get_client_address" : GioDBusServerClass.FFI.notnull GioDBusServerClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getFlags_ = _import "g_dbus_server_get_flags" : GioDBusServerClass.FFI.notnull GioDBusServerClass.FFI.p -> GioDBusServerFlags.FFI.val_;
-    val getGuid_ = _import "g_dbus_server_get_guid" : GioDBusServerClass.FFI.notnull GioDBusServerClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val isActive_ = _import "g_dbus_server_is_active" : GioDBusServerClass.FFI.notnull GioDBusServerClass.FFI.p -> GBool.FFI.val_;
-    val start_ = _import "g_dbus_server_start" : GioDBusServerClass.FFI.notnull GioDBusServerClass.FFI.p -> unit;
-    val stop_ = _import "g_dbus_server_stop" : GioDBusServerClass.FFI.notnull GioDBusServerClass.FFI.p -> unit;
+    val getClientAddress_ = _import "g_dbus_server_get_client_address" : GioDBusServerClass.FFI.non_opt GioDBusServerClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getFlags_ = _import "g_dbus_server_get_flags" : GioDBusServerClass.FFI.non_opt GioDBusServerClass.FFI.p -> GioDBusServerFlags.FFI.val_;
+    val getGuid_ = _import "g_dbus_server_get_guid" : GioDBusServerClass.FFI.non_opt GioDBusServerClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val isActive_ = _import "g_dbus_server_is_active" : GioDBusServerClass.FFI.non_opt GioDBusServerClass.FFI.p -> GBool.FFI.val_;
+    val start_ = _import "g_dbus_server_start" : GioDBusServerClass.FFI.non_opt GioDBusServerClass.FFI.p -> unit;
+    val stop_ = _import "g_dbus_server_stop" : GioDBusServerClass.FFI.non_opt GioDBusServerClass.FFI.p -> unit;
     type 'a class = 'a GioDBusServerClass.class
     type 'a initable_class = 'a GioInitableClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class

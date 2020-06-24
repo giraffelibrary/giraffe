@@ -25,8 +25,8 @@ structure GtkScaleButton :>
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * Utf8CPtrArray.MLton.p1
-               * unit Utf8CPtrArray.MLton.p2
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8CPtrArray.FFI.opt Utf8CPtrArray.MLton.p2
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -36,20 +36,20 @@ structure GtkScaleButton :>
               x5,
               x6
             )
-    val getAdjustment_ = _import "gtk_scale_button_get_adjustment" : GtkScaleButtonClass.FFI.notnull GtkScaleButtonClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
-    val getMinusButton_ = _import "gtk_scale_button_get_minus_button" : GtkScaleButtonClass.FFI.notnull GtkScaleButtonClass.FFI.p -> GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p;
-    val getPlusButton_ = _import "gtk_scale_button_get_plus_button" : GtkScaleButtonClass.FFI.notnull GtkScaleButtonClass.FFI.p -> GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p;
-    val getPopup_ = _import "gtk_scale_button_get_popup" : GtkScaleButtonClass.FFI.notnull GtkScaleButtonClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getValue_ = _import "gtk_scale_button_get_value" : GtkScaleButtonClass.FFI.notnull GtkScaleButtonClass.FFI.p -> GDouble.FFI.val_;
-    val setAdjustment_ = fn x1 & x2 => (_import "gtk_scale_button_set_adjustment" : GtkScaleButtonClass.FFI.notnull GtkScaleButtonClass.FFI.p * GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val getAdjustment_ = _import "gtk_scale_button_get_adjustment" : GtkScaleButtonClass.FFI.non_opt GtkScaleButtonClass.FFI.p -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
+    val getMinusButton_ = _import "gtk_scale_button_get_minus_button" : GtkScaleButtonClass.FFI.non_opt GtkScaleButtonClass.FFI.p -> GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p;
+    val getPlusButton_ = _import "gtk_scale_button_get_plus_button" : GtkScaleButtonClass.FFI.non_opt GtkScaleButtonClass.FFI.p -> GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p;
+    val getPopup_ = _import "gtk_scale_button_get_popup" : GtkScaleButtonClass.FFI.non_opt GtkScaleButtonClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getValue_ = _import "gtk_scale_button_get_value" : GtkScaleButtonClass.FFI.non_opt GtkScaleButtonClass.FFI.p -> GDouble.FFI.val_;
+    val setAdjustment_ = fn x1 & x2 => (_import "gtk_scale_button_set_adjustment" : GtkScaleButtonClass.FFI.non_opt GtkScaleButtonClass.FFI.p * GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
     val setIcons_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_scale_button_set_icons" :
-              GtkScaleButtonClass.FFI.notnull GtkScaleButtonClass.FFI.p
+              GtkScaleButtonClass.FFI.non_opt GtkScaleButtonClass.FFI.p
                * Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (
@@ -57,7 +57,7 @@ structure GtkScaleButton :>
               x2,
               x3
             )
-    val setValue_ = fn x1 & x2 => (_import "gtk_scale_button_set_value" : GtkScaleButtonClass.FFI.notnull GtkScaleButtonClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setValue_ = fn x1 & x2 => (_import "gtk_scale_button_set_value" : GtkScaleButtonClass.FFI.non_opt GtkScaleButtonClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkScaleButtonClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

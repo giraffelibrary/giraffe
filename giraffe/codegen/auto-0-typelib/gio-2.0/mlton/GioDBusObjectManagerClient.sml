@@ -12,12 +12,12 @@ structure GioDBusObjectManagerClient :>
     where type d_bus_object_manager_client_flags_t = GioDBusObjectManagerClientFlags.t =
   struct
     val getType_ = _import "g_dbus_object_manager_client_get_type" : unit -> GObjectType.FFI.val_;
-    val newFinish_ = fn x1 & x2 => (_import "g_dbus_object_manager_client_new_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p;) (x1, x2)
-    val newForBusFinish_ = fn x1 & x2 => (_import "g_dbus_object_manager_client_new_for_bus_finish" : GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p;) (x1, x2)
-    val getConnection_ = _import "g_dbus_object_manager_client_get_connection" : GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
-    val getFlags_ = _import "g_dbus_object_manager_client_get_flags" : GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p -> GioDBusObjectManagerClientFlags.FFI.val_;
-    val getName_ = _import "g_dbus_object_manager_client_get_name" : GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getNameOwner_ = _import "g_dbus_object_manager_client_get_name_owner" : GioDBusObjectManagerClientClass.FFI.notnull GioDBusObjectManagerClientClass.FFI.p -> unit Utf8.FFI.out_p;
+    val newFinish_ = fn x1 & x2 => (_import "g_dbus_object_manager_client_new_finish" : GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GioDBusObjectManagerClientClass.FFI.non_opt GioDBusObjectManagerClientClass.FFI.p;) (x1, x2)
+    val newForBusFinish_ = fn x1 & x2 => (_import "g_dbus_object_manager_client_new_for_bus_finish" : GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GioDBusObjectManagerClientClass.FFI.non_opt GioDBusObjectManagerClientClass.FFI.p;) (x1, x2)
+    val getConnection_ = _import "g_dbus_object_manager_client_get_connection" : GioDBusObjectManagerClientClass.FFI.non_opt GioDBusObjectManagerClientClass.FFI.p -> GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p;
+    val getFlags_ = _import "g_dbus_object_manager_client_get_flags" : GioDBusObjectManagerClientClass.FFI.non_opt GioDBusObjectManagerClientClass.FFI.p -> GioDBusObjectManagerClientFlags.FFI.val_;
+    val getName_ = _import "g_dbus_object_manager_client_get_name" : GioDBusObjectManagerClientClass.FFI.non_opt GioDBusObjectManagerClientClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getNameOwner_ = _import "g_dbus_object_manager_client_get_name_owner" : GioDBusObjectManagerClientClass.FFI.non_opt GioDBusObjectManagerClientClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
     type 'a class = 'a GioDBusObjectManagerClientClass.class
     type 'a async_initable_class = 'a GioAsyncInitableClass.class
     type 'a d_bus_object_manager_class = 'a GioDBusObjectManagerClass.class

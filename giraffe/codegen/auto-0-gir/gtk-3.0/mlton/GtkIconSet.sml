@@ -9,10 +9,10 @@ structure GtkIconSet :>
     where type 'a style_context_class = 'a GtkStyleContextClass.class =
   struct
     val getType_ = _import "gtk_icon_set_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_icon_set_new" : unit -> GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p;
-    val newFromPixbuf_ = _import "gtk_icon_set_new_from_pixbuf" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p;
-    val addSource_ = fn x1 & x2 => (_import "gtk_icon_set_add_source" : GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p * GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p -> unit;) (x1, x2)
-    val copy_ = _import "gtk_icon_set_copy" : GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p -> GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p;
+    val new_ = _import "gtk_icon_set_new" : unit -> GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p;
+    val newFromPixbuf_ = _import "gtk_icon_set_new_from_pixbuf" : GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p -> GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p;
+    val addSource_ = fn x1 & x2 => (_import "gtk_icon_set_add_source" : GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p * GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p -> unit;) (x1, x2)
+    val copy_ = _import "gtk_icon_set_copy" : GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p -> GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p;
     val getSizes_ =
       fn
         x1
@@ -20,9 +20,9 @@ structure GtkIconSet :>
          & x4 =>
           (
             _import "mlton_gtk_icon_set_get_sizes" :
-              GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p
+              GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p
                * GIntCArrayN.MLton.r1
-               * (unit, GIntCArrayN.FFI.notnull) GIntCArrayN.MLton.r2
+               * (GIntCArrayN.FFI.opt, GIntCArrayN.FFI.non_opt) GIntCArrayN.MLton.r2
                * GInt.FFI.ref_
                -> unit;
           )
@@ -43,15 +43,15 @@ structure GtkIconSet :>
          & (x7, x8) =>
           (
             _import "mlton_gtk_icon_set_render_icon" :
-              GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p
-               * unit GtkStyleClass.FFI.p
+              GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p
+               * GtkStyleClass.FFI.opt GtkStyleClass.FFI.p
                * GtkTextDirection.FFI.val_
                * GtkStateType.FFI.val_
                * GInt.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -70,10 +70,10 @@ structure GtkIconSet :>
          & x3 =>
           (
             _import "gtk_icon_set_render_icon_pixbuf" :
-              GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p
-               * GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p
+               * GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * GInt.FFI.val_
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -89,12 +89,12 @@ structure GtkIconSet :>
          & x5 =>
           (
             _import "gtk_icon_set_render_icon_surface" :
-              GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p
-               * GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p
+               * GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               * unit GdkWindowClass.FFI.p
-               -> CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p;
+               * GdkWindowClass.FFI.opt GdkWindowClass.FFI.p
+               -> CairoSurfaceRecord.FFI.non_opt CairoSurfaceRecord.FFI.p;
           )
             (
               x1,

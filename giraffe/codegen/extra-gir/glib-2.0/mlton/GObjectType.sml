@@ -14,9 +14,9 @@ structure GObjectType :> G_OBJECT_TYPE =
 
     val isA_ = fn x1 & x2 => (_import "g_type_is_a" : FFI.val_ * FFI.val_ -> GBool.FFI.val_;) (x1, x2)
 
-    val name_ = _import "giraffe_g_type_name" : FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val name_ = _import "giraffe_g_type_name" : FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;
 
-    val fromName_ = _import "g_type_from_name" : Utf8.FFI.notnull Utf8.FFI.in_p -> FFI.val_;
+    val fromName_ = _import "g_type_from_name" : Utf8.FFI.non_opt Utf8.FFI.in_p -> FFI.val_;
 
     val invalid_ = _import "giraffe_g_invalid_get_type" : unit -> FFI.val_;
 

@@ -7,17 +7,17 @@ structure GtkMessageDialog :>
     where type message_type_t = GtkMessageType.t =
   struct
     val getType_ = _import "gtk_message_dialog_get_type" : unit -> GObjectType.FFI.val_;
-    val getImage_ = _import "gtk_message_dialog_get_image" : GtkMessageDialogClass.FFI.notnull GtkMessageDialogClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getMessageArea_ = _import "gtk_message_dialog_get_message_area" : GtkMessageDialogClass.FFI.notnull GtkMessageDialogClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val setImage_ = fn x1 & x2 => (_import "gtk_message_dialog_set_image" : GtkMessageDialogClass.FFI.notnull GtkMessageDialogClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val getImage_ = _import "gtk_message_dialog_get_image" : GtkMessageDialogClass.FFI.non_opt GtkMessageDialogClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getMessageArea_ = _import "gtk_message_dialog_get_message_area" : GtkMessageDialogClass.FFI.non_opt GtkMessageDialogClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val setImage_ = fn x1 & x2 => (_import "gtk_message_dialog_set_image" : GtkMessageDialogClass.FFI.non_opt GtkMessageDialogClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     val setMarkup_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_message_dialog_set_markup" :
-              GtkMessageDialogClass.FFI.notnull GtkMessageDialogClass.FFI.p
+              GtkMessageDialogClass.FFI.non_opt GtkMessageDialogClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

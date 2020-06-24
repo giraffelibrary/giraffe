@@ -8,14 +8,14 @@ structure GdkDragContext :>
     where type drag_cancel_reason_t = GdkDragCancelReason.t =
   struct
     val getType_ = _import "gdk_drag_context_get_type" : unit -> GObjectType.FFI.val_;
-    val getActions_ = _import "gdk_drag_context_get_actions" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkDragAction.FFI.val_;
-    val getDestWindow_ = _import "gdk_drag_context_get_dest_window" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val getDevice_ = _import "gdk_drag_context_get_device" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p;
-    val getDragWindow_ = _import "gdk_drag_context_get_drag_window" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> unit GdkWindowClass.FFI.p;
-    val getProtocol_ = _import "gdk_drag_context_get_protocol" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkDragProtocol.FFI.val_;
-    val getSelectedAction_ = _import "gdk_drag_context_get_selected_action" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkDragAction.FFI.val_;
-    val getSourceWindow_ = _import "gdk_drag_context_get_source_window" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val getSuggestedAction_ = _import "gdk_drag_context_get_suggested_action" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> GdkDragAction.FFI.val_;
+    val getActions_ = _import "gdk_drag_context_get_actions" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> GdkDragAction.FFI.val_;
+    val getDestWindow_ = _import "gdk_drag_context_get_dest_window" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val getDevice_ = _import "gdk_drag_context_get_device" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p;
+    val getDragWindow_ = _import "gdk_drag_context_get_drag_window" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
+    val getProtocol_ = _import "gdk_drag_context_get_protocol" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> GdkDragProtocol.FFI.val_;
+    val getSelectedAction_ = _import "gdk_drag_context_get_selected_action" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> GdkDragAction.FFI.val_;
+    val getSourceWindow_ = _import "gdk_drag_context_get_source_window" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val getSuggestedAction_ = _import "gdk_drag_context_get_suggested_action" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> GdkDragAction.FFI.val_;
     val manageDnd_ =
       fn
         x1
@@ -23,8 +23,8 @@ structure GdkDragContext :>
          & x3 =>
           (
             _import "gdk_drag_context_manage_dnd" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GdkDragAction.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -33,7 +33,7 @@ structure GdkDragContext :>
               x2,
               x3
             )
-    val setDevice_ = fn x1 & x2 => (_import "gdk_drag_context_set_device" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit;) (x1, x2)
+    val setDevice_ = fn x1 & x2 => (_import "gdk_drag_context_set_device" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> unit;) (x1, x2)
     val setHotspot_ =
       fn
         x1
@@ -41,7 +41,7 @@ structure GdkDragContext :>
          & x3 =>
           (
             _import "gdk_drag_context_set_hotspot" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;

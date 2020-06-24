@@ -6,8 +6,8 @@ structure GtkSearchEntry :>
     where type 'a editable_class = 'a GtkEditableClass.class =
   struct
     val getType_ = _import "gtk_search_entry_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_search_entry_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val handleEvent_ = fn x1 & x2 => (_import "gtk_search_entry_handle_event" : GtkSearchEntryClass.FFI.notnull GtkSearchEntryClass.FFI.p * GdkEvent.FFI.notnull GdkEvent.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val new_ = _import "gtk_search_entry_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val handleEvent_ = fn x1 & x2 => (_import "gtk_search_entry_handle_event" : GtkSearchEntryClass.FFI.non_opt GtkSearchEntryClass.FFI.p * GdkEvent.FFI.non_opt GdkEvent.FFI.p -> GBool.FFI.val_;) (x1, x2)
     type 'a class = 'a GtkSearchEntryClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_editable_class = 'a GtkCellEditableClass.class

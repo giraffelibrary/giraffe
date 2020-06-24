@@ -5,7 +5,7 @@ structure GioSimpleIOStream :>
     where type 'a output_stream_class = 'a GioOutputStreamClass.class =
   struct
     val getType_ = _import "g_simple_io_stream_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "g_simple_io_stream_new" : GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p * GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p -> GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p;) (x1, x2)
+    val new_ = fn x1 & x2 => (_import "g_simple_io_stream_new" : GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p * GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p -> GioIOStreamClass.FFI.non_opt GioIOStreamClass.FFI.p;) (x1, x2)
     type 'a class = 'a GioSimpleIOStreamClass.class
     type 'a input_stream_class = 'a GioInputStreamClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class

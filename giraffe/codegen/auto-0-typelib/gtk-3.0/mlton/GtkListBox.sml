@@ -9,15 +9,15 @@ structure GtkListBox :>
     where type selection_mode_t = GtkSelectionMode.t =
   struct
     val getType_ = _import "gtk_list_box_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_list_box_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val dragHighlightRow_ = fn x1 & x2 => (_import "gtk_list_box_drag_highlight_row" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p -> unit;) (x1, x2)
-    val dragUnhighlightRow_ = _import "gtk_list_box_drag_unhighlight_row" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> unit;
-    val getActivateOnSingleClick_ = _import "gtk_list_box_get_activate_on_single_click" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> GBool.FFI.val_;
-    val getAdjustment_ = _import "gtk_list_box_get_adjustment" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
-    val getRowAtIndex_ = fn x1 & x2 => (_import "gtk_list_box_get_row_at_index" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * GInt32.FFI.val_ -> unit GtkListBoxRowClass.FFI.p;) (x1, x2)
-    val getRowAtY_ = fn x1 & x2 => (_import "gtk_list_box_get_row_at_y" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * GInt32.FFI.val_ -> unit GtkListBoxRowClass.FFI.p;) (x1, x2)
-    val getSelectedRow_ = _import "gtk_list_box_get_selected_row" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p;
-    val getSelectionMode_ = _import "gtk_list_box_get_selection_mode" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> GtkSelectionMode.FFI.val_;
+    val new_ = _import "gtk_list_box_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val dragHighlightRow_ = fn x1 & x2 => (_import "gtk_list_box_drag_highlight_row" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p * GtkListBoxRowClass.FFI.non_opt GtkListBoxRowClass.FFI.p -> unit;) (x1, x2)
+    val dragUnhighlightRow_ = _import "gtk_list_box_drag_unhighlight_row" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p -> unit;
+    val getActivateOnSingleClick_ = _import "gtk_list_box_get_activate_on_single_click" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p -> GBool.FFI.val_;
+    val getAdjustment_ = _import "gtk_list_box_get_adjustment" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
+    val getRowAtIndex_ = fn x1 & x2 => (_import "gtk_list_box_get_row_at_index" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p * GInt32.FFI.val_ -> GtkListBoxRowClass.FFI.opt GtkListBoxRowClass.FFI.p;) (x1, x2)
+    val getRowAtY_ = fn x1 & x2 => (_import "gtk_list_box_get_row_at_y" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p * GInt32.FFI.val_ -> GtkListBoxRowClass.FFI.opt GtkListBoxRowClass.FFI.p;) (x1, x2)
+    val getSelectedRow_ = _import "gtk_list_box_get_selected_row" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p -> GtkListBoxRowClass.FFI.non_opt GtkListBoxRowClass.FFI.p;
+    val getSelectionMode_ = _import "gtk_list_box_get_selection_mode" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p -> GtkSelectionMode.FFI.val_;
     val insert_ =
       fn
         x1
@@ -25,8 +25,8 @@ structure GtkListBox :>
          & x3 =>
           (
             _import "gtk_list_box_insert" :
-              GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt32.FFI.val_
                -> unit;
           )
@@ -35,18 +35,18 @@ structure GtkListBox :>
               x2,
               x3
             )
-    val invalidateFilter_ = _import "gtk_list_box_invalidate_filter" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> unit;
-    val invalidateHeaders_ = _import "gtk_list_box_invalidate_headers" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> unit;
-    val invalidateSort_ = _import "gtk_list_box_invalidate_sort" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> unit;
-    val prepend_ = fn x1 & x2 => (_import "gtk_list_box_prepend" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val selectAll_ = _import "gtk_list_box_select_all" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> unit;
-    val selectRow_ = fn x1 & x2 => (_import "gtk_list_box_select_row" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * unit GtkListBoxRowClass.FFI.p -> unit;) (x1, x2)
-    val setActivateOnSingleClick_ = fn x1 & x2 => (_import "gtk_list_box_set_activate_on_single_click" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setAdjustment_ = fn x1 & x2 => (_import "gtk_list_box_set_adjustment" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
-    val setPlaceholder_ = fn x1 & x2 => (_import "gtk_list_box_set_placeholder" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setSelectionMode_ = fn x1 & x2 => (_import "gtk_list_box_set_selection_mode" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * GtkSelectionMode.FFI.val_ -> unit;) (x1, x2)
-    val unselectAll_ = _import "gtk_list_box_unselect_all" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p -> unit;
-    val unselectRow_ = fn x1 & x2 => (_import "gtk_list_box_unselect_row" : GtkListBoxClass.FFI.notnull GtkListBoxClass.FFI.p * GtkListBoxRowClass.FFI.notnull GtkListBoxRowClass.FFI.p -> unit;) (x1, x2)
+    val invalidateFilter_ = _import "gtk_list_box_invalidate_filter" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p -> unit;
+    val invalidateHeaders_ = _import "gtk_list_box_invalidate_headers" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p -> unit;
+    val invalidateSort_ = _import "gtk_list_box_invalidate_sort" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p -> unit;
+    val prepend_ = fn x1 & x2 => (_import "gtk_list_box_prepend" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val selectAll_ = _import "gtk_list_box_select_all" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p -> unit;
+    val selectRow_ = fn x1 & x2 => (_import "gtk_list_box_select_row" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p * GtkListBoxRowClass.FFI.opt GtkListBoxRowClass.FFI.p -> unit;) (x1, x2)
+    val setActivateOnSingleClick_ = fn x1 & x2 => (_import "gtk_list_box_set_activate_on_single_click" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setAdjustment_ = fn x1 & x2 => (_import "gtk_list_box_set_adjustment" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p * GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val setPlaceholder_ = fn x1 & x2 => (_import "gtk_list_box_set_placeholder" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setSelectionMode_ = fn x1 & x2 => (_import "gtk_list_box_set_selection_mode" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p * GtkSelectionMode.FFI.val_ -> unit;) (x1, x2)
+    val unselectAll_ = _import "gtk_list_box_unselect_all" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p -> unit;
+    val unselectRow_ = fn x1 & x2 => (_import "gtk_list_box_unselect_row" : GtkListBoxClass.FFI.non_opt GtkListBoxClass.FFI.p * GtkListBoxRowClass.FFI.non_opt GtkListBoxRowClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkListBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a adjustment_class = 'a GtkAdjustmentClass.class

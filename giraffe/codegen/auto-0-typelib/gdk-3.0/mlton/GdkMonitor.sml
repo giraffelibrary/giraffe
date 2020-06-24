@@ -6,17 +6,17 @@ structure GdkMonitor :>
     where type rectangle_t = GdkRectangleRecord.t =
   struct
     val getType_ = _import "gdk_monitor_get_type" : unit -> GObjectType.FFI.val_;
-    val getDisplay_ = _import "gdk_monitor_get_display" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
-    val getGeometry_ = fn x1 & x2 => (_import "gdk_monitor_get_geometry" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
-    val getHeightMm_ = _import "gdk_monitor_get_height_mm" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> GInt32.FFI.val_;
-    val getManufacturer_ = _import "gdk_monitor_get_manufacturer" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getModel_ = _import "gdk_monitor_get_model" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getRefreshRate_ = _import "gdk_monitor_get_refresh_rate" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> GInt32.FFI.val_;
-    val getScaleFactor_ = _import "gdk_monitor_get_scale_factor" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> GInt32.FFI.val_;
-    val getSubpixelLayout_ = _import "gdk_monitor_get_subpixel_layout" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> GdkSubpixelLayout.FFI.val_;
-    val getWidthMm_ = _import "gdk_monitor_get_width_mm" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> GInt32.FFI.val_;
-    val getWorkarea_ = fn x1 & x2 => (_import "gdk_monitor_get_workarea" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
-    val isPrimary_ = _import "gdk_monitor_is_primary" : GdkMonitorClass.FFI.notnull GdkMonitorClass.FFI.p -> GBool.FFI.val_;
+    val getDisplay_ = _import "gdk_monitor_get_display" : GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p -> GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p;
+    val getGeometry_ = fn x1 & x2 => (_import "gdk_monitor_get_geometry" : GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val getHeightMm_ = _import "gdk_monitor_get_height_mm" : GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p -> GInt32.FFI.val_;
+    val getManufacturer_ = _import "gdk_monitor_get_manufacturer" : GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getModel_ = _import "gdk_monitor_get_model" : GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getRefreshRate_ = _import "gdk_monitor_get_refresh_rate" : GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p -> GInt32.FFI.val_;
+    val getScaleFactor_ = _import "gdk_monitor_get_scale_factor" : GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p -> GInt32.FFI.val_;
+    val getSubpixelLayout_ = _import "gdk_monitor_get_subpixel_layout" : GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p -> GdkSubpixelLayout.FFI.val_;
+    val getWidthMm_ = _import "gdk_monitor_get_width_mm" : GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p -> GInt32.FFI.val_;
+    val getWorkarea_ = fn x1 & x2 => (_import "gdk_monitor_get_workarea" : GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val isPrimary_ = _import "gdk_monitor_is_primary" : GdkMonitorClass.FFI.non_opt GdkMonitorClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GdkMonitorClass.class
     type 'a display_class = 'a GdkDisplayClass.class
     type subpixel_layout_t = GdkSubpixelLayout.t

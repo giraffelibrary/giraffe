@@ -3,16 +3,16 @@ structure GioUnixFDList :>
     where type 'a class = 'a GioUnixFDListClass.class =
   struct
     val getType_ = _import "g_unix_fd_list_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_unix_fd_list_new" : unit -> GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p;
+    val new_ = _import "g_unix_fd_list_new" : unit -> GioUnixFDListClass.FFI.non_opt GioUnixFDListClass.FFI.p;
     val newFromArray_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_unix_fd_list_new_from_array" :
               GIntCArrayN.MLton.p1
-               * GIntCArrayN.FFI.notnull GIntCArrayN.MLton.p2
+               * GIntCArrayN.FFI.non_opt GIntCArrayN.MLton.p2
                * GInt.FFI.val_
-               -> GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p;
+               -> GioUnixFDListClass.FFI.non_opt GioUnixFDListClass.FFI.p;
           )
             (
               x1,
@@ -26,9 +26,9 @@ structure GioUnixFDList :>
          & x3 =>
           (
             _import "g_unix_fd_list_append" :
-              GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p
+              GioUnixFDListClass.FFI.non_opt GioUnixFDListClass.FFI.p
                * GInt.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GInt.FFI.val_;
           )
             (
@@ -43,9 +43,9 @@ structure GioUnixFDList :>
          & x3 =>
           (
             _import "g_unix_fd_list_get" :
-              GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p
+              GioUnixFDListClass.FFI.non_opt GioUnixFDListClass.FFI.p
                * GInt.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GInt.FFI.val_;
           )
             (
@@ -53,9 +53,9 @@ structure GioUnixFDList :>
               x2,
               x3
             )
-    val getLength_ = _import "g_unix_fd_list_get_length" : GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p -> GInt.FFI.val_;
-    val peekFds_ = fn x1 & x2 => (_import "g_unix_fd_list_peek_fds" : GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p * GInt.FFI.ref_ -> GIntCArrayN.FFI.notnull GIntCArrayN.FFI.out_p;) (x1, x2)
-    val stealFds_ = fn x1 & x2 => (_import "g_unix_fd_list_steal_fds" : GioUnixFDListClass.FFI.notnull GioUnixFDListClass.FFI.p * GInt.FFI.ref_ -> GIntCArrayN.FFI.notnull GIntCArrayN.FFI.out_p;) (x1, x2)
+    val getLength_ = _import "g_unix_fd_list_get_length" : GioUnixFDListClass.FFI.non_opt GioUnixFDListClass.FFI.p -> GInt.FFI.val_;
+    val peekFds_ = fn x1 & x2 => (_import "g_unix_fd_list_peek_fds" : GioUnixFDListClass.FFI.non_opt GioUnixFDListClass.FFI.p * GInt.FFI.ref_ -> GIntCArrayN.FFI.non_opt GIntCArrayN.FFI.out_p;) (x1, x2)
+    val stealFds_ = fn x1 & x2 => (_import "g_unix_fd_list_steal_fds" : GioUnixFDListClass.FFI.non_opt GioUnixFDListClass.FFI.p * GInt.FFI.ref_ -> GIntCArrayN.FFI.non_opt GIntCArrayN.FFI.out_p;) (x1, x2)
     type 'a class = 'a GioUnixFDListClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

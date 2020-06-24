@@ -6,8 +6,8 @@ structure GioFileIcon :>
     where type 'a file_class = 'a GioFileClass.class =
   struct
     val getType_ = _import "g_file_icon_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_file_icon_new" : GioFileClass.FFI.notnull GioFileClass.FFI.p -> GioFileIconClass.FFI.notnull GioFileIconClass.FFI.p;
-    val getFile_ = _import "g_file_icon_get_file" : GioFileIconClass.FFI.notnull GioFileIconClass.FFI.p -> GioFileClass.FFI.notnull GioFileClass.FFI.p;
+    val new_ = _import "g_file_icon_new" : GioFileClass.FFI.non_opt GioFileClass.FFI.p -> GioFileIconClass.FFI.non_opt GioFileIconClass.FFI.p;
+    val getFile_ = _import "g_file_icon_get_file" : GioFileIconClass.FFI.non_opt GioFileIconClass.FFI.p -> GioFileClass.FFI.non_opt GioFileClass.FFI.p;
     type 'a class = 'a GioFileIconClass.class
     type 'a icon_class = 'a GioIconClass.class
     type 'a loadable_icon_class = 'a GioLoadableIconClass.class

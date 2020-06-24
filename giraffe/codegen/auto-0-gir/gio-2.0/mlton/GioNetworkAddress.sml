@@ -10,16 +10,16 @@ structure GioNetworkAddress :>
           (
             _import "mlton_g_network_address_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt16.FFI.val_
-               -> GioNetworkAddressClass.FFI.notnull GioNetworkAddressClass.FFI.p;
+               -> GioNetworkAddressClass.FFI.non_opt GioNetworkAddressClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newLoopback_ = _import "g_network_address_new_loopback" : GUInt16.FFI.val_ -> GioNetworkAddressClass.FFI.notnull GioNetworkAddressClass.FFI.p;
+    val newLoopback_ = _import "g_network_address_new_loopback" : GUInt16.FFI.val_ -> GioNetworkAddressClass.FFI.non_opt GioNetworkAddressClass.FFI.p;
     val parse_ =
       fn
         (x1, x2)
@@ -28,10 +28,10 @@ structure GioNetworkAddress :>
           (
             _import "mlton_g_network_address_parse" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt16.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioNetworkAddressClass.FFI.notnull GioNetworkAddressClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioNetworkAddressClass.FFI.non_opt GioNetworkAddressClass.FFI.p;
           )
             (
               x1,
@@ -47,10 +47,10 @@ structure GioNetworkAddress :>
           (
             _import "mlton_g_network_address_parse_uri" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt16.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioNetworkAddressClass.FFI.notnull GioNetworkAddressClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioNetworkAddressClass.FFI.non_opt GioNetworkAddressClass.FFI.p;
           )
             (
               x1,
@@ -58,9 +58,9 @@ structure GioNetworkAddress :>
               x3,
               x4
             )
-    val getHostname_ = _import "g_network_address_get_hostname" : GioNetworkAddressClass.FFI.notnull GioNetworkAddressClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPort_ = _import "g_network_address_get_port" : GioNetworkAddressClass.FFI.notnull GioNetworkAddressClass.FFI.p -> GUInt16.FFI.val_;
-    val getScheme_ = _import "g_network_address_get_scheme" : GioNetworkAddressClass.FFI.notnull GioNetworkAddressClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getHostname_ = _import "g_network_address_get_hostname" : GioNetworkAddressClass.FFI.non_opt GioNetworkAddressClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPort_ = _import "g_network_address_get_port" : GioNetworkAddressClass.FFI.non_opt GioNetworkAddressClass.FFI.p -> GUInt16.FFI.val_;
+    val getScheme_ = _import "g_network_address_get_scheme" : GioNetworkAddressClass.FFI.non_opt GioNetworkAddressClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     type 'a class = 'a GioNetworkAddressClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type t = base class

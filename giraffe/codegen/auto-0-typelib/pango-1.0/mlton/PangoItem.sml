@@ -3,8 +3,8 @@ structure PangoItem :>
     where type t = PangoItemRecord.t =
   struct
     val getType_ = _import "pango_item_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "pango_item_new" : unit -> PangoItemRecord.FFI.notnull PangoItemRecord.FFI.p;
-    val copy_ = _import "pango_item_copy" : PangoItemRecord.FFI.notnull PangoItemRecord.FFI.p -> unit PangoItemRecord.FFI.p;
+    val new_ = _import "pango_item_new" : unit -> PangoItemRecord.FFI.non_opt PangoItemRecord.FFI.p;
+    val copy_ = _import "pango_item_copy" : PangoItemRecord.FFI.non_opt PangoItemRecord.FFI.p -> PangoItemRecord.FFI.opt PangoItemRecord.FFI.p;
     val split_ =
       fn
         x1
@@ -12,10 +12,10 @@ structure PangoItem :>
          & x3 =>
           (
             _import "pango_item_split" :
-              PangoItemRecord.FFI.notnull PangoItemRecord.FFI.p
+              PangoItemRecord.FFI.non_opt PangoItemRecord.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
-               -> PangoItemRecord.FFI.notnull PangoItemRecord.FFI.p;
+               -> PangoItemRecord.FFI.non_opt PangoItemRecord.FFI.p;
           )
             (
               x1,

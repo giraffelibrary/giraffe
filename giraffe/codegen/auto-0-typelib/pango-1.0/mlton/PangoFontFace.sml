@@ -4,9 +4,9 @@ structure PangoFontFace :>
     where type font_description_t = PangoFontDescriptionRecord.t =
   struct
     val getType_ = _import "pango_font_face_get_type" : unit -> GObjectType.FFI.val_;
-    val describe_ = _import "pango_font_face_describe" : PangoFontFaceClass.FFI.notnull PangoFontFaceClass.FFI.p -> PangoFontDescriptionRecord.FFI.notnull PangoFontDescriptionRecord.FFI.p;
-    val getFaceName_ = _import "pango_font_face_get_face_name" : PangoFontFaceClass.FFI.notnull PangoFontFaceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val isSynthesized_ = _import "pango_font_face_is_synthesized" : PangoFontFaceClass.FFI.notnull PangoFontFaceClass.FFI.p -> GBool.FFI.val_;
+    val describe_ = _import "pango_font_face_describe" : PangoFontFaceClass.FFI.non_opt PangoFontFaceClass.FFI.p -> PangoFontDescriptionRecord.FFI.non_opt PangoFontDescriptionRecord.FFI.p;
+    val getFaceName_ = _import "pango_font_face_get_face_name" : PangoFontFaceClass.FFI.non_opt PangoFontFaceClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val isSynthesized_ = _import "pango_font_face_is_synthesized" : PangoFontFaceClass.FFI.non_opt PangoFontFaceClass.FFI.p -> GBool.FFI.val_;
     val listSizes_ =
       fn
         x1
@@ -14,9 +14,9 @@ structure PangoFontFace :>
          & x4 =>
           (
             _import "mlton_pango_font_face_list_sizes" :
-              PangoFontFaceClass.FFI.notnull PangoFontFaceClass.FFI.p
+              PangoFontFaceClass.FFI.non_opt PangoFontFaceClass.FFI.p
                * GInt32CArrayN.MLton.r1
-               * (unit, GInt32CArrayN.FFI.notnull) GInt32CArrayN.MLton.r2
+               * (GInt32CArrayN.FFI.opt, GInt32CArrayN.FFI.non_opt) GInt32CArrayN.MLton.r2
                * GInt32.FFI.ref_
                -> unit;
           )

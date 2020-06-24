@@ -4,8 +4,8 @@ structure AtkImage :>
     where type coord_type_t = AtkCoordType.t =
   struct
     val getType_ = _import "atk_image_get_type" : unit -> GObjectType.FFI.val_;
-    val getImageDescription_ = _import "atk_image_get_image_description" : AtkImageClass.FFI.notnull AtkImageClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getImageLocale_ = _import "atk_image_get_image_locale" : AtkImageClass.FFI.notnull AtkImageClass.FFI.p -> unit Utf8.FFI.out_p;
+    val getImageDescription_ = _import "atk_image_get_image_description" : AtkImageClass.FFI.non_opt AtkImageClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getImageLocale_ = _import "atk_image_get_image_locale" : AtkImageClass.FFI.non_opt AtkImageClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
     val getImagePosition_ =
       fn
         x1
@@ -14,7 +14,7 @@ structure AtkImage :>
          & x4 =>
           (
             _import "atk_image_get_image_position" :
-              AtkImageClass.FFI.notnull AtkImageClass.FFI.p
+              AtkImageClass.FFI.non_opt AtkImageClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                * AtkCoordType.FFI.val_
@@ -33,7 +33,7 @@ structure AtkImage :>
          & x3 =>
           (
             _import "atk_image_get_image_size" :
-              AtkImageClass.FFI.notnull AtkImageClass.FFI.p
+              AtkImageClass.FFI.non_opt AtkImageClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> unit;
@@ -48,9 +48,9 @@ structure AtkImage :>
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_image_set_image_description" :
-              AtkImageClass.FFI.notnull AtkImageClass.FFI.p
+              AtkImageClass.FFI.non_opt AtkImageClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (

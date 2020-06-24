@@ -7,8 +7,8 @@ structure GObjectClosure :>
     val getType_ = _import "g_closure_get_type" : unit -> GObjectType.FFI.val_;
     val new_ =
       _import "giraffe_g_closure_new" :
-        ClosureMarshal.FFI.callback -> GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p;
-    val invalidate_ = _import "g_closure_invalidate" : GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p -> unit;
+        ClosureMarshal.FFI.callback -> GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p;
+    val invalidate_ = _import "g_closure_invalidate" : GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p -> unit;
     type t = GObjectClosureRecord.t
     type type_t = GObjectType.t
     type 'a marshaller = 'a ClosureMarshal.marshaller

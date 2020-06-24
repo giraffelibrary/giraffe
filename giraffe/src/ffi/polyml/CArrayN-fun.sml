@@ -11,7 +11,8 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
     where type sequence = CArrayType.t
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
     where type 'a C.p = 'a CArrayType.p
-    where type C.notnull = CArrayType.notnull =
+    where type C.opt = CArrayType.opt
+    where type C.non_opt = CArrayType.non_opt =
   struct
     type elem = CArrayType.elem
     type sequence = CArrayType.t
@@ -19,7 +20,8 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
     structure C =
       struct
         structure Pointer = CArrayType.Pointer
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
@@ -32,7 +34,7 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
      * elements for which space was allocated.  A finalizable value
      * is used to free the array on the C heap when no longer reachable.
      *)
-    type array = C.notnull C.p Finalizable.t * int
+    type array = C.non_opt C.p Finalizable.t * int
 
     type t = array * int
 
@@ -130,7 +132,7 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
           fun withRefOptPointer f p = Pointer.withRefOptVal f p
 
           fun withRefDupPointer free f p =
-            withRefPointer f p handle e => (Pointer.appOpt free p; raise e)
+            withRefPointer f p handle e => (Pointer.appNonNullPtr free p; raise e)
 
           fun withRefDupOptPointer free f pOpt =
             withRefOptPointer f pOpt handle e => (Option.app free pOpt; raise e)

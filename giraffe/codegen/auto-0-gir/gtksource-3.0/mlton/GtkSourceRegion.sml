@@ -4,8 +4,8 @@ structure GtkSourceRegion :>
     where type region_iter_t = GtkSourceRegionIterRecord.t =
   struct
     val getType_ = _import "gtk_source_region_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_region_new" : GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p;
-    val addRegion_ = fn x1 & x2 => (_import "gtk_source_region_add_region" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p * unit GtkSourceRegionClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_source_region_new" : GtkTextBufferClass.FFI.non_opt GtkTextBufferClass.FFI.p -> GtkSourceRegionClass.FFI.non_opt GtkSourceRegionClass.FFI.p;
+    val addRegion_ = fn x1 & x2 => (_import "gtk_source_region_add_region" : GtkSourceRegionClass.FFI.non_opt GtkSourceRegionClass.FFI.p * GtkSourceRegionClass.FFI.opt GtkSourceRegionClass.FFI.p -> unit;) (x1, x2)
     val addSubregion_ =
       fn
         x1
@@ -13,9 +13,9 @@ structure GtkSourceRegion :>
          & x3 =>
           (
             _import "gtk_source_region_add_subregion" :
-              GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceRegionClass.FFI.non_opt GtkSourceRegionClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -30,9 +30,9 @@ structure GtkSourceRegion :>
          & x3 =>
           (
             _import "gtk_source_region_get_bounds" :
-              GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceRegionClass.FFI.non_opt GtkSourceRegionClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -40,9 +40,9 @@ structure GtkSourceRegion :>
               x2,
               x3
             )
-    val getBuffer_ = _import "gtk_source_region_get_buffer" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p -> unit GtkTextBufferClass.FFI.p;
-    val getStartRegionIter_ = fn x1 & x2 => (_import "gtk_source_region_get_start_region_iter" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p * GtkSourceRegionIterRecord.FFI.notnull GtkSourceRegionIterRecord.FFI.p -> unit;) (x1, x2)
-    val intersectRegion_ = fn x1 & x2 => (_import "gtk_source_region_intersect_region" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p * unit GtkSourceRegionClass.FFI.p -> unit GtkSourceRegionClass.FFI.p;) (x1, x2)
+    val getBuffer_ = _import "gtk_source_region_get_buffer" : GtkSourceRegionClass.FFI.non_opt GtkSourceRegionClass.FFI.p -> GtkTextBufferClass.FFI.opt GtkTextBufferClass.FFI.p;
+    val getStartRegionIter_ = fn x1 & x2 => (_import "gtk_source_region_get_start_region_iter" : GtkSourceRegionClass.FFI.non_opt GtkSourceRegionClass.FFI.p * GtkSourceRegionIterRecord.FFI.non_opt GtkSourceRegionIterRecord.FFI.p -> unit;) (x1, x2)
+    val intersectRegion_ = fn x1 & x2 => (_import "gtk_source_region_intersect_region" : GtkSourceRegionClass.FFI.non_opt GtkSourceRegionClass.FFI.p * GtkSourceRegionClass.FFI.opt GtkSourceRegionClass.FFI.p -> GtkSourceRegionClass.FFI.opt GtkSourceRegionClass.FFI.p;) (x1, x2)
     val intersectSubregion_ =
       fn
         x1
@@ -50,18 +50,18 @@ structure GtkSourceRegion :>
          & x3 =>
           (
             _import "gtk_source_region_intersect_subregion" :
-              GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               -> unit GtkSourceRegionClass.FFI.p;
+              GtkSourceRegionClass.FFI.non_opt GtkSourceRegionClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               -> GtkSourceRegionClass.FFI.opt GtkSourceRegionClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val isEmpty_ = _import "gtk_source_region_is_empty" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p -> GBool.FFI.val_;
-    val subtractRegion_ = fn x1 & x2 => (_import "gtk_source_region_subtract_region" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p * unit GtkSourceRegionClass.FFI.p -> unit;) (x1, x2)
+    val isEmpty_ = _import "gtk_source_region_is_empty" : GtkSourceRegionClass.FFI.non_opt GtkSourceRegionClass.FFI.p -> GBool.FFI.val_;
+    val subtractRegion_ = fn x1 & x2 => (_import "gtk_source_region_subtract_region" : GtkSourceRegionClass.FFI.non_opt GtkSourceRegionClass.FFI.p * GtkSourceRegionClass.FFI.opt GtkSourceRegionClass.FFI.p -> unit;) (x1, x2)
     val subtractSubregion_ =
       fn
         x1
@@ -69,9 +69,9 @@ structure GtkSourceRegion :>
          & x3 =>
           (
             _import "gtk_source_region_subtract_subregion" :
-              GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceRegionClass.FFI.non_opt GtkSourceRegionClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -79,7 +79,7 @@ structure GtkSourceRegion :>
               x2,
               x3
             )
-    val toString_ = _import "gtk_source_region_to_string" : GtkSourceRegionClass.FFI.notnull GtkSourceRegionClass.FFI.p -> unit Utf8.FFI.out_p;
+    val toString_ = _import "gtk_source_region_to_string" : GtkSourceRegionClass.FFI.non_opt GtkSourceRegionClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
     type 'a class = 'a GtkSourceRegionClass.class
     type region_iter_t = GtkSourceRegionIterRecord.t
     type t = base class

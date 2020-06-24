@@ -1,6 +1,7 @@
 structure GtkSourceStyleSchemeChooserButtonClass :>
   GTK_SOURCE_STYLE_SCHEME_CHOOSER_BUTTON_CLASS
-    where type C.notnull = GtkButtonClass.C.notnull
+    where type C.opt = GtkButtonClass.C.opt
+    where type C.non_opt = GtkButtonClass.C.non_opt
     where type 'a C.p = 'a GtkButtonClass.C.p =
   struct
     open GtkButtonClass

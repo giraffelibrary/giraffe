@@ -26,8 +26,8 @@ signature C_ARRAY_TYPE =
 
         (* `free ~1` must be applied to the pointer returned by
          * `toPointer c` once it is not required. *)
-        val fromPointer : (notnull p -> cvector) from_p
-        val toPointer   : (cvector -> notnull p) from_p
+        val fromPointer : (non_opt p -> cvector) from_p
+        val toPointer   : (cvector -> non_opt p) from_p
         val fromVal     : t -> cvector
         val toVal       : cvector -> t
       end

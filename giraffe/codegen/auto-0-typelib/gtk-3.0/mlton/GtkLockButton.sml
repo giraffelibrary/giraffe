@@ -6,9 +6,9 @@ structure GtkLockButton :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_lock_button_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_lock_button_new" : unit GioPermissionClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getPermission_ = _import "gtk_lock_button_get_permission" : GtkLockButtonClass.FFI.notnull GtkLockButtonClass.FFI.p -> GioPermissionClass.FFI.notnull GioPermissionClass.FFI.p;
-    val setPermission_ = fn x1 & x2 => (_import "gtk_lock_button_set_permission" : GtkLockButtonClass.FFI.notnull GtkLockButtonClass.FFI.p * unit GioPermissionClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_lock_button_new" : GioPermissionClass.FFI.opt GioPermissionClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getPermission_ = _import "gtk_lock_button_get_permission" : GtkLockButtonClass.FFI.non_opt GtkLockButtonClass.FFI.p -> GioPermissionClass.FFI.non_opt GioPermissionClass.FFI.p;
+    val setPermission_ = fn x1 & x2 => (_import "gtk_lock_button_set_permission" : GtkLockButtonClass.FFI.non_opt GtkLockButtonClass.FFI.p * GioPermissionClass.FFI.opt GioPermissionClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkLockButtonClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

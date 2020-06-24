@@ -5,8 +5,8 @@ structure AtkStateSet :>
     where type state_type_t = AtkStateType.t =
   struct
     val getType_ = _import "atk_state_set_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "atk_state_set_new" : unit -> AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p;
-    val addState_ = fn x1 & x2 => (_import "atk_state_set_add_state" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val new_ = _import "atk_state_set_new" : unit -> AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p;
+    val addState_ = fn x1 & x2 => (_import "atk_state_set_add_state" : AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p * AtkStateType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val addStates_ =
       fn
         x1
@@ -14,9 +14,9 @@ structure AtkStateSet :>
          & x4 =>
           (
             _import "mlton_atk_state_set_add_states" :
-              AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p
+              AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p
                * AtkStateTypeCArrayN.MLton.p1
-               * AtkStateTypeCArrayN.FFI.notnull AtkStateTypeCArrayN.MLton.p2
+               * AtkStateTypeCArrayN.FFI.non_opt AtkStateTypeCArrayN.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )
@@ -26,9 +26,9 @@ structure AtkStateSet :>
               x3,
               x4
             )
-    val andSets_ = fn x1 & x2 => (_import "atk_state_set_and_sets" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p -> AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p;) (x1, x2)
-    val clearStates_ = _import "atk_state_set_clear_states" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p -> unit;
-    val containsState_ = fn x1 & x2 => (_import "atk_state_set_contains_state" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val andSets_ = fn x1 & x2 => (_import "atk_state_set_and_sets" : AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p * AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p -> AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p;) (x1, x2)
+    val clearStates_ = _import "atk_state_set_clear_states" : AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p -> unit;
+    val containsState_ = fn x1 & x2 => (_import "atk_state_set_contains_state" : AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p * AtkStateType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val containsStates_ =
       fn
         x1
@@ -36,9 +36,9 @@ structure AtkStateSet :>
          & x4 =>
           (
             _import "mlton_atk_state_set_contains_states" :
-              AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p
+              AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p
                * AtkStateTypeCArrayN.MLton.p1
-               * AtkStateTypeCArrayN.FFI.notnull AtkStateTypeCArrayN.MLton.p2
+               * AtkStateTypeCArrayN.FFI.non_opt AtkStateTypeCArrayN.MLton.p2
                * GInt.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -48,10 +48,10 @@ structure AtkStateSet :>
               x3,
               x4
             )
-    val isEmpty_ = _import "atk_state_set_is_empty" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p -> GBool.FFI.val_;
-    val orSets_ = fn x1 & x2 => (_import "atk_state_set_or_sets" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p -> unit AtkStateSetClass.FFI.p;) (x1, x2)
-    val removeState_ = fn x1 & x2 => (_import "atk_state_set_remove_state" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val xorSets_ = fn x1 & x2 => (_import "atk_state_set_xor_sets" : AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p * AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p -> AtkStateSetClass.FFI.notnull AtkStateSetClass.FFI.p;) (x1, x2)
+    val isEmpty_ = _import "atk_state_set_is_empty" : AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p -> GBool.FFI.val_;
+    val orSets_ = fn x1 & x2 => (_import "atk_state_set_or_sets" : AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p * AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p -> AtkStateSetClass.FFI.opt AtkStateSetClass.FFI.p;) (x1, x2)
+    val removeState_ = fn x1 & x2 => (_import "atk_state_set_remove_state" : AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p * AtkStateType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val xorSets_ = fn x1 & x2 => (_import "atk_state_set_xor_sets" : AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p * AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p -> AtkStateSetClass.FFI.non_opt AtkStateSetClass.FFI.p;) (x1, x2)
     type 'a class = 'a AtkStateSetClass.class
     type state_type_c_array_n_t = AtkStateTypeCArrayN.t
     type state_type_t = AtkStateType.t

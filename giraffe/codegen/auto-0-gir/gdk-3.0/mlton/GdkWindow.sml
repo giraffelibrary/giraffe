@@ -37,17 +37,17 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_new" :
-              unit GdkWindowClass.FFI.p
-               * GdkWindowAttrRecord.FFI.notnull GdkWindowAttrRecord.FFI.p
+              GdkWindowClass.FFI.opt GdkWindowClass.FFI.p
+               * GdkWindowAttrRecord.FFI.non_opt GdkWindowAttrRecord.FFI.p
                * GdkWindowAttributesType.FFI.val_
-               -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+               -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val atPointer_ = fn x1 & x2 => (_import "gdk_window_at_pointer" : GInt.FFI.ref_ * GInt.FFI.ref_ -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;) (x1, x2)
+    val atPointer_ = fn x1 & x2 => (_import "gdk_window_at_pointer" : GInt.FFI.ref_ * GInt.FFI.ref_ -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;) (x1, x2)
     val constrainSize_ =
       fn
         x1
@@ -58,7 +58,7 @@ structure GdkWindow :>
          & x6 =>
           (
             _import "gdk_window_constrain_size" :
-              GdkGeometryRecord.FFI.notnull GdkGeometryRecord.FFI.p
+              GdkGeometryRecord.FFI.non_opt GdkGeometryRecord.FFI.p
                * GdkWindowHints.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -76,8 +76,8 @@ structure GdkWindow :>
             )
     val processAllUpdates_ = _import "gdk_window_process_all_updates" : unit -> unit;
     val setDebugUpdates_ = _import "gdk_window_set_debug_updates" : GBool.FFI.val_ -> unit;
-    val beep_ = _import "gdk_window_beep" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val beginDrawFrame_ = fn x1 & x2 => (_import "gdk_window_begin_draw_frame" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * CairoRegionRecord.FFI.notnull CairoRegionRecord.FFI.p -> GdkDrawingContextClass.FFI.notnull GdkDrawingContextClass.FFI.p;) (x1, x2)
+    val beep_ = _import "gdk_window_beep" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val beginDrawFrame_ = fn x1 & x2 => (_import "gdk_window_begin_draw_frame" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * CairoRegionRecord.FFI.non_opt CairoRegionRecord.FFI.p -> GdkDrawingContextClass.FFI.non_opt GdkDrawingContextClass.FFI.p;) (x1, x2)
     val beginMoveDrag_ =
       fn
         x1
@@ -87,7 +87,7 @@ structure GdkWindow :>
          & x5 =>
           (
             _import "gdk_window_begin_move_drag" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -111,8 +111,8 @@ structure GdkWindow :>
          & x6 =>
           (
             _import "gdk_window_begin_move_drag_for_device" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -127,8 +127,8 @@ structure GdkWindow :>
               x5,
               x6
             )
-    val beginPaintRect_ = fn x1 & x2 => (_import "gdk_window_begin_paint_rect" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
-    val beginPaintRegion_ = fn x1 & x2 => (_import "gdk_window_begin_paint_region" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * CairoRegionRecord.FFI.notnull CairoRegionRecord.FFI.p -> unit;) (x1, x2)
+    val beginPaintRect_ = fn x1 & x2 => (_import "gdk_window_begin_paint_rect" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val beginPaintRegion_ = fn x1 & x2 => (_import "gdk_window_begin_paint_region" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * CairoRegionRecord.FFI.non_opt CairoRegionRecord.FFI.p -> unit;) (x1, x2)
     val beginResizeDrag_ =
       fn
         x1
@@ -139,7 +139,7 @@ structure GdkWindow :>
          & x6 =>
           (
             _import "gdk_window_begin_resize_drag" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GdkWindowEdge.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -166,9 +166,9 @@ structure GdkWindow :>
          & x7 =>
           (
             _import "gdk_window_begin_resize_drag_for_device" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GdkWindowEdge.FFI.val_
-               * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+               * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -184,7 +184,7 @@ structure GdkWindow :>
               x6,
               x7
             )
-    val configureFinished_ = _import "gdk_window_configure_finished" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
+    val configureFinished_ = _import "gdk_window_configure_finished" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
     val coordsFromParent_ =
       fn
         x1
@@ -194,7 +194,7 @@ structure GdkWindow :>
          & x5 =>
           (
             _import "gdk_window_coords_from_parent" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.ref_
@@ -217,7 +217,7 @@ structure GdkWindow :>
          & x5 =>
           (
             _import "gdk_window_coords_to_parent" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.ref_
@@ -231,7 +231,7 @@ structure GdkWindow :>
               x4,
               x5
             )
-    val createGlContext_ = fn x1 & x2 => (_import "gdk_window_create_gl_context" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p;) (x1, x2)
+    val createGlContext_ = fn x1 & x2 => (_import "gdk_window_create_gl_context" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p;) (x1, x2)
     val createSimilarImageSurface_ =
       fn
         x1
@@ -241,12 +241,12 @@ structure GdkWindow :>
          & x5 =>
           (
             _import "gdk_window_create_similar_image_surface" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p;
+               -> CairoSurfaceRecord.FFI.non_opt CairoSurfaceRecord.FFI.p;
           )
             (
               x1,
@@ -263,11 +263,11 @@ structure GdkWindow :>
          & x4 =>
           (
             _import "gdk_window_create_similar_surface" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * CairoContent.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p;
+               -> CairoSurfaceRecord.FFI.non_opt CairoSurfaceRecord.FFI.p;
           )
             (
               x1,
@@ -275,28 +275,28 @@ structure GdkWindow :>
               x3,
               x4
             )
-    val deiconify_ = _import "gdk_window_deiconify" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val destroy_ = _import "gdk_window_destroy" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val destroyNotify_ = _import "gdk_window_destroy_notify" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val enableSynchronizedConfigure_ = _import "gdk_window_enable_synchronized_configure" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val endDrawFrame_ = fn x1 & x2 => (_import "gdk_window_end_draw_frame" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkDrawingContextClass.FFI.notnull GdkDrawingContextClass.FFI.p -> unit;) (x1, x2)
-    val endPaint_ = _import "gdk_window_end_paint" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val ensureNative_ = _import "gdk_window_ensure_native" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
-    val flush_ = _import "gdk_window_flush" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val focus_ = fn x1 & x2 => (_import "gdk_window_focus" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val freezeToplevelUpdatesLibgtkOnly_ = _import "gdk_window_freeze_toplevel_updates_libgtk_only" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val freezeUpdates_ = _import "gdk_window_freeze_updates" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val fullscreen_ = _import "gdk_window_fullscreen" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val fullscreenOnMonitor_ = fn x1 & x2 => (_import "gdk_window_fullscreen_on_monitor" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val geometryChanged_ = _import "gdk_window_geometry_changed" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val getAcceptFocus_ = _import "gdk_window_get_accept_focus" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
-    val getBackgroundPattern_ = _import "gdk_window_get_background_pattern" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit CairoPatternRecord.FFI.p;
-    val getClipRegion_ = _import "gdk_window_get_clip_region" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> CairoRegionRecord.FFI.notnull CairoRegionRecord.FFI.p;
-    val getComposited_ = _import "gdk_window_get_composited" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
-    val getCursor_ = _import "gdk_window_get_cursor" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit GdkCursorClass.FFI.p;
-    val getDecorations_ = fn x1 & x2 => (_import "gdk_window_get_decorations" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkWMDecoration.FFI.ref_ -> GBool.FFI.val_;) (x1, x2)
-    val getDeviceCursor_ = fn x1 & x2 => (_import "gdk_window_get_device_cursor" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit GdkCursorClass.FFI.p;) (x1, x2)
-    val getDeviceEvents_ = fn x1 & x2 => (_import "gdk_window_get_device_events" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkEventMask.FFI.val_;) (x1, x2)
+    val deiconify_ = _import "gdk_window_deiconify" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val destroy_ = _import "gdk_window_destroy" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val destroyNotify_ = _import "gdk_window_destroy_notify" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val enableSynchronizedConfigure_ = _import "gdk_window_enable_synchronized_configure" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val endDrawFrame_ = fn x1 & x2 => (_import "gdk_window_end_draw_frame" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkDrawingContextClass.FFI.non_opt GdkDrawingContextClass.FFI.p -> unit;) (x1, x2)
+    val endPaint_ = _import "gdk_window_end_paint" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val ensureNative_ = _import "gdk_window_ensure_native" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val flush_ = _import "gdk_window_flush" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val focus_ = fn x1 & x2 => (_import "gdk_window_focus" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val freezeToplevelUpdatesLibgtkOnly_ = _import "gdk_window_freeze_toplevel_updates_libgtk_only" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val freezeUpdates_ = _import "gdk_window_freeze_updates" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val fullscreen_ = _import "gdk_window_fullscreen" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val fullscreenOnMonitor_ = fn x1 & x2 => (_import "gdk_window_fullscreen_on_monitor" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val geometryChanged_ = _import "gdk_window_geometry_changed" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val getAcceptFocus_ = _import "gdk_window_get_accept_focus" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val getBackgroundPattern_ = _import "gdk_window_get_background_pattern" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> CairoPatternRecord.FFI.opt CairoPatternRecord.FFI.p;
+    val getClipRegion_ = _import "gdk_window_get_clip_region" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> CairoRegionRecord.FFI.non_opt CairoRegionRecord.FFI.p;
+    val getComposited_ = _import "gdk_window_get_composited" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val getCursor_ = _import "gdk_window_get_cursor" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkCursorClass.FFI.opt GdkCursorClass.FFI.p;
+    val getDecorations_ = fn x1 & x2 => (_import "gdk_window_get_decorations" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkWMDecoration.FFI.ref_ -> GBool.FFI.val_;) (x1, x2)
+    val getDeviceCursor_ = fn x1 & x2 => (_import "gdk_window_get_device_cursor" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GdkCursorClass.FFI.opt GdkCursorClass.FFI.p;) (x1, x2)
+    val getDeviceEvents_ = fn x1 & x2 => (_import "gdk_window_get_device_events" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GdkEventMask.FFI.val_;) (x1, x2)
     val getDevicePosition_ =
       fn
         x1
@@ -306,12 +306,12 @@ structure GdkWindow :>
          & x5 =>
           (
             _import "gdk_window_get_device_position" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                * GdkModifierType.FFI.ref_
-               -> unit GdkWindowClass.FFI.p;
+               -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
           )
             (
               x1,
@@ -329,12 +329,12 @@ structure GdkWindow :>
          & x5 =>
           (
             _import "gdk_window_get_device_position_double" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                * GdkModifierType.FFI.ref_
-               -> unit GdkWindowClass.FFI.p;
+               -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
           )
             (
               x1,
@@ -343,16 +343,16 @@ structure GdkWindow :>
               x4,
               x5
             )
-    val getDisplay_ = _import "gdk_window_get_display" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
-    val getDragProtocol_ = fn x1 & x2 => (_import "gdk_window_get_drag_protocol" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * (unit, GdkWindowClass.FFI.notnull) GdkWindowClass.FFI.r -> GdkDragProtocol.FFI.val_;) (x1, x2)
-    val getEffectiveParent_ = _import "gdk_window_get_effective_parent" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val getEffectiveToplevel_ = _import "gdk_window_get_effective_toplevel" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val getEventCompression_ = _import "gdk_window_get_event_compression" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
-    val getEvents_ = _import "gdk_window_get_events" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkEventMask.FFI.val_;
-    val getFocusOnMap_ = _import "gdk_window_get_focus_on_map" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
-    val getFrameClock_ = _import "gdk_window_get_frame_clock" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkFrameClockClass.FFI.notnull GdkFrameClockClass.FFI.p;
-    val getFrameExtents_ = fn x1 & x2 => (_import "gdk_window_get_frame_extents" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
-    val getFullscreenMode_ = _import "gdk_window_get_fullscreen_mode" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkFullscreenMode.FFI.val_;
+    val getDisplay_ = _import "gdk_window_get_display" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p;
+    val getDragProtocol_ = fn x1 & x2 => (_import "gdk_window_get_drag_protocol" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * (GdkWindowClass.FFI.opt, GdkWindowClass.FFI.non_opt) GdkWindowClass.FFI.r -> GdkDragProtocol.FFI.val_;) (x1, x2)
+    val getEffectiveParent_ = _import "gdk_window_get_effective_parent" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val getEffectiveToplevel_ = _import "gdk_window_get_effective_toplevel" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val getEventCompression_ = _import "gdk_window_get_event_compression" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val getEvents_ = _import "gdk_window_get_events" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkEventMask.FFI.val_;
+    val getFocusOnMap_ = _import "gdk_window_get_focus_on_map" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val getFrameClock_ = _import "gdk_window_get_frame_clock" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkFrameClockClass.FFI.non_opt GdkFrameClockClass.FFI.p;
+    val getFrameExtents_ = fn x1 & x2 => (_import "gdk_window_get_frame_extents" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val getFullscreenMode_ = _import "gdk_window_get_fullscreen_mode" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkFullscreenMode.FFI.val_;
     val getGeometry_ =
       fn
         x1
@@ -362,7 +362,7 @@ structure GdkWindow :>
          & x5 =>
           (
             _import "gdk_window_get_geometry" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                * GInt.FFI.ref_
@@ -376,9 +376,9 @@ structure GdkWindow :>
               x4,
               x5
             )
-    val getGroup_ = _import "gdk_window_get_group" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val getHeight_ = _import "gdk_window_get_height" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GInt.FFI.val_;
-    val getModalHint_ = _import "gdk_window_get_modal_hint" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val getGroup_ = _import "gdk_window_get_group" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val getHeight_ = _import "gdk_window_get_height" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GInt.FFI.val_;
+    val getModalHint_ = _import "gdk_window_get_modal_hint" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
     val getOrigin_ =
       fn
         x1
@@ -386,7 +386,7 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_get_origin" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> GInt.FFI.val_;
@@ -396,8 +396,8 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val getParent_ = _import "gdk_window_get_parent" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val getPassThrough_ = _import "gdk_window_get_pass_through" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val getParent_ = _import "gdk_window_get_parent" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val getPassThrough_ = _import "gdk_window_get_pass_through" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
     val getPointer_ =
       fn
         x1
@@ -406,11 +406,11 @@ structure GdkWindow :>
          & x4 =>
           (
             _import "gdk_window_get_pointer" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                * GdkModifierType.FFI.ref_
-               -> unit GdkWindowClass.FFI.p;
+               -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
           )
             (
               x1,
@@ -425,7 +425,7 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_get_position" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -444,7 +444,7 @@ structure GdkWindow :>
          & x5 =>
           (
             _import "gdk_window_get_root_coords" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.ref_
@@ -465,7 +465,7 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_get_root_origin" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -475,21 +475,21 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val getScaleFactor_ = _import "gdk_window_get_scale_factor" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GInt.FFI.val_;
-    val getScreen_ = _import "gdk_window_get_screen" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p;
-    val getSourceEvents_ = fn x1 & x2 => (_import "gdk_window_get_source_events" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkInputSource.FFI.val_ -> GdkEventMask.FFI.val_;) (x1, x2)
-    val getState_ = _import "gdk_window_get_state" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkWindowState.FFI.val_;
-    val getSupportMultidevice_ = _import "gdk_window_get_support_multidevice" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
-    val getToplevel_ = _import "gdk_window_get_toplevel" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val getTypeHint_ = _import "gdk_window_get_type_hint" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkWindowTypeHint.FFI.val_;
-    val getUpdateArea_ = _import "gdk_window_get_update_area" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> CairoRegionRecord.FFI.notnull CairoRegionRecord.FFI.p;
-    val getVisibleRegion_ = _import "gdk_window_get_visible_region" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> CairoRegionRecord.FFI.notnull CairoRegionRecord.FFI.p;
-    val getVisual_ = _import "gdk_window_get_visual" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p;
-    val getWidth_ = _import "gdk_window_get_width" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GInt.FFI.val_;
-    val getWindowType_ = _import "gdk_window_get_window_type" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GdkWindowType.FFI.val_;
-    val hasNative_ = _import "gdk_window_has_native" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
-    val hide_ = _import "gdk_window_hide" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val iconify_ = _import "gdk_window_iconify" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
+    val getScaleFactor_ = _import "gdk_window_get_scale_factor" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GInt.FFI.val_;
+    val getScreen_ = _import "gdk_window_get_screen" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p;
+    val getSourceEvents_ = fn x1 & x2 => (_import "gdk_window_get_source_events" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkInputSource.FFI.val_ -> GdkEventMask.FFI.val_;) (x1, x2)
+    val getState_ = _import "gdk_window_get_state" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkWindowState.FFI.val_;
+    val getSupportMultidevice_ = _import "gdk_window_get_support_multidevice" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val getToplevel_ = _import "gdk_window_get_toplevel" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val getTypeHint_ = _import "gdk_window_get_type_hint" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkWindowTypeHint.FFI.val_;
+    val getUpdateArea_ = _import "gdk_window_get_update_area" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> CairoRegionRecord.FFI.non_opt CairoRegionRecord.FFI.p;
+    val getVisibleRegion_ = _import "gdk_window_get_visible_region" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> CairoRegionRecord.FFI.non_opt CairoRegionRecord.FFI.p;
+    val getVisual_ = _import "gdk_window_get_visual" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p;
+    val getWidth_ = _import "gdk_window_get_width" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GInt.FFI.val_;
+    val getWindowType_ = _import "gdk_window_get_window_type" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GdkWindowType.FFI.val_;
+    val hasNative_ = _import "gdk_window_has_native" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val hide_ = _import "gdk_window_hide" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val iconify_ = _import "gdk_window_iconify" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
     val inputShapeCombineRegion_ =
       fn
         x1
@@ -498,8 +498,8 @@ structure GdkWindow :>
          & x4 =>
           (
             _import "gdk_window_input_shape_combine_region" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * CairoRegionRecord.FFI.notnull CairoRegionRecord.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * CairoRegionRecord.FFI.non_opt CairoRegionRecord.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -517,8 +517,8 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_invalidate_rect" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * unit GdkRectangleRecord.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkRectangleRecord.FFI.opt GdkRectangleRecord.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -534,8 +534,8 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_invalidate_region" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * CairoRegionRecord.FFI.notnull CairoRegionRecord.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * CairoRegionRecord.FFI.non_opt CairoRegionRecord.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -544,16 +544,16 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val isDestroyed_ = _import "gdk_window_is_destroyed" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
-    val isInputOnly_ = _import "gdk_window_is_input_only" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
-    val isShaped_ = _import "gdk_window_is_shaped" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
-    val isViewable_ = _import "gdk_window_is_viewable" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
-    val isVisible_ = _import "gdk_window_is_visible" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;
-    val lower_ = _import "gdk_window_lower" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val markPaintFromClip_ = fn x1 & x2 => (_import "gdk_window_mark_paint_from_clip" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p -> unit;) (x1, x2)
-    val maximize_ = _import "gdk_window_maximize" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val mergeChildInputShapes_ = _import "gdk_window_merge_child_input_shapes" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val mergeChildShapes_ = _import "gdk_window_merge_child_shapes" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
+    val isDestroyed_ = _import "gdk_window_is_destroyed" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val isInputOnly_ = _import "gdk_window_is_input_only" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val isShaped_ = _import "gdk_window_is_shaped" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val isViewable_ = _import "gdk_window_is_viewable" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val isVisible_ = _import "gdk_window_is_visible" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;
+    val lower_ = _import "gdk_window_lower" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val markPaintFromClip_ = fn x1 & x2 => (_import "gdk_window_mark_paint_from_clip" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p -> unit;) (x1, x2)
+    val maximize_ = _import "gdk_window_maximize" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val mergeChildInputShapes_ = _import "gdk_window_merge_child_input_shapes" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val mergeChildShapes_ = _import "gdk_window_merge_child_shapes" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
     val move_ =
       fn
         x1
@@ -561,7 +561,7 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_move" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -579,8 +579,8 @@ structure GdkWindow :>
          & x4 =>
           (
             _import "gdk_window_move_region" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * CairoRegionRecord.FFI.notnull CairoRegionRecord.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * CairoRegionRecord.FFI.non_opt CairoRegionRecord.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -600,7 +600,7 @@ structure GdkWindow :>
          & x5 =>
           (
             _import "gdk_window_move_resize" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -614,9 +614,9 @@ structure GdkWindow :>
               x4,
               x5
             )
-    val processUpdates_ = fn x1 & x2 => (_import "gdk_window_process_updates" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val raise_ = _import "gdk_window_raise" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val registerDnd_ = _import "gdk_window_register_dnd" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
+    val processUpdates_ = fn x1 & x2 => (_import "gdk_window_process_updates" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val raise_ = _import "gdk_window_raise" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val registerDnd_ = _import "gdk_window_register_dnd" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
     val reparent_ =
       fn
         x1
@@ -625,8 +625,8 @@ structure GdkWindow :>
          & x4 =>
           (
             _import "gdk_window_reparent" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -644,7 +644,7 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_resize" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -661,8 +661,8 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_restack" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * unit GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkWindowClass.FFI.opt GdkWindowClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -678,7 +678,7 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_scroll" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -688,15 +688,15 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val setAcceptFocus_ = fn x1 & x2 => (_import "gdk_window_set_accept_focus" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setBackground_ = fn x1 & x2 => (_import "gdk_window_set_background" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
-    val setBackgroundPattern_ = fn x1 & x2 => (_import "gdk_window_set_background_pattern" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * unit CairoPatternRecord.FFI.p -> unit;) (x1, x2)
-    val setBackgroundRgba_ = fn x1 & x2 => (_import "gdk_window_set_background_rgba" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val setChildInputShapes_ = _import "gdk_window_set_child_input_shapes" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val setChildShapes_ = _import "gdk_window_set_child_shapes" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val setComposited_ = fn x1 & x2 => (_import "gdk_window_set_composited" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setCursor_ = fn x1 & x2 => (_import "gdk_window_set_cursor" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * unit GdkCursorClass.FFI.p -> unit;) (x1, x2)
-    val setDecorations_ = fn x1 & x2 => (_import "gdk_window_set_decorations" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkWMDecoration.FFI.val_ -> unit;) (x1, x2)
+    val setAcceptFocus_ = fn x1 & x2 => (_import "gdk_window_set_accept_focus" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setBackground_ = fn x1 & x2 => (_import "gdk_window_set_background" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> unit;) (x1, x2)
+    val setBackgroundPattern_ = fn x1 & x2 => (_import "gdk_window_set_background_pattern" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * CairoPatternRecord.FFI.opt CairoPatternRecord.FFI.p -> unit;) (x1, x2)
+    val setBackgroundRgba_ = fn x1 & x2 => (_import "gdk_window_set_background_rgba" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setChildInputShapes_ = _import "gdk_window_set_child_input_shapes" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val setChildShapes_ = _import "gdk_window_set_child_shapes" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val setComposited_ = fn x1 & x2 => (_import "gdk_window_set_composited" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setCursor_ = fn x1 & x2 => (_import "gdk_window_set_cursor" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkCursorClass.FFI.opt GdkCursorClass.FFI.p -> unit;) (x1, x2)
+    val setDecorations_ = fn x1 & x2 => (_import "gdk_window_set_decorations" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkWMDecoration.FFI.val_ -> unit;) (x1, x2)
     val setDeviceCursor_ =
       fn
         x1
@@ -704,9 +704,9 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_set_device_cursor" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
-               * GdkCursorClass.FFI.notnull GdkCursorClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
+               * GdkCursorClass.FFI.non_opt GdkCursorClass.FFI.p
                -> unit;
           )
             (
@@ -721,8 +721,8 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_set_device_events" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
                * GdkEventMask.FFI.val_
                -> unit;
           )
@@ -731,11 +731,11 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val setEventCompression_ = fn x1 & x2 => (_import "gdk_window_set_event_compression" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setEvents_ = fn x1 & x2 => (_import "gdk_window_set_events" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkEventMask.FFI.val_ -> unit;) (x1, x2)
-    val setFocusOnMap_ = fn x1 & x2 => (_import "gdk_window_set_focus_on_map" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setFullscreenMode_ = fn x1 & x2 => (_import "gdk_window_set_fullscreen_mode" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkFullscreenMode.FFI.val_ -> unit;) (x1, x2)
-    val setFunctions_ = fn x1 & x2 => (_import "gdk_window_set_functions" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkWMFunction.FFI.val_ -> unit;) (x1, x2)
+    val setEventCompression_ = fn x1 & x2 => (_import "gdk_window_set_event_compression" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setEvents_ = fn x1 & x2 => (_import "gdk_window_set_events" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkEventMask.FFI.val_ -> unit;) (x1, x2)
+    val setFocusOnMap_ = fn x1 & x2 => (_import "gdk_window_set_focus_on_map" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setFullscreenMode_ = fn x1 & x2 => (_import "gdk_window_set_fullscreen_mode" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkFullscreenMode.FFI.val_ -> unit;) (x1, x2)
+    val setFunctions_ = fn x1 & x2 => (_import "gdk_window_set_functions" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkWMFunction.FFI.val_ -> unit;) (x1, x2)
     val setGeometryHints_ =
       fn
         x1
@@ -743,8 +743,8 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_set_geometry_hints" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * GdkGeometryRecord.FFI.notnull GdkGeometryRecord.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * GdkGeometryRecord.FFI.non_opt GdkGeometryRecord.FFI.p
                * GdkWindowHints.FFI.val_
                -> unit;
           )
@@ -753,15 +753,15 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val setGroup_ = fn x1 & x2 => (_import "gdk_window_set_group" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * unit GdkWindowClass.FFI.p -> unit;) (x1, x2)
+    val setGroup_ = fn x1 & x2 => (_import "gdk_window_set_group" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkWindowClass.FFI.opt GdkWindowClass.FFI.p -> unit;) (x1, x2)
     val setIconName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gdk_window_set_icon_name" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -769,21 +769,21 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val setKeepAbove_ = fn x1 & x2 => (_import "gdk_window_set_keep_above" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setKeepBelow_ = fn x1 & x2 => (_import "gdk_window_set_keep_below" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setModalHint_ = fn x1 & x2 => (_import "gdk_window_set_modal_hint" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setOpacity_ = fn x1 & x2 => (_import "gdk_window_set_opacity" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setOpaqueRegion_ = fn x1 & x2 => (_import "gdk_window_set_opaque_region" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * unit CairoRegionRecord.FFI.p -> unit;) (x1, x2)
-    val setOverrideRedirect_ = fn x1 & x2 => (_import "gdk_window_set_override_redirect" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setPassThrough_ = fn x1 & x2 => (_import "gdk_window_set_pass_through" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setKeepAbove_ = fn x1 & x2 => (_import "gdk_window_set_keep_above" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setKeepBelow_ = fn x1 & x2 => (_import "gdk_window_set_keep_below" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setModalHint_ = fn x1 & x2 => (_import "gdk_window_set_modal_hint" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setOpacity_ = fn x1 & x2 => (_import "gdk_window_set_opacity" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setOpaqueRegion_ = fn x1 & x2 => (_import "gdk_window_set_opaque_region" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * CairoRegionRecord.FFI.opt CairoRegionRecord.FFI.p -> unit;) (x1, x2)
+    val setOverrideRedirect_ = fn x1 & x2 => (_import "gdk_window_set_override_redirect" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setPassThrough_ = fn x1 & x2 => (_import "gdk_window_set_pass_through" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setRole_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gdk_window_set_role" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -800,7 +800,7 @@ structure GdkWindow :>
          & x5 =>
           (
             _import "gdk_window_set_shadow_width" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -814,8 +814,8 @@ structure GdkWindow :>
               x4,
               x5
             )
-    val setSkipPagerHint_ = fn x1 & x2 => (_import "gdk_window_set_skip_pager_hint" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setSkipTaskbarHint_ = fn x1 & x2 => (_import "gdk_window_set_skip_taskbar_hint" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSkipPagerHint_ = fn x1 & x2 => (_import "gdk_window_set_skip_pager_hint" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSkipTaskbarHint_ = fn x1 & x2 => (_import "gdk_window_set_skip_taskbar_hint" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setSourceEvents_ =
       fn
         x1
@@ -823,7 +823,7 @@ structure GdkWindow :>
          & x3 =>
           (
             _import "gdk_window_set_source_events" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GdkInputSource.FFI.val_
                * GdkEventMask.FFI.val_
                -> unit;
@@ -838,9 +838,9 @@ structure GdkWindow :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gdk_window_set_startup_id" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -848,16 +848,16 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val setStaticGravities_ = fn x1 & x2 => (_import "gdk_window_set_static_gravities" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val setSupportMultidevice_ = fn x1 & x2 => (_import "gdk_window_set_support_multidevice" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setStaticGravities_ = fn x1 & x2 => (_import "gdk_window_set_static_gravities" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val setSupportMultidevice_ = fn x1 & x2 => (_import "gdk_window_set_support_multidevice" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setTitle_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gdk_window_set_title" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -865,10 +865,10 @@ structure GdkWindow :>
               x2,
               x3
             )
-    val setTransientFor_ = fn x1 & x2 => (_import "gdk_window_set_transient_for" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;) (x1, x2)
-    val setTypeHint_ = fn x1 & x2 => (_import "gdk_window_set_type_hint" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkWindowTypeHint.FFI.val_ -> unit;) (x1, x2)
-    val setUrgencyHint_ = fn x1 & x2 => (_import "gdk_window_set_urgency_hint" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setUserData_ = fn x1 & x2 => (_import "gdk_window_set_user_data" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * unit GObjectObjectClass.FFI.p -> unit;) (x1, x2)
+    val setTransientFor_ = fn x1 & x2 => (_import "gdk_window_set_transient_for" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;) (x1, x2)
+    val setTypeHint_ = fn x1 & x2 => (_import "gdk_window_set_type_hint" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkWindowTypeHint.FFI.val_ -> unit;) (x1, x2)
+    val setUrgencyHint_ = fn x1 & x2 => (_import "gdk_window_set_urgency_hint" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUserData_ = fn x1 & x2 => (_import "gdk_window_set_user_data" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GObjectObjectClass.FFI.opt GObjectObjectClass.FFI.p -> unit;) (x1, x2)
     val shapeCombineRegion_ =
       fn
         x1
@@ -877,8 +877,8 @@ structure GdkWindow :>
          & x4 =>
           (
             _import "gdk_window_shape_combine_region" :
-              GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
-               * unit CairoRegionRecord.FFI.p
+              GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
+               * CairoRegionRecord.FFI.opt CairoRegionRecord.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -889,16 +889,16 @@ structure GdkWindow :>
               x3,
               x4
             )
-    val show_ = _import "gdk_window_show" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val showUnraised_ = _import "gdk_window_show_unraised" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val showWindowMenu_ = fn x1 & x2 => (_import "gdk_window_show_window_menu" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p * GdkEvent.FFI.notnull GdkEvent.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val stick_ = _import "gdk_window_stick" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val thawToplevelUpdatesLibgtkOnly_ = _import "gdk_window_thaw_toplevel_updates_libgtk_only" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val thawUpdates_ = _import "gdk_window_thaw_updates" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val unfullscreen_ = _import "gdk_window_unfullscreen" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val unmaximize_ = _import "gdk_window_unmaximize" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val unstick_ = _import "gdk_window_unstick" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
-    val withdraw_ = _import "gdk_window_withdraw" : GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> unit;
+    val show_ = _import "gdk_window_show" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val showUnraised_ = _import "gdk_window_show_unraised" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val showWindowMenu_ = fn x1 & x2 => (_import "gdk_window_show_window_menu" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p * GdkEvent.FFI.non_opt GdkEvent.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val stick_ = _import "gdk_window_stick" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val thawToplevelUpdatesLibgtkOnly_ = _import "gdk_window_thaw_toplevel_updates_libgtk_only" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val thawUpdates_ = _import "gdk_window_thaw_updates" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val unfullscreen_ = _import "gdk_window_unfullscreen" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val unmaximize_ = _import "gdk_window_unmaximize" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val unstick_ = _import "gdk_window_unstick" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
+    val withdraw_ = _import "gdk_window_withdraw" : GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;
     type 'a class = 'a GdkWindowClass.class
     type window_attributes_type_t = GdkWindowAttributesType.t
     type window_attr_t = GdkWindowAttrRecord.t

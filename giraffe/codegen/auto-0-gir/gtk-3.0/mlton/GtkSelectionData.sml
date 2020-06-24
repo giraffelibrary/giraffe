@@ -4,15 +4,15 @@ structure GtkSelectionData :>
     where type 'a text_buffer_class = 'a GtkTextBufferClass.class =
   struct
     val getType_ = _import "gtk_selection_data_get_type" : unit -> GObjectType.FFI.val_;
-    val copy_ = _import "gtk_selection_data_copy" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p;
-    val getDataType_ = _import "gtk_selection_data_get_data_type" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;
-    val getData_ = fn x1 & x2 => (_import "gtk_selection_data_get_data_with_length" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p * GInt.FFI.ref_ -> GUInt8CArrayN.FFI.notnull GUInt8CArrayN.FFI.out_p;) (x1, x2)
-    val getDisplay_ = _import "gtk_selection_data_get_display" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
-    val getFormat_ = _import "gtk_selection_data_get_format" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GInt.FFI.val_;
-    val getLength_ = _import "gtk_selection_data_get_length" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GInt.FFI.val_;
-    val getPixbuf_ = _import "gtk_selection_data_get_pixbuf" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> unit GdkPixbufPixbufClass.FFI.p;
-    val getSelection_ = _import "gtk_selection_data_get_selection" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;
-    val getTarget_ = _import "gtk_selection_data_get_target" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p;
+    val copy_ = _import "gtk_selection_data_copy" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p;
+    val getDataType_ = _import "gtk_selection_data_get_data_type" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p;
+    val getData_ = fn x1 & x2 => (_import "gtk_selection_data_get_data_with_length" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p * GInt.FFI.ref_ -> GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.FFI.out_p;) (x1, x2)
+    val getDisplay_ = _import "gtk_selection_data_get_display" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p;
+    val getFormat_ = _import "gtk_selection_data_get_format" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> GInt.FFI.val_;
+    val getLength_ = _import "gtk_selection_data_get_length" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> GInt.FFI.val_;
+    val getPixbuf_ = _import "gtk_selection_data_get_pixbuf" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
+    val getSelection_ = _import "gtk_selection_data_get_selection" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p;
+    val getTarget_ = _import "gtk_selection_data_get_target" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p;
     val getTargets_ =
       fn
         x1
@@ -20,9 +20,9 @@ structure GtkSelectionData :>
          & x4 =>
           (
             _import "mlton_gtk_selection_data_get_targets" :
-              GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p
+              GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p
                * GdkAtomRecordCPtrArrayN.MLton.r1
-               * (unit, GdkAtomRecordCPtrArrayN.FFI.notnull) GdkAtomRecordCPtrArrayN.MLton.r2
+               * (GdkAtomRecordCPtrArrayN.FFI.opt, GdkAtomRecordCPtrArrayN.FFI.non_opt) GdkAtomRecordCPtrArrayN.MLton.r2
                * GInt.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -32,8 +32,8 @@ structure GtkSelectionData :>
               x3,
               x4
             )
-    val getText_ = _import "gtk_selection_data_get_text" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> unit Utf8.FFI.out_p;
-    val getUris_ = _import "gtk_selection_data_get_uris" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val getText_ = _import "gtk_selection_data_get_text" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getUris_ = _import "gtk_selection_data_get_uris" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val set_ =
       fn
         x1
@@ -43,11 +43,11 @@ structure GtkSelectionData :>
          & x6 =>
           (
             _import "mlton_gtk_selection_data_set" :
-              GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GInt.FFI.val_
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.notnull GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )
@@ -59,7 +59,7 @@ structure GtkSelectionData :>
               x5,
               x6
             )
-    val setPixbuf_ = fn x1 & x2 => (_import "gtk_selection_data_set_pixbuf" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val setPixbuf_ = fn x1 & x2 => (_import "gtk_selection_data_set_pixbuf" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p * GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val setText_ =
       fn
         x1
@@ -67,9 +67,9 @@ structure GtkSelectionData :>
          & x4 =>
           (
             _import "mlton_gtk_selection_data_set_text" :
-              GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p
+              GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -84,9 +84,9 @@ structure GtkSelectionData :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_selection_data_set_uris" :
-              GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p
+              GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p
                * Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -94,10 +94,10 @@ structure GtkSelectionData :>
               x2,
               x3
             )
-    val targetsIncludeImage_ = fn x1 & x2 => (_import "gtk_selection_data_targets_include_image" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val targetsIncludeRichText_ = fn x1 & x2 => (_import "gtk_selection_data_targets_include_rich_text" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p * GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val targetsIncludeText_ = _import "gtk_selection_data_targets_include_text" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GBool.FFI.val_;
-    val targetsIncludeUri_ = _import "gtk_selection_data_targets_include_uri" : GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p -> GBool.FFI.val_;
+    val targetsIncludeImage_ = fn x1 & x2 => (_import "gtk_selection_data_targets_include_image" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val targetsIncludeRichText_ = fn x1 & x2 => (_import "gtk_selection_data_targets_include_rich_text" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p * GtkTextBufferClass.FFI.non_opt GtkTextBufferClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val targetsIncludeText_ = _import "gtk_selection_data_targets_include_text" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> GBool.FFI.val_;
+    val targetsIncludeUri_ = _import "gtk_selection_data_targets_include_uri" : GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p -> GBool.FFI.val_;
     type t = GtkSelectionDataRecord.t
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

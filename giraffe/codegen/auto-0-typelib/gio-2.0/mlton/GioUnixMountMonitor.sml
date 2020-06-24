@@ -3,9 +3,9 @@ structure GioUnixMountMonitor :>
     where type 'a class = 'a GioUnixMountMonitorClass.class =
   struct
     val getType_ = _import "g_unix_mount_monitor_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_unix_mount_monitor_new" : unit -> GioUnixMountMonitorClass.FFI.notnull GioUnixMountMonitorClass.FFI.p;
-    val get_ = _import "g_unix_mount_monitor_get" : unit -> GioUnixMountMonitorClass.FFI.notnull GioUnixMountMonitorClass.FFI.p;
-    val setRateLimit_ = fn x1 & x2 => (_import "g_unix_mount_monitor_set_rate_limit" : GioUnixMountMonitorClass.FFI.notnull GioUnixMountMonitorClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "g_unix_mount_monitor_new" : unit -> GioUnixMountMonitorClass.FFI.non_opt GioUnixMountMonitorClass.FFI.p;
+    val get_ = _import "g_unix_mount_monitor_get" : unit -> GioUnixMountMonitorClass.FFI.non_opt GioUnixMountMonitorClass.FFI.p;
+    val setRateLimit_ = fn x1 & x2 => (_import "g_unix_mount_monitor_set_rate_limit" : GioUnixMountMonitorClass.FFI.non_opt GioUnixMountMonitorClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioUnixMountMonitorClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

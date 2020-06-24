@@ -19,8 +19,8 @@ structure GioDBusPropertyInfoFlags :> GIO_D_BUS_PROPERTY_INFO_FLAGS =
       )
     open Flags
     val getType_ = _import "g_dbus_property_info_flags_get_type" : unit -> GObjectType.FFI.val_;
-    val getValue_ = _import "g_value_get_flags" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_flags" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
+    val getValue_ = _import "g_value_get_flags" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_flags" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       ValueAccessor.C.createAccessor
         {

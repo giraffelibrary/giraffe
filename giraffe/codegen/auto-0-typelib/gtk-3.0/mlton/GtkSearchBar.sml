@@ -5,13 +5,13 @@ structure GtkSearchBar :>
     where type 'a entry_class = 'a GtkEntryClass.class =
   struct
     val getType_ = _import "gtk_search_bar_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_search_bar_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val connectEntry_ = fn x1 & x2 => (_import "gtk_search_bar_connect_entry" : GtkSearchBarClass.FFI.notnull GtkSearchBarClass.FFI.p * GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p -> unit;) (x1, x2)
-    val getSearchMode_ = _import "gtk_search_bar_get_search_mode" : GtkSearchBarClass.FFI.notnull GtkSearchBarClass.FFI.p -> GBool.FFI.val_;
-    val getShowCloseButton_ = _import "gtk_search_bar_get_show_close_button" : GtkSearchBarClass.FFI.notnull GtkSearchBarClass.FFI.p -> GBool.FFI.val_;
-    val handleEvent_ = fn x1 & x2 => (_import "gtk_search_bar_handle_event" : GtkSearchBarClass.FFI.notnull GtkSearchBarClass.FFI.p * GdkEvent.FFI.notnull GdkEvent.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val setSearchMode_ = fn x1 & x2 => (_import "gtk_search_bar_set_search_mode" : GtkSearchBarClass.FFI.notnull GtkSearchBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setShowCloseButton_ = fn x1 & x2 => (_import "gtk_search_bar_set_show_close_button" : GtkSearchBarClass.FFI.notnull GtkSearchBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_search_bar_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val connectEntry_ = fn x1 & x2 => (_import "gtk_search_bar_connect_entry" : GtkSearchBarClass.FFI.non_opt GtkSearchBarClass.FFI.p * GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p -> unit;) (x1, x2)
+    val getSearchMode_ = _import "gtk_search_bar_get_search_mode" : GtkSearchBarClass.FFI.non_opt GtkSearchBarClass.FFI.p -> GBool.FFI.val_;
+    val getShowCloseButton_ = _import "gtk_search_bar_get_show_close_button" : GtkSearchBarClass.FFI.non_opt GtkSearchBarClass.FFI.p -> GBool.FFI.val_;
+    val handleEvent_ = fn x1 & x2 => (_import "gtk_search_bar_handle_event" : GtkSearchBarClass.FFI.non_opt GtkSearchBarClass.FFI.p * GdkEvent.FFI.non_opt GdkEvent.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val setSearchMode_ = fn x1 & x2 => (_import "gtk_search_bar_set_search_mode" : GtkSearchBarClass.FFI.non_opt GtkSearchBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setShowCloseButton_ = fn x1 & x2 => (_import "gtk_search_bar_set_show_close_button" : GtkSearchBarClass.FFI.non_opt GtkSearchBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkSearchBarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a entry_class = 'a GtkEntryClass.class

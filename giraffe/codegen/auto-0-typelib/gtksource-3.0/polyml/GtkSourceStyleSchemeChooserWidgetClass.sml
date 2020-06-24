@@ -1,6 +1,7 @@
 structure GtkSourceStyleSchemeChooserWidgetClass :>
   GTK_SOURCE_STYLE_SCHEME_CHOOSER_WIDGET_CLASS
-    where type C.notnull = GtkBinClass.C.notnull
+    where type C.opt = GtkBinClass.C.opt
+    where type C.non_opt = GtkBinClass.C.non_opt
     where type 'a C.p = 'a GtkBinClass.C.p =
   struct
     open GtkBinClass

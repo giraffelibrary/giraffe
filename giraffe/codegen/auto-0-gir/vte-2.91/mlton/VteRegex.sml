@@ -12,11 +12,11 @@ structure VteRegex :>
           (
             _import "mlton_vte_regex_new_for_match" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GSSize.FFI.val_
                * GUInt32.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> VteRegexRecord.FFI.notnull VteRegexRecord.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> VteRegexRecord.FFI.non_opt VteRegexRecord.FFI.p;
           )
             (
               x1,
@@ -34,11 +34,11 @@ structure VteRegex :>
           (
             _import "mlton_vte_regex_new_for_search" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GSSize.FFI.val_
                * GUInt32.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> VteRegexRecord.FFI.notnull VteRegexRecord.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> VteRegexRecord.FFI.non_opt VteRegexRecord.FFI.p;
           )
             (
               x1,
@@ -54,9 +54,9 @@ structure VteRegex :>
          & x3 =>
           (
             _import "vte_regex_jit" :
-              VteRegexRecord.FFI.notnull VteRegexRecord.FFI.p
+              VteRegexRecord.FFI.non_opt VteRegexRecord.FFI.p
                * GUInt32.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

@@ -6,7 +6,8 @@ structure GLibSpawnChildSetupFunc :> G_LIB_SPAWN_CHILD_SETUP_FUNC =
     structure C =
       struct
         structure Pointer = CPointerInternal
-        type notnull = Pointer.notnull
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
       end
 
@@ -36,7 +37,8 @@ structure GLibSpawnChildSetupFunc :> G_LIB_SPAWN_CHILD_SETUP_FUNC =
 
     structure FFI =
       struct
-        type notnull = C.notnull
+        type opt = C.opt
+        type non_opt = C.non_opt
         type 'a p = 'a C.p
 
         type callback = SpawnChildSetupCallbackTable.id

@@ -11,9 +11,9 @@ structure GioInitable :>
          & x3 =>
           (
             _import "g_initable_init" :
-              GioInitableClass.FFI.notnull GioInitableClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioInitableClass.FFI.non_opt GioInitableClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

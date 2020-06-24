@@ -5,8 +5,8 @@ structure GioSocketAddress :>
     where type socket_family_t = GioSocketFamily.t =
   struct
     val getType_ = _import "g_socket_address_get_type" : unit -> GObjectType.FFI.val_;
-    val getFamily_ = _import "g_socket_address_get_family" : GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p -> GioSocketFamily.FFI.val_;
-    val getNativeSize_ = _import "g_socket_address_get_native_size" : GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p -> GSSize.FFI.val_;
+    val getFamily_ = _import "g_socket_address_get_family" : GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p -> GioSocketFamily.FFI.val_;
+    val getNativeSize_ = _import "g_socket_address_get_native_size" : GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p -> GSSize.FFI.val_;
     type 'a class = 'a GioSocketAddressClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type socket_family_t = GioSocketFamily.t

@@ -12,7 +12,8 @@ functor VectorCArrayN(CArray : C_ARRAY where type 'a C.ArrayType.from_p = int ->
     where type sequence = CArray.sequence
     where type 'a C.ArrayType.from_p = 'a CArray.C.ArrayType.from_p
     where type 'a C.p = 'a CArray.C.p
-    where type C.notnull = CArray.C.notnull =
+    where type C.opt = CArray.C.opt
+    where type C.non_opt = CArray.C.non_opt =
   struct
     type t = CArray.sequence
     type elem = CArray.elem
@@ -34,7 +35,8 @@ functor VectorCArrayN(CArray : C_ARRAY where type 'a C.ArrayType.from_p = int ->
       struct
         val toC = CArray.fromSequence
 
-        type notnull = CArray.FFI.notnull
+        type opt = CArray.FFI.opt
+        type non_opt = CArray.FFI.non_opt
         type 'a from_p = 'a CArray.FFI.from_p
         type 'a tabulator = 'a CArray.FFI.tabulator
 

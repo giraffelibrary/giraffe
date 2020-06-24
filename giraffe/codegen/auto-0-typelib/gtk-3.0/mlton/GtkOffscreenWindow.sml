@@ -4,9 +4,9 @@ structure GtkOffscreenWindow :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_offscreen_window_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_offscreen_window_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getPixbuf_ = _import "gtk_offscreen_window_get_pixbuf" : GtkOffscreenWindowClass.FFI.notnull GtkOffscreenWindowClass.FFI.p -> unit GdkPixbufPixbufClass.FFI.p;
-    val getSurface_ = _import "gtk_offscreen_window_get_surface" : GtkOffscreenWindowClass.FFI.notnull GtkOffscreenWindowClass.FFI.p -> unit CairoSurfaceRecord.FFI.p;
+    val new_ = _import "gtk_offscreen_window_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getPixbuf_ = _import "gtk_offscreen_window_get_pixbuf" : GtkOffscreenWindowClass.FFI.non_opt GtkOffscreenWindowClass.FFI.p -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
+    val getSurface_ = _import "gtk_offscreen_window_get_surface" : GtkOffscreenWindowClass.FFI.non_opt GtkOffscreenWindowClass.FFI.p -> CairoSurfaceRecord.FFI.opt CairoSurfaceRecord.FFI.p;
     type 'a class = 'a GtkOffscreenWindowClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class

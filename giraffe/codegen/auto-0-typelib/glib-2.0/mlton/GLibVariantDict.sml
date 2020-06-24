@@ -5,16 +5,16 @@ structure GLibVariantDict :>
     where type variant_type_t = GLibVariantTypeRecord.t =
   struct
     val getType_ = _import "g_variant_dict_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_variant_dict_new" : unit GLibVariantRecord.FFI.p -> GLibVariantDictRecord.FFI.notnull GLibVariantDictRecord.FFI.p;
-    val clear_ = _import "g_variant_dict_clear" : GLibVariantDictRecord.FFI.notnull GLibVariantDictRecord.FFI.p -> unit;
+    val new_ = _import "g_variant_dict_new" : GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p -> GLibVariantDictRecord.FFI.non_opt GLibVariantDictRecord.FFI.p;
+    val clear_ = _import "g_variant_dict_clear" : GLibVariantDictRecord.FFI.non_opt GLibVariantDictRecord.FFI.p -> unit;
     val contains_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_variant_dict_contains" :
-              GLibVariantDictRecord.FFI.notnull GLibVariantDictRecord.FFI.p
+              GLibVariantDictRecord.FFI.non_opt GLibVariantDictRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -22,7 +22,7 @@ structure GLibVariantDict :>
               x2,
               x3
             )
-    val end_ = _import "g_variant_dict_end" : GLibVariantDictRecord.FFI.notnull GLibVariantDictRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+    val end_ = _import "g_variant_dict_end" : GLibVariantDictRecord.FFI.non_opt GLibVariantDictRecord.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
     val insertValue_ =
       fn
         x1
@@ -30,10 +30,10 @@ structure GLibVariantDict :>
          & x4 =>
           (
             _import "mlton_g_variant_dict_insert_value" :
-              GLibVariantDictRecord.FFI.notnull GLibVariantDictRecord.FFI.p
+              GLibVariantDictRecord.FFI.non_opt GLibVariantDictRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p
                -> unit;
           )
             (
@@ -49,11 +49,11 @@ structure GLibVariantDict :>
          & x4 =>
           (
             _import "mlton_g_variant_dict_lookup_value" :
-              GLibVariantDictRecord.FFI.notnull GLibVariantDictRecord.FFI.p
+              GLibVariantDictRecord.FFI.non_opt GLibVariantDictRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantTypeRecord.FFI.p
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -66,9 +66,9 @@ structure GLibVariantDict :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_variant_dict_remove" :
-              GLibVariantDictRecord.FFI.notnull GLibVariantDictRecord.FFI.p
+              GLibVariantDictRecord.FFI.non_opt GLibVariantDictRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (

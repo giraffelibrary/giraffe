@@ -12,23 +12,23 @@ structure GtkPrintSettings :>
     where type print_quality_t = GtkPrintQuality.t =
   struct
     val getType_ = _import "gtk_print_settings_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_print_settings_new" : unit -> GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p;
+    val new_ = _import "gtk_print_settings_new" : unit -> GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p;
     val newFromFile_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_print_settings_new_from_file" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newFromGvariant_ = _import "gtk_print_settings_new_from_gvariant" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p;
+    val newFromGvariant_ = _import "gtk_print_settings_new_from_gvariant" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p;
     val newFromKeyFile_ =
       fn
         x1
@@ -36,11 +36,11 @@ structure GtkPrintSettings :>
          & x4 =>
           (
             _import "mlton_gtk_print_settings_new_from_key_file" :
-              GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
+              GLibKeyFileRecord.FFI.non_opt GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p;
           )
             (
               x1,
@@ -48,16 +48,16 @@ structure GtkPrintSettings :>
               x3,
               x4
             )
-    val copy_ = _import "gtk_print_settings_copy" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p;
+    val copy_ = _import "gtk_print_settings_copy" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p;
     val get_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_settings_get" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -69,9 +69,9 @@ structure GtkPrintSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_settings_get_bool" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -79,17 +79,17 @@ structure GtkPrintSettings :>
               x2,
               x3
             )
-    val getCollate_ = _import "gtk_print_settings_get_collate" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GBool.FFI.val_;
-    val getDefaultSource_ = _import "gtk_print_settings_get_default_source" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getDither_ = _import "gtk_print_settings_get_dither" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getCollate_ = _import "gtk_print_settings_get_collate" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GBool.FFI.val_;
+    val getDefaultSource_ = _import "gtk_print_settings_get_default_source" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getDither_ = _import "gtk_print_settings_get_dither" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getDouble_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_settings_get_double" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GDouble.FFI.val_;
           )
             (
@@ -104,9 +104,9 @@ structure GtkPrintSettings :>
          & x4 =>
           (
             _import "mlton_gtk_print_settings_get_double_with_default" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GDouble.FFI.val_
                -> GDouble.FFI.val_;
           )
@@ -116,16 +116,16 @@ structure GtkPrintSettings :>
               x3,
               x4
             )
-    val getDuplex_ = _import "gtk_print_settings_get_duplex" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GtkPrintDuplex.FFI.val_;
-    val getFinishings_ = _import "gtk_print_settings_get_finishings" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getDuplex_ = _import "gtk_print_settings_get_duplex" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GtkPrintDuplex.FFI.val_;
+    val getFinishings_ = _import "gtk_print_settings_get_finishings" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getInt_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_settings_get_int" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GInt32.FFI.val_;
           )
             (
@@ -140,9 +140,9 @@ structure GtkPrintSettings :>
          & x4 =>
           (
             _import "mlton_gtk_print_settings_get_int_with_default" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                -> GInt32.FFI.val_;
           )
@@ -159,9 +159,9 @@ structure GtkPrintSettings :>
          & x4 =>
           (
             _import "mlton_gtk_print_settings_get_length" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GtkUnit.FFI.val_
                -> GDouble.FFI.val_;
           )
@@ -171,35 +171,35 @@ structure GtkPrintSettings :>
               x3,
               x4
             )
-    val getMediaType_ = _import "gtk_print_settings_get_media_type" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getNCopies_ = _import "gtk_print_settings_get_n_copies" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GInt32.FFI.val_;
-    val getNumberUp_ = _import "gtk_print_settings_get_number_up" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GInt32.FFI.val_;
-    val getNumberUpLayout_ = _import "gtk_print_settings_get_number_up_layout" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GtkNumberUpLayout.FFI.val_;
-    val getOrientation_ = _import "gtk_print_settings_get_orientation" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GtkPageOrientation.FFI.val_;
-    val getOutputBin_ = _import "gtk_print_settings_get_output_bin" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPageRanges_ = fn x1 & x2 => (_import "gtk_print_settings_get_page_ranges" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GInt32.FFI.ref_ -> GtkPageRangeRecordCArrayN.FFI.notnull GtkPageRangeRecordCArrayN.FFI.out_p;) (x1, x2)
-    val getPageSet_ = _import "gtk_print_settings_get_page_set" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GtkPageSet.FFI.val_;
-    val getPaperHeight_ = fn x1 & x2 => (_import "gtk_print_settings_get_paper_height" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getPaperSize_ = _import "gtk_print_settings_get_paper_size" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p;
-    val getPaperWidth_ = fn x1 & x2 => (_import "gtk_print_settings_get_paper_width" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
-    val getPrintPages_ = _import "gtk_print_settings_get_print_pages" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GtkPrintPages.FFI.val_;
-    val getPrinter_ = _import "gtk_print_settings_get_printer" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPrinterLpi_ = _import "gtk_print_settings_get_printer_lpi" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GDouble.FFI.val_;
-    val getQuality_ = _import "gtk_print_settings_get_quality" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GtkPrintQuality.FFI.val_;
-    val getResolution_ = _import "gtk_print_settings_get_resolution" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GInt32.FFI.val_;
-    val getResolutionX_ = _import "gtk_print_settings_get_resolution_x" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GInt32.FFI.val_;
-    val getResolutionY_ = _import "gtk_print_settings_get_resolution_y" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GInt32.FFI.val_;
-    val getReverse_ = _import "gtk_print_settings_get_reverse" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GBool.FFI.val_;
-    val getScale_ = _import "gtk_print_settings_get_scale" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GDouble.FFI.val_;
-    val getUseColor_ = _import "gtk_print_settings_get_use_color" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GBool.FFI.val_;
+    val getMediaType_ = _import "gtk_print_settings_get_media_type" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getNCopies_ = _import "gtk_print_settings_get_n_copies" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GInt32.FFI.val_;
+    val getNumberUp_ = _import "gtk_print_settings_get_number_up" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GInt32.FFI.val_;
+    val getNumberUpLayout_ = _import "gtk_print_settings_get_number_up_layout" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GtkNumberUpLayout.FFI.val_;
+    val getOrientation_ = _import "gtk_print_settings_get_orientation" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GtkPageOrientation.FFI.val_;
+    val getOutputBin_ = _import "gtk_print_settings_get_output_bin" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPageRanges_ = fn x1 & x2 => (_import "gtk_print_settings_get_page_ranges" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GInt32.FFI.ref_ -> GtkPageRangeRecordCArrayN.FFI.non_opt GtkPageRangeRecordCArrayN.FFI.out_p;) (x1, x2)
+    val getPageSet_ = _import "gtk_print_settings_get_page_set" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GtkPageSet.FFI.val_;
+    val getPaperHeight_ = fn x1 & x2 => (_import "gtk_print_settings_get_paper_height" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getPaperSize_ = _import "gtk_print_settings_get_paper_size" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GtkPaperSizeRecord.FFI.non_opt GtkPaperSizeRecord.FFI.p;
+    val getPaperWidth_ = fn x1 & x2 => (_import "gtk_print_settings_get_paper_width" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GtkUnit.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
+    val getPrintPages_ = _import "gtk_print_settings_get_print_pages" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GtkPrintPages.FFI.val_;
+    val getPrinter_ = _import "gtk_print_settings_get_printer" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPrinterLpi_ = _import "gtk_print_settings_get_printer_lpi" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GDouble.FFI.val_;
+    val getQuality_ = _import "gtk_print_settings_get_quality" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GtkPrintQuality.FFI.val_;
+    val getResolution_ = _import "gtk_print_settings_get_resolution" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GInt32.FFI.val_;
+    val getResolutionX_ = _import "gtk_print_settings_get_resolution_x" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GInt32.FFI.val_;
+    val getResolutionY_ = _import "gtk_print_settings_get_resolution_y" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GInt32.FFI.val_;
+    val getReverse_ = _import "gtk_print_settings_get_reverse" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GBool.FFI.val_;
+    val getScale_ = _import "gtk_print_settings_get_scale" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GDouble.FFI.val_;
+    val getUseColor_ = _import "gtk_print_settings_get_use_color" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GBool.FFI.val_;
     val hasKey_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_settings_has_key" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -214,10 +214,10 @@ structure GtkPrintSettings :>
          & x4 =>
           (
             _import "mlton_gtk_print_settings_load_file" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -234,11 +234,11 @@ structure GtkPrintSettings :>
          & x5 =>
           (
             _import "mlton_gtk_print_settings_load_key_file" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
-               * GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
+               * GLibKeyFileRecord.FFI.non_opt GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -255,11 +255,11 @@ structure GtkPrintSettings :>
          & (x4, x5) =>
           (
             _import "mlton_gtk_print_settings_set" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -276,9 +276,9 @@ structure GtkPrintSettings :>
          & x4 =>
           (
             _import "mlton_gtk_print_settings_set_bool" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GBool.FFI.val_
                -> unit;
           )
@@ -288,15 +288,15 @@ structure GtkPrintSettings :>
               x3,
               x4
             )
-    val setCollate_ = fn x1 & x2 => (_import "gtk_print_settings_set_collate" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setCollate_ = fn x1 & x2 => (_import "gtk_print_settings_set_collate" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setDefaultSource_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_settings_set_default_source" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -309,9 +309,9 @@ structure GtkPrintSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_settings_set_dither" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -326,9 +326,9 @@ structure GtkPrintSettings :>
          & x4 =>
           (
             _import "mlton_gtk_print_settings_set_double" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GDouble.FFI.val_
                -> unit;
           )
@@ -338,15 +338,15 @@ structure GtkPrintSettings :>
               x3,
               x4
             )
-    val setDuplex_ = fn x1 & x2 => (_import "gtk_print_settings_set_duplex" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GtkPrintDuplex.FFI.val_ -> unit;) (x1, x2)
+    val setDuplex_ = fn x1 & x2 => (_import "gtk_print_settings_set_duplex" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GtkPrintDuplex.FFI.val_ -> unit;) (x1, x2)
     val setFinishings_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_settings_set_finishings" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -361,9 +361,9 @@ structure GtkPrintSettings :>
          & x4 =>
           (
             _import "mlton_gtk_print_settings_set_int" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -381,9 +381,9 @@ structure GtkPrintSettings :>
          & x5 =>
           (
             _import "mlton_gtk_print_settings_set_length" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GDouble.FFI.val_
                * GtkUnit.FFI.val_
                -> unit;
@@ -400,9 +400,9 @@ structure GtkPrintSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_settings_set_media_type" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -410,18 +410,18 @@ structure GtkPrintSettings :>
               x2,
               x3
             )
-    val setNCopies_ = fn x1 & x2 => (_import "gtk_print_settings_set_n_copies" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setNumberUp_ = fn x1 & x2 => (_import "gtk_print_settings_set_number_up" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setNumberUpLayout_ = fn x1 & x2 => (_import "gtk_print_settings_set_number_up_layout" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GtkNumberUpLayout.FFI.val_ -> unit;) (x1, x2)
-    val setOrientation_ = fn x1 & x2 => (_import "gtk_print_settings_set_orientation" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GtkPageOrientation.FFI.val_ -> unit;) (x1, x2)
+    val setNCopies_ = fn x1 & x2 => (_import "gtk_print_settings_set_n_copies" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setNumberUp_ = fn x1 & x2 => (_import "gtk_print_settings_set_number_up" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setNumberUpLayout_ = fn x1 & x2 => (_import "gtk_print_settings_set_number_up_layout" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GtkNumberUpLayout.FFI.val_ -> unit;) (x1, x2)
+    val setOrientation_ = fn x1 & x2 => (_import "gtk_print_settings_set_orientation" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GtkPageOrientation.FFI.val_ -> unit;) (x1, x2)
     val setOutputBin_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_settings_set_output_bin" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -436,9 +436,9 @@ structure GtkPrintSettings :>
          & x4 =>
           (
             _import "mlton_gtk_print_settings_set_page_ranges" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * GtkPageRangeRecordCArrayN.MLton.p1
-               * GtkPageRangeRecordCArrayN.FFI.notnull GtkPageRangeRecordCArrayN.MLton.p2
+               * GtkPageRangeRecordCArrayN.FFI.non_opt GtkPageRangeRecordCArrayN.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -448,7 +448,7 @@ structure GtkPrintSettings :>
               x3,
               x4
             )
-    val setPageSet_ = fn x1 & x2 => (_import "gtk_print_settings_set_page_set" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GtkPageSet.FFI.val_ -> unit;) (x1, x2)
+    val setPageSet_ = fn x1 & x2 => (_import "gtk_print_settings_set_page_set" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GtkPageSet.FFI.val_ -> unit;) (x1, x2)
     val setPaperHeight_ =
       fn
         x1
@@ -456,7 +456,7 @@ structure GtkPrintSettings :>
          & x3 =>
           (
             _import "gtk_print_settings_set_paper_height" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * GDouble.FFI.val_
                * GtkUnit.FFI.val_
                -> unit;
@@ -466,7 +466,7 @@ structure GtkPrintSettings :>
               x2,
               x3
             )
-    val setPaperSize_ = fn x1 & x2 => (_import "gtk_print_settings_set_paper_size" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GtkPaperSizeRecord.FFI.notnull GtkPaperSizeRecord.FFI.p -> unit;) (x1, x2)
+    val setPaperSize_ = fn x1 & x2 => (_import "gtk_print_settings_set_paper_size" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GtkPaperSizeRecord.FFI.non_opt GtkPaperSizeRecord.FFI.p -> unit;) (x1, x2)
     val setPaperWidth_ =
       fn
         x1
@@ -474,7 +474,7 @@ structure GtkPrintSettings :>
          & x3 =>
           (
             _import "gtk_print_settings_set_paper_width" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * GDouble.FFI.val_
                * GtkUnit.FFI.val_
                -> unit;
@@ -484,15 +484,15 @@ structure GtkPrintSettings :>
               x2,
               x3
             )
-    val setPrintPages_ = fn x1 & x2 => (_import "gtk_print_settings_set_print_pages" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GtkPrintPages.FFI.val_ -> unit;) (x1, x2)
+    val setPrintPages_ = fn x1 & x2 => (_import "gtk_print_settings_set_print_pages" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GtkPrintPages.FFI.val_ -> unit;) (x1, x2)
     val setPrinter_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_settings_set_printer" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -500,9 +500,9 @@ structure GtkPrintSettings :>
               x2,
               x3
             )
-    val setPrinterLpi_ = fn x1 & x2 => (_import "gtk_print_settings_set_printer_lpi" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setQuality_ = fn x1 & x2 => (_import "gtk_print_settings_set_quality" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GtkPrintQuality.FFI.val_ -> unit;) (x1, x2)
-    val setResolution_ = fn x1 & x2 => (_import "gtk_print_settings_set_resolution" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setPrinterLpi_ = fn x1 & x2 => (_import "gtk_print_settings_set_printer_lpi" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setQuality_ = fn x1 & x2 => (_import "gtk_print_settings_set_quality" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GtkPrintQuality.FFI.val_ -> unit;) (x1, x2)
+    val setResolution_ = fn x1 & x2 => (_import "gtk_print_settings_set_resolution" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setResolutionXy_ =
       fn
         x1
@@ -510,7 +510,7 @@ structure GtkPrintSettings :>
          & x3 =>
           (
             _import "gtk_print_settings_set_resolution_xy" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -520,9 +520,9 @@ structure GtkPrintSettings :>
               x2,
               x3
             )
-    val setReverse_ = fn x1 & x2 => (_import "gtk_print_settings_set_reverse" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setScale_ = fn x1 & x2 => (_import "gtk_print_settings_set_scale" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setUseColor_ = fn x1 & x2 => (_import "gtk_print_settings_set_use_color" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setReverse_ = fn x1 & x2 => (_import "gtk_print_settings_set_reverse" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setScale_ = fn x1 & x2 => (_import "gtk_print_settings_set_scale" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setUseColor_ = fn x1 & x2 => (_import "gtk_print_settings_set_use_color" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val toFile_ =
       fn
         x1
@@ -530,10 +530,10 @@ structure GtkPrintSettings :>
          & x4 =>
           (
             _import "mlton_gtk_print_settings_to_file" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -542,7 +542,7 @@ structure GtkPrintSettings :>
               x3,
               x4
             )
-    val toGvariant_ = _import "gtk_print_settings_to_gvariant" : GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+    val toGvariant_ = _import "gtk_print_settings_to_gvariant" : GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
     val toKeyFile_ =
       fn
         x1
@@ -550,10 +550,10 @@ structure GtkPrintSettings :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_print_settings_to_key_file" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
-               * GLibKeyFileRecord.FFI.notnull GLibKeyFileRecord.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
+               * GLibKeyFileRecord.FFI.non_opt GLibKeyFileRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -567,9 +567,9 @@ structure GtkPrintSettings :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_print_settings_unset" :
-              GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
+              GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

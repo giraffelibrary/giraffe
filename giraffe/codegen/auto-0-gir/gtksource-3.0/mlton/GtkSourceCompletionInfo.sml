@@ -3,8 +3,8 @@ structure GtkSourceCompletionInfo :>
     where type 'a class = 'a GtkSourceCompletionInfoClass.class =
   struct
     val getType_ = _import "gtk_source_completion_info_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_completion_info_new" : unit -> GtkSourceCompletionInfoClass.FFI.notnull GtkSourceCompletionInfoClass.FFI.p;
-    val getWidget_ = _import "gtk_source_completion_info_get_widget" : GtkSourceCompletionInfoClass.FFI.notnull GtkSourceCompletionInfoClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_source_completion_info_new" : unit -> GtkSourceCompletionInfoClass.FFI.non_opt GtkSourceCompletionInfoClass.FFI.p;
+    val getWidget_ = _import "gtk_source_completion_info_get_widget" : GtkSourceCompletionInfoClass.FFI.non_opt GtkSourceCompletionInfoClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val moveToIter_ =
       fn
         x1
@@ -12,9 +12,9 @@ structure GtkSourceCompletionInfo :>
          & x3 =>
           (
             _import "gtk_source_completion_info_move_to_iter" :
-              GtkSourceCompletionInfoClass.FFI.notnull GtkSourceCompletionInfoClass.FFI.p
-               * GtkTextViewClass.FFI.notnull GtkTextViewClass.FFI.p
-               * unit GtkTextIterRecord.FFI.p
+              GtkSourceCompletionInfoClass.FFI.non_opt GtkSourceCompletionInfoClass.FFI.p
+               * GtkTextViewClass.FFI.non_opt GtkTextViewClass.FFI.p
+               * GtkTextIterRecord.FFI.opt GtkTextIterRecord.FFI.p
                -> unit;
           )
             (
@@ -22,7 +22,7 @@ structure GtkSourceCompletionInfo :>
               x2,
               x3
             )
-    val setWidget_ = fn x1 & x2 => (_import "gtk_source_completion_info_set_widget" : GtkSourceCompletionInfoClass.FFI.notnull GtkSourceCompletionInfoClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setWidget_ = fn x1 & x2 => (_import "gtk_source_completion_info_set_widget" : GtkSourceCompletionInfoClass.FFI.non_opt GtkSourceCompletionInfoClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkSourceCompletionInfoClass.class
     type t = base class
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self

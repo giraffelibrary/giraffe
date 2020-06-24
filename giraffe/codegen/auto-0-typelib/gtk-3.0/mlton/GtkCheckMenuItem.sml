@@ -6,16 +6,16 @@ structure GtkCheckMenuItem :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_check_menu_item_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_check_menu_item_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithLabel_ = _import "mlton_gtk_check_menu_item_new_with_label" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithMnemonic_ = _import "mlton_gtk_check_menu_item_new_with_mnemonic" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getActive_ = _import "gtk_check_menu_item_get_active" : GtkCheckMenuItemClass.FFI.notnull GtkCheckMenuItemClass.FFI.p -> GBool.FFI.val_;
-    val getDrawAsRadio_ = _import "gtk_check_menu_item_get_draw_as_radio" : GtkCheckMenuItemClass.FFI.notnull GtkCheckMenuItemClass.FFI.p -> GBool.FFI.val_;
-    val getInconsistent_ = _import "gtk_check_menu_item_get_inconsistent" : GtkCheckMenuItemClass.FFI.notnull GtkCheckMenuItemClass.FFI.p -> GBool.FFI.val_;
-    val setActive_ = fn x1 & x2 => (_import "gtk_check_menu_item_set_active" : GtkCheckMenuItemClass.FFI.notnull GtkCheckMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setDrawAsRadio_ = fn x1 & x2 => (_import "gtk_check_menu_item_set_draw_as_radio" : GtkCheckMenuItemClass.FFI.notnull GtkCheckMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setInconsistent_ = fn x1 & x2 => (_import "gtk_check_menu_item_set_inconsistent" : GtkCheckMenuItemClass.FFI.notnull GtkCheckMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val toggled_ = _import "gtk_check_menu_item_toggled" : GtkCheckMenuItemClass.FFI.notnull GtkCheckMenuItemClass.FFI.p -> unit;
+    val new_ = _import "gtk_check_menu_item_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithLabel_ = _import "mlton_gtk_check_menu_item_new_with_label" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithMnemonic_ = _import "mlton_gtk_check_menu_item_new_with_mnemonic" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getActive_ = _import "gtk_check_menu_item_get_active" : GtkCheckMenuItemClass.FFI.non_opt GtkCheckMenuItemClass.FFI.p -> GBool.FFI.val_;
+    val getDrawAsRadio_ = _import "gtk_check_menu_item_get_draw_as_radio" : GtkCheckMenuItemClass.FFI.non_opt GtkCheckMenuItemClass.FFI.p -> GBool.FFI.val_;
+    val getInconsistent_ = _import "gtk_check_menu_item_get_inconsistent" : GtkCheckMenuItemClass.FFI.non_opt GtkCheckMenuItemClass.FFI.p -> GBool.FFI.val_;
+    val setActive_ = fn x1 & x2 => (_import "gtk_check_menu_item_set_active" : GtkCheckMenuItemClass.FFI.non_opt GtkCheckMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setDrawAsRadio_ = fn x1 & x2 => (_import "gtk_check_menu_item_set_draw_as_radio" : GtkCheckMenuItemClass.FFI.non_opt GtkCheckMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setInconsistent_ = fn x1 & x2 => (_import "gtk_check_menu_item_set_inconsistent" : GtkCheckMenuItemClass.FFI.non_opt GtkCheckMenuItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val toggled_ = _import "gtk_check_menu_item_toggled" : GtkCheckMenuItemClass.FFI.non_opt GtkCheckMenuItemClass.FFI.p -> unit;
     type 'a class = 'a GtkCheckMenuItemClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

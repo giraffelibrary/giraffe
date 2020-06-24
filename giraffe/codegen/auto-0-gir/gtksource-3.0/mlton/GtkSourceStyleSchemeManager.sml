@@ -4,16 +4,16 @@ structure GtkSourceStyleSchemeManager :>
     where type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class =
   struct
     val getType_ = _import "gtk_source_style_scheme_manager_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_style_scheme_manager_new" : unit -> GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p;
-    val getDefault_ = _import "gtk_source_style_scheme_manager_get_default" : unit -> GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p;
+    val new_ = _import "gtk_source_style_scheme_manager_new" : unit -> GtkSourceStyleSchemeManagerClass.FFI.non_opt GtkSourceStyleSchemeManagerClass.FFI.p;
+    val getDefault_ = _import "gtk_source_style_scheme_manager_get_default" : unit -> GtkSourceStyleSchemeManagerClass.FFI.non_opt GtkSourceStyleSchemeManagerClass.FFI.p;
     val appendSearchPath_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_style_scheme_manager_append_search_path" :
-              GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p
+              GtkSourceStyleSchemeManagerClass.FFI.non_opt GtkSourceStyleSchemeManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -21,32 +21,32 @@ structure GtkSourceStyleSchemeManager :>
               x2,
               x3
             )
-    val forceRescan_ = _import "gtk_source_style_scheme_manager_force_rescan" : GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p -> unit;
+    val forceRescan_ = _import "gtk_source_style_scheme_manager_force_rescan" : GtkSourceStyleSchemeManagerClass.FFI.non_opt GtkSourceStyleSchemeManagerClass.FFI.p -> unit;
     val getScheme_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_style_scheme_manager_get_scheme" :
-              GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p
+              GtkSourceStyleSchemeManagerClass.FFI.non_opt GtkSourceStyleSchemeManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkSourceStyleSchemeClass.FFI.notnull GtkSourceStyleSchemeClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkSourceStyleSchemeClass.FFI.non_opt GtkSourceStyleSchemeClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getSchemeIds_ = _import "gtk_source_style_scheme_manager_get_scheme_ids" : GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p -> unit Utf8CPtrArray.FFI.out_p;
-    val getSearchPath_ = _import "gtk_source_style_scheme_manager_get_search_path" : GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val getSchemeIds_ = _import "gtk_source_style_scheme_manager_get_scheme_ids" : GtkSourceStyleSchemeManagerClass.FFI.non_opt GtkSourceStyleSchemeManagerClass.FFI.p -> Utf8CPtrArray.FFI.opt Utf8CPtrArray.FFI.out_p;
+    val getSearchPath_ = _import "gtk_source_style_scheme_manager_get_search_path" : GtkSourceStyleSchemeManagerClass.FFI.non_opt GtkSourceStyleSchemeManagerClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val prependSearchPath_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_style_scheme_manager_prepend_search_path" :
-              GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p
+              GtkSourceStyleSchemeManagerClass.FFI.non_opt GtkSourceStyleSchemeManagerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -59,9 +59,9 @@ structure GtkSourceStyleSchemeManager :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_source_style_scheme_manager_set_search_path" :
-              GtkSourceStyleSchemeManagerClass.FFI.notnull GtkSourceStyleSchemeManagerClass.FFI.p
+              GtkSourceStyleSchemeManagerClass.FFI.non_opt GtkSourceStyleSchemeManagerClass.FFI.p
                * Utf8CPtrArray.MLton.p1
-               * unit Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.opt Utf8CPtrArray.MLton.p2
                -> unit;
           )
             (

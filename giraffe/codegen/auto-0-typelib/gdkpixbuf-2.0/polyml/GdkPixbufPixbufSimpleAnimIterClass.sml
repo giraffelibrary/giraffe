@@ -1,7 +1,8 @@
 structure GdkPixbufPixbufSimpleAnimIterClass :>
   GDK_PIXBUF_PIXBUF_SIMPLE_ANIM_ITER_CLASS
     where type 'a pixbuf_animation_iter_class = 'a GdkPixbufPixbufAnimationIterClass.class
-    where type C.notnull = GdkPixbufPixbufAnimationIterClass.C.notnull
+    where type C.opt = GdkPixbufPixbufAnimationIterClass.C.opt
+    where type C.non_opt = GdkPixbufPixbufAnimationIterClass.C.non_opt
     where type 'a C.p = 'a GdkPixbufPixbufAnimationIterClass.C.p =
   struct
     type 'a pixbuf_animation_iter_class = 'a GdkPixbufPixbufAnimationIterClass.class

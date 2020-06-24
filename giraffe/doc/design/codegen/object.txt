@@ -77,7 +77,8 @@ structure <ObjectNamespace><ObjectName>Class :>
                                                                           -.
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t        | isGObject
                                                                           -'
-    where type C.notnull = <ParentObjectNamespace><ParentObjectName>Class.C.notnull
+    where type C.opt = <ParentObjectNamespace><ParentObjectName>Class.C.opt
+    where type C.non_opt = <ParentObjectNamespace><ParentObjectName>Class.C.non_opt
     where type 'a C.p = 'a <ParentObjectNamespace><ParentObjectName>Class.C.p =
   struct
                                                                -.
@@ -127,7 +128,7 @@ structure <ObjectNamespace><ObjectName>Class :>
                                                                              |               |
     val getValue_ =                                                          |               |
       _import "g_value_get_<valueType>" :                                    |               |
-        GObjectValueRecord.FFI.p -> FFI.notnull FFI.p;                       |               |
+        GObjectValueRecord.FFI.p -> FFI.non_opt FFI.p;                       |               |
                                                                              |               |
     val getOptValue_ =                                                       |               |
       _import "g_value_get_<valueType>" :                                    |               |
@@ -135,7 +136,7 @@ structure <ObjectNamespace><ObjectName>Class :>
                                                                              |               |
     val setValue_ =                                                          |               |
       _import "g_value_set_<valueType>" :                                    |               |
-        GObjectValueRecord.FFI.p * FFI.notnull FFI.p -> unit;                |               |
+        GObjectValueRecord.FFI.p * FFI.non_opt FFI.p -> unit;                |               |
                                                                              |               |
     val setOptValue_ =                                                       |               |
       _import "g_value_set_<valueType>" :                                    |               |

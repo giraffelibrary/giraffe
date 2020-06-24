@@ -8,9 +8,9 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_action_added" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -25,9 +25,9 @@ structure GioActionGroup :>
          & x4 =>
           (
             _import "mlton_g_action_group_action_enabled_changed" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GBool.FFI.val_
                -> unit;
           )
@@ -42,9 +42,9 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_action_removed" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -59,10 +59,10 @@ structure GioActionGroup :>
          & x4 =>
           (
             _import "mlton_g_action_group_action_state_changed" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p
                -> unit;
           )
             (
@@ -78,10 +78,10 @@ structure GioActionGroup :>
          & x4 =>
           (
             _import "mlton_g_action_group_activate_action" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
                -> unit;
           )
             (
@@ -97,10 +97,10 @@ structure GioActionGroup :>
          & x4 =>
           (
             _import "mlton_g_action_group_change_action_state" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p
                -> unit;
           )
             (
@@ -114,9 +114,9 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_get_action_enabled" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -129,10 +129,10 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_get_action_parameter_type" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GLibVariantTypeRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p;
           )
             (
               x1,
@@ -144,10 +144,10 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_get_action_state" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GLibVariantRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -159,10 +159,10 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_get_action_state_hint" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GLibVariantRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -174,10 +174,10 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_get_action_state_type" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GLibVariantTypeRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p;
           )
             (
               x1,
@@ -189,9 +189,9 @@ structure GioActionGroup :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_action_group_has_action" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -199,7 +199,7 @@ structure GioActionGroup :>
               x2,
               x3
             )
-    val listActions_ = _import "g_action_group_list_actions" : GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+    val listActions_ = _import "g_action_group_list_actions" : GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val queryAction_ =
       fn
         x1
@@ -211,14 +211,14 @@ structure GioActionGroup :>
          & x8 =>
           (
             _import "mlton_g_action_group_query_action" :
-              GioActionGroupClass.FFI.notnull GioActionGroupClass.FFI.p
+              GioActionGroupClass.FFI.non_opt GioActionGroupClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GBool.FFI.ref_
-               * (unit, GLibVariantTypeRecord.FFI.notnull) GLibVariantTypeRecord.FFI.r
-               * (unit, GLibVariantTypeRecord.FFI.notnull) GLibVariantTypeRecord.FFI.r
-               * (unit, GLibVariantRecord.FFI.notnull) GLibVariantRecord.FFI.r
-               * (unit, GLibVariantRecord.FFI.notnull) GLibVariantRecord.FFI.r
+               * (GLibVariantTypeRecord.FFI.opt, GLibVariantTypeRecord.FFI.non_opt) GLibVariantTypeRecord.FFI.r
+               * (GLibVariantTypeRecord.FFI.opt, GLibVariantTypeRecord.FFI.non_opt) GLibVariantTypeRecord.FFI.r
+               * (GLibVariantRecord.FFI.opt, GLibVariantRecord.FFI.non_opt) GLibVariantRecord.FFI.r
+               * (GLibVariantRecord.FFI.opt, GLibVariantRecord.FFI.non_opt) GLibVariantRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

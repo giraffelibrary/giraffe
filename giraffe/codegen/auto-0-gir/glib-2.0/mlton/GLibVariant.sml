@@ -13,11 +13,11 @@ structure GLibVariant :>
          & x4 =>
           (
             _import "mlton_g_variant_new_array" :
-              unit GLibVariantTypeRecord.FFI.p
+              GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p
                * GLibVariantRecordCPtrArrayN.MLton.p1
-               * unit GLibVariantRecordCPtrArrayN.MLton.p2
+               * GLibVariantRecordCPtrArrayN.FFI.opt GLibVariantRecordCPtrArrayN.MLton.p2
                * GSize.FFI.val_
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -25,26 +25,26 @@ structure GLibVariant :>
               x3,
               x4
             )
-    val newBoolean_ = _import "g_variant_new_boolean" : GBool.FFI.val_ -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val newByte_ = _import "g_variant_new_byte" : GUInt8.FFI.val_ -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val newBytestring_ = _import "mlton_g_variant_new_bytestring" : GUInt8CArray.MLton.p1 * GUInt8CArray.FFI.notnull GUInt8CArray.MLton.p2 -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+    val newBoolean_ = _import "g_variant_new_boolean" : GBool.FFI.val_ -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val newByte_ = _import "g_variant_new_byte" : GUInt8.FFI.val_ -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val newBytestring_ = _import "mlton_g_variant_new_bytestring" : GUInt8CArray.MLton.p1 * GUInt8CArray.FFI.non_opt GUInt8CArray.MLton.p2 -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
     val newBytestringArray_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_variant_new_bytestring_array" :
               Utf8CPtrArrayN.MLton.p1
-               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
+               * Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.MLton.p2
                * GSSize.FFI.val_
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newDictEntry_ = fn x1 & x2 => (_import "g_variant_new_dict_entry" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;) (x1, x2)
-    val newDouble_ = _import "g_variant_new_double" : GDouble.FFI.val_ -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+    val newDictEntry_ = fn x1 & x2 => (_import "g_variant_new_dict_entry" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;) (x1, x2)
+    val newDouble_ = _import "g_variant_new_double" : GDouble.FFI.val_ -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
     val newFromBytes_ =
       fn
         x1
@@ -52,48 +52,48 @@ structure GLibVariant :>
          & x3 =>
           (
             _import "g_variant_new_from_bytes" :
-              GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p
-               * GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p
+              GLibVariantTypeRecord.FFI.non_opt GLibVariantTypeRecord.FFI.p
+               * GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p
                * GBool.FFI.val_
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newHandle_ = _import "g_variant_new_handle" : GInt32.FFI.val_ -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val newInt16_ = _import "g_variant_new_int16" : GInt16.FFI.val_ -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val newInt32_ = _import "g_variant_new_int32" : GInt32.FFI.val_ -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val newInt64_ = _import "g_variant_new_int64" : GInt64.FFI.val_ -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val newMaybe_ = fn x1 & x2 => (_import "g_variant_new_maybe" : unit GLibVariantTypeRecord.FFI.p * unit GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;) (x1, x2)
-    val newObjectPath_ = _import "mlton_g_variant_new_object_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+    val newHandle_ = _import "g_variant_new_handle" : GInt32.FFI.val_ -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val newInt16_ = _import "g_variant_new_int16" : GInt16.FFI.val_ -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val newInt32_ = _import "g_variant_new_int32" : GInt32.FFI.val_ -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val newInt64_ = _import "g_variant_new_int64" : GInt64.FFI.val_ -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val newMaybe_ = fn x1 & x2 => (_import "g_variant_new_maybe" : GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;) (x1, x2)
+    val newObjectPath_ = _import "mlton_g_variant_new_object_path" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
     val newObjv_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_variant_new_objv" :
               Utf8CPtrArrayN.MLton.p1
-               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
+               * Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.MLton.p2
                * GSSize.FFI.val_
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newSignature_ = _import "mlton_g_variant_new_signature" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val newString_ = _import "mlton_g_variant_new_string" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+    val newSignature_ = _import "mlton_g_variant_new_signature" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val newString_ = _import "mlton_g_variant_new_string" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
     val newStrv_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_variant_new_strv" :
               Utf8CPtrArrayN.MLton.p1
-               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
+               * Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.MLton.p2
                * GSSize.FFI.val_
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -106,20 +106,20 @@ structure GLibVariant :>
           (
             _import "mlton_g_variant_new_tuple" :
               GLibVariantRecordCPtrArrayN.MLton.p1
-               * GLibVariantRecordCPtrArrayN.FFI.notnull GLibVariantRecordCPtrArrayN.MLton.p2
+               * GLibVariantRecordCPtrArrayN.FFI.non_opt GLibVariantRecordCPtrArrayN.MLton.p2
                * GSize.FFI.val_
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newUint16_ = _import "g_variant_new_uint16" : GUInt16.FFI.val_ -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val newUint32_ = _import "g_variant_new_uint32" : GUInt32.FFI.val_ -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val newUint64_ = _import "g_variant_new_uint64" : GUInt64.FFI.val_ -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val newVariant_ = _import "g_variant_new_variant" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val byteswap_ = _import "g_variant_byteswap" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+    val newUint16_ = _import "g_variant_new_uint16" : GUInt16.FFI.val_ -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val newUint32_ = _import "g_variant_new_uint32" : GUInt32.FFI.val_ -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val newUint64_ = _import "g_variant_new_uint64" : GUInt64.FFI.val_ -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val newVariant_ = _import "g_variant_new_variant" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val byteswap_ = _import "g_variant_byteswap" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
     val checkFormatString_ =
       fn
         x1
@@ -127,9 +127,9 @@ structure GLibVariant :>
          & x4 =>
           (
             _import "mlton_g_variant_check_format_string" :
-              GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p
+              GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GBool.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -139,42 +139,42 @@ structure GLibVariant :>
               x3,
               x4
             )
-    val classify_ = _import "g_variant_classify" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibVariantClass.FFI.val_;
-    val compare_ = fn x1 & x2 => (_import "g_variant_compare" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val dupBytestring_ = fn x1 & x2 => (_import "g_variant_dup_bytestring" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> GUInt8CArrayN.FFI.notnull GUInt8CArrayN.FFI.out_p;) (x1, x2)
-    val dupBytestringArray_ = fn x1 & x2 => (_import "g_variant_dup_bytestring_array" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
-    val dupObjv_ = fn x1 & x2 => (_import "g_variant_dup_objv" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
-    val dupString_ = fn x1 & x2 => (_import "g_variant_dup_string" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val dupStrv_ = fn x1 & x2 => (_import "g_variant_dup_strv" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
-    val equal_ = fn x1 & x2 => (_import "g_variant_equal" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getBoolean_ = _import "g_variant_get_boolean" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GBool.FFI.val_;
-    val getByte_ = _import "g_variant_get_byte" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GUInt8.FFI.val_;
-    val getBytestring_ = _import "g_variant_get_bytestring" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GUInt8CArray.FFI.notnull GUInt8CArray.FFI.out_p;
-    val getBytestringArray_ = fn x1 & x2 => (_import "g_variant_get_bytestring_array" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
-    val getChildValue_ = fn x1 & x2 => (_import "g_variant_get_child_value" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GSize.FFI.val_ -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;) (x1, x2)
-    val getDataAsBytes_ = _import "g_variant_get_data_as_bytes" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p;
-    val getDouble_ = _import "g_variant_get_double" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GDouble.FFI.val_;
-    val getHandle_ = _import "g_variant_get_handle" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GInt32.FFI.val_;
-    val getInt16_ = _import "g_variant_get_int16" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GInt16.FFI.val_;
-    val getInt32_ = _import "g_variant_get_int32" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GInt32.FFI.val_;
-    val getInt64_ = _import "g_variant_get_int64" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GInt64.FFI.val_;
-    val getMaybe_ = _import "g_variant_get_maybe" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> unit GLibVariantRecord.FFI.p;
-    val getNormalForm_ = _import "g_variant_get_normal_form" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val getObjv_ = fn x1 & x2 => (_import "g_variant_get_objv" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
-    val getSize_ = _import "g_variant_get_size" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GSize.FFI.val_;
-    val getString_ = fn x1 & x2 => (_import "g_variant_get_string" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val getStrv_ = fn x1 & x2 => (_import "g_variant_get_strv" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
-    val getType_ = _import "g_variant_get_type" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p;
-    val getTypeString_ = _import "g_variant_get_type_string" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getUint16_ = _import "g_variant_get_uint16" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GUInt16.FFI.val_;
-    val getUint32_ = _import "g_variant_get_uint32" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GUInt32.FFI.val_;
-    val getUint64_ = _import "g_variant_get_uint64" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GUInt64.FFI.val_;
-    val getVariant_ = _import "g_variant_get_variant" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val hash_ = _import "g_variant_hash" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GUInt.FFI.val_;
-    val isContainer_ = _import "g_variant_is_container" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GBool.FFI.val_;
-    val isFloating_ = _import "g_variant_is_floating" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GBool.FFI.val_;
-    val isNormalForm_ = _import "g_variant_is_normal_form" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GBool.FFI.val_;
-    val isOfType_ = fn x1 & x2 => (_import "g_variant_is_of_type" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GLibVariantTypeRecord.FFI.notnull GLibVariantTypeRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val classify_ = _import "g_variant_classify" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GLibVariantClass.FFI.val_;
+    val compare_ = fn x1 & x2 => (_import "g_variant_compare" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val dupBytestring_ = fn x1 & x2 => (_import "g_variant_dup_bytestring" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.FFI.out_p;) (x1, x2)
+    val dupBytestringArray_ = fn x1 & x2 => (_import "g_variant_dup_bytestring_array" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
+    val dupObjv_ = fn x1 & x2 => (_import "g_variant_dup_objv" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
+    val dupString_ = fn x1 & x2 => (_import "g_variant_dup_string" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val dupStrv_ = fn x1 & x2 => (_import "g_variant_dup_strv" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
+    val equal_ = fn x1 & x2 => (_import "g_variant_equal" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getBoolean_ = _import "g_variant_get_boolean" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GBool.FFI.val_;
+    val getByte_ = _import "g_variant_get_byte" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GUInt8.FFI.val_;
+    val getBytestring_ = _import "g_variant_get_bytestring" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GUInt8CArray.FFI.non_opt GUInt8CArray.FFI.out_p;
+    val getBytestringArray_ = fn x1 & x2 => (_import "g_variant_get_bytestring_array" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
+    val getChildValue_ = fn x1 & x2 => (_import "g_variant_get_child_value" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GSize.FFI.val_ -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;) (x1, x2)
+    val getDataAsBytes_ = _import "g_variant_get_data_as_bytes" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p;
+    val getDouble_ = _import "g_variant_get_double" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GDouble.FFI.val_;
+    val getHandle_ = _import "g_variant_get_handle" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GInt32.FFI.val_;
+    val getInt16_ = _import "g_variant_get_int16" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GInt16.FFI.val_;
+    val getInt32_ = _import "g_variant_get_int32" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GInt32.FFI.val_;
+    val getInt64_ = _import "g_variant_get_int64" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GInt64.FFI.val_;
+    val getMaybe_ = _import "g_variant_get_maybe" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p;
+    val getNormalForm_ = _import "g_variant_get_normal_form" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val getObjv_ = fn x1 & x2 => (_import "g_variant_get_objv" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
+    val getSize_ = _import "g_variant_get_size" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GSize.FFI.val_;
+    val getString_ = fn x1 & x2 => (_import "g_variant_get_string" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val getStrv_ = fn x1 & x2 => (_import "g_variant_get_strv" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
+    val getType_ = _import "g_variant_get_type" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GLibVariantTypeRecord.FFI.non_opt GLibVariantTypeRecord.FFI.p;
+    val getTypeString_ = _import "g_variant_get_type_string" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getUint16_ = _import "g_variant_get_uint16" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GUInt16.FFI.val_;
+    val getUint32_ = _import "g_variant_get_uint32" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GUInt32.FFI.val_;
+    val getUint64_ = _import "g_variant_get_uint64" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GUInt64.FFI.val_;
+    val getVariant_ = _import "g_variant_get_variant" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val hash_ = _import "g_variant_hash" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GUInt.FFI.val_;
+    val isContainer_ = _import "g_variant_is_container" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GBool.FFI.val_;
+    val isFloating_ = _import "g_variant_is_floating" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GBool.FFI.val_;
+    val isNormalForm_ = _import "g_variant_is_normal_form" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GBool.FFI.val_;
+    val isOfType_ = fn x1 & x2 => (_import "g_variant_is_of_type" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GLibVariantTypeRecord.FFI.non_opt GLibVariantTypeRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val lookupValue_ =
       fn
         x1
@@ -182,11 +182,11 @@ structure GLibVariant :>
          & x4 =>
           (
             _import "mlton_g_variant_lookup_value" :
-              GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p
+              GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GLibVariantTypeRecord.FFI.p
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,
@@ -194,11 +194,11 @@ structure GLibVariant :>
               x3,
               x4
             )
-    val nChildren_ = _import "g_variant_n_children" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GSize.FFI.val_;
-    val print_ = fn x1 & x2 => (_import "g_variant_print" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p * GBool.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
-    val takeRef_ = _import "g_variant_take_ref" : GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
-    val isObjectPath_ = _import "mlton_g_variant_is_object_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
-    val isSignature_ = _import "mlton_g_variant_is_signature" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GBool.FFI.val_;
+    val nChildren_ = _import "g_variant_n_children" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GSize.FFI.val_;
+    val print_ = fn x1 & x2 => (_import "g_variant_print" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p * GBool.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val takeRef_ = _import "g_variant_take_ref" : GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
+    val isObjectPath_ = _import "mlton_g_variant_is_object_path" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
+    val isSignature_ = _import "mlton_g_variant_is_signature" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
     val parse_ =
       fn
         x1
@@ -208,15 +208,15 @@ structure GLibVariant :>
          & x8 =>
           (
             _import "mlton_g_variant_parse" :
-              unit GLibVariantTypeRecord.FFI.p
+              GLibVariantTypeRecord.FFI.opt GLibVariantTypeRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GLibVariantRecord.FFI.notnull GLibVariantRecord.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GLibVariantRecord.FFI.non_opt GLibVariantRecord.FFI.p;
           )
             (
               x1,

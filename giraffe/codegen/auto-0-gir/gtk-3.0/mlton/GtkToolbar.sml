@@ -11,7 +11,7 @@ structure GtkToolbar :>
     where type toolbar_style_t = GtkToolbarStyle.t =
   struct
     val getType_ = _import "gtk_toolbar_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_toolbar_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_toolbar_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val getDropIndex_ =
       fn
         x1
@@ -19,7 +19,7 @@ structure GtkToolbar :>
          & x3 =>
           (
             _import "gtk_toolbar_get_drop_index" :
-              GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p
+              GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> GInt.FFI.val_;
@@ -29,13 +29,13 @@ structure GtkToolbar :>
               x2,
               x3
             )
-    val getIconSize_ = _import "gtk_toolbar_get_icon_size" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GtkIconSize.FFI.val_;
-    val getItemIndex_ = fn x1 & x2 => (_import "gtk_toolbar_get_item_index" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val getNItems_ = _import "gtk_toolbar_get_n_items" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GInt.FFI.val_;
-    val getNthItem_ = fn x1 & x2 => (_import "gtk_toolbar_get_nth_item" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GInt.FFI.val_ -> unit GtkToolItemClass.FFI.p;) (x1, x2)
-    val getReliefStyle_ = _import "gtk_toolbar_get_relief_style" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GtkReliefStyle.FFI.val_;
-    val getShowArrow_ = _import "gtk_toolbar_get_show_arrow" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GBool.FFI.val_;
-    val getStyle_ = _import "gtk_toolbar_get_style" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> GtkToolbarStyle.FFI.val_;
+    val getIconSize_ = _import "gtk_toolbar_get_icon_size" : GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p -> GtkIconSize.FFI.val_;
+    val getItemIndex_ = fn x1 & x2 => (_import "gtk_toolbar_get_item_index" : GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p * GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val getNItems_ = _import "gtk_toolbar_get_n_items" : GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p -> GInt.FFI.val_;
+    val getNthItem_ = fn x1 & x2 => (_import "gtk_toolbar_get_nth_item" : GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p * GInt.FFI.val_ -> GtkToolItemClass.FFI.opt GtkToolItemClass.FFI.p;) (x1, x2)
+    val getReliefStyle_ = _import "gtk_toolbar_get_relief_style" : GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p -> GtkReliefStyle.FFI.val_;
+    val getShowArrow_ = _import "gtk_toolbar_get_show_arrow" : GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p -> GBool.FFI.val_;
+    val getStyle_ = _import "gtk_toolbar_get_style" : GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p -> GtkToolbarStyle.FFI.val_;
     val insert_ =
       fn
         x1
@@ -43,8 +43,8 @@ structure GtkToolbar :>
          & x3 =>
           (
             _import "gtk_toolbar_insert" :
-              GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p
-               * GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p
+              GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p
+               * GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p
                * GInt.FFI.val_
                -> unit;
           )
@@ -60,8 +60,8 @@ structure GtkToolbar :>
          & x3 =>
           (
             _import "gtk_toolbar_set_drop_highlight_item" :
-              GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p
-               * unit GtkToolItemClass.FFI.p
+              GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p
+               * GtkToolItemClass.FFI.opt GtkToolItemClass.FFI.p
                * GInt.FFI.val_
                -> unit;
           )
@@ -70,11 +70,11 @@ structure GtkToolbar :>
               x2,
               x3
             )
-    val setIconSize_ = fn x1 & x2 => (_import "gtk_toolbar_set_icon_size" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GtkIconSize.FFI.val_ -> unit;) (x1, x2)
-    val setShowArrow_ = fn x1 & x2 => (_import "gtk_toolbar_set_show_arrow" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setStyle_ = fn x1 & x2 => (_import "gtk_toolbar_set_style" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p * GtkToolbarStyle.FFI.val_ -> unit;) (x1, x2)
-    val unsetIconSize_ = _import "gtk_toolbar_unset_icon_size" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> unit;
-    val unsetStyle_ = _import "gtk_toolbar_unset_style" : GtkToolbarClass.FFI.notnull GtkToolbarClass.FFI.p -> unit;
+    val setIconSize_ = fn x1 & x2 => (_import "gtk_toolbar_set_icon_size" : GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p * GtkIconSize.FFI.val_ -> unit;) (x1, x2)
+    val setShowArrow_ = fn x1 & x2 => (_import "gtk_toolbar_set_show_arrow" : GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setStyle_ = fn x1 & x2 => (_import "gtk_toolbar_set_style" : GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p * GtkToolbarStyle.FFI.val_ -> unit;) (x1, x2)
+    val unsetIconSize_ = _import "gtk_toolbar_unset_icon_size" : GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p -> unit;
+    val unsetStyle_ = _import "gtk_toolbar_unset_style" : GtkToolbarClass.FFI.non_opt GtkToolbarClass.FFI.p -> unit;
     type 'a class = 'a GtkToolbarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

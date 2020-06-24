@@ -1,7 +1,8 @@
 structure GtkScaleButtonAccessibleClass :>
   GTK_SCALE_BUTTON_ACCESSIBLE_CLASS
     where type 'a button_accessible_class = 'a GtkButtonAccessibleClass.class
-    where type C.notnull = GtkButtonAccessibleClass.C.notnull
+    where type C.opt = GtkButtonAccessibleClass.C.opt
+    where type C.non_opt = GtkButtonAccessibleClass.C.non_opt
     where type 'a C.p = 'a GtkButtonAccessibleClass.C.p =
   struct
     type 'a button_accessible_class = 'a GtkButtonAccessibleClass.class

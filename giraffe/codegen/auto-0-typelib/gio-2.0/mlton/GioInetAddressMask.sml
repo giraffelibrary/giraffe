@@ -13,10 +13,10 @@ structure GioInetAddressMask :>
          & x3 =>
           (
             _import "g_inet_address_mask_new" :
-              GioInetAddressClass.FFI.notnull GioInetAddressClass.FFI.p
+              GioInetAddressClass.FFI.non_opt GioInetAddressClass.FFI.p
                * GUInt32.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioInetAddressMaskClass.FFI.notnull GioInetAddressMaskClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioInetAddressMaskClass.FFI.non_opt GioInetAddressMaskClass.FFI.p;
           )
             (
               x1,
@@ -29,21 +29,21 @@ structure GioInetAddressMask :>
           (
             _import "mlton_g_inet_address_mask_new_from_string" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioInetAddressMaskClass.FFI.notnull GioInetAddressMaskClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioInetAddressMaskClass.FFI.non_opt GioInetAddressMaskClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val equal_ = fn x1 & x2 => (_import "g_inet_address_mask_equal" : GioInetAddressMaskClass.FFI.notnull GioInetAddressMaskClass.FFI.p * GioInetAddressMaskClass.FFI.notnull GioInetAddressMaskClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getAddress_ = _import "g_inet_address_mask_get_address" : GioInetAddressMaskClass.FFI.notnull GioInetAddressMaskClass.FFI.p -> GioInetAddressClass.FFI.notnull GioInetAddressClass.FFI.p;
-    val getFamily_ = _import "g_inet_address_mask_get_family" : GioInetAddressMaskClass.FFI.notnull GioInetAddressMaskClass.FFI.p -> GioSocketFamily.FFI.val_;
-    val getLength_ = _import "g_inet_address_mask_get_length" : GioInetAddressMaskClass.FFI.notnull GioInetAddressMaskClass.FFI.p -> GUInt32.FFI.val_;
-    val matches_ = fn x1 & x2 => (_import "g_inet_address_mask_matches" : GioInetAddressMaskClass.FFI.notnull GioInetAddressMaskClass.FFI.p * GioInetAddressClass.FFI.notnull GioInetAddressClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val toString_ = _import "g_inet_address_mask_to_string" : GioInetAddressMaskClass.FFI.notnull GioInetAddressMaskClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val equal_ = fn x1 & x2 => (_import "g_inet_address_mask_equal" : GioInetAddressMaskClass.FFI.non_opt GioInetAddressMaskClass.FFI.p * GioInetAddressMaskClass.FFI.non_opt GioInetAddressMaskClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getAddress_ = _import "g_inet_address_mask_get_address" : GioInetAddressMaskClass.FFI.non_opt GioInetAddressMaskClass.FFI.p -> GioInetAddressClass.FFI.non_opt GioInetAddressClass.FFI.p;
+    val getFamily_ = _import "g_inet_address_mask_get_family" : GioInetAddressMaskClass.FFI.non_opt GioInetAddressMaskClass.FFI.p -> GioSocketFamily.FFI.val_;
+    val getLength_ = _import "g_inet_address_mask_get_length" : GioInetAddressMaskClass.FFI.non_opt GioInetAddressMaskClass.FFI.p -> GUInt32.FFI.val_;
+    val matches_ = fn x1 & x2 => (_import "g_inet_address_mask_matches" : GioInetAddressMaskClass.FFI.non_opt GioInetAddressMaskClass.FFI.p * GioInetAddressClass.FFI.non_opt GioInetAddressClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val toString_ = _import "g_inet_address_mask_to_string" : GioInetAddressMaskClass.FFI.non_opt GioInetAddressMaskClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     type 'a class = 'a GioInetAddressMaskClass.class
     type 'a initable_class = 'a GioInitableClass.class
     type 'a inet_address_class = 'a GioInetAddressClass.class

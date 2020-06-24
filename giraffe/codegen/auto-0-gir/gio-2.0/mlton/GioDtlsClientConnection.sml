@@ -13,20 +13,20 @@ structure GioDtlsClientConnection :>
          & x3 =>
           (
             _import "g_dtls_client_connection_new" :
-              GioDatagramBasedClass.FFI.notnull GioDatagramBasedClass.FFI.p
-               * unit GioSocketConnectableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioDtlsClientConnectionClass.FFI.notnull GioDtlsClientConnectionClass.FFI.p;
+              GioDatagramBasedClass.FFI.non_opt GioDatagramBasedClass.FFI.p
+               * GioSocketConnectableClass.FFI.opt GioSocketConnectableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioDtlsClientConnectionClass.FFI.non_opt GioDtlsClientConnectionClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getServerIdentity_ = _import "g_dtls_client_connection_get_server_identity" : GioDtlsClientConnectionClass.FFI.notnull GioDtlsClientConnectionClass.FFI.p -> GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p;
-    val getValidationFlags_ = _import "g_dtls_client_connection_get_validation_flags" : GioDtlsClientConnectionClass.FFI.notnull GioDtlsClientConnectionClass.FFI.p -> GioTlsCertificateFlags.FFI.val_;
-    val setServerIdentity_ = fn x1 & x2 => (_import "g_dtls_client_connection_set_server_identity" : GioDtlsClientConnectionClass.FFI.notnull GioDtlsClientConnectionClass.FFI.p * GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p -> unit;) (x1, x2)
-    val setValidationFlags_ = fn x1 & x2 => (_import "g_dtls_client_connection_set_validation_flags" : GioDtlsClientConnectionClass.FFI.notnull GioDtlsClientConnectionClass.FFI.p * GioTlsCertificateFlags.FFI.val_ -> unit;) (x1, x2)
+    val getServerIdentity_ = _import "g_dtls_client_connection_get_server_identity" : GioDtlsClientConnectionClass.FFI.non_opt GioDtlsClientConnectionClass.FFI.p -> GioSocketConnectableClass.FFI.non_opt GioSocketConnectableClass.FFI.p;
+    val getValidationFlags_ = _import "g_dtls_client_connection_get_validation_flags" : GioDtlsClientConnectionClass.FFI.non_opt GioDtlsClientConnectionClass.FFI.p -> GioTlsCertificateFlags.FFI.val_;
+    val setServerIdentity_ = fn x1 & x2 => (_import "g_dtls_client_connection_set_server_identity" : GioDtlsClientConnectionClass.FFI.non_opt GioDtlsClientConnectionClass.FFI.p * GioSocketConnectableClass.FFI.non_opt GioSocketConnectableClass.FFI.p -> unit;) (x1, x2)
+    val setValidationFlags_ = fn x1 & x2 => (_import "g_dtls_client_connection_set_validation_flags" : GioDtlsClientConnectionClass.FFI.non_opt GioDtlsClientConnectionClass.FFI.p * GioTlsCertificateFlags.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioDtlsClientConnectionClass.class
     type 'a datagram_based_class = 'a GioDatagramBasedClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class

@@ -69,7 +69,7 @@ structure GIRepositoryInfoType :>
     | UNRESOLVED
 
     local
-      val table : (GIRepositoryBaseInfoClass.FFI.notnull GIRepositoryBaseInfoClass.FFI.p -> t) vector =
+      val table : (GIRepositoryBaseInfoClass.FFI.non_opt GIRepositoryBaseInfoClass.FFI.p -> t) vector =
         Vector.fromList [
           K INVALID,
           FUNCTION    o GIRepositoryFunctionInfoClass.FFI.fromPtr false,

@@ -14,16 +14,16 @@ structure GdkPixbufPixbufSimpleAnim :>
               GInt.FFI.val_
                * GInt.FFI.val_
                * GFloat.FFI.val_
-               -> GdkPixbufPixbufSimpleAnimClass.FFI.notnull GdkPixbufPixbufSimpleAnimClass.FFI.p;
+               -> GdkPixbufPixbufSimpleAnimClass.FFI.non_opt GdkPixbufPixbufSimpleAnimClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val addFrame_ = fn x1 & x2 => (_import "gdk_pixbuf_simple_anim_add_frame" : GdkPixbufPixbufSimpleAnimClass.FFI.notnull GdkPixbufPixbufSimpleAnimClass.FFI.p * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
-    val getLoop_ = _import "gdk_pixbuf_simple_anim_get_loop" : GdkPixbufPixbufSimpleAnimClass.FFI.notnull GdkPixbufPixbufSimpleAnimClass.FFI.p -> GBool.FFI.val_;
-    val setLoop_ = fn x1 & x2 => (_import "gdk_pixbuf_simple_anim_set_loop" : GdkPixbufPixbufSimpleAnimClass.FFI.notnull GdkPixbufPixbufSimpleAnimClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val addFrame_ = fn x1 & x2 => (_import "gdk_pixbuf_simple_anim_add_frame" : GdkPixbufPixbufSimpleAnimClass.FFI.non_opt GdkPixbufPixbufSimpleAnimClass.FFI.p * GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p -> unit;) (x1, x2)
+    val getLoop_ = _import "gdk_pixbuf_simple_anim_get_loop" : GdkPixbufPixbufSimpleAnimClass.FFI.non_opt GdkPixbufPixbufSimpleAnimClass.FFI.p -> GBool.FFI.val_;
+    val setLoop_ = fn x1 & x2 => (_import "gdk_pixbuf_simple_anim_set_loop" : GdkPixbufPixbufSimpleAnimClass.FFI.non_opt GdkPixbufPixbufSimpleAnimClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GdkPixbufPixbufSimpleAnimClass.class
     type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class
     type t = base class

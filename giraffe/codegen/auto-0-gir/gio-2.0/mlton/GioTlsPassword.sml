@@ -11,25 +11,25 @@ structure GioTlsPassword :>
             _import "mlton_g_tls_password_new" :
               GioTlsPasswordFlags.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioTlsPasswordClass.FFI.notnull GioTlsPasswordClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioTlsPasswordClass.FFI.non_opt GioTlsPasswordClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getDescription_ = _import "g_tls_password_get_description" : GioTlsPasswordClass.FFI.notnull GioTlsPasswordClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getFlags_ = _import "g_tls_password_get_flags" : GioTlsPasswordClass.FFI.notnull GioTlsPasswordClass.FFI.p -> GioTlsPasswordFlags.FFI.val_;
-    val getWarning_ = _import "g_tls_password_get_warning" : GioTlsPasswordClass.FFI.notnull GioTlsPasswordClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getDescription_ = _import "g_tls_password_get_description" : GioTlsPasswordClass.FFI.non_opt GioTlsPasswordClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getFlags_ = _import "g_tls_password_get_flags" : GioTlsPasswordClass.FFI.non_opt GioTlsPasswordClass.FFI.p -> GioTlsPasswordFlags.FFI.val_;
+    val getWarning_ = _import "g_tls_password_get_warning" : GioTlsPasswordClass.FFI.non_opt GioTlsPasswordClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val setDescription_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_tls_password_set_description" :
-              GioTlsPasswordClass.FFI.notnull GioTlsPasswordClass.FFI.p
+              GioTlsPasswordClass.FFI.non_opt GioTlsPasswordClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -37,15 +37,15 @@ structure GioTlsPassword :>
               x2,
               x3
             )
-    val setFlags_ = fn x1 & x2 => (_import "g_tls_password_set_flags" : GioTlsPasswordClass.FFI.notnull GioTlsPasswordClass.FFI.p * GioTlsPasswordFlags.FFI.val_ -> unit;) (x1, x2)
+    val setFlags_ = fn x1 & x2 => (_import "g_tls_password_set_flags" : GioTlsPasswordClass.FFI.non_opt GioTlsPasswordClass.FFI.p * GioTlsPasswordFlags.FFI.val_ -> unit;) (x1, x2)
     val setWarning_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_tls_password_set_warning" :
-              GioTlsPasswordClass.FFI.notnull GioTlsPasswordClass.FFI.p
+              GioTlsPasswordClass.FFI.non_opt GioTlsPasswordClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

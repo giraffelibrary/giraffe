@@ -1,4 +1,4 @@
-(* Copyright (C) 2019 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2019-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,7 +11,8 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
     where type sequence = CArrayType.t
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
     where type 'a C.p = 'a CArrayType.p
-    where type C.notnull = CArrayType.notnull
+    where type C.opt = CArrayType.opt
+    where type C.non_opt = CArrayType.non_opt
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
     structure Array = CArray(CArrayType)

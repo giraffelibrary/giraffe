@@ -4,9 +4,9 @@ structure GtkPlug :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_plug_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_plug_new" : XlibWindow.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newForDisplay_ = fn x1 & x2 => (_import "gtk_plug_new_for_display" : GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p * XlibWindow.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
-    val construct_ = fn x1 & x2 => (_import "gtk_plug_construct" : GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p * XlibWindow.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_plug_new" : XlibWindow.FFI.val_ -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newForDisplay_ = fn x1 & x2 => (_import "gtk_plug_new_for_display" : GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p * XlibWindow.FFI.val_ -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val construct_ = fn x1 & x2 => (_import "gtk_plug_construct" : GtkPlugClass.FFI.non_opt GtkPlugClass.FFI.p * XlibWindow.FFI.val_ -> unit;) (x1, x2)
     val constructForDisplay_ =
       fn
         x1
@@ -14,8 +14,8 @@ structure GtkPlug :>
          & x3 =>
           (
             _import "gtk_plug_construct_for_display" :
-              GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p
-               * GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
+              GtkPlugClass.FFI.non_opt GtkPlugClass.FFI.p
+               * GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
                * XlibWindow.FFI.val_
                -> unit;
           )
@@ -24,9 +24,9 @@ structure GtkPlug :>
               x2,
               x3
             )
-    val getEmbedded_ = _import "gtk_plug_get_embedded" : GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p -> GBool.FFI.val_;
-    val getId_ = _import "gtk_plug_get_id" : GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p -> XlibWindow.FFI.val_;
-    val getSocketWindow_ = _import "gtk_plug_get_socket_window" : GtkPlugClass.FFI.notnull GtkPlugClass.FFI.p -> unit GdkWindowClass.FFI.p;
+    val getEmbedded_ = _import "gtk_plug_get_embedded" : GtkPlugClass.FFI.non_opt GtkPlugClass.FFI.p -> GBool.FFI.val_;
+    val getId_ = _import "gtk_plug_get_id" : GtkPlugClass.FFI.non_opt GtkPlugClass.FFI.p -> XlibWindow.FFI.val_;
+    val getSocketWindow_ = _import "gtk_plug_get_socket_window" : GtkPlugClass.FFI.non_opt GtkPlugClass.FFI.p -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
     type 'a class = 'a GtkPlugClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class

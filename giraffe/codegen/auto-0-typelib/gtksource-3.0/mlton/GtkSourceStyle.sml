@@ -3,8 +3,8 @@ structure GtkSourceStyle :>
     where type 'a class = 'a GtkSourceStyleClass.class =
   struct
     val getType_ = _import "gtk_source_style_get_type" : unit -> GObjectType.FFI.val_;
-    val apply_ = fn x1 & x2 => (_import "gtk_source_style_apply" : GtkSourceStyleClass.FFI.notnull GtkSourceStyleClass.FFI.p * GtkTextTagClass.FFI.notnull GtkTextTagClass.FFI.p -> unit;) (x1, x2)
-    val copy_ = _import "gtk_source_style_copy" : GtkSourceStyleClass.FFI.notnull GtkSourceStyleClass.FFI.p -> GtkSourceStyleClass.FFI.notnull GtkSourceStyleClass.FFI.p;
+    val apply_ = fn x1 & x2 => (_import "gtk_source_style_apply" : GtkSourceStyleClass.FFI.non_opt GtkSourceStyleClass.FFI.p * GtkTextTagClass.FFI.non_opt GtkTextTagClass.FFI.p -> unit;) (x1, x2)
+    val copy_ = _import "gtk_source_style_copy" : GtkSourceStyleClass.FFI.non_opt GtkSourceStyleClass.FFI.p -> GtkSourceStyleClass.FFI.non_opt GtkSourceStyleClass.FFI.p;
     type 'a class = 'a GtkSourceStyleClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

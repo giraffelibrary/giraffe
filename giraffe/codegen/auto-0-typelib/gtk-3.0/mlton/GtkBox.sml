@@ -9,11 +9,11 @@ structure GtkBox :>
     where type baseline_position_t = GtkBaselinePosition.t =
   struct
     val getType_ = _import "gtk_box_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "gtk_box_new" : GtkOrientation.FFI.val_ * GInt32.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
-    val getBaselinePosition_ = _import "gtk_box_get_baseline_position" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p -> GtkBaselinePosition.FFI.val_;
-    val getCenterWidget_ = _import "gtk_box_get_center_widget" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getHomogeneous_ = _import "gtk_box_get_homogeneous" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p -> GBool.FFI.val_;
-    val getSpacing_ = _import "gtk_box_get_spacing" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p -> GInt32.FFI.val_;
+    val new_ = fn x1 & x2 => (_import "gtk_box_new" : GtkOrientation.FFI.val_ * GInt32.FFI.val_ -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val getBaselinePosition_ = _import "gtk_box_get_baseline_position" : GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p -> GtkBaselinePosition.FFI.val_;
+    val getCenterWidget_ = _import "gtk_box_get_center_widget" : GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getHomogeneous_ = _import "gtk_box_get_homogeneous" : GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p -> GBool.FFI.val_;
+    val getSpacing_ = _import "gtk_box_get_spacing" : GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p -> GInt32.FFI.val_;
     val packEnd_ =
       fn
         x1
@@ -23,8 +23,8 @@ structure GtkBox :>
          & x5 =>
           (
             _import "gtk_box_pack_end" :
-              GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                * GBool.FFI.val_
                * GUInt32.FFI.val_
@@ -46,8 +46,8 @@ structure GtkBox :>
          & x5 =>
           (
             _import "gtk_box_pack_start" :
-              GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                * GBool.FFI.val_
                * GUInt32.FFI.val_
@@ -70,8 +70,8 @@ structure GtkBox :>
          & x6 =>
           (
             _import "gtk_box_query_child_packing" :
-              GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.ref_
                * GBool.FFI.ref_
                * GUInt32.FFI.ref_
@@ -93,8 +93,8 @@ structure GtkBox :>
          & x3 =>
           (
             _import "gtk_box_reorder_child" :
-              GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt32.FFI.val_
                -> unit;
           )
@@ -103,8 +103,8 @@ structure GtkBox :>
               x2,
               x3
             )
-    val setBaselinePosition_ = fn x1 & x2 => (_import "gtk_box_set_baseline_position" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p * GtkBaselinePosition.FFI.val_ -> unit;) (x1, x2)
-    val setCenterWidget_ = fn x1 & x2 => (_import "gtk_box_set_center_widget" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setBaselinePosition_ = fn x1 & x2 => (_import "gtk_box_set_baseline_position" : GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p * GtkBaselinePosition.FFI.val_ -> unit;) (x1, x2)
+    val setCenterWidget_ = fn x1 & x2 => (_import "gtk_box_set_center_widget" : GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     val setChildPacking_ =
       fn
         x1
@@ -115,8 +115,8 @@ structure GtkBox :>
          & x6 =>
           (
             _import "gtk_box_set_child_packing" :
-              GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                * GBool.FFI.val_
                * GUInt32.FFI.val_
@@ -131,8 +131,8 @@ structure GtkBox :>
               x5,
               x6
             )
-    val setHomogeneous_ = fn x1 & x2 => (_import "gtk_box_set_homogeneous" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setSpacing_ = fn x1 & x2 => (_import "gtk_box_set_spacing" : GtkBoxClass.FFI.notnull GtkBoxClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setHomogeneous_ = fn x1 & x2 => (_import "gtk_box_set_homogeneous" : GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSpacing_ = fn x1 & x2 => (_import "gtk_box_set_spacing" : GtkBoxClass.FFI.non_opt GtkBoxClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

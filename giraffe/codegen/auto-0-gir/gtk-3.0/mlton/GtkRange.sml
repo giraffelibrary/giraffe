@@ -8,16 +8,16 @@ structure GtkRange :>
     where type sensitivity_type_t = GtkSensitivityType.t =
   struct
     val getType_ = _import "gtk_range_get_type" : unit -> GObjectType.FFI.val_;
-    val getAdjustment_ = _import "gtk_range_get_adjustment" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
-    val getFillLevel_ = _import "gtk_range_get_fill_level" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p -> GDouble.FFI.val_;
-    val getFlippable_ = _import "gtk_range_get_flippable" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p -> GBool.FFI.val_;
-    val getInverted_ = _import "gtk_range_get_inverted" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p -> GBool.FFI.val_;
-    val getLowerStepperSensitivity_ = _import "gtk_range_get_lower_stepper_sensitivity" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p -> GtkSensitivityType.FFI.val_;
-    val getMinSliderSize_ = _import "gtk_range_get_min_slider_size" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p -> GInt.FFI.val_;
-    val getRangeRect_ = fn x1 & x2 => (_import "gtk_range_get_range_rect" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
-    val getRestrictToFillLevel_ = _import "gtk_range_get_restrict_to_fill_level" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p -> GBool.FFI.val_;
-    val getRoundDigits_ = _import "gtk_range_get_round_digits" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p -> GInt.FFI.val_;
-    val getShowFillLevel_ = _import "gtk_range_get_show_fill_level" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p -> GBool.FFI.val_;
+    val getAdjustment_ = _import "gtk_range_get_adjustment" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
+    val getFillLevel_ = _import "gtk_range_get_fill_level" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p -> GDouble.FFI.val_;
+    val getFlippable_ = _import "gtk_range_get_flippable" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p -> GBool.FFI.val_;
+    val getInverted_ = _import "gtk_range_get_inverted" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p -> GBool.FFI.val_;
+    val getLowerStepperSensitivity_ = _import "gtk_range_get_lower_stepper_sensitivity" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p -> GtkSensitivityType.FFI.val_;
+    val getMinSliderSize_ = _import "gtk_range_get_min_slider_size" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p -> GInt.FFI.val_;
+    val getRangeRect_ = fn x1 & x2 => (_import "gtk_range_get_range_rect" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val getRestrictToFillLevel_ = _import "gtk_range_get_restrict_to_fill_level" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p -> GBool.FFI.val_;
+    val getRoundDigits_ = _import "gtk_range_get_round_digits" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p -> GInt.FFI.val_;
+    val getShowFillLevel_ = _import "gtk_range_get_show_fill_level" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p -> GBool.FFI.val_;
     val getSliderRange_ =
       fn
         x1
@@ -25,7 +25,7 @@ structure GtkRange :>
          & x3 =>
           (
             _import "gtk_range_get_slider_range" :
-              GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p
+              GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -35,12 +35,12 @@ structure GtkRange :>
               x2,
               x3
             )
-    val getSliderSizeFixed_ = _import "gtk_range_get_slider_size_fixed" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p -> GBool.FFI.val_;
-    val getUpperStepperSensitivity_ = _import "gtk_range_get_upper_stepper_sensitivity" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p -> GtkSensitivityType.FFI.val_;
-    val getValue_ = _import "gtk_range_get_value" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p -> GDouble.FFI.val_;
-    val setAdjustment_ = fn x1 & x2 => (_import "gtk_range_set_adjustment" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
-    val setFillLevel_ = fn x1 & x2 => (_import "gtk_range_set_fill_level" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setFlippable_ = fn x1 & x2 => (_import "gtk_range_set_flippable" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getSliderSizeFixed_ = _import "gtk_range_get_slider_size_fixed" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p -> GBool.FFI.val_;
+    val getUpperStepperSensitivity_ = _import "gtk_range_get_upper_stepper_sensitivity" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p -> GtkSensitivityType.FFI.val_;
+    val getValue_ = _import "gtk_range_get_value" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p -> GDouble.FFI.val_;
+    val setAdjustment_ = fn x1 & x2 => (_import "gtk_range_set_adjustment" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val setFillLevel_ = fn x1 & x2 => (_import "gtk_range_set_fill_level" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setFlippable_ = fn x1 & x2 => (_import "gtk_range_set_flippable" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setIncrements_ =
       fn
         x1
@@ -48,7 +48,7 @@ structure GtkRange :>
          & x3 =>
           (
             _import "gtk_range_set_increments" :
-              GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p
+              GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                -> unit;
@@ -58,9 +58,9 @@ structure GtkRange :>
               x2,
               x3
             )
-    val setInverted_ = fn x1 & x2 => (_import "gtk_range_set_inverted" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setLowerStepperSensitivity_ = fn x1 & x2 => (_import "gtk_range_set_lower_stepper_sensitivity" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GtkSensitivityType.FFI.val_ -> unit;) (x1, x2)
-    val setMinSliderSize_ = fn x1 & x2 => (_import "gtk_range_set_min_slider_size" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setInverted_ = fn x1 & x2 => (_import "gtk_range_set_inverted" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setLowerStepperSensitivity_ = fn x1 & x2 => (_import "gtk_range_set_lower_stepper_sensitivity" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GtkSensitivityType.FFI.val_ -> unit;) (x1, x2)
+    val setMinSliderSize_ = fn x1 & x2 => (_import "gtk_range_set_min_slider_size" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val setRange_ =
       fn
         x1
@@ -68,7 +68,7 @@ structure GtkRange :>
          & x3 =>
           (
             _import "gtk_range_set_range" :
-              GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p
+              GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                -> unit;
@@ -78,12 +78,12 @@ structure GtkRange :>
               x2,
               x3
             )
-    val setRestrictToFillLevel_ = fn x1 & x2 => (_import "gtk_range_set_restrict_to_fill_level" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setRoundDigits_ = fn x1 & x2 => (_import "gtk_range_set_round_digits" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setShowFillLevel_ = fn x1 & x2 => (_import "gtk_range_set_show_fill_level" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setSliderSizeFixed_ = fn x1 & x2 => (_import "gtk_range_set_slider_size_fixed" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setUpperStepperSensitivity_ = fn x1 & x2 => (_import "gtk_range_set_upper_stepper_sensitivity" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GtkSensitivityType.FFI.val_ -> unit;) (x1, x2)
-    val setValue_ = fn x1 & x2 => (_import "gtk_range_set_value" : GtkRangeClass.FFI.notnull GtkRangeClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setRestrictToFillLevel_ = fn x1 & x2 => (_import "gtk_range_set_restrict_to_fill_level" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setRoundDigits_ = fn x1 & x2 => (_import "gtk_range_set_round_digits" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setShowFillLevel_ = fn x1 & x2 => (_import "gtk_range_set_show_fill_level" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSliderSizeFixed_ = fn x1 & x2 => (_import "gtk_range_set_slider_size_fixed" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUpperStepperSensitivity_ = fn x1 & x2 => (_import "gtk_range_set_upper_stepper_sensitivity" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GtkSensitivityType.FFI.val_ -> unit;) (x1, x2)
+    val setValue_ = fn x1 & x2 => (_import "gtk_range_set_value" : GtkRangeClass.FFI.non_opt GtkRangeClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkRangeClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

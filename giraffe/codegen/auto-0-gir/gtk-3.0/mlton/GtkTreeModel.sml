@@ -6,9 +6,9 @@ structure GtkTreeModel :>
     where type tree_path_t = GtkTreePathRecord.t =
   struct
     val getType_ = _import "gtk_tree_model_get_type" : unit -> GObjectType.FFI.val_;
-    val filterNew_ = fn x1 & x2 => (_import "gtk_tree_model_filter_new" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * unit GtkTreePathRecord.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;) (x1, x2)
-    val getColumnType_ = fn x1 & x2 => (_import "gtk_tree_model_get_column_type" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GInt.FFI.val_ -> GObjectType.FFI.val_;) (x1, x2)
-    val getFlags_ = _import "gtk_tree_model_get_flags" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p -> GtkTreeModelFlags.FFI.val_;
+    val filterNew_ = fn x1 & x2 => (_import "gtk_tree_model_filter_new" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p * GtkTreePathRecord.FFI.opt GtkTreePathRecord.FFI.p -> GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p;) (x1, x2)
+    val getColumnType_ = fn x1 & x2 => (_import "gtk_tree_model_get_column_type" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p * GInt.FFI.val_ -> GObjectType.FFI.val_;) (x1, x2)
+    val getFlags_ = _import "gtk_tree_model_get_flags" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p -> GtkTreeModelFlags.FFI.val_;
     val getIter_ =
       fn
         x1
@@ -16,9 +16,9 @@ structure GtkTreeModel :>
          & x3 =>
           (
             _import "gtk_tree_model_get_iter" :
-              GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
+              GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -26,7 +26,7 @@ structure GtkTreeModel :>
               x2,
               x3
             )
-    val getIterFirst_ = fn x1 & x2 => (_import "gtk_tree_model_get_iter_first" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getIterFirst_ = fn x1 & x2 => (_import "gtk_tree_model_get_iter_first" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val getIterFromString_ =
       fn
         x1
@@ -34,10 +34,10 @@ structure GtkTreeModel :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_tree_model_get_iter_from_string" :
-              GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -46,9 +46,9 @@ structure GtkTreeModel :>
               x3,
               x4
             )
-    val getNColumns_ = _import "gtk_tree_model_get_n_columns" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p -> GInt.FFI.val_;
-    val getPath_ = fn x1 & x2 => (_import "gtk_tree_model_get_path" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p;) (x1, x2)
-    val getStringFromIter_ = fn x1 & x2 => (_import "gtk_tree_model_get_string_from_iter" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val getNColumns_ = _import "gtk_tree_model_get_n_columns" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p -> GInt.FFI.val_;
+    val getPath_ = fn x1 & x2 => (_import "gtk_tree_model_get_path" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p;) (x1, x2)
+    val getStringFromIter_ = fn x1 & x2 => (_import "gtk_tree_model_get_string_from_iter" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
     val getValue_ =
       fn
         x1
@@ -57,10 +57,10 @@ structure GtkTreeModel :>
          & x4 =>
           (
             _import "gtk_tree_model_get_value" :
-              GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                * GInt.FFI.val_
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -76,9 +76,9 @@ structure GtkTreeModel :>
          & x3 =>
           (
             _import "gtk_tree_model_iter_children" :
-              GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * unit GtkTreeIterRecord.FFI.p
+              GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreeIterRecord.FFI.opt GtkTreeIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -86,9 +86,9 @@ structure GtkTreeModel :>
               x2,
               x3
             )
-    val iterHasChild_ = fn x1 & x2 => (_import "gtk_tree_model_iter_has_child" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val iterNChildren_ = fn x1 & x2 => (_import "gtk_tree_model_iter_n_children" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * unit GtkTreeIterRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
-    val iterNext_ = fn x1 & x2 => (_import "gtk_tree_model_iter_next" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val iterHasChild_ = fn x1 & x2 => (_import "gtk_tree_model_iter_has_child" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val iterNChildren_ = fn x1 & x2 => (_import "gtk_tree_model_iter_n_children" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.opt GtkTreeIterRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
+    val iterNext_ = fn x1 & x2 => (_import "gtk_tree_model_iter_next" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val iterNthChild_ =
       fn
         x1
@@ -97,9 +97,9 @@ structure GtkTreeModel :>
          & x4 =>
           (
             _import "gtk_tree_model_iter_nth_child" :
-              GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * unit GtkTreeIterRecord.FFI.p
+              GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreeIterRecord.FFI.opt GtkTreeIterRecord.FFI.p
                * GInt.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -116,9 +116,9 @@ structure GtkTreeModel :>
          & x3 =>
           (
             _import "gtk_tree_model_iter_parent" :
-              GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -126,8 +126,8 @@ structure GtkTreeModel :>
               x2,
               x3
             )
-    val iterPrevious_ = fn x1 & x2 => (_import "gtk_tree_model_iter_previous" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val refNode_ = fn x1 & x2 => (_import "gtk_tree_model_ref_node" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
+    val iterPrevious_ = fn x1 & x2 => (_import "gtk_tree_model_iter_previous" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val refNode_ = fn x1 & x2 => (_import "gtk_tree_model_ref_node" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
     val rowChanged_ =
       fn
         x1
@@ -135,9 +135,9 @@ structure GtkTreeModel :>
          & x3 =>
           (
             _import "gtk_tree_model_row_changed" :
-              GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                -> unit;
           )
             (
@@ -145,7 +145,7 @@ structure GtkTreeModel :>
               x2,
               x3
             )
-    val rowDeleted_ = fn x1 & x2 => (_import "gtk_tree_model_row_deleted" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit;) (x1, x2)
+    val rowDeleted_ = fn x1 & x2 => (_import "gtk_tree_model_row_deleted" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p -> unit;) (x1, x2)
     val rowHasChildToggled_ =
       fn
         x1
@@ -153,9 +153,9 @@ structure GtkTreeModel :>
          & x3 =>
           (
             _import "gtk_tree_model_row_has_child_toggled" :
-              GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                -> unit;
           )
             (
@@ -170,9 +170,9 @@ structure GtkTreeModel :>
          & x3 =>
           (
             _import "gtk_tree_model_row_inserted" :
-              GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                -> unit;
           )
             (
@@ -189,11 +189,11 @@ structure GtkTreeModel :>
          & x6 =>
           (
             _import "mlton_gtk_tree_model_rows_reordered_with_length" :
-              GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
-               * unit GtkTreeIterRecord.FFI.p
+              GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
+               * GtkTreeIterRecord.FFI.opt GtkTreeIterRecord.FFI.p
                * GIntCArrayN.MLton.p1
-               * GIntCArrayN.FFI.notnull GIntCArrayN.MLton.p2
+               * GIntCArrayN.FFI.non_opt GIntCArrayN.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )
@@ -205,8 +205,8 @@ structure GtkTreeModel :>
               x5,
               x6
             )
-    val sortNewWithModel_ = _import "gtk_tree_model_sort_new_with_model" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p -> GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p;
-    val unrefNode_ = fn x1 & x2 => (_import "gtk_tree_model_unref_node" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
+    val sortNewWithModel_ = _import "gtk_tree_model_sort_new_with_model" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p -> GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p;
+    val unrefNode_ = fn x1 & x2 => (_import "gtk_tree_model_unref_node" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkTreeModelClass.class
     type tree_model_flags_t = GtkTreeModelFlags.t
     type tree_iter_t = GtkTreeIterRecord.t

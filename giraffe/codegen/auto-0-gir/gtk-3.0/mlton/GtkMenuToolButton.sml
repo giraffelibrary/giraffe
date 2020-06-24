@@ -13,26 +13,26 @@ structure GtkMenuToolButton :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_menu_tool_button_new" :
-              unit GtkWidgetClass.FFI.p
+              GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newFromStock_ = _import "mlton_gtk_menu_tool_button_new_from_stock" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;
-    val getMenu_ = _import "gtk_menu_tool_button_get_menu" : GtkMenuToolButtonClass.FFI.notnull GtkMenuToolButtonClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val newFromStock_ = _import "mlton_gtk_menu_tool_button_new_from_stock" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p;
+    val getMenu_ = _import "gtk_menu_tool_button_get_menu" : GtkMenuToolButtonClass.FFI.non_opt GtkMenuToolButtonClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val setArrowTooltipMarkup_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_menu_tool_button_set_arrow_tooltip_markup" :
-              GtkMenuToolButtonClass.FFI.notnull GtkMenuToolButtonClass.FFI.p
+              GtkMenuToolButtonClass.FFI.non_opt GtkMenuToolButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -45,9 +45,9 @@ structure GtkMenuToolButton :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_menu_tool_button_set_arrow_tooltip_text" :
-              GtkMenuToolButtonClass.FFI.notnull GtkMenuToolButtonClass.FFI.p
+              GtkMenuToolButtonClass.FFI.non_opt GtkMenuToolButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -55,7 +55,7 @@ structure GtkMenuToolButton :>
               x2,
               x3
             )
-    val setMenu_ = fn x1 & x2 => (_import "gtk_menu_tool_button_set_menu" : GtkMenuToolButtonClass.FFI.notnull GtkMenuToolButtonClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setMenu_ = fn x1 & x2 => (_import "gtk_menu_tool_button_set_menu" : GtkMenuToolButtonClass.FFI.non_opt GtkMenuToolButtonClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkMenuToolButtonClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

@@ -4,7 +4,7 @@ structure GioDatagramBased :>
     where type 'a cancellable_class = 'a GioCancellableClass.class =
   struct
     val getType_ = _import "g_datagram_based_get_type" : unit -> GObjectType.FFI.val_;
-    val conditionCheck_ = fn x1 & x2 => (_import "g_datagram_based_condition_check" : GioDatagramBasedClass.FFI.notnull GioDatagramBasedClass.FFI.p * GLibIOCondition.FFI.val_ -> GLibIOCondition.FFI.val_;) (x1, x2)
+    val conditionCheck_ = fn x1 & x2 => (_import "g_datagram_based_condition_check" : GioDatagramBasedClass.FFI.non_opt GioDatagramBasedClass.FFI.p * GLibIOCondition.FFI.val_ -> GLibIOCondition.FFI.val_;) (x1, x2)
     val conditionWait_ =
       fn
         x1
@@ -14,11 +14,11 @@ structure GioDatagramBased :>
          & x5 =>
           (
             _import "g_datagram_based_condition_wait" :
-              GioDatagramBasedClass.FFI.notnull GioDatagramBasedClass.FFI.p
+              GioDatagramBasedClass.FFI.non_opt GioDatagramBasedClass.FFI.p
                * GLibIOCondition.FFI.val_
                * GInt64.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -35,10 +35,10 @@ structure GioDatagramBased :>
          & x3 =>
           (
             _import "g_datagram_based_create_source" :
-              GioDatagramBasedClass.FFI.notnull GioDatagramBasedClass.FFI.p
+              GioDatagramBasedClass.FFI.non_opt GioDatagramBasedClass.FFI.p
                * GLibIOCondition.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               -> GLibSourceRecord.FFI.notnull GLibSourceRecord.FFI.p;
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
           )
             (
               x1,

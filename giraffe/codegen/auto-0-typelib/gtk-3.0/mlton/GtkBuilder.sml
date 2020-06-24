@@ -5,18 +5,18 @@ structure GtkBuilder :>
     where type 'a application_class = 'a GtkApplicationClass.class =
   struct
     val getType_ = _import "gtk_builder_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_builder_new" : unit -> GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p;
-    val newFromFile_ = _import "mlton_gtk_builder_new_from_file" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p;
-    val newFromResource_ = _import "mlton_gtk_builder_new_from_resource" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p;
+    val new_ = _import "gtk_builder_new" : unit -> GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p;
+    val newFromFile_ = _import "mlton_gtk_builder_new_from_file" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p;
+    val newFromResource_ = _import "mlton_gtk_builder_new_from_resource" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p;
     val newFromString_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_builder_new_from_string" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt64.FFI.val_
-               -> GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p;
+               -> GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p;
           )
             (
               x1,
@@ -30,10 +30,10 @@ structure GtkBuilder :>
          & x4 =>
           (
             _import "mlton_gtk_builder_add_from_file" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt32.FFI.val_;
           )
             (
@@ -49,10 +49,10 @@ structure GtkBuilder :>
          & x4 =>
           (
             _import "mlton_gtk_builder_add_from_resource" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt32.FFI.val_;
           )
             (
@@ -69,11 +69,11 @@ structure GtkBuilder :>
          & x5 =>
           (
             _import "mlton_gtk_builder_add_from_string" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt64.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt32.FFI.val_;
           )
             (
@@ -91,12 +91,12 @@ structure GtkBuilder :>
          & x6 =>
           (
             _import "mlton_gtk_builder_add_objects_from_file" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt32.FFI.val_;
           )
             (
@@ -115,12 +115,12 @@ structure GtkBuilder :>
          & x6 =>
           (
             _import "mlton_gtk_builder_add_objects_from_resource" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt32.FFI.val_;
           )
             (
@@ -140,13 +140,13 @@ structure GtkBuilder :>
          & x7 =>
           (
             _import "mlton_gtk_builder_add_objects_from_string" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt64.FFI.val_
                * Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt32.FFI.val_;
           )
             (
@@ -165,10 +165,10 @@ structure GtkBuilder :>
          & x4 =>
           (
             _import "mlton_gtk_builder_expose_object" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                -> unit;
           )
             (
@@ -187,13 +187,13 @@ structure GtkBuilder :>
          & x7 =>
           (
             _import "mlton_gtk_builder_extend_with_template" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GObjectType.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt64.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GUInt32.FFI.val_;
           )
             (
@@ -205,31 +205,31 @@ structure GtkBuilder :>
               x6,
               x7
             )
-    val getApplication_ = _import "gtk_builder_get_application" : GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p -> unit GtkApplicationClass.FFI.p;
+    val getApplication_ = _import "gtk_builder_get_application" : GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p -> GtkApplicationClass.FFI.opt GtkApplicationClass.FFI.p;
     val getObject_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_builder_get_object" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> unit GObjectObjectClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GObjectObjectClass.FFI.opt GObjectObjectClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getTranslationDomain_ = _import "gtk_builder_get_translation_domain" : GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getTranslationDomain_ = _import "gtk_builder_get_translation_domain" : GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getTypeFromName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_builder_get_type_from_name" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GObjectType.FFI.val_;
           )
             (
@@ -237,15 +237,15 @@ structure GtkBuilder :>
               x2,
               x3
             )
-    val setApplication_ = fn x1 & x2 => (_import "gtk_builder_set_application" : GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p * GtkApplicationClass.FFI.notnull GtkApplicationClass.FFI.p -> unit;) (x1, x2)
+    val setApplication_ = fn x1 & x2 => (_import "gtk_builder_set_application" : GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p * GtkApplicationClass.FFI.non_opt GtkApplicationClass.FFI.p -> unit;) (x1, x2)
     val setTranslationDomain_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_builder_set_translation_domain" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -262,12 +262,12 @@ structure GtkBuilder :>
          & x6 =>
           (
             _import "mlton_gtk_builder_value_from_string" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
-               * GObjectParamSpecClass.FFI.notnull GObjectParamSpecClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
+               * GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -287,12 +287,12 @@ structure GtkBuilder :>
          & x6 =>
           (
             _import "mlton_gtk_builder_value_from_string_type" :
-              GtkBuilderClass.FFI.notnull GtkBuilderClass.FFI.p
+              GtkBuilderClass.FFI.non_opt GtkBuilderClass.FFI.p
                * GObjectType.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

@@ -11,9 +11,9 @@ structure GioAsyncInitable :>
          & x3 =>
           (
             _import "g_async_initable_init_finish" :
-              GioAsyncInitableClass.FFI.notnull GioAsyncInitableClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioAsyncInitableClass.FFI.non_opt GioAsyncInitableClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -28,10 +28,10 @@ structure GioAsyncInitable :>
          & x3 =>
           (
             _import "g_async_initable_new_finish" :
-              GioAsyncInitableClass.FFI.notnull GioAsyncInitableClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p;
+              GioAsyncInitableClass.FFI.non_opt GioAsyncInitableClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p;
           )
             (
               x1,

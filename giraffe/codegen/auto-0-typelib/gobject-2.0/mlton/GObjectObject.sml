@@ -19,14 +19,14 @@ structure GObjectObject :>
          & x7 =>
           (
             _import "mlton_g_object_bind_property" :
-              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GObjectBindingFlags.FFI.val_
-               -> GObjectBindingClass.FFI.notnull GObjectBindingClass.FFI.p;
+               -> GObjectBindingClass.FFI.non_opt GObjectBindingClass.FFI.p;
           )
             (
               x1,
@@ -48,16 +48,16 @@ structure GObjectObject :>
          & x9 =>
           (
             _import "mlton_g_object_bind_property_with_closures" :
-              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GObjectBindingFlags.FFI.val_
-               * GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p
-               * GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p
-               -> GObjectBindingClass.FFI.notnull GObjectBindingClass.FFI.p;
+               * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
+               * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
+               -> GObjectBindingClass.FFI.non_opt GObjectBindingClass.FFI.p;
           )
             (
               x1,
@@ -70,7 +70,7 @@ structure GObjectObject :>
               x8,
               x9
             )
-    val freezeNotify_ = _import "g_object_freeze_notify" : GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p -> unit;
+    val freezeNotify_ = _import "g_object_freeze_notify" : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p -> unit;
     val getProperty_ =
       fn
         x1
@@ -78,10 +78,10 @@ structure GObjectObject :>
          & x4 =>
           (
             _import "mlton_g_object_get_property" :
-              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -95,9 +95,9 @@ structure GObjectObject :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_object_notify" :
-              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -105,8 +105,8 @@ structure GObjectObject :>
               x2,
               x3
             )
-    val notifyByPspec_ = fn x1 & x2 => (_import "g_object_notify_by_pspec" : GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p * GObjectParamSpecClass.FFI.notnull GObjectParamSpecClass.FFI.p -> unit;) (x1, x2)
-    val runDispose_ = _import "g_object_run_dispose" : GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p -> unit;
+    val notifyByPspec_ = fn x1 & x2 => (_import "g_object_notify_by_pspec" : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p * GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p -> unit;) (x1, x2)
+    val runDispose_ = _import "g_object_run_dispose" : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p -> unit;
     val setProperty_ =
       fn
         x1
@@ -114,10 +114,10 @@ structure GObjectObject :>
          & x4 =>
           (
             _import "mlton_g_object_set_property" :
-              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -126,8 +126,8 @@ structure GObjectObject :>
               x3,
               x4
             )
-    val thawNotify_ = _import "g_object_thaw_notify" : GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p -> unit;
-    val watchClosure_ = fn x1 & x2 => (_import "g_object_watch_closure" : GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p * GObjectClosureRecord.FFI.notnull GObjectClosureRecord.FFI.p -> unit;) (x1, x2)
+    val thawNotify_ = _import "g_object_thaw_notify" : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p -> unit;
+    val watchClosure_ = fn x1 & x2 => (_import "g_object_watch_closure" : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GObjectObjectClass.class
     type type_t = GObjectType.t
     type 'a binding_class = 'a GObjectBindingClass.class

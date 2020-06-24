@@ -11,12 +11,12 @@ structure GioDBusMenuModel :>
          & (x4, x5) =>
           (
             _import "mlton_g_dbus_menu_model_get" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioDBusMenuModelClass.FFI.notnull GioDBusMenuModelClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioDBusMenuModelClass.FFI.non_opt GioDBusMenuModelClass.FFI.p;
           )
             (
               x1,

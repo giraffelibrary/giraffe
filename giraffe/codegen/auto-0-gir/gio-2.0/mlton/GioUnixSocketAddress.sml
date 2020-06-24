@@ -5,16 +5,16 @@ structure GioUnixSocketAddress :>
     where type unix_socket_address_type_t = GioUnixSocketAddressType.t =
   struct
     val getType_ = _import "g_unix_socket_address_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_g_unix_socket_address_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
+    val new_ = _import "mlton_g_unix_socket_address_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p;
     val newAbstract_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_g_unix_socket_address_new_abstract" :
               GCharCArrayN.MLton.p1
-               * GCharCArrayN.FFI.notnull GCharCArrayN.MLton.p2
+               * GCharCArrayN.FFI.non_opt GCharCArrayN.MLton.p2
                * GInt.FFI.val_
-               -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
+               -> GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p;
           )
             (
               x1,
@@ -29,10 +29,10 @@ structure GioUnixSocketAddress :>
           (
             _import "mlton_g_unix_socket_address_new_with_type" :
               GCharCArrayN.MLton.p1
-               * GCharCArrayN.FFI.notnull GCharCArrayN.MLton.p2
+               * GCharCArrayN.FFI.non_opt GCharCArrayN.MLton.p2
                * GInt.FFI.val_
                * GioUnixSocketAddressType.FFI.val_
-               -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
+               -> GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p;
           )
             (
               x1,
@@ -41,10 +41,10 @@ structure GioUnixSocketAddress :>
               x4
             )
     val abstractNamesSupported_ = _import "g_unix_socket_address_abstract_names_supported" : unit -> GBool.FFI.val_;
-    val getAddressType_ = _import "g_unix_socket_address_get_address_type" : GioUnixSocketAddressClass.FFI.notnull GioUnixSocketAddressClass.FFI.p -> GioUnixSocketAddressType.FFI.val_;
-    val getIsAbstract_ = _import "g_unix_socket_address_get_is_abstract" : GioUnixSocketAddressClass.FFI.notnull GioUnixSocketAddressClass.FFI.p -> GBool.FFI.val_;
-    val getPath_ = _import "g_unix_socket_address_get_path" : GioUnixSocketAddressClass.FFI.notnull GioUnixSocketAddressClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPathLen_ = _import "g_unix_socket_address_get_path_len" : GioUnixSocketAddressClass.FFI.notnull GioUnixSocketAddressClass.FFI.p -> GSize.FFI.val_;
+    val getAddressType_ = _import "g_unix_socket_address_get_address_type" : GioUnixSocketAddressClass.FFI.non_opt GioUnixSocketAddressClass.FFI.p -> GioUnixSocketAddressType.FFI.val_;
+    val getIsAbstract_ = _import "g_unix_socket_address_get_is_abstract" : GioUnixSocketAddressClass.FFI.non_opt GioUnixSocketAddressClass.FFI.p -> GBool.FFI.val_;
+    val getPath_ = _import "g_unix_socket_address_get_path" : GioUnixSocketAddressClass.FFI.non_opt GioUnixSocketAddressClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPathLen_ = _import "g_unix_socket_address_get_path_len" : GioUnixSocketAddressClass.FFI.non_opt GioUnixSocketAddressClass.FFI.p -> GSize.FFI.val_;
     type 'a class = 'a GioUnixSocketAddressClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type unix_socket_address_type_t = GioUnixSocketAddressType.t

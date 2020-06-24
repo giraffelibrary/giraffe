@@ -6,7 +6,7 @@ structure GtkArrow :>
     where type shadow_type_t = GtkShadowType.t =
   struct
     val getType_ = _import "gtk_arrow_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = fn x1 & x2 => (_import "gtk_arrow_new" : GtkArrowType.FFI.val_ * GtkShadowType.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val new_ = fn x1 & x2 => (_import "gtk_arrow_new" : GtkArrowType.FFI.val_ * GtkShadowType.FFI.val_ -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
     val set_ =
       fn
         x1
@@ -14,7 +14,7 @@ structure GtkArrow :>
          & x3 =>
           (
             _import "gtk_arrow_set" :
-              GtkArrowClass.FFI.notnull GtkArrowClass.FFI.p
+              GtkArrowClass.FFI.non_opt GtkArrowClass.FFI.p
                * GtkArrowType.FFI.val_
                * GtkShadowType.FFI.val_
                -> unit;

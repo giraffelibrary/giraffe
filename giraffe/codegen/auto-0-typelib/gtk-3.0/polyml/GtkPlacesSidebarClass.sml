@@ -1,7 +1,8 @@
 structure GtkPlacesSidebarClass :>
   GTK_PLACES_SIDEBAR_CLASS
     where type 'a scrolled_window_class = 'a GtkScrolledWindowClass.class
-    where type C.notnull = GtkScrolledWindowClass.C.notnull
+    where type C.opt = GtkScrolledWindowClass.C.opt
+    where type C.non_opt = GtkScrolledWindowClass.C.non_opt
     where type 'a C.p = 'a GtkScrolledWindowClass.C.p =
   struct
     type 'a scrolled_window_class = 'a GtkScrolledWindowClass.class

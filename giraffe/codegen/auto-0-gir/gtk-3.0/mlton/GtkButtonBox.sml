@@ -8,10 +8,10 @@ structure GtkButtonBox :>
     where type button_box_style_t = GtkButtonBoxStyle.t =
   struct
     val getType_ = _import "gtk_button_box_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_button_box_new" : GtkOrientation.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getChildNonHomogeneous_ = fn x1 & x2 => (_import "gtk_button_box_get_child_non_homogeneous" : GtkButtonBoxClass.FFI.notnull GtkButtonBoxClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getChildSecondary_ = fn x1 & x2 => (_import "gtk_button_box_get_child_secondary" : GtkButtonBoxClass.FFI.notnull GtkButtonBoxClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val getLayout_ = _import "gtk_button_box_get_layout" : GtkButtonBoxClass.FFI.notnull GtkButtonBoxClass.FFI.p -> GtkButtonBoxStyle.FFI.val_;
+    val new_ = _import "gtk_button_box_new" : GtkOrientation.FFI.val_ -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getChildNonHomogeneous_ = fn x1 & x2 => (_import "gtk_button_box_get_child_non_homogeneous" : GtkButtonBoxClass.FFI.non_opt GtkButtonBoxClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getChildSecondary_ = fn x1 & x2 => (_import "gtk_button_box_get_child_secondary" : GtkButtonBoxClass.FFI.non_opt GtkButtonBoxClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val getLayout_ = _import "gtk_button_box_get_layout" : GtkButtonBoxClass.FFI.non_opt GtkButtonBoxClass.FFI.p -> GtkButtonBoxStyle.FFI.val_;
     val setChildNonHomogeneous_ =
       fn
         x1
@@ -19,8 +19,8 @@ structure GtkButtonBox :>
          & x3 =>
           (
             _import "gtk_button_box_set_child_non_homogeneous" :
-              GtkButtonBoxClass.FFI.notnull GtkButtonBoxClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkButtonBoxClass.FFI.non_opt GtkButtonBoxClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -36,8 +36,8 @@ structure GtkButtonBox :>
          & x3 =>
           (
             _import "gtk_button_box_set_child_secondary" :
-              GtkButtonBoxClass.FFI.notnull GtkButtonBoxClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkButtonBoxClass.FFI.non_opt GtkButtonBoxClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -46,7 +46,7 @@ structure GtkButtonBox :>
               x2,
               x3
             )
-    val setLayout_ = fn x1 & x2 => (_import "gtk_button_box_set_layout" : GtkButtonBoxClass.FFI.notnull GtkButtonBoxClass.FFI.p * GtkButtonBoxStyle.FFI.val_ -> unit;) (x1, x2)
+    val setLayout_ = fn x1 & x2 => (_import "gtk_button_box_set_layout" : GtkButtonBoxClass.FFI.non_opt GtkButtonBoxClass.FFI.p * GtkButtonBoxStyle.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkButtonBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

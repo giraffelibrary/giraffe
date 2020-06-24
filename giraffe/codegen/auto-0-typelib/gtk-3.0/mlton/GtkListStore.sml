@@ -16,16 +16,16 @@ structure GtkListStore :>
             _import "mlton_gtk_list_store_newv" :
               GInt32.FFI.val_
                * GObjectTypeCArrayN.MLton.p1
-               * GObjectTypeCArrayN.FFI.notnull GObjectTypeCArrayN.MLton.p2
-               -> GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p;
+               * GObjectTypeCArrayN.FFI.non_opt GObjectTypeCArrayN.MLton.p2
+               -> GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val append_ = fn x1 & x2 => (_import "gtk_list_store_append" : GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
-    val clear_ = _import "gtk_list_store_clear" : GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p -> unit;
+    val append_ = fn x1 & x2 => (_import "gtk_list_store_append" : GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
+    val clear_ = _import "gtk_list_store_clear" : GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p -> unit;
     val insert_ =
       fn
         x1
@@ -33,8 +33,8 @@ structure GtkListStore :>
          & x3 =>
           (
             _import "gtk_list_store_insert" :
-              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                * GInt32.FFI.val_
                -> unit;
           )
@@ -50,9 +50,9 @@ structure GtkListStore :>
          & x3 =>
           (
             _import "gtk_list_store_insert_after" :
-              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * unit GtkTreeIterRecord.FFI.p
+              GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreeIterRecord.FFI.opt GtkTreeIterRecord.FFI.p
                -> unit;
           )
             (
@@ -67,9 +67,9 @@ structure GtkListStore :>
          & x3 =>
           (
             _import "gtk_list_store_insert_before" :
-              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * unit GtkTreeIterRecord.FFI.p
+              GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreeIterRecord.FFI.opt GtkTreeIterRecord.FFI.p
                -> unit;
           )
             (
@@ -87,13 +87,13 @@ structure GtkListStore :>
          & x8 =>
           (
             _import "mlton_gtk_list_store_insert_with_valuesv" :
-              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                * GInt32.FFI.val_
                * GInt32CArrayN.MLton.p1
-               * GInt32CArrayN.FFI.notnull GInt32CArrayN.MLton.p2
+               * GInt32CArrayN.FFI.non_opt GInt32CArrayN.MLton.p2
                * GObjectValueRecordCArrayN.MLton.p1
-               * GObjectValueRecordCArrayN.FFI.notnull GObjectValueRecordCArrayN.MLton.p2
+               * GObjectValueRecordCArrayN.FFI.non_opt GObjectValueRecordCArrayN.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -107,7 +107,7 @@ structure GtkListStore :>
               x7,
               x8
             )
-    val iterIsValid_ = fn x1 & x2 => (_import "gtk_list_store_iter_is_valid" : GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val iterIsValid_ = fn x1 & x2 => (_import "gtk_list_store_iter_is_valid" : GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val moveAfter_ =
       fn
         x1
@@ -115,9 +115,9 @@ structure GtkListStore :>
          & x3 =>
           (
             _import "gtk_list_store_move_after" :
-              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * unit GtkTreeIterRecord.FFI.p
+              GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreeIterRecord.FFI.opt GtkTreeIterRecord.FFI.p
                -> unit;
           )
             (
@@ -132,9 +132,9 @@ structure GtkListStore :>
          & x3 =>
           (
             _import "gtk_list_store_move_before" :
-              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * unit GtkTreeIterRecord.FFI.p
+              GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreeIterRecord.FFI.opt GtkTreeIterRecord.FFI.p
                -> unit;
           )
             (
@@ -142,16 +142,16 @@ structure GtkListStore :>
               x2,
               x3
             )
-    val prepend_ = fn x1 & x2 => (_import "gtk_list_store_prepend" : GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
-    val remove_ = fn x1 & x2 => (_import "gtk_list_store_remove" : GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val prepend_ = fn x1 & x2 => (_import "gtk_list_store_prepend" : GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> unit;) (x1, x2)
+    val remove_ = fn x1 & x2 => (_import "gtk_list_store_remove" : GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val reorder_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_list_store_reorder" :
-              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
+              GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p
                * GInt32CArray.MLton.p1
-               * GInt32CArray.FFI.notnull GInt32CArray.MLton.p2
+               * GInt32CArray.FFI.non_opt GInt32CArray.MLton.p2
                -> unit;
           )
             (
@@ -166,10 +166,10 @@ structure GtkListStore :>
          & (x3, x4) =>
           (
             _import "mlton_gtk_list_store_set_column_types" :
-              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
+              GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p
                * GInt32.FFI.val_
                * GObjectTypeCArrayN.MLton.p1
-               * GObjectTypeCArrayN.FFI.notnull GObjectTypeCArrayN.MLton.p2
+               * GObjectTypeCArrayN.FFI.non_opt GObjectTypeCArrayN.MLton.p2
                -> unit;
           )
             (
@@ -186,10 +186,10 @@ structure GtkListStore :>
          & x4 =>
           (
             _import "gtk_list_store_set_value" :
-              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                * GInt32.FFI.val_
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -207,12 +207,12 @@ structure GtkListStore :>
          & x7 =>
           (
             _import "mlton_gtk_list_store_set_valuesv" :
-              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                * GInt32CArrayN.MLton.p1
-               * GInt32CArrayN.FFI.notnull GInt32CArrayN.MLton.p2
+               * GInt32CArrayN.FFI.non_opt GInt32CArrayN.MLton.p2
                * GObjectValueRecordCArrayN.MLton.p1
-               * GObjectValueRecordCArrayN.FFI.notnull GObjectValueRecordCArrayN.MLton.p2
+               * GObjectValueRecordCArrayN.FFI.non_opt GObjectValueRecordCArrayN.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )
@@ -232,9 +232,9 @@ structure GtkListStore :>
          & x3 =>
           (
             _import "gtk_list_store_swap" :
-              GtkListStoreClass.FFI.notnull GtkListStoreClass.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+              GtkListStoreClass.FFI.non_opt GtkListStoreClass.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                -> unit;
           )
             (

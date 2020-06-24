@@ -4,8 +4,8 @@ structure GioListStore :>
     where type 'a list_model_class = 'a GioListModelClass.class =
   struct
     val getType_ = _import "g_list_store_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_list_store_new" : GObjectType.FFI.val_ -> GioListStoreClass.FFI.notnull GioListStoreClass.FFI.p;
-    val append_ = fn x1 & x2 => (_import "g_list_store_append" : GioListStoreClass.FFI.notnull GioListStoreClass.FFI.p * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "g_list_store_new" : GObjectType.FFI.val_ -> GioListStoreClass.FFI.non_opt GioListStoreClass.FFI.p;
+    val append_ = fn x1 & x2 => (_import "g_list_store_append" : GioListStoreClass.FFI.non_opt GioListStoreClass.FFI.p * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p -> unit;) (x1, x2)
     val insert_ =
       fn
         x1
@@ -13,9 +13,9 @@ structure GioListStore :>
          & x3 =>
           (
             _import "g_list_store_insert" :
-              GioListStoreClass.FFI.notnull GioListStoreClass.FFI.p
+              GioListStoreClass.FFI.non_opt GioListStoreClass.FFI.p
                * GUInt32.FFI.val_
-               * GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+               * GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                -> unit;
           )
             (
@@ -23,8 +23,8 @@ structure GioListStore :>
               x2,
               x3
             )
-    val remove_ = fn x1 & x2 => (_import "g_list_store_remove" : GioListStoreClass.FFI.notnull GioListStoreClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val removeAll_ = _import "g_list_store_remove_all" : GioListStoreClass.FFI.notnull GioListStoreClass.FFI.p -> unit;
+    val remove_ = fn x1 & x2 => (_import "g_list_store_remove" : GioListStoreClass.FFI.non_opt GioListStoreClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val removeAll_ = _import "g_list_store_remove_all" : GioListStoreClass.FFI.non_opt GioListStoreClass.FFI.p -> unit;
     val splice_ =
       fn
         x1
@@ -34,11 +34,11 @@ structure GioListStore :>
          & x6 =>
           (
             _import "mlton_g_list_store_splice" :
-              GioListStoreClass.FFI.notnull GioListStoreClass.FFI.p
+              GioListStoreClass.FFI.non_opt GioListStoreClass.FFI.p
                * GUInt32.FFI.val_
                * GUInt32.FFI.val_
                * GObjectObjectClassCPtrArrayN.MLton.p1
-               * GObjectObjectClassCPtrArrayN.FFI.notnull GObjectObjectClassCPtrArrayN.MLton.p2
+               * GObjectObjectClassCPtrArrayN.FFI.non_opt GObjectObjectClassCPtrArrayN.MLton.p2
                * GUInt32.FFI.val_
                -> unit;
           )

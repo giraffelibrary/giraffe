@@ -5,25 +5,25 @@ structure GtkExpander :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_expander_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_gtk_expander_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithMnemonic_ = _import "mlton_gtk_expander_new_with_mnemonic" : Utf8.MLton.p1 * unit Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getExpanded_ = _import "gtk_expander_get_expanded" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> GBool.FFI.val_;
-    val getLabel_ = _import "gtk_expander_get_label" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getLabelFill_ = _import "gtk_expander_get_label_fill" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> GBool.FFI.val_;
-    val getLabelWidget_ = _import "gtk_expander_get_label_widget" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getResizeToplevel_ = _import "gtk_expander_get_resize_toplevel" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> GBool.FFI.val_;
-    val getSpacing_ = _import "gtk_expander_get_spacing" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> GInt.FFI.val_;
-    val getUseMarkup_ = _import "gtk_expander_get_use_markup" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> GBool.FFI.val_;
-    val getUseUnderline_ = _import "gtk_expander_get_use_underline" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p -> GBool.FFI.val_;
-    val setExpanded_ = fn x1 & x2 => (_import "gtk_expander_set_expanded" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "mlton_gtk_expander_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithMnemonic_ = _import "mlton_gtk_expander_new_with_mnemonic" : Utf8.MLton.p1 * Utf8.FFI.opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getExpanded_ = _import "gtk_expander_get_expanded" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p -> GBool.FFI.val_;
+    val getLabel_ = _import "gtk_expander_get_label" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getLabelFill_ = _import "gtk_expander_get_label_fill" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p -> GBool.FFI.val_;
+    val getLabelWidget_ = _import "gtk_expander_get_label_widget" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getResizeToplevel_ = _import "gtk_expander_get_resize_toplevel" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p -> GBool.FFI.val_;
+    val getSpacing_ = _import "gtk_expander_get_spacing" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p -> GInt.FFI.val_;
+    val getUseMarkup_ = _import "gtk_expander_get_use_markup" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p -> GBool.FFI.val_;
+    val getUseUnderline_ = _import "gtk_expander_get_use_underline" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p -> GBool.FFI.val_;
+    val setExpanded_ = fn x1 & x2 => (_import "gtk_expander_set_expanded" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setLabel_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_expander_set_label" :
-              GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p
+              GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -31,12 +31,12 @@ structure GtkExpander :>
               x2,
               x3
             )
-    val setLabelFill_ = fn x1 & x2 => (_import "gtk_expander_set_label_fill" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setLabelWidget_ = fn x1 & x2 => (_import "gtk_expander_set_label_widget" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p * unit GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setResizeToplevel_ = fn x1 & x2 => (_import "gtk_expander_set_resize_toplevel" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setSpacing_ = fn x1 & x2 => (_import "gtk_expander_set_spacing" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setUseMarkup_ = fn x1 & x2 => (_import "gtk_expander_set_use_markup" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setUseUnderline_ = fn x1 & x2 => (_import "gtk_expander_set_use_underline" : GtkExpanderClass.FFI.notnull GtkExpanderClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setLabelFill_ = fn x1 & x2 => (_import "gtk_expander_set_label_fill" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setLabelWidget_ = fn x1 & x2 => (_import "gtk_expander_set_label_widget" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setResizeToplevel_ = fn x1 & x2 => (_import "gtk_expander_set_resize_toplevel" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSpacing_ = fn x1 & x2 => (_import "gtk_expander_set_spacing" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setUseMarkup_ = fn x1 & x2 => (_import "gtk_expander_set_use_markup" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUseUnderline_ = fn x1 & x2 => (_import "gtk_expander_set_use_underline" : GtkExpanderClass.FFI.non_opt GtkExpanderClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkExpanderClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class

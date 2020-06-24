@@ -20,8 +20,8 @@ structure GtkSpinButtonUpdatePolicy :> GTK_SPIN_BUTTON_UPDATE_POLICY =
       )
     open Enum
     val getType_ = _import "gtk_spin_button_update_policy_get_type" : unit -> GObjectType.FFI.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       ValueAccessor.C.createAccessor
         {

@@ -1,7 +1,8 @@
 structure GtkRadioMenuItemClass :>
   GTK_RADIO_MENU_ITEM_CLASS
     where type 'a check_menu_item_class = 'a GtkCheckMenuItemClass.class
-    where type C.notnull = GtkCheckMenuItemClass.C.notnull
+    where type C.opt = GtkCheckMenuItemClass.C.opt
+    where type C.non_opt = GtkCheckMenuItemClass.C.non_opt
     where type 'a C.p = 'a GtkCheckMenuItemClass.C.p =
   struct
     type 'a check_menu_item_class = 'a GtkCheckMenuItemClass.class

@@ -15,15 +15,15 @@ structure GioSocketClient :>
     where type socket_type_t = GioSocketType.t =
   struct
     val getType_ = _import "g_socket_client_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_socket_client_new" : unit -> GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p;
+    val new_ = _import "g_socket_client_new" : unit -> GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p;
     val addApplicationProxy_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_socket_client_add_application_proxy" :
-              GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p
+              GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -39,11 +39,11 @@ structure GioSocketClient :>
          & x4 =>
           (
             _import "g_socket_client_connect" :
-              GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p
-               * GioSocketConnectableClass.FFI.notnull GioSocketConnectableClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p;
+              GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p
+               * GioSocketConnectableClass.FFI.non_opt GioSocketConnectableClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p;
           )
             (
               x1,
@@ -58,10 +58,10 @@ structure GioSocketClient :>
          & x3 =>
           (
             _import "g_socket_client_connect_finish" :
-              GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p;
+              GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p;
           )
             (
               x1,
@@ -77,13 +77,13 @@ structure GioSocketClient :>
          & x6 =>
           (
             _import "mlton_g_socket_client_connect_to_host" :
-              GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p
+              GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt16.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p;
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p;
           )
             (
               x1,
@@ -100,10 +100,10 @@ structure GioSocketClient :>
          & x3 =>
           (
             _import "g_socket_client_connect_to_host_finish" :
-              GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p;
+              GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p;
           )
             (
               x1,
@@ -119,14 +119,14 @@ structure GioSocketClient :>
          & x7 =>
           (
             _import "mlton_g_socket_client_connect_to_service" :
-              GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p
+              GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p;
           )
             (
               x1,
@@ -144,10 +144,10 @@ structure GioSocketClient :>
          & x3 =>
           (
             _import "g_socket_client_connect_to_service_finish" :
-              GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p;
+              GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p;
           )
             (
               x1,
@@ -163,13 +163,13 @@ structure GioSocketClient :>
          & x6 =>
           (
             _import "mlton_g_socket_client_connect_to_uri" :
-              GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p
+              GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt16.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p;
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p;
           )
             (
               x1,
@@ -186,34 +186,34 @@ structure GioSocketClient :>
          & x3 =>
           (
             _import "g_socket_client_connect_to_uri_finish" :
-              GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioSocketConnectionClass.FFI.notnull GioSocketConnectionClass.FFI.p;
+              GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioSocketConnectionClass.FFI.non_opt GioSocketConnectionClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getEnableProxy_ = _import "g_socket_client_get_enable_proxy" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p -> GBool.FFI.val_;
-    val getFamily_ = _import "g_socket_client_get_family" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p -> GioSocketFamily.FFI.val_;
-    val getLocalAddress_ = _import "g_socket_client_get_local_address" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p -> GioSocketAddressClass.FFI.notnull GioSocketAddressClass.FFI.p;
-    val getProtocol_ = _import "g_socket_client_get_protocol" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p -> GioSocketProtocol.FFI.val_;
-    val getProxyResolver_ = _import "g_socket_client_get_proxy_resolver" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p -> GioProxyResolverClass.FFI.notnull GioProxyResolverClass.FFI.p;
-    val getSocketType_ = _import "g_socket_client_get_socket_type" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p -> GioSocketType.FFI.val_;
-    val getTimeout_ = _import "g_socket_client_get_timeout" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p -> GUInt32.FFI.val_;
-    val getTls_ = _import "g_socket_client_get_tls" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p -> GBool.FFI.val_;
-    val getTlsValidationFlags_ = _import "g_socket_client_get_tls_validation_flags" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p -> GioTlsCertificateFlags.FFI.val_;
-    val setEnableProxy_ = fn x1 & x2 => (_import "g_socket_client_set_enable_proxy" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setFamily_ = fn x1 & x2 => (_import "g_socket_client_set_family" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p * GioSocketFamily.FFI.val_ -> unit;) (x1, x2)
-    val setLocalAddress_ = fn x1 & x2 => (_import "g_socket_client_set_local_address" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p * unit GioSocketAddressClass.FFI.p -> unit;) (x1, x2)
-    val setProtocol_ = fn x1 & x2 => (_import "g_socket_client_set_protocol" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p * GioSocketProtocol.FFI.val_ -> unit;) (x1, x2)
-    val setProxyResolver_ = fn x1 & x2 => (_import "g_socket_client_set_proxy_resolver" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p * unit GioProxyResolverClass.FFI.p -> unit;) (x1, x2)
-    val setSocketType_ = fn x1 & x2 => (_import "g_socket_client_set_socket_type" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p * GioSocketType.FFI.val_ -> unit;) (x1, x2)
-    val setTimeout_ = fn x1 & x2 => (_import "g_socket_client_set_timeout" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
-    val setTls_ = fn x1 & x2 => (_import "g_socket_client_set_tls" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setTlsValidationFlags_ = fn x1 & x2 => (_import "g_socket_client_set_tls_validation_flags" : GioSocketClientClass.FFI.notnull GioSocketClientClass.FFI.p * GioTlsCertificateFlags.FFI.val_ -> unit;) (x1, x2)
+    val getEnableProxy_ = _import "g_socket_client_get_enable_proxy" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p -> GBool.FFI.val_;
+    val getFamily_ = _import "g_socket_client_get_family" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p -> GioSocketFamily.FFI.val_;
+    val getLocalAddress_ = _import "g_socket_client_get_local_address" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p -> GioSocketAddressClass.FFI.non_opt GioSocketAddressClass.FFI.p;
+    val getProtocol_ = _import "g_socket_client_get_protocol" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p -> GioSocketProtocol.FFI.val_;
+    val getProxyResolver_ = _import "g_socket_client_get_proxy_resolver" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p -> GioProxyResolverClass.FFI.non_opt GioProxyResolverClass.FFI.p;
+    val getSocketType_ = _import "g_socket_client_get_socket_type" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p -> GioSocketType.FFI.val_;
+    val getTimeout_ = _import "g_socket_client_get_timeout" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p -> GUInt32.FFI.val_;
+    val getTls_ = _import "g_socket_client_get_tls" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p -> GBool.FFI.val_;
+    val getTlsValidationFlags_ = _import "g_socket_client_get_tls_validation_flags" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p -> GioTlsCertificateFlags.FFI.val_;
+    val setEnableProxy_ = fn x1 & x2 => (_import "g_socket_client_set_enable_proxy" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setFamily_ = fn x1 & x2 => (_import "g_socket_client_set_family" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p * GioSocketFamily.FFI.val_ -> unit;) (x1, x2)
+    val setLocalAddress_ = fn x1 & x2 => (_import "g_socket_client_set_local_address" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p * GioSocketAddressClass.FFI.opt GioSocketAddressClass.FFI.p -> unit;) (x1, x2)
+    val setProtocol_ = fn x1 & x2 => (_import "g_socket_client_set_protocol" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p * GioSocketProtocol.FFI.val_ -> unit;) (x1, x2)
+    val setProxyResolver_ = fn x1 & x2 => (_import "g_socket_client_set_proxy_resolver" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p * GioProxyResolverClass.FFI.opt GioProxyResolverClass.FFI.p -> unit;) (x1, x2)
+    val setSocketType_ = fn x1 & x2 => (_import "g_socket_client_set_socket_type" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p * GioSocketType.FFI.val_ -> unit;) (x1, x2)
+    val setTimeout_ = fn x1 & x2 => (_import "g_socket_client_set_timeout" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val setTls_ = fn x1 & x2 => (_import "g_socket_client_set_tls" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setTlsValidationFlags_ = fn x1 & x2 => (_import "g_socket_client_set_tls_validation_flags" : GioSocketClientClass.FFI.non_opt GioSocketClientClass.FFI.p * GioTlsCertificateFlags.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioSocketClientClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a socket_connection_class = 'a GioSocketConnectionClass.class

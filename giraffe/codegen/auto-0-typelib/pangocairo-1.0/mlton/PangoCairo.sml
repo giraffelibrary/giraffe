@@ -1,11 +1,11 @@
 structure PangoCairo : PANGO_CAIRO =
   struct
-    val contextGetFontOptions_ = _import "pango_cairo_context_get_font_options" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> unit CairoFontOptionsRecord.FFI.p;
-    val contextGetResolution_ = _import "pango_cairo_context_get_resolution" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> GDouble.FFI.val_;
-    val contextSetFontOptions_ = fn x1 & x2 => (_import "pango_cairo_context_set_font_options" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * unit CairoFontOptionsRecord.FFI.p -> unit;) (x1, x2)
-    val contextSetResolution_ = fn x1 & x2 => (_import "pango_cairo_context_set_resolution" : PangoContextClass.FFI.notnull PangoContextClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val createContext_ = _import "pango_cairo_create_context" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p -> PangoContextClass.FFI.notnull PangoContextClass.FFI.p;
-    val createLayout_ = _import "pango_cairo_create_layout" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p -> PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p;
+    val contextGetFontOptions_ = _import "pango_cairo_context_get_font_options" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> CairoFontOptionsRecord.FFI.opt CairoFontOptionsRecord.FFI.p;
+    val contextGetResolution_ = _import "pango_cairo_context_get_resolution" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> GDouble.FFI.val_;
+    val contextSetFontOptions_ = fn x1 & x2 => (_import "pango_cairo_context_set_font_options" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p * CairoFontOptionsRecord.FFI.opt CairoFontOptionsRecord.FFI.p -> unit;) (x1, x2)
+    val contextSetResolution_ = fn x1 & x2 => (_import "pango_cairo_context_set_resolution" : PangoContextClass.FFI.non_opt PangoContextClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val createContext_ = _import "pango_cairo_create_context" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p -> PangoContextClass.FFI.non_opt PangoContextClass.FFI.p;
+    val createLayout_ = _import "pango_cairo_create_layout" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p -> PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p;
     val errorUnderlinePath_ =
       fn
         x1
@@ -15,7 +15,7 @@ structure PangoCairo : PANGO_CAIRO =
          & x5 =>
           (
             _import "pango_cairo_error_underline_path" :
-              CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -29,8 +29,8 @@ structure PangoCairo : PANGO_CAIRO =
               x4,
               x5
             )
-    val fontMapGetDefault_ = _import "pango_cairo_font_map_get_default" : unit -> PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p;
-    val fontMapNew_ = _import "pango_cairo_font_map_new" : unit -> PangoFontMapClass.FFI.notnull PangoFontMapClass.FFI.p;
+    val fontMapGetDefault_ = _import "pango_cairo_font_map_get_default" : unit -> PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p;
+    val fontMapNew_ = _import "pango_cairo_font_map_new" : unit -> PangoFontMapClass.FFI.non_opt PangoFontMapClass.FFI.p;
     val glyphStringPath_ =
       fn
         x1
@@ -38,9 +38,9 @@ structure PangoCairo : PANGO_CAIRO =
          & x3 =>
           (
             _import "pango_cairo_glyph_string_path" :
-              CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * PangoFontClass.FFI.notnull PangoFontClass.FFI.p
-               * PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p
+              CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * PangoFontClass.FFI.non_opt PangoFontClass.FFI.p
+               * PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p
                -> unit;
           )
             (
@@ -48,8 +48,8 @@ structure PangoCairo : PANGO_CAIRO =
               x2,
               x3
             )
-    val layoutLinePath_ = fn x1 & x2 => (_import "pango_cairo_layout_line_path" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p -> unit;) (x1, x2)
-    val layoutPath_ = fn x1 & x2 => (_import "pango_cairo_layout_path" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> unit;) (x1, x2)
+    val layoutLinePath_ = fn x1 & x2 => (_import "pango_cairo_layout_line_path" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p * PangoLayoutLineRecord.FFI.non_opt PangoLayoutLineRecord.FFI.p -> unit;) (x1, x2)
+    val layoutPath_ = fn x1 & x2 => (_import "pango_cairo_layout_path" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p * PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> unit;) (x1, x2)
     val showErrorUnderline_ =
       fn
         x1
@@ -59,7 +59,7 @@ structure PangoCairo : PANGO_CAIRO =
          & x5 =>
           (
             _import "pango_cairo_show_error_underline" :
-              CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -80,10 +80,10 @@ structure PangoCairo : PANGO_CAIRO =
          & x4 =>
           (
             _import "mlton_pango_cairo_show_glyph_item" :
-              CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * PangoGlyphItemRecord.FFI.notnull PangoGlyphItemRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * PangoGlyphItemRecord.FFI.non_opt PangoGlyphItemRecord.FFI.p
                -> unit;
           )
             (
@@ -99,9 +99,9 @@ structure PangoCairo : PANGO_CAIRO =
          & x3 =>
           (
             _import "pango_cairo_show_glyph_string" :
-              CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * PangoFontClass.FFI.notnull PangoFontClass.FFI.p
-               * PangoGlyphStringRecord.FFI.notnull PangoGlyphStringRecord.FFI.p
+              CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * PangoFontClass.FFI.non_opt PangoFontClass.FFI.p
+               * PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p
                -> unit;
           )
             (
@@ -109,10 +109,10 @@ structure PangoCairo : PANGO_CAIRO =
               x2,
               x3
             )
-    val showLayout_ = fn x1 & x2 => (_import "pango_cairo_show_layout" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> unit;) (x1, x2)
-    val showLayoutLine_ = fn x1 & x2 => (_import "pango_cairo_show_layout_line" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * PangoLayoutLineRecord.FFI.notnull PangoLayoutLineRecord.FFI.p -> unit;) (x1, x2)
-    val updateContext_ = fn x1 & x2 => (_import "pango_cairo_update_context" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * PangoContextClass.FFI.notnull PangoContextClass.FFI.p -> unit;) (x1, x2)
-    val updateLayout_ = fn x1 & x2 => (_import "pango_cairo_update_layout" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p -> unit;) (x1, x2)
+    val showLayout_ = fn x1 & x2 => (_import "pango_cairo_show_layout" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p * PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> unit;) (x1, x2)
+    val showLayoutLine_ = fn x1 & x2 => (_import "pango_cairo_show_layout_line" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p * PangoLayoutLineRecord.FFI.non_opt PangoLayoutLineRecord.FFI.p -> unit;) (x1, x2)
+    val updateContext_ = fn x1 & x2 => (_import "pango_cairo_update_context" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p * PangoContextClass.FFI.non_opt PangoContextClass.FFI.p -> unit;) (x1, x2)
+    val updateLayout_ = fn x1 & x2 => (_import "pango_cairo_update_layout" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p * PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p -> unit;) (x1, x2)
     structure FcFontMapClass = PangoCairoFcFontMapClass
     structure FontClass = PangoCairoFontClass
     structure FontMapClass = PangoCairoFontMapClass

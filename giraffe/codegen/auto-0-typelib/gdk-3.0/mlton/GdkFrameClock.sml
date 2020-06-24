@@ -5,14 +5,14 @@ structure GdkFrameClock :>
     where type frame_clock_phase_t = GdkFrameClockPhase.t =
   struct
     val getType_ = _import "gdk_frame_clock_get_type" : unit -> GObjectType.FFI.val_;
-    val beginUpdating_ = _import "gdk_frame_clock_begin_updating" : GdkFrameClockClass.FFI.notnull GdkFrameClockClass.FFI.p -> unit;
-    val endUpdating_ = _import "gdk_frame_clock_end_updating" : GdkFrameClockClass.FFI.notnull GdkFrameClockClass.FFI.p -> unit;
-    val getCurrentTimings_ = _import "gdk_frame_clock_get_current_timings" : GdkFrameClockClass.FFI.notnull GdkFrameClockClass.FFI.p -> unit GdkFrameTimingsRecord.FFI.p;
-    val getFrameCounter_ = _import "gdk_frame_clock_get_frame_counter" : GdkFrameClockClass.FFI.notnull GdkFrameClockClass.FFI.p -> GInt64.FFI.val_;
-    val getFrameTime_ = _import "gdk_frame_clock_get_frame_time" : GdkFrameClockClass.FFI.notnull GdkFrameClockClass.FFI.p -> GInt64.FFI.val_;
-    val getHistoryStart_ = _import "gdk_frame_clock_get_history_start" : GdkFrameClockClass.FFI.notnull GdkFrameClockClass.FFI.p -> GInt64.FFI.val_;
-    val getTimings_ = fn x1 & x2 => (_import "gdk_frame_clock_get_timings" : GdkFrameClockClass.FFI.notnull GdkFrameClockClass.FFI.p * GInt64.FFI.val_ -> unit GdkFrameTimingsRecord.FFI.p;) (x1, x2)
-    val requestPhase_ = fn x1 & x2 => (_import "gdk_frame_clock_request_phase" : GdkFrameClockClass.FFI.notnull GdkFrameClockClass.FFI.p * GdkFrameClockPhase.FFI.val_ -> unit;) (x1, x2)
+    val beginUpdating_ = _import "gdk_frame_clock_begin_updating" : GdkFrameClockClass.FFI.non_opt GdkFrameClockClass.FFI.p -> unit;
+    val endUpdating_ = _import "gdk_frame_clock_end_updating" : GdkFrameClockClass.FFI.non_opt GdkFrameClockClass.FFI.p -> unit;
+    val getCurrentTimings_ = _import "gdk_frame_clock_get_current_timings" : GdkFrameClockClass.FFI.non_opt GdkFrameClockClass.FFI.p -> GdkFrameTimingsRecord.FFI.opt GdkFrameTimingsRecord.FFI.p;
+    val getFrameCounter_ = _import "gdk_frame_clock_get_frame_counter" : GdkFrameClockClass.FFI.non_opt GdkFrameClockClass.FFI.p -> GInt64.FFI.val_;
+    val getFrameTime_ = _import "gdk_frame_clock_get_frame_time" : GdkFrameClockClass.FFI.non_opt GdkFrameClockClass.FFI.p -> GInt64.FFI.val_;
+    val getHistoryStart_ = _import "gdk_frame_clock_get_history_start" : GdkFrameClockClass.FFI.non_opt GdkFrameClockClass.FFI.p -> GInt64.FFI.val_;
+    val getTimings_ = fn x1 & x2 => (_import "gdk_frame_clock_get_timings" : GdkFrameClockClass.FFI.non_opt GdkFrameClockClass.FFI.p * GInt64.FFI.val_ -> GdkFrameTimingsRecord.FFI.opt GdkFrameTimingsRecord.FFI.p;) (x1, x2)
+    val requestPhase_ = fn x1 & x2 => (_import "gdk_frame_clock_request_phase" : GdkFrameClockClass.FFI.non_opt GdkFrameClockClass.FFI.p * GdkFrameClockPhase.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GdkFrameClockClass.class
     type frame_timings_t = GdkFrameTimingsRecord.t
     type frame_clock_phase_t = GdkFrameClockPhase.t

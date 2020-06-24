@@ -1,7 +1,8 @@
 structure GtkRadioActionClass :>
   GTK_RADIO_ACTION_CLASS
     where type 'a toggle_action_class = 'a GtkToggleActionClass.class
-    where type C.notnull = GtkToggleActionClass.C.notnull
+    where type C.opt = GtkToggleActionClass.C.opt
+    where type C.non_opt = GtkToggleActionClass.C.non_opt
     where type 'a C.p = 'a GtkToggleActionClass.C.p =
   struct
     type 'a toggle_action_class = 'a GtkToggleActionClass.class

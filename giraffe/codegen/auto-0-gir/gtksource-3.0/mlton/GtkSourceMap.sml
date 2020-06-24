@@ -4,9 +4,9 @@ structure GtkSourceMap :>
     where type 'a view_class = 'a GtkSourceViewClass.class =
   struct
     val getType_ = _import "gtk_source_map_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_source_map_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getView_ = _import "gtk_source_map_get_view" : GtkSourceMapClass.FFI.notnull GtkSourceMapClass.FFI.p -> unit GtkSourceViewClass.FFI.p;
-    val setView_ = fn x1 & x2 => (_import "gtk_source_map_set_view" : GtkSourceMapClass.FFI.notnull GtkSourceMapClass.FFI.p * GtkSourceViewClass.FFI.notnull GtkSourceViewClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_source_map_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getView_ = _import "gtk_source_map_get_view" : GtkSourceMapClass.FFI.non_opt GtkSourceMapClass.FFI.p -> GtkSourceViewClass.FFI.opt GtkSourceViewClass.FFI.p;
+    val setView_ = fn x1 & x2 => (_import "gtk_source_map_set_view" : GtkSourceMapClass.FFI.non_opt GtkSourceMapClass.FFI.p * GtkSourceViewClass.FFI.non_opt GtkSourceViewClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkSourceMapClass.class
     type 'a view_class = 'a GtkSourceViewClass.class
     type t = base class

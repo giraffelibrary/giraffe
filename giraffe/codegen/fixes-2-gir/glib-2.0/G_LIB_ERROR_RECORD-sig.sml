@@ -1,3 +1,10 @@
+(* Copyright (C) 2013, 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
 signature G_LIB_ERROR_RECORD =
   sig
     include RECORD
@@ -53,7 +60,7 @@ signature G_LIB_ERROR_RECORD =
      *
      *)
     type handler
-    val handleError : ((unit, unit) FFI.r -> 'a) -> handler list -> 'a
+    val handleError : ((FFI.opt, FFI.opt) FFI.r -> 'a) -> handler list -> 'a
 
     val makeHandler : string * (GInt.FFI.val_ -> 'a) * ('a -> exn) -> handler
   end

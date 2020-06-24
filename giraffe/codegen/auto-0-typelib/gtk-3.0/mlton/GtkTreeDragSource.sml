@@ -4,8 +4,8 @@ structure GtkTreeDragSource :>
     where type tree_path_t = GtkTreePathRecord.t =
   struct
     val getType_ = _import "gtk_tree_drag_source_get_type" : unit -> GObjectType.FFI.val_;
-    val dragDataDelete_ = fn x1 & x2 => (_import "gtk_tree_drag_source_drag_data_delete" : GtkTreeDragSourceClass.FFI.notnull GtkTreeDragSourceClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val rowDraggable_ = fn x1 & x2 => (_import "gtk_tree_drag_source_row_draggable" : GtkTreeDragSourceClass.FFI.notnull GtkTreeDragSourceClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val dragDataDelete_ = fn x1 & x2 => (_import "gtk_tree_drag_source_drag_data_delete" : GtkTreeDragSourceClass.FFI.non_opt GtkTreeDragSourceClass.FFI.p * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val rowDraggable_ = fn x1 & x2 => (_import "gtk_tree_drag_source_row_draggable" : GtkTreeDragSourceClass.FFI.non_opt GtkTreeDragSourceClass.FFI.p * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     type 'a class = 'a GtkTreeDragSourceClass.class
     type tree_path_t = GtkTreePathRecord.t
     type t = base class

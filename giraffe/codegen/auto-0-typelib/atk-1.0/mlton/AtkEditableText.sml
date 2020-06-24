@@ -10,7 +10,7 @@ structure AtkEditableText :>
          & x3 =>
           (
             _import "atk_editable_text_copy_text" :
-              AtkEditableTextClass.FFI.notnull AtkEditableTextClass.FFI.p
+              AtkEditableTextClass.FFI.non_opt AtkEditableTextClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -27,7 +27,7 @@ structure AtkEditableText :>
          & x3 =>
           (
             _import "atk_editable_text_cut_text" :
-              AtkEditableTextClass.FFI.notnull AtkEditableTextClass.FFI.p
+              AtkEditableTextClass.FFI.non_opt AtkEditableTextClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -44,7 +44,7 @@ structure AtkEditableText :>
          & x3 =>
           (
             _import "atk_editable_text_delete_text" :
-              AtkEditableTextClass.FFI.notnull AtkEditableTextClass.FFI.p
+              AtkEditableTextClass.FFI.non_opt AtkEditableTextClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -54,15 +54,15 @@ structure AtkEditableText :>
               x2,
               x3
             )
-    val pasteText_ = fn x1 & x2 => (_import "atk_editable_text_paste_text" : AtkEditableTextClass.FFI.notnull AtkEditableTextClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val pasteText_ = fn x1 & x2 => (_import "atk_editable_text_paste_text" : AtkEditableTextClass.FFI.non_opt AtkEditableTextClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setTextContents_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_atk_editable_text_set_text_contents" :
-              AtkEditableTextClass.FFI.notnull AtkEditableTextClass.FFI.p
+              AtkEditableTextClass.FFI.non_opt AtkEditableTextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

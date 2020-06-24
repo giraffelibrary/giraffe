@@ -7,9 +7,9 @@ structure GioIOModuleScope :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_io_module_scope_block" :
-              GioIOModuleScopeRecord.FFI.notnull GioIOModuleScopeRecord.FFI.p
+              GioIOModuleScopeRecord.FFI.non_opt GioIOModuleScopeRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (

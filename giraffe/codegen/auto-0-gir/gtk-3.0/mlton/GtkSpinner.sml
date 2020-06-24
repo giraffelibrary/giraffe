@@ -4,9 +4,9 @@ structure GtkSpinner :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_spinner_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_spinner_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val start_ = _import "gtk_spinner_start" : GtkSpinnerClass.FFI.notnull GtkSpinnerClass.FFI.p -> unit;
-    val stop_ = _import "gtk_spinner_stop" : GtkSpinnerClass.FFI.notnull GtkSpinnerClass.FFI.p -> unit;
+    val new_ = _import "gtk_spinner_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val start_ = _import "gtk_spinner_start" : GtkSpinnerClass.FFI.non_opt GtkSpinnerClass.FFI.p -> unit;
+    val stop_ = _import "gtk_spinner_stop" : GtkSpinnerClass.FFI.non_opt GtkSpinnerClass.FFI.p -> unit;
     type 'a class = 'a GtkSpinnerClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class

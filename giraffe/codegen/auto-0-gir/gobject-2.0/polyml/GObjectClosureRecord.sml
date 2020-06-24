@@ -3,7 +3,8 @@ structure GObjectClosureRecord :>
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
     structure Pointer = CPointerInternal
-    type notnull = Pointer.notnull
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
     val cPtr = Pointer.PolyML.cVal
     local
@@ -15,7 +16,8 @@ structure GObjectClosureRecord :>
     structure Record =
       BoxedRecord(
         structure Pointer = Pointer
-        type notnull = notnull
+        type opt = opt
+        type non_opt = non_opt
         type 'a p = 'a p
         val dup_ = dup_
         val take_ = ignore

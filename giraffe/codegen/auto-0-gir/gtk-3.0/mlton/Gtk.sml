@@ -7,7 +7,7 @@ structure Gtk : GTK =
          & x3 =>
           (
             _import "gtk_accel_groups_activate" :
-              GObjectObjectClass.FFI.notnull GObjectObjectClass.FFI.p
+              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
                -> GBool.FFI.val_;
@@ -18,7 +18,7 @@ structure Gtk : GTK =
               x3
             )
     val acceleratorGetDefaultModMask_ = _import "gtk_accelerator_get_default_mod_mask" : unit -> GdkModifierType.FFI.val_;
-    val acceleratorGetLabel_ = fn x1 & x2 => (_import "gtk_accelerator_get_label" : GUInt.FFI.val_ * GdkModifierType.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val acceleratorGetLabel_ = fn x1 & x2 => (_import "gtk_accelerator_get_label" : GUInt.FFI.val_ * GdkModifierType.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
     val acceleratorGetLabelWithKeycode_ =
       fn
         x1
@@ -27,11 +27,11 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "gtk_accelerator_get_label_with_keycode" :
-              unit GdkDisplayClass.FFI.p
+              GdkDisplayClass.FFI.opt GdkDisplayClass.FFI.p
                * GUInt.FFI.val_
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -39,7 +39,7 @@ structure Gtk : GTK =
               x3,
               x4
             )
-    val acceleratorName_ = fn x1 & x2 => (_import "gtk_accelerator_name" : GUInt.FFI.val_ * GdkModifierType.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val acceleratorName_ = fn x1 & x2 => (_import "gtk_accelerator_name" : GUInt.FFI.val_ * GdkModifierType.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
     val acceleratorNameWithKeycode_ =
       fn
         x1
@@ -48,11 +48,11 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "gtk_accelerator_name_with_keycode" :
-              unit GdkDisplayClass.FFI.p
+              GdkDisplayClass.FFI.opt GdkDisplayClass.FFI.p
                * GUInt.FFI.val_
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -68,7 +68,7 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_accelerator_parse" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt.FFI.ref_
                * GdkModifierType.FFI.ref_
                -> unit;
@@ -88,10 +88,10 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_accelerator_parse_with_keycode" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt.FFI.ref_
                * GUIntCArray.MLton.r1
-               * (unit, GUIntCArray.FFI.notnull) GUIntCArray.MLton.r2
+               * (GUIntCArray.FFI.opt, GUIntCArray.FFI.non_opt) GUIntCArray.MLton.r2
                * GdkModifierType.FFI.ref_
                -> unit;
           )
@@ -105,8 +105,8 @@ structure Gtk : GTK =
             )
     val acceleratorSetDefaultModMask_ = _import "gtk_accelerator_set_default_mod_mask" : GdkModifierType.FFI.val_ -> unit;
     val acceleratorValid_ = fn x1 & x2 => (_import "gtk_accelerator_valid" : GUInt.FFI.val_ * GdkModifierType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val alternativeDialogButtonOrder_ = _import "gtk_alternative_dialog_button_order" : unit GdkScreenClass.FFI.p -> GBool.FFI.val_;
-    val cairoShouldDrawWindow_ = fn x1 & x2 => (_import "gtk_cairo_should_draw_window" : CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val alternativeDialogButtonOrder_ = _import "gtk_alternative_dialog_button_order" : GdkScreenClass.FFI.opt GdkScreenClass.FFI.p -> GBool.FFI.val_;
+    val cairoShouldDrawWindow_ = fn x1 & x2 => (_import "gtk_cairo_should_draw_window" : CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val cairoTransformToWindow_ =
       fn
         x1
@@ -114,9 +114,9 @@ structure Gtk : GTK =
          & x3 =>
           (
             _import "gtk_cairo_transform_to_window" :
-              CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                -> unit;
           )
             (
@@ -134,7 +134,7 @@ structure Gtk : GTK =
               GUInt.FFI.val_
                * GUInt.FFI.val_
                * GUInt.FFI.val_
-               -> unit Utf8.FFI.out_p;
+               -> Utf8.FFI.opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -148,8 +148,8 @@ structure Gtk : GTK =
          & x3 =>
           (
             _import "gtk_device_grab_add" :
-              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -158,9 +158,9 @@ structure Gtk : GTK =
               x2,
               x3
             )
-    val deviceGrabRemove_ = fn x1 & x2 => (_import "gtk_device_grab_remove" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit;) (x1, x2)
+    val deviceGrabRemove_ = fn x1 & x2 => (_import "gtk_device_grab_remove" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> unit;) (x1, x2)
     val disableSetlocale_ = _import "gtk_disable_setlocale" : unit -> unit;
-    val dragCancel_ = _import "gtk_drag_cancel" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> unit;
+    val dragCancel_ = _import "gtk_drag_cancel" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> unit;
     val dragFinish_ =
       fn
         x1
@@ -169,7 +169,7 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "gtk_drag_finish" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
                * GBool.FFI.val_
                * GBool.FFI.val_
                * GUInt32.FFI.val_
@@ -181,8 +181,8 @@ structure Gtk : GTK =
               x3,
               x4
             )
-    val dragGetSourceWidget_ = _import "gtk_drag_get_source_widget" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val dragSetIconDefault_ = _import "gtk_drag_set_icon_default" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p -> unit;
+    val dragGetSourceWidget_ = _import "gtk_drag_get_source_widget" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val dragSetIconDefault_ = _import "gtk_drag_set_icon_default" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p -> unit;
     val dragSetIconGicon_ =
       fn
         x1
@@ -191,8 +191,8 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "gtk_drag_set_icon_gicon" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
-               * GioIconClass.FFI.notnull GioIconClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
+               * GioIconClass.FFI.non_opt GioIconClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -211,9 +211,9 @@ structure Gtk : GTK =
          & x5 =>
           (
             _import "mlton_gtk_drag_set_icon_name" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -233,8 +233,8 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "gtk_drag_set_icon_pixbuf" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
-               * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
+               * GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -253,9 +253,9 @@ structure Gtk : GTK =
          & x5 =>
           (
             _import "mlton_gtk_drag_set_icon_stock" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -267,7 +267,7 @@ structure Gtk : GTK =
               x4,
               x5
             )
-    val dragSetIconSurface_ = fn x1 & x2 => (_import "gtk_drag_set_icon_surface" : GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p * CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p -> unit;) (x1, x2)
+    val dragSetIconSurface_ = fn x1 & x2 => (_import "gtk_drag_set_icon_surface" : GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p * CairoSurfaceRecord.FFI.non_opt CairoSurfaceRecord.FFI.p -> unit;) (x1, x2)
     val dragSetIconWidget_ =
       fn
         x1
@@ -276,8 +276,8 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "gtk_drag_set_icon_widget" :
-              GdkDragContextClass.FFI.notnull GdkDragContextClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GdkDragContextClass.FFI.non_opt GdkDragContextClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -298,9 +298,9 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "gtk_draw_insertion_cursor" :
-              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                * GBool.FFI.val_
                * GtkTextDirection.FFI.val_
                * GBool.FFI.val_
@@ -316,20 +316,20 @@ structure Gtk : GTK =
             )
     val eventsPending_ = _import "gtk_events_pending" : unit -> GBool.FFI.val_;
     val getBinaryAge_ = _import "gtk_get_binary_age" : unit -> GUInt.FFI.val_;
-    val getCurrentEvent_ = _import "gtk_get_current_event" : unit -> unit GdkEvent.FFI.p;
-    val getCurrentEventDevice_ = _import "gtk_get_current_event_device" : unit -> unit GdkDeviceClass.FFI.p;
+    val getCurrentEvent_ = _import "gtk_get_current_event" : unit -> GdkEvent.FFI.opt GdkEvent.FFI.p;
+    val getCurrentEventDevice_ = _import "gtk_get_current_event_device" : unit -> GdkDeviceClass.FFI.opt GdkDeviceClass.FFI.p;
     val getCurrentEventState_ = _import "gtk_get_current_event_state" : GdkModifierType.FFI.ref_ -> GBool.FFI.val_;
     val getCurrentEventTime_ = _import "gtk_get_current_event_time" : unit -> GUInt32.FFI.val_;
     val getDebugFlags_ = _import "gtk_get_debug_flags" : unit -> GUInt.FFI.val_;
-    val getDefaultLanguage_ = _import "gtk_get_default_language" : unit -> PangoLanguageRecord.FFI.notnull PangoLanguageRecord.FFI.p;
-    val getEventWidget_ = _import "gtk_get_event_widget" : GdkEvent.FFI.notnull GdkEvent.FFI.p -> unit GtkWidgetClass.FFI.p;
+    val getDefaultLanguage_ = _import "gtk_get_default_language" : unit -> PangoLanguageRecord.FFI.non_opt PangoLanguageRecord.FFI.p;
+    val getEventWidget_ = _import "gtk_get_event_widget" : GdkEvent.FFI.non_opt GdkEvent.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
     val getInterfaceAge_ = _import "gtk_get_interface_age" : unit -> GUInt.FFI.val_;
     val getLocaleDirection_ = _import "gtk_get_locale_direction" : unit -> GtkTextDirection.FFI.val_;
     val getMajorVersion_ = _import "gtk_get_major_version" : unit -> GUInt.FFI.val_;
     val getMicroVersion_ = _import "gtk_get_micro_version" : unit -> GUInt.FFI.val_;
     val getMinorVersion_ = _import "gtk_get_minor_version" : unit -> GUInt.FFI.val_;
-    val getOptionGroup_ = _import "gtk_get_option_group" : GBool.FFI.val_ -> GLibOptionGroupRecord.FFI.notnull GLibOptionGroupRecord.FFI.p;
-    val grabGetCurrent_ = _import "gtk_grab_get_current" : unit -> unit GtkWidgetClass.FFI.p;
+    val getOptionGroup_ = _import "gtk_get_option_group" : GBool.FFI.val_ -> GLibOptionGroupRecord.FFI.non_opt GLibOptionGroupRecord.FFI.p;
+    val grabGetCurrent_ = _import "gtk_grab_get_current" : unit -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
     val init_ =
       fn
         x1 & (x2, x3) =>
@@ -337,7 +337,7 @@ structure Gtk : GTK =
             _import "mlton_gtk_init" :
               GInt.FFI.ref_
                * Utf8CPtrArrayN.MLton.r1
-               * (Utf8CPtrArrayN.FFI.notnull, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
+               * (Utf8CPtrArrayN.FFI.non_opt, Utf8CPtrArrayN.FFI.non_opt) Utf8CPtrArrayN.MLton.r2
                -> unit;
           )
             (
@@ -352,7 +352,7 @@ structure Gtk : GTK =
             _import "mlton_gtk_init_check" :
               GInt.FFI.ref_
                * Utf8CPtrArrayN.MLton.r1
-               * (Utf8CPtrArrayN.FFI.notnull, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
+               * (Utf8CPtrArrayN.FFI.non_opt, Utf8CPtrArrayN.FFI.non_opt) Utf8CPtrArrayN.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -362,7 +362,7 @@ structure Gtk : GTK =
             )
     val keySnooperRemove_ = _import "gtk_key_snooper_remove" : GUInt.FFI.val_ -> unit;
     val main_ = _import "gtk_main" : unit -> unit;
-    val mainDoEvent_ = _import "gtk_main_do_event" : GdkEvent.FFI.notnull GdkEvent.FFI.p -> unit;
+    val mainDoEvent_ = _import "gtk_main_do_event" : GdkEvent.FFI.non_opt GdkEvent.FFI.p -> unit;
     val mainIteration_ = _import "gtk_main_iteration" : unit -> GBool.FFI.val_;
     val mainIterationDo_ = _import "gtk_main_iteration_do" : GBool.FFI.val_ -> GBool.FFI.val_;
     val mainLevel_ = _import "gtk_main_level" : unit -> GUInt.FFI.val_;
@@ -383,13 +383,13 @@ structure Gtk : GTK =
          & x13 =>
           (
             _import "mlton_gtk_paint_arrow" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GtkArrowType.FFI.val_
                * GBool.FFI.val_
                * GInt.FFI.val_
@@ -427,13 +427,13 @@ structure Gtk : GTK =
          & x11 =>
           (
             _import "mlton_gtk_paint_box" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -470,13 +470,13 @@ structure Gtk : GTK =
          & x14 =>
           (
             _import "mlton_gtk_paint_box_gap" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -516,13 +516,13 @@ structure Gtk : GTK =
          & x11 =>
           (
             _import "mlton_gtk_paint_check" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -556,13 +556,13 @@ structure Gtk : GTK =
          & x11 =>
           (
             _import "mlton_gtk_paint_diamond" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -594,12 +594,12 @@ structure Gtk : GTK =
          & x9 =>
           (
             _import "mlton_gtk_paint_expander" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GtkExpanderStyle.FFI.val_
@@ -631,13 +631,13 @@ structure Gtk : GTK =
          & x12 =>
           (
             _import "mlton_gtk_paint_extension" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -673,13 +673,13 @@ structure Gtk : GTK =
          & x11 =>
           (
             _import "mlton_gtk_paint_flat_box" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -712,12 +712,12 @@ structure Gtk : GTK =
          & x10 =>
           (
             _import "mlton_gtk_paint_focus" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -751,13 +751,13 @@ structure Gtk : GTK =
          & x12 =>
           (
             _import "mlton_gtk_paint_handle" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -791,12 +791,12 @@ structure Gtk : GTK =
          & x9 =>
           (
             _import "mlton_gtk_paint_hline" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -826,16 +826,16 @@ structure Gtk : GTK =
          & x10 =>
           (
             _import "mlton_gtk_paint_layout" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GBool.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
-               * PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+               * PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                -> unit;
           )
             (
@@ -864,13 +864,13 @@ structure Gtk : GTK =
          & x11 =>
           (
             _import "mlton_gtk_paint_option" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -904,12 +904,12 @@ structure Gtk : GTK =
          & x11 =>
           (
             _import "mlton_gtk_paint_resize_grip" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GdkWindowEdge.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -944,13 +944,13 @@ structure Gtk : GTK =
          & x11 =>
           (
             _import "mlton_gtk_paint_shadow" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -987,13 +987,13 @@ structure Gtk : GTK =
          & x14 =>
           (
             _import "mlton_gtk_paint_shadow_gap" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -1034,13 +1034,13 @@ structure Gtk : GTK =
          & x12 =>
           (
             _import "mlton_gtk_paint_slider" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -1076,12 +1076,12 @@ structure Gtk : GTK =
          & x11 =>
           (
             _import "mlton_gtk_paint_spinner" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GUInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -1116,13 +1116,13 @@ structure Gtk : GTK =
          & x11 =>
           (
             _import "mlton_gtk_paint_tab" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
                * GtkShadowType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -1154,12 +1154,12 @@ structure Gtk : GTK =
          & x9 =>
           (
             _import "mlton_gtk_paint_vline" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GtkStateType.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -1183,7 +1183,7 @@ structure Gtk : GTK =
             _import "mlton_gtk_parse_args" :
               GInt.FFI.ref_
                * Utf8CPtrArrayN.MLton.r1
-               * (Utf8CPtrArrayN.FFI.notnull, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
+               * (Utf8CPtrArrayN.FFI.non_opt, Utf8CPtrArrayN.FFI.non_opt) Utf8CPtrArrayN.MLton.r2
                -> GBool.FFI.val_;
           )
             (
@@ -1198,24 +1198,24 @@ structure Gtk : GTK =
          & x3 =>
           (
             _import "gtk_print_run_page_setup_dialog" :
-              unit GtkWindowClass.FFI.p
-               * unit GtkPageSetupClass.FFI.p
-               * GtkPrintSettingsClass.FFI.notnull GtkPrintSettingsClass.FFI.p
-               -> GtkPageSetupClass.FFI.notnull GtkPageSetupClass.FFI.p;
+              GtkWindowClass.FFI.opt GtkWindowClass.FFI.p
+               * GtkPageSetupClass.FFI.opt GtkPageSetupClass.FFI.p
+               * GtkPrintSettingsClass.FFI.non_opt GtkPrintSettingsClass.FFI.p
+               -> GtkPageSetupClass.FFI.non_opt GtkPageSetupClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val propagateEvent_ = fn x1 & x2 => (_import "gtk_propagate_event" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GdkEvent.FFI.notnull GdkEvent.FFI.p -> unit;) (x1, x2)
-    val rcAddDefaultFile_ = _import "mlton_gtk_rc_add_default_file" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
-    val rcFindModuleInPath_ = _import "mlton_gtk_rc_find_module_in_path" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val rcGetDefaultFiles_ = _import "gtk_rc_get_default_files" : unit -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
-    val rcGetImModuleFile_ = _import "gtk_rc_get_im_module_file" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val rcGetImModulePath_ = _import "gtk_rc_get_im_module_path" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val rcGetModuleDir_ = _import "gtk_rc_get_module_dir" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val rcGetStyle_ = _import "gtk_rc_get_style" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p;
+    val propagateEvent_ = fn x1 & x2 => (_import "gtk_propagate_event" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GdkEvent.FFI.non_opt GdkEvent.FFI.p -> unit;) (x1, x2)
+    val rcAddDefaultFile_ = _import "mlton_gtk_rc_add_default_file" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
+    val rcFindModuleInPath_ = _import "mlton_gtk_rc_find_module_in_path" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val rcGetDefaultFiles_ = _import "gtk_rc_get_default_files" : unit -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+    val rcGetImModuleFile_ = _import "gtk_rc_get_im_module_file" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val rcGetImModulePath_ = _import "gtk_rc_get_im_module_path" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val rcGetModuleDir_ = _import "gtk_rc_get_module_dir" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val rcGetStyle_ = _import "gtk_rc_get_style" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p;
     val rcGetStyleByPaths_ =
       fn
         x1
@@ -1224,13 +1224,13 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "mlton_gtk_rc_get_style_by_paths" :
-              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
+              GtkSettingsClass.FFI.non_opt GtkSettingsClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GObjectType.FFI.val_
-               -> unit GtkStyleClass.FFI.p;
+               -> GtkStyleClass.FFI.opt GtkStyleClass.FFI.p;
           )
             (
               x1,
@@ -1240,13 +1240,13 @@ structure Gtk : GTK =
               x5,
               x6
             )
-    val rcGetThemeDir_ = _import "gtk_rc_get_theme_dir" : unit -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val rcParse_ = _import "mlton_gtk_rc_parse" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
-    val rcParseString_ = _import "mlton_gtk_rc_parse_string" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> unit;
+    val rcGetThemeDir_ = _import "gtk_rc_get_theme_dir" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val rcParse_ = _import "mlton_gtk_rc_parse" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
+    val rcParseString_ = _import "mlton_gtk_rc_parse_string" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val rcReparseAll_ = _import "gtk_rc_reparse_all" : unit -> GBool.FFI.val_;
-    val rcReparseAllForSettings_ = fn x1 & x2 => (_import "gtk_rc_reparse_all_for_settings" : GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val rcResetStyles_ = _import "gtk_rc_reset_styles" : GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p -> unit;
-    val rcSetDefaultFiles_ = _import "mlton_gtk_rc_set_default_files" : Utf8CPtrArray.MLton.p1 * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2 -> unit;
+    val rcReparseAllForSettings_ = fn x1 & x2 => (_import "gtk_rc_reparse_all_for_settings" : GtkSettingsClass.FFI.non_opt GtkSettingsClass.FFI.p * GBool.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val rcResetStyles_ = _import "gtk_rc_reset_styles" : GtkSettingsClass.FFI.non_opt GtkSettingsClass.FFI.p -> unit;
+    val rcSetDefaultFiles_ = _import "mlton_gtk_rc_set_default_files" : Utf8CPtrArray.MLton.p1 * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2 -> unit;
     val renderActivity_ =
       fn
         x1
@@ -1257,8 +1257,8 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "gtk_render_activity" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1283,8 +1283,8 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "gtk_render_arrow" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1309,8 +1309,8 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "gtk_render_background" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1335,12 +1335,12 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "gtk_render_background_get_clip" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -1361,8 +1361,8 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "gtk_render_check" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1387,8 +1387,8 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "gtk_render_expander" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1414,8 +1414,8 @@ structure Gtk : GTK =
          & x7 =>
           (
             _import "gtk_render_extension" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1442,8 +1442,8 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "gtk_render_focus" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1468,8 +1468,8 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "gtk_render_frame" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1497,8 +1497,8 @@ structure Gtk : GTK =
          & x9 =>
           (
             _import "gtk_render_frame_gap" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1529,8 +1529,8 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "gtk_render_handle" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1554,9 +1554,9 @@ structure Gtk : GTK =
          & x5 =>
           (
             _import "gtk_render_icon" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                -> unit;
@@ -1575,10 +1575,10 @@ structure Gtk : GTK =
          & x3 =>
           (
             _import "gtk_render_icon_pixbuf" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p
                * GInt.FFI.val_
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -1594,9 +1594,9 @@ structure Gtk : GTK =
          & x5 =>
           (
             _import "gtk_render_icon_surface" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * CairoSurfaceRecord.FFI.non_opt CairoSurfaceRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                -> unit;
@@ -1619,11 +1619,11 @@ structure Gtk : GTK =
          & x7 =>
           (
             _import "gtk_render_insertion_cursor" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
-               * PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+               * PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                * GInt.FFI.val_
                * PangoDirection.FFI.val_
                -> unit;
@@ -1646,11 +1646,11 @@ structure Gtk : GTK =
          & x5 =>
           (
             _import "gtk_render_layout" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
-               * PangoLayoutClass.FFI.notnull PangoLayoutClass.FFI.p
+               * PangoLayoutClass.FFI.non_opt PangoLayoutClass.FFI.p
                -> unit;
           )
             (
@@ -1670,8 +1670,8 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "gtk_render_line" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1696,8 +1696,8 @@ structure Gtk : GTK =
          & x6 =>
           (
             _import "gtk_render_option" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1723,8 +1723,8 @@ structure Gtk : GTK =
          & x7 =>
           (
             _import "gtk_render_slider" :
-              GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
+              GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
                * GDouble.FFI.val_
                * GDouble.FFI.val_
                * GDouble.FFI.val_
@@ -1775,9 +1775,9 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "gtk_selection_add_target" :
-              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GUInt.FFI.val_
                -> unit;
           )
@@ -1795,10 +1795,10 @@ structure Gtk : GTK =
          & x5 =>
           (
             _import "mlton_gtk_selection_add_targets" :
-              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GtkTargetEntryRecordCArrayN.MLton.p1
-               * GtkTargetEntryRecordCArrayN.FFI.notnull GtkTargetEntryRecordCArrayN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.FFI.non_opt GtkTargetEntryRecordCArrayN.MLton.p2
                * GUInt.FFI.val_
                -> unit;
           )
@@ -1809,7 +1809,7 @@ structure Gtk : GTK =
               x4,
               x5
             )
-    val selectionClearTargets_ = fn x1 & x2 => (_import "gtk_selection_clear_targets" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p -> unit;) (x1, x2)
+    val selectionClearTargets_ = fn x1 & x2 => (_import "gtk_selection_clear_targets" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p -> unit;) (x1, x2)
     val selectionConvert_ =
       fn
         x1
@@ -1818,9 +1818,9 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "gtk_selection_convert" :
-              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GUInt32.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -1837,8 +1837,8 @@ structure Gtk : GTK =
          & x3 =>
           (
             _import "gtk_selection_owner_set" :
-              unit GtkWidgetClass.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GUInt32.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -1855,9 +1855,9 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "gtk_selection_owner_set_for_display" :
-              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
-               * GdkAtomRecord.FFI.notnull GdkAtomRecord.FFI.p
+              GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
+               * GdkAtomRecord.FFI.non_opt GdkAtomRecord.FFI.p
                * GUInt32.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -1867,7 +1867,7 @@ structure Gtk : GTK =
               x3,
               x4
             )
-    val selectionRemoveAll_ = _import "gtk_selection_remove_all" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;
+    val selectionRemoveAll_ = _import "gtk_selection_remove_all" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;
     val setDebugFlags_ = _import "gtk_set_debug_flags" : GUInt.FFI.val_ -> unit;
     val showUri_ =
       fn
@@ -1877,11 +1877,11 @@ structure Gtk : GTK =
          & x5 =>
           (
             _import "mlton_gtk_show_uri" :
-              unit GdkScreenClass.FFI.p
+              GdkScreenClass.FFI.opt GdkScreenClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt32.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -1899,11 +1899,11 @@ structure Gtk : GTK =
          & x5 =>
           (
             _import "mlton_gtk_show_uri_on_window" :
-              unit GtkWindowClass.FFI.p
+              GtkWindowClass.FFI.opt GtkWindowClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GUInt32.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -1919,7 +1919,7 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_stock_add" :
               GtkStockItemRecordCArrayN.MLton.p1
-               * GtkStockItemRecordCArrayN.FFI.notnull GtkStockItemRecordCArrayN.MLton.p2
+               * GtkStockItemRecordCArrayN.FFI.non_opt GtkStockItemRecordCArrayN.MLton.p2
                * GUInt.FFI.val_
                -> unit;
           )
@@ -1934,7 +1934,7 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_stock_add_static" :
               GtkStockItemRecordCArrayN.MLton.p1
-               * GtkStockItemRecordCArrayN.FFI.notnull GtkStockItemRecordCArrayN.MLton.p2
+               * GtkStockItemRecordCArrayN.FFI.non_opt GtkStockItemRecordCArrayN.MLton.p2
                * GUInt.FFI.val_
                -> unit;
           )
@@ -1949,8 +1949,8 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_stock_lookup" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GtkStockItemRecord.FFI.notnull GtkStockItemRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GtkStockItemRecord.FFI.non_opt GtkStockItemRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -1964,7 +1964,7 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_target_table_free" :
               GtkTargetEntryRecordCArrayN.MLton.p1
-               * GtkTargetEntryRecordCArrayN.FFI.notnull GtkTargetEntryRecordCArrayN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.FFI.non_opt GtkTargetEntryRecordCArrayN.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )
@@ -1973,7 +1973,7 @@ structure Gtk : GTK =
               x2,
               x3
             )
-    val targetTableNewFromList_ = fn x1 & x2 => (_import "gtk_target_table_new_from_list" : GtkTargetListRecord.FFI.notnull GtkTargetListRecord.FFI.p * GInt.FFI.ref_ -> GtkTargetEntryRecordCArrayN.FFI.notnull GtkTargetEntryRecordCArrayN.FFI.out_p;) (x1, x2)
+    val targetTableNewFromList_ = fn x1 & x2 => (_import "gtk_target_table_new_from_list" : GtkTargetListRecord.FFI.non_opt GtkTargetListRecord.FFI.p * GInt.FFI.ref_ -> GtkTargetEntryRecordCArrayN.FFI.non_opt GtkTargetEntryRecordCArrayN.FFI.out_p;) (x1, x2)
     val targetsIncludeImage_ =
       fn
         (x1, x2)
@@ -1982,7 +1982,7 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_targets_include_image" :
               GdkAtomRecordCPtrArrayN.MLton.p1
-               * GdkAtomRecordCPtrArrayN.FFI.notnull GdkAtomRecordCPtrArrayN.MLton.p2
+               * GdkAtomRecordCPtrArrayN.FFI.non_opt GdkAtomRecordCPtrArrayN.MLton.p2
                * GInt.FFI.val_
                * GBool.FFI.val_
                -> GBool.FFI.val_;
@@ -2001,9 +2001,9 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_targets_include_rich_text" :
               GdkAtomRecordCPtrArrayN.MLton.p1
-               * GdkAtomRecordCPtrArrayN.FFI.notnull GdkAtomRecordCPtrArrayN.MLton.p2
+               * GdkAtomRecordCPtrArrayN.FFI.non_opt GdkAtomRecordCPtrArrayN.MLton.p2
                * GInt.FFI.val_
-               * GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p
+               * GtkTextBufferClass.FFI.non_opt GtkTextBufferClass.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -2018,7 +2018,7 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_targets_include_text" :
               GdkAtomRecordCPtrArrayN.MLton.p1
-               * GdkAtomRecordCPtrArrayN.FFI.notnull GdkAtomRecordCPtrArrayN.MLton.p2
+               * GdkAtomRecordCPtrArrayN.FFI.non_opt GdkAtomRecordCPtrArrayN.MLton.p2
                * GInt.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -2033,7 +2033,7 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_targets_include_uri" :
               GdkAtomRecordCPtrArrayN.MLton.p1
-               * GdkAtomRecordCPtrArrayN.FFI.notnull GdkAtomRecordCPtrArrayN.MLton.p2
+               * GdkAtomRecordCPtrArrayN.FFI.non_opt GdkAtomRecordCPtrArrayN.MLton.p2
                * GInt.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -2048,10 +2048,10 @@ structure Gtk : GTK =
           (
             _import "mlton_gtk_test_create_simple_window" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -2064,17 +2064,17 @@ structure Gtk : GTK =
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_test_find_label" :
-              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val testFindSibling_ = fn x1 & x2 => (_import "gtk_test_find_sibling" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GObjectType.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val testFindSibling_ = fn x1 & x2 => (_import "gtk_test_find_sibling" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GObjectType.FFI.val_ -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
     val testFindWidget_ =
       fn
         x1
@@ -2082,11 +2082,11 @@ structure Gtk : GTK =
          & x4 =>
           (
             _import "mlton_gtk_test_find_widget" :
-              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GObjectType.FFI.val_
-               -> unit GtkWidgetClass.FFI.p;
+               -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
@@ -2094,10 +2094,10 @@ structure Gtk : GTK =
               x3,
               x4
             )
-    val testListAllTypes_ = _import "gtk_test_list_all_types" : GUInt.FFI.ref_ -> GObjectTypeCArrayN.FFI.notnull GObjectTypeCArrayN.FFI.out_p;
+    val testListAllTypes_ = _import "gtk_test_list_all_types" : GUInt.FFI.ref_ -> GObjectTypeCArrayN.FFI.non_opt GObjectTypeCArrayN.FFI.out_p;
     val testRegisterAllTypes_ = _import "gtk_test_register_all_types" : unit -> unit;
-    val testSliderGetValue_ = _import "gtk_test_slider_get_value" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> GDouble.FFI.val_;
-    val testSliderSetPerc_ = fn x1 & x2 => (_import "gtk_test_slider_set_perc" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val testSliderGetValue_ = _import "gtk_test_slider_get_value" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GDouble.FFI.val_;
+    val testSliderSetPerc_ = fn x1 & x2 => (_import "gtk_test_slider_set_perc" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
     val testSpinButtonClick_ =
       fn
         x1
@@ -2105,7 +2105,7 @@ structure Gtk : GTK =
          & x3 =>
           (
             _import "gtk_test_spin_button_click" :
-              GtkSpinButtonClass.FFI.notnull GtkSpinButtonClass.FFI.p
+              GtkSpinButtonClass.FFI.non_opt GtkSpinButtonClass.FFI.p
                * GUInt.FFI.val_
                * GBool.FFI.val_
                -> GBool.FFI.val_;
@@ -2115,15 +2115,15 @@ structure Gtk : GTK =
               x2,
               x3
             )
-    val testTextGet_ = _import "gtk_test_text_get" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val testTextGet_ = _import "gtk_test_text_get" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val testTextSet_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_test_text_set" :
-              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -2138,7 +2138,7 @@ structure Gtk : GTK =
          & x3 =>
           (
             _import "gtk_test_widget_click" :
-              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
                -> GBool.FFI.val_;
@@ -2155,7 +2155,7 @@ structure Gtk : GTK =
          & x3 =>
           (
             _import "gtk_test_widget_send_key" :
-              GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
                -> GBool.FFI.val_;
@@ -2165,7 +2165,7 @@ structure Gtk : GTK =
               x2,
               x3
             )
-    val testWidgetWaitForDraw_ = _import "gtk_test_widget_wait_for_draw" : GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;
+    val testWidgetWaitForDraw_ = _import "gtk_test_widget_wait_for_draw" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;
     val treeGetRowDragData_ =
       fn
         x1
@@ -2173,9 +2173,9 @@ structure Gtk : GTK =
          & x3 =>
           (
             _import "gtk_tree_get_row_drag_data" :
-              GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p
-               * (unit, GtkTreeModelClass.FFI.notnull) GtkTreeModelClass.FFI.r
-               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
+              GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p
+               * (GtkTreeModelClass.FFI.opt, GtkTreeModelClass.FFI.non_opt) GtkTreeModelClass.FFI.r
+               * (GtkTreePathRecord.FFI.opt, GtkTreePathRecord.FFI.non_opt) GtkTreePathRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -2190,9 +2190,9 @@ structure Gtk : GTK =
          & x3 =>
           (
             _import "gtk_tree_set_row_drag_data" :
-              GtkSelectionDataRecord.FFI.notnull GtkSelectionDataRecord.FFI.p
-               * GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
+              GtkSelectionDataRecord.FFI.non_opt GtkSelectionDataRecord.FFI.p
+               * GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (

@@ -1,7 +1,8 @@
 structure GtkImageCellAccessibleClass :>
   GTK_IMAGE_CELL_ACCESSIBLE_CLASS
     where type 'a renderer_cell_accessible_class = 'a GtkRendererCellAccessibleClass.class
-    where type C.notnull = GtkRendererCellAccessibleClass.C.notnull
+    where type C.opt = GtkRendererCellAccessibleClass.C.opt
+    where type C.non_opt = GtkRendererCellAccessibleClass.C.non_opt
     where type 'a C.p = 'a GtkRendererCellAccessibleClass.C.p =
   struct
     type 'a renderer_cell_accessible_class = 'a GtkRendererCellAccessibleClass.class

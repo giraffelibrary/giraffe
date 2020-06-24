@@ -16,7 +16,7 @@ structure AtkText :>
          & x3 =>
           (
             _import "atk_text_add_selection" :
-              AtkTextClass.FFI.notnull AtkTextClass.FFI.p
+              AtkTextClass.FFI.non_opt AtkTextClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> GBool.FFI.val_;
@@ -35,12 +35,12 @@ structure AtkText :>
          & x5 =>
           (
             _import "atk_text_get_bounded_ranges" :
-              AtkTextClass.FFI.notnull AtkTextClass.FFI.p
-               * AtkTextRectangleRecord.FFI.notnull AtkTextRectangleRecord.FFI.p
+              AtkTextClass.FFI.non_opt AtkTextClass.FFI.p
+               * AtkTextRectangleRecord.FFI.non_opt AtkTextRectangleRecord.FFI.p
                * AtkCoordType.FFI.val_
                * AtkTextClipType.FFI.val_
                * AtkTextClipType.FFI.val_
-               -> AtkTextRangeRecordCPtrArray.FFI.notnull AtkTextRangeRecordCPtrArray.FFI.out_p;
+               -> AtkTextRangeRecordCPtrArray.FFI.non_opt AtkTextRangeRecordCPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -49,9 +49,9 @@ structure AtkText :>
               x4,
               x5
             )
-    val getCaretOffset_ = _import "atk_text_get_caret_offset" : AtkTextClass.FFI.notnull AtkTextClass.FFI.p -> GInt32.FFI.val_;
-    val getCharacterAtOffset_ = fn x1 & x2 => (_import "atk_text_get_character_at_offset" : AtkTextClass.FFI.notnull AtkTextClass.FFI.p * GInt32.FFI.val_ -> GChar.FFI.val_;) (x1, x2)
-    val getCharacterCount_ = _import "atk_text_get_character_count" : AtkTextClass.FFI.notnull AtkTextClass.FFI.p -> GInt32.FFI.val_;
+    val getCaretOffset_ = _import "atk_text_get_caret_offset" : AtkTextClass.FFI.non_opt AtkTextClass.FFI.p -> GInt32.FFI.val_;
+    val getCharacterAtOffset_ = fn x1 & x2 => (_import "atk_text_get_character_at_offset" : AtkTextClass.FFI.non_opt AtkTextClass.FFI.p * GInt32.FFI.val_ -> GChar.FFI.val_;) (x1, x2)
+    val getCharacterCount_ = _import "atk_text_get_character_count" : AtkTextClass.FFI.non_opt AtkTextClass.FFI.p -> GInt32.FFI.val_;
     val getCharacterExtents_ =
       fn
         x1
@@ -63,7 +63,7 @@ structure AtkText :>
          & x7 =>
           (
             _import "atk_text_get_character_extents" :
-              AtkTextClass.FFI.notnull AtkTextClass.FFI.p
+              AtkTextClass.FFI.non_opt AtkTextClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
@@ -81,7 +81,7 @@ structure AtkText :>
               x6,
               x7
             )
-    val getNSelections_ = _import "atk_text_get_n_selections" : AtkTextClass.FFI.notnull AtkTextClass.FFI.p -> GInt32.FFI.val_;
+    val getNSelections_ = _import "atk_text_get_n_selections" : AtkTextClass.FFI.non_opt AtkTextClass.FFI.p -> GInt32.FFI.val_;
     val getOffsetAtPoint_ =
       fn
         x1
@@ -90,7 +90,7 @@ structure AtkText :>
          & x4 =>
           (
             _import "atk_text_get_offset_at_point" :
-              AtkTextClass.FFI.notnull AtkTextClass.FFI.p
+              AtkTextClass.FFI.non_opt AtkTextClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * AtkCoordType.FFI.val_
@@ -111,11 +111,11 @@ structure AtkText :>
          & x5 =>
           (
             _import "atk_text_get_range_extents" :
-              AtkTextClass.FFI.notnull AtkTextClass.FFI.p
+              AtkTextClass.FFI.non_opt AtkTextClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * AtkCoordType.FFI.val_
-               * AtkTextRectangleRecord.FFI.notnull AtkTextRectangleRecord.FFI.p
+               * AtkTextRectangleRecord.FFI.non_opt AtkTextRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -133,11 +133,11 @@ structure AtkText :>
          & x4 =>
           (
             _import "atk_text_get_selection" :
-              AtkTextClass.FFI.notnull AtkTextClass.FFI.p
+              AtkTextClass.FFI.non_opt AtkTextClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -154,12 +154,12 @@ structure AtkText :>
          & x5 =>
           (
             _import "atk_text_get_string_at_offset" :
-              AtkTextClass.FFI.notnull AtkTextClass.FFI.p
+              AtkTextClass.FFI.non_opt AtkTextClass.FFI.p
                * GInt32.FFI.val_
                * AtkTextGranularity.FFI.val_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
-               -> unit Utf8.FFI.out_p;
+               -> Utf8.FFI.opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -175,10 +175,10 @@ structure AtkText :>
          & x3 =>
           (
             _import "atk_text_get_text" :
-              AtkTextClass.FFI.notnull AtkTextClass.FFI.p
+              AtkTextClass.FFI.non_opt AtkTextClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -194,12 +194,12 @@ structure AtkText :>
          & x5 =>
           (
             _import "atk_text_get_text_after_offset" :
-              AtkTextClass.FFI.notnull AtkTextClass.FFI.p
+              AtkTextClass.FFI.non_opt AtkTextClass.FFI.p
                * GInt32.FFI.val_
                * AtkTextBoundary.FFI.val_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -217,12 +217,12 @@ structure AtkText :>
          & x5 =>
           (
             _import "atk_text_get_text_at_offset" :
-              AtkTextClass.FFI.notnull AtkTextClass.FFI.p
+              AtkTextClass.FFI.non_opt AtkTextClass.FFI.p
                * GInt32.FFI.val_
                * AtkTextBoundary.FFI.val_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -240,12 +240,12 @@ structure AtkText :>
          & x5 =>
           (
             _import "atk_text_get_text_before_offset" :
-              AtkTextClass.FFI.notnull AtkTextClass.FFI.p
+              AtkTextClass.FFI.non_opt AtkTextClass.FFI.p
                * GInt32.FFI.val_
                * AtkTextBoundary.FFI.val_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
-               -> Utf8.FFI.notnull Utf8.FFI.out_p;
+               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
             (
               x1,
@@ -254,8 +254,8 @@ structure AtkText :>
               x4,
               x5
             )
-    val removeSelection_ = fn x1 & x2 => (_import "atk_text_remove_selection" : AtkTextClass.FFI.notnull AtkTextClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val setCaretOffset_ = fn x1 & x2 => (_import "atk_text_set_caret_offset" : AtkTextClass.FFI.notnull AtkTextClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val removeSelection_ = fn x1 & x2 => (_import "atk_text_remove_selection" : AtkTextClass.FFI.non_opt AtkTextClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val setCaretOffset_ = fn x1 & x2 => (_import "atk_text_set_caret_offset" : AtkTextClass.FFI.non_opt AtkTextClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val setSelection_ =
       fn
         x1
@@ -264,7 +264,7 @@ structure AtkText :>
          & x4 =>
           (
             _import "atk_text_set_selection" :
-              AtkTextClass.FFI.notnull AtkTextClass.FFI.p
+              AtkTextClass.FFI.non_opt AtkTextClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.val_

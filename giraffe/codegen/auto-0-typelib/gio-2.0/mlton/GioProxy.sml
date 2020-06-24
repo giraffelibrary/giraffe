@@ -7,7 +7,7 @@ structure GioProxy :>
     where type 'a async_result_class = 'a GioAsyncResultClass.class =
   struct
     val getType_ = _import "g_proxy_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefaultForProtocol_ = _import "mlton_g_proxy_get_default_for_protocol" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioProxyClass.FFI.notnull GioProxyClass.FFI.p;
+    val getDefaultForProtocol_ = _import "mlton_g_proxy_get_default_for_protocol" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioProxyClass.FFI.non_opt GioProxyClass.FFI.p;
     val connect_ =
       fn
         x1
@@ -17,12 +17,12 @@ structure GioProxy :>
          & x5 =>
           (
             _import "g_proxy_connect" :
-              GioProxyClass.FFI.notnull GioProxyClass.FFI.p
-               * GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p
-               * GioProxyAddressClass.FFI.notnull GioProxyAddressClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p;
+              GioProxyClass.FFI.non_opt GioProxyClass.FFI.p
+               * GioIOStreamClass.FFI.non_opt GioIOStreamClass.FFI.p
+               * GioProxyAddressClass.FFI.non_opt GioProxyAddressClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioIOStreamClass.FFI.non_opt GioIOStreamClass.FFI.p;
           )
             (
               x1,
@@ -38,17 +38,17 @@ structure GioProxy :>
          & x3 =>
           (
             _import "g_proxy_connect_finish" :
-              GioProxyClass.FFI.notnull GioProxyClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioIOStreamClass.FFI.notnull GioIOStreamClass.FFI.p;
+              GioProxyClass.FFI.non_opt GioProxyClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioIOStreamClass.FFI.non_opt GioIOStreamClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val supportsHostname_ = _import "g_proxy_supports_hostname" : GioProxyClass.FFI.notnull GioProxyClass.FFI.p -> GBool.FFI.val_;
+    val supportsHostname_ = _import "g_proxy_supports_hostname" : GioProxyClass.FFI.non_opt GioProxyClass.FFI.p -> GBool.FFI.val_;
     type 'a class = 'a GioProxyClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type 'a proxy_address_class = 'a GioProxyAddressClass.class

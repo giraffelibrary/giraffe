@@ -18,12 +18,12 @@ structure GtkTreeView :>
     where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
     val getType_ = _import "gtk_tree_view_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_tree_view_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithModel_ = _import "gtk_tree_view_new_with_model" : GtkTreeModelClass.FFI.notnull GtkTreeModelClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val appendColumn_ = fn x1 & x2 => (_import "gtk_tree_view_append_column" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> GInt32.FFI.val_;) (x1, x2)
-    val collapseAll_ = _import "gtk_tree_view_collapse_all" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> unit;
-    val collapseRow_ = fn x1 & x2 => (_import "gtk_tree_view_collapse_row" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val columnsAutosize_ = _import "gtk_tree_view_columns_autosize" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> unit;
+    val new_ = _import "gtk_tree_view_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithModel_ = _import "gtk_tree_view_new_with_model" : GtkTreeModelClass.FFI.non_opt GtkTreeModelClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val appendColumn_ = fn x1 & x2 => (_import "gtk_tree_view_append_column" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GtkTreeViewColumnClass.FFI.non_opt GtkTreeViewColumnClass.FFI.p -> GInt32.FFI.val_;) (x1, x2)
+    val collapseAll_ = _import "gtk_tree_view_collapse_all" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> unit;
+    val collapseRow_ = fn x1 & x2 => (_import "gtk_tree_view_collapse_row" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val columnsAutosize_ = _import "gtk_tree_view_columns_autosize" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> unit;
     val convertBinWindowToTreeCoords_ =
       fn
         x1
@@ -33,7 +33,7 @@ structure GtkTreeView :>
          & x5 =>
           (
             _import "gtk_tree_view_convert_bin_window_to_tree_coords" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.ref_
@@ -56,7 +56,7 @@ structure GtkTreeView :>
          & x5 =>
           (
             _import "gtk_tree_view_convert_bin_window_to_widget_coords" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.ref_
@@ -79,7 +79,7 @@ structure GtkTreeView :>
          & x5 =>
           (
             _import "gtk_tree_view_convert_tree_to_bin_window_coords" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.ref_
@@ -102,7 +102,7 @@ structure GtkTreeView :>
          & x5 =>
           (
             _import "gtk_tree_view_convert_tree_to_widget_coords" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.ref_
@@ -125,7 +125,7 @@ structure GtkTreeView :>
          & x5 =>
           (
             _import "gtk_tree_view_convert_widget_to_bin_window_coords" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.ref_
@@ -148,7 +148,7 @@ structure GtkTreeView :>
          & x5 =>
           (
             _import "gtk_tree_view_convert_widget_to_tree_coords" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GInt32.FFI.ref_
@@ -162,7 +162,7 @@ structure GtkTreeView :>
               x4,
               x5
             )
-    val createRowDragIcon_ = fn x1 & x2 => (_import "gtk_tree_view_create_row_drag_icon" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> CairoSurfaceRecord.FFI.notnull CairoSurfaceRecord.FFI.p;) (x1, x2)
+    val createRowDragIcon_ = fn x1 & x2 => (_import "gtk_tree_view_create_row_drag_icon" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p -> CairoSurfaceRecord.FFI.non_opt CairoSurfaceRecord.FFI.p;) (x1, x2)
     val enableModelDragDest_ =
       fn
         x1
@@ -171,9 +171,9 @@ structure GtkTreeView :>
          & x5 =>
           (
             _import "mlton_gtk_tree_view_enable_model_drag_dest" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GtkTargetEntryRecordCArrayN.MLton.p1
-               * GtkTargetEntryRecordCArrayN.FFI.notnull GtkTargetEntryRecordCArrayN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.FFI.non_opt GtkTargetEntryRecordCArrayN.MLton.p2
                * GInt32.FFI.val_
                * GdkDragAction.FFI.val_
                -> unit;
@@ -194,10 +194,10 @@ structure GtkTreeView :>
          & x6 =>
           (
             _import "mlton_gtk_tree_view_enable_model_drag_source" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GdkModifierType.FFI.val_
                * GtkTargetEntryRecordCArrayN.MLton.p1
-               * GtkTargetEntryRecordCArrayN.FFI.notnull GtkTargetEntryRecordCArrayN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.FFI.non_opt GtkTargetEntryRecordCArrayN.MLton.p2
                * GInt32.FFI.val_
                * GdkDragAction.FFI.val_
                -> unit;
@@ -210,7 +210,7 @@ structure GtkTreeView :>
               x5,
               x6
             )
-    val expandAll_ = _import "gtk_tree_view_expand_all" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> unit;
+    val expandAll_ = _import "gtk_tree_view_expand_all" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> unit;
     val expandRow_ =
       fn
         x1
@@ -218,8 +218,8 @@ structure GtkTreeView :>
          & x3 =>
           (
             _import "gtk_tree_view_expand_row" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
                * GBool.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -228,8 +228,8 @@ structure GtkTreeView :>
               x2,
               x3
             )
-    val expandToPath_ = fn x1 & x2 => (_import "gtk_tree_view_expand_to_path" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> unit;) (x1, x2)
-    val getActivateOnSingleClick_ = _import "gtk_tree_view_get_activate_on_single_click" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val expandToPath_ = fn x1 & x2 => (_import "gtk_tree_view_expand_to_path" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p -> unit;) (x1, x2)
+    val getActivateOnSingleClick_ = _import "gtk_tree_view_get_activate_on_single_click" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
     val getBackgroundArea_ =
       fn
         x1
@@ -238,10 +238,10 @@ structure GtkTreeView :>
          & x4 =>
           (
             _import "gtk_tree_view_get_background_area" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * unit GtkTreePathRecord.FFI.p
-               * unit GtkTreeViewColumnClass.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * GtkTreePathRecord.FFI.opt GtkTreePathRecord.FFI.p
+               * GtkTreeViewColumnClass.FFI.opt GtkTreeViewColumnClass.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -250,7 +250,7 @@ structure GtkTreeView :>
               x3,
               x4
             )
-    val getBinWindow_ = _import "gtk_tree_view_get_bin_window" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> unit GdkWindowClass.FFI.p;
+    val getBinWindow_ = _import "gtk_tree_view_get_bin_window" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
     val getCellArea_ =
       fn
         x1
@@ -259,10 +259,10 @@ structure GtkTreeView :>
          & x4 =>
           (
             _import "gtk_tree_view_get_cell_area" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * unit GtkTreePathRecord.FFI.p
-               * unit GtkTreeViewColumnClass.FFI.p
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * GtkTreePathRecord.FFI.opt GtkTreePathRecord.FFI.p
+               * GtkTreeViewColumnClass.FFI.opt GtkTreeViewColumnClass.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -271,7 +271,7 @@ structure GtkTreeView :>
               x3,
               x4
             )
-    val getColumn_ = fn x1 & x2 => (_import "gtk_tree_view_get_column" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GInt32.FFI.val_ -> unit GtkTreeViewColumnClass.FFI.p;) (x1, x2)
+    val getColumn_ = fn x1 & x2 => (_import "gtk_tree_view_get_column" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GInt32.FFI.val_ -> GtkTreeViewColumnClass.FFI.opt GtkTreeViewColumnClass.FFI.p;) (x1, x2)
     val getCursor_ =
       fn
         x1
@@ -279,9 +279,9 @@ structure GtkTreeView :>
          & x3 =>
           (
             _import "gtk_tree_view_get_cursor" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
-               * (unit, GtkTreeViewColumnClass.FFI.notnull) GtkTreeViewColumnClass.FFI.r
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * (GtkTreePathRecord.FFI.opt, GtkTreePathRecord.FFI.non_opt) GtkTreePathRecord.FFI.r
+               * (GtkTreeViewColumnClass.FFI.opt, GtkTreeViewColumnClass.FFI.non_opt) GtkTreeViewColumnClass.FFI.r
                -> unit;
           )
             (
@@ -298,10 +298,10 @@ structure GtkTreeView :>
          & x5 =>
           (
             _import "gtk_tree_view_get_dest_row_at_pos" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
-               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
+               * (GtkTreePathRecord.FFI.opt, GtkTreePathRecord.FFI.non_opt) GtkTreePathRecord.FFI.r
                * GtkTreeViewDropPosition.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -319,8 +319,8 @@ structure GtkTreeView :>
          & x3 =>
           (
             _import "gtk_tree_view_get_drag_dest_row" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * (GtkTreePathRecord.FFI.opt, GtkTreePathRecord.FFI.non_opt) GtkTreePathRecord.FFI.r
                * GtkTreeViewDropPosition.FFI.ref_
                -> unit;
           )
@@ -329,19 +329,19 @@ structure GtkTreeView :>
               x2,
               x3
             )
-    val getEnableSearch_ = _import "gtk_tree_view_get_enable_search" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
-    val getEnableTreeLines_ = _import "gtk_tree_view_get_enable_tree_lines" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
-    val getExpanderColumn_ = _import "gtk_tree_view_get_expander_column" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p;
-    val getFixedHeightMode_ = _import "gtk_tree_view_get_fixed_height_mode" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
-    val getGridLines_ = _import "gtk_tree_view_get_grid_lines" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GtkTreeViewGridLines.FFI.val_;
-    val getHadjustment_ = _import "gtk_tree_view_get_hadjustment" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
-    val getHeadersClickable_ = _import "gtk_tree_view_get_headers_clickable" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
-    val getHeadersVisible_ = _import "gtk_tree_view_get_headers_visible" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
-    val getHoverExpand_ = _import "gtk_tree_view_get_hover_expand" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
-    val getHoverSelection_ = _import "gtk_tree_view_get_hover_selection" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
-    val getLevelIndentation_ = _import "gtk_tree_view_get_level_indentation" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GInt32.FFI.val_;
-    val getModel_ = _import "gtk_tree_view_get_model" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> unit GtkTreeModelClass.FFI.p;
-    val getNColumns_ = _import "gtk_tree_view_get_n_columns" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GUInt32.FFI.val_;
+    val getEnableSearch_ = _import "gtk_tree_view_get_enable_search" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val getEnableTreeLines_ = _import "gtk_tree_view_get_enable_tree_lines" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val getExpanderColumn_ = _import "gtk_tree_view_get_expander_column" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GtkTreeViewColumnClass.FFI.non_opt GtkTreeViewColumnClass.FFI.p;
+    val getFixedHeightMode_ = _import "gtk_tree_view_get_fixed_height_mode" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val getGridLines_ = _import "gtk_tree_view_get_grid_lines" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GtkTreeViewGridLines.FFI.val_;
+    val getHadjustment_ = _import "gtk_tree_view_get_hadjustment" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
+    val getHeadersClickable_ = _import "gtk_tree_view_get_headers_clickable" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val getHeadersVisible_ = _import "gtk_tree_view_get_headers_visible" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val getHoverExpand_ = _import "gtk_tree_view_get_hover_expand" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val getHoverSelection_ = _import "gtk_tree_view_get_hover_selection" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val getLevelIndentation_ = _import "gtk_tree_view_get_level_indentation" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GInt32.FFI.val_;
+    val getModel_ = _import "gtk_tree_view_get_model" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GtkTreeModelClass.FFI.opt GtkTreeModelClass.FFI.p;
+    val getNColumns_ = _import "gtk_tree_view_get_n_columns" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GUInt32.FFI.val_;
     val getPathAtPos_ =
       fn
         x1
@@ -353,11 +353,11 @@ structure GtkTreeView :>
          & x7 =>
           (
             _import "gtk_tree_view_get_path_at_pos" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
-               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
-               * (unit, GtkTreeViewColumnClass.FFI.notnull) GtkTreeViewColumnClass.FFI.r
+               * (GtkTreePathRecord.FFI.opt, GtkTreePathRecord.FFI.non_opt) GtkTreePathRecord.FFI.r
+               * (GtkTreeViewColumnClass.FFI.opt, GtkTreeViewColumnClass.FFI.non_opt) GtkTreeViewColumnClass.FFI.r
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> GBool.FFI.val_;
@@ -371,14 +371,14 @@ structure GtkTreeView :>
               x6,
               x7
             )
-    val getReorderable_ = _import "gtk_tree_view_get_reorderable" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
-    val getRubberBanding_ = _import "gtk_tree_view_get_rubber_banding" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
-    val getRulesHint_ = _import "gtk_tree_view_get_rules_hint" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
-    val getSearchColumn_ = _import "gtk_tree_view_get_search_column" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GInt32.FFI.val_;
-    val getSearchEntry_ = _import "gtk_tree_view_get_search_entry" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GtkEntryClass.FFI.notnull GtkEntryClass.FFI.p;
-    val getSelection_ = _import "gtk_tree_view_get_selection" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GtkTreeSelectionClass.FFI.notnull GtkTreeSelectionClass.FFI.p;
-    val getShowExpanders_ = _import "gtk_tree_view_get_show_expanders" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
-    val getTooltipColumn_ = _import "gtk_tree_view_get_tooltip_column" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GInt32.FFI.val_;
+    val getReorderable_ = _import "gtk_tree_view_get_reorderable" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val getRubberBanding_ = _import "gtk_tree_view_get_rubber_banding" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val getRulesHint_ = _import "gtk_tree_view_get_rules_hint" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val getSearchColumn_ = _import "gtk_tree_view_get_search_column" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GInt32.FFI.val_;
+    val getSearchEntry_ = _import "gtk_tree_view_get_search_entry" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GtkEntryClass.FFI.non_opt GtkEntryClass.FFI.p;
+    val getSelection_ = _import "gtk_tree_view_get_selection" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GtkTreeSelectionClass.FFI.non_opt GtkTreeSelectionClass.FFI.p;
+    val getShowExpanders_ = _import "gtk_tree_view_get_show_expanders" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val getTooltipColumn_ = _import "gtk_tree_view_get_tooltip_column" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GInt32.FFI.val_;
     val getTooltipContext_ =
       fn
         x1
@@ -390,13 +390,13 @@ structure GtkTreeView :>
          & x7 =>
           (
             _import "gtk_tree_view_get_tooltip_context" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                * GBool.FFI.val_
-               * (unit, GtkTreeModelClass.FFI.notnull) GtkTreeModelClass.FFI.r
-               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
-               * GtkTreeIterRecord.FFI.notnull GtkTreeIterRecord.FFI.p
+               * (GtkTreeModelClass.FFI.opt, GtkTreeModelClass.FFI.non_opt) GtkTreeModelClass.FFI.r
+               * (GtkTreePathRecord.FFI.opt, GtkTreePathRecord.FFI.non_opt) GtkTreePathRecord.FFI.r
+               * GtkTreeIterRecord.FFI.non_opt GtkTreeIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -408,7 +408,7 @@ structure GtkTreeView :>
               x6,
               x7
             )
-    val getVadjustment_ = _import "gtk_tree_view_get_vadjustment" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GtkAdjustmentClass.FFI.notnull GtkAdjustmentClass.FFI.p;
+    val getVadjustment_ = _import "gtk_tree_view_get_vadjustment" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GtkAdjustmentClass.FFI.non_opt GtkAdjustmentClass.FFI.p;
     val getVisibleRange_ =
       fn
         x1
@@ -416,9 +416,9 @@ structure GtkTreeView :>
          & x3 =>
           (
             _import "gtk_tree_view_get_visible_range" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
-               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * (GtkTreePathRecord.FFI.opt, GtkTreePathRecord.FFI.non_opt) GtkTreePathRecord.FFI.r
+               * (GtkTreePathRecord.FFI.opt, GtkTreePathRecord.FFI.non_opt) GtkTreePathRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -426,7 +426,7 @@ structure GtkTreeView :>
               x2,
               x3
             )
-    val getVisibleRect_ = fn x1 & x2 => (_import "gtk_tree_view_get_visible_rect" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
+    val getVisibleRect_ = fn x1 & x2 => (_import "gtk_tree_view_get_visible_rect" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p -> unit;) (x1, x2)
     val insertColumn_ =
       fn
         x1
@@ -434,8 +434,8 @@ structure GtkTreeView :>
          & x3 =>
           (
             _import "gtk_tree_view_insert_column" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * GtkTreeViewColumnClass.FFI.non_opt GtkTreeViewColumnClass.FFI.p
                * GInt32.FFI.val_
                -> GInt32.FFI.val_;
           )
@@ -455,11 +455,11 @@ structure GtkTreeView :>
          & x7 =>
           (
             _import "gtk_tree_view_is_blank_at_pos" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
-               * (unit, GtkTreePathRecord.FFI.notnull) GtkTreePathRecord.FFI.r
-               * (unit, GtkTreeViewColumnClass.FFI.notnull) GtkTreeViewColumnClass.FFI.r
+               * (GtkTreePathRecord.FFI.opt, GtkTreePathRecord.FFI.non_opt) GtkTreePathRecord.FFI.r
+               * (GtkTreeViewColumnClass.FFI.opt, GtkTreeViewColumnClass.FFI.non_opt) GtkTreeViewColumnClass.FFI.r
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
                -> GBool.FFI.val_;
@@ -473,7 +473,7 @@ structure GtkTreeView :>
               x6,
               x7
             )
-    val isRubberBandingActive_ = _import "gtk_tree_view_is_rubber_banding_active" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
+    val isRubberBandingActive_ = _import "gtk_tree_view_is_rubber_banding_active" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> GBool.FFI.val_;
     val moveColumnAfter_ =
       fn
         x1
@@ -481,9 +481,9 @@ structure GtkTreeView :>
          & x3 =>
           (
             _import "gtk_tree_view_move_column_after" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p
-               * unit GtkTreeViewColumnClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * GtkTreeViewColumnClass.FFI.non_opt GtkTreeViewColumnClass.FFI.p
+               * GtkTreeViewColumnClass.FFI.opt GtkTreeViewColumnClass.FFI.p
                -> unit;
           )
             (
@@ -491,7 +491,7 @@ structure GtkTreeView :>
               x2,
               x3
             )
-    val removeColumn_ = fn x1 & x2 => (_import "gtk_tree_view_remove_column" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> GInt32.FFI.val_;) (x1, x2)
+    val removeColumn_ = fn x1 & x2 => (_import "gtk_tree_view_remove_column" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GtkTreeViewColumnClass.FFI.non_opt GtkTreeViewColumnClass.FFI.p -> GInt32.FFI.val_;) (x1, x2)
     val rowActivated_ =
       fn
         x1
@@ -499,9 +499,9 @@ structure GtkTreeView :>
          & x3 =>
           (
             _import "gtk_tree_view_row_activated" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
-               * GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
+               * GtkTreeViewColumnClass.FFI.non_opt GtkTreeViewColumnClass.FFI.p
                -> unit;
           )
             (
@@ -509,7 +509,7 @@ structure GtkTreeView :>
               x2,
               x3
             )
-    val rowExpanded_ = fn x1 & x2 => (_import "gtk_tree_view_row_expanded" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val rowExpanded_ = fn x1 & x2 => (_import "gtk_tree_view_row_expanded" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val scrollToCell_ =
       fn
         x1
@@ -520,9 +520,9 @@ structure GtkTreeView :>
          & x6 =>
           (
             _import "gtk_tree_view_scroll_to_cell" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * unit GtkTreePathRecord.FFI.p
-               * unit GtkTreeViewColumnClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * GtkTreePathRecord.FFI.opt GtkTreePathRecord.FFI.p
+               * GtkTreeViewColumnClass.FFI.opt GtkTreeViewColumnClass.FFI.p
                * GBool.FFI.val_
                * GFloat.FFI.val_
                * GFloat.FFI.val_
@@ -543,7 +543,7 @@ structure GtkTreeView :>
          & x3 =>
           (
             _import "gtk_tree_view_scroll_to_point" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> unit;
@@ -553,7 +553,7 @@ structure GtkTreeView :>
               x2,
               x3
             )
-    val setActivateOnSingleClick_ = fn x1 & x2 => (_import "gtk_tree_view_set_activate_on_single_click" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setActivateOnSingleClick_ = fn x1 & x2 => (_import "gtk_tree_view_set_activate_on_single_click" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setCursor_ =
       fn
         x1
@@ -562,9 +562,9 @@ structure GtkTreeView :>
          & x4 =>
           (
             _import "gtk_tree_view_set_cursor" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
-               * unit GtkTreeViewColumnClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
+               * GtkTreeViewColumnClass.FFI.opt GtkTreeViewColumnClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -583,10 +583,10 @@ structure GtkTreeView :>
          & x5 =>
           (
             _import "gtk_tree_view_set_cursor_on_cell" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
-               * unit GtkTreeViewColumnClass.FFI.p
-               * unit GtkCellRendererClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
+               * GtkTreeViewColumnClass.FFI.opt GtkTreeViewColumnClass.FFI.p
+               * GtkCellRendererClass.FFI.opt GtkCellRendererClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -604,8 +604,8 @@ structure GtkTreeView :>
          & x3 =>
           (
             _import "gtk_tree_view_set_drag_dest_row" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * unit GtkTreePathRecord.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * GtkTreePathRecord.FFI.opt GtkTreePathRecord.FFI.p
                * GtkTreeViewDropPosition.FFI.val_
                -> unit;
           )
@@ -614,24 +614,24 @@ structure GtkTreeView :>
               x2,
               x3
             )
-    val setEnableSearch_ = fn x1 & x2 => (_import "gtk_tree_view_set_enable_search" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setEnableTreeLines_ = fn x1 & x2 => (_import "gtk_tree_view_set_enable_tree_lines" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setExpanderColumn_ = fn x1 & x2 => (_import "gtk_tree_view_set_expander_column" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GtkTreeViewColumnClass.FFI.notnull GtkTreeViewColumnClass.FFI.p -> unit;) (x1, x2)
-    val setFixedHeightMode_ = fn x1 & x2 => (_import "gtk_tree_view_set_fixed_height_mode" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setGridLines_ = fn x1 & x2 => (_import "gtk_tree_view_set_grid_lines" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GtkTreeViewGridLines.FFI.val_ -> unit;) (x1, x2)
-    val setHadjustment_ = fn x1 & x2 => (_import "gtk_tree_view_set_hadjustment" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
-    val setHeadersClickable_ = fn x1 & x2 => (_import "gtk_tree_view_set_headers_clickable" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHeadersVisible_ = fn x1 & x2 => (_import "gtk_tree_view_set_headers_visible" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHoverExpand_ = fn x1 & x2 => (_import "gtk_tree_view_set_hover_expand" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHoverSelection_ = fn x1 & x2 => (_import "gtk_tree_view_set_hover_selection" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setLevelIndentation_ = fn x1 & x2 => (_import "gtk_tree_view_set_level_indentation" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setModel_ = fn x1 & x2 => (_import "gtk_tree_view_set_model" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * unit GtkTreeModelClass.FFI.p -> unit;) (x1, x2)
-    val setReorderable_ = fn x1 & x2 => (_import "gtk_tree_view_set_reorderable" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setRubberBanding_ = fn x1 & x2 => (_import "gtk_tree_view_set_rubber_banding" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setRulesHint_ = fn x1 & x2 => (_import "gtk_tree_view_set_rules_hint" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setSearchColumn_ = fn x1 & x2 => (_import "gtk_tree_view_set_search_column" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
-    val setSearchEntry_ = fn x1 & x2 => (_import "gtk_tree_view_set_search_entry" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * unit GtkEntryClass.FFI.p -> unit;) (x1, x2)
-    val setShowExpanders_ = fn x1 & x2 => (_import "gtk_tree_view_set_show_expanders" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setEnableSearch_ = fn x1 & x2 => (_import "gtk_tree_view_set_enable_search" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setEnableTreeLines_ = fn x1 & x2 => (_import "gtk_tree_view_set_enable_tree_lines" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setExpanderColumn_ = fn x1 & x2 => (_import "gtk_tree_view_set_expander_column" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GtkTreeViewColumnClass.FFI.non_opt GtkTreeViewColumnClass.FFI.p -> unit;) (x1, x2)
+    val setFixedHeightMode_ = fn x1 & x2 => (_import "gtk_tree_view_set_fixed_height_mode" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setGridLines_ = fn x1 & x2 => (_import "gtk_tree_view_set_grid_lines" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GtkTreeViewGridLines.FFI.val_ -> unit;) (x1, x2)
+    val setHadjustment_ = fn x1 & x2 => (_import "gtk_tree_view_set_hadjustment" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val setHeadersClickable_ = fn x1 & x2 => (_import "gtk_tree_view_set_headers_clickable" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHeadersVisible_ = fn x1 & x2 => (_import "gtk_tree_view_set_headers_visible" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHoverExpand_ = fn x1 & x2 => (_import "gtk_tree_view_set_hover_expand" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHoverSelection_ = fn x1 & x2 => (_import "gtk_tree_view_set_hover_selection" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setLevelIndentation_ = fn x1 & x2 => (_import "gtk_tree_view_set_level_indentation" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setModel_ = fn x1 & x2 => (_import "gtk_tree_view_set_model" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GtkTreeModelClass.FFI.opt GtkTreeModelClass.FFI.p -> unit;) (x1, x2)
+    val setReorderable_ = fn x1 & x2 => (_import "gtk_tree_view_set_reorderable" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setRubberBanding_ = fn x1 & x2 => (_import "gtk_tree_view_set_rubber_banding" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setRulesHint_ = fn x1 & x2 => (_import "gtk_tree_view_set_rules_hint" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setSearchColumn_ = fn x1 & x2 => (_import "gtk_tree_view_set_search_column" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setSearchEntry_ = fn x1 & x2 => (_import "gtk_tree_view_set_search_entry" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GtkEntryClass.FFI.opt GtkEntryClass.FFI.p -> unit;) (x1, x2)
+    val setShowExpanders_ = fn x1 & x2 => (_import "gtk_tree_view_set_show_expanders" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setTooltipCell_ =
       fn
         x1
@@ -641,11 +641,11 @@ structure GtkTreeView :>
          & x5 =>
           (
             _import "gtk_tree_view_set_tooltip_cell" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * GtkTooltipClass.FFI.notnull GtkTooltipClass.FFI.p
-               * unit GtkTreePathRecord.FFI.p
-               * unit GtkTreeViewColumnClass.FFI.p
-               * unit GtkCellRendererClass.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * GtkTooltipClass.FFI.non_opt GtkTooltipClass.FFI.p
+               * GtkTreePathRecord.FFI.opt GtkTreePathRecord.FFI.p
+               * GtkTreeViewColumnClass.FFI.opt GtkTreeViewColumnClass.FFI.p
+               * GtkCellRendererClass.FFI.opt GtkCellRendererClass.FFI.p
                -> unit;
           )
             (
@@ -655,7 +655,7 @@ structure GtkTreeView :>
               x4,
               x5
             )
-    val setTooltipColumn_ = fn x1 & x2 => (_import "gtk_tree_view_set_tooltip_column" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setTooltipColumn_ = fn x1 & x2 => (_import "gtk_tree_view_set_tooltip_column" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setTooltipRow_ =
       fn
         x1
@@ -663,9 +663,9 @@ structure GtkTreeView :>
          & x3 =>
           (
             _import "gtk_tree_view_set_tooltip_row" :
-              GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p
-               * GtkTooltipClass.FFI.notnull GtkTooltipClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
+              GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p
+               * GtkTooltipClass.FFI.non_opt GtkTooltipClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
                -> unit;
           )
             (
@@ -673,9 +673,9 @@ structure GtkTreeView :>
               x2,
               x3
             )
-    val setVadjustment_ = fn x1 & x2 => (_import "gtk_tree_view_set_vadjustment" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p * unit GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
-    val unsetRowsDragDest_ = _import "gtk_tree_view_unset_rows_drag_dest" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> unit;
-    val unsetRowsDragSource_ = _import "gtk_tree_view_unset_rows_drag_source" : GtkTreeViewClass.FFI.notnull GtkTreeViewClass.FFI.p -> unit;
+    val setVadjustment_ = fn x1 & x2 => (_import "gtk_tree_view_set_vadjustment" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p * GtkAdjustmentClass.FFI.opt GtkAdjustmentClass.FFI.p -> unit;) (x1, x2)
+    val unsetRowsDragDest_ = _import "gtk_tree_view_unset_rows_drag_dest" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> unit;
+    val unsetRowsDragSource_ = _import "gtk_tree_view_unset_rows_drag_source" : GtkTreeViewClass.FFI.non_opt GtkTreeViewClass.FFI.p -> unit;
     type 'a class = 'a GtkTreeViewClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a scrollable_class = 'a GtkScrollableClass.class

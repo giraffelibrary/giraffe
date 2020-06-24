@@ -37,8 +37,8 @@ structure GtkIconSize :>
       )
     open Enum
     val getType_ = _import "gtk_icon_size_get_type" : unit -> GObjectType.FFI.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       ValueAccessor.C.createAccessor
         {
@@ -46,8 +46,8 @@ structure GtkIconSize :>
           getValue = (I ---> FFI.fromVal) getValue_,
           setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
-    val fromName_ = _import "mlton_gtk_icon_size_from_name" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GInt32.FFI.val_;
-    val getName_ = _import "gtk_icon_size_get_name" : GInt32.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val fromName_ = _import "mlton_gtk_icon_size_from_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GInt32.FFI.val_;
+    val getName_ = _import "gtk_icon_size_get_name" : GInt32.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val lookup_ =
       fn
         x1
@@ -73,7 +73,7 @@ structure GtkIconSize :>
          & x4 =>
           (
             _import "gtk_icon_size_lookup_for_settings" :
-              GtkSettingsClass.FFI.notnull GtkSettingsClass.FFI.p
+              GtkSettingsClass.FFI.non_opt GtkSettingsClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.ref_
                * GInt32.FFI.ref_
@@ -93,7 +93,7 @@ structure GtkIconSize :>
           (
             _import "mlton_gtk_icon_size_register" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> GInt32.FFI.val_;
@@ -110,7 +110,7 @@ structure GtkIconSize :>
           (
             _import "mlton_gtk_icon_size_register_alias" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )

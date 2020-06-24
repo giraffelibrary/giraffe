@@ -9,9 +9,9 @@ structure GtkSourceRegionIter :>
          & x3 =>
           (
             _import "gtk_source_region_iter_get_subregion" :
-              GtkSourceRegionIterRecord.FFI.notnull GtkSourceRegionIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceRegionIterRecord.FFI.non_opt GtkSourceRegionIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -19,8 +19,8 @@ structure GtkSourceRegionIter :>
               x2,
               x3
             )
-    val isEnd_ = _import "gtk_source_region_iter_is_end" : GtkSourceRegionIterRecord.FFI.notnull GtkSourceRegionIterRecord.FFI.p -> GBool.FFI.val_;
-    val next_ = _import "gtk_source_region_iter_next" : GtkSourceRegionIterRecord.FFI.notnull GtkSourceRegionIterRecord.FFI.p -> GBool.FFI.val_;
+    val isEnd_ = _import "gtk_source_region_iter_is_end" : GtkSourceRegionIterRecord.FFI.non_opt GtkSourceRegionIterRecord.FFI.p -> GBool.FFI.val_;
+    val next_ = _import "gtk_source_region_iter_next" : GtkSourceRegionIterRecord.FFI.non_opt GtkSourceRegionIterRecord.FFI.p -> GBool.FFI.val_;
     type t = GtkSourceRegionIterRecord.t
     fun getSubregion self =
       let

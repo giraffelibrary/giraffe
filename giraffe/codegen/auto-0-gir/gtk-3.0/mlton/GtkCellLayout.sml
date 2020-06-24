@@ -13,10 +13,10 @@ structure GtkCellLayout :>
          & x5 =>
           (
             _import "mlton_gtk_cell_layout_add_attribute" :
-              GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellLayoutClass.FFI.non_opt GtkCellLayoutClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.val_
                -> unit;
           )
@@ -27,9 +27,9 @@ structure GtkCellLayout :>
               x4,
               x5
             )
-    val clear_ = _import "gtk_cell_layout_clear" : GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p -> unit;
-    val clearAttributes_ = fn x1 & x2 => (_import "gtk_cell_layout_clear_attributes" : GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p -> unit;) (x1, x2)
-    val getArea_ = _import "gtk_cell_layout_get_area" : GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p -> unit GtkCellAreaClass.FFI.p;
+    val clear_ = _import "gtk_cell_layout_clear" : GtkCellLayoutClass.FFI.non_opt GtkCellLayoutClass.FFI.p -> unit;
+    val clearAttributes_ = fn x1 & x2 => (_import "gtk_cell_layout_clear_attributes" : GtkCellLayoutClass.FFI.non_opt GtkCellLayoutClass.FFI.p * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p -> unit;) (x1, x2)
+    val getArea_ = _import "gtk_cell_layout_get_area" : GtkCellLayoutClass.FFI.non_opt GtkCellLayoutClass.FFI.p -> GtkCellAreaClass.FFI.opt GtkCellAreaClass.FFI.p;
     val packEnd_ =
       fn
         x1
@@ -37,8 +37,8 @@ structure GtkCellLayout :>
          & x3 =>
           (
             _import "gtk_cell_layout_pack_end" :
-              GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellLayoutClass.FFI.non_opt GtkCellLayoutClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -54,8 +54,8 @@ structure GtkCellLayout :>
          & x3 =>
           (
             _import "gtk_cell_layout_pack_start" :
-              GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellLayoutClass.FFI.non_opt GtkCellLayoutClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                * GBool.FFI.val_
                -> unit;
           )
@@ -71,8 +71,8 @@ structure GtkCellLayout :>
          & x3 =>
           (
             _import "gtk_cell_layout_reorder" :
-              GtkCellLayoutClass.FFI.notnull GtkCellLayoutClass.FFI.p
-               * GtkCellRendererClass.FFI.notnull GtkCellRendererClass.FFI.p
+              GtkCellLayoutClass.FFI.non_opt GtkCellLayoutClass.FFI.p
+               * GtkCellRendererClass.FFI.non_opt GtkCellRendererClass.FFI.p
                * GInt.FFI.val_
                -> unit;
           )

@@ -28,7 +28,7 @@ structure GIRepositoryCallableInfo :>
           (getSymbol "g_callable_info_get_return_attribute")
           (GIRepositoryBaseInfoClass.PolyML.cPtr
             &&> Utf8.PolyML.cInPtr
-            --> Utf8.PolyML.cOutPtr);
+            --> Utf8.PolyML.cOutOptPtr);
 
       val getNArgs_ =
         call

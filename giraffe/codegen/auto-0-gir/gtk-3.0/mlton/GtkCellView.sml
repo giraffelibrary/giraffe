@@ -11,15 +11,15 @@ structure GtkCellView :>
     where type 'a tree_model_class = 'a GtkTreeModelClass.class =
   struct
     val getType_ = _import "gtk_cell_view_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_cell_view_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithContext_ = fn x1 & x2 => (_import "gtk_cell_view_new_with_context" : GtkCellAreaClass.FFI.notnull GtkCellAreaClass.FFI.p * GtkCellAreaContextClass.FFI.notnull GtkCellAreaContextClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
-    val newWithMarkup_ = _import "mlton_gtk_cell_view_new_with_markup" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithPixbuf_ = _import "gtk_cell_view_new_with_pixbuf" : GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithText_ = _import "mlton_gtk_cell_view_new_with_text" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val getDisplayedRow_ = _import "gtk_cell_view_get_displayed_row" : GtkCellViewClass.FFI.notnull GtkCellViewClass.FFI.p -> unit GtkTreePathRecord.FFI.p;
-    val getDrawSensitive_ = _import "gtk_cell_view_get_draw_sensitive" : GtkCellViewClass.FFI.notnull GtkCellViewClass.FFI.p -> GBool.FFI.val_;
-    val getFitModel_ = _import "gtk_cell_view_get_fit_model" : GtkCellViewClass.FFI.notnull GtkCellViewClass.FFI.p -> GBool.FFI.val_;
-    val getModel_ = _import "gtk_cell_view_get_model" : GtkCellViewClass.FFI.notnull GtkCellViewClass.FFI.p -> unit GtkTreeModelClass.FFI.p;
+    val new_ = _import "gtk_cell_view_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithContext_ = fn x1 & x2 => (_import "gtk_cell_view_new_with_context" : GtkCellAreaClass.FFI.non_opt GtkCellAreaClass.FFI.p * GtkCellAreaContextClass.FFI.non_opt GtkCellAreaContextClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val newWithMarkup_ = _import "mlton_gtk_cell_view_new_with_markup" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithPixbuf_ = _import "gtk_cell_view_new_with_pixbuf" : GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithText_ = _import "mlton_gtk_cell_view_new_with_text" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val getDisplayedRow_ = _import "gtk_cell_view_get_displayed_row" : GtkCellViewClass.FFI.non_opt GtkCellViewClass.FFI.p -> GtkTreePathRecord.FFI.opt GtkTreePathRecord.FFI.p;
+    val getDrawSensitive_ = _import "gtk_cell_view_get_draw_sensitive" : GtkCellViewClass.FFI.non_opt GtkCellViewClass.FFI.p -> GBool.FFI.val_;
+    val getFitModel_ = _import "gtk_cell_view_get_fit_model" : GtkCellViewClass.FFI.non_opt GtkCellViewClass.FFI.p -> GBool.FFI.val_;
+    val getModel_ = _import "gtk_cell_view_get_model" : GtkCellViewClass.FFI.non_opt GtkCellViewClass.FFI.p -> GtkTreeModelClass.FFI.opt GtkTreeModelClass.FFI.p;
     val getSizeOfRow_ =
       fn
         x1
@@ -27,9 +27,9 @@ structure GtkCellView :>
          & x3 =>
           (
             _import "gtk_cell_view_get_size_of_row" :
-              GtkCellViewClass.FFI.notnull GtkCellViewClass.FFI.p
-               * GtkTreePathRecord.FFI.notnull GtkTreePathRecord.FFI.p
-               * GtkRequisitionRecord.FFI.notnull GtkRequisitionRecord.FFI.p
+              GtkCellViewClass.FFI.non_opt GtkCellViewClass.FFI.p
+               * GtkTreePathRecord.FFI.non_opt GtkTreePathRecord.FFI.p
+               * GtkRequisitionRecord.FFI.non_opt GtkRequisitionRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -37,12 +37,12 @@ structure GtkCellView :>
               x2,
               x3
             )
-    val setBackgroundColor_ = fn x1 & x2 => (_import "gtk_cell_view_set_background_color" : GtkCellViewClass.FFI.notnull GtkCellViewClass.FFI.p * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p -> unit;) (x1, x2)
-    val setBackgroundRgba_ = fn x1 & x2 => (_import "gtk_cell_view_set_background_rgba" : GtkCellViewClass.FFI.notnull GtkCellViewClass.FFI.p * GdkRgbaRecord.FFI.notnull GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
-    val setDisplayedRow_ = fn x1 & x2 => (_import "gtk_cell_view_set_displayed_row" : GtkCellViewClass.FFI.notnull GtkCellViewClass.FFI.p * unit GtkTreePathRecord.FFI.p -> unit;) (x1, x2)
-    val setDrawSensitive_ = fn x1 & x2 => (_import "gtk_cell_view_set_draw_sensitive" : GtkCellViewClass.FFI.notnull GtkCellViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setFitModel_ = fn x1 & x2 => (_import "gtk_cell_view_set_fit_model" : GtkCellViewClass.FFI.notnull GtkCellViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setModel_ = fn x1 & x2 => (_import "gtk_cell_view_set_model" : GtkCellViewClass.FFI.notnull GtkCellViewClass.FFI.p * unit GtkTreeModelClass.FFI.p -> unit;) (x1, x2)
+    val setBackgroundColor_ = fn x1 & x2 => (_import "gtk_cell_view_set_background_color" : GtkCellViewClass.FFI.non_opt GtkCellViewClass.FFI.p * GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p -> unit;) (x1, x2)
+    val setBackgroundRgba_ = fn x1 & x2 => (_import "gtk_cell_view_set_background_rgba" : GtkCellViewClass.FFI.non_opt GtkCellViewClass.FFI.p * GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> unit;) (x1, x2)
+    val setDisplayedRow_ = fn x1 & x2 => (_import "gtk_cell_view_set_displayed_row" : GtkCellViewClass.FFI.non_opt GtkCellViewClass.FFI.p * GtkTreePathRecord.FFI.opt GtkTreePathRecord.FFI.p -> unit;) (x1, x2)
+    val setDrawSensitive_ = fn x1 & x2 => (_import "gtk_cell_view_set_draw_sensitive" : GtkCellViewClass.FFI.non_opt GtkCellViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setFitModel_ = fn x1 & x2 => (_import "gtk_cell_view_set_fit_model" : GtkCellViewClass.FFI.non_opt GtkCellViewClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setModel_ = fn x1 & x2 => (_import "gtk_cell_view_set_model" : GtkCellViewClass.FFI.non_opt GtkCellViewClass.FFI.p * GtkTreeModelClass.FFI.opt GtkTreeModelClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkCellViewClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class

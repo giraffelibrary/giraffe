@@ -8,7 +8,7 @@ structure GtkGrid :>
     where type baseline_position_t = GtkBaselinePosition.t =
   struct
     val getType_ = _import "gtk_grid_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_grid_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_grid_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val attach_ =
       fn
         x1
@@ -19,8 +19,8 @@ structure GtkGrid :>
          & x6 =>
           (
             _import "gtk_grid_attach" :
-              GtkGridClass.FFI.notnull GtkGridClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkGridClass.FFI.non_opt GtkGridClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -45,9 +45,9 @@ structure GtkGrid :>
          & x6 =>
           (
             _import "gtk_grid_attach_next_to" :
-              GtkGridClass.FFI.notnull GtkGridClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
-               * unit GtkWidgetClass.FFI.p
+              GtkGridClass.FFI.non_opt GtkGridClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * GtkPositionType.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -61,7 +61,7 @@ structure GtkGrid :>
               x5,
               x6
             )
-    val getBaselineRow_ = _import "gtk_grid_get_baseline_row" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p -> GInt.FFI.val_;
+    val getBaselineRow_ = _import "gtk_grid_get_baseline_row" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p -> GInt.FFI.val_;
     val getChildAt_ =
       fn
         x1
@@ -69,22 +69,22 @@ structure GtkGrid :>
          & x3 =>
           (
             _import "gtk_grid_get_child_at" :
-              GtkGridClass.FFI.notnull GtkGridClass.FFI.p
+              GtkGridClass.FFI.non_opt GtkGridClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> unit GtkWidgetClass.FFI.p;
+               -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getColumnHomogeneous_ = _import "gtk_grid_get_column_homogeneous" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p -> GBool.FFI.val_;
-    val getColumnSpacing_ = _import "gtk_grid_get_column_spacing" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p -> GUInt.FFI.val_;
-    val getRowBaselinePosition_ = fn x1 & x2 => (_import "gtk_grid_get_row_baseline_position" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p * GInt.FFI.val_ -> GtkBaselinePosition.FFI.val_;) (x1, x2)
-    val getRowHomogeneous_ = _import "gtk_grid_get_row_homogeneous" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p -> GBool.FFI.val_;
-    val getRowSpacing_ = _import "gtk_grid_get_row_spacing" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p -> GUInt.FFI.val_;
-    val insertColumn_ = fn x1 & x2 => (_import "gtk_grid_insert_column" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val getColumnHomogeneous_ = _import "gtk_grid_get_column_homogeneous" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p -> GBool.FFI.val_;
+    val getColumnSpacing_ = _import "gtk_grid_get_column_spacing" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p -> GUInt.FFI.val_;
+    val getRowBaselinePosition_ = fn x1 & x2 => (_import "gtk_grid_get_row_baseline_position" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p * GInt.FFI.val_ -> GtkBaselinePosition.FFI.val_;) (x1, x2)
+    val getRowHomogeneous_ = _import "gtk_grid_get_row_homogeneous" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p -> GBool.FFI.val_;
+    val getRowSpacing_ = _import "gtk_grid_get_row_spacing" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p -> GUInt.FFI.val_;
+    val insertColumn_ = fn x1 & x2 => (_import "gtk_grid_insert_column" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     val insertNextTo_ =
       fn
         x1
@@ -92,8 +92,8 @@ structure GtkGrid :>
          & x3 =>
           (
             _import "gtk_grid_insert_next_to" :
-              GtkGridClass.FFI.notnull GtkGridClass.FFI.p
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+              GtkGridClass.FFI.non_opt GtkGridClass.FFI.p
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GtkPositionType.FFI.val_
                -> unit;
           )
@@ -102,12 +102,12 @@ structure GtkGrid :>
               x2,
               x3
             )
-    val insertRow_ = fn x1 & x2 => (_import "gtk_grid_insert_row" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val removeColumn_ = fn x1 & x2 => (_import "gtk_grid_remove_column" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val removeRow_ = fn x1 & x2 => (_import "gtk_grid_remove_row" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setBaselineRow_ = fn x1 & x2 => (_import "gtk_grid_set_baseline_row" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
-    val setColumnHomogeneous_ = fn x1 & x2 => (_import "gtk_grid_set_column_homogeneous" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setColumnSpacing_ = fn x1 & x2 => (_import "gtk_grid_set_column_spacing" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val insertRow_ = fn x1 & x2 => (_import "gtk_grid_insert_row" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val removeColumn_ = fn x1 & x2 => (_import "gtk_grid_remove_column" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val removeRow_ = fn x1 & x2 => (_import "gtk_grid_remove_row" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setBaselineRow_ = fn x1 & x2 => (_import "gtk_grid_set_baseline_row" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val setColumnHomogeneous_ = fn x1 & x2 => (_import "gtk_grid_set_column_homogeneous" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setColumnSpacing_ = fn x1 & x2 => (_import "gtk_grid_set_column_spacing" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     val setRowBaselinePosition_ =
       fn
         x1
@@ -115,7 +115,7 @@ structure GtkGrid :>
          & x3 =>
           (
             _import "gtk_grid_set_row_baseline_position" :
-              GtkGridClass.FFI.notnull GtkGridClass.FFI.p
+              GtkGridClass.FFI.non_opt GtkGridClass.FFI.p
                * GInt.FFI.val_
                * GtkBaselinePosition.FFI.val_
                -> unit;
@@ -125,8 +125,8 @@ structure GtkGrid :>
               x2,
               x3
             )
-    val setRowHomogeneous_ = fn x1 & x2 => (_import "gtk_grid_set_row_homogeneous" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setRowSpacing_ = fn x1 & x2 => (_import "gtk_grid_set_row_spacing" : GtkGridClass.FFI.notnull GtkGridClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
+    val setRowHomogeneous_ = fn x1 & x2 => (_import "gtk_grid_set_row_homogeneous" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setRowSpacing_ = fn x1 & x2 => (_import "gtk_grid_set_row_spacing" : GtkGridClass.FFI.non_opt GtkGridClass.FFI.p * GUInt.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkGridClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

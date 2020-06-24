@@ -4,22 +4,22 @@ structure GtkNumerableIcon :>
     where type 'a style_context_class = 'a GtkStyleContextClass.class =
   struct
     val getType_ = _import "gtk_numerable_icon_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_numerable_icon_new" : GioIconClass.FFI.notnull GioIconClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;
-    val newWithStyleContext_ = fn x1 & x2 => (_import "gtk_numerable_icon_new_with_style_context" : GioIconClass.FFI.notnull GioIconClass.FFI.p * GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> GioIconClass.FFI.notnull GioIconClass.FFI.p;) (x1, x2)
-    val getBackgroundGicon_ = _import "gtk_numerable_icon_get_background_gicon" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> unit GioIconClass.FFI.p;
-    val getBackgroundIconName_ = _import "gtk_numerable_icon_get_background_icon_name" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getCount_ = _import "gtk_numerable_icon_get_count" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> GInt32.FFI.val_;
-    val getLabel_ = _import "gtk_numerable_icon_get_label" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getStyleContext_ = _import "gtk_numerable_icon_get_style_context" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p -> unit GtkStyleContextClass.FFI.p;
-    val setBackgroundGicon_ = fn x1 & x2 => (_import "gtk_numerable_icon_set_background_gicon" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p * unit GioIconClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_numerable_icon_new" : GioIconClass.FFI.non_opt GioIconClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;
+    val newWithStyleContext_ = fn x1 & x2 => (_import "gtk_numerable_icon_new_with_style_context" : GioIconClass.FFI.non_opt GioIconClass.FFI.p * GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> GioIconClass.FFI.non_opt GioIconClass.FFI.p;) (x1, x2)
+    val getBackgroundGicon_ = _import "gtk_numerable_icon_get_background_gicon" : GtkNumerableIconClass.FFI.non_opt GtkNumerableIconClass.FFI.p -> GioIconClass.FFI.opt GioIconClass.FFI.p;
+    val getBackgroundIconName_ = _import "gtk_numerable_icon_get_background_icon_name" : GtkNumerableIconClass.FFI.non_opt GtkNumerableIconClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getCount_ = _import "gtk_numerable_icon_get_count" : GtkNumerableIconClass.FFI.non_opt GtkNumerableIconClass.FFI.p -> GInt32.FFI.val_;
+    val getLabel_ = _import "gtk_numerable_icon_get_label" : GtkNumerableIconClass.FFI.non_opt GtkNumerableIconClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getStyleContext_ = _import "gtk_numerable_icon_get_style_context" : GtkNumerableIconClass.FFI.non_opt GtkNumerableIconClass.FFI.p -> GtkStyleContextClass.FFI.opt GtkStyleContextClass.FFI.p;
+    val setBackgroundGicon_ = fn x1 & x2 => (_import "gtk_numerable_icon_set_background_gicon" : GtkNumerableIconClass.FFI.non_opt GtkNumerableIconClass.FFI.p * GioIconClass.FFI.opt GioIconClass.FFI.p -> unit;) (x1, x2)
     val setBackgroundIconName_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_numerable_icon_set_background_icon_name" :
-              GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p
+              GtkNumerableIconClass.FFI.non_opt GtkNumerableIconClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -27,15 +27,15 @@ structure GtkNumerableIcon :>
               x2,
               x3
             )
-    val setCount_ = fn x1 & x2 => (_import "gtk_numerable_icon_set_count" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
+    val setCount_ = fn x1 & x2 => (_import "gtk_numerable_icon_set_count" : GtkNumerableIconClass.FFI.non_opt GtkNumerableIconClass.FFI.p * GInt32.FFI.val_ -> unit;) (x1, x2)
     val setLabel_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_numerable_icon_set_label" :
-              GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p
+              GtkNumerableIconClass.FFI.non_opt GtkNumerableIconClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -43,7 +43,7 @@ structure GtkNumerableIcon :>
               x2,
               x3
             )
-    val setStyleContext_ = fn x1 & x2 => (_import "gtk_numerable_icon_set_style_context" : GtkNumerableIconClass.FFI.notnull GtkNumerableIconClass.FFI.p * GtkStyleContextClass.FFI.notnull GtkStyleContextClass.FFI.p -> unit;) (x1, x2)
+    val setStyleContext_ = fn x1 & x2 => (_import "gtk_numerable_icon_set_style_context" : GtkNumerableIconClass.FFI.non_opt GtkNumerableIconClass.FFI.p * GtkStyleContextClass.FFI.non_opt GtkStyleContextClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkNumerableIconClass.class
     type 'a style_context_class = 'a GtkStyleContextClass.class
     type t = base class

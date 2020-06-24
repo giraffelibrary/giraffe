@@ -1,7 +1,8 @@
 structure GtkPopoverMenuClass :>
   GTK_POPOVER_MENU_CLASS
     where type 'a popover_class = 'a GtkPopoverClass.class
-    where type C.notnull = GtkPopoverClass.C.notnull
+    where type C.opt = GtkPopoverClass.C.opt
+    where type C.non_opt = GtkPopoverClass.C.non_opt
     where type 'a C.p = 'a GtkPopoverClass.C.p =
   struct
     type 'a popover_class = 'a GtkPopoverClass.class

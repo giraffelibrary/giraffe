@@ -6,8 +6,8 @@ structure GtkLevelBar :>
     where type level_bar_mode_t = GtkLevelBarMode.t =
   struct
     val getType_ = _import "gtk_level_bar_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_level_bar_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newForInterval_ = fn x1 & x2 => (_import "gtk_level_bar_new_for_interval" : GDouble.FFI.val_ * GDouble.FFI.val_ -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;) (x1, x2)
+    val new_ = _import "gtk_level_bar_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newForInterval_ = fn x1 & x2 => (_import "gtk_level_bar_new_for_interval" : GDouble.FFI.val_ * GDouble.FFI.val_ -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;) (x1, x2)
     val addOffsetValue_ =
       fn
         x1
@@ -15,9 +15,9 @@ structure GtkLevelBar :>
          & x4 =>
           (
             _import "mlton_gtk_level_bar_add_offset_value" :
-              GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p
+              GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GDouble.FFI.val_
                -> unit;
           )
@@ -27,10 +27,10 @@ structure GtkLevelBar :>
               x3,
               x4
             )
-    val getInverted_ = _import "gtk_level_bar_get_inverted" : GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p -> GBool.FFI.val_;
-    val getMaxValue_ = _import "gtk_level_bar_get_max_value" : GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p -> GDouble.FFI.val_;
-    val getMinValue_ = _import "gtk_level_bar_get_min_value" : GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p -> GDouble.FFI.val_;
-    val getMode_ = _import "gtk_level_bar_get_mode" : GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p -> GtkLevelBarMode.FFI.val_;
+    val getInverted_ = _import "gtk_level_bar_get_inverted" : GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p -> GBool.FFI.val_;
+    val getMaxValue_ = _import "gtk_level_bar_get_max_value" : GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p -> GDouble.FFI.val_;
+    val getMinValue_ = _import "gtk_level_bar_get_min_value" : GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p -> GDouble.FFI.val_;
+    val getMode_ = _import "gtk_level_bar_get_mode" : GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p -> GtkLevelBarMode.FFI.val_;
     val getOffsetValue_ =
       fn
         x1
@@ -38,9 +38,9 @@ structure GtkLevelBar :>
          & x4 =>
           (
             _import "mlton_gtk_level_bar_get_offset_value" :
-              GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p
+              GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GDouble.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -50,15 +50,15 @@ structure GtkLevelBar :>
               x3,
               x4
             )
-    val getValue_ = _import "gtk_level_bar_get_value" : GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p -> GDouble.FFI.val_;
+    val getValue_ = _import "gtk_level_bar_get_value" : GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p -> GDouble.FFI.val_;
     val removeOffsetValue_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_level_bar_remove_offset_value" :
-              GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p
+              GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -66,11 +66,11 @@ structure GtkLevelBar :>
               x2,
               x3
             )
-    val setInverted_ = fn x1 & x2 => (_import "gtk_level_bar_set_inverted" : GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setMaxValue_ = fn x1 & x2 => (_import "gtk_level_bar_set_max_value" : GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setMinValue_ = fn x1 & x2 => (_import "gtk_level_bar_set_min_value" : GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
-    val setMode_ = fn x1 & x2 => (_import "gtk_level_bar_set_mode" : GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p * GtkLevelBarMode.FFI.val_ -> unit;) (x1, x2)
-    val setValue_ = fn x1 & x2 => (_import "gtk_level_bar_set_value" : GtkLevelBarClass.FFI.notnull GtkLevelBarClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setInverted_ = fn x1 & x2 => (_import "gtk_level_bar_set_inverted" : GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setMaxValue_ = fn x1 & x2 => (_import "gtk_level_bar_set_max_value" : GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setMinValue_ = fn x1 & x2 => (_import "gtk_level_bar_set_min_value" : GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val setMode_ = fn x1 & x2 => (_import "gtk_level_bar_set_mode" : GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p * GtkLevelBarMode.FFI.val_ -> unit;) (x1, x2)
+    val setValue_ = fn x1 & x2 => (_import "gtk_level_bar_set_value" : GtkLevelBarClass.FFI.non_opt GtkLevelBarClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkLevelBarClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class

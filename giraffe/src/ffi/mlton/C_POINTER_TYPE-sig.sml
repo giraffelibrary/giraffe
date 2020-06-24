@@ -1,4 +1,4 @@
-(* Copyright (C) 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -31,8 +31,8 @@ signature C_POINTER_TYPE =
          * `t`, freeing can be performed by finalization of finalizable
          * values.  The type `cvector` cannot contain finalizable values and
          * freeing is performed by explicitly applying the function `free`. *)
-        val fromPointer : notnull p -> cvector
-        val toPointer : cvector -> notnull p
+        val fromPointer : non_opt p -> cvector
+        val toPointer : cvector -> non_opt p
         val fromVal : t -> cvector
         val toVal : cvector -> t
       end

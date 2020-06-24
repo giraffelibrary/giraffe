@@ -10,17 +10,17 @@ structure GioDBusObjectProxy :>
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_object_proxy_new" :
-              GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p
+              GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GioDBusObjectProxyClass.FFI.notnull GioDBusObjectProxyClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GioDBusObjectProxyClass.FFI.non_opt GioDBusObjectProxyClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getConnection_ = _import "g_dbus_object_proxy_get_connection" : GioDBusObjectProxyClass.FFI.notnull GioDBusObjectProxyClass.FFI.p -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
+    val getConnection_ = _import "g_dbus_object_proxy_get_connection" : GioDBusObjectProxyClass.FFI.non_opt GioDBusObjectProxyClass.FFI.p -> GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p;
     type 'a class = 'a GioDBusObjectProxyClass.class
     type 'a d_bus_object_class = 'a GioDBusObjectClass.class
     type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class

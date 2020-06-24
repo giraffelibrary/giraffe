@@ -10,41 +10,41 @@ structure GtkToolItem :>
     where type 'a widget_class = 'a GtkWidgetClass.class =
   struct
     val getType_ = _import "gtk_tool_item_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_tool_item_new" : unit -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;
-    val getEllipsizeMode_ = _import "gtk_tool_item_get_ellipsize_mode" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> PangoEllipsizeMode.FFI.val_;
-    val getExpand_ = _import "gtk_tool_item_get_expand" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GBool.FFI.val_;
-    val getHomogeneous_ = _import "gtk_tool_item_get_homogeneous" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GBool.FFI.val_;
-    val getIconSize_ = _import "gtk_tool_item_get_icon_size" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GInt.FFI.val_;
-    val getIsImportant_ = _import "gtk_tool_item_get_is_important" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GBool.FFI.val_;
-    val getOrientation_ = _import "gtk_tool_item_get_orientation" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GtkOrientation.FFI.val_;
+    val new_ = _import "gtk_tool_item_new" : unit -> GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p;
+    val getEllipsizeMode_ = _import "gtk_tool_item_get_ellipsize_mode" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> PangoEllipsizeMode.FFI.val_;
+    val getExpand_ = _import "gtk_tool_item_get_expand" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GBool.FFI.val_;
+    val getHomogeneous_ = _import "gtk_tool_item_get_homogeneous" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GBool.FFI.val_;
+    val getIconSize_ = _import "gtk_tool_item_get_icon_size" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GInt.FFI.val_;
+    val getIsImportant_ = _import "gtk_tool_item_get_is_important" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GBool.FFI.val_;
+    val getOrientation_ = _import "gtk_tool_item_get_orientation" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GtkOrientation.FFI.val_;
     val getProxyMenuItem_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_tool_item_get_proxy_menu_item" :
-              GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p
+              GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getReliefStyle_ = _import "gtk_tool_item_get_relief_style" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GtkReliefStyle.FFI.val_;
-    val getTextAlignment_ = _import "gtk_tool_item_get_text_alignment" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GFloat.FFI.val_;
-    val getTextOrientation_ = _import "gtk_tool_item_get_text_orientation" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GtkOrientation.FFI.val_;
-    val getTextSizeGroup_ = _import "gtk_tool_item_get_text_size_group" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GtkSizeGroupClass.FFI.notnull GtkSizeGroupClass.FFI.p;
-    val getToolbarStyle_ = _import "gtk_tool_item_get_toolbar_style" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GtkToolbarStyle.FFI.val_;
-    val getUseDragWindow_ = _import "gtk_tool_item_get_use_drag_window" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GBool.FFI.val_;
-    val getVisibleHorizontal_ = _import "gtk_tool_item_get_visible_horizontal" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GBool.FFI.val_;
-    val getVisibleVertical_ = _import "gtk_tool_item_get_visible_vertical" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GBool.FFI.val_;
-    val rebuildMenu_ = _import "gtk_tool_item_rebuild_menu" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> unit;
-    val retrieveProxyMenuItem_ = _import "gtk_tool_item_retrieve_proxy_menu_item" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val setExpand_ = fn x1 & x2 => (_import "gtk_tool_item_set_expand" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHomogeneous_ = fn x1 & x2 => (_import "gtk_tool_item_set_homogeneous" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setIsImportant_ = fn x1 & x2 => (_import "gtk_tool_item_set_is_important" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getReliefStyle_ = _import "gtk_tool_item_get_relief_style" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GtkReliefStyle.FFI.val_;
+    val getTextAlignment_ = _import "gtk_tool_item_get_text_alignment" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GFloat.FFI.val_;
+    val getTextOrientation_ = _import "gtk_tool_item_get_text_orientation" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GtkOrientation.FFI.val_;
+    val getTextSizeGroup_ = _import "gtk_tool_item_get_text_size_group" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GtkSizeGroupClass.FFI.non_opt GtkSizeGroupClass.FFI.p;
+    val getToolbarStyle_ = _import "gtk_tool_item_get_toolbar_style" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GtkToolbarStyle.FFI.val_;
+    val getUseDragWindow_ = _import "gtk_tool_item_get_use_drag_window" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GBool.FFI.val_;
+    val getVisibleHorizontal_ = _import "gtk_tool_item_get_visible_horizontal" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GBool.FFI.val_;
+    val getVisibleVertical_ = _import "gtk_tool_item_get_visible_vertical" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GBool.FFI.val_;
+    val rebuildMenu_ = _import "gtk_tool_item_rebuild_menu" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> unit;
+    val retrieveProxyMenuItem_ = _import "gtk_tool_item_retrieve_proxy_menu_item" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val setExpand_ = fn x1 & x2 => (_import "gtk_tool_item_set_expand" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHomogeneous_ = fn x1 & x2 => (_import "gtk_tool_item_set_homogeneous" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setIsImportant_ = fn x1 & x2 => (_import "gtk_tool_item_set_is_important" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setProxyMenuItem_ =
       fn
         x1
@@ -52,10 +52,10 @@ structure GtkToolItem :>
          & x4 =>
           (
             _import "mlton_gtk_tool_item_set_proxy_menu_item" :
-              GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p
+              GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                -> unit;
           )
             (
@@ -69,9 +69,9 @@ structure GtkToolItem :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_tool_item_set_tooltip_markup" :
-              GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p
+              GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -84,9 +84,9 @@ structure GtkToolItem :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_tool_item_set_tooltip_text" :
-              GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p
+              GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -94,10 +94,10 @@ structure GtkToolItem :>
               x2,
               x3
             )
-    val setUseDragWindow_ = fn x1 & x2 => (_import "gtk_tool_item_set_use_drag_window" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setVisibleHorizontal_ = fn x1 & x2 => (_import "gtk_tool_item_set_visible_horizontal" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setVisibleVertical_ = fn x1 & x2 => (_import "gtk_tool_item_set_visible_vertical" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val toolbarReconfigured_ = _import "gtk_tool_item_toolbar_reconfigured" : GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p -> unit;
+    val setUseDragWindow_ = fn x1 & x2 => (_import "gtk_tool_item_set_use_drag_window" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setVisibleHorizontal_ = fn x1 & x2 => (_import "gtk_tool_item_set_visible_horizontal" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setVisibleVertical_ = fn x1 & x2 => (_import "gtk_tool_item_set_visible_vertical" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val toolbarReconfigured_ = _import "gtk_tool_item_toolbar_reconfigured" : GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p -> unit;
     type 'a class = 'a GtkToolItemClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

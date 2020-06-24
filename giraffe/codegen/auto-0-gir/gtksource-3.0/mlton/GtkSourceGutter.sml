@@ -12,17 +12,17 @@ structure GtkSourceGutter :>
          & x3 =>
           (
             _import "gtk_source_gutter_get_renderer_at_pos" :
-              GtkSourceGutterClass.FFI.notnull GtkSourceGutterClass.FFI.p
+              GtkSourceGutterClass.FFI.non_opt GtkSourceGutterClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
-               -> unit GtkSourceGutterRendererClass.FFI.p;
+               -> GtkSourceGutterRendererClass.FFI.opt GtkSourceGutterRendererClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val getWindow_ = _import "gtk_source_gutter_get_window" : GtkSourceGutterClass.FFI.notnull GtkSourceGutterClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+    val getWindow_ = _import "gtk_source_gutter_get_window" : GtkSourceGutterClass.FFI.non_opt GtkSourceGutterClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
     val insert_ =
       fn
         x1
@@ -30,8 +30,8 @@ structure GtkSourceGutter :>
          & x3 =>
           (
             _import "gtk_source_gutter_insert" :
-              GtkSourceGutterClass.FFI.notnull GtkSourceGutterClass.FFI.p
-               * GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
+              GtkSourceGutterClass.FFI.non_opt GtkSourceGutterClass.FFI.p
+               * GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p
                * GInt.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -40,8 +40,8 @@ structure GtkSourceGutter :>
               x2,
               x3
             )
-    val queueDraw_ = _import "gtk_source_gutter_queue_draw" : GtkSourceGutterClass.FFI.notnull GtkSourceGutterClass.FFI.p -> unit;
-    val remove_ = fn x1 & x2 => (_import "gtk_source_gutter_remove" : GtkSourceGutterClass.FFI.notnull GtkSourceGutterClass.FFI.p * GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p -> unit;) (x1, x2)
+    val queueDraw_ = _import "gtk_source_gutter_queue_draw" : GtkSourceGutterClass.FFI.non_opt GtkSourceGutterClass.FFI.p -> unit;
+    val remove_ = fn x1 & x2 => (_import "gtk_source_gutter_remove" : GtkSourceGutterClass.FFI.non_opt GtkSourceGutterClass.FFI.p * GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p -> unit;) (x1, x2)
     val reorder_ =
       fn
         x1
@@ -49,8 +49,8 @@ structure GtkSourceGutter :>
          & x3 =>
           (
             _import "gtk_source_gutter_reorder" :
-              GtkSourceGutterClass.FFI.notnull GtkSourceGutterClass.FFI.p
-               * GtkSourceGutterRendererClass.FFI.notnull GtkSourceGutterRendererClass.FFI.p
+              GtkSourceGutterClass.FFI.non_opt GtkSourceGutterClass.FFI.p
+               * GtkSourceGutterRendererClass.FFI.non_opt GtkSourceGutterRendererClass.FFI.p
                * GInt.FFI.val_
                -> unit;
           )
@@ -66,7 +66,7 @@ structure GtkSourceGutter :>
          & x3 =>
           (
             _import "gtk_source_gutter_set_padding" :
-              GtkSourceGutterClass.FFI.notnull GtkSourceGutterClass.FFI.p
+              GtkSourceGutterClass.FFI.non_opt GtkSourceGutterClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;

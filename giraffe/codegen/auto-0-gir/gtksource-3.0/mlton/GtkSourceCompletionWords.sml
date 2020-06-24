@@ -11,17 +11,17 @@ structure GtkSourceCompletionWords :>
           (
             _import "mlton_gtk_source_completion_words_new" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               * unit GdkPixbufPixbufClass.FFI.p
-               -> GtkSourceCompletionWordsClass.FFI.notnull GtkSourceCompletionWordsClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               * GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p
+               -> GtkSourceCompletionWordsClass.FFI.non_opt GtkSourceCompletionWordsClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val register_ = fn x1 & x2 => (_import "gtk_source_completion_words_register" : GtkSourceCompletionWordsClass.FFI.notnull GtkSourceCompletionWordsClass.FFI.p * GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> unit;) (x1, x2)
-    val unregister_ = fn x1 & x2 => (_import "gtk_source_completion_words_unregister" : GtkSourceCompletionWordsClass.FFI.notnull GtkSourceCompletionWordsClass.FFI.p * GtkTextBufferClass.FFI.notnull GtkTextBufferClass.FFI.p -> unit;) (x1, x2)
+    val register_ = fn x1 & x2 => (_import "gtk_source_completion_words_register" : GtkSourceCompletionWordsClass.FFI.non_opt GtkSourceCompletionWordsClass.FFI.p * GtkTextBufferClass.FFI.non_opt GtkTextBufferClass.FFI.p -> unit;) (x1, x2)
+    val unregister_ = fn x1 & x2 => (_import "gtk_source_completion_words_unregister" : GtkSourceCompletionWordsClass.FFI.non_opt GtkSourceCompletionWordsClass.FFI.p * GtkTextBufferClass.FFI.non_opt GtkTextBufferClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkSourceCompletionWordsClass.class
     type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class
     type completion_activation_t = GtkSourceCompletionActivation.t

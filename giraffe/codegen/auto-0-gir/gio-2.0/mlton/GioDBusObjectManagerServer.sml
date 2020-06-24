@@ -6,20 +6,20 @@ structure GioDBusObjectManagerServer :>
     where type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class =
   struct
     val getType_ = _import "g_dbus_object_manager_server_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "mlton_g_dbus_object_manager_server_new" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GioDBusObjectManagerServerClass.FFI.notnull GioDBusObjectManagerServerClass.FFI.p;
-    val export_ = fn x1 & x2 => (_import "g_dbus_object_manager_server_export" : GioDBusObjectManagerServerClass.FFI.notnull GioDBusObjectManagerServerClass.FFI.p * GioDBusObjectSkeletonClass.FFI.notnull GioDBusObjectSkeletonClass.FFI.p -> unit;) (x1, x2)
-    val exportUniquely_ = fn x1 & x2 => (_import "g_dbus_object_manager_server_export_uniquely" : GioDBusObjectManagerServerClass.FFI.notnull GioDBusObjectManagerServerClass.FFI.p * GioDBusObjectSkeletonClass.FFI.notnull GioDBusObjectSkeletonClass.FFI.p -> unit;) (x1, x2)
-    val getConnection_ = _import "g_dbus_object_manager_server_get_connection" : GioDBusObjectManagerServerClass.FFI.notnull GioDBusObjectManagerServerClass.FFI.p -> GioDBusConnectionClass.FFI.notnull GioDBusConnectionClass.FFI.p;
-    val isExported_ = fn x1 & x2 => (_import "g_dbus_object_manager_server_is_exported" : GioDBusObjectManagerServerClass.FFI.notnull GioDBusObjectManagerServerClass.FFI.p * GioDBusObjectSkeletonClass.FFI.notnull GioDBusObjectSkeletonClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val setConnection_ = fn x1 & x2 => (_import "g_dbus_object_manager_server_set_connection" : GioDBusObjectManagerServerClass.FFI.notnull GioDBusObjectManagerServerClass.FFI.p * unit GioDBusConnectionClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "mlton_g_dbus_object_manager_server_new" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioDBusObjectManagerServerClass.FFI.non_opt GioDBusObjectManagerServerClass.FFI.p;
+    val export_ = fn x1 & x2 => (_import "g_dbus_object_manager_server_export" : GioDBusObjectManagerServerClass.FFI.non_opt GioDBusObjectManagerServerClass.FFI.p * GioDBusObjectSkeletonClass.FFI.non_opt GioDBusObjectSkeletonClass.FFI.p -> unit;) (x1, x2)
+    val exportUniquely_ = fn x1 & x2 => (_import "g_dbus_object_manager_server_export_uniquely" : GioDBusObjectManagerServerClass.FFI.non_opt GioDBusObjectManagerServerClass.FFI.p * GioDBusObjectSkeletonClass.FFI.non_opt GioDBusObjectSkeletonClass.FFI.p -> unit;) (x1, x2)
+    val getConnection_ = _import "g_dbus_object_manager_server_get_connection" : GioDBusObjectManagerServerClass.FFI.non_opt GioDBusObjectManagerServerClass.FFI.p -> GioDBusConnectionClass.FFI.non_opt GioDBusConnectionClass.FFI.p;
+    val isExported_ = fn x1 & x2 => (_import "g_dbus_object_manager_server_is_exported" : GioDBusObjectManagerServerClass.FFI.non_opt GioDBusObjectManagerServerClass.FFI.p * GioDBusObjectSkeletonClass.FFI.non_opt GioDBusObjectSkeletonClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val setConnection_ = fn x1 & x2 => (_import "g_dbus_object_manager_server_set_connection" : GioDBusObjectManagerServerClass.FFI.non_opt GioDBusObjectManagerServerClass.FFI.p * GioDBusConnectionClass.FFI.opt GioDBusConnectionClass.FFI.p -> unit;) (x1, x2)
     val unexport_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_g_dbus_object_manager_server_unexport" :
-              GioDBusObjectManagerServerClass.FFI.notnull GioDBusObjectManagerServerClass.FFI.p
+              GioDBusObjectManagerServerClass.FFI.non_opt GioDBusObjectManagerServerClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (

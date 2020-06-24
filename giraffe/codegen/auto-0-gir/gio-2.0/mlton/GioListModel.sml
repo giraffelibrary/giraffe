@@ -3,9 +3,9 @@ structure GioListModel :>
     where type 'a class = 'a GioListModelClass.class =
   struct
     val getType_ = _import "g_list_model_get_type" : unit -> GObjectType.FFI.val_;
-    val getItemType_ = _import "g_list_model_get_item_type" : GioListModelClass.FFI.notnull GioListModelClass.FFI.p -> GObjectType.FFI.val_;
-    val getNItems_ = _import "g_list_model_get_n_items" : GioListModelClass.FFI.notnull GioListModelClass.FFI.p -> GUInt.FFI.val_;
-    val getItem_ = fn x1 & x2 => (_import "g_list_model_get_object" : GioListModelClass.FFI.notnull GioListModelClass.FFI.p * GUInt.FFI.val_ -> unit GObjectObjectClass.FFI.p;) (x1, x2)
+    val getItemType_ = _import "g_list_model_get_item_type" : GioListModelClass.FFI.non_opt GioListModelClass.FFI.p -> GObjectType.FFI.val_;
+    val getNItems_ = _import "g_list_model_get_n_items" : GioListModelClass.FFI.non_opt GioListModelClass.FFI.p -> GUInt.FFI.val_;
+    val getItem_ = fn x1 & x2 => (_import "g_list_model_get_object" : GioListModelClass.FFI.non_opt GioListModelClass.FFI.p * GUInt.FFI.val_ -> GObjectObjectClass.FFI.opt GObjectObjectClass.FFI.p;) (x1, x2)
     val itemsChanged_ =
       fn
         x1
@@ -14,7 +14,7 @@ structure GioListModel :>
          & x4 =>
           (
             _import "g_list_model_items_changed" :
-              GioListModelClass.FFI.notnull GioListModelClass.FFI.p
+              GioListModelClass.FFI.non_opt GioListModelClass.FFI.p
                * GUInt.FFI.val_
                * GUInt.FFI.val_
                * GUInt.FFI.val_

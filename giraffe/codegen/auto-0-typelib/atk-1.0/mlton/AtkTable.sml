@@ -4,11 +4,11 @@ structure AtkTable :>
     where type 'a object_class = 'a AtkObjectClass.class =
   struct
     val getType_ = _import "atk_table_get_type" : unit -> GObjectType.FFI.val_;
-    val addColumnSelection_ = fn x1 & x2 => (_import "atk_table_add_column_selection" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val addRowSelection_ = fn x1 & x2 => (_import "atk_table_add_row_selection" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val getCaption_ = _import "atk_table_get_caption" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p -> unit AtkObjectClass.FFI.p;
-    val getColumnAtIndex_ = fn x1 & x2 => (_import "atk_table_get_column_at_index" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
-    val getColumnDescription_ = fn x1 & x2 => (_import "atk_table_get_column_description" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt32.FFI.val_ -> Utf8.FFI.notnull Utf8.FFI.out_p;) (x1, x2)
+    val addColumnSelection_ = fn x1 & x2 => (_import "atk_table_add_column_selection" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val addRowSelection_ = fn x1 & x2 => (_import "atk_table_add_row_selection" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val getCaption_ = _import "atk_table_get_caption" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p -> AtkObjectClass.FFI.opt AtkObjectClass.FFI.p;
+    val getColumnAtIndex_ = fn x1 & x2 => (_import "atk_table_get_column_at_index" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
+    val getColumnDescription_ = fn x1 & x2 => (_import "atk_table_get_column_description" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * GInt32.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
     val getColumnExtentAt_ =
       fn
         x1
@@ -16,7 +16,7 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_get_column_extent_at" :
-              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+              AtkTableClass.FFI.non_opt AtkTableClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> GInt32.FFI.val_;
@@ -26,7 +26,7 @@ structure AtkTable :>
               x2,
               x3
             )
-    val getColumnHeader_ = fn x1 & x2 => (_import "atk_table_get_column_header" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt32.FFI.val_ -> unit AtkObjectClass.FFI.p;) (x1, x2)
+    val getColumnHeader_ = fn x1 & x2 => (_import "atk_table_get_column_header" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * GInt32.FFI.val_ -> AtkObjectClass.FFI.opt AtkObjectClass.FFI.p;) (x1, x2)
     val getIndexAt_ =
       fn
         x1
@@ -34,7 +34,7 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_get_index_at" :
-              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+              AtkTableClass.FFI.non_opt AtkTableClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> GInt32.FFI.val_;
@@ -44,10 +44,10 @@ structure AtkTable :>
               x2,
               x3
             )
-    val getNColumns_ = _import "atk_table_get_n_columns" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p -> GInt32.FFI.val_;
-    val getNRows_ = _import "atk_table_get_n_rows" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p -> GInt32.FFI.val_;
-    val getRowAtIndex_ = fn x1 & x2 => (_import "atk_table_get_row_at_index" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
-    val getRowDescription_ = fn x1 & x2 => (_import "atk_table_get_row_description" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt32.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
+    val getNColumns_ = _import "atk_table_get_n_columns" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p -> GInt32.FFI.val_;
+    val getNRows_ = _import "atk_table_get_n_rows" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p -> GInt32.FFI.val_;
+    val getRowAtIndex_ = fn x1 & x2 => (_import "atk_table_get_row_at_index" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
+    val getRowDescription_ = fn x1 & x2 => (_import "atk_table_get_row_description" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * GInt32.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
     val getRowExtentAt_ =
       fn
         x1
@@ -55,7 +55,7 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_get_row_extent_at" :
-              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+              AtkTableClass.FFI.non_opt AtkTableClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> GInt32.FFI.val_;
@@ -65,10 +65,10 @@ structure AtkTable :>
               x2,
               x3
             )
-    val getRowHeader_ = fn x1 & x2 => (_import "atk_table_get_row_header" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt32.FFI.val_ -> unit AtkObjectClass.FFI.p;) (x1, x2)
-    val getSummary_ = _import "atk_table_get_summary" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
-    val isColumnSelected_ = fn x1 & x2 => (_import "atk_table_is_column_selected" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val isRowSelected_ = fn x1 & x2 => (_import "atk_table_is_row_selected" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val getRowHeader_ = fn x1 & x2 => (_import "atk_table_get_row_header" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * GInt32.FFI.val_ -> AtkObjectClass.FFI.opt AtkObjectClass.FFI.p;) (x1, x2)
+    val getSummary_ = _import "atk_table_get_summary" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;
+    val isColumnSelected_ = fn x1 & x2 => (_import "atk_table_is_column_selected" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val isRowSelected_ = fn x1 & x2 => (_import "atk_table_is_row_selected" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     val isSelected_ =
       fn
         x1
@@ -76,7 +76,7 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_is_selected" :
-              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+              AtkTableClass.FFI.non_opt AtkTableClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> GBool.FFI.val_;
@@ -93,19 +93,19 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_ref_at" :
-              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+              AtkTableClass.FFI.non_opt AtkTableClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
-               -> AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p;
+               -> AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val removeColumnSelection_ = fn x1 & x2 => (_import "atk_table_remove_column_selection" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val removeRowSelection_ = fn x1 & x2 => (_import "atk_table_remove_row_selection" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val setCaption_ = fn x1 & x2 => (_import "atk_table_set_caption" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> unit;) (x1, x2)
+    val removeColumnSelection_ = fn x1 & x2 => (_import "atk_table_remove_column_selection" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val removeRowSelection_ = fn x1 & x2 => (_import "atk_table_remove_row_selection" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * GInt32.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val setCaption_ = fn x1 & x2 => (_import "atk_table_set_caption" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> unit;) (x1, x2)
     val setColumnDescription_ =
       fn
         x1
@@ -113,10 +113,10 @@ structure AtkTable :>
          & (x3, x4) =>
           (
             _import "mlton_atk_table_set_column_description" :
-              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+              AtkTableClass.FFI.non_opt AtkTableClass.FFI.p
                * GInt32.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -132,9 +132,9 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_set_column_header" :
-              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+              AtkTableClass.FFI.non_opt AtkTableClass.FFI.p
                * GInt32.FFI.val_
-               * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               * AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p
                -> unit;
           )
             (
@@ -149,10 +149,10 @@ structure AtkTable :>
          & (x3, x4) =>
           (
             _import "mlton_atk_table_set_row_description" :
-              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+              AtkTableClass.FFI.non_opt AtkTableClass.FFI.p
                * GInt32.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -168,9 +168,9 @@ structure AtkTable :>
          & x3 =>
           (
             _import "atk_table_set_row_header" :
-              AtkTableClass.FFI.notnull AtkTableClass.FFI.p
+              AtkTableClass.FFI.non_opt AtkTableClass.FFI.p
                * GInt32.FFI.val_
-               * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p
+               * AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p
                -> unit;
           )
             (
@@ -178,7 +178,7 @@ structure AtkTable :>
               x2,
               x3
             )
-    val setSummary_ = fn x1 & x2 => (_import "atk_table_set_summary" : AtkTableClass.FFI.notnull AtkTableClass.FFI.p * AtkObjectClass.FFI.notnull AtkObjectClass.FFI.p -> unit;) (x1, x2)
+    val setSummary_ = fn x1 & x2 => (_import "atk_table_set_summary" : AtkTableClass.FFI.non_opt AtkTableClass.FFI.p * AtkObjectClass.FFI.non_opt AtkObjectClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a AtkTableClass.class
     type 'a object_class = 'a AtkObjectClass.class
     type t = base class

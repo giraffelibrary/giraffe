@@ -14,9 +14,9 @@ structure GtkSourceCompletionProvider :>
          & x3 =>
           (
             _import "gtk_source_completion_provider_activate_proposal" :
-              GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p
-               * GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p
+               * GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -24,14 +24,14 @@ structure GtkSourceCompletionProvider :>
               x2,
               x3
             )
-    val getActivation_ = _import "gtk_source_completion_provider_get_activation" : GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p -> GtkSourceCompletionActivation.FFI.val_;
-    val getGicon_ = _import "gtk_source_completion_provider_get_gicon" : GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p -> unit GioIconClass.FFI.p;
-    val getIcon_ = _import "gtk_source_completion_provider_get_icon" : GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p -> unit GdkPixbufPixbufClass.FFI.p;
-    val getIconName_ = _import "gtk_source_completion_provider_get_icon_name" : GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getInfoWidget_ = fn x1 & x2 => (_import "gtk_source_completion_provider_get_info_widget" : GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p * GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p -> unit GtkWidgetClass.FFI.p;) (x1, x2)
-    val getInteractiveDelay_ = _import "gtk_source_completion_provider_get_interactive_delay" : GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p -> GInt32.FFI.val_;
-    val getName_ = _import "gtk_source_completion_provider_get_name" : GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getPriority_ = _import "gtk_source_completion_provider_get_priority" : GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p -> GInt32.FFI.val_;
+    val getActivation_ = _import "gtk_source_completion_provider_get_activation" : GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p -> GtkSourceCompletionActivation.FFI.val_;
+    val getGicon_ = _import "gtk_source_completion_provider_get_gicon" : GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p -> GioIconClass.FFI.opt GioIconClass.FFI.p;
+    val getIcon_ = _import "gtk_source_completion_provider_get_icon" : GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
+    val getIconName_ = _import "gtk_source_completion_provider_get_icon_name" : GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getInfoWidget_ = fn x1 & x2 => (_import "gtk_source_completion_provider_get_info_widget" : GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p * GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val getInteractiveDelay_ = _import "gtk_source_completion_provider_get_interactive_delay" : GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p -> GInt32.FFI.val_;
+    val getName_ = _import "gtk_source_completion_provider_get_name" : GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getPriority_ = _import "gtk_source_completion_provider_get_priority" : GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p -> GInt32.FFI.val_;
     val getStartIter_ =
       fn
         x1
@@ -40,10 +40,10 @@ structure GtkSourceCompletionProvider :>
          & x4 =>
           (
             _import "gtk_source_completion_provider_get_start_iter" :
-              GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p
-               * GtkSourceCompletionContextClass.FFI.notnull GtkSourceCompletionContextClass.FFI.p
-               * GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p
-               * GtkTextIterRecord.FFI.notnull GtkTextIterRecord.FFI.p
+              GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p
+               * GtkSourceCompletionContextClass.FFI.non_opt GtkSourceCompletionContextClass.FFI.p
+               * GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p
+               * GtkTextIterRecord.FFI.non_opt GtkTextIterRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -52,8 +52,8 @@ structure GtkSourceCompletionProvider :>
               x3,
               x4
             )
-    val match_ = fn x1 & x2 => (_import "gtk_source_completion_provider_match" : GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p * GtkSourceCompletionContextClass.FFI.notnull GtkSourceCompletionContextClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
-    val populate_ = fn x1 & x2 => (_import "gtk_source_completion_provider_populate" : GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p * GtkSourceCompletionContextClass.FFI.notnull GtkSourceCompletionContextClass.FFI.p -> unit;) (x1, x2)
+    val match_ = fn x1 & x2 => (_import "gtk_source_completion_provider_match" : GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p * GtkSourceCompletionContextClass.FFI.non_opt GtkSourceCompletionContextClass.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val populate_ = fn x1 & x2 => (_import "gtk_source_completion_provider_populate" : GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p * GtkSourceCompletionContextClass.FFI.non_opt GtkSourceCompletionContextClass.FFI.p -> unit;) (x1, x2)
     val updateInfo_ =
       fn
         x1
@@ -61,9 +61,9 @@ structure GtkSourceCompletionProvider :>
          & x3 =>
           (
             _import "gtk_source_completion_provider_update_info" :
-              GtkSourceCompletionProviderClass.FFI.notnull GtkSourceCompletionProviderClass.FFI.p
-               * GtkSourceCompletionProposalClass.FFI.notnull GtkSourceCompletionProposalClass.FFI.p
-               * GtkSourceCompletionInfoClass.FFI.notnull GtkSourceCompletionInfoClass.FFI.p
+              GtkSourceCompletionProviderClass.FFI.non_opt GtkSourceCompletionProviderClass.FFI.p
+               * GtkSourceCompletionProposalClass.FFI.non_opt GtkSourceCompletionProposalClass.FFI.p
+               * GtkSourceCompletionInfoClass.FFI.non_opt GtkSourceCompletionInfoClass.FFI.p
                -> unit;
           )
             (

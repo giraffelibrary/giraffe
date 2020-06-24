@@ -3,7 +3,7 @@ structure PangoCairoFont :>
     where type 'a class = 'a PangoCairoFontClass.class =
   struct
     val getType_ = _import "pango_cairo_font_get_type" : unit -> GObjectType.FFI.val_;
-    val getScaledFont_ = _import "pango_cairo_font_get_scaled_font" : PangoCairoFontClass.FFI.notnull PangoCairoFontClass.FFI.p -> unit CairoScaledFontRecord.FFI.p;
+    val getScaledFont_ = _import "pango_cairo_font_get_scaled_font" : PangoCairoFontClass.FFI.non_opt PangoCairoFontClass.FFI.p -> CairoScaledFontRecord.FFI.opt CairoScaledFontRecord.FFI.p;
     type 'a class = 'a PangoCairoFontClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_

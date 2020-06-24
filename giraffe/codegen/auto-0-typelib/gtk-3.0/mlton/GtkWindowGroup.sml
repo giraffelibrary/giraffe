@@ -5,11 +5,11 @@ structure GtkWindowGroup :>
     where type 'a window_class = 'a GtkWindowClass.class =
   struct
     val getType_ = _import "gtk_window_group_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_window_group_new" : unit -> GtkWindowGroupClass.FFI.notnull GtkWindowGroupClass.FFI.p;
-    val addWindow_ = fn x1 & x2 => (_import "gtk_window_group_add_window" : GtkWindowGroupClass.FFI.notnull GtkWindowGroupClass.FFI.p * GtkWindowClass.FFI.notnull GtkWindowClass.FFI.p -> unit;) (x1, x2)
-    val getCurrentDeviceGrab_ = fn x1 & x2 => (_import "gtk_window_group_get_current_device_grab" : GtkWindowGroupClass.FFI.notnull GtkWindowGroupClass.FFI.p * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit GtkWidgetClass.FFI.p;) (x1, x2)
-    val getCurrentGrab_ = _import "gtk_window_group_get_current_grab" : GtkWindowGroupClass.FFI.notnull GtkWindowGroupClass.FFI.p -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val removeWindow_ = fn x1 & x2 => (_import "gtk_window_group_remove_window" : GtkWindowGroupClass.FFI.notnull GtkWindowGroupClass.FFI.p * GtkWindowClass.FFI.notnull GtkWindowClass.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "gtk_window_group_new" : unit -> GtkWindowGroupClass.FFI.non_opt GtkWindowGroupClass.FFI.p;
+    val addWindow_ = fn x1 & x2 => (_import "gtk_window_group_add_window" : GtkWindowGroupClass.FFI.non_opt GtkWindowGroupClass.FFI.p * GtkWindowClass.FFI.non_opt GtkWindowClass.FFI.p -> unit;) (x1, x2)
+    val getCurrentDeviceGrab_ = fn x1 & x2 => (_import "gtk_window_group_get_current_device_grab" : GtkWindowGroupClass.FFI.non_opt GtkWindowGroupClass.FFI.p * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;) (x1, x2)
+    val getCurrentGrab_ = _import "gtk_window_group_get_current_grab" : GtkWindowGroupClass.FFI.non_opt GtkWindowGroupClass.FFI.p -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val removeWindow_ = fn x1 & x2 => (_import "gtk_window_group_remove_window" : GtkWindowGroupClass.FFI.non_opt GtkWindowGroupClass.FFI.p * GtkWindowClass.FFI.non_opt GtkWindowClass.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GtkWindowGroupClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type 'a window_class = 'a GtkWindowClass.class

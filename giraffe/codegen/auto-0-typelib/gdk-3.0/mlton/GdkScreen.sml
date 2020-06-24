@@ -7,16 +7,16 @@ structure GdkScreen :>
     where type 'a visual_class = 'a GdkVisualClass.class =
   struct
     val getType_ = _import "gdk_screen_get_type" : unit -> GObjectType.FFI.val_;
-    val getDefault_ = _import "gdk_screen_get_default" : unit -> unit GdkScreenClass.FFI.p;
+    val getDefault_ = _import "gdk_screen_get_default" : unit -> GdkScreenClass.FFI.opt GdkScreenClass.FFI.p;
     val height_ = _import "gdk_screen_height" : unit -> GInt32.FFI.val_;
     val heightMm_ = _import "gdk_screen_height_mm" : unit -> GInt32.FFI.val_;
     val width_ = _import "gdk_screen_width" : unit -> GInt32.FFI.val_;
     val widthMm_ = _import "gdk_screen_width_mm" : unit -> GInt32.FFI.val_;
-    val getActiveWindow_ = _import "gdk_screen_get_active_window" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> unit GdkWindowClass.FFI.p;
-    val getDisplay_ = _import "gdk_screen_get_display" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
-    val getFontOptions_ = _import "gdk_screen_get_font_options" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> unit CairoFontOptionsRecord.FFI.p;
-    val getHeight_ = _import "gdk_screen_get_height" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GInt32.FFI.val_;
-    val getHeightMm_ = _import "gdk_screen_get_height_mm" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GInt32.FFI.val_;
+    val getActiveWindow_ = _import "gdk_screen_get_active_window" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
+    val getDisplay_ = _import "gdk_screen_get_display" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p;
+    val getFontOptions_ = _import "gdk_screen_get_font_options" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> CairoFontOptionsRecord.FFI.opt CairoFontOptionsRecord.FFI.p;
+    val getHeight_ = _import "gdk_screen_get_height" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GInt32.FFI.val_;
+    val getHeightMm_ = _import "gdk_screen_get_height_mm" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GInt32.FFI.val_;
     val getMonitorAtPoint_ =
       fn
         x1
@@ -24,7 +24,7 @@ structure GdkScreen :>
          & x3 =>
           (
             _import "gdk_screen_get_monitor_at_point" :
-              GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p
+              GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                -> GInt32.FFI.val_;
@@ -34,7 +34,7 @@ structure GdkScreen :>
               x2,
               x3
             )
-    val getMonitorAtWindow_ = fn x1 & x2 => (_import "gdk_screen_get_monitor_at_window" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p -> GInt32.FFI.val_;) (x1, x2)
+    val getMonitorAtWindow_ = fn x1 & x2 => (_import "gdk_screen_get_monitor_at_window" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> GInt32.FFI.val_;) (x1, x2)
     val getMonitorGeometry_ =
       fn
         x1
@@ -42,9 +42,9 @@ structure GdkScreen :>
          & x3 =>
           (
             _import "gdk_screen_get_monitor_geometry" :
-              GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p
+              GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p
                * GInt32.FFI.val_
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -52,10 +52,10 @@ structure GdkScreen :>
               x2,
               x3
             )
-    val getMonitorHeightMm_ = fn x1 & x2 => (_import "gdk_screen_get_monitor_height_mm" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
-    val getMonitorPlugName_ = fn x1 & x2 => (_import "gdk_screen_get_monitor_plug_name" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p * GInt32.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
-    val getMonitorScaleFactor_ = fn x1 & x2 => (_import "gdk_screen_get_monitor_scale_factor" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
-    val getMonitorWidthMm_ = fn x1 & x2 => (_import "gdk_screen_get_monitor_width_mm" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
+    val getMonitorHeightMm_ = fn x1 & x2 => (_import "gdk_screen_get_monitor_height_mm" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
+    val getMonitorPlugName_ = fn x1 & x2 => (_import "gdk_screen_get_monitor_plug_name" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p * GInt32.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val getMonitorScaleFactor_ = fn x1 & x2 => (_import "gdk_screen_get_monitor_scale_factor" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
+    val getMonitorWidthMm_ = fn x1 & x2 => (_import "gdk_screen_get_monitor_width_mm" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
     val getMonitorWorkarea_ =
       fn
         x1
@@ -63,9 +63,9 @@ structure GdkScreen :>
          & x3 =>
           (
             _import "gdk_screen_get_monitor_workarea" :
-              GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p
+              GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p
                * GInt32.FFI.val_
-               * GdkRectangleRecord.FFI.notnull GdkRectangleRecord.FFI.p
+               * GdkRectangleRecord.FFI.non_opt GdkRectangleRecord.FFI.p
                -> unit;
           )
             (
@@ -73,12 +73,12 @@ structure GdkScreen :>
               x2,
               x3
             )
-    val getNMonitors_ = _import "gdk_screen_get_n_monitors" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GInt32.FFI.val_;
-    val getNumber_ = _import "gdk_screen_get_number" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GInt32.FFI.val_;
-    val getPrimaryMonitor_ = _import "gdk_screen_get_primary_monitor" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GInt32.FFI.val_;
-    val getResolution_ = _import "gdk_screen_get_resolution" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GDouble.FFI.val_;
-    val getRgbaVisual_ = _import "gdk_screen_get_rgba_visual" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> unit GdkVisualClass.FFI.p;
-    val getRootWindow_ = _import "gdk_screen_get_root_window" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
+    val getNMonitors_ = _import "gdk_screen_get_n_monitors" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GInt32.FFI.val_;
+    val getNumber_ = _import "gdk_screen_get_number" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GInt32.FFI.val_;
+    val getPrimaryMonitor_ = _import "gdk_screen_get_primary_monitor" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GInt32.FFI.val_;
+    val getResolution_ = _import "gdk_screen_get_resolution" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GDouble.FFI.val_;
+    val getRgbaVisual_ = _import "gdk_screen_get_rgba_visual" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GdkVisualClass.FFI.opt GdkVisualClass.FFI.p;
+    val getRootWindow_ = _import "gdk_screen_get_root_window" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
     val getSetting_ =
       fn
         x1
@@ -86,10 +86,10 @@ structure GdkScreen :>
          & x4 =>
           (
             _import "mlton_gdk_screen_get_setting" :
-              GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p
+              GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -98,13 +98,13 @@ structure GdkScreen :>
               x3,
               x4
             )
-    val getSystemVisual_ = _import "gdk_screen_get_system_visual" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GdkVisualClass.FFI.notnull GdkVisualClass.FFI.p;
-    val getWidth_ = _import "gdk_screen_get_width" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GInt32.FFI.val_;
-    val getWidthMm_ = _import "gdk_screen_get_width_mm" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GInt32.FFI.val_;
-    val isComposited_ = _import "gdk_screen_is_composited" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GBool.FFI.val_;
-    val makeDisplayName_ = _import "gdk_screen_make_display_name" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val setFontOptions_ = fn x1 & x2 => (_import "gdk_screen_set_font_options" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p * unit CairoFontOptionsRecord.FFI.p -> unit;) (x1, x2)
-    val setResolution_ = fn x1 & x2 => (_import "gdk_screen_set_resolution" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
+    val getSystemVisual_ = _import "gdk_screen_get_system_visual" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GdkVisualClass.FFI.non_opt GdkVisualClass.FFI.p;
+    val getWidth_ = _import "gdk_screen_get_width" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GInt32.FFI.val_;
+    val getWidthMm_ = _import "gdk_screen_get_width_mm" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GInt32.FFI.val_;
+    val isComposited_ = _import "gdk_screen_is_composited" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GBool.FFI.val_;
+    val makeDisplayName_ = _import "gdk_screen_make_display_name" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val setFontOptions_ = fn x1 & x2 => (_import "gdk_screen_set_font_options" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p * CairoFontOptionsRecord.FFI.opt CairoFontOptionsRecord.FFI.p -> unit;) (x1, x2)
+    val setResolution_ = fn x1 & x2 => (_import "gdk_screen_set_resolution" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GdkScreenClass.class
     type 'a display_class = 'a GdkDisplayClass.class
     type rectangle_t = GdkRectangleRecord.t

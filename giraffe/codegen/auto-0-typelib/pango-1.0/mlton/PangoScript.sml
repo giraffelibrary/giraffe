@@ -370,8 +370,8 @@ structure PangoScript :>
       )
     open Enum
     val getType_ = _import "pango_script_get_type" : unit -> GObjectType.FFI.val_;
-    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.val_;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
+    val getValue_ = _import "g_value_get_enum" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.val_;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_enum" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.val_ -> unit;) (x1, x2)
     val t =
       ValueAccessor.C.createAccessor
         {
@@ -380,7 +380,7 @@ structure PangoScript :>
           setValue = (I &&&> FFI.withVal ---> I) setValue_
         }
     val forUnichar_ = _import "pango_script_for_unichar" : GChar.FFI.val_ -> FFI.val_;
-    val getSampleLanguage_ = _import "pango_script_get_sample_language" : FFI.val_ -> unit PangoLanguageRecord.FFI.p;
+    val getSampleLanguage_ = _import "pango_script_get_sample_language" : FFI.val_ -> PangoLanguageRecord.FFI.opt PangoLanguageRecord.FFI.p;
     type language_t = PangoLanguageRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun forUnichar ch = (GChar.FFI.withVal ---> FFI.fromVal) forUnichar_ ch

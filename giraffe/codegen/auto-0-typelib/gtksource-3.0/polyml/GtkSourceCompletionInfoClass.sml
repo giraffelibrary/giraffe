@@ -1,6 +1,7 @@
 structure GtkSourceCompletionInfoClass :>
   GTK_SOURCE_COMPLETION_INFO_CLASS
-    where type C.notnull = GtkWindowClass.C.notnull
+    where type C.opt = GtkWindowClass.C.opt
+    where type C.non_opt = GtkWindowClass.C.non_opt
     where type 'a C.p = 'a GtkWindowClass.C.p =
   struct
     open GtkWindowClass

@@ -5,9 +5,9 @@ structure GioResource :>
     where type resource_lookup_flags_t = GioResourceLookupFlags.t =
   struct
     val getType_ = _import "g_resource_get_type" : unit -> GObjectType.FFI.val_;
-    val newFromData_ = fn x1 & x2 => (_import "g_resource_new_from_data" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p * (unit, unit) GLibErrorRecord.FFI.r -> GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p;) (x1, x2)
-    val register_ = _import "g_resources_register" : GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p -> unit;
-    val unregister_ = _import "g_resources_unregister" : GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p -> unit;
+    val newFromData_ = fn x1 & x2 => (_import "g_resource_new_from_data" : GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GioResourceRecord.FFI.non_opt GioResourceRecord.FFI.p;) (x1, x2)
+    val register_ = _import "g_resources_register" : GioResourceRecord.FFI.non_opt GioResourceRecord.FFI.p -> unit;
+    val unregister_ = _import "g_resources_unregister" : GioResourceRecord.FFI.non_opt GioResourceRecord.FFI.p -> unit;
     val enumerateChildren_ =
       fn
         x1
@@ -16,12 +16,12 @@ structure GioResource :>
          & x5 =>
           (
             _import "mlton_g_resource_enumerate_children" :
-              GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p
+              GioResourceRecord.FFI.non_opt GioResourceRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> Utf8CPtrArray.FFI.notnull Utf8CPtrArray.FFI.out_p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
           )
             (
               x1,
@@ -40,13 +40,13 @@ structure GioResource :>
          & x7 =>
           (
             _import "mlton_g_resource_get_info" :
-              GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p
+              GioResourceRecord.FFI.non_opt GioResourceRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
                * GUInt64.FFI.ref_
                * GUInt32.FFI.ref_
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -66,12 +66,12 @@ structure GioResource :>
          & x5 =>
           (
             _import "mlton_g_resource_lookup_data" :
-              GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p
+              GioResourceRecord.FFI.non_opt GioResourceRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p;
           )
             (
               x1,
@@ -88,12 +88,12 @@ structure GioResource :>
          & x5 =>
           (
             _import "mlton_g_resource_open_stream" :
-              GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p
+              GioResourceRecord.FFI.non_opt GioResourceRecord.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GioResourceLookupFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p;
           )
             (
               x1,
@@ -108,9 +108,9 @@ structure GioResource :>
           (
             _import "mlton_g_resource_load" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> GioResourceRecord.FFI.notnull GioResourceRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GioResourceRecord.FFI.non_opt GioResourceRecord.FFI.p;
           )
             (
               x1,

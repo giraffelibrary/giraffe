@@ -1,4 +1,4 @@
-(* Copyright (C) 2019 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2019-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -17,7 +17,8 @@ functor VectorCArray(
     where type sequence = CArray.sequence
     where type 'a C.ArrayType.from_p = 'a CArray.C.ArrayType.from_p
     where type 'a C.p = 'a CArray.C.p
-    where type C.notnull = CArray.C.notnull
+    where type C.opt = CArray.C.opt
+    where type C.non_opt = CArray.C.non_opt
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
     structure Array = VectorCArray(CArray)

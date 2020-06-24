@@ -27,9 +27,9 @@ structure GdkDevice :>
          & x4 =>
           (
             _import "gdk_device_grab_info_libgtk_only" :
-              GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p
-               * GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
-               * (unit, GdkWindowClass.FFI.notnull) GdkWindowClass.FFI.r
+              GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p
+               * GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
+               * (GdkWindowClass.FFI.opt, GdkWindowClass.FFI.non_opt) GdkWindowClass.FFI.r
                * GBool.FFI.ref_
                -> GBool.FFI.val_;
           )
@@ -39,12 +39,12 @@ structure GdkDevice :>
               x3,
               x4
             )
-    val getAssociatedDevice_ = _import "gdk_device_get_associated_device" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit GdkDeviceClass.FFI.p;
-    val getAxes_ = _import "gdk_device_get_axes" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkAxisFlags.FFI.val_;
-    val getAxisUse_ = fn x1 & x2 => (_import "gdk_device_get_axis_use" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p * GUInt.FFI.val_ -> GdkAxisUse.FFI.val_;) (x1, x2)
-    val getDeviceType_ = _import "gdk_device_get_device_type" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkDeviceType.FFI.val_;
-    val getDisplay_ = _import "gdk_device_get_display" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkDisplayClass.FFI.notnull GdkDisplayClass.FFI.p;
-    val getHasCursor_ = _import "gdk_device_get_has_cursor" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GBool.FFI.val_;
+    val getAssociatedDevice_ = _import "gdk_device_get_associated_device" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GdkDeviceClass.FFI.opt GdkDeviceClass.FFI.p;
+    val getAxes_ = _import "gdk_device_get_axes" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GdkAxisFlags.FFI.val_;
+    val getAxisUse_ = fn x1 & x2 => (_import "gdk_device_get_axis_use" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p * GUInt.FFI.val_ -> GdkAxisUse.FFI.val_;) (x1, x2)
+    val getDeviceType_ = _import "gdk_device_get_device_type" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GdkDeviceType.FFI.val_;
+    val getDisplay_ = _import "gdk_device_get_display" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GdkDisplayClass.FFI.non_opt GdkDisplayClass.FFI.p;
+    val getHasCursor_ = _import "gdk_device_get_has_cursor" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GBool.FFI.val_;
     val getKey_ =
       fn
         x1
@@ -53,7 +53,7 @@ structure GdkDevice :>
          & x4 =>
           (
             _import "gdk_device_get_key" :
-              GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+              GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
                * GUInt.FFI.val_
                * GUInt.FFI.ref_
                * GdkModifierType.FFI.ref_
@@ -65,11 +65,11 @@ structure GdkDevice :>
               x3,
               x4
             )
-    val getLastEventWindow_ = _import "gdk_device_get_last_event_window" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit GdkWindowClass.FFI.p;
-    val getMode_ = _import "gdk_device_get_mode" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkInputMode.FFI.val_;
-    val getNAxes_ = _import "gdk_device_get_n_axes" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GInt.FFI.val_;
-    val getNKeys_ = _import "gdk_device_get_n_keys" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GInt.FFI.val_;
-    val getName_ = _import "gdk_device_get_name" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getLastEventWindow_ = _import "gdk_device_get_last_event_window" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
+    val getMode_ = _import "gdk_device_get_mode" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GdkInputMode.FFI.val_;
+    val getNAxes_ = _import "gdk_device_get_n_axes" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GInt.FFI.val_;
+    val getNKeys_ = _import "gdk_device_get_n_keys" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GInt.FFI.val_;
+    val getName_ = _import "gdk_device_get_name" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getPosition_ =
       fn
         x1
@@ -78,8 +78,8 @@ structure GdkDevice :>
          & x4 =>
           (
             _import "gdk_device_get_position" :
-              GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
-               * (unit, GdkScreenClass.FFI.notnull) GdkScreenClass.FFI.r
+              GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
+               * (GdkScreenClass.FFI.opt, GdkScreenClass.FFI.non_opt) GdkScreenClass.FFI.r
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -98,8 +98,8 @@ structure GdkDevice :>
          & x4 =>
           (
             _import "gdk_device_get_position_double" :
-              GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
-               * (unit, GdkScreenClass.FFI.notnull) GdkScreenClass.FFI.r
+              GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
+               * (GdkScreenClass.FFI.opt, GdkScreenClass.FFI.non_opt) GdkScreenClass.FFI.r
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
                -> unit;
@@ -110,10 +110,10 @@ structure GdkDevice :>
               x3,
               x4
             )
-    val getProductId_ = _import "gdk_device_get_product_id" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit Utf8.FFI.out_p;
-    val getSeat_ = _import "gdk_device_get_seat" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkSeatClass.FFI.notnull GdkSeatClass.FFI.p;
-    val getSource_ = _import "gdk_device_get_source" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> GdkInputSource.FFI.val_;
-    val getVendorId_ = _import "gdk_device_get_vendor_id" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p -> unit Utf8.FFI.out_p;
+    val getProductId_ = _import "gdk_device_get_product_id" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
+    val getSeat_ = _import "gdk_device_get_seat" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GdkSeatClass.FFI.non_opt GdkSeatClass.FFI.p;
+    val getSource_ = _import "gdk_device_get_source" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> GdkInputSource.FFI.val_;
+    val getVendorId_ = _import "gdk_device_get_vendor_id" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
     val getWindowAtPosition_ =
       fn
         x1
@@ -121,10 +121,10 @@ structure GdkDevice :>
          & x3 =>
           (
             _import "gdk_device_get_window_at_position" :
-              GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+              GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
-               -> unit GdkWindowClass.FFI.p;
+               -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
           )
             (
               x1,
@@ -138,10 +138,10 @@ structure GdkDevice :>
          & x3 =>
           (
             _import "gdk_device_get_window_at_position_double" :
-              GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+              GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
                * GDouble.FFI.ref_
                * GDouble.FFI.ref_
-               -> unit GdkWindowClass.FFI.p;
+               -> GdkWindowClass.FFI.opt GdkWindowClass.FFI.p;
           )
             (
               x1,
@@ -159,12 +159,12 @@ structure GdkDevice :>
          & x7 =>
           (
             _import "gdk_device_grab" :
-              GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GdkGrabOwnership.FFI.val_
                * GBool.FFI.val_
                * GdkEventMask.FFI.val_
-               * unit GdkCursorClass.FFI.p
+               * GdkCursorClass.FFI.opt GdkCursorClass.FFI.p
                * GUInt32.FFI.val_
                -> GdkGrabStatus.FFI.val_;
           )
@@ -184,7 +184,7 @@ structure GdkDevice :>
          & x3 =>
           (
             _import "gdk_device_set_axis_use" :
-              GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+              GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
                * GUInt.FFI.val_
                * GdkAxisUse.FFI.val_
                -> unit;
@@ -202,7 +202,7 @@ structure GdkDevice :>
          & x4 =>
           (
             _import "gdk_device_set_key" :
-              GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
+              GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
                * GUInt.FFI.val_
                * GUInt.FFI.val_
                * GdkModifierType.FFI.val_
@@ -214,8 +214,8 @@ structure GdkDevice :>
               x3,
               x4
             )
-    val setMode_ = fn x1 & x2 => (_import "gdk_device_set_mode" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p * GdkInputMode.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val ungrab_ = fn x1 & x2 => (_import "gdk_device_ungrab" : GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
+    val setMode_ = fn x1 & x2 => (_import "gdk_device_set_mode" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p * GdkInputMode.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val ungrab_ = fn x1 & x2 => (_import "gdk_device_ungrab" : GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p * GUInt32.FFI.val_ -> unit;) (x1, x2)
     val warp_ =
       fn
         x1
@@ -224,8 +224,8 @@ structure GdkDevice :>
          & x4 =>
           (
             _import "gdk_device_warp" :
-              GdkDeviceClass.FFI.notnull GdkDeviceClass.FFI.p
-               * GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p
+              GdkDeviceClass.FFI.non_opt GdkDeviceClass.FFI.p
+               * GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;

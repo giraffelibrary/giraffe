@@ -7,8 +7,8 @@ structure GioDataOutputStream :>
     where type data_stream_byte_order_t = GioDataStreamByteOrder.t =
   struct
     val getType_ = _import "g_data_output_stream_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_data_output_stream_new" : GioOutputStreamClass.FFI.notnull GioOutputStreamClass.FFI.p -> GioDataOutputStreamClass.FFI.notnull GioDataOutputStreamClass.FFI.p;
-    val getByteOrder_ = _import "g_data_output_stream_get_byte_order" : GioDataOutputStreamClass.FFI.notnull GioDataOutputStreamClass.FFI.p -> GioDataStreamByteOrder.FFI.val_;
+    val new_ = _import "g_data_output_stream_new" : GioOutputStreamClass.FFI.non_opt GioOutputStreamClass.FFI.p -> GioDataOutputStreamClass.FFI.non_opt GioDataOutputStreamClass.FFI.p;
+    val getByteOrder_ = _import "g_data_output_stream_get_byte_order" : GioDataOutputStreamClass.FFI.non_opt GioDataOutputStreamClass.FFI.p -> GioDataStreamByteOrder.FFI.val_;
     val putByte_ =
       fn
         x1
@@ -17,10 +17,10 @@ structure GioDataOutputStream :>
          & x4 =>
           (
             _import "g_data_output_stream_put_byte" :
-              GioDataOutputStreamClass.FFI.notnull GioDataOutputStreamClass.FFI.p
+              GioDataOutputStreamClass.FFI.non_opt GioDataOutputStreamClass.FFI.p
                * GUInt8.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -37,10 +37,10 @@ structure GioDataOutputStream :>
          & x4 =>
           (
             _import "g_data_output_stream_put_int16" :
-              GioDataOutputStreamClass.FFI.notnull GioDataOutputStreamClass.FFI.p
+              GioDataOutputStreamClass.FFI.non_opt GioDataOutputStreamClass.FFI.p
                * GInt16.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -57,10 +57,10 @@ structure GioDataOutputStream :>
          & x4 =>
           (
             _import "g_data_output_stream_put_int32" :
-              GioDataOutputStreamClass.FFI.notnull GioDataOutputStreamClass.FFI.p
+              GioDataOutputStreamClass.FFI.non_opt GioDataOutputStreamClass.FFI.p
                * GInt32.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -77,10 +77,10 @@ structure GioDataOutputStream :>
          & x4 =>
           (
             _import "g_data_output_stream_put_int64" :
-              GioDataOutputStreamClass.FFI.notnull GioDataOutputStreamClass.FFI.p
+              GioDataOutputStreamClass.FFI.non_opt GioDataOutputStreamClass.FFI.p
                * GInt64.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -97,11 +97,11 @@ structure GioDataOutputStream :>
          & x5 =>
           (
             _import "mlton_g_data_output_stream_put_string" :
-              GioDataOutputStreamClass.FFI.notnull GioDataOutputStreamClass.FFI.p
+              GioDataOutputStreamClass.FFI.non_opt GioDataOutputStreamClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -119,10 +119,10 @@ structure GioDataOutputStream :>
          & x4 =>
           (
             _import "g_data_output_stream_put_uint16" :
-              GioDataOutputStreamClass.FFI.notnull GioDataOutputStreamClass.FFI.p
+              GioDataOutputStreamClass.FFI.non_opt GioDataOutputStreamClass.FFI.p
                * GUInt16.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -139,10 +139,10 @@ structure GioDataOutputStream :>
          & x4 =>
           (
             _import "g_data_output_stream_put_uint32" :
-              GioDataOutputStreamClass.FFI.notnull GioDataOutputStreamClass.FFI.p
+              GioDataOutputStreamClass.FFI.non_opt GioDataOutputStreamClass.FFI.p
                * GUInt32.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -159,10 +159,10 @@ structure GioDataOutputStream :>
          & x4 =>
           (
             _import "g_data_output_stream_put_uint64" :
-              GioDataOutputStreamClass.FFI.notnull GioDataOutputStreamClass.FFI.p
+              GioDataOutputStreamClass.FFI.non_opt GioDataOutputStreamClass.FFI.p
                * GUInt64.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -171,7 +171,7 @@ structure GioDataOutputStream :>
               x3,
               x4
             )
-    val setByteOrder_ = fn x1 & x2 => (_import "g_data_output_stream_set_byte_order" : GioDataOutputStreamClass.FFI.notnull GioDataOutputStreamClass.FFI.p * GioDataStreamByteOrder.FFI.val_ -> unit;) (x1, x2)
+    val setByteOrder_ = fn x1 & x2 => (_import "g_data_output_stream_set_byte_order" : GioDataOutputStreamClass.FFI.non_opt GioDataOutputStreamClass.FFI.p * GioDataStreamByteOrder.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GioDataOutputStreamClass.class
     type 'a seekable_class = 'a GioSeekableClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class

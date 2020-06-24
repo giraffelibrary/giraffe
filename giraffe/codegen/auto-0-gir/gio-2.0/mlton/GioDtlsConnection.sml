@@ -18,9 +18,9 @@ structure GioDtlsConnection :>
          & x3 =>
           (
             _import "g_dtls_connection_close" :
-              GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -35,9 +35,9 @@ structure GioDtlsConnection :>
          & x3 =>
           (
             _import "g_dtls_connection_close_finish" :
-              GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -52,8 +52,8 @@ structure GioDtlsConnection :>
          & x3 =>
           (
             _import "g_dtls_connection_emit_accept_certificate" :
-              GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p
-               * GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p
+              GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p
+               * GioTlsCertificateClass.FFI.non_opt GioTlsCertificateClass.FFI.p
                * GioTlsCertificateFlags.FFI.val_
                -> GBool.FFI.val_;
           )
@@ -62,13 +62,13 @@ structure GioDtlsConnection :>
               x2,
               x3
             )
-    val getCertificate_ = _import "g_dtls_connection_get_certificate" : GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
-    val getDatabase_ = _import "g_dtls_connection_get_database" : GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p -> GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p;
-    val getInteraction_ = _import "g_dtls_connection_get_interaction" : GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p -> GioTlsInteractionClass.FFI.notnull GioTlsInteractionClass.FFI.p;
-    val getPeerCertificate_ = _import "g_dtls_connection_get_peer_certificate" : GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p -> GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p;
-    val getPeerCertificateErrors_ = _import "g_dtls_connection_get_peer_certificate_errors" : GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p -> GioTlsCertificateFlags.FFI.val_;
-    val getRehandshakeMode_ = _import "g_dtls_connection_get_rehandshake_mode" : GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p -> GioTlsRehandshakeMode.FFI.val_;
-    val getRequireCloseNotify_ = _import "g_dtls_connection_get_require_close_notify" : GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p -> GBool.FFI.val_;
+    val getCertificate_ = _import "g_dtls_connection_get_certificate" : GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p -> GioTlsCertificateClass.FFI.non_opt GioTlsCertificateClass.FFI.p;
+    val getDatabase_ = _import "g_dtls_connection_get_database" : GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p -> GioTlsDatabaseClass.FFI.non_opt GioTlsDatabaseClass.FFI.p;
+    val getInteraction_ = _import "g_dtls_connection_get_interaction" : GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p -> GioTlsInteractionClass.FFI.non_opt GioTlsInteractionClass.FFI.p;
+    val getPeerCertificate_ = _import "g_dtls_connection_get_peer_certificate" : GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p -> GioTlsCertificateClass.FFI.non_opt GioTlsCertificateClass.FFI.p;
+    val getPeerCertificateErrors_ = _import "g_dtls_connection_get_peer_certificate_errors" : GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p -> GioTlsCertificateFlags.FFI.val_;
+    val getRehandshakeMode_ = _import "g_dtls_connection_get_rehandshake_mode" : GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p -> GioTlsRehandshakeMode.FFI.val_;
+    val getRequireCloseNotify_ = _import "g_dtls_connection_get_require_close_notify" : GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p -> GBool.FFI.val_;
     val handshake_ =
       fn
         x1
@@ -76,9 +76,9 @@ structure GioDtlsConnection :>
          & x3 =>
           (
             _import "g_dtls_connection_handshake" :
-              GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -93,9 +93,9 @@ structure GioDtlsConnection :>
          & x3 =>
           (
             _import "g_dtls_connection_handshake_finish" :
-              GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -103,11 +103,11 @@ structure GioDtlsConnection :>
               x2,
               x3
             )
-    val setCertificate_ = fn x1 & x2 => (_import "g_dtls_connection_set_certificate" : GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p * GioTlsCertificateClass.FFI.notnull GioTlsCertificateClass.FFI.p -> unit;) (x1, x2)
-    val setDatabase_ = fn x1 & x2 => (_import "g_dtls_connection_set_database" : GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p * GioTlsDatabaseClass.FFI.notnull GioTlsDatabaseClass.FFI.p -> unit;) (x1, x2)
-    val setInteraction_ = fn x1 & x2 => (_import "g_dtls_connection_set_interaction" : GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p * unit GioTlsInteractionClass.FFI.p -> unit;) (x1, x2)
-    val setRehandshakeMode_ = fn x1 & x2 => (_import "g_dtls_connection_set_rehandshake_mode" : GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p * GioTlsRehandshakeMode.FFI.val_ -> unit;) (x1, x2)
-    val setRequireCloseNotify_ = fn x1 & x2 => (_import "g_dtls_connection_set_require_close_notify" : GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setCertificate_ = fn x1 & x2 => (_import "g_dtls_connection_set_certificate" : GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p * GioTlsCertificateClass.FFI.non_opt GioTlsCertificateClass.FFI.p -> unit;) (x1, x2)
+    val setDatabase_ = fn x1 & x2 => (_import "g_dtls_connection_set_database" : GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p * GioTlsDatabaseClass.FFI.non_opt GioTlsDatabaseClass.FFI.p -> unit;) (x1, x2)
+    val setInteraction_ = fn x1 & x2 => (_import "g_dtls_connection_set_interaction" : GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p * GioTlsInteractionClass.FFI.opt GioTlsInteractionClass.FFI.p -> unit;) (x1, x2)
+    val setRehandshakeMode_ = fn x1 & x2 => (_import "g_dtls_connection_set_rehandshake_mode" : GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p * GioTlsRehandshakeMode.FFI.val_ -> unit;) (x1, x2)
+    val setRequireCloseNotify_ = fn x1 & x2 => (_import "g_dtls_connection_set_require_close_notify" : GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val shutdown_ =
       fn
         x1
@@ -117,11 +117,11 @@ structure GioDtlsConnection :>
          & x5 =>
           (
             _import "g_dtls_connection_shutdown" :
-              GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p
+              GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p
                * GBool.FFI.val_
                * GBool.FFI.val_
-               * unit GioCancellableClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+               * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (
@@ -138,9 +138,9 @@ structure GioDtlsConnection :>
          & x3 =>
           (
             _import "g_dtls_connection_shutdown_finish" :
-              GioDtlsConnectionClass.FFI.notnull GioDtlsConnectionClass.FFI.p
-               * GioAsyncResultClass.FFI.notnull GioAsyncResultClass.FFI.p
-               * (unit, unit) GLibErrorRecord.FFI.r
+              GioDtlsConnectionClass.FFI.non_opt GioDtlsConnectionClass.FFI.p
+               * GioAsyncResultClass.FFI.non_opt GioAsyncResultClass.FFI.p
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
             (

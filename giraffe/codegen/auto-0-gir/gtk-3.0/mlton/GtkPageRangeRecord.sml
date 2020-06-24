@@ -1,7 +1,8 @@
 structure GtkPageRangeRecord :> GTK_PAGE_RANGE_RECORD =
   struct
     structure Pointer = CPointerInternal
-    type notnull = Pointer.notnull
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
     val size_ = _import "giraffe_gtk_page_range_size" : unit -> GSize.FFI.val_;
     val memcpy_ =
@@ -11,8 +12,8 @@ structure GtkPageRangeRecord :> GTK_PAGE_RANGE_RECORD =
          & x3 =>
           (
             _import "memcpy" :
-              notnull p
-               * notnull p
+              non_opt p
+               * non_opt p
                * GSize.FFI.val_
                -> unit;
           )
@@ -34,7 +35,8 @@ structure GtkPageRangeRecord :> GTK_PAGE_RANGE_RECORD =
     structure Record =
       BoxedValueRecord(
         structure Pointer = Pointer
-        type notnull = notnull
+        type opt = opt
+        type non_opt = non_opt
         type 'a p = 'a p
         val copy_ = copy_
         val clear_ = clear_

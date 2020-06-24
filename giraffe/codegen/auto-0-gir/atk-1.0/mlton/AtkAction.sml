@@ -3,12 +3,12 @@ structure AtkAction :>
     where type 'a class = 'a AtkActionClass.class =
   struct
     val getType_ = _import "atk_action_get_type" : unit -> GObjectType.FFI.val_;
-    val doAction_ = fn x1 & x2 => (_import "atk_action_do_action" : AtkActionClass.FFI.notnull AtkActionClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val getDescription_ = fn x1 & x2 => (_import "atk_action_get_description" : AtkActionClass.FFI.notnull AtkActionClass.FFI.p * GInt.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
-    val getKeybinding_ = fn x1 & x2 => (_import "atk_action_get_keybinding" : AtkActionClass.FFI.notnull AtkActionClass.FFI.p * GInt.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
-    val getLocalizedName_ = fn x1 & x2 => (_import "atk_action_get_localized_name" : AtkActionClass.FFI.notnull AtkActionClass.FFI.p * GInt.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
-    val getNActions_ = _import "atk_action_get_n_actions" : AtkActionClass.FFI.notnull AtkActionClass.FFI.p -> GInt.FFI.val_;
-    val getName_ = fn x1 & x2 => (_import "atk_action_get_name" : AtkActionClass.FFI.notnull AtkActionClass.FFI.p * GInt.FFI.val_ -> unit Utf8.FFI.out_p;) (x1, x2)
+    val doAction_ = fn x1 & x2 => (_import "atk_action_do_action" : AtkActionClass.FFI.non_opt AtkActionClass.FFI.p * GInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val getDescription_ = fn x1 & x2 => (_import "atk_action_get_description" : AtkActionClass.FFI.non_opt AtkActionClass.FFI.p * GInt.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val getKeybinding_ = fn x1 & x2 => (_import "atk_action_get_keybinding" : AtkActionClass.FFI.non_opt AtkActionClass.FFI.p * GInt.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val getLocalizedName_ = fn x1 & x2 => (_import "atk_action_get_localized_name" : AtkActionClass.FFI.non_opt AtkActionClass.FFI.p * GInt.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
+    val getNActions_ = _import "atk_action_get_n_actions" : AtkActionClass.FFI.non_opt AtkActionClass.FFI.p -> GInt.FFI.val_;
+    val getName_ = fn x1 & x2 => (_import "atk_action_get_name" : AtkActionClass.FFI.non_opt AtkActionClass.FFI.p * GInt.FFI.val_ -> Utf8.FFI.opt Utf8.FFI.out_p;) (x1, x2)
     val setDescription_ =
       fn
         x1
@@ -16,10 +16,10 @@ structure AtkAction :>
          & (x3, x4) =>
           (
             _import "mlton_atk_action_set_description" :
-              AtkActionClass.FFI.notnull AtkActionClass.FFI.p
+              AtkActionClass.FFI.non_opt AtkActionClass.FFI.p
                * GInt.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (

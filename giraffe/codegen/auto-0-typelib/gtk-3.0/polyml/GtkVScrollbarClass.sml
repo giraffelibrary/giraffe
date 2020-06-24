@@ -1,7 +1,8 @@
 structure GtkVScrollbarClass :>
   GTK_V_SCROLLBAR_CLASS
     where type 'a scrollbar_class = 'a GtkScrollbarClass.class
-    where type C.notnull = GtkScrollbarClass.C.notnull
+    where type C.opt = GtkScrollbarClass.C.opt
+    where type C.non_opt = GtkScrollbarClass.C.non_opt
     where type 'a C.p = 'a GtkScrollbarClass.C.p =
   struct
     type 'a scrollbar_class = 'a GtkScrollbarClass.class

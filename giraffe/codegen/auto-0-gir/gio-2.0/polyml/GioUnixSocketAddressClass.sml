@@ -1,7 +1,8 @@
 structure GioUnixSocketAddressClass :>
   GIO_UNIX_SOCKET_ADDRESS_CLASS
     where type 'a socket_address_class = 'a GioSocketAddressClass.class
-    where type C.notnull = GioSocketAddressClass.C.notnull
+    where type C.opt = GioSocketAddressClass.C.opt
+    where type C.non_opt = GioSocketAddressClass.C.non_opt
     where type 'a C.p = 'a GioSocketAddressClass.C.p =
   struct
     type 'a socket_address_class = 'a GioSocketAddressClass.class

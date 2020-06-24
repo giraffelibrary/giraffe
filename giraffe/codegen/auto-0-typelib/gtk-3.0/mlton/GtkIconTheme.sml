@@ -5,7 +5,7 @@ structure GtkIconTheme :>
     where type icon_lookup_flags_t = GtkIconLookupFlags.t =
   struct
     val getType_ = _import "gtk_icon_theme_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_icon_theme_new" : unit -> GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p;
+    val new_ = _import "gtk_icon_theme_new" : unit -> GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p;
     val addBuiltinIcon_ =
       fn
         (x1, x2)
@@ -14,9 +14,9 @@ structure GtkIconTheme :>
           (
             _import "mlton_gtk_icon_theme_add_builtin_icon" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
-               * GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p
+               * GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p
                -> unit;
           )
             (
@@ -25,16 +25,16 @@ structure GtkIconTheme :>
               x3,
               x4
             )
-    val getDefault_ = _import "gtk_icon_theme_get_default" : unit -> GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p;
-    val getForScreen_ = _import "gtk_icon_theme_get_for_screen" : GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p;
+    val getDefault_ = _import "gtk_icon_theme_get_default" : unit -> GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p;
+    val getForScreen_ = _import "gtk_icon_theme_get_for_screen" : GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p;
     val addResourcePath_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_theme_add_resource_path" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -47,9 +47,9 @@ structure GtkIconTheme :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_theme_append_search_path" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -65,12 +65,12 @@ structure GtkIconTheme :>
          & x5 =>
           (
             _import "mlton_gtk_icon_theme_choose_icon" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> unit GtkIconInfoClass.FFI.p;
+               -> GtkIconInfoClass.FFI.opt GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -88,13 +88,13 @@ structure GtkIconTheme :>
          & x6 =>
           (
             _import "mlton_gtk_icon_theme_choose_icon_for_scale" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8CPtrArray.MLton.p1
-               * Utf8CPtrArray.FFI.notnull Utf8CPtrArray.MLton.p2
+               * Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.MLton.p2
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> unit GtkIconInfoClass.FFI.p;
+               -> GtkIconInfoClass.FFI.opt GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -104,16 +104,16 @@ structure GtkIconTheme :>
               x5,
               x6
             )
-    val getExampleIconName_ = _import "gtk_icon_theme_get_example_icon_name" : GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p -> unit Utf8.FFI.out_p;
+    val getExampleIconName_ = _import "gtk_icon_theme_get_example_icon_name" : GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
     val getIconSizes_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_theme_get_icon_sizes" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GInt32CArray.FFI.notnull GInt32CArray.FFI.out_p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GInt32CArray.FFI.non_opt GInt32CArray.FFI.out_p;
           )
             (
               x1,
@@ -127,9 +127,9 @@ structure GtkIconTheme :>
          & x4 =>
           (
             _import "mlton_gtk_icon_theme_get_search_path" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8CPtrArrayN.MLton.r1
-               * (unit, Utf8CPtrArrayN.FFI.notnull) Utf8CPtrArrayN.MLton.r2
+               * (Utf8CPtrArrayN.FFI.opt, Utf8CPtrArrayN.FFI.non_opt) Utf8CPtrArrayN.MLton.r2
                * GInt32.FFI.ref_
                -> unit;
           )
@@ -144,9 +144,9 @@ structure GtkIconTheme :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_theme_has_icon" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> GBool.FFI.val_;
           )
             (
@@ -163,13 +163,13 @@ structure GtkIconTheme :>
          & x6 =>
           (
             _import "mlton_gtk_icon_theme_load_icon" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> unit GdkPixbufPixbufClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -189,14 +189,14 @@ structure GtkIconTheme :>
          & x7 =>
           (
             _import "mlton_gtk_icon_theme_load_icon_for_scale" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> unit GdkPixbufPixbufClass.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GdkPixbufPixbufClass.FFI.opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -218,15 +218,15 @@ structure GtkIconTheme :>
          & x8 =>
           (
             _import "mlton_gtk_icon_theme_load_surface" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                * GInt32.FFI.val_
-               * unit GdkWindowClass.FFI.p
+               * GdkWindowClass.FFI.opt GdkWindowClass.FFI.p
                * GtkIconLookupFlags.FFI.val_
-               * (unit, unit) GLibErrorRecord.FFI.r
-               -> unit CairoSurfaceRecord.FFI.p;
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> CairoSurfaceRecord.FFI.opt CairoSurfaceRecord.FFI.p;
           )
             (
               x1,
@@ -246,11 +246,11 @@ structure GtkIconTheme :>
          & x4 =>
           (
             _import "gtk_icon_theme_lookup_by_gicon" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
-               * GioIconClass.FFI.notnull GioIconClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
+               * GioIconClass.FFI.non_opt GioIconClass.FFI.p
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> unit GtkIconInfoClass.FFI.p;
+               -> GtkIconInfoClass.FFI.opt GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -267,12 +267,12 @@ structure GtkIconTheme :>
          & x5 =>
           (
             _import "gtk_icon_theme_lookup_by_gicon_for_scale" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
-               * GioIconClass.FFI.notnull GioIconClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
+               * GioIconClass.FFI.non_opt GioIconClass.FFI.p
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> unit GtkIconInfoClass.FFI.p;
+               -> GtkIconInfoClass.FFI.opt GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -289,12 +289,12 @@ structure GtkIconTheme :>
          & x5 =>
           (
             _import "mlton_gtk_icon_theme_lookup_icon" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> unit GtkIconInfoClass.FFI.p;
+               -> GtkIconInfoClass.FFI.opt GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -312,13 +312,13 @@ structure GtkIconTheme :>
          & x6 =>
           (
             _import "mlton_gtk_icon_theme_lookup_icon_for_scale" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt32.FFI.val_
                * GInt32.FFI.val_
                * GtkIconLookupFlags.FFI.val_
-               -> unit GtkIconInfoClass.FFI.p;
+               -> GtkIconInfoClass.FFI.opt GtkIconInfoClass.FFI.p;
           )
             (
               x1,
@@ -333,9 +333,9 @@ structure GtkIconTheme :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_theme_prepend_search_path" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -343,15 +343,15 @@ structure GtkIconTheme :>
               x2,
               x3
             )
-    val rescanIfNeeded_ = _import "gtk_icon_theme_rescan_if_needed" : GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p -> GBool.FFI.val_;
+    val rescanIfNeeded_ = _import "gtk_icon_theme_rescan_if_needed" : GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p -> GBool.FFI.val_;
     val setCustomTheme_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_icon_theme_set_custom_theme" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -359,7 +359,7 @@ structure GtkIconTheme :>
               x2,
               x3
             )
-    val setScreen_ = fn x1 & x2 => (_import "gtk_icon_theme_set_screen" : GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p * GdkScreenClass.FFI.notnull GdkScreenClass.FFI.p -> unit;) (x1, x2)
+    val setScreen_ = fn x1 & x2 => (_import "gtk_icon_theme_set_screen" : GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p * GdkScreenClass.FFI.non_opt GdkScreenClass.FFI.p -> unit;) (x1, x2)
     val setSearchPath_ =
       fn
         x1
@@ -367,9 +367,9 @@ structure GtkIconTheme :>
          & x4 =>
           (
             _import "mlton_gtk_icon_theme_set_search_path" :
-              GtkIconThemeClass.FFI.notnull GtkIconThemeClass.FFI.p
+              GtkIconThemeClass.FFI.non_opt GtkIconThemeClass.FFI.p
                * Utf8CPtrArrayN.MLton.p1
-               * Utf8CPtrArrayN.FFI.notnull Utf8CPtrArrayN.MLton.p2
+               * Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.MLton.p2
                * GInt32.FFI.val_
                -> unit;
           )

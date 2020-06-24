@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2016-2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -10,14 +10,16 @@ structure GLibErrorRecord :>
     where type quark_t = GLibQuark.t =
   struct
     structure Pointer = CPointerInternal
-    type notnull = Pointer.notnull
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
-    val dup_ = _import "g_error_copy" : notnull p -> notnull p;
-    val free_ = _import "g_error_free" : notnull p -> unit;
+    val dup_ = _import "g_error_copy" : non_opt p -> non_opt p;
+    val free_ = _import "g_error_free" : non_opt p -> unit;
     structure Record =
       BoxedRecord(
         structure Pointer = Pointer
-        type notnull = notnull
+        type opt = opt
+        type non_opt = non_opt
         type 'a p = 'a p
         val dup_ = dup_
         val take_ = ignore
@@ -25,10 +27,10 @@ structure GLibErrorRecord :>
       )
     open Record
     val getType_ = _import "g_error_get_type" : unit -> GObjectType.FFI.val_;
-    val getValue_ = _import "g_value_get_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> FFI.notnull FFI.p;
-    val getOptValue_ = _import "g_value_get_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p -> unit FFI.p;
-    val setValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * FFI.notnull FFI.p -> unit;) (x1, x2)
-    val setOptValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p * unit FFI.p -> unit;) (x1, x2)
+    val getValue_ = _import "g_value_get_boxed" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.non_opt FFI.p;
+    val getOptValue_ = _import "g_value_get_boxed" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.opt FFI.p;
+    val setValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.non_opt FFI.p -> unit;) (x1, x2)
+    val setOptValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.opt FFI.p -> unit;) (x1, x2)
     val t =
       ValueAccessor.C.createAccessor
         {
@@ -44,9 +46,9 @@ structure GLibErrorRecord :>
           setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_
         }
 
-    val getDomain_ = _import "giraffe_get_g_error_domain" : notnull p -> GLibQuark.FFI.val_;
-    val getCode_ = _import "giraffe_get_g_error_code" : notnull p -> GInt.FFI.val_;
-    val getMessage_ = _import "giraffe_get_g_error_message" : notnull p -> Utf8.FFI.notnull Utf8.FFI.out_p;
+    val getDomain_ = _import "giraffe_get_g_error_domain" : non_opt p -> GLibQuark.FFI.val_;
+    val getCode_ = _import "giraffe_get_g_error_code" : non_opt p -> GInt.FFI.val_;
+    val getMessage_ = _import "giraffe_get_g_error_message" : non_opt p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
 
     type quark_t = GLibQuark.t
 

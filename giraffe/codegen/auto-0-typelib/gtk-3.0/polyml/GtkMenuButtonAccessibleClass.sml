@@ -1,7 +1,8 @@
 structure GtkMenuButtonAccessibleClass :>
   GTK_MENU_BUTTON_ACCESSIBLE_CLASS
     where type 'a toggle_button_accessible_class = 'a GtkToggleButtonAccessibleClass.class
-    where type C.notnull = GtkToggleButtonAccessibleClass.C.notnull
+    where type C.opt = GtkToggleButtonAccessibleClass.C.opt
+    where type C.non_opt = GtkToggleButtonAccessibleClass.C.non_opt
     where type 'a C.p = 'a GtkToggleButtonAccessibleClass.C.p =
   struct
     type 'a toggle_button_accessible_class = 'a GtkToggleButtonAccessibleClass.class

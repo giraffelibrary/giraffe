@@ -9,27 +9,27 @@ structure GtkButton :>
     where type relief_style_t = GtkReliefStyle.t =
   struct
     val getType_ = _import "gtk_button_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_button_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+    val new_ = _import "gtk_button_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
     val newFromIconName_ =
       fn
         (x1, x2) & x3 =>
           (
             _import "mlton_gtk_button_new_from_icon_name" :
               Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
-               -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
+               -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
           )
             (
               x1,
               x2,
               x3
             )
-    val newFromStock_ = _import "mlton_gtk_button_new_from_stock" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithLabel_ = _import "mlton_gtk_button_new_with_label" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val newWithMnemonic_ = _import "mlton_gtk_button_new_with_mnemonic" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val clicked_ = _import "gtk_button_clicked" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> unit;
-    val enter_ = _import "gtk_button_enter" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> unit;
+    val newFromStock_ = _import "mlton_gtk_button_new_from_stock" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithLabel_ = _import "mlton_gtk_button_new_with_label" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val newWithMnemonic_ = _import "mlton_gtk_button_new_with_mnemonic" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val clicked_ = _import "gtk_button_clicked" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> unit;
+    val enter_ = _import "gtk_button_enter" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> unit;
     val getAlignment_ =
       fn
         x1
@@ -37,7 +37,7 @@ structure GtkButton :>
          & x3 =>
           (
             _import "gtk_button_get_alignment" :
-              GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p
+              GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p
                * GFloat.FFI.ref_
                * GFloat.FFI.ref_
                -> unit;
@@ -47,18 +47,18 @@ structure GtkButton :>
               x2,
               x3
             )
-    val getAlwaysShowImage_ = _import "gtk_button_get_always_show_image" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GBool.FFI.val_;
-    val getEventWindow_ = _import "gtk_button_get_event_window" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p;
-    val getFocusOnClick_ = _import "gtk_button_get_focus_on_click" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GBool.FFI.val_;
-    val getImage_ = _import "gtk_button_get_image" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> unit GtkWidgetClass.FFI.p;
-    val getImagePosition_ = _import "gtk_button_get_image_position" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GtkPositionType.FFI.val_;
-    val getLabel_ = _import "gtk_button_get_label" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> Utf8.FFI.notnull Utf8.FFI.out_p;
-    val getRelief_ = _import "gtk_button_get_relief" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GtkReliefStyle.FFI.val_;
-    val getUseStock_ = _import "gtk_button_get_use_stock" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GBool.FFI.val_;
-    val getUseUnderline_ = _import "gtk_button_get_use_underline" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> GBool.FFI.val_;
-    val leave_ = _import "gtk_button_leave" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> unit;
-    val pressed_ = _import "gtk_button_pressed" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> unit;
-    val released_ = _import "gtk_button_released" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p -> unit;
+    val getAlwaysShowImage_ = _import "gtk_button_get_always_show_image" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> GBool.FFI.val_;
+    val getEventWindow_ = _import "gtk_button_get_event_window" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p;
+    val getFocusOnClick_ = _import "gtk_button_get_focus_on_click" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> GBool.FFI.val_;
+    val getImage_ = _import "gtk_button_get_image" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p;
+    val getImagePosition_ = _import "gtk_button_get_image_position" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> GtkPositionType.FFI.val_;
+    val getLabel_ = _import "gtk_button_get_label" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val getRelief_ = _import "gtk_button_get_relief" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> GtkReliefStyle.FFI.val_;
+    val getUseStock_ = _import "gtk_button_get_use_stock" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> GBool.FFI.val_;
+    val getUseUnderline_ = _import "gtk_button_get_use_underline" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> GBool.FFI.val_;
+    val leave_ = _import "gtk_button_leave" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> unit;
+    val pressed_ = _import "gtk_button_pressed" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> unit;
+    val released_ = _import "gtk_button_released" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p -> unit;
     val setAlignment_ =
       fn
         x1
@@ -66,7 +66,7 @@ structure GtkButton :>
          & x3 =>
           (
             _import "gtk_button_set_alignment" :
-              GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p
+              GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p
                * GFloat.FFI.val_
                * GFloat.FFI.val_
                -> unit;
@@ -76,18 +76,18 @@ structure GtkButton :>
               x2,
               x3
             )
-    val setAlwaysShowImage_ = fn x1 & x2 => (_import "gtk_button_set_always_show_image" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setFocusOnClick_ = fn x1 & x2 => (_import "gtk_button_set_focus_on_click" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setImage_ = fn x1 & x2 => (_import "gtk_button_set_image" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p * GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p -> unit;) (x1, x2)
-    val setImagePosition_ = fn x1 & x2 => (_import "gtk_button_set_image_position" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p * GtkPositionType.FFI.val_ -> unit;) (x1, x2)
+    val setAlwaysShowImage_ = fn x1 & x2 => (_import "gtk_button_set_always_show_image" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setFocusOnClick_ = fn x1 & x2 => (_import "gtk_button_set_focus_on_click" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setImage_ = fn x1 & x2 => (_import "gtk_button_set_image" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p * GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;) (x1, x2)
+    val setImagePosition_ = fn x1 & x2 => (_import "gtk_button_set_image_position" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p * GtkPositionType.FFI.val_ -> unit;) (x1, x2)
     val setLabel_ =
       fn
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_button_set_label" :
-              GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p
+              GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                -> unit;
           )
             (
@@ -95,9 +95,9 @@ structure GtkButton :>
               x2,
               x3
             )
-    val setRelief_ = fn x1 & x2 => (_import "gtk_button_set_relief" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p * GtkReliefStyle.FFI.val_ -> unit;) (x1, x2)
-    val setUseStock_ = fn x1 & x2 => (_import "gtk_button_set_use_stock" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setUseUnderline_ = fn x1 & x2 => (_import "gtk_button_set_use_underline" : GtkButtonClass.FFI.notnull GtkButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setRelief_ = fn x1 & x2 => (_import "gtk_button_set_relief" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p * GtkReliefStyle.FFI.val_ -> unit;) (x1, x2)
+    val setUseStock_ = fn x1 & x2 => (_import "gtk_button_set_use_stock" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUseUnderline_ = fn x1 & x2 => (_import "gtk_button_set_use_underline" : GtkButtonClass.FFI.non_opt GtkButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkButtonClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

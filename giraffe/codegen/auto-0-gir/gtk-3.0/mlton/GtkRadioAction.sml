@@ -14,15 +14,15 @@ structure GtkRadioAction :>
           (
             _import "mlton_gtk_radio_action_new" :
               Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
+               * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
+               * Utf8.FFI.opt Utf8.MLton.p2
                * GInt.FFI.val_
-               -> GtkRadioActionClass.FFI.notnull GtkRadioActionClass.FFI.p;
+               -> GtkRadioActionClass.FFI.non_opt GtkRadioActionClass.FFI.p;
           )
             (
               x1,
@@ -35,9 +35,9 @@ structure GtkRadioAction :>
               x8,
               x9
             )
-    val getCurrentValue_ = _import "gtk_radio_action_get_current_value" : GtkRadioActionClass.FFI.notnull GtkRadioActionClass.FFI.p -> GInt.FFI.val_;
-    val joinGroup_ = fn x1 & x2 => (_import "gtk_radio_action_join_group" : GtkRadioActionClass.FFI.notnull GtkRadioActionClass.FFI.p * unit GtkRadioActionClass.FFI.p -> unit;) (x1, x2)
-    val setCurrentValue_ = fn x1 & x2 => (_import "gtk_radio_action_set_current_value" : GtkRadioActionClass.FFI.notnull GtkRadioActionClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
+    val getCurrentValue_ = _import "gtk_radio_action_get_current_value" : GtkRadioActionClass.FFI.non_opt GtkRadioActionClass.FFI.p -> GInt.FFI.val_;
+    val joinGroup_ = fn x1 & x2 => (_import "gtk_radio_action_join_group" : GtkRadioActionClass.FFI.non_opt GtkRadioActionClass.FFI.p * GtkRadioActionClass.FFI.opt GtkRadioActionClass.FFI.p -> unit;) (x1, x2)
+    val setCurrentValue_ = fn x1 & x2 => (_import "gtk_radio_action_set_current_value" : GtkRadioActionClass.FFI.non_opt GtkRadioActionClass.FFI.p * GInt.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkRadioActionClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class

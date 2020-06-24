@@ -4,13 +4,13 @@ structure GtkGLArea :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_gl_area_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_gl_area_new" : unit -> GtkWidgetClass.FFI.notnull GtkWidgetClass.FFI.p;
-    val attachBuffers_ = _import "gtk_gl_area_attach_buffers" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p -> unit;
-    val getAutoRender_ = _import "gtk_gl_area_get_auto_render" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p -> GBool.FFI.val_;
-    val getContext_ = _import "gtk_gl_area_get_context" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p -> GdkGLContextClass.FFI.notnull GdkGLContextClass.FFI.p;
-    val getHasAlpha_ = _import "gtk_gl_area_get_has_alpha" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p -> GBool.FFI.val_;
-    val getHasDepthBuffer_ = _import "gtk_gl_area_get_has_depth_buffer" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p -> GBool.FFI.val_;
-    val getHasStencilBuffer_ = _import "gtk_gl_area_get_has_stencil_buffer" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p -> GBool.FFI.val_;
+    val new_ = _import "gtk_gl_area_new" : unit -> GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p;
+    val attachBuffers_ = _import "gtk_gl_area_attach_buffers" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p -> unit;
+    val getAutoRender_ = _import "gtk_gl_area_get_auto_render" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p -> GBool.FFI.val_;
+    val getContext_ = _import "gtk_gl_area_get_context" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p -> GdkGLContextClass.FFI.non_opt GdkGLContextClass.FFI.p;
+    val getHasAlpha_ = _import "gtk_gl_area_get_has_alpha" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p -> GBool.FFI.val_;
+    val getHasDepthBuffer_ = _import "gtk_gl_area_get_has_depth_buffer" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p -> GBool.FFI.val_;
+    val getHasStencilBuffer_ = _import "gtk_gl_area_get_has_stencil_buffer" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p -> GBool.FFI.val_;
     val getRequiredVersion_ =
       fn
         x1
@@ -18,7 +18,7 @@ structure GtkGLArea :>
          & x3 =>
           (
             _import "gtk_gl_area_get_required_version" :
-              GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p
+              GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p
                * GInt.FFI.ref_
                * GInt.FFI.ref_
                -> unit;
@@ -28,13 +28,13 @@ structure GtkGLArea :>
               x2,
               x3
             )
-    val getUseEs_ = _import "gtk_gl_area_get_use_es" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p -> GBool.FFI.val_;
-    val makeCurrent_ = _import "gtk_gl_area_make_current" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p -> unit;
-    val queueRender_ = _import "gtk_gl_area_queue_render" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p -> unit;
-    val setAutoRender_ = fn x1 & x2 => (_import "gtk_gl_area_set_auto_render" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHasAlpha_ = fn x1 & x2 => (_import "gtk_gl_area_set_has_alpha" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHasDepthBuffer_ = fn x1 & x2 => (_import "gtk_gl_area_set_has_depth_buffer" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
-    val setHasStencilBuffer_ = fn x1 & x2 => (_import "gtk_gl_area_set_has_stencil_buffer" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val getUseEs_ = _import "gtk_gl_area_get_use_es" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p -> GBool.FFI.val_;
+    val makeCurrent_ = _import "gtk_gl_area_make_current" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p -> unit;
+    val queueRender_ = _import "gtk_gl_area_queue_render" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p -> unit;
+    val setAutoRender_ = fn x1 & x2 => (_import "gtk_gl_area_set_auto_render" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHasAlpha_ = fn x1 & x2 => (_import "gtk_gl_area_set_has_alpha" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHasDepthBuffer_ = fn x1 & x2 => (_import "gtk_gl_area_set_has_depth_buffer" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setHasStencilBuffer_ = fn x1 & x2 => (_import "gtk_gl_area_set_has_stencil_buffer" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setRequiredVersion_ =
       fn
         x1
@@ -42,7 +42,7 @@ structure GtkGLArea :>
          & x3 =>
           (
             _import "gtk_gl_area_set_required_version" :
-              GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p
+              GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p
                * GInt.FFI.val_
                * GInt.FFI.val_
                -> unit;
@@ -52,7 +52,7 @@ structure GtkGLArea :>
               x2,
               x3
             )
-    val setUseEs_ = fn x1 & x2 => (_import "gtk_gl_area_set_use_es" : GtkGLAreaClass.FFI.notnull GtkGLAreaClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val setUseEs_ = fn x1 & x2 => (_import "gtk_gl_area_set_use_es" : GtkGLAreaClass.FFI.non_opt GtkGLAreaClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkGLAreaClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class

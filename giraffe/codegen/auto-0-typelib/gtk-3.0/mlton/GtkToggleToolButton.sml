@@ -6,10 +6,10 @@ structure GtkToggleToolButton :>
     where type 'a buildable_class = 'a GtkBuildableClass.class =
   struct
     val getType_ = _import "gtk_toggle_tool_button_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_toggle_tool_button_new" : unit -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;
-    val newFromStock_ = _import "mlton_gtk_toggle_tool_button_new_from_stock" : Utf8.MLton.p1 * Utf8.FFI.notnull Utf8.MLton.p2 -> GtkToolItemClass.FFI.notnull GtkToolItemClass.FFI.p;
-    val getActive_ = _import "gtk_toggle_tool_button_get_active" : GtkToggleToolButtonClass.FFI.notnull GtkToggleToolButtonClass.FFI.p -> GBool.FFI.val_;
-    val setActive_ = fn x1 & x2 => (_import "gtk_toggle_tool_button_set_active" : GtkToggleToolButtonClass.FFI.notnull GtkToggleToolButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
+    val new_ = _import "gtk_toggle_tool_button_new" : unit -> GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p;
+    val newFromStock_ = _import "mlton_gtk_toggle_tool_button_new_from_stock" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GtkToolItemClass.FFI.non_opt GtkToolItemClass.FFI.p;
+    val getActive_ = _import "gtk_toggle_tool_button_get_active" : GtkToggleToolButtonClass.FFI.non_opt GtkToggleToolButtonClass.FFI.p -> GBool.FFI.val_;
+    val setActive_ = fn x1 & x2 => (_import "gtk_toggle_tool_button_set_active" : GtkToggleToolButtonClass.FFI.non_opt GtkToggleToolButtonClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type 'a class = 'a GtkToggleToolButtonClass.class
     type 'a actionable_class = 'a GtkActionableClass.class
     type 'a activatable_class = 'a GtkActivatableClass.class

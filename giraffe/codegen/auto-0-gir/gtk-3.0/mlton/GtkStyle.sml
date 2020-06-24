@@ -9,7 +9,7 @@ structure GtkStyle :>
     where type 'a style_context_class = 'a GtkStyleContextClass.class =
   struct
     val getType_ = _import "gtk_style_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "gtk_style_new" : unit -> GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p;
+    val new_ = _import "gtk_style_new" : unit -> GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p;
     val applyDefaultBackground_ =
       fn
         x1
@@ -22,9 +22,9 @@ structure GtkStyle :>
          & x8 =>
           (
             _import "gtk_style_apply_default_background" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * CairoContextRecord.FFI.notnull CairoContextRecord.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * CairoContextRecord.FFI.non_opt CairoContextRecord.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GtkStateType.FFI.val_
                * GInt.FFI.val_
                * GInt.FFI.val_
@@ -42,8 +42,8 @@ structure GtkStyle :>
               x7,
               x8
             )
-    val copy_ = _import "gtk_style_copy" : GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p -> GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p;
-    val detach_ = _import "gtk_style_detach" : GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p -> unit;
+    val copy_ = _import "gtk_style_copy" : GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p -> GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p;
+    val detach_ = _import "gtk_style_detach" : GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p -> unit;
     val getStyleProperty_ =
       fn
         x1
@@ -52,11 +52,11 @@ structure GtkStyle :>
          & x5 =>
           (
             _import "mlton_gtk_style_get_style_property" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
                * GObjectType.FFI.val_
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GObjectValueRecord.FFI.notnull GObjectValueRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
                -> unit;
           )
             (
@@ -66,7 +66,7 @@ structure GtkStyle :>
               x4,
               x5
             )
-    val hasContext_ = _import "gtk_style_has_context" : GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p -> GBool.FFI.val_;
+    val hasContext_ = _import "gtk_style_has_context" : GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p -> GBool.FFI.val_;
     val lookupColor_ =
       fn
         x1
@@ -74,10 +74,10 @@ structure GtkStyle :>
          & x4 =>
           (
             _import "mlton_gtk_style_lookup_color" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               * GdkColorRecord.FFI.notnull GdkColorRecord.FFI.p
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GdkColorRecord.FFI.non_opt GdkColorRecord.FFI.p
                -> GBool.FFI.val_;
           )
             (
@@ -91,10 +91,10 @@ structure GtkStyle :>
         x1 & (x2, x3) =>
           (
             _import "mlton_gtk_style_lookup_icon_set" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
                * Utf8.MLton.p1
-               * Utf8.FFI.notnull Utf8.MLton.p2
-               -> GtkIconSetRecord.FFI.notnull GtkIconSetRecord.FFI.p;
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> GtkIconSetRecord.FFI.non_opt GtkIconSetRecord.FFI.p;
           )
             (
               x1,
@@ -112,15 +112,15 @@ structure GtkStyle :>
          & (x7, x8) =>
           (
             _import "mlton_gtk_style_render_icon" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * GtkIconSourceRecord.FFI.notnull GtkIconSourceRecord.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * GtkIconSourceRecord.FFI.non_opt GtkIconSourceRecord.FFI.p
                * GtkTextDirection.FFI.val_
                * GtkStateType.FFI.val_
                * GInt.FFI.val_
-               * unit GtkWidgetClass.FFI.p
+               * GtkWidgetClass.FFI.opt GtkWidgetClass.FFI.p
                * Utf8.MLton.p1
-               * unit Utf8.MLton.p2
-               -> GdkPixbufPixbufClass.FFI.notnull GdkPixbufPixbufClass.FFI.p;
+               * Utf8.FFI.opt Utf8.MLton.p2
+               -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
           )
             (
               x1,
@@ -139,8 +139,8 @@ structure GtkStyle :>
          & x3 =>
           (
             _import "gtk_style_set_background" :
-              GtkStyleClass.FFI.notnull GtkStyleClass.FFI.p
-               * GdkWindowClass.FFI.notnull GdkWindowClass.FFI.p
+              GtkStyleClass.FFI.non_opt GtkStyleClass.FFI.p
+               * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p
                * GtkStateType.FFI.val_
                -> unit;
           )

@@ -5,9 +5,9 @@ structure GioMemoryInputStream :>
     where type 'a seekable_class = 'a GioSeekableClass.class =
   struct
     val getType_ = _import "g_memory_input_stream_get_type" : unit -> GObjectType.FFI.val_;
-    val new_ = _import "g_memory_input_stream_new" : unit -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
-    val newFromBytes_ = _import "g_memory_input_stream_new_from_bytes" : GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p -> GioInputStreamClass.FFI.notnull GioInputStreamClass.FFI.p;
-    val addBytes_ = fn x1 & x2 => (_import "g_memory_input_stream_add_bytes" : GioMemoryInputStreamClass.FFI.notnull GioMemoryInputStreamClass.FFI.p * GLibBytesRecord.FFI.notnull GLibBytesRecord.FFI.p -> unit;) (x1, x2)
+    val new_ = _import "g_memory_input_stream_new" : unit -> GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p;
+    val newFromBytes_ = _import "g_memory_input_stream_new_from_bytes" : GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> GioInputStreamClass.FFI.non_opt GioInputStreamClass.FFI.p;
+    val addBytes_ = fn x1 & x2 => (_import "g_memory_input_stream_add_bytes" : GioMemoryInputStreamClass.FFI.non_opt GioMemoryInputStreamClass.FFI.p * GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> unit;) (x1, x2)
     type 'a class = 'a GioMemoryInputStreamClass.class
     type 'a pollable_input_stream_class = 'a GioPollableInputStreamClass.class
     type 'a seekable_class = 'a GioSeekableClass.class

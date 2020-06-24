@@ -1,7 +1,8 @@
 structure GioDataInputStreamClass :>
   GIO_DATA_INPUT_STREAM_CLASS
     where type 'a buffered_input_stream_class = 'a GioBufferedInputStreamClass.class
-    where type C.notnull = GioBufferedInputStreamClass.C.notnull
+    where type C.opt = GioBufferedInputStreamClass.C.opt
+    where type C.non_opt = GioBufferedInputStreamClass.C.non_opt
     where type 'a C.p = 'a GioBufferedInputStreamClass.C.p =
   struct
     type 'a buffered_input_stream_class = 'a GioBufferedInputStreamClass.class
