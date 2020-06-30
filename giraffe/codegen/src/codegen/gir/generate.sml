@@ -140,7 +140,8 @@ val mltonBasDecs = [
 ]
 val giraffeBasDecs = [
   mkExtMLBFile ("$(GIRAFFE_SML_LIB)", "general", "mlton"),
-  mkExtMLBFile ("$(GIRAFFE_SML_LIB)", "ffi", "mlton")
+  mkExtMLBFile ("$(GIRAFFE_SML_LIB)", "ffi", "mlton"),
+  mkExtMLBFile ("$(GIRAFFE_SML_LIB)", "gir", "mlton")
 ]
 
 fun mkFileBasDec (file, isPortable) =
@@ -181,6 +182,7 @@ fun mkInitNamespaceDepBasDec initNamespace = mkBasisFile (SOME initNamespace) ML
  *       $(SML_LIB)/basis/mlton.mlb
  *       $(GIRAFFE_SML_LIB)/general/mlton.mlb
  *       $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
+ *       $(GIRAFFE_SML_LIB)/gir/mlton.mlb
  *       <initNamespaceDeps>
  *       <namespaceDeps>
  *       <fileDeps>
@@ -336,7 +338,7 @@ in
       val topLevelDecs'2 = revMapAppend mkSigUseDec (revSigs, topLevelDecs'1)
       val topLevelDecs'3 = revMapAppend mkExtUseDec (revExts, topLevelDecs'2)
       val topLevelDecs'4 =
-        revMapAppend mkInitNamespaceDepUseDec (initNamespaceDeps, topLevelDecs'3)
+        map mkInitNamespaceDepUseDec initNamespaceDeps @ topLevelDecs'3
     in
       PrettyPrint.fmtProgram topLevelDecs'4
     end

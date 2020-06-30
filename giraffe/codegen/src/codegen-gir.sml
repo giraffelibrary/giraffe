@@ -304,7 +304,11 @@ val () = ignore [
     )
 ]
 val errorLog'1 = List.foldl insert errorLog'0 [
-  gen outDir repo ("GLib", "2.0", "GLIB") ["GObject"]
+  (* Types is not an initial namespace but we use this mechanism to bring
+   * the static types into scope in the GLib namespace by manually supplying
+   * the files that would load the initial namespace to just bring GIR type
+   * structures into scope.  For Poly/ML there is nothing to do. *)
+  gen outDir repo ("GLib", "2.0", "GLIB") ["Types", "GObject"]
     (
       [],
       [

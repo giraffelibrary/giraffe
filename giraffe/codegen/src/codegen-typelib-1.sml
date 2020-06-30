@@ -31,6 +31,7 @@ PolyML.Compiler.reportUnreferencedIds := true;
 use "../../src/polyml.sml";
 use "../../src/general/polyml.sml";
 use "../../src/ffi/polyml.sml";
+use "../../src/gir/polyml.sml";
 use "../../src/glib-2.0/polyml.sml";
 use "../../src/gobject-2.0/polyml.sml";
 
@@ -320,7 +321,11 @@ val () = ignore [
     )
 ]
 val errorLog'1 = List.foldl insert errorLog'0 [
-  gen outDir repo ("GLib", "2.0", "GLIB") ["GObject"]
+  (* Types is not an initial namespace but we use this mechanism to bring
+   * the static types into scope in the GLib namespace by manually supplying
+   * the files that would load the initial namespace to just bring GIR type
+   * structures into scope.  For Poly/ML there is nothing to do. *)
+  gen outDir repo ("GLib", "2.0", "GLIB") ["Types", "GObject"]
     (
       [],
       [

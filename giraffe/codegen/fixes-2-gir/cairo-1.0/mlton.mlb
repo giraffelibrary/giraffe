@@ -3,6 +3,7 @@ local
   $(SML_LIB)/basis/mlton.mlb
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
+  $(GIRAFFE_SML_LIB)/gir/mlton.mlb
   ../gobject-2.0/mlton.mlb
 in
   CAIRO_CONTEXT_RECORD-sig.sml

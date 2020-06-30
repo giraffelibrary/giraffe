@@ -44,6 +44,13 @@ Source release directory layout
       polyml/
       ...
 
+    gir/                      - GLib types assumed by GIR files
+      mlton.mlb
+      polyml.sml
+      mlton/
+      polyml/
+      ...
+
     <namespace>-<version>/    - SML bindings for <namespace>-<version>
       giraffe.c
       mlton.mlb
@@ -76,6 +83,13 @@ Installation directory layout
         ...
 
       ffi/                      - copy of src/ffi
+        mlton.mlb
+        polyml.sml
+        mlton/
+        polyml/
+        ...
+
+      gir/                      - copy of src/gir
         mlton.mlb
         polyml.sml
         mlton/

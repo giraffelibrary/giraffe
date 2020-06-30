@@ -1,9 +1,11 @@
+mlton-types.mlb
 mlton-gobject.mlb
 local
   $(SML_LIB)/basis/basis.mlb
   $(SML_LIB)/basis/mlton.mlb
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
+  $(GIRAFFE_SML_LIB)/gir/mlton.mlb
 in
   GBoolCArrayN.mlb
   GDoubleCArrayN.mlb

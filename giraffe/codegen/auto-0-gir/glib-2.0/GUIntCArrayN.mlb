@@ -3,6 +3,7 @@ local
   $(SML_LIB)/basis/mlton.mlb
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
+  $(GIRAFFE_SML_LIB)/gir/mlton.mlb
 in
   GUIntCArrayN.sml
 end

@@ -1,0 +1,22 @@
+(* Copyright (C) 2020 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
+local
+  $(SML_LIB)/basis/basis.mlb
+  $(SML_LIB)/basis/c-types.mlb
+  $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
+in
+  ann
+    "resolveScope topdec"
+  in
+    ann "allowFFI true" in mlton/GMemory.sml end
+    GScalarTypes.sml
+    GScalars.sml
+    UTF8-sig.sml
+    Utf8.sml
+  end
+end

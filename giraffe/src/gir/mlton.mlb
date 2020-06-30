@@ -1,0 +1,33 @@
+(* Copyright (C) 2020 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
+local
+  $(SML_LIB)/basis/basis.mlb
+  $(SML_LIB)/basis/mlton.mlb
+  $(SML_LIB)/basis/c-types.mlb
+  $(GIRAFFE_SML_LIB)/general/mlton.mlb
+  $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
+in
+  types-mlton.mlb
+  CLASS-sig.sml
+  UNION-sig.sml
+  RECORD-sig.sml
+  VALUE_RECORD-sig.sml
+  CALLBACK-sig.sml
+  NOTIFIED_CALLBACK-sig.sml
+  FLAGS-sig.sml
+  ENUM-sig.sml
+  ann
+    "resolveScope topdec"
+  in
+    mlton/PointerRecord-fun.sml
+    mlton/BoxedRecord-fun.sml
+    mlton/BoxedValueRecord-fun.sml
+    mlton/Flags-fun.sml
+    mlton/Enum-fun.sml
+  end
+end

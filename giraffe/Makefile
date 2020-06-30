@@ -151,7 +151,7 @@ install-sml :
 	install -d "$(LIBDIR)"
 	install -d "$(LIBDIR)/sml"
 	install -c -p -m 644 src/polyml.sml "$(LIBDIR)/sml"
-	for dir in ffi general $(SML_LIB_NAMES) ; \
+	for dir in general ffi gir $(SML_LIB_NAMES) ; \
 	do \
 	  install -d "$(LIBDIR)/sml/$${dir}" ; \
 	  install -c -p -m 644 src/$${dir}/*.sml src/$${dir}/*.mlb "$(LIBDIR)/sml/$${dir}" ; \

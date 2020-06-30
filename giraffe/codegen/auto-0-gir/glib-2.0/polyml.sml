@@ -1,3 +1,4 @@
+use "polyml-types.sml";
 use "polyml-gobject.sml";
 useExt "GBoolCArrayN.sml";
 useExt "GDoubleCArrayN.sml";

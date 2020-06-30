@@ -78,6 +78,7 @@ RELEASE_FILES := \
 	src/polyml.sml \
 	src/general \
 	src/ffi \
+	src/gir \
 	src/*-*
 
 EXCLUDED_RELEASE_FILES := \
