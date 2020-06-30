@@ -31,6 +31,7 @@ in
     C_VALUE_EQ_NULL_TYPE-sig.sml
     FILE_DESC_TYPE-sig.sml
     C_REF-sig.sml
+    mlton/C_REF-sig.sml
     C_POINTER-sig.sml
     mlton/C_POINTER-sig.sml
     C_TYPED_POINTER-sig.sml

@@ -13,6 +13,8 @@ functor CRef(CValueType : C_VALUE_TYPE) :>
 
     type r = p
 
+    fun withNullRef f () = f Memory.Pointer.null
+
     fun withRef f x =
       let
         val r = Memory.malloc (size ())

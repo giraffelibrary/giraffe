@@ -37,32 +37,6 @@ functor CPointerInternal(Memory : C_MEMORY) :>
     fun mapNonNullPtr f p = if isNull p then p else toOptPtr (f p)
     fun appNonNullPtr f p = if isNull p then () else f p
 
-    val fromVal = Fn.id
-    val fromOptVal = toOpt
-
-    val withVal = Fn.id
-    fun withOptVal f = withVal f o fromOpt
-
-    type ('a, 'b) r = Memory.Pointer.t
-
-    fun withNullRef f () = f Memory.Pointer.null
-    fun withRef f p =
-      let
-        val mem = Memory.malloc Memory.Pointer.size
-        val () = Memory.setPointer (mem, 0, p)
-      in
-        let
-          val ret = f mem
-          val p' = Memory.getPointer (mem, 0)
-          val () = Memory.free mem
-        in
-          p' & ret
-        end
-          handle e => (Memory.free mem; raise e)
-      end
-    fun withRefVal f = withVal (withRef f)
-    fun withRefOptVal f = withOptVal (withRef f)
-
     fun add w p = Memory.Pointer.add (p, w)
     fun sub w p = Memory.Pointer.sub (p, w)
 
@@ -70,7 +44,7 @@ functor CPointerInternal(Memory : C_MEMORY) :>
     val malloc0 = Memory.malloc0
     val free = Memory.free
 
-    structure Type =
+    structure ValueType =
       struct
         type t = Memory.Pointer.t
         type v = Memory.Pointer.t
@@ -99,8 +73,23 @@ functor CPointerInternal(Memory : C_MEMORY) :>
 
         structure Memory = Memory
       end
-    structure NonOptValueType = Type
-    structure OptValueType = Type
+    structure NonOptValueType = ValueType
+    structure OptValueType = ValueType
+
+    val fromVal = Fn.id
+    val fromOptVal = toOpt
+
+    val withVal = Fn.id
+    fun withOptVal f = withVal f o fromOpt
+
+    structure CRefValue = CRef(ValueType)
+
+    type ('a, 'b) r = CRefValue.r
+    val withNullRef = CRefValue.withNullRef
+    val withRef = CRefValue.withRef
+
+    fun withRefVal f = withVal (withRef f)
+    fun withRefOptVal f = withOptVal (withRef f)
 
     structure PolyML =
       struct
@@ -111,9 +100,9 @@ functor CPointerInternal(Memory : C_MEMORY) :>
         val cVal = Memory.PolyML.cPointer
         val cOptVal = Memory.PolyML.cPointer
 
-        val cOptOutRef = Memory.PolyML.cPointer
-        val cInOptOutRef = Memory.PolyML.cPointer
-        val cRef = Memory.PolyML.cPointer
-        val cInRef = Memory.PolyML.cPointer
+        val cOptOutRef = CRefValue.PolyML.cRef
+        val cInOptOutRef = CRefValue.PolyML.cRef
+        val cRef = CRefValue.PolyML.cRef
+        val cInRef = CRefValue.PolyML.cRef
       end
   end

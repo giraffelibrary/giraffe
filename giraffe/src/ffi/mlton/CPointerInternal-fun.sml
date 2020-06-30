@@ -37,26 +37,6 @@ functor CPointerInternal(Memory : C_MEMORY) :>
     fun mapNonNullPtr f p = if isNull p then p else toOptPtr (f p)
     fun appNonNullPtr f p = if isNull p then () else f p
 
-    val fromVal = Fn.id
-    val fromOptVal = toOpt
-
-    val withVal = Fn.id
-    fun withOptVal f = withVal f o fromOpt
-
-    type ('a, 'b) r = Memory.Pointer.t ref
-
-    fun withNullRef f = raise Fail "withNullRef not supported"
-    fun withRef f p =
-      let
-        val r = ref p
-        val ret = f r
-        val p' = ! r
-      in
-        p' & ret
-      end
-    fun withRefVal f = withVal (withRef f)
-    fun withRefOptVal f = withOptVal (withRef f)
-
     fun add w p = Memory.Pointer.add (p, w)
     fun sub w p = Memory.Pointer.sub (p, w)
 
@@ -64,7 +44,7 @@ functor CPointerInternal(Memory : C_MEMORY) :>
     val malloc0 = Memory.malloc0
     val free = Memory.free
 
-    structure Type =
+    structure ValueType =
       struct
         type t = Memory.Pointer.t
         type v = Memory.Pointer.t
@@ -92,12 +72,23 @@ functor CPointerInternal(Memory : C_MEMORY) :>
 
         structure Memory = Memory
       end
-    structure NonOptValueType = Type
-    structure OptValueType = Type
+    structure NonOptValueType = ValueType
+    structure OptValueType = ValueType
 
-    structure MLton = 
-      struct
-        fun toRef x = ref x
-        fun fromRef x = ! x
-      end
+    val fromVal = Fn.id
+    val fromOptVal = toOpt
+
+    val withVal = Fn.id
+    fun withOptVal f = withVal f o fromOpt
+
+    structure CRefValue = CRef(ValueType)
+
+    type ('a, 'b) r = CRefValue.r
+    val withNullRef = CRefValue.withNullRef
+    val withRef = CRefValue.withRef
+
+    fun withRefVal f = withVal (withRef f)
+    fun withRefOptVal f = withOptVal (withRef f)
+
+    structure MLton = CRefValue.MLton
   end
