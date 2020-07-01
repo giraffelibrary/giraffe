@@ -112,7 +112,27 @@ signature C_POINTER =
     val free : t -> unit
 
     (**
-     * The type `('in, 'out) r` respresents a reference to a C pointer.  The
+     * C value types based on a pointer
+     *
+     * The type `p` is exposed to support construction of othe C value types
+     * based on a pointer.
+     *)
+    structure NonOptValueType :
+      C_VALUE_EQ_TYPE
+        where type t = non_opt p
+        where type v = non_opt p
+        where type p = non_opt p
+
+    structure OptValueType :
+      C_VALUE_EQ_NULL_TYPE
+        where type t = opt p
+        where type v = opt p
+        where type p = opt p
+
+    (**
+     * Support for constructing a high-level FFI based on a pointer
+     *
+     * The type `('in, 'out) r` represents a reference to a C pointer.  The
      * type parameter `'in` is a placeholder for a phantom type to indicate
      * whether the pointer stored to a reference is an optional pointer or a
      * non-optional pointer as follows:
@@ -126,30 +146,13 @@ signature C_POINTER =
      *)
     type ('in, 'out) r
 
-    (**
-     * Support for using a pointer value in the high-level FFI.
-     *)
     val fromVal    : non_opt p -> t
     val fromOptVal : opt p     -> t option
 
     val withVal    : (non_opt p -> 'a) -> t        -> 'a
     val withOptVal : (opt p     -> 'a) -> t option -> 'a
 
-    val withNullRef   : (('a, 'b) r   -> 'c) -> unit     -> 'c
+    val withNullRef   : (('a,      'b) r -> 'c) -> unit     -> 'c
     val withRefVal    : ((non_opt, 'a) r -> 'b) -> t        -> ('a p, 'b) pair
-    val withRefOptVal : ((opt, 'a) r     -> 'b) -> t option -> ('a p, 'b) pair
-
-    (**
-     * C type representation of a pointer
-     *)
-    structure NonOptValueType :
-      C_VALUE_TYPE
-        where type t = non_opt p
-        where type v = non_opt p
-        where type p = non_opt p
-    structure OptValueType :
-      C_VALUE_TYPE
-        where type t = opt p
-        where type v = opt p
-        where type p = opt p
+    val withRefOptVal : ((opt,     'a) r -> 'b) -> t option -> ('a p, 'b) pair
   end

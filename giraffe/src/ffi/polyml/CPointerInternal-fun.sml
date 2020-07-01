@@ -56,7 +56,10 @@ functor CPointerInternal(Memory : C_MEMORY) :>
           end
 
         val isRef = false
-        val null = Memory.Pointer.null
+
+        val null = Fn.const null
+        val isNull = isNull
+
         val size : unit -> word =
           Fn.const Memory.Pointer.size
 
@@ -64,7 +67,7 @@ functor CPointerInternal(Memory : C_MEMORY) :>
         val updateC = Fn.const Fn.ignore
         val fromC = Fn.id
 
-        val new : unit -> v = Fn.const null
+        val new = null
         val delete = Fn.ignore
         val clear = Fn.ignore
 
