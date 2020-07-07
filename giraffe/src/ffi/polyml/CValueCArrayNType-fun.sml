@@ -15,17 +15,10 @@ functor CValueCArrayNType(
     where type t = ElemSequence.t
     where type 'a from_p = int -> 'a =
   struct
+    structure ElemSequence = ElemSequence
+
     type elem = ElemSequence.elem
     type t = ElemSequence.t
-
-    val length = ElemSequence.length
-    fun sub t i = ElemSequence.sub (t, i)
-    val tabulate = ElemSequence.tabulate
-
-    val fromList = ElemSequence.fromList
-    val toList = ElemSequence.toList
-
-    open PolyMLFFI
 
     type 'a from_p = int -> 'a
     structure Pointer = CTypedPointer(CElemType)

@@ -9,6 +9,7 @@ signature SEQUENCE =
   sig
     type 'a t
     val tabulate : int * (int -> 'a) -> 'a t
+    val get : 'a t -> int -> 'a
     val sub : 'a t * int -> 'a
     val length : 'a t -> int
     val appi : (int * 'a -> unit) -> 'a t -> unit

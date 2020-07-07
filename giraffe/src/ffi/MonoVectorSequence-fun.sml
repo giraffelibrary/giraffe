@@ -1,4 +1,4 @@
-(* Copyright (C) 2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -12,8 +12,8 @@ functor MonoVectorSequence(ElemVector : MONO_VECTOR) :>
   struct
     type t = ElemVector.vector
     open ElemVector
-    fun toList v = List.tabulate (length v, fn i => sub (v, i))
-    fun take (v, n) = tabulate (n, fn i => sub (v, i))
+    fun get v i = sub (v, i)
+    fun toList v = List.tabulate (length v, get v)
     structure Vector = ElemVector
     fun toVector v = v
     fun fromVector v = v

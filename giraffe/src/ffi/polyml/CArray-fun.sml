@@ -191,7 +191,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
       fn
         a => Finalizable.withValue (a, C.ArrayType.len)
 
-    val sub =
+    val get =
       fn
         t as a =>
           let
@@ -203,6 +203,8 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
               then C.ArrayType.toElem (get i)
               else raise Subscript
           end
+
+    fun sub (t, i) = get t i
 
     structure PolyML =
       struct

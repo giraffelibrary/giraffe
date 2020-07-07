@@ -264,7 +264,7 @@ structure GIRepositoryRepository :>
     (* Wrap GIRepository functions to support `typelibvers_t` *)
 
     fun convertUtf8CPtrArrayToList a =
-      List.tabulate (Utf8CPtrArray.length a, Utf8CPtrArray.sub a)
+      List.tabulate (Utf8CPtrArray.length a, Utf8CPtrArray.get a)
 
     fun require repository (namespace_, version, flags) =
       let

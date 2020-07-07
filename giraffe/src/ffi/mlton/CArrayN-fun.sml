@@ -306,7 +306,7 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
 
     fun fromSequence v =
       let
-        val n = C.ArrayType.length v
+        val n = C.ArrayType.ElemSequence.length v
       in
         toSMLValue (C.ArrayType.CVector.fromVal v)
           handle C.ArrayType.CVector.NoSMLValue =>
@@ -349,7 +349,7 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
         (CArray (a, _), n) => Finalizable.withValue (a, C.ArrayType.len n)
       | (SMLValue v, n) => Finalizable.withValue (v, fn _ => n)
 
-    val sub =
+    val get =
       fn
         t as (CArray (a, _), n) =>
           let
@@ -362,6 +362,8 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
               else raise Subscript
           end
       | (SMLValue v, _) => Finalizable.withValue (v, C.ArrayType.CVector.csub)
+
+    fun sub (t, i) = get t i
 
     val full =
       fn

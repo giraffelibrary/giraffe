@@ -12,14 +12,13 @@ functor CValueVectorSequence(CElemType : C_VALUE_TYPE) :>
   struct
     type t = CElemType.t vector
     type elem = CElemType.t
-    val fromList = Vector.fromList
-    fun toList v = List.tabulate (Vector.length v, fn i => Vector.sub (v, i))
     val tabulate = Vector.tabulate
+    fun get v i = Vector.sub (v, i)
     val sub = Vector.sub
     val length = Vector.length
     val appi = Vector.appi
-    val findi = Vector.findi
-    fun take (v, n) = tabulate (n, fn i => sub (v, i))
+    val fromList = Vector.fromList
+    fun toList v = List.tabulate (length v, get v)
     val toVector = Vector.map CElemType.toC
     val fromVector = Vector.map CElemType.fromC
     structure Vector = CValueVector(CElemType)

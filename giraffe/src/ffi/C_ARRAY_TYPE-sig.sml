@@ -10,11 +10,10 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
     type t
     type elem
 
-    val length : t -> int
-    val sub : t -> int -> elem
-    val tabulate : int * (int -> elem) -> t
-    val fromList : elem list -> t
-    val toList : t -> elem list
+    structure ElemSequence :
+      MONO_SEQUENCE
+        where type t = t
+        where type elem = elem
 
     structure Pointer : C_POINTER
     type opt = Pointer.opt

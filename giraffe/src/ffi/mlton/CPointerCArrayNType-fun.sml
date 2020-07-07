@@ -10,19 +10,25 @@ functor CPointerCArrayNType(
   structure Sequence : SEQUENCE
 ) :>
   C_ARRAY_TYPE
-    where type elem = CElemType.t
-    where type t = CElemType.t Sequence.t
+    where type ElemSequence.elem = CElemType.t
+    where type ElemSequence.t = CElemType.t Sequence.t
     where type 'a from_p = int -> 'a =
   struct
-    type elem = CElemType.t
-    type t = CElemType.t Sequence.t
+    structure ElemSequence =
+      struct
+        open Sequence
+        type elem = CElemType.t
+        type t = CElemType.t Sequence.t
+        structure Vector =
+          struct
+            open Vector
+            type elem = CElemType.t
+            type vector = CElemType.t Vector.vector
+          end
+      end
 
-    val length = Sequence.length
-    fun sub t i = Sequence.sub (t, i)
-    val tabulate = Sequence.tabulate
-
-    val fromList = Sequence.fromList
-    val toList = Sequence.toList
+    type elem = ElemSequence.elem
+    type t = ElemSequence.t
 
     type 'a from_p = int -> 'a
     structure Pointer = CTypedPointer(CElemType.Pointer.NonOptValueType)
@@ -152,13 +158,4 @@ functor CPointerCArrayNType(
 
     fun fromC n p =
       Sequence.tabulate (len n p, toElem o get n p)
-
-(*
-    structure Vector =
-      struct
-        open Sequence
-        type elem = CElemType.t
-        type t = CElemType.t Sequence.t
-      end
-*)
   end

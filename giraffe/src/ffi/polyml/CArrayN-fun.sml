@@ -162,7 +162,7 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
 
     fun fromSequence v =
       let
-        val n = C.ArrayType.length v
+        val n = C.ArrayType.ElemSequence.length v
       in
         FFI.fromPtr ~1 (C.ArrayType.toC n v) n
       end
@@ -199,7 +199,7 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
       fn
         ((a, _), n) => Finalizable.withValue (a, C.ArrayType.len n)
 
-    val sub =
+    val get =
       fn
         t as ((a, _), n) =>
           let
@@ -211,6 +211,8 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
               then C.ArrayType.toElem (get i)
               else raise Subscript
           end
+
+    fun sub (t, i) = get t i
 
     val full =
       fn

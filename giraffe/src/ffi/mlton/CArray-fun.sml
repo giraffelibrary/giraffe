@@ -325,7 +325,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
         CArray a => Finalizable.withValue (a, C.ArrayType.len)
       | SMLValue v => Finalizable.withValue (v, C.ArrayType.CVector.clen)
 
-    val sub =
+    val get =
       fn
         t as CArray a =>
           let
@@ -338,6 +338,8 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
               else raise Subscript
           end
       | SMLValue v => Finalizable.withValue (v, C.ArrayType.CVector.csub)
+
+    fun sub (t, i) = get t i
 
     structure MLton =
       struct

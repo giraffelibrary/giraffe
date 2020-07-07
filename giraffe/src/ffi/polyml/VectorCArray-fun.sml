@@ -18,12 +18,13 @@ functor VectorCArray(CArray : C_ARRAY where type 'a C.ArrayType.from_p = 'a) :>
     type t = CArray.sequence
     type elem = CArray.elem
 
-    val length = CArray.C.ArrayType.length
-    val sub = CArray.C.ArrayType.sub
-    val tabulate = CArray.C.ArrayType.tabulate
+    val length = CArray.C.ArrayType.ElemSequence.length
+    val get = CArray.C.ArrayType.ElemSequence.get
+    val sub = CArray.C.ArrayType.ElemSequence.sub
+    val tabulate = CArray.C.ArrayType.ElemSequence.tabulate
 
-    val fromList = CArray.C.ArrayType.fromList
-    val toList = CArray.C.ArrayType.toList
+    val fromList = CArray.C.ArrayType.ElemSequence.fromList
+    val toList = CArray.C.ArrayType.ElemSequence.toList
 
     type sequence = CArray.sequence
     val fromSequence = Fn.id
@@ -41,11 +42,11 @@ functor VectorCArray(CArray : C_ARRAY where type 'a C.ArrayType.from_p = 'a) :>
         type 'a tabulator = 'a CArray.FFI.tabulator
 
         type 'a out_p = 'a CArray.FFI.out_p
-        fun fromPtr d = CArray.FFI.copyPtr C.ArrayType.tabulate d
-        fun fromDupPtr d = CArray.FFI.copyPtr C.ArrayType.tabulate d
+        fun fromPtr d = CArray.FFI.copyPtr C.ArrayType.ElemSequence.tabulate d
+        fun fromDupPtr d = CArray.FFI.copyPtr C.ArrayType.ElemSequence.tabulate d
         val copyPtr = CArray.FFI.copyPtr
-        fun fromOptPtr d = CArray.FFI.copyOptPtr C.ArrayType.tabulate d
-        fun fromDupOptPtr d = CArray.FFI.copyOptPtr C.ArrayType.tabulate d
+        fun fromOptPtr d = CArray.FFI.copyOptPtr C.ArrayType.ElemSequence.tabulate d
+        fun fromDupOptPtr d = CArray.FFI.copyOptPtr C.ArrayType.ElemSequence.tabulate d
         val copyOptPtr = CArray.FFI.copyOptPtr
 
         type 'a in_p = 'a CArray.FFI.in_p
