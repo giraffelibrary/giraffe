@@ -57,11 +57,11 @@ structure GLibVariant :>
           )
       val classify_ = call (getSymbol "g_variant_classify") (GLibVariantRecord.PolyML.cPtr --> GLibVariantClass.PolyML.cVal)
       val compare_ = call (getSymbol "g_variant_compare") (GLibVariantRecord.PolyML.cPtr &&> GLibVariantRecord.PolyML.cPtr --> GInt.PolyML.cVal)
-      val dupBytestring_ = call (getSymbol "g_variant_dup_bytestring") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> GUInt8CArrayN.PolyML.cOutPtr)
+      val dupBytestring_ = call (getSymbol "g_variant_dup_bytestring") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> GUInt8CArray.PolyML.cOutPtr)
       val dupBytestringArray_ = call (getSymbol "g_variant_dup_bytestring_array") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CPtrArrayN.PolyML.cOutPtr)
-      val dupObjv_ = call (getSymbol "g_variant_dup_objv") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CPtrArrayN.PolyML.cOutPtr)
+      val dupObjv_ = call (getSymbol "g_variant_dup_objv") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CPtrArray.PolyML.cOutPtr)
       val dupString_ = call (getSymbol "g_variant_dup_string") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8.PolyML.cOutPtr)
-      val dupStrv_ = call (getSymbol "g_variant_dup_strv") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CPtrArrayN.PolyML.cOutPtr)
+      val dupStrv_ = call (getSymbol "g_variant_dup_strv") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CPtrArray.PolyML.cOutPtr)
       val equal_ = call (getSymbol "g_variant_equal") (GLibVariantRecord.PolyML.cPtr &&> GLibVariantRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getBoolean_ = call (getSymbol "g_variant_get_boolean") (GLibVariantRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getByte_ = call (getSymbol "g_variant_get_byte") (GLibVariantRecord.PolyML.cPtr --> GUInt8.PolyML.cVal)
@@ -76,10 +76,10 @@ structure GLibVariant :>
       val getInt64_ = call (getSymbol "g_variant_get_int64") (GLibVariantRecord.PolyML.cPtr --> GInt64.PolyML.cVal)
       val getMaybe_ = call (getSymbol "g_variant_get_maybe") (GLibVariantRecord.PolyML.cPtr --> GLibVariantRecord.PolyML.cOptPtr)
       val getNormalForm_ = call (getSymbol "g_variant_get_normal_form") (GLibVariantRecord.PolyML.cPtr --> GLibVariantRecord.PolyML.cPtr)
-      val getObjv_ = call (getSymbol "g_variant_get_objv") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CPtrArrayN.PolyML.cOutPtr)
+      val getObjv_ = call (getSymbol "g_variant_get_objv") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CPtrArray.PolyML.cOutPtr)
       val getSize_ = call (getSymbol "g_variant_get_size") (GLibVariantRecord.PolyML.cPtr --> GSize.PolyML.cVal)
       val getString_ = call (getSymbol "g_variant_get_string") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8.PolyML.cOutPtr)
-      val getStrv_ = call (getSymbol "g_variant_get_strv") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CPtrArrayN.PolyML.cOutPtr)
+      val getStrv_ = call (getSymbol "g_variant_get_strv") (GLibVariantRecord.PolyML.cPtr &&> GSize.PolyML.cRef --> Utf8CPtrArray.PolyML.cOutPtr)
       val getType_ = call (getSymbol "g_variant_get_type") (GLibVariantRecord.PolyML.cPtr --> GLibVariantTypeRecord.PolyML.cPtr)
       val getTypeString_ = call (getSymbol "g_variant_get_type_string") (GLibVariantRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getUint16_ = call (getSymbol "g_variant_get_uint16") (GLibVariantRecord.PolyML.cPtr --> GUInt16.PolyML.cVal)
@@ -223,9 +223,9 @@ structure GLibVariant :>
     fun compare self two = (GLibVariantRecord.FFI.withPtr &&&> GLibVariantRecord.FFI.withPtr ---> GInt.FFI.fromVal) compare_ (self & two)
     fun dupBytestring self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 1) dupBytestring_ (self & GSize.null)
+        val _ & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArray.FFI.fromPtr 1) dupBytestring_ (self & GSize.null)
       in
-        retVal length
+        retVal
       end
     fun dupBytestringArray self =
       let
@@ -235,9 +235,9 @@ structure GLibVariant :>
       end
     fun dupObjv self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) dupObjv_ (self & GSize.null)
+        val _ & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 2) dupObjv_ (self & GSize.null)
       in
-        retVal length
+        retVal
       end
     fun dupString self =
       let
@@ -247,9 +247,9 @@ structure GLibVariant :>
       end
     fun dupStrv self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) dupStrv_ (self & GSize.null)
+        val _ & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 2) dupStrv_ (self & GSize.null)
       in
-        retVal length
+        retVal
       end
     fun equal self two = (GLibVariantRecord.FFI.withPtr &&&> GLibVariantRecord.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & two)
     fun getBoolean self = (GLibVariantRecord.FFI.withPtr ---> GBool.FFI.fromVal) getBoolean_ self
@@ -272,9 +272,9 @@ structure GLibVariant :>
     fun getNormalForm self = (GLibVariantRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getNormalForm_ self
     fun getObjv self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 1) getObjv_ (self & GSize.null)
+        val _ & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 1) getObjv_ (self & GSize.null)
       in
-        retVal length
+        retVal
       end
     fun getSize self = (GLibVariantRecord.FFI.withPtr ---> GSize.FFI.fromVal) getSize_ self
     fun getString self =
@@ -285,9 +285,9 @@ structure GLibVariant :>
       end
     fun getStrv self =
       let
-        val length & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 1) getStrv_ (self & GSize.null)
+        val _ & retVal = (GLibVariantRecord.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 1) getStrv_ (self & GSize.null)
       in
-        retVal length
+        retVal
       end
     fun getType self = (GLibVariantRecord.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromPtr false) getType_ self
     fun getTypeString self = (GLibVariantRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTypeString_ self

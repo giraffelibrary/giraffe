@@ -264,7 +264,8 @@ in
                 end
             | IARRAY arrayParInfo         =>
                 let
-                  val {length, ...} = arrayParInfo
+                  val {lengths, ...} = arrayParInfo
+                  val length = hd1 lengths
                   fun inParamExp () = mkArrayLenExp length (mkIdLNameExp name)
 
                   fun getFun n = getFunArray n arrayParInfo

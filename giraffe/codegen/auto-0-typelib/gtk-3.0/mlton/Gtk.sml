@@ -2175,7 +2175,7 @@ structure Gtk : GTK =
               x3,
               x4
             )
-    val testListAllTypes_ = _import "gtk_test_list_all_types" : GUInt32.FFI.ref_ -> GObjectTypeCArrayN.FFI.non_opt GObjectTypeCArrayN.FFI.out_p;
+    val testListAllTypes_ = _import "gtk_test_list_all_types" : GUInt32.FFI.ref_ -> GObjectTypeCArray.FFI.non_opt GObjectTypeCArray.FFI.out_p;
     val testRegisterAllTypes_ = _import "gtk_test_register_all_types" : unit -> unit;
     val testSliderGetValue_ = _import "gtk_test_slider_get_value" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> GDouble.FFI.val_;
     val testSliderSetPerc_ = fn x1 & x2 => (_import "gtk_test_slider_set_perc" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GDouble.FFI.val_ -> unit;) (x1, x2)
@@ -5438,9 +5438,9 @@ structure Gtk : GTK =
         )
     fun testListAllTypes () =
       let
-        val nTypes & retVal = (GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr 0) testListAllTypes_ GUInt32.null
+        val _ & retVal = (GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GObjectTypeCArray.FFI.fromPtr 0) testListAllTypes_ GUInt32.null
       in
-        retVal (LargeInt.toInt nTypes)
+        retVal
       end
     fun testRegisterAllTypes () = (I ---> I) testRegisterAllTypes_ ()
     fun testSliderGetValue widget = (GtkWidgetClass.FFI.withPtr ---> GDouble.FFI.fromVal) testSliderGetValue_ widget

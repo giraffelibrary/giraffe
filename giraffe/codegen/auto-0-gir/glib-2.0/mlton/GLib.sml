@@ -870,8 +870,8 @@ structure GLib : G_LIB =
               Utf8.MLton.p1
                * Utf8.FFI.non_opt Utf8.MLton.p2
                * GInt.FFI.ref_
-               * Utf8CPtrArrayN.MLton.r1
-               * (Utf8CPtrArrayN.FFI.opt, Utf8CPtrArrayN.FFI.non_opt) Utf8CPtrArrayN.MLton.r2
+               * Utf8CPtrArray.MLton.r1
+               * (Utf8CPtrArray.FFI.opt, Utf8CPtrArray.FFI.non_opt) Utf8CPtrArray.MLton.r2
                * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> GBool.FFI.val_;
           )
@@ -1998,16 +1998,16 @@ structure GLib : G_LIB =
         )
     fun shellParseArgv commandLine =
       let
-        val argcp
+        val _
          & argvp
          & () =
           (
             Utf8.FFI.withPtr
              &&&> GInt.FFI.withRefVal
-             &&&> Utf8CPtrArrayN.FFI.withRefOptPtr
+             &&&> Utf8CPtrArray.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GInt.FFI.fromVal
-                   && Utf8CPtrArrayN.FFI.fromPtr 2
+                   && Utf8CPtrArray.FFI.fromPtr 2
                    && ignore
           )
             shellParseArgv_
@@ -2018,7 +2018,7 @@ structure GLib : G_LIB =
                & []
             )
       in
-        argvp (LargeInt.toInt argcp)
+        argvp
       end
     fun shellQuote unquotedString = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) shellQuote_ unquotedString
     fun shellUnquote quotedString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) shellUnquote_ (quotedString & [])

@@ -19,7 +19,7 @@ structure GtkRecentChooser :>
     val getShowPrivate_ = _import "gtk_recent_chooser_get_show_private" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
     val getShowTips_ = _import "gtk_recent_chooser_get_show_tips" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GBool.FFI.val_;
     val getSortType_ = _import "gtk_recent_chooser_get_sort_type" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> GtkRecentSortType.FFI.val_;
-    val getUris_ = fn x1 & x2 => (_import "gtk_recent_chooser_get_uris" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.FFI.out_p;) (x1, x2)
+    val getUris_ = fn x1 & x2 => (_import "gtk_recent_chooser_get_uris" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GSize.FFI.ref_ -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;) (x1, x2)
     val removeFilter_ = fn x1 & x2 => (_import "gtk_recent_chooser_remove_filter" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p * GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p -> unit;) (x1, x2)
     val selectAll_ = _import "gtk_recent_chooser_select_all" : GtkRecentChooserClass.FFI.non_opt GtkRecentChooserClass.FFI.p -> unit;
     val selectUri_ =
@@ -106,9 +106,9 @@ structure GtkRecentChooser :>
     fun getSortType self = (GtkRecentChooserClass.FFI.withPtr ---> GtkRecentSortType.FFI.fromVal) getSortType_ self
     fun getUris self =
       let
-        val length & retVal = (GtkRecentChooserClass.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) getUris_ (self & GSize.null)
+        val _ & retVal = (GtkRecentChooserClass.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 2) getUris_ (self & GSize.null)
       in
-        retVal length
+        retVal
       end
     fun removeFilter self filter = (GtkRecentChooserClass.FFI.withPtr &&&> GtkRecentFilterClass.FFI.withPtr ---> I) removeFilter_ (self & filter)
     fun selectAll self = (GtkRecentChooserClass.FFI.withPtr ---> I) selectAll_ self

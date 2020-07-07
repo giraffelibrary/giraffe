@@ -53,7 +53,7 @@ signature G_LIB_KEY_FILE =
        -> string
            * string
            * string option
-       -> Utf8CPtrArrayN.t
+       -> Utf8CPtrArray.t
     val getStartGroup : t -> string
     val getString :
       t
@@ -62,7 +62,7 @@ signature G_LIB_KEY_FILE =
     val getStringList :
       t
        -> string * string
-       -> Utf8CPtrArrayN.t
+       -> Utf8CPtrArray.t
     val getUint64 :
       t
        -> string * string

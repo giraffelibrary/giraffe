@@ -360,11 +360,17 @@ datatype info =
 | IARRAY     of array_info
 | IINTERFACE of interface_info
 
+(**
+ * For `{lengths, ...} : array_info`, `lengths` is the possible array length
+ * types.  There must be one but there can be more than one because an array
+ * can be both zero terminated and have a parameter that specifies its
+ * length.  The first length is the one used.
+ *) 
 withtype array_info =
   {
     isOpt   : bool,
     ownXfer : bool,
-    length  : array_length,
+    lengths : array_length list1,
     iRef    : interfaceref,
     elem    : info
   }
@@ -581,16 +587,27 @@ datatype parinfo =
     {
       name  : id,
       dir   : dir,
-      array : {name : id, info : array_info} option,
+      array : {name : id, info : array_info option} option,
       info  : info
     }
 
 (* In the value `PISOME {name = lenName, array, ...}`, `array` has the value
- *   - `SOME {name, info}` if the parameter `lenName` is the length of either
- *       - the array parameter called `name`, if `name <> ""`, or
- *       - the array return value,            if `name = ""`
- *      with array_info `info`;
- *   - `NONE` otherwise.
+ *
+ *   - `NONE`
+ *       if the parameter is not an array length
+ *
+ *   - `SOME {name, info}`
+ *       if the parameter `lenName` is the length of
+ *         - the array parameter called `name`, if `name` is not empty
+ *         - the array return value,            if `name` is empty
+ *       where `info` is
+ *
+ *         - `SOME arrayInfo`
+ *             if the array parameter `name` uses this length parameter
+ *
+ *         - `NONE`
+ *             if this length parameter is not required, e.g. because the
+ *             array is also zero-terminated
  *)
 
 
@@ -811,25 +828,38 @@ fun getParInfo
                 | SOME ty           => infoExcl (arrayTypeNotSupported ty)
                 | NONE              => infoExcl noArrayTypeForArray
 
-              val length =
+              val lengths =
                 case TypeInfo.getArrayFixedSize typeInfo of
-                  ~1 => (
-                    case TypeInfo.getArrayLength typeInfo of
-                      ~1 => (
+                  ~1 =>
+                    let
+                      val lengthsParam =
+                        case TypeInfo.getArrayLength typeInfo of
+                          ~1 => []
+                        | n  =>
+                            let
+                              val argInfo = CallableInfo.getArg callableInfo n
+                              val id = mkArgId (mkArgName argInfo)
+                              val ty = resolveArrayLenType (ArgInfo.getType argInfo)
+                            in
+                              [ArrayLengthParam (id, ty)]
+                            end
+
+                      val lengthsZeroTerminated =
                         if TypeInfo.isZeroTerminated typeInfo
-                        then ArrayLengthZeroTerminated
-                        else infoExcl "cannot determine array length"
+                        then [ArrayLengthZeroTerminated]
+                        else []
+                    in
+                      (* `ArrayLengthZeroTerminated` takes precedence over
+                       * `ArrayLengthParam _` for OUT parameters only. *)
+                      toList1 (
+                        case dir of
+                          SOME (OUT _) => lengthsZeroTerminated @ lengthsParam
+                        | _            => lengthsParam @ lengthsZeroTerminated
                       )
-                    | n  =>
-                        let
-                          val argInfo = CallableInfo.getArg callableInfo n
-                          val id = mkArgId (mkArgName argInfo)
-                          val ty = resolveArrayLenType (ArgInfo.getType argInfo)
-                        in
-                          ArrayLengthParam (id, ty)
-                        end
-                  )
-                | n  => ArrayLengthFixed n
+                        handle Empty => infoExcl "cannot determine array length"
+                    end
+                | n  => toList1 [ArrayLengthFixed n]
+              val length = hd1 lengths
 
               val elemTypeInfo =
                 case TypeInfo.getParamType typeInfo 0 of
@@ -846,7 +876,7 @@ fun getParInfo
               val arrayInfo = {
                 isOpt   = isOpt,
                 ownXfer = ownXfer <> NOTHING,
-                length  = length,
+                lengths = lengths,
                 iRef    = iRef,
                 elem    = elem
               }
@@ -1048,7 +1078,7 @@ fun getParInfo
  * and update its array info.
  *)
 
-fun arrayLenIncompatibleDir (arrayParDir, arrayInfo, lenDir, lenName) =
+fun arrayLenIncompatibleDir (arrayParDir, arrayParInfo, lenDir, lenName) =
   let
     open HTextTree
 
@@ -1062,7 +1092,7 @@ fun arrayLenIncompatibleDir (arrayParDir, arrayInfo, lenDir, lenName) =
       seq [
         case arrayParDir of
           SOME arrayDir => concat [
-            "array parameter ", #name arrayInfo,
+            "array parameter ", #name arrayParInfo,
             " with direction ", dirToString arrayDir
           ]
         | NONE          => str "array return value",
@@ -1078,13 +1108,23 @@ fun updateParInfos retInfo parInfos =
   let
     fun addLenArray name (arrayParDir, info, lenArrayInfos) =
       case info of
-        IARRAY (
-          arrayInfo as {
-            length = ArrayLengthParam (lenName, _),
-            ...
-          }
-        ) => (lenName, arrayParDir, {name = name, info = arrayInfo}) :: lenArrayInfos
-      | _ => lenArrayInfos
+        IARRAY (arrayInfo as {lengths, ...}) => (
+          case
+            List.mapPartial (fn ArrayLengthParam x => SOME x | _ => NONE) (op :: lengths)
+          of
+            (lenName, _) :: _ =>
+              let
+                val info =
+                  if hd1 lengths = ArrayLengthZeroTerminated
+                  then NONE
+                  else SOME arrayInfo
+                val arrayParInfo = {name = name, info = info}
+              in
+                (lenName, arrayParDir, arrayParInfo) :: lenArrayInfos
+              end
+          | _                 => lenArrayInfos
+        ) 
+      | _                                    => lenArrayInfos
 
     fun addParLenArray (parInfo, lenArrayInfos) =
       case parInfo of
@@ -1113,11 +1153,11 @@ fun updateParInfos retInfo parInfos =
 
     fun getArrayInfo (lenDir, lenName) =
       case List.find (fn (x, _, _) => x = lenName) lenArrayInfos of
-        SOME (_, arrayParDir, arrayInfo) =>
+        SOME (_, arrayParDir, arrayParInfo) =>
           if isCompatibleDir (arrayParDir, lenDir)
-          then SOME arrayInfo
+          then SOME arrayParInfo
           else
-            infoExcl (arrayLenIncompatibleDir (arrayParDir, arrayInfo, lenDir, lenName))
+            infoExcl (arrayLenIncompatibleDir (arrayParDir, arrayParInfo, lenDir, lenName))
       | NONE                          => NONE
 
     fun update parInfo =
@@ -1306,25 +1346,34 @@ fun getRetInfo
                 | SOME ty           => infoExcl (arrayTypeNotSupported ty)
                 | NONE              => infoExcl noArrayTypeForArray
 
-              val length =
+              val lengths =
                 case TypeInfo.getArrayFixedSize typeInfo of
-                  ~1 => (
-                    case TypeInfo.getArrayLength typeInfo of
-                      ~1 => (
+                  ~1 =>
+                    let
+                      val lengthsParam =
+                        case TypeInfo.getArrayLength typeInfo of
+                          ~1 => []
+                        | n  =>
+                            let
+                              val argInfo = CallableInfo.getArg callableInfo n
+                              val id = mkArgId (mkArgName argInfo)
+                              val ty = resolveArrayLenType (ArgInfo.getType argInfo)
+                            in
+                              [ArrayLengthParam (id, ty)]
+                            end
+
+                      val lengthsZeroTerminated =
                         if TypeInfo.isZeroTerminated typeInfo
-                        then ArrayLengthZeroTerminated
-                        else infoExcl "cannot determine array length"
-                      )
-                    | n  =>
-                        let
-                          val argInfo = CallableInfo.getArg callableInfo n
-                          val id = mkArgId (mkArgName argInfo)
-                          val ty = resolveArrayLenType (ArgInfo.getType argInfo)
-                        in
-                          ArrayLengthParam (id, ty)
-                        end
-                  )
-                | n  => ArrayLengthFixed n
+                        then [ArrayLengthZeroTerminated]
+                        else []
+                    in
+                      (* `ArrayLengthZeroTerminated` takes precedence over
+                       * `ArrayLengthParam _`. *)
+                      toList1 (lengthsZeroTerminated @ lengthsParam)
+                        handle Empty => infoExcl "cannot determine array length"
+                    end
+                | n  => toList1 [ArrayLengthFixed n]
+              val length = hd1 lengths
 
               val elemTypeInfo =
                 case TypeInfo.getParamType typeInfo 0 of
@@ -1341,7 +1390,7 @@ fun getRetInfo
               val arrayInfo = {
                 isOpt   = isOpt,
                 ownXfer = ownXfer <> NOTHING,
-                length  = length,
+                lengths = lengths,
                 iRef    = iRef,
                 elem    = elem
               }
@@ -2273,45 +2322,53 @@ in
       PIVOID                          => acc
     | PISOME {name, dir, array, info} =>
         let
-          val (withFunExp, argValExp, fromFunExp, outParamExp, structDeps'1) =
+          val (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, structDeps'1) =
             case info of
               IGTYPE gtypeParInfo         =>
                 let
                   val withFunExp = withFunGType (dir, gtypeParInfo)
                   val argValExp = argValGType (name, dir, gtypeParInfo)
                   fun fromFunExp () = fromFunGType gtypeParInfo
+                  fun outParamName () = mkIdVarPat name
                   fun outParamExp () = mkIdLNameExp name
                 in
-                  (withFunExp, argValExp, fromFunExp, outParamExp, structDeps)
+                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, structDeps)
                 end
             | ISCALAR scalarParInfo       =>
                 let
                   val withFunExp = withFunScalar (dir, scalarParInfo)
                   val argValExp = argValScalar (name, dir, scalarParInfo)
                   fun fromFunExp () = fromFunScalar scalarParInfo
+                  fun outParamName () =
+                    case array of
+                      SOME {info = NONE, ...} => PatA APatU
+                    | _                       => mkIdVarPat name
                   fun outParamExp () = mkIdLNameExp name
                 in
-                  (withFunExp, argValExp, fromFunExp, outParamExp, structDeps)
+                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, structDeps)
                 end
             | IUTF8 utf8ParInfo           =>
                 let
                   val withFunExp = withFunUtf8 (dir, utf8ParInfo)
                   val argValExp = argValUtf8 (name, dir, utf8ParInfo)
                   fun fromFunExp () = fromFunUtf8 (dir = INOUT, utf8ParInfo)
+                  fun outParamName () = mkIdVarPat name
                   fun outParamExp () = mkIdLNameExp name
                 in
-                  (withFunExp, argValExp, fromFunExp, outParamExp, structDeps)
+                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, structDeps)
                 end
             | IARRAY arrayParInfo         =>
                 let
-                  val {length, ...} = arrayParInfo
+                  val {lengths, ...} = arrayParInfo
+                  val length = hd1 lengths
 
                   val withFunExp = withFunArray (dir, arrayParInfo)
                   val argValExp = argValArray (name, dir, arrayParInfo)
                   fun fromFunExp () = fromFunArray (dir = INOUT, arrayParInfo)
+                  fun outParamName () = mkIdVarPat name
                   fun outParamExp () = mkArrayLenExp length (mkIdLNameExp name)
                 in
-                  (withFunExp, argValExp, fromFunExp, outParamExp, structDeps)
+                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, structDeps)
                 end
             | IINTERFACE interfaceParInfo =>
                 let
@@ -2319,9 +2376,10 @@ in
                   val argValExp = argValInterface (name, dir, interfaceParInfo)
                   fun fromFunExp () =
                     fromFunInterface (dir = INOUT, interfaceParInfo)
+                  fun outParamName () = mkIdVarPat name
                   fun outParamExp () = mkIdLNameExp name
                 in
-                  (withFunExp, argValExp, fromFunExp, outParamExp, structDeps)
+                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, structDeps)
                 end
 
           val js' = (withFunExp, argValExp) :: js
@@ -2339,14 +2397,18 @@ in
             case array of
               SOME {
                 name = arrayName,
-                info = arrayInfo
+                info = SOME arrayInfo
               }    => (
                 case info of
                   ISCALAR {ty, ...} => (name, mkLenParamExp ty arrayInfo arrayName) :: ms
                 | _                 => infoExcl "non-scalar length parameter"
               )
+            | SOME {
+                info = NONE,
+                ...
+              }    => raise Fail "unused length parameter not expected for IN/INOUT parameter"
             | NONE => ms
-          fun addN ns = (fromFunExp (), name) :: ns
+          fun addN ns = (fromFunExp (), outParamName ()) :: ns
 
           val (ks', ls', ms', ns') =
             case dir of
@@ -2459,8 +2521,8 @@ val getRetValExp =
     RIVOID        => ExpConst ConstUnit
   | RISOME {info} =>
       case info of
-        IARRAY {length, ...} => mkArrayLenExp length retValExp
-      | _                    => retValExp
+        IARRAY {lengths, ...} => mkArrayLenExp (hd1 lengths) retValExp
+      | _                     => retValExp
 
 
 val aInfixId = "&"
@@ -2743,8 +2805,7 @@ fun makeFunctionStrDecHighLevel
               | e :: [] => e
               | e :: es => ExpParen (e, es)
 
-            val revOutParamPats = map mkIdVarPat revOutParams
-            val pat = foldl mkAPat retValPat revOutParamPats
+            val pat = foldl mkAPat retValPat revOutParams
             val decs'1 = [DecVal (toList1 [([], false, pat, functionCoreExp)])]
             val decs'2 = revMapAppend mkIdValDec (revMs'2, decs'1)
           in

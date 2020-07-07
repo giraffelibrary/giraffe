@@ -25,8 +25,9 @@ in
   ../gdk-3.0/GdkColorRecordCArrayN.mlb
   ../gdk-3.0/GdkPointRecordCArrayN.mlb
   ../gdk-3.0/GdkAtomRecordCPtrArrayN.mlb
-  ../gobject-2.0/GObjectValueRecordCArrayN.mlb
   ../gobject-2.0/GObjectTypeCArrayN.mlb
+  ../gobject-2.0/GObjectValueRecordCArrayN.mlb
+  ../gobject-2.0/GObjectTypeCArray.mlb
   CHILD_SIGNAL-sig.sml
   GTK_ABOUT_DIALOG_CLASS-sig.sml
   GTK_ABOUT_DIALOG-sig.sml

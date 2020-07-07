@@ -19,6 +19,7 @@ fun getList1 (xs, x) =
     x :: xs => (x, xs)
   | []      => (x, [])
 
+fun hd1 (x, _) = x
 fun cons1 (x, xs1) = (x, op :: xs1)
 fun map1 f (x, xs) = (f x, map f xs)
 

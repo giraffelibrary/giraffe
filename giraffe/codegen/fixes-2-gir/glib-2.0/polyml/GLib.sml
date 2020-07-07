@@ -352,7 +352,7 @@ structure GLib : G_LIB =
           (
             Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cRef
-             &&> Utf8CPtrArrayN.PolyML.cOutRef
+             &&> Utf8CPtrArray.PolyML.cOutRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
@@ -1412,16 +1412,16 @@ structure GLib : G_LIB =
         )
     fun shellParseArgv commandLine =
       let
-        val argcp
+        val _
          & argvp
          & () =
           (
             Utf8.FFI.withPtr
              &&&> GInt.FFI.withRefVal
-             &&&> Utf8CPtrArrayN.FFI.withRefOptPtr
+             &&&> Utf8CPtrArray.FFI.withRefOptPtr
              &&&> GLibErrorRecord.handleError
              ---> GInt.FFI.fromVal
-                   && Utf8CPtrArrayN.FFI.fromPtr 2
+                   && Utf8CPtrArray.FFI.fromPtr 2
                    && ignore
           )
             shellParseArgv_
@@ -1432,7 +1432,7 @@ structure GLib : G_LIB =
                & [GLibShellError.handler]
             )
       in
-        argvp (LargeInt.toInt argcp)
+        argvp
       end
     fun shellQuote unquotedString = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) shellQuote_ unquotedString
     fun shellUnquote quotedString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) shellUnquote_ (quotedString & [])

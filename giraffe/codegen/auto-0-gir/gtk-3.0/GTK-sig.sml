@@ -3493,7 +3493,7 @@ signature GTK =
        * string
        * GObject.Type.t
        -> base WidgetClass.class option
-    val testListAllTypes : unit -> GObjectTypeCArrayN.t
+    val testListAllTypes : unit -> GObjectTypeCArray.t
     val testRegisterAllTypes : unit -> unit
     val testSliderGetValue : 'a WidgetClass.class -> real
     val testSliderSetPerc : 'a WidgetClass.class * real -> unit

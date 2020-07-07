@@ -502,7 +502,7 @@ signature G_LIB =
        * string
        * bool
        -> bool
-    val shellParseArgv : string -> Utf8CPtrArrayN.t
+    val shellParseArgv : string -> Utf8CPtrArray.t
     val shellQuote : string -> string
     val shellUnquote : string -> string
     val sliceGetConfig : SliceConfig.t -> LargeInt.int
