@@ -27,6 +27,13 @@ functor CValueCArrayNType(
     type 'a p = 'a Pointer.p
     type e = Pointer.e
 
+    structure ElemType =
+      struct
+        fun free d = if d <> 0 then CElemType.clear else ignore
+        val toC = CElemType.toC
+        val fromC = CElemType.fromC
+      end
+
     fun appi n f p =
       let
         fun step i =
@@ -41,10 +48,6 @@ functor CValueCArrayNType(
       in
         step 0
       end
-
-    fun get _ p i = Pointer.get (p, i)
-
-    fun set _ p (i, e) = Pointer.set (p, i, e)
 
     fun len n _ = n
 
@@ -67,28 +70,32 @@ functor CValueCArrayNType(
       then
         let
           val p' = new n
-          val updateElem = set n p'
-          val () = appi n updateElem p
+          fun setElem (i, e) = Pointer.set (p', i, e)
+          val () = appi n setElem p
         in
           p'
         end
       else
         p
 
-    val toElem = CElemType.fromC
+    fun get _ p i = Pointer.get (p, i)
 
-    fun updateElem n p (i, e) =
+    fun set _ p (i, e) = Pointer.set (p, i, e)
+
+    fun getElem _ p i = CElemType.fromC (Pointer.get (p, i))
+
+    fun setElem _ p (i, elem) =
       if CElemType.isRef
-      then CElemType.updateC e (get n p i)
-      else set n p (i, CElemType.toC e)
+      then CElemType.updateC elem (Pointer.get (p, i))
+      else Pointer.set (p, i, CElemType.toC elem)
 
-    fun init (n, f) =
+    fun init set (n, f) =
       let
         val p = new n
 
         fun step i =
           if i < n
-          then (updateElem n p (i, f i); step (i + 1))
+          then (set n p (i, f i); step (i + 1))
           else ()
         val () = step 0
       in
@@ -98,12 +105,12 @@ functor CValueCArrayNType(
     fun toC n v =
       let
         val p = new n
-        val () = ElemSequence.appi (updateElem n p) v
+        val () = ElemSequence.appi (setElem n p) v
       in
         p
       end
 
-    fun fromC n p = ElemSequence.tabulate (len n p, toElem o get n p)
+    fun fromC n p = ElemSequence.tabulate (len n p, getElem n p)
 
     structure CVector =
       struct
@@ -148,7 +155,8 @@ functor CValueCArrayNType(
         val free = ignore
 
         fun clen c = Vector.length c
-        fun csub c i = Vector.sub (c, i)
+        fun cget c i = Vector.sub (c, i)
+        fun cset c (i, e) = Vector.update (c, i, e)
 
         val fromVal =
           if CElemType.isRef
@@ -164,19 +172,19 @@ functor CValueCArrayNType(
           if CElemType.isRef
           then fn _ => fn _ => raise NoSMLValue
           else
-            fn n => fn p => Vector.tabulate (len n p, CElemType.fromC o get n p)
+            fn n => fn p => Vector.tabulate (len n p, getElem n p)
 
         val toPointer =
           if CElemType.isRef
           then fn _ => fn _ => raise NoSMLValue
-          else fn n => fn v =>
-            let
-              val p = Pointer.new n
-              fun updateElem (i, e) = set n p (i, CElemType.toC e)
-
-              val () = Vector.appi updateElem v
-            in
-              p
-            end
+          else
+            fn n => fn v =>
+              let
+                val p = Pointer.new n
+                fun setElem (i, e) = Pointer.set (p, i, CElemType.toC e)
+                val () = Vector.appi setElem v
+              in
+                p
+              end
       end
   end

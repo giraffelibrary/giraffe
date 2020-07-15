@@ -8,9 +8,30 @@
 structure ListSequence :> SEQUENCE where type 'a t = 'a list =
   struct
     open List
+
+    fun splitAt (n, xs) =
+      let
+        fun aux n (ys, xs) =
+          if n > 0
+          then
+            case xs of
+              x :: xs => aux (n - 1) (x :: ys, xs)
+            | []      => raise Subscript
+          else if n = 0
+          then (ys, xs)
+          else raise Subscript
+      in
+        aux n ([], xs)
+      end
+
     type 'a t = 'a list
-    fun get v i = nth (v, i)
     val sub = nth
+    fun get xs i = sub (xs, i)
+    fun update (xs, i, x) =
+      case splitAt (i, xs) of
+        (ys, _ :: xs) => List.revAppend (ys, x :: xs)
+      | _             => raise Subscript
+    fun set xs (i, x) = update (xs, i, x)
     fun appi f =
       let
         fun step n xs =

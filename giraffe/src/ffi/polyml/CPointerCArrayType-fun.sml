@@ -37,6 +37,11 @@ functor CPointerCArrayType(
     type 'a p = 'a Pointer.p
     type e = CElemType.non_opt CElemType.p
 
+    structure ElemType =
+      struct
+        open CElemType
+      end
+
     fun appi f p =
       let
         fun step i =
@@ -50,13 +55,6 @@ functor CPointerCArrayType(
       in
         step 0
       end
-
-    fun get p i =
-      CElemType.Pointer.toNonOptPtr (Pointer.get (p, i))
-        handle CElemType.Pointer.Null => raise Subscript
-
-    fun set p (i, e) =
-      Pointer.set (p, i, CElemType.Pointer.toOptPtr e)
 
     fun len p =
       let
@@ -94,30 +92,34 @@ functor CPointerCArrayType(
         let
           val n = len p
           val p' = new n
-          fun updateElem (i, e) = set p' (i, CElemType.dup (d - 1) e)
-          val () = appi updateElem p
+          fun setElem (i, e) =
+            Pointer.set (p', i, CElemType.Pointer.toOptPtr (CElemType.dup (d - 1) e))
+          val () = appi setElem p
         in
           p'
         end
       else
         p
 
-    val toElem = CElemType.fromC
+    fun get p i =
+      CElemType.Pointer.toNonOptPtr (Pointer.get (p, i))
 
-    fun updateElem p (i, e) =
-      let
-        open CElemType
-      in
-        set p (i, Pointer.toNonOptPtr (toC e))
-      end
+    fun set p (i, e) =
+      Pointer.set (p, i, CElemType.Pointer.toOptPtr (CElemType.dup ~1 e))
 
-    fun init (n, f) =
+    fun getElem p i =
+      CElemType.fromC (get p i)
+
+    fun setElem p (i, elem) =
+      Pointer.set (p, i, CElemType.Pointer.toOptPtr (CElemType.toC elem))
+
+    fun init set (n, f) =
       let
         val p = new n
 
         fun step i =
           if i < n
-          then (updateElem p (i, f i); step (i + 1))
+          then (set p (i, f i); step (i + 1))
           else ()
         val () = step 0
       in
@@ -128,10 +130,10 @@ functor CPointerCArrayType(
       let
         val n = Sequence.length v
         val p = new n
-        val () = Sequence.appi (updateElem p) v
+        val () = Sequence.appi (setElem p) v
       in
         p
       end
 
-    fun fromC p = Sequence.tabulate (len p, toElem o get p)
+    fun fromC p = Sequence.tabulate (len p, getElem p)
   end

@@ -11,6 +11,8 @@ signature SEQUENCE =
     val tabulate : int * (int -> 'a) -> 'a t
     val get : 'a t -> int -> 'a
     val sub : 'a t * int -> 'a
+    val set : 'a t -> int * 'a -> 'a t
+    val update : 'a t * int * 'a -> 'a t
     val length : 'a t -> int
     val appi : (int * 'a -> unit) -> 'a t -> unit
 

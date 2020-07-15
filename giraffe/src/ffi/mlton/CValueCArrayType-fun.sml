@@ -27,23 +27,26 @@ functor CValueCArrayType(
     type 'a p = 'a Pointer.p
     type e = Pointer.e
 
+    structure ElemType =
+      struct
+        fun free d = if d <> 0 then CElemType.clear else ignore
+        val toC = CElemType.toC
+        val fromC = CElemType.fromC
+      end
+
     fun appi f p =
       let
         fun step i =
           let
             val e = Pointer.get (p, i)
           in
-            if CElemType.isNull e
+            if not (CElemType.isNull e)
             then (f (i, e); step (i + 1))
             else ()
           end
       in
         step 0
       end
-
-    fun get p i = Pointer.get (p, i)
-
-    fun set p (i, e) = Pointer.set (p, i, e)
 
     fun len p =
       let
@@ -58,7 +61,7 @@ functor CValueCArrayType(
     fun new n =
       let
         val p = Pointer.new (n + 1)
-        val () = set p (n, CElemType.null ())
+        val () = Pointer.set (p, n, CElemType.null ())
       in
         p
       end
@@ -81,28 +84,32 @@ functor CValueCArrayType(
         let
           val n = len p
           val p' = new n
-          val updateElem = set p'
-          val () = appi updateElem p
+          fun setElem (i, e) = Pointer.set (p', i, e)
+          val () = appi setElem p
         in
           p'
         end
       else
         p
 
-    val toElem = CElemType.fromC
+    fun get p i = Pointer.get (p, i)
 
-    fun updateElem p (i, e) =
+    fun set p (i, e) = Pointer.set (p, i, e)
+
+    fun getElem p i = CElemType.fromC (Pointer.get (p, i))
+
+    fun setElem p (i, elem) =
       if CElemType.isRef
-      then CElemType.updateC e (get p i)
-      else set p (i, CElemType.toC e)
+      then CElemType.updateC elem (Pointer.get (p, i))
+      else Pointer.set (p, i, CElemType.toC elem)
 
-    fun init (n, f) =
+    fun init set (n, f) =
       let
         val p = new n
 
         fun step i =
           if i < n
-          then (updateElem p (i, f i); step (i + 1))
+          then (set p (i, f i); step (i + 1))
           else ()
         val () = step 0
       in
@@ -113,12 +120,12 @@ functor CValueCArrayType(
       let
         val n = ElemSequence.length v
         val p = new n
-        val () = ElemSequence.appi (updateElem p) v
+        val () = ElemSequence.appi (setElem p) v
       in
         p
       end
 
-    fun fromC p = ElemSequence.tabulate (len p, toElem o get p)
+    fun fromC p = ElemSequence.tabulate (len p, getElem p)
 
     structure CVector =
       struct
@@ -163,13 +170,22 @@ functor CValueCArrayType(
         val free = ignore
 
         fun clen c = Vector.length c - 1
-        fun csub c =
+        fun cget c =
           let
             val n = clen c
           in
             fn i =>
               if i < n
               then Vector.sub (c, i)
+              else raise Subscript
+          end
+        fun cset c =
+          let
+            val n = clen c
+          in
+            fn (i, e) =>
+              if i < n
+              then Vector.update (c, i, e)
               else raise Subscript
           end
 
@@ -193,13 +209,13 @@ functor CValueCArrayType(
         val toVal =
           if CElemType.isRef
           then fn _ => raise NoSMLValue
-          else fn c => ElemSequence.tabulate (clen c, csub c)
+          else fn c => ElemSequence.tabulate (clen c, cget c)
 
         val fromPointer =
           if CElemType.isRef
           then fn _ => raise NoSMLValue
           else
-            fn p => fromVal (ElemSequence.tabulate (len p + 1, CElemType.fromC o get p))
+            fn p => fromVal (ElemSequence.tabulate (len p + 1, getElem p))
             (* Note that `len p + 1` includes the null terminator in the
              * string, so `fromVal` simply validates a `vector` as null-
              * terminated rather than create a new vector. *)
@@ -212,8 +228,8 @@ functor CValueCArrayType(
               let
                 val n = Vector.length c  (* `c` includes null terminator *)
                 val p = Pointer.new n
-                fun updateElem (i, e) = set p (i, CElemType.toC e)
-                val () = Vector.appi updateElem c
+                fun setElem (i, e) = Pointer.set (p, i, CElemType.toC e)
+                val () = Vector.appi setElem c
               in
                 p
               end

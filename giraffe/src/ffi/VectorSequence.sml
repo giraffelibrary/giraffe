@@ -10,6 +10,7 @@ structure VectorSequence :> SEQUENCE where type 'a t = 'a vector =
     open Vector
     type 'a t = 'a vector
     fun get v i = sub (v, i)
+    fun set v (i, e) = update (v, i, e)
     fun toList v = List.tabulate (length v, get v)
     fun toVector v = v
     fun fromVector v = v

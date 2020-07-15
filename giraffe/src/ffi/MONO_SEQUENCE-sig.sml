@@ -12,11 +12,9 @@ signature MONO_SEQUENCE =
     val tabulate : int * (int -> elem) -> t
     val get : t -> int -> elem
     val sub : t * int -> elem
+    val set : t -> int * elem -> t
+    val update : t * int * elem -> t
     val length : t -> int
-(*
-    val set : t -> int * elem -> unit
-    val update : t * int * elem -> unit
-*)
     val appi : (int * elem -> unit) -> t -> unit
 
     val fromList : elem list -> t

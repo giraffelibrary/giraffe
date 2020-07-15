@@ -66,7 +66,7 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
           fromPtr ~1 (dup ~1 n p) n before free d n p
 
         fun copyPtr tabulate d p n =
-          tabulate (len n p, toElem o get n p) before free d n p
+          tabulate (len n p, getElem n p) before free d n p
 
 
         fun fromOptPtr d p n =
@@ -172,7 +172,7 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
         ((a, _), n) => Finalizable.withValue (a, C.ArrayType.fromC n)
 
     fun tabulate (n, f) =
-      FFI.fromPtr ~1 (C.ArrayType.init (n, f)) n
+      FFI.fromPtr ~1 (C.ArrayType.init C.ArrayType.setElem (n, f)) n
 
     fun fromList es =
       let
@@ -189,7 +189,7 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
     val toList =
       let
         open C.ArrayType
-        fun tabulateFromC n p = List.tabulate (len n p, toElem o get n p)
+        fun tabulateFromC n p = List.tabulate (len n p, getElem n p)
       in
         fn
           ((a, _), n) => Finalizable.withValue (a, tabulateFromC n)
@@ -201,18 +201,40 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
 
     val get =
       fn
-        t as ((a, _), n) =>
+        ((a, _), n) =>
           let
-            val len = length t
-            val get = Finalizable.withValue (a, C.ArrayType.get n)
+            val get = Finalizable.withValue (a, C.ArrayType.getElem n)
           in
             fn i =>
-              if 0 <= i andalso i < len
-              then C.ArrayType.toElem (get i)
+              if 0 <= i andalso i < n
+              then get i
               else raise Subscript
           end
 
     fun sub (t, i) = get t i
+
+    val set =
+      fn
+        ((a, _), n) =>
+          let
+            fun f (i, elem) j =
+              if i = j
+              then SOME elem
+              else NONE
+
+            val get = Finalizable.withValue (a, C.ArrayType.get n)
+            fun set n p (i, optElem) =
+              case optElem of
+                NONE      => C.ArrayType.set n p (i, get i)
+              | SOME elem => C.ArrayType.setElem n p (i, elem)
+          in
+            fn (i, elem) =>
+              if 0 <= i andalso i < n
+              then FFI.fromPtr ~1 (C.ArrayType.init set (n, f (i, elem))) n
+              else raise Subscript
+          end
+
+    fun update (t, i, e) = set t (i, e)
 
     val full =
       fn

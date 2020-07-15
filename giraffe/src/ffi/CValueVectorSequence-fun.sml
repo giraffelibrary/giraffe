@@ -15,6 +15,8 @@ functor CValueVectorSequence(CElemType : C_VALUE_TYPE) :>
     val tabulate = Vector.tabulate
     fun get v i = Vector.sub (v, i)
     val sub = Vector.sub
+    fun set v (i, e) = Vector.update (v, i, e)
+    val update = Vector.update
     val length = Vector.length
     val appi = Vector.appi
     val fromList = Vector.fromList

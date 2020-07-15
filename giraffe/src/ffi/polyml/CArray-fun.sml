@@ -65,7 +65,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
           fromPtr ~1 (dup ~1 p) before free d p
 
         fun copyPtr tabulate d p =
-          tabulate (len p, toElem o get p) before free d p
+          tabulate (len p, getElem p) before free d p
 
 
         fun fromOptPtr d p =
@@ -164,7 +164,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
         a => Finalizable.withValue (a, C.ArrayType.fromC)
 
     fun tabulate (n, f) =
-      FFI.fromPtr ~1 (C.ArrayType.init (n, f))
+      FFI.fromPtr ~1 (C.ArrayType.init C.ArrayType.setElem (n, f))
 
     fun fromList es =
       let
@@ -181,7 +181,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
     val toList =
       let
         open C.ArrayType
-        fun tabulateFromC p = List.tabulate (len p, toElem o get p)
+        fun tabulateFromC p = List.tabulate (len p, getElem p)
       in
         fn
           a => Finalizable.withValue (a, tabulateFromC)
@@ -195,16 +195,41 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
       fn
         t as a =>
           let
-            val len = length t
-            val get = Finalizable.withValue (a, C.ArrayType.get)
+            val n = length t
+            val get = Finalizable.withValue (a, C.ArrayType.getElem)
           in
             fn i =>
-              if 0 <= i andalso i < len
-              then C.ArrayType.toElem (get i)
+              if 0 <= i andalso i < n
+              then get i
               else raise Subscript
           end
 
     fun sub (t, i) = get t i
+
+    val set =
+      fn
+        t as a =>
+          let
+            val n = length t
+
+            fun f (i, elem) j =
+              if i = j
+              then SOME elem
+              else NONE
+
+            val get = Finalizable.withValue (a, C.ArrayType.get)
+            fun set p (i, optElem) =
+              case optElem of
+                NONE      => C.ArrayType.set p (i, get i)
+              | SOME elem => C.ArrayType.setElem p (i, elem)
+          in
+            fn (i, elem) =>
+              if 0 <= i andalso i < n
+              then FFI.fromPtr ~1 (C.ArrayType.init set (n, f (i, elem)))
+              else raise Subscript
+          end
+
+    fun update (t, i, e) = set t (i, e)
 
     structure PolyML =
       struct

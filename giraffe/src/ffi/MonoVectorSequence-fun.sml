@@ -13,6 +13,7 @@ functor MonoVectorSequence(ElemVector : MONO_VECTOR) :>
     type t = ElemVector.vector
     open ElemVector
     fun get v i = sub (v, i)
+    fun set v (i, e) = update (v, i, e)
     fun toList v = List.tabulate (length v, get v)
     structure Vector = ElemVector
     fun toVector v = v

@@ -22,7 +22,8 @@ signature C_ARRAY_TYPE =
         exception NoSMLValue
 
         val clen : cvector -> int
-        val csub : cvector -> int -> elem
+        val cget : cvector -> int -> elem
+        val cset : cvector -> int * elem -> cvector
 
         (* `free ~1` must be applied to the pointer returned by
          * `toPointer c` once it is not required. *)

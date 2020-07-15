@@ -21,6 +21,8 @@ functor VectorCArray(CArray : C_ARRAY where type 'a C.ArrayType.from_p = 'a) :>
     val length = CArray.C.ArrayType.ElemSequence.length
     val get = CArray.C.ArrayType.ElemSequence.get
     val sub = CArray.C.ArrayType.ElemSequence.sub
+    val set = CArray.C.ArrayType.ElemSequence.set
+    val update = CArray.C.ArrayType.ElemSequence.update
     val tabulate = CArray.C.ArrayType.ElemSequence.tabulate
 
     val fromList = CArray.C.ArrayType.ElemSequence.fromList

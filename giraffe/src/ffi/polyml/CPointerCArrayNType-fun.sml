@@ -37,6 +37,11 @@ functor CPointerCArrayNType(
     type 'a p = 'a Pointer.p
     type e = CElemType.non_opt CElemType.p
 
+    structure ElemType =
+      struct
+        open CElemType
+      end
+
     fun appi n f p =
       let
         fun step i =
@@ -51,10 +56,6 @@ functor CPointerCArrayNType(
       in
         step 0
       end
-
-    fun get _ p i = Pointer.get (p, i)
-
-    fun set _ p (i, e) = Pointer.set (p, i, e)
 
     fun len n _ = n
 
@@ -77,26 +78,34 @@ functor CPointerCArrayNType(
       then
         let
           val p' = new n
-          fun updateElem (i, e) = set n p' (i, CElemType.dup (d - 1) e)
-          val () = appi n updateElem p
+          fun setElem (i, e) =
+            Pointer.set (p', i, CElemType.dup (d - 1) e)
+          val () = appi n setElem p
         in
           p'
         end
       else
         p
 
-    val toElem = CElemType.fromC
+    fun get _ p i =
+      Pointer.get (p, i)
 
-    fun updateElem n p (i, e) =
-      set n p (i, CElemType.toC e)
+    fun set _ p (i, e) =
+      Pointer.set (p, i, CElemType.dup ~1 e)
 
-    fun init (n, f) =
+    fun getElem n p i =
+      CElemType.fromC (get n p i)
+
+    fun setElem _ p (i, elem) =
+      Pointer.set (p, i, CElemType.toC elem)
+
+    fun init set (n, f) =
       let
         val p = new n
 
         fun step i =
           if i < n
-          then (updateElem n p (i, f i); step (i + 1))
+          then (set n p (i, f i); step (i + 1))
           else ()
         val () = step 0
       in
@@ -106,11 +115,10 @@ functor CPointerCArrayNType(
     fun toC n v =
       let
         val p = new n
-        val () = Sequence.appi (updateElem n p) v
+        val () = Sequence.appi (setElem n p) v
       in
         p
       end
 
-    fun fromC n p =
-      Sequence.tabulate (len n p, toElem o get n p)
+    fun fromC n p = Sequence.tabulate (len n p, getElem n p)
   end

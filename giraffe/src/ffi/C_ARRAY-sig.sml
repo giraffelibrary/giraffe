@@ -29,15 +29,28 @@ signature C_ARRAY =
     val length : t -> int
 
     (**
-     * `get t i` returns the element at (zero-based) index i of t.  It
+     * `get t i` gets the element at (zero-based) index `i` of `t`.  It
      * raises `Subscript` if `i < 0` or `length t <= i`.  Note, therefore,
-     * that `i` cannot index a null terminator if one is present in the
-     * internal representation.
+     * that `i` cannot index a null terminator if `t` is a null-terminated
+     * array.
      *
      * `sub (t, i)` is equivalent to `get t i`.
      *)
     val get : t -> int -> elem
     val sub : t * int -> elem
+
+    (**
+     * `set t (i, e)` returns `t` with the element at (zero-based) index `i`
+     * replaced by `e`.  It raises `Subscript` if `i < 0` or `length t <= i`.
+     * Otherwise, it raises `Null` if `t` is a null-terminated array and `e`
+     * is the null value.  Note, therefore, that `i` cannot index a null
+     * terminator and `e` cannot equal the null value if `t` is a null-
+     * terminated array.
+     *
+     * `update (t, i, e)` is equivalent to `set t (i, e)`.
+     *)
+    val set : t -> int * elem -> t
+    val update : t * int * elem -> t
 
     (**
      * `tabulate (n, f)` returns a C array t such that `length t` is n
