@@ -18,6 +18,21 @@ structure GLibBytes :>
               x2,
               x3
             )
+    val newTake_ =
+      fn
+        (x1, x2) & x3 =>
+          (
+            _import "mlton_g_bytes_new_take" :
+              GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.opt GUInt8CArrayN.MLton.p2
+               * GSize.FFI.val_
+               -> GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3
+            )
     val compare_ = fn x1 & x2 => (_import "g_bytes_compare" : GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p * GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> GInt.FFI.val_;) (x1, x2)
     val equal_ = fn x1 & x2 => (_import "g_bytes_equal" : GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p * GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val getData_ = fn x1 & x2 => (_import "g_bytes_get_data" : GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p * GSize.FFI.ref_ -> GUInt8CArrayN.FFI.opt GUInt8CArrayN.FFI.out_p;) (x1, x2)
@@ -50,6 +65,16 @@ structure GLibBytes :>
             SOME data => GUInt8CArrayN.length data
           | NONE => GSize.null
         val retVal = (GUInt8CArrayN.FFI.withOptPtr &&&> GSize.FFI.withVal ---> GLibBytesRecord.FFI.fromPtr true) new_ (data & size)
+      in
+        retVal
+      end
+    fun newTake data =
+      let
+        val size =
+          case data of
+            SOME data => GUInt8CArrayN.length data
+          | NONE => GSize.null
+        val retVal = (GUInt8CArrayN.FFI.withDupOptPtr 1 &&&> GSize.FFI.withVal ---> GLibBytesRecord.FFI.fromPtr true) newTake_ (data & size)
       in
         retVal
       end

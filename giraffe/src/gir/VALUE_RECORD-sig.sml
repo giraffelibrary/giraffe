@@ -38,12 +38,17 @@ signature VALUE_RECORD =
         type ('a, 'b) r = ('a, 'b) C.r
 
         val withPtr : (non_opt p -> 'a) -> t -> 'a
+        val withDupPtr : (non_opt p -> 'a) -> t -> 'a
         val withOptPtr : (opt p -> 'a) -> t option -> 'a
+        val withDupOptPtr : (opt p -> 'a) -> t option -> 'a
 
         val withNewPtr : (non_opt p -> 'a) -> unit -> (non_opt p, 'a) pair
+        val withNewDupPtr : (non_opt p -> 'a) -> t -> (non_opt p, 'a) pair
 
         val withRefPtr : ((non_opt, 'a) r -> 'b) -> t -> ('a p, 'b) pair
+        val withRefDupPtr : ((non_opt, 'a) r -> 'b) -> t -> ('a p, 'b) pair
         val withRefOptPtr : ((opt, 'a) r -> 'b) -> t option -> ('a p, 'b) pair
+        val withRefDupOptPtr : ((opt, 'a) r -> 'b) -> t option -> ('a p, 'b) pair
 
         val fromPtr : bool -> non_opt p -> t
         val fromOptPtr : bool -> opt p -> t option

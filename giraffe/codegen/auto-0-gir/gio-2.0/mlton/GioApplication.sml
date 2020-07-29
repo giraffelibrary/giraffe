@@ -64,6 +64,7 @@ structure GioApplication :>
               x9,
               x10
             )
+    val addOptionGroup_ = fn x1 & x2 => (_import "g_application_add_option_group" : GioApplicationClass.FFI.non_opt GioApplicationClass.FFI.p * GLibOptionGroupRecord.FFI.non_opt GLibOptionGroupRecord.FFI.p -> unit;) (x1, x2)
     val bindBusyProperty_ =
       fn
         x1
@@ -291,6 +292,7 @@ structure GioApplication :>
            & description
            & argDescription
         )
+    fun addOptionGroup self group = (GioApplicationClass.FFI.withPtr &&&> GLibOptionGroupRecord.FFI.withDupPtr ---> I) addOptionGroup_ (self & group)
     fun bindBusyProperty self (object, property) =
       (
         GioApplicationClass.FFI.withPtr

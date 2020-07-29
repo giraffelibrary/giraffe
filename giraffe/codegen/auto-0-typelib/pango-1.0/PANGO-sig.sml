@@ -47,6 +47,7 @@ signature PANGO =
     structure AttrList :
       PANGO_ATTR_LIST
         where type t = AttrListRecord.t
+        where type attribute_t = AttributeRecord.t
     structure Attribute :
       PANGO_ATTRIBUTE
         where type t = AttributeRecord.t
@@ -123,6 +124,7 @@ signature PANGO =
     structure Matrix :
       PANGO_MATRIX
         where type t = MatrixRecord.t
+        where type rectangle_t = RectangleRecord.t
     structure Rectangle :
       PANGO_RECTANGLE
         where type t = RectangleRecord.t

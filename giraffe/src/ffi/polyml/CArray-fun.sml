@@ -94,15 +94,25 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
           fun withOptPointer f = Pointer.withOptVal f
 
           fun withDupPointer free f p =
-            p & withPointer f p handle e => (free p; raise e)
+            withPointer f p handle e => (free p; raise e)
 
           fun withDupOptPointer free f pOpt =
-            Pointer.fromOpt pOpt & withOptPointer f pOpt
+            withOptPointer f pOpt
               handle e => (Option.app free pOpt; raise e)
+
+          fun withNewDupPointer free f p =
+            p & withDupPointer free f p
+
+          fun withNewDupOptPointer free f pOpt =
+            Pointer.fromOpt pOpt & withDupOptPointer free f pOpt
         in
           fun withPtr f a = Finalizable.withValue (a, withPointer f)
 
-          fun withDupPtr d f a = Finalizable.withValue (a, withDupPointer (free d) f o dup d)
+          fun withDupPtr d f a =
+            Finalizable.withValue (a, withDupPointer (free d) f o dup d)
+
+          fun withNewDupPtr d f a =
+            Finalizable.withValue (a, withNewDupPointer (free d) f o dup d)
 
 
           fun withOptPtr f =
@@ -114,6 +124,11 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
             fn
               SOME a => Finalizable.withValue (a, withDupOptPointer (free d) f o SOME o dup d)
             | NONE => withDupOptPointer ignore f NONE
+
+          fun withNewDupOptPtr d f =
+            fn
+              SOME a => Finalizable.withValue (a, withNewDupOptPointer (free d) f o SOME o dup d)
+            | NONE => withNewDupOptPointer ignore f NONE
         end
 
 

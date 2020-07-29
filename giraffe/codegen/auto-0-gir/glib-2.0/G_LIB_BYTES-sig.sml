@@ -3,6 +3,7 @@ signature G_LIB_BYTES =
     type t
     val getType : unit -> GObject.Type.t
     val new : GUInt8CArrayN.t option -> t
+    val newTake : GUInt8CArrayN.t option -> t
     val compare :
       t
        -> t

@@ -37,27 +37,21 @@ val containerForFilename =
 val containerForInterface =
   "ownership transfer CONTAINER for INTERFACE type not valid"
 
-val everythingForNonPtrStruct =
-  "ownership transfer EVERYTHING and non-pointer C type for STRUCT type \
-  \not valid"
-  (* In fact this is used for a non-pointer GObject.Value out parameter where
-   * the caller must call g_value_unset to free resources used by the
-   * GObject.Value.  This appears to occur only for get_property functions, so
-   * this is all pending property handling...
-   *)
+val everythingForNonPtrStructOutPar =
+  "ownership transfer EVERYTHING for OUT parameter with \
+  \non-pointer STRUCT type not supported"
 
-val everythingForNonPtrUnion =
-  "ownership transfer EVERYTHING and non-pointer C type for UNION type \
-  \not valid"
+val everythingForNonPtrUnionOutPar =
+  "ownership transfer EVERYTHING for OUT parameter with \
+  \non-pointer UNION type not supported"
 
-val containerForInPar =
-  "ownership transfer CONTAINER for IN parameter not supported"
+val nothingForNonPtrStructInOutPar =
+  "ownership transfer NOTHING for INOUT parameter with \
+  \non-pointer STRUCT type not supported"
 
-val everythingForInPar =
-  "ownership transfer EVERYTHING for IN parameter not supported"
-
-val everythingForInOutPar =
-  "ownership transfer EVERYTHING for INOUT parameter not supported"
+val nothingForNonPtrUnionInOutPar =
+  "ownership transfer NOTHING for INOUT parameter with \
+  \non-pointer UNION type not supported"
 
 val nonPtrForObject =
   "non-pointer C type for OBJECT type not supported"
@@ -673,35 +667,45 @@ fun getParInfo
     local
       open Transfer
     in
-      fun ptrOwnXferObjectInterface dir isPtr ownXfer nonPtrForX =
+      fun ptrOwnXferObjectInterface isPtr ownXfer nonPtrForX =
         if isPtr
         then
-          case (dir, ownXfer) of
-            (_,            NOTHING)    => SOME false
-          | (NONE,         EVERYTHING) => SOME true
-          | (SOME (OUT _), EVERYTHING) => SOME true
-          | (SOME IN,      EVERYTHING) => infoExcl everythingForInPar
-          | (SOME INOUT,   EVERYTHING) => infoExcl everythingForInOutPar
-          | (_,            CONTAINER)  => infoExcl containerForInterface
+          case ownXfer of
+            NOTHING    => SOME false
+          | EVERYTHING => SOME true
+          | CONTAINER  => infoExcl containerForInterface
         else
           infoExcl nonPtrForX
       val objectMsg = nonPtrForObject
       val interfaceMsg = nonPtrForInterface
 
-      fun ptrOwnXferStructUnion dir isPtr ownXfer (nonPtrForXInPar, everythingForNonPtrX) =
+      fun ptrOwnXferStructUnion dir isPtr ownXfer
+        (
+          nonPtrForXInPar,
+          everythingForNonPtrXOutPar,
+          nothingForNonPtrXInOutPar
+        ) =
         case (dir, isPtr, ownXfer) of
           (SOME IN,      false, NOTHING)    => infoExcl nonPtrForXInPar
-        | (_,            false, NOTHING)    => NONE
-        | (_,            true,  NOTHING)    => SOME false
-        | (NONE,         true,  EVERYTHING) => SOME true
-        | (SOME (OUT _), true,  EVERYTHING) => SOME true
-        | (NONE,         false, EVERYTHING) => NONE
-        | (SOME _,       false, EVERYTHING) => infoExcl everythingForNonPtrX
-        | (SOME IN,      true,  EVERYTHING) => infoExcl everythingForInPar
-        | (SOME INOUT,   true,  EVERYTHING) => infoExcl everythingForInOutPar
+        | (SOME IN,      false, EVERYTHING) => infoExcl nonPtrForXInPar
+        | (SOME (OUT _), false, EVERYTHING) => infoExcl everythingForNonPtrXOutPar
+        | (SOME INOUT,   false, NOTHING)    => infoExcl nothingForNonPtrXInOutPar
         | (_,            _,     CONTAINER)  => infoExcl containerForInterface
-      val structMsg = (nonPtrForStructInPar, everythingForNonPtrStruct)
-      val unionMsg = (nonPtrForUnionInPar, everythingForNonPtrUnion)
+        | (_,            false, _)          => NONE
+        | (_,            true,  NOTHING)    => SOME false
+        | (_,            true,  EVERYTHING) => SOME true
+      val structMsg =
+        (
+          nonPtrForStructInPar,
+          everythingForNonPtrStructOutPar,
+          nothingForNonPtrStructInOutPar
+        )
+      val unionMsg =
+        (
+          nonPtrForUnionInPar,
+          everythingForNonPtrUnionOutPar,
+          nothingForNonPtrUnionInOutPar
+        )
 
       fun ptrOwnXferFlagsEnum isPtr ptrForX =
         if isPtr
@@ -808,15 +812,6 @@ fun getParInfo
             let
               open Transfer
 
-              val () =
-                if dir = SOME IN
-                then
-                  case ownXfer of
-                    NOTHING    => ()
-                  | CONTAINER  => infoExcl containerForInPar
-                  | EVERYTHING => infoExcl everythingForInPar
-                else ()
-
               val ownXfer' =
                 case ownXfer of
                   CONTAINER => NOTHING
@@ -920,10 +915,7 @@ fun getParInfo
                 ownXfer =
                   case ownXfer of
                     NOTHING    => false
-                  | EVERYTHING =>
-                      if dir = SOME IN
-                      then infoExcl everythingForInPar
-                      else true
+                  | EVERYTHING => true
                   | CONTAINER  => infoExcl containerForFilename,
                 optIRef = optIRef
               }
@@ -939,10 +931,7 @@ fun getParInfo
                 ownXfer =
                   case ownXfer of
                     NOTHING    => false
-                  | EVERYTHING =>
-                      if dir = SOME IN
-                      then infoExcl everythingForInPar
-                      else true
+                  | EVERYTHING => true
                   | CONTAINER  => infoExcl containerForUtf8,
                 optIRef = optIRef
               }
@@ -1027,14 +1016,14 @@ fun getParInfo
                         OBJECT objectInfo
                                     =>
                           (
-                            ptrOwnXferObjectInterface dir isPtr ownXfer objectMsg,
+                            ptrOwnXferObjectInterface isPtr ownXfer objectMsg,
                             getRootObjectIRef repo functionNamespace
                               optContainerName
                               (objectInfo, iRef)
                           )
                       | INTERFACE _ =>
                           (
-                            ptrOwnXferObjectInterface dir isPtr ownXfer interfaceMsg,
+                            ptrOwnXferObjectInterface isPtr ownXfer interfaceMsg,
                             makeInterfaceRootIRef functionNamespace
                               optContainerName
                           )
@@ -1218,17 +1207,16 @@ fun getRetInfo
       val objectMsg = nonPtrForObject
       val interfaceMsg = nonPtrForInterface
 
-      fun ptrOwnXferStructUnion dir isPtr ownXfer (nonPtrForXRet, everythingForNonPtrX) =
+      fun ptrOwnXferStructUnion dir isPtr ownXfer nonPtrForXRet =
         case (dir, isPtr, ownXfer) of
-          (SOME (), false, NOTHING)    => infoExcl nonPtrForXRet
-        | (NONE,    false, NOTHING)    => NONE
-        | (_,       true,  NOTHING)    => SOME false
-        | (_,       true,  EVERYTHING) => SOME true
-        | (NONE,    false, EVERYTHING) => NONE
-        | (SOME _,  false, EVERYTHING) => infoExcl everythingForNonPtrX
-        | (_,       _,     CONTAINER)  => infoExcl containerForInterface
-      val structMsg = (nonPtrForStructRet, everythingForNonPtrStruct)
-      val unionMsg = (nonPtrForUnionRet, everythingForNonPtrUnion)
+          (SOME (),      false, NOTHING)    => infoExcl nonPtrForXRet
+        | (SOME (),      false, EVERYTHING) => infoExcl nonPtrForXRet
+        | (_,            _,     CONTAINER)  => infoExcl containerForInterface
+        | (_,            false, _)          => NONE
+        | (_,            true,  NOTHING)    => SOME false
+        | (_   ,         true,  EVERYTHING) => SOME true
+      val structMsg = nonPtrForStructRet
+      val unionMsg = nonPtrForUnionRet
 
       fun ptrOwnXferFlagsEnum isPtr ptrForX =
         if isPtr
@@ -1991,7 +1979,7 @@ local
       val ptrStr = if isPtr then "Ptr" else "Val"
 
       val withFunId =
-        concat ["with", refStr, dupStr, newStr, optStr, ptrStr]
+        concat ["with", refStr, newStr, dupStr, optStr, ptrStr]
       val funExp = mkLIdLNameExp (prefixIds @ [withFunId])
     in
       case xfer of
@@ -2052,7 +2040,7 @@ local
           NONE      => [utf8StrId, ffiStrId]
         | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
 
-      val isDup = dir = INOUT andalso ownXfer
+      val isDup = case dir of OUT _ => false | _ => ownXfer
     in
       withFunExp prefixIds {
         isRef = dir <> IN,
@@ -2071,7 +2059,7 @@ local
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
 
-      val isDup = dir = INOUT andalso ownXfer
+      val isDup = case dir of OUT _ => false | _ => ownXfer
     in
       withFunExp prefixIds {
         isRef = dir <> IN,
@@ -2120,9 +2108,15 @@ local
           ),
         isDup =
           case (infoType, dir) of
-            (OBJECT _, INOUT) => true
-          | (STRUCT _, INOUT) => true
-          | _                 => false,
+            (OBJECT _,    IN)    => ptrOwnXfer = SOME true
+          | (INTERFACE _, IN)    => ptrOwnXfer = SOME true
+          | (STRUCT _,    IN)    => ptrOwnXfer = SOME true
+          | (UNION _,     IN)    => ptrOwnXfer = SOME true
+          | (OBJECT _,    INOUT) => true
+          | (INTERFACE _, INOUT) => true
+          | (STRUCT _,    INOUT) => true
+          | (UNION _,     INOUT) => true
+          | _                    => false,
         isNew =
           case (dir, infoType) of
             (OUT isCallerAllocates, STRUCT _) =>
@@ -2130,12 +2124,13 @@ local
               (* Note that `isCallerAllocates` can be true when `ptrOwnXfer <> NONE`
                * for disguised structs, such as GdkAtom.  For information on disguised
                * structs, see https://bugzilla.gnome.org/show_bug.cgi?id=560248 . *)
+          | (INOUT,                 STRUCT _) => ptrOwnXfer = NONE
           | _                                 => false,
         isOpt =
           case dir of
             IN    => isOpt
           | OUT _ => isSome ptrOwnXfer
-          | INOUT => false,
+          | INOUT => isOpt,
         isPtr =
           case infoType of
             STRUCT _ => true

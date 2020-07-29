@@ -26,6 +26,10 @@ signature GIO_APPLICATION =
            * string
            * string option
        -> unit
+    val addOptionGroup :
+      'a class
+       -> GLib.OptionGroupRecord.t
+       -> unit
     val bindBusyProperty :
       'a class
        -> 'b GObject.ObjectClass.class * string

@@ -416,6 +416,7 @@ excludedFunctionSymbols := [
     [
       "pango_break",
       "pango_default_break",
+      "pango_font_descriptions_free",
       "pango_font_find_shaper",
       "pango_get_log_attrs",
       "pango_glyph_item_letter_space",

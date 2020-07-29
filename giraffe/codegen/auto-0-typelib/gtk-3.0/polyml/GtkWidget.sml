@@ -598,6 +598,7 @@ structure GtkWidget :>
       val setVexpandSet_ = call (getSymbol "gtk_widget_set_vexpand_set") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setVisible_ = call (getSymbol "gtk_widget_set_visible") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setVisual_ = call (getSymbol "gtk_widget_set_visual") (GtkWidgetClass.PolyML.cPtr &&> GdkVisualClass.PolyML.cOptPtr --> cVoid)
+      val setWindow_ = call (getSymbol "gtk_widget_set_window") (GtkWidgetClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
       val shapeCombineRegion_ = call (getSymbol "gtk_widget_shape_combine_region") (GtkWidgetClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cOptPtr --> cVoid)
       val show_ = call (getSymbol "gtk_widget_show") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val showAll_ = call (getSymbol "gtk_widget_show_all") (GtkWidgetClass.PolyML.cPtr --> cVoid)
@@ -1712,6 +1713,7 @@ structure GtkWidget :>
     fun setVexpandSet self set = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVexpandSet_ (self & set)
     fun setVisible self visible = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
     fun setVisual self visual = (GtkWidgetClass.FFI.withPtr &&&> GdkVisualClass.FFI.withOptPtr ---> I) setVisual_ (self & visual)
+    fun setWindow self window = (GtkWidgetClass.FFI.withPtr &&&> GdkWindowClass.FFI.withDupPtr ---> I) setWindow_ (self & window)
     fun shapeCombineRegion self region = (GtkWidgetClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withOptPtr ---> I) shapeCombineRegion_ (self & region)
     fun show self = (GtkWidgetClass.FFI.withPtr ---> I) show_ self
     fun showAll self = (GtkWidgetClass.FFI.withPtr ---> I) showAll_ self

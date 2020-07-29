@@ -469,6 +469,49 @@ structure GLib : G_LIB =
               x3,
               x4
             )
+    val environSetenv_ =
+      fn
+        (x1, x2)
+         & (x3, x4)
+         & (x5, x6)
+         & x7 =>
+          (
+            _import "mlton_g_environ_setenv" :
+              Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.opt Utf8CPtrArray.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GBool.FFI.val_
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
+            )
+    val environUnsetenv_ =
+      fn
+        (x1, x2) & (x3, x4) =>
+          (
+            _import "mlton_g_environ_unsetenv" :
+              Utf8CPtrArray.MLton.p1
+               * Utf8CPtrArray.FFI.opt Utf8CPtrArray.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4
+            )
     val filenameDisplayBasename_ = _import "mlton_g_filename_display_basename" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val filenameDisplayName_ = _import "mlton_g_filename_display_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val filenameFromUri_ =
@@ -1888,6 +1931,28 @@ structure GLib : G_LIB =
            & msgid
         )
     fun environGetenv (envp, variable) = (Utf8CPtrArray.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) environGetenv_ (envp & variable)
+    fun environSetenv
+      (
+        envp,
+        variable,
+        value,
+        overwrite
+      ) =
+      (
+        Utf8CPtrArray.FFI.withDupOptPtr 2
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         ---> Utf8CPtrArray.FFI.fromPtr 2
+      )
+        environSetenv_
+        (
+          envp
+           & variable
+           & value
+           & overwrite
+        )
+    fun environUnsetenv (envp, variable) = (Utf8CPtrArray.FFI.withDupOptPtr 2 &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) environUnsetenv_ (envp & variable)
     fun filenameDisplayBasename filename = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) filenameDisplayBasename_ filename
     fun filenameDisplayName filename = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) filenameDisplayName_ filename
     fun filenameFromUri uri =

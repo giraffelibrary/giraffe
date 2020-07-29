@@ -30,6 +30,7 @@ structure GioApplication :>
              &&> Utf8.PolyML.cInOptPtr
              --> cVoid
           )
+      val addOptionGroup_ = call (getSymbol "g_application_add_option_group") (GioApplicationClass.PolyML.cPtr &&> GLibOptionGroupRecord.PolyML.cPtr --> cVoid)
       val bindBusyProperty_ =
         call (getSymbol "g_application_bind_busy_property")
           (
@@ -148,6 +149,7 @@ structure GioApplication :>
            & description
            & argDescription
         )
+    fun addOptionGroup self group = (GioApplicationClass.FFI.withPtr &&&> GLibOptionGroupRecord.FFI.withDupPtr ---> I) addOptionGroup_ (self & group)
     fun bindBusyProperty self (object, property) =
       (
         GioApplicationClass.FFI.withPtr

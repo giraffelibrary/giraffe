@@ -110,6 +110,7 @@ structure GObjectValue :>
               x2,
               x3
             )
+    val takeVariant_ = fn x1 & x2 => (_import "g_value_take_variant" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p -> unit;) (x1, x2)
     val transform_ = fn x1 & x2 => (_import "g_value_transform" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val unset_ = _import "g_value_unset" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit;
     val typeCompatible_ = fn x1 & x2 => (_import "g_value_type_compatible" : GObjectType.FFI.val_ * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
@@ -167,6 +168,7 @@ structure GObjectValue :>
     fun setUlong self vUlong = (GObjectValueRecord.FFI.withPtr &&&> GULong.FFI.withVal ---> I) setUlong_ (self & vUlong)
     fun setVariant self variant = (GObjectValueRecord.FFI.withPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> I) setVariant_ (self & variant)
     fun takeString self vString = (GObjectValueRecord.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) takeString_ (self & vString)
+    fun takeVariant self variant = (GObjectValueRecord.FFI.withPtr &&&> GLibVariantRecord.FFI.withDupOptPtr ---> I) takeVariant_ (self & variant)
     fun transform self destValue = (GObjectValueRecord.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> GBool.FFI.fromVal) transform_ (self & destValue)
     fun unset self = (GObjectValueRecord.FFI.withPtr ---> I) unset_ self
     fun typeCompatible (srcType, destType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCompatible_ (srcType & destType)

@@ -57,6 +57,7 @@ structure GObjectValue :>
       val setUlong_ = call (getSymbol "g_value_set_ulong") (GObjectValueRecord.PolyML.cPtr &&> GUInt64.PolyML.cVal --> cVoid)
       val setVariant_ = call (getSymbol "g_value_set_variant") (GObjectValueRecord.PolyML.cPtr &&> GLibVariantRecord.PolyML.cOptPtr --> cVoid)
       val takeString_ = call (getSymbol "g_value_take_string") (GObjectValueRecord.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
+      val takeVariant_ = call (getSymbol "g_value_take_variant") (GObjectValueRecord.PolyML.cPtr &&> GLibVariantRecord.PolyML.cOptPtr --> cVoid)
       val transform_ = call (getSymbol "g_value_transform") (GObjectValueRecord.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val unset_ = call (getSymbol "g_value_unset") (GObjectValueRecord.PolyML.cPtr --> cVoid)
       val typeCompatible_ = call (getSymbol "g_value_type_compatible") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
@@ -115,6 +116,7 @@ structure GObjectValue :>
     fun setUlong self vUlong = (GObjectValueRecord.FFI.withPtr &&&> GUInt64.FFI.withVal ---> I) setUlong_ (self & vUlong)
     fun setVariant self variant = (GObjectValueRecord.FFI.withPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> I) setVariant_ (self & variant)
     fun takeString self vString = (GObjectValueRecord.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) takeString_ (self & vString)
+    fun takeVariant self variant = (GObjectValueRecord.FFI.withPtr &&&> GLibVariantRecord.FFI.withDupOptPtr ---> I) takeVariant_ (self & variant)
     fun transform self destValue = (GObjectValueRecord.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> GBool.FFI.fromVal) transform_ (self & destValue)
     fun unset self = (GObjectValueRecord.FFI.withPtr ---> I) unset_ self
     fun typeCompatible (srcType, destType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCompatible_ (srcType & destType)

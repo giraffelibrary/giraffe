@@ -34,6 +34,30 @@ structure GIRepository : G_I_REPOSITORY =
             )
     val callableInfoGetReturnType_ = _import "g_callable_info_get_return_type" : GIRepositoryCallableInfoRecord.FFI.non_opt GIRepositoryCallableInfoRecord.FFI.p -> GIRepositoryTypeInfoRecord.FFI.non_opt GIRepositoryTypeInfoRecord.FFI.p;
     val callableInfoIsMethod_ = _import "g_callable_info_is_method" : GIRepositoryCallableInfoRecord.FFI.non_opt GIRepositoryCallableInfoRecord.FFI.p -> GBool.FFI.val_;
+    val callableInfoIterateReturnAttributes_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & (x5, x6) =>
+          (
+            _import "mlton_g_callable_info_iterate_return_attributes" :
+              GIRepositoryCallableInfoRecord.FFI.non_opt GIRepositoryCallableInfoRecord.FFI.p
+               * GIRepositoryAttributeIterRecord.FFI.non_opt GIRepositoryAttributeIterRecord.FFI.p
+               * Utf8.MLton.r1
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * Utf8.MLton.r1
+               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               -> GBool.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
     val callableInfoLoadArg_ =
       fn
         x1
@@ -400,6 +424,32 @@ structure GIRepository : G_I_REPOSITORY =
     fun callableInfoGetReturnAttribute (info, name) = (GIRepositoryCallableInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) callableInfoGetReturnAttribute_ (info & name)
     fun callableInfoGetReturnType info = (GIRepositoryCallableInfoRecord.FFI.withPtr ---> GIRepositoryTypeInfoRecord.FFI.fromPtr true) callableInfoGetReturnType_ info
     fun callableInfoIsMethod info = (GIRepositoryCallableInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) callableInfoIsMethod_ info
+    fun callableInfoIterateReturnAttributes (info, iterator) =
+      let
+        val iterator
+         & name
+         & value
+         & retVal =
+          (
+            GIRepositoryCallableInfoRecord.FFI.withPtr
+             &&&> GIRepositoryAttributeIterRecord.FFI.withNewDupPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             &&&> Utf8.FFI.withRefOptPtr
+             ---> GIRepositoryAttributeIterRecord.FFI.fromPtr true
+                   && Utf8.FFI.fromPtr 0
+                   && Utf8.FFI.fromPtr 0
+                   && GBool.FFI.fromVal
+          )
+            callableInfoIterateReturnAttributes_
+            (
+              info
+               & iterator
+               & NONE
+               & NONE
+            )
+      in
+        (if retVal then SOME (name, value) else NONE, iterator)
+      end
     fun callableInfoLoadArg (info, n) =
       let
         val arg & () =

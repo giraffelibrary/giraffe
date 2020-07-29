@@ -158,7 +158,10 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
           fun withPointer f p = f (fromPointer p)
 
           fun withDupPointer free f p =
-            p & withPointer f p handle e => (Pointer.appNonNullPtr free p; raise e)
+            withPointer f p handle e => (Pointer.appNonNullPtr free p; raise e)
+
+          fun withNewDupPointer free f p =
+            p & withDupPointer free f p
         in
           fun withPtr f =
             fn
@@ -172,6 +175,14 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
             | SMLValue v =>
                 Finalizable.withValue
                   (v, withDupPointer (free ~1) f o CVector.toPointer)
+
+          fun withNewDupPtr d f =
+            fn
+              CArray a =>
+                Finalizable.withValue (a, withNewDupPointer (free d) f o dup d)
+            | SMLValue v =>
+                Finalizable.withValue
+                  (v, withNewDupPointer (free ~1) f o CVector.toPointer)
 
 
           fun withOptPtr f =
@@ -189,6 +200,16 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
                 Finalizable.withValue
                   (v, withDupPointer (free ~1) f o Pointer.toOptPtr o CVector.toPointer)
             | NONE => withDupPointer ignore f Pointer.null
+
+          fun withNewDupOptPtr d f =
+            fn
+              SOME (CArray a) =>
+                Finalizable.withValue
+                  (a, withNewDupPointer (free d) f o Pointer.toOptPtr o dup d)
+            | SOME (SMLValue v) =>
+                Finalizable.withValue
+                  (v, withNewDupPointer (free ~1) f o Pointer.toOptPtr o CVector.toPointer)
+            | NONE => withNewDupPointer ignore f Pointer.null
         end
 
 

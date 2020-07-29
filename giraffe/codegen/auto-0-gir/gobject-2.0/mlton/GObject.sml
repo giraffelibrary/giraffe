@@ -742,6 +742,38 @@ structure GObject :
               x7,
               x8
             )
+    val paramSpecVariant_ =
+      fn
+        (x1, x2)
+         & (x3, x4)
+         & (x5, x6)
+         & x7
+         & x8
+         & x9 =>
+          (
+            _import "mlton_g_param_spec_variant" :
+              Utf8.MLton.p1
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * Utf8.MLton.p1
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GLibVariantTypeRecord.FFI.non_opt GLibVariantTypeRecord.FFI.p
+               * GLibVariantRecord.FFI.opt GLibVariantRecord.FFI.p
+               * GObjectParamFlags.FFI.val_
+               -> GObjectParamSpecClass.FFI.non_opt GObjectParamSpecClass.FFI.p;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7,
+              x8,
+              x9
+            )
     val pointerTypeRegisterStatic_ = _import "mlton_g_pointer_type_register_static" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GObjectType.FFI.val_;
     val signalListIds_ = fn x1 & x2 => (_import "g_signal_list_ids" : GObjectType.FFI.val_ * GUInt.FFI.ref_ -> GUIntCArrayN.FFI.non_opt GUIntCArrayN.FFI.out_p;) (x1, x2)
     val signalLookup_ =
@@ -1518,6 +1550,33 @@ structure GObject :
           name
            & nick
            & blurb
+           & defaultValue
+           & flags
+        )
+    fun paramSpecVariant
+      (
+        name,
+        nick,
+        blurb,
+        type',
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibVariantTypeRecord.FFI.withPtr
+         &&&> GLibVariantRecord.FFI.withDupOptPtr
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecVariant_
+        (
+          name
+           & nick
+           & blurb
+           & type'
            & defaultValue
            & flags
         )

@@ -409,6 +409,13 @@ signature G_LIB =
        * string
        -> string
     val environGetenv : Utf8CPtrArray.t option * string -> string
+    val environSetenv :
+      Utf8CPtrArray.t option
+       * string
+       * string
+       * bool
+       -> Utf8CPtrArray.t
+    val environUnsetenv : Utf8CPtrArray.t option * string -> Utf8CPtrArray.t
     val filenameDisplayBasename : string -> string
     val filenameDisplayName : string -> string
     val filenameFromUri : string -> string * string

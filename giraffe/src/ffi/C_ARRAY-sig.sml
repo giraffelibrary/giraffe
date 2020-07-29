@@ -237,10 +237,16 @@ signature C_ARRAY =
          * `withDupPtr depth f arr` ...
          *
          *
+         * `withNewDupPtr depth f arr` ...
+         *
+         *
          * `withOptPtr f optArr` ...
          *
          *
          * `withDupOptPtr depth f optArr` ...
+         *
+         *
+         * `withNewDupOptPtr depth f optArr` ...
          *
          *   The C function `f` must return an allocated array whose
          *   ownership, i.e. responsibility for freeing, is transferred.
@@ -252,11 +258,13 @@ signature C_ARRAY =
          *)
         type 'a in_p
 
-        val withPtr    : (non_opt in_p -> 'r) -> t -> 'r
-        val withDupPtr : int -> (non_opt in_p -> 'r) -> t -> (non_opt out_p, 'r) pair
+        val withPtr       :        (non_opt in_p -> 'r) -> t -> 'r
+        val withDupPtr    : int -> (non_opt in_p -> 'r) -> t -> 'r
+        val withNewDupPtr : int -> (non_opt in_p -> 'r) -> t -> (non_opt out_p, 'r) pair
 
-        val withOptPtr    : (opt in_p -> 'r) -> t option -> 'r
-        val withDupOptPtr : int -> (opt in_p -> 'r) -> t option -> (opt out_p, 'r) pair
+        val withOptPtr       :        (opt in_p -> 'r) -> t option -> 'r
+        val withDupOptPtr    : int -> (opt in_p -> 'r) -> t option -> 'r
+        val withNewDupOptPtr : int -> (opt in_p -> 'r) -> t option -> (opt out_p, 'r) pair
 
         (**
          * Reference parameters
@@ -305,10 +313,10 @@ signature C_ARRAY =
 
         val withNullRef : (('a, 'b) r -> 'r) -> unit -> 'r
 
-        val withRefPtr    : ((non_opt, 'b) r -> 'r) -> t -> ('b out_p, 'r) pair
+        val withRefPtr    :        ((non_opt, 'b) r -> 'r) -> t -> ('b out_p, 'r) pair
         val withRefDupPtr : int -> ((non_opt, 'b) r -> 'r) -> t -> ('b out_p, 'r) pair
 
-        val withRefOptPtr    : ((opt, 'b) r -> 'r) -> t option -> ('b out_p, 'r) pair
+        val withRefOptPtr    :        ((opt, 'b) r -> 'r) -> t option -> ('b out_p, 'r) pair
         val withRefDupOptPtr : int -> ((opt, 'b) r -> 'r) -> t option -> ('b out_p, 'r) pair
       end
   end

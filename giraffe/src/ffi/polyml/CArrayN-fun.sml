@@ -95,16 +95,25 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
           fun withOptPointer f = Pointer.withOptVal f
 
           fun withDupPointer free f p =
-            p & withPointer f p handle e => (free p; raise e)
+            withPointer f p handle e => (free p; raise e)
 
           fun withDupOptPointer free f pOpt =
-            Pointer.fromOpt pOpt & withOptPointer f pOpt
+            withOptPointer f pOpt
               handle e => (Option.app free pOpt; raise e)
+
+          fun withNewDupPointer free f p =
+            p & withDupPointer free f p
+
+          fun withNewDupOptPointer free f pOpt =
+            Pointer.fromOpt pOpt & withDupOptPointer free f pOpt
         in
           fun withPtr f ((a, _), _) = Finalizable.withValue (a, withPointer f)
 
           fun withDupPtr d f ((a, _), n) =
             Finalizable.withValue (a, withDupPointer (free d n) f o dup d n)
+
+          fun withNewDupPtr d f ((a, _), n) =
+            Finalizable.withValue (a, withNewDupPointer (free d n) f o dup d n)
 
 
           fun withOptPtr f =
@@ -118,6 +127,13 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
                 Finalizable.withValue
                   (a, withDupOptPointer (free d n) f o SOME o dup d n)
             | NONE => withDupOptPointer ignore f NONE
+
+          fun withNewDupOptPtr d f =
+            fn
+              SOME ((a, _), n) =>
+                Finalizable.withValue
+                  (a, withNewDupOptPointer (free d n) f o SOME o dup d n)
+            | NONE => withNewDupOptPointer ignore f NONE
         end
 
 
@@ -127,15 +143,16 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
         local
-          fun withRefPointer f p = Pointer.withRefVal f p
+          fun withRefPointer f = Pointer.withRefVal f
 
-          fun withRefOptPointer f p = Pointer.withRefOptVal f p
+          fun withRefOptPointer f = Pointer.withRefOptVal f
 
           fun withRefDupPointer free f p =
-            withRefPointer f p handle e => (Pointer.appNonNullPtr free p; raise e)
+            withRefPointer f p handle e => (free p; raise e)
 
           fun withRefDupOptPointer free f pOpt =
-            withRefOptPointer f pOpt handle e => (Option.app free pOpt; raise e)
+            withRefOptPointer f pOpt
+              handle e => (Option.app free pOpt; raise e)
         in
           fun withNullRef f = Pointer.withNullRef f
 

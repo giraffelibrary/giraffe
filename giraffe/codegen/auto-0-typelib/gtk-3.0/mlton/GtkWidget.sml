@@ -1183,6 +1183,7 @@ structure GtkWidget :>
     val setVexpandSet_ = fn x1 & x2 => (_import "gtk_widget_set_vexpand_set" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setVisible_ = fn x1 & x2 => (_import "gtk_widget_set_visible" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     val setVisual_ = fn x1 & x2 => (_import "gtk_widget_set_visual" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GdkVisualClass.FFI.opt GdkVisualClass.FFI.p -> unit;) (x1, x2)
+    val setWindow_ = fn x1 & x2 => (_import "gtk_widget_set_window" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * GdkWindowClass.FFI.non_opt GdkWindowClass.FFI.p -> unit;) (x1, x2)
     val shapeCombineRegion_ = fn x1 & x2 => (_import "gtk_widget_shape_combine_region" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p * CairoRegionRecord.FFI.opt CairoRegionRecord.FFI.p -> unit;) (x1, x2)
     val show_ = _import "gtk_widget_show" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;
     val showAll_ = _import "gtk_widget_show_all" : GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p -> unit;
@@ -2331,6 +2332,7 @@ structure GtkWidget :>
     fun setVexpandSet self set = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVexpandSet_ (self & set)
     fun setVisible self visible = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
     fun setVisual self visual = (GtkWidgetClass.FFI.withPtr &&&> GdkVisualClass.FFI.withOptPtr ---> I) setVisual_ (self & visual)
+    fun setWindow self window = (GtkWidgetClass.FFI.withPtr &&&> GdkWindowClass.FFI.withDupPtr ---> I) setWindow_ (self & window)
     fun shapeCombineRegion self region = (GtkWidgetClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withOptPtr ---> I) shapeCombineRegion_ (self & region)
     fun show self = (GtkWidgetClass.FFI.withPtr ---> I) show_ self
     fun showAll self = (GtkWidgetClass.FFI.withPtr ---> I) showAll_ self

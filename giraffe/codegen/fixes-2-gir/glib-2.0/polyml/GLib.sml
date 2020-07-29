@@ -153,6 +153,16 @@ structure GLib : G_LIB =
              --> Utf8.PolyML.cOutPtr
           )
       val environGetenv_ = call (getSymbol "g_environ_getenv") (Utf8CPtrArray.PolyML.cInOptPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
+      val environSetenv_ =
+        call (getSymbol "g_environ_setenv")
+          (
+            Utf8CPtrArray.PolyML.cInOptPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GBool.PolyML.cVal
+             --> Utf8CPtrArray.PolyML.cOutPtr
+          )
+      val environUnsetenv_ = call (getSymbol "g_environ_unsetenv") (Utf8CPtrArray.PolyML.cInOptPtr &&> Utf8.PolyML.cInPtr --> Utf8CPtrArray.PolyML.cOutPtr)
       val filenameDisplayBasename_ = call (getSymbol "g_filename_display_basename") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val filenameDisplayName_ = call (getSymbol "g_filename_display_name") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val filenameFromUri_ =
@@ -1055,6 +1065,28 @@ structure GLib : G_LIB =
            & msgid
         )
     fun environGetenv (envp, variable) = (Utf8CPtrArray.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) environGetenv_ (envp & variable)
+    fun environSetenv
+      (
+        envp,
+        variable,
+        value,
+        overwrite
+      ) =
+      (
+        Utf8CPtrArray.FFI.withDupOptPtr 2
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GBool.FFI.withVal
+         ---> Utf8CPtrArray.FFI.fromPtr 2
+      )
+        environSetenv_
+        (
+          envp
+           & variable
+           & value
+           & overwrite
+        )
+    fun environUnsetenv (envp, variable) = (Utf8CPtrArray.FFI.withDupOptPtr 2 &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) environUnsetenv_ (envp & variable)
     fun filenameDisplayBasename filename = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) filenameDisplayBasename_ filename
     fun filenameDisplayName filename = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) filenameDisplayName_ filename
     fun filenameFromUri uri =

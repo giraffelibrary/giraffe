@@ -237,6 +237,17 @@ structure GObject :
              &&> GObjectParamFlags.PolyML.cVal
              --> GObjectParamSpecClass.PolyML.cPtr
           )
+      val paramSpecVariant_ =
+        call (getSymbol "g_param_spec_variant")
+          (
+            Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GLibVariantTypeRecord.PolyML.cPtr
+             &&> GLibVariantRecord.PolyML.cOptPtr
+             &&> GObjectParamFlags.PolyML.cVal
+             --> GObjectParamSpecClass.PolyML.cPtr
+          )
       val pointerTypeRegisterStatic_ = call (getSymbol "g_pointer_type_register_static") (Utf8.PolyML.cInPtr --> GObjectType.PolyML.cVal)
       val signalListIds_ = call (getSymbol "g_signal_list_ids") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GUIntCArrayN.PolyML.cOutPtr)
       val signalLookup_ = call (getSymbol "g_signal_lookup") (Utf8.PolyML.cInPtr &&> GObjectType.PolyML.cVal --> GUInt.PolyML.cVal)
@@ -955,6 +966,33 @@ structure GObject :
           name
            & nick
            & blurb
+           & defaultValue
+           & flags
+        )
+    fun paramSpecVariant
+      (
+        name,
+        nick,
+        blurb,
+        type',
+        defaultValue,
+        flags
+      ) =
+      (
+        Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr
+         &&&> GLibVariantTypeRecord.FFI.withPtr
+         &&&> GLibVariantRecord.FFI.withDupOptPtr
+         &&&> GObjectParamFlags.FFI.withVal
+         ---> GObjectParamSpecClass.FFI.fromPtr true
+      )
+        paramSpecVariant_
+        (
+          name
+           & nick
+           & blurb
+           & type'
            & defaultValue
            & flags
         )

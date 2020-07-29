@@ -20,6 +20,7 @@ structure GtkFileChooser :>
              &&> Utf8.PolyML.cInPtr
              --> cVoid
           )
+      val addFilter_ = call (getSymbol "gtk_file_chooser_add_filter") (GtkFileChooserClass.PolyML.cPtr &&> GtkFileFilterClass.PolyML.cPtr --> cVoid)
       val addShortcutFolder_ =
         call (getSymbol "gtk_file_chooser_add_shortcut_folder")
           (
@@ -163,6 +164,7 @@ structure GtkFileChooser :>
            & options
            & optionLabels
         )
+    fun addFilter self filter = (GtkFileChooserClass.FFI.withPtr &&&> GtkFileFilterClass.FFI.withDupPtr ---> I) addFilter_ (self & filter)
     fun addShortcutFolder self folder =
       (
         GtkFileChooserClass.FFI.withPtr

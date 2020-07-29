@@ -14,6 +14,10 @@ signature GTK_FILE_CHOOSER =
            * string
            * string
        -> unit
+    val addFilter :
+      'a class
+       -> 'b file_filter_class
+       -> unit
     val addShortcutFolder :
       'a class
        -> string

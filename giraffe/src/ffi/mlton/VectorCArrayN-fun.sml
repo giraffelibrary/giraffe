@@ -54,8 +54,10 @@ functor VectorCArrayN(CArray : C_ARRAY where type 'a C.ArrayType.from_p = int ->
         type 'a in_p = 'a CArray.FFI.in_p
         fun withPtr f = CArray.FFI.withPtr f o toC
         fun withDupPtr d f = CArray.FFI.withDupPtr d f o toC
+        fun withNewDupPtr d f = CArray.FFI.withNewDupPtr d f o toC
         fun withOptPtr f = CArray.FFI.withOptPtr f o Option.map toC
         fun withDupOptPtr d f = CArray.FFI.withDupOptPtr d f o Option.map toC
+        fun withNewDupOptPtr d f = CArray.FFI.withNewDupOptPtr d f o Option.map toC
 
         type ('a, 'b) r = ('a, 'b) CArray.FFI.r
         val withNullRef = CArray.FFI.withNullRef

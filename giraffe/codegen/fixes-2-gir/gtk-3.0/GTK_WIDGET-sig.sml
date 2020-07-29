@@ -668,6 +668,10 @@ signature GTK_WIDGET =
       'a class
        -> 'b Gdk.VisualClass.class option
        -> unit
+    val setWindow :
+      'a class
+       -> 'b Gdk.WindowClass.class
+       -> unit
     val shapeCombineRegion :
       'a class
        -> Cairo.RegionRecord.t option

@@ -59,6 +59,7 @@ signature G_I_REPOSITORY =
     val callableInfoGetReturnAttribute : CallableInfoRecord.t * string -> string
     val callableInfoGetReturnType : CallableInfoRecord.t -> TypeInfoRecord.t
     val callableInfoIsMethod : CallableInfoRecord.t -> bool
+    val callableInfoIterateReturnAttributes : CallableInfoRecord.t * AttributeIterRecord.t -> (string * string) option * AttributeIterRecord.t
     val callableInfoLoadArg : CallableInfoRecord.t * LargeInt.int -> ArgInfoRecord.t
     val callableInfoLoadReturnType : CallableInfoRecord.t -> TypeInfoRecord.t
     val callableInfoMayReturnNull : CallableInfoRecord.t -> bool

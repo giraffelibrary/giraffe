@@ -472,6 +472,14 @@ signature G_OBJECT =
        * char
        * ParamFlags.t
        -> base ParamSpecClass.class
+    val paramSpecVariant :
+      string
+       * string
+       * string
+       * GLib.VariantTypeRecord.t
+       * GLib.VariantRecord.t option
+       * ParamFlags.t
+       -> base ParamSpecClass.class
     val pointerTypeRegisterStatic : string -> Type.t
     val signalListIds : Type.t -> GUInt32CArrayN.t
     val signalLookup : string * Type.t -> LargeInt.int

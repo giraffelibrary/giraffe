@@ -125,6 +125,10 @@ signature G_OBJECT_VALUE =
       t
        -> string option
        -> unit
+    val takeVariant :
+      t
+       -> GLib.VariantRecord.t option
+       -> unit
     val transform :
       t
        -> t

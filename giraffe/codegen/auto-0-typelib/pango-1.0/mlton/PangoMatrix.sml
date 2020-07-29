@@ -1,6 +1,7 @@
 structure PangoMatrix :>
   PANGO_MATRIX
-    where type t = PangoMatrixRecord.t =
+    where type t = PangoMatrixRecord.t
+    where type rectangle_t = PangoRectangleRecord.t =
   struct
     val getType_ = _import "pango_matrix_get_type" : unit -> GObjectType.FFI.val_;
     val concat_ = fn x1 & x2 => (_import "pango_matrix_concat" : PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p * PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p -> unit;) (x1, x2)
@@ -58,6 +59,7 @@ structure PangoMatrix :>
               x2,
               x3
             )
+    val transformPixelRectangle_ = fn x1 & x2 => (_import "pango_matrix_transform_pixel_rectangle" : PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p -> unit;) (x1, x2)
     val transformPoint_ =
       fn
         x1
@@ -75,6 +77,7 @@ structure PangoMatrix :>
               x2,
               x3
             )
+    val transformRectangle_ = fn x1 & x2 => (_import "pango_matrix_transform_rectangle" : PangoMatrixRecord.FFI.non_opt PangoMatrixRecord.FFI.p * PangoRectangleRecord.FFI.non_opt PangoRectangleRecord.FFI.p -> unit;) (x1, x2)
     val translate_ =
       fn
         x1
@@ -93,6 +96,7 @@ structure PangoMatrix :>
               x3
             )
     type t = PangoMatrixRecord.t
+    type rectangle_t = PangoRectangleRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun concat self newMatrix = (PangoMatrixRecord.FFI.withPtr &&&> PangoMatrixRecord.FFI.withPtr ---> I) concat_ (self & newMatrix)
     fun copy self = (PangoMatrixRecord.FFI.withPtr ---> PangoMatrixRecord.FFI.fromOptPtr true) copy_ self
@@ -155,6 +159,12 @@ structure PangoMatrix :>
       in
         (dx, dy)
       end
+    fun transformPixelRectangle self rect =
+      let
+        val rect & () = (PangoMatrixRecord.FFI.withPtr &&&> PangoRectangleRecord.FFI.withNewDupPtr ---> PangoRectangleRecord.FFI.fromPtr true && I) transformPixelRectangle_ (self & rect)
+      in
+        rect
+      end
     fun transformPoint self (x, y) =
       let
         val x
@@ -176,6 +186,12 @@ structure PangoMatrix :>
             )
       in
         (x, y)
+      end
+    fun transformRectangle self rect =
+      let
+        val rect & () = (PangoMatrixRecord.FFI.withPtr &&&> PangoRectangleRecord.FFI.withNewDupPtr ---> PangoRectangleRecord.FFI.fromPtr true && I) transformRectangle_ (self & rect)
+      in
+        rect
       end
     fun translate self (tx, ty) =
       (

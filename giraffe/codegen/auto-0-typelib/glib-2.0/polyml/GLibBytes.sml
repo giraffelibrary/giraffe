@@ -7,6 +7,7 @@ structure GLibBytes :>
     in
       val getType_ = call (getSymbol "g_bytes_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ = call (getSymbol "g_bytes_new") (GUInt8CArrayN.PolyML.cInOptPtr &&> GUInt64.PolyML.cVal --> GLibBytesRecord.PolyML.cPtr)
+      val newTake_ = call (getSymbol "g_bytes_new_take") (GUInt8CArrayN.PolyML.cInOptPtr &&> GUInt64.PolyML.cVal --> GLibBytesRecord.PolyML.cPtr)
       val compare_ = call (getSymbol "g_bytes_compare") (GLibBytesRecord.PolyML.cPtr &&> GLibBytesRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
       val equal_ = call (getSymbol "g_bytes_equal") (GLibBytesRecord.PolyML.cPtr &&> GLibBytesRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getData_ = call (getSymbol "g_bytes_get_data") (GLibBytesRecord.PolyML.cPtr &&> GUInt64.PolyML.cRef --> GUInt8CArrayN.PolyML.cOutOptPtr)
@@ -31,6 +32,16 @@ structure GLibBytes :>
             SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
           | NONE => GUInt64.null
         val retVal = (GUInt8CArrayN.FFI.withOptPtr &&&> GUInt64.FFI.withVal ---> GLibBytesRecord.FFI.fromPtr true) new_ (data & size)
+      in
+        retVal
+      end
+    fun newTake data =
+      let
+        val size =
+          case data of
+            SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
+          | NONE => GUInt64.null
+        val retVal = (GUInt8CArrayN.FFI.withDupOptPtr 1 &&&> GUInt64.FFI.withVal ---> GLibBytesRecord.FFI.fromPtr true) newTake_ (data & size)
       in
         retVal
       end

@@ -80,19 +80,63 @@ structure GdkEvent :> GDK_EVENT =
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
-        fun withPtr f ptr = Finalizable.withValue (ptr, Pointer.withVal f)
+        local
+          fun withPointer f = Pointer.withVal f
 
-        fun withOptPtr f =
-          fn
-            SOME ptr => Finalizable.withValue (ptr, Pointer.withOptVal f o SOME)
-          | NONE     => Pointer.withOptVal f NONE
+          fun withOptPointer f = Pointer.withOptVal f
 
-        fun withRefPtr f ptr = Finalizable.withValue (ptr, Pointer.withRefVal f)
+          fun withDupPointer free f p =
+            withPointer f p handle e => (free p; raise e)
 
-        fun withRefOptPtr f =
-          fn
-            SOME ptr => Finalizable.withValue (ptr, Pointer.withRefOptVal f o SOME)
-          | NONE     => Pointer.withRefOptVal f NONE
+          fun withDupOptPointer free f optptr =
+            withOptPointer f optptr
+              handle e => (Option.app free optptr; raise e)
+        in
+          fun withPtr f ptr =
+            Finalizable.withValue (ptr, withPointer f)
+
+          fun withDupPtr f ptr =
+            Finalizable.withValue (ptr, withDupPointer free_ f o dup_)
+
+          fun withOptPtr f =
+            fn
+              SOME ptr => Finalizable.withValue (ptr, withOptPointer f o SOME)
+            | NONE     => withOptPointer f NONE
+
+          fun withDupOptPtr f =
+            fn
+              SOME ptr => Finalizable.withValue (ptr, withDupOptPointer free_ f o SOME o dup_)
+            | NONE     => withDupOptPointer ignore f NONE
+        end
+
+        local
+          fun withRefPointer f = Pointer.withRefVal f
+
+          fun withRefOptPointer f = Pointer.withRefOptVal f
+
+          fun withRefDupPointer free f p =
+            withRefPointer f p handle e => (free p; raise e)
+
+          fun withRefDupOptPointer free f optptr =
+            withRefOptPointer f optptr
+              handle e => (Option.app free optptr; raise e)
+        in
+          fun withRefPtr f ptr =
+            Finalizable.withValue (ptr, withRefPointer f)
+
+          fun withRefDupPtr f ptr =
+            Finalizable.withValue (ptr, withRefDupPointer free_ f o dup_)
+
+          fun withRefOptPtr f =
+            fn
+              SOME ptr => Finalizable.withValue (ptr, withRefOptPointer f o SOME)
+            | NONE     => withRefOptPointer f NONE
+
+          fun withRefDupOptPtr f =
+            fn
+              SOME ptr => Finalizable.withValue (ptr, withRefDupOptPointer free_ f o SOME o dup_)
+            | NONE     => withRefDupOptPointer ignore f NONE
+        end
 
         fun fromPtr transfer ptr =
           let

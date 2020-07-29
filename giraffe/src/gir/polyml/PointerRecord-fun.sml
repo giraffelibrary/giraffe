@@ -46,23 +46,33 @@ functor PointerRecord(val name : string) :> RECORD =
 
         fun withPtr f = Pointer.withVal f
 
+        fun withDupPtr _ =
+          raise Fail ("withDupPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
+
         fun withOptPtr f = Pointer.withOptVal f
+
+        fun withDupOptPtr _ =
+          raise Fail ("withDupOptPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
 
         fun withRefPtr f = Pointer.withRefVal f
 
+        fun withRefDupPtr _ =
+          raise Fail ("withRefDupPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
+
         fun withRefOptPtr f = Pointer.withRefOptVal f
+
+        fun withRefDupOptPtr _ =
+          raise Fail ("withRefDupOptPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
 
         fun fromPtr transfer =
           if transfer
-          then raise Fail ("cannot transfer ownership of disguised struct (" ^ name ^ ")")
+          then raise Fail ("fromPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
           else Fn.id
 
         fun fromOptPtr transfer =
-          let
-            val from = fromPtr transfer
-          in
-            fn optptr => Option.map from (Pointer.toOpt optptr)
-          end
+          if transfer
+          then raise Fail ("fromOptPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
+          else Pointer.toOpt
       end
 
     structure PolyML =

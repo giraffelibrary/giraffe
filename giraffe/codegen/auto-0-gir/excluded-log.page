@@ -14,25 +14,11 @@
     <item>struct ByteArray: struct not included by configuration (structTypes)</item>
     <item>
       struct Bytes
-      <item>
-        function new_take
-        <item>
-          arg data
-          <item>type array: ownership transfer EVERYTHING for IN parameter not supported</item>
-        </item>
-      </item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function unref_to_array
         <item>type array: array type GByteArray not supported</item>
-      </item>
-      <item>
-        function new_take
-        <item>
-          arg data
-          <item>type array: ownership transfer EVERYTHING for IN parameter not supported</item>
-        </item>
       </item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -1194,20 +1180,6 @@
       function double_hash
       <item>arg v: pointer C type for VOID not supported</item>
     </item>
-    <item>
-      function environ_setenv
-      <item>
-        arg envp
-        <item>type array: ownership transfer EVERYTHING for IN parameter not supported</item>
-      </item>
-    </item>
-    <item>
-      function environ_unsetenv
-      <item>
-        arg envp
-        <item>type array: ownership transfer EVERYTHING for IN parameter not supported</item>
-      </item>
-    </item>
     <item>function file_error_from_errno: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function file_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
     <item>function file_get_contents: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -2048,16 +2020,6 @@
         function take_boxed
         <item>arg v_boxed: pointer C type for VOID not supported</item>
       </item>
-      <item>
-        function take_variant
-        <item>
-          arg variant
-          <item>
-            type interface
-            <item>struct Variant: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
-      </item>
       <item>function get_boxed: pointer C type for VOID not supported</item>
       <item>function get_pointer: pointer C type for VOID not supported</item>
       <item>
@@ -2094,16 +2056,6 @@
       <item>
         function take_boxed
         <item>arg v_boxed: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function take_variant
-        <item>
-          arg variant
-          <item>
-            type interface
-            <item>struct Variant: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
       </item>
     </item>
     <item>
@@ -2173,16 +2125,6 @@
     </item>
     <item>function param_spec_pool_new: moved to ParamSpecPool.new</item>
     <item>
-      function param_spec_variant
-      <item>
-        arg default_value
-        <item>
-          type interface
-          <item>struct Variant: ownership transfer EVERYTHING for IN parameter not supported</item>
-        </item>
-      </item>
-    </item>
-    <item>
       function param_type_register_static
       <item>
         arg pspec_info
@@ -2215,11 +2157,8 @@
     <item>
       function signal_emitv
       <item>
-        arg return_value
-        <item>
-          type interface
-          <item>struct Value: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-        </item>
+        arg instance_and_params
+        <item>type array: cannot determine array length</item>
       </item>
     </item>
     <item>function signal_get_invocation_hint: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -2469,27 +2408,7 @@
     <item>
       object Application
       <item>function add_main_option_entries: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>
-        function add_option_group
-        <item>
-          arg group
-          <item>
-            type interface
-            <item>struct OptionGroup: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
-      </item>
       <item>function add_main_option_entries: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>
-        function add_option_group
-        <item>
-          arg group
-          <item>
-            type interface
-            <item>struct OptionGroup: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
-      </item>
     </item>
     <item>struct ApplicationClass: class struct</item>
     <item>struct ApplicationCommandLineClass: class struct</item>
@@ -5124,16 +5043,6 @@
       function callable_info_invoke
       <item>arg function: pointer C type for VOID not supported</item>
     </item>
-    <item>
-      function callable_info_iterate_return_attributes
-      <item>
-        arg iterator
-        <item>
-          type interface
-          <item>struct AttributeIter: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-        </item>
-      </item>
-    </item>
     <item>function vfunc_info_get_address: pointer C type for VOID not supported</item>
   </item>
   <item>
@@ -5564,74 +5473,14 @@
     <item>
       struct AttrList
       <item>
-        function change
-        <item>
-          arg attr
-          <item>
-            type interface
-            <item>struct Attribute: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
         function filter
         <item>arg data: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function insert
-        <item>
-          arg attr
-          <item>
-            type interface
-            <item>struct Attribute: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function insert_before
-        <item>
-          arg attr
-          <item>
-            type interface
-            <item>struct Attribute: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
       </item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
-        function change
-        <item>
-          arg attr
-          <item>
-            type interface
-            <item>struct Attribute: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
         function filter
         <item>arg data: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function insert
-        <item>
-          arg attr
-          <item>
-            type interface
-            <item>struct Attribute: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function insert_before
-        <item>
-          arg attr
-          <item>
-            type interface
-            <item>struct Attribute: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
       </item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -5660,21 +5509,9 @@
     <item>struct EngineShapeClass: class struct</item>
     <item>
       object Font
-      <item>
-        function descriptions_free
-        <item>
-          arg descs
-          <item>type array: ownership transfer EVERYTHING for IN parameter not supported</item>
-        </item>
-      </item>
+      <item>function descriptions_free: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function find_shaper: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>
-        function descriptions_free
-        <item>
-          arg descs
-          <item>type array: ownership transfer EVERYTHING for IN parameter not supported</item>
-        </item>
-      </item>
+      <item>function descriptions_free: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function find_shaper: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
     <item>struct FontClass: class struct</item>
@@ -5804,47 +5641,7 @@
     <item>
       struct Matrix
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>
-        function transform_pixel_rectangle
-        <item>
-          arg rect
-          <item>
-            type interface
-            <item>struct Rectangle: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function transform_rectangle
-        <item>
-          arg rect
-          <item>
-            type interface
-            <item>struct Rectangle: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-          </item>
-        </item>
-      </item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>
-        function transform_pixel_rectangle
-        <item>
-          arg rect
-          <item>
-            type interface
-            <item>struct Rectangle: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function transform_rectangle
-        <item>
-          arg rect
-          <item>
-            type interface
-            <item>struct Rectangle: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
-          </item>
-        </item>
-      </item>
     </item>
     <item>struct RendererClass: class struct</item>
     <item>struct RendererPrivate: struct not included by configuration (structTypes)</item>
@@ -5958,7 +5755,7 @@
         function get_font_type
         <item>
           type interface
-          <item>struct FontType: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
+          <item>struct FontType: non-pointer C type for STRUCT type not supported</item>
         </item>
       </item>
       <item>
@@ -5975,7 +5772,7 @@
         function get_font_type
         <item>
           type interface
-          <item>struct FontType: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
+          <item>struct FontType: non-pointer C type for STRUCT type not supported</item>
         </item>
       </item>
     </item>
@@ -6992,16 +6789,6 @@
     <item>
       interface FileChooser
       <item>
-        function add_filter
-        <item>
-          arg filter
-          <item>
-            type interface
-            <item>object FileFilter: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
         function get_filenames
         <item>type gslist: type GSLIST not supported</item>
       </item>
@@ -7024,16 +6811,6 @@
       <item>
         function list_shortcut_folders
         <item>type gslist: type GSLIST not supported</item>
-      </item>
-      <item>
-        function add_filter
-        <item>
-          arg filter
-          <item>
-            type interface
-            <item>object FileFilter: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
       </item>
       <item>
         function get_filenames
@@ -8213,7 +7990,7 @@
           arg value
           <item>
             type interface
-            <item>struct Value: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
+            <item>struct Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
           </item>
         </item>
       </item>
@@ -8243,7 +8020,7 @@
           arg value
           <item>
             type interface
-            <item>struct Value: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
+            <item>struct Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
           </item>
         </item>
       </item>
@@ -8274,7 +8051,7 @@
           arg value
           <item>
             type interface
-            <item>struct Value: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
+            <item>struct Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
           </item>
         </item>
       </item>
@@ -8284,7 +8061,7 @@
           arg value
           <item>
             type interface
-            <item>struct Value: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
+            <item>struct Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
           </item>
         </item>
       </item>
@@ -8464,7 +8241,7 @@
           arg value
           <item>
             type interface
-            <item>struct Value: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
+            <item>struct Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
           </item>
         </item>
       </item>
@@ -8474,7 +8251,7 @@
           arg value
           <item>
             type interface
-            <item>struct Value: ownership transfer EVERYTHING and non-pointer C type for STRUCT type not valid</item>
+            <item>struct Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
           </item>
         </item>
       </item>
@@ -8898,16 +8675,6 @@
         <item>type glist: type GLIST not supported</item>
       </item>
       <item>
-        function set_window
-        <item>
-          arg window
-          <item>
-            type interface
-            <item>object Window: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
         function add_tick_callback
         <item>
           arg notify
@@ -8925,16 +8692,6 @@
       <item>
         function list_mnemonic_labels
         <item>type glist: type GLIST not supported</item>
-      </item>
-      <item>
-        function set_window
-        <item>
-          arg window
-          <item>
-            type interface
-            <item>object Window: ownership transfer EVERYTHING for IN parameter not supported</item>
-          </item>
-        </item>
       </item>
     </item>
     <item>struct WidgetAccessibleClass: class struct</item>

@@ -38,6 +38,7 @@ structure GtkFileChooser :>
               x8,
               x9
             )
+    val addFilter_ = fn x1 & x2 => (_import "gtk_file_chooser_add_filter" : GtkFileChooserClass.FFI.non_opt GtkFileChooserClass.FFI.p * GtkFileFilterClass.FFI.non_opt GtkFileFilterClass.FFI.p -> unit;) (x1, x2)
     val addShortcutFolder_ =
       fn
         x1
@@ -418,6 +419,7 @@ structure GtkFileChooser :>
            & options
            & optionLabels
         )
+    fun addFilter self filter = (GtkFileChooserClass.FFI.withPtr &&&> GtkFileFilterClass.FFI.withDupPtr ---> I) addFilter_ (self & filter)
     fun addShortcutFolder self folder =
       (
         GtkFileChooserClass.FFI.withPtr
