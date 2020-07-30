@@ -160,7 +160,6 @@
           <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
-      <item>function read_chars: array parameter buf with direction OUT has corresponding length parameter count with incompatible direction IN</item>
       <item>
         function read_line_string
         <item>
@@ -199,7 +198,6 @@
           <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
         </item>
       </item>
-      <item>function read_chars: array parameter buf with direction OUT has corresponding length parameter count with incompatible direction IN</item>
       <item>
         function read_line_string
         <item>
@@ -228,8 +226,50 @@
     <item>struct IOFuncs: struct not included by configuration (structTypes)</item>
     <item>
       struct KeyFile
+      <item>
+        function set_boolean_list
+        <item>
+          arg list
+          <item>type array: non-pointer C type for ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>
+        function set_double_list
+        <item>
+          arg list
+          <item>type array: non-pointer C type for ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>
+        function set_integer_list
+        <item>
+          arg list
+          <item>type array: non-pointer C type for ARRAY type not supported</item>
+        </item>
+      </item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
+      <item>
+        function set_boolean_list
+        <item>
+          arg list
+          <item>type array: non-pointer C type for ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>
+        function set_double_list
+        <item>
+          arg list
+          <item>type array: non-pointer C type for ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>
+        function set_integer_list
+        <item>
+          arg list
+          <item>type array: non-pointer C type for ARRAY type not supported</item>
+        </item>
+      </item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
     </item>
@@ -952,21 +992,21 @@
       function base64_decode_step
       <item>
         arg out
-        <item>type array: cannot determine array length</item>
+        <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
       </item>
     </item>
     <item>
       function base64_encode_close
       <item>
         arg out
-        <item>type array: cannot determine array length</item>
+        <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
       </item>
     </item>
     <item>
       function base64_encode_step
       <item>
         arg out
-        <item>type array: cannot determine array length</item>
+        <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
       </item>
     </item>
     <item>function basename: function excluded by configuration (excludedFunctionSymbols)</item>

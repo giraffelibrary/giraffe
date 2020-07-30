@@ -157,7 +157,6 @@
           <item>type guint64: pointer C type for scalar (UINT64) not supported</item>
         </item>
       </item>
-      <item>function read_chars: array parameter buf with direction OUT has corresponding length parameter count with incompatible direction IN</item>
       <item>
         function read_line_string
         <item>
@@ -196,7 +195,6 @@
           <item>type guint64: pointer C type for scalar (UINT64) not supported</item>
         </item>
       </item>
-      <item>function read_chars: array parameter buf with direction OUT has corresponding length parameter count with incompatible direction IN</item>
       <item>
         function read_line_string
         <item>

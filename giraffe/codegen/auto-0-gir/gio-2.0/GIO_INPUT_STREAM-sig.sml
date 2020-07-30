@@ -18,12 +18,12 @@ signature GIO_INPUT_STREAM =
     val isClosed : 'a class -> bool
     val read :
       'a class
-       -> GUInt8CArrayN.t * 'b cancellable_class option
-       -> int
+       -> int * 'b cancellable_class option
+       -> int * GUInt8CArrayN.t
     val readAll :
       'a class
-       -> GUInt8CArrayN.t * 'b cancellable_class option
-       -> int
+       -> int * 'b cancellable_class option
+       -> GUInt8CArrayN.t * int
     val readAllFinish :
       'a class
        -> 'b async_result_class

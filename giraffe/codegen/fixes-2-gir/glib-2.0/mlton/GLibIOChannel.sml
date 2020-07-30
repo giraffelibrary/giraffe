@@ -40,6 +40,31 @@ structure GLibIOChannel :>
     val getEncoding_ = _import "g_io_channel_get_encoding" : GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getFlags_ = _import "g_io_channel_get_flags" : GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p -> GLibIOFlags.FFI.val_;
     val init_ = _import "g_io_channel_init" : GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p -> unit;
+    val readChars_ =
+      fn
+        x1
+         & (x2, x3)
+         & x4
+         & x5
+         & x6 =>
+          (
+            _import "mlton_g_io_channel_read_chars" :
+              GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
+               * GUInt8CArrayN.MLton.p1
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
+               * GSize.FFI.val_
+               * GSize.FFI.ref_
+               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
+               -> GLibIOStatus.FFI.val_;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
     val readLine_ =
       fn
         x1
@@ -266,6 +291,36 @@ structure GLibIOChannel :>
     fun getEncoding self = (GLibIOChannelRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEncoding_ self
     fun getFlags self = (GLibIOChannelRecord.FFI.withPtr false ---> GLibIOFlags.FFI.fromVal) getFlags_ self
     fun init self = (GLibIOChannelRecord.FFI.withPtr false ---> I) init_ self
+    fun readChars self count =
+      let
+        val buf
+         & bytesRead
+         & retVal =
+          (
+            GLibIOChannelRecord.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withNewPtr
+             &&&> GSize.FFI.withVal
+             &&&> GSize.FFI.withRefVal
+             &&&> GLibErrorRecord.handleError
+             ---> GUInt8CArrayN.FFI.fromPtr ~1
+                   && GSize.FFI.fromVal
+                   && GLibIOStatus.FFI.fromVal
+          )
+            readChars_
+            (
+              self
+               & count
+               & count
+               & GSize.null
+               & []
+            )
+      in
+        (
+          retVal,
+          buf count,
+          bytesRead
+        )
+      end
     fun readLine self =
       let
         val strReturn

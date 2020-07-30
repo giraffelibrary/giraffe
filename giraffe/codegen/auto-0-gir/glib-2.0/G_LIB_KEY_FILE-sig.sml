@@ -121,12 +121,6 @@ signature G_LIB_KEY_FILE =
            * string
            * bool
        -> unit
-    val setBooleanList :
-      t
-       -> string
-           * string
-           * GBoolCArrayN.t
-       -> unit
     val setComment :
       t
        -> string option
@@ -139,12 +133,6 @@ signature G_LIB_KEY_FILE =
            * string
            * real
        -> unit
-    val setDoubleList :
-      t
-       -> string
-           * string
-           * GDoubleCArrayN.t
-       -> unit
     val setInt64 :
       t
        -> string
@@ -156,12 +144,6 @@ signature G_LIB_KEY_FILE =
        -> string
            * string
            * LargeInt.int
-       -> unit
-    val setIntegerList :
-      t
-       -> string
-           * string
-           * GIntCArrayN.t
        -> unit
     val setListSeparator :
       t

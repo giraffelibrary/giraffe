@@ -246,16 +246,6 @@ structure GLibKeyFile :>
              &&> GBool.PolyML.cVal
              --> cVoid
           )
-      val setBooleanList_ =
-        call (getSymbol "g_key_file_set_boolean_list")
-          (
-            GLibKeyFileRecord.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> GBoolCArrayN.PolyML.cInPtr
-             &&> GSize.PolyML.cVal
-             --> cVoid
-          )
       val setComment_ =
         call (getSymbol "g_key_file_set_comment")
           (
@@ -275,16 +265,6 @@ structure GLibKeyFile :>
              &&> GDouble.PolyML.cVal
              --> cVoid
           )
-      val setDoubleList_ =
-        call (getSymbol "g_key_file_set_double_list")
-          (
-            GLibKeyFileRecord.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> GDoubleCArrayN.PolyML.cInPtr
-             &&> GSize.PolyML.cVal
-             --> cVoid
-          )
       val setInt64_ =
         call (getSymbol "g_key_file_set_int64")
           (
@@ -301,16 +281,6 @@ structure GLibKeyFile :>
              &&> Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cVal
-             --> cVoid
-          )
-      val setIntegerList_ =
-        call (getSymbol "g_key_file_set_integer_list")
-          (
-            GLibKeyFileRecord.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> GIntCArrayN.PolyML.cInPtr
-             &&> GSize.PolyML.cVal
              --> cVoid
           )
       val setListSeparator_ = call (getSymbol "g_key_file_set_list_separator") (GLibKeyFileRecord.PolyML.cPtr &&> GChar.PolyML.cVal --> cVoid)
@@ -857,35 +827,6 @@ structure GLibKeyFile :>
            & key
            & value
         )
-    fun setBooleanList
-      self
-      (
-        groupName,
-        key,
-        list
-      ) =
-      let
-        val length = GBoolCArrayN.length list
-        val () =
-          (
-            GLibKeyFileRecord.FFI.withPtr false
-             &&&> Utf8.FFI.withPtr 0
-             &&&> Utf8.FFI.withPtr 0
-             &&&> GBoolCArrayN.FFI.withPtr 0
-             &&&> GSize.FFI.withVal
-             ---> I
-          )
-            setBooleanList_
-            (
-              self
-               & groupName
-               & key
-               & list
-               & length
-            )
-      in
-        ()
-      end
     fun setComment
       self
       (
@@ -930,35 +871,6 @@ structure GLibKeyFile :>
            & key
            & value
         )
-    fun setDoubleList
-      self
-      (
-        groupName,
-        key,
-        list
-      ) =
-      let
-        val length = GDoubleCArrayN.length list
-        val () =
-          (
-            GLibKeyFileRecord.FFI.withPtr false
-             &&&> Utf8.FFI.withPtr 0
-             &&&> Utf8.FFI.withPtr 0
-             &&&> GDoubleCArrayN.FFI.withPtr 0
-             &&&> GSize.FFI.withVal
-             ---> I
-          )
-            setDoubleList_
-            (
-              self
-               & groupName
-               & key
-               & list
-               & length
-            )
-      in
-        ()
-      end
     fun setInt64
       self
       (
@@ -1001,35 +913,6 @@ structure GLibKeyFile :>
            & key
            & value
         )
-    fun setIntegerList
-      self
-      (
-        groupName,
-        key,
-        list
-      ) =
-      let
-        val length = GIntCArrayN.length list
-        val () =
-          (
-            GLibKeyFileRecord.FFI.withPtr false
-             &&&> Utf8.FFI.withPtr 0
-             &&&> Utf8.FFI.withPtr 0
-             &&&> GIntCArrayN.FFI.withPtr 0
-             &&&> GSize.FFI.withVal
-             ---> I
-          )
-            setIntegerList_
-            (
-              self
-               & groupName
-               & key
-               & list
-               & length
-            )
-      in
-        ()
-      end
     fun setListSeparator self separator = (GLibKeyFileRecord.FFI.withPtr false &&&> GChar.FFI.withVal ---> I) setListSeparator_ (self & separator)
     fun setLocaleString
       self

@@ -128,7 +128,7 @@ structure GioSocket :>
         call (getSymbol "g_socket_receive")
           (
             GioSocketClass.PolyML.cPtr
-             &&> GUInt8CArrayN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cOutRef
              &&> GUInt64.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -139,7 +139,7 @@ structure GioSocket :>
           (
             GioSocketClass.PolyML.cPtr
              &&> GioSocketAddressClass.PolyML.cOutRef
-             &&> GUInt8CArrayN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cOutRef
              &&> GUInt64.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -149,7 +149,7 @@ structure GioSocket :>
         call (getSymbol "g_socket_receive_with_blocking")
           (
             GioSocketClass.PolyML.cPtr
-             &&> GUInt8CArrayN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cOutRef
              &&> GUInt64.PolyML.cVal
              &&> GBool.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -425,84 +425,89 @@ structure GioSocket :>
            & []
         )
     fun listen self = (GioSocketClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) listen_ (self & [])
-    fun receive self (buffer, cancellable) =
+    fun receive self (size, cancellable) =
       let
-        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
-        val retVal =
+        val buffer & retVal =
           (
             GioSocketClass.FFI.withPtr false
-             &&&> GUInt8CArrayN.FFI.withPtr 0
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr 0
              &&&> GUInt64.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> GInt64.FFI.fromVal
+             ---> GUInt8CArrayN.FFI.fromPtr 0 && GInt64.FFI.fromVal
           )
             receive_
             (
               self
-               & buffer
+               & NONE
                & size
                & cancellable
                & []
             )
       in
-        retVal
+        (retVal, buffer (LargeInt.toInt size))
       end
-    fun receiveFrom self (buffer, cancellable) =
+    fun receiveFrom self (size, cancellable) =
       let
-        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
-        val address & retVal =
+        val address
+         & buffer
+         & retVal =
           (
             GioSocketClass.FFI.withPtr false
              &&&> GioSocketAddressClass.FFI.withRefOptPtr true
-             &&&> GUInt8CArrayN.FFI.withPtr 0
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr 0
              &&&> GUInt64.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> GioSocketAddressClass.FFI.fromPtr true && GInt64.FFI.fromVal
+             ---> GioSocketAddressClass.FFI.fromPtr true
+                   && GUInt8CArrayN.FFI.fromPtr 0
+                   && GInt64.FFI.fromVal
           )
             receiveFrom_
             (
               self
                & NONE
-               & buffer
+               & NONE
                & size
                & cancellable
                & []
             )
       in
-        (retVal, address)
+        (
+          retVal,
+          address,
+          buffer (LargeInt.toInt size)
+        )
       end
     fun receiveWithBlocking
       self
       (
-        buffer,
+        size,
         blocking,
         cancellable
       ) =
       let
-        val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
-        val retVal =
+        val buffer & retVal =
           (
             GioSocketClass.FFI.withPtr false
-             &&&> GUInt8CArrayN.FFI.withPtr 0
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr 0
              &&&> GUInt64.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> GInt64.FFI.fromVal
+             ---> GUInt8CArrayN.FFI.fromPtr 0 && GInt64.FFI.fromVal
           )
             receiveWithBlocking_
             (
               self
-               & buffer
+               & NONE
                & size
                & blocking
                & cancellable
                & []
             )
       in
-        retVal
+        (retVal, buffer (LargeInt.toInt size))
       end
     fun send self (buffer, cancellable) =
       let

@@ -303,7 +303,14 @@ on a length parameter so the flag is optional and is NONE for a nested array.
 For
   L non-VOID non-length IN/INOUT parameters,
   K non-VOID non-length INOUT/OUT parameters,
-FunctionSpec has the form:
+FunctionSpec has the form as described below,
+where a length parameter is one that provides the length of a C array in another parameter
+or the return value, provided that the length parameter and the C array parameter have the
+same direction or the length parameter for a C array return value has direction OUT.
+
+Note that an IN parameter that provides the initial length of a C array OUT parameter or
+return value is not considered to be a 'length' parameter above and, therefore, must be provided
+by the caller.
 
 
   val <functionName> : <selfType> -> <inParamType[1]> * ... * <inParamType[L]> -> <retExpType>
@@ -425,24 +432,10 @@ where
 
         mayBeNull        | outParamType
       ===================+===================
-        false [#1]       | <type(typeInfo, dir = OUT)>
+        false            | <type(typeInfo, dir = OUT)>
       -------------------+-------------------
-        true [#1]        | <type(typeInfo, dir = OUT)> option
+        true             | <type(typeInfo, dir = OUT)> option
       -------------------+-------------------
-
-      #1: currently for out and in-out parameters, mayBeNull indicates
-      whether a null reference argument is allowed, rather than a non-null
-      reference to null.   This allows the parameter to be optional thus
-      provides what one would have expected from isOptional.
-      (isOptional itself appears to always return false.)  Thus there
-      is no mechanism to know whether an out parameter that is a pointer
-      can have a null out value.  Similarly for an in-out parameter, there
-      is no way to know whether the in value or out value can be null.
-      Furthermore, an in-out parameter would require two atttibutes:
-      allow-none-in and allow-none-out.
-
-      For now, for out and in-out parameters, we do not distinguish
-      optionally-null and non-null values.  We assume non-null values.
 
 
   selfType
@@ -637,11 +630,14 @@ For
   L non-VOID non-length IN/INOUT parameters,
   M length IN/INOUT parameters,
   N non-VOID INOUT/OUT parameters,
-where a length parameter is one that provides the length of an array in another parameter
-or the return value, HighLevelFunction has a form as described below.
+HighLevelFunction has a form as described below,
+where a length parameter is one that provides the length of a C array in another parameter
+or the return value, provided that the length parameter and the C array parameter have the
+same direction or the length parameter for a C array return value has direction OUT.
 
-The length parameter for an array parameter must have the same direction as the array
-parameter.  The length parameter for an array return value must have direction OUT.
+Note that an IN parameter that provides the initial length of a C array OUT parameter or
+return value is not considered to be a 'length' parameter above and, therefore, must be provided
+by the caller.
 
 Note that the condition 'N + M > 0' determines whether a let-expression is introduced.
 
@@ -760,6 +756,22 @@ where
         otherwise
 
 
+  convertToInt(i, x)
+    is defined as follows:
+
+        lenArgInfo = GIRepository.CallableInfo.getArg functionInfo i
+        lenArgTypeInfo = GIRepository.ArgInfo.getType lenArgInfo
+
+          scalarType(lenArgTypeInfo)  | convertToInt(i, x)
+        ==============================+========================================
+          int                         | <x>
+        ------------------------------+----------------------------------------
+          LargeInt.int                | (LargeInt.toInt <x>)
+        ------------------------------+----------------------------------------
+          Word8.word                  | (Word8.toInt <x>)
+        ------------------------------+----------------------------------------
+
+
   retValPat
     is defined as follows:
 
@@ -809,11 +821,11 @@ where
           =================================================================================+=========================
             _                   _                       <n>, n <> ~1   _                   | <n>
           ---------------------------------------------------------------------------------+-------------------------
-            false               <i>, i <> ~1            ~1             _                   | <convertToInt(i)>
+            false               <i>, i <> ~1            ~1             _                   | <convertToInt(i, outParamName[N~[i]])>
           ---------------------------------------------------------------------------------+-------------------------
             false               ~1                      ~1             _                   | <raise Error "cannot determine array length">
           ---------------------------------------------------------------------------------+-------------------------
-            true                <i>, i <> ~1            ~1             false               | <convertToInt(i)>
+            true                <i>, i <> ~1            ~1             false               | <convertToInt(i, outParamName[N~[i]])>
           ---------------------------------------------------------------------------------+-------------------------
             true                <i>, i <> ~1            ~1             true                | <>
           ---------------------------------------------------------------------------------+-------------------------
@@ -823,22 +835,6 @@ where
             (The table above contains the condition false and true to match the
             form used in the definition of outParamArrayLenExp and ArrayType.)
 
-        where
-
-          convertToInt(i)
-            is defined as follows:
-
-              lenArgInfo = GIRepository.CallableInfo.getArg functionInfo i
-              lenArgTypeInfo = GIRepository.ArgInfo.getType lenArgInfo
-
-                scalarType(lenArgTypeInfo)  | convertToInt(i)
-              ==============================+========================================
-                int                         | <outParamName[N~[i]]>
-              ------------------------------+----------------------------------------
-                LargeInt.int                | (LargeInt.toInt <outParamName[N~[i]]>)
-              ------------------------------+----------------------------------------
-                Word8.word                  | (Word8.toInt <outParamName[N~[i]]>)
-              ------------------------------+----------------------------------------
 
   retExp
     when K = 0, retExp is <retVal>
@@ -961,33 +957,16 @@ where
           =================================================================================+=========================
             _                   _                       <n>, n <> ~1   _                   | <n>
           ---------------------------------------------------------------------------------+-------------------------
-            false               <i>, i <> ~1            ~1             _                   | <convertToInt(i)>
+            false               <i>, i <> ~1            ~1             _                   | <convertToInt(i, outParamName[N~[i]])>
           ---------------------------------------------------------------------------------+-------------------------
             false               ~1                      ~1             _                   | <raise Error "cannot determine array length">
           ---------------------------------------------------------------------------------+-------------------------
-            true                <i>, i <> ~1            ~1             IN | INOUT          | <convertToInt(i)>
+            true                <i>, i <> ~1            ~1             IN | INOUT          | <convertToInt(i, outParamName[N~[i]])>
           ---------------------------------------------------------------------------------+-------------------------
             true                <i>, i <> ~1            ~1             OUT                 | <>
           ---------------------------------------------------------------------------------+-------------------------
             true                ~1                      ~1             _                   | <>
           ---------------------------------------------------------------------------------+-------------------------
-
-        where
-
-          convertToInt(i)
-            is defined as follows:
-
-              lenArgInfo = GIRepository.CallableInfo.getArg functionInfo i
-              lenArgTypeInfo = GIRepository.ArgInfo.getType lenArgInfo
-
-                scalarType(lenArgTypeInfo)  | convertToInt(i)
-              ==============================+========================================
-                int                         | <outParamName[N~[i]]>
-              ------------------------------+----------------------------------------
-                LargeInt.int                | (LargeInt.toInt <outParamName[N~[i]]>)
-              ------------------------------+----------------------------------------
-                Word8.word                  | (Word8.toInt <outParamName[N~[i]]>)
-              ------------------------------+----------------------------------------
 
 
   inParamName[l]
@@ -1200,27 +1179,46 @@ where
         direction         = GIRepository.ArgInfo.getDirection argInfo
         mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
         ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
+        isPointer         = GIRepository.TypeInfo.isPointer argTypeInfo
 
-          dire... ownershipTra... | withUtf8Fun
-        ==========================+===============================================
-                  NOTHING         | <A>.with<Opt>Ptr 0                (see note 1)
-                ------------------+-----------------------------------------------
-          IN      CONTAINER       | <raise Error containerForUtf8>
-                ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.with<Opt>Ptr ~1               (see note 2)
-        --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.withRefOptPtr 0
-                ------------------+-----------------------------------------------
-          OUT     CONTAINER       | <raise Error containerForUtf8>
-                ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.withRefOptPtr 0
-        --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.withRef<Opt>Ptr 0             (see note 1)
-                ------------------+-----------------------------------------------
-          INOUT   CONTAINER       | <raise Error containerForUtf8>
-                ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.withRef<Opt>Ptr ~1            (see note 3)
-        --------------------------+-----------------------------------------------
+          direction   isPointer   ownershipTra... | withUtf8Fun
+        ==========================================+===============================================
+                                  NOTHING         | <raise Error nonPtrForUtf8InPar>
+                                ------------------+-----------------------------------------------
+                      false       CONTAINER       | <raise Error containerForUtf8>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <raise Error nonPtrForUtf8InPar>
+          IN        ------------------------------+-----------------------------------------------
+                                  NOTHING         | <A>.with<Opt>Ptr 0                (see note 1)
+                                ------------------+-----------------------------------------------
+                      true        CONTAINER       | <raise Error containerForUtf8>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.with<Opt>Ptr ~1               (see note 2)
+        ------------------------------------------+-----------------------------------------------
+                                  NOTHING         | <raise Error nonPtrForUtf8OutPar> (see note 4)
+                                ------------------+-----------------------------------------------
+                      false       CONTAINER       | <raise Error containerForUtf8>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <raise Error nonPtrForUtf8OutPar> (see note 4)
+          OUT       ------------------------------+-----------------------------------------------
+                                  NOTHING         | <A>.withRefOptPtr 0
+                                ------------------+-----------------------------------------------
+                      true        CONTAINER       | <raise Error containerForUtf8>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.withRefOptPtr 0
+        ------------------------------------------+-----------------------------------------------
+                                  NOTHING         | <raise Error nothingForNonPtrUtf8InOutPar>
+                                ------------------+-----------------------------------------------
+                      false       CONTAINER       | <raise Error containerForUtf8>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.withDup<Opt>Ptr
+          INOUT     ------------------------------+-----------------------------------------------
+                                  NOTHING         | <A>.withRef<Opt>Ptr 0             (see note 1)
+                                ------------------+-----------------------------------------------
+                      true        CONTAINER       | <raise Error containerForUtf8>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.withRef<Opt>Ptr ~1            (see note 3)
+        ------------------------------------------+-----------------------------------------------
 
           Note 1: we assume that the parameter is not destructively updated so
             don't give a non-zero argument to `with[Ref][Opt]Ptr` to provide a copy.
@@ -1235,6 +1233,11 @@ where
             handing ownership to the function and taking ownership back allows
             the function to free and/or allocate memory.
 
+          Note 4: unlike an ARRAY OUT parameter, it is not possible for the caller to
+            allocate memory for a UTF8 OUT parameter because girepository does not
+            allow a length parameter or fixed size to be specified for non ARRAY types
+            so there is no way of knowing the size to allocate.
+
       A is Utf8.FFI
 
       Opt is defined as follows:
@@ -1246,20 +1249,6 @@ where
           true            | Opt
         ------------------+-------------------
 
-          Note: currently for OUT and INOUT parameters, mayBeNull indicates
-            whether a null reference argument is allowed, rather than a non-null
-            reference to null.   This allows the parameter to be optional thus
-            provides what one would have expected from isOptional.
-            (isOptional itself appears to always return false.)  Thus there
-            is no mechanism to know whether an out parameter that is a pointer
-            can have a null out value.  Similarly for an in-out parameter, there
-            is no way to know whether the in value or out value can be null.
-            Furthermore, an in-out parameter would require two atttibutes:
-            allow-none-in and allow-none-out.
-
-            For now, for OUT and INOUT parameters, we do not distinguish
-            optionally-null and non-null values.  We assume non-null values.
-
 
   withArrayFun
     is defined as follows:
@@ -1267,28 +1256,46 @@ where
         direction         = GIRepository.ArgInfo.getDirection argInfo
         mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
         ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
-        argTypeInfo       = GIRepository.ArgInfo.getType argInfo
+        isPointer         = GIRepository.TypeInfo.isPointer argTypeInfo
 
-          dire... ownershipTra... | withArrayFun
-        ==========================+===============================================
-                  NOTHING         | <A>.with<Opt>Ptr 0                (see note 1)
-                ------------------+-----------------------------------------------
-          IN      CONTAINER       | <A>.with<Opt>Ptr 1                (see note 2)
-                ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.with<Opt>Ptr ~1               (see note 2)
-        --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.withRefOptPtr 0
-                ------------------+-----------------------------------------------
-          OUT     CONTAINER       | <A>.withRefOptPtr 0
-                ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.withRefOptPtr 0
-        --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.withRef<Opt>Ptr 0             (see note 1)
-                ------------------+-----------------------------------------------
-          INOUT   CONTAINER       | <A>.withRef<Opt>Ptr 1             (see note 3)
-                ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.withRef<Opt>Ptr ~1            (see note 3)
-        --------------------------+-----------------------------------------------
+          direction   isPointer   ownershipTra... | withArrayFun
+        ==========================================+===============================================
+                                  NOTHING         | <raise Error nonPtrForArrayInPar>
+                                ------------------+-----------------------------------------------
+                      false       CONTAINER       | <raise Error nonPtrForArrayInPar>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <raise Error nonPtrForArrayInPar>
+          IN        ------------------------------+-----------------------------------------------
+                                  NOTHING         | <A>.with<Opt>Ptr 0                (see note 1)
+                                ------------------+-----------------------------------------------
+                      true        CONTAINER       | <A>.with<Opt>Ptr 1                (see note 2)
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.with<Opt>Ptr ~1               (see note 2)
+        ------------------------------------------+-----------------------------------------------
+                                  NOTHING         | <A>.withNewPtr
+                                ------------------+-----------------------------------------------
+                      false       CONTAINER       | <raise Error containerForNonPtrArrayOutPar>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <raise Error everythingForNonPtrArrayOutPar>
+          OUT       ------------------------------+-----------------------------------------------
+                                  NOTHING         | <A>.withRefOptPtr 0
+                                ------------------+-----------------------------------------------
+                      true        CONTAINER       | <A>.withRefOptPtr 0
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.withRefOptPtr 0
+        ------------------------------------------+-----------------------------------------------
+                                  NOTHING         | <raise Error nothingForNonPtrArrayInOutPar>
+                                ------------------+-----------------------------------------------
+                      false       CONTAINER       | <A>.withDup<Opt>Ptr
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.withDup<Opt>Ptr
+          INOUT     ------------------------------+-----------------------------------------------
+                                  NOTHING         | <A>.withRef<Opt>Ptr 0             (see note 1)
+                                ------------------+-----------------------------------------------
+                      true        CONTAINER       | <A>.withRef<Opt>Ptr 1             (see note 3)
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.withRef<Opt>Ptr ~1            (see note 3)
+        ------------------------------------------+-----------------------------------------------
 
           Note 1: we assume that the parameter is not destructively updated so
             don't give a non-zero argument to `with[Ref][Opt]Ptr` to provide a copy.
@@ -1380,20 +1387,6 @@ where
               true            | Opt
             ------------------+-------------------
 
-          Note: currently for OUT and INOUT parameters, mayBeNull indicates
-            whether a null reference argument is allowed, rather than a non-null
-            reference to null.   This allows the parameter to be optional thus
-            provides what one would have expected from isOptional.
-            (isOptional itself appears to always return false.)  Thus there
-            is no mechanism to know whether an out parameter that is a pointer
-            can have a null out value.  Similarly for an in-out parameter, there
-            is no way to know whether the in value or out value can be null.
-            Furthermore, an in-out parameter would require two atttibutes:
-            allow-none-in and allow-none-out.
-
-            For now, for OUT and INOUT parameters, we do not distinguish
-            optionally-null and non-null values.  We assume non-null values.
-
 
       <raise Error>  # for now
         if argInfoType is INTERFACE _.
@@ -1407,7 +1400,7 @@ where
             direction         = GIRepository.ArgInfo.getDirection argInfo
             mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
             ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
-
+            argTypeInfo       = GIRepository.ArgInfo.getType argInfo
             isPointer         = GIRepository.TypeInfo.isPointer argTypeInfo
 
               direction   isPointer   ownershipTra... | withStructFun
@@ -1476,20 +1469,6 @@ where
             ------------------+-------------------
               true            | Opt
             ------------------+-------------------
-
-          Note: currently for OUT and INOUT parameters, mayBeNull indicates
-            whether a null reference argument is allowed, rather than a non-null
-            reference to null.   This allows the parameter to be optional thus
-            provides what one would have expected from isOptional.
-            (isOptional itself appears to always return false.)  Thus there
-            is no mechanism to know whether an out parameter that is a pointer
-            can have a null out value.  Similarly for an in-out parameter, there
-            is no way to know whether the in value or out value can be null.
-            Furthermore, an in-out parameter would require two atttibutes:
-            allow-none-in and allow-none-out.
-
-            For now, for OUT and INOUT parameters, we do not distinguish
-            optionally-null and non-null values.  We assume non-null values.
 
         It is necessary to handle the case when `isPointer` is false explicitly.
         When a STRUCT is not passed as a pointer, but a reference to a value, the
@@ -1613,62 +1592,92 @@ where
     is as follows:
 
         direction         = GIRepository.ArgInfo.getDirection argInfo
-        mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo  (not used: see Opt below)
+        mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
         ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
+        isPointer         = GIRepository.TypeInfo.isPointer argTypeInfo
 
-          dire... ownershipTra... | fromUtf8Fun
-        ==========================+===============================================
-                  NOTHING         | <A>.from<Opt>Ptr 0
-                ------------------+-----------------------------------------------
-          OUT     CONTAINER       | <raise Error containerForUtf8>
-                ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.from<Opt>Ptr ~1
-        --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.from<Opt>Ptr 0
-                ------------------+-----------------------------------------------
-          INOUT   CONTAINER       | <raise Error containerForUtf8>
-                ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.from<Opt>Ptr ~1               (see note 1)
-        --------------------------+-----------------------------------------------
+          direction   isPointer   ownershipTra... | fromArrayFun
+        ==========================================+===============================================
+                                  NOTHING         | <raise Error nonPtrForUtf8OutPar> (see note 2)
+                                ------------------+-----------------------------------------------
+                      false       CONTAINER       | <raise Error containerForUtf8>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <raise Error nonPtrForUtf8OutPar> (see note 2)
+          OUT       ------------------------------+-----------------------------------------------
+                                  NOTHING         | <A>.from<Opt>Ptr 0
+                                ------------------+-----------------------------------------------
+                      true        CONTAINER       | <raise Error containerForUtf8>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.from<Opt>Ptr ~1
+        ------------------------------------------+-----------------------------------------------
+                                  NOTHING         | <raise Error nothingForNonPtrUtf8InOutPar>
+                                ------------------+-----------------------------------------------
+                      false       CONTAINER       | <raise Error containerForUtf8>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.from<Opt>Ptr ~1
+          INOUT     ------------------------------+-----------------------------------------------
+                                  NOTHING         | <A>.from<Opt>Ptr 0                (see note 1)
+                                ------------------+-----------------------------------------------
+                      true        CONTAINER       | <raise Error containerForUtf8>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.from<Opt>Ptr ~1               (see note 1)
+        ------------------------------------------+-----------------------------------------------
 
           Note 1: ownership transfer EVERYTHING is not the same as NOTHING:
             handing ownership to the function and taking ownership back allows
-            the function to free and/or allocate memory.  This takes back
-            ownership of the value created by <withUtf8Fun>.
+            the function to free and/or allocate memory.
+
+          Note 2: unlike an ARRAY OUT parameter, it is not possible for the caller to
+            allocate memory for a UTF8 OUT parameter because girepository does not
+            allow a length parameter or fixed size to be specified for non ARRAY types
+            so there is no way of knowing the size to allocate.
 
       A is Utf8.FFI
 
-      Opt cannot be determined because GIR does not capture
-      sufficient information.  For now, it is defined as follows:
+      Opt is defined as follows:
 
-          | Opt
-        ==+===================
-          | <empty>
-        --+-------------------
+          mayBeNull       | Opt
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | Opt
+        ------------------+-------------------
 
 
   fromArrayFun
     is as follows:
 
         direction         = GIRepository.ArgInfo.getDirection argInfo
-        mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo  (not used: see Opt below)
+        mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
         ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
-        argTypeInfo       = GIRepository.ArgInfo.getType argInfo
+        isPointer         = GIRepository.TypeInfo.isPointer argTypeInfo
 
-          dire... ownershipTra... | fromArrayFun
-        ==========================+===============================================
-                  NOTHING         | <A>.from<Opt>Ptr 0
-                ------------------+-----------------------------------------------
-          OUT     CONTAINER       | <A>.from<Opt>Ptr 1
-                ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.from<Opt>Ptr ~1
-        --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.from<Opt>Ptr 0
-                ------------------+-----------------------------------------------
-          INOUT   CONTAINER       | <A>.from<Opt>Ptr 1                (see note 1)
-                ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.from<Opt>Ptr ~1               (see note 1)
-        --------------------------+-----------------------------------------------
+          direction   isPointer   ownershipTra... | fromArrayFun
+        ==========================================+===============================================
+                                  NOTHING         | <A>.fromPtr ~1
+                                ------------------+-----------------------------------------------
+                      false       CONTAINER       | <raise Error containerForNonPtrArrayOutPar>
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <raise Error everythingForNonPtrArrayOutPar>
+          OUT       ------------------------------+-----------------------------------------------
+                                  NOTHING         | <A>.from<Opt>Ptr 0
+                                ------------------+-----------------------------------------------
+                      true        CONTAINER       | <A>.from<Opt>Ptr 1
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.from<Opt>Ptr ~1
+        ------------------------------------------+-----------------------------------------------
+                                  NOTHING         | <raise Error nothingForNonPtrArrayInOutPar>
+                                ------------------+-----------------------------------------------
+                      false       CONTAINER       | <A>.from<Opt>Ptr ~1
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.from<Opt>Ptr ~1
+          INOUT     ------------------------------+-----------------------------------------------
+                                  NOTHING         | <A>.from<Opt>Ptr 0                (see note 1)
+                                ------------------+-----------------------------------------------
+                      true        CONTAINER       | <A>.from<Opt>Ptr 1                (see note 1)
+                                ------------------+-----------------------------------------------
+                                  EVERYTHING      | <A>.from<Opt>Ptr ~1               (see note 1)
+        ------------------------------------------+-----------------------------------------------
 
           Note 1: ownership transfer EVERYTHING is not the same as NOTHING:
             handing ownership to the function and taking ownership back allows
@@ -1676,13 +1685,14 @@ where
 
       A is <ArrayStructId(argTypeInfo)>.FFI
 
-      Opt cannot be determined because GIR does not capture
-      sufficient information.  For now, it is defined as follows:
+      Opt is defined as follows:
 
-          | Opt
-        ==+===================
-          | <empty>
-        --+-------------------
+          mayBeNull       | Opt
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | Opt
+        ------------------+-------------------
 
 
   fromInterfaceFun
@@ -1915,15 +1925,19 @@ where
 
         mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
         getCallerOwns = GIRepository.CallableInfo.getCallerOwns functionInfo
+        retTypeInfo   = GIRepository.CallableInfo.getReturnType functionInfo
+        isPointer     = GIRepository.TypeInfo.isPointer retTypeInfo
 
-          getCallerOwns   | retFromUtf8Fun
-        ==================+===============================================
-          NOTHING         | <A>.from<Opt>Ptr 0
-        ------------------+-----------------------------------------------
-          CONTAINER       | <raise Error containerForUtf8>
-        ------------------+-----------------------------------------------
-          EVERYTHING      | <A>.from<Opt>Ptr 1
-        ------------------+-----------------------------------------------
+          isPointer   getCallerOwns   | retFromArrayFun
+        ==============================+===================================
+          false       _               | <raise Error nonPtrForUtf8Ret>
+        ------------------------------+-----------------------------------
+                      NOTHING         | <A>.from<Opt>Ptr 0
+                    ------------------+-----------------------------------
+          true        CONTAINER       | <raise Error containerForUtf8>
+                    ------------------+-----------------------------------
+                      EVERYTHING      | <A>.from<Opt>Ptr ~1
+        ------------------------------+-----------------------------------
 
       A is Utf8.FFI
 
@@ -1943,15 +1957,18 @@ where
         mayReturnNull = GIRepository.CallableInfo.mayReturnNull functionInfo
         getCallerOwns = GIRepository.CallableInfo.getCallerOwns functionInfo
         retTypeInfo   = GIRepository.CallableInfo.getReturnType functionInfo
+        isPointer     = GIRepository.TypeInfo.isPointer retTypeInfo
 
-          getCallerOwns   | retFromArrayFun
-        ==================+===============================================
-          NOTHING         | <A>.from<Opt>Ptr 0
-        ------------------+-----------------------------------------------
-          CONTAINER       | <A>.from<Opt>Ptr 1
-        ------------------+-----------------------------------------------
-          EVERYTHING      | <A>.from<Opt>Ptr ~1
-        ------------------+-----------------------------------------------
+          isPointer   getCallerOwns   | retFromArrayFun
+        ==============================+===================================
+          false       _               | <raise Error nonPtrForArrayRet>
+        ------------------------------+-----------------------------------
+                      NOTHING         | <A>.from<Opt>Ptr 0
+                    ------------------+-----------------------------------
+          true        CONTAINER       | <A>.from<Opt>Ptr 1
+                    ------------------+-----------------------------------
+                      EVERYTHING      | <A>.from<Opt>Ptr ~1
+        ------------------------------+-----------------------------------
 
       A is <ArrayStructId(retTypeInfo)>.FFI
 
@@ -2155,7 +2172,7 @@ where
 
         ERROR     --->    <raise Error "not expected">
         FILENAME  --->    NONE
-        ARRAY     --->    NONE
+        ARRAY     --->    <argArrayVal>
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
@@ -2187,6 +2204,25 @@ where
         UTF8      --->    NONE
         UNICHAR   --->    GChar.null
         INTERFACE --->    <argInterfaceVal>
+
+
+  argArrayVal
+    is as follows:
+
+      isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
+      arrayLengthParamIdx = GIRepository.TypeInfo.getArrayLength argTypeInfo
+      arraySize = GIRepository.TypeInfo.getArrayFixedSize argTypeInfo
+
+        isPointer      arrayLengthParamIdx     arraySize    | argArrayVal
+      ======================================================+=========================
+        false          _                       <n>, n <> ~1 | <n>
+      ------------------------------------------------------+-------------------------
+        false          <i>, i <> ~1            ~1           | <convertToInt(i, outParamName[N~[i]])>
+      ------------------------------------------------------+-------------------------
+        false          ~1                      ~1           | <raise Error "cannot determine array length">
+      ------------------------------------------------------+-------------------------
+        true           _                       _            | NONE
+      ------------------------------------------------------+-------------------------
 
 
   argInterfaceVal
@@ -2384,14 +2420,22 @@ where
 
         direction = GIRepository.ArgInfo.getDirection argInfo
 
-          direction       | parUtf8Conv
-        ==================+===========================
-          IN              | <A>.cIn<Opt>Ptr
-        ------------------+---------------------------
-          OUT             | <A>.cOut<Opt>Ref
-        ------------------+---------------------------
-          INOUT           | <A>.cInOut<Opt>Ref
-        ------------------+---------------------------
+        isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
+
+          direction       isPointer    | parUtf8Conv
+        ===============================+===================
+                          false        | <raise Error nonPtrForUtf8InPar>
+          IN            ---------------+-------------------
+                          true         | <A>.cIn<Opt>Ptr
+        -------------------------------+-------------------
+                          false        | <raise Error nonPtrForUtf8OutPar>
+          OUT           ---------------+-------------------
+                          true         | <A>.cOut<Opt>Ref
+        -------------------------------+-------------------
+                          false        | <A>.cIn<Opt>Ptr
+          INOUT         ---------------+-------------------
+                          true         | <A>.cInOut<Opt>Ref
+        -------------------------------+-------------------
 
       A is Utf8.PolyML
 
@@ -2406,34 +2450,28 @@ where
           true            | Opt
         ------------------+-------------------
 
-          Note: currently for OUT and INOUT parameters, mayBeNull indicates
-            whether a null reference argument is allowed, rather than a non-null
-            reference to null.   This allows the parameter to be optional thus
-            provides what one would have expected from isOptional.
-            (isOptional itself appears to always return false.)  Thus there
-            is no mechanism to know whether an out parameter that is a pointer
-            can have a null out value.  Similarly for an in-out parameter, there
-            is no way to know whether the in value or out value can be null.
-            Furthermore, an in-out parameter would require two atttibutes:
-            allow-none-in and allow-none-out.
-
-            For now, for OUT and INOUT parameters, we do not distinguish
-            optionally-null and non-null values.  We assume non-null values.
-
 
   parArrayConv
     is defined as follows:
 
         direction = GIRepository.ArgInfo.getDirection argInfo
 
-          direction       | parArrayConv
-        ==================+===========================
-          IN              | <A>.cIn<Opt>Ptr
-        ------------------+---------------------------
-          OUT             | <A>.cOut<Opt>Ref
-        ------------------+---------------------------
-          INOUT           | <A>.cInOut<Opt>Ref
-        ------------------+---------------------------
+        isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
+
+          direction       isPointer    | parArrayConv
+        ===============================+===================
+                          false        | <raise Error nonPtrForArrayInPar>
+          IN            ---------------+-------------------
+                          true         | <A>.cIn<Opt>Ptr
+        -------------------------------+-------------------
+                          false        | <A>.cInPtr
+          OUT           ---------------+-------------------
+                          true         | <A>.cOut<Opt>Ref
+        -------------------------------+-------------------
+                          false        | <A>.cIn<Opt>Ptr
+          INOUT         ---------------+-------------------
+                          true         | <A>.cInOut<Opt>Ref
+        -------------------------------+-------------------
 
       A is <StructId>.PolyML
 
@@ -2447,20 +2485,6 @@ where
         ------------------+-------------------
           true            | Opt
         ------------------+-------------------
-
-          Note: currently for OUT and INOUT parameters, mayBeNull indicates
-            whether a null reference argument is allowed, rather than a non-null
-            reference to null.   This allows the parameter to be optional thus
-            provides what one would have expected from isOptional.
-            (isOptional itself appears to always return false.)  Thus there
-            is no mechanism to know whether an out parameter that is a pointer
-            can have a null out value.  Similarly for an in-out parameter, there
-            is no way to know whether the in value or out value can be null.
-            Furthermore, an in-out parameter would require two atttibutes:
-            allow-none-in and allow-none-out.
-
-            For now, for OUT and INOUT parameters, we do not distinguish
-            optionally-null and non-null values.  We assume non-null values.
 
 
   parInterfaceConv
@@ -2510,20 +2534,6 @@ where
               true            | Opt
             ------------------+-------------------
 
-              Note: currently for OUT and INOUT parameters, mayBeNull indicates
-                whether a null reference argument is allowed, rather than a non-null
-                reference to null.   This allows the parameter to be optional thus
-                provides what one would have expected from isOptional.
-                (isOptional itself appears to always return false.)  Thus there
-                is no mechanism to know whether an out parameter that is a pointer
-                can have a null out value.  Similarly for an in-out parameter, there
-                is no way to know whether the in value or out value can be null.
-                Furthermore, an in-out parameter would require two atttibutes:
-                allow-none-in and allow-none-out.
-
-                For now, for OUT and INOUT parameters, we do not distinguish
-                optionally-null and non-null values.  We assume non-null values.
-
 
       <raise Error>  # for now
         if argInfoType is INTERFACE _.
@@ -2538,20 +2548,20 @@ where
 
             isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
-              direction       isPointer       parInterfaceStructConv
-            ====================================================
-                              false           <raise Error nonPtrForStructInPar>
-              IN            ------------------------------------
-                              true            <A>.c<Opt>Ptr
-            ----------------------------------------------------
-                              false           <A>.cPtr
-              OUT           ------------------------------------
-                              true            <A>.cOut<Opt>Ref
-            ----------------------------------------------------
-                              false           <A>.cPtr
-              INOUT         ------------------------------------
-                              true            <A>.cInOut<Opt>Ref
-            ----------------------------------------------------
+              direction       isPointer    | parInterfaceStructConv
+            ===============================+===================
+                              false        | <raise Error nonPtrForStructInPar>
+              IN            ---------------+-------------------
+                              true         | <A>.c<Opt>Ptr
+            -------------------------------+-------------------
+                              false        | <A>.cPtr
+              OUT           ---------------+-------------------
+                              true         | <A>.cOut<Opt>Ref
+            -------------------------------+-------------------
+                              false        | <A>.cPtr
+              INOUT         ---------------+-------------------
+                              true         | <A>.cInOut<Opt>Ref
+            -------------------------------+-------------------
 
           A is <InterfaceNamespace><InterfaceName>Record.PolyML
 
@@ -2569,20 +2579,6 @@ where
             ------------------+-------------------
               true            | Opt
             ------------------+-------------------
-
-              Note: currently for OUT and INOUT parameters, mayBeNull indicates
-                whether a null reference argument is allowed, rather than a non-null
-                reference to null.   This allows the parameter to be optional thus
-                provides what one would have expected from isOptional.
-                (isOptional itself appears to always return false.)  Thus there
-                is no mechanism to know whether an out parameter that is a pointer
-                can have a null out value.  Similarly for an in-out parameter, there
-                is no way to know whether the in value or out value can be null.
-                Furthermore, an in-out parameter would require two atttibutes:
-                allow-none-in and allow-none-out.
-
-                For now, for OUT and INOUT parameters, we do not distinguish
-                optionally-null and non-null values.  We assume non-null values.
 
         It is necessary to handle the case when `isPointer` is false explicitly.
         When a STRUCT is not passed as a pointer, but a reference to a value, the
@@ -3025,14 +3021,22 @@ where
 
         direction = GIRepository.ArgInfo.getDirection argInfo
 
-          direction       | parUtf8Type
-        ==================+===========================
-          IN              | <opt> <A>.in_p
-        ------------------+---------------------------
-          OUT             | (<A>.opt, <opt>) <A>.r
-        ------------------+---------------------------
-          INOUT           | (<opt>, <opt>) <A>.r
-        ------------------+---------------------------
+        isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
+
+          direction       isPointer    | parInterfaceStructType
+        ===============================+===================
+                          false        | <raise Error nonPtrForUtf8InPar>
+          IN            ---------------+-------------------
+                          true         | <opt> <A>.in_p
+        -------------------------------+-------------------
+                          false        | <raise Error nonPtrForUtf8OutPar>
+          OUT           ---------------+-------------------
+                          true         | (<A>.opt, <opt>) <A>.r
+        -------------------------------+-------------------
+                          false        | <A>.non_opt <A>.p
+          INOUT         ---------------+-------------------
+                          true         | (<opt>, <opt>) <A>.r
+        -------------------------------+-------------------
 
       A is Utf8.FFI
 
@@ -3047,38 +3051,28 @@ where
           true            | <A>.opt
         ------------------+-------------------
 
-          Note: currently for OUT and INOUT parameters, mayBeNull indicates
-            whether a null reference argument is allowed, rather than a non-null
-            reference to null.   This allows the parameter to be optional thus
-            provides what one would have expected from isOptional.
-            (isOptional itself appears to always return false.)  Thus there
-            is no mechanism to know whether an out parameter that is a pointer
-            can have a null out value.  Similarly for an in-out parameter, there
-            is no way to know whether the in value or out value can be null.
-            Furthermore, an in-out parameter would require two atttibutes:
-            allow-none-in and allow-none-out.
-
-            For now, for OUT and INOUT parameters, we do not distinguish
-            optionally-null and non-null values.  The types outref and
-            inoutref are used.  (We also need to know this missing information
-            for the high-level interface to determine whether to use an optional
-            type.)
-
 
   parArrayType
     is defined as follows:
 
-        direction   = GIRepository.ArgInfo.getDirection argInfo
-        argTypeInfo = GIRepository.ArgInfo.getType argInfo
+        direction = GIRepository.ArgInfo.getDirection argInfo
 
-          direction       | parArrayType
-        ==================+===========================
-          IN              | <opt> <A>.in_p
-        ------------------+---------------------------
-          OUT             | (<A>.opt, <opt>) <A>.r
-        ------------------+---------------------------
-          INOUT           | (<opt>, <opt>) <A>.r
-        ------------------+---------------------------
+        isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
+
+          direction       isPointer    | parInterfaceStructType
+        ===============================+===================
+                          false        | <raise Error nonPtrForArrayInPar>
+          IN            ---------------+-------------------
+                          true         | <opt> <A>.in_p
+        -------------------------------+-------------------
+                          false        | <A>.non_opt <A>.in_p
+          OUT           ---------------+-------------------
+                          true         | (<A>.opt, <opt>) <A>.r
+        -------------------------------+-------------------
+                          false        | <opt> <A>.in_p
+          INOUT         ---------------+-------------------
+                          true         | (<opt>, <opt>) <A>.r
+        -------------------------------+-------------------
 
       A is <ArrayStructId(argTypeInfo)>.FFI
 
@@ -3092,20 +3086,6 @@ where
         ------------------+-------------------
           true            | <A>.opt
         ------------------+-------------------
-
-          Note: currently for OUT and INOUT parameters, mayBeNull indicates
-            whether a null reference argument is allowed, rather than a non-null
-            reference to null.   This allows the parameter to be optional thus
-            provides what one would have expected from isOptional.
-            (isOptional itself appears to always return false.)  Thus there
-            is no mechanism to know whether an out parameter that is a pointer
-            can have a null out value.  Similarly for an in-out parameter, there
-            is no way to know whether the in value or out value can be null.
-            Furthermore, an in-out parameter would require two atttibutes:
-            allow-none-in and allow-none-out.
-
-            For now, for OUT and INOUT parameters, we do not distinguish
-            optionally-null and non-null values.  We assume non-null values.
 
 
   parInterfaceType
@@ -3155,20 +3135,6 @@ where
               true            | <A>.opt
             ------------------+-------------------
 
-              Note: currently for OUT and INOUT parameters, mayBeNull indicates
-                whether a null reference argument is allowed, rather than a non-null
-                reference to null.   This allows the parameter to be optional thus
-                provides what one would have expected from isOptional.
-                (isOptional itself appears to always return false.)  Thus there
-                is no mechanism to know whether an out parameter that is a pointer
-                can have a null out value.  Similarly for an in-out parameter, there
-                is no way to know whether the in value or out value can be null.
-                Furthermore, an in-out parameter would require two atttibutes:
-                allow-none-in and allow-none-out.
-
-                For now, for OUT and INOUT parameters, we do not distinguish
-                optionally-null and non-null values.  We assume non-null values.
-
 
       <raise Error>  # for now
         if argInfoType is INTERFACE _.
@@ -3183,20 +3149,20 @@ where
 
             isPointer = GIRepository.TypeInfo.isPointer argTypeInfo
 
-              direction       isPointer       parInterfaceStructType
-            ====================================================
-                              false           <raise Error nonPtrForStructInPar>
-              IN            ------------------------------------
-                              true            <opt> <A>.p
-            ----------------------------------------------------
-                              false           <A>.non_opt <A>.p
-              OUT           ------------------------------------
-                              true            (<A>.opt, <opt>) <A>.r
-            ----------------------------------------------------
-                              false           <A>.non_opt <A>.p
-              INOUT         ------------------------------------
-                              true            (<opt>, <opt>) <A>.r
-            ----------------------------------------------------
+              direction       isPointer    | parInterfaceStructType
+            ===============================+===================
+                              false        | <raise Error nonPtrForStructInPar>
+              IN            ---------------+-------------------
+                              true         | <opt> <A>.p
+            -------------------------------+-------------------
+                              false        | <A>.non_opt <A>.p
+              OUT           ---------------+-------------------
+                              true         | (<A>.opt, <opt>) <A>.r
+            -------------------------------+-------------------
+                              false        | <A>.non_opt <A>.p
+              INOUT         ---------------+-------------------
+                              true         | (<opt>, <opt>) <A>.r
+            -------------------------------+-------------------
 
           A is <InterfaceNamespace><InterfaceName>Record.FFI
 
@@ -3214,20 +3180,6 @@ where
             ------------------+-------------------
               true            | <A>.opt
             ------------------+-------------------
-
-              Note: currently for OUT and INOUT parameters, mayBeNull indicates
-                whether a null reference argument is allowed, rather than a non-null
-                reference to null.   This allows the parameter to be optional thus
-                provides what one would have expected from isOptional.
-                (isOptional itself appears to always return false.)  Thus there
-                is no mechanism to know whether an out parameter that is a pointer
-                can have a null out value.  Similarly for an in-out parameter, there
-                is no way to know whether the in value or out value can be null.
-                Furthermore, an in-out parameter would require two atttibutes:
-                allow-none-in and allow-none-out.
-
-                For now, for OUT and INOUT parameters, we do not distinguish
-                optionally-null and non-null values.  We assume non-null values.
 
         It is necessary to handle the case when `isPointer` is false explicitly.
         When a STRUCT is not passed as a pointer, but a reference to a value, the

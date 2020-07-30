@@ -31,7 +31,7 @@ structure GioInputStream :>
         call (getSymbol "g_input_stream_read")
           (
             GioInputStreamClass.PolyML.cPtr
-             &&> GUInt8CArrayN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cOutRef
              &&> GUInt64.PolyML.cVal
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -41,7 +41,7 @@ structure GioInputStream :>
         call (getSymbol "g_input_stream_read_all")
           (
             GioInputStreamClass.PolyML.cPtr
-             &&> GUInt8CArrayN.PolyML.cInPtr
+             &&> GUInt8CArrayN.PolyML.cOutRef
              &&> GUInt64.PolyML.cVal
              &&> GUInt64.PolyML.cRef
              &&> GioCancellableClass.PolyML.cOptPtr
@@ -135,53 +135,55 @@ structure GioInputStream :>
         )
     fun hasPending self = (GioInputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasPending_ self
     fun isClosed self = (GioInputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self
-    fun read self (buffer, cancellable) =
+    fun read self (count, cancellable) =
       let
-        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
-        val retVal =
+        val buffer & retVal =
           (
             GioInputStreamClass.FFI.withPtr false
-             &&&> GUInt8CArrayN.FFI.withPtr 0
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr 0
              &&&> GUInt64.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> GInt64.FFI.fromVal
+             ---> GUInt8CArrayN.FFI.fromPtr 0 && GInt64.FFI.fromVal
           )
             read_
             (
               self
-               & buffer
+               & NONE
                & count
                & cancellable
                & []
             )
       in
-        retVal
+        (retVal, buffer (LargeInt.toInt count))
       end
-    fun readAll self (buffer, cancellable) =
+    fun readAll self (count, cancellable) =
       let
-        val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
-        val bytesRead & () =
+        val buffer
+         & bytesRead
+         & () =
           (
             GioInputStreamClass.FFI.withPtr false
-             &&&> GUInt8CArrayN.FFI.withPtr 0
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr 0
              &&&> GUInt64.FFI.withVal
              &&&> GUInt64.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> GUInt64.FFI.fromVal && ignore
+             ---> GUInt8CArrayN.FFI.fromPtr 0
+                   && GUInt64.FFI.fromVal
+                   && ignore
           )
             readAll_
             (
               self
-               & buffer
+               & NONE
                & count
                & GUInt64.null
                & cancellable
                & []
             )
       in
-        bytesRead
+        (buffer (LargeInt.toInt count), bytesRead)
       end
     fun readAllFinish self result =
       let

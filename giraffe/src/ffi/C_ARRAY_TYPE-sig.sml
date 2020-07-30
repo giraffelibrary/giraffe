@@ -32,6 +32,14 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
       end
 
     (**
+     * `new n` returns a pointer to a newly allocated C array with
+     * `n` elements (excluding the null terminator if the array is null-
+     * terminated) that are initalized to zero.  `free 1` must be applied
+     * to the pointer returned by `new` once it is not required.
+     *)
+    val new : int -> non_opt p
+
+    (**
      * `dup d p` and `free d p` duplicate and free, respectively, the
      * data referenced by the C pointer `p` where `d` indicates the depth
      * to duplicate and free, respectively, to.  `d = 0` effects no

@@ -87,18 +87,20 @@ signature GIO_SOCKET =
     val listen : 'a class -> unit
     val receive :
       'a class
-       -> GUInt8CArrayN.t * 'b cancellable_class option
-       -> int
+       -> int * 'b cancellable_class option
+       -> int * GUInt8CArrayN.t
     val receiveFrom :
       'a class
-       -> GUInt8CArrayN.t * 'b cancellable_class option
-       -> int * base socket_address_class
+       -> int * 'b cancellable_class option
+       -> int
+           * base socket_address_class
+           * GUInt8CArrayN.t
     val receiveWithBlocking :
       'a class
-       -> GUInt8CArrayN.t
+       -> int
            * bool
            * 'b cancellable_class option
-       -> int
+       -> int * GUInt8CArrayN.t
     val send :
       'a class
        -> GUInt8CArrayN.t * 'b cancellable_class option

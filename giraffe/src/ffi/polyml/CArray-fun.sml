@@ -132,10 +132,10 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
                 CArray a =>
                   Finalizable.withValue (a, withPointer (free d) f o dup d)
 
-          fun withDupPtr d f =
+          fun withDupPtr f =
             fn
               CArray a =>
-                Finalizable.withValue (a, withDupPointer (free d) f o dup d)
+                Finalizable.withValue (a, withDupPointer (free ~1) f o dup ~1)
 
 
           fun withOptPtr d =
@@ -153,12 +153,16 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
                     (a, withOptPointer (free d) f o SOME o dup d)
               | NONE => withOptPointer ignore f NONE
 
-          fun withDupOptPtr d f =
+          fun withDupOptPtr f =
             fn
               SOME (CArray a) =>
                 Finalizable.withValue
-                  (a, withDupOptPointer (free d) f o SOME o dup d)
+                  (a, withDupOptPointer (free ~1) f o SOME o dup ~1)
             | NONE => withDupOptPointer ignore f NONE
+
+
+          fun withNewPtr f n =
+            withDupPointer (free 1) f (new n)
         end
 
 

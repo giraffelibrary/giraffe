@@ -19,6 +19,12 @@ signature G_LIB_I_O_CHANNEL =
     val getEncoding : t -> string
     val getFlags : t -> i_o_flags_t
     val init : t -> unit
+    val readChars :
+      t
+       -> int
+       -> i_o_status_t
+           * GUInt8CArrayN.t
+           * int
     val readLine :
       t
        -> i_o_status_t

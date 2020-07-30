@@ -266,7 +266,7 @@ in
                 let
                   val {lengths, ...} = arrayParInfo
                   val length = hd1 lengths
-                  fun inParamExp () = mkArrayLenExp length (mkIdLNameExp name)
+                  fun inParamExp () = mkArrayLenAppExp length (mkIdLNameExp name)
 
                   fun getFun n = getFunArray n arrayParInfo
                   fun setFun n = setFunArray n arrayParInfo

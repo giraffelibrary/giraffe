@@ -642,35 +642,6 @@ structure GLibKeyFile :>
               x5,
               x6
             )
-    val setBooleanList_ =
-      fn
-        x1
-         & (x2, x3)
-         & (x4, x5)
-         & (x6, x7)
-         & x8 =>
-          (
-            _import "mlton_g_key_file_set_boolean_list" :
-              GLibKeyFileRecord.FFI.non_opt GLibKeyFileRecord.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GBoolCArrayN.MLton.p1
-               * GBoolCArrayN.FFI.non_opt GBoolCArrayN.MLton.p2
-               * GSize.FFI.val_
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8
-            )
     val setComment_ =
       fn
         x1
@@ -724,35 +695,6 @@ structure GLibKeyFile :>
               x5,
               x6
             )
-    val setDoubleList_ =
-      fn
-        x1
-         & (x2, x3)
-         & (x4, x5)
-         & (x6, x7)
-         & x8 =>
-          (
-            _import "mlton_g_key_file_set_double_list" :
-              GLibKeyFileRecord.FFI.non_opt GLibKeyFileRecord.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GDoubleCArrayN.MLton.p1
-               * GDoubleCArrayN.FFI.non_opt GDoubleCArrayN.MLton.p2
-               * GSize.FFI.val_
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8
-            )
     val setInt64_ =
       fn
         x1
@@ -800,35 +742,6 @@ structure GLibKeyFile :>
               x4,
               x5,
               x6
-            )
-    val setIntegerList_ =
-      fn
-        x1
-         & (x2, x3)
-         & (x4, x5)
-         & (x6, x7)
-         & x8 =>
-          (
-            _import "mlton_g_key_file_set_integer_list" :
-              GLibKeyFileRecord.FFI.non_opt GLibKeyFileRecord.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GIntCArrayN.MLton.p1
-               * GIntCArrayN.FFI.non_opt GIntCArrayN.MLton.p2
-               * GSize.FFI.val_
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8
             )
     val setListSeparator_ = fn x1 & x2 => (_import "g_key_file_set_list_separator" : GLibKeyFileRecord.FFI.non_opt GLibKeyFileRecord.FFI.p * GChar.FFI.val_ -> unit;) (x1, x2)
     val setLocaleString_ =
@@ -1494,35 +1407,6 @@ structure GLibKeyFile :>
            & key
            & value
         )
-    fun setBooleanList
-      self
-      (
-        groupName,
-        key,
-        list
-      ) =
-      let
-        val length = GBoolCArrayN.length list
-        val () =
-          (
-            GLibKeyFileRecord.FFI.withPtr false
-             &&&> Utf8.FFI.withPtr 0
-             &&&> Utf8.FFI.withPtr 0
-             &&&> GBoolCArrayN.FFI.withPtr 0
-             &&&> GSize.FFI.withVal
-             ---> I
-          )
-            setBooleanList_
-            (
-              self
-               & groupName
-               & key
-               & list
-               & length
-            )
-      in
-        ()
-      end
     fun setComment
       self
       (
@@ -1567,35 +1451,6 @@ structure GLibKeyFile :>
            & key
            & value
         )
-    fun setDoubleList
-      self
-      (
-        groupName,
-        key,
-        list
-      ) =
-      let
-        val length = GDoubleCArrayN.length list
-        val () =
-          (
-            GLibKeyFileRecord.FFI.withPtr false
-             &&&> Utf8.FFI.withPtr 0
-             &&&> Utf8.FFI.withPtr 0
-             &&&> GDoubleCArrayN.FFI.withPtr 0
-             &&&> GSize.FFI.withVal
-             ---> I
-          )
-            setDoubleList_
-            (
-              self
-               & groupName
-               & key
-               & list
-               & length
-            )
-      in
-        ()
-      end
     fun setInt64
       self
       (
@@ -1638,35 +1493,6 @@ structure GLibKeyFile :>
            & key
            & value
         )
-    fun setIntegerList
-      self
-      (
-        groupName,
-        key,
-        list
-      ) =
-      let
-        val length = GIntCArrayN.length list
-        val () =
-          (
-            GLibKeyFileRecord.FFI.withPtr false
-             &&&> Utf8.FFI.withPtr 0
-             &&&> Utf8.FFI.withPtr 0
-             &&&> GIntCArrayN.FFI.withPtr 0
-             &&&> GSize.FFI.withVal
-             ---> I
-          )
-            setIntegerList_
-            (
-              self
-               & groupName
-               & key
-               & list
-               & length
-            )
-      in
-        ()
-      end
     fun setListSeparator self separator = (GLibKeyFileRecord.FFI.withPtr false &&&> GChar.FFI.withVal ---> I) setListSeparator_ (self & separator)
     fun setLocaleString
       self

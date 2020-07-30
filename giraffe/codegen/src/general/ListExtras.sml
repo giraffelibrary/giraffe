@@ -40,6 +40,15 @@ structure ListExtras =
     fun insert (x, xs) =
       if List.exists (fn x' => x = x') xs then xs else x :: xs
 
+    fun findMap f xs =
+      case xs of
+        x :: xs' => (
+          case f x of
+            SOME y => SOME y
+          | NONE   => findMap f xs'
+        )
+      | []       => NONE
+
     local
       fun find (e, xs) =
         let

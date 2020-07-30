@@ -135,53 +135,55 @@ structure GioInputStream :>
         )
     fun hasPending self = (GioInputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasPending_ self
     fun isClosed self = (GioInputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self
-    fun read self (buffer, cancellable) =
+    fun read self (count, cancellable) =
       let
-        val count = GUInt8CArrayN.length buffer
-        val retVal =
+        val buffer & retVal =
           (
             GioInputStreamClass.FFI.withPtr false
-             &&&> GUInt8CArrayN.FFI.withPtr 0
+             &&&> GUInt8CArrayN.FFI.withNewPtr
              &&&> GSize.FFI.withVal
              &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> GSSize.FFI.fromVal
+             ---> GUInt8CArrayN.FFI.fromPtr ~1 && GSSize.FFI.fromVal
           )
             read_
             (
               self
-               & buffer
+               & count
                & count
                & cancellable
                & []
             )
       in
-        retVal
+        (retVal, buffer count)
       end
-    fun readAll self (buffer, cancellable) =
+    fun readAll self (count, cancellable) =
       let
-        val count = GUInt8CArrayN.length buffer
-        val bytesRead & () =
+        val buffer
+         & bytesRead
+         & () =
           (
             GioInputStreamClass.FFI.withPtr false
-             &&&> GUInt8CArrayN.FFI.withPtr 0
+             &&&> GUInt8CArrayN.FFI.withNewPtr
              &&&> GSize.FFI.withVal
              &&&> GSize.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && ignore
+             ---> GUInt8CArrayN.FFI.fromPtr ~1
+                   && GSize.FFI.fromVal
+                   && ignore
           )
             readAll_
             (
               self
-               & buffer
+               & count
                & count
                & GSize.null
                & cancellable
                & []
             )
       in
-        bytesRead
+        (buffer count, bytesRead)
       end
     fun readAllFinish self result =
       let
