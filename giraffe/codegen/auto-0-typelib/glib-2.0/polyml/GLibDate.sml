@@ -118,14 +118,14 @@ structure GLibDate :>
            & year
         )
     fun newJulian julianDay = (GUInt32.FFI.withVal ---> GLibDateRecord.FFI.fromPtr true) newJulian_ julianDay
-    fun addDays self nDays = (GLibDateRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) addDays_ (self & nDays)
-    fun addMonths self nMonths = (GLibDateRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) addMonths_ (self & nMonths)
-    fun addYears self nYears = (GLibDateRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) addYears_ (self & nYears)
+    fun addDays self nDays = (GLibDateRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) addDays_ (self & nDays)
+    fun addMonths self nMonths = (GLibDateRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) addMonths_ (self & nMonths)
+    fun addYears self nYears = (GLibDateRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) addYears_ (self & nYears)
     fun clamp self (minDate, maxDate) =
       (
-        GLibDateRecord.FFI.withPtr
-         &&&> GLibDateRecord.FFI.withPtr
-         &&&> GLibDateRecord.FFI.withPtr
+        GLibDateRecord.FFI.withPtr false
+         &&&> GLibDateRecord.FFI.withPtr false
+         &&&> GLibDateRecord.FFI.withPtr false
          ---> I
       )
         clamp_
@@ -134,22 +134,22 @@ structure GLibDate :>
            & minDate
            & maxDate
         )
-    fun clear self nDates = (GLibDateRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) clear_ (self & nDates)
-    fun compare self rhs = (GLibDateRecord.FFI.withPtr &&&> GLibDateRecord.FFI.withPtr ---> GInt32.FFI.fromVal) compare_ (self & rhs)
-    fun daysBetween self date2 = (GLibDateRecord.FFI.withPtr &&&> GLibDateRecord.FFI.withPtr ---> GInt32.FFI.fromVal) daysBetween_ (self & date2)
-    fun getDay self = (GLibDateRecord.FFI.withPtr ---> GUInt8.FFI.fromVal) getDay_ self
-    fun getDayOfYear self = (GLibDateRecord.FFI.withPtr ---> GUInt32.FFI.fromVal) getDayOfYear_ self
-    fun getIso8601WeekOfYear self = (GLibDateRecord.FFI.withPtr ---> GUInt32.FFI.fromVal) getIso8601WeekOfYear_ self
-    fun getJulian self = (GLibDateRecord.FFI.withPtr ---> GUInt32.FFI.fromVal) getJulian_ self
-    fun getMondayWeekOfYear self = (GLibDateRecord.FFI.withPtr ---> GUInt32.FFI.fromVal) getMondayWeekOfYear_ self
-    fun getMonth self = (GLibDateRecord.FFI.withPtr ---> GLibDateMonth.FFI.fromVal) getMonth_ self
-    fun getSundayWeekOfYear self = (GLibDateRecord.FFI.withPtr ---> GUInt32.FFI.fromVal) getSundayWeekOfYear_ self
-    fun getWeekday self = (GLibDateRecord.FFI.withPtr ---> GLibDateWeekday.FFI.fromVal) getWeekday_ self
-    fun getYear self = (GLibDateRecord.FFI.withPtr ---> GUInt16.FFI.fromVal) getYear_ self
-    fun isFirstOfMonth self = (GLibDateRecord.FFI.withPtr ---> GBool.FFI.fromVal) isFirstOfMonth_ self
-    fun isLastOfMonth self = (GLibDateRecord.FFI.withPtr ---> GBool.FFI.fromVal) isLastOfMonth_ self
-    fun order self date2 = (GLibDateRecord.FFI.withPtr &&&> GLibDateRecord.FFI.withPtr ---> I) order_ (self & date2)
-    fun setDay self day = (GLibDateRecord.FFI.withPtr &&&> GUInt8.FFI.withVal ---> I) setDay_ (self & day)
+    fun clear self nDates = (GLibDateRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) clear_ (self & nDates)
+    fun compare self rhs = (GLibDateRecord.FFI.withPtr false &&&> GLibDateRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) compare_ (self & rhs)
+    fun daysBetween self date2 = (GLibDateRecord.FFI.withPtr false &&&> GLibDateRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) daysBetween_ (self & date2)
+    fun getDay self = (GLibDateRecord.FFI.withPtr false ---> GUInt8.FFI.fromVal) getDay_ self
+    fun getDayOfYear self = (GLibDateRecord.FFI.withPtr false ---> GUInt32.FFI.fromVal) getDayOfYear_ self
+    fun getIso8601WeekOfYear self = (GLibDateRecord.FFI.withPtr false ---> GUInt32.FFI.fromVal) getIso8601WeekOfYear_ self
+    fun getJulian self = (GLibDateRecord.FFI.withPtr false ---> GUInt32.FFI.fromVal) getJulian_ self
+    fun getMondayWeekOfYear self = (GLibDateRecord.FFI.withPtr false ---> GUInt32.FFI.fromVal) getMondayWeekOfYear_ self
+    fun getMonth self = (GLibDateRecord.FFI.withPtr false ---> GLibDateMonth.FFI.fromVal) getMonth_ self
+    fun getSundayWeekOfYear self = (GLibDateRecord.FFI.withPtr false ---> GUInt32.FFI.fromVal) getSundayWeekOfYear_ self
+    fun getWeekday self = (GLibDateRecord.FFI.withPtr false ---> GLibDateWeekday.FFI.fromVal) getWeekday_ self
+    fun getYear self = (GLibDateRecord.FFI.withPtr false ---> GUInt16.FFI.fromVal) getYear_ self
+    fun isFirstOfMonth self = (GLibDateRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isFirstOfMonth_ self
+    fun isLastOfMonth self = (GLibDateRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isLastOfMonth_ self
+    fun order self date2 = (GLibDateRecord.FFI.withPtr false &&&> GLibDateRecord.FFI.withPtr false ---> I) order_ (self & date2)
+    fun setDay self day = (GLibDateRecord.FFI.withPtr false &&&> GUInt8.FFI.withVal ---> I) setDay_ (self & day)
     fun setDmy
       self
       (
@@ -158,7 +158,7 @@ structure GLibDate :>
         y
       ) =
       (
-        GLibDateRecord.FFI.withPtr
+        GLibDateRecord.FFI.withPtr false
          &&&> GUInt8.FFI.withVal
          &&&> GLibDateMonth.FFI.withVal
          &&&> GUInt16.FFI.withVal
@@ -171,17 +171,17 @@ structure GLibDate :>
            & month
            & y
         )
-    fun setJulian self julianDate = (GLibDateRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setJulian_ (self & julianDate)
-    fun setMonth self month = (GLibDateRecord.FFI.withPtr &&&> GLibDateMonth.FFI.withVal ---> I) setMonth_ (self & month)
-    fun setParse self str = (GLibDateRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setParse_ (self & str)
-    fun setTime self time = (GLibDateRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setTime_ (self & time)
-    fun setTimeT self timet = (GLibDateRecord.FFI.withPtr &&&> GInt64.FFI.withVal ---> I) setTimeT_ (self & timet)
-    fun setTimeVal self timeval = (GLibDateRecord.FFI.withPtr &&&> GLibTimeValRecord.FFI.withPtr ---> I) setTimeVal_ (self & timeval)
-    fun setYear self year = (GLibDateRecord.FFI.withPtr &&&> GUInt16.FFI.withVal ---> I) setYear_ (self & year)
-    fun subtractDays self nDays = (GLibDateRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) subtractDays_ (self & nDays)
-    fun subtractMonths self nMonths = (GLibDateRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) subtractMonths_ (self & nMonths)
-    fun subtractYears self nYears = (GLibDateRecord.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) subtractYears_ (self & nYears)
-    fun valid self = (GLibDateRecord.FFI.withPtr ---> GBool.FFI.fromVal) valid_ self
+    fun setJulian self julianDate = (GLibDateRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setJulian_ (self & julianDate)
+    fun setMonth self month = (GLibDateRecord.FFI.withPtr false &&&> GLibDateMonth.FFI.withVal ---> I) setMonth_ (self & month)
+    fun setParse self str = (GLibDateRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setParse_ (self & str)
+    fun setTime self time = (GLibDateRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setTime_ (self & time)
+    fun setTimeT self timet = (GLibDateRecord.FFI.withPtr false &&&> GInt64.FFI.withVal ---> I) setTimeT_ (self & timet)
+    fun setTimeVal self timeval = (GLibDateRecord.FFI.withPtr false &&&> GLibTimeValRecord.FFI.withPtr false ---> I) setTimeVal_ (self & timeval)
+    fun setYear self year = (GLibDateRecord.FFI.withPtr false &&&> GUInt16.FFI.withVal ---> I) setYear_ (self & year)
+    fun subtractDays self nDays = (GLibDateRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) subtractDays_ (self & nDays)
+    fun subtractMonths self nMonths = (GLibDateRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) subtractMonths_ (self & nMonths)
+    fun subtractYears self nYears = (GLibDateRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) subtractYears_ (self & nYears)
+    fun valid self = (GLibDateRecord.FFI.withPtr false ---> GBool.FFI.fromVal) valid_ self
     fun getDaysInMonth (month, year) = (GLibDateMonth.FFI.withVal &&&> GUInt16.FFI.withVal ---> GUInt8.FFI.fromVal) getDaysInMonth_ (month & year)
     fun getMondayWeeksInYear year = (GUInt16.FFI.withVal ---> GUInt8.FFI.fromVal) getMondayWeeksInYear_ year
     fun getSundayWeeksInYear year = (GUInt16.FFI.withVal ---> GUInt8.FFI.fromVal) getSundayWeeksInYear_ year
@@ -194,10 +194,10 @@ structure GLibDate :>
         date
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GUInt64.FFI.withVal
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibDateRecord.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibDateRecord.FFI.withPtr false
          ---> GUInt64.FFI.fromVal
       )
         strftime_

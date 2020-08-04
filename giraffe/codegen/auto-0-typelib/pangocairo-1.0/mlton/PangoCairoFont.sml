@@ -7,5 +7,5 @@ structure PangoCairoFont :>
     type 'a class = 'a PangoCairoFontClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getScaledFont self = (PangoCairoFontClass.FFI.withPtr ---> CairoScaledFontRecord.FFI.fromOptPtr true) getScaledFont_ self
+    fun getScaledFont self = (PangoCairoFontClass.FFI.withPtr false ---> CairoScaledFontRecord.FFI.fromOptPtr true) getScaledFont_ self
   end

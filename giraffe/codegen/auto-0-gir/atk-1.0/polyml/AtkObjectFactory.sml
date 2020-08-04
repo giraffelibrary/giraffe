@@ -15,7 +15,7 @@ structure AtkObjectFactory :>
     type 'a object_class = 'a AtkObjectClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun createAccessible self obj = (AtkObjectFactoryClass.FFI.withPtr &&&> GObjectObjectClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr true) createAccessible_ (self & obj)
-    fun getAccessibleType self = (AtkObjectFactoryClass.FFI.withPtr ---> GObjectType.FFI.fromVal) getAccessibleType_ self
-    fun invalidate self = (AtkObjectFactoryClass.FFI.withPtr ---> I) invalidate_ self
+    fun createAccessible self obj = (AtkObjectFactoryClass.FFI.withPtr false &&&> GObjectObjectClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr true) createAccessible_ (self & obj)
+    fun getAccessibleType self = (AtkObjectFactoryClass.FFI.withPtr false ---> GObjectType.FFI.fromVal) getAccessibleType_ self
+    fun invalidate self = (AtkObjectFactoryClass.FFI.withPtr false ---> I) invalidate_ self
   end

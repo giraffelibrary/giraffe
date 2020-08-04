@@ -63,7 +63,7 @@ structure GdkVisual :>
     fun getBestWithDepth depth = (GInt.FFI.withVal ---> GdkVisualClass.FFI.fromPtr false) getBestWithDepth_ depth
     fun getBestWithType visualType = (GdkVisualType.FFI.withVal ---> GdkVisualClass.FFI.fromPtr false) getBestWithType_ visualType
     fun getSystem () = (I ---> GdkVisualClass.FFI.fromPtr false) getSystem_ ()
-    fun getBitsPerRgb self = (GdkVisualClass.FFI.withPtr ---> GInt.FFI.fromVal) getBitsPerRgb_ self
+    fun getBitsPerRgb self = (GdkVisualClass.FFI.withPtr false ---> GInt.FFI.fromVal) getBitsPerRgb_ self
     fun getBluePixelDetails self =
       let
         val mask
@@ -71,7 +71,7 @@ structure GdkVisual :>
          & precision
          & () =
           (
-            GdkVisualClass.FFI.withPtr
+            GdkVisualClass.FFI.withPtr false
              &&&> GUInt32.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -94,9 +94,9 @@ structure GdkVisual :>
           precision
         )
       end
-    fun getByteOrder self = (GdkVisualClass.FFI.withPtr ---> GdkByteOrder.FFI.fromVal) getByteOrder_ self
-    fun getColormapSize self = (GdkVisualClass.FFI.withPtr ---> GInt.FFI.fromVal) getColormapSize_ self
-    fun getDepth self = (GdkVisualClass.FFI.withPtr ---> GInt.FFI.fromVal) getDepth_ self
+    fun getByteOrder self = (GdkVisualClass.FFI.withPtr false ---> GdkByteOrder.FFI.fromVal) getByteOrder_ self
+    fun getColormapSize self = (GdkVisualClass.FFI.withPtr false ---> GInt.FFI.fromVal) getColormapSize_ self
+    fun getDepth self = (GdkVisualClass.FFI.withPtr false ---> GInt.FFI.fromVal) getDepth_ self
     fun getGreenPixelDetails self =
       let
         val mask
@@ -104,7 +104,7 @@ structure GdkVisual :>
          & precision
          & () =
           (
-            GdkVisualClass.FFI.withPtr
+            GdkVisualClass.FFI.withPtr false
              &&&> GUInt32.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -134,7 +134,7 @@ structure GdkVisual :>
          & precision
          & () =
           (
-            GdkVisualClass.FFI.withPtr
+            GdkVisualClass.FFI.withPtr false
              &&&> GUInt32.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -157,6 +157,6 @@ structure GdkVisual :>
           precision
         )
       end
-    fun getScreen self = (GdkVisualClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
-    fun getVisualType self = (GdkVisualClass.FFI.withPtr ---> GdkVisualType.FFI.fromVal) getVisualType_ self
+    fun getScreen self = (GdkVisualClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun getVisualType self = (GdkVisualClass.FFI.withPtr false ---> GdkVisualType.FFI.fromVal) getVisualType_ self
   end

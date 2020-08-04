@@ -936,8 +936,8 @@ structure GdkWindow :>
         attributesMask
       ) =
       (
-        GdkWindowClass.FFI.withOptPtr
-         &&&> GdkWindowAttrRecord.FFI.withPtr
+        GdkWindowClass.FFI.withOptPtr false
+         &&&> GdkWindowAttrRecord.FFI.withPtr false
          &&&> GdkWindowAttributesType.FFI.withVal
          ---> GdkWindowClass.FFI.fromPtr true
       )
@@ -979,7 +979,7 @@ structure GdkWindow :>
          & newHeight
          & () =
           (
-            GdkGeometryRecord.FFI.withPtr
+            GdkGeometryRecord.FFI.withPtr false
              &&&> GdkWindowHints.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
@@ -1003,8 +1003,8 @@ structure GdkWindow :>
       end
     fun processAllUpdates () = (I ---> I) processAllUpdates_ ()
     fun setDebugUpdates setting = (GBool.FFI.withVal ---> I) setDebugUpdates_ setting
-    fun beep self = (GdkWindowClass.FFI.withPtr ---> I) beep_ self
-    fun beginDrawFrame self region = (GdkWindowClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withPtr ---> GdkDrawingContextClass.FFI.fromPtr false) beginDrawFrame_ (self & region)
+    fun beep self = (GdkWindowClass.FFI.withPtr false ---> I) beep_ self
+    fun beginDrawFrame self region = (GdkWindowClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withPtr false ---> GdkDrawingContextClass.FFI.fromPtr false) beginDrawFrame_ (self & region)
     fun beginMoveDrag
       self
       (
@@ -1014,7 +1014,7 @@ structure GdkWindow :>
         timestamp
       ) =
       (
-        GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -1039,8 +1039,8 @@ structure GdkWindow :>
         timestamp
       ) =
       (
-        GdkWindowClass.FFI.withPtr
-         &&&> GdkDeviceClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
+         &&&> GdkDeviceClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -1056,8 +1056,8 @@ structure GdkWindow :>
            & rootY
            & timestamp
         )
-    fun beginPaintRect self rectangle = (GdkWindowClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) beginPaintRect_ (self & rectangle)
-    fun beginPaintRegion self region = (GdkWindowClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withPtr ---> I) beginPaintRegion_ (self & region)
+    fun beginPaintRect self rectangle = (GdkWindowClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withPtr false ---> I) beginPaintRect_ (self & rectangle)
+    fun beginPaintRegion self region = (GdkWindowClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withPtr false ---> I) beginPaintRegion_ (self & region)
     fun beginResizeDrag
       self
       (
@@ -1068,7 +1068,7 @@ structure GdkWindow :>
         timestamp
       ) =
       (
-        GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
          &&&> GdkWindowEdge.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -1096,9 +1096,9 @@ structure GdkWindow :>
         timestamp
       ) =
       (
-        GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
          &&&> GdkWindowEdge.FFI.withVal
-         &&&> GdkDeviceClass.FFI.withPtr
+         &&&> GdkDeviceClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -1115,14 +1115,14 @@ structure GdkWindow :>
            & rootY
            & timestamp
         )
-    fun configureFinished self = (GdkWindowClass.FFI.withPtr ---> I) configureFinished_ self
+    fun configureFinished self = (GdkWindowClass.FFI.withPtr false ---> I) configureFinished_ self
     fun coordsFromParent self (parentX, parentY) =
       let
         val x
          & y
          & () =
           (
-            GdkWindowClass.FFI.withPtr
+            GdkWindowClass.FFI.withPtr false
              &&&> GDouble.FFI.withVal
              &&&> GDouble.FFI.withVal
              &&&> GDouble.FFI.withRefVal
@@ -1148,7 +1148,7 @@ structure GdkWindow :>
          & parentY
          & () =
           (
-            GdkWindowClass.FFI.withPtr
+            GdkWindowClass.FFI.withPtr false
              &&&> GDouble.FFI.withVal
              &&&> GDouble.FFI.withVal
              &&&> GDouble.FFI.withRefVal
@@ -1168,7 +1168,7 @@ structure GdkWindow :>
       in
         (parentX, parentY)
       end
-    fun createGlContext self = (GdkWindowClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkGLContextClass.FFI.fromPtr true) createGlContext_ (self & [])
+    fun createGlContext self = (GdkWindowClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GdkGLContextClass.FFI.fromPtr true) createGlContext_ (self & [])
     fun createSimilarImageSurface
       self
       (
@@ -1178,7 +1178,7 @@ structure GdkWindow :>
         scale
       ) =
       (
-        GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -1201,7 +1201,7 @@ structure GdkWindow :>
         height
       ) =
       (
-        GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
          &&&> CairoContent.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -1214,33 +1214,33 @@ structure GdkWindow :>
            & width
            & height
         )
-    fun deiconify self = (GdkWindowClass.FFI.withPtr ---> I) deiconify_ self
-    fun destroy self = (GdkWindowClass.FFI.withPtr ---> I) destroy_ self
-    fun destroyNotify self = (GdkWindowClass.FFI.withPtr ---> I) destroyNotify_ self
-    fun enableSynchronizedConfigure self = (GdkWindowClass.FFI.withPtr ---> I) enableSynchronizedConfigure_ self
-    fun endDrawFrame self context = (GdkWindowClass.FFI.withPtr &&&> GdkDrawingContextClass.FFI.withPtr ---> I) endDrawFrame_ (self & context)
-    fun endPaint self = (GdkWindowClass.FFI.withPtr ---> I) endPaint_ self
-    fun ensureNative self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) ensureNative_ self
-    fun flush self = (GdkWindowClass.FFI.withPtr ---> I) flush_ self
-    fun focus self timestamp = (GdkWindowClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) focus_ (self & timestamp)
-    fun freezeToplevelUpdatesLibgtkOnly self = (GdkWindowClass.FFI.withPtr ---> I) freezeToplevelUpdatesLibgtkOnly_ self
-    fun freezeUpdates self = (GdkWindowClass.FFI.withPtr ---> I) freezeUpdates_ self
-    fun fullscreen self = (GdkWindowClass.FFI.withPtr ---> I) fullscreen_ self
-    fun fullscreenOnMonitor self monitor = (GdkWindowClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) fullscreenOnMonitor_ (self & monitor)
-    fun geometryChanged self = (GdkWindowClass.FFI.withPtr ---> I) geometryChanged_ self
-    fun getAcceptFocus self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getAcceptFocus_ self
-    fun getBackgroundPattern self = (GdkWindowClass.FFI.withPtr ---> CairoPatternRecord.FFI.fromOptPtr false) getBackgroundPattern_ self
-    fun getClipRegion self = (GdkWindowClass.FFI.withPtr ---> CairoRegionRecord.FFI.fromPtr true) getClipRegion_ self
-    fun getComposited self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getComposited_ self
-    fun getCursor self = (GdkWindowClass.FFI.withPtr ---> GdkCursorClass.FFI.fromOptPtr false) getCursor_ self
+    fun deiconify self = (GdkWindowClass.FFI.withPtr false ---> I) deiconify_ self
+    fun destroy self = (GdkWindowClass.FFI.withPtr false ---> I) destroy_ self
+    fun destroyNotify self = (GdkWindowClass.FFI.withPtr false ---> I) destroyNotify_ self
+    fun enableSynchronizedConfigure self = (GdkWindowClass.FFI.withPtr false ---> I) enableSynchronizedConfigure_ self
+    fun endDrawFrame self context = (GdkWindowClass.FFI.withPtr false &&&> GdkDrawingContextClass.FFI.withPtr false ---> I) endDrawFrame_ (self & context)
+    fun endPaint self = (GdkWindowClass.FFI.withPtr false ---> I) endPaint_ self
+    fun ensureNative self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) ensureNative_ self
+    fun flush self = (GdkWindowClass.FFI.withPtr false ---> I) flush_ self
+    fun focus self timestamp = (GdkWindowClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) focus_ (self & timestamp)
+    fun freezeToplevelUpdatesLibgtkOnly self = (GdkWindowClass.FFI.withPtr false ---> I) freezeToplevelUpdatesLibgtkOnly_ self
+    fun freezeUpdates self = (GdkWindowClass.FFI.withPtr false ---> I) freezeUpdates_ self
+    fun fullscreen self = (GdkWindowClass.FFI.withPtr false ---> I) fullscreen_ self
+    fun fullscreenOnMonitor self monitor = (GdkWindowClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) fullscreenOnMonitor_ (self & monitor)
+    fun geometryChanged self = (GdkWindowClass.FFI.withPtr false ---> I) geometryChanged_ self
+    fun getAcceptFocus self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAcceptFocus_ self
+    fun getBackgroundPattern self = (GdkWindowClass.FFI.withPtr false ---> CairoPatternRecord.FFI.fromOptPtr false) getBackgroundPattern_ self
+    fun getClipRegion self = (GdkWindowClass.FFI.withPtr false ---> CairoRegionRecord.FFI.fromPtr true) getClipRegion_ self
+    fun getComposited self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getComposited_ self
+    fun getCursor self = (GdkWindowClass.FFI.withPtr false ---> GdkCursorClass.FFI.fromOptPtr false) getCursor_ self
     fun getDecorations self =
       let
-        val decorations & retVal = (GdkWindowClass.FFI.withPtr &&&> GdkWMDecoration.FFI.withRefVal ---> GdkWMDecoration.FFI.fromVal && GBool.FFI.fromVal) getDecorations_ (self & GdkWMDecoration.flags [])
+        val decorations & retVal = (GdkWindowClass.FFI.withPtr false &&&> GdkWMDecoration.FFI.withRefVal ---> GdkWMDecoration.FFI.fromVal && GBool.FFI.fromVal) getDecorations_ (self & GdkWMDecoration.flags [])
       in
         if retVal then SOME decorations else NONE
       end
-    fun getDeviceCursor self device = (GdkWindowClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GdkCursorClass.FFI.fromOptPtr false) getDeviceCursor_ (self & device)
-    fun getDeviceEvents self device = (GdkWindowClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GdkEventMask.FFI.fromVal) getDeviceEvents_ (self & device)
+    fun getDeviceCursor self device = (GdkWindowClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GdkCursorClass.FFI.fromOptPtr false) getDeviceCursor_ (self & device)
+    fun getDeviceEvents self device = (GdkWindowClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GdkEventMask.FFI.fromVal) getDeviceEvents_ (self & device)
     fun getDevicePosition self device =
       let
         val x
@@ -1248,8 +1248,8 @@ structure GdkWindow :>
          & mask
          & retVal =
           (
-            GdkWindowClass.FFI.withPtr
-             &&&> GdkDeviceClass.FFI.withPtr
+            GdkWindowClass.FFI.withPtr false
+             &&&> GdkDeviceClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> GdkModifierType.FFI.withRefVal
@@ -1281,8 +1281,8 @@ structure GdkWindow :>
          & mask
          & retVal =
           (
-            GdkWindowClass.FFI.withPtr
-             &&&> GdkDeviceClass.FFI.withPtr
+            GdkWindowClass.FFI.withPtr false
+             &&&> GdkDeviceClass.FFI.withPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              &&&> GdkModifierType.FFI.withRefVal
@@ -1307,26 +1307,26 @@ structure GdkWindow :>
           mask
         )
       end
-    fun getDisplay self = (GdkWindowClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getDisplay self = (GdkWindowClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     fun getDragProtocol self =
       let
-        val target & retVal = (GdkWindowClass.FFI.withPtr &&&> GdkWindowClass.FFI.withRefOptPtr ---> GdkWindowClass.FFI.fromPtr true && GdkDragProtocol.FFI.fromVal) getDragProtocol_ (self & NONE)
+        val target & retVal = (GdkWindowClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withRefOptPtr true ---> GdkWindowClass.FFI.fromPtr true && GdkDragProtocol.FFI.fromVal) getDragProtocol_ (self & NONE)
       in
         (retVal, target)
       end
-    fun getEffectiveParent self = (GdkWindowClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getEffectiveParent_ self
-    fun getEffectiveToplevel self = (GdkWindowClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getEffectiveToplevel_ self
-    fun getEventCompression self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getEventCompression_ self
-    fun getEvents self = (GdkWindowClass.FFI.withPtr ---> GdkEventMask.FFI.fromVal) getEvents_ self
-    fun getFocusOnMap self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusOnMap_ self
-    fun getFrameClock self = (GdkWindowClass.FFI.withPtr ---> GdkFrameClockClass.FFI.fromPtr false) getFrameClock_ self
+    fun getEffectiveParent self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getEffectiveParent_ self
+    fun getEffectiveToplevel self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getEffectiveToplevel_ self
+    fun getEventCompression self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEventCompression_ self
+    fun getEvents self = (GdkWindowClass.FFI.withPtr false ---> GdkEventMask.FFI.fromVal) getEvents_ self
+    fun getFocusOnMap self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFocusOnMap_ self
+    fun getFrameClock self = (GdkWindowClass.FFI.withPtr false ---> GdkFrameClockClass.FFI.fromPtr false) getFrameClock_ self
     fun getFrameExtents self =
       let
-        val rect & () = (GdkWindowClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getFrameExtents_ (self & ())
+        val rect & () = (GdkWindowClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getFrameExtents_ (self & ())
       in
         rect
       end
-    fun getFullscreenMode self = (GdkWindowClass.FFI.withPtr ---> GdkFullscreenMode.FFI.fromVal) getFullscreenMode_ self
+    fun getFullscreenMode self = (GdkWindowClass.FFI.withPtr false ---> GdkFullscreenMode.FFI.fromVal) getFullscreenMode_ self
     fun getGeometry self =
       let
         val x
@@ -1335,7 +1335,7 @@ structure GdkWindow :>
          & height
          & () =
           (
-            GdkWindowClass.FFI.withPtr
+            GdkWindowClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -1362,16 +1362,16 @@ structure GdkWindow :>
           height
         )
       end
-    fun getGroup self = (GdkWindowClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getGroup_ self
-    fun getHeight self = (GdkWindowClass.FFI.withPtr ---> GInt.FFI.fromVal) getHeight_ self
-    fun getModalHint self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getModalHint_ self
+    fun getGroup self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getGroup_ self
+    fun getHeight self = (GdkWindowClass.FFI.withPtr false ---> GInt.FFI.fromVal) getHeight_ self
+    fun getModalHint self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getModalHint_ self
     fun getOrigin self =
       let
         val x
          & y
          & retVal =
           (
-            GdkWindowClass.FFI.withPtr
+            GdkWindowClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -1391,8 +1391,8 @@ structure GdkWindow :>
           y
         )
       end
-    fun getParent self = (GdkWindowClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getParent_ self
-    fun getPassThrough self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getPassThrough_ self
+    fun getParent self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getParent_ self
+    fun getPassThrough self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPassThrough_ self
     fun getPointer self =
       let
         val x
@@ -1400,7 +1400,7 @@ structure GdkWindow :>
          & mask
          & retVal =
           (
-            GdkWindowClass.FFI.withPtr
+            GdkWindowClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> GdkModifierType.FFI.withRefVal
@@ -1430,7 +1430,7 @@ structure GdkWindow :>
          & y
          & () =
           (
-            GdkWindowClass.FFI.withPtr
+            GdkWindowClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -1452,7 +1452,7 @@ structure GdkWindow :>
          & rootY
          & () =
           (
-            GdkWindowClass.FFI.withPtr
+            GdkWindowClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withRefVal
@@ -1478,7 +1478,7 @@ structure GdkWindow :>
          & y
          & () =
           (
-            GdkWindowClass.FFI.withPtr
+            GdkWindowClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -1494,21 +1494,21 @@ structure GdkWindow :>
       in
         (x, y)
       end
-    fun getScaleFactor self = (GdkWindowClass.FFI.withPtr ---> GInt.FFI.fromVal) getScaleFactor_ self
-    fun getScreen self = (GdkWindowClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
-    fun getSourceEvents self source = (GdkWindowClass.FFI.withPtr &&&> GdkInputSource.FFI.withVal ---> GdkEventMask.FFI.fromVal) getSourceEvents_ (self & source)
-    fun getState self = (GdkWindowClass.FFI.withPtr ---> GdkWindowState.FFI.fromVal) getState_ self
-    fun getSupportMultidevice self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getSupportMultidevice_ self
-    fun getToplevel self = (GdkWindowClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getToplevel_ self
-    fun getTypeHint self = (GdkWindowClass.FFI.withPtr ---> GdkWindowTypeHint.FFI.fromVal) getTypeHint_ self
-    fun getUpdateArea self = (GdkWindowClass.FFI.withPtr ---> CairoRegionRecord.FFI.fromPtr true) getUpdateArea_ self
-    fun getVisibleRegion self = (GdkWindowClass.FFI.withPtr ---> CairoRegionRecord.FFI.fromPtr true) getVisibleRegion_ self
-    fun getVisual self = (GdkWindowClass.FFI.withPtr ---> GdkVisualClass.FFI.fromPtr false) getVisual_ self
-    fun getWidth self = (GdkWindowClass.FFI.withPtr ---> GInt.FFI.fromVal) getWidth_ self
-    fun getWindowType self = (GdkWindowClass.FFI.withPtr ---> GdkWindowType.FFI.fromVal) getWindowType_ self
-    fun hasNative self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) hasNative_ self
-    fun hide self = (GdkWindowClass.FFI.withPtr ---> I) hide_ self
-    fun iconify self = (GdkWindowClass.FFI.withPtr ---> I) iconify_ self
+    fun getScaleFactor self = (GdkWindowClass.FFI.withPtr false ---> GInt.FFI.fromVal) getScaleFactor_ self
+    fun getScreen self = (GdkWindowClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun getSourceEvents self source = (GdkWindowClass.FFI.withPtr false &&&> GdkInputSource.FFI.withVal ---> GdkEventMask.FFI.fromVal) getSourceEvents_ (self & source)
+    fun getState self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowState.FFI.fromVal) getState_ self
+    fun getSupportMultidevice self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSupportMultidevice_ self
+    fun getToplevel self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getToplevel_ self
+    fun getTypeHint self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowTypeHint.FFI.fromVal) getTypeHint_ self
+    fun getUpdateArea self = (GdkWindowClass.FFI.withPtr false ---> CairoRegionRecord.FFI.fromPtr true) getUpdateArea_ self
+    fun getVisibleRegion self = (GdkWindowClass.FFI.withPtr false ---> CairoRegionRecord.FFI.fromPtr true) getVisibleRegion_ self
+    fun getVisual self = (GdkWindowClass.FFI.withPtr false ---> GdkVisualClass.FFI.fromPtr false) getVisual_ self
+    fun getWidth self = (GdkWindowClass.FFI.withPtr false ---> GInt.FFI.fromVal) getWidth_ self
+    fun getWindowType self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowType.FFI.fromVal) getWindowType_ self
+    fun hasNative self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasNative_ self
+    fun hide self = (GdkWindowClass.FFI.withPtr false ---> I) hide_ self
+    fun iconify self = (GdkWindowClass.FFI.withPtr false ---> I) iconify_ self
     fun inputShapeCombineRegion
       self
       (
@@ -1517,8 +1517,8 @@ structure GdkWindow :>
         offsetY
       ) =
       (
-        GdkWindowClass.FFI.withPtr
-         &&&> CairoRegionRecord.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
+         &&&> CairoRegionRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -1532,8 +1532,8 @@ structure GdkWindow :>
         )
     fun invalidateRect self (rect, invalidateChildren) =
       (
-        GdkWindowClass.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withOptPtr
+        GdkWindowClass.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withOptPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -1545,8 +1545,8 @@ structure GdkWindow :>
         )
     fun invalidateRegion self (region, invalidateChildren) =
       (
-        GdkWindowClass.FFI.withPtr
-         &&&> CairoRegionRecord.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
+         &&&> CairoRegionRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -1556,19 +1556,19 @@ structure GdkWindow :>
            & region
            & invalidateChildren
         )
-    fun isDestroyed self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) isDestroyed_ self
-    fun isInputOnly self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) isInputOnly_ self
-    fun isShaped self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) isShaped_ self
-    fun isViewable self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) isViewable_ self
-    fun isVisible self = (GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) isVisible_ self
-    fun lower self = (GdkWindowClass.FFI.withPtr ---> I) lower_ self
-    fun markPaintFromClip self cr = (GdkWindowClass.FFI.withPtr &&&> CairoContextRecord.FFI.withPtr ---> I) markPaintFromClip_ (self & cr)
-    fun maximize self = (GdkWindowClass.FFI.withPtr ---> I) maximize_ self
-    fun mergeChildInputShapes self = (GdkWindowClass.FFI.withPtr ---> I) mergeChildInputShapes_ self
-    fun mergeChildShapes self = (GdkWindowClass.FFI.withPtr ---> I) mergeChildShapes_ self
+    fun isDestroyed self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) isDestroyed_ self
+    fun isInputOnly self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) isInputOnly_ self
+    fun isShaped self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) isShaped_ self
+    fun isViewable self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) isViewable_ self
+    fun isVisible self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) isVisible_ self
+    fun lower self = (GdkWindowClass.FFI.withPtr false ---> I) lower_ self
+    fun markPaintFromClip self cr = (GdkWindowClass.FFI.withPtr false &&&> CairoContextRecord.FFI.withPtr false ---> I) markPaintFromClip_ (self & cr)
+    fun maximize self = (GdkWindowClass.FFI.withPtr false ---> I) maximize_ self
+    fun mergeChildInputShapes self = (GdkWindowClass.FFI.withPtr false ---> I) mergeChildInputShapes_ self
+    fun mergeChildShapes self = (GdkWindowClass.FFI.withPtr false ---> I) mergeChildShapes_ self
     fun move self (x, y) =
       (
-        GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -1587,8 +1587,8 @@ structure GdkWindow :>
         dy
       ) =
       (
-        GdkWindowClass.FFI.withPtr
-         &&&> CairoRegionRecord.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
+         &&&> CairoRegionRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -1609,7 +1609,7 @@ structure GdkWindow :>
         height
       ) =
       (
-        GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -1624,9 +1624,9 @@ structure GdkWindow :>
            & width
            & height
         )
-    fun processUpdates self updateChildren = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) processUpdates_ (self & updateChildren)
-    fun raise' self = (GdkWindowClass.FFI.withPtr ---> I) raise_ self
-    fun registerDnd self = (GdkWindowClass.FFI.withPtr ---> I) registerDnd_ self
+    fun processUpdates self updateChildren = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) processUpdates_ (self & updateChildren)
+    fun raise' self = (GdkWindowClass.FFI.withPtr false ---> I) raise_ self
+    fun registerDnd self = (GdkWindowClass.FFI.withPtr false ---> I) registerDnd_ self
     fun reparent
       self
       (
@@ -1635,8 +1635,8 @@ structure GdkWindow :>
         y
       ) =
       (
-        GdkWindowClass.FFI.withPtr
-         &&&> GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
+         &&&> GdkWindowClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -1650,7 +1650,7 @@ structure GdkWindow :>
         )
     fun resize self (width, height) =
       (
-        GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -1663,8 +1663,8 @@ structure GdkWindow :>
         )
     fun restack self (sibling, above) =
       (
-        GdkWindowClass.FFI.withPtr
-         &&&> GdkWindowClass.FFI.withOptPtr
+        GdkWindowClass.FFI.withPtr false
+         &&&> GdkWindowClass.FFI.withOptPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -1676,7 +1676,7 @@ structure GdkWindow :>
         )
     fun scroll self (dx, dy) =
       (
-        GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -1687,20 +1687,20 @@ structure GdkWindow :>
            & dx
            & dy
         )
-    fun setAcceptFocus self acceptFocus = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAcceptFocus_ (self & acceptFocus)
-    fun setBackground self color = (GdkWindowClass.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) setBackground_ (self & color)
-    fun setBackgroundPattern self pattern = (GdkWindowClass.FFI.withPtr &&&> CairoPatternRecord.FFI.withOptPtr ---> I) setBackgroundPattern_ (self & pattern)
-    fun setBackgroundRgba self rgba = (GdkWindowClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setBackgroundRgba_ (self & rgba)
-    fun setChildInputShapes self = (GdkWindowClass.FFI.withPtr ---> I) setChildInputShapes_ self
-    fun setChildShapes self = (GdkWindowClass.FFI.withPtr ---> I) setChildShapes_ self
-    fun setComposited self composited = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setComposited_ (self & composited)
-    fun setCursor self cursor = (GdkWindowClass.FFI.withPtr &&&> GdkCursorClass.FFI.withOptPtr ---> I) setCursor_ (self & cursor)
-    fun setDecorations self decorations = (GdkWindowClass.FFI.withPtr &&&> GdkWMDecoration.FFI.withVal ---> I) setDecorations_ (self & decorations)
+    fun setAcceptFocus self acceptFocus = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAcceptFocus_ (self & acceptFocus)
+    fun setBackground self color = (GdkWindowClass.FFI.withPtr false &&&> GdkColorRecord.FFI.withPtr false ---> I) setBackground_ (self & color)
+    fun setBackgroundPattern self pattern = (GdkWindowClass.FFI.withPtr false &&&> CairoPatternRecord.FFI.withOptPtr false ---> I) setBackgroundPattern_ (self & pattern)
+    fun setBackgroundRgba self rgba = (GdkWindowClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withPtr false ---> I) setBackgroundRgba_ (self & rgba)
+    fun setChildInputShapes self = (GdkWindowClass.FFI.withPtr false ---> I) setChildInputShapes_ self
+    fun setChildShapes self = (GdkWindowClass.FFI.withPtr false ---> I) setChildShapes_ self
+    fun setComposited self composited = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setComposited_ (self & composited)
+    fun setCursor self cursor = (GdkWindowClass.FFI.withPtr false &&&> GdkCursorClass.FFI.withOptPtr false ---> I) setCursor_ (self & cursor)
+    fun setDecorations self decorations = (GdkWindowClass.FFI.withPtr false &&&> GdkWMDecoration.FFI.withVal ---> I) setDecorations_ (self & decorations)
     fun setDeviceCursor self (device, cursor) =
       (
-        GdkWindowClass.FFI.withPtr
-         &&&> GdkDeviceClass.FFI.withPtr
-         &&&> GdkCursorClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
+         &&&> GdkDeviceClass.FFI.withPtr false
+         &&&> GdkCursorClass.FFI.withPtr false
          ---> I
       )
         setDeviceCursor_
@@ -1711,8 +1711,8 @@ structure GdkWindow :>
         )
     fun setDeviceEvents self (device, eventMask) =
       (
-        GdkWindowClass.FFI.withPtr
-         &&&> GdkDeviceClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
+         &&&> GdkDeviceClass.FFI.withPtr false
          &&&> GdkEventMask.FFI.withVal
          ---> I
       )
@@ -1722,15 +1722,15 @@ structure GdkWindow :>
            & device
            & eventMask
         )
-    fun setEventCompression self eventCompression = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setEventCompression_ (self & eventCompression)
-    fun setEvents self eventMask = (GdkWindowClass.FFI.withPtr &&&> GdkEventMask.FFI.withVal ---> I) setEvents_ (self & eventMask)
-    fun setFocusOnMap self focusOnMap = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFocusOnMap_ (self & focusOnMap)
-    fun setFullscreenMode self mode = (GdkWindowClass.FFI.withPtr &&&> GdkFullscreenMode.FFI.withVal ---> I) setFullscreenMode_ (self & mode)
-    fun setFunctions self functions = (GdkWindowClass.FFI.withPtr &&&> GdkWMFunction.FFI.withVal ---> I) setFunctions_ (self & functions)
+    fun setEventCompression self eventCompression = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setEventCompression_ (self & eventCompression)
+    fun setEvents self eventMask = (GdkWindowClass.FFI.withPtr false &&&> GdkEventMask.FFI.withVal ---> I) setEvents_ (self & eventMask)
+    fun setFocusOnMap self focusOnMap = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setFocusOnMap_ (self & focusOnMap)
+    fun setFullscreenMode self mode = (GdkWindowClass.FFI.withPtr false &&&> GdkFullscreenMode.FFI.withVal ---> I) setFullscreenMode_ (self & mode)
+    fun setFunctions self functions = (GdkWindowClass.FFI.withPtr false &&&> GdkWMFunction.FFI.withVal ---> I) setFunctions_ (self & functions)
     fun setGeometryHints self (geometry, geomMask) =
       (
-        GdkWindowClass.FFI.withPtr
-         &&&> GdkGeometryRecord.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
+         &&&> GdkGeometryRecord.FFI.withPtr false
          &&&> GdkWindowHints.FFI.withVal
          ---> I
       )
@@ -1740,16 +1740,16 @@ structure GdkWindow :>
            & geometry
            & geomMask
         )
-    fun setGroup self leader = (GdkWindowClass.FFI.withPtr &&&> GdkWindowClass.FFI.withOptPtr ---> I) setGroup_ (self & leader)
-    fun setIconName self name = (GdkWindowClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setIconName_ (self & name)
-    fun setKeepAbove self setting = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setKeepAbove_ (self & setting)
-    fun setKeepBelow self setting = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setKeepBelow_ (self & setting)
-    fun setModalHint self modal = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setModalHint_ (self & modal)
-    fun setOpacity self opacity = (GdkWindowClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setOpacity_ (self & opacity)
-    fun setOpaqueRegion self region = (GdkWindowClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withOptPtr ---> I) setOpaqueRegion_ (self & region)
-    fun setOverrideRedirect self overrideRedirect = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setOverrideRedirect_ (self & overrideRedirect)
-    fun setPassThrough self passThrough = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setPassThrough_ (self & passThrough)
-    fun setRole self role = (GdkWindowClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setRole_ (self & role)
+    fun setGroup self leader = (GdkWindowClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withOptPtr false ---> I) setGroup_ (self & leader)
+    fun setIconName self name = (GdkWindowClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setIconName_ (self & name)
+    fun setKeepAbove self setting = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setKeepAbove_ (self & setting)
+    fun setKeepBelow self setting = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setKeepBelow_ (self & setting)
+    fun setModalHint self modal = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setModalHint_ (self & modal)
+    fun setOpacity self opacity = (GdkWindowClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setOpacity_ (self & opacity)
+    fun setOpaqueRegion self region = (GdkWindowClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withOptPtr false ---> I) setOpaqueRegion_ (self & region)
+    fun setOverrideRedirect self overrideRedirect = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setOverrideRedirect_ (self & overrideRedirect)
+    fun setPassThrough self passThrough = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setPassThrough_ (self & passThrough)
+    fun setRole self role = (GdkWindowClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setRole_ (self & role)
     fun setShadowWidth
       self
       (
@@ -1759,7 +1759,7 @@ structure GdkWindow :>
         bottom
       ) =
       (
-        GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -1774,11 +1774,11 @@ structure GdkWindow :>
            & top
            & bottom
         )
-    fun setSkipPagerHint self skipsPager = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSkipPagerHint_ (self & skipsPager)
-    fun setSkipTaskbarHint self skipsTaskbar = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSkipTaskbarHint_ (self & skipsTaskbar)
+    fun setSkipPagerHint self skipsPager = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSkipPagerHint_ (self & skipsPager)
+    fun setSkipTaskbarHint self skipsTaskbar = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSkipTaskbarHint_ (self & skipsTaskbar)
     fun setSourceEvents self (source, eventMask) =
       (
-        GdkWindowClass.FFI.withPtr
+        GdkWindowClass.FFI.withPtr false
          &&&> GdkInputSource.FFI.withVal
          &&&> GdkEventMask.FFI.withVal
          ---> I
@@ -1789,14 +1789,14 @@ structure GdkWindow :>
            & source
            & eventMask
         )
-    fun setStartupId self startupId = (GdkWindowClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setStartupId_ (self & startupId)
-    fun setStaticGravities self useStatic = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) setStaticGravities_ (self & useStatic)
-    fun setSupportMultidevice self supportMultidevice = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
-    fun setTitle self title = (GdkWindowClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTitle_ (self & title)
-    fun setTransientFor self parent = (GdkWindowClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> I) setTransientFor_ (self & parent)
-    fun setTypeHint self hint = (GdkWindowClass.FFI.withPtr &&&> GdkWindowTypeHint.FFI.withVal ---> I) setTypeHint_ (self & hint)
-    fun setUrgencyHint self urgent = (GdkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUrgencyHint_ (self & urgent)
-    fun setUserData self userData = (GdkWindowClass.FFI.withPtr &&&> GObjectObjectClass.FFI.withOptPtr ---> I) setUserData_ (self & userData)
+    fun setStartupId self startupId = (GdkWindowClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setStartupId_ (self & startupId)
+    fun setStaticGravities self useStatic = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) setStaticGravities_ (self & useStatic)
+    fun setSupportMultidevice self supportMultidevice = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
+    fun setTitle self title = (GdkWindowClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTitle_ (self & title)
+    fun setTransientFor self parent = (GdkWindowClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> I) setTransientFor_ (self & parent)
+    fun setTypeHint self hint = (GdkWindowClass.FFI.withPtr false &&&> GdkWindowTypeHint.FFI.withVal ---> I) setTypeHint_ (self & hint)
+    fun setUrgencyHint self urgent = (GdkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUrgencyHint_ (self & urgent)
+    fun setUserData self userData = (GdkWindowClass.FFI.withPtr false &&&> GObjectObjectClass.FFI.withOptPtr false ---> I) setUserData_ (self & userData)
     fun shapeCombineRegion
       self
       (
@@ -1805,8 +1805,8 @@ structure GdkWindow :>
         offsetY
       ) =
       (
-        GdkWindowClass.FFI.withPtr
-         &&&> CairoRegionRecord.FFI.withOptPtr
+        GdkWindowClass.FFI.withPtr false
+         &&&> CairoRegionRecord.FFI.withOptPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -1818,16 +1818,16 @@ structure GdkWindow :>
            & offsetX
            & offsetY
         )
-    fun show self = (GdkWindowClass.FFI.withPtr ---> I) show_ self
-    fun showUnraised self = (GdkWindowClass.FFI.withPtr ---> I) showUnraised_ self
-    fun showWindowMenu self event = (GdkWindowClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> GBool.FFI.fromVal) showWindowMenu_ (self & event)
-    fun stick self = (GdkWindowClass.FFI.withPtr ---> I) stick_ self
-    fun thawToplevelUpdatesLibgtkOnly self = (GdkWindowClass.FFI.withPtr ---> I) thawToplevelUpdatesLibgtkOnly_ self
-    fun thawUpdates self = (GdkWindowClass.FFI.withPtr ---> I) thawUpdates_ self
-    fun unfullscreen self = (GdkWindowClass.FFI.withPtr ---> I) unfullscreen_ self
-    fun unmaximize self = (GdkWindowClass.FFI.withPtr ---> I) unmaximize_ self
-    fun unstick self = (GdkWindowClass.FFI.withPtr ---> I) unstick_ self
-    fun withdraw self = (GdkWindowClass.FFI.withPtr ---> I) withdraw_ self
+    fun show self = (GdkWindowClass.FFI.withPtr false ---> I) show_ self
+    fun showUnraised self = (GdkWindowClass.FFI.withPtr false ---> I) showUnraised_ self
+    fun showWindowMenu self event = (GdkWindowClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> GBool.FFI.fromVal) showWindowMenu_ (self & event)
+    fun stick self = (GdkWindowClass.FFI.withPtr false ---> I) stick_ self
+    fun thawToplevelUpdatesLibgtkOnly self = (GdkWindowClass.FFI.withPtr false ---> I) thawToplevelUpdatesLibgtkOnly_ self
+    fun thawUpdates self = (GdkWindowClass.FFI.withPtr false ---> I) thawUpdates_ self
+    fun unfullscreen self = (GdkWindowClass.FFI.withPtr false ---> I) unfullscreen_ self
+    fun unmaximize self = (GdkWindowClass.FFI.withPtr false ---> I) unmaximize_ self
+    fun unstick self = (GdkWindowClass.FFI.withPtr false ---> I) unstick_ self
+    fun withdraw self = (GdkWindowClass.FFI.withPtr false ---> I) withdraw_ self
     local
       open ClosureMarshal Signal
     in

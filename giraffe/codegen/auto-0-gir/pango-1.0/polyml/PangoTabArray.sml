@@ -35,16 +35,16 @@ structure PangoTabArray :>
     type tab_align_t = PangoTabAlign.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (initialSize, positionsInPixels) = (GInt.FFI.withVal &&&> GBool.FFI.withVal ---> PangoTabArrayRecord.FFI.fromPtr true) new_ (initialSize & positionsInPixels)
-    fun copy self = (PangoTabArrayRecord.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromPtr true) copy_ self
-    fun getPositionsInPixels self = (PangoTabArrayRecord.FFI.withPtr ---> GBool.FFI.fromVal) getPositionsInPixels_ self
-    fun getSize self = (PangoTabArrayRecord.FFI.withPtr ---> GInt.FFI.fromVal) getSize_ self
+    fun copy self = (PangoTabArrayRecord.FFI.withPtr false ---> PangoTabArrayRecord.FFI.fromPtr true) copy_ self
+    fun getPositionsInPixels self = (PangoTabArrayRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getPositionsInPixels_ self
+    fun getSize self = (PangoTabArrayRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getSize_ self
     fun getTab self tabIndex =
       let
         val alignment
          & location
          & () =
           (
-            PangoTabArrayRecord.FFI.withPtr
+            PangoTabArrayRecord.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> PangoTabAlign.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -62,7 +62,7 @@ structure PangoTabArray :>
       in
         (alignment, location)
       end
-    fun resize self newSize = (PangoTabArrayRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> I) resize_ (self & newSize)
+    fun resize self newSize = (PangoTabArrayRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) resize_ (self & newSize)
     fun setTab
       self
       (
@@ -71,7 +71,7 @@ structure PangoTabArray :>
         location
       ) =
       (
-        PangoTabArrayRecord.FFI.withPtr
+        PangoTabArrayRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> PangoTabAlign.FFI.withVal
          &&&> GInt.FFI.withVal

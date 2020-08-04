@@ -25,9 +25,9 @@ structure GioIcon :>
     type 'a class = 'a GioIconClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun deserialize value = (GLibVariantRecord.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) deserialize_ value
-    fun newForString str = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioIconClass.FFI.fromPtr true) newForString_ (str & [])
-    fun equal self icon2 = (GioIconClass.FFI.withPtr &&&> GioIconClass.FFI.withOptPtr ---> GBool.FFI.fromVal) equal_ (self & icon2)
-    fun serialize self = (GioIconClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) serialize_ self
-    fun toString self = (GioIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) toString_ self
+    fun deserialize value = (GLibVariantRecord.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) deserialize_ value
+    fun newForString str = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GioIconClass.FFI.fromPtr true) newForString_ (str & [])
+    fun equal self icon2 = (GioIconClass.FFI.withPtr false &&&> GioIconClass.FFI.withOptPtr false ---> GBool.FFI.fromVal) equal_ (self & icon2)
+    fun serialize self = (GioIconClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr true) serialize_ self
+    fun toString self = (GioIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) toString_ self
   end

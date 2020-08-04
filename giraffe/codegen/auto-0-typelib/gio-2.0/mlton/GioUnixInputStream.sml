@@ -13,13 +13,13 @@ structure GioUnixInputStream :>
     type 'a file_descriptor_based_class = 'a GioFileDescriptorBasedClass.class
     type 'a pollable_input_stream_class = 'a GioPollableInputStreamClass.class
     type t = base class
-    fun asFileDescriptorBased self = (GObjectObjectClass.FFI.withPtr ---> GioFileDescriptorBasedClass.FFI.fromPtr false) I self
-    fun asPollableInputStream self = (GObjectObjectClass.FFI.withPtr ---> GioPollableInputStreamClass.FFI.fromPtr false) I self
+    fun asFileDescriptorBased self = (GObjectObjectClass.FFI.withPtr false ---> GioFileDescriptorBasedClass.FFI.fromPtr false) I self
+    fun asPollableInputStream self = (GObjectObjectClass.FFI.withPtr false ---> GioPollableInputStreamClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (fd, closeFd) = (GInt32.FFI.withVal &&&> GBool.FFI.withVal ---> GioUnixInputStreamClass.FFI.fromPtr true) new_ (fd & closeFd)
-    fun getCloseFd self = (GioUnixInputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) getCloseFd_ self
-    fun getFd self = (GioUnixInputStreamClass.FFI.withPtr ---> GInt32.FFI.fromVal) getFd_ self
-    fun setCloseFd self closeFd = (GioUnixInputStreamClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCloseFd_ (self & closeFd)
+    fun getCloseFd self = (GioUnixInputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCloseFd_ self
+    fun getFd self = (GioUnixInputStreamClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getFd_ self
+    fun setCloseFd self closeFd = (GioUnixInputStreamClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCloseFd_ (self & closeFd)
     local
       open Property
     in

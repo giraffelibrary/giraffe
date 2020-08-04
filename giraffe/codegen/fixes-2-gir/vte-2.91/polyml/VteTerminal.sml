@@ -271,13 +271,13 @@ structure VteTerminal :>
     type erase_binding_t = VteEraseBinding.t
     type 'a pty_class = 'a VtePtyClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asScrollable self = (GObjectObjectClass.FFI.withPtr ---> GtkScrollableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asScrollable self = (GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> VteTerminalClass.FFI.fromPtr false) new_ ()
-    fun copyClipboard self = (VteTerminalClass.FFI.withPtr ---> I) copyClipboard_ self
-    fun copyPrimary self = (VteTerminalClass.FFI.withPtr ---> I) copyPrimary_ self
+    fun copyClipboard self = (VteTerminalClass.FFI.withPtr false ---> I) copyClipboard_ self
+    fun copyPrimary self = (VteTerminalClass.FFI.withPtr false ---> I) copyPrimary_ self
     fun feed self data =
       let
         val length =
@@ -286,8 +286,8 @@ structure VteTerminal :>
           | NONE => GSSize.null
         val () =
           (
-            VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withOptPtr
+            VteTerminalClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withOptPtr 0
              &&&> GSSize.FFI.withVal
              ---> I
           )
@@ -302,8 +302,8 @@ structure VteTerminal :>
       end
     fun feedChild self (text, length) =
       (
-        VteTerminalClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        VteTerminalClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GSSize.FFI.withVal
          ---> I
       )
@@ -321,8 +321,8 @@ structure VteTerminal :>
           | NONE => GSize.null
         val () =
           (
-            VteTerminalClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withOptPtr
+            VteTerminalClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withOptPtr 0
              &&&> GSize.FFI.withVal
              ---> I
           )
@@ -335,22 +335,22 @@ structure VteTerminal :>
       in
         ()
       end
-    fun getAllowBold self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getAllowBold_ self
-    fun getAudibleBell self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getAudibleBell_ self
-    fun getCharHeight self = (VteTerminalClass.FFI.withPtr ---> GLong.FFI.fromVal) getCharHeight_ self
-    fun getCharWidth self = (VteTerminalClass.FFI.withPtr ---> GLong.FFI.fromVal) getCharWidth_ self
-    fun getCjkAmbiguousWidth self = (VteTerminalClass.FFI.withPtr ---> GInt.FFI.fromVal) getCjkAmbiguousWidth_ self
-    fun getColumnCount self = (VteTerminalClass.FFI.withPtr ---> GLong.FFI.fromVal) getColumnCount_ self
-    fun getCurrentDirectoryUri self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCurrentDirectoryUri_ self
-    fun getCurrentFileUri self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCurrentFileUri_ self
-    fun getCursorBlinkMode self = (VteTerminalClass.FFI.withPtr ---> VteCursorBlinkMode.FFI.fromVal) getCursorBlinkMode_ self
+    fun getAllowBold self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAllowBold_ self
+    fun getAudibleBell self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAudibleBell_ self
+    fun getCharHeight self = (VteTerminalClass.FFI.withPtr false ---> GLong.FFI.fromVal) getCharHeight_ self
+    fun getCharWidth self = (VteTerminalClass.FFI.withPtr false ---> GLong.FFI.fromVal) getCharWidth_ self
+    fun getCjkAmbiguousWidth self = (VteTerminalClass.FFI.withPtr false ---> GInt.FFI.fromVal) getCjkAmbiguousWidth_ self
+    fun getColumnCount self = (VteTerminalClass.FFI.withPtr false ---> GLong.FFI.fromVal) getColumnCount_ self
+    fun getCurrentDirectoryUri self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCurrentDirectoryUri_ self
+    fun getCurrentFileUri self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCurrentFileUri_ self
+    fun getCursorBlinkMode self = (VteTerminalClass.FFI.withPtr false ---> VteCursorBlinkMode.FFI.fromVal) getCursorBlinkMode_ self
     fun getCursorPosition self =
       let
         val column
          & row
          & () =
           (
-            VteTerminalClass.FFI.withPtr
+            VteTerminalClass.FFI.withPtr false
              &&&> GLong.FFI.withRefVal
              &&&> GLong.FFI.withRefVal
              ---> GLong.FFI.fromVal
@@ -366,15 +366,15 @@ structure VteTerminal :>
       in
         (column, row)
       end
-    fun getCursorShape self = (VteTerminalClass.FFI.withPtr ---> VteCursorShape.FFI.fromVal) getCursorShape_ self
-    fun getEncoding self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getEncoding_ self
-    fun getFont self = (VteTerminalClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFont_ self
-    fun getFontScale self = (VteTerminalClass.FFI.withPtr ---> GDouble.FFI.fromVal) getFontScale_ self
+    fun getCursorShape self = (VteTerminalClass.FFI.withPtr false ---> VteCursorShape.FFI.fromVal) getCursorShape_ self
+    fun getEncoding self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEncoding_ self
+    fun getFont self = (VteTerminalClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFont_ self
+    fun getFontScale self = (VteTerminalClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getFontScale_ self
     fun getGeometryHints self (minRows, minColumns) =
       let
         val hints & () =
           (
-            VteTerminalClass.FFI.withPtr
+            VteTerminalClass.FFI.withPtr false
              &&&> GdkGeometryRecord.FFI.withNewPtr
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
@@ -390,19 +390,19 @@ structure VteTerminal :>
       in
         hints
       end
-    fun getHasSelection self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasSelection_ self
-    fun getIconTitle self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getIconTitle_ self
-    fun getInputEnabled self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getInputEnabled_ self
-    fun getMouseAutohide self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getMouseAutohide_ self
-    fun getPty self = (VteTerminalClass.FFI.withPtr ---> VtePtyClass.FFI.fromPtr false) getPty_ self
-    fun getRewrapOnResize self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) getRewrapOnResize_ self
-    fun getRowCount self = (VteTerminalClass.FFI.withPtr ---> GLong.FFI.fromVal) getRowCount_ self
-    fun getWindowTitle self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getWindowTitle_ self
-    fun getWordCharExceptions self = (VteTerminalClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getWordCharExceptions_ self
+    fun getHasSelection self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasSelection_ self
+    fun getIconTitle self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIconTitle_ self
+    fun getInputEnabled self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInputEnabled_ self
+    fun getMouseAutohide self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) getMouseAutohide_ self
+    fun getPty self = (VteTerminalClass.FFI.withPtr false ---> VtePtyClass.FFI.fromPtr false) getPty_ self
+    fun getRewrapOnResize self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRewrapOnResize_ self
+    fun getRowCount self = (VteTerminalClass.FFI.withPtr false ---> GLong.FFI.fromVal) getRowCount_ self
+    fun getWindowTitle self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getWindowTitle_ self
+    fun getWordCharExceptions self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getWordCharExceptions_ self
     fun matchAddGregex self (gregex, gflags) =
       (
-        VteTerminalClass.FFI.withPtr
-         &&&> GLibRegexRecord.FFI.withPtr
+        VteTerminalClass.FFI.withPtr false
+         &&&> GLibRegexRecord.FFI.withPtr false
          &&&> GLibRegexMatchFlags.FFI.withVal
          ---> GInt.FFI.fromVal
       )
@@ -414,8 +414,8 @@ structure VteTerminal :>
         )
     fun matchAddRegex self (regex, flags) =
       (
-        VteTerminalClass.FFI.withPtr
-         &&&> VteRegexRecord.FFI.withPtr
+        VteTerminalClass.FFI.withPtr false
+         &&&> VteRegexRecord.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          ---> GInt.FFI.fromVal
       )
@@ -429,11 +429,11 @@ structure VteTerminal :>
       let
         val tag & retVal =
           (
-            VteTerminalClass.FFI.withPtr
+            VteTerminalClass.FFI.withPtr false
              &&&> GLong.FFI.withVal
              &&&> GLong.FFI.withVal
              &&&> GInt.FFI.withRefVal
-             ---> GInt.FFI.fromVal && Utf8.FFI.fromPtr 1
+             ---> GInt.FFI.fromVal && Utf8.FFI.fromPtr ~1
           )
             matchCheck_
             (
@@ -449,10 +449,10 @@ structure VteTerminal :>
       let
         val tag & retVal =
           (
-            VteTerminalClass.FFI.withPtr
-             &&&> GdkEvent.FFI.withPtr
+            VteTerminalClass.FFI.withPtr false
+             &&&> GdkEvent.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
-             ---> GInt.FFI.fromVal && Utf8.FFI.fromPtr 1
+             ---> GInt.FFI.fromVal && Utf8.FFI.fromPtr ~1
           )
             matchCheckEvent_
             (
@@ -463,13 +463,13 @@ structure VteTerminal :>
       in
         (retVal, tag)
       end
-    fun matchRemove self tag = (VteTerminalClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) matchRemove_ (self & tag)
-    fun matchRemoveAll self = (VteTerminalClass.FFI.withPtr ---> I) matchRemoveAll_ self
+    fun matchRemove self tag = (VteTerminalClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) matchRemove_ (self & tag)
+    fun matchRemoveAll self = (VteTerminalClass.FFI.withPtr false ---> I) matchRemoveAll_ self
     fun matchSetCursor self (tag, cursor) =
       (
-        VteTerminalClass.FFI.withPtr
+        VteTerminalClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> GdkCursorClass.FFI.withOptPtr
+         &&&> GdkCursorClass.FFI.withOptPtr false
          ---> I
       )
         matchSetCursor_
@@ -480,9 +480,9 @@ structure VteTerminal :>
         )
     fun matchSetCursorName self (tag, cursorName) =
       (
-        VteTerminalClass.FFI.withPtr
+        VteTerminalClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         matchSetCursorName_
@@ -493,7 +493,7 @@ structure VteTerminal :>
         )
     fun matchSetCursorType self (tag, cursorType) =
       (
-        VteTerminalClass.FFI.withPtr
+        VteTerminalClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GdkCursorType.FFI.withVal
          ---> I
@@ -504,13 +504,13 @@ structure VteTerminal :>
            & tag
            & cursorType
         )
-    fun pasteClipboard self = (VteTerminalClass.FFI.withPtr ---> I) pasteClipboard_ self
-    fun pastePrimary self = (VteTerminalClass.FFI.withPtr ---> I) pastePrimary_ self
+    fun pasteClipboard self = (VteTerminalClass.FFI.withPtr false ---> I) pasteClipboard_ self
+    fun pastePrimary self = (VteTerminalClass.FFI.withPtr false ---> I) pastePrimary_ self
     fun ptyNewSync self (flags, cancellable) =
       (
-        VteTerminalClass.FFI.withPtr
+        VteTerminalClass.FFI.withPtr false
          &&&> VtePtyFlags.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> VtePtyClass.FFI.fromPtr true
       )
@@ -523,7 +523,7 @@ structure VteTerminal :>
         )
     fun reset self (clearTabstops, clearHistory) =
       (
-        VteTerminalClass.FFI.withPtr
+        VteTerminalClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
@@ -534,15 +534,15 @@ structure VteTerminal :>
            & clearTabstops
            & clearHistory
         )
-    fun searchFindNext self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) searchFindNext_ self
-    fun searchFindPrevious self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) searchFindPrevious_ self
-    fun searchGetGregex self = (VteTerminalClass.FFI.withPtr ---> GLibRegexRecord.FFI.fromPtr false) searchGetGregex_ self
-    fun searchGetRegex self = (VteTerminalClass.FFI.withPtr ---> VteRegexRecord.FFI.fromPtr false) searchGetRegex_ self
-    fun searchGetWrapAround self = (VteTerminalClass.FFI.withPtr ---> GBool.FFI.fromVal) searchGetWrapAround_ self
+    fun searchFindNext self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) searchFindNext_ self
+    fun searchFindPrevious self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) searchFindPrevious_ self
+    fun searchGetGregex self = (VteTerminalClass.FFI.withPtr false ---> GLibRegexRecord.FFI.fromPtr false) searchGetGregex_ self
+    fun searchGetRegex self = (VteTerminalClass.FFI.withPtr false ---> VteRegexRecord.FFI.fromPtr false) searchGetRegex_ self
+    fun searchGetWrapAround self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) searchGetWrapAround_ self
     fun searchSetGregex self (gregex, gflags) =
       (
-        VteTerminalClass.FFI.withPtr
-         &&&> GLibRegexRecord.FFI.withOptPtr
+        VteTerminalClass.FFI.withPtr false
+         &&&> GLibRegexRecord.FFI.withOptPtr false
          &&&> GLibRegexMatchFlags.FFI.withVal
          ---> I
       )
@@ -554,8 +554,8 @@ structure VteTerminal :>
         )
     fun searchSetRegex self (regex, flags) =
       (
-        VteTerminalClass.FFI.withPtr
-         &&&> VteRegexRecord.FFI.withOptPtr
+        VteTerminalClass.FFI.withPtr false
+         &&&> VteRegexRecord.FFI.withOptPtr false
          &&&> GUInt32.FFI.withVal
          ---> I
       )
@@ -565,19 +565,19 @@ structure VteTerminal :>
            & regex
            & flags
         )
-    fun searchSetWrapAround self wrapAround = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) searchSetWrapAround_ (self & wrapAround)
-    fun selectAll self = (VteTerminalClass.FFI.withPtr ---> I) selectAll_ self
-    fun setAllowBold self allowBold = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAllowBold_ (self & allowBold)
-    fun setAudibleBell self isAudible = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAudibleBell_ (self & isAudible)
-    fun setBackspaceBinding self binding = (VteTerminalClass.FFI.withPtr &&&> VteEraseBinding.FFI.withVal ---> I) setBackspaceBinding_ (self & binding)
-    fun setCjkAmbiguousWidth self width = (VteTerminalClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setCjkAmbiguousWidth_ (self & width)
-    fun setColorBackground self background = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setColorBackground_ (self & background)
-    fun setColorBold self bold = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorBold_ (self & bold)
-    fun setColorCursor self cursorBackground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorCursor_ (self & cursorBackground)
-    fun setColorCursorForeground self cursorForeground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorCursorForeground_ (self & cursorForeground)
-    fun setColorForeground self foreground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setColorForeground_ (self & foreground)
-    fun setColorHighlight self highlightBackground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlight_ (self & highlightBackground)
-    fun setColorHighlightForeground self highlightForeground = (VteTerminalClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setColorHighlightForeground_ (self & highlightForeground)
+    fun searchSetWrapAround self wrapAround = (VteTerminalClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) searchSetWrapAround_ (self & wrapAround)
+    fun selectAll self = (VteTerminalClass.FFI.withPtr false ---> I) selectAll_ self
+    fun setAllowBold self allowBold = (VteTerminalClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAllowBold_ (self & allowBold)
+    fun setAudibleBell self isAudible = (VteTerminalClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAudibleBell_ (self & isAudible)
+    fun setBackspaceBinding self binding = (VteTerminalClass.FFI.withPtr false &&&> VteEraseBinding.FFI.withVal ---> I) setBackspaceBinding_ (self & binding)
+    fun setCjkAmbiguousWidth self width = (VteTerminalClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setCjkAmbiguousWidth_ (self & width)
+    fun setColorBackground self background = (VteTerminalClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withPtr false ---> I) setColorBackground_ (self & background)
+    fun setColorBold self bold = (VteTerminalClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withOptPtr false ---> I) setColorBold_ (self & bold)
+    fun setColorCursor self cursorBackground = (VteTerminalClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withOptPtr false ---> I) setColorCursor_ (self & cursorBackground)
+    fun setColorCursorForeground self cursorForeground = (VteTerminalClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withOptPtr false ---> I) setColorCursorForeground_ (self & cursorForeground)
+    fun setColorForeground self foreground = (VteTerminalClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withPtr false ---> I) setColorForeground_ (self & foreground)
+    fun setColorHighlight self highlightBackground = (VteTerminalClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withOptPtr false ---> I) setColorHighlight_ (self & highlightBackground)
+    fun setColorHighlightForeground self highlightForeground = (VteTerminalClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withOptPtr false ---> I) setColorHighlightForeground_ (self & highlightForeground)
     fun setColors
       self
       (
@@ -592,10 +592,10 @@ structure VteTerminal :>
           | NONE => GSize.null
         val () =
           (
-            VteTerminalClass.FFI.withPtr
-             &&&> GdkRgbaRecord.FFI.withOptPtr
-             &&&> GdkRgbaRecord.FFI.withOptPtr
-             &&&> GdkRgbaRecordCArrayN.FFI.withOptPtr
+            VteTerminalClass.FFI.withPtr false
+             &&&> GdkRgbaRecord.FFI.withOptPtr false
+             &&&> GdkRgbaRecord.FFI.withOptPtr false
+             &&&> GdkRgbaRecordCArrayN.FFI.withOptPtr 0
              &&&> GSize.FFI.withVal
              ---> I
           )
@@ -610,14 +610,14 @@ structure VteTerminal :>
       in
         ()
       end
-    fun setCursorBlinkMode self mode = (VteTerminalClass.FFI.withPtr &&&> VteCursorBlinkMode.FFI.withVal ---> I) setCursorBlinkMode_ (self & mode)
-    fun setCursorShape self shape = (VteTerminalClass.FFI.withPtr &&&> VteCursorShape.FFI.withVal ---> I) setCursorShape_ (self & shape)
-    fun setDefaultColors self = (VteTerminalClass.FFI.withPtr ---> I) setDefaultColors_ self
-    fun setDeleteBinding self binding = (VteTerminalClass.FFI.withPtr &&&> VteEraseBinding.FFI.withVal ---> I) setDeleteBinding_ (self & binding)
+    fun setCursorBlinkMode self mode = (VteTerminalClass.FFI.withPtr false &&&> VteCursorBlinkMode.FFI.withVal ---> I) setCursorBlinkMode_ (self & mode)
+    fun setCursorShape self shape = (VteTerminalClass.FFI.withPtr false &&&> VteCursorShape.FFI.withVal ---> I) setCursorShape_ (self & shape)
+    fun setDefaultColors self = (VteTerminalClass.FFI.withPtr false ---> I) setDefaultColors_ self
+    fun setDeleteBinding self binding = (VteTerminalClass.FFI.withPtr false &&&> VteEraseBinding.FFI.withVal ---> I) setDeleteBinding_ (self & binding)
     fun setEncoding self codeset =
       (
-        VteTerminalClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        VteTerminalClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -627,20 +627,20 @@ structure VteTerminal :>
            & codeset
            & []
         )
-    fun setFont self fontDesc = (VteTerminalClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withOptPtr ---> I) setFont_ (self & fontDesc)
-    fun setFontScale self scale = (VteTerminalClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setFontScale_ (self & scale)
-    fun setGeometryHintsForWindow self window = (VteTerminalClass.FFI.withPtr &&&> GtkWindowClass.FFI.withPtr ---> I) setGeometryHintsForWindow_ (self & window)
-    fun setInputEnabled self enabled = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setInputEnabled_ (self & enabled)
-    fun setMouseAutohide self setting = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setMouseAutohide_ (self & setting)
-    fun setPty self pty = (VteTerminalClass.FFI.withPtr &&&> VtePtyClass.FFI.withOptPtr ---> I) setPty_ (self & pty)
-    fun setRewrapOnResize self rewrap = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRewrapOnResize_ (self & rewrap)
-    fun setScrollOnKeystroke self scroll = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollOnKeystroke_ (self & scroll)
-    fun setScrollOnOutput self scroll = (VteTerminalClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setScrollOnOutput_ (self & scroll)
-    fun setScrollSpeed self scrollSpeed = (VteTerminalClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setScrollSpeed_ (self & scrollSpeed)
-    fun setScrollbackLines self lines = (VteTerminalClass.FFI.withPtr &&&> GLong.FFI.withVal ---> I) setScrollbackLines_ (self & lines)
+    fun setFont self fontDesc = (VteTerminalClass.FFI.withPtr false &&&> PangoFontDescriptionRecord.FFI.withOptPtr false ---> I) setFont_ (self & fontDesc)
+    fun setFontScale self scale = (VteTerminalClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setFontScale_ (self & scale)
+    fun setGeometryHintsForWindow self window = (VteTerminalClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withPtr false ---> I) setGeometryHintsForWindow_ (self & window)
+    fun setInputEnabled self enabled = (VteTerminalClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setInputEnabled_ (self & enabled)
+    fun setMouseAutohide self setting = (VteTerminalClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setMouseAutohide_ (self & setting)
+    fun setPty self pty = (VteTerminalClass.FFI.withPtr false &&&> VtePtyClass.FFI.withOptPtr false ---> I) setPty_ (self & pty)
+    fun setRewrapOnResize self rewrap = (VteTerminalClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRewrapOnResize_ (self & rewrap)
+    fun setScrollOnKeystroke self scroll = (VteTerminalClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setScrollOnKeystroke_ (self & scroll)
+    fun setScrollOnOutput self scroll = (VteTerminalClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setScrollOnOutput_ (self & scroll)
+    fun setScrollSpeed self scrollSpeed = (VteTerminalClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) setScrollSpeed_ (self & scrollSpeed)
+    fun setScrollbackLines self lines = (VteTerminalClass.FFI.withPtr false &&&> GLong.FFI.withVal ---> I) setScrollbackLines_ (self & lines)
     fun setSize self (columns, rows) =
       (
-        VteTerminalClass.FFI.withPtr
+        VteTerminalClass.FFI.withPtr false
          &&&> GLong.FFI.withVal
          &&&> GLong.FFI.withVal
          ---> I
@@ -651,23 +651,23 @@ structure VteTerminal :>
            & columns
            & rows
         )
-    fun setWordCharExceptions self exceptions = (VteTerminalClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setWordCharExceptions_ (self & exceptions)
+    fun setWordCharExceptions self exceptions = (VteTerminalClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setWordCharExceptions_ (self & exceptions)
     fun spawnSync terminal (ptyFlags, workingDirectory, argv, envv, spawnFlags, childSetup, cancellable) =
       let
         val
           childPid
            & _ =
           (
-            VteTerminalClass.FFI.withPtr
+            VteTerminalClass.FFI.withPtr false
              &&&> VtePtyFlags.FFI.withVal
-             &&&> Utf8.FFI.withOptPtr
-             &&&> Utf8CPtrArray.FFI.withPtr
-             &&&> Utf8CPtrArray.FFI.withOptPtr
+             &&&> Utf8.FFI.withOptPtr 0
+             &&&> Utf8CPtrArray.FFI.withPtr 0
+             &&&> Utf8CPtrArray.FFI.withOptPtr 0
              &&&> GLibSpawnFlags.FFI.withVal
              &&&> GLibSpawnChildSetupFunc.FFI.withOptPtrToDispatch
              &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
              &&&> GLibPid.FFI.withRefVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GLibPid.FFI.fromVal
                    && I
@@ -689,8 +689,8 @@ structure VteTerminal :>
       in
         childPid
       end
-    fun unselectAll self = (VteTerminalClass.FFI.withPtr ---> I) unselectAll_ self
-    fun watchChild self childPid = (VteTerminalClass.FFI.withPtr &&&> GLibPid.FFI.withVal ---> I) watchChild_ (self & childPid)
+    fun unselectAll self = (VteTerminalClass.FFI.withPtr false ---> I) unselectAll_ self
+    fun watchChild self childPid = (VteTerminalClass.FFI.withPtr false &&&> GLibPid.FFI.withVal ---> I) watchChild_ (self & childPid)
     fun writeContentsSync
       self
       (
@@ -699,10 +699,10 @@ structure VteTerminal :>
         cancellable
       ) =
       (
-        VteTerminalClass.FFI.withPtr
-         &&&> GioOutputStreamClass.FFI.withPtr
+        VteTerminalClass.FFI.withPtr false
+         &&&> GioOutputStreamClass.FFI.withPtr false
          &&&> VteWriteFlags.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

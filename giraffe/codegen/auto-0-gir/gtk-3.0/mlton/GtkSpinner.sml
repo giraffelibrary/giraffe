@@ -10,12 +10,12 @@ structure GtkSpinner :>
     type 'a class = 'a GtkSpinnerClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSpinnerClass.FFI.fromPtr false) new_ ()
-    fun start self = (GtkSpinnerClass.FFI.withPtr ---> I) start_ self
-    fun stop self = (GtkSpinnerClass.FFI.withPtr ---> I) stop_ self
+    fun start self = (GtkSpinnerClass.FFI.withPtr false ---> I) start_ self
+    fun stop self = (GtkSpinnerClass.FFI.withPtr false ---> I) stop_ self
     local
       open Property
     in

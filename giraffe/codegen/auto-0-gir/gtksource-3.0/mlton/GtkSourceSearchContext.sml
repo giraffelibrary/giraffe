@@ -300,15 +300,15 @@ structure GtkSourceSearchContext :>
     type 'a search_settings_class = 'a GtkSourceSearchSettingsClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (buffer, settings) = (GtkSourceBufferClass.FFI.withPtr &&&> GtkSourceSearchSettingsClass.FFI.withOptPtr ---> GtkSourceSearchContextClass.FFI.fromPtr true) new_ (buffer & settings)
+    fun new (buffer, settings) = (GtkSourceBufferClass.FFI.withPtr false &&&> GtkSourceSearchSettingsClass.FFI.withOptPtr false ---> GtkSourceSearchContextClass.FFI.fromPtr true) new_ (buffer & settings)
     fun backward self iter =
       let
         val matchStart
          & matchEnd
          & retVal =
           (
-            GtkSourceSearchContextClass.FFI.withPtr
-             &&&> GtkTextIterRecord.FFI.withPtr
+            GtkSourceSearchContextClass.FFI.withPtr false
+             &&&> GtkTextIterRecord.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              ---> GtkTextIterRecord.FFI.fromPtr true
@@ -332,8 +332,8 @@ structure GtkSourceSearchContext :>
          & hasWrappedAround
          & retVal =
           (
-            GtkSourceSearchContextClass.FFI.withPtr
-             &&&> GtkTextIterRecord.FFI.withPtr
+            GtkSourceSearchContextClass.FFI.withPtr false
+             &&&> GtkTextIterRecord.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GBool.FFI.withRefVal
@@ -367,8 +367,8 @@ structure GtkSourceSearchContext :>
          & matchEnd
          & () =
           (
-            GtkSourceSearchContextClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GtkSourceSearchContextClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GLibErrorRecord.handleError
@@ -394,8 +394,8 @@ structure GtkSourceSearchContext :>
          & hasWrappedAround
          & () =
           (
-            GtkSourceSearchContextClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GtkSourceSearchContextClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GBool.FFI.withRefVal
@@ -427,8 +427,8 @@ structure GtkSourceSearchContext :>
          & matchEnd
          & retVal =
           (
-            GtkSourceSearchContextClass.FFI.withPtr
-             &&&> GtkTextIterRecord.FFI.withPtr
+            GtkSourceSearchContextClass.FFI.withPtr false
+             &&&> GtkTextIterRecord.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              ---> GtkTextIterRecord.FFI.fromPtr true
@@ -452,8 +452,8 @@ structure GtkSourceSearchContext :>
          & hasWrappedAround
          & retVal =
           (
-            GtkSourceSearchContextClass.FFI.withPtr
-             &&&> GtkTextIterRecord.FFI.withPtr
+            GtkSourceSearchContextClass.FFI.withPtr false
+             &&&> GtkTextIterRecord.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GBool.FFI.withRefVal
@@ -487,8 +487,8 @@ structure GtkSourceSearchContext :>
          & matchEnd
          & () =
           (
-            GtkSourceSearchContextClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GtkSourceSearchContextClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GLibErrorRecord.handleError
@@ -514,8 +514,8 @@ structure GtkSourceSearchContext :>
          & hasWrappedAround
          & () =
           (
-            GtkSourceSearchContextClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GtkSourceSearchContextClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GBool.FFI.withRefVal
@@ -541,14 +541,14 @@ structure GtkSourceSearchContext :>
           hasWrappedAround
         )
       end
-    fun getBuffer self = (GtkSourceSearchContextClass.FFI.withPtr ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self
-    fun getHighlight self = (GtkSourceSearchContextClass.FFI.withPtr ---> GBool.FFI.fromVal) getHighlight_ self
-    fun getMatchStyle self = (GtkSourceSearchContextClass.FFI.withPtr ---> GtkSourceStyleClass.FFI.fromPtr false) getMatchStyle_ self
+    fun getBuffer self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getHighlight self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHighlight_ self
+    fun getMatchStyle self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GtkSourceStyleClass.FFI.fromPtr false) getMatchStyle_ self
     fun getOccurrencePosition self (matchStart, matchEnd) =
       (
-        GtkSourceSearchContextClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkSourceSearchContextClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> GInt.FFI.fromVal
       )
         getOccurrencePosition_
@@ -557,8 +557,8 @@ structure GtkSourceSearchContext :>
            & matchStart
            & matchEnd
         )
-    fun getOccurrencesCount self = (GtkSourceSearchContextClass.FFI.withPtr ---> GInt.FFI.fromVal) getOccurrencesCount_ self
-    fun getSettings self = (GtkSourceSearchContextClass.FFI.withPtr ---> GtkSourceSearchSettingsClass.FFI.fromPtr false) getSettings_ self
+    fun getOccurrencesCount self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GInt.FFI.fromVal) getOccurrencesCount_ self
+    fun getSettings self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GtkSourceSearchSettingsClass.FFI.fromPtr false) getSettings_ self
     fun replace
       self
       (
@@ -568,10 +568,10 @@ structure GtkSourceSearchContext :>
         replaceLength
       ) =
       (
-        GtkSourceSearchContextClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkSourceSearchContextClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> ignore
@@ -594,10 +594,10 @@ structure GtkSourceSearchContext :>
         replaceLength
       ) =
       (
-        GtkSourceSearchContextClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkSourceSearchContextClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> ignore
@@ -613,8 +613,8 @@ structure GtkSourceSearchContext :>
         )
     fun replaceAll self (replace, replaceLength) =
       (
-        GtkSourceSearchContextClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkSourceSearchContextClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GUInt.FFI.fromVal
@@ -626,9 +626,9 @@ structure GtkSourceSearchContext :>
            & replaceLength
            & []
         )
-    fun setHighlight self highlight = (GtkSourceSearchContextClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHighlight_ (self & highlight)
-    fun setMatchStyle self matchStyle = (GtkSourceSearchContextClass.FFI.withPtr &&&> GtkSourceStyleClass.FFI.withOptPtr ---> I) setMatchStyle_ (self & matchStyle)
-    fun setSettings self settings = (GtkSourceSearchContextClass.FFI.withPtr &&&> GtkSourceSearchSettingsClass.FFI.withOptPtr ---> I) setSettings_ (self & settings)
+    fun setHighlight self highlight = (GtkSourceSearchContextClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHighlight_ (self & highlight)
+    fun setMatchStyle self matchStyle = (GtkSourceSearchContextClass.FFI.withPtr false &&&> GtkSourceStyleClass.FFI.withOptPtr false ---> I) setMatchStyle_ (self & matchStyle)
+    fun setSettings self settings = (GtkSourceSearchContextClass.FFI.withPtr false &&&> GtkSourceSearchSettingsClass.FFI.withOptPtr false ---> I) setSettings_ (self & settings)
     local
       open Property
     in

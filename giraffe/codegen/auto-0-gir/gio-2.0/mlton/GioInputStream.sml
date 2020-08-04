@@ -212,11 +212,11 @@ structure GioInputStream :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun clearPending self = (GioInputStreamClass.FFI.withPtr ---> I) clearPending_ self
+    fun clearPending self = (GioInputStreamClass.FFI.withPtr false ---> I) clearPending_ self
     fun close self cancellable =
       (
-        GioInputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioInputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -228,8 +228,8 @@ structure GioInputStream :>
         )
     fun closeFinish self result =
       (
-        GioInputStreamClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioInputStreamClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -239,17 +239,17 @@ structure GioInputStream :>
            & result
            & []
         )
-    fun hasPending self = (GioInputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPending_ self
-    fun isClosed self = (GioInputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
+    fun hasPending self = (GioInputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasPending_ self
+    fun isClosed self = (GioInputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self
     fun read self (buffer, cancellable) =
       let
         val count = GUInt8CArrayN.length buffer
         val retVal =
           (
-            GioInputStreamClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioInputStreamClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GSSize.FFI.fromVal
           )
@@ -269,11 +269,11 @@ structure GioInputStream :>
         val count = GUInt8CArrayN.length buffer
         val bytesRead & () =
           (
-            GioInputStreamClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioInputStreamClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
              &&&> GSize.FFI.withRefVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GSize.FFI.fromVal && ignore
           )
@@ -293,8 +293,8 @@ structure GioInputStream :>
       let
         val bytesRead & () =
           (
-            GioInputStreamClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GioInputStreamClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GSize.FFI.fromVal && ignore
@@ -311,9 +311,9 @@ structure GioInputStream :>
       end
     fun readBytes self (count, cancellable) =
       (
-        GioInputStreamClass.FFI.withPtr
+        GioInputStreamClass.FFI.withPtr false
          &&&> GSize.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GLibBytesRecord.FFI.fromPtr true
       )
@@ -326,8 +326,8 @@ structure GioInputStream :>
         )
     fun readBytesFinish self result =
       (
-        GioInputStreamClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioInputStreamClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GLibBytesRecord.FFI.fromPtr true
       )
@@ -339,8 +339,8 @@ structure GioInputStream :>
         )
     fun readFinish self result =
       (
-        GioInputStreamClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioInputStreamClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GSSize.FFI.fromVal
       )
@@ -350,12 +350,12 @@ structure GioInputStream :>
            & result
            & []
         )
-    fun setPending self = (GioInputStreamClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) setPending_ (self & [])
+    fun setPending self = (GioInputStreamClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) setPending_ (self & [])
     fun skip self (count, cancellable) =
       (
-        GioInputStreamClass.FFI.withPtr
+        GioInputStreamClass.FFI.withPtr false
          &&&> GSize.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GSSize.FFI.fromVal
       )
@@ -368,8 +368,8 @@ structure GioInputStream :>
         )
     fun skipFinish self result =
       (
-        GioInputStreamClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioInputStreamClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GSSize.FFI.fromVal
       )

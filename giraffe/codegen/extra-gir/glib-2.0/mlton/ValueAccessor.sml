@@ -45,10 +45,10 @@ structure ValueAccessor :>
       end
 
     fun get ({getValue, ...} : ('a, 'b) t) value =
-      (GObjectValueRecord.FFI.withPtr ---> I) getValue value
+      (GObjectValueRecord.FFI.withPtr false ---> I) getValue value
 
     fun set ({setValue, ...} : ('a, 'b) t) value x =
-      (GObjectValueRecord.FFI.withPtr &&&> I ---> I) setValue (value & x)
+      (GObjectValueRecord.FFI.withPtr false &&&> I ---> I) setValue (value & x)
 
     fun gtype ({getType, ...} : ('a, 'b) t) = getType ()
 
@@ -247,14 +247,14 @@ structure ValueAccessor :>
           C.createAccessor {
             getType  = GObjectType.string,
             getValue = (I ---> Utf8.FFI.fromPtr 0) get_string_,
-            setValue = (I &&&> Utf8.FFI.withPtr ---> I) set_string_
+            setValue = (I &&&> Utf8.FFI.withPtr 0 ---> I) set_string_
           }
 
         val stringOpt : (string option, string option) t =
           C.createAccessor {
             getType  = GObjectType.string,
             getValue = (I ---> Utf8.FFI.fromOptPtr 0) get_string_opt_,
-            setValue = (I &&&> Utf8.FFI.withOptPtr ---> I) set_string_opt_
+            setValue = (I &&&> Utf8.FFI.withOptPtr 0 ---> I) set_string_opt_
           }
 
         (* temporary *)

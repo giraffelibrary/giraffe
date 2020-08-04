@@ -55,9 +55,9 @@ structure GtkSourceCompletionProvider :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun activateProposal self (proposal, iter) =
       (
-        GtkSourceCompletionProviderClass.FFI.withPtr
-         &&&> GtkSourceCompletionProposalClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkSourceCompletionProviderClass.FFI.withPtr false
+         &&&> GtkSourceCompletionProposalClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         activateProposal_
@@ -66,21 +66,21 @@ structure GtkSourceCompletionProvider :>
            & proposal
            & iter
         )
-    fun getActivation self = (GtkSourceCompletionProviderClass.FFI.withPtr ---> GtkSourceCompletionActivation.FFI.fromVal) getActivation_ self
-    fun getGicon self = (GtkSourceCompletionProviderClass.FFI.withPtr ---> GioIconClass.FFI.fromOptPtr false) getGicon_ self
-    fun getIcon self = (GtkSourceCompletionProviderClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getIcon_ self
-    fun getIconName self = (GtkSourceCompletionProviderClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
-    fun getInfoWidget self proposal = (GtkSourceCompletionProviderClass.FFI.withPtr &&&> GtkSourceCompletionProposalClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getInfoWidget_ (self & proposal)
-    fun getInteractiveDelay self = (GtkSourceCompletionProviderClass.FFI.withPtr ---> GInt32.FFI.fromVal) getInteractiveDelay_ self
-    fun getName self = (GtkSourceCompletionProviderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getName_ self
-    fun getPriority self = (GtkSourceCompletionProviderClass.FFI.withPtr ---> GInt32.FFI.fromVal) getPriority_ self
+    fun getActivation self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> GtkSourceCompletionActivation.FFI.fromVal) getActivation_ self
+    fun getGicon self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> GioIconClass.FFI.fromOptPtr false) getGicon_ self
+    fun getIcon self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getIcon_ self
+    fun getIconName self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
+    fun getInfoWidget self proposal = (GtkSourceCompletionProviderClass.FFI.withPtr false &&&> GtkSourceCompletionProposalClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getInfoWidget_ (self & proposal)
+    fun getInteractiveDelay self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getInteractiveDelay_ self
+    fun getName self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getName_ self
+    fun getPriority self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getPriority_ self
     fun getStartIter self (context, proposal) =
       let
         val iter & retVal =
           (
-            GtkSourceCompletionProviderClass.FFI.withPtr
-             &&&> GtkSourceCompletionContextClass.FFI.withPtr
-             &&&> GtkSourceCompletionProposalClass.FFI.withPtr
+            GtkSourceCompletionProviderClass.FFI.withPtr false
+             &&&> GtkSourceCompletionContextClass.FFI.withPtr false
+             &&&> GtkSourceCompletionProposalClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              ---> GtkTextIterRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
@@ -94,13 +94,13 @@ structure GtkSourceCompletionProvider :>
       in
         if retVal then SOME iter else NONE
       end
-    fun match self context = (GtkSourceCompletionProviderClass.FFI.withPtr &&&> GtkSourceCompletionContextClass.FFI.withPtr ---> GBool.FFI.fromVal) match_ (self & context)
-    fun populate self context = (GtkSourceCompletionProviderClass.FFI.withPtr &&&> GtkSourceCompletionContextClass.FFI.withPtr ---> I) populate_ (self & context)
+    fun match self context = (GtkSourceCompletionProviderClass.FFI.withPtr false &&&> GtkSourceCompletionContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) match_ (self & context)
+    fun populate self context = (GtkSourceCompletionProviderClass.FFI.withPtr false &&&> GtkSourceCompletionContextClass.FFI.withPtr false ---> I) populate_ (self & context)
     fun updateInfo self (proposal, info) =
       (
-        GtkSourceCompletionProviderClass.FFI.withPtr
-         &&&> GtkSourceCompletionProposalClass.FFI.withPtr
-         &&&> GtkSourceCompletionInfoClass.FFI.withPtr
+        GtkSourceCompletionProviderClass.FFI.withPtr false
+         &&&> GtkSourceCompletionProposalClass.FFI.withPtr false
+         &&&> GtkSourceCompletionInfoClass.FFI.withPtr false
          ---> I
       )
         updateInfo_

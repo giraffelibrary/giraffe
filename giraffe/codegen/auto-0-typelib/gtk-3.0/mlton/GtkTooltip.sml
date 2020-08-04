@@ -97,13 +97,13 @@ structure GtkTooltip :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun triggerTooltipQuery display = (GdkDisplayClass.FFI.withPtr ---> I) triggerTooltipQuery_ display
-    fun setCustom self customWidget = (GtkTooltipClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setCustom_ (self & customWidget)
-    fun setIcon self pixbuf = (GtkTooltipClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withOptPtr ---> I) setIcon_ (self & pixbuf)
+    fun triggerTooltipQuery display = (GdkDisplayClass.FFI.withPtr false ---> I) triggerTooltipQuery_ display
+    fun setCustom self customWidget = (GtkTooltipClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setCustom_ (self & customWidget)
+    fun setIcon self pixbuf = (GtkTooltipClass.FFI.withPtr false &&&> GdkPixbufPixbufClass.FFI.withOptPtr false ---> I) setIcon_ (self & pixbuf)
     fun setIconFromGicon self (gicon, size) =
       (
-        GtkTooltipClass.FFI.withPtr
-         &&&> GioIconClass.FFI.withOptPtr
+        GtkTooltipClass.FFI.withPtr false
+         &&&> GioIconClass.FFI.withOptPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -115,8 +115,8 @@ structure GtkTooltip :>
         )
     fun setIconFromIconName self (iconName, size) =
       (
-        GtkTooltipClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        GtkTooltipClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -128,8 +128,8 @@ structure GtkTooltip :>
         )
     fun setIconFromStock self (stockId, size) =
       (
-        GtkTooltipClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        GtkTooltipClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -139,7 +139,7 @@ structure GtkTooltip :>
            & stockId
            & size
         )
-    fun setMarkup self markup = (GtkTooltipClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setMarkup_ (self & markup)
-    fun setText self text = (GtkTooltipClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setText_ (self & text)
-    fun setTipArea self rect = (GtkTooltipClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) setTipArea_ (self & rect)
+    fun setMarkup self markup = (GtkTooltipClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setMarkup_ (self & markup)
+    fun setText self text = (GtkTooltipClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setText_ (self & text)
+    fun setTipArea self rect = (GtkTooltipClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withPtr false ---> I) setTipArea_ (self & rect)
   end

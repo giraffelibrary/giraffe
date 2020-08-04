@@ -189,17 +189,17 @@ structure GtkIconInfo :>
     type 'a style_class = 'a GtkStyleClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newForPixbuf (iconTheme, pixbuf) = (GtkIconThemeClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> GtkIconInfoClass.FFI.fromPtr true) newForPixbuf_ (iconTheme & pixbuf)
+    fun newForPixbuf (iconTheme, pixbuf) = (GtkIconThemeClass.FFI.withPtr false &&&> GdkPixbufPixbufClass.FFI.withPtr false ---> GtkIconInfoClass.FFI.fromPtr true) newForPixbuf_ (iconTheme & pixbuf)
     fun getAttachPoints self =
       let
         val points
          & nPoints
          & retVal =
           (
-            GtkIconInfoClass.FFI.withPtr
-             &&&> GdkPointRecordCArrayN.FFI.withRefOptPtr
+            GtkIconInfoClass.FFI.withPtr false
+             &&&> GdkPointRecordCArrayN.FFI.withRefOptPtr 0
              &&&> GInt.FFI.withRefVal
-             ---> GdkPointRecordCArrayN.FFI.fromPtr 1
+             ---> GdkPointRecordCArrayN.FFI.fromPtr ~1
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
           )
@@ -212,23 +212,23 @@ structure GtkIconInfo :>
       in
         if retVal then SOME (points (LargeInt.toInt nPoints)) else NONE
       end
-    fun getBaseScale self = (GtkIconInfoClass.FFI.withPtr ---> GInt.FFI.fromVal) getBaseScale_ self
-    fun getBaseSize self = (GtkIconInfoClass.FFI.withPtr ---> GInt.FFI.fromVal) getBaseSize_ self
-    fun getBuiltinPixbuf self = (GtkIconInfoClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getBuiltinPixbuf_ self
-    fun getDisplayName self = (GtkIconInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
+    fun getBaseScale self = (GtkIconInfoClass.FFI.withPtr false ---> GInt.FFI.fromVal) getBaseScale_ self
+    fun getBaseSize self = (GtkIconInfoClass.FFI.withPtr false ---> GInt.FFI.fromVal) getBaseSize_ self
+    fun getBuiltinPixbuf self = (GtkIconInfoClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getBuiltinPixbuf_ self
+    fun getDisplayName self = (GtkIconInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
     fun getEmbeddedRect self =
       let
-        val rectangle & retVal = (GtkIconInfoClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal) getEmbeddedRect_ (self & ())
+        val rectangle & retVal = (GtkIconInfoClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal) getEmbeddedRect_ (self & ())
       in
         if retVal then SOME rectangle else NONE
       end
-    fun getFilename self = (GtkIconInfoClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getFilename_ self
-    fun isSymbolic self = (GtkIconInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isSymbolic_ self
-    fun loadIcon self = (GtkIconInfoClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) loadIcon_ (self & [])
+    fun getFilename self = (GtkIconInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getFilename_ self
+    fun isSymbolic self = (GtkIconInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSymbolic_ self
+    fun loadIcon self = (GtkIconInfoClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) loadIcon_ (self & [])
     fun loadIconFinish self res =
       (
-        GtkIconInfoClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GtkIconInfoClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GdkPixbufPixbufClass.FFI.fromPtr true
       )
@@ -240,8 +240,8 @@ structure GtkIconInfo :>
         )
     fun loadSurface self forWindow =
       (
-        GtkIconInfoClass.FFI.withPtr
-         &&&> GdkWindowClass.FFI.withOptPtr
+        GtkIconInfoClass.FFI.withPtr false
+         &&&> GdkWindowClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> CairoSurfaceRecord.FFI.fromPtr true
       )
@@ -262,11 +262,11 @@ structure GtkIconInfo :>
       let
         val wasSymbolic & retVal =
           (
-            GtkIconInfoClass.FFI.withPtr
-             &&&> GdkRgbaRecord.FFI.withPtr
-             &&&> GdkRgbaRecord.FFI.withOptPtr
-             &&&> GdkRgbaRecord.FFI.withOptPtr
-             &&&> GdkRgbaRecord.FFI.withOptPtr
+            GtkIconInfoClass.FFI.withPtr false
+             &&&> GdkRgbaRecord.FFI.withPtr false
+             &&&> GdkRgbaRecord.FFI.withOptPtr false
+             &&&> GdkRgbaRecord.FFI.withOptPtr false
+             &&&> GdkRgbaRecord.FFI.withOptPtr false
              &&&> GBool.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GBool.FFI.fromVal && GdkPixbufPixbufClass.FFI.fromPtr true
@@ -288,8 +288,8 @@ structure GtkIconInfo :>
       let
         val wasSymbolic & retVal =
           (
-            GtkIconInfoClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GtkIconInfoClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GBool.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GBool.FFI.fromVal && GdkPixbufPixbufClass.FFI.fromPtr true
@@ -308,8 +308,8 @@ structure GtkIconInfo :>
       let
         val wasSymbolic & retVal =
           (
-            GtkIconInfoClass.FFI.withPtr
-             &&&> GtkStyleContextClass.FFI.withPtr
+            GtkIconInfoClass.FFI.withPtr false
+             &&&> GtkStyleContextClass.FFI.withPtr false
              &&&> GBool.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GBool.FFI.fromVal && GdkPixbufPixbufClass.FFI.fromPtr true
@@ -328,8 +328,8 @@ structure GtkIconInfo :>
       let
         val wasSymbolic & retVal =
           (
-            GtkIconInfoClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GtkIconInfoClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GBool.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GBool.FFI.fromVal && GdkPixbufPixbufClass.FFI.fromPtr true
@@ -348,8 +348,8 @@ structure GtkIconInfo :>
       let
         val wasSymbolic & retVal =
           (
-            GtkIconInfoClass.FFI.withPtr
-             &&&> GtkStyleClass.FFI.withPtr
+            GtkIconInfoClass.FFI.withPtr false
+             &&&> GtkStyleClass.FFI.withPtr false
              &&&> GtkStateType.FFI.withVal
              &&&> GBool.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
@@ -366,5 +366,5 @@ structure GtkIconInfo :>
       in
         (retVal, wasSymbolic)
       end
-    fun setRawCoordinates self rawCoordinates = (GtkIconInfoClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRawCoordinates_ (self & rawCoordinates)
+    fun setRawCoordinates self rawCoordinates = (GtkIconInfoClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRawCoordinates_ (self & rawCoordinates)
   end

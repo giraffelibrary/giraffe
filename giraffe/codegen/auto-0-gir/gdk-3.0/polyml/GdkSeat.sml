@@ -23,11 +23,11 @@ structure GdkSeat :>
     type 'a display_class = 'a GdkDisplayClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getCapabilities self = (GdkSeatClass.FFI.withPtr ---> GdkSeatCapabilities.FFI.fromVal) getCapabilities_ self
-    fun getDisplay self = (GdkSeatClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
-    fun getKeyboard self = (GdkSeatClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromOptPtr false) getKeyboard_ self
-    fun getPointer self = (GdkSeatClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromOptPtr false) getPointer_ self
-    fun ungrab self = (GdkSeatClass.FFI.withPtr ---> I) ungrab_ self
+    fun getCapabilities self = (GdkSeatClass.FFI.withPtr false ---> GdkSeatCapabilities.FFI.fromVal) getCapabilities_ self
+    fun getDisplay self = (GdkSeatClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getKeyboard self = (GdkSeatClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromOptPtr false) getKeyboard_ self
+    fun getPointer self = (GdkSeatClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromOptPtr false) getPointer_ self
+    fun ungrab self = (GdkSeatClass.FFI.withPtr false ---> I) ungrab_ self
     local
       open ClosureMarshal Signal
     in

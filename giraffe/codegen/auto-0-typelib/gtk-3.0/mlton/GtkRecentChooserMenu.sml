@@ -17,15 +17,15 @@ structure GtkRecentChooserMenu :>
     type 'a recent_chooser_class = 'a GtkRecentChooserClass.class
     type 'a recent_manager_class = 'a GtkRecentManagerClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asRecentChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkRecentChooserClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asRecentChooser self = (GObjectObjectClass.FFI.withPtr false ---> GtkRecentChooserClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkRecentChooserMenuClass.FFI.fromPtr false) new_ ()
-    fun newForManager manager = (GtkRecentManagerClass.FFI.withPtr ---> GtkRecentChooserMenuClass.FFI.fromPtr false) newForManager_ manager
-    fun getShowNumbers self = (GtkRecentChooserMenuClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowNumbers_ self
-    fun setShowNumbers self showNumbers = (GtkRecentChooserMenuClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowNumbers_ (self & showNumbers)
+    fun newForManager manager = (GtkRecentManagerClass.FFI.withPtr false ---> GtkRecentChooserMenuClass.FFI.fromPtr false) newForManager_ manager
+    fun getShowNumbers self = (GtkRecentChooserMenuClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowNumbers_ self
+    fun setShowNumbers self showNumbers = (GtkRecentChooserMenuClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowNumbers_ (self & showNumbers)
     local
       open Property
     in

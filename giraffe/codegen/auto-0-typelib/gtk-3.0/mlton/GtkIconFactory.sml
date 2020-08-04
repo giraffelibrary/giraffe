@@ -47,15 +47,15 @@ structure GtkIconFactory :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type icon_set_t = GtkIconSetRecord.t
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkIconFactoryClass.FFI.fromPtr true) new_ ()
-    fun lookupDefault stockId = (Utf8.FFI.withPtr ---> GtkIconSetRecord.FFI.fromPtr false) lookupDefault_ stockId
+    fun lookupDefault stockId = (Utf8.FFI.withPtr 0 ---> GtkIconSetRecord.FFI.fromPtr false) lookupDefault_ stockId
     fun add self (stockId, iconSet) =
       (
-        GtkIconFactoryClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GtkIconSetRecord.FFI.withPtr
+        GtkIconFactoryClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GtkIconSetRecord.FFI.withPtr false
          ---> I
       )
         add_
@@ -64,7 +64,7 @@ structure GtkIconFactory :>
            & stockId
            & iconSet
         )
-    fun addDefault self = (GtkIconFactoryClass.FFI.withPtr ---> I) addDefault_ self
-    fun lookup self stockId = (GtkIconFactoryClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkIconSetRecord.FFI.fromPtr false) lookup_ (self & stockId)
-    fun removeDefault self = (GtkIconFactoryClass.FFI.withPtr ---> I) removeDefault_ self
+    fun addDefault self = (GtkIconFactoryClass.FFI.withPtr false ---> I) addDefault_ self
+    fun lookup self stockId = (GtkIconFactoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkIconSetRecord.FFI.fromPtr false) lookup_ (self & stockId)
+    fun removeDefault self = (GtkIconFactoryClass.FFI.withPtr false ---> I) removeDefault_ self
   end

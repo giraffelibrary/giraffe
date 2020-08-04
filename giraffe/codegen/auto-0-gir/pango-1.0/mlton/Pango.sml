@@ -372,17 +372,17 @@ structure Pango : PANGO =
     val UNKNOWN_GLYPH_HEIGHT = 14
     val UNKNOWN_GLYPH_WIDTH = 10
     val VERSION_MIN_REQUIRED = 2
-    fun configKeyGet key = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) configKeyGet_ key
-    fun configKeyGetSystem key = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) configKeyGetSystem_ key
-    fun extentsToPixels (inclusive, nearest) = (PangoRectangleRecord.FFI.withOptPtr &&&> PangoRectangleRecord.FFI.withOptPtr ---> I) extentsToPixels_ (inclusive & nearest)
-    fun findBaseDir (text, length) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoDirection.FFI.fromVal) findBaseDir_ (text & length)
+    fun configKeyGet key = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) configKeyGet_ key
+    fun configKeyGetSystem key = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) configKeyGetSystem_ key
+    fun extentsToPixels (inclusive, nearest) = (PangoRectangleRecord.FFI.withOptPtr false &&&> PangoRectangleRecord.FFI.withOptPtr false ---> I) extentsToPixels_ (inclusive & nearest)
+    fun findBaseDir (text, length) = (Utf8.FFI.withPtr 0 &&&> GInt.FFI.withVal ---> PangoDirection.FFI.fromVal) findBaseDir_ (text & length)
     fun findParagraphBoundary (text, length) =
       let
         val paragraphDelimiterIndex
          & nextParagraphStart
          & () =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -409,10 +409,10 @@ structure Pango : PANGO =
          & nFamilies
          & () =
           (
-            Utf8.FFI.withPtr
-             &&&> Utf8CPtrArrayN.FFI.withRefOptPtr
+            Utf8.FFI.withPtr 0
+             &&&> Utf8CPtrArrayN.FFI.withRefOptPtr 0
              &&&> GInt.FFI.withRefVal
-             ---> Utf8CPtrArrayN.FFI.fromPtr 2
+             ---> Utf8CPtrArrayN.FFI.fromPtr ~1
                    && GInt.FFI.fromVal
                    && I
           )
@@ -432,13 +432,13 @@ structure Pango : PANGO =
          & accelChar
          & () =
           (
-            GLibMarkupParseContextRecord.FFI.withPtr
-             &&&> PangoAttrListRecord.FFI.withRefOptPtr
-             &&&> Utf8.FFI.withRefOptPtr
+            GLibMarkupParseContextRecord.FFI.withPtr false
+             &&&> PangoAttrListRecord.FFI.withRefOptPtr true
+             &&&> Utf8.FFI.withRefOptPtr 0
              &&&> GChar.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> PangoAttrListRecord.FFI.fromPtr true
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
                    && GChar.FFI.fromVal
                    && ignore
           )
@@ -470,12 +470,12 @@ structure Pango : PANGO =
          & retVal =
           (
             GObjectType.FFI.withVal
-             &&&> Utf8.FFI.withOptPtr
+             &&&> Utf8.FFI.withOptPtr 0
              &&&> GInt.FFI.withRefVal
              &&&> GBool.FFI.withVal
-             &&&> Utf8.FFI.withRefOptPtr
+             &&&> Utf8.FFI.withRefOptPtr 0
              ---> GInt.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
                    && GBool.FFI.fromVal
           )
             parseEnum_
@@ -501,15 +501,15 @@ structure Pango : PANGO =
          & accelChar
          & () =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              &&&> GChar.FFI.withVal
-             &&&> PangoAttrListRecord.FFI.withRefOptPtr
-             &&&> Utf8.FFI.withRefOptPtr
+             &&&> PangoAttrListRecord.FFI.withRefOptPtr true
+             &&&> Utf8.FFI.withRefOptPtr 0
              &&&> GChar.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> PangoAttrListRecord.FFI.fromPtr true
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
                    && GChar.FFI.fromVal
                    && ignore
           )
@@ -534,7 +534,7 @@ structure Pango : PANGO =
       let
         val stretch & retVal =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> PangoStretch.FFI.withRefVal
              &&&> GBool.FFI.withVal
              ---> PangoStretch.FFI.fromVal && GBool.FFI.fromVal
@@ -552,7 +552,7 @@ structure Pango : PANGO =
       let
         val style & retVal =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> PangoStyle.FFI.withRefVal
              &&&> GBool.FFI.withVal
              ---> PangoStyle.FFI.fromVal && GBool.FFI.fromVal
@@ -570,7 +570,7 @@ structure Pango : PANGO =
       let
         val variant & retVal =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> PangoVariant.FFI.withRefVal
              &&&> GBool.FFI.withVal
              ---> PangoVariant.FFI.fromVal && GBool.FFI.fromVal
@@ -588,7 +588,7 @@ structure Pango : PANGO =
       let
         val weight & retVal =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> PangoWeight.FFI.withRefVal
              &&&> GBool.FFI.withVal
              ---> PangoWeight.FFI.fromVal && GBool.FFI.fromVal
@@ -628,12 +628,12 @@ structure Pango : PANGO =
         glyphs
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
-         &&&> PangoAnalysisRecord.FFI.withPtr
-         &&&> PangoGlyphStringRecord.FFI.withPtr
+         &&&> PangoAnalysisRecord.FFI.withPtr false
+         &&&> PangoGlyphStringRecord.FFI.withPtr false
          ---> I
       )
         shapeFull_
@@ -645,8 +645,8 @@ structure Pango : PANGO =
            & analysis
            & glyphs
         )
-    fun splitFileList str = (Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) splitFileList_ str
-    fun trimString str = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) trimString_ str
+    fun splitFileList str = (Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) splitFileList_ str
+    fun trimString str = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) trimString_ str
     fun unicharDirection ch = (GChar.FFI.withVal ---> PangoDirection.FFI.fromVal) unicharDirection_ ch
     fun unitsFromDouble d = (GDouble.FFI.withVal ---> GInt.FFI.fromVal) unitsFromDouble_ d
     fun unitsToDouble i = (GInt.FFI.withVal ---> GDouble.FFI.fromVal) unitsToDouble_ i

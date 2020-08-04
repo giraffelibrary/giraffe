@@ -28,7 +28,7 @@ structure GIRepositoryConstantInfo :>
 
     val getType =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
           getType_
           info
 
@@ -37,7 +37,7 @@ structure GIRepositoryConstantInfo :>
         let
           val tag = GIRepositoryTypeInfo.getTag (getType info)
           val value & _ =
-            (GIRepositoryBaseInfoClass.FFI.withPtr
+            (GIRepositoryBaseInfoClass.FFI.withPtr false
               &&&> GIRepositoryArgument.FFI.withNewPtr
               ---> GIRepositoryArgument.FFI.fromPtr tag && I)
               getValue_

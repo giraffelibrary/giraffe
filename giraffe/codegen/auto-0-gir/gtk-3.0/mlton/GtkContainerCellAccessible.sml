@@ -10,10 +10,10 @@ structure GtkContainerCellAccessible :>
     type 'a class = 'a GtkContainerCellAccessibleClass.class
     type 'a cell_accessible_class = 'a GtkCellAccessibleClass.class
     type t = base class
-    fun asAction self = (GObjectObjectClass.FFI.withPtr ---> AtkActionClass.FFI.fromPtr false) I self
-    fun asComponent self = (GObjectObjectClass.FFI.withPtr ---> AtkComponentClass.FFI.fromPtr false) I self
+    fun asAction self = (GObjectObjectClass.FFI.withPtr false ---> AtkActionClass.FFI.fromPtr false) I self
+    fun asComponent self = (GObjectObjectClass.FFI.withPtr false ---> AtkComponentClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkContainerCellAccessibleClass.FFI.fromPtr true) new_ ()
-    fun addChild self child = (GtkContainerCellAccessibleClass.FFI.withPtr &&&> GtkCellAccessibleClass.FFI.withPtr ---> I) addChild_ (self & child)
-    fun removeChild self child = (GtkContainerCellAccessibleClass.FFI.withPtr &&&> GtkCellAccessibleClass.FFI.withPtr ---> I) removeChild_ (self & child)
+    fun addChild self child = (GtkContainerCellAccessibleClass.FFI.withPtr false &&&> GtkCellAccessibleClass.FFI.withPtr false ---> I) addChild_ (self & child)
+    fun removeChild self child = (GtkContainerCellAccessibleClass.FFI.withPtr false &&&> GtkCellAccessibleClass.FFI.withPtr false ---> I) removeChild_ (self & child)
   end

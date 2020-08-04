@@ -202,26 +202,26 @@ structure GdkDisplay :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> GdkDisplayClass.FFI.fromOptPtr false) getDefault_ ()
-    fun open' displayName = (Utf8.FFI.withPtr ---> GdkDisplayClass.FFI.fromOptPtr false) open_ displayName
+    fun open' displayName = (Utf8.FFI.withPtr 0 ---> GdkDisplayClass.FFI.fromOptPtr false) open_ displayName
     fun openDefaultLibgtkOnly () = (I ---> GdkDisplayClass.FFI.fromOptPtr false) openDefaultLibgtkOnly_ ()
-    fun beep self = (GdkDisplayClass.FFI.withPtr ---> I) beep_ self
-    fun close self = (GdkDisplayClass.FFI.withPtr ---> I) close_ self
-    fun deviceIsGrabbed self device = (GdkDisplayClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GBool.FFI.fromVal) deviceIsGrabbed_ (self & device)
-    fun flush self = (GdkDisplayClass.FFI.withPtr ---> I) flush_ self
-    fun getAppLaunchContext self = (GdkDisplayClass.FFI.withPtr ---> GdkAppLaunchContextClass.FFI.fromPtr true) getAppLaunchContext_ self
-    fun getDefaultCursorSize self = (GdkDisplayClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getDefaultCursorSize_ self
-    fun getDefaultGroup self = (GdkDisplayClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getDefaultGroup_ self
-    fun getDefaultScreen self = (GdkDisplayClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getDefaultScreen_ self
-    fun getDefaultSeat self = (GdkDisplayClass.FFI.withPtr ---> GdkSeatClass.FFI.fromPtr false) getDefaultSeat_ self
-    fun getDeviceManager self = (GdkDisplayClass.FFI.withPtr ---> GdkDeviceManagerClass.FFI.fromOptPtr false) getDeviceManager_ self
-    fun getEvent self = (GdkDisplayClass.FFI.withPtr ---> GdkEvent.FFI.fromOptPtr true) getEvent_ self
+    fun beep self = (GdkDisplayClass.FFI.withPtr false ---> I) beep_ self
+    fun close self = (GdkDisplayClass.FFI.withPtr false ---> I) close_ self
+    fun deviceIsGrabbed self device = (GdkDisplayClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GBool.FFI.fromVal) deviceIsGrabbed_ (self & device)
+    fun flush self = (GdkDisplayClass.FFI.withPtr false ---> I) flush_ self
+    fun getAppLaunchContext self = (GdkDisplayClass.FFI.withPtr false ---> GdkAppLaunchContextClass.FFI.fromPtr true) getAppLaunchContext_ self
+    fun getDefaultCursorSize self = (GdkDisplayClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getDefaultCursorSize_ self
+    fun getDefaultGroup self = (GdkDisplayClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getDefaultGroup_ self
+    fun getDefaultScreen self = (GdkDisplayClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getDefaultScreen_ self
+    fun getDefaultSeat self = (GdkDisplayClass.FFI.withPtr false ---> GdkSeatClass.FFI.fromPtr false) getDefaultSeat_ self
+    fun getDeviceManager self = (GdkDisplayClass.FFI.withPtr false ---> GdkDeviceManagerClass.FFI.fromOptPtr false) getDeviceManager_ self
+    fun getEvent self = (GdkDisplayClass.FFI.withPtr false ---> GdkEvent.FFI.fromOptPtr true) getEvent_ self
     fun getMaximalCursorSize self =
       let
         val width
          & height
          & () =
           (
-            GdkDisplayClass.FFI.withPtr
+            GdkDisplayClass.FFI.withPtr false
              &&&> GUInt32.FFI.withRefVal
              &&&> GUInt32.FFI.withRefVal
              ---> GUInt32.FFI.fromVal
@@ -237,10 +237,10 @@ structure GdkDisplay :>
       in
         (width, height)
       end
-    fun getMonitor self monitorNum = (GdkDisplayClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GdkMonitorClass.FFI.fromOptPtr false) getMonitor_ (self & monitorNum)
+    fun getMonitor self monitorNum = (GdkDisplayClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GdkMonitorClass.FFI.fromOptPtr false) getMonitor_ (self & monitorNum)
     fun getMonitorAtPoint self (x, y) =
       (
-        GdkDisplayClass.FFI.withPtr
+        GdkDisplayClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> GdkMonitorClass.FFI.fromPtr false
@@ -251,10 +251,10 @@ structure GdkDisplay :>
            & x
            & y
         )
-    fun getMonitorAtWindow self window = (GdkDisplayClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> GdkMonitorClass.FFI.fromPtr false) getMonitorAtWindow_ (self & window)
-    fun getNMonitors self = (GdkDisplayClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNMonitors_ self
-    fun getNScreens self = (GdkDisplayClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNScreens_ self
-    fun getName self = (GdkDisplayClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getMonitorAtWindow self window = (GdkDisplayClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> GdkMonitorClass.FFI.fromPtr false) getMonitorAtWindow_ (self & window)
+    fun getNMonitors self = (GdkDisplayClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNMonitors_ self
+    fun getNScreens self = (GdkDisplayClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNScreens_ self
+    fun getName self = (GdkDisplayClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
     fun getPointer self =
       let
         val screen
@@ -263,8 +263,8 @@ structure GdkDisplay :>
          & mask
          & () =
           (
-            GdkDisplayClass.FFI.withPtr
-             &&&> GdkScreenClass.FFI.withRefOptPtr
+            GdkDisplayClass.FFI.withPtr false
+             &&&> GdkScreenClass.FFI.withRefOptPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              &&&> GdkModifierType.FFI.withRefVal
@@ -290,15 +290,15 @@ structure GdkDisplay :>
           mask
         )
       end
-    fun getPrimaryMonitor self = (GdkDisplayClass.FFI.withPtr ---> GdkMonitorClass.FFI.fromOptPtr false) getPrimaryMonitor_ self
-    fun getScreen self screenNum = (GdkDisplayClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GdkScreenClass.FFI.fromPtr false) getScreen_ (self & screenNum)
+    fun getPrimaryMonitor self = (GdkDisplayClass.FFI.withPtr false ---> GdkMonitorClass.FFI.fromOptPtr false) getPrimaryMonitor_ self
+    fun getScreen self screenNum = (GdkDisplayClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GdkScreenClass.FFI.fromPtr false) getScreen_ (self & screenNum)
     fun getWindowAtPointer self =
       let
         val winX
          & winY
          & retVal =
           (
-            GdkDisplayClass.FFI.withPtr
+            GdkDisplayClass.FFI.withPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GInt32.FFI.fromVal
@@ -318,17 +318,17 @@ structure GdkDisplay :>
           winY
         )
       end
-    fun hasPending self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPending_ self
-    fun isClosed self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
-    fun keyboardUngrab self time = (GdkDisplayClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) keyboardUngrab_ (self & time)
-    fun notifyStartupComplete self startupId = (GdkDisplayClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) notifyStartupComplete_ (self & startupId)
-    fun peekEvent self = (GdkDisplayClass.FFI.withPtr ---> GdkEvent.FFI.fromOptPtr true) peekEvent_ self
-    fun pointerIsGrabbed self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) pointerIsGrabbed_ self
-    fun pointerUngrab self time = (GdkDisplayClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) pointerUngrab_ (self & time)
-    fun putEvent self event = (GdkDisplayClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> I) putEvent_ (self & event)
-    fun requestSelectionNotification self selection = (GdkDisplayClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GBool.FFI.fromVal) requestSelectionNotification_ (self & selection)
-    fun setDoubleClickDistance self distance = (GdkDisplayClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setDoubleClickDistance_ (self & distance)
-    fun setDoubleClickTime self msec = (GdkDisplayClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setDoubleClickTime_ (self & msec)
+    fun hasPending self = (GdkDisplayClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasPending_ self
+    fun isClosed self = (GdkDisplayClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self
+    fun keyboardUngrab self time = (GdkDisplayClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) keyboardUngrab_ (self & time)
+    fun notifyStartupComplete self startupId = (GdkDisplayClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) notifyStartupComplete_ (self & startupId)
+    fun peekEvent self = (GdkDisplayClass.FFI.withPtr false ---> GdkEvent.FFI.fromOptPtr true) peekEvent_ self
+    fun pointerIsGrabbed self = (GdkDisplayClass.FFI.withPtr false ---> GBool.FFI.fromVal) pointerIsGrabbed_ self
+    fun pointerUngrab self time = (GdkDisplayClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) pointerUngrab_ (self & time)
+    fun putEvent self event = (GdkDisplayClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> I) putEvent_ (self & event)
+    fun requestSelectionNotification self selection = (GdkDisplayClass.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> GBool.FFI.fromVal) requestSelectionNotification_ (self & selection)
+    fun setDoubleClickDistance self distance = (GdkDisplayClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setDoubleClickDistance_ (self & distance)
+    fun setDoubleClickTime self msec = (GdkDisplayClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setDoubleClickTime_ (self & msec)
     fun storeClipboard
       self
       (
@@ -343,10 +343,10 @@ structure GdkDisplay :>
           | NONE => GInt32.null
         val () =
           (
-            GdkDisplayClass.FFI.withPtr
-             &&&> GdkWindowClass.FFI.withPtr
+            GdkDisplayClass.FFI.withPtr false
+             &&&> GdkWindowClass.FFI.withPtr false
              &&&> GUInt32.FFI.withVal
-             &&&> GdkAtomRecordCPtrArrayN.FFI.withOptPtr
+             &&&> GdkAtomRecordCPtrArrayN.FFI.withOptPtr 0
              &&&> GInt32.FFI.withVal
              ---> I
           )
@@ -361,14 +361,14 @@ structure GdkDisplay :>
       in
         ()
       end
-    fun supportsClipboardPersistence self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsClipboardPersistence_ self
-    fun supportsComposite self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsComposite_ self
-    fun supportsCursorAlpha self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsCursorAlpha_ self
-    fun supportsCursorColor self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsCursorColor_ self
-    fun supportsInputShapes self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsInputShapes_ self
-    fun supportsSelectionNotification self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsSelectionNotification_ self
-    fun supportsShapes self = (GdkDisplayClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsShapes_ self
-    fun sync self = (GdkDisplayClass.FFI.withPtr ---> I) sync_ self
+    fun supportsClipboardPersistence self = (GdkDisplayClass.FFI.withPtr false ---> GBool.FFI.fromVal) supportsClipboardPersistence_ self
+    fun supportsComposite self = (GdkDisplayClass.FFI.withPtr false ---> GBool.FFI.fromVal) supportsComposite_ self
+    fun supportsCursorAlpha self = (GdkDisplayClass.FFI.withPtr false ---> GBool.FFI.fromVal) supportsCursorAlpha_ self
+    fun supportsCursorColor self = (GdkDisplayClass.FFI.withPtr false ---> GBool.FFI.fromVal) supportsCursorColor_ self
+    fun supportsInputShapes self = (GdkDisplayClass.FFI.withPtr false ---> GBool.FFI.fromVal) supportsInputShapes_ self
+    fun supportsSelectionNotification self = (GdkDisplayClass.FFI.withPtr false ---> GBool.FFI.fromVal) supportsSelectionNotification_ self
+    fun supportsShapes self = (GdkDisplayClass.FFI.withPtr false ---> GBool.FFI.fromVal) supportsShapes_ self
+    fun sync self = (GdkDisplayClass.FFI.withPtr false ---> I) sync_ self
     fun warpPointer
       self
       (
@@ -377,8 +377,8 @@ structure GdkDisplay :>
         y
       ) =
       (
-        GdkDisplayClass.FFI.withPtr
-         &&&> GdkScreenClass.FFI.withPtr
+        GdkDisplayClass.FFI.withPtr false
+         &&&> GdkScreenClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I

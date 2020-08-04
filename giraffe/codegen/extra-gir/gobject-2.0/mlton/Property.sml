@@ -57,9 +57,9 @@ structure Property :>
 
     fun getProperty self propertyName value =
       (
-        GObjectObjectClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectValueRecord.FFI.withPtr
+        GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectValueRecord.FFI.withPtr false
          ---> I
       )
         getProperty_
@@ -71,9 +71,9 @@ structure Property :>
 
     fun setProperty self propertyName value =
       (
-        GObjectObjectClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectValueRecord.FFI.withPtr
+        GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectValueRecord.FFI.withPtr false
          ---> I
       )
         setProperty_

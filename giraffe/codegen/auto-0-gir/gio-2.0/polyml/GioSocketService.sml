@@ -17,9 +17,9 @@ structure GioSocketService :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioSocketServiceClass.FFI.fromPtr true) new_ ()
-    fun isActive self = (GioSocketServiceClass.FFI.withPtr ---> GBool.FFI.fromVal) isActive_ self
-    fun start self = (GioSocketServiceClass.FFI.withPtr ---> I) start_ self
-    fun stop self = (GioSocketServiceClass.FFI.withPtr ---> I) stop_ self
+    fun isActive self = (GioSocketServiceClass.FFI.withPtr false ---> GBool.FFI.fromVal) isActive_ self
+    fun start self = (GioSocketServiceClass.FFI.withPtr false ---> I) start_ self
+    fun stop self = (GioSocketServiceClass.FFI.withPtr false ---> I) stop_ self
     local
       open ClosureMarshal Signal
     in

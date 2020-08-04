@@ -34,15 +34,15 @@ structure GLibVariantDict :>
     type variant_t = GLibVariantRecord.t
     type variant_type_t = GLibVariantTypeRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new fromAsv = (GLibVariantRecord.FFI.withOptPtr ---> GLibVariantDictRecord.FFI.fromPtr true) new_ fromAsv
-    fun clear self = (GLibVariantDictRecord.FFI.withPtr ---> I) clear_ self
-    fun contains self key = (GLibVariantDictRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contains_ (self & key)
-    fun end' self = (GLibVariantDictRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) end_ self
+    fun new fromAsv = (GLibVariantRecord.FFI.withOptPtr false ---> GLibVariantDictRecord.FFI.fromPtr true) new_ fromAsv
+    fun clear self = (GLibVariantDictRecord.FFI.withPtr false ---> I) clear_ self
+    fun contains self key = (GLibVariantDictRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) contains_ (self & key)
+    fun end' self = (GLibVariantDictRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) end_ self
     fun insertValue self (key, value) =
       (
-        GLibVariantDictRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withPtr
+        GLibVariantDictRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withPtr false
          ---> I
       )
         insertValue_
@@ -53,9 +53,9 @@ structure GLibVariantDict :>
         )
     fun lookupValue self (key, expectedType) =
       (
-        GLibVariantDictRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantTypeRecord.FFI.withOptPtr
+        GLibVariantDictRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantTypeRecord.FFI.withOptPtr false
          ---> GLibVariantRecord.FFI.fromPtr true
       )
         lookupValue_
@@ -64,5 +64,5 @@ structure GLibVariantDict :>
            & key
            & expectedType
         )
-    fun remove self key = (GLibVariantDictRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) remove_ (self & key)
+    fun remove self key = (GLibVariantDictRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) remove_ (self & key)
   end

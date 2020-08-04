@@ -33,7 +33,7 @@ structure GioFileMonitor :>
     type 'a file_class = 'a GioFileClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun cancel self = (GioFileMonitorClass.FFI.withPtr ---> GBool.FFI.fromVal) cancel_ self
+    fun cancel self = (GioFileMonitorClass.FFI.withPtr false ---> GBool.FFI.fromVal) cancel_ self
     fun emitEvent
       self
       (
@@ -42,9 +42,9 @@ structure GioFileMonitor :>
         eventType
       ) =
       (
-        GioFileMonitorClass.FFI.withPtr
-         &&&> GioFileClass.FFI.withPtr
-         &&&> GioFileClass.FFI.withPtr
+        GioFileMonitorClass.FFI.withPtr false
+         &&&> GioFileClass.FFI.withPtr false
+         &&&> GioFileClass.FFI.withPtr false
          &&&> GioFileMonitorEvent.FFI.withVal
          ---> I
       )
@@ -55,8 +55,8 @@ structure GioFileMonitor :>
            & otherFile
            & eventType
         )
-    fun isCancelled self = (GioFileMonitorClass.FFI.withPtr ---> GBool.FFI.fromVal) isCancelled_ self
-    fun setRateLimit self limitMsecs = (GioFileMonitorClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setRateLimit_ (self & limitMsecs)
+    fun isCancelled self = (GioFileMonitorClass.FFI.withPtr false ---> GBool.FFI.fromVal) isCancelled_ self
+    fun setRateLimit self limitMsecs = (GioFileMonitorClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setRateLimit_ (self & limitMsecs)
     local
       open ClosureMarshal Signal
     in

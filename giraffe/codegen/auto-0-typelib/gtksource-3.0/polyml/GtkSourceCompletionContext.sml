@@ -16,10 +16,10 @@ structure GtkSourceCompletionContext :>
     type 'a completion_class = 'a GtkSourceCompletionClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getActivation self = (GtkSourceCompletionContextClass.FFI.withPtr ---> GtkSourceCompletionActivation.FFI.fromVal) getActivation_ self
+    fun getActivation self = (GtkSourceCompletionContextClass.FFI.withPtr false ---> GtkSourceCompletionActivation.FFI.fromVal) getActivation_ self
     fun getIter self =
       let
-        val iter & retVal = (GtkSourceCompletionContextClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && GBool.FFI.fromVal) getIter_ (self & ())
+        val iter & retVal = (GtkSourceCompletionContextClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && GBool.FFI.fromVal) getIter_ (self & ())
       in
         if retVal then SOME iter else NONE
       end

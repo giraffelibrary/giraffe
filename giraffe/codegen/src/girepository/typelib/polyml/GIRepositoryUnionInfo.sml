@@ -80,12 +80,12 @@ structure GIRepositoryUnionInfo :>
 
 
     val getNFields =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNFields_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNFields_ info
 
     val getField =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositoryFieldInfoClass.FFI.fromPtr true
         )
@@ -93,12 +93,12 @@ structure GIRepositoryUnionInfo :>
           (info & n)
 
     val getNMethods =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNMethods_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNMethods_ info
 
     val getMethod =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
         )
@@ -106,21 +106,21 @@ structure GIRepositoryUnionInfo :>
           (info & n)
 
     val isDiscriminated =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isDiscriminated_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isDiscriminated_ info
 
     val getDiscriminatorOffset =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getDiscriminatorOffset_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getDiscriminatorOffset_ info
 
     val getDiscriminatorType =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
         getDiscriminatorType_
         info
 
     val getDiscriminator =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositoryConstantInfoClass.FFI.fromPtr true
         )
@@ -130,15 +130,15 @@ structure GIRepositoryUnionInfo :>
     val findMethod =
       fn info => fn name =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
-           &&&> Utf8.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
+           &&&> Utf8.FFI.withPtr 0
            ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
         )
           findMethod_
           (info & name)
 
-    val getSize = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GULong.FFI.fromVal) getSize_ info
+    val getSize = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GULong.FFI.fromVal) getSize_ info
 
     val getAlignment =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GULong.FFI.fromVal) getAlignment_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GULong.FFI.fromVal) getAlignment_ info
   end

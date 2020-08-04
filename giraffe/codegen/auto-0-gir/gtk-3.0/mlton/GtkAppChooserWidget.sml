@@ -40,24 +40,24 @@ structure GtkAppChooserWidget :>
     type 'a orientable_class = 'a GtkOrientableClass.class
     type 'a menu_class = 'a GtkMenuClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asAppChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkAppChooserClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asAppChooser self = (GObjectObjectClass.FFI.withPtr false ---> GtkAppChooserClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new contentType = (Utf8.FFI.withPtr ---> GtkAppChooserWidgetClass.FFI.fromPtr false) new_ contentType
-    fun getDefaultText self = (GtkAppChooserWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDefaultText_ self
-    fun getShowAll self = (GtkAppChooserWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowAll_ self
-    fun getShowDefault self = (GtkAppChooserWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowDefault_ self
-    fun getShowFallback self = (GtkAppChooserWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowFallback_ self
-    fun getShowOther self = (GtkAppChooserWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowOther_ self
-    fun getShowRecommended self = (GtkAppChooserWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowRecommended_ self
-    fun setDefaultText self text = (GtkAppChooserWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDefaultText_ (self & text)
-    fun setShowAll self setting = (GtkAppChooserWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowAll_ (self & setting)
-    fun setShowDefault self setting = (GtkAppChooserWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowDefault_ (self & setting)
-    fun setShowFallback self setting = (GtkAppChooserWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowFallback_ (self & setting)
-    fun setShowOther self setting = (GtkAppChooserWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowOther_ (self & setting)
-    fun setShowRecommended self setting = (GtkAppChooserWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowRecommended_ (self & setting)
+    fun new contentType = (Utf8.FFI.withPtr 0 ---> GtkAppChooserWidgetClass.FFI.fromPtr false) new_ contentType
+    fun getDefaultText self = (GtkAppChooserWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDefaultText_ self
+    fun getShowAll self = (GtkAppChooserWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowAll_ self
+    fun getShowDefault self = (GtkAppChooserWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowDefault_ self
+    fun getShowFallback self = (GtkAppChooserWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowFallback_ self
+    fun getShowOther self = (GtkAppChooserWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowOther_ self
+    fun getShowRecommended self = (GtkAppChooserWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowRecommended_ self
+    fun setDefaultText self text = (GtkAppChooserWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDefaultText_ (self & text)
+    fun setShowAll self setting = (GtkAppChooserWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowAll_ (self & setting)
+    fun setShowDefault self setting = (GtkAppChooserWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowDefault_ (self & setting)
+    fun setShowFallback self setting = (GtkAppChooserWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowFallback_ (self & setting)
+    fun setShowOther self setting = (GtkAppChooserWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowOther_ (self & setting)
+    fun setShowRecommended self setting = (GtkAppChooserWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowRecommended_ (self & setting)
     local
       open ClosureMarshal Signal
     in

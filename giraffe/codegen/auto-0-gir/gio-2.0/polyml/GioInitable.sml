@@ -22,8 +22,8 @@ structure GioInitable :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun init self cancellable =
       (
-        GioInitableClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioInitableClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

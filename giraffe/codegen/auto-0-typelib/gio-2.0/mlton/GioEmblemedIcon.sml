@@ -13,12 +13,12 @@ structure GioEmblemedIcon :>
     type 'a emblem_class = 'a GioEmblemClass.class
     type 'a icon_class = 'a GioIconClass.class
     type t = base class
-    fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
+    fun asIcon self = (GObjectObjectClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (icon, emblem) = (GioIconClass.FFI.withPtr &&&> GioEmblemClass.FFI.withOptPtr ---> GioEmblemedIconClass.FFI.fromPtr true) new_ (icon & emblem)
-    fun addEmblem self emblem = (GioEmblemedIconClass.FFI.withPtr &&&> GioEmblemClass.FFI.withPtr ---> I) addEmblem_ (self & emblem)
-    fun clearEmblems self = (GioEmblemedIconClass.FFI.withPtr ---> I) clearEmblems_ self
-    fun getIcon self = (GioEmblemedIconClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getIcon_ self
+    fun new (icon, emblem) = (GioIconClass.FFI.withPtr false &&&> GioEmblemClass.FFI.withOptPtr false ---> GioEmblemedIconClass.FFI.fromPtr true) new_ (icon & emblem)
+    fun addEmblem self emblem = (GioEmblemedIconClass.FFI.withPtr false &&&> GioEmblemClass.FFI.withPtr false ---> I) addEmblem_ (self & emblem)
+    fun clearEmblems self = (GioEmblemedIconClass.FFI.withPtr false ---> I) clearEmblems_ self
+    fun getIcon self = (GioEmblemedIconClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self
     local
       open Property
     in

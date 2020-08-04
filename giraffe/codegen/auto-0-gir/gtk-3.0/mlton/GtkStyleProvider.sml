@@ -39,8 +39,8 @@ structure GtkStyleProvider :>
     type widget_path_t = GtkWidgetPathRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getIconFactory self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkIconFactoryClass.FFI.fromOptPtr false) getIconFactory_ (self & path)
-    fun getStyle self path = (GtkStyleProviderClass.FFI.withPtr &&&> GtkWidgetPathRecord.FFI.withPtr ---> GtkStylePropertiesClass.FFI.fromOptPtr true) getStyle_ (self & path)
+    fun getIconFactory self path = (GtkStyleProviderClass.FFI.withPtr false &&&> GtkWidgetPathRecord.FFI.withPtr false ---> GtkIconFactoryClass.FFI.fromOptPtr false) getIconFactory_ (self & path)
+    fun getStyle self path = (GtkStyleProviderClass.FFI.withPtr false &&&> GtkWidgetPathRecord.FFI.withPtr false ---> GtkStylePropertiesClass.FFI.fromOptPtr true) getStyle_ (self & path)
     fun getStyleProperty
       self
       (
@@ -51,10 +51,10 @@ structure GtkStyleProvider :>
       let
         val value & retVal =
           (
-            GtkStyleProviderClass.FFI.withPtr
-             &&&> GtkWidgetPathRecord.FFI.withPtr
+            GtkStyleProviderClass.FFI.withPtr false
+             &&&> GtkWidgetPathRecord.FFI.withPtr false
              &&&> GtkStateFlags.FFI.withVal
-             &&&> GObjectParamSpecClass.FFI.withPtr
+             &&&> GObjectParamSpecClass.FFI.withPtr false
              &&&> GObjectValueRecord.FFI.withNewPtr
              ---> GObjectValueRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )

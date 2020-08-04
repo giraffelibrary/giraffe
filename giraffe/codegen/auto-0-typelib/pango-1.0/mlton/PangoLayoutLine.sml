@@ -112,7 +112,7 @@ structure PangoLayoutLine :>
          & logicalRect
          & () =
           (
-            PangoLayoutLineRecord.FFI.withPtr
+            PangoLayoutLineRecord.FFI.withPtr false
              &&&> PangoRectangleRecord.FFI.withNewPtr
              &&&> PangoRectangleRecord.FFI.withNewPtr
              ---> PangoRectangleRecord.FFI.fromPtr true
@@ -134,7 +134,7 @@ structure PangoLayoutLine :>
          & logicalRect
          & () =
           (
-            PangoLayoutLineRecord.FFI.withPtr
+            PangoLayoutLineRecord.FFI.withPtr false
              &&&> PangoRectangleRecord.FFI.withNewPtr
              &&&> PangoRectangleRecord.FFI.withNewPtr
              ---> PangoRectangleRecord.FFI.fromPtr true
@@ -156,12 +156,12 @@ structure PangoLayoutLine :>
          & nRanges
          & () =
           (
-            PangoLayoutLineRecord.FFI.withPtr
+            PangoLayoutLineRecord.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
-             &&&> GInt32CArrayN.FFI.withRefOptPtr
+             &&&> GInt32CArrayN.FFI.withRefOptPtr 0
              &&&> GInt32.FFI.withRefVal
-             ---> GInt32CArrayN.FFI.fromPtr 1
+             ---> GInt32CArrayN.FFI.fromPtr ~1
                    && GInt32.FFI.fromVal
                    && I
           )
@@ -180,7 +180,7 @@ structure PangoLayoutLine :>
       let
         val xPos & () =
           (
-            PangoLayoutLineRecord.FFI.withPtr
+            PangoLayoutLineRecord.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GInt32.FFI.withRefVal
@@ -202,7 +202,7 @@ structure PangoLayoutLine :>
          & trailing
          & retVal =
           (
-            PangoLayoutLineRecord.FFI.withPtr
+            PangoLayoutLineRecord.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal

@@ -83,25 +83,25 @@ structure GtkToolButton :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActionableClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (iconWidget, label) = (GtkWidgetClass.FFI.withOptPtr &&&> Utf8.FFI.withOptPtr ---> GtkToolButtonClass.FFI.fromPtr false) new_ (iconWidget & label)
-    fun newFromStock stockId = (Utf8.FFI.withPtr ---> GtkToolButtonClass.FFI.fromPtr false) newFromStock_ stockId
-    fun getIconName self = (GtkToolButtonClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
-    fun getIconWidget self = (GtkToolButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getIconWidget_ self
-    fun getLabel self = (GtkToolButtonClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getLabel_ self
-    fun getLabelWidget self = (GtkToolButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getLabelWidget_ self
-    fun getStockId self = (GtkToolButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStockId_ self
-    fun getUseUnderline self = (GtkToolButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseUnderline_ self
-    fun setIconName self iconName = (GtkToolButtonClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setIconName_ (self & iconName)
-    fun setIconWidget self iconWidget = (GtkToolButtonClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setIconWidget_ (self & iconWidget)
-    fun setLabel self label = (GtkToolButtonClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setLabel_ (self & label)
-    fun setLabelWidget self labelWidget = (GtkToolButtonClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setLabelWidget_ (self & labelWidget)
-    fun setStockId self stockId = (GtkToolButtonClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setStockId_ (self & stockId)
-    fun setUseUnderline self useUnderline = (GtkToolButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseUnderline_ (self & useUnderline)
+    fun new (iconWidget, label) = (GtkWidgetClass.FFI.withOptPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GtkToolButtonClass.FFI.fromPtr false) new_ (iconWidget & label)
+    fun newFromStock stockId = (Utf8.FFI.withPtr 0 ---> GtkToolButtonClass.FFI.fromPtr false) newFromStock_ stockId
+    fun getIconName self = (GtkToolButtonClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
+    fun getIconWidget self = (GtkToolButtonClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getIconWidget_ self
+    fun getLabel self = (GtkToolButtonClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getLabel_ self
+    fun getLabelWidget self = (GtkToolButtonClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getLabelWidget_ self
+    fun getStockId self = (GtkToolButtonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getStockId_ self
+    fun getUseUnderline self = (GtkToolButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseUnderline_ self
+    fun setIconName self iconName = (GtkToolButtonClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setIconName_ (self & iconName)
+    fun setIconWidget self iconWidget = (GtkToolButtonClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setIconWidget_ (self & iconWidget)
+    fun setLabel self label = (GtkToolButtonClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setLabel_ (self & label)
+    fun setLabelWidget self labelWidget = (GtkToolButtonClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setLabelWidget_ (self & labelWidget)
+    fun setStockId self stockId = (GtkToolButtonClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setStockId_ (self & stockId)
+    fun setUseUnderline self useUnderline = (GtkToolButtonClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseUnderline_ (self & useUnderline)
     local
       open ClosureMarshal Signal
     in

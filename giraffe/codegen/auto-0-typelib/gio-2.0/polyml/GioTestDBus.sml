@@ -22,12 +22,12 @@ structure GioTestDBus :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new flags = (GioTestDBusFlags.FFI.withVal ---> GioTestDBusClass.FFI.fromPtr true) new_ flags
     fun unset () = (I ---> I) unset_ ()
-    fun addServiceDir self path = (GioTestDBusClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addServiceDir_ (self & path)
-    fun down self = (GioTestDBusClass.FFI.withPtr ---> I) down_ self
-    fun getBusAddress self = (GioTestDBusClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getBusAddress_ self
-    fun getFlags self = (GioTestDBusClass.FFI.withPtr ---> GioTestDBusFlags.FFI.fromVal) getFlags_ self
-    fun stop self = (GioTestDBusClass.FFI.withPtr ---> I) stop_ self
-    fun up self = (GioTestDBusClass.FFI.withPtr ---> I) up_ self
+    fun addServiceDir self path = (GioTestDBusClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) addServiceDir_ (self & path)
+    fun down self = (GioTestDBusClass.FFI.withPtr false ---> I) down_ self
+    fun getBusAddress self = (GioTestDBusClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getBusAddress_ self
+    fun getFlags self = (GioTestDBusClass.FFI.withPtr false ---> GioTestDBusFlags.FFI.fromVal) getFlags_ self
+    fun stop self = (GioTestDBusClass.FFI.withPtr false ---> I) stop_ self
+    fun up self = (GioTestDBusClass.FFI.withPtr false ---> I) up_ self
     local
       open Property
     in

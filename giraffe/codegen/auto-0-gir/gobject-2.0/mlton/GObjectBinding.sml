@@ -20,12 +20,12 @@ structure GObjectBinding :>
     type 'object_class property_t = 'object_class Property.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getFlags self = (GObjectBindingClass.FFI.withPtr ---> GObjectBindingFlags.FFI.fromVal) getFlags_ self
-    fun getSource self = (GObjectBindingClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getSource_ self
-    fun getSourceProperty self = (GObjectBindingClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSourceProperty_ self
-    fun getTarget self = (GObjectBindingClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getTarget_ self
-    fun getTargetProperty self = (GObjectBindingClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTargetProperty_ self
-    fun unbind self = (GObjectBindingClass.FFI.withPtr ---> I) unbind_ self
+    fun getFlags self = (GObjectBindingClass.FFI.withPtr false ---> GObjectBindingFlags.FFI.fromVal) getFlags_ self
+    fun getSource self = (GObjectBindingClass.FFI.withPtr false ---> GObjectObjectClass.FFI.fromPtr false) getSource_ self
+    fun getSourceProperty self = (GObjectBindingClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSourceProperty_ self
+    fun getTarget self = (GObjectBindingClass.FFI.withPtr false ---> GObjectObjectClass.FFI.fromPtr false) getTarget_ self
+    fun getTargetProperty self = (GObjectBindingClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTargetProperty_ self
+    fun unbind self = (GObjectBindingClass.FFI.withPtr false ---> I) unbind_ self
     local
       open Property
     in

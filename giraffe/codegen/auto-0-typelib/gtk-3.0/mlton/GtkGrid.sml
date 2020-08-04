@@ -134,9 +134,9 @@ structure GtkGrid :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type baseline_position_t = GtkBaselinePosition.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkGridClass.FFI.fromPtr false) new_ ()
     fun attach
@@ -149,8 +149,8 @@ structure GtkGrid :>
         height
       ) =
       (
-        GtkGridClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkGridClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
@@ -176,9 +176,9 @@ structure GtkGrid :>
         height
       ) =
       (
-        GtkGridClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withOptPtr
+        GtkGridClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withOptPtr false
          &&&> GtkPositionType.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
@@ -193,10 +193,10 @@ structure GtkGrid :>
            & width
            & height
         )
-    fun getBaselineRow self = (GtkGridClass.FFI.withPtr ---> GInt32.FFI.fromVal) getBaselineRow_ self
+    fun getBaselineRow self = (GtkGridClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getBaselineRow_ self
     fun getChildAt self (left, top) =
       (
-        GtkGridClass.FFI.withPtr
+        GtkGridClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> GtkWidgetClass.FFI.fromOptPtr false
@@ -207,16 +207,16 @@ structure GtkGrid :>
            & left
            & top
         )
-    fun getColumnHomogeneous self = (GtkGridClass.FFI.withPtr ---> GBool.FFI.fromVal) getColumnHomogeneous_ self
-    fun getColumnSpacing self = (GtkGridClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getColumnSpacing_ self
-    fun getRowBaselinePosition self row = (GtkGridClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkBaselinePosition.FFI.fromVal) getRowBaselinePosition_ (self & row)
-    fun getRowHomogeneous self = (GtkGridClass.FFI.withPtr ---> GBool.FFI.fromVal) getRowHomogeneous_ self
-    fun getRowSpacing self = (GtkGridClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getRowSpacing_ self
-    fun insertColumn self position = (GtkGridClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) insertColumn_ (self & position)
+    fun getColumnHomogeneous self = (GtkGridClass.FFI.withPtr false ---> GBool.FFI.fromVal) getColumnHomogeneous_ self
+    fun getColumnSpacing self = (GtkGridClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getColumnSpacing_ self
+    fun getRowBaselinePosition self row = (GtkGridClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkBaselinePosition.FFI.fromVal) getRowBaselinePosition_ (self & row)
+    fun getRowHomogeneous self = (GtkGridClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRowHomogeneous_ self
+    fun getRowSpacing self = (GtkGridClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getRowSpacing_ self
+    fun insertColumn self position = (GtkGridClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) insertColumn_ (self & position)
     fun insertNextTo self (sibling, side) =
       (
-        GtkGridClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkGridClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GtkPositionType.FFI.withVal
          ---> I
       )
@@ -226,15 +226,15 @@ structure GtkGrid :>
            & sibling
            & side
         )
-    fun insertRow self position = (GtkGridClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) insertRow_ (self & position)
-    fun removeColumn self position = (GtkGridClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) removeColumn_ (self & position)
-    fun removeRow self position = (GtkGridClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) removeRow_ (self & position)
-    fun setBaselineRow self row = (GtkGridClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setBaselineRow_ (self & row)
-    fun setColumnHomogeneous self homogeneous = (GtkGridClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setColumnHomogeneous_ (self & homogeneous)
-    fun setColumnSpacing self spacing = (GtkGridClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setColumnSpacing_ (self & spacing)
+    fun insertRow self position = (GtkGridClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) insertRow_ (self & position)
+    fun removeColumn self position = (GtkGridClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) removeColumn_ (self & position)
+    fun removeRow self position = (GtkGridClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) removeRow_ (self & position)
+    fun setBaselineRow self row = (GtkGridClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setBaselineRow_ (self & row)
+    fun setColumnHomogeneous self homogeneous = (GtkGridClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setColumnHomogeneous_ (self & homogeneous)
+    fun setColumnSpacing self spacing = (GtkGridClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setColumnSpacing_ (self & spacing)
     fun setRowBaselinePosition self (row, pos) =
       (
-        GtkGridClass.FFI.withPtr
+        GtkGridClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GtkBaselinePosition.FFI.withVal
          ---> I
@@ -245,8 +245,8 @@ structure GtkGrid :>
            & row
            & pos
         )
-    fun setRowHomogeneous self homogeneous = (GtkGridClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRowHomogeneous_ (self & homogeneous)
-    fun setRowSpacing self spacing = (GtkGridClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setRowSpacing_ (self & spacing)
+    fun setRowHomogeneous self homogeneous = (GtkGridClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRowHomogeneous_ (self & homogeneous)
+    fun setRowSpacing self spacing = (GtkGridClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setRowSpacing_ (self & spacing)
     local
       open Property
     in

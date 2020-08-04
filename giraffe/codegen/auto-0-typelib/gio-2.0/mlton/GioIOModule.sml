@@ -9,10 +9,10 @@ structure GioIOModule :>
     val unload_ = _import "g_io_module_unload" : GioIOModuleClass.FFI.non_opt GioIOModuleClass.FFI.p -> unit;
     type 'a class = 'a GioIOModuleClass.class
     type t = base class
-    fun asTypePlugin self = (GObjectObjectClass.FFI.withPtr ---> GObjectTypePluginClass.FFI.fromPtr false) I self
+    fun asTypePlugin self = (GObjectObjectClass.FFI.withPtr false ---> GObjectTypePluginClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new filename = (Utf8.FFI.withPtr ---> GioIOModuleClass.FFI.fromPtr true) new_ filename
-    fun query () = (I ---> Utf8CPtrArray.FFI.fromPtr 2) query_ ()
-    fun load self = (GioIOModuleClass.FFI.withPtr ---> I) load_ self
-    fun unload self = (GioIOModuleClass.FFI.withPtr ---> I) unload_ self
+    fun new filename = (Utf8.FFI.withPtr 0 ---> GioIOModuleClass.FFI.fromPtr true) new_ filename
+    fun query () = (I ---> Utf8CPtrArray.FFI.fromPtr ~1) query_ ()
+    fun load self = (GioIOModuleClass.FFI.withPtr false ---> I) load_ self
+    fun unload self = (GioIOModuleClass.FFI.withPtr false ---> I) unload_ self
   end

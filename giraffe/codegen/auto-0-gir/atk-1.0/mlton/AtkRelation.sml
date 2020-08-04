@@ -39,7 +39,7 @@ structure AtkRelation :>
         val nTargets = LargeInt.fromInt (AtkObjectClassCPtrArrayN.length targets)
         val retVal =
           (
-            AtkObjectClassCPtrArrayN.FFI.withPtr
+            AtkObjectClassCPtrArrayN.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              &&&> AtkRelationType.FFI.withVal
              ---> AtkRelationClass.FFI.fromPtr true
@@ -53,9 +53,9 @@ structure AtkRelation :>
       in
         retVal
       end
-    fun addTarget self target = (AtkRelationClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> I) addTarget_ (self & target)
-    fun getRelationType self = (AtkRelationClass.FFI.withPtr ---> AtkRelationType.FFI.fromVal) getRelationType_ self
-    fun removeTarget self target = (AtkRelationClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> GBool.FFI.fromVal) removeTarget_ (self & target)
+    fun addTarget self target = (AtkRelationClass.FFI.withPtr false &&&> AtkObjectClass.FFI.withPtr false ---> I) addTarget_ (self & target)
+    fun getRelationType self = (AtkRelationClass.FFI.withPtr false ---> AtkRelationType.FFI.fromVal) getRelationType_ self
+    fun removeTarget self target = (AtkRelationClass.FFI.withPtr false &&&> AtkObjectClass.FFI.withPtr false ---> GBool.FFI.fromVal) removeTarget_ (self & target)
     local
       open Property
     in

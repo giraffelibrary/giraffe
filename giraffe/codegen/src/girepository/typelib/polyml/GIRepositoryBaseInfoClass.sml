@@ -18,12 +18,12 @@ structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
     in
       val take_ = ignore
 
-      val ref_ =
+      val dup_ =
         call
           (getSymbol "g_base_info_ref")
           (cPtr --> cPtr);
 
-      val unref_ =
+      val free_ =
         call
           (getSymbol "g_base_info_unref")
           (cPtr --> cVoid)
@@ -46,18 +46,18 @@ structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
 
             type t = non_opt p Finalizable.t
 
-            fun dup d = if d <> 0 then ref_ else Fn.id
+            fun dup d = if d <> 0 then dup_ else Fn.id
 
-            fun free d = if d <> 0 then unref_ else ignore
+            fun free d = if d <> 0 then free_ else ignore
 
-            fun toC p = (* FFI.withPtr (dup ~1) p *)
-              Finalizable.withValue (p, Pointer.withVal ref_)
+            fun toC p = (* FFI.withPtr false (dup ~1) p *)
+              Finalizable.withValue (p, Pointer.withVal dup_)
 
             fun fromC p = (* FFI.fromPtr false p *)
               let
-                val object = Finalizable.new (ref_ p)
+                val object = Finalizable.new (dup_ p)
               in
-                Finalizable.addFinalizer (object, unref_);
+                Finalizable.addFinalizer (object, free_);
                 object
               end
           end
@@ -76,61 +76,69 @@ structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
         local
-          fun withPointer f = Pointer.withVal f
+          fun withPointer free f p =
+            Pointer.withVal f p handle e => (free p; raise e)
 
-          fun withOptPointer f = Pointer.withOptVal f
-
-          fun withDupPointer free f p =
-            withPointer f p handle e => (free p; raise e)
-
-          fun withDupOptPointer free f optptr =
-            withOptPointer f optptr
+          fun withOptPointer free f optptr =
+            Pointer.withOptVal f optptr
               handle e => (Option.app free optptr; raise e)
         in
-          fun withPtr f ptr =
-            Finalizable.withValue (ptr, withPointer f)
+          fun withPtr transfer =
+            if not transfer
+            then
+              fn f =>
+              fn
+                ptr => Finalizable.withValue (ptr, withPointer ignore f)
+            else
+              fn f =>
+              fn
+                ptr => Finalizable.withValue (ptr, withPointer free_ f o dup_)
 
-          fun withDupPtr f ptr =
-            Finalizable.withValue (ptr, withDupPointer unref_ f o ref_)
-
-          fun withOptPtr f =
-            fn
-              SOME ptr => Finalizable.withValue (ptr, withOptPointer f o SOME)
-            | NONE     => withOptPointer f NONE
-
-          fun withDupOptPtr f =
-            fn
-              SOME ptr => Finalizable.withValue (ptr, withDupOptPointer unref_ f o SOME o ref_)
-            | NONE     => withDupOptPointer ignore f NONE
+          fun withOptPtr transfer =
+            if not transfer
+            then
+              fn f =>
+              fn
+                SOME ptr => Finalizable.withValue (ptr, withOptPointer ignore f o SOME)
+              | NONE     => withOptPointer ignore f NONE
+            else
+              fn f =>
+              fn
+                SOME ptr => Finalizable.withValue (ptr, withOptPointer free_ f o SOME o dup_)
+              | NONE     => withOptPointer ignore f NONE
         end
 
         local
-          fun withRefPointer f = Pointer.withRefVal f
+          fun withRefPointer free f p =
+            Pointer.withRefVal f p handle e => (free p; raise e)
 
-          fun withRefOptPointer f = Pointer.withRefOptVal f
-
-          fun withRefDupPointer free f p =
-            withRefPointer f p handle e => (free p; raise e)
-
-          fun withRefDupOptPointer free f optptr =
-            withRefOptPointer f optptr
+          fun withRefOptPointer free f optptr =
+            Pointer.withRefOptVal f optptr
               handle e => (Option.app free optptr; raise e)
         in
-          fun withRefPtr f ptr =
-            Finalizable.withValue (ptr, withRefPointer f)
+          fun withRefPtr transfer =
+            if not transfer
+            then
+              fn f =>
+              fn
+                ptr => Finalizable.withValue (ptr, withRefPointer ignore f)
+            else
+              fn f =>
+              fn
+                ptr => Finalizable.withValue (ptr, withRefPointer free_ f o dup_)
 
-          fun withRefDupPtr f ptr =
-            Finalizable.withValue (ptr, withRefDupPointer unref_ f o ref_)
-
-          fun withRefOptPtr f =
-            fn
-              SOME ptr => Finalizable.withValue (ptr, withRefOptPointer f o SOME)
-            | NONE     => withRefOptPointer f NONE
-
-          fun withRefDupOptPtr f =
-            fn
-              SOME ptr => Finalizable.withValue (ptr, withRefDupOptPointer unref_ f o SOME o ref_)
-            | NONE     => withRefDupOptPointer ignore f NONE
+          fun withRefOptPtr transfer =
+            if not transfer
+            then
+              fn f =>
+              fn
+                SOME ptr => Finalizable.withValue (ptr, withRefOptPointer ignore f o SOME)
+              | NONE     => withRefOptPointer ignore f NONE
+            else
+              fn f =>
+              fn
+                SOME ptr => Finalizable.withValue (ptr, withRefOptPointer free_ f o SOME o dup_)
+              | NONE     => withRefOptPointer ignore f NONE
         end
 
         fun fromPtr transfer ptr =
@@ -139,10 +147,10 @@ structure GIRepositoryBaseInfoClass :> G_I_REPOSITORY_BASE_INFO_CLASS =
               Finalizable.new (
                 if transfer
                 then (take_ ptr; ptr)  (* take the existing reference *)
-                else ref_ ptr
+                else dup_ ptr
               )
           in
-            Finalizable.addFinalizer (object, unref_);
+            Finalizable.addFinalizer (object, free_);
             object
           end
 

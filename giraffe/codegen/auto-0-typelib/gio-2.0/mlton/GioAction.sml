@@ -54,18 +54,18 @@ structure GioAction :>
     type 'a class = 'a GioActionClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun nameIsValid actionName = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) nameIsValid_ actionName
+    fun nameIsValid actionName = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) nameIsValid_ actionName
     fun parseDetailedName detailedName =
       let
         val actionName
          & targetValue
          & () =
           (
-            Utf8.FFI.withPtr
-             &&&> Utf8.FFI.withRefOptPtr
-             &&&> GLibVariantRecord.FFI.withRefOptPtr
+            Utf8.FFI.withPtr 0
+             &&&> Utf8.FFI.withRefOptPtr 0
+             &&&> GLibVariantRecord.FFI.withRefOptPtr true
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1
+             ---> Utf8.FFI.fromPtr ~1
                    && GLibVariantRecord.FFI.fromPtr true
                    && ignore
           )
@@ -79,15 +79,15 @@ structure GioAction :>
       in
         (actionName, targetValue)
       end
-    fun printDetailedName (actionName, targetValue) = (Utf8.FFI.withPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> Utf8.FFI.fromPtr 1) printDetailedName_ (actionName & targetValue)
-    fun activate self parameter = (GioActionClass.FFI.withPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> I) activate_ (self & parameter)
-    fun changeState self value = (GioActionClass.FFI.withPtr &&&> GLibVariantRecord.FFI.withPtr ---> I) changeState_ (self & value)
-    fun getEnabled self = (GioActionClass.FFI.withPtr ---> GBool.FFI.fromVal) getEnabled_ self
-    fun getName self = (GioActionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getParameterType self = (GioActionClass.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getParameterType_ self
-    fun getState self = (GioActionClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getState_ self
-    fun getStateHint self = (GioActionClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getStateHint_ self
-    fun getStateType self = (GioActionClass.FFI.withPtr ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getStateType_ self
+    fun printDetailedName (actionName, targetValue) = (Utf8.FFI.withPtr 0 &&&> GLibVariantRecord.FFI.withOptPtr false ---> Utf8.FFI.fromPtr ~1) printDetailedName_ (actionName & targetValue)
+    fun activate self parameter = (GioActionClass.FFI.withPtr false &&&> GLibVariantRecord.FFI.withOptPtr false ---> I) activate_ (self & parameter)
+    fun changeState self value = (GioActionClass.FFI.withPtr false &&&> GLibVariantRecord.FFI.withPtr false ---> I) changeState_ (self & value)
+    fun getEnabled self = (GioActionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEnabled_ self
+    fun getName self = (GioActionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getParameterType self = (GioActionClass.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getParameterType_ self
+    fun getState self = (GioActionClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr true) getState_ self
+    fun getStateHint self = (GioActionClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromOptPtr true) getStateHint_ self
+    fun getStateType self = (GioActionClass.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getStateType_ self
     local
       open Property
     in

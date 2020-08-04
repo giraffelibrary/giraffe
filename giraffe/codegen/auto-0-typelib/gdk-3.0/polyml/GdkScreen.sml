@@ -83,14 +83,14 @@ structure GdkScreen :>
     fun heightMm () = (I ---> GInt32.FFI.fromVal) heightMm_ ()
     fun width () = (I ---> GInt32.FFI.fromVal) width_ ()
     fun widthMm () = (I ---> GInt32.FFI.fromVal) widthMm_ ()
-    fun getActiveWindow self = (GdkScreenClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr true) getActiveWindow_ self
-    fun getDisplay self = (GdkScreenClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
-    fun getFontOptions self = (GdkScreenClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromOptPtr false) getFontOptions_ self
-    fun getHeight self = (GdkScreenClass.FFI.withPtr ---> GInt32.FFI.fromVal) getHeight_ self
-    fun getHeightMm self = (GdkScreenClass.FFI.withPtr ---> GInt32.FFI.fromVal) getHeightMm_ self
+    fun getActiveWindow self = (GdkScreenClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr true) getActiveWindow_ self
+    fun getDisplay self = (GdkScreenClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getFontOptions self = (GdkScreenClass.FFI.withPtr false ---> CairoFontOptionsRecord.FFI.fromOptPtr false) getFontOptions_ self
+    fun getHeight self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getHeight_ self
+    fun getHeightMm self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getHeightMm_ self
     fun getMonitorAtPoint self (x, y) =
       (
-        GdkScreenClass.FFI.withPtr
+        GdkScreenClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> GInt32.FFI.fromVal
@@ -101,12 +101,12 @@ structure GdkScreen :>
            & x
            & y
         )
-    fun getMonitorAtWindow self window = (GdkScreenClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMonitorAtWindow_ (self & window)
+    fun getMonitorAtWindow self window = (GdkScreenClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getMonitorAtWindow_ (self & window)
     fun getMonitorGeometry self monitorNum =
       let
         val dest & () =
           (
-            GdkScreenClass.FFI.withPtr
+            GdkScreenClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GdkRectangleRecord.FFI.withNewPtr
              ---> GdkRectangleRecord.FFI.fromPtr true && I
@@ -120,15 +120,15 @@ structure GdkScreen :>
       in
         dest
       end
-    fun getMonitorHeightMm self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) getMonitorHeightMm_ (self & monitorNum)
-    fun getMonitorPlugName self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 1) getMonitorPlugName_ (self & monitorNum)
-    fun getMonitorScaleFactor self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) getMonitorScaleFactor_ (self & monitorNum)
-    fun getMonitorWidthMm self monitorNum = (GdkScreenClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) getMonitorWidthMm_ (self & monitorNum)
+    fun getMonitorHeightMm self monitorNum = (GdkScreenClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) getMonitorHeightMm_ (self & monitorNum)
+    fun getMonitorPlugName self monitorNum = (GdkScreenClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr ~1) getMonitorPlugName_ (self & monitorNum)
+    fun getMonitorScaleFactor self monitorNum = (GdkScreenClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) getMonitorScaleFactor_ (self & monitorNum)
+    fun getMonitorWidthMm self monitorNum = (GdkScreenClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) getMonitorWidthMm_ (self & monitorNum)
     fun getMonitorWorkarea self monitorNum =
       let
         val dest & () =
           (
-            GdkScreenClass.FFI.withPtr
+            GdkScreenClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GdkRectangleRecord.FFI.withNewPtr
              ---> GdkRectangleRecord.FFI.fromPtr true && I
@@ -142,17 +142,17 @@ structure GdkScreen :>
       in
         dest
       end
-    fun getNMonitors self = (GdkScreenClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNMonitors_ self
-    fun getNumber self = (GdkScreenClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNumber_ self
-    fun getPrimaryMonitor self = (GdkScreenClass.FFI.withPtr ---> GInt32.FFI.fromVal) getPrimaryMonitor_ self
-    fun getResolution self = (GdkScreenClass.FFI.withPtr ---> GDouble.FFI.fromVal) getResolution_ self
-    fun getRgbaVisual self = (GdkScreenClass.FFI.withPtr ---> GdkVisualClass.FFI.fromOptPtr false) getRgbaVisual_ self
-    fun getRootWindow self = (GdkScreenClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getRootWindow_ self
+    fun getNMonitors self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNMonitors_ self
+    fun getNumber self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNumber_ self
+    fun getPrimaryMonitor self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getPrimaryMonitor_ self
+    fun getResolution self = (GdkScreenClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getResolution_ self
+    fun getRgbaVisual self = (GdkScreenClass.FFI.withPtr false ---> GdkVisualClass.FFI.fromOptPtr false) getRgbaVisual_ self
+    fun getRootWindow self = (GdkScreenClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getRootWindow_ self
     fun getSetting self (name, value) =
       (
-        GdkScreenClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectValueRecord.FFI.withPtr
+        GdkScreenClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectValueRecord.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         getSetting_
@@ -161,13 +161,13 @@ structure GdkScreen :>
            & name
            & value
         )
-    fun getSystemVisual self = (GdkScreenClass.FFI.withPtr ---> GdkVisualClass.FFI.fromPtr false) getSystemVisual_ self
-    fun getWidth self = (GdkScreenClass.FFI.withPtr ---> GInt32.FFI.fromVal) getWidth_ self
-    fun getWidthMm self = (GdkScreenClass.FFI.withPtr ---> GInt32.FFI.fromVal) getWidthMm_ self
-    fun isComposited self = (GdkScreenClass.FFI.withPtr ---> GBool.FFI.fromVal) isComposited_ self
-    fun makeDisplayName self = (GdkScreenClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) makeDisplayName_ self
-    fun setFontOptions self options = (GdkScreenClass.FFI.withPtr &&&> CairoFontOptionsRecord.FFI.withOptPtr ---> I) setFontOptions_ (self & options)
-    fun setResolution self dpi = (GdkScreenClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setResolution_ (self & dpi)
+    fun getSystemVisual self = (GdkScreenClass.FFI.withPtr false ---> GdkVisualClass.FFI.fromPtr false) getSystemVisual_ self
+    fun getWidth self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getWidth_ self
+    fun getWidthMm self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getWidthMm_ self
+    fun isComposited self = (GdkScreenClass.FFI.withPtr false ---> GBool.FFI.fromVal) isComposited_ self
+    fun makeDisplayName self = (GdkScreenClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) makeDisplayName_ self
+    fun setFontOptions self options = (GdkScreenClass.FFI.withPtr false &&&> CairoFontOptionsRecord.FFI.withOptPtr false ---> I) setFontOptions_ (self & options)
+    fun setResolution self dpi = (GdkScreenClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setResolution_ (self & dpi)
     local
       open ClosureMarshal Signal
     in

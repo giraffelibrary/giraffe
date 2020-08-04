@@ -54,18 +54,18 @@ structure GtkButtonBox :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type button_box_style_t = GtkButtonBoxStyle.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new orientation = (GtkOrientation.FFI.withVal ---> GtkButtonBoxClass.FFI.fromPtr false) new_ orientation
-    fun getChildNonHomogeneous self child = (GtkButtonBoxClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getChildNonHomogeneous_ (self & child)
-    fun getChildSecondary self child = (GtkButtonBoxClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getChildSecondary_ (self & child)
-    fun getLayout self = (GtkButtonBoxClass.FFI.withPtr ---> GtkButtonBoxStyle.FFI.fromVal) getLayout_ self
+    fun getChildNonHomogeneous self child = (GtkButtonBoxClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getChildNonHomogeneous_ (self & child)
+    fun getChildSecondary self child = (GtkButtonBoxClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getChildSecondary_ (self & child)
+    fun getLayout self = (GtkButtonBoxClass.FFI.withPtr false ---> GtkButtonBoxStyle.FFI.fromVal) getLayout_ self
     fun setChildNonHomogeneous self (child, nonHomogeneous) =
       (
-        GtkButtonBoxClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkButtonBoxClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -77,8 +77,8 @@ structure GtkButtonBox :>
         )
     fun setChildSecondary self (child, isSecondary) =
       (
-        GtkButtonBoxClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkButtonBoxClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -88,7 +88,7 @@ structure GtkButtonBox :>
            & child
            & isSecondary
         )
-    fun setLayout self layoutStyle = (GtkButtonBoxClass.FFI.withPtr &&&> GtkButtonBoxStyle.FFI.withVal ---> I) setLayout_ (self & layoutStyle)
+    fun setLayout self layoutStyle = (GtkButtonBoxClass.FFI.withPtr false &&&> GtkButtonBoxStyle.FFI.withVal ---> I) setLayout_ (self & layoutStyle)
     local
       open Property
     in

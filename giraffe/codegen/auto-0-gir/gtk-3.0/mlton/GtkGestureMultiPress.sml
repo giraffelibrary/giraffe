@@ -11,14 +11,14 @@ structure GtkGestureMultiPress :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new widget = (GtkWidgetClass.FFI.withPtr ---> GtkGestureMultiPressClass.FFI.fromPtr true) new_ widget
+    fun new widget = (GtkWidgetClass.FFI.withPtr false ---> GtkGestureMultiPressClass.FFI.fromPtr true) new_ widget
     fun getArea self =
       let
-        val rect & retVal = (GtkGestureMultiPressClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal) getArea_ (self & ())
+        val rect & retVal = (GtkGestureMultiPressClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal) getArea_ (self & ())
       in
         if retVal then SOME rect else NONE
       end
-    fun setArea self rect = (GtkGestureMultiPressClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withOptPtr ---> I) setArea_ (self & rect)
+    fun setArea self rect = (GtkGestureMultiPressClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withOptPtr false ---> I) setArea_ (self & rect)
     local
       open ClosureMarshal Signal
     in

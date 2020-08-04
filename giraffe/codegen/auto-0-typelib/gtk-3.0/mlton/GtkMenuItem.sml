@@ -63,33 +63,33 @@ structure GtkMenuItem :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type 'a menu_class = 'a GtkMenuClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActionableClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkMenuItemClass.FFI.fromPtr false) new_ ()
-    fun newWithLabel label = (Utf8.FFI.withPtr ---> GtkMenuItemClass.FFI.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (Utf8.FFI.withPtr ---> GtkMenuItemClass.FFI.fromPtr false) newWithMnemonic_ label
-    fun activate self = (GtkMenuItemClass.FFI.withPtr ---> I) activate_ self
-    fun deselect self = (GtkMenuItemClass.FFI.withPtr ---> I) deselect_ self
-    fun getAccelPath self = (GtkMenuItemClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getAccelPath_ self
-    fun getLabel self = (GtkMenuItemClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
-    fun getReserveIndicator self = (GtkMenuItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getReserveIndicator_ self
-    fun getRightJustified self = (GtkMenuItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getRightJustified_ self
-    fun getSubmenu self = (GtkMenuItemClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getSubmenu_ self
-    fun getUseUnderline self = (GtkMenuItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseUnderline_ self
-    fun select self = (GtkMenuItemClass.FFI.withPtr ---> I) select_ self
-    fun setAccelPath self accelPath = (GtkMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setAccelPath_ (self & accelPath)
-    fun setLabel self label = (GtkMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setLabel_ (self & label)
-    fun setReserveIndicator self reserve = (GtkMenuItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setReserveIndicator_ (self & reserve)
-    fun setRightJustified self rightJustified = (GtkMenuItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRightJustified_ (self & rightJustified)
-    fun setSubmenu self submenu = (GtkMenuItemClass.FFI.withPtr &&&> GtkMenuClass.FFI.withOptPtr ---> I) setSubmenu_ (self & submenu)
-    fun setUseUnderline self setting = (GtkMenuItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseUnderline_ (self & setting)
-    fun toggleSizeAllocate self allocation = (GtkMenuItemClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) toggleSizeAllocate_ (self & allocation)
+    fun newWithLabel label = (Utf8.FFI.withPtr 0 ---> GtkMenuItemClass.FFI.fromPtr false) newWithLabel_ label
+    fun newWithMnemonic label = (Utf8.FFI.withPtr 0 ---> GtkMenuItemClass.FFI.fromPtr false) newWithMnemonic_ label
+    fun activate self = (GtkMenuItemClass.FFI.withPtr false ---> I) activate_ self
+    fun deselect self = (GtkMenuItemClass.FFI.withPtr false ---> I) deselect_ self
+    fun getAccelPath self = (GtkMenuItemClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getAccelPath_ self
+    fun getLabel self = (GtkMenuItemClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLabel_ self
+    fun getReserveIndicator self = (GtkMenuItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getReserveIndicator_ self
+    fun getRightJustified self = (GtkMenuItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRightJustified_ self
+    fun getSubmenu self = (GtkMenuItemClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getSubmenu_ self
+    fun getUseUnderline self = (GtkMenuItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseUnderline_ self
+    fun select self = (GtkMenuItemClass.FFI.withPtr false ---> I) select_ self
+    fun setAccelPath self accelPath = (GtkMenuItemClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setAccelPath_ (self & accelPath)
+    fun setLabel self label = (GtkMenuItemClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setLabel_ (self & label)
+    fun setReserveIndicator self reserve = (GtkMenuItemClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setReserveIndicator_ (self & reserve)
+    fun setRightJustified self rightJustified = (GtkMenuItemClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRightJustified_ (self & rightJustified)
+    fun setSubmenu self submenu = (GtkMenuItemClass.FFI.withPtr false &&&> GtkMenuClass.FFI.withOptPtr false ---> I) setSubmenu_ (self & submenu)
+    fun setUseUnderline self setting = (GtkMenuItemClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseUnderline_ (self & setting)
+    fun toggleSizeAllocate self allocation = (GtkMenuItemClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) toggleSizeAllocate_ (self & allocation)
     fun toggleSizeRequest self requisition =
       let
-        val requisition & () = (GtkMenuItemClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && I) toggleSizeRequest_ (self & requisition)
+        val requisition & () = (GtkMenuItemClass.FFI.withPtr false &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && I) toggleSizeRequest_ (self & requisition)
       in
         requisition
       end

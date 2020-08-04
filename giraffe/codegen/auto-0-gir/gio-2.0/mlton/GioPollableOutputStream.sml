@@ -36,18 +36,18 @@ structure GioPollableOutputStream :>
     type 'a cancellable_class = 'a GioCancellableClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun canPoll self = (GioPollableOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) canPoll_ self
-    fun createSource self cancellable = (GioPollableOutputStreamClass.FFI.withPtr &&&> GioCancellableClass.FFI.withOptPtr ---> GLibSourceRecord.FFI.fromPtr true) createSource_ (self & cancellable)
-    fun isWritable self = (GioPollableOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ self
+    fun canPoll self = (GioPollableOutputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) canPoll_ self
+    fun createSource self cancellable = (GioPollableOutputStreamClass.FFI.withPtr false &&&> GioCancellableClass.FFI.withOptPtr false ---> GLibSourceRecord.FFI.fromPtr true) createSource_ (self & cancellable)
+    fun isWritable self = (GioPollableOutputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) isWritable_ self
     fun writeNonblocking self (buffer, cancellable) =
       let
         val count = GUInt8CArrayN.length buffer
         val retVal =
           (
-            GioPollableOutputStreamClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioPollableOutputStreamClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GSSize.FFI.fromVal
           )

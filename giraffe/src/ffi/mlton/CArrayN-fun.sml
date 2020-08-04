@@ -78,18 +78,41 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
         structure OutPointer = Pointer
         type 'a out_p = 'a OutPointer.p
 
-        fun fromPtr d p n =
-          let
-            val a = Finalizable.new p
-          in
-            Finalizable.addFinalizer (a, free d n);
-            (CArray (a, n), n)
-          end
-
-        fun fromDupPtr d p n = (
-          toSMLValue (CVector.fromPointer n p)
-            handle CVector.NoSMLValue => fromPtr ~1 (dup ~1 n p) n
-        ) before free d n p
+        local
+          fun wrap d p n =
+            let
+              val a = Finalizable.new p
+            in
+              Finalizable.addFinalizer (a, free d n);
+              (CArray (a, n), n)
+            end
+        in
+          fun fromPtr d =
+            if d < 0
+            then
+              (* If `d < 0`, we own everything so just wrap it. *)
+              wrap ~1
+            else
+              (* If `d = 0`, we own nothing so a full copy is required.
+               *
+               * If `d > 0`, we own `d` initial levels but need ownership of
+               * the deeper levels.  The implementation here is potentially
+               * inefficient in this case because it makes a full copy and
+               * frees the initial levels that we owned.  This is especially
+               * inefficient if the unowned elements are reference counted
+               * because the initial level could have been used.
+               * If this leads to a performance issue, consideration
+               * could be given to improving this case by copying the
+               * deeper levels and updating the initial levels that
+               * we own. *)
+              fn p =>
+              fn n =>
+                (
+                  toSMLValue (CVector.fromPointer n p)
+                    handle CVector.NoSMLValue => wrap ~1 (dup ~1 n p) n
+                )
+                 before free d n p
+        end
 
         fun copyPtr tabulate d p n =
           tabulate (len n p, getElem n p) before free d n p
@@ -100,10 +123,6 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
           (* No finalizer added for null pointer.  Although g_free can be
            * called with a null pointer, adding unnecessary finalizers is
            * less efficient. *)
-
-        fun fromDupOptPtr d p n =
-          Option.map (fn p => fromDupPtr d p n) (Pointer.toOpt p)
-          (* No finalizer added for null pointer. *)
 
         fun copyOptPtr tabulate d p n =
           Option.map (fn p => copyPtr tabulate d p n) (Pointer.toOpt p)
@@ -156,18 +175,31 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
 
           fun fromSMLValue (v : CVector.cvector) : 'a in_p = (v, Pointer.null)
 
-          fun withPointer f p = f (fromPointer p)
+          fun withPointer free f p =
+            f (fromPointer p) handle e => (Pointer.appNonNullPtr free p; raise e)
 
           fun withDupPointer free f p =
-            withPointer f p handle e => (Pointer.appNonNullPtr free p; raise e)
-
-          fun withNewDupPointer free f p =
-            p & withDupPointer free f p
+            p & withPointer free f p
         in
-          fun withPtr f =
-            fn
-              (CArray (a, _), _) => Finalizable.withValue (a, withPointer f)
-            | (SMLValue v, _) => Finalizable.withValue (v, f o fromSMLValue)
+          fun withPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                (CArray (a, _), _) => Finalizable.withValue (a, withPointer ignore f)
+              | (SMLValue v, _) => Finalizable.withValue (v, f o fromSMLValue)
+            else
+              fn f =>
+              fn
+                (CArray (a, _), n) =>
+                  Finalizable.withValue (a, withPointer (free d n) f o dup d n)
+              | (SMLValue v, n) =>
+                  Finalizable.withValue
+                    (
+                      v,
+                      fn c =>
+                        withPointer (free ~1 n) f (CVector.toPointer n c)
+                    )
 
           fun withDupPtr d f =
             fn
@@ -181,24 +213,30 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
                       withDupPointer (free ~1 n) f (CVector.toPointer n c)
                   )
 
-          fun withNewDupPtr d f =
-            fn
-              (CArray (a, _), n) =>
-                Finalizable.withValue (a, withNewDupPointer (free d n) f o dup d n)
-            | (SMLValue v, n) =>
-                Finalizable.withValue
-                  (
-                    v,
-                    fn c =>
-                      withNewDupPointer (free ~1 n) f (CVector.toPointer n c)
-                  )
 
-
-          fun withOptPtr f =
-            fn
-              SOME (CArray (a, _), _) => Finalizable.withValue (a, withPointer f)
-            | SOME (SMLValue v, _) => Finalizable.withValue (v, f o fromSMLValue)
-            | NONE => withPointer f Pointer.null
+          fun withOptPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                SOME (CArray (a, _), _) => Finalizable.withValue (a, withPointer ignore f)
+              | SOME (SMLValue v, _) => Finalizable.withValue (v, f o fromSMLValue)
+              | NONE => withPointer ignore f Pointer.null
+            else
+              fn f =>
+              fn
+                SOME (CArray (a, _), n) =>
+                  Finalizable.withValue
+                    (a, withPointer (free d n) f o Pointer.toOptPtr o dup d n)
+              | SOME (SMLValue v, n) =>
+                  Finalizable.withValue
+                    (
+                      v,
+                      fn c =>
+                        withPointer (free ~1 n) f
+                         (Pointer.toOptPtr (CVector.toPointer n c))
+                    )
+              | NONE => withPointer ignore f Pointer.null
 
           fun withDupOptPtr d f =
             fn
@@ -214,21 +252,6 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
                        (Pointer.toOptPtr (CVector.toPointer n c))
                   )
             | NONE => withDupPointer ignore f Pointer.null
-
-          fun withNewDupOptPtr d f =
-            fn
-              SOME (CArray (a, _), n) =>
-                Finalizable.withValue
-                  (a, withNewDupPointer (free d n) f o Pointer.toOptPtr o dup d n)
-            | SOME (SMLValue v, n) =>
-                Finalizable.withValue
-                  (
-                    v,
-                    fn c =>
-                      withNewDupPointer (free ~1 n) f
-                       (Pointer.toOptPtr (CVector.toPointer n c))
-                  )
-            | NONE => withNewDupPointer ignore f Pointer.null
         end
 
 
@@ -280,57 +303,60 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
             let val y = f x in fromRef e & y end
             (* must evaluate `f x` before `fromRef e` *)
 
-          fun withRefPointer f p =
-            let val q & y = f (fromPointer p) in q & y end
-
-          fun withRefDupPointer free f p =
-            withRefPointer f p handle e => (Pointer.appNonNullPtr free p; raise e)
+          fun withRefPointer free f p =
+            f (fromPointer p) handle e => (free p; raise e)
         in
           fun withNullRef f () = f (null ())
 
 
-          fun withRefPtr f =
-            fn
-              (CArray (a, _), _) => Finalizable.withValue (a, withRefPointer (apply f))
-            | (SMLValue v, _) => Finalizable.withValue (v, apply f o fromSMLValue)
+          fun withRefPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                (CArray (a, _), _) => Finalizable.withValue (a, withRefPointer ignore (apply f))
+              | (SMLValue v, _) => Finalizable.withValue (v, apply f o fromSMLValue)
+            else
+              fn f =>
+              fn
+                (CArray (a, _), n) =>
+                  Finalizable.withValue
+                    (a, withRefPointer (free d n) (apply f) o dup d n)
+              | (SMLValue v, n) =>
+                  Finalizable.withValue
+                    (
+                      v,
+                      fn c =>
+                        withRefPointer (free ~1 n) (apply f)
+                          (CVector.toPointer n c)
+                    )
 
-          fun withRefDupPtr d f =
-            fn
-              (CArray (a, _), n) =>
-                Finalizable.withValue
-                  (a, withRefDupPointer (free d n) (apply f) o dup d n)
-            | (SMLValue v, n) =>
-                Finalizable.withValue
-                  (
-                    v,
-                    fn c =>
-                      withRefDupPointer (free ~1 n) (apply f)
-                        (CVector.toPointer n c)
-                  )
 
-
-          fun withRefOptPtr f =
-            fn
-              SOME (CArray (a, _), _) =>
-                Finalizable.withValue (a, withRefPointer (apply f))
-            | SOME (SMLValue v, _) =>
-                Finalizable.withValue (v, apply f o fromSMLValue)
-            | NONE => withRefPointer (apply f) Pointer.null
-
-          fun withRefDupOptPtr d f =
-            fn
-              SOME (CArray (a, _), n) =>
-                Finalizable.withValue
-                  (a, withRefDupPointer (free d n) (apply f) o dup d n)
-            | SOME (SMLValue v, n) =>
-                Finalizable.withValue
-                  (
-                    v,
-                    fn c =>
-                      withRefDupPointer (free ~1 n) (apply f)
-                        (CVector.toPointer n c)
-                  )
-            | NONE => withRefDupPointer ignore (apply f) Pointer.null
+          fun withRefOptPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                SOME (CArray (a, _), _) =>
+                  Finalizable.withValue (a, withRefPointer ignore (apply f))
+              | SOME (SMLValue v, _) =>
+                  Finalizable.withValue (v, apply f o fromSMLValue)
+              | NONE => withRefPointer ignore (apply f) Pointer.null
+            else
+              fn f =>
+              fn
+                SOME (CArray (a, _), n) =>
+                  Finalizable.withValue
+                    (a, withRefPointer (free d n) (apply f) o dup d n)
+              | SOME (SMLValue v, n) =>
+                  Finalizable.withValue
+                    (
+                      v,
+                      fn c =>
+                        withRefPointer (free ~1 n) (apply f)
+                          (CVector.toPointer n c)
+                    )
+              | NONE => withRefPointer ignore (apply f) Pointer.null
         end
       end
 

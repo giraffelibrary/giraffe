@@ -28,13 +28,13 @@ structure GioUnixSocketAddress :>
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type unix_socket_address_type_t = GioUnixSocketAddressType.t
     type t = base class
-    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
+    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr false ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new path = (Utf8.FFI.withPtr ---> GioUnixSocketAddressClass.FFI.fromPtr true) new_ path
+    fun new path = (Utf8.FFI.withPtr 0 ---> GioUnixSocketAddressClass.FFI.fromPtr true) new_ path
     fun newAbstract path =
       let
         val pathLen = LargeInt.fromInt (GCharCArrayN.length path)
-        val retVal = (GCharCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GioUnixSocketAddressClass.FFI.fromPtr true) newAbstract_ (path & pathLen)
+        val retVal = (GCharCArrayN.FFI.withPtr 0 &&&> GInt.FFI.withVal ---> GioUnixSocketAddressClass.FFI.fromPtr true) newAbstract_ (path & pathLen)
       in
         retVal
       end
@@ -43,7 +43,7 @@ structure GioUnixSocketAddress :>
         val pathLen = LargeInt.fromInt (GCharCArrayN.length path)
         val retVal =
           (
-            GCharCArrayN.FFI.withPtr
+            GCharCArrayN.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              &&&> GioUnixSocketAddressType.FFI.withVal
              ---> GioUnixSocketAddressClass.FFI.fromPtr true
@@ -58,10 +58,10 @@ structure GioUnixSocketAddress :>
         retVal
       end
     fun abstractNamesSupported () = (I ---> GBool.FFI.fromVal) abstractNamesSupported_ ()
-    fun getAddressType self = (GioUnixSocketAddressClass.FFI.withPtr ---> GioUnixSocketAddressType.FFI.fromVal) getAddressType_ self
-    fun getIsAbstract self = (GioUnixSocketAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsAbstract_ self
-    fun getPath self = (GioUnixSocketAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPath_ self
-    fun getPathLen self = (GioUnixSocketAddressClass.FFI.withPtr ---> GSize.FFI.fromVal) getPathLen_ self
+    fun getAddressType self = (GioUnixSocketAddressClass.FFI.withPtr false ---> GioUnixSocketAddressType.FFI.fromVal) getAddressType_ self
+    fun getIsAbstract self = (GioUnixSocketAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsAbstract_ self
+    fun getPath self = (GioUnixSocketAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPath_ self
+    fun getPathLen self = (GioUnixSocketAddressClass.FFI.withPtr false ---> GSize.FFI.fromVal) getPathLen_ self
     local
       open Property
     in

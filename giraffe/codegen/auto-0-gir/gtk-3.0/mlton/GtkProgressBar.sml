@@ -37,24 +37,24 @@ structure GtkProgressBar :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkProgressBarClass.FFI.fromPtr false) new_ ()
-    fun getEllipsize self = (GtkProgressBarClass.FFI.withPtr ---> PangoEllipsizeMode.FFI.fromVal) getEllipsize_ self
-    fun getFraction self = (GtkProgressBarClass.FFI.withPtr ---> GDouble.FFI.fromVal) getFraction_ self
-    fun getInverted self = (GtkProgressBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getInverted_ self
-    fun getPulseStep self = (GtkProgressBarClass.FFI.withPtr ---> GDouble.FFI.fromVal) getPulseStep_ self
-    fun getShowText self = (GtkProgressBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowText_ self
-    fun getText self = (GtkProgressBarClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getText_ self
-    fun pulse self = (GtkProgressBarClass.FFI.withPtr ---> I) pulse_ self
-    fun setEllipsize self mode = (GtkProgressBarClass.FFI.withPtr &&&> PangoEllipsizeMode.FFI.withVal ---> I) setEllipsize_ (self & mode)
-    fun setFraction self fraction = (GtkProgressBarClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setFraction_ (self & fraction)
-    fun setInverted self inverted = (GtkProgressBarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setInverted_ (self & inverted)
-    fun setPulseStep self fraction = (GtkProgressBarClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setPulseStep_ (self & fraction)
-    fun setShowText self showText = (GtkProgressBarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowText_ (self & showText)
-    fun setText self text = (GtkProgressBarClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setText_ (self & text)
+    fun getEllipsize self = (GtkProgressBarClass.FFI.withPtr false ---> PangoEllipsizeMode.FFI.fromVal) getEllipsize_ self
+    fun getFraction self = (GtkProgressBarClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getFraction_ self
+    fun getInverted self = (GtkProgressBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInverted_ self
+    fun getPulseStep self = (GtkProgressBarClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getPulseStep_ self
+    fun getShowText self = (GtkProgressBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowText_ self
+    fun getText self = (GtkProgressBarClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getText_ self
+    fun pulse self = (GtkProgressBarClass.FFI.withPtr false ---> I) pulse_ self
+    fun setEllipsize self mode = (GtkProgressBarClass.FFI.withPtr false &&&> PangoEllipsizeMode.FFI.withVal ---> I) setEllipsize_ (self & mode)
+    fun setFraction self fraction = (GtkProgressBarClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setFraction_ (self & fraction)
+    fun setInverted self inverted = (GtkProgressBarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setInverted_ (self & inverted)
+    fun setPulseStep self fraction = (GtkProgressBarClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setPulseStep_ (self & fraction)
+    fun setShowText self showText = (GtkProgressBarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowText_ (self & showText)
+    fun setText self text = (GtkProgressBarClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setText_ (self & text)
     local
       open Property
     in

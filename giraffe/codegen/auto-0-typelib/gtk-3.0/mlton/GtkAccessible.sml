@@ -11,9 +11,9 @@ structure GtkAccessible :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun connectWidgetDestroyed self = (GtkAccessibleClass.FFI.withPtr ---> I) connectWidgetDestroyed_ self
-    fun getWidget self = (GtkAccessibleClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getWidget_ self
-    fun setWidget self widget = (GtkAccessibleClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setWidget_ (self & widget)
+    fun connectWidgetDestroyed self = (GtkAccessibleClass.FFI.withPtr false ---> I) connectWidgetDestroyed_ self
+    fun getWidget self = (GtkAccessibleClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getWidget_ self
+    fun setWidget self widget = (GtkAccessibleClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setWidget_ (self & widget)
     local
       open Property
     in

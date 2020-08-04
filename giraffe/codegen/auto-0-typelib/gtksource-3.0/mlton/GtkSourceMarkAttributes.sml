@@ -69,20 +69,20 @@ structure GtkSourceMarkAttributes :>
     fun new () = (I ---> GtkSourceMarkAttributesClass.FFI.fromPtr true) new_ ()
     fun getBackground self =
       let
-        val background & retVal = (GtkSourceMarkAttributesClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withNewPtr ---> GdkRgbaRecord.FFI.fromPtr true && GBool.FFI.fromVal) getBackground_ (self & ())
+        val background & retVal = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withNewPtr ---> GdkRgbaRecord.FFI.fromPtr true && GBool.FFI.fromVal) getBackground_ (self & ())
       in
         if retVal then SOME background else NONE
       end
-    fun getGicon self = (GtkSourceMarkAttributesClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getGicon_ self
-    fun getIconName self = (GtkSourceMarkAttributesClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getIconName_ self
-    fun getPixbuf self = (GtkSourceMarkAttributesClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
-    fun getStockId self = (GtkSourceMarkAttributesClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStockId_ self
-    fun getTooltipMarkup self mark = (GtkSourceMarkAttributesClass.FFI.withPtr &&&> GtkSourceMarkClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getTooltipMarkup_ (self & mark)
-    fun getTooltipText self mark = (GtkSourceMarkAttributesClass.FFI.withPtr &&&> GtkSourceMarkClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getTooltipText_ (self & mark)
+    fun getGicon self = (GtkSourceMarkAttributesClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getGicon_ self
+    fun getIconName self = (GtkSourceMarkAttributesClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIconName_ self
+    fun getPixbuf self = (GtkSourceMarkAttributesClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
+    fun getStockId self = (GtkSourceMarkAttributesClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getStockId_ self
+    fun getTooltipMarkup self mark = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> GtkSourceMarkClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getTooltipMarkup_ (self & mark)
+    fun getTooltipText self mark = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> GtkSourceMarkClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getTooltipText_ (self & mark)
     fun renderIcon self (widget, size) =
       (
-        GtkSourceMarkAttributesClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkSourceMarkAttributesClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> GdkPixbufPixbufClass.FFI.fromPtr false
       )
@@ -92,11 +92,11 @@ structure GtkSourceMarkAttributes :>
            & widget
            & size
         )
-    fun setBackground self background = (GtkSourceMarkAttributesClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setBackground_ (self & background)
-    fun setGicon self gicon = (GtkSourceMarkAttributesClass.FFI.withPtr &&&> GioIconClass.FFI.withPtr ---> I) setGicon_ (self & gicon)
-    fun setIconName self iconName = (GtkSourceMarkAttributesClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setIconName_ (self & iconName)
-    fun setPixbuf self pixbuf = (GtkSourceMarkAttributesClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> I) setPixbuf_ (self & pixbuf)
-    fun setStockId self stockId = (GtkSourceMarkAttributesClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setStockId_ (self & stockId)
+    fun setBackground self background = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withPtr false ---> I) setBackground_ (self & background)
+    fun setGicon self gicon = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> GioIconClass.FFI.withPtr false ---> I) setGicon_ (self & gicon)
+    fun setIconName self iconName = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setIconName_ (self & iconName)
+    fun setPixbuf self pixbuf = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> GdkPixbufPixbufClass.FFI.withPtr false ---> I) setPixbuf_ (self & pixbuf)
+    fun setStockId self stockId = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setStockId_ (self & stockId)
     local
       open ClosureMarshal Signal
     in

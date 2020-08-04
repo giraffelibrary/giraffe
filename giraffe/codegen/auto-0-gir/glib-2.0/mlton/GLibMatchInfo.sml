@@ -93,10 +93,10 @@ structure GLibMatchInfo :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun expandReferences self stringToExpand =
       (
-        GLibMatchInfoRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GLibMatchInfoRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
-         ---> Utf8.FFI.fromOptPtr 1
+         ---> Utf8.FFI.fromOptPtr ~1
       )
         expandReferences_
         (
@@ -104,17 +104,17 @@ structure GLibMatchInfo :>
            & stringToExpand
            & []
         )
-    fun fetch self matchNum = (GLibMatchInfoRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 1) fetch_ (self & matchNum)
-    fun fetchAll self = (GLibMatchInfoRecord.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) fetchAll_ self
-    fun fetchNamed self name = (GLibMatchInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) fetchNamed_ (self & name)
+    fun fetch self matchNum = (GLibMatchInfoRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr ~1) fetch_ (self & matchNum)
+    fun fetchAll self = (GLibMatchInfoRecord.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) fetchAll_ self
+    fun fetchNamed self name = (GLibMatchInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr ~1) fetchNamed_ (self & name)
     fun fetchNamedPos self name =
       let
         val startPos
          & endPos
          & retVal =
           (
-            GLibMatchInfoRecord.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            GLibMatchInfoRecord.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -137,7 +137,7 @@ structure GLibMatchInfo :>
          & endPos
          & retVal =
           (
-            GLibMatchInfoRecord.FFI.withPtr
+            GLibMatchInfoRecord.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -155,10 +155,10 @@ structure GLibMatchInfo :>
       in
         if retVal then SOME (startPos, endPos) else NONE
       end
-    fun getMatchCount self = (GLibMatchInfoRecord.FFI.withPtr ---> GInt.FFI.fromVal) getMatchCount_ self
-    fun getRegex self = (GLibMatchInfoRecord.FFI.withPtr ---> GLibRegexRecord.FFI.fromPtr true) getRegex_ self
-    fun getString self = (GLibMatchInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getString_ self
-    fun isPartialMatch self = (GLibMatchInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) isPartialMatch_ self
-    fun matches self = (GLibMatchInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) matches_ self
-    fun next self = (GLibMatchInfoRecord.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) next_ (self & [])
+    fun getMatchCount self = (GLibMatchInfoRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getMatchCount_ self
+    fun getRegex self = (GLibMatchInfoRecord.FFI.withPtr false ---> GLibRegexRecord.FFI.fromPtr true) getRegex_ self
+    fun getString self = (GLibMatchInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getString_ self
+    fun isPartialMatch self = (GLibMatchInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isPartialMatch_ self
+    fun matches self = (GLibMatchInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) matches_ self
+    fun next self = (GLibMatchInfoRecord.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) next_ (self & [])
   end

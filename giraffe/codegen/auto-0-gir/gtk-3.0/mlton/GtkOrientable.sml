@@ -10,8 +10,8 @@ structure GtkOrientable :>
     type orientation_t = GtkOrientation.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getOrientation self = (GtkOrientableClass.FFI.withPtr ---> GtkOrientation.FFI.fromVal) getOrientation_ self
-    fun setOrientation self orientation = (GtkOrientableClass.FFI.withPtr &&&> GtkOrientation.FFI.withVal ---> I) setOrientation_ (self & orientation)
+    fun getOrientation self = (GtkOrientableClass.FFI.withPtr false ---> GtkOrientation.FFI.fromVal) getOrientation_ self
+    fun setOrientation self orientation = (GtkOrientableClass.FFI.withPtr false &&&> GtkOrientation.FFI.withVal ---> I) setOrientation_ (self & orientation)
     local
       open Property
     in

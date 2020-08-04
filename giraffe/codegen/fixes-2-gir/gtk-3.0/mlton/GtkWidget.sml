@@ -1290,15 +1290,15 @@ structure GtkWidget :>
     type 'a style_class = 'a GtkStyleClass.class
     type align_t = GtkAlign.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefaultDirection () = (I ---> GtkTextDirection.FFI.fromVal) getDefaultDirection_ ()
     fun getDefaultStyle () = (I ---> GtkStyleClass.FFI.fromPtr false) getDefaultStyle_ ()
     fun popCompositeChild () = (I ---> I) popCompositeChild_ ()
     fun pushCompositeChild () = (I ---> I) pushCompositeChild_ ()
     fun setDefaultDirection dir = (GtkTextDirection.FFI.withVal ---> I) setDefaultDirection_ dir
-    fun activate self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) activate_ self
+    fun activate self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) activate_ self
     fun addAccelerator
       self
       (
@@ -1309,9 +1309,9 @@ structure GtkWidget :>
         accelFlags
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GtkAccelGroupClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GtkAccelGroupClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
          &&&> GtkAccelFlags.FFI.withVal
@@ -1328,8 +1328,8 @@ structure GtkWidget :>
         )
     fun addDeviceEvents self (device, events) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GdkDeviceClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkDeviceClass.FFI.withPtr false
          &&&> GdkEventMask.FFI.withVal
          ---> I
       )
@@ -1339,11 +1339,11 @@ structure GtkWidget :>
            & device
            & events
         )
-    fun addEvents self events = (GtkWidgetClass.FFI.withPtr &&&> GdkEventMask.FFI.withVal ---> I) addEvents_ (self & events)
-    fun addMnemonicLabel self label = (GtkWidgetClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) addMnemonicLabel_ (self & label)
-    fun canActivateAccel self signalId = (GtkWidgetClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GBool.FFI.fromVal) canActivateAccel_ (self & signalId)
-    fun childFocus self direction = (GtkWidgetClass.FFI.withPtr &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal) childFocus_ (self & direction)
-    fun childNotify self childProperty = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) childNotify_ (self & childProperty)
+    fun addEvents self events = (GtkWidgetClass.FFI.withPtr false &&&> GdkEventMask.FFI.withVal ---> I) addEvents_ (self & events)
+    fun addMnemonicLabel self label = (GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) addMnemonicLabel_ (self & label)
+    fun canActivateAccel self signalId = (GtkWidgetClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GBool.FFI.fromVal) canActivateAccel_ (self & signalId)
+    fun childFocus self direction = (GtkWidgetClass.FFI.withPtr false &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal) childFocus_ (self & direction)
+    fun childNotify self childProperty = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) childNotify_ (self & childProperty)
     fun classPath self =
       let
         val pathLength
@@ -1351,13 +1351,13 @@ structure GtkWidget :>
          & pathReversed
          & () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GUInt.FFI.withRefVal
-             &&&> Utf8.FFI.withRefOptPtr
-             &&&> Utf8.FFI.withRefOptPtr
+             &&&> Utf8.FFI.withRefOptPtr 0
+             &&&> Utf8.FFI.withRefOptPtr 0
              ---> GUInt.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
+                   && Utf8.FFI.fromPtr ~1
                    && I
           )
             classPath_
@@ -1374,11 +1374,11 @@ structure GtkWidget :>
           pathReversed
         )
       end
-    fun computeExpand self orientation = (GtkWidgetClass.FFI.withPtr &&&> GtkOrientation.FFI.withVal ---> GBool.FFI.fromVal) computeExpand_ (self & orientation)
-    fun createPangoContext self = (GtkWidgetClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) createPangoContext_ self
-    fun createPangoLayout self text = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> PangoLayoutClass.FFI.fromPtr true) createPangoLayout_ (self & text)
-    fun destroy self = (GtkWidgetClass.FFI.withPtr ---> I) destroy_ self
-    fun deviceIsShadowed self device = (GtkWidgetClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GBool.FFI.fromVal) deviceIsShadowed_ (self & device)
+    fun computeExpand self orientation = (GtkWidgetClass.FFI.withPtr false &&&> GtkOrientation.FFI.withVal ---> GBool.FFI.fromVal) computeExpand_ (self & orientation)
+    fun createPangoContext self = (GtkWidgetClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr true) createPangoContext_ self
+    fun createPangoLayout self text = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> PangoLayoutClass.FFI.fromPtr true) createPangoLayout_ (self & text)
+    fun destroy self = (GtkWidgetClass.FFI.withPtr false ---> I) destroy_ self
+    fun deviceIsShadowed self device = (GtkWidgetClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GBool.FFI.fromVal) deviceIsShadowed_ (self & device)
     fun dragBegin
       self
       (
@@ -1388,11 +1388,11 @@ structure GtkWidget :>
         event
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GtkTargetListRecord.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GtkTargetListRecord.FFI.withPtr false
          &&&> GdkDragAction.FFI.withVal
          &&&> GInt.FFI.withVal
-         &&&> GdkEvent.FFI.withOptPtr
+         &&&> GdkEvent.FFI.withOptPtr false
          ---> GdkDragContextClass.FFI.fromPtr false
       )
         dragBegin_
@@ -1414,11 +1414,11 @@ structure GtkWidget :>
         y
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GtkTargetListRecord.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GtkTargetListRecord.FFI.withPtr false
          &&&> GdkDragAction.FFI.withVal
          &&&> GInt.FFI.withVal
-         &&&> GdkEvent.FFI.withOptPtr
+         &&&> GdkEvent.FFI.withOptPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> GdkDragContextClass.FFI.fromPtr false
@@ -1442,7 +1442,7 @@ structure GtkWidget :>
         currentY
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -1457,14 +1457,14 @@ structure GtkWidget :>
            & currentX
            & currentY
         )
-    fun dragDestAddImageTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragDestAddImageTargets_ self
-    fun dragDestAddTextTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragDestAddTextTargets_ self
-    fun dragDestAddUriTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragDestAddUriTargets_ self
+    fun dragDestAddImageTargets self = (GtkWidgetClass.FFI.withPtr false ---> I) dragDestAddImageTargets_ self
+    fun dragDestAddTextTargets self = (GtkWidgetClass.FFI.withPtr false ---> I) dragDestAddTextTargets_ self
+    fun dragDestAddUriTargets self = (GtkWidgetClass.FFI.withPtr false ---> I) dragDestAddUriTargets_ self
     fun dragDestFindTarget self (context, targetList) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GdkDragContextClass.FFI.withPtr
-         &&&> GtkTargetListRecord.FFI.withOptPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkDragContextClass.FFI.withPtr false
+         &&&> GtkTargetListRecord.FFI.withOptPtr false
          ---> GdkAtomRecord.FFI.fromPtr false
       )
         dragDestFindTarget_
@@ -1473,8 +1473,8 @@ structure GtkWidget :>
            & context
            & targetList
         )
-    fun dragDestGetTargetList self = (GtkWidgetClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromOptPtr false) dragDestGetTargetList_ self
-    fun dragDestGetTrackMotion self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) dragDestGetTrackMotion_ self
+    fun dragDestGetTargetList self = (GtkWidgetClass.FFI.withPtr false ---> GtkTargetListRecord.FFI.fromOptPtr false) dragDestGetTargetList_ self
+    fun dragDestGetTrackMotion self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) dragDestGetTrackMotion_ self
     fun dragDestSet
       self
       (
@@ -1489,9 +1489,9 @@ structure GtkWidget :>
           | NONE => GInt.null
         val () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GtkDestDefaults.FFI.withVal
-             &&&> GtkTargetEntryRecordCArrayN.FFI.withOptPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withOptPtr 0
              &&&> GInt.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I
@@ -1515,8 +1515,8 @@ structure GtkWidget :>
         useCoordinates
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GdkWindowClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkWindowClass.FFI.withPtr false
          &&&> GdkDragProtocol.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
@@ -1528,9 +1528,9 @@ structure GtkWidget :>
            & protocol
            & useCoordinates
         )
-    fun dragDestSetTargetList self targetList = (GtkWidgetClass.FFI.withPtr &&&> GtkTargetListRecord.FFI.withOptPtr ---> I) dragDestSetTargetList_ (self & targetList)
-    fun dragDestSetTrackMotion self trackMotion = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) dragDestSetTrackMotion_ (self & trackMotion)
-    fun dragDestUnset self = (GtkWidgetClass.FFI.withPtr ---> I) dragDestUnset_ self
+    fun dragDestSetTargetList self targetList = (GtkWidgetClass.FFI.withPtr false &&&> GtkTargetListRecord.FFI.withOptPtr false ---> I) dragDestSetTargetList_ (self & targetList)
+    fun dragDestSetTrackMotion self trackMotion = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) dragDestSetTrackMotion_ (self & trackMotion)
+    fun dragDestUnset self = (GtkWidgetClass.FFI.withPtr false ---> I) dragDestUnset_ self
     fun dragGetData
       self
       (
@@ -1539,9 +1539,9 @@ structure GtkWidget :>
         time
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GdkDragContextClass.FFI.withPtr
-         &&&> GdkAtomRecord.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkDragContextClass.FFI.withPtr false
+         &&&> GdkAtomRecord.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          ---> I
       )
@@ -1552,11 +1552,11 @@ structure GtkWidget :>
            & target
            & time
         )
-    fun dragHighlight self = (GtkWidgetClass.FFI.withPtr ---> I) dragHighlight_ self
-    fun dragSourceAddImageTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragSourceAddImageTargets_ self
-    fun dragSourceAddTextTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragSourceAddTextTargets_ self
-    fun dragSourceAddUriTargets self = (GtkWidgetClass.FFI.withPtr ---> I) dragSourceAddUriTargets_ self
-    fun dragSourceGetTargetList self = (GtkWidgetClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromOptPtr false) dragSourceGetTargetList_ self
+    fun dragHighlight self = (GtkWidgetClass.FFI.withPtr false ---> I) dragHighlight_ self
+    fun dragSourceAddImageTargets self = (GtkWidgetClass.FFI.withPtr false ---> I) dragSourceAddImageTargets_ self
+    fun dragSourceAddTextTargets self = (GtkWidgetClass.FFI.withPtr false ---> I) dragSourceAddTextTargets_ self
+    fun dragSourceAddUriTargets self = (GtkWidgetClass.FFI.withPtr false ---> I) dragSourceAddUriTargets_ self
+    fun dragSourceGetTargetList self = (GtkWidgetClass.FFI.withPtr false ---> GtkTargetListRecord.FFI.fromOptPtr false) dragSourceGetTargetList_ self
     fun dragSourceSet
       self
       (
@@ -1571,9 +1571,9 @@ structure GtkWidget :>
           | NONE => GInt.null
         val () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GdkModifierType.FFI.withVal
-             &&&> GtkTargetEntryRecordCArrayN.FFI.withOptPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withOptPtr 0
              &&&> GInt.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I
@@ -1589,29 +1589,29 @@ structure GtkWidget :>
       in
         ()
       end
-    fun dragSourceSetIconGicon self icon = (GtkWidgetClass.FFI.withPtr &&&> GioIconClass.FFI.withPtr ---> I) dragSourceSetIconGicon_ (self & icon)
-    fun dragSourceSetIconName self iconName = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) dragSourceSetIconName_ (self & iconName)
-    fun dragSourceSetIconPixbuf self pixbuf = (GtkWidgetClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> I) dragSourceSetIconPixbuf_ (self & pixbuf)
-    fun dragSourceSetIconStock self stockId = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) dragSourceSetIconStock_ (self & stockId)
-    fun dragSourceSetTargetList self targetList = (GtkWidgetClass.FFI.withPtr &&&> GtkTargetListRecord.FFI.withOptPtr ---> I) dragSourceSetTargetList_ (self & targetList)
-    fun dragSourceUnset self = (GtkWidgetClass.FFI.withPtr ---> I) dragSourceUnset_ self
-    fun dragUnhighlight self = (GtkWidgetClass.FFI.withPtr ---> I) dragUnhighlight_ self
-    fun draw self cr = (GtkWidgetClass.FFI.withPtr &&&> CairoContextRecord.FFI.withPtr ---> I) draw_ (self & cr)
-    fun ensureStyle self = (GtkWidgetClass.FFI.withPtr ---> I) ensureStyle_ self
-    fun errorBell self = (GtkWidgetClass.FFI.withPtr ---> I) errorBell_ self
-    fun event self event = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> GBool.FFI.fromVal) event_ (self & event)
-    fun freezeChildNotify self = (GtkWidgetClass.FFI.withPtr ---> I) freezeChildNotify_ self
-    fun getAccessible self = (GtkWidgetClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) getAccessible_ self
-    fun getActionGroup self prefix = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioActionGroupClass.FFI.fromOptPtr false) getActionGroup_ (self & prefix)
-    fun getAllocatedBaseline self = (GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getAllocatedBaseline_ self
-    fun getAllocatedHeight self = (GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getAllocatedHeight_ self
+    fun dragSourceSetIconGicon self icon = (GtkWidgetClass.FFI.withPtr false &&&> GioIconClass.FFI.withPtr false ---> I) dragSourceSetIconGicon_ (self & icon)
+    fun dragSourceSetIconName self iconName = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) dragSourceSetIconName_ (self & iconName)
+    fun dragSourceSetIconPixbuf self pixbuf = (GtkWidgetClass.FFI.withPtr false &&&> GdkPixbufPixbufClass.FFI.withPtr false ---> I) dragSourceSetIconPixbuf_ (self & pixbuf)
+    fun dragSourceSetIconStock self stockId = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) dragSourceSetIconStock_ (self & stockId)
+    fun dragSourceSetTargetList self targetList = (GtkWidgetClass.FFI.withPtr false &&&> GtkTargetListRecord.FFI.withOptPtr false ---> I) dragSourceSetTargetList_ (self & targetList)
+    fun dragSourceUnset self = (GtkWidgetClass.FFI.withPtr false ---> I) dragSourceUnset_ self
+    fun dragUnhighlight self = (GtkWidgetClass.FFI.withPtr false ---> I) dragUnhighlight_ self
+    fun draw self cr = (GtkWidgetClass.FFI.withPtr false &&&> CairoContextRecord.FFI.withPtr false ---> I) draw_ (self & cr)
+    fun ensureStyle self = (GtkWidgetClass.FFI.withPtr false ---> I) ensureStyle_ self
+    fun errorBell self = (GtkWidgetClass.FFI.withPtr false ---> I) errorBell_ self
+    fun event self event = (GtkWidgetClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> GBool.FFI.fromVal) event_ (self & event)
+    fun freezeChildNotify self = (GtkWidgetClass.FFI.withPtr false ---> I) freezeChildNotify_ self
+    fun getAccessible self = (GtkWidgetClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr false) getAccessible_ self
+    fun getActionGroup self prefix = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioActionGroupClass.FFI.fromOptPtr false) getActionGroup_ (self & prefix)
+    fun getAllocatedBaseline self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getAllocatedBaseline_ self
+    fun getAllocatedHeight self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getAllocatedHeight_ self
     fun getAllocatedSize self =
       let
         val allocation
          & baseline
          & () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GtkAllocationRecord.FFI.withNewPtr
              &&&> GInt.FFI.withRefVal
              ---> GtkAllocationRecord.FFI.fromPtr true
@@ -1627,70 +1627,70 @@ structure GtkWidget :>
       in
         (allocation, baseline)
       end
-    fun getAllocatedWidth self = (GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getAllocatedWidth_ self
+    fun getAllocatedWidth self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getAllocatedWidth_ self
     fun getAllocation self =
       let
-        val allocation & () = (GtkWidgetClass.FFI.withPtr &&&> GtkAllocationRecord.FFI.withNewPtr ---> GtkAllocationRecord.FFI.fromPtr true && I) getAllocation_ (self & ())
+        val allocation & () = (GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withNewPtr ---> GtkAllocationRecord.FFI.fromPtr true && I) getAllocation_ (self & ())
       in
         allocation
       end
-    fun getAncestor self widgetType = (GtkWidgetClass.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getAncestor_ (self & widgetType)
-    fun getAppPaintable self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getAppPaintable_ self
-    fun getCanDefault self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getCanDefault_ self
-    fun getCanFocus self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getCanFocus_ self
+    fun getAncestor self widgetType = (GtkWidgetClass.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getAncestor_ (self & widgetType)
+    fun getAppPaintable self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAppPaintable_ self
+    fun getCanDefault self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCanDefault_ self
+    fun getCanFocus self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCanFocus_ self
     fun getChildRequisition self =
       let
-        val requisition & () = (GtkWidgetClass.FFI.withPtr &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I) getChildRequisition_ (self & ())
+        val requisition & () = (GtkWidgetClass.FFI.withPtr false &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I) getChildRequisition_ (self & ())
       in
         requisition
       end
-    fun getChildVisible self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getChildVisible_ self
+    fun getChildVisible self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getChildVisible_ self
     fun getClip self =
       let
-        val clip & () = (GtkWidgetClass.FFI.withPtr &&&> GtkAllocationRecord.FFI.withNewPtr ---> GtkAllocationRecord.FFI.fromPtr true && I) getClip_ (self & ())
+        val clip & () = (GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withNewPtr ---> GtkAllocationRecord.FFI.fromPtr true && I) getClip_ (self & ())
       in
         clip
       end
-    fun getClipboard self selection = (GtkWidgetClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GtkClipboardClass.FFI.fromPtr false) getClipboard_ (self & selection)
-    fun getCompositeName self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getCompositeName_ self
-    fun getDeviceEnabled self device = (GtkWidgetClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GBool.FFI.fromVal) getDeviceEnabled_ (self & device)
-    fun getDeviceEvents self device = (GtkWidgetClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> GdkEventMask.FFI.fromVal) getDeviceEvents_ (self & device)
-    fun getDirection self = (GtkWidgetClass.FFI.withPtr ---> GtkTextDirection.FFI.fromVal) getDirection_ self
-    fun getDisplay self = (GtkWidgetClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
-    fun getDoubleBuffered self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getDoubleBuffered_ self
-    fun getEvents self = (GtkWidgetClass.FFI.withPtr ---> GdkEventMask.FFI.fromVal) getEvents_ self
-    fun getFocusOnClick self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusOnClick_ self
-    fun getFontMap self = (GtkWidgetClass.FFI.withPtr ---> PangoFontMapClass.FFI.fromOptPtr false) getFontMap_ self
-    fun getFontOptions self = (GtkWidgetClass.FFI.withPtr ---> CairoFontOptionsRecord.FFI.fromOptPtr false) getFontOptions_ self
-    fun getFrameClock self = (GtkWidgetClass.FFI.withPtr ---> GdkFrameClockClass.FFI.fromOptPtr false) getFrameClock_ self
-    fun getHalign self = (GtkWidgetClass.FFI.withPtr ---> GtkAlign.FFI.fromVal) getHalign_ self
-    fun getHasTooltip self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasTooltip_ self
-    fun getHasWindow self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasWindow_ self
-    fun getHexpand self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getHexpand_ self
-    fun getHexpandSet self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getHexpandSet_ self
-    fun getMapped self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getMapped_ self
-    fun getMarginBottom self = (GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getMarginBottom_ self
-    fun getMarginEnd self = (GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getMarginEnd_ self
-    fun getMarginLeft self = (GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getMarginLeft_ self
-    fun getMarginRight self = (GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getMarginRight_ self
-    fun getMarginStart self = (GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getMarginStart_ self
-    fun getMarginTop self = (GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getMarginTop_ self
-    fun getModifierMask self intent = (GtkWidgetClass.FFI.withPtr &&&> GdkModifierIntent.FFI.withVal ---> GdkModifierType.FFI.fromVal) getModifierMask_ (self & intent)
-    fun getModifierStyle self = (GtkWidgetClass.FFI.withPtr ---> GtkRcStyleClass.FFI.fromPtr false) getModifierStyle_ self
-    fun getName self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getNoShowAll self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getNoShowAll_ self
-    fun getOpacity self = (GtkWidgetClass.FFI.withPtr ---> GDouble.FFI.fromVal) getOpacity_ self
-    fun getPangoContext self = (GtkWidgetClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr false) getPangoContext_ self
-    fun getParent self = (GtkWidgetClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getParent_ self
-    fun getParentWindow self = (GtkWidgetClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getParentWindow_ self
-    fun getPath self = (GtkWidgetClass.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self
+    fun getClipboard self selection = (GtkWidgetClass.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> GtkClipboardClass.FFI.fromPtr false) getClipboard_ (self & selection)
+    fun getCompositeName self = (GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getCompositeName_ self
+    fun getDeviceEnabled self device = (GtkWidgetClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDeviceEnabled_ (self & device)
+    fun getDeviceEvents self device = (GtkWidgetClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GdkEventMask.FFI.fromVal) getDeviceEvents_ (self & device)
+    fun getDirection self = (GtkWidgetClass.FFI.withPtr false ---> GtkTextDirection.FFI.fromVal) getDirection_ self
+    fun getDisplay self = (GtkWidgetClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getDoubleBuffered self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDoubleBuffered_ self
+    fun getEvents self = (GtkWidgetClass.FFI.withPtr false ---> GdkEventMask.FFI.fromVal) getEvents_ self
+    fun getFocusOnClick self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFocusOnClick_ self
+    fun getFontMap self = (GtkWidgetClass.FFI.withPtr false ---> PangoFontMapClass.FFI.fromOptPtr false) getFontMap_ self
+    fun getFontOptions self = (GtkWidgetClass.FFI.withPtr false ---> CairoFontOptionsRecord.FFI.fromOptPtr false) getFontOptions_ self
+    fun getFrameClock self = (GtkWidgetClass.FFI.withPtr false ---> GdkFrameClockClass.FFI.fromOptPtr false) getFrameClock_ self
+    fun getHalign self = (GtkWidgetClass.FFI.withPtr false ---> GtkAlign.FFI.fromVal) getHalign_ self
+    fun getHasTooltip self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasTooltip_ self
+    fun getHasWindow self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasWindow_ self
+    fun getHexpand self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHexpand_ self
+    fun getHexpandSet self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHexpandSet_ self
+    fun getMapped self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getMapped_ self
+    fun getMarginBottom self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarginBottom_ self
+    fun getMarginEnd self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarginEnd_ self
+    fun getMarginLeft self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarginLeft_ self
+    fun getMarginRight self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarginRight_ self
+    fun getMarginStart self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarginStart_ self
+    fun getMarginTop self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarginTop_ self
+    fun getModifierMask self intent = (GtkWidgetClass.FFI.withPtr false &&&> GdkModifierIntent.FFI.withVal ---> GdkModifierType.FFI.fromVal) getModifierMask_ (self & intent)
+    fun getModifierStyle self = (GtkWidgetClass.FFI.withPtr false ---> GtkRcStyleClass.FFI.fromPtr false) getModifierStyle_ self
+    fun getName self = (GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getNoShowAll self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getNoShowAll_ self
+    fun getOpacity self = (GtkWidgetClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getOpacity_ self
+    fun getPangoContext self = (GtkWidgetClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr false) getPangoContext_ self
+    fun getParent self = (GtkWidgetClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getParent_ self
+    fun getParentWindow self = (GtkWidgetClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getParentWindow_ self
+    fun getPath self = (GtkWidgetClass.FFI.withPtr false ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self
     fun getPointer self =
       let
         val x
          & y
          & () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -1712,7 +1712,7 @@ structure GtkWidget :>
          & naturalHeight
          & () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -1736,7 +1736,7 @@ structure GtkWidget :>
          & naturalBaseline
          & () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -1771,7 +1771,7 @@ structure GtkWidget :>
          & naturalHeight
          & () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -1795,7 +1795,7 @@ structure GtkWidget :>
          & naturalSize
          & () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GtkRequisitionRecord.FFI.withNewPtr
              &&&> GtkRequisitionRecord.FFI.withNewPtr
              ---> GtkRequisitionRecord.FFI.fromPtr true
@@ -1817,7 +1817,7 @@ structure GtkWidget :>
          & naturalWidth
          & () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -1839,7 +1839,7 @@ structure GtkWidget :>
          & naturalWidth
          & () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -1857,27 +1857,27 @@ structure GtkWidget :>
       in
         (minimumWidth, naturalWidth)
       end
-    fun getRealized self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getRealized_ self
-    fun getReceivesDefault self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getReceivesDefault_ self
-    fun getRequestMode self = (GtkWidgetClass.FFI.withPtr ---> GtkSizeRequestMode.FFI.fromVal) getRequestMode_ self
+    fun getRealized self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRealized_ self
+    fun getReceivesDefault self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getReceivesDefault_ self
+    fun getRequestMode self = (GtkWidgetClass.FFI.withPtr false ---> GtkSizeRequestMode.FFI.fromVal) getRequestMode_ self
     fun getRequisition self =
       let
-        val requisition & () = (GtkWidgetClass.FFI.withPtr &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I) getRequisition_ (self & ())
+        val requisition & () = (GtkWidgetClass.FFI.withPtr false &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I) getRequisition_ (self & ())
       in
         requisition
       end
-    fun getRootWindow self = (GtkWidgetClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getRootWindow_ self
-    fun getScaleFactor self = (GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) getScaleFactor_ self
-    fun getScreen self = (GtkWidgetClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
-    fun getSensitive self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getSensitive_ self
-    fun getSettings self = (GtkWidgetClass.FFI.withPtr ---> GtkSettingsClass.FFI.fromPtr false) getSettings_ self
+    fun getRootWindow self = (GtkWidgetClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getRootWindow_ self
+    fun getScaleFactor self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getScaleFactor_ self
+    fun getScreen self = (GtkWidgetClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun getSensitive self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSensitive_ self
+    fun getSettings self = (GtkWidgetClass.FFI.withPtr false ---> GtkSettingsClass.FFI.fromPtr false) getSettings_ self
     fun getSizeRequest self =
       let
         val width
          & height
          & () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -1893,16 +1893,16 @@ structure GtkWidget :>
       in
         (width, height)
       end
-    fun getState self = (GtkWidgetClass.FFI.withPtr ---> GtkStateType.FFI.fromVal) getState_ self
-    fun getStateFlags self = (GtkWidgetClass.FFI.withPtr ---> GtkStateFlags.FFI.fromVal) getStateFlags_ self
-    fun getStyle self = (GtkWidgetClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr false) getStyle_ self
-    fun getStyleContext self = (GtkWidgetClass.FFI.withPtr ---> GtkStyleContextClass.FFI.fromPtr false) getStyleContext_ self
-    fun getSupportMultidevice self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getSupportMultidevice_ self
+    fun getState self = (GtkWidgetClass.FFI.withPtr false ---> GtkStateType.FFI.fromVal) getState_ self
+    fun getStateFlags self = (GtkWidgetClass.FFI.withPtr false ---> GtkStateFlags.FFI.fromVal) getStateFlags_ self
+    fun getStyle self = (GtkWidgetClass.FFI.withPtr false ---> GtkStyleClass.FFI.fromPtr false) getStyle_ self
+    fun getStyleContext self = (GtkWidgetClass.FFI.withPtr false ---> GtkStyleContextClass.FFI.fromPtr false) getStyleContext_ self
+    fun getSupportMultidevice self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSupportMultidevice_ self
     fun getTemplateChild self (widgetType, name) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GObjectType.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> GObjectObjectClass.FFI.fromPtr false
       )
         getTemplateChild_
@@ -1911,37 +1911,37 @@ structure GtkWidget :>
            & widgetType
            & name
         )
-    fun getTooltipMarkup self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getTooltipMarkup_ self
-    fun getTooltipText self = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getTooltipText_ self
-    fun getTooltipWindow self = (GtkWidgetClass.FFI.withPtr ---> GtkWindowClass.FFI.fromPtr false) getTooltipWindow_ self
-    fun getToplevel self = (GtkWidgetClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getToplevel_ self
-    fun getValign self = (GtkWidgetClass.FFI.withPtr ---> GtkAlign.FFI.fromVal) getValign_ self
-    fun getValignWithBaseline self = (GtkWidgetClass.FFI.withPtr ---> GtkAlign.FFI.fromVal) getValignWithBaseline_ self
-    fun getVexpand self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getVexpand_ self
-    fun getVexpandSet self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getVexpandSet_ self
-    fun getVisible self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
-    fun getVisual self = (GtkWidgetClass.FFI.withPtr ---> GdkVisualClass.FFI.fromPtr false) getVisual_ self
-    fun getWindow self = (GtkWidgetClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self
-    fun grabAdd self = (GtkWidgetClass.FFI.withPtr ---> I) grabAdd_ self
-    fun grabDefault self = (GtkWidgetClass.FFI.withPtr ---> I) grabDefault_ self
-    fun grabFocus self = (GtkWidgetClass.FFI.withPtr ---> I) grabFocus_ self
-    fun grabRemove self = (GtkWidgetClass.FFI.withPtr ---> I) grabRemove_ self
-    fun hasDefault self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) hasDefault_ self
-    fun hasFocus self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) hasFocus_ self
-    fun hasGrab self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) hasGrab_ self
-    fun hasRcStyle self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) hasRcStyle_ self
-    fun hasScreen self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) hasScreen_ self
-    fun hasVisibleFocus self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) hasVisibleFocus_ self
-    fun hide self = (GtkWidgetClass.FFI.withPtr ---> I) hide_ self
-    fun hideOnDelete self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) hideOnDelete_ self
-    fun inDestruction self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) inDestruction_ self
-    fun initTemplate self = (GtkWidgetClass.FFI.withPtr ---> I) initTemplate_ self
-    fun inputShapeCombineRegion self region = (GtkWidgetClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withOptPtr ---> I) inputShapeCombineRegion_ (self & region)
+    fun getTooltipMarkup self = (GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getTooltipMarkup_ self
+    fun getTooltipText self = (GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getTooltipText_ self
+    fun getTooltipWindow self = (GtkWidgetClass.FFI.withPtr false ---> GtkWindowClass.FFI.fromPtr false) getTooltipWindow_ self
+    fun getToplevel self = (GtkWidgetClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getToplevel_ self
+    fun getValign self = (GtkWidgetClass.FFI.withPtr false ---> GtkAlign.FFI.fromVal) getValign_ self
+    fun getValignWithBaseline self = (GtkWidgetClass.FFI.withPtr false ---> GtkAlign.FFI.fromVal) getValignWithBaseline_ self
+    fun getVexpand self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVexpand_ self
+    fun getVexpandSet self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVexpandSet_ self
+    fun getVisible self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
+    fun getVisual self = (GtkWidgetClass.FFI.withPtr false ---> GdkVisualClass.FFI.fromPtr false) getVisual_ self
+    fun getWindow self = (GtkWidgetClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self
+    fun grabAdd self = (GtkWidgetClass.FFI.withPtr false ---> I) grabAdd_ self
+    fun grabDefault self = (GtkWidgetClass.FFI.withPtr false ---> I) grabDefault_ self
+    fun grabFocus self = (GtkWidgetClass.FFI.withPtr false ---> I) grabFocus_ self
+    fun grabRemove self = (GtkWidgetClass.FFI.withPtr false ---> I) grabRemove_ self
+    fun hasDefault self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasDefault_ self
+    fun hasFocus self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasFocus_ self
+    fun hasGrab self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasGrab_ self
+    fun hasRcStyle self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasRcStyle_ self
+    fun hasScreen self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasScreen_ self
+    fun hasVisibleFocus self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasVisibleFocus_ self
+    fun hide self = (GtkWidgetClass.FFI.withPtr false ---> I) hide_ self
+    fun hideOnDelete self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hideOnDelete_ self
+    fun inDestruction self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) inDestruction_ self
+    fun initTemplate self = (GtkWidgetClass.FFI.withPtr false ---> I) initTemplate_ self
+    fun inputShapeCombineRegion self region = (GtkWidgetClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withOptPtr false ---> I) inputShapeCombineRegion_ (self & region)
     fun insertActionGroup self (name, group) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GioActionGroupClass.FFI.withOptPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GioActionGroupClass.FFI.withOptPtr false
          ---> I
       )
         insertActionGroup_
@@ -1954,8 +1954,8 @@ structure GtkWidget :>
       let
         val intersection & retVal =
           (
-            GtkWidgetClass.FFI.withPtr
-             &&&> GdkRectangleRecord.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
+             &&&> GdkRectangleRecord.FFI.withPtr false
              &&&> GdkRectangleRecord.FFI.withNewPtr
              ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
@@ -1968,22 +1968,22 @@ structure GtkWidget :>
       in
         if retVal then SOME intersection else NONE
       end
-    fun isAncestor self ancestor = (GtkWidgetClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isAncestor_ (self & ancestor)
-    fun isComposited self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isComposited_ self
-    fun isDrawable self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isDrawable_ self
-    fun isFocus self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isFocus_ self
-    fun isSensitive self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isSensitive_ self
-    fun isToplevel self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isToplevel_ self
-    fun isVisible self = (GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) isVisible_ self
-    fun keynavFailed self direction = (GtkWidgetClass.FFI.withPtr &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal) keynavFailed_ (self & direction)
-    fun listActionPrefixes self = (GtkWidgetClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 1) listActionPrefixes_ self
-    fun map self = (GtkWidgetClass.FFI.withPtr ---> I) map_ self
-    fun mnemonicActivate self groupCycling = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) mnemonicActivate_ (self & groupCycling)
+    fun isAncestor self ancestor = (GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isAncestor_ (self & ancestor)
+    fun isComposited self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isComposited_ self
+    fun isDrawable self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isDrawable_ self
+    fun isFocus self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isFocus_ self
+    fun isSensitive self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSensitive_ self
+    fun isToplevel self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isToplevel_ self
+    fun isVisible self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isVisible_ self
+    fun keynavFailed self direction = (GtkWidgetClass.FFI.withPtr false &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal) keynavFailed_ (self & direction)
+    fun listActionPrefixes self = (GtkWidgetClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 1) listActionPrefixes_ self
+    fun map self = (GtkWidgetClass.FFI.withPtr false ---> I) map_ self
+    fun mnemonicActivate self groupCycling = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) mnemonicActivate_ (self & groupCycling)
     fun modifyBase self (state, color) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
-         &&&> GdkColorRecord.FFI.withOptPtr
+         &&&> GdkColorRecord.FFI.withOptPtr false
          ---> I
       )
         modifyBase_
@@ -1994,9 +1994,9 @@ structure GtkWidget :>
         )
     fun modifyBg self (state, color) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
-         &&&> GdkColorRecord.FFI.withOptPtr
+         &&&> GdkColorRecord.FFI.withOptPtr false
          ---> I
       )
         modifyBg_
@@ -2007,9 +2007,9 @@ structure GtkWidget :>
         )
     fun modifyCursor self (primary, secondary) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GdkColorRecord.FFI.withOptPtr
-         &&&> GdkColorRecord.FFI.withOptPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkColorRecord.FFI.withOptPtr false
+         &&&> GdkColorRecord.FFI.withOptPtr false
          ---> I
       )
         modifyCursor_
@@ -2020,9 +2020,9 @@ structure GtkWidget :>
         )
     fun modifyFg self (state, color) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
-         &&&> GdkColorRecord.FFI.withOptPtr
+         &&&> GdkColorRecord.FFI.withOptPtr false
          ---> I
       )
         modifyFg_
@@ -2031,13 +2031,13 @@ structure GtkWidget :>
            & state
            & color
         )
-    fun modifyFont self fontDesc = (GtkWidgetClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withOptPtr ---> I) modifyFont_ (self & fontDesc)
-    fun modifyStyle self style = (GtkWidgetClass.FFI.withPtr &&&> GtkRcStyleClass.FFI.withPtr ---> I) modifyStyle_ (self & style)
+    fun modifyFont self fontDesc = (GtkWidgetClass.FFI.withPtr false &&&> PangoFontDescriptionRecord.FFI.withOptPtr false ---> I) modifyFont_ (self & fontDesc)
+    fun modifyStyle self style = (GtkWidgetClass.FFI.withPtr false &&&> GtkRcStyleClass.FFI.withPtr false ---> I) modifyStyle_ (self & style)
     fun modifyText self (state, color) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
-         &&&> GdkColorRecord.FFI.withOptPtr
+         &&&> GdkColorRecord.FFI.withOptPtr false
          ---> I
       )
         modifyText_
@@ -2048,9 +2048,9 @@ structure GtkWidget :>
         )
     fun overrideBackgroundColor self (state, color) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateFlags.FFI.withVal
-         &&&> GdkRgbaRecord.FFI.withOptPtr
+         &&&> GdkRgbaRecord.FFI.withOptPtr false
          ---> I
       )
         overrideBackgroundColor_
@@ -2061,9 +2061,9 @@ structure GtkWidget :>
         )
     fun overrideColor self (state, color) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateFlags.FFI.withVal
-         &&&> GdkRgbaRecord.FFI.withOptPtr
+         &&&> GdkRgbaRecord.FFI.withOptPtr false
          ---> I
       )
         overrideColor_
@@ -2074,9 +2074,9 @@ structure GtkWidget :>
         )
     fun overrideCursor self (cursor, secondaryCursor) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GdkRgbaRecord.FFI.withOptPtr
-         &&&> GdkRgbaRecord.FFI.withOptPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkRgbaRecord.FFI.withOptPtr false
+         &&&> GdkRgbaRecord.FFI.withOptPtr false
          ---> I
       )
         overrideCursor_
@@ -2085,12 +2085,12 @@ structure GtkWidget :>
            & cursor
            & secondaryCursor
         )
-    fun overrideFont self fontDesc = (GtkWidgetClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withOptPtr ---> I) overrideFont_ (self & fontDesc)
+    fun overrideFont self fontDesc = (GtkWidgetClass.FFI.withPtr false &&&> PangoFontDescriptionRecord.FFI.withOptPtr false ---> I) overrideFont_ (self & fontDesc)
     fun overrideSymbolicColor self (name, color) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GdkRgbaRecord.FFI.withOptPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GdkRgbaRecord.FFI.withOptPtr false
          ---> I
       )
         overrideSymbolicColor_
@@ -2106,13 +2106,13 @@ structure GtkWidget :>
          & pathReversed
          & () =
           (
-            GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
              &&&> GUInt.FFI.withRefVal
-             &&&> Utf8.FFI.withRefOptPtr
-             &&&> Utf8.FFI.withRefOptPtr
+             &&&> Utf8.FFI.withRefOptPtr 0
+             &&&> Utf8.FFI.withRefOptPtr 0
              ---> GUInt.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
+                   && Utf8.FFI.fromPtr ~1
                    && I
           )
             path_
@@ -2129,9 +2129,9 @@ structure GtkWidget :>
           pathReversed
         )
       end
-    fun queueAllocate self = (GtkWidgetClass.FFI.withPtr ---> I) queueAllocate_ self
-    fun queueComputeExpand self = (GtkWidgetClass.FFI.withPtr ---> I) queueComputeExpand_ self
-    fun queueDraw self = (GtkWidgetClass.FFI.withPtr ---> I) queueDraw_ self
+    fun queueAllocate self = (GtkWidgetClass.FFI.withPtr false ---> I) queueAllocate_ self
+    fun queueComputeExpand self = (GtkWidgetClass.FFI.withPtr false ---> I) queueComputeExpand_ self
+    fun queueDraw self = (GtkWidgetClass.FFI.withPtr false ---> I) queueDraw_ self
     fun queueDrawArea
       self
       (
@@ -2141,7 +2141,7 @@ structure GtkWidget :>
         height
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -2156,12 +2156,12 @@ structure GtkWidget :>
            & width
            & height
         )
-    fun queueDrawRegion self region = (GtkWidgetClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withPtr ---> I) queueDrawRegion_ (self & region)
-    fun queueResize self = (GtkWidgetClass.FFI.withPtr ---> I) queueResize_ self
-    fun queueResizeNoRedraw self = (GtkWidgetClass.FFI.withPtr ---> I) queueResizeNoRedraw_ self
-    fun realize self = (GtkWidgetClass.FFI.withPtr ---> I) realize_ self
-    fun regionIntersect self region = (GtkWidgetClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withPtr ---> CairoRegionRecord.FFI.fromPtr true) regionIntersect_ (self & region)
-    fun registerWindow self window = (GtkWidgetClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> I) registerWindow_ (self & window)
+    fun queueDrawRegion self region = (GtkWidgetClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withPtr false ---> I) queueDrawRegion_ (self & region)
+    fun queueResize self = (GtkWidgetClass.FFI.withPtr false ---> I) queueResize_ self
+    fun queueResizeNoRedraw self = (GtkWidgetClass.FFI.withPtr false ---> I) queueResizeNoRedraw_ self
+    fun realize self = (GtkWidgetClass.FFI.withPtr false ---> I) realize_ self
+    fun regionIntersect self region = (GtkWidgetClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withPtr false ---> CairoRegionRecord.FFI.fromPtr true) regionIntersect_ (self & region)
+    fun registerWindow self window = (GtkWidgetClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> I) registerWindow_ (self & window)
     fun removeAccelerator
       self
       (
@@ -2170,8 +2170,8 @@ structure GtkWidget :>
         accelMods
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GtkAccelGroupClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GtkAccelGroupClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -2183,8 +2183,8 @@ structure GtkWidget :>
            & accelKey
            & accelMods
         )
-    fun removeMnemonicLabel self label = (GtkWidgetClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) removeMnemonicLabel_ (self & label)
-    fun removeTickCallback self id = (GtkWidgetClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) removeTickCallback_ (self & id)
+    fun removeMnemonicLabel self label = (GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) removeMnemonicLabel_ (self & label)
+    fun removeTickCallback self id = (GtkWidgetClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) removeTickCallback_ (self & id)
     fun renderIcon
       self
       (
@@ -2193,10 +2193,10 @@ structure GtkWidget :>
         detail
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
         renderIcon_
@@ -2208,8 +2208,8 @@ structure GtkWidget :>
         )
     fun renderIconPixbuf self (stockId, size) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
       )
@@ -2219,16 +2219,16 @@ structure GtkWidget :>
            & stockId
            & size
         )
-    fun reparent self newParent = (GtkWidgetClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) reparent_ (self & newParent)
-    fun resetRcStyles self = (GtkWidgetClass.FFI.withPtr ---> I) resetRcStyles_ self
-    fun resetStyle self = (GtkWidgetClass.FFI.withPtr ---> I) resetStyle_ self
-    fun sendExpose self event = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> GInt.FFI.fromVal) sendExpose_ (self & event)
-    fun sendFocusChange self event = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> GBool.FFI.fromVal) sendFocusChange_ (self & event)
+    fun reparent self newParent = (GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) reparent_ (self & newParent)
+    fun resetRcStyles self = (GtkWidgetClass.FFI.withPtr false ---> I) resetRcStyles_ self
+    fun resetStyle self = (GtkWidgetClass.FFI.withPtr false ---> I) resetStyle_ self
+    fun sendExpose self event = (GtkWidgetClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> GInt.FFI.fromVal) sendExpose_ (self & event)
+    fun sendFocusChange self event = (GtkWidgetClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> GBool.FFI.fromVal) sendFocusChange_ (self & event)
     fun setAccelPath self (accelPath, accelGroup) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> GtkAccelGroupClass.FFI.withOptPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> GtkAccelGroupClass.FFI.withOptPtr false
          ---> I
       )
         setAccelPath_
@@ -2237,17 +2237,17 @@ structure GtkWidget :>
            & accelPath
            & accelGroup
         )
-    fun setAllocation self allocation = (GtkWidgetClass.FFI.withPtr &&&> GtkAllocationRecord.FFI.withPtr ---> I) setAllocation_ (self & allocation)
-    fun setAppPaintable self appPaintable = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAppPaintable_ (self & appPaintable)
-    fun setCanDefault self canDefault = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCanDefault_ (self & canDefault)
-    fun setCanFocus self canFocus = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCanFocus_ (self & canFocus)
-    fun setChildVisible self isVisible = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setChildVisible_ (self & isVisible)
-    fun setClip self clip = (GtkWidgetClass.FFI.withPtr &&&> GtkAllocationRecord.FFI.withPtr ---> I) setClip_ (self & clip)
-    fun setCompositeName self name = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setCompositeName_ (self & name)
+    fun setAllocation self allocation = (GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withPtr false ---> I) setAllocation_ (self & allocation)
+    fun setAppPaintable self appPaintable = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAppPaintable_ (self & appPaintable)
+    fun setCanDefault self canDefault = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCanDefault_ (self & canDefault)
+    fun setCanFocus self canFocus = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCanFocus_ (self & canFocus)
+    fun setChildVisible self isVisible = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setChildVisible_ (self & isVisible)
+    fun setClip self clip = (GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withPtr false ---> I) setClip_ (self & clip)
+    fun setCompositeName self name = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setCompositeName_ (self & name)
     fun setDeviceEnabled self (device, enabled) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GdkDeviceClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkDeviceClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -2259,8 +2259,8 @@ structure GtkWidget :>
         )
     fun setDeviceEvents self (device, events) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GdkDeviceClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkDeviceClass.FFI.withPtr false
          &&&> GdkEventMask.FFI.withVal
          ---> I
       )
@@ -2270,36 +2270,36 @@ structure GtkWidget :>
            & device
            & events
         )
-    fun setDirection self dir = (GtkWidgetClass.FFI.withPtr &&&> GtkTextDirection.FFI.withVal ---> I) setDirection_ (self & dir)
-    fun setDoubleBuffered self doubleBuffered = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDoubleBuffered_ (self & doubleBuffered)
-    fun setEvents self events = (GtkWidgetClass.FFI.withPtr &&&> GdkEventMask.FFI.withVal ---> I) setEvents_ (self & events)
-    fun setFocusOnClick self focusOnClick = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFocusOnClick_ (self & focusOnClick)
-    fun setFontMap self fontMap = (GtkWidgetClass.FFI.withPtr &&&> PangoFontMapClass.FFI.withOptPtr ---> I) setFontMap_ (self & fontMap)
-    fun setFontOptions self options = (GtkWidgetClass.FFI.withPtr &&&> CairoFontOptionsRecord.FFI.withOptPtr ---> I) setFontOptions_ (self & options)
-    fun setHalign self align = (GtkWidgetClass.FFI.withPtr &&&> GtkAlign.FFI.withVal ---> I) setHalign_ (self & align)
-    fun setHasTooltip self hasTooltip = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasTooltip_ (self & hasTooltip)
-    fun setHasWindow self hasWindow = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasWindow_ (self & hasWindow)
-    fun setHexpand self expand = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHexpand_ (self & expand)
-    fun setHexpandSet self set = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHexpandSet_ (self & set)
-    fun setMapped self mapped = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setMapped_ (self & mapped)
-    fun setMarginBottom self margin = (GtkWidgetClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMarginBottom_ (self & margin)
-    fun setMarginEnd self margin = (GtkWidgetClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMarginEnd_ (self & margin)
-    fun setMarginLeft self margin = (GtkWidgetClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMarginLeft_ (self & margin)
-    fun setMarginRight self margin = (GtkWidgetClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMarginRight_ (self & margin)
-    fun setMarginStart self margin = (GtkWidgetClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMarginStart_ (self & margin)
-    fun setMarginTop self margin = (GtkWidgetClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMarginTop_ (self & margin)
-    fun setName self name = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setName_ (self & name)
-    fun setNoShowAll self noShowAll = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setNoShowAll_ (self & noShowAll)
-    fun setOpacity self opacity = (GtkWidgetClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setOpacity_ (self & opacity)
-    fun setParent self parent = (GtkWidgetClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) setParent_ (self & parent)
-    fun setParentWindow self parentWindow = (GtkWidgetClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> I) setParentWindow_ (self & parentWindow)
-    fun setRealized self realized = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRealized_ (self & realized)
-    fun setReceivesDefault self receivesDefault = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setReceivesDefault_ (self & receivesDefault)
-    fun setRedrawOnAllocate self redrawOnAllocate = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRedrawOnAllocate_ (self & redrawOnAllocate)
-    fun setSensitive self sensitive = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSensitive_ (self & sensitive)
+    fun setDirection self dir = (GtkWidgetClass.FFI.withPtr false &&&> GtkTextDirection.FFI.withVal ---> I) setDirection_ (self & dir)
+    fun setDoubleBuffered self doubleBuffered = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setDoubleBuffered_ (self & doubleBuffered)
+    fun setEvents self events = (GtkWidgetClass.FFI.withPtr false &&&> GdkEventMask.FFI.withVal ---> I) setEvents_ (self & events)
+    fun setFocusOnClick self focusOnClick = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setFocusOnClick_ (self & focusOnClick)
+    fun setFontMap self fontMap = (GtkWidgetClass.FFI.withPtr false &&&> PangoFontMapClass.FFI.withOptPtr false ---> I) setFontMap_ (self & fontMap)
+    fun setFontOptions self options = (GtkWidgetClass.FFI.withPtr false &&&> CairoFontOptionsRecord.FFI.withOptPtr false ---> I) setFontOptions_ (self & options)
+    fun setHalign self align = (GtkWidgetClass.FFI.withPtr false &&&> GtkAlign.FFI.withVal ---> I) setHalign_ (self & align)
+    fun setHasTooltip self hasTooltip = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasTooltip_ (self & hasTooltip)
+    fun setHasWindow self hasWindow = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasWindow_ (self & hasWindow)
+    fun setHexpand self expand = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHexpand_ (self & expand)
+    fun setHexpandSet self set = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHexpandSet_ (self & set)
+    fun setMapped self mapped = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setMapped_ (self & mapped)
+    fun setMarginBottom self margin = (GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMarginBottom_ (self & margin)
+    fun setMarginEnd self margin = (GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMarginEnd_ (self & margin)
+    fun setMarginLeft self margin = (GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMarginLeft_ (self & margin)
+    fun setMarginRight self margin = (GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMarginRight_ (self & margin)
+    fun setMarginStart self margin = (GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMarginStart_ (self & margin)
+    fun setMarginTop self margin = (GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMarginTop_ (self & margin)
+    fun setName self name = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setName_ (self & name)
+    fun setNoShowAll self noShowAll = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setNoShowAll_ (self & noShowAll)
+    fun setOpacity self opacity = (GtkWidgetClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setOpacity_ (self & opacity)
+    fun setParent self parent = (GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setParent_ (self & parent)
+    fun setParentWindow self parentWindow = (GtkWidgetClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> I) setParentWindow_ (self & parentWindow)
+    fun setRealized self realized = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRealized_ (self & realized)
+    fun setReceivesDefault self receivesDefault = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setReceivesDefault_ (self & receivesDefault)
+    fun setRedrawOnAllocate self redrawOnAllocate = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRedrawOnAllocate_ (self & redrawOnAllocate)
+    fun setSensitive self sensitive = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSensitive_ (self & sensitive)
     fun setSizeRequest self (width, height) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -2310,10 +2310,10 @@ structure GtkWidget :>
            & width
            & height
         )
-    fun setState self state = (GtkWidgetClass.FFI.withPtr &&&> GtkStateType.FFI.withVal ---> I) setState_ (self & state)
+    fun setState self state = (GtkWidgetClass.FFI.withPtr false &&&> GtkStateType.FFI.withVal ---> I) setState_ (self & state)
     fun setStateFlags self (flags, clear) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateFlags.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
@@ -2324,26 +2324,26 @@ structure GtkWidget :>
            & flags
            & clear
         )
-    fun setStyle self style = (GtkWidgetClass.FFI.withPtr &&&> GtkStyleClass.FFI.withOptPtr ---> I) setStyle_ (self & style)
-    fun setSupportMultidevice self supportMultidevice = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
-    fun setTooltipMarkup self markup = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTooltipMarkup_ (self & markup)
-    fun setTooltipText self text = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTooltipText_ (self & text)
-    fun setTooltipWindow self customWindow = (GtkWidgetClass.FFI.withPtr &&&> GtkWindowClass.FFI.withOptPtr ---> I) setTooltipWindow_ (self & customWindow)
-    fun setValign self align = (GtkWidgetClass.FFI.withPtr &&&> GtkAlign.FFI.withVal ---> I) setValign_ (self & align)
-    fun setVexpand self expand = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVexpand_ (self & expand)
-    fun setVexpandSet self set = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVexpandSet_ (self & set)
-    fun setVisible self visible = (GtkWidgetClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
-    fun setVisual self visual = (GtkWidgetClass.FFI.withPtr &&&> GdkVisualClass.FFI.withOptPtr ---> I) setVisual_ (self & visual)
-    fun setWindow self window = (GtkWidgetClass.FFI.withPtr &&&> GdkWindowClass.FFI.withDupPtr ---> I) setWindow_ (self & window)
-    fun shapeCombineRegion self region = (GtkWidgetClass.FFI.withPtr &&&> CairoRegionRecord.FFI.withOptPtr ---> I) shapeCombineRegion_ (self & region)
-    fun show self = (GtkWidgetClass.FFI.withPtr ---> I) show_ self
-    fun showAll self = (GtkWidgetClass.FFI.withPtr ---> I) showAll_ self
-    fun showNow self = (GtkWidgetClass.FFI.withPtr ---> I) showNow_ self
-    fun sizeAllocate self allocation = (GtkWidgetClass.FFI.withPtr &&&> GtkAllocationRecord.FFI.withPtr ---> I) sizeAllocate_ (self & allocation)
+    fun setStyle self style = (GtkWidgetClass.FFI.withPtr false &&&> GtkStyleClass.FFI.withOptPtr false ---> I) setStyle_ (self & style)
+    fun setSupportMultidevice self supportMultidevice = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
+    fun setTooltipMarkup self markup = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setTooltipMarkup_ (self & markup)
+    fun setTooltipText self text = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setTooltipText_ (self & text)
+    fun setTooltipWindow self customWindow = (GtkWidgetClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withOptPtr false ---> I) setTooltipWindow_ (self & customWindow)
+    fun setValign self align = (GtkWidgetClass.FFI.withPtr false &&&> GtkAlign.FFI.withVal ---> I) setValign_ (self & align)
+    fun setVexpand self expand = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVexpand_ (self & expand)
+    fun setVexpandSet self set = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVexpandSet_ (self & set)
+    fun setVisible self visible = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
+    fun setVisual self visual = (GtkWidgetClass.FFI.withPtr false &&&> GdkVisualClass.FFI.withOptPtr false ---> I) setVisual_ (self & visual)
+    fun setWindow self window = (GtkWidgetClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr true ---> I) setWindow_ (self & window)
+    fun shapeCombineRegion self region = (GtkWidgetClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withOptPtr false ---> I) shapeCombineRegion_ (self & region)
+    fun show self = (GtkWidgetClass.FFI.withPtr false ---> I) show_ self
+    fun showAll self = (GtkWidgetClass.FFI.withPtr false ---> I) showAll_ self
+    fun showNow self = (GtkWidgetClass.FFI.withPtr false ---> I) showNow_ self
+    fun sizeAllocate self allocation = (GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withPtr false ---> I) sizeAllocate_ (self & allocation)
     fun sizeAllocateWithBaseline self (allocation, baseline) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GtkAllocationRecord.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GtkAllocationRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          ---> I
       )
@@ -2355,16 +2355,16 @@ structure GtkWidget :>
         )
     fun sizeRequest self =
       let
-        val requisition & () = (GtkWidgetClass.FFI.withPtr &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I) sizeRequest_ (self & ())
+        val requisition & () = (GtkWidgetClass.FFI.withPtr false &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I) sizeRequest_ (self & ())
       in
         requisition
       end
-    fun styleAttach self = (GtkWidgetClass.FFI.withPtr ---> I) styleAttach_ self
+    fun styleAttach self = (GtkWidgetClass.FFI.withPtr false ---> I) styleAttach_ self
     fun styleGetProperty self (propertyName, value) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectValueRecord.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectValueRecord.FFI.withPtr false
          ---> I
       )
         styleGetProperty_
@@ -2373,7 +2373,7 @@ structure GtkWidget :>
            & propertyName
            & value
         )
-    fun thawChildNotify self = (GtkWidgetClass.FFI.withPtr ---> I) thawChildNotify_ self
+    fun thawChildNotify self = (GtkWidgetClass.FFI.withPtr false ---> I) thawChildNotify_ self
     fun translateCoordinates
       self
       (
@@ -2386,8 +2386,8 @@ structure GtkWidget :>
          & destY
          & retVal =
           (
-            GtkWidgetClass.FFI.withPtr
-             &&&> GtkWidgetClass.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
+             &&&> GtkWidgetClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withRefVal
@@ -2408,12 +2408,12 @@ structure GtkWidget :>
       in
         if retVal then SOME (destX, destY) else NONE
       end
-    fun triggerTooltipQuery self = (GtkWidgetClass.FFI.withPtr ---> I) triggerTooltipQuery_ self
-    fun unmap self = (GtkWidgetClass.FFI.withPtr ---> I) unmap_ self
-    fun unparent self = (GtkWidgetClass.FFI.withPtr ---> I) unparent_ self
-    fun unrealize self = (GtkWidgetClass.FFI.withPtr ---> I) unrealize_ self
-    fun unregisterWindow self window = (GtkWidgetClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> I) unregisterWindow_ (self & window)
-    fun unsetStateFlags self flags = (GtkWidgetClass.FFI.withPtr &&&> GtkStateFlags.FFI.withVal ---> I) unsetStateFlags_ (self & flags)
+    fun triggerTooltipQuery self = (GtkWidgetClass.FFI.withPtr false ---> I) triggerTooltipQuery_ self
+    fun unmap self = (GtkWidgetClass.FFI.withPtr false ---> I) unmap_ self
+    fun unparent self = (GtkWidgetClass.FFI.withPtr false ---> I) unparent_ self
+    fun unrealize self = (GtkWidgetClass.FFI.withPtr false ---> I) unrealize_ self
+    fun unregisterWindow self window = (GtkWidgetClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> I) unregisterWindow_ (self & window)
+    fun unsetStateFlags self flags = (GtkWidgetClass.FFI.withPtr false &&&> GtkStateFlags.FFI.withVal ---> I) unsetStateFlags_ (self & flags)
     local
       open ClosureMarshal Signal
     in

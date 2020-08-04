@@ -128,11 +128,11 @@ structure GioOutputStream :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun clearPending self = (GioOutputStreamClass.FFI.withPtr ---> I) clearPending_ self
+    fun clearPending self = (GioOutputStreamClass.FFI.withPtr false ---> I) clearPending_ self
     fun close self cancellable =
       (
-        GioOutputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioOutputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -144,8 +144,8 @@ structure GioOutputStream :>
         )
     fun closeFinish self result =
       (
-        GioOutputStreamClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioOutputStreamClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -157,8 +157,8 @@ structure GioOutputStream :>
         )
     fun flush self cancellable =
       (
-        GioOutputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioOutputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -170,8 +170,8 @@ structure GioOutputStream :>
         )
     fun flushFinish self result =
       (
-        GioOutputStreamClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioOutputStreamClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -181,10 +181,10 @@ structure GioOutputStream :>
            & result
            & []
         )
-    fun hasPending self = (GioOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPending_ self
-    fun isClosed self = (GioOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
-    fun isClosing self = (GioOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosing_ self
-    fun setPending self = (GioOutputStreamClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) setPending_ (self & [])
+    fun hasPending self = (GioOutputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasPending_ self
+    fun isClosed self = (GioOutputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self
+    fun isClosing self = (GioOutputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosing_ self
+    fun setPending self = (GioOutputStreamClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) setPending_ (self & [])
     fun splice
       self
       (
@@ -193,10 +193,10 @@ structure GioOutputStream :>
         cancellable
       ) =
       (
-        GioOutputStreamClass.FFI.withPtr
-         &&&> GioInputStreamClass.FFI.withPtr
+        GioOutputStreamClass.FFI.withPtr false
+         &&&> GioInputStreamClass.FFI.withPtr false
          &&&> GioOutputStreamSpliceFlags.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GInt64.FFI.fromVal
       )
@@ -210,8 +210,8 @@ structure GioOutputStream :>
         )
     fun spliceFinish self result =
       (
-        GioOutputStreamClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioOutputStreamClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GInt64.FFI.fromVal
       )
@@ -226,10 +226,10 @@ structure GioOutputStream :>
         val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
-            GioOutputStreamClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioOutputStreamClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GUInt64.FFI.withVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GInt64.FFI.fromVal
           )
@@ -249,11 +249,11 @@ structure GioOutputStream :>
         val count = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val bytesWritten & () =
           (
-            GioOutputStreamClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioOutputStreamClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GUInt64.FFI.withVal
              &&&> GUInt64.FFI.withRefVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GUInt64.FFI.fromVal && ignore
           )
@@ -273,8 +273,8 @@ structure GioOutputStream :>
       let
         val bytesWritten & () =
           (
-            GioOutputStreamClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GioOutputStreamClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GUInt64.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GUInt64.FFI.fromVal && ignore
@@ -291,9 +291,9 @@ structure GioOutputStream :>
       end
     fun writeBytes self (bytes, cancellable) =
       (
-        GioOutputStreamClass.FFI.withPtr
-         &&&> GLibBytesRecord.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioOutputStreamClass.FFI.withPtr false
+         &&&> GLibBytesRecord.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GInt64.FFI.fromVal
       )
@@ -306,8 +306,8 @@ structure GioOutputStream :>
         )
     fun writeBytesFinish self result =
       (
-        GioOutputStreamClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioOutputStreamClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GInt64.FFI.fromVal
       )
@@ -319,8 +319,8 @@ structure GioOutputStream :>
         )
     fun writeFinish self result =
       (
-        GioOutputStreamClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioOutputStreamClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GInt64.FFI.fromVal
       )

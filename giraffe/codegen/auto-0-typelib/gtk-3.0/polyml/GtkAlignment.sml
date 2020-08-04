@@ -50,8 +50,8 @@ structure GtkAlignment :>
     type 'a class = 'a GtkAlignmentClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -82,7 +82,7 @@ structure GtkAlignment :>
          & paddingRight
          & () =
           (
-            GtkAlignmentClass.FFI.withPtr
+            GtkAlignmentClass.FFI.withPtr false
              &&&> GUInt32.FFI.withRefVal
              &&&> GUInt32.FFI.withRefVal
              &&&> GUInt32.FFI.withRefVal
@@ -118,7 +118,7 @@ structure GtkAlignment :>
         yscale
       ) =
       (
-        GtkAlignmentClass.FFI.withPtr
+        GtkAlignmentClass.FFI.withPtr false
          &&&> GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal
@@ -142,7 +142,7 @@ structure GtkAlignment :>
         paddingRight
       ) =
       (
-        GtkAlignmentClass.FFI.withPtr
+        GtkAlignmentClass.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal

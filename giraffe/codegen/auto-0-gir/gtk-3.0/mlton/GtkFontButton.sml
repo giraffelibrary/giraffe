@@ -55,26 +55,26 @@ structure GtkFontButton :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a font_chooser_class = 'a GtkFontChooserClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asFontChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkFontChooserClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActionableClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asFontChooser self = (GObjectObjectClass.FFI.withPtr false ---> GtkFontChooserClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkFontButtonClass.FFI.fromPtr false) new_ ()
-    fun newWithFont fontname = (Utf8.FFI.withPtr ---> GtkFontButtonClass.FFI.fromPtr false) newWithFont_ fontname
-    fun getFontName self = (GtkFontButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getFontName_ self
-    fun getShowSize self = (GtkFontButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowSize_ self
-    fun getShowStyle self = (GtkFontButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowStyle_ self
-    fun getTitle self = (GtkFontButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self
-    fun getUseFont self = (GtkFontButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseFont_ self
-    fun getUseSize self = (GtkFontButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseSize_ self
-    fun setFontName self fontname = (GtkFontButtonClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) setFontName_ (self & fontname)
-    fun setShowSize self showSize = (GtkFontButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowSize_ (self & showSize)
-    fun setShowStyle self showStyle = (GtkFontButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowStyle_ (self & showStyle)
-    fun setTitle self title = (GtkFontButtonClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTitle_ (self & title)
-    fun setUseFont self useFont = (GtkFontButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseFont_ (self & useFont)
-    fun setUseSize self useSize = (GtkFontButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseSize_ (self & useSize)
+    fun newWithFont fontname = (Utf8.FFI.withPtr 0 ---> GtkFontButtonClass.FFI.fromPtr false) newWithFont_ fontname
+    fun getFontName self = (GtkFontButtonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getFontName_ self
+    fun getShowSize self = (GtkFontButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowSize_ self
+    fun getShowStyle self = (GtkFontButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowStyle_ self
+    fun getTitle self = (GtkFontButtonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTitle_ self
+    fun getUseFont self = (GtkFontButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseFont_ self
+    fun getUseSize self = (GtkFontButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseSize_ self
+    fun setFontName self fontname = (GtkFontButtonClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) setFontName_ (self & fontname)
+    fun setShowSize self showSize = (GtkFontButtonClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowSize_ (self & showSize)
+    fun setShowStyle self showStyle = (GtkFontButtonClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowStyle_ (self & showStyle)
+    fun setTitle self title = (GtkFontButtonClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTitle_ (self & title)
+    fun setUseFont self useFont = (GtkFontButtonClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseFont_ (self & useFont)
+    fun setUseSize self useSize = (GtkFontButtonClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseSize_ (self & useSize)
     local
       open ClosureMarshal Signal
     in

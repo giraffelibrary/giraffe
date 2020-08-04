@@ -53,17 +53,17 @@ structure GtkTreeModelFilter :>
     type 'a tree_model_class = 'a GtkTreeModelClass.class
     type tree_path_t = GtkTreePathRecord.t
     type t = base class
-    fun asTreeDragSource self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeDragSourceClass.FFI.fromPtr false) I self
-    fun asTreeModel self = (GObjectObjectClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) I self
+    fun asTreeDragSource self = (GObjectObjectClass.FFI.withPtr false ---> GtkTreeDragSourceClass.FFI.fromPtr false) I self
+    fun asTreeModel self = (GObjectObjectClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun clearCache self = (GtkTreeModelFilterClass.FFI.withPtr ---> I) clearCache_ self
+    fun clearCache self = (GtkTreeModelFilterClass.FFI.withPtr false ---> I) clearCache_ self
     fun convertChildIterToIter self childIter =
       let
         val filterIter & retVal =
           (
-            GtkTreeModelFilterClass.FFI.withPtr
+            GtkTreeModelFilterClass.FFI.withPtr false
              &&&> GtkTreeIterRecord.FFI.withNewPtr
-             &&&> GtkTreeIterRecord.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withPtr false
              ---> GtkTreeIterRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             convertChildIterToIter_
@@ -75,14 +75,14 @@ structure GtkTreeModelFilter :>
       in
         if retVal then SOME filterIter else NONE
       end
-    fun convertChildPathToPath self childPath = (GtkTreeModelFilterClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GtkTreePathRecord.FFI.fromOptPtr true) convertChildPathToPath_ (self & childPath)
+    fun convertChildPathToPath self childPath = (GtkTreeModelFilterClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GtkTreePathRecord.FFI.fromOptPtr true) convertChildPathToPath_ (self & childPath)
     fun convertIterToChildIter self filterIter =
       let
         val childIter & () =
           (
-            GtkTreeModelFilterClass.FFI.withPtr
+            GtkTreeModelFilterClass.FFI.withPtr false
              &&&> GtkTreeIterRecord.FFI.withNewPtr
-             &&&> GtkTreeIterRecord.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withPtr false
              ---> GtkTreeIterRecord.FFI.fromPtr true && I
           )
             convertIterToChildIter_
@@ -94,10 +94,10 @@ structure GtkTreeModelFilter :>
       in
         childIter
       end
-    fun convertPathToChildPath self filterPath = (GtkTreeModelFilterClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GtkTreePathRecord.FFI.fromOptPtr true) convertPathToChildPath_ (self & filterPath)
-    fun getModel self = (GtkTreeModelFilterClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
-    fun refilter self = (GtkTreeModelFilterClass.FFI.withPtr ---> I) refilter_ self
-    fun setVisibleColumn self column = (GtkTreeModelFilterClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setVisibleColumn_ (self & column)
+    fun convertPathToChildPath self filterPath = (GtkTreeModelFilterClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GtkTreePathRecord.FFI.fromOptPtr true) convertPathToChildPath_ (self & filterPath)
+    fun getModel self = (GtkTreeModelFilterClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
+    fun refilter self = (GtkTreeModelFilterClass.FFI.withPtr false ---> I) refilter_ self
+    fun setVisibleColumn self column = (GtkTreeModelFilterClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setVisibleColumn_ (self & column)
     local
       open Property
     in

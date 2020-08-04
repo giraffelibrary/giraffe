@@ -29,9 +29,9 @@ structure GioListModel :>
     type 'a class = 'a GioListModelClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getItemType self = (GioListModelClass.FFI.withPtr ---> GObjectType.FFI.fromVal) getItemType_ self
-    fun getNItems self = (GioListModelClass.FFI.withPtr ---> GUInt.FFI.fromVal) getNItems_ self
-    fun getItem self position = (GioListModelClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GObjectObjectClass.FFI.fromOptPtr true) getItem_ (self & position)
+    fun getItemType self = (GioListModelClass.FFI.withPtr false ---> GObjectType.FFI.fromVal) getItemType_ self
+    fun getNItems self = (GioListModelClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getNItems_ self
+    fun getItem self position = (GioListModelClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GObjectObjectClass.FFI.fromOptPtr true) getItem_ (self & position)
     fun itemsChanged
       self
       (
@@ -40,7 +40,7 @@ structure GioListModel :>
         added
       ) =
       (
-        GioListModelClass.FFI.withPtr
+        GioListModelClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal

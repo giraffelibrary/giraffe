@@ -40,7 +40,7 @@ structure GioSrvTarget :>
         weight
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GUInt16.FFI.withVal
          &&&> GUInt16.FFI.withVal
          &&&> GUInt16.FFI.withVal
@@ -53,9 +53,9 @@ structure GioSrvTarget :>
            & priority
            & weight
         )
-    fun copy self = (GioSrvTargetRecord.FFI.withPtr ---> GioSrvTargetRecord.FFI.fromPtr true) copy_ self
-    fun getHostname self = (GioSrvTargetRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getHostname_ self
-    fun getPort self = (GioSrvTargetRecord.FFI.withPtr ---> GUInt16.FFI.fromVal) getPort_ self
-    fun getPriority self = (GioSrvTargetRecord.FFI.withPtr ---> GUInt16.FFI.fromVal) getPriority_ self
-    fun getWeight self = (GioSrvTargetRecord.FFI.withPtr ---> GUInt16.FFI.fromVal) getWeight_ self
+    fun copy self = (GioSrvTargetRecord.FFI.withPtr false ---> GioSrvTargetRecord.FFI.fromPtr true) copy_ self
+    fun getHostname self = (GioSrvTargetRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getHostname_ self
+    fun getPort self = (GioSrvTargetRecord.FFI.withPtr false ---> GUInt16.FFI.fromVal) getPort_ self
+    fun getPriority self = (GioSrvTargetRecord.FFI.withPtr false ---> GUInt16.FFI.fromVal) getPriority_ self
+    fun getWeight self = (GioSrvTargetRecord.FFI.withPtr false ---> GUInt16.FFI.fromVal) getWeight_ self
   end

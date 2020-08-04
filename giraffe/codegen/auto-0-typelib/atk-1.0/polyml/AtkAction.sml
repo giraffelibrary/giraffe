@@ -24,17 +24,17 @@ structure AtkAction :>
     type 'a class = 'a AtkActionClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun doAction self i = (AtkActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) doAction_ (self & i)
-    fun getDescription self i = (AtkActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getDescription_ (self & i)
-    fun getKeybinding self i = (AtkActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getKeybinding_ (self & i)
-    fun getLocalizedName self i = (AtkActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getLocalizedName_ (self & i)
-    fun getNActions self = (AtkActionClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNActions_ self
-    fun getName self i = (AtkActionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getName_ (self & i)
+    fun doAction self i = (AtkActionClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) doAction_ (self & i)
+    fun getDescription self i = (AtkActionClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getDescription_ (self & i)
+    fun getKeybinding self i = (AtkActionClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getKeybinding_ (self & i)
+    fun getLocalizedName self i = (AtkActionClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getLocalizedName_ (self & i)
+    fun getNActions self = (AtkActionClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNActions_ self
+    fun getName self i = (AtkActionClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getName_ (self & i)
     fun setDescription self (i, desc) =
       (
-        AtkActionClass.FFI.withPtr
+        AtkActionClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> GBool.FFI.fromVal
       )
         setDescription_

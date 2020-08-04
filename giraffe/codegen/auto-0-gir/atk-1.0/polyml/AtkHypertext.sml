@@ -15,9 +15,9 @@ structure AtkHypertext :>
     type 'a hyperlink_class = 'a AtkHyperlinkClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getLink self linkIndex = (AtkHypertextClass.FFI.withPtr &&&> GInt.FFI.withVal ---> AtkHyperlinkClass.FFI.fromPtr false) getLink_ (self & linkIndex)
-    fun getLinkIndex self charIndex = (AtkHypertextClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getLinkIndex_ (self & charIndex)
-    fun getNLinks self = (AtkHypertextClass.FFI.withPtr ---> GInt.FFI.fromVal) getNLinks_ self
+    fun getLink self linkIndex = (AtkHypertextClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> AtkHyperlinkClass.FFI.fromPtr false) getLink_ (self & linkIndex)
+    fun getLinkIndex self charIndex = (AtkHypertextClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getLinkIndex_ (self & charIndex)
+    fun getNLinks self = (AtkHypertextClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNLinks_ self
     local
       open ClosureMarshal Signal
     in

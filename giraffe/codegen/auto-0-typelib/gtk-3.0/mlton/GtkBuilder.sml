@@ -309,13 +309,13 @@ structure GtkBuilder :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkBuilderClass.FFI.fromPtr true) new_ ()
-    fun newFromFile filename = (Utf8.FFI.withPtr ---> GtkBuilderClass.FFI.fromPtr true) newFromFile_ filename
-    fun newFromResource resourcePath = (Utf8.FFI.withPtr ---> GtkBuilderClass.FFI.fromPtr true) newFromResource_ resourcePath
-    fun newFromString (string, length) = (Utf8.FFI.withPtr &&&> GInt64.FFI.withVal ---> GtkBuilderClass.FFI.fromPtr true) newFromString_ (string & length)
+    fun newFromFile filename = (Utf8.FFI.withPtr 0 ---> GtkBuilderClass.FFI.fromPtr true) newFromFile_ filename
+    fun newFromResource resourcePath = (Utf8.FFI.withPtr 0 ---> GtkBuilderClass.FFI.fromPtr true) newFromResource_ resourcePath
+    fun newFromString (string, length) = (Utf8.FFI.withPtr 0 &&&> GInt64.FFI.withVal ---> GtkBuilderClass.FFI.fromPtr true) newFromString_ (string & length)
     fun addFromFile self filename =
       (
-        GtkBuilderClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkBuilderClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
       )
@@ -327,8 +327,8 @@ structure GtkBuilder :>
         )
     fun addFromResource self resourcePath =
       (
-        GtkBuilderClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkBuilderClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
       )
@@ -340,8 +340,8 @@ structure GtkBuilder :>
         )
     fun addFromString self (buffer, length) =
       (
-        GtkBuilderClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkBuilderClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt64.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
@@ -355,9 +355,9 @@ structure GtkBuilder :>
         )
     fun addObjectsFromFile self (filename, objectIds) =
       (
-        GtkBuilderClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8CPtrArray.FFI.withPtr
+        GtkBuilderClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8CPtrArray.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
       )
@@ -370,9 +370,9 @@ structure GtkBuilder :>
         )
     fun addObjectsFromResource self (resourcePath, objectIds) =
       (
-        GtkBuilderClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8CPtrArray.FFI.withPtr
+        GtkBuilderClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8CPtrArray.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
       )
@@ -391,10 +391,10 @@ structure GtkBuilder :>
         objectIds
       ) =
       (
-        GtkBuilderClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkBuilderClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt64.FFI.withVal
-         &&&> Utf8CPtrArray.FFI.withPtr
+         &&&> Utf8CPtrArray.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
       )
@@ -408,9 +408,9 @@ structure GtkBuilder :>
         )
     fun exposeObject self (name, object) =
       (
-        GtkBuilderClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectObjectClass.FFI.withPtr
+        GtkBuilderClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectObjectClass.FFI.withPtr false
          ---> I
       )
         exposeObject_
@@ -428,10 +428,10 @@ structure GtkBuilder :>
         length
       ) =
       (
-        GtkBuilderClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkBuilderClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GObjectType.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt64.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
@@ -445,19 +445,19 @@ structure GtkBuilder :>
            & length
            & []
         )
-    fun getApplication self = (GtkBuilderClass.FFI.withPtr ---> GtkApplicationClass.FFI.fromOptPtr false) getApplication_ self
-    fun getObject self name = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectObjectClass.FFI.fromOptPtr false) getObject_ (self & name)
-    fun getTranslationDomain self = (GtkBuilderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTranslationDomain_ self
-    fun getTypeFromName self typeName = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectType.FFI.fromVal) getTypeFromName_ (self & typeName)
-    fun setApplication self application = (GtkBuilderClass.FFI.withPtr &&&> GtkApplicationClass.FFI.withPtr ---> I) setApplication_ (self & application)
-    fun setTranslationDomain self domain = (GtkBuilderClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTranslationDomain_ (self & domain)
+    fun getApplication self = (GtkBuilderClass.FFI.withPtr false ---> GtkApplicationClass.FFI.fromOptPtr false) getApplication_ self
+    fun getObject self name = (GtkBuilderClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectObjectClass.FFI.fromOptPtr false) getObject_ (self & name)
+    fun getTranslationDomain self = (GtkBuilderClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTranslationDomain_ self
+    fun getTypeFromName self typeName = (GtkBuilderClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectType.FFI.fromVal) getTypeFromName_ (self & typeName)
+    fun setApplication self application = (GtkBuilderClass.FFI.withPtr false &&&> GtkApplicationClass.FFI.withPtr false ---> I) setApplication_ (self & application)
+    fun setTranslationDomain self domain = (GtkBuilderClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setTranslationDomain_ (self & domain)
     fun valueFromString self (pspec, string) =
       let
         val value & () =
           (
-            GtkBuilderClass.FFI.withPtr
-             &&&> GObjectParamSpecClass.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            GtkBuilderClass.FFI.withPtr false
+             &&&> GObjectParamSpecClass.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GObjectValueRecord.FFI.withNewPtr
              &&&> GLibErrorRecord.handleError
              ---> GObjectValueRecord.FFI.fromPtr true && ignore
@@ -477,9 +477,9 @@ structure GtkBuilder :>
       let
         val value & () =
           (
-            GtkBuilderClass.FFI.withPtr
+            GtkBuilderClass.FFI.withPtr false
              &&&> GObjectType.FFI.withVal
-             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr 0
              &&&> GObjectValueRecord.FFI.withNewPtr
              &&&> GLibErrorRecord.handleError
              ---> GObjectValueRecord.FFI.fromPtr true && ignore

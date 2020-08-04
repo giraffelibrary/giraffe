@@ -10,5 +10,5 @@ structure GtkTreeIter :>
     end
     type t = GtkTreeIterRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun copy self = (GtkTreeIterRecord.FFI.withPtr ---> GtkTreeIterRecord.FFI.fromPtr true) copy_ self
+    fun copy self = (GtkTreeIterRecord.FFI.withPtr false ---> GtkTreeIterRecord.FFI.fromPtr true) copy_ self
   end

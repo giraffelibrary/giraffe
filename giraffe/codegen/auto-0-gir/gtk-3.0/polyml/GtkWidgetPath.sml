@@ -157,12 +157,12 @@ structure GtkWidgetPath :>
     type state_flags_t = GtkStateFlags.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkWidgetPathRecord.FFI.fromPtr true) new_ ()
-    fun appendForWidget self widget = (GtkWidgetPathRecord.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt.FFI.fromVal) appendForWidget_ (self & widget)
-    fun appendType self type' = (GtkWidgetPathRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GInt.FFI.fromVal) appendType_ (self & type')
+    fun appendForWidget self widget = (GtkWidgetPathRecord.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) appendForWidget_ (self & widget)
+    fun appendType self type' = (GtkWidgetPathRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GInt.FFI.fromVal) appendType_ (self & type')
     fun appendWithSiblings self (siblings, siblingIndex) =
       (
-        GtkWidgetPathRecord.FFI.withPtr
-         &&&> GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
+         &&&> GtkWidgetPathRecord.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          ---> GInt.FFI.fromVal
       )
@@ -172,15 +172,15 @@ structure GtkWidgetPath :>
            & siblings
            & siblingIndex
         )
-    fun copy self = (GtkWidgetPathRecord.FFI.withPtr ---> GtkWidgetPathRecord.FFI.fromPtr true) copy_ self
-    fun getObjectType self = (GtkWidgetPathRecord.FFI.withPtr ---> GObjectType.FFI.fromVal) getObjectType_ self
-    fun hasParent self type' = (GtkWidgetPathRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) hasParent_ (self & type')
-    fun isType self type' = (GtkWidgetPathRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) isType_ (self & type')
+    fun copy self = (GtkWidgetPathRecord.FFI.withPtr false ---> GtkWidgetPathRecord.FFI.fromPtr true) copy_ self
+    fun getObjectType self = (GtkWidgetPathRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal) getObjectType_ self
+    fun hasParent self type' = (GtkWidgetPathRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) hasParent_ (self & type')
+    fun isType self type' = (GtkWidgetPathRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) isType_ (self & type')
     fun iterAddClass self (pos, name) =
       (
-        GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         iterAddClass_
@@ -197,9 +197,9 @@ structure GtkWidgetPath :>
         flags
       ) =
       (
-        GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          &&&> GtkRegionFlags.FFI.withVal
          ---> I
       )
@@ -210,19 +210,19 @@ structure GtkWidgetPath :>
            & name
            & flags
         )
-    fun iterClearClasses self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> I) iterClearClasses_ (self & pos)
-    fun iterClearRegions self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> I) iterClearRegions_ (self & pos)
-    fun iterGetName self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) iterGetName_ (self & pos)
-    fun iterGetObjectName self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) iterGetObjectName_ (self & pos)
-    fun iterGetObjectType self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GObjectType.FFI.fromVal) iterGetObjectType_ (self & pos)
-    fun iterGetSiblingIndex self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GUInt.FFI.fromVal) iterGetSiblingIndex_ (self & pos)
-    fun iterGetSiblings self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetPathRecord.FFI.fromPtr false) iterGetSiblings_ (self & pos)
-    fun iterGetState self pos = (GtkWidgetPathRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkStateFlags.FFI.fromVal) iterGetState_ (self & pos)
+    fun iterClearClasses self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) iterClearClasses_ (self & pos)
+    fun iterClearRegions self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) iterClearRegions_ (self & pos)
+    fun iterGetName self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) iterGetName_ (self & pos)
+    fun iterGetObjectName self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) iterGetObjectName_ (self & pos)
+    fun iterGetObjectType self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GObjectType.FFI.fromVal) iterGetObjectType_ (self & pos)
+    fun iterGetSiblingIndex self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GUInt.FFI.fromVal) iterGetSiblingIndex_ (self & pos)
+    fun iterGetSiblings self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkWidgetPathRecord.FFI.fromPtr false) iterGetSiblings_ (self & pos)
+    fun iterGetState self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkStateFlags.FFI.fromVal) iterGetState_ (self & pos)
     fun iterHasClass self (pos, name) =
       (
-        GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> GBool.FFI.fromVal
       )
         iterHasClass_
@@ -233,9 +233,9 @@ structure GtkWidgetPath :>
         )
     fun iterHasName self (pos, name) =
       (
-        GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> GBool.FFI.fromVal
       )
         iterHasName_
@@ -246,7 +246,7 @@ structure GtkWidgetPath :>
         )
     fun iterHasQclass self (pos, qname) =
       (
-        GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GLibQuark.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -259,7 +259,7 @@ structure GtkWidgetPath :>
         )
     fun iterHasQname self (pos, qname) =
       (
-        GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GLibQuark.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -274,7 +274,7 @@ structure GtkWidgetPath :>
       let
         val flags & retVal =
           (
-            GtkWidgetPathRecord.FFI.withPtr
+            GtkWidgetPathRecord.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GLibQuark.FFI.withVal
              &&&> GtkRegionFlags.FFI.withRefVal
@@ -294,9 +294,9 @@ structure GtkWidgetPath :>
       let
         val flags & retVal =
           (
-            GtkWidgetPathRecord.FFI.withPtr
+            GtkWidgetPathRecord.FFI.withPtr false
              &&&> GInt.FFI.withVal
-             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr 0
              &&&> GtkRegionFlags.FFI.withRefVal
              ---> GtkRegionFlags.FFI.fromVal && GBool.FFI.fromVal
           )
@@ -312,9 +312,9 @@ structure GtkWidgetPath :>
       end
     fun iterRemoveClass self (pos, name) =
       (
-        GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         iterRemoveClass_
@@ -325,9 +325,9 @@ structure GtkWidgetPath :>
         )
     fun iterRemoveRegion self (pos, name) =
       (
-        GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         iterRemoveRegion_
@@ -338,9 +338,9 @@ structure GtkWidgetPath :>
         )
     fun iterSetName self (pos, name) =
       (
-        GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         iterSetName_
@@ -351,9 +351,9 @@ structure GtkWidgetPath :>
         )
     fun iterSetObjectName self (pos, name) =
       (
-        GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr 0
          ---> I
       )
         iterSetObjectName_
@@ -364,7 +364,7 @@ structure GtkWidgetPath :>
         )
     fun iterSetObjectType self (pos, type') =
       (
-        GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GObjectType.FFI.withVal
          ---> I
@@ -377,7 +377,7 @@ structure GtkWidgetPath :>
         )
     fun iterSetState self (pos, state) =
       (
-        GtkWidgetPathRecord.FFI.withPtr
+        GtkWidgetPathRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GtkStateFlags.FFI.withVal
          ---> I
@@ -388,7 +388,7 @@ structure GtkWidgetPath :>
            & pos
            & state
         )
-    fun length self = (GtkWidgetPathRecord.FFI.withPtr ---> GInt.FFI.fromVal) length_ self
-    fun prependType self type' = (GtkWidgetPathRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> I) prependType_ (self & type')
-    fun toString self = (GtkWidgetPathRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun length self = (GtkWidgetPathRecord.FFI.withPtr false ---> GInt.FFI.fromVal) length_ self
+    fun prependType self type' = (GtkWidgetPathRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> I) prependType_ (self & type')
+    fun toString self = (GtkWidgetPathRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
   end

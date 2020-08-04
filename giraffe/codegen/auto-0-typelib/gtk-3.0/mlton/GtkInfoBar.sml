@@ -77,15 +77,15 @@ structure GtkInfoBar :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type message_type_t = GtkMessageType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkInfoBarClass.FFI.fromPtr false) new_ ()
     fun addActionWidget self (child, responseId) =
       (
-        GtkInfoBarClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkInfoBarClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -97,8 +97,8 @@ structure GtkInfoBar :>
         )
     fun addButton self (buttonText, responseId) =
       (
-        GtkInfoBarClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkInfoBarClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> GtkButtonClass.FFI.fromPtr false
       )
@@ -108,16 +108,16 @@ structure GtkInfoBar :>
            & buttonText
            & responseId
         )
-    fun getActionArea self = (GtkInfoBarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self
-    fun getContentArea self = (GtkInfoBarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getContentArea_ self
-    fun getMessageType self = (GtkInfoBarClass.FFI.withPtr ---> GtkMessageType.FFI.fromVal) getMessageType_ self
-    fun getShowCloseButton self = (GtkInfoBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowCloseButton_ self
-    fun response self responseId = (GtkInfoBarClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) response_ (self & responseId)
-    fun setDefaultResponse self responseId = (GtkInfoBarClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setDefaultResponse_ (self & responseId)
-    fun setMessageType self messageType = (GtkInfoBarClass.FFI.withPtr &&&> GtkMessageType.FFI.withVal ---> I) setMessageType_ (self & messageType)
+    fun getActionArea self = (GtkInfoBarClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self
+    fun getContentArea self = (GtkInfoBarClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getContentArea_ self
+    fun getMessageType self = (GtkInfoBarClass.FFI.withPtr false ---> GtkMessageType.FFI.fromVal) getMessageType_ self
+    fun getShowCloseButton self = (GtkInfoBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowCloseButton_ self
+    fun response self responseId = (GtkInfoBarClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) response_ (self & responseId)
+    fun setDefaultResponse self responseId = (GtkInfoBarClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setDefaultResponse_ (self & responseId)
+    fun setMessageType self messageType = (GtkInfoBarClass.FFI.withPtr false &&&> GtkMessageType.FFI.withVal ---> I) setMessageType_ (self & messageType)
     fun setResponseSensitive self (responseId, setting) =
       (
-        GtkInfoBarClass.FFI.withPtr
+        GtkInfoBarClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
@@ -128,7 +128,7 @@ structure GtkInfoBar :>
            & responseId
            & setting
         )
-    fun setShowCloseButton self setting = (GtkInfoBarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowCloseButton_ (self & setting)
+    fun setShowCloseButton self setting = (GtkInfoBarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowCloseButton_ (self & setting)
     local
       open ClosureMarshal Signal
     in

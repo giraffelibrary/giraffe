@@ -32,15 +32,15 @@ structure AtkImage :>
     type coord_type_t = AtkCoordType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getImageDescription self = (AtkImageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getImageDescription_ self
-    fun getImageLocale self = (AtkImageClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getImageLocale_ self
+    fun getImageDescription self = (AtkImageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getImageDescription_ self
+    fun getImageLocale self = (AtkImageClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getImageLocale_ self
     fun getImagePosition self coordType =
       let
         val x
          & y
          & () =
           (
-            AtkImageClass.FFI.withPtr
+            AtkImageClass.FFI.withPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              &&&> AtkCoordType.FFI.withVal
@@ -64,7 +64,7 @@ structure AtkImage :>
          & height
          & () =
           (
-            AtkImageClass.FFI.withPtr
+            AtkImageClass.FFI.withPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GInt32.FFI.fromVal
@@ -80,5 +80,5 @@ structure AtkImage :>
       in
         (width, height)
       end
-    fun setImageDescription self description = (AtkImageClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) setImageDescription_ (self & description)
+    fun setImageDescription self description = (AtkImageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) setImageDescription_ (self & description)
   end

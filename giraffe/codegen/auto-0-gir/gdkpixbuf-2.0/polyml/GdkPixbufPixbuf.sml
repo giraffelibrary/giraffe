@@ -318,8 +318,8 @@ structure GdkPixbufPixbuf :>
     type interp_type_t = GdkPixbufInterpType.t
     type colorspace_t = GdkPixbufColorspace.t
     type t = base class
-    fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
-    fun asLoadableIcon self = (GObjectObjectClass.FFI.withPtr ---> GioLoadableIconClass.FFI.fromPtr false) I self
+    fun asIcon self = (GObjectObjectClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) I self
+    fun asLoadableIcon self = (GObjectObjectClass.FFI.withPtr false ---> GioLoadableIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -356,7 +356,7 @@ structure GdkPixbufPixbuf :>
         rowstride
       ) =
       (
-        GLibBytesRecord.FFI.withPtr
+        GLibBytesRecord.FFI.withPtr false
          &&&> GdkPixbufColorspace.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -375,7 +375,7 @@ structure GdkPixbufPixbuf :>
            & height
            & rowstride
         )
-    fun newFromFile filename = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromFile_ (filename & [])
+    fun newFromFile filename = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromFile_ (filename & [])
     fun newFromFileAtScale
       (
         filename,
@@ -384,7 +384,7 @@ structure GdkPixbufPixbuf :>
         preserveAspectRatio
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GBool.FFI.withVal
@@ -406,7 +406,7 @@ structure GdkPixbufPixbuf :>
         height
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
@@ -425,7 +425,7 @@ structure GdkPixbufPixbuf :>
         val retVal =
           (
             GInt.FFI.withVal
-             &&&> GUInt8CArrayN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GBool.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> GdkPixbufPixbufClass.FFI.fromPtr true
@@ -440,7 +440,7 @@ structure GdkPixbufPixbuf :>
       in
         retVal
       end
-    fun newFromResource resourcePath = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromResource_ (resourcePath & [])
+    fun newFromResource resourcePath = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromResource_ (resourcePath & [])
     fun newFromResourceAtScale
       (
         resourcePath,
@@ -449,7 +449,7 @@ structure GdkPixbufPixbuf :>
         preserveAspectRatio
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GBool.FFI.withVal
@@ -466,8 +466,8 @@ structure GdkPixbufPixbuf :>
         )
     fun newFromStream (stream, cancellable) =
       (
-        GioInputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioInputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GdkPixbufPixbufClass.FFI.fromPtr true
       )
@@ -486,11 +486,11 @@ structure GdkPixbufPixbuf :>
         cancellable
       ) =
       (
-        GioInputStreamClass.FFI.withPtr
+        GioInputStreamClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GBool.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GdkPixbufPixbufClass.FFI.fromPtr true
       )
@@ -503,8 +503,8 @@ structure GdkPixbufPixbuf :>
            & cancellable
            & []
         )
-    fun newFromStreamFinish asyncResult = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromStreamFinish_ (asyncResult & [])
-    fun newFromXpmData data = (Utf8CPtrArray.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromXpmData_ data
+    fun newFromStreamFinish asyncResult = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromStreamFinish_ (asyncResult & [])
+    fun newFromXpmData data = (Utf8CPtrArray.FFI.withPtr 0 ---> GdkPixbufPixbufClass.FFI.fromPtr true) newFromXpmData_ data
     fun calculateRowstride
       (
         colorspace,
@@ -531,7 +531,7 @@ structure GdkPixbufPixbuf :>
         )
     fun fromPixdata (pixdata, copyPixels) =
       (
-        GdkPixbufPixdataRecord.FFI.withPtr
+        GdkPixbufPixdataRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GdkPixbufPixbufClass.FFI.fromPtr true
@@ -548,7 +548,7 @@ structure GdkPixbufPixbuf :>
          & height
          & retVal =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -574,7 +574,7 @@ structure GdkPixbufPixbuf :>
          & height
          & retVal =
           (
-            GioAsyncResultClass.FFI.withPtr
+            GioAsyncResultClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
@@ -596,7 +596,7 @@ structure GdkPixbufPixbuf :>
           height
         )
       end
-    fun saveToStreamFinish asyncResult = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) saveToStreamFinish_ (asyncResult & [])
+    fun saveToStreamFinish asyncResult = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) saveToStreamFinish_ (asyncResult & [])
     fun addAlpha
       self
       (
@@ -606,7 +606,7 @@ structure GdkPixbufPixbuf :>
         b
       ) =
       (
-        GdkPixbufPixbufClass.FFI.withPtr
+        GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GUInt8.FFI.withVal
          &&&> GUInt8.FFI.withVal
@@ -621,7 +621,7 @@ structure GdkPixbufPixbuf :>
            & g
            & b
         )
-    fun applyEmbeddedOrientation self = (GdkPixbufPixbufClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) applyEmbeddedOrientation_ self
+    fun applyEmbeddedOrientation self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr true) applyEmbeddedOrientation_ self
     fun composite
       self
       (
@@ -638,8 +638,8 @@ structure GdkPixbufPixbuf :>
         overallAlpha
       ) =
       (
-        GdkPixbufPixbufClass.FFI.withPtr
-         &&&> GdkPixbufPixbufClass.FFI.withPtr
+        GdkPixbufPixbufClass.FFI.withPtr false
+         &&&> GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -688,8 +688,8 @@ structure GdkPixbufPixbuf :>
         color2
       ) =
       (
-        GdkPixbufPixbufClass.FFI.withPtr
-         &&&> GdkPixbufPixbufClass.FFI.withPtr
+        GdkPixbufPixbufClass.FFI.withPtr false
+         &&&> GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -739,7 +739,7 @@ structure GdkPixbufPixbuf :>
         color2
       ) =
       (
-        GdkPixbufPixbufClass.FFI.withPtr
+        GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GdkPixbufInterpType.FFI.withVal
@@ -760,7 +760,7 @@ structure GdkPixbufPixbuf :>
            & color1
            & color2
         )
-    fun copy self = (GdkPixbufPixbufClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr true) copy_ self
+    fun copy self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr true) copy_ self
     fun copyArea
       self
       (
@@ -773,12 +773,12 @@ structure GdkPixbufPixbuf :>
         destY
       ) =
       (
-        GdkPixbufPixbufClass.FFI.withPtr
+        GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         &&&> GdkPixbufPixbufClass.FFI.withPtr
+         &&&> GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -794,24 +794,24 @@ structure GdkPixbufPixbuf :>
            & destX
            & destY
         )
-    fun copyOptions self destPixbuf = (GdkPixbufPixbufClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> GBool.FFI.fromVal) copyOptions_ (self & destPixbuf)
-    fun fill self pixel = (GdkPixbufPixbufClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) fill_ (self & pixel)
-    fun flip self horizontal = (GdkPixbufPixbufClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) flip_ (self & horizontal)
-    fun getBitsPerSample self = (GdkPixbufPixbufClass.FFI.withPtr ---> GInt.FFI.fromVal) getBitsPerSample_ self
-    fun getByteLength self = (GdkPixbufPixbufClass.FFI.withPtr ---> GSize.FFI.fromVal) getByteLength_ self
-    fun getColorspace self = (GdkPixbufPixbufClass.FFI.withPtr ---> GdkPixbufColorspace.FFI.fromVal) getColorspace_ self
-    fun getHasAlpha self = (GdkPixbufPixbufClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasAlpha_ self
-    fun getHeight self = (GdkPixbufPixbufClass.FFI.withPtr ---> GInt.FFI.fromVal) getHeight_ self
-    fun getNChannels self = (GdkPixbufPixbufClass.FFI.withPtr ---> GInt.FFI.fromVal) getNChannels_ self
-    fun getOption self key = (GdkPixbufPixbufClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getOption_ (self & key)
+    fun copyOptions self destPixbuf = (GdkPixbufPixbufClass.FFI.withPtr false &&&> GdkPixbufPixbufClass.FFI.withPtr false ---> GBool.FFI.fromVal) copyOptions_ (self & destPixbuf)
+    fun fill self pixel = (GdkPixbufPixbufClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) fill_ (self & pixel)
+    fun flip self horizontal = (GdkPixbufPixbufClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) flip_ (self & horizontal)
+    fun getBitsPerSample self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GInt.FFI.fromVal) getBitsPerSample_ self
+    fun getByteLength self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GSize.FFI.fromVal) getByteLength_ self
+    fun getColorspace self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GdkPixbufColorspace.FFI.fromVal) getColorspace_ self
+    fun getHasAlpha self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasAlpha_ self
+    fun getHeight self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GInt.FFI.fromVal) getHeight_ self
+    fun getNChannels self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNChannels_ self
+    fun getOption self key = (GdkPixbufPixbufClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getOption_ (self & key)
     fun getPixels self =
       let
-        val length & retVal = (GdkPixbufPixbufClass.FFI.withPtr &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 0) getPixels_ (self & GUInt.null)
+        val length & retVal = (GdkPixbufPixbufClass.FFI.withPtr false &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 0) getPixels_ (self & GUInt.null)
       in
         retVal (LargeInt.toInt length)
       end
-    fun getRowstride self = (GdkPixbufPixbufClass.FFI.withPtr ---> GInt.FFI.fromVal) getRowstride_ self
-    fun getWidth self = (GdkPixbufPixbufClass.FFI.withPtr ---> GInt.FFI.fromVal) getWidth_ self
+    fun getRowstride self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GInt.FFI.fromVal) getRowstride_ self
+    fun getWidth self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GInt.FFI.fromVal) getWidth_ self
     fun newSubpixbuf
       self
       (
@@ -821,7 +821,7 @@ structure GdkPixbufPixbuf :>
         height
       ) =
       (
-        GdkPixbufPixbufClass.FFI.withPtr
+        GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -836,9 +836,9 @@ structure GdkPixbufPixbuf :>
            & width
            & height
         )
-    fun readPixelBytes self = (GdkPixbufPixbufClass.FFI.withPtr ---> GLibBytesRecord.FFI.fromPtr true) readPixelBytes_ self
-    fun removeOption self key = (GdkPixbufPixbufClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) removeOption_ (self & key)
-    fun rotateSimple self angle = (GdkPixbufPixbufClass.FFI.withPtr &&&> GdkPixbufPixbufRotation.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) rotateSimple_ (self & angle)
+    fun readPixelBytes self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GLibBytesRecord.FFI.fromPtr true) readPixelBytes_ self
+    fun removeOption self key = (GdkPixbufPixbufClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) removeOption_ (self & key)
+    fun rotateSimple self angle = (GdkPixbufPixbufClass.FFI.withPtr false &&&> GdkPixbufPixbufRotation.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) rotateSimple_ (self & angle)
     fun saturateAndPixelate
       self
       (
@@ -847,8 +847,8 @@ structure GdkPixbufPixbuf :>
         pixelate
       ) =
       (
-        GdkPixbufPixbufClass.FFI.withPtr
-         &&&> GdkPixbufPixbufClass.FFI.withPtr
+        GdkPixbufPixbufClass.FFI.withPtr false
+         &&&> GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GFloat.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
@@ -872,14 +872,14 @@ structure GdkPixbufPixbuf :>
          & bufferSize
          & () =
           (
-            GdkPixbufPixbufClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withRefOptPtr
+            GdkPixbufPixbufClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr 0
              &&&> GSize.FFI.withRefVal
-             &&&> Utf8.FFI.withPtr
-             &&&> Utf8CPtrArray.FFI.withPtr
-             &&&> Utf8CPtrArray.FFI.withPtr
+             &&&> Utf8.FFI.withPtr 0
+             &&&> Utf8CPtrArray.FFI.withPtr 0
+             &&&> Utf8CPtrArray.FFI.withPtr 0
              &&&> GLibErrorRecord.handleError
-             ---> GUInt8CArrayN.FFI.fromPtr 1
+             ---> GUInt8CArrayN.FFI.fromPtr ~1
                    && GSize.FFI.fromVal
                    && ignore
           )
@@ -906,12 +906,12 @@ structure GdkPixbufPixbuf :>
         cancellable
       ) =
       (
-        GdkPixbufPixbufClass.FFI.withPtr
-         &&&> GioOutputStreamClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8CPtrArray.FFI.withPtr
-         &&&> Utf8CPtrArray.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GdkPixbufPixbufClass.FFI.withPtr false
+         &&&> GioOutputStreamClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8CPtrArray.FFI.withPtr 0
+         &&&> Utf8CPtrArray.FFI.withPtr 0
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -934,11 +934,11 @@ structure GdkPixbufPixbuf :>
         optionValues
       ) =
       (
-        GdkPixbufPixbufClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8CPtrArray.FFI.withPtr
-         &&&> Utf8CPtrArray.FFI.withPtr
+        GdkPixbufPixbufClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8CPtrArray.FFI.withPtr 0
+         &&&> Utf8CPtrArray.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -966,8 +966,8 @@ structure GdkPixbufPixbuf :>
         interpType
       ) =
       (
-        GdkPixbufPixbufClass.FFI.withPtr
-         &&&> GdkPixbufPixbufClass.FFI.withPtr
+        GdkPixbufPixbufClass.FFI.withPtr false
+         &&&> GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -1001,7 +1001,7 @@ structure GdkPixbufPixbuf :>
         interpType
       ) =
       (
-        GdkPixbufPixbufClass.FFI.withPtr
+        GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GdkPixbufInterpType.FFI.withVal
@@ -1016,9 +1016,9 @@ structure GdkPixbufPixbuf :>
         )
     fun setOption self (key, value) =
       (
-        GdkPixbufPixbufClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GdkPixbufPixbufClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> GBool.FFI.fromVal
       )
         setOption_

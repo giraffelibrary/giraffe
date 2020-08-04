@@ -51,7 +51,7 @@ structure GioDBusServer :>
     type 'a d_bus_auth_observer_class = 'a GioDBusAuthObserverClass.class
     type d_bus_server_flags_t = GioDBusServerFlags.t
     type t = base class
-    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr false ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newSync
       (
@@ -62,11 +62,11 @@ structure GioDBusServer :>
         cancellable
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GioDBusServerFlags.FFI.withVal
-         &&&> Utf8.FFI.withPtr
-         &&&> GioDBusAuthObserverClass.FFI.withOptPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GioDBusAuthObserverClass.FFI.withOptPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioDBusServerClass.FFI.fromPtr true
       )
@@ -79,12 +79,12 @@ structure GioDBusServer :>
            & cancellable
            & []
         )
-    fun getClientAddress self = (GioDBusServerClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getClientAddress_ self
-    fun getFlags self = (GioDBusServerClass.FFI.withPtr ---> GioDBusServerFlags.FFI.fromVal) getFlags_ self
-    fun getGuid self = (GioDBusServerClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getGuid_ self
-    fun isActive self = (GioDBusServerClass.FFI.withPtr ---> GBool.FFI.fromVal) isActive_ self
-    fun start self = (GioDBusServerClass.FFI.withPtr ---> I) start_ self
-    fun stop self = (GioDBusServerClass.FFI.withPtr ---> I) stop_ self
+    fun getClientAddress self = (GioDBusServerClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getClientAddress_ self
+    fun getFlags self = (GioDBusServerClass.FFI.withPtr false ---> GioDBusServerFlags.FFI.fromVal) getFlags_ self
+    fun getGuid self = (GioDBusServerClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getGuid_ self
+    fun isActive self = (GioDBusServerClass.FFI.withPtr false ---> GBool.FFI.fromVal) isActive_ self
+    fun start self = (GioDBusServerClass.FFI.withPtr false ---> I) start_ self
+    fun stop self = (GioDBusServerClass.FFI.withPtr false ---> I) stop_ self
     local
       open ClosureMarshal Signal
     in

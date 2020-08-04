@@ -70,49 +70,49 @@ structure GIRepositoryArgInfo :>
 
     val getDirection =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryDirection.FFI.fromVal) getDirection_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryDirection.FFI.fromVal) getDirection_ info
 
     val isCallerAllocates =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isCallerAllocates_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isCallerAllocates_ info
 
     val isReturnValue =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isReturnValue_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isReturnValue_ info
 
     val isOptional =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isOptional_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isOptional_ info
 
     val mayBeNull =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) mayBeNull_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) mayBeNull_ info
 
     val getOwnershipTransfer =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTransfer.FFI.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTransfer.FFI.fromVal)
           getOwnershipTransfer_
           info
 
     val getScope =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryScopeType.FFI.fromVal) getScope_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryScopeType.FFI.fromVal) getScope_ info
 
     val getClosure =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> (fn ~1 => NONE | n => SOME n) o GInt32.FFI.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> (fn ~1 => NONE | n => SOME n) o GInt32.FFI.fromVal)
           getClosure_
           info
 
     val getDestroy =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> (fn ~1 => NONE | n => SOME n) o GInt32.FFI.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> (fn ~1 => NONE | n => SOME n) o GInt32.FFI.fromVal)
           getDestroy_
           info
 
     val getType =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
           getType_
           info
   end

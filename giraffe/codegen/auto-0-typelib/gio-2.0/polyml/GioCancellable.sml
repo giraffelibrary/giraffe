@@ -23,15 +23,15 @@ structure GioCancellable :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioCancellableClass.FFI.fromPtr true) new_ ()
     fun getCurrent () = (I ---> GioCancellableClass.FFI.fromOptPtr false) getCurrent_ ()
-    fun cancel self = (GioCancellableClass.FFI.withPtr ---> I) cancel_ self
-    fun disconnect self handlerId = (GioCancellableClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> I) disconnect_ (self & handlerId)
-    fun getFd self = (GioCancellableClass.FFI.withPtr ---> GInt32.FFI.fromVal) getFd_ self
-    fun isCancelled self = (GioCancellableClass.FFI.withPtr ---> GBool.FFI.fromVal) isCancelled_ self
-    fun popCurrent self = (GioCancellableClass.FFI.withPtr ---> I) popCurrent_ self
-    fun pushCurrent self = (GioCancellableClass.FFI.withPtr ---> I) pushCurrent_ self
-    fun releaseFd self = (GioCancellableClass.FFI.withPtr ---> I) releaseFd_ self
-    fun reset self = (GioCancellableClass.FFI.withPtr ---> I) reset_ self
-    fun setErrorIfCancelled self = (GioCancellableClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) setErrorIfCancelled_ (self & [])
+    fun cancel self = (GioCancellableClass.FFI.withPtr false ---> I) cancel_ self
+    fun disconnect self handlerId = (GioCancellableClass.FFI.withPtr false &&&> GUInt64.FFI.withVal ---> I) disconnect_ (self & handlerId)
+    fun getFd self = (GioCancellableClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getFd_ self
+    fun isCancelled self = (GioCancellableClass.FFI.withPtr false ---> GBool.FFI.fromVal) isCancelled_ self
+    fun popCurrent self = (GioCancellableClass.FFI.withPtr false ---> I) popCurrent_ self
+    fun pushCurrent self = (GioCancellableClass.FFI.withPtr false ---> I) pushCurrent_ self
+    fun releaseFd self = (GioCancellableClass.FFI.withPtr false ---> I) releaseFd_ self
+    fun reset self = (GioCancellableClass.FFI.withPtr false ---> I) reset_ self
+    fun setErrorIfCancelled self = (GioCancellableClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) setErrorIfCancelled_ (self & [])
     local
       open ClosureMarshal Signal
     in

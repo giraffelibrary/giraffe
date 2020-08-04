@@ -416,14 +416,14 @@ structure GObject :
     val TYPE_RESERVED_USER_FIRST = 49
     val VALUE_COLLECT_FORMAT_MAX_LENGTH = 8
     val VALUE_NOCOPY_CONTENTS = 134217728
-    fun enumGetValue (enumClass, value) = (GObjectEnumClassRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValue_ (enumClass & value)
-    fun enumGetValueByName (enumClass, name) = (GObjectEnumClassRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByName_ (enumClass & name)
-    fun enumGetValueByNick (enumClass, nick) = (GObjectEnumClassRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByNick_ (enumClass & nick)
-    fun enumRegisterStatic (name, constStaticValues) = (Utf8.FFI.withPtr &&&> GObjectEnumValueRecord.FFI.withPtr ---> GObjectType.FFI.fromVal) enumRegisterStatic_ (name & constStaticValues)
-    fun flagsGetFirstValue (flagsClass, value) = (GObjectFlagsClassRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetFirstValue_ (flagsClass & value)
-    fun flagsGetValueByName (flagsClass, name) = (GObjectFlagsClassRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByName_ (flagsClass & name)
-    fun flagsGetValueByNick (flagsClass, nick) = (GObjectFlagsClassRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByNick_ (flagsClass & nick)
-    fun flagsRegisterStatic (name, constStaticValues) = (Utf8.FFI.withPtr &&&> GObjectFlagsValueRecord.FFI.withPtr ---> GObjectType.FFI.fromVal) flagsRegisterStatic_ (name & constStaticValues)
+    fun enumGetValue (enumClass, value) = (GObjectEnumClassRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValue_ (enumClass & value)
+    fun enumGetValueByName (enumClass, name) = (GObjectEnumClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByName_ (enumClass & name)
+    fun enumGetValueByNick (enumClass, nick) = (GObjectEnumClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByNick_ (enumClass & nick)
+    fun enumRegisterStatic (name, constStaticValues) = (Utf8.FFI.withPtr 0 &&&> GObjectEnumValueRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal) enumRegisterStatic_ (name & constStaticValues)
+    fun flagsGetFirstValue (flagsClass, value) = (GObjectFlagsClassRecord.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetFirstValue_ (flagsClass & value)
+    fun flagsGetValueByName (flagsClass, name) = (GObjectFlagsClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByName_ (flagsClass & name)
+    fun flagsGetValueByNick (flagsClass, nick) = (GObjectFlagsClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByNick_ (flagsClass & nick)
+    fun flagsRegisterStatic (name, constStaticValues) = (Utf8.FFI.withPtr 0 &&&> GObjectFlagsValueRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal) flagsRegisterStatic_ (name & constStaticValues)
     fun gtypeGetType () = (I ---> GObjectType.FFI.fromVal) gtypeGetType_ ()
     fun paramSpecBoolean
       (
@@ -434,9 +434,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GBool.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
@@ -458,9 +458,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GObjectType.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
@@ -484,9 +484,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt8.FFI.withVal
          &&&> GInt8.FFI.withVal
          &&&> GInt8.FFI.withVal
@@ -514,9 +514,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -543,9 +543,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GObjectType.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
@@ -570,9 +570,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GObjectType.FFI.withVal
          &&&> GUInt.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
@@ -598,9 +598,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal
@@ -626,9 +626,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GObjectType.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
@@ -652,9 +652,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -682,9 +682,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt64.FFI.withVal
          &&&> GInt64.FFI.withVal
          &&&> GInt64.FFI.withVal
@@ -712,9 +712,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLong.FFI.withVal
          &&&> GLong.FFI.withVal
          &&&> GLong.FFI.withVal
@@ -740,9 +740,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GObjectType.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
@@ -764,9 +764,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GObjectType.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
@@ -787,9 +787,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
       )
@@ -809,10 +809,10 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
       )
@@ -835,9 +835,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt8.FFI.withVal
          &&&> GUInt8.FFI.withVal
          &&&> GUInt8.FFI.withVal
@@ -865,9 +865,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
@@ -895,9 +895,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt64.FFI.withVal
          &&&> GUInt64.FFI.withVal
          &&&> GUInt64.FFI.withVal
@@ -925,9 +925,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GULong.FFI.withVal
          &&&> GULong.FFI.withVal
          &&&> GULong.FFI.withVal
@@ -953,9 +953,9 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GChar.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
@@ -978,11 +978,11 @@ structure GObject :
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantTypeRecord.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withDupOptPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantTypeRecord.FFI.withPtr false
+         &&&> GLibVariantRecord.FFI.withOptPtr true
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
       )
@@ -995,14 +995,14 @@ structure GObject :
            & defaultValue
            & flags
         )
-    fun pointerTypeRegisterStatic name = (Utf8.FFI.withPtr ---> GObjectType.FFI.fromVal) pointerTypeRegisterStatic_ name
+    fun pointerTypeRegisterStatic name = (Utf8.FFI.withPtr 0 ---> GObjectType.FFI.fromVal) pointerTypeRegisterStatic_ name
     fun signalListIds itype =
       let
-        val nIds & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUIntCArrayN.FFI.fromPtr 1) signalListIds_ (itype & GUInt.null)
+        val nIds & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUIntCArrayN.FFI.fromPtr ~1) signalListIds_ (itype & GUInt.null)
       in
         retVal (LargeInt.toInt nIds)
       end
-    fun signalLookup (name, itype) = (Utf8.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GUInt.FFI.fromVal) signalLookup_ (name & itype)
+    fun signalLookup (name, itype) = (Utf8.FFI.withPtr 0 &&&> GObjectType.FFI.withVal ---> GUInt.FFI.fromVal) signalLookup_ (name & itype)
     fun signalOverrideClassClosure
       (
         signalId,
@@ -1012,7 +1012,7 @@ structure GObject :
       (
         GUInt.FFI.withVal
          &&&> GObjectType.FFI.withVal
-         &&&> GObjectClosureRecord.FFI.withPtr
+         &&&> GObjectClosureRecord.FFI.withPtr false
          ---> I
       )
         signalOverrideClassClosure_
@@ -1032,7 +1032,7 @@ structure GObject :
          & detailP
          & retVal =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GObjectType.FFI.withVal
              &&&> GUInt.FFI.withRefVal
              &&&> GLibQuark.FFI.withRefVal
@@ -1064,7 +1064,7 @@ structure GObject :
       (
         GObjectType.FFI.withVal
          &&&> GObjectType.FFI.withVal
-         &&&> GObjectTypePluginClass.FFI.withPtr
+         &&&> GObjectTypePluginClass.FFI.withPtr false
          ---> I
       )
         typeAddInterfaceDynamic_
@@ -1074,16 +1074,16 @@ structure GObject :
            & plugin
         )
     fun typeCheckIsValueType type' = (GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCheckIsValueType_ type'
-    fun typeCheckValueHolds (value, type') = (GObjectValueRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCheckValueHolds_ (value & type')
+    fun typeCheckValueHolds (value, type') = (GObjectValueRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCheckValueHolds_ (value & type')
     fun typeChildren type' =
       let
-        val nChildren & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr 1) typeChildren_ (type' & GUInt.null)
+        val nChildren & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr ~1) typeChildren_ (type' & GUInt.null)
       in
         retVal (LargeInt.toInt nChildren)
       end
     fun typeDepth type' = (GObjectType.FFI.withVal ---> GUInt.FFI.fromVal) typeDepth_ type'
     fun typeEnsure type' = (GObjectType.FFI.withVal ---> I) typeEnsure_ type'
-    fun typeFromName name = (Utf8.FFI.withPtr ---> GObjectType.FFI.fromVal) typeFromName_ name
+    fun typeFromName name = (Utf8.FFI.withPtr 0 ---> GObjectType.FFI.fromVal) typeFromName_ name
     fun typeFundamental typeId = (GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal) typeFundamental_ typeId
     fun typeFundamentalNext () = (I ---> GObjectType.FFI.fromVal) typeFundamentalNext_ ()
     fun typeGetInstanceCount type' = (GObjectType.FFI.withVal ---> GInt.FFI.fromVal) typeGetInstanceCount_ type'
@@ -1093,7 +1093,7 @@ structure GObject :
     fun typeInitWithDebugFlags debugFlags = (GObjectTypeDebugFlags.FFI.withVal ---> I) typeInitWithDebugFlags_ debugFlags
     fun typeInterfaces type' =
       let
-        val nInterfaces & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr 1) typeInterfaces_ (type' & GUInt.null)
+        val nInterfaces & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr ~1) typeInterfaces_ (type' & GUInt.null)
       in
         retVal (LargeInt.toInt nInterfaces)
       end
@@ -1117,8 +1117,8 @@ structure GObject :
       ) =
       (
         GObjectType.FFI.withVal
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectTypePluginClass.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectTypePluginClass.FFI.withPtr false
          &&&> GObjectTypeFlags.FFI.withVal
          ---> GObjectType.FFI.fromVal
       )

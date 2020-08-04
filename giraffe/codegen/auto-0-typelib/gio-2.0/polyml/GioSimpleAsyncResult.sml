@@ -22,15 +22,15 @@ structure GioSimpleAsyncResult :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type t = base class
-    fun asAsyncResult self = (GObjectObjectClass.FFI.withPtr ---> GioAsyncResultClass.FFI.fromPtr false) I self
+    fun asAsyncResult self = (GObjectObjectClass.FFI.withPtr false ---> GioAsyncResultClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun complete self = (GioSimpleAsyncResultClass.FFI.withPtr ---> I) complete_ self
-    fun completeInIdle self = (GioSimpleAsyncResultClass.FFI.withPtr ---> I) completeInIdle_ self
-    fun getOpResGboolean self = (GioSimpleAsyncResultClass.FFI.withPtr ---> GBool.FFI.fromVal) getOpResGboolean_ self
-    fun getOpResGssize self = (GioSimpleAsyncResultClass.FFI.withPtr ---> GInt64.FFI.fromVal) getOpResGssize_ self
-    fun propagateError self = (GioSimpleAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) propagateError_ (self & [])
-    fun setCheckCancellable self checkCancellable = (GioSimpleAsyncResultClass.FFI.withPtr &&&> GioCancellableClass.FFI.withOptPtr ---> I) setCheckCancellable_ (self & checkCancellable)
-    fun setHandleCancellation self handleCancellation = (GioSimpleAsyncResultClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHandleCancellation_ (self & handleCancellation)
-    fun setOpResGboolean self opRes = (GioSimpleAsyncResultClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setOpResGboolean_ (self & opRes)
-    fun setOpResGssize self opRes = (GioSimpleAsyncResultClass.FFI.withPtr &&&> GInt64.FFI.withVal ---> I) setOpResGssize_ (self & opRes)
+    fun complete self = (GioSimpleAsyncResultClass.FFI.withPtr false ---> I) complete_ self
+    fun completeInIdle self = (GioSimpleAsyncResultClass.FFI.withPtr false ---> I) completeInIdle_ self
+    fun getOpResGboolean self = (GioSimpleAsyncResultClass.FFI.withPtr false ---> GBool.FFI.fromVal) getOpResGboolean_ self
+    fun getOpResGssize self = (GioSimpleAsyncResultClass.FFI.withPtr false ---> GInt64.FFI.fromVal) getOpResGssize_ self
+    fun propagateError self = (GioSimpleAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) propagateError_ (self & [])
+    fun setCheckCancellable self checkCancellable = (GioSimpleAsyncResultClass.FFI.withPtr false &&&> GioCancellableClass.FFI.withOptPtr false ---> I) setCheckCancellable_ (self & checkCancellable)
+    fun setHandleCancellation self handleCancellation = (GioSimpleAsyncResultClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHandleCancellation_ (self & handleCancellation)
+    fun setOpResGboolean self opRes = (GioSimpleAsyncResultClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setOpResGboolean_ (self & opRes)
+    fun setOpResGssize self opRes = (GioSimpleAsyncResultClass.FFI.withPtr false &&&> GInt64.FFI.withVal ---> I) setOpResGssize_ (self & opRes)
   end

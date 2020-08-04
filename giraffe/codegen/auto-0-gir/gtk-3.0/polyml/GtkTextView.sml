@@ -244,17 +244,17 @@ structure GtkTextView :>
     type justification_t = GtkJustification.t
     type wrap_mode_t = GtkWrapMode.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asScrollable self = (GObjectObjectClass.FFI.withPtr ---> GtkScrollableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asScrollable self = (GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTextViewClass.FFI.fromPtr false) new_ ()
-    fun newWithBuffer buffer = (GtkTextBufferClass.FFI.withPtr ---> GtkTextViewClass.FFI.fromPtr false) newWithBuffer_ buffer
+    fun newWithBuffer buffer = (GtkTextBufferClass.FFI.withPtr false ---> GtkTextViewClass.FFI.fromPtr false) newWithBuffer_ buffer
     fun addChildAtAnchor self (child, anchor) =
       (
-        GtkTextViewClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
-         &&&> GtkTextChildAnchorClass.FFI.withPtr
+        GtkTextViewClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
+         &&&> GtkTextChildAnchorClass.FFI.withPtr false
          ---> I
       )
         addChildAtAnchor_
@@ -272,8 +272,8 @@ structure GtkTextView :>
         ypos
       ) =
       (
-        GtkTextViewClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkTextViewClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GtkTextWindowType.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -287,8 +287,8 @@ structure GtkTextView :>
            & xpos
            & ypos
         )
-    fun backwardDisplayLine self iter = (GtkTextViewClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardDisplayLine_ (self & iter)
-    fun backwardDisplayLineStart self iter = (GtkTextViewClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardDisplayLineStart_ (self & iter)
+    fun backwardDisplayLine self iter = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) backwardDisplayLine_ (self & iter)
+    fun backwardDisplayLineStart self iter = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) backwardDisplayLineStart_ (self & iter)
     fun bufferToWindowCoords
       self
       (
@@ -301,7 +301,7 @@ structure GtkTextView :>
          & windowY
          & () =
           (
-            GtkTextViewClass.FFI.withPtr
+            GtkTextViewClass.FFI.withPtr false
              &&&> GtkTextWindowType.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
@@ -323,20 +323,20 @@ structure GtkTextView :>
       in
         (windowX, windowY)
       end
-    fun forwardDisplayLine self iter = (GtkTextViewClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardDisplayLine_ (self & iter)
-    fun forwardDisplayLineEnd self iter = (GtkTextViewClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardDisplayLineEnd_ (self & iter)
-    fun getAcceptsTab self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getAcceptsTab_ self
-    fun getBorderWindowSize self type' = (GtkTextViewClass.FFI.withPtr &&&> GtkTextWindowType.FFI.withVal ---> GInt.FFI.fromVal) getBorderWindowSize_ (self & type')
-    fun getBottomMargin self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getBottomMargin_ self
-    fun getBuffer self = (GtkTextViewClass.FFI.withPtr ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun forwardDisplayLine self iter = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) forwardDisplayLine_ (self & iter)
+    fun forwardDisplayLineEnd self iter = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) forwardDisplayLineEnd_ (self & iter)
+    fun getAcceptsTab self = (GtkTextViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAcceptsTab_ self
+    fun getBorderWindowSize self type' = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextWindowType.FFI.withVal ---> GInt.FFI.fromVal) getBorderWindowSize_ (self & type')
+    fun getBottomMargin self = (GtkTextViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getBottomMargin_ self
+    fun getBuffer self = (GtkTextViewClass.FFI.withPtr false ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self
     fun getCursorLocations self iter =
       let
         val strong
          & weak
          & () =
           (
-            GtkTextViewClass.FFI.withPtr
-             &&&> GtkTextIterRecord.FFI.withOptPtr
+            GtkTextViewClass.FFI.withPtr false
+             &&&> GtkTextIterRecord.FFI.withOptPtr false
              &&&> GdkRectangleRecord.FFI.withNewPtr
              &&&> GdkRectangleRecord.FFI.withNewPtr
              ---> GdkRectangleRecord.FFI.fromPtr true
@@ -353,18 +353,18 @@ structure GtkTextView :>
       in
         (strong, weak)
       end
-    fun getCursorVisible self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getCursorVisible_ self
-    fun getDefaultAttributes self = (GtkTextViewClass.FFI.withPtr ---> GtkTextAttributesRecord.FFI.fromPtr true) getDefaultAttributes_ self
-    fun getEditable self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getEditable_ self
-    fun getHadjustment self = (GtkTextViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
-    fun getIndent self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getIndent_ self
-    fun getInputHints self = (GtkTextViewClass.FFI.withPtr ---> GtkInputHints.FFI.fromVal) getInputHints_ self
-    fun getInputPurpose self = (GtkTextViewClass.FFI.withPtr ---> GtkInputPurpose.FFI.fromVal) getInputPurpose_ self
+    fun getCursorVisible self = (GtkTextViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCursorVisible_ self
+    fun getDefaultAttributes self = (GtkTextViewClass.FFI.withPtr false ---> GtkTextAttributesRecord.FFI.fromPtr true) getDefaultAttributes_ self
+    fun getEditable self = (GtkTextViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEditable_ self
+    fun getHadjustment self = (GtkTextViewClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
+    fun getIndent self = (GtkTextViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getIndent_ self
+    fun getInputHints self = (GtkTextViewClass.FFI.withPtr false ---> GtkInputHints.FFI.fromVal) getInputHints_ self
+    fun getInputPurpose self = (GtkTextViewClass.FFI.withPtr false ---> GtkInputPurpose.FFI.fromVal) getInputPurpose_ self
     fun getIterAtLocation self (x, y) =
       let
         val iter & retVal =
           (
-            GtkTextViewClass.FFI.withPtr
+            GtkTextViewClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
@@ -386,7 +386,7 @@ structure GtkTextView :>
          & trailing
          & retVal =
           (
-            GtkTextViewClass.FFI.withPtr
+            GtkTextViewClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withVal
@@ -410,8 +410,8 @@ structure GtkTextView :>
       let
         val location & () =
           (
-            GtkTextViewClass.FFI.withPtr
-             &&&> GtkTextIterRecord.FFI.withPtr
+            GtkTextViewClass.FFI.withPtr false
+             &&&> GtkTextIterRecord.FFI.withPtr false
              &&&> GdkRectangleRecord.FFI.withNewPtr
              ---> GdkRectangleRecord.FFI.fromPtr true && I
           )
@@ -424,15 +424,15 @@ structure GtkTextView :>
       in
         location
       end
-    fun getJustification self = (GtkTextViewClass.FFI.withPtr ---> GtkJustification.FFI.fromVal) getJustification_ self
-    fun getLeftMargin self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getLeftMargin_ self
+    fun getJustification self = (GtkTextViewClass.FFI.withPtr false ---> GtkJustification.FFI.fromVal) getJustification_ self
+    fun getLeftMargin self = (GtkTextViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getLeftMargin_ self
     fun getLineAtY self y =
       let
         val targetIter
          & lineTop
          & () =
           (
-            GtkTextViewClass.FFI.withPtr
+            GtkTextViewClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withRefVal
@@ -456,8 +456,8 @@ structure GtkTextView :>
          & height
          & () =
           (
-            GtkTextViewClass.FFI.withPtr
-             &&&> GtkTextIterRecord.FFI.withPtr
+            GtkTextViewClass.FFI.withPtr false
+             &&&> GtkTextIterRecord.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -474,25 +474,25 @@ structure GtkTextView :>
       in
         (y, height)
       end
-    fun getMonospace self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getMonospace_ self
-    fun getOverwrite self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getOverwrite_ self
-    fun getPixelsAboveLines self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getPixelsAboveLines_ self
-    fun getPixelsBelowLines self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getPixelsBelowLines_ self
-    fun getPixelsInsideWrap self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getPixelsInsideWrap_ self
-    fun getRightMargin self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getRightMargin_ self
-    fun getTabs self = (GtkTextViewClass.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromOptPtr true) getTabs_ self
-    fun getTopMargin self = (GtkTextViewClass.FFI.withPtr ---> GInt.FFI.fromVal) getTopMargin_ self
-    fun getVadjustment self = (GtkTextViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
+    fun getMonospace self = (GtkTextViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getMonospace_ self
+    fun getOverwrite self = (GtkTextViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getOverwrite_ self
+    fun getPixelsAboveLines self = (GtkTextViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getPixelsAboveLines_ self
+    fun getPixelsBelowLines self = (GtkTextViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getPixelsBelowLines_ self
+    fun getPixelsInsideWrap self = (GtkTextViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getPixelsInsideWrap_ self
+    fun getRightMargin self = (GtkTextViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getRightMargin_ self
+    fun getTabs self = (GtkTextViewClass.FFI.withPtr false ---> PangoTabArrayRecord.FFI.fromOptPtr true) getTabs_ self
+    fun getTopMargin self = (GtkTextViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getTopMargin_ self
+    fun getVadjustment self = (GtkTextViewClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
     fun getVisibleRect self =
       let
-        val visibleRect & () = (GtkTextViewClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getVisibleRect_ (self & ())
+        val visibleRect & () = (GtkTextViewClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getVisibleRect_ (self & ())
       in
         visibleRect
       end
-    fun getWindow self win = (GtkTextViewClass.FFI.withPtr &&&> GtkTextWindowType.FFI.withVal ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ (self & win)
-    fun getWindowType self window = (GtkTextViewClass.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> GtkTextWindowType.FFI.fromVal) getWindowType_ (self & window)
-    fun getWrapMode self = (GtkTextViewClass.FFI.withPtr ---> GtkWrapMode.FFI.fromVal) getWrapMode_ self
-    fun imContextFilterKeypress self event = (GtkTextViewClass.FFI.withPtr &&&> GdkEventKeyRecord.FFI.withPtr ---> GBool.FFI.fromVal) imContextFilterKeypress_ (self & event)
+    fun getWindow self win = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextWindowType.FFI.withVal ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ (self & win)
+    fun getWindowType self window = (GtkTextViewClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> GtkTextWindowType.FFI.fromVal) getWindowType_ (self & window)
+    fun getWrapMode self = (GtkTextViewClass.FFI.withPtr false ---> GtkWrapMode.FFI.fromVal) getWrapMode_ self
+    fun imContextFilterKeypress self event = (GtkTextViewClass.FFI.withPtr false &&&> GdkEventKeyRecord.FFI.withPtr false ---> GBool.FFI.fromVal) imContextFilterKeypress_ (self & event)
     fun moveChild
       self
       (
@@ -501,8 +501,8 @@ structure GtkTextView :>
         ypos
       ) =
       (
-        GtkTextViewClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkTextViewClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -514,11 +514,11 @@ structure GtkTextView :>
            & xpos
            & ypos
         )
-    fun moveMarkOnscreen self mark = (GtkTextViewClass.FFI.withPtr &&&> GtkTextMarkClass.FFI.withPtr ---> GBool.FFI.fromVal) moveMarkOnscreen_ (self & mark)
+    fun moveMarkOnscreen self mark = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextMarkClass.FFI.withPtr false ---> GBool.FFI.fromVal) moveMarkOnscreen_ (self & mark)
     fun moveVisually self (iter, count) =
       (
-        GtkTextViewClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextViewClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -528,10 +528,10 @@ structure GtkTextView :>
            & iter
            & count
         )
-    fun placeCursorOnscreen self = (GtkTextViewClass.FFI.withPtr ---> GBool.FFI.fromVal) placeCursorOnscreen_ self
-    fun resetCursorBlink self = (GtkTextViewClass.FFI.withPtr ---> I) resetCursorBlink_ self
-    fun resetImContext self = (GtkTextViewClass.FFI.withPtr ---> I) resetImContext_ self
-    fun scrollMarkOnscreen self mark = (GtkTextViewClass.FFI.withPtr &&&> GtkTextMarkClass.FFI.withPtr ---> I) scrollMarkOnscreen_ (self & mark)
+    fun placeCursorOnscreen self = (GtkTextViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) placeCursorOnscreen_ self
+    fun resetCursorBlink self = (GtkTextViewClass.FFI.withPtr false ---> I) resetCursorBlink_ self
+    fun resetImContext self = (GtkTextViewClass.FFI.withPtr false ---> I) resetImContext_ self
+    fun scrollMarkOnscreen self mark = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextMarkClass.FFI.withPtr false ---> I) scrollMarkOnscreen_ (self & mark)
     fun scrollToIter
       self
       (
@@ -542,8 +542,8 @@ structure GtkTextView :>
         yalign
       ) =
       (
-        GtkTextViewClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextViewClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -569,8 +569,8 @@ structure GtkTextView :>
         yalign
       ) =
       (
-        GtkTextViewClass.FFI.withPtr
-         &&&> GtkTextMarkClass.FFI.withPtr
+        GtkTextViewClass.FFI.withPtr false
+         &&&> GtkTextMarkClass.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -586,10 +586,10 @@ structure GtkTextView :>
            & xalign
            & yalign
         )
-    fun setAcceptsTab self acceptsTab = (GtkTextViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAcceptsTab_ (self & acceptsTab)
+    fun setAcceptsTab self acceptsTab = (GtkTextViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAcceptsTab_ (self & acceptsTab)
     fun setBorderWindowSize self (type', size) =
       (
-        GtkTextViewClass.FFI.withPtr
+        GtkTextViewClass.FFI.withPtr false
          &&&> GtkTextWindowType.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -600,25 +600,25 @@ structure GtkTextView :>
            & type'
            & size
         )
-    fun setBottomMargin self bottomMargin = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setBottomMargin_ (self & bottomMargin)
-    fun setBuffer self buffer = (GtkTextViewClass.FFI.withPtr &&&> GtkTextBufferClass.FFI.withOptPtr ---> I) setBuffer_ (self & buffer)
-    fun setCursorVisible self setting = (GtkTextViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCursorVisible_ (self & setting)
-    fun setEditable self setting = (GtkTextViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setEditable_ (self & setting)
-    fun setIndent self indent = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setIndent_ (self & indent)
-    fun setInputHints self hints = (GtkTextViewClass.FFI.withPtr &&&> GtkInputHints.FFI.withVal ---> I) setInputHints_ (self & hints)
-    fun setInputPurpose self purpose = (GtkTextViewClass.FFI.withPtr &&&> GtkInputPurpose.FFI.withVal ---> I) setInputPurpose_ (self & purpose)
-    fun setJustification self justification = (GtkTextViewClass.FFI.withPtr &&&> GtkJustification.FFI.withVal ---> I) setJustification_ (self & justification)
-    fun setLeftMargin self leftMargin = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setLeftMargin_ (self & leftMargin)
-    fun setMonospace self monospace = (GtkTextViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setMonospace_ (self & monospace)
-    fun setOverwrite self overwrite = (GtkTextViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setOverwrite_ (self & overwrite)
-    fun setPixelsAboveLines self pixelsAboveLines = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setPixelsAboveLines_ (self & pixelsAboveLines)
-    fun setPixelsBelowLines self pixelsBelowLines = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setPixelsBelowLines_ (self & pixelsBelowLines)
-    fun setPixelsInsideWrap self pixelsInsideWrap = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setPixelsInsideWrap_ (self & pixelsInsideWrap)
-    fun setRightMargin self rightMargin = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setRightMargin_ (self & rightMargin)
-    fun setTabs self tabs = (GtkTextViewClass.FFI.withPtr &&&> PangoTabArrayRecord.FFI.withPtr ---> I) setTabs_ (self & tabs)
-    fun setTopMargin self topMargin = (GtkTextViewClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setTopMargin_ (self & topMargin)
-    fun setWrapMode self wrapMode = (GtkTextViewClass.FFI.withPtr &&&> GtkWrapMode.FFI.withVal ---> I) setWrapMode_ (self & wrapMode)
-    fun startsDisplayLine self iter = (GtkTextViewClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) startsDisplayLine_ (self & iter)
+    fun setBottomMargin self bottomMargin = (GtkTextViewClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setBottomMargin_ (self & bottomMargin)
+    fun setBuffer self buffer = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextBufferClass.FFI.withOptPtr false ---> I) setBuffer_ (self & buffer)
+    fun setCursorVisible self setting = (GtkTextViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCursorVisible_ (self & setting)
+    fun setEditable self setting = (GtkTextViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setEditable_ (self & setting)
+    fun setIndent self indent = (GtkTextViewClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setIndent_ (self & indent)
+    fun setInputHints self hints = (GtkTextViewClass.FFI.withPtr false &&&> GtkInputHints.FFI.withVal ---> I) setInputHints_ (self & hints)
+    fun setInputPurpose self purpose = (GtkTextViewClass.FFI.withPtr false &&&> GtkInputPurpose.FFI.withVal ---> I) setInputPurpose_ (self & purpose)
+    fun setJustification self justification = (GtkTextViewClass.FFI.withPtr false &&&> GtkJustification.FFI.withVal ---> I) setJustification_ (self & justification)
+    fun setLeftMargin self leftMargin = (GtkTextViewClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setLeftMargin_ (self & leftMargin)
+    fun setMonospace self monospace = (GtkTextViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setMonospace_ (self & monospace)
+    fun setOverwrite self overwrite = (GtkTextViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setOverwrite_ (self & overwrite)
+    fun setPixelsAboveLines self pixelsAboveLines = (GtkTextViewClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setPixelsAboveLines_ (self & pixelsAboveLines)
+    fun setPixelsBelowLines self pixelsBelowLines = (GtkTextViewClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setPixelsBelowLines_ (self & pixelsBelowLines)
+    fun setPixelsInsideWrap self pixelsInsideWrap = (GtkTextViewClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setPixelsInsideWrap_ (self & pixelsInsideWrap)
+    fun setRightMargin self rightMargin = (GtkTextViewClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setRightMargin_ (self & rightMargin)
+    fun setTabs self tabs = (GtkTextViewClass.FFI.withPtr false &&&> PangoTabArrayRecord.FFI.withPtr false ---> I) setTabs_ (self & tabs)
+    fun setTopMargin self topMargin = (GtkTextViewClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setTopMargin_ (self & topMargin)
+    fun setWrapMode self wrapMode = (GtkTextViewClass.FFI.withPtr false &&&> GtkWrapMode.FFI.withVal ---> I) setWrapMode_ (self & wrapMode)
+    fun startsDisplayLine self iter = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) startsDisplayLine_ (self & iter)
     fun windowToBufferCoords
       self
       (
@@ -631,7 +631,7 @@ structure GtkTextView :>
          & bufferY
          & () =
           (
-            GtkTextViewClass.FFI.withPtr
+            GtkTextViewClass.FFI.withPtr false
              &&&> GtkTextWindowType.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal

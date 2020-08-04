@@ -64,7 +64,7 @@ structure GtkSourceFileSaver :>
     type newline_type_t = GtkSourceNewlineType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (buffer, file) = (GtkSourceBufferClass.FFI.withPtr &&&> GtkSourceFileClass.FFI.withPtr ---> GtkSourceFileSaverClass.FFI.fromPtr true) new_ (buffer & file)
+    fun new (buffer, file) = (GtkSourceBufferClass.FFI.withPtr false &&&> GtkSourceFileClass.FFI.withPtr false ---> GtkSourceFileSaverClass.FFI.fromPtr true) new_ (buffer & file)
     fun newWithTarget
       (
         buffer,
@@ -72,9 +72,9 @@ structure GtkSourceFileSaver :>
         targetLocation
       ) =
       (
-        GtkSourceBufferClass.FFI.withPtr
-         &&&> GtkSourceFileClass.FFI.withPtr
-         &&&> GioFileClass.FFI.withPtr
+        GtkSourceBufferClass.FFI.withPtr false
+         &&&> GtkSourceFileClass.FFI.withPtr false
+         &&&> GioFileClass.FFI.withPtr false
          ---> GtkSourceFileSaverClass.FFI.fromPtr true
       )
         newWithTarget_
@@ -83,17 +83,17 @@ structure GtkSourceFileSaver :>
            & file
            & targetLocation
         )
-    fun getBuffer self = (GtkSourceFileSaverClass.FFI.withPtr ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self
-    fun getCompressionType self = (GtkSourceFileSaverClass.FFI.withPtr ---> GtkSourceCompressionType.FFI.fromVal) getCompressionType_ self
-    fun getEncoding self = (GtkSourceFileSaverClass.FFI.withPtr ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self
-    fun getFile self = (GtkSourceFileSaverClass.FFI.withPtr ---> GtkSourceFileClass.FFI.fromPtr false) getFile_ self
-    fun getFlags self = (GtkSourceFileSaverClass.FFI.withPtr ---> GtkSourceFileSaverFlags.FFI.fromVal) getFlags_ self
-    fun getLocation self = (GtkSourceFileSaverClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr false) getLocation_ self
-    fun getNewlineType self = (GtkSourceFileSaverClass.FFI.withPtr ---> GtkSourceNewlineType.FFI.fromVal) getNewlineType_ self
+    fun getBuffer self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getCompressionType self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceCompressionType.FFI.fromVal) getCompressionType_ self
+    fun getEncoding self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self
+    fun getFile self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceFileClass.FFI.fromPtr false) getFile_ self
+    fun getFlags self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceFileSaverFlags.FFI.fromVal) getFlags_ self
+    fun getLocation self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getLocation_ self
+    fun getNewlineType self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceNewlineType.FFI.fromVal) getNewlineType_ self
     fun saveFinish self result =
       (
-        GtkSourceFileSaverClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GtkSourceFileSaverClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -103,10 +103,10 @@ structure GtkSourceFileSaver :>
            & result
            & []
         )
-    fun setCompressionType self compressionType = (GtkSourceFileSaverClass.FFI.withPtr &&&> GtkSourceCompressionType.FFI.withVal ---> I) setCompressionType_ (self & compressionType)
-    fun setEncoding self encoding = (GtkSourceFileSaverClass.FFI.withPtr &&&> GtkSourceEncodingRecord.FFI.withOptPtr ---> I) setEncoding_ (self & encoding)
-    fun setFlags self flags = (GtkSourceFileSaverClass.FFI.withPtr &&&> GtkSourceFileSaverFlags.FFI.withVal ---> I) setFlags_ (self & flags)
-    fun setNewlineType self newlineType = (GtkSourceFileSaverClass.FFI.withPtr &&&> GtkSourceNewlineType.FFI.withVal ---> I) setNewlineType_ (self & newlineType)
+    fun setCompressionType self compressionType = (GtkSourceFileSaverClass.FFI.withPtr false &&&> GtkSourceCompressionType.FFI.withVal ---> I) setCompressionType_ (self & compressionType)
+    fun setEncoding self encoding = (GtkSourceFileSaverClass.FFI.withPtr false &&&> GtkSourceEncodingRecord.FFI.withOptPtr false ---> I) setEncoding_ (self & encoding)
+    fun setFlags self flags = (GtkSourceFileSaverClass.FFI.withPtr false &&&> GtkSourceFileSaverFlags.FFI.withVal ---> I) setFlags_ (self & flags)
+    fun setNewlineType self newlineType = (GtkSourceFileSaverClass.FFI.withPtr false &&&> GtkSourceNewlineType.FFI.withVal ---> I) setNewlineType_ (self & newlineType)
     local
       open Property
     in

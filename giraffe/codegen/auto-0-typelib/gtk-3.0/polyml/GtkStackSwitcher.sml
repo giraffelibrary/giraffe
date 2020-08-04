@@ -18,13 +18,13 @@ structure GtkStackSwitcher :>
     type 'a orientable_class = 'a GtkOrientableClass.class
     type 'a stack_class = 'a GtkStackClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkStackSwitcherClass.FFI.fromPtr false) new_ ()
-    fun getStack self = (GtkStackSwitcherClass.FFI.withPtr ---> GtkStackClass.FFI.fromOptPtr false) getStack_ self
-    fun setStack self stack = (GtkStackSwitcherClass.FFI.withPtr &&&> GtkStackClass.FFI.withOptPtr ---> I) setStack_ (self & stack)
+    fun getStack self = (GtkStackSwitcherClass.FFI.withPtr false ---> GtkStackClass.FFI.fromOptPtr false) getStack_ self
+    fun setStack self stack = (GtkStackSwitcherClass.FFI.withPtr false &&&> GtkStackClass.FFI.withOptPtr false ---> I) setStack_ (self & stack)
     local
       open Property
     in

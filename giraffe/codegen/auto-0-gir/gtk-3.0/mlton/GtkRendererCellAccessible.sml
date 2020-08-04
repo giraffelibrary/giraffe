@@ -8,10 +8,10 @@ structure GtkRendererCellAccessible :>
     type 'a class = 'a GtkRendererCellAccessibleClass.class
     type 'a cell_renderer_class = 'a GtkCellRendererClass.class
     type t = base class
-    fun asAction self = (GObjectObjectClass.FFI.withPtr ---> AtkActionClass.FFI.fromPtr false) I self
-    fun asComponent self = (GObjectObjectClass.FFI.withPtr ---> AtkComponentClass.FFI.fromPtr false) I self
+    fun asAction self = (GObjectObjectClass.FFI.withPtr false ---> AtkActionClass.FFI.fromPtr false) I self
+    fun asComponent self = (GObjectObjectClass.FFI.withPtr false ---> AtkComponentClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new renderer = (GtkCellRendererClass.FFI.withPtr ---> GtkRendererCellAccessibleClass.FFI.fromPtr true) new_ renderer
+    fun new renderer = (GtkCellRendererClass.FFI.withPtr false ---> GtkRendererCellAccessibleClass.FFI.fromPtr true) new_ renderer
     local
       open Property
     in

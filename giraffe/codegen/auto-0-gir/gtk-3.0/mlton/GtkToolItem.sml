@@ -107,36 +107,36 @@ structure GtkToolItem :>
     type toolbar_style_t = GtkToolbarStyle.t
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkToolItemClass.FFI.fromPtr false) new_ ()
-    fun getEllipsizeMode self = (GtkToolItemClass.FFI.withPtr ---> PangoEllipsizeMode.FFI.fromVal) getEllipsizeMode_ self
-    fun getExpand self = (GtkToolItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getExpand_ self
-    fun getHomogeneous self = (GtkToolItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getHomogeneous_ self
-    fun getIconSize self = (GtkToolItemClass.FFI.withPtr ---> GInt.FFI.fromVal) getIconSize_ self
-    fun getIsImportant self = (GtkToolItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsImportant_ self
-    fun getOrientation self = (GtkToolItemClass.FFI.withPtr ---> GtkOrientation.FFI.fromVal) getOrientation_ self
-    fun getProxyMenuItem self menuItemId = (GtkToolItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getProxyMenuItem_ (self & menuItemId)
-    fun getReliefStyle self = (GtkToolItemClass.FFI.withPtr ---> GtkReliefStyle.FFI.fromVal) getReliefStyle_ self
-    fun getTextAlignment self = (GtkToolItemClass.FFI.withPtr ---> GFloat.FFI.fromVal) getTextAlignment_ self
-    fun getTextOrientation self = (GtkToolItemClass.FFI.withPtr ---> GtkOrientation.FFI.fromVal) getTextOrientation_ self
-    fun getTextSizeGroup self = (GtkToolItemClass.FFI.withPtr ---> GtkSizeGroupClass.FFI.fromPtr false) getTextSizeGroup_ self
-    fun getToolbarStyle self = (GtkToolItemClass.FFI.withPtr ---> GtkToolbarStyle.FFI.fromVal) getToolbarStyle_ self
-    fun getUseDragWindow self = (GtkToolItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseDragWindow_ self
-    fun getVisibleHorizontal self = (GtkToolItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisibleHorizontal_ self
-    fun getVisibleVertical self = (GtkToolItemClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisibleVertical_ self
-    fun rebuildMenu self = (GtkToolItemClass.FFI.withPtr ---> I) rebuildMenu_ self
-    fun retrieveProxyMenuItem self = (GtkToolItemClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) retrieveProxyMenuItem_ self
-    fun setExpand self expand = (GtkToolItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setExpand_ (self & expand)
-    fun setHomogeneous self homogeneous = (GtkToolItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
-    fun setIsImportant self isImportant = (GtkToolItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setIsImportant_ (self & isImportant)
+    fun getEllipsizeMode self = (GtkToolItemClass.FFI.withPtr false ---> PangoEllipsizeMode.FFI.fromVal) getEllipsizeMode_ self
+    fun getExpand self = (GtkToolItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getExpand_ self
+    fun getHomogeneous self = (GtkToolItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHomogeneous_ self
+    fun getIconSize self = (GtkToolItemClass.FFI.withPtr false ---> GInt.FFI.fromVal) getIconSize_ self
+    fun getIsImportant self = (GtkToolItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsImportant_ self
+    fun getOrientation self = (GtkToolItemClass.FFI.withPtr false ---> GtkOrientation.FFI.fromVal) getOrientation_ self
+    fun getProxyMenuItem self menuItemId = (GtkToolItemClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromPtr false) getProxyMenuItem_ (self & menuItemId)
+    fun getReliefStyle self = (GtkToolItemClass.FFI.withPtr false ---> GtkReliefStyle.FFI.fromVal) getReliefStyle_ self
+    fun getTextAlignment self = (GtkToolItemClass.FFI.withPtr false ---> GFloat.FFI.fromVal) getTextAlignment_ self
+    fun getTextOrientation self = (GtkToolItemClass.FFI.withPtr false ---> GtkOrientation.FFI.fromVal) getTextOrientation_ self
+    fun getTextSizeGroup self = (GtkToolItemClass.FFI.withPtr false ---> GtkSizeGroupClass.FFI.fromPtr false) getTextSizeGroup_ self
+    fun getToolbarStyle self = (GtkToolItemClass.FFI.withPtr false ---> GtkToolbarStyle.FFI.fromVal) getToolbarStyle_ self
+    fun getUseDragWindow self = (GtkToolItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseDragWindow_ self
+    fun getVisibleHorizontal self = (GtkToolItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisibleHorizontal_ self
+    fun getVisibleVertical self = (GtkToolItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisibleVertical_ self
+    fun rebuildMenu self = (GtkToolItemClass.FFI.withPtr false ---> I) rebuildMenu_ self
+    fun retrieveProxyMenuItem self = (GtkToolItemClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) retrieveProxyMenuItem_ self
+    fun setExpand self expand = (GtkToolItemClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setExpand_ (self & expand)
+    fun setHomogeneous self homogeneous = (GtkToolItemClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
+    fun setIsImportant self isImportant = (GtkToolItemClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setIsImportant_ (self & isImportant)
     fun setProxyMenuItem self (menuItemId, menuItem) =
       (
-        GtkToolItemClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkToolItemClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GtkWidgetClass.FFI.withPtr false
          ---> I
       )
         setProxyMenuItem_
@@ -145,12 +145,12 @@ structure GtkToolItem :>
            & menuItemId
            & menuItem
         )
-    fun setTooltipMarkup self markup = (GtkToolItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTooltipMarkup_ (self & markup)
-    fun setTooltipText self text = (GtkToolItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTooltipText_ (self & text)
-    fun setUseDragWindow self useDragWindow = (GtkToolItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseDragWindow_ (self & useDragWindow)
-    fun setVisibleHorizontal self visibleHorizontal = (GtkToolItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisibleHorizontal_ (self & visibleHorizontal)
-    fun setVisibleVertical self visibleVertical = (GtkToolItemClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisibleVertical_ (self & visibleVertical)
-    fun toolbarReconfigured self = (GtkToolItemClass.FFI.withPtr ---> I) toolbarReconfigured_ self
+    fun setTooltipMarkup self markup = (GtkToolItemClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTooltipMarkup_ (self & markup)
+    fun setTooltipText self text = (GtkToolItemClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTooltipText_ (self & text)
+    fun setUseDragWindow self useDragWindow = (GtkToolItemClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseDragWindow_ (self & useDragWindow)
+    fun setVisibleHorizontal self visibleHorizontal = (GtkToolItemClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisibleHorizontal_ (self & visibleHorizontal)
+    fun setVisibleVertical self visibleVertical = (GtkToolItemClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisibleVertical_ (self & visibleVertical)
+    fun toolbarReconfigured self = (GtkToolItemClass.FFI.withPtr false ---> I) toolbarReconfigured_ self
     local
       open ClosureMarshal Signal
     in

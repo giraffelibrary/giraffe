@@ -30,41 +30,41 @@ structure AtkValue :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getCurrentValue self =
       let
-        val value & () = (AtkValueClass.FFI.withPtr &&&> GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I) getCurrentValue_ (self & ())
+        val value & () = (AtkValueClass.FFI.withPtr false &&&> GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I) getCurrentValue_ (self & ())
       in
         value
       end
-    fun getIncrement self = (AtkValueClass.FFI.withPtr ---> GDouble.FFI.fromVal) getIncrement_ self
+    fun getIncrement self = (AtkValueClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getIncrement_ self
     fun getMaximumValue self =
       let
-        val value & () = (AtkValueClass.FFI.withPtr &&&> GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I) getMaximumValue_ (self & ())
+        val value & () = (AtkValueClass.FFI.withPtr false &&&> GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I) getMaximumValue_ (self & ())
       in
         value
       end
     fun getMinimumIncrement self =
       let
-        val value & () = (AtkValueClass.FFI.withPtr &&&> GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I) getMinimumIncrement_ (self & ())
+        val value & () = (AtkValueClass.FFI.withPtr false &&&> GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I) getMinimumIncrement_ (self & ())
       in
         value
       end
     fun getMinimumValue self =
       let
-        val value & () = (AtkValueClass.FFI.withPtr &&&> GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I) getMinimumValue_ (self & ())
+        val value & () = (AtkValueClass.FFI.withPtr false &&&> GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I) getMinimumValue_ (self & ())
       in
         value
       end
-    fun getRange self = (AtkValueClass.FFI.withPtr ---> AtkRangeRecord.FFI.fromOptPtr true) getRange_ self
+    fun getRange self = (AtkValueClass.FFI.withPtr false ---> AtkRangeRecord.FFI.fromOptPtr true) getRange_ self
     fun getValueAndText self =
       let
         val value
          & text
          & () =
           (
-            AtkValueClass.FFI.withPtr
+            AtkValueClass.FFI.withPtr false
              &&&> GDouble.FFI.withRefVal
-             &&&> Utf8.FFI.withRefOptPtr
+             &&&> Utf8.FFI.withRefOptPtr 0
              ---> GDouble.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
                    && I
           )
             getValueAndText_
@@ -76,8 +76,8 @@ structure AtkValue :>
       in
         (value, text)
       end
-    fun setCurrentValue self value = (AtkValueClass.FFI.withPtr &&&> GObjectValueRecord.FFI.withPtr ---> GBool.FFI.fromVal) setCurrentValue_ (self & value)
-    fun setValue self newValue = (AtkValueClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setValue_ (self & newValue)
+    fun setCurrentValue self value = (AtkValueClass.FFI.withPtr false &&&> GObjectValueRecord.FFI.withPtr false ---> GBool.FFI.fromVal) setCurrentValue_ (self & value)
+    fun setValue self newValue = (AtkValueClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setValue_ (self & newValue)
     local
       open ClosureMarshal Signal
     in

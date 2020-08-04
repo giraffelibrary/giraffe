@@ -14,8 +14,8 @@ structure AtkStreamableContent :>
     type 'a class = 'a AtkStreamableContentClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getMimeType self i = (AtkStreamableContentClass.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) getMimeType_ (self & i)
-    fun getNMimeTypes self = (AtkStreamableContentClass.FFI.withPtr ---> GInt.FFI.fromVal) getNMimeTypes_ self
-    fun getStream self mimeType = (AtkStreamableContentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibIOChannelRecord.FFI.fromPtr true) getStream_ (self & mimeType)
-    fun getUri self mimeType = (AtkStreamableContentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getUri_ (self & mimeType)
+    fun getMimeType self i = (AtkStreamableContentClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 0) getMimeType_ (self & i)
+    fun getNMimeTypes self = (AtkStreamableContentClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNMimeTypes_ self
+    fun getStream self mimeType = (AtkStreamableContentClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GLibIOChannelRecord.FFI.fromPtr true) getStream_ (self & mimeType)
+    fun getUri self mimeType = (AtkStreamableContentClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) getUri_ (self & mimeType)
   end

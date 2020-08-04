@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -23,13 +23,13 @@ structure GObjectValueRecord : G_OBJECT_VALUE_RECORD =
         {
           getType = (I ---> GObject.Type.FFI.fromVal) getType_,
           getValue = (I ---> FFI.fromPtr false) getValue_,
-          setValue = (I &&&> FFI.withPtr ---> I) setValue_
+          setValue = (I &&&> FFI.withPtr false ---> I) setValue_
         }
     val tOpt =
       ValueAccessor.C.createAccessor
         {
           getType = (I ---> GObject.Type.FFI.fromVal) getType_,
           getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
-          setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_
+          setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
         }
   end

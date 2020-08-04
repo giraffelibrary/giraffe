@@ -152,7 +152,7 @@ structure GLibRegex :>
         matchOptions
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GLibRegexCompileFlags.FFI.withVal
          &&&> GLibRegexMatchFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
@@ -165,22 +165,22 @@ structure GLibRegex :>
            & matchOptions
            & []
         )
-    fun getCaptureCount self = (GLibRegexRecord.FFI.withPtr ---> GInt.FFI.fromVal) getCaptureCount_ self
-    fun getCompileFlags self = (GLibRegexRecord.FFI.withPtr ---> GLibRegexCompileFlags.FFI.fromVal) getCompileFlags_ self
-    fun getHasCrOrLf self = (GLibRegexRecord.FFI.withPtr ---> GBool.FFI.fromVal) getHasCrOrLf_ self
-    fun getMatchFlags self = (GLibRegexRecord.FFI.withPtr ---> GLibRegexMatchFlags.FFI.fromVal) getMatchFlags_ self
-    fun getMaxBackref self = (GLibRegexRecord.FFI.withPtr ---> GInt.FFI.fromVal) getMaxBackref_ self
-    fun getMaxLookbehind self = (GLibRegexRecord.FFI.withPtr ---> GInt.FFI.fromVal) getMaxLookbehind_ self
-    fun getPattern self = (GLibRegexRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPattern_ self
-    fun getStringNumber self name = (GLibRegexRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) getStringNumber_ (self & name)
+    fun getCaptureCount self = (GLibRegexRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getCaptureCount_ self
+    fun getCompileFlags self = (GLibRegexRecord.FFI.withPtr false ---> GLibRegexCompileFlags.FFI.fromVal) getCompileFlags_ self
+    fun getHasCrOrLf self = (GLibRegexRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getHasCrOrLf_ self
+    fun getMatchFlags self = (GLibRegexRecord.FFI.withPtr false ---> GLibRegexMatchFlags.FFI.fromVal) getMatchFlags_ self
+    fun getMaxBackref self = (GLibRegexRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getMaxBackref_ self
+    fun getMaxLookbehind self = (GLibRegexRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getMaxLookbehind_ self
+    fun getPattern self = (GLibRegexRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPattern_ self
+    fun getStringNumber self name = (GLibRegexRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal) getStringNumber_ (self & name)
     fun match self (string, matchOptions) =
       let
         val matchInfo & retVal =
           (
-            GLibRegexRecord.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            GLibRegexRecord.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GLibRegexMatchFlags.FFI.withVal
-             &&&> GLibMatchInfoRecord.FFI.withRefOptPtr
+             &&&> GLibMatchInfoRecord.FFI.withRefOptPtr true
              ---> GLibMatchInfoRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             match_
@@ -197,10 +197,10 @@ structure GLibRegex :>
       let
         val matchInfo & retVal =
           (
-            GLibRegexRecord.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            GLibRegexRecord.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GLibRegexMatchFlags.FFI.withVal
-             &&&> GLibMatchInfoRecord.FFI.withRefOptPtr
+             &&&> GLibMatchInfoRecord.FFI.withRefOptPtr true
              ---> GLibMatchInfoRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             matchAll_
@@ -224,12 +224,12 @@ structure GLibRegex :>
         val stringLen = Utf8CPtrArrayN.length string
         val matchInfo & () =
           (
-            GLibRegexRecord.FFI.withPtr
-             &&&> Utf8CPtrArrayN.FFI.withPtr
+            GLibRegexRecord.FFI.withPtr false
+             &&&> Utf8CPtrArrayN.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GLibRegexMatchFlags.FFI.withVal
-             &&&> GLibMatchInfoRecord.FFI.withRefOptPtr
+             &&&> GLibMatchInfoRecord.FFI.withRefOptPtr true
              &&&> GLibErrorRecord.handleError
              ---> GLibMatchInfoRecord.FFI.fromPtr true && ignore
           )
@@ -257,12 +257,12 @@ structure GLibRegex :>
         val stringLen = Utf8CPtrArrayN.length string
         val matchInfo & () =
           (
-            GLibRegexRecord.FFI.withPtr
-             &&&> Utf8CPtrArrayN.FFI.withPtr
+            GLibRegexRecord.FFI.withPtr false
+             &&&> Utf8CPtrArrayN.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GLibRegexMatchFlags.FFI.withVal
-             &&&> GLibMatchInfoRecord.FFI.withRefOptPtr
+             &&&> GLibMatchInfoRecord.FFI.withRefOptPtr true
              &&&> GLibErrorRecord.handleError
              ---> GLibMatchInfoRecord.FFI.fromPtr true && ignore
           )
@@ -291,14 +291,14 @@ structure GLibRegex :>
         val stringLen = Utf8CPtrArrayN.length string
         val retVal =
           (
-            GLibRegexRecord.FFI.withPtr
-             &&&> Utf8CPtrArrayN.FFI.withPtr
+            GLibRegexRecord.FFI.withPtr false
+             &&&> Utf8CPtrArrayN.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              &&&> GInt.FFI.withVal
-             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr 0
              &&&> GLibRegexMatchFlags.FFI.withVal
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1
+             ---> Utf8.FFI.fromPtr ~1
           )
             replace_
             (
@@ -325,14 +325,14 @@ structure GLibRegex :>
         val stringLen = Utf8CPtrArrayN.length string
         val retVal =
           (
-            GLibRegexRecord.FFI.withPtr
-             &&&> Utf8CPtrArrayN.FFI.withPtr
+            GLibRegexRecord.FFI.withPtr false
+             &&&> Utf8CPtrArrayN.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              &&&> GInt.FFI.withVal
-             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr 0
              &&&> GLibRegexMatchFlags.FFI.withVal
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1
+             ---> Utf8.FFI.fromPtr ~1
           )
             replaceLiteral_
             (
@@ -349,10 +349,10 @@ structure GLibRegex :>
       end
     fun split self (string, matchOptions) =
       (
-        GLibRegexRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GLibRegexRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibRegexMatchFlags.FFI.withVal
-         ---> Utf8CPtrArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr ~1
       )
         split_
         (
@@ -372,14 +372,14 @@ structure GLibRegex :>
         val stringLen = Utf8CPtrArrayN.length string
         val retVal =
           (
-            GLibRegexRecord.FFI.withPtr
-             &&&> Utf8CPtrArrayN.FFI.withPtr
+            GLibRegexRecord.FFI.withPtr false
+             &&&> Utf8CPtrArrayN.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GLibRegexMatchFlags.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GLibErrorRecord.handleError
-             ---> Utf8CPtrArray.FFI.fromPtr 2
+             ---> Utf8CPtrArray.FFI.fromPtr ~1
           )
             splitFull_
             (
@@ -398,7 +398,7 @@ structure GLibRegex :>
       let
         val hasReferences & () =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GBool.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GBool.FFI.fromVal && ignore
@@ -412,7 +412,7 @@ structure GLibRegex :>
       in
         hasReferences
       end
-    fun escapeNul (string, length) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) escapeNul_ (string & length)
+    fun escapeNul (string, length) = (Utf8.FFI.withPtr 0 &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr ~1) escapeNul_ (string & length)
     fun matchSimple
       (
         pattern,
@@ -421,8 +421,8 @@ structure GLibRegex :>
         matchOptions
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibRegexCompileFlags.FFI.withVal
          &&&> GLibRegexMatchFlags.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -442,11 +442,11 @@ structure GLibRegex :>
         matchOptions
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibRegexCompileFlags.FFI.withVal
          &&&> GLibRegexMatchFlags.FFI.withVal
-         ---> Utf8CPtrArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr ~1
       )
         splitSimple_
         (

@@ -8,6 +8,6 @@ structure GioAsyncResult :>
     type 'a class = 'a GioAsyncResultClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getSourceObject self = (GioAsyncResultClass.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr true) getSourceObject_ self
-    fun legacyPropagateError self = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) legacyPropagateError_ (self & [])
+    fun getSourceObject self = (GioAsyncResultClass.FFI.withPtr false ---> GObjectObjectClass.FFI.fromPtr true) getSourceObject_ self
+    fun legacyPropagateError self = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) legacyPropagateError_ (self & [])
   end

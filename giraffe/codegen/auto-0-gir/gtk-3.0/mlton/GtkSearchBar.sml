@@ -16,16 +16,16 @@ structure GtkSearchBar :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a entry_class = 'a GtkEntryClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSearchBarClass.FFI.fromPtr false) new_ ()
-    fun connectEntry self entry = (GtkSearchBarClass.FFI.withPtr &&&> GtkEntryClass.FFI.withPtr ---> I) connectEntry_ (self & entry)
-    fun getSearchMode self = (GtkSearchBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getSearchMode_ self
-    fun getShowCloseButton self = (GtkSearchBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowCloseButton_ self
-    fun handleEvent self event = (GtkSearchBarClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> GBool.FFI.fromVal) handleEvent_ (self & event)
-    fun setSearchMode self searchMode = (GtkSearchBarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSearchMode_ (self & searchMode)
-    fun setShowCloseButton self visible = (GtkSearchBarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowCloseButton_ (self & visible)
+    fun connectEntry self entry = (GtkSearchBarClass.FFI.withPtr false &&&> GtkEntryClass.FFI.withPtr false ---> I) connectEntry_ (self & entry)
+    fun getSearchMode self = (GtkSearchBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSearchMode_ self
+    fun getShowCloseButton self = (GtkSearchBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowCloseButton_ self
+    fun handleEvent self event = (GtkSearchBarClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> GBool.FFI.fromVal) handleEvent_ (self & event)
+    fun setSearchMode self searchMode = (GtkSearchBarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSearchMode_ (self & searchMode)
+    fun setShowCloseButton self visible = (GtkSearchBarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowCloseButton_ (self & visible)
     local
       open Property
     in

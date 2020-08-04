@@ -30,15 +30,15 @@ structure GdkPixbufPixbufFormat :>
     val setDisabled_ = fn x1 & x2 => (_import "gdk_pixbuf_format_set_disabled" : GdkPixbufPixbufFormatRecord.FFI.non_opt GdkPixbufPixbufFormatRecord.FFI.p * GBool.FFI.val_ -> unit;) (x1, x2)
     type t = GdkPixbufPixbufFormatRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun copy self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> GdkPixbufPixbufFormatRecord.FFI.fromPtr true) copy_ self
-    fun getDescription self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getDescription_ self
-    fun getExtensions self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getExtensions_ self
-    fun getLicense self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getLicense_ self
-    fun getMimeTypes self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getMimeTypes_ self
-    fun getName self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getName_ self
-    fun isDisabled self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> GBool.FFI.fromVal) isDisabled_ self
-    fun isSaveOptionSupported self optionKey = (GdkPixbufPixbufFormatRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) isSaveOptionSupported_ (self & optionKey)
-    fun isScalable self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> GBool.FFI.fromVal) isScalable_ self
-    fun isWritable self = (GdkPixbufPixbufFormatRecord.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ self
-    fun setDisabled self disabled = (GdkPixbufPixbufFormatRecord.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDisabled_ (self & disabled)
+    fun copy self = (GdkPixbufPixbufFormatRecord.FFI.withPtr false ---> GdkPixbufPixbufFormatRecord.FFI.fromPtr true) copy_ self
+    fun getDescription self = (GdkPixbufPixbufFormatRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getDescription_ self
+    fun getExtensions self = (GdkPixbufPixbufFormatRecord.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) getExtensions_ self
+    fun getLicense self = (GdkPixbufPixbufFormatRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getLicense_ self
+    fun getMimeTypes self = (GdkPixbufPixbufFormatRecord.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) getMimeTypes_ self
+    fun getName self = (GdkPixbufPixbufFormatRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getName_ self
+    fun isDisabled self = (GdkPixbufPixbufFormatRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isDisabled_ self
+    fun isSaveOptionSupported self optionKey = (GdkPixbufPixbufFormatRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) isSaveOptionSupported_ (self & optionKey)
+    fun isScalable self = (GdkPixbufPixbufFormatRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isScalable_ self
+    fun isWritable self = (GdkPixbufPixbufFormatRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isWritable_ self
+    fun setDisabled self disabled = (GdkPixbufPixbufFormatRecord.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setDisabled_ (self & disabled)
   end

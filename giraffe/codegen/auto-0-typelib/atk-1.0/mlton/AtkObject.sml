@@ -115,9 +115,9 @@ structure AtkObject :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun addRelationship self (relationship, target) =
       (
-        AtkObjectClass.FFI.withPtr
+        AtkObjectClass.FFI.withPtr false
          &&&> AtkRelationType.FFI.withVal
-         &&&> AtkObjectClass.FFI.withPtr
+         &&&> AtkObjectClass.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         addRelationship_
@@ -126,18 +126,18 @@ structure AtkObject :>
            & relationship
            & target
         )
-    fun getDescription self = (AtkObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDescription_ self
-    fun getIndexInParent self = (AtkObjectClass.FFI.withPtr ---> GInt32.FFI.fromVal) getIndexInParent_ self
-    fun getLayer self = (AtkObjectClass.FFI.withPtr ---> AtkLayer.FFI.fromVal) getLayer_ self
-    fun getMdiZorder self = (AtkObjectClass.FFI.withPtr ---> GInt32.FFI.fromVal) getMdiZorder_ self
-    fun getNAccessibleChildren self = (AtkObjectClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNAccessibleChildren_ self
-    fun getName self = (AtkObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getObjectLocale self = (AtkObjectClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectLocale_ self
-    fun getParent self = (AtkObjectClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) getParent_ self
-    fun getRole self = (AtkObjectClass.FFI.withPtr ---> AtkRole.FFI.fromVal) getRole_ self
+    fun getDescription self = (AtkObjectClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self
+    fun getIndexInParent self = (AtkObjectClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getIndexInParent_ self
+    fun getLayer self = (AtkObjectClass.FFI.withPtr false ---> AtkLayer.FFI.fromVal) getLayer_ self
+    fun getMdiZorder self = (AtkObjectClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getMdiZorder_ self
+    fun getNAccessibleChildren self = (AtkObjectClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNAccessibleChildren_ self
+    fun getName self = (AtkObjectClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getObjectLocale self = (AtkObjectClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectLocale_ self
+    fun getParent self = (AtkObjectClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr false) getParent_ self
+    fun getRole self = (AtkObjectClass.FFI.withPtr false ---> AtkRole.FFI.fromVal) getRole_ self
     fun notifyStateChange self (state, value) =
       (
-        AtkObjectClass.FFI.withPtr
+        AtkObjectClass.FFI.withPtr false
          &&&> GUInt64.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
@@ -148,16 +148,16 @@ structure AtkObject :>
            & state
            & value
         )
-    fun peekParent self = (AtkObjectClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr false) peekParent_ self
-    fun refAccessibleChild self i = (AtkObjectClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromPtr true) refAccessibleChild_ (self & i)
-    fun refRelationSet self = (AtkObjectClass.FFI.withPtr ---> AtkRelationSetClass.FFI.fromPtr true) refRelationSet_ self
-    fun refStateSet self = (AtkObjectClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromPtr true) refStateSet_ self
-    fun removePropertyChangeHandler self handlerId = (AtkObjectClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) removePropertyChangeHandler_ (self & handlerId)
+    fun peekParent self = (AtkObjectClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr false) peekParent_ self
+    fun refAccessibleChild self i = (AtkObjectClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromPtr true) refAccessibleChild_ (self & i)
+    fun refRelationSet self = (AtkObjectClass.FFI.withPtr false ---> AtkRelationSetClass.FFI.fromPtr true) refRelationSet_ self
+    fun refStateSet self = (AtkObjectClass.FFI.withPtr false ---> AtkStateSetClass.FFI.fromPtr true) refStateSet_ self
+    fun removePropertyChangeHandler self handlerId = (AtkObjectClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) removePropertyChangeHandler_ (self & handlerId)
     fun removeRelationship self (relationship, target) =
       (
-        AtkObjectClass.FFI.withPtr
+        AtkObjectClass.FFI.withPtr false
          &&&> AtkRelationType.FFI.withVal
-         &&&> AtkObjectClass.FFI.withPtr
+         &&&> AtkObjectClass.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         removeRelationship_
@@ -166,10 +166,10 @@ structure AtkObject :>
            & relationship
            & target
         )
-    fun setDescription self description = (AtkObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDescription_ (self & description)
-    fun setName self name = (AtkObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setName_ (self & name)
-    fun setParent self parent = (AtkObjectClass.FFI.withPtr &&&> AtkObjectClass.FFI.withPtr ---> I) setParent_ (self & parent)
-    fun setRole self role = (AtkObjectClass.FFI.withPtr &&&> AtkRole.FFI.withVal ---> I) setRole_ (self & role)
+    fun setDescription self description = (AtkObjectClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDescription_ (self & description)
+    fun setName self name = (AtkObjectClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setName_ (self & name)
+    fun setParent self parent = (AtkObjectClass.FFI.withPtr false &&&> AtkObjectClass.FFI.withPtr false ---> I) setParent_ (self & parent)
+    fun setRole self role = (AtkObjectClass.FFI.withPtr false &&&> AtkRole.FFI.withVal ---> I) setRole_ (self & role)
     local
       open ClosureMarshal Signal
     in

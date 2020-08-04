@@ -22,12 +22,12 @@ structure GdkAppLaunchContext :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GdkAppLaunchContextClass.FFI.fromPtr true) new_ ()
-    fun setDesktop self desktop = (GdkAppLaunchContextClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setDesktop_ (self & desktop)
-    fun setDisplay self display = (GdkAppLaunchContextClass.FFI.withPtr &&&> GdkDisplayClass.FFI.withPtr ---> I) setDisplay_ (self & display)
-    fun setIcon self icon = (GdkAppLaunchContextClass.FFI.withPtr &&&> GioIconClass.FFI.withOptPtr ---> I) setIcon_ (self & icon)
-    fun setIconName self iconName = (GdkAppLaunchContextClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setIconName_ (self & iconName)
-    fun setScreen self screen = (GdkAppLaunchContextClass.FFI.withPtr &&&> GdkScreenClass.FFI.withPtr ---> I) setScreen_ (self & screen)
-    fun setTimestamp self timestamp = (GdkAppLaunchContextClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setTimestamp_ (self & timestamp)
+    fun setDesktop self desktop = (GdkAppLaunchContextClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setDesktop_ (self & desktop)
+    fun setDisplay self display = (GdkAppLaunchContextClass.FFI.withPtr false &&&> GdkDisplayClass.FFI.withPtr false ---> I) setDisplay_ (self & display)
+    fun setIcon self icon = (GdkAppLaunchContextClass.FFI.withPtr false &&&> GioIconClass.FFI.withOptPtr false ---> I) setIcon_ (self & icon)
+    fun setIconName self iconName = (GdkAppLaunchContextClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setIconName_ (self & iconName)
+    fun setScreen self screen = (GdkAppLaunchContextClass.FFI.withPtr false &&&> GdkScreenClass.FFI.withPtr false ---> I) setScreen_ (self & screen)
+    fun setTimestamp self timestamp = (GdkAppLaunchContextClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setTimestamp_ (self & timestamp)
     local
       open Property
     in

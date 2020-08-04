@@ -63,13 +63,13 @@ structure GioUnixFDList :>
     fun newFromArray fds =
       let
         val nFds = LargeInt.fromInt (GInt32CArrayN.length fds)
-        val retVal = (GInt32CArrayN.FFI.withPtr &&&> GInt32.FFI.withVal ---> GioUnixFDListClass.FFI.fromPtr true) newFromArray_ (fds & nFds)
+        val retVal = (GInt32CArrayN.FFI.withPtr 0 &&&> GInt32.FFI.withVal ---> GioUnixFDListClass.FFI.fromPtr true) newFromArray_ (fds & nFds)
       in
         retVal
       end
     fun append self fd =
       (
-        GioUnixFDListClass.FFI.withPtr
+        GioUnixFDListClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GInt32.FFI.fromVal
@@ -82,7 +82,7 @@ structure GioUnixFDList :>
         )
     fun get self index =
       (
-        GioUnixFDListClass.FFI.withPtr
+        GioUnixFDListClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GInt32.FFI.fromVal
@@ -93,16 +93,16 @@ structure GioUnixFDList :>
            & index
            & []
         )
-    fun getLength self = (GioUnixFDListClass.FFI.withPtr ---> GInt32.FFI.fromVal) getLength_ self
+    fun getLength self = (GioUnixFDListClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getLength_ self
     fun peekFds self =
       let
-        val length & retVal = (GioUnixFDListClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GInt32CArrayN.FFI.fromPtr 0) peekFds_ (self & GInt32.null)
+        val length & retVal = (GioUnixFDListClass.FFI.withPtr false &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GInt32CArrayN.FFI.fromPtr 0) peekFds_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt length)
       end
     fun stealFds self =
       let
-        val length & retVal = (GioUnixFDListClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GInt32CArrayN.FFI.fromPtr 1) stealFds_ (self & GInt32.null)
+        val length & retVal = (GioUnixFDListClass.FFI.withPtr false &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GInt32CArrayN.FFI.fromPtr ~1) stealFds_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt length)
       end

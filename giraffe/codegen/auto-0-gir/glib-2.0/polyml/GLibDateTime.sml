@@ -118,7 +118,7 @@ structure GLibDateTime :>
         seconds
       ) =
       (
-        GLibTimeZoneRecord.FFI.withPtr
+        GLibTimeZoneRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -137,8 +137,8 @@ structure GLibDateTime :>
            & minute
            & seconds
         )
-    fun newFromTimevalLocal tv = (GLibTimeValRecord.FFI.withPtr ---> GLibDateTimeRecord.FFI.fromPtr true) newFromTimevalLocal_ tv
-    fun newFromTimevalUtc tv = (GLibTimeValRecord.FFI.withPtr ---> GLibDateTimeRecord.FFI.fromPtr true) newFromTimevalUtc_ tv
+    fun newFromTimevalLocal tv = (GLibTimeValRecord.FFI.withPtr false ---> GLibDateTimeRecord.FFI.fromPtr true) newFromTimevalLocal_ tv
+    fun newFromTimevalUtc tv = (GLibTimeValRecord.FFI.withPtr false ---> GLibDateTimeRecord.FFI.fromPtr true) newFromTimevalUtc_ tv
     fun newFromUnixLocal t = (GInt64.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) newFromUnixLocal_ t
     fun newFromUnixUtc t = (GInt64.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) newFromUnixUtc_ t
     fun newLocal
@@ -168,7 +168,7 @@ structure GLibDateTime :>
            & minute
            & seconds
         )
-    fun newNow tz = (GLibTimeZoneRecord.FFI.withPtr ---> GLibDateTimeRecord.FFI.fromPtr true) newNow_ tz
+    fun newNow tz = (GLibTimeZoneRecord.FFI.withPtr false ---> GLibDateTimeRecord.FFI.fromPtr true) newNow_ tz
     fun newNowLocal () = (I ---> GLibDateTimeRecord.FFI.fromPtr true) newNowLocal_ ()
     fun newNowUtc () = (I ---> GLibDateTimeRecord.FFI.fromPtr true) newNowUtc_ ()
     fun newUtc
@@ -198,8 +198,8 @@ structure GLibDateTime :>
            & minute
            & seconds
         )
-    fun add self timespan = (GLibDateTimeRecord.FFI.withPtr &&&> GLibTimeSpan.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) add_ (self & timespan)
-    fun addDays self days = (GLibDateTimeRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addDays_ (self & days)
+    fun add self timespan = (GLibDateTimeRecord.FFI.withPtr false &&&> GLibTimeSpan.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) add_ (self & timespan)
+    fun addDays self days = (GLibDateTimeRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addDays_ (self & days)
     fun addFull
       self
       (
@@ -211,7 +211,7 @@ structure GLibDateTime :>
         seconds
       ) =
       (
-        GLibDateTimeRecord.FFI.withPtr
+        GLibDateTimeRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -230,28 +230,28 @@ structure GLibDateTime :>
            & minutes
            & seconds
         )
-    fun addHours self hours = (GLibDateTimeRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addHours_ (self & hours)
-    fun addMinutes self minutes = (GLibDateTimeRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addMinutes_ (self & minutes)
-    fun addMonths self months = (GLibDateTimeRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addMonths_ (self & months)
-    fun addSeconds self seconds = (GLibDateTimeRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addSeconds_ (self & seconds)
-    fun addWeeks self weeks = (GLibDateTimeRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addWeeks_ (self & weeks)
-    fun addYears self years = (GLibDateTimeRecord.FFI.withPtr &&&> GInt.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addYears_ (self & years)
-    fun difference self begin = (GLibDateTimeRecord.FFI.withPtr &&&> GLibDateTimeRecord.FFI.withPtr ---> GLibTimeSpan.FFI.fromVal) difference_ (self & begin)
-    fun format self format = (GLibDateTimeRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) format_ (self & format)
-    fun getDayOfMonth self = (GLibDateTimeRecord.FFI.withPtr ---> GInt.FFI.fromVal) getDayOfMonth_ self
-    fun getDayOfWeek self = (GLibDateTimeRecord.FFI.withPtr ---> GInt.FFI.fromVal) getDayOfWeek_ self
-    fun getDayOfYear self = (GLibDateTimeRecord.FFI.withPtr ---> GInt.FFI.fromVal) getDayOfYear_ self
-    fun getHour self = (GLibDateTimeRecord.FFI.withPtr ---> GInt.FFI.fromVal) getHour_ self
-    fun getMicrosecond self = (GLibDateTimeRecord.FFI.withPtr ---> GInt.FFI.fromVal) getMicrosecond_ self
-    fun getMinute self = (GLibDateTimeRecord.FFI.withPtr ---> GInt.FFI.fromVal) getMinute_ self
-    fun getMonth self = (GLibDateTimeRecord.FFI.withPtr ---> GInt.FFI.fromVal) getMonth_ self
-    fun getSecond self = (GLibDateTimeRecord.FFI.withPtr ---> GInt.FFI.fromVal) getSecond_ self
-    fun getSeconds self = (GLibDateTimeRecord.FFI.withPtr ---> GDouble.FFI.fromVal) getSeconds_ self
-    fun getTimezoneAbbreviation self = (GLibDateTimeRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTimezoneAbbreviation_ self
-    fun getUtcOffset self = (GLibDateTimeRecord.FFI.withPtr ---> GLibTimeSpan.FFI.fromVal) getUtcOffset_ self
-    fun getWeekNumberingYear self = (GLibDateTimeRecord.FFI.withPtr ---> GInt.FFI.fromVal) getWeekNumberingYear_ self
-    fun getWeekOfYear self = (GLibDateTimeRecord.FFI.withPtr ---> GInt.FFI.fromVal) getWeekOfYear_ self
-    fun getYear self = (GLibDateTimeRecord.FFI.withPtr ---> GInt.FFI.fromVal) getYear_ self
+    fun addHours self hours = (GLibDateTimeRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addHours_ (self & hours)
+    fun addMinutes self minutes = (GLibDateTimeRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addMinutes_ (self & minutes)
+    fun addMonths self months = (GLibDateTimeRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addMonths_ (self & months)
+    fun addSeconds self seconds = (GLibDateTimeRecord.FFI.withPtr false &&&> GDouble.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addSeconds_ (self & seconds)
+    fun addWeeks self weeks = (GLibDateTimeRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addWeeks_ (self & weeks)
+    fun addYears self years = (GLibDateTimeRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GLibDateTimeRecord.FFI.fromPtr true) addYears_ (self & years)
+    fun difference self begin = (GLibDateTimeRecord.FFI.withPtr false &&&> GLibDateTimeRecord.FFI.withPtr false ---> GLibTimeSpan.FFI.fromVal) difference_ (self & begin)
+    fun format self format = (GLibDateTimeRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) format_ (self & format)
+    fun getDayOfMonth self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getDayOfMonth_ self
+    fun getDayOfWeek self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getDayOfWeek_ self
+    fun getDayOfYear self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getDayOfYear_ self
+    fun getHour self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getHour_ self
+    fun getMicrosecond self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getMicrosecond_ self
+    fun getMinute self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getMinute_ self
+    fun getMonth self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getMonth_ self
+    fun getSecond self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getSecond_ self
+    fun getSeconds self = (GLibDateTimeRecord.FFI.withPtr false ---> GDouble.FFI.fromVal) getSeconds_ self
+    fun getTimezoneAbbreviation self = (GLibDateTimeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTimezoneAbbreviation_ self
+    fun getUtcOffset self = (GLibDateTimeRecord.FFI.withPtr false ---> GLibTimeSpan.FFI.fromVal) getUtcOffset_ self
+    fun getWeekNumberingYear self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getWeekNumberingYear_ self
+    fun getWeekOfYear self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getWeekOfYear_ self
+    fun getYear self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getYear_ self
     fun getYmd self =
       let
         val year
@@ -259,7 +259,7 @@ structure GLibDateTime :>
          & day
          & () =
           (
-            GLibDateTimeRecord.FFI.withPtr
+            GLibDateTimeRecord.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -282,10 +282,10 @@ structure GLibDateTime :>
           day
         )
       end
-    fun isDaylightSavings self = (GLibDateTimeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isDaylightSavings_ self
-    fun toLocal self = (GLibDateTimeRecord.FFI.withPtr ---> GLibDateTimeRecord.FFI.fromPtr true) toLocal_ self
-    fun toTimeval self tv = (GLibDateTimeRecord.FFI.withPtr &&&> GLibTimeValRecord.FFI.withPtr ---> GBool.FFI.fromVal) toTimeval_ (self & tv)
-    fun toTimezone self tz = (GLibDateTimeRecord.FFI.withPtr &&&> GLibTimeZoneRecord.FFI.withPtr ---> GLibDateTimeRecord.FFI.fromPtr true) toTimezone_ (self & tz)
-    fun toUnix self = (GLibDateTimeRecord.FFI.withPtr ---> GInt64.FFI.fromVal) toUnix_ self
-    fun toUtc self = (GLibDateTimeRecord.FFI.withPtr ---> GLibDateTimeRecord.FFI.fromPtr true) toUtc_ self
+    fun isDaylightSavings self = (GLibDateTimeRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isDaylightSavings_ self
+    fun toLocal self = (GLibDateTimeRecord.FFI.withPtr false ---> GLibDateTimeRecord.FFI.fromPtr true) toLocal_ self
+    fun toTimeval self tv = (GLibDateTimeRecord.FFI.withPtr false &&&> GLibTimeValRecord.FFI.withPtr false ---> GBool.FFI.fromVal) toTimeval_ (self & tv)
+    fun toTimezone self tz = (GLibDateTimeRecord.FFI.withPtr false &&&> GLibTimeZoneRecord.FFI.withPtr false ---> GLibDateTimeRecord.FFI.fromPtr true) toTimezone_ (self & tz)
+    fun toUnix self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt64.FFI.fromVal) toUnix_ self
+    fun toUtc self = (GLibDateTimeRecord.FFI.withPtr false ---> GLibDateTimeRecord.FFI.fromPtr true) toUtc_ self
   end

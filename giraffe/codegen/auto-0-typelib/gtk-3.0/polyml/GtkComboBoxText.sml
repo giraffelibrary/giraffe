@@ -55,18 +55,18 @@ structure GtkComboBoxText :>
     type 'a cell_editable_class = 'a GtkCellEditableClass.class
     type 'a cell_layout_class = 'a GtkCellLayoutClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asCellEditable self = (GObjectObjectClass.FFI.withPtr ---> GtkCellEditableClass.FFI.fromPtr false) I self
-    fun asCellLayout self = (GObjectObjectClass.FFI.withPtr ---> GtkCellLayoutClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asCellEditable self = (GObjectObjectClass.FFI.withPtr false ---> GtkCellEditableClass.FFI.fromPtr false) I self
+    fun asCellLayout self = (GObjectObjectClass.FFI.withPtr false ---> GtkCellLayoutClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkComboBoxTextClass.FFI.fromPtr false) new_ ()
     fun newWithEntry () = (I ---> GtkComboBoxTextClass.FFI.fromPtr false) newWithEntry_ ()
     fun append self (id, text) =
       (
-        GtkComboBoxTextClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
+        GtkComboBoxTextClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         append_
@@ -75,8 +75,8 @@ structure GtkComboBoxText :>
            & id
            & text
         )
-    fun appendText self text = (GtkComboBoxTextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) appendText_ (self & text)
-    fun getActiveText self = (GtkComboBoxTextClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getActiveText_ self
+    fun appendText self text = (GtkComboBoxTextClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) appendText_ (self & text)
+    fun getActiveText self = (GtkComboBoxTextClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getActiveText_ self
     fun insert
       self
       (
@@ -85,10 +85,10 @@ structure GtkComboBoxText :>
         text
       ) =
       (
-        GtkComboBoxTextClass.FFI.withPtr
+        GtkComboBoxTextClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         insert_
@@ -100,9 +100,9 @@ structure GtkComboBoxText :>
         )
     fun insertText self (position, text) =
       (
-        GtkComboBoxTextClass.FFI.withPtr
+        GtkComboBoxTextClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         insertText_
@@ -113,9 +113,9 @@ structure GtkComboBoxText :>
         )
     fun prepend self (id, text) =
       (
-        GtkComboBoxTextClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
+        GtkComboBoxTextClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         prepend_
@@ -124,7 +124,7 @@ structure GtkComboBoxText :>
            & id
            & text
         )
-    fun prependText self text = (GtkComboBoxTextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) prependText_ (self & text)
-    fun remove self position = (GtkComboBoxTextClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) remove_ (self & position)
-    fun removeAll self = (GtkComboBoxTextClass.FFI.withPtr ---> I) removeAll_ self
+    fun prependText self text = (GtkComboBoxTextClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) prependText_ (self & text)
+    fun remove self position = (GtkComboBoxTextClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) remove_ (self & position)
+    fun removeAll self = (GtkComboBoxTextClass.FFI.withPtr false ---> I) removeAll_ self
   end

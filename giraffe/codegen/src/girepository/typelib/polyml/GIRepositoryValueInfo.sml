@@ -21,8 +21,8 @@ structure GIRepositoryValueInfo :>
 
 
     fun getValueInt info =
-      (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getValueInt_ info
+      (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getValueInt_ info
 
     fun getValueWord info =
-      (GIRepositoryBaseInfoClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getValueWord_ info
+      (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getValueWord_ info
   end

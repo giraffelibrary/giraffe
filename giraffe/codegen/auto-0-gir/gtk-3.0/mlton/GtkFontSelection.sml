@@ -52,23 +52,23 @@ structure GtkFontSelection :>
     type 'a orientable_class = 'a GtkOrientableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkFontSelectionClass.FFI.fromPtr false) new_ ()
-    fun getFace self = (GtkFontSelectionClass.FFI.withPtr ---> PangoFontFaceClass.FFI.fromPtr false) getFace_ self
-    fun getFaceList self = (GtkFontSelectionClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getFaceList_ self
-    fun getFamily self = (GtkFontSelectionClass.FFI.withPtr ---> PangoFontFamilyClass.FFI.fromPtr false) getFamily_ self
-    fun getFamilyList self = (GtkFontSelectionClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getFamilyList_ self
-    fun getFontName self = (GtkFontSelectionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getFontName_ self
-    fun getPreviewEntry self = (GtkFontSelectionClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getPreviewEntry_ self
-    fun getPreviewText self = (GtkFontSelectionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPreviewText_ self
-    fun getSize self = (GtkFontSelectionClass.FFI.withPtr ---> GInt.FFI.fromVal) getSize_ self
-    fun getSizeEntry self = (GtkFontSelectionClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getSizeEntry_ self
-    fun getSizeList self = (GtkFontSelectionClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getSizeList_ self
-    fun setFontName self fontname = (GtkFontSelectionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) setFontName_ (self & fontname)
-    fun setPreviewText self text = (GtkFontSelectionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setPreviewText_ (self & text)
+    fun getFace self = (GtkFontSelectionClass.FFI.withPtr false ---> PangoFontFaceClass.FFI.fromPtr false) getFace_ self
+    fun getFaceList self = (GtkFontSelectionClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getFaceList_ self
+    fun getFamily self = (GtkFontSelectionClass.FFI.withPtr false ---> PangoFontFamilyClass.FFI.fromPtr false) getFamily_ self
+    fun getFamilyList self = (GtkFontSelectionClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getFamilyList_ self
+    fun getFontName self = (GtkFontSelectionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getFontName_ self
+    fun getPreviewEntry self = (GtkFontSelectionClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getPreviewEntry_ self
+    fun getPreviewText self = (GtkFontSelectionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPreviewText_ self
+    fun getSize self = (GtkFontSelectionClass.FFI.withPtr false ---> GInt.FFI.fromVal) getSize_ self
+    fun getSizeEntry self = (GtkFontSelectionClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getSizeEntry_ self
+    fun getSizeList self = (GtkFontSelectionClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getSizeList_ self
+    fun setFontName self fontname = (GtkFontSelectionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) setFontName_ (self & fontname)
+    fun setPreviewText self text = (GtkFontSelectionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setPreviewText_ (self & text)
     local
       open Property
     in

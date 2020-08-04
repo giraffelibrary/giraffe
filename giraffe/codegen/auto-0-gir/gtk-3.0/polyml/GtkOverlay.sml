@@ -32,16 +32,16 @@ structure GtkOverlay :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkOverlayClass.FFI.fromPtr false) new_ ()
-    fun addOverlay self widget = (GtkOverlayClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) addOverlay_ (self & widget)
-    fun getOverlayPassThrough self widget = (GtkOverlayClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GBool.FFI.fromVal) getOverlayPassThrough_ (self & widget)
+    fun addOverlay self widget = (GtkOverlayClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) addOverlay_ (self & widget)
+    fun getOverlayPassThrough self widget = (GtkOverlayClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getOverlayPassThrough_ (self & widget)
     fun reorderOverlay self (child, position) =
       (
-        GtkOverlayClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkOverlayClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          ---> I
       )
@@ -53,8 +53,8 @@ structure GtkOverlay :>
         )
     fun setOverlayPassThrough self (widget, passThrough) =
       (
-        GtkOverlayClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkOverlayClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )

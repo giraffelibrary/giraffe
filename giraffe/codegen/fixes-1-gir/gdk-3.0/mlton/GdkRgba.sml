@@ -24,14 +24,14 @@ structure GdkRgba :>
     val toString_ = _import "gdk_rgba_to_string" : GdkRgbaRecord.FFI.non_opt GdkRgbaRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     type t = GdkRgbaRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun copy self = (GdkRgbaRecord.FFI.withPtr ---> GdkRgbaRecord.FFI.fromPtr true) copy_ self
-    fun equal self p2 = (GdkRgbaRecord.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & p2)
-    fun hash self = (GdkRgbaRecord.FFI.withPtr ---> GUInt.FFI.fromVal) hash_ self
+    fun copy self = (GdkRgbaRecord.FFI.withPtr false ---> GdkRgbaRecord.FFI.fromPtr true) copy_ self
+    fun equal self p2 = (GdkRgbaRecord.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & p2)
+    fun hash self = (GdkRgbaRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) hash_ self
     fun parse spec =
       let
-        val rgba & retVal = (GdkRgbaRecord.FFI.withNewPtr &&&> Utf8.FFI.withPtr ---> GdkRgbaRecord.FFI.fromPtr true && GBool.FFI.fromVal) parse_ (() & spec)
+        val rgba & retVal = (GdkRgbaRecord.FFI.withNewPtr &&&> Utf8.FFI.withPtr 0 ---> GdkRgbaRecord.FFI.fromPtr true && GBool.FFI.fromVal) parse_ (() & spec)
       in
         if retVal then SOME rgba else NONE
       end
-    fun toString self = (GdkRgbaRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun toString self = (GdkRgbaRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
   end

@@ -13,10 +13,10 @@ structure GioZlibDecompressor :>
     type 'a file_info_class = 'a GioFileInfoClass.class
     type zlib_compressor_format_t = GioZlibCompressorFormat.t
     type t = base class
-    fun asConverter self = (GObjectObjectClass.FFI.withPtr ---> GioConverterClass.FFI.fromPtr false) I self
+    fun asConverter self = (GObjectObjectClass.FFI.withPtr false ---> GioConverterClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new format = (GioZlibCompressorFormat.FFI.withVal ---> GioZlibDecompressorClass.FFI.fromPtr true) new_ format
-    fun getFileInfo self = (GioZlibDecompressorClass.FFI.withPtr ---> GioFileInfoClass.FFI.fromPtr false) getFileInfo_ self
+    fun getFileInfo self = (GioZlibDecompressorClass.FFI.withPtr false ---> GioFileInfoClass.FFI.fromPtr false) getFileInfo_ self
     local
       open Property
     in

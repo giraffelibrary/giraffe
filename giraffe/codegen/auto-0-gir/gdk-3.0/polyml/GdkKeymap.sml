@@ -65,15 +65,15 @@ structure GdkKeymap :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> GdkKeymapClass.FFI.fromPtr false) getDefault_ ()
-    fun getForDisplay display = (GdkDisplayClass.FFI.withPtr ---> GdkKeymapClass.FFI.fromPtr false) getForDisplay_ display
+    fun getForDisplay display = (GdkDisplayClass.FFI.withPtr false ---> GdkKeymapClass.FFI.fromPtr false) getForDisplay_ display
     fun addVirtualModifiers self state =
       let
-        val state & () = (GdkKeymapClass.FFI.withPtr &&&> GdkModifierType.FFI.withRefVal ---> GdkModifierType.FFI.fromVal && I) addVirtualModifiers_ (self & state)
+        val state & () = (GdkKeymapClass.FFI.withPtr false &&&> GdkModifierType.FFI.withRefVal ---> GdkModifierType.FFI.fromVal && I) addVirtualModifiers_ (self & state)
       in
         state
       end
-    fun getCapsLockState self = (GdkKeymapClass.FFI.withPtr ---> GBool.FFI.fromVal) getCapsLockState_ self
-    fun getDirection self = (GdkKeymapClass.FFI.withPtr ---> PangoDirection.FFI.fromVal) getDirection_ self
+    fun getCapsLockState self = (GdkKeymapClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCapsLockState_ self
+    fun getDirection self = (GdkKeymapClass.FFI.withPtr false ---> PangoDirection.FFI.fromVal) getDirection_ self
     fun getEntriesForKeycode self hardwareKeycode =
       let
         val keys
@@ -81,13 +81,13 @@ structure GdkKeymap :>
          & nEntries
          & retVal =
           (
-            GdkKeymapClass.FFI.withPtr
+            GdkKeymapClass.FFI.withPtr false
              &&&> GUInt.FFI.withVal
-             &&&> GdkKeymapKeyRecordCArrayN.FFI.withRefOptPtr
-             &&&> GUIntCArrayN.FFI.withRefOptPtr
+             &&&> GdkKeymapKeyRecordCArrayN.FFI.withRefOptPtr 0
+             &&&> GUIntCArrayN.FFI.withRefOptPtr 0
              &&&> GInt.FFI.withRefVal
-             ---> GdkKeymapKeyRecordCArrayN.FFI.fromPtr 1
-                   && GUIntCArrayN.FFI.fromPtr 1
+             ---> GdkKeymapKeyRecordCArrayN.FFI.fromPtr ~1
+                   && GUIntCArrayN.FFI.fromPtr ~1
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
           )
@@ -108,11 +108,11 @@ structure GdkKeymap :>
          & nKeys
          & retVal =
           (
-            GdkKeymapClass.FFI.withPtr
+            GdkKeymapClass.FFI.withPtr false
              &&&> GUInt.FFI.withVal
-             &&&> GdkKeymapKeyRecordCArrayN.FFI.withRefOptPtr
+             &&&> GdkKeymapKeyRecordCArrayN.FFI.withRefOptPtr 0
              &&&> GInt.FFI.withRefVal
-             ---> GdkKeymapKeyRecordCArrayN.FFI.fromPtr 1
+             ---> GdkKeymapKeyRecordCArrayN.FFI.fromPtr ~1
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
           )
@@ -126,15 +126,15 @@ structure GdkKeymap :>
       in
         if retVal then SOME (keys (LargeInt.toInt nKeys)) else NONE
       end
-    fun getModifierMask self intent = (GdkKeymapClass.FFI.withPtr &&&> GdkModifierIntent.FFI.withVal ---> GdkModifierType.FFI.fromVal) getModifierMask_ (self & intent)
-    fun getModifierState self = (GdkKeymapClass.FFI.withPtr ---> GUInt.FFI.fromVal) getModifierState_ self
-    fun getNumLockState self = (GdkKeymapClass.FFI.withPtr ---> GBool.FFI.fromVal) getNumLockState_ self
-    fun getScrollLockState self = (GdkKeymapClass.FFI.withPtr ---> GBool.FFI.fromVal) getScrollLockState_ self
-    fun haveBidiLayouts self = (GdkKeymapClass.FFI.withPtr ---> GBool.FFI.fromVal) haveBidiLayouts_ self
-    fun lookupKey self key = (GdkKeymapClass.FFI.withPtr &&&> GdkKeymapKeyRecord.FFI.withPtr ---> GUInt.FFI.fromVal) lookupKey_ (self & key)
+    fun getModifierMask self intent = (GdkKeymapClass.FFI.withPtr false &&&> GdkModifierIntent.FFI.withVal ---> GdkModifierType.FFI.fromVal) getModifierMask_ (self & intent)
+    fun getModifierState self = (GdkKeymapClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getModifierState_ self
+    fun getNumLockState self = (GdkKeymapClass.FFI.withPtr false ---> GBool.FFI.fromVal) getNumLockState_ self
+    fun getScrollLockState self = (GdkKeymapClass.FFI.withPtr false ---> GBool.FFI.fromVal) getScrollLockState_ self
+    fun haveBidiLayouts self = (GdkKeymapClass.FFI.withPtr false ---> GBool.FFI.fromVal) haveBidiLayouts_ self
+    fun lookupKey self key = (GdkKeymapClass.FFI.withPtr false &&&> GdkKeymapKeyRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) lookupKey_ (self & key)
     fun mapVirtualModifiers self state =
       let
-        val state & retVal = (GdkKeymapClass.FFI.withPtr &&&> GdkModifierType.FFI.withRefVal ---> GdkModifierType.FFI.fromVal && GBool.FFI.fromVal) mapVirtualModifiers_ (self & state)
+        val state & retVal = (GdkKeymapClass.FFI.withPtr false &&&> GdkModifierType.FFI.withRefVal ---> GdkModifierType.FFI.fromVal && GBool.FFI.fromVal) mapVirtualModifiers_ (self & state)
       in
         (retVal, state)
       end
@@ -152,7 +152,7 @@ structure GdkKeymap :>
          & consumedModifiers
          & retVal =
           (
-            GdkKeymapClass.FFI.withPtr
+            GdkKeymapClass.FFI.withPtr false
              &&&> GUInt.FFI.withVal
              &&&> GdkModifierType.FFI.withVal
              &&&> GInt.FFI.withVal

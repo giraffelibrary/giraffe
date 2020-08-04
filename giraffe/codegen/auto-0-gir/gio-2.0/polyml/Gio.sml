@@ -722,11 +722,11 @@ structure Gio : GIO =
     val VOLUME_IDENTIFIER_KIND_UNIX_DEVICE = "unix-device"
     val VOLUME_IDENTIFIER_KIND_UUID = "uuid"
     val VOLUME_MONITOR_EXTENSION_POINT_NAME = "gio-volume-monitor"
-    fun busGetFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.FFI.fromPtr true) busGetFinish_ (res & [])
+    fun busGetFinish res = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.FFI.fromPtr true) busGetFinish_ (res & [])
     fun busGetSync (busType, cancellable) =
       (
         GioBusType.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioDBusConnectionClass.FFI.fromPtr true
       )
@@ -745,11 +745,11 @@ structure Gio : GIO =
         nameLostClosure
       ) =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GioBusNameOwnerFlags.FFI.withVal
-         &&&> GObjectClosureRecord.FFI.withOptPtr
-         &&&> GObjectClosureRecord.FFI.withOptPtr
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
          ---> GUInt.FFI.fromVal
       )
         busOwnNameOnConnection_
@@ -771,11 +771,11 @@ structure Gio : GIO =
       ) =
       (
         GioBusType.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          &&&> GioBusNameOwnerFlags.FFI.withVal
-         &&&> GObjectClosureRecord.FFI.withOptPtr
-         &&&> GObjectClosureRecord.FFI.withOptPtr
-         &&&> GObjectClosureRecord.FFI.withOptPtr
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
          ---> GUInt.FFI.fromVal
       )
         busOwnName_
@@ -798,11 +798,11 @@ structure Gio : GIO =
         nameVanishedClosure
       ) =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GioBusNameWatcherFlags.FFI.withVal
-         &&&> GObjectClosureRecord.FFI.withOptPtr
-         &&&> GObjectClosureRecord.FFI.withOptPtr
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
          ---> GUInt.FFI.fromVal
       )
         busWatchNameOnConnection_
@@ -823,10 +823,10 @@ structure Gio : GIO =
       ) =
       (
         GioBusType.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          &&&> GioBusNameWatcherFlags.FFI.withVal
-         &&&> GObjectClosureRecord.FFI.withOptPtr
-         &&&> GObjectClosureRecord.FFI.withOptPtr
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
          ---> GUInt.FFI.fromVal
       )
         busWatchName_
@@ -837,14 +837,14 @@ structure Gio : GIO =
            & nameAppearedClosure
            & nameVanishedClosure
         )
-    fun contentTypeCanBeExecutable type' = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeCanBeExecutable_ type'
-    fun contentTypeEquals (type1, type2) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeEquals_ (type1 & type2)
-    fun contentTypeFromMimeType mimeType = (Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) contentTypeFromMimeType_ mimeType
-    fun contentTypeGetDescription type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) contentTypeGetDescription_ type'
-    fun contentTypeGetGenericIconName type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) contentTypeGetGenericIconName_ type'
-    fun contentTypeGetIcon type' = (Utf8.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) contentTypeGetIcon_ type'
-    fun contentTypeGetMimeType type' = (Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) contentTypeGetMimeType_ type'
-    fun contentTypeGetSymbolicIcon type' = (Utf8.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) contentTypeGetSymbolicIcon_ type'
+    fun contentTypeCanBeExecutable type' = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) contentTypeCanBeExecutable_ type'
+    fun contentTypeEquals (type1, type2) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) contentTypeEquals_ (type1 & type2)
+    fun contentTypeFromMimeType mimeType = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr ~1) contentTypeFromMimeType_ mimeType
+    fun contentTypeGetDescription type' = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) contentTypeGetDescription_ type'
+    fun contentTypeGetGenericIconName type' = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr ~1) contentTypeGetGenericIconName_ type'
+    fun contentTypeGetIcon type' = (Utf8.FFI.withPtr 0 ---> GioIconClass.FFI.fromPtr true) contentTypeGetIcon_ type'
+    fun contentTypeGetMimeType type' = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr ~1) contentTypeGetMimeType_ type'
+    fun contentTypeGetSymbolicIcon type' = (Utf8.FFI.withPtr 0 ---> GioIconClass.FFI.fromPtr true) contentTypeGetSymbolicIcon_ type'
     fun contentTypeGuess (filename, data) =
       let
         val dataSize =
@@ -853,11 +853,11 @@ structure Gio : GIO =
           | NONE => GSize.null
         val resultUncertain & retVal =
           (
-            Utf8.FFI.withOptPtr
-             &&&> GUInt8CArrayN.FFI.withOptPtr
+            Utf8.FFI.withOptPtr 0
+             &&&> GUInt8CArrayN.FFI.withOptPtr 0
              &&&> GSize.FFI.withVal
              &&&> GBool.FFI.withRefVal
-             ---> GBool.FFI.fromVal && Utf8.FFI.fromPtr 1
+             ---> GBool.FFI.fromVal && Utf8.FFI.fromPtr ~1
           )
             contentTypeGuess_
             (
@@ -869,16 +869,16 @@ structure Gio : GIO =
       in
         (retVal, resultUncertain)
       end
-    fun contentTypeGuessForTree root = (GioFileClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) contentTypeGuessForTree_ root
-    fun contentTypeIsA (type', supertype) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsA_ (type' & supertype)
-    fun contentTypeIsUnknown type' = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) contentTypeIsUnknown_ type'
-    fun dbusAddressEscapeValue string = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) dbusAddressEscapeValue_ string
+    fun contentTypeGuessForTree root = (GioFileClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) contentTypeGuessForTree_ root
+    fun contentTypeIsA (type', supertype) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) contentTypeIsA_ (type' & supertype)
+    fun contentTypeIsUnknown type' = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) contentTypeIsUnknown_ type'
+    fun dbusAddressEscapeValue string = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) dbusAddressEscapeValue_ string
     fun dbusAddressGetForBusSync (busType, cancellable) =
       (
         GioBusType.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromPtr ~1
       )
         dbusAddressGetForBusSync_
         (
@@ -890,10 +890,10 @@ structure Gio : GIO =
       let
         val outGuid & retVal =
           (
-            GioAsyncResultClass.FFI.withPtr
-             &&&> Utf8.FFI.withRefOptPtr
+            GioAsyncResultClass.FFI.withPtr false
+             &&&> Utf8.FFI.withRefOptPtr 0
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1 && GioIOStreamClass.FFI.fromPtr true
+             ---> Utf8.FFI.fromPtr ~1 && GioIOStreamClass.FFI.fromPtr true
           )
             dbusAddressGetStreamFinish_
             (
@@ -908,11 +908,11 @@ structure Gio : GIO =
       let
         val outGuid & retVal =
           (
-            Utf8.FFI.withPtr
-             &&&> Utf8.FFI.withRefOptPtr
-             &&&> GioCancellableClass.FFI.withOptPtr
+            Utf8.FFI.withPtr 0
+             &&&> Utf8.FFI.withRefOptPtr 0
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1 && GioIOStreamClass.FFI.fromPtr true
+             ---> Utf8.FFI.fromPtr ~1 && GioIOStreamClass.FFI.fromPtr true
           )
             dbusAddressGetStreamSync_
             (
@@ -924,28 +924,28 @@ structure Gio : GIO =
       in
         (retVal, outGuid)
       end
-    fun dbusGenerateGuid () = (I ---> Utf8.FFI.fromPtr 1) dbusGenerateGuid_ ()
-    fun dbusGvalueToGvariant (gvalue, type') = (GObjectValueRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) dbusGvalueToGvariant_ (gvalue & type')
+    fun dbusGenerateGuid () = (I ---> Utf8.FFI.fromPtr ~1) dbusGenerateGuid_ ()
+    fun dbusGvalueToGvariant (gvalue, type') = (GObjectValueRecord.FFI.withPtr false &&&> GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr true) dbusGvalueToGvariant_ (gvalue & type')
     fun dbusGvariantToGvalue value =
       let
-        val outGvalue & () = (GLibVariantRecord.FFI.withPtr &&&> GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I) dbusGvariantToGvalue_ (value & ())
+        val outGvalue & () = (GLibVariantRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I) dbusGvariantToGvalue_ (value & ())
       in
         outGvalue
       end
-    fun dbusIsAddress string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsAddress_ string
-    fun dbusIsGuid string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsGuid_ string
-    fun dbusIsInterfaceName string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsInterfaceName_ string
-    fun dbusIsMemberName string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsMemberName_ string
-    fun dbusIsName string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsName_ string
-    fun dbusIsSupportedAddress string = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) dbusIsSupportedAddress_ (string & [])
-    fun dbusIsUniqueName string = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) dbusIsUniqueName_ string
+    fun dbusIsAddress string = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) dbusIsAddress_ string
+    fun dbusIsGuid string = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) dbusIsGuid_ string
+    fun dbusIsInterfaceName string = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) dbusIsInterfaceName_ string
+    fun dbusIsMemberName string = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) dbusIsMemberName_ string
+    fun dbusIsName string = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) dbusIsName_ string
+    fun dbusIsSupportedAddress string = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> ignore) dbusIsSupportedAddress_ (string & [])
+    fun dbusIsUniqueName string = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) dbusIsUniqueName_ string
     fun ioErrorFromErrno errNo = (GInt.FFI.withVal ---> GioIOErrorEnum.FFI.fromVal) ioErrorFromErrno_ errNo
     fun ioErrorQuark () = (I ---> GLibQuark.FFI.fromVal) ioErrorQuark_ ()
-    fun ioModulesScanAllInDirectory dirname = (Utf8.FFI.withPtr ---> I) ioModulesScanAllInDirectory_ dirname
-    fun ioModulesScanAllInDirectoryWithScope (dirname, scope) = (Utf8.FFI.withPtr &&&> GioIOModuleScopeRecord.FFI.withPtr ---> I) ioModulesScanAllInDirectoryWithScope_ (dirname & scope)
+    fun ioModulesScanAllInDirectory dirname = (Utf8.FFI.withPtr 0 ---> I) ioModulesScanAllInDirectory_ dirname
+    fun ioModulesScanAllInDirectoryWithScope (dirname, scope) = (Utf8.FFI.withPtr 0 &&&> GioIOModuleScopeRecord.FFI.withPtr false ---> I) ioModulesScanAllInDirectoryWithScope_ (dirname & scope)
     fun ioSchedulerCancelAllJobs () = (I ---> I) ioSchedulerCancelAllJobs_ ()
     fun networkingInit () = (I ---> I) networkingInit_ ()
-    fun pollableSourceNew pollableStream = (GObjectObjectClass.FFI.withPtr ---> GLibSourceRecord.FFI.fromPtr true) pollableSourceNew_ pollableStream
+    fun pollableSourceNew pollableStream = (GObjectObjectClass.FFI.withPtr false ---> GLibSourceRecord.FFI.fromPtr true) pollableSourceNew_ pollableStream
     fun pollableSourceNewFull
       (
         pollableStream,
@@ -953,9 +953,9 @@ structure Gio : GIO =
         cancellable
       ) =
       (
-        GObjectObjectClass.FFI.withPtr
-         &&&> GLibSourceRecord.FFI.withOptPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GObjectObjectClass.FFI.withPtr false
+         &&&> GLibSourceRecord.FFI.withOptPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          ---> GLibSourceRecord.FFI.fromPtr true
       )
         pollableSourceNewFull_
@@ -975,11 +975,11 @@ structure Gio : GIO =
         val count = GUInt8CArrayN.length buffer
         val retVal =
           (
-            GioInputStreamClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioInputStreamClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
              &&&> GBool.FFI.withVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GSSize.FFI.fromVal
           )
@@ -1006,11 +1006,11 @@ structure Gio : GIO =
         val count = GUInt8CArrayN.length buffer
         val retVal =
           (
-            GioOutputStreamClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioOutputStreamClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
              &&&> GBool.FFI.withVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GSSize.FFI.fromVal
           )
@@ -1037,12 +1037,12 @@ structure Gio : GIO =
         val count = GUInt8CArrayN.length buffer
         val bytesWritten & () =
           (
-            GioOutputStreamClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioOutputStreamClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GSize.FFI.withRefVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GSize.FFI.fromVal && ignore
           )
@@ -1061,10 +1061,10 @@ structure Gio : GIO =
       end
     fun resourcesEnumerateChildren (path, lookupFlags) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CPtrArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr ~1
       )
         resourcesEnumerateChildren_
         (
@@ -1078,7 +1078,7 @@ structure Gio : GIO =
          & flags
          & () =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GioResourceLookupFlags.FFI.withVal
              &&&> GSize.FFI.withRefVal
              &&&> GUInt32.FFI.withRefVal
@@ -1100,7 +1100,7 @@ structure Gio : GIO =
       end
     fun resourcesLookupData (path, lookupFlags) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GLibBytesRecord.FFI.fromPtr true
@@ -1113,7 +1113,7 @@ structure Gio : GIO =
         )
     fun resourcesOpenStream (path, lookupFlags) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioInputStreamClass.FFI.fromPtr true
@@ -1124,21 +1124,21 @@ structure Gio : GIO =
            & lookupFlags
            & []
         )
-    fun resourcesRegister resource = (GioResourceRecord.FFI.withPtr ---> I) resourcesRegister_ resource
-    fun resourcesUnregister resource = (GioResourceRecord.FFI.withPtr ---> I) resourcesUnregister_ resource
-    fun unixIsMountPathSystemInternal mountPath = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) unixIsMountPathSystemInternal_ mountPath
-    fun unixMountCompare (mount1, mount2) = (GioUnixMountEntryRecord.FFI.withPtr &&&> GioUnixMountEntryRecord.FFI.withPtr ---> GInt.FFI.fromVal) unixMountCompare_ (mount1 & mount2)
-    fun unixMountFree mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> I) unixMountFree_ mountEntry
-    fun unixMountGetDevicePath mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) unixMountGetDevicePath_ mountEntry
-    fun unixMountGetFsType mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) unixMountGetFsType_ mountEntry
-    fun unixMountGetMountPath mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) unixMountGetMountPath_ mountEntry
-    fun unixMountGuessCanEject mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> GBool.FFI.fromVal) unixMountGuessCanEject_ mountEntry
-    fun unixMountGuessIcon mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) unixMountGuessIcon_ mountEntry
-    fun unixMountGuessName mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) unixMountGuessName_ mountEntry
-    fun unixMountGuessShouldDisplay mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> GBool.FFI.fromVal) unixMountGuessShouldDisplay_ mountEntry
-    fun unixMountGuessSymbolicIcon mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) unixMountGuessSymbolicIcon_ mountEntry
-    fun unixMountIsReadonly mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> GBool.FFI.fromVal) unixMountIsReadonly_ mountEntry
-    fun unixMountIsSystemInternal mountEntry = (GioUnixMountEntryRecord.FFI.withPtr ---> GBool.FFI.fromVal) unixMountIsSystemInternal_ mountEntry
+    fun resourcesRegister resource = (GioResourceRecord.FFI.withPtr false ---> I) resourcesRegister_ resource
+    fun resourcesUnregister resource = (GioResourceRecord.FFI.withPtr false ---> I) resourcesUnregister_ resource
+    fun unixIsMountPathSystemInternal mountPath = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) unixIsMountPathSystemInternal_ mountPath
+    fun unixMountCompare (mount1, mount2) = (GioUnixMountEntryRecord.FFI.withPtr false &&&> GioUnixMountEntryRecord.FFI.withPtr false ---> GInt.FFI.fromVal) unixMountCompare_ (mount1 & mount2)
+    fun unixMountFree mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> I) unixMountFree_ mountEntry
+    fun unixMountGetDevicePath mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) unixMountGetDevicePath_ mountEntry
+    fun unixMountGetFsType mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) unixMountGetFsType_ mountEntry
+    fun unixMountGetMountPath mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) unixMountGetMountPath_ mountEntry
+    fun unixMountGuessCanEject mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> GBool.FFI.fromVal) unixMountGuessCanEject_ mountEntry
+    fun unixMountGuessIcon mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) unixMountGuessIcon_ mountEntry
+    fun unixMountGuessName mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) unixMountGuessName_ mountEntry
+    fun unixMountGuessShouldDisplay mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> GBool.FFI.fromVal) unixMountGuessShouldDisplay_ mountEntry
+    fun unixMountGuessSymbolicIcon mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) unixMountGuessSymbolicIcon_ mountEntry
+    fun unixMountIsReadonly mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> GBool.FFI.fromVal) unixMountIsReadonly_ mountEntry
+    fun unixMountIsSystemInternal mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> GBool.FFI.fromVal) unixMountIsSystemInternal_ mountEntry
     fun unixMountPointsChangedSince time = (GUInt64.FFI.withVal ---> GBool.FFI.fromVal) unixMountPointsChangedSince_ time
     fun unixMountsChangedSince time = (GUInt64.FFI.withVal ---> GBool.FFI.fromVal) unixMountsChangedSince_ time
   end

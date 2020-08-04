@@ -13,7 +13,7 @@ structure PangoCairoFontMap :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> PangoFontMapClass.FFI.fromPtr false) getDefault_ ()
     fun new () = (I ---> PangoFontMapClass.FFI.fromPtr true) new_ ()
-    fun getResolution self = (PangoCairoFontMapClass.FFI.withPtr ---> GDouble.FFI.fromVal) getResolution_ self
-    fun setDefault self = (PangoCairoFontMapClass.FFI.withPtr ---> I) setDefault_ self
-    fun setResolution self dpi = (PangoCairoFontMapClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setResolution_ (self & dpi)
+    fun getResolution self = (PangoCairoFontMapClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getResolution_ self
+    fun setDefault self = (PangoCairoFontMapClass.FFI.withPtr false ---> I) setDefault_ self
+    fun setResolution self dpi = (PangoCairoFontMapClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setResolution_ (self & dpi)
   end

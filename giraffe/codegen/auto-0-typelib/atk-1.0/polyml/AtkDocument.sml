@@ -23,16 +23,16 @@ structure AtkDocument :>
     type 'a class = 'a AtkDocumentClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getAttributeValue self attributeName = (AtkDocumentClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getAttributeValue_ (self & attributeName)
-    fun getCurrentPageNumber self = (AtkDocumentClass.FFI.withPtr ---> GInt32.FFI.fromVal) getCurrentPageNumber_ self
-    fun getDocumentType self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDocumentType_ self
-    fun getLocale self = (AtkDocumentClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLocale_ self
-    fun getPageCount self = (AtkDocumentClass.FFI.withPtr ---> GInt32.FFI.fromVal) getPageCount_ self
+    fun getAttributeValue self attributeName = (AtkDocumentClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) getAttributeValue_ (self & attributeName)
+    fun getCurrentPageNumber self = (AtkDocumentClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getCurrentPageNumber_ self
+    fun getDocumentType self = (AtkDocumentClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDocumentType_ self
+    fun getLocale self = (AtkDocumentClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLocale_ self
+    fun getPageCount self = (AtkDocumentClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getPageCount_ self
     fun setAttributeValue self (attributeName, attributeValue) =
       (
-        AtkDocumentClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        AtkDocumentClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> GBool.FFI.fromVal
       )
         setAttributeValue_

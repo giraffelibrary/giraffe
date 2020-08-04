@@ -9,7 +9,7 @@ structure GtkWindowAccessible :>
     end
     type 'a class = 'a GtkWindowAccessibleClass.class
     type t = base class
-    fun asComponent self = (GObjectObjectClass.FFI.withPtr ---> AtkComponentClass.FFI.fromPtr false) I self
-    fun asWindow self = (GObjectObjectClass.FFI.withPtr ---> AtkWindowClass.FFI.fromPtr false) I self
+    fun asComponent self = (GObjectObjectClass.FFI.withPtr false ---> AtkComponentClass.FFI.fromPtr false) I self
+    fun asWindow self = (GObjectObjectClass.FFI.withPtr false ---> AtkWindowClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

@@ -39,7 +39,7 @@ structure GioActionMap :>
     type 'a action_class = 'a GioActionClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun addAction self action = (GioActionMapClass.FFI.withPtr &&&> GioActionClass.FFI.withPtr ---> I) addAction_ (self & action)
-    fun lookupAction self actionName = (GioActionMapClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioActionClass.FFI.fromPtr false) lookupAction_ (self & actionName)
-    fun removeAction self actionName = (GioActionMapClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) removeAction_ (self & actionName)
+    fun addAction self action = (GioActionMapClass.FFI.withPtr false &&&> GioActionClass.FFI.withPtr false ---> I) addAction_ (self & action)
+    fun lookupAction self actionName = (GioActionMapClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioActionClass.FFI.fromPtr false) lookupAction_ (self & actionName)
+    fun removeAction self actionName = (GioActionMapClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) removeAction_ (self & actionName)
   end

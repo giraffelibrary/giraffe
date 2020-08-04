@@ -73,7 +73,7 @@ structure VteRegex :>
         flags
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GInt64.FFI.withVal
          &&&> GUInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
@@ -93,7 +93,7 @@ structure VteRegex :>
         flags
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GInt64.FFI.withVal
          &&&> GUInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
@@ -108,7 +108,7 @@ structure VteRegex :>
         )
     fun jit self flags =
       (
-        VteRegexRecord.FFI.withPtr
+        VteRegexRecord.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> ignore

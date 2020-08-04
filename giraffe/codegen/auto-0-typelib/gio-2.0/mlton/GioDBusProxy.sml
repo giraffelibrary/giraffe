@@ -255,12 +255,12 @@ structure GioDBusProxy :>
     type d_bus_proxy_flags_t = GioDBusProxyFlags.t
     type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
     type t = base class
-    fun asAsyncInitable self = (GObjectObjectClass.FFI.withPtr ---> GioAsyncInitableClass.FFI.fromPtr false) I self
-    fun asDBusInterface self = (GObjectObjectClass.FFI.withPtr ---> GioDBusInterfaceClass.FFI.fromPtr false) I self
-    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    fun asAsyncInitable self = (GObjectObjectClass.FFI.withPtr false ---> GioAsyncInitableClass.FFI.fromPtr false) I self
+    fun asDBusInterface self = (GObjectObjectClass.FFI.withPtr false ---> GioDBusInterfaceClass.FFI.fromPtr false) I self
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr false ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusProxyClass.FFI.fromPtr true) newFinish_ (res & [])
-    fun newForBusFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusProxyClass.FFI.fromPtr true) newForBusFinish_ (res & [])
+    fun newFinish res = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioDBusProxyClass.FFI.fromPtr true) newFinish_ (res & [])
+    fun newForBusFinish res = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioDBusProxyClass.FFI.fromPtr true) newForBusFinish_ (res & [])
     fun newForBusSync
       (
         busType,
@@ -274,11 +274,11 @@ structure GioDBusProxy :>
       (
         GioBusType.FFI.withVal
          &&&> GioDBusProxyFlags.FFI.withVal
-         &&&> GioDBusInterfaceInfoRecord.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioDBusInterfaceInfoRecord.FFI.withOptPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioDBusProxyClass.FFI.fromPtr true
       )
@@ -304,13 +304,13 @@ structure GioDBusProxy :>
         cancellable
       ) =
       (
-        GioDBusConnectionClass.FFI.withPtr
+        GioDBusConnectionClass.FFI.withPtr false
          &&&> GioDBusProxyFlags.FFI.withVal
-         &&&> GioDBusInterfaceInfoRecord.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioDBusInterfaceInfoRecord.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioDBusProxyClass.FFI.fromPtr true
       )
@@ -327,8 +327,8 @@ structure GioDBusProxy :>
         )
     fun callFinish self res =
       (
-        GioDBusProxyClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDBusProxyClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GLibVariantRecord.FFI.fromPtr true
       )
@@ -348,12 +348,12 @@ structure GioDBusProxy :>
         cancellable
       ) =
       (
-        GioDBusProxyClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withOptPtr
+        GioDBusProxyClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withOptPtr false
          &&&> GioDBusCallFlags.FFI.withVal
          &&&> GInt32.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GLibVariantRecord.FFI.fromPtr true
       )
@@ -371,9 +371,9 @@ structure GioDBusProxy :>
       let
         val outFdList & retVal =
           (
-            GioDBusProxyClass.FFI.withPtr
-             &&&> GioUnixFDListClass.FFI.withRefOptPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GioDBusProxyClass.FFI.withPtr false
+             &&&> GioUnixFDListClass.FFI.withRefOptPtr true
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GLibErrorRecord.handleError
              ---> GioUnixFDListClass.FFI.fromPtr true && GLibVariantRecord.FFI.fromPtr true
           )
@@ -400,14 +400,14 @@ structure GioDBusProxy :>
       let
         val outFdList & retVal =
           (
-            GioDBusProxyClass.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
-             &&&> GLibVariantRecord.FFI.withOptPtr
+            GioDBusProxyClass.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
+             &&&> GLibVariantRecord.FFI.withOptPtr false
              &&&> GioDBusCallFlags.FFI.withVal
              &&&> GInt32.FFI.withVal
-             &&&> GioUnixFDListClass.FFI.withOptPtr
-             &&&> GioUnixFDListClass.FFI.withRefOptPtr
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioUnixFDListClass.FFI.withOptPtr false
+             &&&> GioUnixFDListClass.FFI.withRefOptPtr true
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GioUnixFDListClass.FFI.fromPtr true && GLibVariantRecord.FFI.fromPtr true
           )
@@ -426,21 +426,21 @@ structure GioDBusProxy :>
       in
         (retVal, outFdList)
       end
-    fun getCachedProperty self propertyName = (GioDBusProxyClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getCachedProperty_ (self & propertyName)
-    fun getCachedPropertyNames self = (GioDBusProxyClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getCachedPropertyNames_ self
-    fun getConnection self = (GioDBusProxyClass.FFI.withPtr ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
-    fun getDefaultTimeout self = (GioDBusProxyClass.FFI.withPtr ---> GInt32.FFI.fromVal) getDefaultTimeout_ self
-    fun getFlags self = (GioDBusProxyClass.FFI.withPtr ---> GioDBusProxyFlags.FFI.fromVal) getFlags_ self
-    fun getInterfaceInfo self = (GioDBusProxyClass.FFI.withPtr ---> GioDBusInterfaceInfoRecord.FFI.fromPtr true) getInterfaceInfo_ self
-    fun getInterfaceName self = (GioDBusProxyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getInterfaceName_ self
-    fun getName self = (GioDBusProxyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getNameOwner self = (GioDBusProxyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getNameOwner_ self
-    fun getObjectPath self = (GioDBusProxyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
+    fun getCachedProperty self propertyName = (GioDBusProxyClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromPtr true) getCachedProperty_ (self & propertyName)
+    fun getCachedPropertyNames self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) getCachedPropertyNames_ self
+    fun getConnection self = (GioDBusProxyClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
+    fun getDefaultTimeout self = (GioDBusProxyClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getDefaultTimeout_ self
+    fun getFlags self = (GioDBusProxyClass.FFI.withPtr false ---> GioDBusProxyFlags.FFI.fromVal) getFlags_ self
+    fun getInterfaceInfo self = (GioDBusProxyClass.FFI.withPtr false ---> GioDBusInterfaceInfoRecord.FFI.fromPtr true) getInterfaceInfo_ self
+    fun getInterfaceName self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getInterfaceName_ self
+    fun getName self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getNameOwner self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getNameOwner_ self
+    fun getObjectPath self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
     fun setCachedProperty self (propertyName, value) =
       (
-        GioDBusProxyClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withOptPtr
+        GioDBusProxyClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withOptPtr false
          ---> I
       )
         setCachedProperty_
@@ -449,8 +449,8 @@ structure GioDBusProxy :>
            & propertyName
            & value
         )
-    fun setDefaultTimeout self timeoutMsec = (GioDBusProxyClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setDefaultTimeout_ (self & timeoutMsec)
-    fun setInterfaceInfo self info = (GioDBusProxyClass.FFI.withPtr &&&> GioDBusInterfaceInfoRecord.FFI.withOptPtr ---> I) setInterfaceInfo_ (self & info)
+    fun setDefaultTimeout self timeoutMsec = (GioDBusProxyClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setDefaultTimeout_ (self & timeoutMsec)
+    fun setInterfaceInfo self info = (GioDBusProxyClass.FFI.withPtr false &&&> GioDBusInterfaceInfoRecord.FFI.withOptPtr false ---> I) setInterfaceInfo_ (self & info)
     local
       open ClosureMarshal Signal
     in

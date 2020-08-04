@@ -181,7 +181,7 @@ structure GioSettings :>
     type settings_schema_t = GioSettingsSchemaRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new schemaId = (Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) new_ schemaId
+    fun new schemaId = (Utf8.FFI.withPtr 0 ---> GioSettingsClass.FFI.fromPtr true) new_ schemaId
     fun newFull
       (
         schema,
@@ -189,9 +189,9 @@ structure GioSettings :>
         path
       ) =
       (
-        GioSettingsSchemaRecord.FFI.withPtr
-         &&&> GioSettingsBackendRecord.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+        GioSettingsSchemaRecord.FFI.withPtr false
+         &&&> GioSettingsBackendRecord.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GioSettingsClass.FFI.fromPtr true
       )
         newFull_
@@ -200,7 +200,7 @@ structure GioSettings :>
            & backend
            & path
         )
-    fun newWithBackend (schemaId, backend) = (Utf8.FFI.withPtr &&&> GioSettingsBackendRecord.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithBackend_ (schemaId & backend)
+    fun newWithBackend (schemaId, backend) = (Utf8.FFI.withPtr 0 &&&> GioSettingsBackendRecord.FFI.withPtr false ---> GioSettingsClass.FFI.fromPtr true) newWithBackend_ (schemaId & backend)
     fun newWithBackendAndPath
       (
         schemaId,
@@ -208,9 +208,9 @@ structure GioSettings :>
         path
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> GioSettingsBackendRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> GioSettingsBackendRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          ---> GioSettingsClass.FFI.fromPtr true
       )
         newWithBackendAndPath_
@@ -219,12 +219,12 @@ structure GioSettings :>
            & backend
            & path
         )
-    fun newWithPath (schemaId, path) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) newWithPath_ (schemaId & path)
+    fun newWithPath (schemaId, path) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GioSettingsClass.FFI.fromPtr true) newWithPath_ (schemaId & path)
     fun listRelocatableSchemas () = (I ---> Utf8CPtrArray.FFI.fromPtr 0) listRelocatableSchemas_ ()
     fun listSchemas () = (I ---> Utf8CPtrArray.FFI.fromPtr 0) listSchemas_ ()
     fun sync () = (I ---> I) sync_ ()
-    fun unbind (object, property) = (GObjectObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) unbind_ (object & property)
-    fun apply self = (GioSettingsClass.FFI.withPtr ---> I) apply_ self
+    fun unbind (object, property) = (GObjectObjectClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) unbind_ (object & property)
+    fun apply self = (GioSettingsClass.FFI.withPtr false ---> I) apply_ self
     fun bind
       self
       (
@@ -234,10 +234,10 @@ structure GioSettings :>
         flags
       ) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectObjectClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GioSettingsBindFlags.FFI.withVal
          ---> I
       )
@@ -258,10 +258,10 @@ structure GioSettings :>
         inverted
       ) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectObjectClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -273,32 +273,32 @@ structure GioSettings :>
            & property
            & inverted
         )
-    fun createAction self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioActionClass.FFI.fromPtr true) createAction_ (self & key)
-    fun delay self = (GioSettingsClass.FFI.withPtr ---> I) delay_ self
-    fun getBoolean self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) getBoolean_ (self & key)
-    fun getChild self name = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsClass.FFI.fromPtr true) getChild_ (self & name)
-    fun getDefaultValue self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getDefaultValue_ (self & key)
-    fun getDouble self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GDouble.FFI.fromVal) getDouble_ (self & key)
-    fun getEnum self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) getEnum_ (self & key)
-    fun getFlags self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt.FFI.fromVal) getFlags_ (self & key)
-    fun getHasUnapplied self = (GioSettingsClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasUnapplied_ self
-    fun getInt self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt.FFI.fromVal) getInt_ (self & key)
-    fun getInt64 self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt64.FFI.fromVal) getInt64_ (self & key)
-    fun getRange self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getRange_ (self & key)
-    fun getString self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getString_ (self & key)
-    fun getStrv self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getStrv_ (self & key)
-    fun getUint self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt.FFI.fromVal) getUint_ (self & key)
-    fun getUint64 self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt64.FFI.fromVal) getUint64_ (self & key)
-    fun getUserValue self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getUserValue_ (self & key)
-    fun getValue self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr true) getValue_ (self & key)
-    fun isWritable self name = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) isWritable_ (self & name)
-    fun listChildren self = (GioSettingsClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) listChildren_ self
-    fun listKeys self = (GioSettingsClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) listKeys_ self
+    fun createAction self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioActionClass.FFI.fromPtr true) createAction_ (self & key)
+    fun delay self = (GioSettingsClass.FFI.withPtr false ---> I) delay_ self
+    fun getBoolean self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) getBoolean_ (self & key)
+    fun getChild self name = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioSettingsClass.FFI.fromPtr true) getChild_ (self & name)
+    fun getDefaultValue self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromOptPtr true) getDefaultValue_ (self & key)
+    fun getDouble self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GDouble.FFI.fromVal) getDouble_ (self & key)
+    fun getEnum self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal) getEnum_ (self & key)
+    fun getFlags self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GUInt.FFI.fromVal) getFlags_ (self & key)
+    fun getHasUnapplied self = (GioSettingsClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasUnapplied_ self
+    fun getInt self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal) getInt_ (self & key)
+    fun getInt64 self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GInt64.FFI.fromVal) getInt64_ (self & key)
+    fun getRange self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromPtr true) getRange_ (self & key)
+    fun getString self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) getString_ (self & key)
+    fun getStrv self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) getStrv_ (self & key)
+    fun getUint self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GUInt.FFI.fromVal) getUint_ (self & key)
+    fun getUint64 self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GUInt64.FFI.fromVal) getUint64_ (self & key)
+    fun getUserValue self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromOptPtr true) getUserValue_ (self & key)
+    fun getValue self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromPtr true) getValue_ (self & key)
+    fun isWritable self name = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) isWritable_ (self & name)
+    fun listChildren self = (GioSettingsClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) listChildren_ self
+    fun listKeys self = (GioSettingsClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) listKeys_ self
     fun rangeCheck self (key, value) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         rangeCheck_
@@ -307,12 +307,12 @@ structure GioSettings :>
            & key
            & value
         )
-    fun reset self key = (GioSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) reset_ (self & key)
-    fun revert self = (GioSettingsClass.FFI.withPtr ---> I) revert_ self
+    fun reset self key = (GioSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) reset_ (self & key)
+    fun revert self = (GioSettingsClass.FFI.withPtr false ---> I) revert_ self
     fun setBoolean self (key, value) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GBool.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -324,8 +324,8 @@ structure GioSettings :>
         )
     fun setDouble self (key, value) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GDouble.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -337,8 +337,8 @@ structure GioSettings :>
         )
     fun setEnum self (key, value) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -350,8 +350,8 @@ structure GioSettings :>
         )
     fun setFlags self (key, value) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -363,8 +363,8 @@ structure GioSettings :>
         )
     fun setInt self (key, value) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -376,8 +376,8 @@ structure GioSettings :>
         )
     fun setInt64 self (key, value) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt64.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -389,9 +389,9 @@ structure GioSettings :>
         )
     fun setString self (key, value) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> GBool.FFI.fromVal
       )
         setString_
@@ -402,9 +402,9 @@ structure GioSettings :>
         )
     fun setStrv self (key, value) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8CPtrArray.FFI.withOptPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8CPtrArray.FFI.withOptPtr 0
          ---> GBool.FFI.fromVal
       )
         setStrv_
@@ -415,8 +415,8 @@ structure GioSettings :>
         )
     fun setUint self (key, value) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -428,8 +428,8 @@ structure GioSettings :>
         )
     fun setUint64 self (key, value) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt64.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -441,9 +441,9 @@ structure GioSettings :>
         )
     fun setValue self (key, value) =
       (
-        GioSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withPtr
+        GioSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         setValue_

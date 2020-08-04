@@ -55,9 +55,9 @@ structure Signal :>
 
     fun signalConnectClosure instance detailedSignal closure after =
       (
-        GObjectObjectClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectClosureRecord.FFI.withPtr
+        GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectClosureRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -71,7 +71,7 @@ structure Signal :>
 
     fun signalHandlerDisconnect instance handlerId =
       (
-        GObjectObjectClass.FFI.withPtr
+        GObjectObjectClass.FFI.withPtr false
          &&&> I
          ---> I
       )
@@ -80,7 +80,7 @@ structure Signal :>
 
     fun signalHandlerIsConnected instance handlerId =
       (
-        GObjectObjectClass.FFI.withPtr
+        GObjectObjectClass.FFI.withPtr false
          &&&> I
          ---> GBool.FFI.fromVal
       )

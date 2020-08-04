@@ -79,7 +79,7 @@ structure GtkAccelMap :>
         accelMods
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GUInt32.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
          ---> I
@@ -90,7 +90,7 @@ structure GtkAccelMap :>
            & accelKey
            & accelMods
         )
-    fun addFilter filterPattern = (Utf8.FFI.withPtr ---> I) addFilter_ filterPattern
+    fun addFilter filterPattern = (Utf8.FFI.withPtr 0 ---> I) addFilter_ filterPattern
     fun changeEntry
       (
         accelPath,
@@ -99,7 +99,7 @@ structure GtkAccelMap :>
         replace
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GUInt32.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
          &&&> GBool.FFI.withVal
@@ -113,18 +113,18 @@ structure GtkAccelMap :>
            & replace
         )
     fun get () = (I ---> GtkAccelMapClass.FFI.fromPtr false) get_ ()
-    fun load fileName = (Utf8.FFI.withPtr ---> I) load_ fileName
+    fun load fileName = (Utf8.FFI.withPtr 0 ---> I) load_ fileName
     fun loadFd fd = (GInt32.FFI.withVal ---> I) loadFd_ fd
-    fun lockPath accelPath = (Utf8.FFI.withPtr ---> I) lockPath_ accelPath
+    fun lockPath accelPath = (Utf8.FFI.withPtr 0 ---> I) lockPath_ accelPath
     fun lookupEntry accelPath =
       let
-        val key & retVal = (Utf8.FFI.withPtr &&&> GtkAccelKeyRecord.FFI.withNewPtr ---> GtkAccelKeyRecord.FFI.fromPtr true && GBool.FFI.fromVal) lookupEntry_ (accelPath & ())
+        val key & retVal = (Utf8.FFI.withPtr 0 &&&> GtkAccelKeyRecord.FFI.withNewPtr ---> GtkAccelKeyRecord.FFI.fromPtr true && GBool.FFI.fromVal) lookupEntry_ (accelPath & ())
       in
         if retVal then SOME key else NONE
       end
-    fun save fileName = (Utf8.FFI.withPtr ---> I) save_ fileName
+    fun save fileName = (Utf8.FFI.withPtr 0 ---> I) save_ fileName
     fun saveFd fd = (GInt32.FFI.withVal ---> I) saveFd_ fd
-    fun unlockPath accelPath = (Utf8.FFI.withPtr ---> I) unlockPath_ accelPath
+    fun unlockPath accelPath = (Utf8.FFI.withPtr 0 ---> I) unlockPath_ accelPath
     local
       open ClosureMarshal Signal
     in

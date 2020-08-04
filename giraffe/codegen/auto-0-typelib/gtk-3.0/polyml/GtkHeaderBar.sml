@@ -28,24 +28,24 @@ structure GtkHeaderBar :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkHeaderBarClass.FFI.fromPtr false) new_ ()
-    fun getCustomTitle self = (GtkHeaderBarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getCustomTitle_ self
-    fun getDecorationLayout self = (GtkHeaderBarClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDecorationLayout_ self
-    fun getHasSubtitle self = (GtkHeaderBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasSubtitle_ self
-    fun getShowCloseButton self = (GtkHeaderBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowCloseButton_ self
-    fun getSubtitle self = (GtkHeaderBarClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getSubtitle_ self
-    fun getTitle self = (GtkHeaderBarClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getTitle_ self
-    fun packEnd self child = (GtkHeaderBarClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) packEnd_ (self & child)
-    fun packStart self child = (GtkHeaderBarClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) packStart_ (self & child)
-    fun setCustomTitle self titleWidget = (GtkHeaderBarClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setCustomTitle_ (self & titleWidget)
-    fun setDecorationLayout self layout = (GtkHeaderBarClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setDecorationLayout_ (self & layout)
-    fun setHasSubtitle self setting = (GtkHeaderBarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasSubtitle_ (self & setting)
-    fun setShowCloseButton self setting = (GtkHeaderBarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowCloseButton_ (self & setting)
-    fun setSubtitle self subtitle = (GtkHeaderBarClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setSubtitle_ (self & subtitle)
-    fun setTitle self title = (GtkHeaderBarClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTitle_ (self & title)
+    fun getCustomTitle self = (GtkHeaderBarClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getCustomTitle_ self
+    fun getDecorationLayout self = (GtkHeaderBarClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDecorationLayout_ self
+    fun getHasSubtitle self = (GtkHeaderBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasSubtitle_ self
+    fun getShowCloseButton self = (GtkHeaderBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowCloseButton_ self
+    fun getSubtitle self = (GtkHeaderBarClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getSubtitle_ self
+    fun getTitle self = (GtkHeaderBarClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getTitle_ self
+    fun packEnd self child = (GtkHeaderBarClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) packEnd_ (self & child)
+    fun packStart self child = (GtkHeaderBarClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) packStart_ (self & child)
+    fun setCustomTitle self titleWidget = (GtkHeaderBarClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setCustomTitle_ (self & titleWidget)
+    fun setDecorationLayout self layout = (GtkHeaderBarClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setDecorationLayout_ (self & layout)
+    fun setHasSubtitle self setting = (GtkHeaderBarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasSubtitle_ (self & setting)
+    fun setShowCloseButton self setting = (GtkHeaderBarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowCloseButton_ (self & setting)
+    fun setSubtitle self subtitle = (GtkHeaderBarClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setSubtitle_ (self & subtitle)
+    fun setTitle self title = (GtkHeaderBarClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setTitle_ (self & title)
     local
       open Property
     in

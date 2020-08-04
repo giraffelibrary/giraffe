@@ -33,14 +33,14 @@ structure GObjectValueArray :>
     type value_t = GObjectValueRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new nPrealloced = (GUInt.FFI.withVal ---> GObjectValueArrayRecord.FFI.fromPtr true) new_ nPrealloced
-    fun append self value = (GObjectValueArrayRecord.FFI.withPtr &&&> GObjectValueRecord.FFI.withOptPtr ---> GObjectValueArrayRecord.FFI.fromPtr false) append_ (self & value)
-    fun copy self = (GObjectValueArrayRecord.FFI.withPtr ---> GObjectValueArrayRecord.FFI.fromPtr true) copy_ self
-    fun getNth self index = (GObjectValueArrayRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> GObjectValueRecord.FFI.fromPtr false) getNth_ (self & index)
+    fun append self value = (GObjectValueArrayRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withOptPtr false ---> GObjectValueArrayRecord.FFI.fromPtr false) append_ (self & value)
+    fun copy self = (GObjectValueArrayRecord.FFI.withPtr false ---> GObjectValueArrayRecord.FFI.fromPtr true) copy_ self
+    fun getNth self index = (GObjectValueArrayRecord.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GObjectValueRecord.FFI.fromPtr false) getNth_ (self & index)
     fun insert self (index, value) =
       (
-        GObjectValueArrayRecord.FFI.withPtr
+        GObjectValueArrayRecord.FFI.withPtr false
          &&&> GUInt.FFI.withVal
-         &&&> GObjectValueRecord.FFI.withOptPtr
+         &&&> GObjectValueRecord.FFI.withOptPtr false
          ---> GObjectValueArrayRecord.FFI.fromPtr false
       )
         insert_
@@ -49,6 +49,6 @@ structure GObjectValueArray :>
            & index
            & value
         )
-    fun prepend self value = (GObjectValueArrayRecord.FFI.withPtr &&&> GObjectValueRecord.FFI.withOptPtr ---> GObjectValueArrayRecord.FFI.fromPtr false) prepend_ (self & value)
-    fun remove self index = (GObjectValueArrayRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> GObjectValueArrayRecord.FFI.fromPtr false) remove_ (self & index)
+    fun prepend self value = (GObjectValueArrayRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withOptPtr false ---> GObjectValueArrayRecord.FFI.fromPtr false) prepend_ (self & value)
+    fun remove self index = (GObjectValueArrayRecord.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GObjectValueArrayRecord.FFI.fromPtr false) remove_ (self & index)
   end

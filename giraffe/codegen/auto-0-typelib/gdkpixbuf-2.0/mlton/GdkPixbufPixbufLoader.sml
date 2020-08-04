@@ -104,15 +104,15 @@ structure GdkPixbufPixbufLoader :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) new_ ()
-    fun newWithMimeType mimeType = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) newWithMimeType_ (mimeType & [])
-    fun newWithType imageType = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) newWithType_ (imageType & [])
-    fun close self = (GdkPixbufPixbufLoaderClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) close_ (self & [])
-    fun getAnimation self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr false) getAnimation_ self
-    fun getFormat self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufFormatRecord.FFI.fromOptPtr false) getFormat_ self
-    fun getPixbuf self = (GdkPixbufPixbufLoaderClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
+    fun newWithMimeType mimeType = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) newWithMimeType_ (mimeType & [])
+    fun newWithType imageType = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) newWithType_ (imageType & [])
+    fun close self = (GdkPixbufPixbufLoaderClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) close_ (self & [])
+    fun getAnimation self = (GdkPixbufPixbufLoaderClass.FFI.withPtr false ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr false) getAnimation_ self
+    fun getFormat self = (GdkPixbufPixbufLoaderClass.FFI.withPtr false ---> GdkPixbufPixbufFormatRecord.FFI.fromOptPtr false) getFormat_ self
+    fun getPixbuf self = (GdkPixbufPixbufLoaderClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
     fun setSize self (width, height) =
       (
-        GdkPixbufPixbufLoaderClass.FFI.withPtr
+        GdkPixbufPixbufLoaderClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I
@@ -128,8 +128,8 @@ structure GdkPixbufPixbufLoader :>
         val count = LargeInt.fromInt (GUInt8CArrayN.length buf)
         val () =
           (
-            GdkPixbufPixbufLoaderClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GdkPixbufPixbufLoaderClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GUInt64.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> ignore
@@ -146,8 +146,8 @@ structure GdkPixbufPixbufLoader :>
       end
     fun writeBytes self buffer =
       (
-        GdkPixbufPixbufLoaderClass.FFI.withPtr
-         &&&> GLibBytesRecord.FFI.withPtr
+        GdkPixbufPixbufLoaderClass.FFI.withPtr false
+         &&&> GLibBytesRecord.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

@@ -29,12 +29,12 @@ structure GLibMarkupParseContext :>
             )
     type t = GLibMarkupParseContextRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun endParse self = (GLibMarkupParseContextRecord.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) endParse_ (self & [])
-    fun getElement self = (GLibMarkupParseContextRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getElement_ self
+    fun endParse self = (GLibMarkupParseContextRecord.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) endParse_ (self & [])
+    fun getElement self = (GLibMarkupParseContextRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getElement_ self
     fun parse self (text, textLen) =
       (
-        GLibMarkupParseContextRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GLibMarkupParseContextRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt64.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> ignore

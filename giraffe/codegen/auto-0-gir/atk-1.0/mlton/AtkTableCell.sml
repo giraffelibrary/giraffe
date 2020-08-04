@@ -51,14 +51,14 @@ structure AtkTableCell :>
     type 'a object_class = 'a AtkObjectClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getColumnSpan self = (AtkTableCellClass.FFI.withPtr ---> GInt.FFI.fromVal) getColumnSpan_ self
+    fun getColumnSpan self = (AtkTableCellClass.FFI.withPtr false ---> GInt.FFI.fromVal) getColumnSpan_ self
     fun getPosition self =
       let
         val row
          & column
          & retVal =
           (
-            AtkTableCellClass.FFI.withPtr
+            AtkTableCellClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -82,7 +82,7 @@ structure AtkTableCell :>
          & columnSpan
          & retVal =
           (
-            AtkTableCellClass.FFI.withPtr
+            AtkTableCellClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -113,6 +113,6 @@ structure AtkTableCell :>
             )
         else NONE
       end
-    fun getRowSpan self = (AtkTableCellClass.FFI.withPtr ---> GInt.FFI.fromVal) getRowSpan_ self
-    fun getTable self = (AtkTableCellClass.FFI.withPtr ---> AtkObjectClass.FFI.fromPtr true) getTable_ self
+    fun getRowSpan self = (AtkTableCellClass.FFI.withPtr false ---> GInt.FFI.fromVal) getRowSpan_ self
+    fun getTable self = (AtkTableCellClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr true) getTable_ self
   end

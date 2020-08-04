@@ -178,15 +178,15 @@ structure GioDataOutputStream :>
     type 'a cancellable_class = 'a GioCancellableClass.class
     type data_stream_byte_order_t = GioDataStreamByteOrder.t
     type t = base class
-    fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
+    fun asSeekable self = (GObjectObjectClass.FFI.withPtr false ---> GioSeekableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new baseStream = (GioOutputStreamClass.FFI.withPtr ---> GioDataOutputStreamClass.FFI.fromPtr true) new_ baseStream
-    fun getByteOrder self = (GioDataOutputStreamClass.FFI.withPtr ---> GioDataStreamByteOrder.FFI.fromVal) getByteOrder_ self
+    fun new baseStream = (GioOutputStreamClass.FFI.withPtr false ---> GioDataOutputStreamClass.FFI.fromPtr true) new_ baseStream
+    fun getByteOrder self = (GioDataOutputStreamClass.FFI.withPtr false ---> GioDataStreamByteOrder.FFI.fromVal) getByteOrder_ self
     fun putByte self (data, cancellable) =
       (
-        GioDataOutputStreamClass.FFI.withPtr
+        GioDataOutputStreamClass.FFI.withPtr false
          &&&> GUInt8.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -199,9 +199,9 @@ structure GioDataOutputStream :>
         )
     fun putInt16 self (data, cancellable) =
       (
-        GioDataOutputStreamClass.FFI.withPtr
+        GioDataOutputStreamClass.FFI.withPtr false
          &&&> GInt16.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -214,9 +214,9 @@ structure GioDataOutputStream :>
         )
     fun putInt32 self (data, cancellable) =
       (
-        GioDataOutputStreamClass.FFI.withPtr
+        GioDataOutputStreamClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -229,9 +229,9 @@ structure GioDataOutputStream :>
         )
     fun putInt64 self (data, cancellable) =
       (
-        GioDataOutputStreamClass.FFI.withPtr
+        GioDataOutputStreamClass.FFI.withPtr false
          &&&> GInt64.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -244,9 +244,9 @@ structure GioDataOutputStream :>
         )
     fun putString self (str, cancellable) =
       (
-        GioDataOutputStreamClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioDataOutputStreamClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -259,9 +259,9 @@ structure GioDataOutputStream :>
         )
     fun putUint16 self (data, cancellable) =
       (
-        GioDataOutputStreamClass.FFI.withPtr
+        GioDataOutputStreamClass.FFI.withPtr false
          &&&> GUInt16.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -274,9 +274,9 @@ structure GioDataOutputStream :>
         )
     fun putUint32 self (data, cancellable) =
       (
-        GioDataOutputStreamClass.FFI.withPtr
+        GioDataOutputStreamClass.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -289,9 +289,9 @@ structure GioDataOutputStream :>
         )
     fun putUint64 self (data, cancellable) =
       (
-        GioDataOutputStreamClass.FFI.withPtr
+        GioDataOutputStreamClass.FFI.withPtr false
          &&&> GUInt64.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -302,7 +302,7 @@ structure GioDataOutputStream :>
            & cancellable
            & []
         )
-    fun setByteOrder self order = (GioDataOutputStreamClass.FFI.withPtr &&&> GioDataStreamByteOrder.FFI.withVal ---> I) setByteOrder_ (self & order)
+    fun setByteOrder self order = (GioDataOutputStreamClass.FFI.withPtr false &&&> GioDataStreamByteOrder.FFI.withVal ---> I) setByteOrder_ (self & order)
     local
       open Property
     in

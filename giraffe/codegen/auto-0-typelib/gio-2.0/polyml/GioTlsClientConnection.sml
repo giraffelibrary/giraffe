@@ -33,8 +33,8 @@ structure GioTlsClientConnection :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (baseIoStream, serverIdentity) =
       (
-        GioIOStreamClass.FFI.withPtr
-         &&&> GioSocketConnectableClass.FFI.withOptPtr
+        GioIOStreamClass.FFI.withPtr false
+         &&&> GioSocketConnectableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioTlsClientConnectionClass.FFI.fromPtr true
       )
@@ -44,13 +44,13 @@ structure GioTlsClientConnection :>
            & serverIdentity
            & []
         )
-    fun copySessionState self source = (GioTlsClientConnectionClass.FFI.withPtr &&&> GioTlsClientConnectionClass.FFI.withPtr ---> I) copySessionState_ (self & source)
-    fun getServerIdentity self = (GioTlsClientConnectionClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) getServerIdentity_ self
-    fun getUseSsl3 self = (GioTlsClientConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseSsl3_ self
-    fun getValidationFlags self = (GioTlsClientConnectionClass.FFI.withPtr ---> GioTlsCertificateFlags.FFI.fromVal) getValidationFlags_ self
-    fun setServerIdentity self identity = (GioTlsClientConnectionClass.FFI.withPtr &&&> GioSocketConnectableClass.FFI.withPtr ---> I) setServerIdentity_ (self & identity)
-    fun setUseSsl3 self useSsl3 = (GioTlsClientConnectionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseSsl3_ (self & useSsl3)
-    fun setValidationFlags self flags = (GioTlsClientConnectionClass.FFI.withPtr &&&> GioTlsCertificateFlags.FFI.withVal ---> I) setValidationFlags_ (self & flags)
+    fun copySessionState self source = (GioTlsClientConnectionClass.FFI.withPtr false &&&> GioTlsClientConnectionClass.FFI.withPtr false ---> I) copySessionState_ (self & source)
+    fun getServerIdentity self = (GioTlsClientConnectionClass.FFI.withPtr false ---> GioSocketConnectableClass.FFI.fromPtr false) getServerIdentity_ self
+    fun getUseSsl3 self = (GioTlsClientConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseSsl3_ self
+    fun getValidationFlags self = (GioTlsClientConnectionClass.FFI.withPtr false ---> GioTlsCertificateFlags.FFI.fromVal) getValidationFlags_ self
+    fun setServerIdentity self identity = (GioTlsClientConnectionClass.FFI.withPtr false &&&> GioSocketConnectableClass.FFI.withPtr false ---> I) setServerIdentity_ (self & identity)
+    fun setUseSsl3 self useSsl3 = (GioTlsClientConnectionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseSsl3_ (self & useSsl3)
+    fun setValidationFlags self flags = (GioTlsClientConnectionClass.FFI.withPtr false &&&> GioTlsCertificateFlags.FFI.withVal ---> I) setValidationFlags_ (self & flags)
     local
       open Property
     in

@@ -213,16 +213,16 @@ structure GtkTreeModel :>
     type tree_path_t = GtkTreePathRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun filterNew self root = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withOptPtr ---> GtkTreeModelClass.FFI.fromPtr true) filterNew_ (self & root)
-    fun getColumnType self index = (GtkTreeModelClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GObjectType.FFI.fromVal) getColumnType_ (self & index)
-    fun getFlags self = (GtkTreeModelClass.FFI.withPtr ---> GtkTreeModelFlags.FFI.fromVal) getFlags_ self
+    fun filterNew self root = (GtkTreeModelClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withOptPtr false ---> GtkTreeModelClass.FFI.fromPtr true) filterNew_ (self & root)
+    fun getColumnType self index = (GtkTreeModelClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GObjectType.FFI.fromVal) getColumnType_ (self & index)
+    fun getFlags self = (GtkTreeModelClass.FFI.withPtr false ---> GtkTreeModelFlags.FFI.fromVal) getFlags_ self
     fun getIter self path =
       let
         val iter & retVal =
           (
-            GtkTreeModelClass.FFI.withPtr
+            GtkTreeModelClass.FFI.withPtr false
              &&&> GtkTreeIterRecord.FFI.withNewPtr
-             &&&> GtkTreePathRecord.FFI.withPtr
+             &&&> GtkTreePathRecord.FFI.withPtr false
              ---> GtkTreeIterRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             getIter_
@@ -236,7 +236,7 @@ structure GtkTreeModel :>
       end
     fun getIterFirst self =
       let
-        val iter & retVal = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withNewPtr ---> GtkTreeIterRecord.FFI.fromPtr true && GBool.FFI.fromVal) getIterFirst_ (self & ())
+        val iter & retVal = (GtkTreeModelClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withNewPtr ---> GtkTreeIterRecord.FFI.fromPtr true && GBool.FFI.fromVal) getIterFirst_ (self & ())
       in
         if retVal then SOME iter else NONE
       end
@@ -244,9 +244,9 @@ structure GtkTreeModel :>
       let
         val iter & retVal =
           (
-            GtkTreeModelClass.FFI.withPtr
+            GtkTreeModelClass.FFI.withPtr false
              &&&> GtkTreeIterRecord.FFI.withNewPtr
-             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr 0
              ---> GtkTreeIterRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             getIterFromString_
@@ -258,15 +258,15 @@ structure GtkTreeModel :>
       in
         if retVal then SOME iter else NONE
       end
-    fun getNColumns self = (GtkTreeModelClass.FFI.withPtr ---> GInt.FFI.fromVal) getNColumns_ self
-    fun getPath self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) getPath_ (self & iter)
-    fun getStringFromIter self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getStringFromIter_ (self & iter)
+    fun getNColumns self = (GtkTreeModelClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNColumns_ self
+    fun getPath self iter = (GtkTreeModelClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withPtr false ---> GtkTreePathRecord.FFI.fromPtr true) getPath_ (self & iter)
+    fun getStringFromIter self iter = (GtkTreeModelClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getStringFromIter_ (self & iter)
     fun getValue self (iter, column) =
       let
         val value & () =
           (
-            GtkTreeModelClass.FFI.withPtr
-             &&&> GtkTreeIterRecord.FFI.withPtr
+            GtkTreeModelClass.FFI.withPtr false
+             &&&> GtkTreeIterRecord.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GObjectValueRecord.FFI.withNewPtr
              ---> GObjectValueRecord.FFI.fromPtr true && I
@@ -285,9 +285,9 @@ structure GtkTreeModel :>
       let
         val iter & retVal =
           (
-            GtkTreeModelClass.FFI.withPtr
+            GtkTreeModelClass.FFI.withPtr false
              &&&> GtkTreeIterRecord.FFI.withNewPtr
-             &&&> GtkTreeIterRecord.FFI.withOptPtr
+             &&&> GtkTreeIterRecord.FFI.withOptPtr false
              ---> GtkTreeIterRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             iterChildren_
@@ -299,16 +299,16 @@ structure GtkTreeModel :>
       in
         if retVal then SOME iter else NONE
       end
-    fun iterHasChild self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) iterHasChild_ (self & iter)
-    fun iterNChildren self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withOptPtr ---> GInt.FFI.fromVal) iterNChildren_ (self & iter)
-    fun iterNext self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) iterNext_ (self & iter)
+    fun iterHasChild self iter = (GtkTreeModelClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) iterHasChild_ (self & iter)
+    fun iterNChildren self iter = (GtkTreeModelClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withOptPtr false ---> GInt.FFI.fromVal) iterNChildren_ (self & iter)
+    fun iterNext self iter = (GtkTreeModelClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) iterNext_ (self & iter)
     fun iterNthChild self (parent, n) =
       let
         val iter & retVal =
           (
-            GtkTreeModelClass.FFI.withPtr
+            GtkTreeModelClass.FFI.withPtr false
              &&&> GtkTreeIterRecord.FFI.withNewPtr
-             &&&> GtkTreeIterRecord.FFI.withOptPtr
+             &&&> GtkTreeIterRecord.FFI.withOptPtr false
              &&&> GInt.FFI.withVal
              ---> GtkTreeIterRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
@@ -326,9 +326,9 @@ structure GtkTreeModel :>
       let
         val iter & retVal =
           (
-            GtkTreeModelClass.FFI.withPtr
+            GtkTreeModelClass.FFI.withPtr false
              &&&> GtkTreeIterRecord.FFI.withNewPtr
-             &&&> GtkTreeIterRecord.FFI.withPtr
+             &&&> GtkTreeIterRecord.FFI.withPtr false
              ---> GtkTreeIterRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
             iterParent_
@@ -340,13 +340,13 @@ structure GtkTreeModel :>
       in
         if retVal then SOME iter else NONE
       end
-    fun iterPrevious self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) iterPrevious_ (self & iter)
-    fun refNode self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> I) refNode_ (self & iter)
+    fun iterPrevious self iter = (GtkTreeModelClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) iterPrevious_ (self & iter)
+    fun refNode self iter = (GtkTreeModelClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withPtr false ---> I) refNode_ (self & iter)
     fun rowChanged self (path, iter) =
       (
-        GtkTreeModelClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withPtr
-         &&&> GtkTreeIterRecord.FFI.withPtr
+        GtkTreeModelClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withPtr false
+         &&&> GtkTreeIterRecord.FFI.withPtr false
          ---> I
       )
         rowChanged_
@@ -355,12 +355,12 @@ structure GtkTreeModel :>
            & path
            & iter
         )
-    fun rowDeleted self path = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) rowDeleted_ (self & path)
+    fun rowDeleted self path = (GtkTreeModelClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> I) rowDeleted_ (self & path)
     fun rowHasChildToggled self (path, iter) =
       (
-        GtkTreeModelClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withPtr
-         &&&> GtkTreeIterRecord.FFI.withPtr
+        GtkTreeModelClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withPtr false
+         &&&> GtkTreeIterRecord.FFI.withPtr false
          ---> I
       )
         rowHasChildToggled_
@@ -371,9 +371,9 @@ structure GtkTreeModel :>
         )
     fun rowInserted self (path, iter) =
       (
-        GtkTreeModelClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withPtr
-         &&&> GtkTreeIterRecord.FFI.withPtr
+        GtkTreeModelClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withPtr false
+         &&&> GtkTreeIterRecord.FFI.withPtr false
          ---> I
       )
         rowInserted_
@@ -393,10 +393,10 @@ structure GtkTreeModel :>
         val length = LargeInt.fromInt (GIntCArrayN.length newOrder)
         val () =
           (
-            GtkTreeModelClass.FFI.withPtr
-             &&&> GtkTreePathRecord.FFI.withPtr
-             &&&> GtkTreeIterRecord.FFI.withOptPtr
-             &&&> GIntCArrayN.FFI.withPtr
+            GtkTreeModelClass.FFI.withPtr false
+             &&&> GtkTreePathRecord.FFI.withPtr false
+             &&&> GtkTreeIterRecord.FFI.withOptPtr false
+             &&&> GIntCArrayN.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              ---> I
           )
@@ -411,8 +411,8 @@ structure GtkTreeModel :>
       in
         ()
       end
-    fun sortNewWithModel self = (GtkTreeModelClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromPtr true) sortNewWithModel_ self
-    fun unrefNode self iter = (GtkTreeModelClass.FFI.withPtr &&&> GtkTreeIterRecord.FFI.withPtr ---> I) unrefNode_ (self & iter)
+    fun sortNewWithModel self = (GtkTreeModelClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromPtr true) sortNewWithModel_ self
+    fun unrefNode self iter = (GtkTreeModelClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withPtr false ---> I) unrefNode_ (self & iter)
     local
       open ClosureMarshal Signal
     in

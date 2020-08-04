@@ -40,9 +40,9 @@ structure GtkColorSelection :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a orientable_class = 'a GtkOrientableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkColorSelectionClass.FFI.fromPtr false) new_ ()
     fun paletteFromString str =
@@ -51,10 +51,10 @@ structure GtkColorSelection :>
          & nColors
          & retVal =
           (
-            Utf8.FFI.withPtr
-             &&&> GdkColorRecordCArrayN.FFI.withRefOptPtr
+            Utf8.FFI.withPtr 0
+             &&&> GdkColorRecordCArrayN.FFI.withRefOptPtr 0
              &&&> GInt.FFI.withRefVal
-             ---> GdkColorRecordCArrayN.FFI.fromPtr 1
+             ---> GdkColorRecordCArrayN.FFI.fromPtr ~1
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
           )
@@ -70,47 +70,47 @@ structure GtkColorSelection :>
     fun paletteToString colors =
       let
         val nColors = LargeInt.fromInt (GdkColorRecordCArrayN.length colors)
-        val retVal = (GdkColorRecordCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) paletteToString_ (colors & nColors)
+        val retVal = (GdkColorRecordCArrayN.FFI.withPtr 0 &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr ~1) paletteToString_ (colors & nColors)
       in
         retVal
       end
-    fun getCurrentAlpha self = (GtkColorSelectionClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getCurrentAlpha_ self
+    fun getCurrentAlpha self = (GtkColorSelectionClass.FFI.withPtr false ---> GUInt16.FFI.fromVal) getCurrentAlpha_ self
     fun getCurrentColor self =
       let
-        val color & () = (GtkColorSelectionClass.FFI.withPtr &&&> GdkColorRecord.FFI.withNewPtr ---> GdkColorRecord.FFI.fromPtr true && I) getCurrentColor_ (self & ())
+        val color & () = (GtkColorSelectionClass.FFI.withPtr false &&&> GdkColorRecord.FFI.withNewPtr ---> GdkColorRecord.FFI.fromPtr true && I) getCurrentColor_ (self & ())
       in
         color
       end
     fun getCurrentRgba self =
       let
-        val rgba & () = (GtkColorSelectionClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withNewPtr ---> GdkRgbaRecord.FFI.fromPtr true && I) getCurrentRgba_ (self & ())
+        val rgba & () = (GtkColorSelectionClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withNewPtr ---> GdkRgbaRecord.FFI.fromPtr true && I) getCurrentRgba_ (self & ())
       in
         rgba
       end
-    fun getHasOpacityControl self = (GtkColorSelectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasOpacityControl_ self
-    fun getHasPalette self = (GtkColorSelectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasPalette_ self
-    fun getPreviousAlpha self = (GtkColorSelectionClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getPreviousAlpha_ self
+    fun getHasOpacityControl self = (GtkColorSelectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasOpacityControl_ self
+    fun getHasPalette self = (GtkColorSelectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasPalette_ self
+    fun getPreviousAlpha self = (GtkColorSelectionClass.FFI.withPtr false ---> GUInt16.FFI.fromVal) getPreviousAlpha_ self
     fun getPreviousColor self =
       let
-        val color & () = (GtkColorSelectionClass.FFI.withPtr &&&> GdkColorRecord.FFI.withNewPtr ---> GdkColorRecord.FFI.fromPtr true && I) getPreviousColor_ (self & ())
+        val color & () = (GtkColorSelectionClass.FFI.withPtr false &&&> GdkColorRecord.FFI.withNewPtr ---> GdkColorRecord.FFI.fromPtr true && I) getPreviousColor_ (self & ())
       in
         color
       end
     fun getPreviousRgba self =
       let
-        val rgba & () = (GtkColorSelectionClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withNewPtr ---> GdkRgbaRecord.FFI.fromPtr true && I) getPreviousRgba_ (self & ())
+        val rgba & () = (GtkColorSelectionClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withNewPtr ---> GdkRgbaRecord.FFI.fromPtr true && I) getPreviousRgba_ (self & ())
       in
         rgba
       end
-    fun isAdjusting self = (GtkColorSelectionClass.FFI.withPtr ---> GBool.FFI.fromVal) isAdjusting_ self
-    fun setCurrentAlpha self alpha = (GtkColorSelectionClass.FFI.withPtr &&&> GUInt16.FFI.withVal ---> I) setCurrentAlpha_ (self & alpha)
-    fun setCurrentColor self color = (GtkColorSelectionClass.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) setCurrentColor_ (self & color)
-    fun setCurrentRgba self rgba = (GtkColorSelectionClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setCurrentRgba_ (self & rgba)
-    fun setHasOpacityControl self hasOpacity = (GtkColorSelectionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasOpacityControl_ (self & hasOpacity)
-    fun setHasPalette self hasPalette = (GtkColorSelectionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasPalette_ (self & hasPalette)
-    fun setPreviousAlpha self alpha = (GtkColorSelectionClass.FFI.withPtr &&&> GUInt16.FFI.withVal ---> I) setPreviousAlpha_ (self & alpha)
-    fun setPreviousColor self color = (GtkColorSelectionClass.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> I) setPreviousColor_ (self & color)
-    fun setPreviousRgba self rgba = (GtkColorSelectionClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setPreviousRgba_ (self & rgba)
+    fun isAdjusting self = (GtkColorSelectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) isAdjusting_ self
+    fun setCurrentAlpha self alpha = (GtkColorSelectionClass.FFI.withPtr false &&&> GUInt16.FFI.withVal ---> I) setCurrentAlpha_ (self & alpha)
+    fun setCurrentColor self color = (GtkColorSelectionClass.FFI.withPtr false &&&> GdkColorRecord.FFI.withPtr false ---> I) setCurrentColor_ (self & color)
+    fun setCurrentRgba self rgba = (GtkColorSelectionClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withPtr false ---> I) setCurrentRgba_ (self & rgba)
+    fun setHasOpacityControl self hasOpacity = (GtkColorSelectionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasOpacityControl_ (self & hasOpacity)
+    fun setHasPalette self hasPalette = (GtkColorSelectionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasPalette_ (self & hasPalette)
+    fun setPreviousAlpha self alpha = (GtkColorSelectionClass.FFI.withPtr false &&&> GUInt16.FFI.withVal ---> I) setPreviousAlpha_ (self & alpha)
+    fun setPreviousColor self color = (GtkColorSelectionClass.FFI.withPtr false &&&> GdkColorRecord.FFI.withPtr false ---> I) setPreviousColor_ (self & color)
+    fun setPreviousRgba self rgba = (GtkColorSelectionClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withPtr false ---> I) setPreviousRgba_ (self & rgba)
     local
       open ClosureMarshal Signal
     in

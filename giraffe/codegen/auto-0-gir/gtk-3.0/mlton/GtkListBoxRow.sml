@@ -19,19 +19,19 @@ structure GtkListBoxRow :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkListBoxRowClass.FFI.fromPtr false) new_ ()
-    fun changed self = (GtkListBoxRowClass.FFI.withPtr ---> I) changed_ self
-    fun getActivatable self = (GtkListBoxRowClass.FFI.withPtr ---> GBool.FFI.fromVal) getActivatable_ self
-    fun getHeader self = (GtkListBoxRowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getHeader_ self
-    fun getIndex self = (GtkListBoxRowClass.FFI.withPtr ---> GInt.FFI.fromVal) getIndex_ self
-    fun getSelectable self = (GtkListBoxRowClass.FFI.withPtr ---> GBool.FFI.fromVal) getSelectable_ self
-    fun isSelected self = (GtkListBoxRowClass.FFI.withPtr ---> GBool.FFI.fromVal) isSelected_ self
-    fun setActivatable self activatable = (GtkListBoxRowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActivatable_ (self & activatable)
-    fun setHeader self header = (GtkListBoxRowClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setHeader_ (self & header)
-    fun setSelectable self selectable = (GtkListBoxRowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSelectable_ (self & selectable)
+    fun changed self = (GtkListBoxRowClass.FFI.withPtr false ---> I) changed_ self
+    fun getActivatable self = (GtkListBoxRowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActivatable_ self
+    fun getHeader self = (GtkListBoxRowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getHeader_ self
+    fun getIndex self = (GtkListBoxRowClass.FFI.withPtr false ---> GInt.FFI.fromVal) getIndex_ self
+    fun getSelectable self = (GtkListBoxRowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSelectable_ self
+    fun isSelected self = (GtkListBoxRowClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSelected_ self
+    fun setActivatable self activatable = (GtkListBoxRowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setActivatable_ (self & activatable)
+    fun setHeader self header = (GtkListBoxRowClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setHeader_ (self & header)
+    fun setSelectable self selectable = (GtkListBoxRowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSelectable_ (self & selectable)
     local
       open ClosureMarshal Signal
     in

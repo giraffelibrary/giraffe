@@ -54,16 +54,16 @@ structure GdkGLContext :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun clearCurrent () = (I ---> I) clearCurrent_ ()
     fun getCurrent () = (I ---> GdkGLContextClass.FFI.fromOptPtr false) getCurrent_ ()
-    fun getDebugEnabled self = (GdkGLContextClass.FFI.withPtr ---> GBool.FFI.fromVal) getDebugEnabled_ self
-    fun getDisplay self = (GdkGLContextClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromOptPtr false) getDisplay_ self
-    fun getForwardCompatible self = (GdkGLContextClass.FFI.withPtr ---> GBool.FFI.fromVal) getForwardCompatible_ self
+    fun getDebugEnabled self = (GdkGLContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDebugEnabled_ self
+    fun getDisplay self = (GdkGLContextClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromOptPtr false) getDisplay_ self
+    fun getForwardCompatible self = (GdkGLContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) getForwardCompatible_ self
     fun getRequiredVersion self =
       let
         val major
          & minor
          & () =
           (
-            GdkGLContextClass.FFI.withPtr
+            GdkGLContextClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -79,15 +79,15 @@ structure GdkGLContext :>
       in
         (major, minor)
       end
-    fun getSharedContext self = (GdkGLContextClass.FFI.withPtr ---> GdkGLContextClass.FFI.fromOptPtr false) getSharedContext_ self
-    fun getUseEs self = (GdkGLContextClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseEs_ self
+    fun getSharedContext self = (GdkGLContextClass.FFI.withPtr false ---> GdkGLContextClass.FFI.fromOptPtr false) getSharedContext_ self
+    fun getUseEs self = (GdkGLContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseEs_ self
     fun getVersion self =
       let
         val major
          & minor
          & () =
           (
-            GdkGLContextClass.FFI.withPtr
+            GdkGLContextClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -103,15 +103,15 @@ structure GdkGLContext :>
       in
         (major, minor)
       end
-    fun getWindow self = (GdkGLContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self
-    fun isLegacy self = (GdkGLContextClass.FFI.withPtr ---> GBool.FFI.fromVal) isLegacy_ self
-    fun makeCurrent self = (GdkGLContextClass.FFI.withPtr ---> I) makeCurrent_ self
-    fun realize self = (GdkGLContextClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) realize_ (self & [])
-    fun setDebugEnabled self enabled = (GdkGLContextClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDebugEnabled_ (self & enabled)
-    fun setForwardCompatible self compatible = (GdkGLContextClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setForwardCompatible_ (self & compatible)
+    fun getWindow self = (GdkGLContextClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self
+    fun isLegacy self = (GdkGLContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) isLegacy_ self
+    fun makeCurrent self = (GdkGLContextClass.FFI.withPtr false ---> I) makeCurrent_ self
+    fun realize self = (GdkGLContextClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) realize_ (self & [])
+    fun setDebugEnabled self enabled = (GdkGLContextClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setDebugEnabled_ (self & enabled)
+    fun setForwardCompatible self compatible = (GdkGLContextClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setForwardCompatible_ (self & compatible)
     fun setRequiredVersion self (major, minor) =
       (
-        GdkGLContextClass.FFI.withPtr
+        GdkGLContextClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -122,7 +122,7 @@ structure GdkGLContext :>
            & major
            & minor
         )
-    fun setUseEs self useEs = (GdkGLContextClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setUseEs_ (self & useEs)
+    fun setUseEs self useEs = (GdkGLContextClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setUseEs_ (self & useEs)
     local
       open Property
     in

@@ -80,8 +80,8 @@ structure GioSettingsSchemaSource :>
         trusted
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> GioSettingsSchemaSourceRecord.FFI.withOptPtr
+        Utf8.FFI.withPtr 0
+         &&&> GioSettingsSchemaSourceRecord.FFI.withOptPtr false
          &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioSettingsSchemaSourceRecord.FFI.fromPtr true
@@ -99,12 +99,12 @@ structure GioSettingsSchemaSource :>
          & relocatable
          & () =
           (
-            GioSettingsSchemaSourceRecord.FFI.withPtr
+            GioSettingsSchemaSourceRecord.FFI.withPtr false
              &&&> GBool.FFI.withVal
-             &&&> Utf8CPtrArray.FFI.withRefOptPtr
-             &&&> Utf8CPtrArray.FFI.withRefOptPtr
-             ---> Utf8CPtrArray.FFI.fromPtr 2
-                   && Utf8CPtrArray.FFI.fromPtr 2
+             &&&> Utf8CPtrArray.FFI.withRefOptPtr 0
+             &&&> Utf8CPtrArray.FFI.withRefOptPtr 0
+             ---> Utf8CPtrArray.FFI.fromPtr ~1
+                   && Utf8CPtrArray.FFI.fromPtr ~1
                    && I
           )
             listSchemas_
@@ -119,8 +119,8 @@ structure GioSettingsSchemaSource :>
       end
     fun lookup self (schemaId, recursive) =
       (
-        GioSettingsSchemaSourceRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSettingsSchemaSourceRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GBool.FFI.withVal
          ---> GioSettingsSchemaRecord.FFI.fromOptPtr true
       )

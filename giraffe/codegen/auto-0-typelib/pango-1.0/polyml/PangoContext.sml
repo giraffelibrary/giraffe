@@ -76,20 +76,20 @@ structure PangoContext :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoContextClass.FFI.fromPtr true) new_ ()
-    fun changed self = (PangoContextClass.FFI.withPtr ---> I) changed_ self
-    fun getBaseDir self = (PangoContextClass.FFI.withPtr ---> PangoDirection.FFI.fromVal) getBaseDir_ self
-    fun getBaseGravity self = (PangoContextClass.FFI.withPtr ---> PangoGravity.FFI.fromVal) getBaseGravity_ self
-    fun getFontDescription self = (PangoContextClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFontDescription_ self
-    fun getFontMap self = (PangoContextClass.FFI.withPtr ---> PangoFontMapClass.FFI.fromPtr false) getFontMap_ self
-    fun getGravity self = (PangoContextClass.FFI.withPtr ---> PangoGravity.FFI.fromVal) getGravity_ self
-    fun getGravityHint self = (PangoContextClass.FFI.withPtr ---> PangoGravityHint.FFI.fromVal) getGravityHint_ self
-    fun getLanguage self = (PangoContextClass.FFI.withPtr ---> PangoLanguageRecord.FFI.fromPtr true) getLanguage_ self
-    fun getMatrix self = (PangoContextClass.FFI.withPtr ---> PangoMatrixRecord.FFI.fromOptPtr false) getMatrix_ self
+    fun changed self = (PangoContextClass.FFI.withPtr false ---> I) changed_ self
+    fun getBaseDir self = (PangoContextClass.FFI.withPtr false ---> PangoDirection.FFI.fromVal) getBaseDir_ self
+    fun getBaseGravity self = (PangoContextClass.FFI.withPtr false ---> PangoGravity.FFI.fromVal) getBaseGravity_ self
+    fun getFontDescription self = (PangoContextClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFontDescription_ self
+    fun getFontMap self = (PangoContextClass.FFI.withPtr false ---> PangoFontMapClass.FFI.fromPtr false) getFontMap_ self
+    fun getGravity self = (PangoContextClass.FFI.withPtr false ---> PangoGravity.FFI.fromVal) getGravity_ self
+    fun getGravityHint self = (PangoContextClass.FFI.withPtr false ---> PangoGravityHint.FFI.fromVal) getGravityHint_ self
+    fun getLanguage self = (PangoContextClass.FFI.withPtr false ---> PangoLanguageRecord.FFI.fromPtr true) getLanguage_ self
+    fun getMatrix self = (PangoContextClass.FFI.withPtr false ---> PangoMatrixRecord.FFI.fromOptPtr false) getMatrix_ self
     fun getMetrics self (desc, language) =
       (
-        PangoContextClass.FFI.withPtr
-         &&&> PangoFontDescriptionRecord.FFI.withOptPtr
-         &&&> PangoLanguageRecord.FFI.withOptPtr
+        PangoContextClass.FFI.withPtr false
+         &&&> PangoFontDescriptionRecord.FFI.withOptPtr false
+         &&&> PangoLanguageRecord.FFI.withOptPtr false
          ---> PangoFontMetricsRecord.FFI.fromPtr true
       )
         getMetrics_
@@ -98,15 +98,15 @@ structure PangoContext :>
            & desc
            & language
         )
-    fun getSerial self = (PangoContextClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getSerial_ self
+    fun getSerial self = (PangoContextClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getSerial_ self
     fun listFamilies self =
       let
         val families
          & nFamilies
          & () =
           (
-            PangoContextClass.FFI.withPtr
-             &&&> PangoFontFamilyClassCPtrArrayN.FFI.withRefOptPtr
+            PangoContextClass.FFI.withPtr false
+             &&&> PangoFontFamilyClassCPtrArrayN.FFI.withRefOptPtr 0
              &&&> GInt32.FFI.withRefVal
              ---> PangoFontFamilyClassCPtrArrayN.FFI.fromPtr 1
                    && GInt32.FFI.fromVal
@@ -121,12 +121,12 @@ structure PangoContext :>
       in
         families (LargeInt.toInt nFamilies)
       end
-    fun loadFont self desc = (PangoContextClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withPtr ---> PangoFontClass.FFI.fromOptPtr true) loadFont_ (self & desc)
+    fun loadFont self desc = (PangoContextClass.FFI.withPtr false &&&> PangoFontDescriptionRecord.FFI.withPtr false ---> PangoFontClass.FFI.fromOptPtr true) loadFont_ (self & desc)
     fun loadFontset self (desc, language) =
       (
-        PangoContextClass.FFI.withPtr
-         &&&> PangoFontDescriptionRecord.FFI.withPtr
-         &&&> PangoLanguageRecord.FFI.withPtr
+        PangoContextClass.FFI.withPtr false
+         &&&> PangoFontDescriptionRecord.FFI.withPtr false
+         &&&> PangoLanguageRecord.FFI.withPtr false
          ---> PangoFontsetClass.FFI.fromOptPtr true
       )
         loadFontset_
@@ -135,11 +135,11 @@ structure PangoContext :>
            & desc
            & language
         )
-    fun setBaseDir self direction = (PangoContextClass.FFI.withPtr &&&> PangoDirection.FFI.withVal ---> I) setBaseDir_ (self & direction)
-    fun setBaseGravity self gravity = (PangoContextClass.FFI.withPtr &&&> PangoGravity.FFI.withVal ---> I) setBaseGravity_ (self & gravity)
-    fun setFontDescription self desc = (PangoContextClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withPtr ---> I) setFontDescription_ (self & desc)
-    fun setFontMap self fontMap = (PangoContextClass.FFI.withPtr &&&> PangoFontMapClass.FFI.withPtr ---> I) setFontMap_ (self & fontMap)
-    fun setGravityHint self hint = (PangoContextClass.FFI.withPtr &&&> PangoGravityHint.FFI.withVal ---> I) setGravityHint_ (self & hint)
-    fun setLanguage self language = (PangoContextClass.FFI.withPtr &&&> PangoLanguageRecord.FFI.withPtr ---> I) setLanguage_ (self & language)
-    fun setMatrix self matrix = (PangoContextClass.FFI.withPtr &&&> PangoMatrixRecord.FFI.withOptPtr ---> I) setMatrix_ (self & matrix)
+    fun setBaseDir self direction = (PangoContextClass.FFI.withPtr false &&&> PangoDirection.FFI.withVal ---> I) setBaseDir_ (self & direction)
+    fun setBaseGravity self gravity = (PangoContextClass.FFI.withPtr false &&&> PangoGravity.FFI.withVal ---> I) setBaseGravity_ (self & gravity)
+    fun setFontDescription self desc = (PangoContextClass.FFI.withPtr false &&&> PangoFontDescriptionRecord.FFI.withPtr false ---> I) setFontDescription_ (self & desc)
+    fun setFontMap self fontMap = (PangoContextClass.FFI.withPtr false &&&> PangoFontMapClass.FFI.withPtr false ---> I) setFontMap_ (self & fontMap)
+    fun setGravityHint self hint = (PangoContextClass.FFI.withPtr false &&&> PangoGravityHint.FFI.withVal ---> I) setGravityHint_ (self & hint)
+    fun setLanguage self language = (PangoContextClass.FFI.withPtr false &&&> PangoLanguageRecord.FFI.withPtr false ---> I) setLanguage_ (self & language)
+    fun setMatrix self matrix = (PangoContextClass.FFI.withPtr false &&&> PangoMatrixRecord.FFI.withOptPtr false ---> I) setMatrix_ (self & matrix)
   end

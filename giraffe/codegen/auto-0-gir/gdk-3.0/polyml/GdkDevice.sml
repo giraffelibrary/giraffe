@@ -155,9 +155,9 @@ structure GdkDevice :>
          & ownerEvents
          & retVal =
           (
-            GdkDisplayClass.FFI.withPtr
-             &&&> GdkDeviceClass.FFI.withPtr
-             &&&> GdkWindowClass.FFI.withRefOptPtr
+            GdkDisplayClass.FFI.withPtr false
+             &&&> GdkDeviceClass.FFI.withPtr false
+             &&&> GdkWindowClass.FFI.withRefOptPtr false
              &&&> GBool.FFI.withRefVal
              ---> GdkWindowClass.FFI.fromPtr false
                    && GBool.FFI.fromVal
@@ -173,19 +173,19 @@ structure GdkDevice :>
       in
         if retVal then SOME (grabWindow, ownerEvents) else NONE
       end
-    fun getAssociatedDevice self = (GdkDeviceClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromOptPtr false) getAssociatedDevice_ self
-    fun getAxes self = (GdkDeviceClass.FFI.withPtr ---> GdkAxisFlags.FFI.fromVal) getAxes_ self
-    fun getAxisUse self index = (GdkDeviceClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> GdkAxisUse.FFI.fromVal) getAxisUse_ (self & index)
-    fun getDeviceType self = (GdkDeviceClass.FFI.withPtr ---> GdkDeviceType.FFI.fromVal) getDeviceType_ self
-    fun getDisplay self = (GdkDeviceClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
-    fun getHasCursor self = (GdkDeviceClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasCursor_ self
+    fun getAssociatedDevice self = (GdkDeviceClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromOptPtr false) getAssociatedDevice_ self
+    fun getAxes self = (GdkDeviceClass.FFI.withPtr false ---> GdkAxisFlags.FFI.fromVal) getAxes_ self
+    fun getAxisUse self index = (GdkDeviceClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GdkAxisUse.FFI.fromVal) getAxisUse_ (self & index)
+    fun getDeviceType self = (GdkDeviceClass.FFI.withPtr false ---> GdkDeviceType.FFI.fromVal) getDeviceType_ self
+    fun getDisplay self = (GdkDeviceClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getHasCursor self = (GdkDeviceClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasCursor_ self
     fun getKey self index =
       let
         val keyval
          & modifiers
          & retVal =
           (
-            GdkDeviceClass.FFI.withPtr
+            GdkDeviceClass.FFI.withPtr false
              &&&> GUInt.FFI.withVal
              &&&> GUInt.FFI.withRefVal
              &&&> GdkModifierType.FFI.withRefVal
@@ -203,11 +203,11 @@ structure GdkDevice :>
       in
         if retVal then SOME (keyval, modifiers) else NONE
       end
-    fun getLastEventWindow self = (GdkDeviceClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getLastEventWindow_ self
-    fun getMode self = (GdkDeviceClass.FFI.withPtr ---> GdkInputMode.FFI.fromVal) getMode_ self
-    fun getNAxes self = (GdkDeviceClass.FFI.withPtr ---> GInt.FFI.fromVal) getNAxes_ self
-    fun getNKeys self = (GdkDeviceClass.FFI.withPtr ---> GInt.FFI.fromVal) getNKeys_ self
-    fun getName self = (GdkDeviceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getLastEventWindow self = (GdkDeviceClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getLastEventWindow_ self
+    fun getMode self = (GdkDeviceClass.FFI.withPtr false ---> GdkInputMode.FFI.fromVal) getMode_ self
+    fun getNAxes self = (GdkDeviceClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNAxes_ self
+    fun getNKeys self = (GdkDeviceClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNKeys_ self
+    fun getName self = (GdkDeviceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
     fun getPosition self =
       let
         val screen
@@ -215,8 +215,8 @@ structure GdkDevice :>
          & y
          & () =
           (
-            GdkDeviceClass.FFI.withPtr
-             &&&> GdkScreenClass.FFI.withRefOptPtr
+            GdkDeviceClass.FFI.withPtr false
+             &&&> GdkScreenClass.FFI.withRefOptPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GdkScreenClass.FFI.fromPtr false
@@ -245,8 +245,8 @@ structure GdkDevice :>
          & y
          & () =
           (
-            GdkDeviceClass.FFI.withPtr
-             &&&> GdkScreenClass.FFI.withRefOptPtr
+            GdkDeviceClass.FFI.withPtr false
+             &&&> GdkScreenClass.FFI.withRefOptPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              ---> GdkScreenClass.FFI.fromPtr false
@@ -268,17 +268,17 @@ structure GdkDevice :>
           y
         )
       end
-    fun getProductId self = (GdkDeviceClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getProductId_ self
-    fun getSeat self = (GdkDeviceClass.FFI.withPtr ---> GdkSeatClass.FFI.fromPtr false) getSeat_ self
-    fun getSource self = (GdkDeviceClass.FFI.withPtr ---> GdkInputSource.FFI.fromVal) getSource_ self
-    fun getVendorId self = (GdkDeviceClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getVendorId_ self
+    fun getProductId self = (GdkDeviceClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getProductId_ self
+    fun getSeat self = (GdkDeviceClass.FFI.withPtr false ---> GdkSeatClass.FFI.fromPtr false) getSeat_ self
+    fun getSource self = (GdkDeviceClass.FFI.withPtr false ---> GdkInputSource.FFI.fromVal) getSource_ self
+    fun getVendorId self = (GdkDeviceClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getVendorId_ self
     fun getWindowAtPosition self =
       let
         val winX
          & winY
          & retVal =
           (
-            GdkDeviceClass.FFI.withPtr
+            GdkDeviceClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -304,7 +304,7 @@ structure GdkDevice :>
          & winY
          & retVal =
           (
-            GdkDeviceClass.FFI.withPtr
+            GdkDeviceClass.FFI.withPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              ---> GDouble.FFI.fromVal
@@ -335,12 +335,12 @@ structure GdkDevice :>
         time
       ) =
       (
-        GdkDeviceClass.FFI.withPtr
-         &&&> GdkWindowClass.FFI.withPtr
+        GdkDeviceClass.FFI.withPtr false
+         &&&> GdkWindowClass.FFI.withPtr false
          &&&> GdkGrabOwnership.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GdkEventMask.FFI.withVal
-         &&&> GdkCursorClass.FFI.withOptPtr
+         &&&> GdkCursorClass.FFI.withOptPtr false
          &&&> GUInt32.FFI.withVal
          ---> GdkGrabStatus.FFI.fromVal
       )
@@ -356,7 +356,7 @@ structure GdkDevice :>
         )
     fun setAxisUse self (index, use) =
       (
-        GdkDeviceClass.FFI.withPtr
+        GdkDeviceClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GdkAxisUse.FFI.withVal
          ---> I
@@ -375,7 +375,7 @@ structure GdkDevice :>
         modifiers
       ) =
       (
-        GdkDeviceClass.FFI.withPtr
+        GdkDeviceClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
@@ -388,8 +388,8 @@ structure GdkDevice :>
            & keyval
            & modifiers
         )
-    fun setMode self mode = (GdkDeviceClass.FFI.withPtr &&&> GdkInputMode.FFI.withVal ---> GBool.FFI.fromVal) setMode_ (self & mode)
-    fun ungrab self time = (GdkDeviceClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) ungrab_ (self & time)
+    fun setMode self mode = (GdkDeviceClass.FFI.withPtr false &&&> GdkInputMode.FFI.withVal ---> GBool.FFI.fromVal) setMode_ (self & mode)
+    fun ungrab self time = (GdkDeviceClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) ungrab_ (self & time)
     fun warp
       self
       (
@@ -398,8 +398,8 @@ structure GdkDevice :>
         y
       ) =
       (
-        GdkDeviceClass.FFI.withPtr
-         &&&> GdkScreenClass.FFI.withPtr
+        GdkDeviceClass.FFI.withPtr false
+         &&&> GdkScreenClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I

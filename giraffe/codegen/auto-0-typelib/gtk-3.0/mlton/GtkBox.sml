@@ -141,15 +141,15 @@ structure GtkBox :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type baseline_position_t = GtkBaselinePosition.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (orientation, spacing) = (GtkOrientation.FFI.withVal &&&> GInt32.FFI.withVal ---> GtkBoxClass.FFI.fromPtr false) new_ (orientation & spacing)
-    fun getBaselinePosition self = (GtkBoxClass.FFI.withPtr ---> GtkBaselinePosition.FFI.fromVal) getBaselinePosition_ self
-    fun getCenterWidget self = (GtkBoxClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getCenterWidget_ self
-    fun getHomogeneous self = (GtkBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getHomogeneous_ self
-    fun getSpacing self = (GtkBoxClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSpacing_ self
+    fun getBaselinePosition self = (GtkBoxClass.FFI.withPtr false ---> GtkBaselinePosition.FFI.fromVal) getBaselinePosition_ self
+    fun getCenterWidget self = (GtkBoxClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getCenterWidget_ self
+    fun getHomogeneous self = (GtkBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHomogeneous_ self
+    fun getSpacing self = (GtkBoxClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getSpacing_ self
     fun packEnd
       self
       (
@@ -159,8 +159,8 @@ structure GtkBox :>
         padding
       ) =
       (
-        GtkBoxClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkBoxClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GUInt32.FFI.withVal
@@ -183,8 +183,8 @@ structure GtkBox :>
         padding
       ) =
       (
-        GtkBoxClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkBoxClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GUInt32.FFI.withVal
@@ -206,8 +206,8 @@ structure GtkBox :>
          & packType
          & () =
           (
-            GtkBoxClass.FFI.withPtr
-             &&&> GtkWidgetClass.FFI.withPtr
+            GtkBoxClass.FFI.withPtr false
+             &&&> GtkWidgetClass.FFI.withPtr false
              &&&> GBool.FFI.withRefVal
              &&&> GBool.FFI.withRefVal
              &&&> GUInt32.FFI.withRefVal
@@ -237,8 +237,8 @@ structure GtkBox :>
       end
     fun reorderChild self (child, position) =
       (
-        GtkBoxClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkBoxClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -248,8 +248,8 @@ structure GtkBox :>
            & child
            & position
         )
-    fun setBaselinePosition self position = (GtkBoxClass.FFI.withPtr &&&> GtkBaselinePosition.FFI.withVal ---> I) setBaselinePosition_ (self & position)
-    fun setCenterWidget self widget = (GtkBoxClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setCenterWidget_ (self & widget)
+    fun setBaselinePosition self position = (GtkBoxClass.FFI.withPtr false &&&> GtkBaselinePosition.FFI.withVal ---> I) setBaselinePosition_ (self & position)
+    fun setCenterWidget self widget = (GtkBoxClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setCenterWidget_ (self & widget)
     fun setChildPacking
       self
       (
@@ -260,8 +260,8 @@ structure GtkBox :>
         packType
       ) =
       (
-        GtkBoxClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkBoxClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GUInt32.FFI.withVal
@@ -277,8 +277,8 @@ structure GtkBox :>
            & padding
            & packType
         )
-    fun setHomogeneous self homogeneous = (GtkBoxClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
-    fun setSpacing self spacing = (GtkBoxClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setSpacing_ (self & spacing)
+    fun setHomogeneous self homogeneous = (GtkBoxClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
+    fun setSpacing self spacing = (GtkBoxClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setSpacing_ (self & spacing)
     local
       open Property
     in

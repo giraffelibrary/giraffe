@@ -95,15 +95,15 @@ structure GioBufferedInputStream :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type 'a cancellable_class = 'a GioCancellableClass.class
     type t = base class
-    fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
+    fun asSeekable self = (GObjectObjectClass.FFI.withPtr false ---> GioSeekableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new baseStream = (GioInputStreamClass.FFI.withPtr ---> GioBufferedInputStreamClass.FFI.fromPtr true) new_ baseStream
-    fun newSized (baseStream, size) = (GioInputStreamClass.FFI.withPtr &&&> GSize.FFI.withVal ---> GioBufferedInputStreamClass.FFI.fromPtr true) newSized_ (baseStream & size)
+    fun new baseStream = (GioInputStreamClass.FFI.withPtr false ---> GioBufferedInputStreamClass.FFI.fromPtr true) new_ baseStream
+    fun newSized (baseStream, size) = (GioInputStreamClass.FFI.withPtr false &&&> GSize.FFI.withVal ---> GioBufferedInputStreamClass.FFI.fromPtr true) newSized_ (baseStream & size)
     fun fill self (count, cancellable) =
       (
-        GioBufferedInputStreamClass.FFI.withPtr
+        GioBufferedInputStreamClass.FFI.withPtr false
          &&&> GSSize.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GSSize.FFI.fromVal
       )
@@ -116,8 +116,8 @@ structure GioBufferedInputStream :>
         )
     fun fillFinish self result =
       (
-        GioBufferedInputStreamClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioBufferedInputStreamClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GSSize.FFI.fromVal
       )
@@ -127,15 +127,15 @@ structure GioBufferedInputStream :>
            & result
            & []
         )
-    fun getAvailable self = (GioBufferedInputStreamClass.FFI.withPtr ---> GSize.FFI.fromVal) getAvailable_ self
-    fun getBufferSize self = (GioBufferedInputStreamClass.FFI.withPtr ---> GSize.FFI.fromVal) getBufferSize_ self
+    fun getAvailable self = (GioBufferedInputStreamClass.FFI.withPtr false ---> GSize.FFI.fromVal) getAvailable_ self
+    fun getBufferSize self = (GioBufferedInputStreamClass.FFI.withPtr false ---> GSize.FFI.fromVal) getBufferSize_ self
     fun peek self (buffer, offset) =
       let
         val count = GUInt8CArrayN.length buffer
         val retVal =
           (
-            GioBufferedInputStreamClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioBufferedInputStreamClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
              &&&> GSize.FFI.withVal
              ---> GSize.FFI.fromVal
@@ -152,14 +152,14 @@ structure GioBufferedInputStream :>
       end
     fun peekBuffer self =
       let
-        val count & retVal = (GioBufferedInputStreamClass.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 0) peekBuffer_ (self & GSize.null)
+        val count & retVal = (GioBufferedInputStreamClass.FFI.withPtr false &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 0) peekBuffer_ (self & GSize.null)
       in
         retVal count
       end
     fun readByte self cancellable =
       (
-        GioBufferedInputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioBufferedInputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GInt.FFI.fromVal
       )
@@ -169,7 +169,7 @@ structure GioBufferedInputStream :>
            & cancellable
            & []
         )
-    fun setBufferSize self size = (GioBufferedInputStreamClass.FFI.withPtr &&&> GSize.FFI.withVal ---> I) setBufferSize_ (self & size)
+    fun setBufferSize self size = (GioBufferedInputStreamClass.FFI.withPtr false &&&> GSize.FFI.withVal ---> I) setBufferSize_ (self & size)
     local
       open Property
     in

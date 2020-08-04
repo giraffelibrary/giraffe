@@ -20,7 +20,7 @@ structure GModule : G_MODULE =
     val moduleError_ = _import "g_module_error" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val moduleSupported_ = _import "g_module_supported" : unit -> GBool.FFI.val_;
     structure ModuleFlags = GModuleModuleFlags
-    fun moduleBuildPath (directory, moduleName) = (Utf8.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) moduleBuildPath_ (directory & moduleName)
+    fun moduleBuildPath (directory, moduleName) = (Utf8.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) moduleBuildPath_ (directory & moduleName)
     fun moduleError () = (I ---> Utf8.FFI.fromPtr 0) moduleError_ ()
     fun moduleSupported () = (I ---> GBool.FFI.fromVal) moduleSupported_ ()
   end

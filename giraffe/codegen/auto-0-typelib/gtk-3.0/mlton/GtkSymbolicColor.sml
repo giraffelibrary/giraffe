@@ -61,8 +61,8 @@ structure GtkSymbolicColor :>
     type t = GtkSymbolicColorRecord.t
     type 'a style_properties_class = 'a GtkStylePropertiesClass.class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newAlpha (color, factor) = (GtkSymbolicColorRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newAlpha_ (color & factor)
-    fun newLiteral color = (GdkRgbaRecord.FFI.withPtr ---> GtkSymbolicColorRecord.FFI.fromPtr true) newLiteral_ color
+    fun newAlpha (color, factor) = (GtkSymbolicColorRecord.FFI.withPtr false &&&> GDouble.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newAlpha_ (color & factor)
+    fun newLiteral color = (GdkRgbaRecord.FFI.withPtr false ---> GtkSymbolicColorRecord.FFI.fromPtr true) newLiteral_ color
     fun newMix
       (
         color1,
@@ -70,8 +70,8 @@ structure GtkSymbolicColor :>
         factor
       ) =
       (
-        GtkSymbolicColorRecord.FFI.withPtr
-         &&&> GtkSymbolicColorRecord.FFI.withPtr
+        GtkSymbolicColorRecord.FFI.withPtr false
+         &&&> GtkSymbolicColorRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          ---> GtkSymbolicColorRecord.FFI.fromPtr true
       )
@@ -81,15 +81,15 @@ structure GtkSymbolicColor :>
            & color2
            & factor
         )
-    fun newName name = (Utf8.FFI.withPtr ---> GtkSymbolicColorRecord.FFI.fromPtr true) newName_ name
-    fun newShade (color, factor) = (GtkSymbolicColorRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newShade_ (color & factor)
-    fun newWin32 (themeClass, id) = (Utf8.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newWin32_ (themeClass & id)
+    fun newName name = (Utf8.FFI.withPtr 0 ---> GtkSymbolicColorRecord.FFI.fromPtr true) newName_ name
+    fun newShade (color, factor) = (GtkSymbolicColorRecord.FFI.withPtr false &&&> GDouble.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newShade_ (color & factor)
+    fun newWin32 (themeClass, id) = (Utf8.FFI.withPtr 0 &&&> GInt32.FFI.withVal ---> GtkSymbolicColorRecord.FFI.fromPtr true) newWin32_ (themeClass & id)
     fun resolve self props =
       let
         val resolvedColor & retVal =
           (
-            GtkSymbolicColorRecord.FFI.withPtr
-             &&&> GtkStylePropertiesClass.FFI.withOptPtr
+            GtkSymbolicColorRecord.FFI.withPtr false
+             &&&> GtkStylePropertiesClass.FFI.withOptPtr false
              &&&> GdkRgbaRecord.FFI.withNewPtr
              ---> GdkRgbaRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
@@ -102,5 +102,5 @@ structure GtkSymbolicColor :>
       in
         if retVal then SOME resolvedColor else NONE
       end
-    fun toString self = (GtkSymbolicColorRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun toString self = (GtkSymbolicColorRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
   end

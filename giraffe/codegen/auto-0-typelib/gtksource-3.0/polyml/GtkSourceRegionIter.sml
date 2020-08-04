@@ -23,7 +23,7 @@ structure GtkSourceRegionIter :>
          & end'
          & retVal =
           (
-            GtkSourceRegionIterRecord.FFI.withPtr
+            GtkSourceRegionIterRecord.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              ---> GtkTextIterRecord.FFI.fromPtr true
@@ -39,6 +39,6 @@ structure GtkSourceRegionIter :>
       in
         if retVal then SOME (start, end') else NONE
       end
-    fun isEnd self = (GtkSourceRegionIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) isEnd_ self
-    fun next self = (GtkSourceRegionIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) next_ self
+    fun isEnd self = (GtkSourceRegionIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isEnd_ self
+    fun next self = (GtkSourceRegionIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) next_ self
   end

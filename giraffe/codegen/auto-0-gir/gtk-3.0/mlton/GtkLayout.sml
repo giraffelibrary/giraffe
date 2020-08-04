@@ -93,20 +93,20 @@ structure GtkLayout :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asScrollable self = (GObjectObjectClass.FFI.withPtr ---> GtkScrollableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asScrollable self = (GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkLayoutClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
-    fun getBinWindow self = (GtkLayoutClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
-    fun getHadjustment self = (GtkLayoutClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
+    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkLayoutClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
+    fun getBinWindow self = (GtkLayoutClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
+    fun getHadjustment self = (GtkLayoutClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
     fun getSize self =
       let
         val width
          & height
          & () =
           (
-            GtkLayoutClass.FFI.withPtr
+            GtkLayoutClass.FFI.withPtr false
              &&&> GUInt.FFI.withRefVal
              &&&> GUInt.FFI.withRefVal
              ---> GUInt.FFI.fromVal
@@ -122,7 +122,7 @@ structure GtkLayout :>
       in
         (width, height)
       end
-    fun getVadjustment self = (GtkLayoutClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
+    fun getVadjustment self = (GtkLayoutClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
     fun move
       self
       (
@@ -131,8 +131,8 @@ structure GtkLayout :>
         y
       ) =
       (
-        GtkLayoutClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkLayoutClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -152,8 +152,8 @@ structure GtkLayout :>
         y
       ) =
       (
-        GtkLayoutClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkLayoutClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -165,10 +165,10 @@ structure GtkLayout :>
            & x
            & y
         )
-    fun setHadjustment self adjustment = (GtkLayoutClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setHadjustment_ (self & adjustment)
+    fun setHadjustment self adjustment = (GtkLayoutClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> I) setHadjustment_ (self & adjustment)
     fun setSize self (width, height) =
       (
-        GtkLayoutClass.FFI.withPtr
+        GtkLayoutClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
          ---> I
@@ -179,7 +179,7 @@ structure GtkLayout :>
            & width
            & height
         )
-    fun setVadjustment self adjustment = (GtkLayoutClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setVadjustment_ (self & adjustment)
+    fun setVadjustment self adjustment = (GtkLayoutClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> I) setVadjustment_ (self & adjustment)
     local
       open Property
     in

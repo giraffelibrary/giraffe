@@ -111,8 +111,8 @@ structure GtkHsv :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type direction_type_t = GtkDirectionType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkHsvClass.FFI.fromPtr false) new_ ()
     fun toRgb
@@ -161,7 +161,7 @@ structure GtkHsv :>
          & v
          & () =
           (
-            GtkHsvClass.FFI.withPtr
+            GtkHsvClass.FFI.withPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
@@ -190,7 +190,7 @@ structure GtkHsv :>
          & ringWidth
          & () =
           (
-            GtkHsvClass.FFI.withPtr
+            GtkHsvClass.FFI.withPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GInt32.FFI.fromVal
@@ -206,7 +206,7 @@ structure GtkHsv :>
       in
         (size, ringWidth)
       end
-    fun isAdjusting self = (GtkHsvClass.FFI.withPtr ---> GBool.FFI.fromVal) isAdjusting_ self
+    fun isAdjusting self = (GtkHsvClass.FFI.withPtr false ---> GBool.FFI.fromVal) isAdjusting_ self
     fun setColor
       self
       (
@@ -215,7 +215,7 @@ structure GtkHsv :>
         v
       ) =
       (
-        GtkHsvClass.FFI.withPtr
+        GtkHsvClass.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -230,7 +230,7 @@ structure GtkHsv :>
         )
     fun setMetrics self (size, ringWidth) =
       (
-        GtkHsvClass.FFI.withPtr
+        GtkHsvClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I

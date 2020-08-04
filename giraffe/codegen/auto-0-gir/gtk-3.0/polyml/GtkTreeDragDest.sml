@@ -32,9 +32,9 @@ structure GtkTreeDragDest :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun dragDataReceived self (dest, selectionData) =
       (
-        GtkTreeDragDestClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withPtr
-         &&&> GtkSelectionDataRecord.FFI.withPtr
+        GtkTreeDragDestClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withPtr false
+         &&&> GtkSelectionDataRecord.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         dragDataReceived_
@@ -45,9 +45,9 @@ structure GtkTreeDragDest :>
         )
     fun rowDropPossible self (destPath, selectionData) =
       (
-        GtkTreeDragDestClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withPtr
-         &&&> GtkSelectionDataRecord.FFI.withPtr
+        GtkTreeDragDestClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withPtr false
+         &&&> GtkSelectionDataRecord.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         rowDropPossible_

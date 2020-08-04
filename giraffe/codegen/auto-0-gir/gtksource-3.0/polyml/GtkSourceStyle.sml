@@ -12,8 +12,8 @@ structure GtkSourceStyle :>
     type 'a class = 'a GtkSourceStyleClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun apply self tag = (GtkSourceStyleClass.FFI.withPtr &&&> GtkTextTagClass.FFI.withPtr ---> I) apply_ (self & tag)
-    fun copy self = (GtkSourceStyleClass.FFI.withPtr ---> GtkSourceStyleClass.FFI.fromPtr true) copy_ self
+    fun apply self tag = (GtkSourceStyleClass.FFI.withPtr false &&&> GtkTextTagClass.FFI.withPtr false ---> I) apply_ (self & tag)
+    fun copy self = (GtkSourceStyleClass.FFI.withPtr false ---> GtkSourceStyleClass.FFI.fromPtr true) copy_ self
     local
       open Property
     in

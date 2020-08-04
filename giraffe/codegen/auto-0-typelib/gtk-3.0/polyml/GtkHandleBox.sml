@@ -25,17 +25,17 @@ structure GtkHandleBox :>
     type shadow_type_t = GtkShadowType.t
     type position_type_t = GtkPositionType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkHandleBoxClass.FFI.fromPtr false) new_ ()
-    fun getChildDetached self = (GtkHandleBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getChildDetached_ self
-    fun getHandlePosition self = (GtkHandleBoxClass.FFI.withPtr ---> GtkPositionType.FFI.fromVal) getHandlePosition_ self
-    fun getShadowType self = (GtkHandleBoxClass.FFI.withPtr ---> GtkShadowType.FFI.fromVal) getShadowType_ self
-    fun getSnapEdge self = (GtkHandleBoxClass.FFI.withPtr ---> GtkPositionType.FFI.fromVal) getSnapEdge_ self
-    fun setHandlePosition self position = (GtkHandleBoxClass.FFI.withPtr &&&> GtkPositionType.FFI.withVal ---> I) setHandlePosition_ (self & position)
-    fun setShadowType self type' = (GtkHandleBoxClass.FFI.withPtr &&&> GtkShadowType.FFI.withVal ---> I) setShadowType_ (self & type')
-    fun setSnapEdge self edge = (GtkHandleBoxClass.FFI.withPtr &&&> GtkPositionType.FFI.withVal ---> I) setSnapEdge_ (self & edge)
+    fun getChildDetached self = (GtkHandleBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getChildDetached_ self
+    fun getHandlePosition self = (GtkHandleBoxClass.FFI.withPtr false ---> GtkPositionType.FFI.fromVal) getHandlePosition_ self
+    fun getShadowType self = (GtkHandleBoxClass.FFI.withPtr false ---> GtkShadowType.FFI.fromVal) getShadowType_ self
+    fun getSnapEdge self = (GtkHandleBoxClass.FFI.withPtr false ---> GtkPositionType.FFI.fromVal) getSnapEdge_ self
+    fun setHandlePosition self position = (GtkHandleBoxClass.FFI.withPtr false &&&> GtkPositionType.FFI.withVal ---> I) setHandlePosition_ (self & position)
+    fun setShadowType self type' = (GtkHandleBoxClass.FFI.withPtr false &&&> GtkShadowType.FFI.withVal ---> I) setShadowType_ (self & type')
+    fun setSnapEdge self edge = (GtkHandleBoxClass.FFI.withPtr false &&&> GtkPositionType.FFI.withVal ---> I) setSnapEdge_ (self & edge)
     local
       open ClosureMarshal Signal
     in

@@ -80,7 +80,7 @@ structure GtkPaperSize :>
     type t = GtkPaperSizeRecord.t
     type unit_t = GtkUnit.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new name = (Utf8.FFI.withOptPtr ---> GtkPaperSizeRecord.FFI.fromPtr true) new_ name
+    fun new name = (Utf8.FFI.withOptPtr 0 ---> GtkPaperSizeRecord.FFI.fromPtr true) new_ name
     fun newCustom
       (
         name,
@@ -90,8 +90,8 @@ structure GtkPaperSize :>
         unit
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GtkUnit.FFI.withVal
@@ -105,7 +105,7 @@ structure GtkPaperSize :>
            & height
            & unit
         )
-    fun newFromGvariant variant = (GLibVariantRecord.FFI.withPtr ---> GtkPaperSizeRecord.FFI.fromPtr true) newFromGvariant_ variant
+    fun newFromGvariant variant = (GLibVariantRecord.FFI.withPtr false ---> GtkPaperSizeRecord.FFI.fromPtr true) newFromGvariant_ variant
     fun newFromIpp
       (
         ippName,
@@ -113,7 +113,7 @@ structure GtkPaperSize :>
         height
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          ---> GtkPaperSizeRecord.FFI.fromPtr true
@@ -126,8 +126,8 @@ structure GtkPaperSize :>
         )
     fun newFromKeyFile (keyFile, groupName) =
       (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GLibKeyFileRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GtkPaperSizeRecord.FFI.fromPtr true
       )
@@ -145,8 +145,8 @@ structure GtkPaperSize :>
         height
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          ---> GtkPaperSizeRecord.FFI.fromPtr true
@@ -158,19 +158,19 @@ structure GtkPaperSize :>
            & width
            & height
         )
-    fun copy self = (GtkPaperSizeRecord.FFI.withPtr ---> GtkPaperSizeRecord.FFI.fromPtr true) copy_ self
-    fun getDefaultBottomMargin self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultBottomMargin_ (self & unit)
-    fun getDefaultLeftMargin self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultLeftMargin_ (self & unit)
-    fun getDefaultRightMargin self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultRightMargin_ (self & unit)
-    fun getDefaultTopMargin self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultTopMargin_ (self & unit)
-    fun getDisplayName self = (GtkPaperSizeRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
-    fun getHeight self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getHeight_ (self & unit)
-    fun getName self = (GtkPaperSizeRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getPpdName self = (GtkPaperSizeRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPpdName_ self
-    fun getWidth self unit = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getWidth_ (self & unit)
-    fun isCustom self = (GtkPaperSizeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isCustom_ self
-    fun isEqual self size2 = (GtkPaperSizeRecord.FFI.withPtr &&&> GtkPaperSizeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isEqual_ (self & size2)
-    fun isIpp self = (GtkPaperSizeRecord.FFI.withPtr ---> GBool.FFI.fromVal) isIpp_ self
+    fun copy self = (GtkPaperSizeRecord.FFI.withPtr false ---> GtkPaperSizeRecord.FFI.fromPtr true) copy_ self
+    fun getDefaultBottomMargin self unit = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultBottomMargin_ (self & unit)
+    fun getDefaultLeftMargin self unit = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultLeftMargin_ (self & unit)
+    fun getDefaultRightMargin self unit = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultRightMargin_ (self & unit)
+    fun getDefaultTopMargin self unit = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultTopMargin_ (self & unit)
+    fun getDisplayName self = (GtkPaperSizeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
+    fun getHeight self unit = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getHeight_ (self & unit)
+    fun getName self = (GtkPaperSizeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getPpdName self = (GtkPaperSizeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPpdName_ self
+    fun getWidth self unit = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getWidth_ (self & unit)
+    fun isCustom self = (GtkPaperSizeRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isCustom_ self
+    fun isEqual self size2 = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkPaperSizeRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isEqual_ (self & size2)
+    fun isIpp self = (GtkPaperSizeRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isIpp_ self
     fun setSize
       self
       (
@@ -179,7 +179,7 @@ structure GtkPaperSize :>
         unit
       ) =
       (
-        GtkPaperSizeRecord.FFI.withPtr
+        GtkPaperSizeRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GtkUnit.FFI.withVal
@@ -192,12 +192,12 @@ structure GtkPaperSize :>
            & height
            & unit
         )
-    fun toGvariant self = (GtkPaperSizeRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
+    fun toGvariant self = (GtkPaperSizeRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
     fun toKeyFile self (keyFile, groupName) =
       (
-        GtkPaperSizeRecord.FFI.withPtr
-         &&&> GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkPaperSizeRecord.FFI.withPtr false
+         &&&> GLibKeyFileRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         toKeyFile_

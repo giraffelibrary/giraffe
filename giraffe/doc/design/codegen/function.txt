@@ -1203,31 +1203,31 @@ where
 
           dire... ownershipTra... | withUtf8Fun
         ==========================+===============================================
-                  NOTHING         | <A>.with<Opt>Ptr                  (see note 1)
+                  NOTHING         | <A>.with<Opt>Ptr 0                (see note 1)
                 ------------------+-----------------------------------------------
           IN      CONTAINER       | <raise Error containerForUtf8>
                 ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.withDup<Opt>Ptr 1             (see note 2)
+                  EVERYTHING      | <A>.with<Opt>Ptr ~1               (see note 2)
         --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.withRefOptPtr
+                  NOTHING         | <A>.withRefOptPtr 0
                 ------------------+-----------------------------------------------
           OUT     CONTAINER       | <raise Error containerForUtf8>
                 ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.withRefOptPtr
+                  EVERYTHING      | <A>.withRefOptPtr 0
         --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.withRef<Opt>Ptr               (see note 1)
+                  NOTHING         | <A>.withRef<Opt>Ptr 0             (see note 1)
                 ------------------+-----------------------------------------------
           INOUT   CONTAINER       | <raise Error containerForUtf8>
                 ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.withRefDup<Opt>Ptr 1          (see note 3)
+                  EVERYTHING      | <A>.withRef<Opt>Ptr ~1            (see note 3)
         --------------------------+-----------------------------------------------
 
           Note 1: we assume that the parameter is not destructively updated so
-            don't use `with[Ref]Dup[Opt]Ptr` to provide a copy.
+            don't give a non-zero argument to `with[Ref][Opt]Ptr` to provide a copy.
 
           Note 2: if ownership is transferred for an IN parameter, the function
-            may destructively update the parameter so `withDup[Opt]Ptr` is used
-            to provide a copy; note that although ownership is not transferred back
+            may destructively update the parameter so `with[Opt]Ptr` is used with a
+            non-zero argument to provide a copy; note that although ownership is not transferred back
             via the IN parameter, it is possible that ownership is transferred back
             via another parameter or the return value, e.g. g_environ_setenv.
 
@@ -1271,31 +1271,31 @@ where
 
           dire... ownershipTra... | withArrayFun
         ==========================+===============================================
-                  NOTHING         | <A>.with<Opt>Ptr                  (see note 1)
+                  NOTHING         | <A>.with<Opt>Ptr 0                (see note 1)
                 ------------------+-----------------------------------------------
-          IN      CONTAINER       | <A>.withDup<Opt>Ptr 1             (see note 2)
+          IN      CONTAINER       | <A>.with<Opt>Ptr 1                (see note 2)
                 ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.withDup<Opt>Ptr 2             (see note 2)
+                  EVERYTHING      | <A>.with<Opt>Ptr ~1               (see note 2)
         --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.withRefOptPtr
+                  NOTHING         | <A>.withRefOptPtr 0
                 ------------------+-----------------------------------------------
-          OUT     CONTAINER       | <A>.withRefOptPtr
+          OUT     CONTAINER       | <A>.withRefOptPtr 0
                 ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.withRefOptPtr
+                  EVERYTHING      | <A>.withRefOptPtr 0
         --------------------------+-----------------------------------------------
-                  NOTHING         | <A>.withRef<Opt>Ptr               (see note 1)
+                  NOTHING         | <A>.withRef<Opt>Ptr 0             (see note 1)
                 ------------------+-----------------------------------------------
-          INOUT   CONTAINER       | <A>.withRefDup<Opt>Ptr 1          (see note 3)
+          INOUT   CONTAINER       | <A>.withRef<Opt>Ptr 1             (see note 3)
                 ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.withRefDup<Opt>Ptr 2          (see note 3)
+                  EVERYTHING      | <A>.withRef<Opt>Ptr ~1            (see note 3)
         --------------------------+-----------------------------------------------
 
           Note 1: we assume that the parameter is not destructively updated so
-            don't use `with[Ref]Dup[Opt]Ptr` to provide a copy.
+            don't give a non-zero argument to `with[Ref][Opt]Ptr` to provide a copy.
 
           Note 2: if ownership is transferred for an IN parameter, the function
-            may destructively update the parameter so `withDup[Opt]Ptr` is used
-            to provide a copy; note that although ownership is not transferred back
+            may destructively update the parameter so `with[Opt]Ptr` is used with a
+            non-zero argument to provide a copy; note that although ownership is not transferred back
             via the IN parameter, it is possible that ownership is transferred back
             via another parameter or the return value, e.g. g_environ_setenv.
 
@@ -1340,35 +1340,31 @@ where
             ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
 
               direction   ownershipTra... | withObjectFun
-            ==============================+===================================
-                          NOTHING         | <A>.with<Opt>Ptr
-                        ------------------+-----------------------------------
-              IN          EVERYTHING      | <A>.withDup<Opt>Ptr   (see note 1)
-                        ------------------+-----------------------------------
+            ==============================+===============================================
+                          NOTHING         | <A>.with<Opt>Ptr false
+                        ------------------+-----------------------------------------------
+              IN          EVERYTHING      | <A>.with<Opt>Ptr true             (see note 1)
+                        ------------------+-----------------------------------------------
                           CONTAINER       | <raise Error containerForInterface>
-            ------------------------------+-----------------------------------
-                          NOTHING         | <A>.withRefOptPtr
-                        ------------------+-----------------------------------
-              OUT         EVERYTHING      | <A>.withRefOptPtr
-                        ------------------+-----------------------------------
+            ------------------------------+-----------------------------------------------
+                          NOTHING         | <A>.withRefOptPtr false
+                        ------------------+-----------------------------------------------
+              OUT         EVERYTHING      | <A>.withRefOptPtr false
+                        ------------------+-----------------------------------------------
                           CONTAINER       | <raise Error containerForInterface>
-            ------------------------------+-----------------------------------
-                          NOTHING         | <A>.withRefDup<Opt>Ptr  (see note 2)
-                        ------------------+-----------------------------------
-              INOUT       EVERYTHING      | <A>.withRefDup<Opt>Ptr
-                        ------------------+-----------------------------------
+            ------------------------------+-----------------------------------------------
+                          NOTHING         | <A>.withRef<Opt>Ptr false
+                        ------------------+-----------------------------------------------
+              INOUT       EVERYTHING      | <A>.withRef<Opt>Ptr true
+                        ------------------+-----------------------------------------------
                           CONTAINER       | <raise Error containerForInterface>
-            ------------------------------+-----------------------------------
+            ------------------------------+-----------------------------------------------
 
               Note 1: if a reference is handed over for an IN parameter, the function
-                does not pass the reference back so `withDup[Opt]Ptr` is used to
+                does not pass the reference back so `with[Opt]Ptr` is used with argument true to
                 provide a duplicate reference; note that although ownership is not
                 transferred back via the IN parameter, it is possible that ownership is
                 transferred back via another parameter or the return value.
-
-              Note 2: 'Dup' ensures that a reference is added
-                before the call and this is transferred after the call.
-                See note for corresponding function <fromObjectFun>.
 
           A is <ObjectNamespace><ObjectName>Class.FFI
 
@@ -1415,57 +1411,53 @@ where
             isPointer         = GIRepository.TypeInfo.isPointer argTypeInfo
 
               direction   isPointer   ownershipTra... | withStructFun
-            ==========================================+===================================
+            ==========================================+===============================================
                                       NOTHING         | <raise Error nonPtrForStructInPar>
-                                    ------------------+-----------------------------------
+                                    ------------------+-----------------------------------------------
                           false       EVERYTHING      | <raise Error nonPtrForStructInPar>
-                                    ------------------+-----------------------------------
+                                    ------------------+-----------------------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
-              IN        ------------------------------+-----------------------------------
-                                      NOTHING         | <A>.with<Opt>Ptr
-                                    ------------------+-----------------------------------
-                          true        EVERYTHING      | <A>.withDup<Opt>Ptr   (see note 1)
-                                    ------------------+-----------------------------------
+              IN        ------------------------------+-----------------------------------------------
+                                      NOTHING         | <A>.with<Opt>Ptr false
+                                    ------------------+-----------------------------------------------
+                          true        EVERYTHING      | <A>.with<Opt>Ptr true             (see note 1)
+                                    ------------------+-----------------------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
-            ------------------------------------------+-----------------------------------
+            ------------------------------------------+-----------------------------------------------
                                       NOTHING         | <A>.withNewPtr
-                                    ------------------+-----------------------------------
+                                    ------------------+-----------------------------------------------
                           false       EVERYTHING      | <raise Error everythingForNonPtrStructOutPar>
-                                    ------------------+-----------------------------------
+                                    ------------------+-----------------------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
-              OUT       ------------------------------+-----------------------------------
-                                      NOTHING         | <A>.withRefOptPtr
-                                    ------------------+-----------------------------------
-                          true        EVERYTHING      | <A>.withRefOptPtr
-                                    ------------------+-----------------------------------
+              OUT       ------------------------------+-----------------------------------------------
+                                      NOTHING         | <A>.withRefOptPtr false
+                                    ------------------+-----------------------------------------------
+                          true        EVERYTHING      | <A>.withRefOptPtr false
+                                    ------------------+-----------------------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
-            ------------------------------------------+-----------------------------------
+            ------------------------------------------+-----------------------------------------------
                                       NOTHING         | <raise Error nothingForNonPtrStructInOutPar>
-                                    ------------------+-----------------------------------
-                          false       EVERYTHING      | <A>.withNewDupPtr
-                                    ------------------+-----------------------------------
+                                    ------------------+-----------------------------------------------
+                          false       EVERYTHING      | <A>.withDupPtr
+                                    ------------------+-----------------------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
-              INOUT     ------------------------------+-----------------------------------
-                                      NOTHING         | <A>.withRefDup<Opt>Ptr  (see note 2)
-                                    ------------------+-----------------------------------
-                          true        EVERYTHING      | <A>.withRefDup<Opt>Ptr
-                                    ------------------+-----------------------------------
+              INOUT     ------------------------------+-----------------------------------------------
+                                      NOTHING         | <A>.withRef<Opt>Ptr false
+                                    ------------------+-----------------------------------------------
+                          true        EVERYTHING      | <A>.withRef<Opt>Ptr true
+                                    ------------------+-----------------------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
-            ------------------------------------------+-----------------------------------
+            ------------------------------------------+-----------------------------------------------
 
               Note 1: for a non-reference counted struct,
                 if ownership is transferred for an IN parameter, the function
-                may destructively update the parameter so `withDup[Opt]Ptr` is used
-                to provide a copy; for a reference counted struct,
+                may destructively update the parameter so `with[Opt]Ptr` is used
+                with argument true to provide a copy; for a reference counted struct,
                 if a reference is handed over for an IN parameter, the function
-                does not pass the reference back so `withDup[Opt]Ptr` is used to
+                does not pass the reference back so `with[Opt]Ptr` is used with arugment true to
                 provide a duplicate reference; note that although ownership is not
                 transferred back via the IN parameter, it is possible that ownership is
                 transferred back via another parameter or the return value.
-
-              Note 2: 'Dup' ensures that a reference is added or copy made
-                before the call and this is transferred after the call.
-                See note for corresponding function <fromStructFun>.
 
           A is defined as follows:
 
@@ -1630,13 +1622,13 @@ where
                 ------------------+-----------------------------------------------
           OUT     CONTAINER       | <raise Error containerForUtf8>
                 ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.from<Opt>Ptr 1
+                  EVERYTHING      | <A>.from<Opt>Ptr ~1
         --------------------------+-----------------------------------------------
                   NOTHING         | <A>.from<Opt>Ptr 0
                 ------------------+-----------------------------------------------
           INOUT   CONTAINER       | <raise Error containerForUtf8>
                 ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.from<Opt>Ptr 1             (see note 1)
+                  EVERYTHING      | <A>.from<Opt>Ptr ~1               (see note 1)
         --------------------------+-----------------------------------------------
 
           Note 1: ownership transfer EVERYTHING is not the same as NOTHING:
@@ -1669,19 +1661,18 @@ where
                 ------------------+-----------------------------------------------
           OUT     CONTAINER       | <A>.from<Opt>Ptr 1
                 ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.from<Opt>Ptr 2
+                  EVERYTHING      | <A>.from<Opt>Ptr ~1
         --------------------------+-----------------------------------------------
                   NOTHING         | <A>.from<Opt>Ptr 0
                 ------------------+-----------------------------------------------
           INOUT   CONTAINER       | <A>.from<Opt>Ptr 1                (see note 1)
                 ------------------+-----------------------------------------------
-                  EVERYTHING      | <A>.from<Opt>Ptr 2                (see note 1)
+                  EVERYTHING      | <A>.from<Opt>Ptr ~1               (see note 1)
         --------------------------+-----------------------------------------------
 
           Note 1: ownership transfer EVERYTHING is not the same as NOTHING:
             handing ownership to the function and taking ownership back allows
-            the function to free and/or allocate memory.  This takes back
-            ownership of the value created by <withArrayFun>.
+            the function to free and/or allocate memory.
 
       A is <ArrayStructId(argTypeInfo)>.FFI
 
@@ -1726,21 +1717,12 @@ where
                         ------------------+-----------------------------------
                           CONTAINER       | <raise Error containerForInterface>
             ------------------------------+-----------------------------------
-                          NOTHING         | <A>.from<Opt>Ptr true  (see note 1)
+                          NOTHING         | <A>.from<Opt>Ptr false
                         ------------------+-----------------------------------
               INOUT       EVERYTHING      | <A>.from<Opt>Ptr true
                         ------------------+-----------------------------------
                           CONTAINER       | <raise Error containerForInterface>
             ------------------------------+-----------------------------------
-
-              Note 1: in this case, we would expect no transfer, i.e. `false`.
-                However, after the call has returned but before the `from<X>Ptr`
-                function has had a chance to add a reference, garbage collection
-                may have freed the object because it was required only for the
-                function call.  Thus a reference is added before the call
-                and this is transferred after the call, hence argument `true`.
-                This is entirely an academic matter because there is no known
-                occurrence of INOUT STRUCT INTERFACE parameters.
 
           A is <InterfaceNamespace><InterfaceName>Class.FFI
 
@@ -1791,7 +1773,7 @@ where
                                     ------------------+-----------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
               INOUT     ------------------------------+-----------------------------------
-                                      NOTHING         | <A>.from<Opt>Ptr true  (see note 2)
+                                      NOTHING         | <A>.from<Opt>Ptr false
                                     ------------------+-----------------------------------
                           true        EVERYTHING      | <A>.from<Opt>Ptr true
                                     ------------------+-----------------------------------
@@ -1802,17 +1784,6 @@ where
                 not own.  Therefore, for structures that do not support
                 reference counting, a copy must be made when there is no
                 transfer.
-
-              Note 2: in this case, we would expect no transfer, i.e. `false`.
-                (As per note 2, this would be a copy for structures that do
-                not support reference counting.)  However, after the call has
-                returned but before the `from<X>Ptr` function has had a chance
-                to add a reference or take a copy, garbage collection may have
-                freed the structure because it was required only for the function
-                call.  Thus a reference is added or copy made before the call
-                and this is transferred after the call, hence argument `true`.
-                This is entirely an academic matter because there is no known
-                occurrence of INOUT STRUCT INTERFACE parameters.
 
           A is <InterfaceNamespace><InterfaceName>Record.FFI
 
@@ -1979,7 +1950,7 @@ where
         ------------------+-----------------------------------------------
           CONTAINER       | <A>.from<Opt>Ptr 1
         ------------------+-----------------------------------------------
-          EVERYTHING      | <A>.from<Opt>Ptr 2
+          EVERYTHING      | <A>.from<Opt>Ptr ~1
         ------------------+-----------------------------------------------
 
       A is <ArrayStructId(retTypeInfo)>.FFI

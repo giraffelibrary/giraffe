@@ -9,9 +9,9 @@ structure GtkLinkButtonAccessible :>
     end
     type 'a class = 'a GtkLinkButtonAccessibleClass.class
     type t = base class
-    fun asAction self = (GObjectObjectClass.FFI.withPtr ---> AtkActionClass.FFI.fromPtr false) I self
-    fun asComponent self = (GObjectObjectClass.FFI.withPtr ---> AtkComponentClass.FFI.fromPtr false) I self
-    fun asHyperlinkImpl self = (GObjectObjectClass.FFI.withPtr ---> AtkHyperlinkImplClass.FFI.fromPtr false) I self
-    fun asImage self = (GObjectObjectClass.FFI.withPtr ---> AtkImageClass.FFI.fromPtr false) I self
+    fun asAction self = (GObjectObjectClass.FFI.withPtr false ---> AtkActionClass.FFI.fromPtr false) I self
+    fun asComponent self = (GObjectObjectClass.FFI.withPtr false ---> AtkComponentClass.FFI.fromPtr false) I self
+    fun asHyperlinkImpl self = (GObjectObjectClass.FFI.withPtr false ---> AtkHyperlinkImplClass.FFI.fromPtr false) I self
+    fun asImage self = (GObjectObjectClass.FFI.withPtr false ---> AtkImageClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

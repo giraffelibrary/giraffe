@@ -202,12 +202,12 @@ structure GtkCellRenderer :>
         flags
       ) =
       (
-        GtkCellRendererClass.FFI.withPtr
-         &&&> GdkEvent.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
+        GtkCellRendererClass.FFI.withPtr false
+         &&&> GdkEvent.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GdkRectangleRecord.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
          &&&> GtkCellRendererState.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -231,10 +231,10 @@ structure GtkCellRenderer :>
       let
         val alignedArea & () =
           (
-            GtkCellRendererClass.FFI.withPtr
-             &&&> GtkWidgetClass.FFI.withPtr
+            GtkCellRendererClass.FFI.withPtr false
+             &&&> GtkWidgetClass.FFI.withPtr false
              &&&> GtkCellRendererState.FFI.withVal
-             &&&> GdkRectangleRecord.FFI.withPtr
+             &&&> GdkRectangleRecord.FFI.withPtr false
              &&&> GdkRectangleRecord.FFI.withNewPtr
              ---> GdkRectangleRecord.FFI.fromPtr true && I
           )
@@ -255,7 +255,7 @@ structure GtkCellRenderer :>
          & yalign
          & () =
           (
-            GtkCellRendererClass.FFI.withPtr
+            GtkCellRendererClass.FFI.withPtr false
              &&&> GFloat.FFI.withRefVal
              &&&> GFloat.FFI.withRefVal
              ---> GFloat.FFI.fromVal
@@ -277,7 +277,7 @@ structure GtkCellRenderer :>
          & height
          & () =
           (
-            GtkCellRendererClass.FFI.withPtr
+            GtkCellRendererClass.FFI.withPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GInt32.FFI.fromVal
@@ -299,7 +299,7 @@ structure GtkCellRenderer :>
          & ypad
          & () =
           (
-            GtkCellRendererClass.FFI.withPtr
+            GtkCellRendererClass.FFI.withPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GInt32.FFI.fromVal
@@ -321,8 +321,8 @@ structure GtkCellRenderer :>
          & naturalSize
          & () =
           (
-            GtkCellRendererClass.FFI.withPtr
-             &&&> GtkWidgetClass.FFI.withPtr
+            GtkCellRendererClass.FFI.withPtr false
+             &&&> GtkWidgetClass.FFI.withPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GInt32.FFI.fromVal
@@ -345,8 +345,8 @@ structure GtkCellRenderer :>
          & naturalHeight
          & () =
           (
-            GtkCellRendererClass.FFI.withPtr
-             &&&> GtkWidgetClass.FFI.withPtr
+            GtkCellRendererClass.FFI.withPtr false
+             &&&> GtkWidgetClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
@@ -371,8 +371,8 @@ structure GtkCellRenderer :>
          & naturalSize
          & () =
           (
-            GtkCellRendererClass.FFI.withPtr
-             &&&> GtkWidgetClass.FFI.withPtr
+            GtkCellRendererClass.FFI.withPtr false
+             &&&> GtkWidgetClass.FFI.withPtr false
              &&&> GtkRequisitionRecord.FFI.withNewPtr
              &&&> GtkRequisitionRecord.FFI.withNewPtr
              ---> GtkRequisitionRecord.FFI.fromPtr true
@@ -395,8 +395,8 @@ structure GtkCellRenderer :>
          & naturalSize
          & () =
           (
-            GtkCellRendererClass.FFI.withPtr
-             &&&> GtkWidgetClass.FFI.withPtr
+            GtkCellRendererClass.FFI.withPtr false
+             &&&> GtkWidgetClass.FFI.withPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GInt32.FFI.fromVal
@@ -419,8 +419,8 @@ structure GtkCellRenderer :>
          & naturalWidth
          & () =
           (
-            GtkCellRendererClass.FFI.withPtr
-             &&&> GtkWidgetClass.FFI.withPtr
+            GtkCellRendererClass.FFI.withPtr false
+             &&&> GtkWidgetClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
@@ -439,8 +439,8 @@ structure GtkCellRenderer :>
       in
         (minimumWidth, naturalWidth)
       end
-    fun getRequestMode self = (GtkCellRendererClass.FFI.withPtr ---> GtkSizeRequestMode.FFI.fromVal) getRequestMode_ self
-    fun getSensitive self = (GtkCellRendererClass.FFI.withPtr ---> GBool.FFI.fromVal) getSensitive_ self
+    fun getRequestMode self = (GtkCellRendererClass.FFI.withPtr false ---> GtkSizeRequestMode.FFI.fromVal) getRequestMode_ self
+    fun getSensitive self = (GtkCellRendererClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSensitive_ self
     fun getSize self (widget, cellArea) =
       let
         val xOffset
@@ -449,9 +449,9 @@ structure GtkCellRenderer :>
          & height
          & () =
           (
-            GtkCellRendererClass.FFI.withPtr
-             &&&> GtkWidgetClass.FFI.withPtr
-             &&&> GdkRectangleRecord.FFI.withOptPtr
+            GtkCellRendererClass.FFI.withPtr false
+             &&&> GtkWidgetClass.FFI.withPtr false
+             &&&> GdkRectangleRecord.FFI.withOptPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
@@ -482,8 +482,8 @@ structure GtkCellRenderer :>
       end
     fun getState self (widget, cellState) =
       (
-        GtkCellRendererClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withOptPtr
+        GtkCellRendererClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withOptPtr false
          &&&> GtkCellRendererState.FFI.withVal
          ---> GtkStateFlags.FFI.fromVal
       )
@@ -493,8 +493,8 @@ structure GtkCellRenderer :>
            & widget
            & cellState
         )
-    fun getVisible self = (GtkCellRendererClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
-    fun isActivatable self = (GtkCellRendererClass.FFI.withPtr ---> GBool.FFI.fromVal) isActivatable_ self
+    fun getVisible self = (GtkCellRendererClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
+    fun isActivatable self = (GtkCellRendererClass.FFI.withPtr false ---> GBool.FFI.fromVal) isActivatable_ self
     fun render
       self
       (
@@ -505,11 +505,11 @@ structure GtkCellRenderer :>
         flags
       ) =
       (
-        GtkCellRendererClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
+        GtkCellRendererClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
          &&&> GtkCellRendererState.FFI.withVal
          ---> I
       )
@@ -524,7 +524,7 @@ structure GtkCellRenderer :>
         )
     fun setAlignment self (xalign, yalign) =
       (
-        GtkCellRendererClass.FFI.withPtr
+        GtkCellRendererClass.FFI.withPtr false
          &&&> GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal
          ---> I
@@ -537,7 +537,7 @@ structure GtkCellRenderer :>
         )
     fun setFixedSize self (width, height) =
       (
-        GtkCellRendererClass.FFI.withPtr
+        GtkCellRendererClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I
@@ -550,7 +550,7 @@ structure GtkCellRenderer :>
         )
     fun setPadding self (xpad, ypad) =
       (
-        GtkCellRendererClass.FFI.withPtr
+        GtkCellRendererClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I
@@ -561,8 +561,8 @@ structure GtkCellRenderer :>
            & xpad
            & ypad
         )
-    fun setSensitive self sensitive = (GtkCellRendererClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSensitive_ (self & sensitive)
-    fun setVisible self visible = (GtkCellRendererClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
+    fun setSensitive self sensitive = (GtkCellRendererClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSensitive_ (self & sensitive)
+    fun setVisible self visible = (GtkCellRendererClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
     fun startEditing
       self
       (
@@ -574,12 +574,12 @@ structure GtkCellRenderer :>
         flags
       ) =
       (
-        GtkCellRendererClass.FFI.withPtr
-         &&&> GdkEvent.FFI.withOptPtr
-         &&&> GtkWidgetClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
+        GtkCellRendererClass.FFI.withPtr false
+         &&&> GdkEvent.FFI.withOptPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GdkRectangleRecord.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
          &&&> GtkCellRendererState.FFI.withVal
          ---> GtkCellEditableClass.FFI.fromOptPtr false
       )
@@ -593,7 +593,7 @@ structure GtkCellRenderer :>
            & cellArea
            & flags
         )
-    fun stopEditing self canceled = (GtkCellRendererClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) stopEditing_ (self & canceled)
+    fun stopEditing self canceled = (GtkCellRendererClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) stopEditing_ (self & canceled)
     local
       open ClosureMarshal Signal
     in

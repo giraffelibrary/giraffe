@@ -15,10 +15,10 @@ structure GioDBusObjectProxy :>
     type 'a d_bus_object_class = 'a GioDBusObjectClass.class
     type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
     type t = base class
-    fun asDBusObject self = (GObjectObjectClass.FFI.withPtr ---> GioDBusObjectClass.FFI.fromPtr false) I self
+    fun asDBusObject self = (GObjectObjectClass.FFI.withPtr false ---> GioDBusObjectClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (connection, objectPath) = (GioDBusConnectionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioDBusObjectProxyClass.FFI.fromPtr true) new_ (connection & objectPath)
-    fun getConnection self = (GioDBusObjectProxyClass.FFI.withPtr ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
+    fun new (connection, objectPath) = (GioDBusConnectionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusObjectProxyClass.FFI.fromPtr true) new_ (connection & objectPath)
+    fun getConnection self = (GioDBusObjectProxyClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
     local
       open Property
     in

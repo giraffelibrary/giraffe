@@ -20,14 +20,14 @@ structure GtkSourceGutterRendererPixbuf :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSourceGutterRendererPixbufClass.FFI.fromPtr true) new_ ()
-    fun getGicon self = (GtkSourceGutterRendererPixbufClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getGicon_ self
-    fun getIconName self = (GtkSourceGutterRendererPixbufClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getIconName_ self
-    fun getPixbuf self = (GtkSourceGutterRendererPixbufClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
-    fun getStockId self = (GtkSourceGutterRendererPixbufClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStockId_ self
-    fun setGicon self icon = (GtkSourceGutterRendererPixbufClass.FFI.withPtr &&&> GioIconClass.FFI.withOptPtr ---> I) setGicon_ (self & icon)
-    fun setIconName self iconName = (GtkSourceGutterRendererPixbufClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setIconName_ (self & iconName)
-    fun setPixbuf self pixbuf = (GtkSourceGutterRendererPixbufClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withOptPtr ---> I) setPixbuf_ (self & pixbuf)
-    fun setStockId self stockId = (GtkSourceGutterRendererPixbufClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setStockId_ (self & stockId)
+    fun getGicon self = (GtkSourceGutterRendererPixbufClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getGicon_ self
+    fun getIconName self = (GtkSourceGutterRendererPixbufClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIconName_ self
+    fun getPixbuf self = (GtkSourceGutterRendererPixbufClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
+    fun getStockId self = (GtkSourceGutterRendererPixbufClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getStockId_ self
+    fun setGicon self icon = (GtkSourceGutterRendererPixbufClass.FFI.withPtr false &&&> GioIconClass.FFI.withOptPtr false ---> I) setGicon_ (self & icon)
+    fun setIconName self iconName = (GtkSourceGutterRendererPixbufClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setIconName_ (self & iconName)
+    fun setPixbuf self pixbuf = (GtkSourceGutterRendererPixbufClass.FFI.withPtr false &&&> GdkPixbufPixbufClass.FFI.withOptPtr false ---> I) setPixbuf_ (self & pixbuf)
+    fun setStockId self stockId = (GtkSourceGutterRendererPixbufClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setStockId_ (self & stockId)
     local
       open Property
     in

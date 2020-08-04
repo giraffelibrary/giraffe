@@ -31,8 +31,8 @@ structure GioDtlsServerConnection :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (baseSocket, certificate) =
       (
-        GioDatagramBasedClass.FFI.withPtr
-         &&&> GioTlsCertificateClass.FFI.withOptPtr
+        GioDatagramBasedClass.FFI.withPtr false
+         &&&> GioTlsCertificateClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioDtlsServerConnectionClass.FFI.fromPtr true
       )

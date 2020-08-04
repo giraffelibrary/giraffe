@@ -110,34 +110,34 @@ structure GtkSourceView :>
     type draw_spaces_flags_t = GtkSourceDrawSpacesFlags.t
     type smart_home_end_type_t = GtkSourceSmartHomeEndType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asScrollable self = (GObjectObjectClass.FFI.withPtr ---> GtkScrollableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asScrollable self = (GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSourceViewClass.FFI.fromPtr false) new_ ()
-    fun newWithBuffer buffer = (GtkSourceBufferClass.FFI.withPtr ---> GtkSourceViewClass.FFI.fromPtr false) newWithBuffer_ buffer
-    fun getAutoIndent self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getAutoIndent_ self
-    fun getBackgroundPattern self = (GtkSourceViewClass.FFI.withPtr ---> GtkSourceBackgroundPatternType.FFI.fromVal) getBackgroundPattern_ self
-    fun getCompletion self = (GtkSourceViewClass.FFI.withPtr ---> GtkSourceCompletionClass.FFI.fromPtr false) getCompletion_ self
-    fun getDrawSpaces self = (GtkSourceViewClass.FFI.withPtr ---> GtkSourceDrawSpacesFlags.FFI.fromVal) getDrawSpaces_ self
-    fun getGutter self windowType = (GtkSourceViewClass.FFI.withPtr &&&> GtkTextWindowType.FFI.withVal ---> GtkSourceGutterClass.FFI.fromPtr false) getGutter_ (self & windowType)
-    fun getHighlightCurrentLine self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getHighlightCurrentLine_ self
-    fun getIndentOnTab self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getIndentOnTab_ self
-    fun getIndentWidth self = (GtkSourceViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getIndentWidth_ self
-    fun getInsertSpacesInsteadOfTabs self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getInsertSpacesInsteadOfTabs_ self
-    fun getRightMarginPosition self = (GtkSourceViewClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getRightMarginPosition_ self
-    fun getShowLineMarks self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowLineMarks_ self
-    fun getShowLineNumbers self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowLineNumbers_ self
-    fun getShowRightMargin self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowRightMargin_ self
-    fun getSmartBackspace self = (GtkSourceViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getSmartBackspace_ self
-    fun getSmartHomeEnd self = (GtkSourceViewClass.FFI.withPtr ---> GtkSourceSmartHomeEndType.FFI.fromVal) getSmartHomeEnd_ self
-    fun getTabWidth self = (GtkSourceViewClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getTabWidth_ self
-    fun getVisualColumn self iter = (GtkSourceViewClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GUInt32.FFI.fromVal) getVisualColumn_ (self & iter)
+    fun newWithBuffer buffer = (GtkSourceBufferClass.FFI.withPtr false ---> GtkSourceViewClass.FFI.fromPtr false) newWithBuffer_ buffer
+    fun getAutoIndent self = (GtkSourceViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAutoIndent_ self
+    fun getBackgroundPattern self = (GtkSourceViewClass.FFI.withPtr false ---> GtkSourceBackgroundPatternType.FFI.fromVal) getBackgroundPattern_ self
+    fun getCompletion self = (GtkSourceViewClass.FFI.withPtr false ---> GtkSourceCompletionClass.FFI.fromPtr false) getCompletion_ self
+    fun getDrawSpaces self = (GtkSourceViewClass.FFI.withPtr false ---> GtkSourceDrawSpacesFlags.FFI.fromVal) getDrawSpaces_ self
+    fun getGutter self windowType = (GtkSourceViewClass.FFI.withPtr false &&&> GtkTextWindowType.FFI.withVal ---> GtkSourceGutterClass.FFI.fromPtr false) getGutter_ (self & windowType)
+    fun getHighlightCurrentLine self = (GtkSourceViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHighlightCurrentLine_ self
+    fun getIndentOnTab self = (GtkSourceViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIndentOnTab_ self
+    fun getIndentWidth self = (GtkSourceViewClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getIndentWidth_ self
+    fun getInsertSpacesInsteadOfTabs self = (GtkSourceViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInsertSpacesInsteadOfTabs_ self
+    fun getRightMarginPosition self = (GtkSourceViewClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getRightMarginPosition_ self
+    fun getShowLineMarks self = (GtkSourceViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowLineMarks_ self
+    fun getShowLineNumbers self = (GtkSourceViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowLineNumbers_ self
+    fun getShowRightMargin self = (GtkSourceViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowRightMargin_ self
+    fun getSmartBackspace self = (GtkSourceViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSmartBackspace_ self
+    fun getSmartHomeEnd self = (GtkSourceViewClass.FFI.withPtr false ---> GtkSourceSmartHomeEndType.FFI.fromVal) getSmartHomeEnd_ self
+    fun getTabWidth self = (GtkSourceViewClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getTabWidth_ self
+    fun getVisualColumn self iter = (GtkSourceViewClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> GUInt32.FFI.fromVal) getVisualColumn_ (self & iter)
     fun indentLines self (start, end') =
       (
-        GtkSourceViewClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkSourceViewClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         indentLines_
@@ -146,13 +146,13 @@ structure GtkSourceView :>
            & start
            & end'
         )
-    fun setAutoIndent self enable = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAutoIndent_ (self & enable)
-    fun setBackgroundPattern self backgroundPattern = (GtkSourceViewClass.FFI.withPtr &&&> GtkSourceBackgroundPatternType.FFI.withVal ---> I) setBackgroundPattern_ (self & backgroundPattern)
-    fun setDrawSpaces self flags = (GtkSourceViewClass.FFI.withPtr &&&> GtkSourceDrawSpacesFlags.FFI.withVal ---> I) setDrawSpaces_ (self & flags)
-    fun setHighlightCurrentLine self highlight = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHighlightCurrentLine_ (self & highlight)
-    fun setIndentOnTab self enable = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setIndentOnTab_ (self & enable)
-    fun setIndentWidth self width = (GtkSourceViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setIndentWidth_ (self & width)
-    fun setInsertSpacesInsteadOfTabs self enable = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setInsertSpacesInsteadOfTabs_ (self & enable)
+    fun setAutoIndent self enable = (GtkSourceViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAutoIndent_ (self & enable)
+    fun setBackgroundPattern self backgroundPattern = (GtkSourceViewClass.FFI.withPtr false &&&> GtkSourceBackgroundPatternType.FFI.withVal ---> I) setBackgroundPattern_ (self & backgroundPattern)
+    fun setDrawSpaces self flags = (GtkSourceViewClass.FFI.withPtr false &&&> GtkSourceDrawSpacesFlags.FFI.withVal ---> I) setDrawSpaces_ (self & flags)
+    fun setHighlightCurrentLine self highlight = (GtkSourceViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHighlightCurrentLine_ (self & highlight)
+    fun setIndentOnTab self enable = (GtkSourceViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setIndentOnTab_ (self & enable)
+    fun setIndentWidth self width = (GtkSourceViewClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setIndentWidth_ (self & width)
+    fun setInsertSpacesInsteadOfTabs self enable = (GtkSourceViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setInsertSpacesInsteadOfTabs_ (self & enable)
     fun setMarkAttributes
       self
       (
@@ -161,9 +161,9 @@ structure GtkSourceView :>
         priority
       ) =
       (
-        GtkSourceViewClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GtkSourceMarkAttributesClass.FFI.withPtr
+        GtkSourceViewClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GtkSourceMarkAttributesClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -174,18 +174,18 @@ structure GtkSourceView :>
            & attributes
            & priority
         )
-    fun setRightMarginPosition self pos = (GtkSourceViewClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setRightMarginPosition_ (self & pos)
-    fun setShowLineMarks self show = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowLineMarks_ (self & show)
-    fun setShowLineNumbers self show = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowLineNumbers_ (self & show)
-    fun setShowRightMargin self show = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowRightMargin_ (self & show)
-    fun setSmartBackspace self smartBackspace = (GtkSourceViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSmartBackspace_ (self & smartBackspace)
-    fun setSmartHomeEnd self smartHomeEnd = (GtkSourceViewClass.FFI.withPtr &&&> GtkSourceSmartHomeEndType.FFI.withVal ---> I) setSmartHomeEnd_ (self & smartHomeEnd)
-    fun setTabWidth self width = (GtkSourceViewClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setTabWidth_ (self & width)
+    fun setRightMarginPosition self pos = (GtkSourceViewClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setRightMarginPosition_ (self & pos)
+    fun setShowLineMarks self show = (GtkSourceViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowLineMarks_ (self & show)
+    fun setShowLineNumbers self show = (GtkSourceViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowLineNumbers_ (self & show)
+    fun setShowRightMargin self show = (GtkSourceViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowRightMargin_ (self & show)
+    fun setSmartBackspace self smartBackspace = (GtkSourceViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSmartBackspace_ (self & smartBackspace)
+    fun setSmartHomeEnd self smartHomeEnd = (GtkSourceViewClass.FFI.withPtr false &&&> GtkSourceSmartHomeEndType.FFI.withVal ---> I) setSmartHomeEnd_ (self & smartHomeEnd)
+    fun setTabWidth self width = (GtkSourceViewClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setTabWidth_ (self & width)
     fun unindentLines self (start, end') =
       (
-        GtkSourceViewClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkSourceViewClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         unindentLines_

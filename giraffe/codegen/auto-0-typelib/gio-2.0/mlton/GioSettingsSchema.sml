@@ -41,10 +41,10 @@ structure GioSettingsSchema :>
     type t = GioSettingsSchemaRecord.t
     type settings_schema_key_t = GioSettingsSchemaKeyRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getId self = (GioSettingsSchemaRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getId_ self
-    fun getKey self name = (GioSettingsSchemaRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioSettingsSchemaKeyRecord.FFI.fromPtr true) getKey_ (self & name)
-    fun getPath self = (GioSettingsSchemaRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPath_ self
-    fun hasKey self name = (GioSettingsSchemaRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasKey_ (self & name)
-    fun listChildren self = (GioSettingsSchemaRecord.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) listChildren_ self
-    fun listKeys self = (GioSettingsSchemaRecord.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) listKeys_ self
+    fun getId self = (GioSettingsSchemaRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getId_ self
+    fun getKey self name = (GioSettingsSchemaRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioSettingsSchemaKeyRecord.FFI.fromPtr true) getKey_ (self & name)
+    fun getPath self = (GioSettingsSchemaRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPath_ self
+    fun hasKey self name = (GioSettingsSchemaRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasKey_ (self & name)
+    fun listChildren self = (GioSettingsSchemaRecord.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) listChildren_ self
+    fun listKeys self = (GioSettingsSchemaRecord.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) listKeys_ self
   end

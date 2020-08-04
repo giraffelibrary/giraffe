@@ -167,7 +167,7 @@ structure AtkStateType :> ATK_STATE_TYPE =
       val register_ = call (getSymbol "atk_state_type_register") (Utf8.PolyML.cInPtr --> PolyML.cVal)
     end
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name
+    fun forName name = (Utf8.FFI.withPtr 0 ---> FFI.fromVal) forName_ name
     fun getName type' = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ type'
-    fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
+    fun register name = (Utf8.FFI.withPtr 0 ---> FFI.fromVal) register_ name
   end

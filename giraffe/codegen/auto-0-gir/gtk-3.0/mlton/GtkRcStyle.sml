@@ -9,5 +9,5 @@ structure GtkRcStyle :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkRcStyleClass.FFI.fromPtr true) new_ ()
-    fun copy self = (GtkRcStyleClass.FFI.withPtr ---> GtkRcStyleClass.FFI.fromPtr true) copy_ self
+    fun copy self = (GtkRcStyleClass.FFI.withPtr false ---> GtkRcStyleClass.FFI.fromPtr true) copy_ self
   end

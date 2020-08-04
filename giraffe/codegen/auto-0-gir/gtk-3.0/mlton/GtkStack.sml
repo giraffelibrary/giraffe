@@ -120,15 +120,15 @@ structure GtkStack :>
     type stack_transition_type_t = GtkStackTransitionType.t
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkStackClass.FFI.fromPtr false) new_ ()
     fun addNamed self (child, name) =
       (
-        GtkStackClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkStackClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         addNamed_
@@ -145,10 +145,10 @@ structure GtkStack :>
         title
       ) =
       (
-        GtkStackClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkStackClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         addTitled_
@@ -158,27 +158,27 @@ structure GtkStack :>
            & name
            & title
         )
-    fun getChildByName self name = (GtkStackClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getChildByName_ (self & name)
-    fun getHhomogeneous self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getHhomogeneous_ self
-    fun getHomogeneous self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getHomogeneous_ self
-    fun getInterpolateSize self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getInterpolateSize_ self
-    fun getTransitionDuration self = (GtkStackClass.FFI.withPtr ---> GUInt.FFI.fromVal) getTransitionDuration_ self
-    fun getTransitionRunning self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getTransitionRunning_ self
-    fun getTransitionType self = (GtkStackClass.FFI.withPtr ---> GtkStackTransitionType.FFI.fromVal) getTransitionType_ self
-    fun getVhomogeneous self = (GtkStackClass.FFI.withPtr ---> GBool.FFI.fromVal) getVhomogeneous_ self
-    fun getVisibleChild self = (GtkStackClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getVisibleChild_ self
-    fun getVisibleChildName self = (GtkStackClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getVisibleChildName_ self
-    fun setHhomogeneous self hhomogeneous = (GtkStackClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHhomogeneous_ (self & hhomogeneous)
-    fun setHomogeneous self homogeneous = (GtkStackClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
-    fun setInterpolateSize self interpolateSize = (GtkStackClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setInterpolateSize_ (self & interpolateSize)
-    fun setTransitionDuration self duration = (GtkStackClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setTransitionDuration_ (self & duration)
-    fun setTransitionType self transition = (GtkStackClass.FFI.withPtr &&&> GtkStackTransitionType.FFI.withVal ---> I) setTransitionType_ (self & transition)
-    fun setVhomogeneous self vhomogeneous = (GtkStackClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVhomogeneous_ (self & vhomogeneous)
-    fun setVisibleChild self child = (GtkStackClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) setVisibleChild_ (self & child)
+    fun getChildByName self name = (GtkStackClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromOptPtr false) getChildByName_ (self & name)
+    fun getHhomogeneous self = (GtkStackClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHhomogeneous_ self
+    fun getHomogeneous self = (GtkStackClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHomogeneous_ self
+    fun getInterpolateSize self = (GtkStackClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInterpolateSize_ self
+    fun getTransitionDuration self = (GtkStackClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getTransitionDuration_ self
+    fun getTransitionRunning self = (GtkStackClass.FFI.withPtr false ---> GBool.FFI.fromVal) getTransitionRunning_ self
+    fun getTransitionType self = (GtkStackClass.FFI.withPtr false ---> GtkStackTransitionType.FFI.fromVal) getTransitionType_ self
+    fun getVhomogeneous self = (GtkStackClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVhomogeneous_ self
+    fun getVisibleChild self = (GtkStackClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getVisibleChild_ self
+    fun getVisibleChildName self = (GtkStackClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getVisibleChildName_ self
+    fun setHhomogeneous self hhomogeneous = (GtkStackClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHhomogeneous_ (self & hhomogeneous)
+    fun setHomogeneous self homogeneous = (GtkStackClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
+    fun setInterpolateSize self interpolateSize = (GtkStackClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setInterpolateSize_ (self & interpolateSize)
+    fun setTransitionDuration self duration = (GtkStackClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) setTransitionDuration_ (self & duration)
+    fun setTransitionType self transition = (GtkStackClass.FFI.withPtr false &&&> GtkStackTransitionType.FFI.withVal ---> I) setTransitionType_ (self & transition)
+    fun setVhomogeneous self vhomogeneous = (GtkStackClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVhomogeneous_ (self & vhomogeneous)
+    fun setVisibleChild self child = (GtkStackClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setVisibleChild_ (self & child)
     fun setVisibleChildFull self (name, transition) =
       (
-        GtkStackClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkStackClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GtkStackTransitionType.FFI.withVal
          ---> I
       )
@@ -188,7 +188,7 @@ structure GtkStack :>
            & name
            & transition
         )
-    fun setVisibleChildName self name = (GtkStackClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setVisibleChildName_ (self & name)
+    fun setVisibleChildName self name = (GtkStackClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setVisibleChildName_ (self & name)
     local
       open Property
     in

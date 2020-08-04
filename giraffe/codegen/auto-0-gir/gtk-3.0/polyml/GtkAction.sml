@@ -66,7 +66,7 @@ structure GtkAction :>
     type 'a accel_group_class = 'a GtkAccelGroupClass.class
     type 'a action_group_class = 'a GtkActionGroupClass.class
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -76,10 +76,10 @@ structure GtkAction :>
         stockId
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GtkActionClass.FFI.fromPtr true
       )
         new_
@@ -89,46 +89,46 @@ structure GtkAction :>
            & tooltip
            & stockId
         )
-    fun activate self = (GtkActionClass.FFI.withPtr ---> I) activate_ self
-    fun blockActivate self = (GtkActionClass.FFI.withPtr ---> I) blockActivate_ self
-    fun connectAccelerator self = (GtkActionClass.FFI.withPtr ---> I) connectAccelerator_ self
-    fun createIcon self iconSize = (GtkActionClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) createIcon_ (self & iconSize)
-    fun createMenu self = (GtkActionClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) createMenu_ self
-    fun createMenuItem self = (GtkActionClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) createMenuItem_ self
-    fun createToolItem self = (GtkActionClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) createToolItem_ self
-    fun disconnectAccelerator self = (GtkActionClass.FFI.withPtr ---> I) disconnectAccelerator_ self
-    fun getAccelClosure self = (GtkActionClass.FFI.withPtr ---> GObjectClosureRecord.FFI.fromPtr false) getAccelClosure_ self
-    fun getAccelPath self = (GtkActionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAccelPath_ self
-    fun getAlwaysShowImage self = (GtkActionClass.FFI.withPtr ---> GBool.FFI.fromVal) getAlwaysShowImage_ self
-    fun getGicon self = (GtkActionClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getGicon_ self
-    fun getIconName self = (GtkActionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getIconName_ self
-    fun getIsImportant self = (GtkActionClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsImportant_ self
-    fun getLabel self = (GtkActionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
-    fun getName self = (GtkActionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getSensitive self = (GtkActionClass.FFI.withPtr ---> GBool.FFI.fromVal) getSensitive_ self
-    fun getShortLabel self = (GtkActionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getShortLabel_ self
-    fun getStockId self = (GtkActionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStockId_ self
-    fun getTooltip self = (GtkActionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTooltip_ self
-    fun getVisible self = (GtkActionClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
-    fun getVisibleHorizontal self = (GtkActionClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisibleHorizontal_ self
-    fun getVisibleVertical self = (GtkActionClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisibleVertical_ self
-    fun isSensitive self = (GtkActionClass.FFI.withPtr ---> GBool.FFI.fromVal) isSensitive_ self
-    fun isVisible self = (GtkActionClass.FFI.withPtr ---> GBool.FFI.fromVal) isVisible_ self
-    fun setAccelGroup self accelGroup = (GtkActionClass.FFI.withPtr &&&> GtkAccelGroupClass.FFI.withOptPtr ---> I) setAccelGroup_ (self & accelGroup)
-    fun setAccelPath self accelPath = (GtkActionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setAccelPath_ (self & accelPath)
-    fun setAlwaysShowImage self alwaysShow = (GtkActionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAlwaysShowImage_ (self & alwaysShow)
-    fun setGicon self icon = (GtkActionClass.FFI.withPtr &&&> GioIconClass.FFI.withPtr ---> I) setGicon_ (self & icon)
-    fun setIconName self iconName = (GtkActionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setIconName_ (self & iconName)
-    fun setIsImportant self isImportant = (GtkActionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setIsImportant_ (self & isImportant)
-    fun setLabel self label = (GtkActionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setLabel_ (self & label)
-    fun setSensitive self sensitive = (GtkActionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSensitive_ (self & sensitive)
-    fun setShortLabel self shortLabel = (GtkActionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setShortLabel_ (self & shortLabel)
-    fun setStockId self stockId = (GtkActionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setStockId_ (self & stockId)
-    fun setTooltip self tooltip = (GtkActionClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTooltip_ (self & tooltip)
-    fun setVisible self visible = (GtkActionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
-    fun setVisibleHorizontal self visibleHorizontal = (GtkActionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisibleHorizontal_ (self & visibleHorizontal)
-    fun setVisibleVertical self visibleVertical = (GtkActionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisibleVertical_ (self & visibleVertical)
-    fun unblockActivate self = (GtkActionClass.FFI.withPtr ---> I) unblockActivate_ self
+    fun activate self = (GtkActionClass.FFI.withPtr false ---> I) activate_ self
+    fun blockActivate self = (GtkActionClass.FFI.withPtr false ---> I) blockActivate_ self
+    fun connectAccelerator self = (GtkActionClass.FFI.withPtr false ---> I) connectAccelerator_ self
+    fun createIcon self iconSize = (GtkActionClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) createIcon_ (self & iconSize)
+    fun createMenu self = (GtkActionClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) createMenu_ self
+    fun createMenuItem self = (GtkActionClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) createMenuItem_ self
+    fun createToolItem self = (GtkActionClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) createToolItem_ self
+    fun disconnectAccelerator self = (GtkActionClass.FFI.withPtr false ---> I) disconnectAccelerator_ self
+    fun getAccelClosure self = (GtkActionClass.FFI.withPtr false ---> GObjectClosureRecord.FFI.fromPtr false) getAccelClosure_ self
+    fun getAccelPath self = (GtkActionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getAccelPath_ self
+    fun getAlwaysShowImage self = (GtkActionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAlwaysShowImage_ self
+    fun getGicon self = (GtkActionClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getGicon_ self
+    fun getIconName self = (GtkActionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIconName_ self
+    fun getIsImportant self = (GtkActionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsImportant_ self
+    fun getLabel self = (GtkActionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLabel_ self
+    fun getName self = (GtkActionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getSensitive self = (GtkActionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSensitive_ self
+    fun getShortLabel self = (GtkActionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getShortLabel_ self
+    fun getStockId self = (GtkActionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getStockId_ self
+    fun getTooltip self = (GtkActionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTooltip_ self
+    fun getVisible self = (GtkActionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
+    fun getVisibleHorizontal self = (GtkActionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisibleHorizontal_ self
+    fun getVisibleVertical self = (GtkActionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisibleVertical_ self
+    fun isSensitive self = (GtkActionClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSensitive_ self
+    fun isVisible self = (GtkActionClass.FFI.withPtr false ---> GBool.FFI.fromVal) isVisible_ self
+    fun setAccelGroup self accelGroup = (GtkActionClass.FFI.withPtr false &&&> GtkAccelGroupClass.FFI.withOptPtr false ---> I) setAccelGroup_ (self & accelGroup)
+    fun setAccelPath self accelPath = (GtkActionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setAccelPath_ (self & accelPath)
+    fun setAlwaysShowImage self alwaysShow = (GtkActionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAlwaysShowImage_ (self & alwaysShow)
+    fun setGicon self icon = (GtkActionClass.FFI.withPtr false &&&> GioIconClass.FFI.withPtr false ---> I) setGicon_ (self & icon)
+    fun setIconName self iconName = (GtkActionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setIconName_ (self & iconName)
+    fun setIsImportant self isImportant = (GtkActionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setIsImportant_ (self & isImportant)
+    fun setLabel self label = (GtkActionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setLabel_ (self & label)
+    fun setSensitive self sensitive = (GtkActionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSensitive_ (self & sensitive)
+    fun setShortLabel self shortLabel = (GtkActionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setShortLabel_ (self & shortLabel)
+    fun setStockId self stockId = (GtkActionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setStockId_ (self & stockId)
+    fun setTooltip self tooltip = (GtkActionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTooltip_ (self & tooltip)
+    fun setVisible self visible = (GtkActionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
+    fun setVisibleHorizontal self visibleHorizontal = (GtkActionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisibleHorizontal_ (self & visibleHorizontal)
+    fun setVisibleVertical self visibleVertical = (GtkActionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisibleVertical_ (self & visibleVertical)
+    fun unblockActivate self = (GtkActionClass.FFI.withPtr false ---> I) unblockActivate_ self
     local
       open ClosureMarshal Signal
     in

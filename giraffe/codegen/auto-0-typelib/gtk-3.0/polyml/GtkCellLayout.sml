@@ -58,9 +58,9 @@ structure GtkCellLayout :>
         column
       ) =
       (
-        GtkCellLayoutClass.FFI.withPtr
-         &&&> GtkCellRendererClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkCellLayoutClass.FFI.withPtr false
+         &&&> GtkCellRendererClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -71,13 +71,13 @@ structure GtkCellLayout :>
            & attribute
            & column
         )
-    fun clear self = (GtkCellLayoutClass.FFI.withPtr ---> I) clear_ self
-    fun clearAttributes self cell = (GtkCellLayoutClass.FFI.withPtr &&&> GtkCellRendererClass.FFI.withPtr ---> I) clearAttributes_ (self & cell)
-    fun getArea self = (GtkCellLayoutClass.FFI.withPtr ---> GtkCellAreaClass.FFI.fromOptPtr false) getArea_ self
+    fun clear self = (GtkCellLayoutClass.FFI.withPtr false ---> I) clear_ self
+    fun clearAttributes self cell = (GtkCellLayoutClass.FFI.withPtr false &&&> GtkCellRendererClass.FFI.withPtr false ---> I) clearAttributes_ (self & cell)
+    fun getArea self = (GtkCellLayoutClass.FFI.withPtr false ---> GtkCellAreaClass.FFI.fromOptPtr false) getArea_ self
     fun packEnd self (cell, expand) =
       (
-        GtkCellLayoutClass.FFI.withPtr
-         &&&> GtkCellRendererClass.FFI.withPtr
+        GtkCellLayoutClass.FFI.withPtr false
+         &&&> GtkCellRendererClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -89,8 +89,8 @@ structure GtkCellLayout :>
         )
     fun packStart self (cell, expand) =
       (
-        GtkCellLayoutClass.FFI.withPtr
-         &&&> GtkCellRendererClass.FFI.withPtr
+        GtkCellLayoutClass.FFI.withPtr false
+         &&&> GtkCellRendererClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -102,8 +102,8 @@ structure GtkCellLayout :>
         )
     fun reorder self (cell, position) =
       (
-        GtkCellLayoutClass.FFI.withPtr
-         &&&> GtkCellRendererClass.FFI.withPtr
+        GtkCellLayoutClass.FFI.withPtr false
+         &&&> GtkCellRendererClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )

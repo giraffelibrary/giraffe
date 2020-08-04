@@ -12,10 +12,10 @@ structure GioMemoryInputStream :>
     type 'a pollable_input_stream_class = 'a GioPollableInputStreamClass.class
     type 'a seekable_class = 'a GioSeekableClass.class
     type t = base class
-    fun asPollableInputStream self = (GObjectObjectClass.FFI.withPtr ---> GioPollableInputStreamClass.FFI.fromPtr false) I self
-    fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
+    fun asPollableInputStream self = (GObjectObjectClass.FFI.withPtr false ---> GioPollableInputStreamClass.FFI.fromPtr false) I self
+    fun asSeekable self = (GObjectObjectClass.FFI.withPtr false ---> GioSeekableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioMemoryInputStreamClass.FFI.fromPtr true) new_ ()
-    fun newFromBytes bytes = (GLibBytesRecord.FFI.withPtr ---> GioMemoryInputStreamClass.FFI.fromPtr true) newFromBytes_ bytes
-    fun addBytes self bytes = (GioMemoryInputStreamClass.FFI.withPtr &&&> GLibBytesRecord.FFI.withPtr ---> I) addBytes_ (self & bytes)
+    fun newFromBytes bytes = (GLibBytesRecord.FFI.withPtr false ---> GioMemoryInputStreamClass.FFI.fromPtr true) newFromBytes_ bytes
+    fun addBytes self bytes = (GioMemoryInputStreamClass.FFI.withPtr false &&&> GLibBytesRecord.FFI.withPtr false ---> I) addBytes_ (self & bytes)
   end

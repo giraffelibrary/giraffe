@@ -15,10 +15,10 @@ structure GdkFrameTimings :>
     end
     type t = GdkFrameTimingsRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getComplete self = (GdkFrameTimingsRecord.FFI.withPtr ---> GBool.FFI.fromVal) getComplete_ self
-    fun getFrameCounter self = (GdkFrameTimingsRecord.FFI.withPtr ---> GInt64.FFI.fromVal) getFrameCounter_ self
-    fun getFrameTime self = (GdkFrameTimingsRecord.FFI.withPtr ---> GInt64.FFI.fromVal) getFrameTime_ self
-    fun getPredictedPresentationTime self = (GdkFrameTimingsRecord.FFI.withPtr ---> GInt64.FFI.fromVal) getPredictedPresentationTime_ self
-    fun getPresentationTime self = (GdkFrameTimingsRecord.FFI.withPtr ---> GInt64.FFI.fromVal) getPresentationTime_ self
-    fun getRefreshInterval self = (GdkFrameTimingsRecord.FFI.withPtr ---> GInt64.FFI.fromVal) getRefreshInterval_ self
+    fun getComplete self = (GdkFrameTimingsRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getComplete_ self
+    fun getFrameCounter self = (GdkFrameTimingsRecord.FFI.withPtr false ---> GInt64.FFI.fromVal) getFrameCounter_ self
+    fun getFrameTime self = (GdkFrameTimingsRecord.FFI.withPtr false ---> GInt64.FFI.fromVal) getFrameTime_ self
+    fun getPredictedPresentationTime self = (GdkFrameTimingsRecord.FFI.withPtr false ---> GInt64.FFI.fromVal) getPredictedPresentationTime_ self
+    fun getPresentationTime self = (GdkFrameTimingsRecord.FFI.withPtr false ---> GInt64.FFI.fromVal) getPresentationTime_ self
+    fun getRefreshInterval self = (GdkFrameTimingsRecord.FFI.withPtr false ---> GInt64.FFI.fromVal) getRefreshInterval_ self
   end

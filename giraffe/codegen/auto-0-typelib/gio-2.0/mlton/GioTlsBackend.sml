@@ -19,13 +19,13 @@ structure GioTlsBackend :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> GioTlsBackendClass.FFI.fromPtr false) getDefault_ ()
-    fun getCertificateType self = (GioTlsBackendClass.FFI.withPtr ---> GObjectType.FFI.fromVal) getCertificateType_ self
-    fun getClientConnectionType self = (GioTlsBackendClass.FFI.withPtr ---> GObjectType.FFI.fromVal) getClientConnectionType_ self
-    fun getDefaultDatabase self = (GioTlsBackendClass.FFI.withPtr ---> GioTlsDatabaseClass.FFI.fromPtr true) getDefaultDatabase_ self
-    fun getDtlsClientConnectionType self = (GioTlsBackendClass.FFI.withPtr ---> GObjectType.FFI.fromVal) getDtlsClientConnectionType_ self
-    fun getDtlsServerConnectionType self = (GioTlsBackendClass.FFI.withPtr ---> GObjectType.FFI.fromVal) getDtlsServerConnectionType_ self
-    fun getFileDatabaseType self = (GioTlsBackendClass.FFI.withPtr ---> GObjectType.FFI.fromVal) getFileDatabaseType_ self
-    fun getServerConnectionType self = (GioTlsBackendClass.FFI.withPtr ---> GObjectType.FFI.fromVal) getServerConnectionType_ self
-    fun supportsDtls self = (GioTlsBackendClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsDtls_ self
-    fun supportsTls self = (GioTlsBackendClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsTls_ self
+    fun getCertificateType self = (GioTlsBackendClass.FFI.withPtr false ---> GObjectType.FFI.fromVal) getCertificateType_ self
+    fun getClientConnectionType self = (GioTlsBackendClass.FFI.withPtr false ---> GObjectType.FFI.fromVal) getClientConnectionType_ self
+    fun getDefaultDatabase self = (GioTlsBackendClass.FFI.withPtr false ---> GioTlsDatabaseClass.FFI.fromPtr true) getDefaultDatabase_ self
+    fun getDtlsClientConnectionType self = (GioTlsBackendClass.FFI.withPtr false ---> GObjectType.FFI.fromVal) getDtlsClientConnectionType_ self
+    fun getDtlsServerConnectionType self = (GioTlsBackendClass.FFI.withPtr false ---> GObjectType.FFI.fromVal) getDtlsServerConnectionType_ self
+    fun getFileDatabaseType self = (GioTlsBackendClass.FFI.withPtr false ---> GObjectType.FFI.fromVal) getFileDatabaseType_ self
+    fun getServerConnectionType self = (GioTlsBackendClass.FFI.withPtr false ---> GObjectType.FFI.fromVal) getServerConnectionType_ self
+    fun supportsDtls self = (GioTlsBackendClass.FFI.withPtr false ---> GBool.FFI.fromVal) supportsDtls_ self
+    fun supportsTls self = (GioTlsBackendClass.FFI.withPtr false ---> GBool.FFI.fromVal) supportsTls_ self
   end

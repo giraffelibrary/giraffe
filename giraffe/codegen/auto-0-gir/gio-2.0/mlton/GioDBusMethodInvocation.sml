@@ -86,20 +86,20 @@ structure GioDBusMethodInvocation :>
     type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getConnection self = (GioDBusMethodInvocationClass.FFI.withPtr ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
-    fun getInterfaceName self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getInterfaceName_ self
-    fun getMessage self = (GioDBusMethodInvocationClass.FFI.withPtr ---> GioDBusMessageClass.FFI.fromPtr false) getMessage_ self
-    fun getMethodInfo self = (GioDBusMethodInvocationClass.FFI.withPtr ---> GioDBusMethodInfoRecord.FFI.fromPtr false) getMethodInfo_ self
-    fun getMethodName self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMethodName_ self
-    fun getObjectPath self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
-    fun getParameters self = (GioDBusMethodInvocationClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) getParameters_ self
-    fun getPropertyInfo self = (GioDBusMethodInvocationClass.FFI.withPtr ---> GioDBusPropertyInfoRecord.FFI.fromPtr false) getPropertyInfo_ self
-    fun getSender self = (GioDBusMethodInvocationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSender_ self
+    fun getConnection self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
+    fun getInterfaceName self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getInterfaceName_ self
+    fun getMessage self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GioDBusMessageClass.FFI.fromPtr false) getMessage_ self
+    fun getMethodInfo self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GioDBusMethodInfoRecord.FFI.fromPtr false) getMethodInfo_ self
+    fun getMethodName self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMethodName_ self
+    fun getObjectPath self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
+    fun getParameters self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) getParameters_ self
+    fun getPropertyInfo self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GioDBusPropertyInfoRecord.FFI.fromPtr false) getPropertyInfo_ self
+    fun getSender self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSender_ self
     fun returnDbusError self (errorName, errorMessage) =
       (
-        GioDBusMethodInvocationClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioDBusMethodInvocationClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         returnDbusError_
@@ -116,10 +116,10 @@ structure GioDBusMethodInvocation :>
         message
       ) =
       (
-        GioDBusMethodInvocationClass.FFI.withPtr
+        GioDBusMethodInvocationClass.FFI.withPtr false
          &&&> GLibQuark.FFI.withVal
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         returnErrorLiteral_
@@ -129,12 +129,12 @@ structure GioDBusMethodInvocation :>
            & code
            & message
         )
-    fun returnValue self parameters = (GioDBusMethodInvocationClass.FFI.withPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> I) returnValue_ (self & parameters)
+    fun returnValue self parameters = (GioDBusMethodInvocationClass.FFI.withPtr false &&&> GLibVariantRecord.FFI.withOptPtr false ---> I) returnValue_ (self & parameters)
     fun returnValueWithUnixFdList self (parameters, fdList) =
       (
-        GioDBusMethodInvocationClass.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withOptPtr
-         &&&> GioUnixFDListClass.FFI.withOptPtr
+        GioDBusMethodInvocationClass.FFI.withPtr false
+         &&&> GLibVariantRecord.FFI.withOptPtr false
+         &&&> GioUnixFDListClass.FFI.withOptPtr false
          ---> I
       )
         returnValueWithUnixFdList_

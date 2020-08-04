@@ -9,9 +9,9 @@ structure GtkAppChooser :>
     type 'a class = 'a GtkAppChooserClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getAppInfo self = (GtkAppChooserClass.FFI.withPtr ---> GioAppInfoClass.FFI.fromOptPtr true) getAppInfo_ self
-    fun getContentType self = (GtkAppChooserClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getContentType_ self
-    fun refresh self = (GtkAppChooserClass.FFI.withPtr ---> I) refresh_ self
+    fun getAppInfo self = (GtkAppChooserClass.FFI.withPtr false ---> GioAppInfoClass.FFI.fromOptPtr true) getAppInfo_ self
+    fun getContentType self = (GtkAppChooserClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getContentType_ self
+    fun refresh self = (GtkAppChooserClass.FFI.withPtr false ---> I) refresh_ self
     local
       open Property
     in

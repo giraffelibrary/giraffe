@@ -332,22 +332,22 @@ structure PangoLayout :>
     type wrap_mode_t = PangoWrapMode.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new context = (PangoContextClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr true) new_ context
-    fun contextChanged self = (PangoLayoutClass.FFI.withPtr ---> I) contextChanged_ self
-    fun copy self = (PangoLayoutClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr true) copy_ self
-    fun getAlignment self = (PangoLayoutClass.FFI.withPtr ---> PangoAlignment.FFI.fromVal) getAlignment_ self
-    fun getAttributes self = (PangoLayoutClass.FFI.withPtr ---> PangoAttrListRecord.FFI.fromPtr false) getAttributes_ self
-    fun getAutoDir self = (PangoLayoutClass.FFI.withPtr ---> GBool.FFI.fromVal) getAutoDir_ self
-    fun getBaseline self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getBaseline_ self
-    fun getCharacterCount self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getCharacterCount_ self
-    fun getContext self = (PangoLayoutClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr false) getContext_ self
+    fun new context = (PangoContextClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromPtr true) new_ context
+    fun contextChanged self = (PangoLayoutClass.FFI.withPtr false ---> I) contextChanged_ self
+    fun copy self = (PangoLayoutClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromPtr true) copy_ self
+    fun getAlignment self = (PangoLayoutClass.FFI.withPtr false ---> PangoAlignment.FFI.fromVal) getAlignment_ self
+    fun getAttributes self = (PangoLayoutClass.FFI.withPtr false ---> PangoAttrListRecord.FFI.fromPtr false) getAttributes_ self
+    fun getAutoDir self = (PangoLayoutClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAutoDir_ self
+    fun getBaseline self = (PangoLayoutClass.FFI.withPtr false ---> GInt.FFI.fromVal) getBaseline_ self
+    fun getCharacterCount self = (PangoLayoutClass.FFI.withPtr false ---> GInt.FFI.fromVal) getCharacterCount_ self
+    fun getContext self = (PangoLayoutClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr false) getContext_ self
     fun getCursorPos self index =
       let
         val strongPos
          & weakPos
          & () =
           (
-            PangoLayoutClass.FFI.withPtr
+            PangoLayoutClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> PangoRectangleRecord.FFI.withNewPtr
              &&&> PangoRectangleRecord.FFI.withNewPtr
@@ -365,14 +365,14 @@ structure PangoLayout :>
       in
         (strongPos, weakPos)
       end
-    fun getEllipsize self = (PangoLayoutClass.FFI.withPtr ---> PangoEllipsizeMode.FFI.fromVal) getEllipsize_ self
+    fun getEllipsize self = (PangoLayoutClass.FFI.withPtr false ---> PangoEllipsizeMode.FFI.fromVal) getEllipsize_ self
     fun getExtents self =
       let
         val inkRect
          & logicalRect
          & () =
           (
-            PangoLayoutClass.FFI.withPtr
+            PangoLayoutClass.FFI.withPtr false
              &&&> PangoRectangleRecord.FFI.withNewPtr
              &&&> PangoRectangleRecord.FFI.withNewPtr
              ---> PangoRectangleRecord.FFI.fromPtr true
@@ -388,24 +388,24 @@ structure PangoLayout :>
       in
         (inkRect, logicalRect)
       end
-    fun getFontDescription self = (PangoLayoutClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromOptPtr false) getFontDescription_ self
-    fun getHeight self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getHeight_ self
-    fun getIndent self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getIndent_ self
-    fun getIter self = (PangoLayoutClass.FFI.withPtr ---> PangoLayoutIterRecord.FFI.fromPtr true) getIter_ self
-    fun getJustify self = (PangoLayoutClass.FFI.withPtr ---> GBool.FFI.fromVal) getJustify_ self
-    fun getLine self line = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLine_ (self & line)
-    fun getLineCount self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getLineCount_ self
-    fun getLineReadonly self line = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLineReadonly_ (self & line)
+    fun getFontDescription self = (PangoLayoutClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromOptPtr false) getFontDescription_ self
+    fun getHeight self = (PangoLayoutClass.FFI.withPtr false ---> GInt.FFI.fromVal) getHeight_ self
+    fun getIndent self = (PangoLayoutClass.FFI.withPtr false ---> GInt.FFI.fromVal) getIndent_ self
+    fun getIter self = (PangoLayoutClass.FFI.withPtr false ---> PangoLayoutIterRecord.FFI.fromPtr true) getIter_ self
+    fun getJustify self = (PangoLayoutClass.FFI.withPtr false ---> GBool.FFI.fromVal) getJustify_ self
+    fun getLine self line = (PangoLayoutClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLine_ (self & line)
+    fun getLineCount self = (PangoLayoutClass.FFI.withPtr false ---> GInt.FFI.fromVal) getLineCount_ self
+    fun getLineReadonly self line = (PangoLayoutClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLineReadonly_ (self & line)
     fun getLogAttrs self =
       let
         val attrs
          & nAttrs
          & () =
           (
-            PangoLayoutClass.FFI.withPtr
-             &&&> PangoLogAttrRecordCArrayN.FFI.withRefOptPtr
+            PangoLayoutClass.FFI.withPtr false
+             &&&> PangoLogAttrRecordCArrayN.FFI.withRefOptPtr 0
              &&&> GInt.FFI.withRefVal
-             ---> PangoLogAttrRecordCArrayN.FFI.fromPtr 1
+             ---> PangoLogAttrRecordCArrayN.FFI.fromPtr ~1
                    && GInt.FFI.fromVal
                    && I
           )
@@ -420,7 +420,7 @@ structure PangoLayout :>
       end
     fun getLogAttrsReadonly self =
       let
-        val nAttrs & retVal = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && PangoLogAttrRecordCArrayN.FFI.fromPtr 0) getLogAttrsReadonly_ (self & GInt.null)
+        val nAttrs & retVal = (PangoLayoutClass.FFI.withPtr false &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && PangoLogAttrRecordCArrayN.FFI.fromPtr 0) getLogAttrsReadonly_ (self & GInt.null)
       in
         retVal (LargeInt.toInt nAttrs)
       end
@@ -430,7 +430,7 @@ structure PangoLayout :>
          & logicalRect
          & () =
           (
-            PangoLayoutClass.FFI.withPtr
+            PangoLayoutClass.FFI.withPtr false
              &&&> PangoRectangleRecord.FFI.withNewPtr
              &&&> PangoRectangleRecord.FFI.withNewPtr
              ---> PangoRectangleRecord.FFI.fromPtr true
@@ -452,7 +452,7 @@ structure PangoLayout :>
          & height
          & () =
           (
-            PangoLayoutClass.FFI.withPtr
+            PangoLayoutClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -468,15 +468,15 @@ structure PangoLayout :>
       in
         (width, height)
       end
-    fun getSerial self = (PangoLayoutClass.FFI.withPtr ---> GUInt.FFI.fromVal) getSerial_ self
-    fun getSingleParagraphMode self = (PangoLayoutClass.FFI.withPtr ---> GBool.FFI.fromVal) getSingleParagraphMode_ self
+    fun getSerial self = (PangoLayoutClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getSerial_ self
+    fun getSingleParagraphMode self = (PangoLayoutClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSingleParagraphMode_ self
     fun getSize self =
       let
         val width
          & height
          & () =
           (
-            PangoLayoutClass.FFI.withPtr
+            PangoLayoutClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -492,19 +492,19 @@ structure PangoLayout :>
       in
         (width, height)
       end
-    fun getSpacing self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getSpacing_ self
-    fun getTabs self = (PangoLayoutClass.FFI.withPtr ---> PangoTabArrayRecord.FFI.fromOptPtr true) getTabs_ self
-    fun getText self = (PangoLayoutClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getText_ self
-    fun getUnknownGlyphsCount self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getUnknownGlyphsCount_ self
-    fun getWidth self = (PangoLayoutClass.FFI.withPtr ---> GInt.FFI.fromVal) getWidth_ self
-    fun getWrap self = (PangoLayoutClass.FFI.withPtr ---> PangoWrapMode.FFI.fromVal) getWrap_ self
+    fun getSpacing self = (PangoLayoutClass.FFI.withPtr false ---> GInt.FFI.fromVal) getSpacing_ self
+    fun getTabs self = (PangoLayoutClass.FFI.withPtr false ---> PangoTabArrayRecord.FFI.fromOptPtr true) getTabs_ self
+    fun getText self = (PangoLayoutClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getText_ self
+    fun getUnknownGlyphsCount self = (PangoLayoutClass.FFI.withPtr false ---> GInt.FFI.fromVal) getUnknownGlyphsCount_ self
+    fun getWidth self = (PangoLayoutClass.FFI.withPtr false ---> GInt.FFI.fromVal) getWidth_ self
+    fun getWrap self = (PangoLayoutClass.FFI.withPtr false ---> PangoWrapMode.FFI.fromVal) getWrap_ self
     fun indexToLineX self (index, trailing) =
       let
         val line
          & xPos
          & () =
           (
-            PangoLayoutClass.FFI.withPtr
+            PangoLayoutClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GInt.FFI.withRefVal
@@ -528,7 +528,7 @@ structure PangoLayout :>
       let
         val pos & () =
           (
-            PangoLayoutClass.FFI.withPtr
+            PangoLayoutClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> PangoRectangleRecord.FFI.withNewPtr
              ---> PangoRectangleRecord.FFI.fromPtr true && I
@@ -542,8 +542,8 @@ structure PangoLayout :>
       in
         pos
       end
-    fun isEllipsized self = (PangoLayoutClass.FFI.withPtr ---> GBool.FFI.fromVal) isEllipsized_ self
-    fun isWrapped self = (PangoLayoutClass.FFI.withPtr ---> GBool.FFI.fromVal) isWrapped_ self
+    fun isEllipsized self = (PangoLayoutClass.FFI.withPtr false ---> GBool.FFI.fromVal) isEllipsized_ self
+    fun isWrapped self = (PangoLayoutClass.FFI.withPtr false ---> GBool.FFI.fromVal) isWrapped_ self
     fun moveCursorVisually
       self
       (
@@ -557,7 +557,7 @@ structure PangoLayout :>
          & newTrailing
          & () =
           (
-            PangoLayoutClass.FFI.withPtr
+            PangoLayoutClass.FFI.withPtr false
              &&&> GBool.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
@@ -581,18 +581,18 @@ structure PangoLayout :>
       in
         (newIndex, newTrailing)
       end
-    fun setAlignment self alignment = (PangoLayoutClass.FFI.withPtr &&&> PangoAlignment.FFI.withVal ---> I) setAlignment_ (self & alignment)
-    fun setAttributes self attrs = (PangoLayoutClass.FFI.withPtr &&&> PangoAttrListRecord.FFI.withOptPtr ---> I) setAttributes_ (self & attrs)
-    fun setAutoDir self autoDir = (PangoLayoutClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAutoDir_ (self & autoDir)
-    fun setEllipsize self ellipsize = (PangoLayoutClass.FFI.withPtr &&&> PangoEllipsizeMode.FFI.withVal ---> I) setEllipsize_ (self & ellipsize)
-    fun setFontDescription self desc = (PangoLayoutClass.FFI.withPtr &&&> PangoFontDescriptionRecord.FFI.withOptPtr ---> I) setFontDescription_ (self & desc)
-    fun setHeight self height = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setHeight_ (self & height)
-    fun setIndent self indent = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setIndent_ (self & indent)
-    fun setJustify self justify = (PangoLayoutClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setJustify_ (self & justify)
+    fun setAlignment self alignment = (PangoLayoutClass.FFI.withPtr false &&&> PangoAlignment.FFI.withVal ---> I) setAlignment_ (self & alignment)
+    fun setAttributes self attrs = (PangoLayoutClass.FFI.withPtr false &&&> PangoAttrListRecord.FFI.withOptPtr false ---> I) setAttributes_ (self & attrs)
+    fun setAutoDir self autoDir = (PangoLayoutClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAutoDir_ (self & autoDir)
+    fun setEllipsize self ellipsize = (PangoLayoutClass.FFI.withPtr false &&&> PangoEllipsizeMode.FFI.withVal ---> I) setEllipsize_ (self & ellipsize)
+    fun setFontDescription self desc = (PangoLayoutClass.FFI.withPtr false &&&> PangoFontDescriptionRecord.FFI.withOptPtr false ---> I) setFontDescription_ (self & desc)
+    fun setHeight self height = (PangoLayoutClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setHeight_ (self & height)
+    fun setIndent self indent = (PangoLayoutClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setIndent_ (self & indent)
+    fun setJustify self justify = (PangoLayoutClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setJustify_ (self & justify)
     fun setMarkup self (markup, length) =
       (
-        PangoLayoutClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        PangoLayoutClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          ---> I
       )
@@ -612,8 +612,8 @@ structure PangoLayout :>
       let
         val accelChar & () =
           (
-            PangoLayoutClass.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            PangoLayoutClass.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              &&&> GChar.FFI.withVal
              &&&> GChar.FFI.withRefVal
@@ -630,13 +630,13 @@ structure PangoLayout :>
       in
         accelChar
       end
-    fun setSingleParagraphMode self setting = (PangoLayoutClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSingleParagraphMode_ (self & setting)
-    fun setSpacing self spacing = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setSpacing_ (self & spacing)
-    fun setTabs self tabs = (PangoLayoutClass.FFI.withPtr &&&> PangoTabArrayRecord.FFI.withOptPtr ---> I) setTabs_ (self & tabs)
+    fun setSingleParagraphMode self setting = (PangoLayoutClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSingleParagraphMode_ (self & setting)
+    fun setSpacing self spacing = (PangoLayoutClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setSpacing_ (self & spacing)
+    fun setTabs self tabs = (PangoLayoutClass.FFI.withPtr false &&&> PangoTabArrayRecord.FFI.withOptPtr false ---> I) setTabs_ (self & tabs)
     fun setText self (text, length) =
       (
-        PangoLayoutClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        PangoLayoutClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          ---> I
       )
@@ -646,15 +646,15 @@ structure PangoLayout :>
            & text
            & length
         )
-    fun setWidth self width = (PangoLayoutClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setWidth_ (self & width)
-    fun setWrap self wrap = (PangoLayoutClass.FFI.withPtr &&&> PangoWrapMode.FFI.withVal ---> I) setWrap_ (self & wrap)
+    fun setWidth self width = (PangoLayoutClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setWidth_ (self & width)
+    fun setWrap self wrap = (PangoLayoutClass.FFI.withPtr false &&&> PangoWrapMode.FFI.withVal ---> I) setWrap_ (self & wrap)
     fun xyToIndex self (x, y) =
       let
         val index
          & trailing
          & retVal =
           (
-            PangoLayoutClass.FFI.withPtr
+            PangoLayoutClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withRefVal

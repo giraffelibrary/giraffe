@@ -88,28 +88,28 @@ structure GtkScrolledWindow :>
     type policy_type_t = GtkPolicyType.t
     type corner_type_t = GtkCornerType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkScrolledWindowClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
-    fun addWithViewport self child = (GtkScrolledWindowClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) addWithViewport_ (self & child)
-    fun getCaptureButtonPress self = (GtkScrolledWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getCaptureButtonPress_ self
-    fun getHadjustment self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
-    fun getHscrollbar self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getHscrollbar_ self
-    fun getKineticScrolling self = (GtkScrolledWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getKineticScrolling_ self
-    fun getMaxContentHeight self = (GtkScrolledWindowClass.FFI.withPtr ---> GInt.FFI.fromVal) getMaxContentHeight_ self
-    fun getMaxContentWidth self = (GtkScrolledWindowClass.FFI.withPtr ---> GInt.FFI.fromVal) getMaxContentWidth_ self
-    fun getMinContentHeight self = (GtkScrolledWindowClass.FFI.withPtr ---> GInt.FFI.fromVal) getMinContentHeight_ self
-    fun getMinContentWidth self = (GtkScrolledWindowClass.FFI.withPtr ---> GInt.FFI.fromVal) getMinContentWidth_ self
-    fun getOverlayScrolling self = (GtkScrolledWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getOverlayScrolling_ self
-    fun getPlacement self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkCornerType.FFI.fromVal) getPlacement_ self
+    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkScrolledWindowClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
+    fun addWithViewport self child = (GtkScrolledWindowClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) addWithViewport_ (self & child)
+    fun getCaptureButtonPress self = (GtkScrolledWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCaptureButtonPress_ self
+    fun getHadjustment self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
+    fun getHscrollbar self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getHscrollbar_ self
+    fun getKineticScrolling self = (GtkScrolledWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getKineticScrolling_ self
+    fun getMaxContentHeight self = (GtkScrolledWindowClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMaxContentHeight_ self
+    fun getMaxContentWidth self = (GtkScrolledWindowClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMaxContentWidth_ self
+    fun getMinContentHeight self = (GtkScrolledWindowClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMinContentHeight_ self
+    fun getMinContentWidth self = (GtkScrolledWindowClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMinContentWidth_ self
+    fun getOverlayScrolling self = (GtkScrolledWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getOverlayScrolling_ self
+    fun getPlacement self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkCornerType.FFI.fromVal) getPlacement_ self
     fun getPolicy self =
       let
         val hscrollbarPolicy
          & vscrollbarPolicy
          & () =
           (
-            GtkScrolledWindowClass.FFI.withPtr
+            GtkScrolledWindowClass.FFI.withPtr false
              &&&> GtkPolicyType.FFI.withRefVal
              &&&> GtkPolicyType.FFI.withRefVal
              ---> GtkPolicyType.FFI.fromVal
@@ -125,23 +125,23 @@ structure GtkScrolledWindow :>
       in
         (hscrollbarPolicy, vscrollbarPolicy)
       end
-    fun getPropagateNaturalHeight self = (GtkScrolledWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getPropagateNaturalHeight_ self
-    fun getPropagateNaturalWidth self = (GtkScrolledWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getPropagateNaturalWidth_ self
-    fun getShadowType self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkShadowType.FFI.fromVal) getShadowType_ self
-    fun getVadjustment self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
-    fun getVscrollbar self = (GtkScrolledWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getVscrollbar_ self
-    fun setCaptureButtonPress self captureButtonPress = (GtkScrolledWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCaptureButtonPress_ (self & captureButtonPress)
-    fun setHadjustment self hadjustment = (GtkScrolledWindowClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setHadjustment_ (self & hadjustment)
-    fun setKineticScrolling self kineticScrolling = (GtkScrolledWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setKineticScrolling_ (self & kineticScrolling)
-    fun setMaxContentHeight self height = (GtkScrolledWindowClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMaxContentHeight_ (self & height)
-    fun setMaxContentWidth self width = (GtkScrolledWindowClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMaxContentWidth_ (self & width)
-    fun setMinContentHeight self height = (GtkScrolledWindowClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMinContentHeight_ (self & height)
-    fun setMinContentWidth self width = (GtkScrolledWindowClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setMinContentWidth_ (self & width)
-    fun setOverlayScrolling self overlayScrolling = (GtkScrolledWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setOverlayScrolling_ (self & overlayScrolling)
-    fun setPlacement self windowPlacement = (GtkScrolledWindowClass.FFI.withPtr &&&> GtkCornerType.FFI.withVal ---> I) setPlacement_ (self & windowPlacement)
+    fun getPropagateNaturalHeight self = (GtkScrolledWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPropagateNaturalHeight_ self
+    fun getPropagateNaturalWidth self = (GtkScrolledWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPropagateNaturalWidth_ self
+    fun getShadowType self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkShadowType.FFI.fromVal) getShadowType_ self
+    fun getVadjustment self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
+    fun getVscrollbar self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getVscrollbar_ self
+    fun setCaptureButtonPress self captureButtonPress = (GtkScrolledWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCaptureButtonPress_ (self & captureButtonPress)
+    fun setHadjustment self hadjustment = (GtkScrolledWindowClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withPtr false ---> I) setHadjustment_ (self & hadjustment)
+    fun setKineticScrolling self kineticScrolling = (GtkScrolledWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setKineticScrolling_ (self & kineticScrolling)
+    fun setMaxContentHeight self height = (GtkScrolledWindowClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMaxContentHeight_ (self & height)
+    fun setMaxContentWidth self width = (GtkScrolledWindowClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMaxContentWidth_ (self & width)
+    fun setMinContentHeight self height = (GtkScrolledWindowClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMinContentHeight_ (self & height)
+    fun setMinContentWidth self width = (GtkScrolledWindowClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMinContentWidth_ (self & width)
+    fun setOverlayScrolling self overlayScrolling = (GtkScrolledWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setOverlayScrolling_ (self & overlayScrolling)
+    fun setPlacement self windowPlacement = (GtkScrolledWindowClass.FFI.withPtr false &&&> GtkCornerType.FFI.withVal ---> I) setPlacement_ (self & windowPlacement)
     fun setPolicy self (hscrollbarPolicy, vscrollbarPolicy) =
       (
-        GtkScrolledWindowClass.FFI.withPtr
+        GtkScrolledWindowClass.FFI.withPtr false
          &&&> GtkPolicyType.FFI.withVal
          &&&> GtkPolicyType.FFI.withVal
          ---> I
@@ -152,11 +152,11 @@ structure GtkScrolledWindow :>
            & hscrollbarPolicy
            & vscrollbarPolicy
         )
-    fun setPropagateNaturalHeight self propagate = (GtkScrolledWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setPropagateNaturalHeight_ (self & propagate)
-    fun setPropagateNaturalWidth self propagate = (GtkScrolledWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setPropagateNaturalWidth_ (self & propagate)
-    fun setShadowType self type' = (GtkScrolledWindowClass.FFI.withPtr &&&> GtkShadowType.FFI.withVal ---> I) setShadowType_ (self & type')
-    fun setVadjustment self vadjustment = (GtkScrolledWindowClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setVadjustment_ (self & vadjustment)
-    fun unsetPlacement self = (GtkScrolledWindowClass.FFI.withPtr ---> I) unsetPlacement_ self
+    fun setPropagateNaturalHeight self propagate = (GtkScrolledWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setPropagateNaturalHeight_ (self & propagate)
+    fun setPropagateNaturalWidth self propagate = (GtkScrolledWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setPropagateNaturalWidth_ (self & propagate)
+    fun setShadowType self type' = (GtkScrolledWindowClass.FFI.withPtr false &&&> GtkShadowType.FFI.withVal ---> I) setShadowType_ (self & type')
+    fun setVadjustment self vadjustment = (GtkScrolledWindowClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withPtr false ---> I) setVadjustment_ (self & vadjustment)
+    fun unsetPlacement self = (GtkScrolledWindowClass.FFI.withPtr false ---> I) unsetPlacement_ self
     local
       open ClosureMarshal Signal
     in

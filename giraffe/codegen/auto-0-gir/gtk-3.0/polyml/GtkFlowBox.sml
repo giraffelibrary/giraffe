@@ -63,16 +63,16 @@ structure GtkFlowBox :>
     type movement_step_t = GtkMovementStep.t
     type selection_mode_t = GtkSelectionMode.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkFlowBoxClass.FFI.fromPtr false) new_ ()
-    fun getActivateOnSingleClick self = (GtkFlowBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
-    fun getChildAtIndex self idx = (GtkFlowBoxClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GtkFlowBoxChildClass.FFI.fromOptPtr false) getChildAtIndex_ (self & idx)
+    fun getActivateOnSingleClick self = (GtkFlowBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
+    fun getChildAtIndex self idx = (GtkFlowBoxClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkFlowBoxChildClass.FFI.fromOptPtr false) getChildAtIndex_ (self & idx)
     fun getChildAtPos self (x, y) =
       (
-        GtkFlowBoxClass.FFI.withPtr
+        GtkFlowBoxClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> GtkFlowBoxChildClass.FFI.fromOptPtr false
@@ -83,16 +83,16 @@ structure GtkFlowBox :>
            & x
            & y
         )
-    fun getColumnSpacing self = (GtkFlowBoxClass.FFI.withPtr ---> GUInt.FFI.fromVal) getColumnSpacing_ self
-    fun getHomogeneous self = (GtkFlowBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getHomogeneous_ self
-    fun getMaxChildrenPerLine self = (GtkFlowBoxClass.FFI.withPtr ---> GUInt.FFI.fromVal) getMaxChildrenPerLine_ self
-    fun getMinChildrenPerLine self = (GtkFlowBoxClass.FFI.withPtr ---> GUInt.FFI.fromVal) getMinChildrenPerLine_ self
-    fun getRowSpacing self = (GtkFlowBoxClass.FFI.withPtr ---> GUInt.FFI.fromVal) getRowSpacing_ self
-    fun getSelectionMode self = (GtkFlowBoxClass.FFI.withPtr ---> GtkSelectionMode.FFI.fromVal) getSelectionMode_ self
+    fun getColumnSpacing self = (GtkFlowBoxClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getColumnSpacing_ self
+    fun getHomogeneous self = (GtkFlowBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHomogeneous_ self
+    fun getMaxChildrenPerLine self = (GtkFlowBoxClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getMaxChildrenPerLine_ self
+    fun getMinChildrenPerLine self = (GtkFlowBoxClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getMinChildrenPerLine_ self
+    fun getRowSpacing self = (GtkFlowBoxClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getRowSpacing_ self
+    fun getSelectionMode self = (GtkFlowBoxClass.FFI.withPtr false ---> GtkSelectionMode.FFI.fromVal) getSelectionMode_ self
     fun insert self (widget, position) =
       (
-        GtkFlowBoxClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkFlowBoxClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          ---> I
       )
@@ -102,21 +102,21 @@ structure GtkFlowBox :>
            & widget
            & position
         )
-    fun invalidateFilter self = (GtkFlowBoxClass.FFI.withPtr ---> I) invalidateFilter_ self
-    fun invalidateSort self = (GtkFlowBoxClass.FFI.withPtr ---> I) invalidateSort_ self
-    fun selectAll self = (GtkFlowBoxClass.FFI.withPtr ---> I) selectAll_ self
-    fun selectChild self child = (GtkFlowBoxClass.FFI.withPtr &&&> GtkFlowBoxChildClass.FFI.withPtr ---> I) selectChild_ (self & child)
-    fun setActivateOnSingleClick self single = (GtkFlowBoxClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActivateOnSingleClick_ (self & single)
-    fun setColumnSpacing self spacing = (GtkFlowBoxClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setColumnSpacing_ (self & spacing)
-    fun setHadjustment self adjustment = (GtkFlowBoxClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setHadjustment_ (self & adjustment)
-    fun setHomogeneous self homogeneous = (GtkFlowBoxClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
-    fun setMaxChildrenPerLine self nChildren = (GtkFlowBoxClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setMaxChildrenPerLine_ (self & nChildren)
-    fun setMinChildrenPerLine self nChildren = (GtkFlowBoxClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setMinChildrenPerLine_ (self & nChildren)
-    fun setRowSpacing self spacing = (GtkFlowBoxClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setRowSpacing_ (self & spacing)
-    fun setSelectionMode self mode = (GtkFlowBoxClass.FFI.withPtr &&&> GtkSelectionMode.FFI.withVal ---> I) setSelectionMode_ (self & mode)
-    fun setVadjustment self adjustment = (GtkFlowBoxClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setVadjustment_ (self & adjustment)
-    fun unselectAll self = (GtkFlowBoxClass.FFI.withPtr ---> I) unselectAll_ self
-    fun unselectChild self child = (GtkFlowBoxClass.FFI.withPtr &&&> GtkFlowBoxChildClass.FFI.withPtr ---> I) unselectChild_ (self & child)
+    fun invalidateFilter self = (GtkFlowBoxClass.FFI.withPtr false ---> I) invalidateFilter_ self
+    fun invalidateSort self = (GtkFlowBoxClass.FFI.withPtr false ---> I) invalidateSort_ self
+    fun selectAll self = (GtkFlowBoxClass.FFI.withPtr false ---> I) selectAll_ self
+    fun selectChild self child = (GtkFlowBoxClass.FFI.withPtr false &&&> GtkFlowBoxChildClass.FFI.withPtr false ---> I) selectChild_ (self & child)
+    fun setActivateOnSingleClick self single = (GtkFlowBoxClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setActivateOnSingleClick_ (self & single)
+    fun setColumnSpacing self spacing = (GtkFlowBoxClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) setColumnSpacing_ (self & spacing)
+    fun setHadjustment self adjustment = (GtkFlowBoxClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withPtr false ---> I) setHadjustment_ (self & adjustment)
+    fun setHomogeneous self homogeneous = (GtkFlowBoxClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
+    fun setMaxChildrenPerLine self nChildren = (GtkFlowBoxClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) setMaxChildrenPerLine_ (self & nChildren)
+    fun setMinChildrenPerLine self nChildren = (GtkFlowBoxClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) setMinChildrenPerLine_ (self & nChildren)
+    fun setRowSpacing self spacing = (GtkFlowBoxClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) setRowSpacing_ (self & spacing)
+    fun setSelectionMode self mode = (GtkFlowBoxClass.FFI.withPtr false &&&> GtkSelectionMode.FFI.withVal ---> I) setSelectionMode_ (self & mode)
+    fun setVadjustment self adjustment = (GtkFlowBoxClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withPtr false ---> I) setVadjustment_ (self & adjustment)
+    fun unselectAll self = (GtkFlowBoxClass.FFI.withPtr false ---> I) unselectAll_ self
+    fun unselectChild self child = (GtkFlowBoxClass.FFI.withPtr false &&&> GtkFlowBoxChildClass.FFI.withPtr false ---> I) unselectChild_ (self & child)
     local
       open ClosureMarshal Signal
     in

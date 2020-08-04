@@ -92,14 +92,14 @@ structure GtkDialog :>
     type 'a box_class = 'a GtkBoxClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkDialogClass.FFI.fromPtr false) new_ ()
     fun addActionWidget self (child, responseId) =
       (
-        GtkDialogClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkDialogClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -111,8 +111,8 @@ structure GtkDialog :>
         )
     fun addButton self (buttonText, responseId) =
       (
-        GtkDialogClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkDialogClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> GtkWidgetClass.FFI.fromPtr false
       )
@@ -122,21 +122,21 @@ structure GtkDialog :>
            & buttonText
            & responseId
         )
-    fun getActionArea self = (GtkDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self
-    fun getContentArea self = (GtkDialogClass.FFI.withPtr ---> GtkBoxClass.FFI.fromPtr false) getContentArea_ self
-    fun getHeaderBar self = (GtkDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getHeaderBar_ self
-    fun getResponseForWidget self widget = (GtkDialogClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getResponseForWidget_ (self & widget)
-    fun getWidgetForResponse self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getWidgetForResponse_ (self & responseId)
-    fun response self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) response_ (self & responseId)
-    fun run self = (GtkDialogClass.FFI.withPtr ---> GInt32.FFI.fromVal) run_ self
+    fun getActionArea self = (GtkDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self
+    fun getContentArea self = (GtkDialogClass.FFI.withPtr false ---> GtkBoxClass.FFI.fromPtr false) getContentArea_ self
+    fun getHeaderBar self = (GtkDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getHeaderBar_ self
+    fun getResponseForWidget self widget = (GtkDialogClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getResponseForWidget_ (self & widget)
+    fun getWidgetForResponse self responseId = (GtkDialogClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getWidgetForResponse_ (self & responseId)
+    fun response self responseId = (GtkDialogClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) response_ (self & responseId)
+    fun run self = (GtkDialogClass.FFI.withPtr false ---> GInt32.FFI.fromVal) run_ self
     fun setAlternativeButtonOrderFromArray self newOrder =
       let
         val nParams = LargeInt.fromInt (GInt32CArrayN.length newOrder)
         val () =
           (
-            GtkDialogClass.FFI.withPtr
+            GtkDialogClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
-             &&&> GInt32CArrayN.FFI.withPtr
+             &&&> GInt32CArrayN.FFI.withPtr 0
              ---> I
           )
             setAlternativeButtonOrderFromArray_
@@ -148,10 +148,10 @@ structure GtkDialog :>
       in
         ()
       end
-    fun setDefaultResponse self responseId = (GtkDialogClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setDefaultResponse_ (self & responseId)
+    fun setDefaultResponse self responseId = (GtkDialogClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setDefaultResponse_ (self & responseId)
     fun setResponseSensitive self (responseId, setting) =
       (
-        GtkDialogClass.FFI.withPtr
+        GtkDialogClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I

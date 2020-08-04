@@ -36,15 +36,15 @@ structure GIRepositoryFieldInfo :>
 
     val getFlags =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryFieldInfoFlags.FFI.fromVal) getFlags_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryFieldInfoFlags.FFI.fromVal) getFlags_ info
 
-    val getSize = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSize_ info
+    val getSize = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getSize_ info
 
-    val getOffset = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getOffset_ info
+    val getOffset = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getOffset_ info
 
     val getType =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
           getType_
           info
   end

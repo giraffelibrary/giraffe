@@ -15,14 +15,14 @@ structure GioBufferedOutputStream :>
     type 'a seekable_class = 'a GioSeekableClass.class
     type 'a output_stream_class = 'a GioOutputStreamClass.class
     type t = base class
-    fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
+    fun asSeekable self = (GObjectObjectClass.FFI.withPtr false ---> GioSeekableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new baseStream = (GioOutputStreamClass.FFI.withPtr ---> GioBufferedOutputStreamClass.FFI.fromPtr true) new_ baseStream
-    fun newSized (baseStream, size) = (GioOutputStreamClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> GioBufferedOutputStreamClass.FFI.fromPtr true) newSized_ (baseStream & size)
-    fun getAutoGrow self = (GioBufferedOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) getAutoGrow_ self
-    fun getBufferSize self = (GioBufferedOutputStreamClass.FFI.withPtr ---> GUInt64.FFI.fromVal) getBufferSize_ self
-    fun setAutoGrow self autoGrow = (GioBufferedOutputStreamClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAutoGrow_ (self & autoGrow)
-    fun setBufferSize self size = (GioBufferedOutputStreamClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> I) setBufferSize_ (self & size)
+    fun new baseStream = (GioOutputStreamClass.FFI.withPtr false ---> GioBufferedOutputStreamClass.FFI.fromPtr true) new_ baseStream
+    fun newSized (baseStream, size) = (GioOutputStreamClass.FFI.withPtr false &&&> GUInt64.FFI.withVal ---> GioBufferedOutputStreamClass.FFI.fromPtr true) newSized_ (baseStream & size)
+    fun getAutoGrow self = (GioBufferedOutputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAutoGrow_ self
+    fun getBufferSize self = (GioBufferedOutputStreamClass.FFI.withPtr false ---> GUInt64.FFI.fromVal) getBufferSize_ self
+    fun setAutoGrow self autoGrow = (GioBufferedOutputStreamClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAutoGrow_ (self & autoGrow)
+    fun setBufferSize self size = (GioBufferedOutputStreamClass.FFI.withPtr false &&&> GUInt64.FFI.withVal ---> I) setBufferSize_ (self & size)
     local
       open Property
     in

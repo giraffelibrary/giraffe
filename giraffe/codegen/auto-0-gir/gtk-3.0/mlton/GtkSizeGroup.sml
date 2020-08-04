@@ -18,15 +18,15 @@ structure GtkSizeGroup :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type size_group_mode_t = GtkSizeGroupMode.t
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new mode = (GtkSizeGroupMode.FFI.withVal ---> GtkSizeGroupClass.FFI.fromPtr true) new_ mode
-    fun addWidget self widget = (GtkSizeGroupClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) addWidget_ (self & widget)
-    fun getIgnoreHidden self = (GtkSizeGroupClass.FFI.withPtr ---> GBool.FFI.fromVal) getIgnoreHidden_ self
-    fun getMode self = (GtkSizeGroupClass.FFI.withPtr ---> GtkSizeGroupMode.FFI.fromVal) getMode_ self
-    fun removeWidget self widget = (GtkSizeGroupClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) removeWidget_ (self & widget)
-    fun setIgnoreHidden self ignoreHidden = (GtkSizeGroupClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setIgnoreHidden_ (self & ignoreHidden)
-    fun setMode self mode = (GtkSizeGroupClass.FFI.withPtr &&&> GtkSizeGroupMode.FFI.withVal ---> I) setMode_ (self & mode)
+    fun addWidget self widget = (GtkSizeGroupClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) addWidget_ (self & widget)
+    fun getIgnoreHidden self = (GtkSizeGroupClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIgnoreHidden_ self
+    fun getMode self = (GtkSizeGroupClass.FFI.withPtr false ---> GtkSizeGroupMode.FFI.fromVal) getMode_ self
+    fun removeWidget self widget = (GtkSizeGroupClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) removeWidget_ (self & widget)
+    fun setIgnoreHidden self ignoreHidden = (GtkSizeGroupClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setIgnoreHidden_ (self & ignoreHidden)
+    fun setMode self mode = (GtkSizeGroupClass.FFI.withPtr false &&&> GtkSizeGroupMode.FFI.withVal ---> I) setMode_ (self & mode)
     local
       open Property
     in

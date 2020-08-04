@@ -29,13 +29,13 @@ structure GtkArrow :>
     type arrow_type_t = GtkArrowType.t
     type shadow_type_t = GtkShadowType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (arrowType, shadowType) = (GtkArrowType.FFI.withVal &&&> GtkShadowType.FFI.withVal ---> GtkArrowClass.FFI.fromPtr false) new_ (arrowType & shadowType)
     fun set self (arrowType, shadowType) =
       (
-        GtkArrowClass.FFI.withPtr
+        GtkArrowClass.FFI.withPtr false
          &&&> GtkArrowType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
          ---> I

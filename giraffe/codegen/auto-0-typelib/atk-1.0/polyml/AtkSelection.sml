@@ -19,13 +19,13 @@ structure AtkSelection :>
     type 'a object_class = 'a AtkObjectClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun addSelection self i = (AtkSelectionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) addSelection_ (self & i)
-    fun clearSelection self = (AtkSelectionClass.FFI.withPtr ---> GBool.FFI.fromVal) clearSelection_ self
-    fun getSelectionCount self = (AtkSelectionClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSelectionCount_ self
-    fun isChildSelected self i = (AtkSelectionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) isChildSelected_ (self & i)
-    fun refSelection self i = (AtkSelectionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromOptPtr true) refSelection_ (self & i)
-    fun removeSelection self i = (AtkSelectionClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) removeSelection_ (self & i)
-    fun selectAllSelection self = (AtkSelectionClass.FFI.withPtr ---> GBool.FFI.fromVal) selectAllSelection_ self
+    fun addSelection self i = (AtkSelectionClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) addSelection_ (self & i)
+    fun clearSelection self = (AtkSelectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) clearSelection_ self
+    fun getSelectionCount self = (AtkSelectionClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getSelectionCount_ self
+    fun isChildSelected self i = (AtkSelectionClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) isChildSelected_ (self & i)
+    fun refSelection self i = (AtkSelectionClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromOptPtr true) refSelection_ (self & i)
+    fun removeSelection self i = (AtkSelectionClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) removeSelection_ (self & i)
+    fun selectAllSelection self = (AtkSelectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) selectAllSelection_ self
     local
       open ClosureMarshal Signal
     in

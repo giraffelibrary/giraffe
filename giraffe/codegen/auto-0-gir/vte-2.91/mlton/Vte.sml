@@ -29,5 +29,5 @@ structure Vte : VTE =
     fun getMajorVersion () = (I ---> GUInt.FFI.fromVal) getMajorVersion_ ()
     fun getMicroVersion () = (I ---> GUInt.FFI.fromVal) getMicroVersion_ ()
     fun getMinorVersion () = (I ---> GUInt.FFI.fromVal) getMinorVersion_ ()
-    fun getUserShell () = (I ---> Utf8.FFI.fromPtr 1) getUserShell_ ()
+    fun getUserShell () = (I ---> Utf8.FFI.fromPtr ~1) getUserShell_ ()
   end

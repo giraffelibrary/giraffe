@@ -12,8 +12,8 @@ structure GioTcpConnection :>
     type 'a class = 'a GioTcpConnectionClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getGracefulDisconnect self = (GioTcpConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getGracefulDisconnect_ self
-    fun setGracefulDisconnect self gracefulDisconnect = (GioTcpConnectionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setGracefulDisconnect_ (self & gracefulDisconnect)
+    fun getGracefulDisconnect self = (GioTcpConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getGracefulDisconnect_ self
+    fun setGracefulDisconnect self gracefulDisconnect = (GioTcpConnectionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setGracefulDisconnect_ (self & gracefulDisconnect)
     local
       open Property
     in

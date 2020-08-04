@@ -47,20 +47,20 @@ structure GtkNumerableIcon :>
     type 'a class = 'a GtkNumerableIconClass.class
     type 'a style_context_class = 'a GtkStyleContextClass.class
     type t = base class
-    fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
+    fun asIcon self = (GObjectObjectClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new baseIcon = (GioIconClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) new_ baseIcon
-    fun newWithStyleContext (baseIcon, context) = (GioIconClass.FFI.withPtr &&&> GtkStyleContextClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) newWithStyleContext_ (baseIcon & context)
-    fun getBackgroundGicon self = (GtkNumerableIconClass.FFI.withPtr ---> GioIconClass.FFI.fromOptPtr false) getBackgroundGicon_ self
-    fun getBackgroundIconName self = (GtkNumerableIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getBackgroundIconName_ self
-    fun getCount self = (GtkNumerableIconClass.FFI.withPtr ---> GInt.FFI.fromVal) getCount_ self
-    fun getLabel self = (GtkNumerableIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getLabel_ self
-    fun getStyleContext self = (GtkNumerableIconClass.FFI.withPtr ---> GtkStyleContextClass.FFI.fromOptPtr false) getStyleContext_ self
-    fun setBackgroundGicon self icon = (GtkNumerableIconClass.FFI.withPtr &&&> GioIconClass.FFI.withOptPtr ---> I) setBackgroundGicon_ (self & icon)
-    fun setBackgroundIconName self iconName = (GtkNumerableIconClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setBackgroundIconName_ (self & iconName)
-    fun setCount self count = (GtkNumerableIconClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setCount_ (self & count)
-    fun setLabel self label = (GtkNumerableIconClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setLabel_ (self & label)
-    fun setStyleContext self style = (GtkNumerableIconClass.FFI.withPtr &&&> GtkStyleContextClass.FFI.withPtr ---> I) setStyleContext_ (self & style)
+    fun new baseIcon = (GioIconClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) new_ baseIcon
+    fun newWithStyleContext (baseIcon, context) = (GioIconClass.FFI.withPtr false &&&> GtkStyleContextClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) newWithStyleContext_ (baseIcon & context)
+    fun getBackgroundGicon self = (GtkNumerableIconClass.FFI.withPtr false ---> GioIconClass.FFI.fromOptPtr false) getBackgroundGicon_ self
+    fun getBackgroundIconName self = (GtkNumerableIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getBackgroundIconName_ self
+    fun getCount self = (GtkNumerableIconClass.FFI.withPtr false ---> GInt.FFI.fromVal) getCount_ self
+    fun getLabel self = (GtkNumerableIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getLabel_ self
+    fun getStyleContext self = (GtkNumerableIconClass.FFI.withPtr false ---> GtkStyleContextClass.FFI.fromOptPtr false) getStyleContext_ self
+    fun setBackgroundGicon self icon = (GtkNumerableIconClass.FFI.withPtr false &&&> GioIconClass.FFI.withOptPtr false ---> I) setBackgroundGicon_ (self & icon)
+    fun setBackgroundIconName self iconName = (GtkNumerableIconClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setBackgroundIconName_ (self & iconName)
+    fun setCount self count = (GtkNumerableIconClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setCount_ (self & count)
+    fun setLabel self label = (GtkNumerableIconClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setLabel_ (self & label)
+    fun setStyleContext self style = (GtkNumerableIconClass.FFI.withPtr false &&&> GtkStyleContextClass.FFI.withPtr false ---> I) setStyleContext_ (self & style)
     local
       open Property
     in

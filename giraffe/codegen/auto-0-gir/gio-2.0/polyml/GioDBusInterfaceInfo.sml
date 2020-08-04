@@ -28,13 +28,13 @@ structure GioDBusInterfaceInfo :>
     type d_bus_property_info_t = GioDBusPropertyInfoRecord.t
     type d_bus_signal_info_t = GioDBusSignalInfoRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun cacheBuild self = (GioDBusInterfaceInfoRecord.FFI.withPtr ---> I) cacheBuild_ self
-    fun cacheRelease self = (GioDBusInterfaceInfoRecord.FFI.withPtr ---> I) cacheRelease_ self
+    fun cacheBuild self = (GioDBusInterfaceInfoRecord.FFI.withPtr false ---> I) cacheBuild_ self
+    fun cacheRelease self = (GioDBusInterfaceInfoRecord.FFI.withPtr false ---> I) cacheRelease_ self
     fun generateXml self (indent, stringBuilder) =
       (
-        GioDBusInterfaceInfoRecord.FFI.withPtr
+        GioDBusInterfaceInfoRecord.FFI.withPtr false
          &&&> GUInt.FFI.withVal
-         &&&> GLibStringRecord.FFI.withPtr
+         &&&> GLibStringRecord.FFI.withPtr false
          ---> I
       )
         generateXml_
@@ -43,7 +43,7 @@ structure GioDBusInterfaceInfo :>
            & indent
            & stringBuilder
         )
-    fun lookupMethod self name = (GioDBusInterfaceInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioDBusMethodInfoRecord.FFI.fromPtr false) lookupMethod_ (self & name)
-    fun lookupProperty self name = (GioDBusInterfaceInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioDBusPropertyInfoRecord.FFI.fromPtr false) lookupProperty_ (self & name)
-    fun lookupSignal self name = (GioDBusInterfaceInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioDBusSignalInfoRecord.FFI.fromPtr false) lookupSignal_ (self & name)
+    fun lookupMethod self name = (GioDBusInterfaceInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusMethodInfoRecord.FFI.fromPtr false) lookupMethod_ (self & name)
+    fun lookupProperty self name = (GioDBusInterfaceInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusPropertyInfoRecord.FFI.fromPtr false) lookupProperty_ (self & name)
+    fun lookupSignal self name = (GioDBusInterfaceInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusSignalInfoRecord.FFI.fromPtr false) lookupSignal_ (self & name)
   end

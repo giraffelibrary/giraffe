@@ -49,22 +49,22 @@ structure GioApplicationCommandLine :>
     type 'a input_stream_class = 'a GioInputStreamClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun createFileForArg self arg = (GioApplicationCommandLineClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) createFileForArg_ (self & arg)
+    fun createFileForArg self arg = (GioApplicationCommandLineClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioFileClass.FFI.fromPtr true) createFileForArg_ (self & arg)
     fun getArguments self =
       let
-        val argc & retVal = (GioApplicationCommandLineClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 2) getArguments_ (self & GInt.null)
+        val argc & retVal = (GioApplicationCommandLineClass.FFI.withPtr false &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr ~1) getArguments_ (self & GInt.null)
       in
         retVal (LargeInt.toInt argc)
       end
-    fun getCwd self = (GioApplicationCommandLineClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getCwd_ self
-    fun getEnviron self = (GioApplicationCommandLineClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getEnviron_ self
-    fun getExitStatus self = (GioApplicationCommandLineClass.FFI.withPtr ---> GInt.FFI.fromVal) getExitStatus_ self
-    fun getIsRemote self = (GioApplicationCommandLineClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsRemote_ self
-    fun getOptionsDict self = (GioApplicationCommandLineClass.FFI.withPtr ---> GLibVariantDictRecord.FFI.fromPtr false) getOptionsDict_ self
-    fun getPlatformData self = (GioApplicationCommandLineClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromOptPtr true) getPlatformData_ self
-    fun getStdin self = (GioApplicationCommandLineClass.FFI.withPtr ---> GioInputStreamClass.FFI.fromPtr true) getStdin_ self
-    fun getenv self name = (GioApplicationCommandLineClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getenv_ (self & name)
-    fun setExitStatus self exitStatus = (GioApplicationCommandLineClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setExitStatus_ (self & exitStatus)
+    fun getCwd self = (GioApplicationCommandLineClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getCwd_ self
+    fun getEnviron self = (GioApplicationCommandLineClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getEnviron_ self
+    fun getExitStatus self = (GioApplicationCommandLineClass.FFI.withPtr false ---> GInt.FFI.fromVal) getExitStatus_ self
+    fun getIsRemote self = (GioApplicationCommandLineClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsRemote_ self
+    fun getOptionsDict self = (GioApplicationCommandLineClass.FFI.withPtr false ---> GLibVariantDictRecord.FFI.fromPtr false) getOptionsDict_ self
+    fun getPlatformData self = (GioApplicationCommandLineClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromOptPtr true) getPlatformData_ self
+    fun getStdin self = (GioApplicationCommandLineClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromPtr true) getStdin_ self
+    fun getenv self name = (GioApplicationCommandLineClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getenv_ (self & name)
+    fun setExitStatus self exitStatus = (GioApplicationCommandLineClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setExitStatus_ (self & exitStatus)
     local
       open Property
     in

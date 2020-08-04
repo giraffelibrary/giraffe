@@ -98,16 +98,16 @@ structure PangoMatrix :>
     type t = PangoMatrixRecord.t
     type rectangle_t = PangoRectangleRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun concat self newMatrix = (PangoMatrixRecord.FFI.withPtr &&&> PangoMatrixRecord.FFI.withPtr ---> I) concat_ (self & newMatrix)
-    fun copy self = (PangoMatrixRecord.FFI.withPtr ---> PangoMatrixRecord.FFI.fromOptPtr true) copy_ self
-    fun getFontScaleFactor self = (PangoMatrixRecord.FFI.withPtr ---> GDouble.FFI.fromVal) getFontScaleFactor_ self
+    fun concat self newMatrix = (PangoMatrixRecord.FFI.withPtr false &&&> PangoMatrixRecord.FFI.withPtr false ---> I) concat_ (self & newMatrix)
+    fun copy self = (PangoMatrixRecord.FFI.withPtr false ---> PangoMatrixRecord.FFI.fromOptPtr true) copy_ self
+    fun getFontScaleFactor self = (PangoMatrixRecord.FFI.withPtr false ---> GDouble.FFI.fromVal) getFontScaleFactor_ self
     fun getFontScaleFactors self =
       let
         val xscale
          & yscale
          & () =
           (
-            PangoMatrixRecord.FFI.withPtr
+            PangoMatrixRecord.FFI.withPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              ---> GDouble.FFI.fromVal
@@ -123,10 +123,10 @@ structure PangoMatrix :>
       in
         (xscale, yscale)
       end
-    fun rotate self degrees = (PangoMatrixRecord.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) rotate_ (self & degrees)
+    fun rotate self degrees = (PangoMatrixRecord.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) rotate_ (self & degrees)
     fun scale self (scaleX, scaleY) =
       (
-        PangoMatrixRecord.FFI.withPtr
+        PangoMatrixRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          ---> I
@@ -143,7 +143,7 @@ structure PangoMatrix :>
          & dy
          & () =
           (
-            PangoMatrixRecord.FFI.withPtr
+            PangoMatrixRecord.FFI.withPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              ---> GDouble.FFI.fromVal
@@ -161,7 +161,7 @@ structure PangoMatrix :>
       end
     fun transformPixelRectangle self rect =
       let
-        val rect & () = (PangoMatrixRecord.FFI.withPtr &&&> PangoRectangleRecord.FFI.withNewDupPtr ---> PangoRectangleRecord.FFI.fromPtr true && I) transformPixelRectangle_ (self & rect)
+        val rect & () = (PangoMatrixRecord.FFI.withPtr false &&&> PangoRectangleRecord.FFI.withDupPtr ---> PangoRectangleRecord.FFI.fromPtr true && I) transformPixelRectangle_ (self & rect)
       in
         rect
       end
@@ -171,7 +171,7 @@ structure PangoMatrix :>
          & y
          & () =
           (
-            PangoMatrixRecord.FFI.withPtr
+            PangoMatrixRecord.FFI.withPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              ---> GDouble.FFI.fromVal
@@ -189,13 +189,13 @@ structure PangoMatrix :>
       end
     fun transformRectangle self rect =
       let
-        val rect & () = (PangoMatrixRecord.FFI.withPtr &&&> PangoRectangleRecord.FFI.withNewDupPtr ---> PangoRectangleRecord.FFI.fromPtr true && I) transformRectangle_ (self & rect)
+        val rect & () = (PangoMatrixRecord.FFI.withPtr false &&&> PangoRectangleRecord.FFI.withDupPtr ---> PangoRectangleRecord.FFI.fromPtr true && I) transformRectangle_ (self & rect)
       in
         rect
       end
     fun translate self (tx, ty) =
       (
-        PangoMatrixRecord.FFI.withPtr
+        PangoMatrixRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          ---> I

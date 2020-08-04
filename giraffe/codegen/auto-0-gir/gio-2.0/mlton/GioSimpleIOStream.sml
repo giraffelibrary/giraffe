@@ -11,7 +11,7 @@ structure GioSimpleIOStream :>
     type 'a output_stream_class = 'a GioOutputStreamClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (inputStream, outputStream) = (GioInputStreamClass.FFI.withPtr &&&> GioOutputStreamClass.FFI.withPtr ---> GioSimpleIOStreamClass.FFI.fromPtr true) new_ (inputStream & outputStream)
+    fun new (inputStream, outputStream) = (GioInputStreamClass.FFI.withPtr false &&&> GioOutputStreamClass.FFI.withPtr false ---> GioSimpleIOStreamClass.FFI.fromPtr true) new_ (inputStream & outputStream)
     local
       open Property
     in

@@ -168,7 +168,7 @@ structure GtkUIManager :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type 'a action_class = 'a GtkActionClass.class
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkUIManagerClass.FFI.fromPtr true) new_ ()
     fun addUi
@@ -182,11 +182,11 @@ structure GtkUIManager :>
         top
       ) =
       (
-        GtkUIManagerClass.FFI.withPtr
+        GtkUIManagerClass.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GtkUIManagerItemType.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
@@ -203,8 +203,8 @@ structure GtkUIManager :>
         )
     fun addUiFromFile self filename =
       (
-        GtkUIManagerClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkUIManagerClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
       )
@@ -216,8 +216,8 @@ structure GtkUIManager :>
         )
     fun addUiFromResource self resourcePath =
       (
-        GtkUIManagerClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkUIManagerClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
       )
@@ -229,8 +229,8 @@ structure GtkUIManager :>
         )
     fun addUiFromString self (buffer, length) =
       (
-        GtkUIManagerClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkUIManagerClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt64.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
@@ -242,16 +242,16 @@ structure GtkUIManager :>
            & length
            & []
         )
-    fun ensureUpdate self = (GtkUIManagerClass.FFI.withPtr ---> I) ensureUpdate_ self
-    fun getAccelGroup self = (GtkUIManagerClass.FFI.withPtr ---> GtkAccelGroupClass.FFI.fromPtr false) getAccelGroup_ self
-    fun getAction self path = (GtkUIManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkActionClass.FFI.fromPtr false) getAction_ (self & path)
-    fun getAddTearoffs self = (GtkUIManagerClass.FFI.withPtr ---> GBool.FFI.fromVal) getAddTearoffs_ self
-    fun getUi self = (GtkUIManagerClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUi_ self
-    fun getWidget self path = (GtkUIManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ (self & path)
+    fun ensureUpdate self = (GtkUIManagerClass.FFI.withPtr false ---> I) ensureUpdate_ self
+    fun getAccelGroup self = (GtkUIManagerClass.FFI.withPtr false ---> GtkAccelGroupClass.FFI.fromPtr false) getAccelGroup_ self
+    fun getAction self path = (GtkUIManagerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkActionClass.FFI.fromPtr false) getAction_ (self & path)
+    fun getAddTearoffs self = (GtkUIManagerClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAddTearoffs_ self
+    fun getUi self = (GtkUIManagerClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getUi_ self
+    fun getWidget self path = (GtkUIManagerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ (self & path)
     fun insertActionGroup self (actionGroup, pos) =
       (
-        GtkUIManagerClass.FFI.withPtr
-         &&&> GtkActionGroupClass.FFI.withPtr
+        GtkUIManagerClass.FFI.withPtr false
+         &&&> GtkActionGroupClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -261,10 +261,10 @@ structure GtkUIManager :>
            & actionGroup
            & pos
         )
-    fun newMergeId self = (GtkUIManagerClass.FFI.withPtr ---> GUInt32.FFI.fromVal) newMergeId_ self
-    fun removeActionGroup self actionGroup = (GtkUIManagerClass.FFI.withPtr &&&> GtkActionGroupClass.FFI.withPtr ---> I) removeActionGroup_ (self & actionGroup)
-    fun removeUi self mergeId = (GtkUIManagerClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) removeUi_ (self & mergeId)
-    fun setAddTearoffs self addTearoffs = (GtkUIManagerClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAddTearoffs_ (self & addTearoffs)
+    fun newMergeId self = (GtkUIManagerClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) newMergeId_ self
+    fun removeActionGroup self actionGroup = (GtkUIManagerClass.FFI.withPtr false &&&> GtkActionGroupClass.FFI.withPtr false ---> I) removeActionGroup_ (self & actionGroup)
+    fun removeUi self mergeId = (GtkUIManagerClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) removeUi_ (self & mergeId)
+    fun setAddTearoffs self addTearoffs = (GtkUIManagerClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAddTearoffs_ (self & addTearoffs)
     local
       open ClosureMarshal Signal
     in

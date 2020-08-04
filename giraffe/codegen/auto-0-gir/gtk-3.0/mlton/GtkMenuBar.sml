@@ -15,15 +15,15 @@ structure GtkMenuBar :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type pack_direction_t = GtkPackDirection.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkMenuBarClass.FFI.fromPtr false) new_ ()
-    fun newFromModel model = (GioMenuModelClass.FFI.withPtr ---> GtkMenuBarClass.FFI.fromPtr false) newFromModel_ model
-    fun getChildPackDirection self = (GtkMenuBarClass.FFI.withPtr ---> GtkPackDirection.FFI.fromVal) getChildPackDirection_ self
-    fun getPackDirection self = (GtkMenuBarClass.FFI.withPtr ---> GtkPackDirection.FFI.fromVal) getPackDirection_ self
-    fun setChildPackDirection self childPackDir = (GtkMenuBarClass.FFI.withPtr &&&> GtkPackDirection.FFI.withVal ---> I) setChildPackDirection_ (self & childPackDir)
-    fun setPackDirection self packDir = (GtkMenuBarClass.FFI.withPtr &&&> GtkPackDirection.FFI.withVal ---> I) setPackDirection_ (self & packDir)
+    fun newFromModel model = (GioMenuModelClass.FFI.withPtr false ---> GtkMenuBarClass.FFI.fromPtr false) newFromModel_ model
+    fun getChildPackDirection self = (GtkMenuBarClass.FFI.withPtr false ---> GtkPackDirection.FFI.fromVal) getChildPackDirection_ self
+    fun getPackDirection self = (GtkMenuBarClass.FFI.withPtr false ---> GtkPackDirection.FFI.fromVal) getPackDirection_ self
+    fun setChildPackDirection self childPackDir = (GtkMenuBarClass.FFI.withPtr false &&&> GtkPackDirection.FFI.withVal ---> I) setChildPackDirection_ (self & childPackDir)
+    fun setPackDirection self packDir = (GtkMenuBarClass.FFI.withPtr false &&&> GtkPackDirection.FFI.withVal ---> I) setPackDirection_ (self & packDir)
     local
       open Property
     in

@@ -9,8 +9,8 @@ structure GtkLabelAccessible :>
     end
     type 'a class = 'a GtkLabelAccessibleClass.class
     type t = base class
-    fun asComponent self = (GObjectObjectClass.FFI.withPtr ---> AtkComponentClass.FFI.fromPtr false) I self
-    fun asHypertext self = (GObjectObjectClass.FFI.withPtr ---> AtkHypertextClass.FFI.fromPtr false) I self
-    fun asText self = (GObjectObjectClass.FFI.withPtr ---> AtkTextClass.FFI.fromPtr false) I self
+    fun asComponent self = (GObjectObjectClass.FFI.withPtr false ---> AtkComponentClass.FFI.fromPtr false) I self
+    fun asHypertext self = (GObjectObjectClass.FFI.withPtr false ---> AtkHypertextClass.FFI.fromPtr false) I self
+    fun asText self = (GObjectObjectClass.FFI.withPtr false ---> AtkTextClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

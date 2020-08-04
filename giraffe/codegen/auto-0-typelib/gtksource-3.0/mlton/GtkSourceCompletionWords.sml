@@ -26,11 +26,11 @@ structure GtkSourceCompletionWords :>
     type 'a completion_provider_class = 'a GtkSourceCompletionProviderClass.class
     type completion_activation_t = GtkSourceCompletionActivation.t
     type t = base class
-    fun asCompletionProvider self = (GObjectObjectClass.FFI.withPtr ---> GtkSourceCompletionProviderClass.FFI.fromPtr false) I self
+    fun asCompletionProvider self = (GObjectObjectClass.FFI.withPtr false ---> GtkSourceCompletionProviderClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (name, icon) = (Utf8.FFI.withOptPtr &&&> GdkPixbufPixbufClass.FFI.withOptPtr ---> GtkSourceCompletionWordsClass.FFI.fromPtr true) new_ (name & icon)
-    fun register self buffer = (GtkSourceCompletionWordsClass.FFI.withPtr &&&> GtkTextBufferClass.FFI.withPtr ---> I) register_ (self & buffer)
-    fun unregister self buffer = (GtkSourceCompletionWordsClass.FFI.withPtr &&&> GtkTextBufferClass.FFI.withPtr ---> I) unregister_ (self & buffer)
+    fun new (name, icon) = (Utf8.FFI.withOptPtr 0 &&&> GdkPixbufPixbufClass.FFI.withOptPtr false ---> GtkSourceCompletionWordsClass.FFI.fromPtr true) new_ (name & icon)
+    fun register self buffer = (GtkSourceCompletionWordsClass.FFI.withPtr false &&&> GtkTextBufferClass.FFI.withPtr false ---> I) register_ (self & buffer)
+    fun unregister self buffer = (GtkSourceCompletionWordsClass.FFI.withPtr false &&&> GtkTextBufferClass.FFI.withPtr false ---> I) unregister_ (self & buffer)
     local
       open Property
     in

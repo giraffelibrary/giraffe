@@ -14,11 +14,11 @@ structure GioZlibCompressor :>
     type 'a file_info_class = 'a GioFileInfoClass.class
     type zlib_compressor_format_t = GioZlibCompressorFormat.t
     type t = base class
-    fun asConverter self = (GObjectObjectClass.FFI.withPtr ---> GioConverterClass.FFI.fromPtr false) I self
+    fun asConverter self = (GObjectObjectClass.FFI.withPtr false ---> GioConverterClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (format, level) = (GioZlibCompressorFormat.FFI.withVal &&&> GInt.FFI.withVal ---> GioZlibCompressorClass.FFI.fromPtr true) new_ (format & level)
-    fun getFileInfo self = (GioZlibCompressorClass.FFI.withPtr ---> GioFileInfoClass.FFI.fromPtr false) getFileInfo_ self
-    fun setFileInfo self fileInfo = (GioZlibCompressorClass.FFI.withPtr &&&> GioFileInfoClass.FFI.withOptPtr ---> I) setFileInfo_ (self & fileInfo)
+    fun getFileInfo self = (GioZlibCompressorClass.FFI.withPtr false ---> GioFileInfoClass.FFI.fromPtr false) getFileInfo_ self
+    fun setFileInfo self fileInfo = (GioZlibCompressorClass.FFI.withPtr false &&&> GioFileInfoClass.FFI.withOptPtr false ---> I) setFileInfo_ (self & fileInfo)
     local
       open Property
     in

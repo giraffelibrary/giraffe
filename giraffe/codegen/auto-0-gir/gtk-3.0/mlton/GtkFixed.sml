@@ -50,8 +50,8 @@ structure GtkFixed :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkFixedClass.FFI.fromPtr false) new_ ()
     fun move
@@ -62,8 +62,8 @@ structure GtkFixed :>
         y
       ) =
       (
-        GtkFixedClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkFixedClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -83,8 +83,8 @@ structure GtkFixed :>
         y
       ) =
       (
-        GtkFixedClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkFixedClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I

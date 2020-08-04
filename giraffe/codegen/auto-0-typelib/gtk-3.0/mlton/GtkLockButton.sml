@@ -14,14 +14,14 @@ structure GtkLockButton :>
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActionableClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new permission = (GioPermissionClass.FFI.withOptPtr ---> GtkLockButtonClass.FFI.fromPtr false) new_ permission
-    fun getPermission self = (GtkLockButtonClass.FFI.withPtr ---> GioPermissionClass.FFI.fromPtr false) getPermission_ self
-    fun setPermission self permission = (GtkLockButtonClass.FFI.withPtr &&&> GioPermissionClass.FFI.withOptPtr ---> I) setPermission_ (self & permission)
+    fun new permission = (GioPermissionClass.FFI.withOptPtr false ---> GtkLockButtonClass.FFI.fromPtr false) new_ permission
+    fun getPermission self = (GtkLockButtonClass.FFI.withPtr false ---> GioPermissionClass.FFI.fromPtr false) getPermission_ self
+    fun setPermission self permission = (GtkLockButtonClass.FFI.withPtr false &&&> GioPermissionClass.FFI.withOptPtr false ---> I) setPermission_ (self & permission)
     local
       open Property
     in

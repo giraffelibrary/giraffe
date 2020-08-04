@@ -392,9 +392,9 @@ structure GtkIconTheme :>
         pixbuf
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
-         &&&> GdkPixbufPixbufClass.FFI.withPtr
+         &&&> GdkPixbufPixbufClass.FFI.withPtr false
          ---> I
       )
         addBuiltinIcon_
@@ -404,9 +404,9 @@ structure GtkIconTheme :>
            & pixbuf
         )
     fun getDefault () = (I ---> GtkIconThemeClass.FFI.fromPtr false) getDefault_ ()
-    fun getForScreen screen = (GdkScreenClass.FFI.withPtr ---> GtkIconThemeClass.FFI.fromPtr false) getForScreen_ screen
-    fun addResourcePath self path = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addResourcePath_ (self & path)
-    fun appendSearchPath self path = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) appendSearchPath_ (self & path)
+    fun getForScreen screen = (GdkScreenClass.FFI.withPtr false ---> GtkIconThemeClass.FFI.fromPtr false) getForScreen_ screen
+    fun addResourcePath self path = (GtkIconThemeClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) addResourcePath_ (self & path)
+    fun appendSearchPath self path = (GtkIconThemeClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) appendSearchPath_ (self & path)
     fun chooseIcon
       self
       (
@@ -415,8 +415,8 @@ structure GtkIconTheme :>
         flags
       ) =
       (
-        GtkIconThemeClass.FFI.withPtr
-         &&&> Utf8CPtrArray.FFI.withPtr
+        GtkIconThemeClass.FFI.withPtr false
+         &&&> Utf8CPtrArray.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
          ---> GtkIconInfoClass.FFI.fromOptPtr true
@@ -437,8 +437,8 @@ structure GtkIconTheme :>
         flags
       ) =
       (
-        GtkIconThemeClass.FFI.withPtr
-         &&&> Utf8CPtrArray.FFI.withPtr
+        GtkIconThemeClass.FFI.withPtr false
+         &&&> Utf8CPtrArray.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
@@ -452,18 +452,18 @@ structure GtkIconTheme :>
            & scale
            & flags
         )
-    fun getExampleIconName self = (GtkIconThemeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getExampleIconName_ self
-    fun getIconSizes self iconName = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt32CArray.FFI.fromPtr 1) getIconSizes_ (self & iconName)
+    fun getExampleIconName self = (GtkIconThemeClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getExampleIconName_ self
+    fun getIconSizes self iconName = (GtkIconThemeClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GInt32CArray.FFI.fromPtr ~1) getIconSizes_ (self & iconName)
     fun getSearchPath self =
       let
         val path
          & nElements
          & () =
           (
-            GtkIconThemeClass.FFI.withPtr
-             &&&> Utf8CPtrArrayN.FFI.withRefOptPtr
+            GtkIconThemeClass.FFI.withPtr false
+             &&&> Utf8CPtrArrayN.FFI.withRefOptPtr 0
              &&&> GInt32.FFI.withRefVal
-             ---> Utf8CPtrArrayN.FFI.fromPtr 2
+             ---> Utf8CPtrArrayN.FFI.fromPtr ~1
                    && GInt32.FFI.fromVal
                    && I
           )
@@ -476,7 +476,7 @@ structure GtkIconTheme :>
       in
         path (LargeInt.toInt nElements)
       end
-    fun hasIcon self iconName = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasIcon_ (self & iconName)
+    fun hasIcon self iconName = (GtkIconThemeClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasIcon_ (self & iconName)
     fun loadIcon
       self
       (
@@ -485,8 +485,8 @@ structure GtkIconTheme :>
         flags
       ) =
       (
-        GtkIconThemeClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkIconThemeClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
@@ -509,8 +509,8 @@ structure GtkIconTheme :>
         flags
       ) =
       (
-        GtkIconThemeClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkIconThemeClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
@@ -536,11 +536,11 @@ structure GtkIconTheme :>
         flags
       ) =
       (
-        GtkIconThemeClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkIconThemeClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
-         &&&> GdkWindowClass.FFI.withOptPtr
+         &&&> GdkWindowClass.FFI.withOptPtr false
          &&&> GtkIconLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> CairoSurfaceRecord.FFI.fromOptPtr true
@@ -563,8 +563,8 @@ structure GtkIconTheme :>
         flags
       ) =
       (
-        GtkIconThemeClass.FFI.withPtr
-         &&&> GioIconClass.FFI.withPtr
+        GtkIconThemeClass.FFI.withPtr false
+         &&&> GioIconClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
          ---> GtkIconInfoClass.FFI.fromOptPtr true
@@ -585,8 +585,8 @@ structure GtkIconTheme :>
         flags
       ) =
       (
-        GtkIconThemeClass.FFI.withPtr
-         &&&> GioIconClass.FFI.withPtr
+        GtkIconThemeClass.FFI.withPtr false
+         &&&> GioIconClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
@@ -608,8 +608,8 @@ structure GtkIconTheme :>
         flags
       ) =
       (
-        GtkIconThemeClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkIconThemeClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
          ---> GtkIconInfoClass.FFI.fromOptPtr true
@@ -630,8 +630,8 @@ structure GtkIconTheme :>
         flags
       ) =
       (
-        GtkIconThemeClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkIconThemeClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GtkIconLookupFlags.FFI.withVal
@@ -645,17 +645,17 @@ structure GtkIconTheme :>
            & scale
            & flags
         )
-    fun prependSearchPath self path = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) prependSearchPath_ (self & path)
-    fun rescanIfNeeded self = (GtkIconThemeClass.FFI.withPtr ---> GBool.FFI.fromVal) rescanIfNeeded_ self
-    fun setCustomTheme self themeName = (GtkIconThemeClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setCustomTheme_ (self & themeName)
-    fun setScreen self screen = (GtkIconThemeClass.FFI.withPtr &&&> GdkScreenClass.FFI.withPtr ---> I) setScreen_ (self & screen)
+    fun prependSearchPath self path = (GtkIconThemeClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) prependSearchPath_ (self & path)
+    fun rescanIfNeeded self = (GtkIconThemeClass.FFI.withPtr false ---> GBool.FFI.fromVal) rescanIfNeeded_ self
+    fun setCustomTheme self themeName = (GtkIconThemeClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setCustomTheme_ (self & themeName)
+    fun setScreen self screen = (GtkIconThemeClass.FFI.withPtr false &&&> GdkScreenClass.FFI.withPtr false ---> I) setScreen_ (self & screen)
     fun setSearchPath self path =
       let
         val nElements = LargeInt.fromInt (Utf8CPtrArrayN.length path)
         val () =
           (
-            GtkIconThemeClass.FFI.withPtr
-             &&&> Utf8CPtrArrayN.FFI.withPtr
+            GtkIconThemeClass.FFI.withPtr false
+             &&&> Utf8CPtrArrayN.FFI.withPtr 0
              &&&> GInt32.FFI.withVal
              ---> I
           )

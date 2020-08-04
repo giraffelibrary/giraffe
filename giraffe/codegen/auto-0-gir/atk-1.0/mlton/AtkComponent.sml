@@ -193,7 +193,7 @@ structure AtkComponent :>
         coordType
       ) =
       (
-        AtkComponentClass.FFI.withPtr
+        AtkComponentClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> AtkCoordType.FFI.withVal
@@ -206,7 +206,7 @@ structure AtkComponent :>
            & y
            & coordType
         )
-    fun getAlpha self = (AtkComponentClass.FFI.withPtr ---> GDouble.FFI.fromVal) getAlpha_ self
+    fun getAlpha self = (AtkComponentClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getAlpha_ self
     fun getExtents self coordType =
       let
         val x
@@ -215,7 +215,7 @@ structure AtkComponent :>
          & height
          & () =
           (
-            AtkComponentClass.FFI.withPtr
+            AtkComponentClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -244,15 +244,15 @@ structure AtkComponent :>
           height
         )
       end
-    fun getLayer self = (AtkComponentClass.FFI.withPtr ---> AtkLayer.FFI.fromVal) getLayer_ self
-    fun getMdiZorder self = (AtkComponentClass.FFI.withPtr ---> GInt.FFI.fromVal) getMdiZorder_ self
+    fun getLayer self = (AtkComponentClass.FFI.withPtr false ---> AtkLayer.FFI.fromVal) getLayer_ self
+    fun getMdiZorder self = (AtkComponentClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMdiZorder_ self
     fun getPosition self coordType =
       let
         val x
          & y
          & () =
           (
-            AtkComponentClass.FFI.withPtr
+            AtkComponentClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> AtkCoordType.FFI.withVal
@@ -276,7 +276,7 @@ structure AtkComponent :>
          & height
          & () =
           (
-            AtkComponentClass.FFI.withPtr
+            AtkComponentClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -292,7 +292,7 @@ structure AtkComponent :>
       in
         (width, height)
       end
-    fun grabFocus self = (AtkComponentClass.FFI.withPtr ---> GBool.FFI.fromVal) grabFocus_ self
+    fun grabFocus self = (AtkComponentClass.FFI.withPtr false ---> GBool.FFI.fromVal) grabFocus_ self
     fun refAccessibleAtPoint
       self
       (
@@ -301,7 +301,7 @@ structure AtkComponent :>
         coordType
       ) =
       (
-        AtkComponentClass.FFI.withPtr
+        AtkComponentClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> AtkCoordType.FFI.withVal
@@ -314,7 +314,7 @@ structure AtkComponent :>
            & y
            & coordType
         )
-    fun removeFocusHandler self handlerId = (AtkComponentClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) removeFocusHandler_ (self & handlerId)
+    fun removeFocusHandler self handlerId = (AtkComponentClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) removeFocusHandler_ (self & handlerId)
     fun setExtents
       self
       (
@@ -325,7 +325,7 @@ structure AtkComponent :>
         coordType
       ) =
       (
-        AtkComponentClass.FFI.withPtr
+        AtkComponentClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -350,7 +350,7 @@ structure AtkComponent :>
         coordType
       ) =
       (
-        AtkComponentClass.FFI.withPtr
+        AtkComponentClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> AtkCoordType.FFI.withVal
@@ -365,7 +365,7 @@ structure AtkComponent :>
         )
     fun setSize self (width, height) =
       (
-        AtkComponentClass.FFI.withPtr
+        AtkComponentClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> GBool.FFI.fromVal

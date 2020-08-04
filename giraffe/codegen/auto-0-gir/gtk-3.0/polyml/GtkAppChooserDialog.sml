@@ -38,9 +38,9 @@ structure GtkAppChooserDialog :>
     type 'a window_class = 'a GtkWindowClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asAppChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkAppChooserClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asAppChooser self = (GObjectObjectClass.FFI.withPtr false ---> GtkAppChooserClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -49,9 +49,9 @@ structure GtkAppChooserDialog :>
         file
       ) =
       (
-        GtkWindowClass.FFI.withOptPtr
+        GtkWindowClass.FFI.withOptPtr false
          &&&> GtkDialogFlags.FFI.withVal
-         &&&> GioFileClass.FFI.withPtr
+         &&&> GioFileClass.FFI.withPtr false
          ---> GtkAppChooserDialogClass.FFI.fromPtr false
       )
         new_
@@ -67,9 +67,9 @@ structure GtkAppChooserDialog :>
         contentType
       ) =
       (
-        GtkWindowClass.FFI.withOptPtr
+        GtkWindowClass.FFI.withOptPtr false
          &&&> GtkDialogFlags.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> GtkAppChooserDialogClass.FFI.fromPtr false
       )
         newForContentType_
@@ -78,9 +78,9 @@ structure GtkAppChooserDialog :>
            & flags
            & contentType
         )
-    fun getHeading self = (GtkAppChooserDialogClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getHeading_ self
-    fun getWidget self = (GtkAppChooserDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
-    fun setHeading self heading = (GtkAppChooserDialogClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setHeading_ (self & heading)
+    fun getHeading self = (GtkAppChooserDialogClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getHeading_ self
+    fun getWidget self = (GtkAppChooserDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
+    fun setHeading self heading = (GtkAppChooserDialogClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setHeading_ (self & heading)
     local
       open Property
     in

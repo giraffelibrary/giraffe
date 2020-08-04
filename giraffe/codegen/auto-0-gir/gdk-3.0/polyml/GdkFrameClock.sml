@@ -22,14 +22,14 @@ structure GdkFrameClock :>
     type frame_clock_phase_t = GdkFrameClockPhase.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun beginUpdating self = (GdkFrameClockClass.FFI.withPtr ---> I) beginUpdating_ self
-    fun endUpdating self = (GdkFrameClockClass.FFI.withPtr ---> I) endUpdating_ self
-    fun getCurrentTimings self = (GdkFrameClockClass.FFI.withPtr ---> GdkFrameTimingsRecord.FFI.fromOptPtr true) getCurrentTimings_ self
-    fun getFrameCounter self = (GdkFrameClockClass.FFI.withPtr ---> GInt64.FFI.fromVal) getFrameCounter_ self
-    fun getFrameTime self = (GdkFrameClockClass.FFI.withPtr ---> GInt64.FFI.fromVal) getFrameTime_ self
-    fun getHistoryStart self = (GdkFrameClockClass.FFI.withPtr ---> GInt64.FFI.fromVal) getHistoryStart_ self
-    fun getTimings self frameCounter = (GdkFrameClockClass.FFI.withPtr &&&> GInt64.FFI.withVal ---> GdkFrameTimingsRecord.FFI.fromOptPtr true) getTimings_ (self & frameCounter)
-    fun requestPhase self phase = (GdkFrameClockClass.FFI.withPtr &&&> GdkFrameClockPhase.FFI.withVal ---> I) requestPhase_ (self & phase)
+    fun beginUpdating self = (GdkFrameClockClass.FFI.withPtr false ---> I) beginUpdating_ self
+    fun endUpdating self = (GdkFrameClockClass.FFI.withPtr false ---> I) endUpdating_ self
+    fun getCurrentTimings self = (GdkFrameClockClass.FFI.withPtr false ---> GdkFrameTimingsRecord.FFI.fromOptPtr true) getCurrentTimings_ self
+    fun getFrameCounter self = (GdkFrameClockClass.FFI.withPtr false ---> GInt64.FFI.fromVal) getFrameCounter_ self
+    fun getFrameTime self = (GdkFrameClockClass.FFI.withPtr false ---> GInt64.FFI.fromVal) getFrameTime_ self
+    fun getHistoryStart self = (GdkFrameClockClass.FFI.withPtr false ---> GInt64.FFI.fromVal) getHistoryStart_ self
+    fun getTimings self frameCounter = (GdkFrameClockClass.FFI.withPtr false &&&> GInt64.FFI.withVal ---> GdkFrameTimingsRecord.FFI.fromOptPtr true) getTimings_ (self & frameCounter)
+    fun requestPhase self phase = (GdkFrameClockClass.FFI.withPtr false &&&> GdkFrameClockPhase.FFI.withVal ---> I) requestPhase_ (self & phase)
     local
       open ClosureMarshal Signal
     in

@@ -7,6 +7,6 @@ structure GLibTestSuite :>
     val addSuite_ = fn x1 & x2 => (_import "g_test_suite_add_suite" : GLibTestSuiteRecord.FFI.non_opt GLibTestSuiteRecord.FFI.p * GLibTestSuiteRecord.FFI.non_opt GLibTestSuiteRecord.FFI.p -> unit;) (x1, x2)
     type t = GLibTestSuiteRecord.t
     type test_case_t = GLibTestCaseRecord.t
-    fun add self testCase = (GLibTestSuiteRecord.FFI.withPtr &&&> GLibTestCaseRecord.FFI.withPtr ---> I) add_ (self & testCase)
-    fun addSuite self nestedsuite = (GLibTestSuiteRecord.FFI.withPtr &&&> GLibTestSuiteRecord.FFI.withPtr ---> I) addSuite_ (self & nestedsuite)
+    fun add self testCase = (GLibTestSuiteRecord.FFI.withPtr false &&&> GLibTestCaseRecord.FFI.withPtr false ---> I) add_ (self & testCase)
+    fun addSuite self nestedsuite = (GLibTestSuiteRecord.FFI.withPtr false &&&> GLibTestSuiteRecord.FFI.withPtr false ---> I) addSuite_ (self & nestedsuite)
   end

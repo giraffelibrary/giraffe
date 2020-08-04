@@ -14,6 +14,6 @@ structure GtkTreeDragSource :>
     type tree_path_t = GtkTreePathRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun dragDataDelete self path = (GtkTreeDragSourceClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) dragDataDelete_ (self & path)
-    fun rowDraggable self path = (GtkTreeDragSourceClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) rowDraggable_ (self & path)
+    fun dragDataDelete self path = (GtkTreeDragSourceClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GBool.FFI.fromVal) dragDataDelete_ (self & path)
+    fun rowDraggable self path = (GtkTreeDragSourceClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GBool.FFI.fromVal) rowDraggable_ (self & path)
   end

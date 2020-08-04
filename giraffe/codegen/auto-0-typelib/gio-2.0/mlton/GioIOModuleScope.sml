@@ -18,5 +18,5 @@ structure GioIOModuleScope :>
               x3
             )
     type t = GioIOModuleScopeRecord.t
-    fun block self basename = (GioIOModuleScopeRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) block_ (self & basename)
+    fun block self basename = (GioIOModuleScopeRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) block_ (self & basename)
   end

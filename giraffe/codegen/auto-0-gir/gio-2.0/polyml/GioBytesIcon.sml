@@ -15,11 +15,11 @@ structure GioBytesIcon :>
     type 'a icon_class = 'a GioIconClass.class
     type 'a loadable_icon_class = 'a GioLoadableIconClass.class
     type t = base class
-    fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
-    fun asLoadableIcon self = (GObjectObjectClass.FFI.withPtr ---> GioLoadableIconClass.FFI.fromPtr false) I self
+    fun asIcon self = (GObjectObjectClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) I self
+    fun asLoadableIcon self = (GObjectObjectClass.FFI.withPtr false ---> GioLoadableIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new bytes = (GLibBytesRecord.FFI.withPtr ---> GioBytesIconClass.FFI.fromPtr true) new_ bytes
-    fun getBytes self = (GioBytesIconClass.FFI.withPtr ---> GLibBytesRecord.FFI.fromPtr false) getBytes_ self
+    fun new bytes = (GLibBytesRecord.FFI.withPtr false ---> GioBytesIconClass.FFI.fromPtr true) new_ bytes
+    fun getBytes self = (GioBytesIconClass.FFI.withPtr false ---> GLibBytesRecord.FFI.fromPtr false) getBytes_ self
     local
       open Property
     in

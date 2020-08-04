@@ -119,8 +119,8 @@ structure GioUnixConnection :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun receiveCredentials self cancellable =
       (
-        GioUnixConnectionClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioUnixConnectionClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioCredentialsClass.FFI.fromPtr true
       )
@@ -132,8 +132,8 @@ structure GioUnixConnection :>
         )
     fun receiveCredentialsFinish self result =
       (
-        GioUnixConnectionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioUnixConnectionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioCredentialsClass.FFI.fromPtr true
       )
@@ -145,8 +145,8 @@ structure GioUnixConnection :>
         )
     fun receiveFd self cancellable =
       (
-        GioUnixConnectionClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioUnixConnectionClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GInt.FFI.fromVal
       )
@@ -158,8 +158,8 @@ structure GioUnixConnection :>
         )
     fun sendCredentials self cancellable =
       (
-        GioUnixConnectionClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioUnixConnectionClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -171,8 +171,8 @@ structure GioUnixConnection :>
         )
     fun sendCredentialsFinish self result =
       (
-        GioUnixConnectionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioUnixConnectionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -184,9 +184,9 @@ structure GioUnixConnection :>
         )
     fun sendFd self (fd, cancellable) =
       (
-        GioUnixConnectionClass.FFI.withPtr
+        GioUnixConnectionClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

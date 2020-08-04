@@ -53,7 +53,7 @@ structure GioProxyAddress :>
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type 'a inet_address_class = 'a GioInetAddressClass.class
     type t = base class
-    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
+    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr false ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -66,13 +66,13 @@ structure GioProxyAddress :>
         password
       ) =
       (
-        GioInetAddressClass.FFI.withPtr
+        GioInetAddressClass.FFI.withPtr false
          &&&> GUInt16.FFI.withVal
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt16.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GioProxyAddressClass.FFI.fromPtr true
       )
         new_
@@ -85,13 +85,13 @@ structure GioProxyAddress :>
            & username
            & password
         )
-    fun getDestinationHostname self = (GioProxyAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDestinationHostname_ self
-    fun getDestinationPort self = (GioProxyAddressClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getDestinationPort_ self
-    fun getDestinationProtocol self = (GioProxyAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDestinationProtocol_ self
-    fun getPassword self = (GioProxyAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPassword_ self
-    fun getProtocol self = (GioProxyAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getProtocol_ self
-    fun getUri self = (GioProxyAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUri_ self
-    fun getUsername self = (GioProxyAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUsername_ self
+    fun getDestinationHostname self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDestinationHostname_ self
+    fun getDestinationPort self = (GioProxyAddressClass.FFI.withPtr false ---> GUInt16.FFI.fromVal) getDestinationPort_ self
+    fun getDestinationProtocol self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDestinationProtocol_ self
+    fun getPassword self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPassword_ self
+    fun getProtocol self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getProtocol_ self
+    fun getUri self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUri_ self
+    fun getUsername self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUsername_ self
     local
       open Property
     in

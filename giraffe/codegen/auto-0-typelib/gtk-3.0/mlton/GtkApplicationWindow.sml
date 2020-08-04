@@ -17,17 +17,17 @@ structure GtkApplicationWindow :>
     type 'a application_class = 'a GtkApplicationClass.class
     type 'a shortcuts_window_class = 'a GtkShortcutsWindowClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActionGroup self = (GObjectObjectClass.FFI.withPtr ---> GioActionGroupClass.FFI.fromPtr false) I self
-    fun asActionMap self = (GObjectObjectClass.FFI.withPtr ---> GioActionMapClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionGroup self = (GObjectObjectClass.FFI.withPtr false ---> GioActionGroupClass.FFI.fromPtr false) I self
+    fun asActionMap self = (GObjectObjectClass.FFI.withPtr false ---> GioActionMapClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new application = (GtkApplicationClass.FFI.withPtr ---> GtkApplicationWindowClass.FFI.fromPtr false) new_ application
-    fun getHelpOverlay self = (GtkApplicationWindowClass.FFI.withPtr ---> GtkShortcutsWindowClass.FFI.fromOptPtr false) getHelpOverlay_ self
-    fun getId self = (GtkApplicationWindowClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getId_ self
-    fun getShowMenubar self = (GtkApplicationWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowMenubar_ self
-    fun setHelpOverlay self helpOverlay = (GtkApplicationWindowClass.FFI.withPtr &&&> GtkShortcutsWindowClass.FFI.withOptPtr ---> I) setHelpOverlay_ (self & helpOverlay)
-    fun setShowMenubar self showMenubar = (GtkApplicationWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowMenubar_ (self & showMenubar)
+    fun new application = (GtkApplicationClass.FFI.withPtr false ---> GtkApplicationWindowClass.FFI.fromPtr false) new_ application
+    fun getHelpOverlay self = (GtkApplicationWindowClass.FFI.withPtr false ---> GtkShortcutsWindowClass.FFI.fromOptPtr false) getHelpOverlay_ self
+    fun getId self = (GtkApplicationWindowClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getId_ self
+    fun getShowMenubar self = (GtkApplicationWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowMenubar_ self
+    fun setHelpOverlay self helpOverlay = (GtkApplicationWindowClass.FFI.withPtr false &&&> GtkShortcutsWindowClass.FFI.withOptPtr false ---> I) setHelpOverlay_ (self & helpOverlay)
+    fun setShowMenubar self showMenubar = (GtkApplicationWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowMenubar_ (self & showMenubar)
     local
       open Property
     in

@@ -25,10 +25,10 @@ structure PangoItem :>
     type t = PangoItemRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoItemRecord.FFI.fromPtr true) new_ ()
-    fun copy self = (PangoItemRecord.FFI.withPtr ---> PangoItemRecord.FFI.fromOptPtr true) copy_ self
+    fun copy self = (PangoItemRecord.FFI.withPtr false ---> PangoItemRecord.FFI.fromOptPtr true) copy_ self
     fun split self (splitIndex, splitOffset) =
       (
-        PangoItemRecord.FFI.withPtr
+        PangoItemRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> PangoItemRecord.FFI.fromPtr true

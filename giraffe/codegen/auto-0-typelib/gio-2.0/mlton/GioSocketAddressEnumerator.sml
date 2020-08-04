@@ -48,8 +48,8 @@ structure GioSocketAddressEnumerator :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun next self cancellable =
       (
-        GioSocketAddressEnumeratorClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioSocketAddressEnumeratorClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioSocketAddressClass.FFI.fromPtr true
       )
@@ -61,8 +61,8 @@ structure GioSocketAddressEnumerator :>
         )
     fun nextFinish self result =
       (
-        GioSocketAddressEnumeratorClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioSocketAddressEnumeratorClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioSocketAddressClass.FFI.fromPtr true
       )

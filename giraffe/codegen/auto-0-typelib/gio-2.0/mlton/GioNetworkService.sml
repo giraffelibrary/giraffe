@@ -49,7 +49,7 @@ structure GioNetworkService :>
     type 'a class = 'a GioNetworkServiceClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type t = base class
-    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
+    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr false ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -58,9 +58,9 @@ structure GioNetworkService :>
         domain
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> GioNetworkServiceClass.FFI.fromPtr true
       )
         new_
@@ -69,11 +69,11 @@ structure GioNetworkService :>
            & protocol
            & domain
         )
-    fun getDomain self = (GioNetworkServiceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDomain_ self
-    fun getProtocol self = (GioNetworkServiceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getProtocol_ self
-    fun getScheme self = (GioNetworkServiceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getScheme_ self
-    fun getService self = (GioNetworkServiceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getService_ self
-    fun setScheme self scheme = (GioNetworkServiceClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setScheme_ (self & scheme)
+    fun getDomain self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDomain_ self
+    fun getProtocol self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getProtocol_ self
+    fun getScheme self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getScheme_ self
+    fun getService self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getService_ self
+    fun setScheme self scheme = (GioNetworkServiceClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setScheme_ (self & scheme)
     local
       open Property
     in

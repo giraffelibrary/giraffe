@@ -63,17 +63,17 @@ structure GtkMenuToolButton :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type 'a menu_class = 'a GtkMenuClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActionableClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (iconWidget, label) = (GtkWidgetClass.FFI.withOptPtr &&&> Utf8.FFI.withOptPtr ---> GtkMenuToolButtonClass.FFI.fromPtr false) new_ (iconWidget & label)
-    fun newFromStock stockId = (Utf8.FFI.withPtr ---> GtkMenuToolButtonClass.FFI.fromPtr false) newFromStock_ stockId
-    fun getMenu self = (GtkMenuToolButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getMenu_ self
-    fun setArrowTooltipMarkup self markup = (GtkMenuToolButtonClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setArrowTooltipMarkup_ (self & markup)
-    fun setArrowTooltipText self text = (GtkMenuToolButtonClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setArrowTooltipText_ (self & text)
-    fun setMenu self menu = (GtkMenuToolButtonClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) setMenu_ (self & menu)
+    fun new (iconWidget, label) = (GtkWidgetClass.FFI.withOptPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GtkMenuToolButtonClass.FFI.fromPtr false) new_ (iconWidget & label)
+    fun newFromStock stockId = (Utf8.FFI.withPtr 0 ---> GtkMenuToolButtonClass.FFI.fromPtr false) newFromStock_ stockId
+    fun getMenu self = (GtkMenuToolButtonClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getMenu_ self
+    fun setArrowTooltipMarkup self markup = (GtkMenuToolButtonClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setArrowTooltipMarkup_ (self & markup)
+    fun setArrowTooltipText self text = (GtkMenuToolButtonClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setArrowTooltipText_ (self & text)
+    fun setMenu self menu = (GtkMenuToolButtonClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setMenu_ (self & menu)
     local
       open ClosureMarshal Signal
     in

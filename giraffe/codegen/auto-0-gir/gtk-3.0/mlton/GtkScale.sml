@@ -85,11 +85,11 @@ structure GtkScale :>
     type orientation_t = GtkOrientation.t
     type position_type_t = GtkPositionType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (orientation, adjustment) = (GtkOrientation.FFI.withVal &&&> GtkAdjustmentClass.FFI.withOptPtr ---> GtkScaleClass.FFI.fromPtr false) new_ (orientation & adjustment)
+    fun new (orientation, adjustment) = (GtkOrientation.FFI.withVal &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkScaleClass.FFI.fromPtr false) new_ (orientation & adjustment)
     fun newWithRange
       (
         orientation,
@@ -119,10 +119,10 @@ structure GtkScale :>
         markup
       ) =
       (
-        GtkScaleClass.FFI.withPtr
+        GtkScaleClass.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GtkPositionType.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr 0
          ---> I
       )
         addMark_
@@ -132,18 +132,18 @@ structure GtkScale :>
            & position
            & markup
         )
-    fun clearMarks self = (GtkScaleClass.FFI.withPtr ---> I) clearMarks_ self
-    fun getDigits self = (GtkScaleClass.FFI.withPtr ---> GInt.FFI.fromVal) getDigits_ self
-    fun getDrawValue self = (GtkScaleClass.FFI.withPtr ---> GBool.FFI.fromVal) getDrawValue_ self
-    fun getHasOrigin self = (GtkScaleClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasOrigin_ self
-    fun getLayout self = (GtkScaleClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromOptPtr false) getLayout_ self
+    fun clearMarks self = (GtkScaleClass.FFI.withPtr false ---> I) clearMarks_ self
+    fun getDigits self = (GtkScaleClass.FFI.withPtr false ---> GInt.FFI.fromVal) getDigits_ self
+    fun getDrawValue self = (GtkScaleClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDrawValue_ self
+    fun getHasOrigin self = (GtkScaleClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasOrigin_ self
+    fun getLayout self = (GtkScaleClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromOptPtr false) getLayout_ self
     fun getLayoutOffsets self =
       let
         val x
          & y
          & () =
           (
-            GtkScaleClass.FFI.withPtr
+            GtkScaleClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -159,11 +159,11 @@ structure GtkScale :>
       in
         (x, y)
       end
-    fun getValuePos self = (GtkScaleClass.FFI.withPtr ---> GtkPositionType.FFI.fromVal) getValuePos_ self
-    fun setDigits self digits = (GtkScaleClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setDigits_ (self & digits)
-    fun setDrawValue self drawValue = (GtkScaleClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDrawValue_ (self & drawValue)
-    fun setHasOrigin self hasOrigin = (GtkScaleClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasOrigin_ (self & hasOrigin)
-    fun setValuePos self pos = (GtkScaleClass.FFI.withPtr &&&> GtkPositionType.FFI.withVal ---> I) setValuePos_ (self & pos)
+    fun getValuePos self = (GtkScaleClass.FFI.withPtr false ---> GtkPositionType.FFI.fromVal) getValuePos_ self
+    fun setDigits self digits = (GtkScaleClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setDigits_ (self & digits)
+    fun setDrawValue self drawValue = (GtkScaleClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setDrawValue_ (self & drawValue)
+    fun setHasOrigin self hasOrigin = (GtkScaleClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasOrigin_ (self & hasOrigin)
+    fun setValuePos self pos = (GtkScaleClass.FFI.withPtr false &&&> GtkPositionType.FFI.withVal ---> I) setValuePos_ (self & pos)
     local
       open ClosureMarshal Signal
     in

@@ -70,11 +70,11 @@ structure GtkStatusIcon :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkStatusIconClass.FFI.fromPtr true) new_ ()
-    fun newFromFile filename = (Utf8.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromFile_ filename
-    fun newFromGicon icon = (GioIconClass.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromGicon_ icon
-    fun newFromIconName iconName = (Utf8.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromIconName_ iconName
-    fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromPixbuf_ pixbuf
-    fun newFromStock stockId = (Utf8.FFI.withPtr ---> GtkStatusIconClass.FFI.fromPtr true) newFromStock_ stockId
+    fun newFromFile filename = (Utf8.FFI.withPtr 0 ---> GtkStatusIconClass.FFI.fromPtr true) newFromFile_ filename
+    fun newFromGicon icon = (GioIconClass.FFI.withPtr false ---> GtkStatusIconClass.FFI.fromPtr true) newFromGicon_ icon
+    fun newFromIconName iconName = (Utf8.FFI.withPtr 0 ---> GtkStatusIconClass.FFI.fromPtr true) newFromIconName_ iconName
+    fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr false ---> GtkStatusIconClass.FFI.fromPtr true) newFromPixbuf_ pixbuf
+    fun newFromStock stockId = (Utf8.FFI.withPtr 0 ---> GtkStatusIconClass.FFI.fromPtr true) newFromStock_ stockId
     fun positionMenu
       (
         menu,
@@ -88,11 +88,11 @@ structure GtkStatusIcon :>
          & pushIn
          & () =
           (
-            GtkMenuClass.FFI.withPtr
+            GtkMenuClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> GBool.FFI.withRefVal
-             &&&> GtkStatusIconClass.FFI.withPtr
+             &&&> GtkStatusIconClass.FFI.withPtr false
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
                    && GBool.FFI.fromVal
@@ -120,8 +120,8 @@ structure GtkStatusIcon :>
          & orientation
          & retVal =
           (
-            GtkStatusIconClass.FFI.withPtr
-             &&&> GdkScreenClass.FFI.withRefOptPtr
+            GtkStatusIconClass.FFI.withPtr false
+             &&&> GdkScreenClass.FFI.withRefOptPtr false
              &&&> GdkRectangleRecord.FFI.withNewPtr
              &&&> GtkOrientation.FFI.withRefVal
              ---> GdkScreenClass.FFI.fromPtr false
@@ -147,32 +147,32 @@ structure GtkStatusIcon :>
             )
         else NONE
       end
-    fun getGicon self = (GtkStatusIconClass.FFI.withPtr ---> GioIconClass.FFI.fromOptPtr false) getGicon_ self
-    fun getHasTooltip self = (GtkStatusIconClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasTooltip_ self
-    fun getIconName self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
-    fun getPixbuf self = (GtkStatusIconClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getPixbuf_ self
-    fun getScreen self = (GtkStatusIconClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
-    fun getSize self = (GtkStatusIconClass.FFI.withPtr ---> GInt.FFI.fromVal) getSize_ self
-    fun getStock self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getStock_ self
-    fun getStorageType self = (GtkStatusIconClass.FFI.withPtr ---> GtkImageType.FFI.fromVal) getStorageType_ self
-    fun getTitle self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getTitle_ self
-    fun getTooltipMarkup self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getTooltipMarkup_ self
-    fun getTooltipText self = (GtkStatusIconClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getTooltipText_ self
-    fun getVisible self = (GtkStatusIconClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
-    fun getX11WindowId self = (GtkStatusIconClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getX11WindowId_ self
-    fun isEmbedded self = (GtkStatusIconClass.FFI.withPtr ---> GBool.FFI.fromVal) isEmbedded_ self
-    fun setFromFile self filename = (GtkStatusIconClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setFromFile_ (self & filename)
-    fun setFromGicon self icon = (GtkStatusIconClass.FFI.withPtr &&&> GioIconClass.FFI.withPtr ---> I) setFromGicon_ (self & icon)
-    fun setFromIconName self iconName = (GtkStatusIconClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setFromIconName_ (self & iconName)
-    fun setFromPixbuf self pixbuf = (GtkStatusIconClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withOptPtr ---> I) setFromPixbuf_ (self & pixbuf)
-    fun setFromStock self stockId = (GtkStatusIconClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setFromStock_ (self & stockId)
-    fun setHasTooltip self hasTooltip = (GtkStatusIconClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasTooltip_ (self & hasTooltip)
-    fun setName self name = (GtkStatusIconClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setName_ (self & name)
-    fun setScreen self screen = (GtkStatusIconClass.FFI.withPtr &&&> GdkScreenClass.FFI.withPtr ---> I) setScreen_ (self & screen)
-    fun setTitle self title = (GtkStatusIconClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTitle_ (self & title)
-    fun setTooltipMarkup self markup = (GtkStatusIconClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTooltipMarkup_ (self & markup)
-    fun setTooltipText self text = (GtkStatusIconClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTooltipText_ (self & text)
-    fun setVisible self visible = (GtkStatusIconClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
+    fun getGicon self = (GtkStatusIconClass.FFI.withPtr false ---> GioIconClass.FFI.fromOptPtr false) getGicon_ self
+    fun getHasTooltip self = (GtkStatusIconClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasTooltip_ self
+    fun getIconName self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
+    fun getPixbuf self = (GtkStatusIconClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getPixbuf_ self
+    fun getScreen self = (GtkStatusIconClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun getSize self = (GtkStatusIconClass.FFI.withPtr false ---> GInt.FFI.fromVal) getSize_ self
+    fun getStock self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getStock_ self
+    fun getStorageType self = (GtkStatusIconClass.FFI.withPtr false ---> GtkImageType.FFI.fromVal) getStorageType_ self
+    fun getTitle self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTitle_ self
+    fun getTooltipMarkup self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getTooltipMarkup_ self
+    fun getTooltipText self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getTooltipText_ self
+    fun getVisible self = (GtkStatusIconClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
+    fun getX11WindowId self = (GtkStatusIconClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getX11WindowId_ self
+    fun isEmbedded self = (GtkStatusIconClass.FFI.withPtr false ---> GBool.FFI.fromVal) isEmbedded_ self
+    fun setFromFile self filename = (GtkStatusIconClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setFromFile_ (self & filename)
+    fun setFromGicon self icon = (GtkStatusIconClass.FFI.withPtr false &&&> GioIconClass.FFI.withPtr false ---> I) setFromGicon_ (self & icon)
+    fun setFromIconName self iconName = (GtkStatusIconClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setFromIconName_ (self & iconName)
+    fun setFromPixbuf self pixbuf = (GtkStatusIconClass.FFI.withPtr false &&&> GdkPixbufPixbufClass.FFI.withOptPtr false ---> I) setFromPixbuf_ (self & pixbuf)
+    fun setFromStock self stockId = (GtkStatusIconClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setFromStock_ (self & stockId)
+    fun setHasTooltip self hasTooltip = (GtkStatusIconClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasTooltip_ (self & hasTooltip)
+    fun setName self name = (GtkStatusIconClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setName_ (self & name)
+    fun setScreen self screen = (GtkStatusIconClass.FFI.withPtr false &&&> GdkScreenClass.FFI.withPtr false ---> I) setScreen_ (self & screen)
+    fun setTitle self title = (GtkStatusIconClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTitle_ (self & title)
+    fun setTooltipMarkup self markup = (GtkStatusIconClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setTooltipMarkup_ (self & markup)
+    fun setTooltipText self text = (GtkStatusIconClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTooltipText_ (self & text)
+    fun setVisible self visible = (GtkStatusIconClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
     local
       open ClosureMarshal Signal
     in

@@ -95,6 +95,6 @@ structure GtkSource : GTK_SOURCE =
     structure GutterRendererPixbuf = GtkSourceGutterRendererPixbuf
     structure GutterRendererText = GtkSourceGutterRendererText
     structure Map = GtkSourceMap
-    fun utilsEscapeSearchText text = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) utilsEscapeSearchText_ text
-    fun utilsUnescapeSearchText text = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) utilsUnescapeSearchText_ text
+    fun utilsEscapeSearchText text = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) utilsEscapeSearchText_ text
+    fun utilsUnescapeSearchText text = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) utilsUnescapeSearchText_ text
   end

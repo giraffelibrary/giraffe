@@ -11,5 +11,5 @@ structure GioFileDescriptorBased :>
     type 'a class = 'a GioFileDescriptorBasedClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getFd self = (GioFileDescriptorBasedClass.FFI.withPtr ---> GInt32.FFI.fromVal) getFd_ self
+    fun getFd self = (GioFileDescriptorBasedClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getFd_ self
   end

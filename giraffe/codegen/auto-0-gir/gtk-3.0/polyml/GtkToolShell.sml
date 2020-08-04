@@ -27,13 +27,13 @@ structure GtkToolShell :>
     type 'a size_group_class = 'a GtkSizeGroupClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getEllipsizeMode self = (GtkToolShellClass.FFI.withPtr ---> PangoEllipsizeMode.FFI.fromVal) getEllipsizeMode_ self
-    fun getIconSize self = (GtkToolShellClass.FFI.withPtr ---> GInt.FFI.fromVal) getIconSize_ self
-    fun getOrientation self = (GtkToolShellClass.FFI.withPtr ---> GtkOrientation.FFI.fromVal) getOrientation_ self
-    fun getReliefStyle self = (GtkToolShellClass.FFI.withPtr ---> GtkReliefStyle.FFI.fromVal) getReliefStyle_ self
-    fun getStyle self = (GtkToolShellClass.FFI.withPtr ---> GtkToolbarStyle.FFI.fromVal) getStyle_ self
-    fun getTextAlignment self = (GtkToolShellClass.FFI.withPtr ---> GFloat.FFI.fromVal) getTextAlignment_ self
-    fun getTextOrientation self = (GtkToolShellClass.FFI.withPtr ---> GtkOrientation.FFI.fromVal) getTextOrientation_ self
-    fun getTextSizeGroup self = (GtkToolShellClass.FFI.withPtr ---> GtkSizeGroupClass.FFI.fromPtr false) getTextSizeGroup_ self
-    fun rebuildMenu self = (GtkToolShellClass.FFI.withPtr ---> I) rebuildMenu_ self
+    fun getEllipsizeMode self = (GtkToolShellClass.FFI.withPtr false ---> PangoEllipsizeMode.FFI.fromVal) getEllipsizeMode_ self
+    fun getIconSize self = (GtkToolShellClass.FFI.withPtr false ---> GInt.FFI.fromVal) getIconSize_ self
+    fun getOrientation self = (GtkToolShellClass.FFI.withPtr false ---> GtkOrientation.FFI.fromVal) getOrientation_ self
+    fun getReliefStyle self = (GtkToolShellClass.FFI.withPtr false ---> GtkReliefStyle.FFI.fromVal) getReliefStyle_ self
+    fun getStyle self = (GtkToolShellClass.FFI.withPtr false ---> GtkToolbarStyle.FFI.fromVal) getStyle_ self
+    fun getTextAlignment self = (GtkToolShellClass.FFI.withPtr false ---> GFloat.FFI.fromVal) getTextAlignment_ self
+    fun getTextOrientation self = (GtkToolShellClass.FFI.withPtr false ---> GtkOrientation.FFI.fromVal) getTextOrientation_ self
+    fun getTextSizeGroup self = (GtkToolShellClass.FFI.withPtr false ---> GtkSizeGroupClass.FFI.fromPtr false) getTextSizeGroup_ self
+    fun rebuildMenu self = (GtkToolShellClass.FFI.withPtr false ---> I) rebuildMenu_ self
   end

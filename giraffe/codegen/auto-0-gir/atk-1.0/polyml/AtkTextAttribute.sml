@@ -123,8 +123,8 @@ structure AtkTextAttribute :> ATK_TEXT_ATTRIBUTE =
       val register_ = call (getSymbol "atk_text_attribute_register") (Utf8.PolyML.cInPtr --> PolyML.cVal)
     end
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name
+    fun forName name = (Utf8.FFI.withPtr 0 ---> FFI.fromVal) forName_ name
     fun getName attr = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ attr
     fun getValue (attr, index) = (FFI.withVal &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getValue_ (attr & index)
-    fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
+    fun register name = (Utf8.FFI.withPtr 0 ---> FFI.fromVal) register_ name
   end

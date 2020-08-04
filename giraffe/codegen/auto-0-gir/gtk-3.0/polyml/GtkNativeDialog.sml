@@ -23,17 +23,17 @@ structure GtkNativeDialog :>
     type 'a window_class = 'a GtkWindowClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun destroy self = (GtkNativeDialogClass.FFI.withPtr ---> I) destroy_ self
-    fun getModal self = (GtkNativeDialogClass.FFI.withPtr ---> GBool.FFI.fromVal) getModal_ self
-    fun getTitle self = (GtkNativeDialogClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getTitle_ self
-    fun getTransientFor self = (GtkNativeDialogClass.FFI.withPtr ---> GtkWindowClass.FFI.fromOptPtr false) getTransientFor_ self
-    fun getVisible self = (GtkNativeDialogClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
-    fun hide self = (GtkNativeDialogClass.FFI.withPtr ---> I) hide_ self
-    fun run self = (GtkNativeDialogClass.FFI.withPtr ---> GInt.FFI.fromVal) run_ self
-    fun setModal self modal = (GtkNativeDialogClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setModal_ (self & modal)
-    fun setTitle self title = (GtkNativeDialogClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTitle_ (self & title)
-    fun setTransientFor self parent = (GtkNativeDialogClass.FFI.withPtr &&&> GtkWindowClass.FFI.withOptPtr ---> I) setTransientFor_ (self & parent)
-    fun show self = (GtkNativeDialogClass.FFI.withPtr ---> I) show_ self
+    fun destroy self = (GtkNativeDialogClass.FFI.withPtr false ---> I) destroy_ self
+    fun getModal self = (GtkNativeDialogClass.FFI.withPtr false ---> GBool.FFI.fromVal) getModal_ self
+    fun getTitle self = (GtkNativeDialogClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getTitle_ self
+    fun getTransientFor self = (GtkNativeDialogClass.FFI.withPtr false ---> GtkWindowClass.FFI.fromOptPtr false) getTransientFor_ self
+    fun getVisible self = (GtkNativeDialogClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
+    fun hide self = (GtkNativeDialogClass.FFI.withPtr false ---> I) hide_ self
+    fun run self = (GtkNativeDialogClass.FFI.withPtr false ---> GInt.FFI.fromVal) run_ self
+    fun setModal self modal = (GtkNativeDialogClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setModal_ (self & modal)
+    fun setTitle self title = (GtkNativeDialogClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTitle_ (self & title)
+    fun setTransientFor self parent = (GtkNativeDialogClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withOptPtr false ---> I) setTransientFor_ (self & parent)
+    fun show self = (GtkNativeDialogClass.FFI.withPtr false ---> I) show_ self
     local
       open ClosureMarshal Signal
     in

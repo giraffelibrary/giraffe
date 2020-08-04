@@ -36,8 +36,8 @@ structure GioFileAttributeInfoList :>
         flags
       ) =
       (
-        GioFileAttributeInfoListRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioFileAttributeInfoListRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GioFileAttributeType.FFI.withVal
          &&&> GioFileAttributeInfoFlags.FFI.withVal
          ---> I
@@ -49,6 +49,6 @@ structure GioFileAttributeInfoList :>
            & type'
            & flags
         )
-    fun dup self = (GioFileAttributeInfoListRecord.FFI.withPtr ---> GioFileAttributeInfoListRecord.FFI.fromPtr true) dup_ self
-    fun lookup self name = (GioFileAttributeInfoListRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileAttributeInfoRecord.FFI.fromPtr false) lookup_ (self & name)
+    fun dup self = (GioFileAttributeInfoListRecord.FFI.withPtr false ---> GioFileAttributeInfoListRecord.FFI.fromPtr true) dup_ self
+    fun lookup self name = (GioFileAttributeInfoListRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioFileAttributeInfoRecord.FFI.fromPtr false) lookup_ (self & name)
   end

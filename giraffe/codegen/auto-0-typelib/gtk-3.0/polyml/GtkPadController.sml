@@ -40,9 +40,9 @@ structure GtkPadController :>
         pad
       ) =
       (
-        GtkWindowClass.FFI.withPtr
-         &&&> GioActionGroupClass.FFI.withPtr
-         &&&> GdkDeviceClass.FFI.withOptPtr
+        GtkWindowClass.FFI.withPtr false
+         &&&> GioActionGroupClass.FFI.withPtr false
+         &&&> GdkDeviceClass.FFI.withOptPtr false
          ---> GtkPadControllerClass.FFI.fromPtr true
       )
         new_
@@ -61,12 +61,12 @@ structure GtkPadController :>
         actionName
       ) =
       (
-        GtkPadControllerClass.FFI.withPtr
+        GtkPadControllerClass.FFI.withPtr false
          &&&> GtkPadActionType.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         setAction_

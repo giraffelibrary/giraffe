@@ -129,13 +129,13 @@ structure GtkTextIter :>
     type 'a text_child_anchor_class = 'a GtkTextChildAnchorClass.class
     type 'a text_tag_class = 'a GtkTextTagClass.class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun assign self other = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> I) assign_ (self & other)
-    fun backwardChar self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardChar_ self
-    fun backwardChars self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardChars_ (self & count)
-    fun backwardCursorPosition self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardCursorPosition_ self
-    fun backwardCursorPositions self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardCursorPositions_ (self & count)
-    fun backwardLine self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardLine_ self
-    fun backwardLines self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardLines_ (self & count)
+    fun assign self other = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> I) assign_ (self & other)
+    fun backwardChar self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) backwardChar_ self
+    fun backwardChars self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardChars_ (self & count)
+    fun backwardCursorPosition self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) backwardCursorPosition_ self
+    fun backwardCursorPositions self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardCursorPositions_ (self & count)
+    fun backwardLine self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) backwardLine_ self
+    fun backwardLines self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardLines_ (self & count)
     fun backwardSearch
       self
       (
@@ -148,12 +148,12 @@ structure GtkTextIter :>
          & matchEnd
          & retVal =
           (
-            GtkTextIterRecord.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            GtkTextIterRecord.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GtkTextSearchFlags.FFI.withVal
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
-             &&&> GtkTextIterRecord.FFI.withOptPtr
+             &&&> GtkTextIterRecord.FFI.withOptPtr false
              ---> GtkTextIterRecord.FFI.fromPtr true
                    && GtkTextIterRecord.FFI.fromPtr true
                    && GBool.FFI.fromVal
@@ -170,33 +170,33 @@ structure GtkTextIter :>
       in
         if retVal then SOME (matchStart, matchEnd) else NONE
       end
-    fun backwardSentenceStart self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardSentenceStart_ self
-    fun backwardSentenceStarts self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardSentenceStarts_ (self & count)
-    fun backwardToTagToggle self tag = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextTagClass.FFI.withOptPtr ---> GBool.FFI.fromVal) backwardToTagToggle_ (self & tag)
-    fun backwardVisibleCursorPosition self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardVisibleCursorPosition_ self
-    fun backwardVisibleCursorPositions self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardVisibleCursorPositions_ (self & count)
-    fun backwardVisibleLine self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardVisibleLine_ self
-    fun backwardVisibleLines self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardVisibleLines_ (self & count)
-    fun backwardVisibleWordStart self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardVisibleWordStart_ self
-    fun backwardVisibleWordStarts self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardVisibleWordStarts_ (self & count)
-    fun backwardWordStart self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) backwardWordStart_ self
-    fun backwardWordStarts self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardWordStarts_ (self & count)
-    fun beginsTag self tag = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextTagClass.FFI.withOptPtr ---> GBool.FFI.fromVal) beginsTag_ (self & tag)
-    fun canInsert self defaultEditability = (GtkTextIterRecord.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) canInsert_ (self & defaultEditability)
-    fun compare self rhs = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GInt32.FFI.fromVal) compare_ (self & rhs)
-    fun copy self = (GtkTextIterRecord.FFI.withPtr ---> GtkTextIterRecord.FFI.fromPtr true) copy_ self
-    fun editable self defaultSetting = (GtkTextIterRecord.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) editable_ (self & defaultSetting)
-    fun endsLine self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) endsLine_ self
-    fun endsSentence self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) endsSentence_ self
-    fun endsTag self tag = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextTagClass.FFI.withOptPtr ---> GBool.FFI.fromVal) endsTag_ (self & tag)
-    fun endsWord self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) endsWord_ self
-    fun equal self rhs = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & rhs)
-    fun forwardChar self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardChar_ self
-    fun forwardChars self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardChars_ (self & count)
-    fun forwardCursorPosition self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardCursorPosition_ self
-    fun forwardCursorPositions self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardCursorPositions_ (self & count)
-    fun forwardLine self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardLine_ self
-    fun forwardLines self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardLines_ (self & count)
+    fun backwardSentenceStart self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) backwardSentenceStart_ self
+    fun backwardSentenceStarts self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardSentenceStarts_ (self & count)
+    fun backwardToTagToggle self tag = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextTagClass.FFI.withOptPtr false ---> GBool.FFI.fromVal) backwardToTagToggle_ (self & tag)
+    fun backwardVisibleCursorPosition self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) backwardVisibleCursorPosition_ self
+    fun backwardVisibleCursorPositions self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardVisibleCursorPositions_ (self & count)
+    fun backwardVisibleLine self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) backwardVisibleLine_ self
+    fun backwardVisibleLines self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardVisibleLines_ (self & count)
+    fun backwardVisibleWordStart self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) backwardVisibleWordStart_ self
+    fun backwardVisibleWordStarts self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardVisibleWordStarts_ (self & count)
+    fun backwardWordStart self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) backwardWordStart_ self
+    fun backwardWordStarts self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) backwardWordStarts_ (self & count)
+    fun beginsTag self tag = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextTagClass.FFI.withOptPtr false ---> GBool.FFI.fromVal) beginsTag_ (self & tag)
+    fun canInsert self defaultEditability = (GtkTextIterRecord.FFI.withPtr false &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) canInsert_ (self & defaultEditability)
+    fun compare self rhs = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) compare_ (self & rhs)
+    fun copy self = (GtkTextIterRecord.FFI.withPtr false ---> GtkTextIterRecord.FFI.fromPtr true) copy_ self
+    fun editable self defaultSetting = (GtkTextIterRecord.FFI.withPtr false &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) editable_ (self & defaultSetting)
+    fun endsLine self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) endsLine_ self
+    fun endsSentence self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) endsSentence_ self
+    fun endsTag self tag = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextTagClass.FFI.withOptPtr false ---> GBool.FFI.fromVal) endsTag_ (self & tag)
+    fun endsWord self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) endsWord_ self
+    fun equal self rhs = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & rhs)
+    fun forwardChar self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) forwardChar_ self
+    fun forwardChars self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardChars_ (self & count)
+    fun forwardCursorPosition self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) forwardCursorPosition_ self
+    fun forwardCursorPositions self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardCursorPositions_ (self & count)
+    fun forwardLine self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) forwardLine_ self
+    fun forwardLines self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardLines_ (self & count)
     fun forwardSearch
       self
       (
@@ -209,12 +209,12 @@ structure GtkTextIter :>
          & matchEnd
          & retVal =
           (
-            GtkTextIterRecord.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            GtkTextIterRecord.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GtkTextSearchFlags.FFI.withVal
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
-             &&&> GtkTextIterRecord.FFI.withOptPtr
+             &&&> GtkTextIterRecord.FFI.withOptPtr false
              ---> GtkTextIterRecord.FFI.fromPtr true
                    && GtkTextIterRecord.FFI.fromPtr true
                    && GBool.FFI.fromVal
@@ -231,42 +231,42 @@ structure GtkTextIter :>
       in
         if retVal then SOME (matchStart, matchEnd) else NONE
       end
-    fun forwardSentenceEnd self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardSentenceEnd_ self
-    fun forwardSentenceEnds self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardSentenceEnds_ (self & count)
-    fun forwardToEnd self = (GtkTextIterRecord.FFI.withPtr ---> I) forwardToEnd_ self
-    fun forwardToLineEnd self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardToLineEnd_ self
-    fun forwardToTagToggle self tag = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextTagClass.FFI.withOptPtr ---> GBool.FFI.fromVal) forwardToTagToggle_ (self & tag)
-    fun forwardVisibleCursorPosition self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardVisibleCursorPosition_ self
-    fun forwardVisibleCursorPositions self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardVisibleCursorPositions_ (self & count)
-    fun forwardVisibleLine self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardVisibleLine_ self
-    fun forwardVisibleLines self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardVisibleLines_ (self & count)
-    fun forwardVisibleWordEnd self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardVisibleWordEnd_ self
-    fun forwardVisibleWordEnds self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardVisibleWordEnds_ (self & count)
-    fun forwardWordEnd self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) forwardWordEnd_ self
-    fun forwardWordEnds self count = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardWordEnds_ (self & count)
-    fun getBuffer self = (GtkTextIterRecord.FFI.withPtr ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self
-    fun getBytesInLine self = (GtkTextIterRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getBytesInLine_ self
-    fun getChar self = (GtkTextIterRecord.FFI.withPtr ---> GChar.FFI.fromVal) getChar_ self
-    fun getCharsInLine self = (GtkTextIterRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getCharsInLine_ self
-    fun getChildAnchor self = (GtkTextIterRecord.FFI.withPtr ---> GtkTextChildAnchorClass.FFI.fromPtr false) getChildAnchor_ self
-    fun getLanguage self = (GtkTextIterRecord.FFI.withPtr ---> PangoLanguageRecord.FFI.fromPtr true) getLanguage_ self
-    fun getLine self = (GtkTextIterRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getLine_ self
-    fun getLineIndex self = (GtkTextIterRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getLineIndex_ self
-    fun getLineOffset self = (GtkTextIterRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getLineOffset_ self
-    fun getOffset self = (GtkTextIterRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getOffset_ self
-    fun getPixbuf self = (GtkTextIterRecord.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
-    fun getSlice self end' = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getSlice_ (self & end')
-    fun getText self end' = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getText_ (self & end')
-    fun getVisibleLineIndex self = (GtkTextIterRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getVisibleLineIndex_ self
-    fun getVisibleLineOffset self = (GtkTextIterRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getVisibleLineOffset_ self
-    fun getVisibleSlice self end' = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getVisibleSlice_ (self & end')
-    fun getVisibleText self end' = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getVisibleText_ (self & end')
-    fun hasTag self tag = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextTagClass.FFI.withPtr ---> GBool.FFI.fromVal) hasTag_ (self & tag)
+    fun forwardSentenceEnd self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) forwardSentenceEnd_ self
+    fun forwardSentenceEnds self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardSentenceEnds_ (self & count)
+    fun forwardToEnd self = (GtkTextIterRecord.FFI.withPtr false ---> I) forwardToEnd_ self
+    fun forwardToLineEnd self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) forwardToLineEnd_ self
+    fun forwardToTagToggle self tag = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextTagClass.FFI.withOptPtr false ---> GBool.FFI.fromVal) forwardToTagToggle_ (self & tag)
+    fun forwardVisibleCursorPosition self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) forwardVisibleCursorPosition_ self
+    fun forwardVisibleCursorPositions self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardVisibleCursorPositions_ (self & count)
+    fun forwardVisibleLine self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) forwardVisibleLine_ self
+    fun forwardVisibleLines self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardVisibleLines_ (self & count)
+    fun forwardVisibleWordEnd self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) forwardVisibleWordEnd_ self
+    fun forwardVisibleWordEnds self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardVisibleWordEnds_ (self & count)
+    fun forwardWordEnd self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) forwardWordEnd_ self
+    fun forwardWordEnds self count = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) forwardWordEnds_ (self & count)
+    fun getBuffer self = (GtkTextIterRecord.FFI.withPtr false ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getBytesInLine self = (GtkTextIterRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getBytesInLine_ self
+    fun getChar self = (GtkTextIterRecord.FFI.withPtr false ---> GChar.FFI.fromVal) getChar_ self
+    fun getCharsInLine self = (GtkTextIterRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getCharsInLine_ self
+    fun getChildAnchor self = (GtkTextIterRecord.FFI.withPtr false ---> GtkTextChildAnchorClass.FFI.fromPtr false) getChildAnchor_ self
+    fun getLanguage self = (GtkTextIterRecord.FFI.withPtr false ---> PangoLanguageRecord.FFI.fromPtr true) getLanguage_ self
+    fun getLine self = (GtkTextIterRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getLine_ self
+    fun getLineIndex self = (GtkTextIterRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getLineIndex_ self
+    fun getLineOffset self = (GtkTextIterRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getLineOffset_ self
+    fun getOffset self = (GtkTextIterRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getOffset_ self
+    fun getPixbuf self = (GtkTextIterRecord.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
+    fun getSlice self end' = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getSlice_ (self & end')
+    fun getText self end' = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getText_ (self & end')
+    fun getVisibleLineIndex self = (GtkTextIterRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getVisibleLineIndex_ self
+    fun getVisibleLineOffset self = (GtkTextIterRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getVisibleLineOffset_ self
+    fun getVisibleSlice self end' = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getVisibleSlice_ (self & end')
+    fun getVisibleText self end' = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getVisibleText_ (self & end')
+    fun hasTag self tag = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextTagClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasTag_ (self & tag)
     fun inRange self (start, end') =
       (
-        GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         inRange_
@@ -275,21 +275,21 @@ structure GtkTextIter :>
            & start
            & end'
         )
-    fun insideSentence self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) insideSentence_ self
-    fun insideWord self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) insideWord_ self
-    fun isCursorPosition self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) isCursorPosition_ self
-    fun isEnd self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) isEnd_ self
-    fun isStart self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) isStart_ self
-    fun order self second = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> I) order_ (self & second)
-    fun setLine self lineNumber = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setLine_ (self & lineNumber)
-    fun setLineIndex self byteOnLine = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setLineIndex_ (self & byteOnLine)
-    fun setLineOffset self charOnLine = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setLineOffset_ (self & charOnLine)
-    fun setOffset self charOffset = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setOffset_ (self & charOffset)
-    fun setVisibleLineIndex self byteOnLine = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setVisibleLineIndex_ (self & byteOnLine)
-    fun setVisibleLineOffset self charOnLine = (GtkTextIterRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setVisibleLineOffset_ (self & charOnLine)
-    fun startsLine self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) startsLine_ self
-    fun startsSentence self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) startsSentence_ self
-    fun startsTag self tag = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextTagClass.FFI.withOptPtr ---> GBool.FFI.fromVal) startsTag_ (self & tag)
-    fun startsWord self = (GtkTextIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) startsWord_ self
-    fun togglesTag self tag = (GtkTextIterRecord.FFI.withPtr &&&> GtkTextTagClass.FFI.withOptPtr ---> GBool.FFI.fromVal) togglesTag_ (self & tag)
+    fun insideSentence self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) insideSentence_ self
+    fun insideWord self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) insideWord_ self
+    fun isCursorPosition self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isCursorPosition_ self
+    fun isEnd self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isEnd_ self
+    fun isStart self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isStart_ self
+    fun order self second = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> I) order_ (self & second)
+    fun setLine self lineNumber = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setLine_ (self & lineNumber)
+    fun setLineIndex self byteOnLine = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setLineIndex_ (self & byteOnLine)
+    fun setLineOffset self charOnLine = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setLineOffset_ (self & charOnLine)
+    fun setOffset self charOffset = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setOffset_ (self & charOffset)
+    fun setVisibleLineIndex self byteOnLine = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setVisibleLineIndex_ (self & byteOnLine)
+    fun setVisibleLineOffset self charOnLine = (GtkTextIterRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setVisibleLineOffset_ (self & charOnLine)
+    fun startsLine self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) startsLine_ self
+    fun startsSentence self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) startsSentence_ self
+    fun startsTag self tag = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextTagClass.FFI.withOptPtr false ---> GBool.FFI.fromVal) startsTag_ (self & tag)
+    fun startsWord self = (GtkTextIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) startsWord_ self
+    fun togglesTag self tag = (GtkTextIterRecord.FFI.withPtr false &&&> GtkTextTagClass.FFI.withOptPtr false ---> GBool.FFI.fromVal) togglesTag_ (self & tag)
   end

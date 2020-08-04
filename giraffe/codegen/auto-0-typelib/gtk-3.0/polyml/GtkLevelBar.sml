@@ -44,16 +44,16 @@ structure GtkLevelBar :>
     type 'a orientable_class = 'a GtkOrientableClass.class
     type level_bar_mode_t = GtkLevelBarMode.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkLevelBarClass.FFI.fromPtr false) new_ ()
     fun newForInterval (minValue, maxValue) = (GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GtkLevelBarClass.FFI.fromPtr false) newForInterval_ (minValue & maxValue)
     fun addOffsetValue self (name, value) =
       (
-        GtkLevelBarClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkLevelBarClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GDouble.FFI.withVal
          ---> I
       )
@@ -63,16 +63,16 @@ structure GtkLevelBar :>
            & name
            & value
         )
-    fun getInverted self = (GtkLevelBarClass.FFI.withPtr ---> GBool.FFI.fromVal) getInverted_ self
-    fun getMaxValue self = (GtkLevelBarClass.FFI.withPtr ---> GDouble.FFI.fromVal) getMaxValue_ self
-    fun getMinValue self = (GtkLevelBarClass.FFI.withPtr ---> GDouble.FFI.fromVal) getMinValue_ self
-    fun getMode self = (GtkLevelBarClass.FFI.withPtr ---> GtkLevelBarMode.FFI.fromVal) getMode_ self
+    fun getInverted self = (GtkLevelBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInverted_ self
+    fun getMaxValue self = (GtkLevelBarClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getMaxValue_ self
+    fun getMinValue self = (GtkLevelBarClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getMinValue_ self
+    fun getMode self = (GtkLevelBarClass.FFI.withPtr false ---> GtkLevelBarMode.FFI.fromVal) getMode_ self
     fun getOffsetValue self name =
       let
         val value & retVal =
           (
-            GtkLevelBarClass.FFI.withPtr
-             &&&> Utf8.FFI.withOptPtr
+            GtkLevelBarClass.FFI.withPtr false
+             &&&> Utf8.FFI.withOptPtr 0
              &&&> GDouble.FFI.withRefVal
              ---> GDouble.FFI.fromVal && GBool.FFI.fromVal
           )
@@ -85,13 +85,13 @@ structure GtkLevelBar :>
       in
         if retVal then SOME value else NONE
       end
-    fun getValue self = (GtkLevelBarClass.FFI.withPtr ---> GDouble.FFI.fromVal) getValue_ self
-    fun removeOffsetValue self name = (GtkLevelBarClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) removeOffsetValue_ (self & name)
-    fun setInverted self inverted = (GtkLevelBarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setInverted_ (self & inverted)
-    fun setMaxValue self value = (GtkLevelBarClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setMaxValue_ (self & value)
-    fun setMinValue self value = (GtkLevelBarClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setMinValue_ (self & value)
-    fun setMode self mode = (GtkLevelBarClass.FFI.withPtr &&&> GtkLevelBarMode.FFI.withVal ---> I) setMode_ (self & mode)
-    fun setValue self value = (GtkLevelBarClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setValue_ (self & value)
+    fun getValue self = (GtkLevelBarClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getValue_ self
+    fun removeOffsetValue self name = (GtkLevelBarClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) removeOffsetValue_ (self & name)
+    fun setInverted self inverted = (GtkLevelBarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setInverted_ (self & inverted)
+    fun setMaxValue self value = (GtkLevelBarClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setMaxValue_ (self & value)
+    fun setMinValue self value = (GtkLevelBarClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setMinValue_ (self & value)
+    fun setMode self mode = (GtkLevelBarClass.FFI.withPtr false &&&> GtkLevelBarMode.FFI.withVal ---> I) setMode_ (self & mode)
+    fun setValue self value = (GtkLevelBarClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setValue_ (self & value)
     local
       open ClosureMarshal Signal
     in

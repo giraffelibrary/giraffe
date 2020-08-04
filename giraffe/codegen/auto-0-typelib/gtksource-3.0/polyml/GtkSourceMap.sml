@@ -14,13 +14,13 @@ structure GtkSourceMap :>
     type 'a class = 'a GtkSourceMapClass.class
     type 'a view_class = 'a GtkSourceViewClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asScrollable self = (GObjectObjectClass.FFI.withPtr ---> GtkScrollableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asScrollable self = (GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSourceMapClass.FFI.fromPtr false) new_ ()
-    fun getView self = (GtkSourceMapClass.FFI.withPtr ---> GtkSourceViewClass.FFI.fromOptPtr false) getView_ self
-    fun setView self view = (GtkSourceMapClass.FFI.withPtr &&&> GtkSourceViewClass.FFI.withPtr ---> I) setView_ (self & view)
+    fun getView self = (GtkSourceMapClass.FFI.withPtr false ---> GtkSourceViewClass.FFI.fromOptPtr false) getView_ self
+    fun setView self view = (GtkSourceMapClass.FFI.withPtr false &&&> GtkSourceViewClass.FFI.withPtr false ---> I) setView_ (self & view)
     local
       open Property
     in

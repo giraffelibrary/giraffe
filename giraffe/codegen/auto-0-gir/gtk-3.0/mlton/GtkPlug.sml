@@ -30,16 +30,16 @@ structure GtkPlug :>
     type 'a class = 'a GtkPlugClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new socketId = (XlibWindow.FFI.withVal ---> GtkPlugClass.FFI.fromPtr false) new_ socketId
-    fun newForDisplay (display, socketId) = (GdkDisplayClass.FFI.withPtr &&&> XlibWindow.FFI.withVal ---> GtkPlugClass.FFI.fromPtr false) newForDisplay_ (display & socketId)
-    fun construct self socketId = (GtkPlugClass.FFI.withPtr &&&> XlibWindow.FFI.withVal ---> I) construct_ (self & socketId)
+    fun newForDisplay (display, socketId) = (GdkDisplayClass.FFI.withPtr false &&&> XlibWindow.FFI.withVal ---> GtkPlugClass.FFI.fromPtr false) newForDisplay_ (display & socketId)
+    fun construct self socketId = (GtkPlugClass.FFI.withPtr false &&&> XlibWindow.FFI.withVal ---> I) construct_ (self & socketId)
     fun constructForDisplay self (display, socketId) =
       (
-        GtkPlugClass.FFI.withPtr
-         &&&> GdkDisplayClass.FFI.withPtr
+        GtkPlugClass.FFI.withPtr false
+         &&&> GdkDisplayClass.FFI.withPtr false
          &&&> XlibWindow.FFI.withVal
          ---> I
       )
@@ -49,9 +49,9 @@ structure GtkPlug :>
            & display
            & socketId
         )
-    fun getEmbedded self = (GtkPlugClass.FFI.withPtr ---> GBool.FFI.fromVal) getEmbedded_ self
-    fun getId self = (GtkPlugClass.FFI.withPtr ---> XlibWindow.FFI.fromVal) getId_ self
-    fun getSocketWindow self = (GtkPlugClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getSocketWindow_ self
+    fun getEmbedded self = (GtkPlugClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEmbedded_ self
+    fun getId self = (GtkPlugClass.FFI.withPtr false ---> XlibWindow.FFI.fromVal) getId_ self
+    fun getSocketWindow self = (GtkPlugClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getSocketWindow_ self
     local
       open ClosureMarshal Signal
     in

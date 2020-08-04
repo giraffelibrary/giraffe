@@ -14,6 +14,6 @@ structure AtkMisc :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getInstance () = (I ---> AtkMiscClass.FFI.fromPtr false) getInstance_ ()
-    fun threadsEnter self = (AtkMiscClass.FFI.withPtr ---> I) threadsEnter_ self
-    fun threadsLeave self = (AtkMiscClass.FFI.withPtr ---> I) threadsLeave_ self
+    fun threadsEnter self = (AtkMiscClass.FFI.withPtr false ---> I) threadsEnter_ self
+    fun threadsLeave self = (AtkMiscClass.FFI.withPtr false ---> I) threadsLeave_ self
   end

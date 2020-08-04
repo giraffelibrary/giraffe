@@ -13,7 +13,7 @@ structure GtkGestureLongPress :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new widget = (GtkWidgetClass.FFI.withPtr ---> GtkGestureLongPressClass.FFI.fromPtr true) new_ widget
+    fun new widget = (GtkWidgetClass.FFI.withPtr false ---> GtkGestureLongPressClass.FFI.fromPtr true) new_ widget
     local
       open ClosureMarshal Signal
     in

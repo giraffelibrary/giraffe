@@ -38,15 +38,15 @@ structure GtkActionGroup :>
     type 'a action_class = 'a GtkActionClass.class
     type 'a accel_group_class = 'a GtkAccelGroupClass.class
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new name = (Utf8.FFI.withPtr ---> GtkActionGroupClass.FFI.fromPtr true) new_ name
-    fun addAction self action = (GtkActionGroupClass.FFI.withPtr &&&> GtkActionClass.FFI.withPtr ---> I) addAction_ (self & action)
+    fun new name = (Utf8.FFI.withPtr 0 ---> GtkActionGroupClass.FFI.fromPtr true) new_ name
+    fun addAction self action = (GtkActionGroupClass.FFI.withPtr false &&&> GtkActionClass.FFI.withPtr false ---> I) addAction_ (self & action)
     fun addActionWithAccel self (action, accelerator) =
       (
-        GtkActionGroupClass.FFI.withPtr
-         &&&> GtkActionClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        GtkActionGroupClass.FFI.withPtr false
+         &&&> GtkActionClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          ---> I
       )
         addActionWithAccel_
@@ -55,17 +55,17 @@ structure GtkActionGroup :>
            & action
            & accelerator
         )
-    fun getAccelGroup self = (GtkActionGroupClass.FFI.withPtr ---> GtkAccelGroupClass.FFI.fromPtr false) getAccelGroup_ self
-    fun getAction self actionName = (GtkActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkActionClass.FFI.fromPtr false) getAction_ (self & actionName)
-    fun getName self = (GtkActionGroupClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getSensitive self = (GtkActionGroupClass.FFI.withPtr ---> GBool.FFI.fromVal) getSensitive_ self
-    fun getVisible self = (GtkActionGroupClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
-    fun removeAction self action = (GtkActionGroupClass.FFI.withPtr &&&> GtkActionClass.FFI.withPtr ---> I) removeAction_ (self & action)
-    fun setAccelGroup self accelGroup = (GtkActionGroupClass.FFI.withPtr &&&> GtkAccelGroupClass.FFI.withOptPtr ---> I) setAccelGroup_ (self & accelGroup)
-    fun setSensitive self sensitive = (GtkActionGroupClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSensitive_ (self & sensitive)
-    fun setTranslationDomain self domain = (GtkActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTranslationDomain_ (self & domain)
-    fun setVisible self visible = (GtkActionGroupClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
-    fun translateString self string = (GtkActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) translateString_ (self & string)
+    fun getAccelGroup self = (GtkActionGroupClass.FFI.withPtr false ---> GtkAccelGroupClass.FFI.fromPtr false) getAccelGroup_ self
+    fun getAction self actionName = (GtkActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkActionClass.FFI.fromPtr false) getAction_ (self & actionName)
+    fun getName self = (GtkActionGroupClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getSensitive self = (GtkActionGroupClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSensitive_ self
+    fun getVisible self = (GtkActionGroupClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
+    fun removeAction self action = (GtkActionGroupClass.FFI.withPtr false &&&> GtkActionClass.FFI.withPtr false ---> I) removeAction_ (self & action)
+    fun setAccelGroup self accelGroup = (GtkActionGroupClass.FFI.withPtr false &&&> GtkAccelGroupClass.FFI.withOptPtr false ---> I) setAccelGroup_ (self & accelGroup)
+    fun setSensitive self sensitive = (GtkActionGroupClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSensitive_ (self & sensitive)
+    fun setTranslationDomain self domain = (GtkActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setTranslationDomain_ (self & domain)
+    fun setVisible self visible = (GtkActionGroupClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
+    fun translateString self string = (GtkActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) translateString_ (self & string)
     local
       open ClosureMarshal Signal
     in

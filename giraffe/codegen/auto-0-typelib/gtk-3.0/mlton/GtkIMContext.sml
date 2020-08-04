@@ -99,7 +99,7 @@ structure GtkIMContext :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun deleteSurrounding self (offset, nChars) =
       (
-        GtkIMContextClass.FFI.withPtr
+        GtkIMContextClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -110,9 +110,9 @@ structure GtkIMContext :>
            & offset
            & nChars
         )
-    fun filterKeypress self event = (GtkIMContextClass.FFI.withPtr &&&> GdkEventKeyRecord.FFI.withPtr ---> GBool.FFI.fromVal) filterKeypress_ (self & event)
-    fun focusIn self = (GtkIMContextClass.FFI.withPtr ---> I) focusIn_ self
-    fun focusOut self = (GtkIMContextClass.FFI.withPtr ---> I) focusOut_ self
+    fun filterKeypress self event = (GtkIMContextClass.FFI.withPtr false &&&> GdkEventKeyRecord.FFI.withPtr false ---> GBool.FFI.fromVal) filterKeypress_ (self & event)
+    fun focusIn self = (GtkIMContextClass.FFI.withPtr false ---> I) focusIn_ self
+    fun focusOut self = (GtkIMContextClass.FFI.withPtr false ---> I) focusOut_ self
     fun getPreeditString self =
       let
         val str
@@ -120,11 +120,11 @@ structure GtkIMContext :>
          & cursorPos
          & () =
           (
-            GtkIMContextClass.FFI.withPtr
-             &&&> Utf8.FFI.withRefOptPtr
-             &&&> PangoAttrListRecord.FFI.withRefOptPtr
+            GtkIMContextClass.FFI.withPtr false
+             &&&> Utf8.FFI.withRefOptPtr 0
+             &&&> PangoAttrListRecord.FFI.withRefOptPtr true
              &&&> GInt32.FFI.withRefVal
-             ---> Utf8.FFI.fromPtr 1
+             ---> Utf8.FFI.fromPtr ~1
                    && PangoAttrListRecord.FFI.fromPtr true
                    && GInt32.FFI.fromVal
                    && I
@@ -149,10 +149,10 @@ structure GtkIMContext :>
          & cursorIndex
          & retVal =
           (
-            GtkIMContextClass.FFI.withPtr
-             &&&> Utf8.FFI.withRefOptPtr
+            GtkIMContextClass.FFI.withPtr false
+             &&&> Utf8.FFI.withRefOptPtr 0
              &&&> GInt32.FFI.withRefVal
-             ---> Utf8.FFI.fromPtr 1
+             ---> Utf8.FFI.fromPtr ~1
                    && GInt32.FFI.fromVal
                    && GBool.FFI.fromVal
           )
@@ -165,9 +165,9 @@ structure GtkIMContext :>
       in
         if retVal then SOME (text, cursorIndex) else NONE
       end
-    fun reset self = (GtkIMContextClass.FFI.withPtr ---> I) reset_ self
-    fun setClientWindow self window = (GtkIMContextClass.FFI.withPtr &&&> GdkWindowClass.FFI.withOptPtr ---> I) setClientWindow_ (self & window)
-    fun setCursorLocation self area = (GtkIMContextClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> I) setCursorLocation_ (self & area)
+    fun reset self = (GtkIMContextClass.FFI.withPtr false ---> I) reset_ self
+    fun setClientWindow self window = (GtkIMContextClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withOptPtr false ---> I) setClientWindow_ (self & window)
+    fun setCursorLocation self area = (GtkIMContextClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withPtr false ---> I) setCursorLocation_ (self & area)
     fun setSurrounding
       self
       (
@@ -176,8 +176,8 @@ structure GtkIMContext :>
         cursorIndex
       ) =
       (
-        GtkIMContextClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkIMContextClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I
@@ -189,7 +189,7 @@ structure GtkIMContext :>
            & len
            & cursorIndex
         )
-    fun setUsePreedit self usePreedit = (GtkIMContextClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUsePreedit_ (self & usePreedit)
+    fun setUsePreedit self usePreedit = (GtkIMContextClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUsePreedit_ (self & usePreedit)
     local
       open ClosureMarshal Signal
     in

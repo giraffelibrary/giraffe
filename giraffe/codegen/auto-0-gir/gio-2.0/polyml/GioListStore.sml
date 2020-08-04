@@ -33,15 +33,15 @@ structure GioListStore :>
     type 'a class = 'a GioListStoreClass.class
     type 'a list_model_class = 'a GioListModelClass.class
     type t = base class
-    fun asListModel self = (GObjectObjectClass.FFI.withPtr ---> GioListModelClass.FFI.fromPtr false) I self
+    fun asListModel self = (GObjectObjectClass.FFI.withPtr false ---> GioListModelClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new itemType = (GObjectType.FFI.withVal ---> GioListStoreClass.FFI.fromPtr true) new_ itemType
-    fun append self item = (GioListStoreClass.FFI.withPtr &&&> GObjectObjectClass.FFI.withPtr ---> I) append_ (self & item)
+    fun append self item = (GioListStoreClass.FFI.withPtr false &&&> GObjectObjectClass.FFI.withPtr false ---> I) append_ (self & item)
     fun insert self (position, item) =
       (
-        GioListStoreClass.FFI.withPtr
+        GioListStoreClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
-         &&&> GObjectObjectClass.FFI.withPtr
+         &&&> GObjectObjectClass.FFI.withPtr false
          ---> I
       )
         insert_
@@ -50,8 +50,8 @@ structure GioListStore :>
            & position
            & item
         )
-    fun remove self position = (GioListStoreClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) remove_ (self & position)
-    fun removeAll self = (GioListStoreClass.FFI.withPtr ---> I) removeAll_ self
+    fun remove self position = (GioListStoreClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) remove_ (self & position)
+    fun removeAll self = (GioListStoreClass.FFI.withPtr false ---> I) removeAll_ self
     fun splice
       self
       (
@@ -63,10 +63,10 @@ structure GioListStore :>
         val nAdditions = LargeInt.fromInt (GObjectObjectClassCPtrArrayN.length additions)
         val () =
           (
-            GioListStoreClass.FFI.withPtr
+            GioListStoreClass.FFI.withPtr false
              &&&> GUInt.FFI.withVal
              &&&> GUInt.FFI.withVal
-             &&&> GObjectObjectClassCPtrArrayN.FFI.withPtr
+             &&&> GObjectObjectClassCPtrArrayN.FFI.withPtr 0
              &&&> GUInt.FFI.withVal
              ---> I
           )

@@ -14,12 +14,12 @@ structure GtkCellRendererToggle :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCellRendererToggleClass.FFI.fromPtr false) new_ ()
-    fun getActivatable self = (GtkCellRendererToggleClass.FFI.withPtr ---> GBool.FFI.fromVal) getActivatable_ self
-    fun getActive self = (GtkCellRendererToggleClass.FFI.withPtr ---> GBool.FFI.fromVal) getActive_ self
-    fun getRadio self = (GtkCellRendererToggleClass.FFI.withPtr ---> GBool.FFI.fromVal) getRadio_ self
-    fun setActivatable self setting = (GtkCellRendererToggleClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActivatable_ (self & setting)
-    fun setActive self setting = (GtkCellRendererToggleClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActive_ (self & setting)
-    fun setRadio self radio = (GtkCellRendererToggleClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRadio_ (self & radio)
+    fun getActivatable self = (GtkCellRendererToggleClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActivatable_ self
+    fun getActive self = (GtkCellRendererToggleClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActive_ self
+    fun getRadio self = (GtkCellRendererToggleClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRadio_ self
+    fun setActivatable self setting = (GtkCellRendererToggleClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setActivatable_ (self & setting)
+    fun setActive self setting = (GtkCellRendererToggleClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setActive_ (self & setting)
+    fun setRadio self radio = (GtkCellRendererToggleClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRadio_ (self & radio)
     local
       open ClosureMarshal Signal
     in

@@ -36,7 +36,7 @@ structure GtkTreeSortable :>
          & order
          & retVal =
           (
-            GtkTreeSortableClass.FFI.withPtr
+            GtkTreeSortableClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GtkSortType.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -52,10 +52,10 @@ structure GtkTreeSortable :>
       in
         if retVal then SOME (sortColumnId, order) else NONE
       end
-    fun hasDefaultSortFunc self = (GtkTreeSortableClass.FFI.withPtr ---> GBool.FFI.fromVal) hasDefaultSortFunc_ self
+    fun hasDefaultSortFunc self = (GtkTreeSortableClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasDefaultSortFunc_ self
     fun setSortColumnId self (sortColumnId, order) =
       (
-        GtkTreeSortableClass.FFI.withPtr
+        GtkTreeSortableClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GtkSortType.FFI.withVal
          ---> I
@@ -66,7 +66,7 @@ structure GtkTreeSortable :>
            & sortColumnId
            & order
         )
-    fun sortColumnChanged self = (GtkTreeSortableClass.FFI.withPtr ---> I) sortColumnChanged_ self
+    fun sortColumnChanged self = (GtkTreeSortableClass.FFI.withPtr false ---> I) sortColumnChanged_ self
     local
       open ClosureMarshal Signal
     in

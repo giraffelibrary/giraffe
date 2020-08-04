@@ -54,12 +54,12 @@ structure AtkRelationSet :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> AtkRelationSetClass.FFI.fromPtr true) new_ ()
-    fun add self relation = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationClass.FFI.withPtr ---> I) add_ (self & relation)
+    fun add self relation = (AtkRelationSetClass.FFI.withPtr false &&&> AtkRelationClass.FFI.withPtr false ---> I) add_ (self & relation)
     fun addRelationByType self (relationship, target) =
       (
-        AtkRelationSetClass.FFI.withPtr
+        AtkRelationSetClass.FFI.withPtr false
          &&&> AtkRelationType.FFI.withVal
-         &&&> AtkObjectClass.FFI.withPtr
+         &&&> AtkObjectClass.FFI.withPtr false
          ---> I
       )
         addRelationByType_
@@ -68,12 +68,12 @@ structure AtkRelationSet :>
            & relationship
            & target
         )
-    fun contains self relationship = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationType.FFI.withVal ---> GBool.FFI.fromVal) contains_ (self & relationship)
+    fun contains self relationship = (AtkRelationSetClass.FFI.withPtr false &&&> AtkRelationType.FFI.withVal ---> GBool.FFI.fromVal) contains_ (self & relationship)
     fun containsTarget self (relationship, target) =
       (
-        AtkRelationSetClass.FFI.withPtr
+        AtkRelationSetClass.FFI.withPtr false
          &&&> AtkRelationType.FFI.withVal
-         &&&> AtkObjectClass.FFI.withPtr
+         &&&> AtkObjectClass.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         containsTarget_
@@ -82,8 +82,8 @@ structure AtkRelationSet :>
            & relationship
            & target
         )
-    fun getNRelations self = (AtkRelationSetClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNRelations_ self
-    fun getRelation self i = (AtkRelationSetClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelation_ (self & i)
-    fun getRelationByType self relationship = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationType.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelationByType_ (self & relationship)
-    fun remove self relation = (AtkRelationSetClass.FFI.withPtr &&&> AtkRelationClass.FFI.withPtr ---> I) remove_ (self & relation)
+    fun getNRelations self = (AtkRelationSetClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNRelations_ self
+    fun getRelation self i = (AtkRelationSetClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelation_ (self & i)
+    fun getRelationByType self relationship = (AtkRelationSetClass.FFI.withPtr false &&&> AtkRelationType.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelationByType_ (self & relationship)
+    fun remove self relation = (AtkRelationSetClass.FFI.withPtr false &&&> AtkRelationClass.FFI.withPtr false ---> I) remove_ (self & relation)
   end

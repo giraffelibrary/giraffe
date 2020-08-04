@@ -90,9 +90,9 @@ structure GtkStyle :>
         height
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
-         &&&> GdkWindowClass.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
+         &&&> GdkWindowClass.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
@@ -111,15 +111,15 @@ structure GtkStyle :>
            & width
            & height
         )
-    fun copy self = (GtkStyleClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr true) copy_ self
-    fun detach self = (GtkStyleClass.FFI.withPtr ---> I) detach_ self
+    fun copy self = (GtkStyleClass.FFI.withPtr false ---> GtkStyleClass.FFI.fromPtr true) copy_ self
+    fun detach self = (GtkStyleClass.FFI.withPtr false ---> I) detach_ self
     fun getStyleProperty self (widgetType, propertyName) =
       let
         val value & () =
           (
-            GtkStyleClass.FFI.withPtr
+            GtkStyleClass.FFI.withPtr false
              &&&> GObjectType.FFI.withVal
-             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr 0
              &&&> GObjectValueRecord.FFI.withNewPtr
              ---> GObjectValueRecord.FFI.fromPtr true && I
           )
@@ -133,13 +133,13 @@ structure GtkStyle :>
       in
         value
       end
-    fun hasContext self = (GtkStyleClass.FFI.withPtr ---> GBool.FFI.fromVal) hasContext_ self
+    fun hasContext self = (GtkStyleClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasContext_ self
     fun lookupColor self colorName =
       let
         val color & retVal =
           (
-            GtkStyleClass.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            GtkStyleClass.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GdkColorRecord.FFI.withNewPtr
              ---> GdkColorRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
@@ -152,7 +152,7 @@ structure GtkStyle :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GtkStyleClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkIconSetRecord.FFI.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GtkStyleClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkIconSetRecord.FFI.fromPtr false) lookupIconSet_ (self & stockId)
     fun renderIcon
       self
       (
@@ -164,13 +164,13 @@ structure GtkStyle :>
         detail
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> GtkIconSourceRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> GtkIconSourceRecord.FFI.withPtr false
          &&&> GtkTextDirection.FFI.withVal
          &&&> GtkStateType.FFI.withVal
          &&&> GInt32.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GdkPixbufPixbufClass.FFI.fromPtr true
       )
         renderIcon_
@@ -185,8 +185,8 @@ structure GtkStyle :>
         )
     fun setBackground self (window, stateType) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> GdkWindowClass.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> GdkWindowClass.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          ---> I
       )

@@ -21,12 +21,12 @@ structure GioDBusNodeInfo :>
     type t = GioDBusNodeInfoRecord.t
     type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newForXml xmlData = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusNodeInfoRecord.FFI.fromPtr true) newForXml_ (xmlData & [])
+    fun newForXml xmlData = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GioDBusNodeInfoRecord.FFI.fromPtr true) newForXml_ (xmlData & [])
     fun generateXml self (indent, stringBuilder) =
       (
-        GioDBusNodeInfoRecord.FFI.withPtr
+        GioDBusNodeInfoRecord.FFI.withPtr false
          &&&> GUInt.FFI.withVal
-         &&&> GLibStringRecord.FFI.withPtr
+         &&&> GLibStringRecord.FFI.withPtr false
          ---> I
       )
         generateXml_
@@ -35,5 +35,5 @@ structure GioDBusNodeInfo :>
            & indent
            & stringBuilder
         )
-    fun lookupInterface self name = (GioDBusNodeInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioDBusInterfaceInfoRecord.FFI.fromPtr false) lookupInterface_ (self & name)
+    fun lookupInterface self name = (GioDBusNodeInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusInterfaceInfoRecord.FFI.fromPtr false) lookupInterface_ (self & name)
   end

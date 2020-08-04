@@ -18,12 +18,12 @@ structure GtkActionBar :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkActionBarClass.FFI.fromPtr false) new_ ()
-    fun getCenterWidget self = (GtkActionBarClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getCenterWidget_ self
-    fun packEnd self child = (GtkActionBarClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) packEnd_ (self & child)
-    fun packStart self child = (GtkActionBarClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) packStart_ (self & child)
-    fun setCenterWidget self centerWidget = (GtkActionBarClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setCenterWidget_ (self & centerWidget)
+    fun getCenterWidget self = (GtkActionBarClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getCenterWidget_ self
+    fun packEnd self child = (GtkActionBarClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) packEnd_ (self & child)
+    fun packStart self child = (GtkActionBarClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) packStart_ (self & child)
+    fun setCenterWidget self centerWidget = (GtkActionBarClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setCenterWidget_ (self & centerWidget)
   end

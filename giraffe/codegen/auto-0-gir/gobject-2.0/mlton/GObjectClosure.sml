@@ -8,5 +8,5 @@ structure GObjectClosure :>
     type t = GObjectClosureRecord.t
     type type_t = GObjectType.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun invalidate self = (GObjectClosureRecord.FFI.withPtr ---> I) invalidate_ self
+    fun invalidate self = (GObjectClosureRecord.FFI.withPtr false ---> I) invalidate_ self
   end

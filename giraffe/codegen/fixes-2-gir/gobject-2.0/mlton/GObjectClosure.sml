@@ -17,5 +17,5 @@ structure GObjectClosure :>
       (ClosureMarshal.FFI.withCallback ---> GObjectClosureRecord.FFI.fromPtr false)
         new_
         (marshaller, callback)
-    fun invalidate self = (GObjectClosureRecord.FFI.withPtr ---> I) invalidate_ self
+    fun invalidate self = (GObjectClosureRecord.FFI.withPtr false ---> I) invalidate_ self
   end

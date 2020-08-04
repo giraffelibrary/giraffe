@@ -12,14 +12,14 @@ structure GtkEventBox :>
     type 'a class = 'a GtkEventBoxClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkEventBoxClass.FFI.fromPtr false) new_ ()
-    fun getAboveChild self = (GtkEventBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getAboveChild_ self
-    fun getVisibleWindow self = (GtkEventBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisibleWindow_ self
-    fun setAboveChild self aboveChild = (GtkEventBoxClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAboveChild_ (self & aboveChild)
-    fun setVisibleWindow self visibleWindow = (GtkEventBoxClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisibleWindow_ (self & visibleWindow)
+    fun getAboveChild self = (GtkEventBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAboveChild_ self
+    fun getVisibleWindow self = (GtkEventBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisibleWindow_ self
+    fun setAboveChild self aboveChild = (GtkEventBoxClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAboveChild_ (self & aboveChild)
+    fun setVisibleWindow self visibleWindow = (GtkEventBoxClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisibleWindow_ (self & visibleWindow)
     local
       open Property
     in

@@ -27,13 +27,13 @@ structure GtkRadioToolButton :>
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActionableClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newFromWidget group = (GtkRadioToolButtonClass.FFI.withOptPtr ---> GtkRadioToolButtonClass.FFI.fromPtr false) newFromWidget_ group
-    fun newWithStockFromWidget (group, stockId) = (GtkRadioToolButtonClass.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> GtkRadioToolButtonClass.FFI.fromPtr false) newWithStockFromWidget_ (group & stockId)
+    fun newFromWidget group = (GtkRadioToolButtonClass.FFI.withOptPtr false ---> GtkRadioToolButtonClass.FFI.fromPtr false) newFromWidget_ group
+    fun newWithStockFromWidget (group, stockId) = (GtkRadioToolButtonClass.FFI.withOptPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkRadioToolButtonClass.FFI.fromPtr false) newWithStockFromWidget_ (group & stockId)
     local
       open Property
     in

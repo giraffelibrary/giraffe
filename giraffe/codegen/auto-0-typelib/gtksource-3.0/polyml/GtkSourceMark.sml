@@ -14,10 +14,10 @@ structure GtkSourceMark :>
     type 'a class = 'a GtkSourceMarkClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (name, category) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceMarkClass.FFI.fromPtr true) new_ (name & category)
-    fun getCategory self = (GtkSourceMarkClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCategory_ self
-    fun next self category = (GtkSourceMarkClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkSourceMarkClass.FFI.fromOptPtr false) next_ (self & category)
-    fun prev self category = (GtkSourceMarkClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceMarkClass.FFI.fromOptPtr false) prev_ (self & category)
+    fun new (name, category) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GtkSourceMarkClass.FFI.fromPtr true) new_ (name & category)
+    fun getCategory self = (GtkSourceMarkClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCategory_ self
+    fun next self category = (GtkSourceMarkClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GtkSourceMarkClass.FFI.fromOptPtr false) next_ (self & category)
+    fun prev self category = (GtkSourceMarkClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkSourceMarkClass.FFI.fromOptPtr false) prev_ (self & category)
     local
       open Property
     in

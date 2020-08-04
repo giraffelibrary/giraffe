@@ -63,12 +63,12 @@ structure GioLoadableIcon :>
       let
         val type' & retVal =
           (
-            GioLoadableIconClass.FFI.withPtr
+            GioLoadableIconClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
-             &&&> Utf8.FFI.withRefOptPtr
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> Utf8.FFI.withRefOptPtr 0
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1 && GioInputStreamClass.FFI.fromPtr true
+             ---> Utf8.FFI.fromPtr ~1 && GioInputStreamClass.FFI.fromPtr true
           )
             load_
             (
@@ -85,11 +85,11 @@ structure GioLoadableIcon :>
       let
         val type' & retVal =
           (
-            GioLoadableIconClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
-             &&&> Utf8.FFI.withRefOptPtr
+            GioLoadableIconClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
+             &&&> Utf8.FFI.withRefOptPtr 0
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1 && GioInputStreamClass.FFI.fromPtr true
+             ---> Utf8.FFI.fromPtr ~1 && GioInputStreamClass.FFI.fromPtr true
           )
             loadFinish_
             (

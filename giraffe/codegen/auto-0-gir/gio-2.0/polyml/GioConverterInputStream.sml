@@ -17,10 +17,10 @@ structure GioConverterInputStream :>
     type 'a input_stream_class = 'a GioInputStreamClass.class
     type 'a converter_class = 'a GioConverterClass.class
     type t = base class
-    fun asPollableInputStream self = (GObjectObjectClass.FFI.withPtr ---> GioPollableInputStreamClass.FFI.fromPtr false) I self
+    fun asPollableInputStream self = (GObjectObjectClass.FFI.withPtr false ---> GioPollableInputStreamClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (baseStream, converter) = (GioInputStreamClass.FFI.withPtr &&&> GioConverterClass.FFI.withPtr ---> GioConverterInputStreamClass.FFI.fromPtr true) new_ (baseStream & converter)
-    fun getConverter self = (GioConverterInputStreamClass.FFI.withPtr ---> GioConverterClass.FFI.fromPtr false) getConverter_ self
+    fun new (baseStream, converter) = (GioInputStreamClass.FFI.withPtr false &&&> GioConverterClass.FFI.withPtr false ---> GioConverterInputStreamClass.FFI.fromPtr true) new_ (baseStream & converter)
+    fun getConverter self = (GioConverterInputStreamClass.FFI.withPtr false ---> GioConverterClass.FFI.fromPtr false) getConverter_ self
     local
       open Property
     in

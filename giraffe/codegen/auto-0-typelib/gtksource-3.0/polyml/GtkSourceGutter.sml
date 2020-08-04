@@ -51,7 +51,7 @@ structure GtkSourceGutter :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getRendererAtPos self (x, y) =
       (
-        GtkSourceGutterClass.FFI.withPtr
+        GtkSourceGutterClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> GtkSourceGutterRendererClass.FFI.fromOptPtr false
@@ -62,11 +62,11 @@ structure GtkSourceGutter :>
            & x
            & y
         )
-    fun getWindow self = (GtkSourceGutterClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getWindow_ self
+    fun getWindow self = (GtkSourceGutterClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getWindow_ self
     fun insert self (renderer, position) =
       (
-        GtkSourceGutterClass.FFI.withPtr
-         &&&> GtkSourceGutterRendererClass.FFI.withPtr
+        GtkSourceGutterClass.FFI.withPtr false
+         &&&> GtkSourceGutterRendererClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -76,12 +76,12 @@ structure GtkSourceGutter :>
            & renderer
            & position
         )
-    fun queueDraw self = (GtkSourceGutterClass.FFI.withPtr ---> I) queueDraw_ self
-    fun remove self renderer = (GtkSourceGutterClass.FFI.withPtr &&&> GtkSourceGutterRendererClass.FFI.withPtr ---> I) remove_ (self & renderer)
+    fun queueDraw self = (GtkSourceGutterClass.FFI.withPtr false ---> I) queueDraw_ self
+    fun remove self renderer = (GtkSourceGutterClass.FFI.withPtr false &&&> GtkSourceGutterRendererClass.FFI.withPtr false ---> I) remove_ (self & renderer)
     fun reorder self (renderer, position) =
       (
-        GtkSourceGutterClass.FFI.withPtr
-         &&&> GtkSourceGutterRendererClass.FFI.withPtr
+        GtkSourceGutterClass.FFI.withPtr false
+         &&&> GtkSourceGutterRendererClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -93,7 +93,7 @@ structure GtkSourceGutter :>
         )
     fun setPadding self (xpad, ypad) =
       (
-        GtkSourceGutterClass.FFI.withPtr
+        GtkSourceGutterClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I

@@ -14,9 +14,9 @@ structure AtkSocket :>
     type 'a class = 'a AtkSocketClass.class
     type 'a component_class = 'a AtkComponentClass.class
     type t = base class
-    fun asComponent self = (GObjectObjectClass.FFI.withPtr ---> AtkComponentClass.FFI.fromPtr false) I self
+    fun asComponent self = (GObjectObjectClass.FFI.withPtr false ---> AtkComponentClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> AtkSocketClass.FFI.fromPtr true) new_ ()
-    fun embed self plugId = (AtkSocketClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) embed_ (self & plugId)
-    fun isOccupied self = (AtkSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) isOccupied_ self
+    fun embed self plugId = (AtkSocketClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) embed_ (self & plugId)
+    fun isOccupied self = (AtkSocketClass.FFI.withPtr false ---> GBool.FFI.fromVal) isOccupied_ self
   end

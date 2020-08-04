@@ -140,9 +140,9 @@ structure GioTlsInteraction :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun askPassword self (password, cancellable) =
       (
-        GioTlsInteractionClass.FFI.withPtr
-         &&&> GioTlsPasswordClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioTlsInteractionClass.FFI.withPtr false
+         &&&> GioTlsPasswordClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioTlsInteractionResult.FFI.fromVal
       )
@@ -155,8 +155,8 @@ structure GioTlsInteraction :>
         )
     fun askPasswordFinish self result =
       (
-        GioTlsInteractionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioTlsInteractionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioTlsInteractionResult.FFI.fromVal
       )
@@ -168,9 +168,9 @@ structure GioTlsInteraction :>
         )
     fun invokeAskPassword self (password, cancellable) =
       (
-        GioTlsInteractionClass.FFI.withPtr
-         &&&> GioTlsPasswordClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioTlsInteractionClass.FFI.withPtr false
+         &&&> GioTlsPasswordClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioTlsInteractionResult.FFI.fromVal
       )
@@ -189,10 +189,10 @@ structure GioTlsInteraction :>
         cancellable
       ) =
       (
-        GioTlsInteractionClass.FFI.withPtr
-         &&&> GioTlsConnectionClass.FFI.withPtr
+        GioTlsInteractionClass.FFI.withPtr false
+         &&&> GioTlsConnectionClass.FFI.withPtr false
          &&&> GioTlsCertificateRequestFlags.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioTlsInteractionResult.FFI.fromVal
       )
@@ -212,10 +212,10 @@ structure GioTlsInteraction :>
         cancellable
       ) =
       (
-        GioTlsInteractionClass.FFI.withPtr
-         &&&> GioTlsConnectionClass.FFI.withPtr
+        GioTlsInteractionClass.FFI.withPtr false
+         &&&> GioTlsConnectionClass.FFI.withPtr false
          &&&> GioTlsCertificateRequestFlags.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioTlsInteractionResult.FFI.fromVal
       )
@@ -229,8 +229,8 @@ structure GioTlsInteraction :>
         )
     fun requestCertificateFinish self result =
       (
-        GioTlsInteractionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioTlsInteractionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioTlsInteractionResult.FFI.fromVal
       )

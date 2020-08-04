@@ -44,12 +44,12 @@ structure GioDBusAuthObserver :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioDBusAuthObserverClass.FFI.fromPtr true) new_ ()
-    fun allowMechanism self mechanism = (GioDBusAuthObserverClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) allowMechanism_ (self & mechanism)
+    fun allowMechanism self mechanism = (GioDBusAuthObserverClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) allowMechanism_ (self & mechanism)
     fun authorizeAuthenticatedPeer self (stream, credentials) =
       (
-        GioDBusAuthObserverClass.FFI.withPtr
-         &&&> GioIOStreamClass.FFI.withPtr
-         &&&> GioCredentialsClass.FFI.withOptPtr
+        GioDBusAuthObserverClass.FFI.withPtr false
+         &&&> GioIOStreamClass.FFI.withPtr false
+         &&&> GioCredentialsClass.FFI.withOptPtr false
          ---> GBool.FFI.fromVal
       )
         authorizeAuthenticatedPeer_

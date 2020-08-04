@@ -167,10 +167,10 @@ structure GtkApplication :>
     type application_inhibit_flags_t = GtkApplicationInhibitFlags.t
     type 'a window_class = 'a GtkWindowClass.class
     type t = base class
-    fun asActionGroup self = (GObjectObjectClass.FFI.withPtr ---> GioActionGroupClass.FFI.fromPtr false) I self
-    fun asActionMap self = (GObjectObjectClass.FFI.withPtr ---> GioActionMapClass.FFI.fromPtr false) I self
+    fun asActionGroup self = (GObjectObjectClass.FFI.withPtr false ---> GioActionGroupClass.FFI.fromPtr false) I self
+    fun asActionMap self = (GObjectObjectClass.FFI.withPtr false ---> GioActionMapClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (applicationId, flags) = (Utf8.FFI.withOptPtr &&&> GioApplicationFlags.FFI.withVal ---> GtkApplicationClass.FFI.fromPtr true) new_ (applicationId & flags)
+    fun new (applicationId, flags) = (Utf8.FFI.withOptPtr 0 &&&> GioApplicationFlags.FFI.withVal ---> GtkApplicationClass.FFI.fromPtr true) new_ (applicationId & flags)
     fun addAccelerator
       self
       (
@@ -179,10 +179,10 @@ structure GtkApplication :>
         parameter
       ) =
       (
-        GtkApplicationClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withOptPtr
+        GtkApplicationClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withOptPtr false
          ---> I
       )
         addAccelerator_
@@ -192,14 +192,14 @@ structure GtkApplication :>
            & actionName
            & parameter
         )
-    fun addWindow self window = (GtkApplicationClass.FFI.withPtr &&&> GtkWindowClass.FFI.withPtr ---> I) addWindow_ (self & window)
-    fun getAccelsForAction self detailedActionName = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getAccelsForAction_ (self & detailedActionName)
-    fun getActionsForAccel self accel = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getActionsForAccel_ (self & accel)
-    fun getActiveWindow self = (GtkApplicationClass.FFI.withPtr ---> GtkWindowClass.FFI.fromOptPtr false) getActiveWindow_ self
-    fun getAppMenu self = (GtkApplicationClass.FFI.withPtr ---> GioMenuModelClass.FFI.fromOptPtr false) getAppMenu_ self
-    fun getMenuById self id = (GtkApplicationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioMenuClass.FFI.fromPtr false) getMenuById_ (self & id)
-    fun getMenubar self = (GtkApplicationClass.FFI.withPtr ---> GioMenuModelClass.FFI.fromPtr false) getMenubar_ self
-    fun getWindowById self id = (GtkApplicationClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> GtkWindowClass.FFI.fromOptPtr false) getWindowById_ (self & id)
+    fun addWindow self window = (GtkApplicationClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withPtr false ---> I) addWindow_ (self & window)
+    fun getAccelsForAction self detailedActionName = (GtkApplicationClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) getAccelsForAction_ (self & detailedActionName)
+    fun getActionsForAccel self accel = (GtkApplicationClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) getActionsForAccel_ (self & accel)
+    fun getActiveWindow self = (GtkApplicationClass.FFI.withPtr false ---> GtkWindowClass.FFI.fromOptPtr false) getActiveWindow_ self
+    fun getAppMenu self = (GtkApplicationClass.FFI.withPtr false ---> GioMenuModelClass.FFI.fromOptPtr false) getAppMenu_ self
+    fun getMenuById self id = (GtkApplicationClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioMenuClass.FFI.fromPtr false) getMenuById_ (self & id)
+    fun getMenubar self = (GtkApplicationClass.FFI.withPtr false ---> GioMenuModelClass.FFI.fromPtr false) getMenubar_ self
+    fun getWindowById self id = (GtkApplicationClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GtkWindowClass.FFI.fromOptPtr false) getWindowById_ (self & id)
     fun inhibit
       self
       (
@@ -208,10 +208,10 @@ structure GtkApplication :>
         reason
       ) =
       (
-        GtkApplicationClass.FFI.withPtr
-         &&&> GtkWindowClass.FFI.withOptPtr
+        GtkApplicationClass.FFI.withPtr false
+         &&&> GtkWindowClass.FFI.withOptPtr false
          &&&> GtkApplicationInhibitFlags.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GUInt32.FFI.fromVal
       )
         inhibit_
@@ -221,14 +221,14 @@ structure GtkApplication :>
            & flags
            & reason
         )
-    fun isInhibited self flags = (GtkApplicationClass.FFI.withPtr &&&> GtkApplicationInhibitFlags.FFI.withVal ---> GBool.FFI.fromVal) isInhibited_ (self & flags)
-    fun listActionDescriptions self = (GtkApplicationClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) listActionDescriptions_ self
-    fun prefersAppMenu self = (GtkApplicationClass.FFI.withPtr ---> GBool.FFI.fromVal) prefersAppMenu_ self
+    fun isInhibited self flags = (GtkApplicationClass.FFI.withPtr false &&&> GtkApplicationInhibitFlags.FFI.withVal ---> GBool.FFI.fromVal) isInhibited_ (self & flags)
+    fun listActionDescriptions self = (GtkApplicationClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) listActionDescriptions_ self
+    fun prefersAppMenu self = (GtkApplicationClass.FFI.withPtr false ---> GBool.FFI.fromVal) prefersAppMenu_ self
     fun removeAccelerator self (actionName, parameter) =
       (
-        GtkApplicationClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withOptPtr
+        GtkApplicationClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withOptPtr false
          ---> I
       )
         removeAccelerator_
@@ -237,12 +237,12 @@ structure GtkApplication :>
            & actionName
            & parameter
         )
-    fun removeWindow self window = (GtkApplicationClass.FFI.withPtr &&&> GtkWindowClass.FFI.withPtr ---> I) removeWindow_ (self & window)
+    fun removeWindow self window = (GtkApplicationClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withPtr false ---> I) removeWindow_ (self & window)
     fun setAccelsForAction self (detailedActionName, accels) =
       (
-        GtkApplicationClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8CPtrArray.FFI.withPtr
+        GtkApplicationClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8CPtrArray.FFI.withPtr 0
          ---> I
       )
         setAccelsForAction_
@@ -251,9 +251,9 @@ structure GtkApplication :>
            & detailedActionName
            & accels
         )
-    fun setAppMenu self appMenu = (GtkApplicationClass.FFI.withPtr &&&> GioMenuModelClass.FFI.withOptPtr ---> I) setAppMenu_ (self & appMenu)
-    fun setMenubar self menubar = (GtkApplicationClass.FFI.withPtr &&&> GioMenuModelClass.FFI.withOptPtr ---> I) setMenubar_ (self & menubar)
-    fun uninhibit self cookie = (GtkApplicationClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) uninhibit_ (self & cookie)
+    fun setAppMenu self appMenu = (GtkApplicationClass.FFI.withPtr false &&&> GioMenuModelClass.FFI.withOptPtr false ---> I) setAppMenu_ (self & appMenu)
+    fun setMenubar self menubar = (GtkApplicationClass.FFI.withPtr false &&&> GioMenuModelClass.FFI.withOptPtr false ---> I) setMenubar_ (self & menubar)
+    fun uninhibit self cookie = (GtkApplicationClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) uninhibit_ (self & cookie)
     local
       open ClosureMarshal Signal
     in

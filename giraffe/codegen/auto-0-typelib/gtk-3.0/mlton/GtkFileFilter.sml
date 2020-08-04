@@ -63,16 +63,16 @@ structure GtkFileFilter :>
     type file_filter_info_t = GtkFileFilterInfoRecord.t
     type file_filter_flags_t = GtkFileFilterFlags.t
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkFileFilterClass.FFI.fromPtr false) new_ ()
-    fun newFromGvariant variant = (GLibVariantRecord.FFI.withPtr ---> GtkFileFilterClass.FFI.fromPtr true) newFromGvariant_ variant
-    fun addMimeType self mimeType = (GtkFileFilterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addMimeType_ (self & mimeType)
-    fun addPattern self pattern = (GtkFileFilterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addPattern_ (self & pattern)
-    fun addPixbufFormats self = (GtkFileFilterClass.FFI.withPtr ---> I) addPixbufFormats_ self
-    fun filter self filterInfo = (GtkFileFilterClass.FFI.withPtr &&&> GtkFileFilterInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) filter_ (self & filterInfo)
-    fun getName self = (GtkFileFilterClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getName_ self
-    fun getNeeded self = (GtkFileFilterClass.FFI.withPtr ---> GtkFileFilterFlags.FFI.fromVal) getNeeded_ self
-    fun setName self name = (GtkFileFilterClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setName_ (self & name)
-    fun toGvariant self = (GtkFileFilterClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
+    fun newFromGvariant variant = (GLibVariantRecord.FFI.withPtr false ---> GtkFileFilterClass.FFI.fromPtr true) newFromGvariant_ variant
+    fun addMimeType self mimeType = (GtkFileFilterClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) addMimeType_ (self & mimeType)
+    fun addPattern self pattern = (GtkFileFilterClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) addPattern_ (self & pattern)
+    fun addPixbufFormats self = (GtkFileFilterClass.FFI.withPtr false ---> I) addPixbufFormats_ self
+    fun filter self filterInfo = (GtkFileFilterClass.FFI.withPtr false &&&> GtkFileFilterInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) filter_ (self & filterInfo)
+    fun getName self = (GtkFileFilterClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getName_ self
+    fun getNeeded self = (GtkFileFilterClass.FFI.withPtr false ---> GtkFileFilterFlags.FFI.fromVal) getNeeded_ self
+    fun setName self name = (GtkFileFilterClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setName_ (self & name)
+    fun toGvariant self = (GtkFileFilterClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
   end

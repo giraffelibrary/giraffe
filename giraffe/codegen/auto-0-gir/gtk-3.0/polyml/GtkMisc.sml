@@ -43,8 +43,8 @@ structure GtkMisc :>
     type 'a class = 'a GtkMiscClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getAlignment self =
       let
@@ -52,7 +52,7 @@ structure GtkMisc :>
          & yalign
          & () =
           (
-            GtkMiscClass.FFI.withPtr
+            GtkMiscClass.FFI.withPtr false
              &&&> GFloat.FFI.withRefVal
              &&&> GFloat.FFI.withRefVal
              ---> GFloat.FFI.fromVal
@@ -74,7 +74,7 @@ structure GtkMisc :>
          & ypad
          & () =
           (
-            GtkMiscClass.FFI.withPtr
+            GtkMiscClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -92,7 +92,7 @@ structure GtkMisc :>
       end
     fun setAlignment self (xalign, yalign) =
       (
-        GtkMiscClass.FFI.withPtr
+        GtkMiscClass.FFI.withPtr false
          &&&> GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal
          ---> I
@@ -105,7 +105,7 @@ structure GtkMisc :>
         )
     fun setPadding self (xpad, ypad) =
       (
-        GtkMiscClass.FFI.withPtr
+        GtkMiscClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I

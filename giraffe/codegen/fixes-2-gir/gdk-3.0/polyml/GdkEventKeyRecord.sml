@@ -61,19 +61,19 @@ structure GdkEventKeyRecord :>
     type 'a window_class = 'a GdkWindowClass.class
     type modifier_type_t = GdkModifierType.t
 
-    fun getWindow e = (FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getWindow_ e
+    fun getWindow e = (FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getWindow_ e
 
-    fun getSendEvent e = (FFI.withPtr ---> GBool.FFI.fromVal) getSendEvent_ e
+    fun getSendEvent e = (FFI.withPtr false ---> GBool.FFI.fromVal) getSendEvent_ e
 
-    fun getTime e = (FFI.withPtr ---> GUInt32.FFI.fromVal) getTime_ e
+    fun getTime e = (FFI.withPtr false ---> GUInt32.FFI.fromVal) getTime_ e
 
-    fun getState e = (FFI.withPtr ---> GdkModifierType.FFI.fromVal) getState_ e
+    fun getState e = (FFI.withPtr false ---> GdkModifierType.FFI.fromVal) getState_ e
 
-    fun getKeyval e = (FFI.withPtr ---> GUInt32.FFI.fromVal) getKeyval_ e
+    fun getKeyval e = (FFI.withPtr false ---> GUInt32.FFI.fromVal) getKeyval_ e
 
-    fun getHardwareKeycode e = (FFI.withPtr ---> GUInt32.FFI.fromVal) getHardwareKeycode_ e
+    fun getHardwareKeycode e = (FFI.withPtr false ---> GUInt32.FFI.fromVal) getHardwareKeycode_ e
 
-    fun getGroup e = (FFI.withPtr ---> GUInt8.FFI.fromVal) getGroup_ e
+    fun getGroup e = (FFI.withPtr false ---> GUInt8.FFI.fromVal) getGroup_ e
 
-    fun getIsModifier e = (FFI.withPtr ---> GBool.FFI.fromVal) getIsModifier_ e
+    fun getIsModifier e = (FFI.withPtr false ---> GBool.FFI.fromVal) getIsModifier_ e
   end

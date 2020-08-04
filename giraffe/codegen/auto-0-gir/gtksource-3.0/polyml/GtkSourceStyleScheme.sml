@@ -18,12 +18,12 @@ structure GtkSourceStyleScheme :>
     type 'a style_class = 'a GtkSourceStyleClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getAuthors self = (GtkSourceStyleSchemeClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromOptPtr 0) getAuthors_ self
-    fun getDescription self = (GtkSourceStyleSchemeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getDescription_ self
-    fun getFilename self = (GtkSourceStyleSchemeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getFilename_ self
-    fun getId self = (GtkSourceStyleSchemeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getId_ self
-    fun getName self = (GtkSourceStyleSchemeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getStyle self styleId = (GtkSourceStyleSchemeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceStyleClass.FFI.fromOptPtr false) getStyle_ (self & styleId)
+    fun getAuthors self = (GtkSourceStyleSchemeClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromOptPtr 0) getAuthors_ self
+    fun getDescription self = (GtkSourceStyleSchemeClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getDescription_ self
+    fun getFilename self = (GtkSourceStyleSchemeClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getFilename_ self
+    fun getId self = (GtkSourceStyleSchemeClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getId_ self
+    fun getName self = (GtkSourceStyleSchemeClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getStyle self styleId = (GtkSourceStyleSchemeClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkSourceStyleClass.FFI.fromOptPtr false) getStyle_ (self & styleId)
     local
       open Property
     in

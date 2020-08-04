@@ -229,8 +229,8 @@ structure GioSocket :>
     type 'a socket_address_class = 'a GioSocketAddressClass.class
     type socket_type_t = GioSocketType.t
     type t = base class
-    fun asDatagramBased self = (GObjectObjectClass.FFI.withPtr ---> GioDatagramBasedClass.FFI.fromPtr false) I self
-    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    fun asDatagramBased self = (GObjectObjectClass.FFI.withPtr false ---> GioDatagramBasedClass.FFI.fromPtr false) I self
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr false ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -255,8 +255,8 @@ structure GioSocket :>
     fun newFromFd fd = (GInt32.FFI.withVal &&&> GLibErrorRecord.handleError ---> GioSocketClass.FFI.fromPtr true) newFromFd_ (fd & [])
     fun accept self cancellable =
       (
-        GioSocketClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioSocketClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioSocketClass.FFI.fromPtr true
       )
@@ -268,8 +268,8 @@ structure GioSocket :>
         )
     fun bind self (address, allowReuse) =
       (
-        GioSocketClass.FFI.withPtr
-         &&&> GioSocketAddressClass.FFI.withPtr
+        GioSocketClass.FFI.withPtr false
+         &&&> GioSocketAddressClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> ignore
@@ -281,9 +281,9 @@ structure GioSocket :>
            & allowReuse
            & []
         )
-    fun checkConnectResult self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) checkConnectResult_ (self & [])
-    fun close self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) close_ (self & [])
-    fun conditionCheck self condition = (GioSocketClass.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibIOCondition.FFI.fromVal) conditionCheck_ (self & condition)
+    fun checkConnectResult self = (GioSocketClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) checkConnectResult_ (self & [])
+    fun close self = (GioSocketClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) close_ (self & [])
+    fun conditionCheck self condition = (GioSocketClass.FFI.withPtr false &&&> GLibIOCondition.FFI.withVal ---> GLibIOCondition.FFI.fromVal) conditionCheck_ (self & condition)
     fun conditionTimedWait
       self
       (
@@ -292,10 +292,10 @@ structure GioSocket :>
         cancellable
       ) =
       (
-        GioSocketClass.FFI.withPtr
+        GioSocketClass.FFI.withPtr false
          &&&> GLibIOCondition.FFI.withVal
          &&&> GInt64.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -309,9 +309,9 @@ structure GioSocket :>
         )
     fun conditionWait self (condition, cancellable) =
       (
-        GioSocketClass.FFI.withPtr
+        GioSocketClass.FFI.withPtr false
          &&&> GLibIOCondition.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -324,9 +324,9 @@ structure GioSocket :>
         )
     fun connect self (address, cancellable) =
       (
-        GioSocketClass.FFI.withPtr
-         &&&> GioSocketAddressClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioSocketClass.FFI.withPtr false
+         &&&> GioSocketAddressClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -337,23 +337,23 @@ structure GioSocket :>
            & cancellable
            & []
         )
-    fun connectionFactoryCreateConnection self = (GioSocketClass.FFI.withPtr ---> GioSocketConnectionClass.FFI.fromPtr true) connectionFactoryCreateConnection_ self
-    fun getAvailableBytes self = (GioSocketClass.FFI.withPtr ---> GInt64.FFI.fromVal) getAvailableBytes_ self
-    fun getBlocking self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) getBlocking_ self
-    fun getBroadcast self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) getBroadcast_ self
-    fun getCredentials self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioCredentialsClass.FFI.fromPtr true) getCredentials_ (self & [])
-    fun getFamily self = (GioSocketClass.FFI.withPtr ---> GioSocketFamily.FFI.fromVal) getFamily_ self
-    fun getFd self = (GioSocketClass.FFI.withPtr ---> GInt32.FFI.fromVal) getFd_ self
-    fun getKeepalive self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) getKeepalive_ self
-    fun getListenBacklog self = (GioSocketClass.FFI.withPtr ---> GInt32.FFI.fromVal) getListenBacklog_ self
-    fun getLocalAddress self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getLocalAddress_ (self & [])
-    fun getMulticastLoopback self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) getMulticastLoopback_ self
-    fun getMulticastTtl self = (GioSocketClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getMulticastTtl_ self
+    fun connectionFactoryCreateConnection self = (GioSocketClass.FFI.withPtr false ---> GioSocketConnectionClass.FFI.fromPtr true) connectionFactoryCreateConnection_ self
+    fun getAvailableBytes self = (GioSocketClass.FFI.withPtr false ---> GInt64.FFI.fromVal) getAvailableBytes_ self
+    fun getBlocking self = (GioSocketClass.FFI.withPtr false ---> GBool.FFI.fromVal) getBlocking_ self
+    fun getBroadcast self = (GioSocketClass.FFI.withPtr false ---> GBool.FFI.fromVal) getBroadcast_ self
+    fun getCredentials self = (GioSocketClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioCredentialsClass.FFI.fromPtr true) getCredentials_ (self & [])
+    fun getFamily self = (GioSocketClass.FFI.withPtr false ---> GioSocketFamily.FFI.fromVal) getFamily_ self
+    fun getFd self = (GioSocketClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getFd_ self
+    fun getKeepalive self = (GioSocketClass.FFI.withPtr false ---> GBool.FFI.fromVal) getKeepalive_ self
+    fun getListenBacklog self = (GioSocketClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getListenBacklog_ self
+    fun getLocalAddress self = (GioSocketClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getLocalAddress_ (self & [])
+    fun getMulticastLoopback self = (GioSocketClass.FFI.withPtr false ---> GBool.FFI.fromVal) getMulticastLoopback_ self
+    fun getMulticastTtl self = (GioSocketClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getMulticastTtl_ self
     fun getOption self (level, optname) =
       let
         val value & () =
           (
-            GioSocketClass.FFI.withPtr
+            GioSocketClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withRefVal
@@ -371,13 +371,13 @@ structure GioSocket :>
       in
         value
       end
-    fun getProtocol self = (GioSocketClass.FFI.withPtr ---> GioSocketProtocol.FFI.fromVal) getProtocol_ self
-    fun getRemoteAddress self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getRemoteAddress_ (self & [])
-    fun getSocketType self = (GioSocketClass.FFI.withPtr ---> GioSocketType.FFI.fromVal) getSocketType_ self
-    fun getTimeout self = (GioSocketClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getTimeout_ self
-    fun getTtl self = (GioSocketClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getTtl_ self
-    fun isClosed self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
-    fun isConnected self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) isConnected_ self
+    fun getProtocol self = (GioSocketClass.FFI.withPtr false ---> GioSocketProtocol.FFI.fromVal) getProtocol_ self
+    fun getRemoteAddress self = (GioSocketClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getRemoteAddress_ (self & [])
+    fun getSocketType self = (GioSocketClass.FFI.withPtr false ---> GioSocketType.FFI.fromVal) getSocketType_ self
+    fun getTimeout self = (GioSocketClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getTimeout_ self
+    fun getTtl self = (GioSocketClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getTtl_ self
+    fun isClosed self = (GioSocketClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self
+    fun isConnected self = (GioSocketClass.FFI.withPtr false ---> GBool.FFI.fromVal) isConnected_ self
     fun joinMulticastGroup
       self
       (
@@ -386,10 +386,10 @@ structure GioSocket :>
         iface
       ) =
       (
-        GioSocketClass.FFI.withPtr
-         &&&> GioInetAddressClass.FFI.withPtr
+        GioSocketClass.FFI.withPtr false
+         &&&> GioInetAddressClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -409,10 +409,10 @@ structure GioSocket :>
         iface
       ) =
       (
-        GioSocketClass.FFI.withPtr
-         &&&> GioInetAddressClass.FFI.withPtr
+        GioSocketClass.FFI.withPtr false
+         &&&> GioInetAddressClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -424,16 +424,16 @@ structure GioSocket :>
            & iface
            & []
         )
-    fun listen self = (GioSocketClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) listen_ (self & [])
+    fun listen self = (GioSocketClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) listen_ (self & [])
     fun receive self (buffer, cancellable) =
       let
         val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
-            GioSocketClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioSocketClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GUInt64.FFI.withVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GInt64.FFI.fromVal
           )
@@ -453,11 +453,11 @@ structure GioSocket :>
         val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val address & retVal =
           (
-            GioSocketClass.FFI.withPtr
-             &&&> GioSocketAddressClass.FFI.withRefOptPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioSocketClass.FFI.withPtr false
+             &&&> GioSocketAddressClass.FFI.withRefOptPtr true
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GUInt64.FFI.withVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GioSocketAddressClass.FFI.fromPtr true && GInt64.FFI.fromVal
           )
@@ -484,11 +484,11 @@ structure GioSocket :>
         val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
-            GioSocketClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioSocketClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GUInt64.FFI.withVal
              &&&> GBool.FFI.withVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GInt64.FFI.fromVal
           )
@@ -509,10 +509,10 @@ structure GioSocket :>
         val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
-            GioSocketClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioSocketClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GUInt64.FFI.withVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GInt64.FFI.fromVal
           )
@@ -538,11 +538,11 @@ structure GioSocket :>
         val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
-            GioSocketClass.FFI.withPtr
-             &&&> GioSocketAddressClass.FFI.withOptPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioSocketClass.FFI.withPtr false
+             &&&> GioSocketAddressClass.FFI.withOptPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GUInt64.FFI.withVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GInt64.FFI.fromVal
           )
@@ -569,11 +569,11 @@ structure GioSocket :>
         val size = LargeInt.fromInt (GUInt8CArrayN.length buffer)
         val retVal =
           (
-            GioSocketClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioSocketClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GUInt64.FFI.withVal
              &&&> GBool.FFI.withVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GInt64.FFI.fromVal
           )
@@ -589,12 +589,12 @@ structure GioSocket :>
       in
         retVal
       end
-    fun setBlocking self blocking = (GioSocketClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setBlocking_ (self & blocking)
-    fun setBroadcast self broadcast = (GioSocketClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setBroadcast_ (self & broadcast)
-    fun setKeepalive self keepalive = (GioSocketClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setKeepalive_ (self & keepalive)
-    fun setListenBacklog self backlog = (GioSocketClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setListenBacklog_ (self & backlog)
-    fun setMulticastLoopback self loopback = (GioSocketClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setMulticastLoopback_ (self & loopback)
-    fun setMulticastTtl self ttl = (GioSocketClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setMulticastTtl_ (self & ttl)
+    fun setBlocking self blocking = (GioSocketClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setBlocking_ (self & blocking)
+    fun setBroadcast self broadcast = (GioSocketClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setBroadcast_ (self & broadcast)
+    fun setKeepalive self keepalive = (GioSocketClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setKeepalive_ (self & keepalive)
+    fun setListenBacklog self backlog = (GioSocketClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setListenBacklog_ (self & backlog)
+    fun setMulticastLoopback self loopback = (GioSocketClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setMulticastLoopback_ (self & loopback)
+    fun setMulticastTtl self ttl = (GioSocketClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setMulticastTtl_ (self & ttl)
     fun setOption
       self
       (
@@ -603,7 +603,7 @@ structure GioSocket :>
         value
       ) =
       (
-        GioSocketClass.FFI.withPtr
+        GioSocketClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
@@ -618,11 +618,11 @@ structure GioSocket :>
            & value
            & []
         )
-    fun setTimeout self timeout = (GioSocketClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setTimeout_ (self & timeout)
-    fun setTtl self ttl = (GioSocketClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setTtl_ (self & ttl)
+    fun setTimeout self timeout = (GioSocketClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setTimeout_ (self & timeout)
+    fun setTtl self ttl = (GioSocketClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setTtl_ (self & ttl)
     fun shutdown self (shutdownRead, shutdownWrite) =
       (
-        GioSocketClass.FFI.withPtr
+        GioSocketClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
@@ -635,7 +635,7 @@ structure GioSocket :>
            & shutdownWrite
            & []
         )
-    fun speaksIpv4 self = (GioSocketClass.FFI.withPtr ---> GBool.FFI.fromVal) speaksIpv4_ self
+    fun speaksIpv4 self = (GioSocketClass.FFI.withPtr false ---> GBool.FFI.fromVal) speaksIpv4_ self
     local
       open Property
     in

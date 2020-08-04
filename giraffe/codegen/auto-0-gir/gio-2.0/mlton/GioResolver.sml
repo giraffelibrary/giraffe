@@ -54,11 +54,11 @@ structure GioResolver :>
     fun getDefault () = (I ---> GioResolverClass.FFI.fromPtr true) getDefault_ ()
     fun lookupByAddress self (address, cancellable) =
       (
-        GioResolverClass.FFI.withPtr
-         &&&> GioInetAddressClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioResolverClass.FFI.withPtr false
+         &&&> GioInetAddressClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromPtr ~1
       )
         lookupByAddress_
         (
@@ -69,10 +69,10 @@ structure GioResolver :>
         )
     fun lookupByAddressFinish self result =
       (
-        GioResolverClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioResolverClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromPtr ~1
       )
         lookupByAddressFinish_
         (
@@ -80,7 +80,7 @@ structure GioResolver :>
            & result
            & []
         )
-    fun setDefault self = (GioResolverClass.FFI.withPtr ---> I) setDefault_ self
+    fun setDefault self = (GioResolverClass.FFI.withPtr false ---> I) setDefault_ self
     local
       open ClosureMarshal Signal
     in

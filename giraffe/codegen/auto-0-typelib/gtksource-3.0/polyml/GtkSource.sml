@@ -103,10 +103,10 @@ structure GtkSource : GTK_SOURCE =
     structure Map = GtkSourceMap
     fun completionErrorQuark () = (I ---> GUInt32.FFI.fromVal) completionErrorQuark_ ()
     fun encodingGetCurrent () = (I ---> GtkSourceEncodingRecord.FFI.fromPtr false) encodingGetCurrent_ ()
-    fun encodingGetFromCharset charset = (Utf8.FFI.withPtr ---> GtkSourceEncodingRecord.FFI.fromOptPtr false) encodingGetFromCharset_ charset
+    fun encodingGetFromCharset charset = (Utf8.FFI.withPtr 0 ---> GtkSourceEncodingRecord.FFI.fromOptPtr false) encodingGetFromCharset_ charset
     fun encodingGetUtf8 () = (I ---> GtkSourceEncodingRecord.FFI.fromPtr false) encodingGetUtf8_ ()
     fun fileLoaderErrorQuark () = (I ---> GUInt32.FFI.fromVal) fileLoaderErrorQuark_ ()
     fun fileSaverErrorQuark () = (I ---> GUInt32.FFI.fromVal) fileSaverErrorQuark_ ()
-    fun utilsEscapeSearchText text = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) utilsEscapeSearchText_ text
-    fun utilsUnescapeSearchText text = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) utilsUnescapeSearchText_ text
+    fun utilsEscapeSearchText text = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) utilsEscapeSearchText_ text
+    fun utilsUnescapeSearchText text = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) utilsUnescapeSearchText_ text
   end

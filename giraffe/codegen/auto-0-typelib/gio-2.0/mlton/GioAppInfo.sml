@@ -193,8 +193,8 @@ structure GioAppInfo :>
         flags
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GioAppInfoCreateFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioAppInfoClass.FFI.fromPtr true
@@ -206,12 +206,12 @@ structure GioAppInfo :>
            & flags
            & []
         )
-    fun getDefaultForType (contentType, mustSupportUris) = (Utf8.FFI.withPtr &&&> GBool.FFI.withVal ---> GioAppInfoClass.FFI.fromPtr true) getDefaultForType_ (contentType & mustSupportUris)
-    fun getDefaultForUriScheme uriScheme = (Utf8.FFI.withPtr ---> GioAppInfoClass.FFI.fromPtr true) getDefaultForUriScheme_ uriScheme
+    fun getDefaultForType (contentType, mustSupportUris) = (Utf8.FFI.withPtr 0 &&&> GBool.FFI.withVal ---> GioAppInfoClass.FFI.fromPtr true) getDefaultForType_ (contentType & mustSupportUris)
+    fun getDefaultForUriScheme uriScheme = (Utf8.FFI.withPtr 0 ---> GioAppInfoClass.FFI.fromPtr true) getDefaultForUriScheme_ uriScheme
     fun launchDefaultForUri (uri, launchContext) =
       (
-        Utf8.FFI.withPtr
-         &&&> GioAppLaunchContextClass.FFI.withOptPtr
+        Utf8.FFI.withPtr 0
+         &&&> GioAppLaunchContextClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -221,12 +221,12 @@ structure GioAppInfo :>
            & launchContext
            & []
         )
-    fun launchDefaultForUriFinish result = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) launchDefaultForUriFinish_ (result & [])
-    fun resetTypeAssociations contentType = (Utf8.FFI.withPtr ---> I) resetTypeAssociations_ contentType
+    fun launchDefaultForUriFinish result = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) launchDefaultForUriFinish_ (result & [])
+    fun resetTypeAssociations contentType = (Utf8.FFI.withPtr 0 ---> I) resetTypeAssociations_ contentType
     fun addSupportsType self contentType =
       (
-        GioAppInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioAppInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -236,23 +236,23 @@ structure GioAppInfo :>
            & contentType
            & []
         )
-    fun canDelete self = (GioAppInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) canDelete_ self
-    fun canRemoveSupportsType self = (GioAppInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) canRemoveSupportsType_ self
-    fun delete self = (GioAppInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) delete_ self
-    fun dup self = (GioAppInfoClass.FFI.withPtr ---> GioAppInfoClass.FFI.fromPtr true) dup_ self
-    fun equal self appinfo2 = (GioAppInfoClass.FFI.withPtr &&&> GioAppInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & appinfo2)
-    fun getCommandline self = (GioAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCommandline_ self
-    fun getDescription self = (GioAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDescription_ self
-    fun getDisplayName self = (GioAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
-    fun getExecutable self = (GioAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getExecutable_ self
-    fun getIcon self = (GioAppInfoClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getIcon_ self
-    fun getId self = (GioAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getId_ self
-    fun getName self = (GioAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getSupportedTypes self = (GioAppInfoClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getSupportedTypes_ self
+    fun canDelete self = (GioAppInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) canDelete_ self
+    fun canRemoveSupportsType self = (GioAppInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) canRemoveSupportsType_ self
+    fun delete self = (GioAppInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) delete_ self
+    fun dup self = (GioAppInfoClass.FFI.withPtr false ---> GioAppInfoClass.FFI.fromPtr true) dup_ self
+    fun equal self appinfo2 = (GioAppInfoClass.FFI.withPtr false &&&> GioAppInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & appinfo2)
+    fun getCommandline self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCommandline_ self
+    fun getDescription self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self
+    fun getDisplayName self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
+    fun getExecutable self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getExecutable_ self
+    fun getIcon self = (GioAppInfoClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self
+    fun getId self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getId_ self
+    fun getName self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getSupportedTypes self = (GioAppInfoClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getSupportedTypes_ self
     fun removeSupportsType self contentType =
       (
-        GioAppInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioAppInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -264,8 +264,8 @@ structure GioAppInfo :>
         )
     fun setAsDefaultForExtension self extension =
       (
-        GioAppInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioAppInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -277,8 +277,8 @@ structure GioAppInfo :>
         )
     fun setAsDefaultForType self contentType =
       (
-        GioAppInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioAppInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -290,8 +290,8 @@ structure GioAppInfo :>
         )
     fun setAsLastUsedForType self contentType =
       (
-        GioAppInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioAppInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -301,7 +301,7 @@ structure GioAppInfo :>
            & contentType
            & []
         )
-    fun shouldShow self = (GioAppInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) shouldShow_ self
-    fun supportsFiles self = (GioAppInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsFiles_ self
-    fun supportsUris self = (GioAppInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) supportsUris_ self
+    fun shouldShow self = (GioAppInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) shouldShow_ self
+    fun supportsFiles self = (GioAppInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) supportsFiles_ self
+    fun supportsUris self = (GioAppInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) supportsUris_ self
   end

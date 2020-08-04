@@ -39,9 +39,9 @@ structure GioFilenameCompleter :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioFilenameCompleterClass.FFI.fromPtr true) new_ ()
-    fun getCompletionSuffix self initialText = (GioFilenameCompleterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getCompletionSuffix_ (self & initialText)
-    fun getCompletions self initialText = (GioFilenameCompleterClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getCompletions_ (self & initialText)
-    fun setDirsOnly self dirsOnly = (GioFilenameCompleterClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDirsOnly_ (self & dirsOnly)
+    fun getCompletionSuffix self initialText = (GioFilenameCompleterClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) getCompletionSuffix_ (self & initialText)
+    fun getCompletions self initialText = (GioFilenameCompleterClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) getCompletions_ (self & initialText)
+    fun setDirsOnly self dirsOnly = (GioFilenameCompleterClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setDirsOnly_ (self & dirsOnly)
     local
       open ClosureMarshal Signal
     in

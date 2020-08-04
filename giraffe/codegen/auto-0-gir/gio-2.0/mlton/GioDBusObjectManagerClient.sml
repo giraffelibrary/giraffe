@@ -29,16 +29,16 @@ structure GioDBusObjectManagerClient :>
     type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
     type d_bus_object_manager_client_flags_t = GioDBusObjectManagerClientFlags.t
     type t = base class
-    fun asAsyncInitable self = (GObjectObjectClass.FFI.withPtr ---> GioAsyncInitableClass.FFI.fromPtr false) I self
-    fun asDBusObjectManager self = (GObjectObjectClass.FFI.withPtr ---> GioDBusObjectManagerClass.FFI.fromPtr false) I self
-    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    fun asAsyncInitable self = (GObjectObjectClass.FFI.withPtr false ---> GioAsyncInitableClass.FFI.fromPtr false) I self
+    fun asDBusObjectManager self = (GObjectObjectClass.FFI.withPtr false ---> GioDBusObjectManagerClass.FFI.fromPtr false) I self
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr false ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusObjectManagerClientClass.FFI.fromPtr true) newFinish_ (res & [])
-    fun newForBusFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusObjectManagerClientClass.FFI.fromPtr true) newForBusFinish_ (res & [])
-    fun getConnection self = (GioDBusObjectManagerClientClass.FFI.withPtr ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
-    fun getFlags self = (GioDBusObjectManagerClientClass.FFI.withPtr ---> GioDBusObjectManagerClientFlags.FFI.fromVal) getFlags_ self
-    fun getName self = (GioDBusObjectManagerClientClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getNameOwner self = (GioDBusObjectManagerClientClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getNameOwner_ self
+    fun newFinish res = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioDBusObjectManagerClientClass.FFI.fromPtr true) newFinish_ (res & [])
+    fun newForBusFinish res = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioDBusObjectManagerClientClass.FFI.fromPtr true) newForBusFinish_ (res & [])
+    fun getConnection self = (GioDBusObjectManagerClientClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
+    fun getFlags self = (GioDBusObjectManagerClientClass.FFI.withPtr false ---> GioDBusObjectManagerClientFlags.FFI.fromVal) getFlags_ self
+    fun getName self = (GioDBusObjectManagerClientClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getNameOwner self = (GioDBusObjectManagerClientClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getNameOwner_ self
     local
       open ClosureMarshal Signal
     in

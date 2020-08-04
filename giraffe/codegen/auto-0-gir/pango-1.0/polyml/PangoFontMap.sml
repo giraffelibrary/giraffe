@@ -51,18 +51,18 @@ structure PangoFontMap :>
     type 'a context_class = 'a PangoContextClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun changed self = (PangoFontMapClass.FFI.withPtr ---> I) changed_ self
-    fun createContext self = (PangoFontMapClass.FFI.withPtr ---> PangoContextClass.FFI.fromPtr true) createContext_ self
-    fun getSerial self = (PangoFontMapClass.FFI.withPtr ---> GUInt.FFI.fromVal) getSerial_ self
-    fun getShapeEngineType self = (PangoFontMapClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getShapeEngineType_ self
+    fun changed self = (PangoFontMapClass.FFI.withPtr false ---> I) changed_ self
+    fun createContext self = (PangoFontMapClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr true) createContext_ self
+    fun getSerial self = (PangoFontMapClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getSerial_ self
+    fun getShapeEngineType self = (PangoFontMapClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getShapeEngineType_ self
     fun listFamilies self =
       let
         val families
          & nFamilies
          & () =
           (
-            PangoFontMapClass.FFI.withPtr
-             &&&> PangoFontFamilyClassCPtrArrayN.FFI.withRefOptPtr
+            PangoFontMapClass.FFI.withPtr false
+             &&&> PangoFontFamilyClassCPtrArrayN.FFI.withRefOptPtr 0
              &&&> GInt.FFI.withRefVal
              ---> PangoFontFamilyClassCPtrArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal
@@ -79,9 +79,9 @@ structure PangoFontMap :>
       end
     fun loadFont self (context, desc) =
       (
-        PangoFontMapClass.FFI.withPtr
-         &&&> PangoContextClass.FFI.withPtr
-         &&&> PangoFontDescriptionRecord.FFI.withPtr
+        PangoFontMapClass.FFI.withPtr false
+         &&&> PangoContextClass.FFI.withPtr false
+         &&&> PangoFontDescriptionRecord.FFI.withPtr false
          ---> PangoFontClass.FFI.fromOptPtr true
       )
         loadFont_
@@ -98,10 +98,10 @@ structure PangoFontMap :>
         language
       ) =
       (
-        PangoFontMapClass.FFI.withPtr
-         &&&> PangoContextClass.FFI.withPtr
-         &&&> PangoFontDescriptionRecord.FFI.withPtr
-         &&&> PangoLanguageRecord.FFI.withPtr
+        PangoFontMapClass.FFI.withPtr false
+         &&&> PangoContextClass.FFI.withPtr false
+         &&&> PangoFontDescriptionRecord.FFI.withPtr false
+         &&&> PangoLanguageRecord.FFI.withPtr false
          ---> PangoFontsetClass.FFI.fromOptPtr true
       )
         loadFontset_

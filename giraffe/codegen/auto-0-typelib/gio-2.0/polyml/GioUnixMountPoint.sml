@@ -21,16 +21,16 @@ structure GioUnixMountPoint :>
     end
     type t = GioUnixMountPointRecord.t
     type 'a icon_class = 'a GioIconClass.class
-    fun compare self mount2 = (GioUnixMountPointRecord.FFI.withPtr &&&> GioUnixMountPointRecord.FFI.withPtr ---> GInt32.FFI.fromVal) compare_ (self & mount2)
-    fun getDevicePath self = (GioUnixMountPointRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDevicePath_ self
-    fun getFsType self = (GioUnixMountPointRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getFsType_ self
-    fun getMountPath self = (GioUnixMountPointRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMountPath_ self
-    fun getOptions self = (GioUnixMountPointRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getOptions_ self
-    fun guessCanEject self = (GioUnixMountPointRecord.FFI.withPtr ---> GBool.FFI.fromVal) guessCanEject_ self
-    fun guessIcon self = (GioUnixMountPointRecord.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) guessIcon_ self
-    fun guessName self = (GioUnixMountPointRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) guessName_ self
-    fun guessSymbolicIcon self = (GioUnixMountPointRecord.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) guessSymbolicIcon_ self
-    fun isLoopback self = (GioUnixMountPointRecord.FFI.withPtr ---> GBool.FFI.fromVal) isLoopback_ self
-    fun isReadonly self = (GioUnixMountPointRecord.FFI.withPtr ---> GBool.FFI.fromVal) isReadonly_ self
-    fun isUserMountable self = (GioUnixMountPointRecord.FFI.withPtr ---> GBool.FFI.fromVal) isUserMountable_ self
+    fun compare self mount2 = (GioUnixMountPointRecord.FFI.withPtr false &&&> GioUnixMountPointRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) compare_ (self & mount2)
+    fun getDevicePath self = (GioUnixMountPointRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDevicePath_ self
+    fun getFsType self = (GioUnixMountPointRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getFsType_ self
+    fun getMountPath self = (GioUnixMountPointRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMountPath_ self
+    fun getOptions self = (GioUnixMountPointRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getOptions_ self
+    fun guessCanEject self = (GioUnixMountPointRecord.FFI.withPtr false ---> GBool.FFI.fromVal) guessCanEject_ self
+    fun guessIcon self = (GioUnixMountPointRecord.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) guessIcon_ self
+    fun guessName self = (GioUnixMountPointRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) guessName_ self
+    fun guessSymbolicIcon self = (GioUnixMountPointRecord.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) guessSymbolicIcon_ self
+    fun isLoopback self = (GioUnixMountPointRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isLoopback_ self
+    fun isReadonly self = (GioUnixMountPointRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isReadonly_ self
+    fun isUserMountable self = (GioUnixMountPointRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isUserMountable_ self
   end

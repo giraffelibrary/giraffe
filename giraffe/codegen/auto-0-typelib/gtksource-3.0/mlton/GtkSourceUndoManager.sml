@@ -14,14 +14,14 @@ structure GtkSourceUndoManager :>
     type 'a class = 'a GtkSourceUndoManagerClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun beginNotUndoableAction self = (GtkSourceUndoManagerClass.FFI.withPtr ---> I) beginNotUndoableAction_ self
-    fun canRedo self = (GtkSourceUndoManagerClass.FFI.withPtr ---> GBool.FFI.fromVal) canRedo_ self
-    fun canRedoChanged self = (GtkSourceUndoManagerClass.FFI.withPtr ---> I) canRedoChanged_ self
-    fun canUndo self = (GtkSourceUndoManagerClass.FFI.withPtr ---> GBool.FFI.fromVal) canUndo_ self
-    fun canUndoChanged self = (GtkSourceUndoManagerClass.FFI.withPtr ---> I) canUndoChanged_ self
-    fun endNotUndoableAction self = (GtkSourceUndoManagerClass.FFI.withPtr ---> I) endNotUndoableAction_ self
-    fun redo self = (GtkSourceUndoManagerClass.FFI.withPtr ---> I) redo_ self
-    fun undo self = (GtkSourceUndoManagerClass.FFI.withPtr ---> I) undo_ self
+    fun beginNotUndoableAction self = (GtkSourceUndoManagerClass.FFI.withPtr false ---> I) beginNotUndoableAction_ self
+    fun canRedo self = (GtkSourceUndoManagerClass.FFI.withPtr false ---> GBool.FFI.fromVal) canRedo_ self
+    fun canRedoChanged self = (GtkSourceUndoManagerClass.FFI.withPtr false ---> I) canRedoChanged_ self
+    fun canUndo self = (GtkSourceUndoManagerClass.FFI.withPtr false ---> GBool.FFI.fromVal) canUndo_ self
+    fun canUndoChanged self = (GtkSourceUndoManagerClass.FFI.withPtr false ---> I) canUndoChanged_ self
+    fun endNotUndoableAction self = (GtkSourceUndoManagerClass.FFI.withPtr false ---> I) endNotUndoableAction_ self
+    fun redo self = (GtkSourceUndoManagerClass.FFI.withPtr false ---> I) redo_ self
+    fun undo self = (GtkSourceUndoManagerClass.FFI.withPtr false ---> I) undo_ self
     local
       open ClosureMarshal Signal
     in

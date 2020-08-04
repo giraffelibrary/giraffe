@@ -40,13 +40,13 @@ structure GdkRectangle :>
             )
     type t = GdkRectangleRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun equal self rect2 = (GdkRectangleRecord.FFI.withPtr &&&> GdkRectangleRecord.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & rect2)
+    fun equal self rect2 = (GdkRectangleRecord.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & rect2)
     fun intersect self src2 =
       let
         val dest & retVal =
           (
-            GdkRectangleRecord.FFI.withPtr
-             &&&> GdkRectangleRecord.FFI.withPtr
+            GdkRectangleRecord.FFI.withPtr false
+             &&&> GdkRectangleRecord.FFI.withPtr false
              &&&> GdkRectangleRecord.FFI.withNewPtr
              ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal
           )
@@ -63,8 +63,8 @@ structure GdkRectangle :>
       let
         val dest & () =
           (
-            GdkRectangleRecord.FFI.withPtr
-             &&&> GdkRectangleRecord.FFI.withPtr
+            GdkRectangleRecord.FFI.withPtr false
+             &&&> GdkRectangleRecord.FFI.withPtr false
              &&&> GdkRectangleRecord.FFI.withNewPtr
              ---> GdkRectangleRecord.FFI.fromPtr true && I
           )

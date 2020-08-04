@@ -312,7 +312,7 @@ structure GioDBusMessage :>
         val blobLen = GUInt8CArrayN.length blob
         val retVal =
           (
-            GUInt8CArrayN.FFI.withPtr
+            GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
              &&&> GioDBusCapabilityFlags.FFI.withVal
              &&&> GLibErrorRecord.handleError
@@ -336,10 +336,10 @@ structure GioDBusMessage :>
         method
       ) =
       (
-        Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> GioDBusMessageClass.FFI.fromPtr true
       )
         newMethodCall_
@@ -356,9 +356,9 @@ structure GioDBusMessage :>
         signal
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> GioDBusMessageClass.FFI.fromPtr true
       )
         newSignal_
@@ -372,7 +372,7 @@ structure GioDBusMessage :>
         val blobLen = GUInt8CArrayN.length blob
         val retVal =
           (
-            GUInt8CArrayN.FFI.withPtr
+            GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> GSSize.FFI.fromVal
@@ -386,32 +386,32 @@ structure GioDBusMessage :>
       in
         retVal
       end
-    fun copy self = (GioDBusMessageClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusMessageClass.FFI.fromPtr true) copy_ (self & [])
-    fun getArg0 self = (GioDBusMessageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getArg0_ self
-    fun getBody self = (GioDBusMessageClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) getBody_ self
-    fun getByteOrder self = (GioDBusMessageClass.FFI.withPtr ---> GioDBusMessageByteOrder.FFI.fromVal) getByteOrder_ self
-    fun getDestination self = (GioDBusMessageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDestination_ self
-    fun getErrorName self = (GioDBusMessageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getErrorName_ self
-    fun getFlags self = (GioDBusMessageClass.FFI.withPtr ---> GioDBusMessageFlags.FFI.fromVal) getFlags_ self
-    fun getHeader self headerField = (GioDBusMessageClass.FFI.withPtr &&&> GioDBusMessageHeaderField.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr true) getHeader_ (self & headerField)
-    fun getHeaderFields self = (GioDBusMessageClass.FFI.withPtr ---> GUInt8CArray.FFI.fromPtr 0) getHeaderFields_ self
-    fun getInterface self = (GioDBusMessageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getInterface_ self
-    fun getLocked self = (GioDBusMessageClass.FFI.withPtr ---> GBool.FFI.fromVal) getLocked_ self
-    fun getMember self = (GioDBusMessageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMember_ self
-    fun getMessageType self = (GioDBusMessageClass.FFI.withPtr ---> GioDBusMessageType.FFI.fromVal) getMessageType_ self
-    fun getNumUnixFds self = (GioDBusMessageClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getNumUnixFds_ self
-    fun getPath self = (GioDBusMessageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPath_ self
-    fun getReplySerial self = (GioDBusMessageClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getReplySerial_ self
-    fun getSender self = (GioDBusMessageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSender_ self
-    fun getSerial self = (GioDBusMessageClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getSerial_ self
-    fun getSignature self = (GioDBusMessageClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSignature_ self
-    fun getUnixFdList self = (GioDBusMessageClass.FFI.withPtr ---> GioUnixFDListClass.FFI.fromPtr false) getUnixFdList_ self
-    fun lock self = (GioDBusMessageClass.FFI.withPtr ---> I) lock_ self
+    fun copy self = (GioDBusMessageClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioDBusMessageClass.FFI.fromPtr true) copy_ (self & [])
+    fun getArg0 self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getArg0_ self
+    fun getBody self = (GioDBusMessageClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) getBody_ self
+    fun getByteOrder self = (GioDBusMessageClass.FFI.withPtr false ---> GioDBusMessageByteOrder.FFI.fromVal) getByteOrder_ self
+    fun getDestination self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDestination_ self
+    fun getErrorName self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getErrorName_ self
+    fun getFlags self = (GioDBusMessageClass.FFI.withPtr false ---> GioDBusMessageFlags.FFI.fromVal) getFlags_ self
+    fun getHeader self headerField = (GioDBusMessageClass.FFI.withPtr false &&&> GioDBusMessageHeaderField.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr true) getHeader_ (self & headerField)
+    fun getHeaderFields self = (GioDBusMessageClass.FFI.withPtr false ---> GUInt8CArray.FFI.fromPtr 0) getHeaderFields_ self
+    fun getInterface self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getInterface_ self
+    fun getLocked self = (GioDBusMessageClass.FFI.withPtr false ---> GBool.FFI.fromVal) getLocked_ self
+    fun getMember self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMember_ self
+    fun getMessageType self = (GioDBusMessageClass.FFI.withPtr false ---> GioDBusMessageType.FFI.fromVal) getMessageType_ self
+    fun getNumUnixFds self = (GioDBusMessageClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getNumUnixFds_ self
+    fun getPath self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPath_ self
+    fun getReplySerial self = (GioDBusMessageClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getReplySerial_ self
+    fun getSender self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSender_ self
+    fun getSerial self = (GioDBusMessageClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getSerial_ self
+    fun getSignature self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSignature_ self
+    fun getUnixFdList self = (GioDBusMessageClass.FFI.withPtr false ---> GioUnixFDListClass.FFI.fromPtr false) getUnixFdList_ self
+    fun lock self = (GioDBusMessageClass.FFI.withPtr false ---> I) lock_ self
     fun newMethodErrorLiteral self (errorName, errorMessage) =
       (
-        GioDBusMessageClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioDBusMessageClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> GioDBusMessageClass.FFI.fromPtr true
       )
         newMethodErrorLiteral_
@@ -420,18 +420,18 @@ structure GioDBusMessage :>
            & errorName
            & errorMessage
         )
-    fun newMethodReply self = (GioDBusMessageClass.FFI.withPtr ---> GioDBusMessageClass.FFI.fromPtr true) newMethodReply_ self
-    fun print self indent = (GioDBusMessageClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) print_ (self & indent)
-    fun setBody self body = (GioDBusMessageClass.FFI.withPtr &&&> GLibVariantRecord.FFI.withPtr ---> I) setBody_ (self & body)
-    fun setByteOrder self byteOrder = (GioDBusMessageClass.FFI.withPtr &&&> GioDBusMessageByteOrder.FFI.withVal ---> I) setByteOrder_ (self & byteOrder)
-    fun setDestination self value = (GioDBusMessageClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDestination_ (self & value)
-    fun setErrorName self value = (GioDBusMessageClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setErrorName_ (self & value)
-    fun setFlags self flags = (GioDBusMessageClass.FFI.withPtr &&&> GioDBusMessageFlags.FFI.withVal ---> I) setFlags_ (self & flags)
+    fun newMethodReply self = (GioDBusMessageClass.FFI.withPtr false ---> GioDBusMessageClass.FFI.fromPtr true) newMethodReply_ self
+    fun print self indent = (GioDBusMessageClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> Utf8.FFI.fromPtr ~1) print_ (self & indent)
+    fun setBody self body = (GioDBusMessageClass.FFI.withPtr false &&&> GLibVariantRecord.FFI.withPtr false ---> I) setBody_ (self & body)
+    fun setByteOrder self byteOrder = (GioDBusMessageClass.FFI.withPtr false &&&> GioDBusMessageByteOrder.FFI.withVal ---> I) setByteOrder_ (self & byteOrder)
+    fun setDestination self value = (GioDBusMessageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDestination_ (self & value)
+    fun setErrorName self value = (GioDBusMessageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setErrorName_ (self & value)
+    fun setFlags self flags = (GioDBusMessageClass.FFI.withPtr false &&&> GioDBusMessageFlags.FFI.withVal ---> I) setFlags_ (self & flags)
     fun setHeader self (headerField, value) =
       (
-        GioDBusMessageClass.FFI.withPtr
+        GioDBusMessageClass.FFI.withPtr false
          &&&> GioDBusMessageHeaderField.FFI.withVal
-         &&&> GLibVariantRecord.FFI.withOptPtr
+         &&&> GLibVariantRecord.FFI.withOptPtr false
          ---> I
       )
         setHeader_
@@ -440,25 +440,25 @@ structure GioDBusMessage :>
            & headerField
            & value
         )
-    fun setInterface self value = (GioDBusMessageClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setInterface_ (self & value)
-    fun setMember self value = (GioDBusMessageClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setMember_ (self & value)
-    fun setMessageType self type' = (GioDBusMessageClass.FFI.withPtr &&&> GioDBusMessageType.FFI.withVal ---> I) setMessageType_ (self & type')
-    fun setNumUnixFds self value = (GioDBusMessageClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setNumUnixFds_ (self & value)
-    fun setPath self value = (GioDBusMessageClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setPath_ (self & value)
-    fun setReplySerial self value = (GioDBusMessageClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setReplySerial_ (self & value)
-    fun setSender self value = (GioDBusMessageClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setSender_ (self & value)
-    fun setSerial self serial = (GioDBusMessageClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setSerial_ (self & serial)
-    fun setSignature self value = (GioDBusMessageClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setSignature_ (self & value)
-    fun setUnixFdList self fdList = (GioDBusMessageClass.FFI.withPtr &&&> GioUnixFDListClass.FFI.withOptPtr ---> I) setUnixFdList_ (self & fdList)
+    fun setInterface self value = (GioDBusMessageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setInterface_ (self & value)
+    fun setMember self value = (GioDBusMessageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setMember_ (self & value)
+    fun setMessageType self type' = (GioDBusMessageClass.FFI.withPtr false &&&> GioDBusMessageType.FFI.withVal ---> I) setMessageType_ (self & type')
+    fun setNumUnixFds self value = (GioDBusMessageClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setNumUnixFds_ (self & value)
+    fun setPath self value = (GioDBusMessageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setPath_ (self & value)
+    fun setReplySerial self value = (GioDBusMessageClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setReplySerial_ (self & value)
+    fun setSender self value = (GioDBusMessageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setSender_ (self & value)
+    fun setSerial self serial = (GioDBusMessageClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setSerial_ (self & serial)
+    fun setSignature self value = (GioDBusMessageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setSignature_ (self & value)
+    fun setUnixFdList self fdList = (GioDBusMessageClass.FFI.withPtr false &&&> GioUnixFDListClass.FFI.withOptPtr false ---> I) setUnixFdList_ (self & fdList)
     fun toBlob self capabilities =
       let
         val outSize & retVal =
           (
-            GioDBusMessageClass.FFI.withPtr
+            GioDBusMessageClass.FFI.withPtr false
              &&&> GSize.FFI.withRefVal
              &&&> GioDBusCapabilityFlags.FFI.withVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr ~1
           )
             toBlob_
             (
@@ -470,7 +470,7 @@ structure GioDBusMessage :>
       in
         retVal outSize
       end
-    fun toGerror self = (GioDBusMessageClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) toGerror_ (self & [])
+    fun toGerror self = (GioDBusMessageClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) toGerror_ (self & [])
     local
       open Property
     in

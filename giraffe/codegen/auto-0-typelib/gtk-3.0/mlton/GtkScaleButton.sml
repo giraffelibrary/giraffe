@@ -68,11 +68,11 @@ structure GtkScaleButton :>
     type 'a adjustment_class = 'a GtkAdjustmentClass.class
     type icon_size_t = GtkIconSize.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActionableClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -87,7 +87,7 @@ structure GtkScaleButton :>
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
-         &&&> Utf8CPtrArray.FFI.withOptPtr
+         &&&> Utf8CPtrArray.FFI.withOptPtr 0
          ---> GtkScaleButtonClass.FFI.fromPtr false
       )
         new_
@@ -98,14 +98,14 @@ structure GtkScaleButton :>
            & step
            & icons
         )
-    fun getAdjustment self = (GtkScaleButtonClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self
-    fun getMinusButton self = (GtkScaleButtonClass.FFI.withPtr ---> GtkButtonClass.FFI.fromPtr false) getMinusButton_ self
-    fun getPlusButton self = (GtkScaleButtonClass.FFI.withPtr ---> GtkButtonClass.FFI.fromPtr false) getPlusButton_ self
-    fun getPopup self = (GtkScaleButtonClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getPopup_ self
-    fun getValue self = (GtkScaleButtonClass.FFI.withPtr ---> GDouble.FFI.fromVal) getValue_ self
-    fun setAdjustment self adjustment = (GtkScaleButtonClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withPtr ---> I) setAdjustment_ (self & adjustment)
-    fun setIcons self icons = (GtkScaleButtonClass.FFI.withPtr &&&> Utf8CPtrArray.FFI.withPtr ---> I) setIcons_ (self & icons)
-    fun setValue self value = (GtkScaleButtonClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setValue_ (self & value)
+    fun getAdjustment self = (GtkScaleButtonClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self
+    fun getMinusButton self = (GtkScaleButtonClass.FFI.withPtr false ---> GtkButtonClass.FFI.fromPtr false) getMinusButton_ self
+    fun getPlusButton self = (GtkScaleButtonClass.FFI.withPtr false ---> GtkButtonClass.FFI.fromPtr false) getPlusButton_ self
+    fun getPopup self = (GtkScaleButtonClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getPopup_ self
+    fun getValue self = (GtkScaleButtonClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getValue_ self
+    fun setAdjustment self adjustment = (GtkScaleButtonClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withPtr false ---> I) setAdjustment_ (self & adjustment)
+    fun setIcons self icons = (GtkScaleButtonClass.FFI.withPtr false &&&> Utf8CPtrArray.FFI.withPtr 0 ---> I) setIcons_ (self & icons)
+    fun setValue self value = (GtkScaleButtonClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setValue_ (self & value)
     local
       open ClosureMarshal Signal
     in

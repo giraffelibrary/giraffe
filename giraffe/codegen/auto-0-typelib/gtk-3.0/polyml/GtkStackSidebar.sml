@@ -16,12 +16,12 @@ structure GtkStackSidebar :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a stack_class = 'a GtkStackClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkStackSidebarClass.FFI.fromPtr false) new_ ()
-    fun getStack self = (GtkStackSidebarClass.FFI.withPtr ---> GtkStackClass.FFI.fromOptPtr false) getStack_ self
-    fun setStack self stack = (GtkStackSidebarClass.FFI.withPtr &&&> GtkStackClass.FFI.withPtr ---> I) setStack_ (self & stack)
+    fun getStack self = (GtkStackSidebarClass.FFI.withPtr false ---> GtkStackClass.FFI.fromOptPtr false) getStack_ self
+    fun setStack self stack = (GtkStackSidebarClass.FFI.withPtr false &&&> GtkStackClass.FFI.withPtr false ---> I) setStack_ (self & stack)
     local
       open Property
     in

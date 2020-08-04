@@ -13,5 +13,5 @@ structure AtkHyperlinkImpl :>
     type 'a hyperlink_class = 'a AtkHyperlinkClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getHyperlink self = (AtkHyperlinkImplClass.FFI.withPtr ---> AtkHyperlinkClass.FFI.fromPtr true) getHyperlink_ self
+    fun getHyperlink self = (AtkHyperlinkImplClass.FFI.withPtr false ---> AtkHyperlinkClass.FFI.fromPtr true) getHyperlink_ self
   end

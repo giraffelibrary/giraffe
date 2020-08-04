@@ -3220,7 +3220,7 @@ structure Gtk : GTK =
         accelMods
       ) =
       (
-        GObjectObjectClass.FFI.withPtr
+        GObjectObjectClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -3232,7 +3232,7 @@ structure Gtk : GTK =
            & accelMods
         )
     fun acceleratorGetDefaultModMask () = (I ---> GdkModifierType.FFI.fromVal) acceleratorGetDefaultModMask_ ()
-    fun acceleratorGetLabel (acceleratorKey, acceleratorMods) = (GUInt.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> Utf8.FFI.fromPtr 1) acceleratorGetLabel_ (acceleratorKey & acceleratorMods)
+    fun acceleratorGetLabel (acceleratorKey, acceleratorMods) = (GUInt.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> Utf8.FFI.fromPtr ~1) acceleratorGetLabel_ (acceleratorKey & acceleratorMods)
     fun acceleratorGetLabelWithKeycode
       (
         display,
@@ -3241,11 +3241,11 @@ structure Gtk : GTK =
         acceleratorMods
       ) =
       (
-        GdkDisplayClass.FFI.withOptPtr
+        GdkDisplayClass.FFI.withOptPtr false
          &&&> GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromPtr ~1
       )
         acceleratorGetLabelWithKeycode_
         (
@@ -3254,7 +3254,7 @@ structure Gtk : GTK =
            & keycode
            & acceleratorMods
         )
-    fun acceleratorName (acceleratorKey, acceleratorMods) = (GUInt.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> Utf8.FFI.fromPtr 1) acceleratorName_ (acceleratorKey & acceleratorMods)
+    fun acceleratorName (acceleratorKey, acceleratorMods) = (GUInt.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> Utf8.FFI.fromPtr ~1) acceleratorName_ (acceleratorKey & acceleratorMods)
     fun acceleratorNameWithKeycode
       (
         display,
@@ -3263,11 +3263,11 @@ structure Gtk : GTK =
         acceleratorMods
       ) =
       (
-        GdkDisplayClass.FFI.withOptPtr
+        GdkDisplayClass.FFI.withOptPtr false
          &&&> GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromPtr ~1
       )
         acceleratorNameWithKeycode_
         (
@@ -3282,7 +3282,7 @@ structure Gtk : GTK =
          & acceleratorMods
          & () =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GUInt.FFI.withRefVal
              &&&> GdkModifierType.FFI.withRefVal
              ---> GUInt.FFI.fromVal
@@ -3305,12 +3305,12 @@ structure Gtk : GTK =
          & acceleratorMods
          & () =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GUInt.FFI.withRefVal
-             &&&> GUIntCArray.FFI.withRefOptPtr
+             &&&> GUIntCArray.FFI.withRefOptPtr 0
              &&&> GdkModifierType.FFI.withRefVal
              ---> GUInt.FFI.fromVal
-                   && GUIntCArray.FFI.fromPtr 1
+                   && GUIntCArray.FFI.fromPtr ~1
                    && GdkModifierType.FFI.fromVal
                    && I
           )
@@ -3330,8 +3330,8 @@ structure Gtk : GTK =
       end
     fun acceleratorSetDefaultModMask defaultModMask = (GdkModifierType.FFI.withVal ---> I) acceleratorSetDefaultModMask_ defaultModMask
     fun acceleratorValid (keyval, modifiers) = (GUInt.FFI.withVal &&&> GdkModifierType.FFI.withVal ---> GBool.FFI.fromVal) acceleratorValid_ (keyval & modifiers)
-    fun alternativeDialogButtonOrder screen = (GdkScreenClass.FFI.withOptPtr ---> GBool.FFI.fromVal) alternativeDialogButtonOrder_ screen
-    fun cairoShouldDrawWindow (cr, window) = (CairoContextRecord.FFI.withPtr &&&> GdkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) cairoShouldDrawWindow_ (cr & window)
+    fun alternativeDialogButtonOrder screen = (GdkScreenClass.FFI.withOptPtr false ---> GBool.FFI.fromVal) alternativeDialogButtonOrder_ screen
+    fun cairoShouldDrawWindow (cr, window) = (CairoContextRecord.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) cairoShouldDrawWindow_ (cr & window)
     fun cairoTransformToWindow
       (
         cr,
@@ -3339,9 +3339,9 @@ structure Gtk : GTK =
         window
       ) =
       (
-        CairoContextRecord.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
-         &&&> GdkWindowClass.FFI.withPtr
+        CairoContextRecord.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
+         &&&> GdkWindowClass.FFI.withPtr false
          ---> I
       )
         cairoTransformToWindow_
@@ -3375,8 +3375,8 @@ structure Gtk : GTK =
         blockOthers
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GdkDeviceClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkDeviceClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -3386,9 +3386,9 @@ structure Gtk : GTK =
            & device
            & blockOthers
         )
-    fun deviceGrabRemove (widget, device) = (GtkWidgetClass.FFI.withPtr &&&> GdkDeviceClass.FFI.withPtr ---> I) deviceGrabRemove_ (widget & device)
+    fun deviceGrabRemove (widget, device) = (GtkWidgetClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> I) deviceGrabRemove_ (widget & device)
     fun disableSetlocale () = (I ---> I) disableSetlocale_ ()
-    fun dragCancel context = (GdkDragContextClass.FFI.withPtr ---> I) dragCancel_ context
+    fun dragCancel context = (GdkDragContextClass.FFI.withPtr false ---> I) dragCancel_ context
     fun dragFinish
       (
         context,
@@ -3397,7 +3397,7 @@ structure Gtk : GTK =
         time
       ) =
       (
-        GdkDragContextClass.FFI.withPtr
+        GdkDragContextClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GUInt32.FFI.withVal
@@ -3410,8 +3410,8 @@ structure Gtk : GTK =
            & del
            & time
         )
-    fun dragGetSourceWidget context = (GdkDragContextClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) dragGetSourceWidget_ context
-    fun dragSetIconDefault context = (GdkDragContextClass.FFI.withPtr ---> I) dragSetIconDefault_ context
+    fun dragGetSourceWidget context = (GdkDragContextClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) dragGetSourceWidget_ context
+    fun dragSetIconDefault context = (GdkDragContextClass.FFI.withPtr false ---> I) dragSetIconDefault_ context
     fun dragSetIconGicon
       (
         context,
@@ -3420,8 +3420,8 @@ structure Gtk : GTK =
         hotY
       ) =
       (
-        GdkDragContextClass.FFI.withPtr
-         &&&> GioIconClass.FFI.withPtr
+        GdkDragContextClass.FFI.withPtr false
+         &&&> GioIconClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -3441,8 +3441,8 @@ structure Gtk : GTK =
         hotY
       ) =
       (
-        GdkDragContextClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GdkDragContextClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -3462,8 +3462,8 @@ structure Gtk : GTK =
         hotY
       ) =
       (
-        GdkDragContextClass.FFI.withPtr
-         &&&> GdkPixbufPixbufClass.FFI.withPtr
+        GdkDragContextClass.FFI.withPtr false
+         &&&> GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -3483,8 +3483,8 @@ structure Gtk : GTK =
         hotY
       ) =
       (
-        GdkDragContextClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GdkDragContextClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -3496,7 +3496,7 @@ structure Gtk : GTK =
            & hotX
            & hotY
         )
-    fun dragSetIconSurface (context, surface) = (GdkDragContextClass.FFI.withPtr &&&> CairoSurfaceRecord.FFI.withPtr ---> I) dragSetIconSurface_ (context & surface)
+    fun dragSetIconSurface (context, surface) = (GdkDragContextClass.FFI.withPtr false &&&> CairoSurfaceRecord.FFI.withPtr false ---> I) dragSetIconSurface_ (context & surface)
     fun dragSetIconWidget
       (
         context,
@@ -3505,8 +3505,8 @@ structure Gtk : GTK =
         hotY
       ) =
       (
-        GdkDragContextClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GdkDragContextClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -3528,9 +3528,9 @@ structure Gtk : GTK =
         drawArrow
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GtkTextDirection.FFI.withVal
          &&&> GBool.FFI.withVal
@@ -3558,7 +3558,7 @@ structure Gtk : GTK =
     fun getCurrentEventTime () = (I ---> GUInt32.FFI.fromVal) getCurrentEventTime_ ()
     fun getDebugFlags () = (I ---> GUInt.FFI.fromVal) getDebugFlags_ ()
     fun getDefaultLanguage () = (I ---> PangoLanguageRecord.FFI.fromPtr false) getDefaultLanguage_ ()
-    fun getEventWidget event = (GdkEvent.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getEventWidget_ event
+    fun getEventWidget event = (GdkEvent.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getEventWidget_ event
     fun getInterfaceAge () = (I ---> GUInt.FFI.fromVal) getInterfaceAge_ ()
     fun getLocaleDirection () = (I ---> GtkTextDirection.FFI.fromVal) getLocaleDirection_ ()
     fun getMajorVersion () = (I ---> GUInt.FFI.fromVal) getMajorVersion_ ()
@@ -3573,9 +3573,9 @@ structure Gtk : GTK =
          & argv
          & () =
           (
-            GInt.FFI.withRefVal &&&> Utf8CPtrArrayN.FFI.withRefDupPtr 2
+            GInt.FFI.withRefVal &&&> Utf8CPtrArrayN.FFI.withRefPtr ~1
              ---> GInt.FFI.fromVal
-                   && Utf8CPtrArrayN.FFI.fromPtr 2
+                   && Utf8CPtrArrayN.FFI.fromPtr ~1
                    && I
           )
             init_
@@ -3590,9 +3590,9 @@ structure Gtk : GTK =
          & argv
          & retVal =
           (
-            GInt.FFI.withRefVal &&&> Utf8CPtrArrayN.FFI.withRefDupPtr 2
+            GInt.FFI.withRefVal &&&> Utf8CPtrArrayN.FFI.withRefPtr ~1
              ---> GInt.FFI.fromVal
-                   && Utf8CPtrArrayN.FFI.fromPtr 2
+                   && Utf8CPtrArrayN.FFI.fromPtr ~1
                    && GBool.FFI.fromVal
           )
             initCheck_
@@ -3602,7 +3602,7 @@ structure Gtk : GTK =
       end
     fun keySnooperRemove snooperHandlerId = (GUInt.FFI.withVal ---> I) keySnooperRemove_ snooperHandlerId
     fun main () = (I ---> I) main_ ()
-    fun mainDoEvent event = (GdkEvent.FFI.withPtr ---> I) mainDoEvent_ event
+    fun mainDoEvent event = (GdkEvent.FFI.withPtr false ---> I) mainDoEvent_ event
     fun mainIteration () = (I ---> GBool.FFI.fromVal) mainIteration_ ()
     fun mainIterationDo blocking = (GBool.FFI.withVal ---> GBool.FFI.fromVal) mainIterationDo_ blocking
     fun mainLevel () = (I ---> GUInt.FFI.fromVal) mainLevel_ ()
@@ -3623,12 +3623,12 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GtkArrowType.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -3666,12 +3666,12 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -3708,12 +3708,12 @@ structure Gtk : GTK =
         gapWidth
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -3753,12 +3753,12 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -3792,12 +3792,12 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -3829,11 +3829,11 @@ structure Gtk : GTK =
         expanderStyle
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GtkExpanderStyle.FFI.withVal
@@ -3865,12 +3865,12 @@ structure Gtk : GTK =
         gapSide
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -3906,12 +3906,12 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -3944,11 +3944,11 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -3982,12 +3982,12 @@ structure Gtk : GTK =
         orientation
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -4021,11 +4021,11 @@ structure Gtk : GTK =
         y
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -4055,15 +4055,15 @@ structure Gtk : GTK =
         layout
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GBool.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         &&&> PangoLayoutClass.FFI.withPtr
+         &&&> PangoLayoutClass.FFI.withPtr false
          ---> I
       )
         paintLayout_
@@ -4092,12 +4092,12 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -4131,11 +4131,11 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GdkWindowEdge.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -4170,12 +4170,12 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -4212,12 +4212,12 @@ structure Gtk : GTK =
         gapWidth
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -4258,12 +4258,12 @@ structure Gtk : GTK =
         orientation
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -4299,11 +4299,11 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GUInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -4338,12 +4338,12 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GtkShadowType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -4375,11 +4375,11 @@ structure Gtk : GTK =
         x
       ) =
       (
-        GtkStyleClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -4403,9 +4403,9 @@ structure Gtk : GTK =
          & argv
          & retVal =
           (
-            GInt.FFI.withRefVal &&&> Utf8CPtrArrayN.FFI.withRefDupPtr 2
+            GInt.FFI.withRefVal &&&> Utf8CPtrArrayN.FFI.withRefPtr ~1
              ---> GInt.FFI.fromVal
-                   && Utf8CPtrArrayN.FFI.fromPtr 2
+                   && Utf8CPtrArrayN.FFI.fromPtr ~1
                    && GBool.FFI.fromVal
           )
             parseArgs_
@@ -4420,9 +4420,9 @@ structure Gtk : GTK =
         settings
       ) =
       (
-        GtkWindowClass.FFI.withOptPtr
-         &&&> GtkPageSetupClass.FFI.withOptPtr
-         &&&> GtkPrintSettingsClass.FFI.withPtr
+        GtkWindowClass.FFI.withOptPtr false
+         &&&> GtkPageSetupClass.FFI.withOptPtr false
+         &&&> GtkPrintSettingsClass.FFI.withPtr false
          ---> GtkPageSetupClass.FFI.fromPtr true
       )
         printRunPageSetupDialog_
@@ -4431,14 +4431,14 @@ structure Gtk : GTK =
            & pageSetup
            & settings
         )
-    fun propagateEvent (widget, event) = (GtkWidgetClass.FFI.withPtr &&&> GdkEvent.FFI.withPtr ---> I) propagateEvent_ (widget & event)
-    fun rcAddDefaultFile filename = (Utf8.FFI.withPtr ---> I) rcAddDefaultFile_ filename
-    fun rcFindModuleInPath moduleFile = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) rcFindModuleInPath_ moduleFile
+    fun propagateEvent (widget, event) = (GtkWidgetClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> I) propagateEvent_ (widget & event)
+    fun rcAddDefaultFile filename = (Utf8.FFI.withPtr 0 ---> I) rcAddDefaultFile_ filename
+    fun rcFindModuleInPath moduleFile = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) rcFindModuleInPath_ moduleFile
     fun rcGetDefaultFiles () = (I ---> Utf8CPtrArray.FFI.fromPtr 0) rcGetDefaultFiles_ ()
-    fun rcGetImModuleFile () = (I ---> Utf8.FFI.fromPtr 1) rcGetImModuleFile_ ()
-    fun rcGetImModulePath () = (I ---> Utf8.FFI.fromPtr 1) rcGetImModulePath_ ()
-    fun rcGetModuleDir () = (I ---> Utf8.FFI.fromPtr 1) rcGetModuleDir_ ()
-    fun rcGetStyle widget = (GtkWidgetClass.FFI.withPtr ---> GtkStyleClass.FFI.fromPtr false) rcGetStyle_ widget
+    fun rcGetImModuleFile () = (I ---> Utf8.FFI.fromPtr ~1) rcGetImModuleFile_ ()
+    fun rcGetImModulePath () = (I ---> Utf8.FFI.fromPtr ~1) rcGetImModulePath_ ()
+    fun rcGetModuleDir () = (I ---> Utf8.FFI.fromPtr ~1) rcGetModuleDir_ ()
+    fun rcGetStyle widget = (GtkWidgetClass.FFI.withPtr false ---> GtkStyleClass.FFI.fromPtr false) rcGetStyle_ widget
     fun rcGetStyleByPaths
       (
         settings,
@@ -4447,9 +4447,9 @@ structure Gtk : GTK =
         type'
       ) =
       (
-        GtkSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+        GtkSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GObjectType.FFI.withVal
          ---> GtkStyleClass.FFI.fromOptPtr false
       )
@@ -4460,13 +4460,13 @@ structure Gtk : GTK =
            & classPath
            & type'
         )
-    fun rcGetThemeDir () = (I ---> Utf8.FFI.fromPtr 1) rcGetThemeDir_ ()
-    fun rcParse filename = (Utf8.FFI.withPtr ---> I) rcParse_ filename
-    fun rcParseString rcString = (Utf8.FFI.withPtr ---> I) rcParseString_ rcString
+    fun rcGetThemeDir () = (I ---> Utf8.FFI.fromPtr ~1) rcGetThemeDir_ ()
+    fun rcParse filename = (Utf8.FFI.withPtr 0 ---> I) rcParse_ filename
+    fun rcParseString rcString = (Utf8.FFI.withPtr 0 ---> I) rcParseString_ rcString
     fun rcReparseAll () = (I ---> GBool.FFI.fromVal) rcReparseAll_ ()
-    fun rcReparseAllForSettings (settings, forceLoad) = (GtkSettingsClass.FFI.withPtr &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) rcReparseAllForSettings_ (settings & forceLoad)
-    fun rcResetStyles settings = (GtkSettingsClass.FFI.withPtr ---> I) rcResetStyles_ settings
-    fun rcSetDefaultFiles filenames = (Utf8CPtrArray.FFI.withPtr ---> I) rcSetDefaultFiles_ filenames
+    fun rcReparseAllForSettings (settings, forceLoad) = (GtkSettingsClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) rcReparseAllForSettings_ (settings & forceLoad)
+    fun rcResetStyles settings = (GtkSettingsClass.FFI.withPtr false ---> I) rcResetStyles_ settings
+    fun rcSetDefaultFiles filenames = (Utf8CPtrArray.FFI.withPtr 0 ---> I) rcSetDefaultFiles_ filenames
     fun renderActivity
       (
         context,
@@ -4477,8 +4477,8 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -4504,8 +4504,8 @@ structure Gtk : GTK =
         size
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -4531,8 +4531,8 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -4559,7 +4559,7 @@ structure Gtk : GTK =
       let
         val outClip & () =
           (
-            GtkStyleContextClass.FFI.withPtr
+            GtkStyleContextClass.FFI.withPtr false
              &&&> GDouble.FFI.withVal
              &&&> GDouble.FFI.withVal
              &&&> GDouble.FFI.withVal
@@ -4589,8 +4589,8 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -4616,8 +4616,8 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -4644,8 +4644,8 @@ structure Gtk : GTK =
         gapSide
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -4673,8 +4673,8 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -4700,8 +4700,8 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -4730,8 +4730,8 @@ structure Gtk : GTK =
         xy1Gap
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -4763,8 +4763,8 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -4789,9 +4789,9 @@ structure Gtk : GTK =
         y
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
-         &&&> GdkPixbufPixbufClass.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
+         &&&> GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          ---> I
@@ -4811,8 +4811,8 @@ structure Gtk : GTK =
         size
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> GtkIconSourceRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> GtkIconSourceRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          ---> GdkPixbufPixbufClass.FFI.fromPtr true
       )
@@ -4831,9 +4831,9 @@ structure Gtk : GTK =
         y
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
-         &&&> CairoSurfaceRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
+         &&&> CairoSurfaceRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          ---> I
@@ -4857,11 +4857,11 @@ structure Gtk : GTK =
         direction
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
-         &&&> PangoLayoutClass.FFI.withPtr
+         &&&> PangoLayoutClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> PangoDirection.FFI.withVal
          ---> I
@@ -4885,11 +4885,11 @@ structure Gtk : GTK =
         layout
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
-         &&&> PangoLayoutClass.FFI.withPtr
+         &&&> PangoLayoutClass.FFI.withPtr false
          ---> I
       )
         renderLayout_
@@ -4910,8 +4910,8 @@ structure Gtk : GTK =
         y1
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -4937,8 +4937,8 @@ structure Gtk : GTK =
         height
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -4965,8 +4965,8 @@ structure Gtk : GTK =
         orientation
       ) =
       (
-        GtkStyleContextClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
+        GtkStyleContextClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -5031,9 +5031,9 @@ structure Gtk : GTK =
         info
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GdkAtomRecord.FFI.withPtr
-         &&&> GdkAtomRecord.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkAtomRecord.FFI.withPtr false
+         &&&> GdkAtomRecord.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          ---> I
       )
@@ -5054,9 +5054,9 @@ structure Gtk : GTK =
         val ntargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
-            GtkWidgetClass.FFI.withPtr
-             &&&> GdkAtomRecord.FFI.withPtr
-             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
+            GtkWidgetClass.FFI.withPtr false
+             &&&> GdkAtomRecord.FFI.withPtr false
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr 0
              &&&> GUInt.FFI.withVal
              ---> I
           )
@@ -5070,7 +5070,7 @@ structure Gtk : GTK =
       in
         ()
       end
-    fun selectionClearTargets (widget, selection) = (GtkWidgetClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) selectionClearTargets_ (widget & selection)
+    fun selectionClearTargets (widget, selection) = (GtkWidgetClass.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> I) selectionClearTargets_ (widget & selection)
     fun selectionConvert
       (
         widget,
@@ -5079,9 +5079,9 @@ structure Gtk : GTK =
         time
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> GdkAtomRecord.FFI.withPtr
-         &&&> GdkAtomRecord.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkAtomRecord.FFI.withPtr false
+         &&&> GdkAtomRecord.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -5099,8 +5099,8 @@ structure Gtk : GTK =
         time
       ) =
       (
-        GtkWidgetClass.FFI.withOptPtr
-         &&&> GdkAtomRecord.FFI.withPtr
+        GtkWidgetClass.FFI.withOptPtr false
+         &&&> GdkAtomRecord.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -5118,9 +5118,9 @@ structure Gtk : GTK =
         time
       ) =
       (
-        GdkDisplayClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> GdkAtomRecord.FFI.withPtr
+        GdkDisplayClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> GdkAtomRecord.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -5131,7 +5131,7 @@ structure Gtk : GTK =
            & selection
            & time
         )
-    fun selectionRemoveAll widget = (GtkWidgetClass.FFI.withPtr ---> I) selectionRemoveAll_ widget
+    fun selectionRemoveAll widget = (GtkWidgetClass.FFI.withPtr false ---> I) selectionRemoveAll_ widget
     fun setDebugFlags flags = (GUInt.FFI.withVal ---> I) setDebugFlags_ flags
     fun showUri
       (
@@ -5140,8 +5140,8 @@ structure Gtk : GTK =
         timestamp
       ) =
       (
-        GdkScreenClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
+        GdkScreenClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> ignore
@@ -5160,8 +5160,8 @@ structure Gtk : GTK =
         timestamp
       ) =
       (
-        GtkWindowClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
+        GtkWindowClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> ignore
@@ -5176,33 +5176,33 @@ structure Gtk : GTK =
     fun stockAdd items =
       let
         val nItems = LargeInt.fromInt (GtkStockItemRecordCArrayN.length items)
-        val () = (GtkStockItemRecordCArrayN.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) stockAdd_ (items & nItems)
+        val () = (GtkStockItemRecordCArrayN.FFI.withPtr 0 &&&> GUInt.FFI.withVal ---> I) stockAdd_ (items & nItems)
       in
         ()
       end
     fun stockAddStatic items =
       let
         val nItems = LargeInt.fromInt (GtkStockItemRecordCArrayN.length items)
-        val () = (GtkStockItemRecordCArrayN.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) stockAddStatic_ (items & nItems)
+        val () = (GtkStockItemRecordCArrayN.FFI.withPtr 0 &&&> GUInt.FFI.withVal ---> I) stockAddStatic_ (items & nItems)
       in
         ()
       end
     fun stockLookup stockId =
       let
-        val item & retVal = (Utf8.FFI.withPtr &&&> GtkStockItemRecord.FFI.withNewPtr ---> GtkStockItemRecord.FFI.fromPtr true && GBool.FFI.fromVal) stockLookup_ (stockId & ())
+        val item & retVal = (Utf8.FFI.withPtr 0 &&&> GtkStockItemRecord.FFI.withNewPtr ---> GtkStockItemRecord.FFI.fromPtr true && GBool.FFI.fromVal) stockLookup_ (stockId & ())
       in
         if retVal then SOME item else NONE
       end
     fun targetTableFree targets =
       let
         val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
-        val () = (GtkTargetEntryRecordCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> I) targetTableFree_ (targets & nTargets)
+        val () = (GtkTargetEntryRecordCArrayN.FFI.withPtr 0 &&&> GInt.FFI.withVal ---> I) targetTableFree_ (targets & nTargets)
       in
         ()
       end
     fun targetTableNewFromList list =
       let
-        val nTargets & retVal = (GtkTargetListRecord.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GtkTargetEntryRecordCArrayN.FFI.fromPtr 1) targetTableNewFromList_ (list & GInt.null)
+        val nTargets & retVal = (GtkTargetListRecord.FFI.withPtr false &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GtkTargetEntryRecordCArrayN.FFI.fromPtr ~1) targetTableNewFromList_ (list & GInt.null)
       in
         retVal (LargeInt.toInt nTargets)
       end
@@ -5211,7 +5211,7 @@ structure Gtk : GTK =
         val nTargets = LargeInt.fromInt (GdkAtomRecordCPtrArrayN.length targets)
         val retVal =
           (
-            GdkAtomRecordCPtrArrayN.FFI.withPtr
+            GdkAtomRecordCPtrArrayN.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              &&&> GBool.FFI.withVal
              ---> GBool.FFI.fromVal
@@ -5230,9 +5230,9 @@ structure Gtk : GTK =
         val nTargets = LargeInt.fromInt (GdkAtomRecordCPtrArrayN.length targets)
         val retVal =
           (
-            GdkAtomRecordCPtrArrayN.FFI.withPtr
+            GdkAtomRecordCPtrArrayN.FFI.withPtr 0
              &&&> GInt.FFI.withVal
-             &&&> GtkTextBufferClass.FFI.withPtr
+             &&&> GtkTextBufferClass.FFI.withPtr false
              ---> GBool.FFI.fromVal
           )
             targetsIncludeRichText_
@@ -5247,20 +5247,20 @@ structure Gtk : GTK =
     fun targetsIncludeText targets =
       let
         val nTargets = LargeInt.fromInt (GdkAtomRecordCPtrArrayN.length targets)
-        val retVal = (GdkAtomRecordCPtrArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeText_ (targets & nTargets)
+        val retVal = (GdkAtomRecordCPtrArrayN.FFI.withPtr 0 &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeText_ (targets & nTargets)
       in
         retVal
       end
     fun targetsIncludeUri targets =
       let
         val nTargets = LargeInt.fromInt (GdkAtomRecordCPtrArrayN.length targets)
-        val retVal = (GdkAtomRecordCPtrArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeUri_ (targets & nTargets)
+        val retVal = (GdkAtomRecordCPtrArrayN.FFI.withPtr 0 &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) targetsIncludeUri_ (targets & nTargets)
       in
         retVal
       end
-    fun testCreateSimpleWindow (windowTitle, dialogText) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
-    fun testFindLabel (widget, labelPattern) = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) testFindLabel_ (widget & labelPattern)
-    fun testFindSibling (baseWidget, widgetType) = (GtkWidgetClass.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) testFindSibling_ (baseWidget & widgetType)
+    fun testCreateSimpleWindow (windowTitle, dialogText) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
+    fun testFindLabel (widget, labelPattern) = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromPtr false) testFindLabel_ (widget & labelPattern)
+    fun testFindSibling (baseWidget, widgetType) = (GtkWidgetClass.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) testFindSibling_ (baseWidget & widgetType)
     fun testFindWidget
       (
         widget,
@@ -5268,8 +5268,8 @@ structure Gtk : GTK =
         widgetType
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GObjectType.FFI.withVal
          ---> GtkWidgetClass.FFI.fromOptPtr false
       )
@@ -5286,8 +5286,8 @@ structure Gtk : GTK =
         retVal
       end
     fun testRegisterAllTypes () = (I ---> I) testRegisterAllTypes_ ()
-    fun testSliderGetValue widget = (GtkWidgetClass.FFI.withPtr ---> GDouble.FFI.fromVal) testSliderGetValue_ widget
-    fun testSliderSetPerc (widget, percentage) = (GtkWidgetClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) testSliderSetPerc_ (widget & percentage)
+    fun testSliderGetValue widget = (GtkWidgetClass.FFI.withPtr false ---> GDouble.FFI.fromVal) testSliderGetValue_ widget
+    fun testSliderSetPerc (widget, percentage) = (GtkWidgetClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) testSliderSetPerc_ (widget & percentage)
     fun testSpinButtonClick
       (
         spinner,
@@ -5295,7 +5295,7 @@ structure Gtk : GTK =
         upwards
       ) =
       (
-        GtkSpinButtonClass.FFI.withPtr
+        GtkSpinButtonClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -5306,8 +5306,8 @@ structure Gtk : GTK =
            & button
            & upwards
         )
-    fun testTextGet widget = (GtkWidgetClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) testTextGet_ widget
-    fun testTextSet (widget, string) = (GtkWidgetClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) testTextSet_ (widget & string)
+    fun testTextGet widget = (GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) testTextGet_ widget
+    fun testTextSet (widget, string) = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) testTextSet_ (widget & string)
     fun testWidgetClick
       (
         widget,
@@ -5315,7 +5315,7 @@ structure Gtk : GTK =
         modifiers
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -5333,7 +5333,7 @@ structure Gtk : GTK =
         modifiers
       ) =
       (
-        GtkWidgetClass.FFI.withPtr
+        GtkWidgetClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -5344,16 +5344,16 @@ structure Gtk : GTK =
            & keyval
            & modifiers
         )
-    fun testWidgetWaitForDraw widget = (GtkWidgetClass.FFI.withPtr ---> I) testWidgetWaitForDraw_ widget
+    fun testWidgetWaitForDraw widget = (GtkWidgetClass.FFI.withPtr false ---> I) testWidgetWaitForDraw_ widget
     fun treeGetRowDragData selectionData =
       let
         val treeModel
          & path
          & retVal =
           (
-            GtkSelectionDataRecord.FFI.withPtr
-             &&&> GtkTreeModelClass.FFI.withRefOptPtr
-             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+            GtkSelectionDataRecord.FFI.withPtr false
+             &&&> GtkTreeModelClass.FFI.withRefOptPtr false
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr true
              ---> GtkTreeModelClass.FFI.fromPtr false
                    && GtkTreePathRecord.FFI.fromPtr true
                    && GBool.FFI.fromVal
@@ -5374,9 +5374,9 @@ structure Gtk : GTK =
         path
       ) =
       (
-        GtkSelectionDataRecord.FFI.withPtr
-         &&&> GtkTreeModelClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withPtr
+        GtkSelectionDataRecord.FFI.withPtr false
+         &&&> GtkTreeModelClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         treeSetRowDragData_

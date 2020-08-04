@@ -11,13 +11,13 @@ structure GtkFlowBoxChild :>
     type 'a class = 'a GtkFlowBoxChildClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkFlowBoxChildClass.FFI.fromPtr false) new_ ()
-    fun changed self = (GtkFlowBoxChildClass.FFI.withPtr ---> I) changed_ self
-    fun getIndex self = (GtkFlowBoxChildClass.FFI.withPtr ---> GInt32.FFI.fromVal) getIndex_ self
-    fun isSelected self = (GtkFlowBoxChildClass.FFI.withPtr ---> GBool.FFI.fromVal) isSelected_ self
+    fun changed self = (GtkFlowBoxChildClass.FFI.withPtr false ---> I) changed_ self
+    fun getIndex self = (GtkFlowBoxChildClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getIndex_ self
+    fun isSelected self = (GtkFlowBoxChildClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSelected_ self
     local
       open ClosureMarshal Signal
     in

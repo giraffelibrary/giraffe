@@ -393,12 +393,12 @@ structure GtkTextBuffer :>
     type 'a text_tag_table_class = 'a GtkTextTagTableClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new table = (GtkTextTagTableClass.FFI.withOptPtr ---> GtkTextBufferClass.FFI.fromPtr true) new_ table
+    fun new table = (GtkTextTagTableClass.FFI.withOptPtr false ---> GtkTextBufferClass.FFI.fromPtr true) new_ table
     fun addMark self (mark, where') =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextMarkClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextMarkClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         addMark_
@@ -407,7 +407,7 @@ structure GtkTextBuffer :>
            & mark
            & where'
         )
-    fun addSelectionClipboard self clipboard = (GtkTextBufferClass.FFI.withPtr &&&> GtkClipboardClass.FFI.withPtr ---> I) addSelectionClipboard_ (self & clipboard)
+    fun addSelectionClipboard self clipboard = (GtkTextBufferClass.FFI.withPtr false &&&> GtkClipboardClass.FFI.withPtr false ---> I) addSelectionClipboard_ (self & clipboard)
     fun applyTag
       self
       (
@@ -416,10 +416,10 @@ structure GtkTextBuffer :>
         end'
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextTagClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextTagClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         applyTag_
@@ -437,10 +437,10 @@ structure GtkTextBuffer :>
         end'
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         applyTagByName_
@@ -458,8 +458,8 @@ structure GtkTextBuffer :>
         defaultEditable
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -471,9 +471,9 @@ structure GtkTextBuffer :>
            & interactive
            & defaultEditable
         )
-    fun beginUserAction self = (GtkTextBufferClass.FFI.withPtr ---> I) beginUserAction_ self
-    fun copyClipboard self clipboard = (GtkTextBufferClass.FFI.withPtr &&&> GtkClipboardClass.FFI.withPtr ---> I) copyClipboard_ (self & clipboard)
-    fun createChildAnchor self iter = (GtkTextBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> GtkTextChildAnchorClass.FFI.fromPtr false) createChildAnchor_ (self & iter)
+    fun beginUserAction self = (GtkTextBufferClass.FFI.withPtr false ---> I) beginUserAction_ self
+    fun copyClipboard self clipboard = (GtkTextBufferClass.FFI.withPtr false &&&> GtkClipboardClass.FFI.withPtr false ---> I) copyClipboard_ (self & clipboard)
+    fun createChildAnchor self iter = (GtkTextBufferClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> GtkTextChildAnchorClass.FFI.fromPtr false) createChildAnchor_ (self & iter)
     fun createMark
       self
       (
@@ -482,9 +482,9 @@ structure GtkTextBuffer :>
         leftGravity
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> GtkTextIterRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> GtkTextMarkClass.FFI.fromPtr false
       )
@@ -497,8 +497,8 @@ structure GtkTextBuffer :>
         )
     fun cutClipboard self (clipboard, defaultEditable) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkClipboardClass.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkClipboardClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -510,9 +510,9 @@ structure GtkTextBuffer :>
         )
     fun delete self (start, end') =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         delete_
@@ -529,9 +529,9 @@ structure GtkTextBuffer :>
         defaultEditable
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -542,11 +542,11 @@ structure GtkTextBuffer :>
            & endIter
            & defaultEditable
         )
-    fun deleteMark self mark = (GtkTextBufferClass.FFI.withPtr &&&> GtkTextMarkClass.FFI.withPtr ---> I) deleteMark_ (self & mark)
-    fun deleteMarkByName self name = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) deleteMarkByName_ (self & name)
+    fun deleteMark self mark = (GtkTextBufferClass.FFI.withPtr false &&&> GtkTextMarkClass.FFI.withPtr false ---> I) deleteMark_ (self & mark)
+    fun deleteMarkByName self name = (GtkTextBufferClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) deleteMarkByName_ (self & name)
     fun deleteSelection self (interactive, defaultEditable) =
       (
-        GtkTextBufferClass.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -569,11 +569,11 @@ structure GtkTextBuffer :>
         val length = LargeInt.fromInt (GUInt8CArrayN.length data)
         val () =
           (
-            GtkTextBufferClass.FFI.withPtr
-             &&&> GtkTextBufferClass.FFI.withPtr
-             &&&> GdkAtomRecord.FFI.withPtr
-             &&&> GtkTextIterRecord.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GtkTextBufferClass.FFI.withPtr false
+             &&&> GtkTextBufferClass.FFI.withPtr false
+             &&&> GdkAtomRecord.FFI.withPtr false
+             &&&> GtkTextIterRecord.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GUInt64.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> ignore
@@ -591,11 +591,11 @@ structure GtkTextBuffer :>
       in
         ()
       end
-    fun deserializeGetCanCreateTags self format = (GtkTextBufferClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> GBool.FFI.fromVal) deserializeGetCanCreateTags_ (self & format)
+    fun deserializeGetCanCreateTags self format = (GtkTextBufferClass.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> GBool.FFI.fromVal) deserializeGetCanCreateTags_ (self & format)
     fun deserializeSetCanCreateTags self (format, canCreateTags) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GdkAtomRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GdkAtomRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -605,14 +605,14 @@ structure GtkTextBuffer :>
            & format
            & canCreateTags
         )
-    fun endUserAction self = (GtkTextBufferClass.FFI.withPtr ---> I) endUserAction_ self
+    fun endUserAction self = (GtkTextBufferClass.FFI.withPtr false ---> I) endUserAction_ self
     fun getBounds self =
       let
         val start
          & end'
          & () =
           (
-            GtkTextBufferClass.FFI.withPtr
+            GtkTextBufferClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              ---> GtkTextIterRecord.FFI.fromPtr true
@@ -628,29 +628,29 @@ structure GtkTextBuffer :>
       in
         (start, end')
       end
-    fun getCharCount self = (GtkTextBufferClass.FFI.withPtr ---> GInt32.FFI.fromVal) getCharCount_ self
-    fun getCopyTargetList self = (GtkTextBufferClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) getCopyTargetList_ self
+    fun getCharCount self = (GtkTextBufferClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getCharCount_ self
+    fun getCopyTargetList self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTargetListRecord.FFI.fromPtr false) getCopyTargetList_ self
     fun getDeserializeFormats self =
       let
-        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCPtrArrayN.FFI.fromPtr 1) getDeserializeFormats_ (self & GInt32.null)
+        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr false &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCPtrArrayN.FFI.fromPtr 1) getDeserializeFormats_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt nFormats)
       end
     fun getEndIter self =
       let
-        val iter & () = (GtkTextBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && I) getEndIter_ (self & ())
+        val iter & () = (GtkTextBufferClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && I) getEndIter_ (self & ())
       in
         iter
       end
-    fun getHasSelection self = (GtkTextBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasSelection_ self
-    fun getInsert self = (GtkTextBufferClass.FFI.withPtr ---> GtkTextMarkClass.FFI.fromPtr false) getInsert_ self
+    fun getHasSelection self = (GtkTextBufferClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasSelection_ self
+    fun getInsert self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTextMarkClass.FFI.fromPtr false) getInsert_ self
     fun getIterAtChildAnchor self anchor =
       let
         val iter & () =
           (
-            GtkTextBufferClass.FFI.withPtr
+            GtkTextBufferClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
-             &&&> GtkTextChildAnchorClass.FFI.withPtr
+             &&&> GtkTextChildAnchorClass.FFI.withPtr false
              ---> GtkTextIterRecord.FFI.fromPtr true && I
           )
             getIterAtChildAnchor_
@@ -666,7 +666,7 @@ structure GtkTextBuffer :>
       let
         val iter & () =
           (
-            GtkTextBufferClass.FFI.withPtr
+            GtkTextBufferClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GInt32.FFI.withVal
              ---> GtkTextIterRecord.FFI.fromPtr true && I
@@ -684,7 +684,7 @@ structure GtkTextBuffer :>
       let
         val iter & () =
           (
-            GtkTextBufferClass.FFI.withPtr
+            GtkTextBufferClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
@@ -704,7 +704,7 @@ structure GtkTextBuffer :>
       let
         val iter & () =
           (
-            GtkTextBufferClass.FFI.withPtr
+            GtkTextBufferClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
@@ -724,9 +724,9 @@ structure GtkTextBuffer :>
       let
         val iter & () =
           (
-            GtkTextBufferClass.FFI.withPtr
+            GtkTextBufferClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
-             &&&> GtkTextMarkClass.FFI.withPtr
+             &&&> GtkTextMarkClass.FFI.withPtr false
              ---> GtkTextIterRecord.FFI.fromPtr true && I
           )
             getIterAtMark_
@@ -742,7 +742,7 @@ structure GtkTextBuffer :>
       let
         val iter & () =
           (
-            GtkTextBufferClass.FFI.withPtr
+            GtkTextBufferClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GInt32.FFI.withVal
              ---> GtkTextIterRecord.FFI.fromPtr true && I
@@ -756,18 +756,18 @@ structure GtkTextBuffer :>
       in
         iter
       end
-    fun getLineCount self = (GtkTextBufferClass.FFI.withPtr ---> GInt32.FFI.fromVal) getLineCount_ self
-    fun getMark self name = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkTextMarkClass.FFI.fromOptPtr false) getMark_ (self & name)
-    fun getModified self = (GtkTextBufferClass.FFI.withPtr ---> GBool.FFI.fromVal) getModified_ self
-    fun getPasteTargetList self = (GtkTextBufferClass.FFI.withPtr ---> GtkTargetListRecord.FFI.fromPtr false) getPasteTargetList_ self
-    fun getSelectionBound self = (GtkTextBufferClass.FFI.withPtr ---> GtkTextMarkClass.FFI.fromPtr false) getSelectionBound_ self
+    fun getLineCount self = (GtkTextBufferClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getLineCount_ self
+    fun getMark self name = (GtkTextBufferClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkTextMarkClass.FFI.fromOptPtr false) getMark_ (self & name)
+    fun getModified self = (GtkTextBufferClass.FFI.withPtr false ---> GBool.FFI.fromVal) getModified_ self
+    fun getPasteTargetList self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTargetListRecord.FFI.fromPtr false) getPasteTargetList_ self
+    fun getSelectionBound self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTextMarkClass.FFI.fromPtr false) getSelectionBound_ self
     fun getSelectionBounds self =
       let
         val start
          & end'
          & retVal =
           (
-            GtkTextBufferClass.FFI.withPtr
+            GtkTextBufferClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              ---> GtkTextIterRecord.FFI.fromPtr true
@@ -785,7 +785,7 @@ structure GtkTextBuffer :>
       end
     fun getSerializeFormats self =
       let
-        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCPtrArrayN.FFI.fromPtr 1) getSerializeFormats_ (self & GInt32.null)
+        val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr false &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCPtrArrayN.FFI.fromPtr 1) getSerializeFormats_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt nFormats)
       end
@@ -797,11 +797,11 @@ structure GtkTextBuffer :>
         includeHiddenChars
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromPtr ~1
       )
         getSlice_
         (
@@ -812,11 +812,11 @@ structure GtkTextBuffer :>
         )
     fun getStartIter self =
       let
-        val iter & () = (GtkTextBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && I) getStartIter_ (self & ())
+        val iter & () = (GtkTextBufferClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withNewPtr ---> GtkTextIterRecord.FFI.fromPtr true && I) getStartIter_ (self & ())
       in
         iter
       end
-    fun getTagTable self = (GtkTextBufferClass.FFI.withPtr ---> GtkTextTagTableClass.FFI.fromPtr false) getTagTable_ self
+    fun getTagTable self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTextTagTableClass.FFI.fromPtr false) getTagTable_ self
     fun getText
       self
       (
@@ -825,11 +825,11 @@ structure GtkTextBuffer :>
         includeHiddenChars
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromPtr ~1
       )
         getText_
         (
@@ -846,9 +846,9 @@ structure GtkTextBuffer :>
         len
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -861,8 +861,8 @@ structure GtkTextBuffer :>
         )
     fun insertAtCursor self (text, len) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -874,9 +874,9 @@ structure GtkTextBuffer :>
         )
     fun insertChildAnchor self (iter, anchor) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextChildAnchorClass.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextChildAnchorClass.FFI.withPtr false
          ---> I
       )
         insertChildAnchor_
@@ -894,9 +894,9 @@ structure GtkTextBuffer :>
         defaultEditable
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -917,8 +917,8 @@ structure GtkTextBuffer :>
         defaultEditable
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -938,9 +938,9 @@ structure GtkTextBuffer :>
         len
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -953,9 +953,9 @@ structure GtkTextBuffer :>
         )
     fun insertPixbuf self (iter, pixbuf) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GdkPixbufPixbufClass.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GdkPixbufPixbufClass.FFI.withPtr false
          ---> I
       )
         insertPixbuf_
@@ -972,10 +972,10 @@ structure GtkTextBuffer :>
         end'
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         insertRange_
@@ -994,10 +994,10 @@ structure GtkTextBuffer :>
         defaultEditable
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -1011,9 +1011,9 @@ structure GtkTextBuffer :>
         )
     fun moveMark self (mark, where') =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextMarkClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextMarkClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         moveMark_
@@ -1024,9 +1024,9 @@ structure GtkTextBuffer :>
         )
     fun moveMarkByName self (name, where') =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         moveMarkByName_
@@ -1043,9 +1043,9 @@ structure GtkTextBuffer :>
         defaultEditable
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkClipboardClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withOptPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkClipboardClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withOptPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -1056,14 +1056,14 @@ structure GtkTextBuffer :>
            & overrideLocation
            & defaultEditable
         )
-    fun placeCursor self where' = (GtkTextBufferClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> I) placeCursor_ (self & where')
-    fun registerDeserializeTagset self tagsetName = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GdkAtomRecord.FFI.fromPtr false) registerDeserializeTagset_ (self & tagsetName)
-    fun registerSerializeTagset self tagsetName = (GtkTextBufferClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GdkAtomRecord.FFI.fromPtr false) registerSerializeTagset_ (self & tagsetName)
+    fun placeCursor self where' = (GtkTextBufferClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> I) placeCursor_ (self & where')
+    fun registerDeserializeTagset self tagsetName = (GtkTextBufferClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GdkAtomRecord.FFI.fromPtr false) registerDeserializeTagset_ (self & tagsetName)
+    fun registerSerializeTagset self tagsetName = (GtkTextBufferClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GdkAtomRecord.FFI.fromPtr false) registerSerializeTagset_ (self & tagsetName)
     fun removeAllTags self (start, end') =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         removeAllTags_
@@ -1072,7 +1072,7 @@ structure GtkTextBuffer :>
            & start
            & end'
         )
-    fun removeSelectionClipboard self clipboard = (GtkTextBufferClass.FFI.withPtr &&&> GtkClipboardClass.FFI.withPtr ---> I) removeSelectionClipboard_ (self & clipboard)
+    fun removeSelectionClipboard self clipboard = (GtkTextBufferClass.FFI.withPtr false &&&> GtkClipboardClass.FFI.withPtr false ---> I) removeSelectionClipboard_ (self & clipboard)
     fun removeTag
       self
       (
@@ -1081,10 +1081,10 @@ structure GtkTextBuffer :>
         end'
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextTagClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextTagClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         removeTag_
@@ -1102,10 +1102,10 @@ structure GtkTextBuffer :>
         end'
       ) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         removeTagByName_
@@ -1117,9 +1117,9 @@ structure GtkTextBuffer :>
         )
     fun selectRange self (ins, bound) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         selectRange_
@@ -1139,13 +1139,13 @@ structure GtkTextBuffer :>
       let
         val length & retVal =
           (
-            GtkTextBufferClass.FFI.withPtr
-             &&&> GtkTextBufferClass.FFI.withPtr
-             &&&> GdkAtomRecord.FFI.withPtr
-             &&&> GtkTextIterRecord.FFI.withPtr
-             &&&> GtkTextIterRecord.FFI.withPtr
+            GtkTextBufferClass.FFI.withPtr false
+             &&&> GtkTextBufferClass.FFI.withPtr false
+             &&&> GdkAtomRecord.FFI.withPtr false
+             &&&> GtkTextIterRecord.FFI.withPtr false
+             &&&> GtkTextIterRecord.FFI.withPtr false
              &&&> GUInt64.FFI.withRefVal
-             ---> GUInt64.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 1
+             ---> GUInt64.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr ~1
           )
             serialize_
             (
@@ -1159,11 +1159,11 @@ structure GtkTextBuffer :>
       in
         retVal (LargeInt.toInt length)
       end
-    fun setModified self setting = (GtkTextBufferClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setModified_ (self & setting)
+    fun setModified self setting = (GtkTextBufferClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setModified_ (self & setting)
     fun setText self (text, len) =
       (
-        GtkTextBufferClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkTextBufferClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -1173,8 +1173,8 @@ structure GtkTextBuffer :>
            & text
            & len
         )
-    fun unregisterDeserializeFormat self format = (GtkTextBufferClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) unregisterDeserializeFormat_ (self & format)
-    fun unregisterSerializeFormat self format = (GtkTextBufferClass.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) unregisterSerializeFormat_ (self & format)
+    fun unregisterDeserializeFormat self format = (GtkTextBufferClass.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> I) unregisterDeserializeFormat_ (self & format)
+    fun unregisterSerializeFormat self format = (GtkTextBufferClass.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> I) unregisterSerializeFormat_ (self & format)
     local
       open ClosureMarshal Signal
     in

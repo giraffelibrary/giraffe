@@ -52,10 +52,10 @@ structure GioMenuModel :>
         expectedType
       ) =
       (
-        GioMenuModelClass.FFI.withPtr
+        GioMenuModelClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantTypeRecord.FFI.withOptPtr
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantTypeRecord.FFI.withOptPtr false
          ---> GLibVariantRecord.FFI.fromPtr true
       )
         getItemAttributeValue_
@@ -67,9 +67,9 @@ structure GioMenuModel :>
         )
     fun getItemLink self (itemIndex, link) =
       (
-        GioMenuModelClass.FFI.withPtr
+        GioMenuModelClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> GioMenuModelClass.FFI.fromPtr true
       )
         getItemLink_
@@ -78,8 +78,8 @@ structure GioMenuModel :>
            & itemIndex
            & link
         )
-    fun getNItems self = (GioMenuModelClass.FFI.withPtr ---> GInt.FFI.fromVal) getNItems_ self
-    fun isMutable self = (GioMenuModelClass.FFI.withPtr ---> GBool.FFI.fromVal) isMutable_ self
+    fun getNItems self = (GioMenuModelClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNItems_ self
+    fun isMutable self = (GioMenuModelClass.FFI.withPtr false ---> GBool.FFI.fromVal) isMutable_ self
     fun itemsChanged
       self
       (
@@ -88,7 +88,7 @@ structure GioMenuModel :>
         added
       ) =
       (
-        GioMenuModelClass.FFI.withPtr
+        GioMenuModelClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -101,8 +101,8 @@ structure GioMenuModel :>
            & removed
            & added
         )
-    fun iterateItemAttributes self itemIndex = (GioMenuModelClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GioMenuAttributeIterClass.FFI.fromPtr true) iterateItemAttributes_ (self & itemIndex)
-    fun iterateItemLinks self itemIndex = (GioMenuModelClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GioMenuLinkIterClass.FFI.fromPtr true) iterateItemLinks_ (self & itemIndex)
+    fun iterateItemAttributes self itemIndex = (GioMenuModelClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GioMenuAttributeIterClass.FFI.fromPtr true) iterateItemAttributes_ (self & itemIndex)
+    fun iterateItemLinks self itemIndex = (GioMenuModelClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GioMenuLinkIterClass.FFI.fromPtr true) iterateItemLinks_ (self & itemIndex)
     local
       open ClosureMarshal Signal
     in

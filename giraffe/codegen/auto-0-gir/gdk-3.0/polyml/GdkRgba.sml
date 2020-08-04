@@ -14,9 +14,9 @@ structure GdkRgba :>
     end
     type t = GdkRgbaRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun copy self = (GdkRgbaRecord.FFI.withPtr ---> GdkRgbaRecord.FFI.fromPtr true) copy_ self
-    fun equal self p2 = (GdkRgbaRecord.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & p2)
-    fun hash self = (GdkRgbaRecord.FFI.withPtr ---> GUInt.FFI.fromVal) hash_ self
-    fun parse self spec = (GdkRgbaRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) parse_ (self & spec)
-    fun toString self = (GdkRgbaRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun copy self = (GdkRgbaRecord.FFI.withPtr false ---> GdkRgbaRecord.FFI.fromPtr true) copy_ self
+    fun equal self p2 = (GdkRgbaRecord.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & p2)
+    fun hash self = (GdkRgbaRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) hash_ self
+    fun parse self spec = (GdkRgbaRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) parse_ (self & spec)
+    fun toString self = (GdkRgbaRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
   end

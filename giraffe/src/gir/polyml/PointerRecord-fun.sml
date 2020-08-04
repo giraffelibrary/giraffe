@@ -44,35 +44,35 @@ functor PointerRecord(val name : string) :> RECORD =
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
-        fun withPtr f = Pointer.withVal f
+        fun withPtr transfer =
+          if not transfer
+          then Pointer.withVal
+          else raise Fail ("withPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
 
-        fun withDupPtr _ =
-          raise Fail ("withDupPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
+        fun withOptPtr transfer =
+          if not transfer
+          then Pointer.withOptVal
+          else raise Fail ("withOptPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
 
-        fun withOptPtr f = Pointer.withOptVal f
+        fun withRefPtr transfer =
+          if not transfer
+          then Pointer.withRefVal
+          else raise Fail ("withRefPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
 
-        fun withDupOptPtr _ =
-          raise Fail ("withDupOptPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
-
-        fun withRefPtr f = Pointer.withRefVal f
-
-        fun withRefDupPtr _ =
-          raise Fail ("withRefDupPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
-
-        fun withRefOptPtr f = Pointer.withRefOptVal f
-
-        fun withRefDupOptPtr _ =
-          raise Fail ("withRefDupOptPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
+        fun withRefOptPtr transfer =
+          if not transfer
+          then Pointer.withRefOptVal
+          else raise Fail ("withRefOptPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
 
         fun fromPtr transfer =
-          if transfer
-          then raise Fail ("fromPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
-          else Fn.id
+          if not transfer
+          then Pointer.fromVal
+          else raise Fail ("fromPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
 
         fun fromOptPtr transfer =
-          if transfer
-          then raise Fail ("fromOptPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
-          else Pointer.toOpt
+          if not transfer
+          then Pointer.fromOptVal
+          else raise Fail ("fromOptPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
       end
 
     structure PolyML =

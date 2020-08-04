@@ -15,10 +15,10 @@ structure GioSocketAddress :>
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type socket_family_t = GioSocketFamily.t
     type t = base class
-    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
+    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr false ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getFamily self = (GioSocketAddressClass.FFI.withPtr ---> GioSocketFamily.FFI.fromVal) getFamily_ self
-    fun getNativeSize self = (GioSocketAddressClass.FFI.withPtr ---> GInt64.FFI.fromVal) getNativeSize_ self
+    fun getFamily self = (GioSocketAddressClass.FFI.withPtr false ---> GioSocketFamily.FFI.fromVal) getFamily_ self
+    fun getNativeSize self = (GioSocketAddressClass.FFI.withPtr false ---> GInt64.FFI.fromVal) getNativeSize_ self
     local
       open Property
     in

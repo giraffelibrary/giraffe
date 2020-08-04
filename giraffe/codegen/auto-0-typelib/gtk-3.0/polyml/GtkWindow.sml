@@ -262,25 +262,25 @@ structure GtkWindow :>
     type window_type_t = GtkWindowType.t
     type window_position_t = GtkWindowPosition.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new type' = (GtkWindowType.FFI.withVal ---> GtkWindowClass.FFI.fromPtr false) new_ type'
     fun getDefaultIconName () = (I ---> Utf8.FFI.fromPtr 0) getDefaultIconName_ ()
     fun setAutoStartupNotification setting = (GBool.FFI.withVal ---> I) setAutoStartupNotification_ setting
-    fun setDefaultIcon icon = (GdkPixbufPixbufClass.FFI.withPtr ---> I) setDefaultIcon_ icon
-    fun setDefaultIconFromFile filename = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) setDefaultIconFromFile_ (filename & [])
-    fun setDefaultIconName name = (Utf8.FFI.withPtr ---> I) setDefaultIconName_ name
+    fun setDefaultIcon icon = (GdkPixbufPixbufClass.FFI.withPtr false ---> I) setDefaultIcon_ icon
+    fun setDefaultIconFromFile filename = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> ignore) setDefaultIconFromFile_ (filename & [])
+    fun setDefaultIconName name = (Utf8.FFI.withPtr 0 ---> I) setDefaultIconName_ name
     fun setInteractiveDebugging enable = (GBool.FFI.withVal ---> I) setInteractiveDebugging_ enable
-    fun activateDefault self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) activateDefault_ self
-    fun activateFocus self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) activateFocus_ self
-    fun activateKey self event = (GtkWindowClass.FFI.withPtr &&&> GdkEventKeyRecord.FFI.withPtr ---> GBool.FFI.fromVal) activateKey_ (self & event)
-    fun addAccelGroup self accelGroup = (GtkWindowClass.FFI.withPtr &&&> GtkAccelGroupClass.FFI.withPtr ---> I) addAccelGroup_ (self & accelGroup)
+    fun activateDefault self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) activateDefault_ self
+    fun activateFocus self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) activateFocus_ self
+    fun activateKey self event = (GtkWindowClass.FFI.withPtr false &&&> GdkEventKeyRecord.FFI.withPtr false ---> GBool.FFI.fromVal) activateKey_ (self & event)
+    fun addAccelGroup self accelGroup = (GtkWindowClass.FFI.withPtr false &&&> GtkAccelGroupClass.FFI.withPtr false ---> I) addAccelGroup_ (self & accelGroup)
     fun addMnemonic self (keyval, target) =
       (
-        GtkWindowClass.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr false
          ---> I
       )
         addMnemonic_
@@ -298,7 +298,7 @@ structure GtkWindow :>
         timestamp
       ) =
       (
-        GtkWindowClass.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
@@ -323,7 +323,7 @@ structure GtkWindow :>
         timestamp
       ) =
       (
-        GtkWindowClass.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
          &&&> GdkWindowEdge.FFI.withVal
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
@@ -340,13 +340,13 @@ structure GtkWindow :>
            & rootY
            & timestamp
         )
-    fun close self = (GtkWindowClass.FFI.withPtr ---> I) close_ self
-    fun deiconify self = (GtkWindowClass.FFI.withPtr ---> I) deiconify_ self
-    fun fullscreen self = (GtkWindowClass.FFI.withPtr ---> I) fullscreen_ self
+    fun close self = (GtkWindowClass.FFI.withPtr false ---> I) close_ self
+    fun deiconify self = (GtkWindowClass.FFI.withPtr false ---> I) deiconify_ self
+    fun fullscreen self = (GtkWindowClass.FFI.withPtr false ---> I) fullscreen_ self
     fun fullscreenOnMonitor self (screen, monitor) =
       (
-        GtkWindowClass.FFI.withPtr
-         &&&> GdkScreenClass.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
+         &&&> GdkScreenClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -356,17 +356,17 @@ structure GtkWindow :>
            & screen
            & monitor
         )
-    fun getAcceptFocus self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getAcceptFocus_ self
-    fun getApplication self = (GtkWindowClass.FFI.withPtr ---> GtkApplicationClass.FFI.fromOptPtr false) getApplication_ self
-    fun getAttachedTo self = (GtkWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getAttachedTo_ self
-    fun getDecorated self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getDecorated_ self
+    fun getAcceptFocus self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAcceptFocus_ self
+    fun getApplication self = (GtkWindowClass.FFI.withPtr false ---> GtkApplicationClass.FFI.fromOptPtr false) getApplication_ self
+    fun getAttachedTo self = (GtkWindowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getAttachedTo_ self
+    fun getDecorated self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDecorated_ self
     fun getDefaultSize self =
       let
         val width
          & height
          & () =
           (
-            GtkWindowClass.FFI.withPtr
+            GtkWindowClass.FFI.withPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GInt32.FFI.fromVal
@@ -382,29 +382,29 @@ structure GtkWindow :>
       in
         (width, height)
       end
-    fun getDefaultWidget self = (GtkWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getDefaultWidget_ self
-    fun getDeletable self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getDeletable_ self
-    fun getDestroyWithParent self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getDestroyWithParent_ self
-    fun getFocus self = (GtkWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getFocus_ self
-    fun getFocusOnMap self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusOnMap_ self
-    fun getFocusVisible self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getFocusVisible_ self
-    fun getGravity self = (GtkWindowClass.FFI.withPtr ---> GdkGravity.FFI.fromVal) getGravity_ self
-    fun getGroup self = (GtkWindowClass.FFI.withPtr ---> GtkWindowGroupClass.FFI.fromPtr false) getGroup_ self
-    fun getHasResizeGrip self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasResizeGrip_ self
-    fun getHideTitlebarWhenMaximized self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getHideTitlebarWhenMaximized_ self
-    fun getIcon self = (GtkWindowClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getIcon_ self
-    fun getIconName self = (GtkWindowClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
-    fun getMnemonicModifier self = (GtkWindowClass.FFI.withPtr ---> GdkModifierType.FFI.fromVal) getMnemonicModifier_ self
-    fun getMnemonicsVisible self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getMnemonicsVisible_ self
-    fun getModal self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getModal_ self
-    fun getOpacity self = (GtkWindowClass.FFI.withPtr ---> GDouble.FFI.fromVal) getOpacity_ self
+    fun getDefaultWidget self = (GtkWindowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getDefaultWidget_ self
+    fun getDeletable self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDeletable_ self
+    fun getDestroyWithParent self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDestroyWithParent_ self
+    fun getFocus self = (GtkWindowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getFocus_ self
+    fun getFocusOnMap self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFocusOnMap_ self
+    fun getFocusVisible self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFocusVisible_ self
+    fun getGravity self = (GtkWindowClass.FFI.withPtr false ---> GdkGravity.FFI.fromVal) getGravity_ self
+    fun getGroup self = (GtkWindowClass.FFI.withPtr false ---> GtkWindowGroupClass.FFI.fromPtr false) getGroup_ self
+    fun getHasResizeGrip self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasResizeGrip_ self
+    fun getHideTitlebarWhenMaximized self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHideTitlebarWhenMaximized_ self
+    fun getIcon self = (GtkWindowClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getIcon_ self
+    fun getIconName self = (GtkWindowClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
+    fun getMnemonicModifier self = (GtkWindowClass.FFI.withPtr false ---> GdkModifierType.FFI.fromVal) getMnemonicModifier_ self
+    fun getMnemonicsVisible self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getMnemonicsVisible_ self
+    fun getModal self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getModal_ self
+    fun getOpacity self = (GtkWindowClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getOpacity_ self
     fun getPosition self =
       let
         val rootX
          & rootY
          & () =
           (
-            GtkWindowClass.FFI.withPtr
+            GtkWindowClass.FFI.withPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GInt32.FFI.fromVal
@@ -420,22 +420,22 @@ structure GtkWindow :>
       in
         (rootX, rootY)
       end
-    fun getResizable self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getResizable_ self
+    fun getResizable self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getResizable_ self
     fun getResizeGripArea self =
       let
-        val rect & retVal = (GtkWindowClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal) getResizeGripArea_ (self & ())
+        val rect & retVal = (GtkWindowClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal) getResizeGripArea_ (self & ())
       in
         if retVal then SOME rect else NONE
       end
-    fun getRole self = (GtkWindowClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getRole_ self
-    fun getScreen self = (GtkWindowClass.FFI.withPtr ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun getRole self = (GtkWindowClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getRole_ self
+    fun getScreen self = (GtkWindowClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
     fun getSize self =
       let
         val width
          & height
          & () =
           (
-            GtkWindowClass.FFI.withPtr
+            GtkWindowClass.FFI.withPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GInt32.FFI.fromVal
@@ -451,23 +451,23 @@ structure GtkWindow :>
       in
         (width, height)
       end
-    fun getSkipPagerHint self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getSkipPagerHint_ self
-    fun getSkipTaskbarHint self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getSkipTaskbarHint_ self
-    fun getTitle self = (GtkWindowClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getTitle_ self
-    fun getTitlebar self = (GtkWindowClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getTitlebar_ self
-    fun getTransientFor self = (GtkWindowClass.FFI.withPtr ---> GtkWindowClass.FFI.fromOptPtr false) getTransientFor_ self
-    fun getTypeHint self = (GtkWindowClass.FFI.withPtr ---> GdkWindowTypeHint.FFI.fromVal) getTypeHint_ self
-    fun getUrgencyHint self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) getUrgencyHint_ self
-    fun getWindowType self = (GtkWindowClass.FFI.withPtr ---> GtkWindowType.FFI.fromVal) getWindowType_ self
-    fun hasGroup self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) hasGroup_ self
-    fun hasToplevelFocus self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) hasToplevelFocus_ self
-    fun iconify self = (GtkWindowClass.FFI.withPtr ---> I) iconify_ self
-    fun isActive self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) isActive_ self
-    fun isMaximized self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) isMaximized_ self
-    fun maximize self = (GtkWindowClass.FFI.withPtr ---> I) maximize_ self
+    fun getSkipPagerHint self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSkipPagerHint_ self
+    fun getSkipTaskbarHint self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSkipTaskbarHint_ self
+    fun getTitle self = (GtkWindowClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getTitle_ self
+    fun getTitlebar self = (GtkWindowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getTitlebar_ self
+    fun getTransientFor self = (GtkWindowClass.FFI.withPtr false ---> GtkWindowClass.FFI.fromOptPtr false) getTransientFor_ self
+    fun getTypeHint self = (GtkWindowClass.FFI.withPtr false ---> GdkWindowTypeHint.FFI.fromVal) getTypeHint_ self
+    fun getUrgencyHint self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUrgencyHint_ self
+    fun getWindowType self = (GtkWindowClass.FFI.withPtr false ---> GtkWindowType.FFI.fromVal) getWindowType_ self
+    fun hasGroup self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasGroup_ self
+    fun hasToplevelFocus self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasToplevelFocus_ self
+    fun iconify self = (GtkWindowClass.FFI.withPtr false ---> I) iconify_ self
+    fun isActive self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) isActive_ self
+    fun isMaximized self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) isMaximized_ self
+    fun maximize self = (GtkWindowClass.FFI.withPtr false ---> I) maximize_ self
     fun mnemonicActivate self (keyval, modifier) =
       (
-        GtkWindowClass.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -480,7 +480,7 @@ structure GtkWindow :>
         )
     fun move self (x, y) =
       (
-        GtkWindowClass.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I
@@ -491,16 +491,16 @@ structure GtkWindow :>
            & x
            & y
         )
-    fun parseGeometry self geometry = (GtkWindowClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) parseGeometry_ (self & geometry)
-    fun present self = (GtkWindowClass.FFI.withPtr ---> I) present_ self
-    fun presentWithTime self timestamp = (GtkWindowClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) presentWithTime_ (self & timestamp)
-    fun propagateKeyEvent self event = (GtkWindowClass.FFI.withPtr &&&> GdkEventKeyRecord.FFI.withPtr ---> GBool.FFI.fromVal) propagateKeyEvent_ (self & event)
-    fun removeAccelGroup self accelGroup = (GtkWindowClass.FFI.withPtr &&&> GtkAccelGroupClass.FFI.withPtr ---> I) removeAccelGroup_ (self & accelGroup)
+    fun parseGeometry self geometry = (GtkWindowClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) parseGeometry_ (self & geometry)
+    fun present self = (GtkWindowClass.FFI.withPtr false ---> I) present_ self
+    fun presentWithTime self timestamp = (GtkWindowClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) presentWithTime_ (self & timestamp)
+    fun propagateKeyEvent self event = (GtkWindowClass.FFI.withPtr false &&&> GdkEventKeyRecord.FFI.withPtr false ---> GBool.FFI.fromVal) propagateKeyEvent_ (self & event)
+    fun removeAccelGroup self accelGroup = (GtkWindowClass.FFI.withPtr false &&&> GtkAccelGroupClass.FFI.withPtr false ---> I) removeAccelGroup_ (self & accelGroup)
     fun removeMnemonic self (keyval, target) =
       (
-        GtkWindowClass.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withPtr
+         &&&> GtkWidgetClass.FFI.withPtr false
          ---> I
       )
         removeMnemonic_
@@ -509,10 +509,10 @@ structure GtkWindow :>
            & keyval
            & target
         )
-    fun reshowWithInitialSize self = (GtkWindowClass.FFI.withPtr ---> I) reshowWithInitialSize_ self
+    fun reshowWithInitialSize self = (GtkWindowClass.FFI.withPtr false ---> I) reshowWithInitialSize_ self
     fun resize self (width, height) =
       (
-        GtkWindowClass.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I
@@ -523,10 +523,10 @@ structure GtkWindow :>
            & width
            & height
         )
-    fun resizeGripIsVisible self = (GtkWindowClass.FFI.withPtr ---> GBool.FFI.fromVal) resizeGripIsVisible_ self
+    fun resizeGripIsVisible self = (GtkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) resizeGripIsVisible_ self
     fun resizeToGeometry self (width, height) =
       (
-        GtkWindowClass.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I
@@ -537,14 +537,14 @@ structure GtkWindow :>
            & width
            & height
         )
-    fun setAcceptFocus self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAcceptFocus_ (self & setting)
-    fun setApplication self application = (GtkWindowClass.FFI.withPtr &&&> GtkApplicationClass.FFI.withOptPtr ---> I) setApplication_ (self & application)
-    fun setAttachedTo self attachWidget = (GtkWindowClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setAttachedTo_ (self & attachWidget)
-    fun setDecorated self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDecorated_ (self & setting)
-    fun setDefault self defaultWidget = (GtkWindowClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setDefault_ (self & defaultWidget)
+    fun setAcceptFocus self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAcceptFocus_ (self & setting)
+    fun setApplication self application = (GtkWindowClass.FFI.withPtr false &&&> GtkApplicationClass.FFI.withOptPtr false ---> I) setApplication_ (self & application)
+    fun setAttachedTo self attachWidget = (GtkWindowClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setAttachedTo_ (self & attachWidget)
+    fun setDecorated self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setDecorated_ (self & setting)
+    fun setDefault self defaultWidget = (GtkWindowClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setDefault_ (self & defaultWidget)
     fun setDefaultGeometry self (width, height) =
       (
-        GtkWindowClass.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I
@@ -557,7 +557,7 @@ structure GtkWindow :>
         )
     fun setDefaultSize self (width, height) =
       (
-        GtkWindowClass.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I
@@ -568,11 +568,11 @@ structure GtkWindow :>
            & width
            & height
         )
-    fun setDeletable self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDeletable_ (self & setting)
-    fun setDestroyWithParent self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDestroyWithParent_ (self & setting)
-    fun setFocus self focus = (GtkWindowClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setFocus_ (self & focus)
-    fun setFocusOnMap self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFocusOnMap_ (self & setting)
-    fun setFocusVisible self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFocusVisible_ (self & setting)
+    fun setDeletable self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setDeletable_ (self & setting)
+    fun setDestroyWithParent self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setDestroyWithParent_ (self & setting)
+    fun setFocus self focus = (GtkWindowClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setFocus_ (self & focus)
+    fun setFocusOnMap self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setFocusOnMap_ (self & setting)
+    fun setFocusVisible self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setFocusVisible_ (self & setting)
     fun setGeometryHints
       self
       (
@@ -581,9 +581,9 @@ structure GtkWindow :>
         geomMask
       ) =
       (
-        GtkWindowClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> GdkGeometryRecord.FFI.withOptPtr
+        GtkWindowClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> GdkGeometryRecord.FFI.withOptPtr false
          &&&> GdkWindowHints.FFI.withVal
          ---> I
       )
@@ -594,15 +594,15 @@ structure GtkWindow :>
            & geometry
            & geomMask
         )
-    fun setGravity self gravity = (GtkWindowClass.FFI.withPtr &&&> GdkGravity.FFI.withVal ---> I) setGravity_ (self & gravity)
-    fun setHasResizeGrip self value = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasResizeGrip_ (self & value)
-    fun setHasUserRefCount self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasUserRefCount_ (self & setting)
-    fun setHideTitlebarWhenMaximized self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHideTitlebarWhenMaximized_ (self & setting)
-    fun setIcon self icon = (GtkWindowClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withOptPtr ---> I) setIcon_ (self & icon)
+    fun setGravity self gravity = (GtkWindowClass.FFI.withPtr false &&&> GdkGravity.FFI.withVal ---> I) setGravity_ (self & gravity)
+    fun setHasResizeGrip self value = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasResizeGrip_ (self & value)
+    fun setHasUserRefCount self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasUserRefCount_ (self & setting)
+    fun setHideTitlebarWhenMaximized self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHideTitlebarWhenMaximized_ (self & setting)
+    fun setIcon self icon = (GtkWindowClass.FFI.withPtr false &&&> GdkPixbufPixbufClass.FFI.withOptPtr false ---> I) setIcon_ (self & icon)
     fun setIconFromFile self filename =
       (
-        GtkWindowClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -612,30 +612,30 @@ structure GtkWindow :>
            & filename
            & []
         )
-    fun setIconName self name = (GtkWindowClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setIconName_ (self & name)
-    fun setKeepAbove self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setKeepAbove_ (self & setting)
-    fun setKeepBelow self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setKeepBelow_ (self & setting)
-    fun setMnemonicModifier self modifier = (GtkWindowClass.FFI.withPtr &&&> GdkModifierType.FFI.withVal ---> I) setMnemonicModifier_ (self & modifier)
-    fun setMnemonicsVisible self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setMnemonicsVisible_ (self & setting)
-    fun setModal self modal = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setModal_ (self & modal)
-    fun setOpacity self opacity = (GtkWindowClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setOpacity_ (self & opacity)
-    fun setPosition self position = (GtkWindowClass.FFI.withPtr &&&> GtkWindowPosition.FFI.withVal ---> I) setPosition_ (self & position)
-    fun setResizable self resizable = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setResizable_ (self & resizable)
-    fun setRole self role = (GtkWindowClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setRole_ (self & role)
-    fun setScreen self screen = (GtkWindowClass.FFI.withPtr &&&> GdkScreenClass.FFI.withPtr ---> I) setScreen_ (self & screen)
-    fun setSkipPagerHint self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSkipPagerHint_ (self & setting)
-    fun setSkipTaskbarHint self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSkipTaskbarHint_ (self & setting)
-    fun setStartupId self startupId = (GtkWindowClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setStartupId_ (self & startupId)
-    fun setTitle self title = (GtkWindowClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTitle_ (self & title)
-    fun setTitlebar self titlebar = (GtkWindowClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setTitlebar_ (self & titlebar)
-    fun setTransientFor self parent = (GtkWindowClass.FFI.withPtr &&&> GtkWindowClass.FFI.withOptPtr ---> I) setTransientFor_ (self & parent)
-    fun setTypeHint self hint = (GtkWindowClass.FFI.withPtr &&&> GdkWindowTypeHint.FFI.withVal ---> I) setTypeHint_ (self & hint)
-    fun setUrgencyHint self setting = (GtkWindowClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUrgencyHint_ (self & setting)
+    fun setIconName self name = (GtkWindowClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setIconName_ (self & name)
+    fun setKeepAbove self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setKeepAbove_ (self & setting)
+    fun setKeepBelow self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setKeepBelow_ (self & setting)
+    fun setMnemonicModifier self modifier = (GtkWindowClass.FFI.withPtr false &&&> GdkModifierType.FFI.withVal ---> I) setMnemonicModifier_ (self & modifier)
+    fun setMnemonicsVisible self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setMnemonicsVisible_ (self & setting)
+    fun setModal self modal = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setModal_ (self & modal)
+    fun setOpacity self opacity = (GtkWindowClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setOpacity_ (self & opacity)
+    fun setPosition self position = (GtkWindowClass.FFI.withPtr false &&&> GtkWindowPosition.FFI.withVal ---> I) setPosition_ (self & position)
+    fun setResizable self resizable = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setResizable_ (self & resizable)
+    fun setRole self role = (GtkWindowClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setRole_ (self & role)
+    fun setScreen self screen = (GtkWindowClass.FFI.withPtr false &&&> GdkScreenClass.FFI.withPtr false ---> I) setScreen_ (self & screen)
+    fun setSkipPagerHint self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSkipPagerHint_ (self & setting)
+    fun setSkipTaskbarHint self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSkipTaskbarHint_ (self & setting)
+    fun setStartupId self startupId = (GtkWindowClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setStartupId_ (self & startupId)
+    fun setTitle self title = (GtkWindowClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTitle_ (self & title)
+    fun setTitlebar self titlebar = (GtkWindowClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setTitlebar_ (self & titlebar)
+    fun setTransientFor self parent = (GtkWindowClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withOptPtr false ---> I) setTransientFor_ (self & parent)
+    fun setTypeHint self hint = (GtkWindowClass.FFI.withPtr false &&&> GdkWindowTypeHint.FFI.withVal ---> I) setTypeHint_ (self & hint)
+    fun setUrgencyHint self setting = (GtkWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUrgencyHint_ (self & setting)
     fun setWmclass self (wmclassName, wmclassClass) =
       (
-        GtkWindowClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkWindowClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         setWmclass_
@@ -644,10 +644,10 @@ structure GtkWindow :>
            & wmclassName
            & wmclassClass
         )
-    fun stick self = (GtkWindowClass.FFI.withPtr ---> I) stick_ self
-    fun unfullscreen self = (GtkWindowClass.FFI.withPtr ---> I) unfullscreen_ self
-    fun unmaximize self = (GtkWindowClass.FFI.withPtr ---> I) unmaximize_ self
-    fun unstick self = (GtkWindowClass.FFI.withPtr ---> I) unstick_ self
+    fun stick self = (GtkWindowClass.FFI.withPtr false ---> I) stick_ self
+    fun unfullscreen self = (GtkWindowClass.FFI.withPtr false ---> I) unfullscreen_ self
+    fun unmaximize self = (GtkWindowClass.FFI.withPtr false ---> I) unmaximize_ self
+    fun unstick self = (GtkWindowClass.FFI.withPtr false ---> I) unstick_ self
     local
       open ClosureMarshal Signal
     in

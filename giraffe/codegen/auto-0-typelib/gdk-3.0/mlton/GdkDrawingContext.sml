@@ -12,10 +12,10 @@ structure GdkDrawingContext :>
     type 'a window_class = 'a GdkWindowClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getCairoContext self = (GdkDrawingContextClass.FFI.withPtr ---> CairoContextRecord.FFI.fromPtr false) getCairoContext_ self
-    fun getClip self = (GdkDrawingContextClass.FFI.withPtr ---> CairoRegionRecord.FFI.fromOptPtr true) getClip_ self
-    fun getWindow self = (GdkDrawingContextClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getWindow_ self
-    fun isValid self = (GdkDrawingContextClass.FFI.withPtr ---> GBool.FFI.fromVal) isValid_ self
+    fun getCairoContext self = (GdkDrawingContextClass.FFI.withPtr false ---> CairoContextRecord.FFI.fromPtr false) getCairoContext_ self
+    fun getClip self = (GdkDrawingContextClass.FFI.withPtr false ---> CairoRegionRecord.FFI.fromOptPtr true) getClip_ self
+    fun getWindow self = (GdkDrawingContextClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getWindow_ self
+    fun isValid self = (GdkDrawingContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) isValid_ self
     local
       open Property
     in

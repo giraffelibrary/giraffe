@@ -57,12 +57,12 @@ structure GioVolume :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun canEject self = (GioVolumeClass.FFI.withPtr ---> GBool.FFI.fromVal) canEject_ self
-    fun canMount self = (GioVolumeClass.FFI.withPtr ---> GBool.FFI.fromVal) canMount_ self
+    fun canEject self = (GioVolumeClass.FFI.withPtr false ---> GBool.FFI.fromVal) canEject_ self
+    fun canMount self = (GioVolumeClass.FFI.withPtr false ---> GBool.FFI.fromVal) canMount_ self
     fun ejectFinish self result =
       (
-        GioVolumeClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioVolumeClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -74,8 +74,8 @@ structure GioVolume :>
         )
     fun ejectWithOperationFinish self result =
       (
-        GioVolumeClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioVolumeClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -85,20 +85,20 @@ structure GioVolume :>
            & result
            & []
         )
-    fun enumerateIdentifiers self = (GioVolumeClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) enumerateIdentifiers_ self
-    fun getActivationRoot self = (GioVolumeClass.FFI.withPtr ---> GioFileClass.FFI.fromOptPtr true) getActivationRoot_ self
-    fun getDrive self = (GioVolumeClass.FFI.withPtr ---> GioDriveClass.FFI.fromPtr true) getDrive_ self
-    fun getIcon self = (GioVolumeClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getIcon_ self
-    fun getIdentifier self kind = (GioVolumeClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getIdentifier_ (self & kind)
-    fun getMount self = (GioVolumeClass.FFI.withPtr ---> GioMountClass.FFI.fromPtr true) getMount_ self
-    fun getName self = (GioVolumeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getName_ self
-    fun getSortKey self = (GioVolumeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSortKey_ self
-    fun getSymbolicIcon self = (GioVolumeClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getSymbolicIcon_ self
-    fun getUuid self = (GioVolumeClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUuid_ self
+    fun enumerateIdentifiers self = (GioVolumeClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) enumerateIdentifiers_ self
+    fun getActivationRoot self = (GioVolumeClass.FFI.withPtr false ---> GioFileClass.FFI.fromOptPtr true) getActivationRoot_ self
+    fun getDrive self = (GioVolumeClass.FFI.withPtr false ---> GioDriveClass.FFI.fromPtr true) getDrive_ self
+    fun getIcon self = (GioVolumeClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) getIcon_ self
+    fun getIdentifier self kind = (GioVolumeClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) getIdentifier_ (self & kind)
+    fun getMount self = (GioVolumeClass.FFI.withPtr false ---> GioMountClass.FFI.fromPtr true) getMount_ self
+    fun getName self = (GioVolumeClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getName_ self
+    fun getSortKey self = (GioVolumeClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSortKey_ self
+    fun getSymbolicIcon self = (GioVolumeClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) getSymbolicIcon_ self
+    fun getUuid self = (GioVolumeClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getUuid_ self
     fun mountFinish self result =
       (
-        GioVolumeClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioVolumeClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -108,7 +108,7 @@ structure GioVolume :>
            & result
            & []
         )
-    fun shouldAutomount self = (GioVolumeClass.FFI.withPtr ---> GBool.FFI.fromVal) shouldAutomount_ self
+    fun shouldAutomount self = (GioVolumeClass.FFI.withPtr false ---> GBool.FFI.fromVal) shouldAutomount_ self
     local
       open ClosureMarshal Signal
     in

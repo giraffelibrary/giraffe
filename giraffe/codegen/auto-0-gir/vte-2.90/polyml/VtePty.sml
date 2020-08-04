@@ -43,20 +43,20 @@ structure VtePty :>
     type 'a class = 'a VtePtyClass.class
     type pty_flags_t = VtePtyFlags.t
     type t = base class
-    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr false ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new flags = (VtePtyFlags.FFI.withVal &&&> GLibErrorRecord.handleError ---> VtePtyClass.FFI.fromPtr true) new_ (flags & [])
     fun newForeign fd = (GInt.FFI.withVal &&&> GLibErrorRecord.handleError ---> VtePtyClass.FFI.fromPtr true) newForeign_ (fd & [])
-    fun childSetup self = (VtePtyClass.FFI.withPtr ---> I) childSetup_ self
-    fun close self = (VtePtyClass.FFI.withPtr ---> I) close_ self
-    fun getFd self = (VtePtyClass.FFI.withPtr ---> GInt.FFI.fromVal) getFd_ self
+    fun childSetup self = (VtePtyClass.FFI.withPtr false ---> I) childSetup_ self
+    fun close self = (VtePtyClass.FFI.withPtr false ---> I) close_ self
+    fun getFd self = (VtePtyClass.FFI.withPtr false ---> GInt.FFI.fromVal) getFd_ self
     fun getSize self =
       let
         val rows
          & columns
          & () =
           (
-            VtePtyClass.FFI.withPtr
+            VtePtyClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
@@ -76,7 +76,7 @@ structure VtePty :>
       end
     fun setSize self (rows, columns) =
       (
-        VtePtyClass.FFI.withPtr
+        VtePtyClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
@@ -89,10 +89,10 @@ structure VtePty :>
            & columns
            & []
         )
-    fun setTerm self emulation = (VtePtyClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setTerm_ (self & emulation)
+    fun setTerm self emulation = (VtePtyClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setTerm_ (self & emulation)
     fun setUtf8 self utf8 =
       (
-        VtePtyClass.FFI.withPtr
+        VtePtyClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> ignore

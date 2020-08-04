@@ -9,7 +9,7 @@ structure GtkCellRendererText :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCellRendererTextClass.FFI.fromPtr false) new_ ()
-    fun setFixedHeightFromFont self numberOfRows = (GtkCellRendererTextClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setFixedHeightFromFont_ (self & numberOfRows)
+    fun setFixedHeightFromFont self numberOfRows = (GtkCellRendererTextClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setFixedHeightFromFont_ (self & numberOfRows)
     local
       open ClosureMarshal Signal
     in

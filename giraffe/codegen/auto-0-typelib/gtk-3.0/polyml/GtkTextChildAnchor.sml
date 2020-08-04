@@ -13,5 +13,5 @@ structure GtkTextChildAnchor :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTextChildAnchorClass.FFI.fromPtr true) new_ ()
-    fun getDeleted self = (GtkTextChildAnchorClass.FFI.withPtr ---> GBool.FFI.fromVal) getDeleted_ self
+    fun getDeleted self = (GtkTextChildAnchorClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDeleted_ self
   end

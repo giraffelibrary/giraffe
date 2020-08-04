@@ -23,5 +23,5 @@ structure GioDesktopAppInfoLookup :>
     type 'a app_info_class = 'a GioAppInfoClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getDefaultForUriScheme self uriScheme = (GioDesktopAppInfoLookupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioAppInfoClass.FFI.fromPtr true) getDefaultForUriScheme_ (self & uriScheme)
+    fun getDefaultForUriScheme self uriScheme = (GioDesktopAppInfoLookupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioAppInfoClass.FFI.fromPtr true) getDefaultForUriScheme_ (self & uriScheme)
   end

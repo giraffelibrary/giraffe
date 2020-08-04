@@ -590,12 +590,12 @@ structure GtkPrintSettings :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkPrintSettingsClass.FFI.fromPtr true) new_ ()
-    fun newFromFile fileName = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GtkPrintSettingsClass.FFI.fromPtr true) newFromFile_ (fileName & [])
-    fun newFromGvariant variant = (GLibVariantRecord.FFI.withPtr ---> GtkPrintSettingsClass.FFI.fromPtr true) newFromGvariant_ variant
+    fun newFromFile fileName = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GtkPrintSettingsClass.FFI.fromPtr true) newFromFile_ (fileName & [])
+    fun newFromGvariant variant = (GLibVariantRecord.FFI.withPtr false ---> GtkPrintSettingsClass.FFI.fromPtr true) newFromGvariant_ variant
     fun newFromKeyFile (keyFile, groupName) =
       (
-        GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        GLibKeyFileRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GtkPrintSettingsClass.FFI.fromPtr true
       )
@@ -605,17 +605,17 @@ structure GtkPrintSettings :>
            & groupName
            & []
         )
-    fun copy self = (GtkPrintSettingsClass.FFI.withPtr ---> GtkPrintSettingsClass.FFI.fromPtr true) copy_ self
-    fun get self key = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) get_ (self & key)
-    fun getBool self key = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) getBool_ (self & key)
-    fun getCollate self = (GtkPrintSettingsClass.FFI.withPtr ---> GBool.FFI.fromVal) getCollate_ self
-    fun getDefaultSource self = (GtkPrintSettingsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDefaultSource_ self
-    fun getDither self = (GtkPrintSettingsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDither_ self
-    fun getDouble self key = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GDouble.FFI.fromVal) getDouble_ (self & key)
+    fun copy self = (GtkPrintSettingsClass.FFI.withPtr false ---> GtkPrintSettingsClass.FFI.fromPtr true) copy_ self
+    fun get self key = (GtkPrintSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) get_ (self & key)
+    fun getBool self key = (GtkPrintSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) getBool_ (self & key)
+    fun getCollate self = (GtkPrintSettingsClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCollate_ self
+    fun getDefaultSource self = (GtkPrintSettingsClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDefaultSource_ self
+    fun getDither self = (GtkPrintSettingsClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDither_ self
+    fun getDouble self key = (GtkPrintSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GDouble.FFI.fromVal) getDouble_ (self & key)
     fun getDoubleWithDefault self (key, def) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GDouble.FFI.withVal
          ---> GDouble.FFI.fromVal
       )
@@ -625,13 +625,13 @@ structure GtkPrintSettings :>
            & key
            & def
         )
-    fun getDuplex self = (GtkPrintSettingsClass.FFI.withPtr ---> GtkPrintDuplex.FFI.fromVal) getDuplex_ self
-    fun getFinishings self = (GtkPrintSettingsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getFinishings_ self
-    fun getInt self key = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt32.FFI.fromVal) getInt_ (self & key)
+    fun getDuplex self = (GtkPrintSettingsClass.FFI.withPtr false ---> GtkPrintDuplex.FFI.fromVal) getDuplex_ self
+    fun getFinishings self = (GtkPrintSettingsClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getFinishings_ self
+    fun getInt self key = (GtkPrintSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GInt32.FFI.fromVal) getInt_ (self & key)
     fun getIntWithDefault self (key, def) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> GInt32.FFI.fromVal
       )
@@ -643,8 +643,8 @@ structure GtkPrintSettings :>
         )
     fun getLength self (key, unit) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GtkUnit.FFI.withVal
          ---> GDouble.FFI.fromVal
       )
@@ -654,37 +654,37 @@ structure GtkPrintSettings :>
            & key
            & unit
         )
-    fun getMediaType self = (GtkPrintSettingsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMediaType_ self
-    fun getNCopies self = (GtkPrintSettingsClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNCopies_ self
-    fun getNumberUp self = (GtkPrintSettingsClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNumberUp_ self
-    fun getNumberUpLayout self = (GtkPrintSettingsClass.FFI.withPtr ---> GtkNumberUpLayout.FFI.fromVal) getNumberUpLayout_ self
-    fun getOrientation self = (GtkPrintSettingsClass.FFI.withPtr ---> GtkPageOrientation.FFI.fromVal) getOrientation_ self
-    fun getOutputBin self = (GtkPrintSettingsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getOutputBin_ self
+    fun getMediaType self = (GtkPrintSettingsClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMediaType_ self
+    fun getNCopies self = (GtkPrintSettingsClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNCopies_ self
+    fun getNumberUp self = (GtkPrintSettingsClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNumberUp_ self
+    fun getNumberUpLayout self = (GtkPrintSettingsClass.FFI.withPtr false ---> GtkNumberUpLayout.FFI.fromVal) getNumberUpLayout_ self
+    fun getOrientation self = (GtkPrintSettingsClass.FFI.withPtr false ---> GtkPageOrientation.FFI.fromVal) getOrientation_ self
+    fun getOutputBin self = (GtkPrintSettingsClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getOutputBin_ self
     fun getPageRanges self =
       let
-        val numRanges & retVal = (GtkPrintSettingsClass.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GtkPageRangeRecordCArrayN.FFI.fromPtr 1) getPageRanges_ (self & GInt32.null)
+        val numRanges & retVal = (GtkPrintSettingsClass.FFI.withPtr false &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GtkPageRangeRecordCArrayN.FFI.fromPtr ~1) getPageRanges_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt numRanges)
       end
-    fun getPageSet self = (GtkPrintSettingsClass.FFI.withPtr ---> GtkPageSet.FFI.fromVal) getPageSet_ self
-    fun getPaperHeight self unit = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPaperHeight_ (self & unit)
-    fun getPaperSize self = (GtkPrintSettingsClass.FFI.withPtr ---> GtkPaperSizeRecord.FFI.fromPtr true) getPaperSize_ self
-    fun getPaperWidth self unit = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPaperWidth_ (self & unit)
-    fun getPrintPages self = (GtkPrintSettingsClass.FFI.withPtr ---> GtkPrintPages.FFI.fromVal) getPrintPages_ self
-    fun getPrinter self = (GtkPrintSettingsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPrinter_ self
-    fun getPrinterLpi self = (GtkPrintSettingsClass.FFI.withPtr ---> GDouble.FFI.fromVal) getPrinterLpi_ self
-    fun getQuality self = (GtkPrintSettingsClass.FFI.withPtr ---> GtkPrintQuality.FFI.fromVal) getQuality_ self
-    fun getResolution self = (GtkPrintSettingsClass.FFI.withPtr ---> GInt32.FFI.fromVal) getResolution_ self
-    fun getResolutionX self = (GtkPrintSettingsClass.FFI.withPtr ---> GInt32.FFI.fromVal) getResolutionX_ self
-    fun getResolutionY self = (GtkPrintSettingsClass.FFI.withPtr ---> GInt32.FFI.fromVal) getResolutionY_ self
-    fun getReverse self = (GtkPrintSettingsClass.FFI.withPtr ---> GBool.FFI.fromVal) getReverse_ self
-    fun getScale self = (GtkPrintSettingsClass.FFI.withPtr ---> GDouble.FFI.fromVal) getScale_ self
-    fun getUseColor self = (GtkPrintSettingsClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseColor_ self
-    fun hasKey self key = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasKey_ (self & key)
+    fun getPageSet self = (GtkPrintSettingsClass.FFI.withPtr false ---> GtkPageSet.FFI.fromVal) getPageSet_ self
+    fun getPaperHeight self unit = (GtkPrintSettingsClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPaperHeight_ (self & unit)
+    fun getPaperSize self = (GtkPrintSettingsClass.FFI.withPtr false ---> GtkPaperSizeRecord.FFI.fromPtr true) getPaperSize_ self
+    fun getPaperWidth self unit = (GtkPrintSettingsClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPaperWidth_ (self & unit)
+    fun getPrintPages self = (GtkPrintSettingsClass.FFI.withPtr false ---> GtkPrintPages.FFI.fromVal) getPrintPages_ self
+    fun getPrinter self = (GtkPrintSettingsClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPrinter_ self
+    fun getPrinterLpi self = (GtkPrintSettingsClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getPrinterLpi_ self
+    fun getQuality self = (GtkPrintSettingsClass.FFI.withPtr false ---> GtkPrintQuality.FFI.fromVal) getQuality_ self
+    fun getResolution self = (GtkPrintSettingsClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getResolution_ self
+    fun getResolutionX self = (GtkPrintSettingsClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getResolutionX_ self
+    fun getResolutionY self = (GtkPrintSettingsClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getResolutionY_ self
+    fun getReverse self = (GtkPrintSettingsClass.FFI.withPtr false ---> GBool.FFI.fromVal) getReverse_ self
+    fun getScale self = (GtkPrintSettingsClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getScale_ self
+    fun getUseColor self = (GtkPrintSettingsClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseColor_ self
+    fun hasKey self key = (GtkPrintSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasKey_ (self & key)
     fun loadFile self fileName =
       (
-        GtkPrintSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -696,9 +696,9 @@ structure GtkPrintSettings :>
         )
     fun loadKeyFile self (keyFile, groupName) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
-         &&&> GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        GtkPrintSettingsClass.FFI.withPtr false
+         &&&> GLibKeyFileRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -711,9 +711,9 @@ structure GtkPrintSettings :>
         )
     fun set self (key, value) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        GtkPrintSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> I
       )
         set_
@@ -724,8 +724,8 @@ structure GtkPrintSettings :>
         )
     fun setBool self (key, value) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -735,13 +735,13 @@ structure GtkPrintSettings :>
            & key
            & value
         )
-    fun setCollate self collate = (GtkPrintSettingsClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCollate_ (self & collate)
-    fun setDefaultSource self defaultSource = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDefaultSource_ (self & defaultSource)
-    fun setDither self dither = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDither_ (self & dither)
+    fun setCollate self collate = (GtkPrintSettingsClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCollate_ (self & collate)
+    fun setDefaultSource self defaultSource = (GtkPrintSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDefaultSource_ (self & defaultSource)
+    fun setDither self dither = (GtkPrintSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDither_ (self & dither)
     fun setDouble self (key, value) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GDouble.FFI.withVal
          ---> I
       )
@@ -751,12 +751,12 @@ structure GtkPrintSettings :>
            & key
            & value
         )
-    fun setDuplex self duplex = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkPrintDuplex.FFI.withVal ---> I) setDuplex_ (self & duplex)
-    fun setFinishings self finishings = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setFinishings_ (self & finishings)
+    fun setDuplex self duplex = (GtkPrintSettingsClass.FFI.withPtr false &&&> GtkPrintDuplex.FFI.withVal ---> I) setDuplex_ (self & duplex)
+    fun setFinishings self finishings = (GtkPrintSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setFinishings_ (self & finishings)
     fun setInt self (key, value) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -774,8 +774,8 @@ structure GtkPrintSettings :>
         unit
       ) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GDouble.FFI.withVal
          &&&> GtkUnit.FFI.withVal
          ---> I
@@ -787,19 +787,19 @@ structure GtkPrintSettings :>
            & value
            & unit
         )
-    fun setMediaType self mediaType = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setMediaType_ (self & mediaType)
-    fun setNCopies self numCopies = (GtkPrintSettingsClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setNCopies_ (self & numCopies)
-    fun setNumberUp self numberUp = (GtkPrintSettingsClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setNumberUp_ (self & numberUp)
-    fun setNumberUpLayout self numberUpLayout = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkNumberUpLayout.FFI.withVal ---> I) setNumberUpLayout_ (self & numberUpLayout)
-    fun setOrientation self orientation = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkPageOrientation.FFI.withVal ---> I) setOrientation_ (self & orientation)
-    fun setOutputBin self outputBin = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setOutputBin_ (self & outputBin)
+    fun setMediaType self mediaType = (GtkPrintSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setMediaType_ (self & mediaType)
+    fun setNCopies self numCopies = (GtkPrintSettingsClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setNCopies_ (self & numCopies)
+    fun setNumberUp self numberUp = (GtkPrintSettingsClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setNumberUp_ (self & numberUp)
+    fun setNumberUpLayout self numberUpLayout = (GtkPrintSettingsClass.FFI.withPtr false &&&> GtkNumberUpLayout.FFI.withVal ---> I) setNumberUpLayout_ (self & numberUpLayout)
+    fun setOrientation self orientation = (GtkPrintSettingsClass.FFI.withPtr false &&&> GtkPageOrientation.FFI.withVal ---> I) setOrientation_ (self & orientation)
+    fun setOutputBin self outputBin = (GtkPrintSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setOutputBin_ (self & outputBin)
     fun setPageRanges self pageRanges =
       let
         val numRanges = LargeInt.fromInt (GtkPageRangeRecordCArrayN.length pageRanges)
         val () =
           (
-            GtkPrintSettingsClass.FFI.withPtr
-             &&&> GtkPageRangeRecordCArrayN.FFI.withPtr
+            GtkPrintSettingsClass.FFI.withPtr false
+             &&&> GtkPageRangeRecordCArrayN.FFI.withPtr 0
              &&&> GInt32.FFI.withVal
              ---> I
           )
@@ -812,10 +812,10 @@ structure GtkPrintSettings :>
       in
         ()
       end
-    fun setPageSet self pageSet = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkPageSet.FFI.withVal ---> I) setPageSet_ (self & pageSet)
+    fun setPageSet self pageSet = (GtkPrintSettingsClass.FFI.withPtr false &&&> GtkPageSet.FFI.withVal ---> I) setPageSet_ (self & pageSet)
     fun setPaperHeight self (height, unit) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GtkUnit.FFI.withVal
          ---> I
@@ -826,10 +826,10 @@ structure GtkPrintSettings :>
            & height
            & unit
         )
-    fun setPaperSize self paperSize = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkPaperSizeRecord.FFI.withPtr ---> I) setPaperSize_ (self & paperSize)
+    fun setPaperSize self paperSize = (GtkPrintSettingsClass.FFI.withPtr false &&&> GtkPaperSizeRecord.FFI.withPtr false ---> I) setPaperSize_ (self & paperSize)
     fun setPaperWidth self (width, unit) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GtkUnit.FFI.withVal
          ---> I
@@ -840,14 +840,14 @@ structure GtkPrintSettings :>
            & width
            & unit
         )
-    fun setPrintPages self pages = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkPrintPages.FFI.withVal ---> I) setPrintPages_ (self & pages)
-    fun setPrinter self printer = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setPrinter_ (self & printer)
-    fun setPrinterLpi self lpi = (GtkPrintSettingsClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setPrinterLpi_ (self & lpi)
-    fun setQuality self quality = (GtkPrintSettingsClass.FFI.withPtr &&&> GtkPrintQuality.FFI.withVal ---> I) setQuality_ (self & quality)
-    fun setResolution self resolution = (GtkPrintSettingsClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setResolution_ (self & resolution)
+    fun setPrintPages self pages = (GtkPrintSettingsClass.FFI.withPtr false &&&> GtkPrintPages.FFI.withVal ---> I) setPrintPages_ (self & pages)
+    fun setPrinter self printer = (GtkPrintSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setPrinter_ (self & printer)
+    fun setPrinterLpi self lpi = (GtkPrintSettingsClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setPrinterLpi_ (self & lpi)
+    fun setQuality self quality = (GtkPrintSettingsClass.FFI.withPtr false &&&> GtkPrintQuality.FFI.withVal ---> I) setQuality_ (self & quality)
+    fun setResolution self resolution = (GtkPrintSettingsClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setResolution_ (self & resolution)
     fun setResolutionXy self (resolutionX, resolutionY) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I
@@ -858,13 +858,13 @@ structure GtkPrintSettings :>
            & resolutionX
            & resolutionY
         )
-    fun setReverse self reverse = (GtkPrintSettingsClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setReverse_ (self & reverse)
-    fun setScale self scale = (GtkPrintSettingsClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setScale_ (self & scale)
-    fun setUseColor self useColor = (GtkPrintSettingsClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseColor_ (self & useColor)
+    fun setReverse self reverse = (GtkPrintSettingsClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setReverse_ (self & reverse)
+    fun setScale self scale = (GtkPrintSettingsClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setScale_ (self & scale)
+    fun setUseColor self useColor = (GtkPrintSettingsClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseColor_ (self & useColor)
     fun toFile self fileName =
       (
-        GtkPrintSettingsClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -874,12 +874,12 @@ structure GtkPrintSettings :>
            & fileName
            & []
         )
-    fun toGvariant self = (GtkPrintSettingsClass.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
+    fun toGvariant self = (GtkPrintSettingsClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
     fun toKeyFile self (keyFile, groupName) =
       (
-        GtkPrintSettingsClass.FFI.withPtr
-         &&&> GLibKeyFileRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkPrintSettingsClass.FFI.withPtr false
+         &&&> GLibKeyFileRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         toKeyFile_
@@ -888,5 +888,5 @@ structure GtkPrintSettings :>
            & keyFile
            & groupName
         )
-    fun unset self key = (GtkPrintSettingsClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) unset_ (self & key)
+    fun unset self key = (GtkPrintSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) unset_ (self & key)
   end

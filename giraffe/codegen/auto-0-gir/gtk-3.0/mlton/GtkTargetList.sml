@@ -126,7 +126,7 @@ structure GtkTargetList :>
           case targets of
             SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
           | NONE => GUInt.null
-        val retVal = (GtkTargetEntryRecordCArrayN.FFI.withOptPtr &&&> GUInt.FFI.withVal ---> GtkTargetListRecord.FFI.fromPtr true) new_ (targets & ntargets)
+        val retVal = (GtkTargetEntryRecordCArrayN.FFI.withOptPtr 0 &&&> GUInt.FFI.withVal ---> GtkTargetListRecord.FFI.fromPtr true) new_ (targets & ntargets)
       in
         retVal
       end
@@ -138,8 +138,8 @@ structure GtkTargetList :>
         info
       ) =
       (
-        GtkTargetListRecord.FFI.withPtr
-         &&&> GdkAtomRecord.FFI.withPtr
+        GtkTargetListRecord.FFI.withPtr false
+         &&&> GdkAtomRecord.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
          ---> I
@@ -153,7 +153,7 @@ structure GtkTargetList :>
         )
     fun addImageTargets self (info, writable) =
       (
-        GtkTargetListRecord.FFI.withPtr
+        GtkTargetListRecord.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
@@ -172,10 +172,10 @@ structure GtkTargetList :>
         buffer
       ) =
       (
-        GtkTargetListRecord.FFI.withPtr
+        GtkTargetListRecord.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GBool.FFI.withVal
-         &&&> GtkTextBufferClass.FFI.withPtr
+         &&&> GtkTextBufferClass.FFI.withPtr false
          ---> I
       )
         addRichTextTargets_
@@ -190,8 +190,8 @@ structure GtkTargetList :>
         val ntargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
-            GtkTargetListRecord.FFI.withPtr
-             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
+            GtkTargetListRecord.FFI.withPtr false
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr 0
              &&&> GUInt.FFI.withVal
              ---> I
           )
@@ -204,14 +204,14 @@ structure GtkTargetList :>
       in
         ()
       end
-    fun addTextTargets self info = (GtkTargetListRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) addTextTargets_ (self & info)
-    fun addUriTargets self info = (GtkTargetListRecord.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) addUriTargets_ (self & info)
+    fun addTextTargets self info = (GtkTargetListRecord.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) addTextTargets_ (self & info)
+    fun addUriTargets self info = (GtkTargetListRecord.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) addUriTargets_ (self & info)
     fun find self target =
       let
         val info & retVal =
           (
-            GtkTargetListRecord.FFI.withPtr
-             &&&> GdkAtomRecord.FFI.withPtr
+            GtkTargetListRecord.FFI.withPtr false
+             &&&> GdkAtomRecord.FFI.withPtr false
              &&&> GUInt.FFI.withRefVal
              ---> GUInt.FFI.fromVal && GBool.FFI.fromVal
           )
@@ -224,5 +224,5 @@ structure GtkTargetList :>
       in
         if retVal then SOME info else NONE
       end
-    fun remove self target = (GtkTargetListRecord.FFI.withPtr &&&> GdkAtomRecord.FFI.withPtr ---> I) remove_ (self & target)
+    fun remove self target = (GtkTargetListRecord.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> I) remove_ (self & target)
   end

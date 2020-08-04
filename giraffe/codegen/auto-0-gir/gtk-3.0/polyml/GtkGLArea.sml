@@ -42,23 +42,23 @@ structure GtkGLArea :>
     type 'a class = 'a GtkGLAreaClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkGLAreaClass.FFI.fromPtr true) new_ ()
-    fun attachBuffers self = (GtkGLAreaClass.FFI.withPtr ---> I) attachBuffers_ self
-    fun getAutoRender self = (GtkGLAreaClass.FFI.withPtr ---> GBool.FFI.fromVal) getAutoRender_ self
-    fun getContext self = (GtkGLAreaClass.FFI.withPtr ---> GdkGLContextClass.FFI.fromPtr false) getContext_ self
-    fun getHasAlpha self = (GtkGLAreaClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasAlpha_ self
-    fun getHasDepthBuffer self = (GtkGLAreaClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasDepthBuffer_ self
-    fun getHasStencilBuffer self = (GtkGLAreaClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasStencilBuffer_ self
+    fun attachBuffers self = (GtkGLAreaClass.FFI.withPtr false ---> I) attachBuffers_ self
+    fun getAutoRender self = (GtkGLAreaClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAutoRender_ self
+    fun getContext self = (GtkGLAreaClass.FFI.withPtr false ---> GdkGLContextClass.FFI.fromPtr false) getContext_ self
+    fun getHasAlpha self = (GtkGLAreaClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasAlpha_ self
+    fun getHasDepthBuffer self = (GtkGLAreaClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasDepthBuffer_ self
+    fun getHasStencilBuffer self = (GtkGLAreaClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasStencilBuffer_ self
     fun getRequiredVersion self =
       let
         val major
          & minor
          & () =
           (
-            GtkGLAreaClass.FFI.withPtr
+            GtkGLAreaClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -74,16 +74,16 @@ structure GtkGLArea :>
       in
         (major, minor)
       end
-    fun getUseEs self = (GtkGLAreaClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseEs_ self
-    fun makeCurrent self = (GtkGLAreaClass.FFI.withPtr ---> I) makeCurrent_ self
-    fun queueRender self = (GtkGLAreaClass.FFI.withPtr ---> I) queueRender_ self
-    fun setAutoRender self autoRender = (GtkGLAreaClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAutoRender_ (self & autoRender)
-    fun setHasAlpha self hasAlpha = (GtkGLAreaClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasAlpha_ (self & hasAlpha)
-    fun setHasDepthBuffer self hasDepthBuffer = (GtkGLAreaClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasDepthBuffer_ (self & hasDepthBuffer)
-    fun setHasStencilBuffer self hasStencilBuffer = (GtkGLAreaClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasStencilBuffer_ (self & hasStencilBuffer)
+    fun getUseEs self = (GtkGLAreaClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseEs_ self
+    fun makeCurrent self = (GtkGLAreaClass.FFI.withPtr false ---> I) makeCurrent_ self
+    fun queueRender self = (GtkGLAreaClass.FFI.withPtr false ---> I) queueRender_ self
+    fun setAutoRender self autoRender = (GtkGLAreaClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAutoRender_ (self & autoRender)
+    fun setHasAlpha self hasAlpha = (GtkGLAreaClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasAlpha_ (self & hasAlpha)
+    fun setHasDepthBuffer self hasDepthBuffer = (GtkGLAreaClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasDepthBuffer_ (self & hasDepthBuffer)
+    fun setHasStencilBuffer self hasStencilBuffer = (GtkGLAreaClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasStencilBuffer_ (self & hasStencilBuffer)
     fun setRequiredVersion self (major, minor) =
       (
-        GtkGLAreaClass.FFI.withPtr
+        GtkGLAreaClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -94,7 +94,7 @@ structure GtkGLArea :>
            & major
            & minor
         )
-    fun setUseEs self useEs = (GtkGLAreaClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseEs_ (self & useEs)
+    fun setUseEs self useEs = (GtkGLAreaClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseEs_ (self & useEs)
     local
       open ClosureMarshal Signal
     in

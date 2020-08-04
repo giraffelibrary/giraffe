@@ -60,8 +60,8 @@ structure GioPermission :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun acquire self cancellable =
       (
-        GioPermissionClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioPermissionClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -73,8 +73,8 @@ structure GioPermission :>
         )
     fun acquireFinish self result =
       (
-        GioPermissionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioPermissionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -84,9 +84,9 @@ structure GioPermission :>
            & result
            & []
         )
-    fun getAllowed self = (GioPermissionClass.FFI.withPtr ---> GBool.FFI.fromVal) getAllowed_ self
-    fun getCanAcquire self = (GioPermissionClass.FFI.withPtr ---> GBool.FFI.fromVal) getCanAcquire_ self
-    fun getCanRelease self = (GioPermissionClass.FFI.withPtr ---> GBool.FFI.fromVal) getCanRelease_ self
+    fun getAllowed self = (GioPermissionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAllowed_ self
+    fun getCanAcquire self = (GioPermissionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCanAcquire_ self
+    fun getCanRelease self = (GioPermissionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCanRelease_ self
     fun implUpdate
       self
       (
@@ -95,7 +95,7 @@ structure GioPermission :>
         canRelease
       ) =
       (
-        GioPermissionClass.FFI.withPtr
+        GioPermissionClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
@@ -110,8 +110,8 @@ structure GioPermission :>
         )
     fun release self cancellable =
       (
-        GioPermissionClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioPermissionClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -123,8 +123,8 @@ structure GioPermission :>
         )
     fun releaseFinish self result =
       (
-        GioPermissionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioPermissionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

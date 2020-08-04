@@ -52,13 +52,13 @@ structure GtkSourceRegion :>
     type region_iter_t = GtkSourceRegionIterRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new buffer = (GtkTextBufferClass.FFI.withPtr ---> GtkSourceRegionClass.FFI.fromPtr true) new_ buffer
-    fun addRegion self regionToAdd = (GtkSourceRegionClass.FFI.withPtr &&&> GtkSourceRegionClass.FFI.withOptPtr ---> I) addRegion_ (self & regionToAdd)
+    fun new buffer = (GtkTextBufferClass.FFI.withPtr false ---> GtkSourceRegionClass.FFI.fromPtr true) new_ buffer
+    fun addRegion self regionToAdd = (GtkSourceRegionClass.FFI.withPtr false &&&> GtkSourceRegionClass.FFI.withOptPtr false ---> I) addRegion_ (self & regionToAdd)
     fun addSubregion self (start, end') =
       (
-        GtkSourceRegionClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkSourceRegionClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         addSubregion_
@@ -73,7 +73,7 @@ structure GtkSourceRegion :>
          & end'
          & retVal =
           (
-            GtkSourceRegionClass.FFI.withPtr
+            GtkSourceRegionClass.FFI.withPtr false
              &&&> GtkTextIterRecord.FFI.withNewPtr
              &&&> GtkTextIterRecord.FFI.withNewPtr
              ---> GtkTextIterRecord.FFI.fromPtr true
@@ -89,19 +89,19 @@ structure GtkSourceRegion :>
       in
         if retVal then SOME (start, end') else NONE
       end
-    fun getBuffer self = (GtkSourceRegionClass.FFI.withPtr ---> GtkTextBufferClass.FFI.fromOptPtr false) getBuffer_ self
+    fun getBuffer self = (GtkSourceRegionClass.FFI.withPtr false ---> GtkTextBufferClass.FFI.fromOptPtr false) getBuffer_ self
     fun getStartRegionIter self =
       let
-        val iter & () = (GtkSourceRegionClass.FFI.withPtr &&&> GtkSourceRegionIterRecord.FFI.withNewPtr ---> GtkSourceRegionIterRecord.FFI.fromPtr true && I) getStartRegionIter_ (self & ())
+        val iter & () = (GtkSourceRegionClass.FFI.withPtr false &&&> GtkSourceRegionIterRecord.FFI.withNewPtr ---> GtkSourceRegionIterRecord.FFI.fromPtr true && I) getStartRegionIter_ (self & ())
       in
         iter
       end
-    fun intersectRegion self region2 = (GtkSourceRegionClass.FFI.withPtr &&&> GtkSourceRegionClass.FFI.withOptPtr ---> GtkSourceRegionClass.FFI.fromOptPtr true) intersectRegion_ (self & region2)
+    fun intersectRegion self region2 = (GtkSourceRegionClass.FFI.withPtr false &&&> GtkSourceRegionClass.FFI.withOptPtr false ---> GtkSourceRegionClass.FFI.fromOptPtr true) intersectRegion_ (self & region2)
     fun intersectSubregion self (start, end') =
       (
-        GtkSourceRegionClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkSourceRegionClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> GtkSourceRegionClass.FFI.fromOptPtr true
       )
         intersectSubregion_
@@ -110,13 +110,13 @@ structure GtkSourceRegion :>
            & start
            & end'
         )
-    fun isEmpty self = (GtkSourceRegionClass.FFI.withPtr ---> GBool.FFI.fromVal) isEmpty_ self
-    fun subtractRegion self regionToSubtract = (GtkSourceRegionClass.FFI.withPtr &&&> GtkSourceRegionClass.FFI.withOptPtr ---> I) subtractRegion_ (self & regionToSubtract)
+    fun isEmpty self = (GtkSourceRegionClass.FFI.withPtr false ---> GBool.FFI.fromVal) isEmpty_ self
+    fun subtractRegion self regionToSubtract = (GtkSourceRegionClass.FFI.withPtr false &&&> GtkSourceRegionClass.FFI.withOptPtr false ---> I) subtractRegion_ (self & regionToSubtract)
     fun subtractSubregion self (start, end') =
       (
-        GtkSourceRegionClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkSourceRegionClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         subtractSubregion_
@@ -125,7 +125,7 @@ structure GtkSourceRegion :>
            & start
            & end'
         )
-    fun toString self = (GtkSourceRegionClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) toString_ self
+    fun toString self = (GtkSourceRegionClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) toString_ self
     local
       open Property
     in

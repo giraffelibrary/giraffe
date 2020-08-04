@@ -26,22 +26,22 @@ structure GioInetAddress :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newAny family = (GioSocketFamily.FFI.withVal ---> GioInetAddressClass.FFI.fromPtr true) newAny_ family
-    fun newFromString string = (Utf8.FFI.withPtr ---> GioInetAddressClass.FFI.fromOptPtr true) newFromString_ string
+    fun newFromString string = (Utf8.FFI.withPtr 0 ---> GioInetAddressClass.FFI.fromOptPtr true) newFromString_ string
     fun newLoopback family = (GioSocketFamily.FFI.withVal ---> GioInetAddressClass.FFI.fromPtr true) newLoopback_ family
-    fun equal self otherAddress = (GioInetAddressClass.FFI.withPtr &&&> GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & otherAddress)
-    fun getFamily self = (GioInetAddressClass.FFI.withPtr ---> GioSocketFamily.FFI.fromVal) getFamily_ self
-    fun getIsAny self = (GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsAny_ self
-    fun getIsLinkLocal self = (GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsLinkLocal_ self
-    fun getIsLoopback self = (GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsLoopback_ self
-    fun getIsMcGlobal self = (GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsMcGlobal_ self
-    fun getIsMcLinkLocal self = (GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsMcLinkLocal_ self
-    fun getIsMcNodeLocal self = (GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsMcNodeLocal_ self
-    fun getIsMcOrgLocal self = (GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsMcOrgLocal_ self
-    fun getIsMcSiteLocal self = (GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsMcSiteLocal_ self
-    fun getIsMulticast self = (GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsMulticast_ self
-    fun getIsSiteLocal self = (GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsSiteLocal_ self
-    fun getNativeSize self = (GioInetAddressClass.FFI.withPtr ---> GUInt64.FFI.fromVal) getNativeSize_ self
-    fun toString self = (GioInetAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun equal self otherAddress = (GioInetAddressClass.FFI.withPtr false &&&> GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & otherAddress)
+    fun getFamily self = (GioInetAddressClass.FFI.withPtr false ---> GioSocketFamily.FFI.fromVal) getFamily_ self
+    fun getIsAny self = (GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsAny_ self
+    fun getIsLinkLocal self = (GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsLinkLocal_ self
+    fun getIsLoopback self = (GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsLoopback_ self
+    fun getIsMcGlobal self = (GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsMcGlobal_ self
+    fun getIsMcLinkLocal self = (GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsMcLinkLocal_ self
+    fun getIsMcNodeLocal self = (GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsMcNodeLocal_ self
+    fun getIsMcOrgLocal self = (GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsMcOrgLocal_ self
+    fun getIsMcSiteLocal self = (GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsMcSiteLocal_ self
+    fun getIsMulticast self = (GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsMulticast_ self
+    fun getIsSiteLocal self = (GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsSiteLocal_ self
+    fun getNativeSize self = (GioInetAddressClass.FFI.withPtr false ---> GUInt64.FFI.fromVal) getNativeSize_ self
+    fun toString self = (GioInetAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
     local
       open Property
     in

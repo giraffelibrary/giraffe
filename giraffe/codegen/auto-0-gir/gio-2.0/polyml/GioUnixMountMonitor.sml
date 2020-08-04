@@ -15,7 +15,7 @@ structure GioUnixMountMonitor :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioUnixMountMonitorClass.FFI.fromPtr true) new_ ()
     fun get () = (I ---> GioUnixMountMonitorClass.FFI.fromPtr true) get_ ()
-    fun setRateLimit self limitMsec = (GioUnixMountMonitorClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setRateLimit_ (self & limitMsec)
+    fun setRateLimit self limitMsec = (GioUnixMountMonitorClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setRateLimit_ (self & limitMsec)
     local
       open ClosureMarshal Signal
     in

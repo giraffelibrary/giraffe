@@ -19,9 +19,9 @@ structure GtkGesturePan :>
     type orientation_t = GtkOrientation.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (widget, orientation) = (GtkWidgetClass.FFI.withPtr &&&> GtkOrientation.FFI.withVal ---> GtkGesturePanClass.FFI.fromPtr true) new_ (widget & orientation)
-    fun getOrientation self = (GtkGesturePanClass.FFI.withPtr ---> GtkOrientation.FFI.fromVal) getOrientation_ self
-    fun setOrientation self orientation = (GtkGesturePanClass.FFI.withPtr &&&> GtkOrientation.FFI.withVal ---> I) setOrientation_ (self & orientation)
+    fun new (widget, orientation) = (GtkWidgetClass.FFI.withPtr false &&&> GtkOrientation.FFI.withVal ---> GtkGesturePanClass.FFI.fromPtr true) new_ (widget & orientation)
+    fun getOrientation self = (GtkGesturePanClass.FFI.withPtr false ---> GtkOrientation.FFI.fromVal) getOrientation_ self
+    fun setOrientation self orientation = (GtkGesturePanClass.FFI.withPtr false &&&> GtkOrientation.FFI.withVal ---> I) setOrientation_ (self & orientation)
     local
       open ClosureMarshal Signal
     in

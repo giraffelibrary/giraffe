@@ -29,14 +29,14 @@ structure GioInetSocketAddress :>
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type 'a inet_address_class = 'a GioInetAddressClass.class
     type t = base class
-    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
+    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr false ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (address, port) = (GioInetAddressClass.FFI.withPtr &&&> GUInt16.FFI.withVal ---> GioInetSocketAddressClass.FFI.fromPtr true) new_ (address & port)
-    fun newFromString (address, port) = (Utf8.FFI.withPtr &&&> GUInt32.FFI.withVal ---> GioInetSocketAddressClass.FFI.fromOptPtr true) newFromString_ (address & port)
-    fun getAddress self = (GioInetSocketAddressClass.FFI.withPtr ---> GioInetAddressClass.FFI.fromPtr false) getAddress_ self
-    fun getFlowinfo self = (GioInetSocketAddressClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getFlowinfo_ self
-    fun getPort self = (GioInetSocketAddressClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getPort_ self
-    fun getScopeId self = (GioInetSocketAddressClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getScopeId_ self
+    fun new (address, port) = (GioInetAddressClass.FFI.withPtr false &&&> GUInt16.FFI.withVal ---> GioInetSocketAddressClass.FFI.fromPtr true) new_ (address & port)
+    fun newFromString (address, port) = (Utf8.FFI.withPtr 0 &&&> GUInt32.FFI.withVal ---> GioInetSocketAddressClass.FFI.fromOptPtr true) newFromString_ (address & port)
+    fun getAddress self = (GioInetSocketAddressClass.FFI.withPtr false ---> GioInetAddressClass.FFI.fromPtr false) getAddress_ self
+    fun getFlowinfo self = (GioInetSocketAddressClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getFlowinfo_ self
+    fun getPort self = (GioInetSocketAddressClass.FFI.withPtr false ---> GUInt16.FFI.fromVal) getPort_ self
+    fun getScopeId self = (GioInetSocketAddressClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getScopeId_ self
     local
       open Property
     in

@@ -35,8 +35,8 @@ structure GioDtlsClientConnection :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (baseSocket, serverIdentity) =
       (
-        GioDatagramBasedClass.FFI.withPtr
-         &&&> GioSocketConnectableClass.FFI.withOptPtr
+        GioDatagramBasedClass.FFI.withPtr false
+         &&&> GioSocketConnectableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioDtlsClientConnectionClass.FFI.fromPtr true
       )
@@ -46,10 +46,10 @@ structure GioDtlsClientConnection :>
            & serverIdentity
            & []
         )
-    fun getServerIdentity self = (GioDtlsClientConnectionClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) getServerIdentity_ self
-    fun getValidationFlags self = (GioDtlsClientConnectionClass.FFI.withPtr ---> GioTlsCertificateFlags.FFI.fromVal) getValidationFlags_ self
-    fun setServerIdentity self identity = (GioDtlsClientConnectionClass.FFI.withPtr &&&> GioSocketConnectableClass.FFI.withPtr ---> I) setServerIdentity_ (self & identity)
-    fun setValidationFlags self flags = (GioDtlsClientConnectionClass.FFI.withPtr &&&> GioTlsCertificateFlags.FFI.withVal ---> I) setValidationFlags_ (self & flags)
+    fun getServerIdentity self = (GioDtlsClientConnectionClass.FFI.withPtr false ---> GioSocketConnectableClass.FFI.fromPtr false) getServerIdentity_ self
+    fun getValidationFlags self = (GioDtlsClientConnectionClass.FFI.withPtr false ---> GioTlsCertificateFlags.FFI.fromVal) getValidationFlags_ self
+    fun setServerIdentity self identity = (GioDtlsClientConnectionClass.FFI.withPtr false &&&> GioSocketConnectableClass.FFI.withPtr false ---> I) setServerIdentity_ (self & identity)
+    fun setValidationFlags self flags = (GioDtlsClientConnectionClass.FFI.withPtr false &&&> GioTlsCertificateFlags.FFI.withVal ---> I) setValidationFlags_ (self & flags)
     local
       open Property
     in

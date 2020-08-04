@@ -49,17 +49,17 @@ structure GtkAccelLabel :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new string = (Utf8.FFI.withPtr ---> GtkAccelLabelClass.FFI.fromPtr false) new_ string
+    fun new string = (Utf8.FFI.withPtr 0 ---> GtkAccelLabelClass.FFI.fromPtr false) new_ string
     fun getAccel self =
       let
         val acceleratorKey
          & acceleratorMods
          & () =
           (
-            GtkAccelLabelClass.FFI.withPtr
+            GtkAccelLabelClass.FFI.withPtr false
              &&&> GUInt.FFI.withRefVal
              &&&> GdkModifierType.FFI.withRefVal
              ---> GUInt.FFI.fromVal
@@ -75,12 +75,12 @@ structure GtkAccelLabel :>
       in
         (acceleratorKey, acceleratorMods)
       end
-    fun getAccelWidget self = (GtkAccelLabelClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getAccelWidget_ self
-    fun getAccelWidth self = (GtkAccelLabelClass.FFI.withPtr ---> GUInt.FFI.fromVal) getAccelWidth_ self
-    fun refetch self = (GtkAccelLabelClass.FFI.withPtr ---> GBool.FFI.fromVal) refetch_ self
+    fun getAccelWidget self = (GtkAccelLabelClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getAccelWidget_ self
+    fun getAccelWidth self = (GtkAccelLabelClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getAccelWidth_ self
+    fun refetch self = (GtkAccelLabelClass.FFI.withPtr false ---> GBool.FFI.fromVal) refetch_ self
     fun setAccel self (acceleratorKey, acceleratorMods) =
       (
-        GtkAccelLabelClass.FFI.withPtr
+        GtkAccelLabelClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
          ---> I
@@ -91,8 +91,8 @@ structure GtkAccelLabel :>
            & acceleratorKey
            & acceleratorMods
         )
-    fun setAccelClosure self accelClosure = (GtkAccelLabelClass.FFI.withPtr &&&> GObjectClosureRecord.FFI.withPtr ---> I) setAccelClosure_ (self & accelClosure)
-    fun setAccelWidget self accelWidget = (GtkAccelLabelClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) setAccelWidget_ (self & accelWidget)
+    fun setAccelClosure self accelClosure = (GtkAccelLabelClass.FFI.withPtr false &&&> GObjectClosureRecord.FFI.withPtr false ---> I) setAccelClosure_ (self & accelClosure)
+    fun setAccelWidget self accelWidget = (GtkAccelLabelClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setAccelWidget_ (self & accelWidget)
     local
       open Property
     in

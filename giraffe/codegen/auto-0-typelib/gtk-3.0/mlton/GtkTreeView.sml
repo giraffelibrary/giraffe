@@ -693,23 +693,23 @@ structure GtkTreeView :>
     type 'a tree_view_column_class = 'a GtkTreeViewColumnClass.class
     type 'a tree_model_class = 'a GtkTreeModelClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asScrollable self = (GObjectObjectClass.FFI.withPtr ---> GtkScrollableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asScrollable self = (GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTreeViewClass.FFI.fromPtr false) new_ ()
-    fun newWithModel model = (GtkTreeModelClass.FFI.withPtr ---> GtkTreeViewClass.FFI.fromPtr false) newWithModel_ model
-    fun appendColumn self column = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreeViewColumnClass.FFI.withPtr ---> GInt32.FFI.fromVal) appendColumn_ (self & column)
-    fun collapseAll self = (GtkTreeViewClass.FFI.withPtr ---> I) collapseAll_ self
-    fun collapseRow self path = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) collapseRow_ (self & path)
-    fun columnsAutosize self = (GtkTreeViewClass.FFI.withPtr ---> I) columnsAutosize_ self
+    fun newWithModel model = (GtkTreeModelClass.FFI.withPtr false ---> GtkTreeViewClass.FFI.fromPtr false) newWithModel_ model
+    fun appendColumn self column = (GtkTreeViewClass.FFI.withPtr false &&&> GtkTreeViewColumnClass.FFI.withPtr false ---> GInt32.FFI.fromVal) appendColumn_ (self & column)
+    fun collapseAll self = (GtkTreeViewClass.FFI.withPtr false ---> I) collapseAll_ self
+    fun collapseRow self path = (GtkTreeViewClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GBool.FFI.fromVal) collapseRow_ (self & path)
+    fun columnsAutosize self = (GtkTreeViewClass.FFI.withPtr false ---> I) columnsAutosize_ self
     fun convertBinWindowToTreeCoords self (bx, by) =
       let
         val tx
          & ty
          & () =
           (
-            GtkTreeViewClass.FFI.withPtr
+            GtkTreeViewClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withRefVal
@@ -735,7 +735,7 @@ structure GtkTreeView :>
          & wy
          & () =
           (
-            GtkTreeViewClass.FFI.withPtr
+            GtkTreeViewClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withRefVal
@@ -761,7 +761,7 @@ structure GtkTreeView :>
          & by
          & () =
           (
-            GtkTreeViewClass.FFI.withPtr
+            GtkTreeViewClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withRefVal
@@ -787,7 +787,7 @@ structure GtkTreeView :>
          & wy
          & () =
           (
-            GtkTreeViewClass.FFI.withPtr
+            GtkTreeViewClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withRefVal
@@ -813,7 +813,7 @@ structure GtkTreeView :>
          & by
          & () =
           (
-            GtkTreeViewClass.FFI.withPtr
+            GtkTreeViewClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withRefVal
@@ -839,7 +839,7 @@ structure GtkTreeView :>
          & ty
          & () =
           (
-            GtkTreeViewClass.FFI.withPtr
+            GtkTreeViewClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withRefVal
@@ -859,14 +859,14 @@ structure GtkTreeView :>
       in
         (tx, ty)
       end
-    fun createRowDragIcon self path = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> CairoSurfaceRecord.FFI.fromPtr true) createRowDragIcon_ (self & path)
+    fun createRowDragIcon self path = (GtkTreeViewClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> CairoSurfaceRecord.FFI.fromPtr true) createRowDragIcon_ (self & path)
     fun enableModelDragDest self (targets, actions) =
       let
         val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
-            GtkTreeViewClass.FFI.withPtr
-             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
+            GtkTreeViewClass.FFI.withPtr false
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr 0
              &&&> GInt32.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I
@@ -892,9 +892,9 @@ structure GtkTreeView :>
         val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
-            GtkTreeViewClass.FFI.withPtr
+            GtkTreeViewClass.FFI.withPtr false
              &&&> GdkModifierType.FFI.withVal
-             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr 0
              &&&> GInt32.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I
@@ -910,11 +910,11 @@ structure GtkTreeView :>
       in
         ()
       end
-    fun expandAll self = (GtkTreeViewClass.FFI.withPtr ---> I) expandAll_ self
+    fun expandAll self = (GtkTreeViewClass.FFI.withPtr false ---> I) expandAll_ self
     fun expandRow self (path, openAll) =
       (
-        GtkTreeViewClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withPtr
+        GtkTreeViewClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -924,15 +924,15 @@ structure GtkTreeView :>
            & path
            & openAll
         )
-    fun expandToPath self path = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> I) expandToPath_ (self & path)
-    fun getActivateOnSingleClick self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
+    fun expandToPath self path = (GtkTreeViewClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> I) expandToPath_ (self & path)
+    fun getActivateOnSingleClick self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
     fun getBackgroundArea self (path, column) =
       let
         val rect & () =
           (
-            GtkTreeViewClass.FFI.withPtr
-             &&&> GtkTreePathRecord.FFI.withOptPtr
-             &&&> GtkTreeViewColumnClass.FFI.withOptPtr
+            GtkTreeViewClass.FFI.withPtr false
+             &&&> GtkTreePathRecord.FFI.withOptPtr false
+             &&&> GtkTreeViewColumnClass.FFI.withOptPtr false
              &&&> GdkRectangleRecord.FFI.withNewPtr
              ---> GdkRectangleRecord.FFI.fromPtr true && I
           )
@@ -946,14 +946,14 @@ structure GtkTreeView :>
       in
         rect
       end
-    fun getBinWindow self = (GtkTreeViewClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getBinWindow_ self
+    fun getBinWindow self = (GtkTreeViewClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getBinWindow_ self
     fun getCellArea self (path, column) =
       let
         val rect & () =
           (
-            GtkTreeViewClass.FFI.withPtr
-             &&&> GtkTreePathRecord.FFI.withOptPtr
-             &&&> GtkTreeViewColumnClass.FFI.withOptPtr
+            GtkTreeViewClass.FFI.withPtr false
+             &&&> GtkTreePathRecord.FFI.withOptPtr false
+             &&&> GtkTreeViewColumnClass.FFI.withOptPtr false
              &&&> GdkRectangleRecord.FFI.withNewPtr
              ---> GdkRectangleRecord.FFI.fromPtr true && I
           )
@@ -967,16 +967,16 @@ structure GtkTreeView :>
       in
         rect
       end
-    fun getColumn self n = (GtkTreeViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkTreeViewColumnClass.FFI.fromOptPtr false) getColumn_ (self & n)
+    fun getColumn self n = (GtkTreeViewClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkTreeViewColumnClass.FFI.fromOptPtr false) getColumn_ (self & n)
     fun getCursor self =
       let
         val path
          & focusColumn
          & () =
           (
-            GtkTreeViewClass.FFI.withPtr
-             &&&> GtkTreePathRecord.FFI.withRefOptPtr
-             &&&> GtkTreeViewColumnClass.FFI.withRefOptPtr
+            GtkTreeViewClass.FFI.withPtr false
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr true
+             &&&> GtkTreeViewColumnClass.FFI.withRefOptPtr false
              ---> GtkTreePathRecord.FFI.fromPtr true
                    && GtkTreeViewColumnClass.FFI.fromPtr false
                    && I
@@ -996,10 +996,10 @@ structure GtkTreeView :>
          & pos
          & retVal =
           (
-            GtkTreeViewClass.FFI.withPtr
+            GtkTreeViewClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
-             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr true
              &&&> GtkTreeViewDropPosition.FFI.withRefVal
              ---> GtkTreePathRecord.FFI.fromPtr true
                    && GtkTreeViewDropPosition.FFI.fromVal
@@ -1022,8 +1022,8 @@ structure GtkTreeView :>
          & pos
          & () =
           (
-            GtkTreeViewClass.FFI.withPtr
-             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+            GtkTreeViewClass.FFI.withPtr false
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr true
              &&&> GtkTreeViewDropPosition.FFI.withRefVal
              ---> GtkTreePathRecord.FFI.fromPtr true
                    && GtkTreeViewDropPosition.FFI.fromVal
@@ -1038,19 +1038,19 @@ structure GtkTreeView :>
       in
         (path, pos)
       end
-    fun getEnableSearch self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getEnableSearch_ self
-    fun getEnableTreeLines self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getEnableTreeLines_ self
-    fun getExpanderColumn self = (GtkTreeViewClass.FFI.withPtr ---> GtkTreeViewColumnClass.FFI.fromPtr false) getExpanderColumn_ self
-    fun getFixedHeightMode self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getFixedHeightMode_ self
-    fun getGridLines self = (GtkTreeViewClass.FFI.withPtr ---> GtkTreeViewGridLines.FFI.fromVal) getGridLines_ self
-    fun getHadjustment self = (GtkTreeViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
-    fun getHeadersClickable self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getHeadersClickable_ self
-    fun getHeadersVisible self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getHeadersVisible_ self
-    fun getHoverExpand self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getHoverExpand_ self
-    fun getHoverSelection self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getHoverSelection_ self
-    fun getLevelIndentation self = (GtkTreeViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getLevelIndentation_ self
-    fun getModel self = (GtkTreeViewClass.FFI.withPtr ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self
-    fun getNColumns self = (GtkTreeViewClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getNColumns_ self
+    fun getEnableSearch self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEnableSearch_ self
+    fun getEnableTreeLines self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEnableTreeLines_ self
+    fun getExpanderColumn self = (GtkTreeViewClass.FFI.withPtr false ---> GtkTreeViewColumnClass.FFI.fromPtr false) getExpanderColumn_ self
+    fun getFixedHeightMode self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFixedHeightMode_ self
+    fun getGridLines self = (GtkTreeViewClass.FFI.withPtr false ---> GtkTreeViewGridLines.FFI.fromVal) getGridLines_ self
+    fun getHadjustment self = (GtkTreeViewClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
+    fun getHeadersClickable self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHeadersClickable_ self
+    fun getHeadersVisible self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHeadersVisible_ self
+    fun getHoverExpand self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHoverExpand_ self
+    fun getHoverSelection self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHoverSelection_ self
+    fun getLevelIndentation self = (GtkTreeViewClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getLevelIndentation_ self
+    fun getModel self = (GtkTreeViewClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self
+    fun getNColumns self = (GtkTreeViewClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getNColumns_ self
     fun getPathAtPos self (x, y) =
       let
         val path
@@ -1059,11 +1059,11 @@ structure GtkTreeView :>
          & cellY
          & retVal =
           (
-            GtkTreeViewClass.FFI.withPtr
+            GtkTreeViewClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
-             &&&> GtkTreePathRecord.FFI.withRefOptPtr
-             &&&> GtkTreeViewColumnClass.FFI.withRefOptPtr
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr true
+             &&&> GtkTreeViewColumnClass.FFI.withRefOptPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GtkTreePathRecord.FFI.fromPtr true
@@ -1094,14 +1094,14 @@ structure GtkTreeView :>
             )
         else NONE
       end
-    fun getReorderable self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getReorderable_ self
-    fun getRubberBanding self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getRubberBanding_ self
-    fun getRulesHint self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getRulesHint_ self
-    fun getSearchColumn self = (GtkTreeViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSearchColumn_ self
-    fun getSearchEntry self = (GtkTreeViewClass.FFI.withPtr ---> GtkEntryClass.FFI.fromPtr false) getSearchEntry_ self
-    fun getSelection self = (GtkTreeViewClass.FFI.withPtr ---> GtkTreeSelectionClass.FFI.fromPtr false) getSelection_ self
-    fun getShowExpanders self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowExpanders_ self
-    fun getTooltipColumn self = (GtkTreeViewClass.FFI.withPtr ---> GInt32.FFI.fromVal) getTooltipColumn_ self
+    fun getReorderable self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getReorderable_ self
+    fun getRubberBanding self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRubberBanding_ self
+    fun getRulesHint self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRulesHint_ self
+    fun getSearchColumn self = (GtkTreeViewClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getSearchColumn_ self
+    fun getSearchEntry self = (GtkTreeViewClass.FFI.withPtr false ---> GtkEntryClass.FFI.fromPtr false) getSearchEntry_ self
+    fun getSelection self = (GtkTreeViewClass.FFI.withPtr false ---> GtkTreeSelectionClass.FFI.fromPtr false) getSelection_ self
+    fun getShowExpanders self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowExpanders_ self
+    fun getTooltipColumn self = (GtkTreeViewClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getTooltipColumn_ self
     fun getTooltipContext
       self
       (
@@ -1117,12 +1117,12 @@ structure GtkTreeView :>
          & iter
          & retVal =
           (
-            GtkTreeViewClass.FFI.withPtr
+            GtkTreeViewClass.FFI.withPtr false
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              &&&> GBool.FFI.withVal
-             &&&> GtkTreeModelClass.FFI.withRefOptPtr
-             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+             &&&> GtkTreeModelClass.FFI.withRefOptPtr false
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr true
              &&&> GtkTreeIterRecord.FFI.withNewPtr
              ---> GInt32.FFI.fromVal
                    && GInt32.FFI.fromVal
@@ -1156,16 +1156,16 @@ structure GtkTreeView :>
           y
         )
       end
-    fun getVadjustment self = (GtkTreeViewClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
+    fun getVadjustment self = (GtkTreeViewClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
     fun getVisibleRange self =
       let
         val startPath
          & endPath
          & retVal =
           (
-            GtkTreeViewClass.FFI.withPtr
-             &&&> GtkTreePathRecord.FFI.withRefOptPtr
-             &&&> GtkTreePathRecord.FFI.withRefOptPtr
+            GtkTreeViewClass.FFI.withPtr false
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr true
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr true
              ---> GtkTreePathRecord.FFI.fromPtr true
                    && GtkTreePathRecord.FFI.fromPtr true
                    && GBool.FFI.fromVal
@@ -1181,14 +1181,14 @@ structure GtkTreeView :>
       end
     fun getVisibleRect self =
       let
-        val visibleRect & () = (GtkTreeViewClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getVisibleRect_ (self & ())
+        val visibleRect & () = (GtkTreeViewClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getVisibleRect_ (self & ())
       in
         visibleRect
       end
     fun insertColumn self (column, position) =
       (
-        GtkTreeViewClass.FFI.withPtr
-         &&&> GtkTreeViewColumnClass.FFI.withPtr
+        GtkTreeViewClass.FFI.withPtr false
+         &&&> GtkTreeViewColumnClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> GInt32.FFI.fromVal
       )
@@ -1206,11 +1206,11 @@ structure GtkTreeView :>
          & cellY
          & retVal =
           (
-            GtkTreeViewClass.FFI.withPtr
+            GtkTreeViewClass.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
-             &&&> GtkTreePathRecord.FFI.withRefOptPtr
-             &&&> GtkTreeViewColumnClass.FFI.withRefOptPtr
+             &&&> GtkTreePathRecord.FFI.withRefOptPtr true
+             &&&> GtkTreeViewColumnClass.FFI.withRefOptPtr true
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GtkTreePathRecord.FFI.fromPtr true
@@ -1241,12 +1241,12 @@ structure GtkTreeView :>
             )
         else NONE
       end
-    fun isRubberBandingActive self = (GtkTreeViewClass.FFI.withPtr ---> GBool.FFI.fromVal) isRubberBandingActive_ self
+    fun isRubberBandingActive self = (GtkTreeViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) isRubberBandingActive_ self
     fun moveColumnAfter self (column, baseColumn) =
       (
-        GtkTreeViewClass.FFI.withPtr
-         &&&> GtkTreeViewColumnClass.FFI.withPtr
-         &&&> GtkTreeViewColumnClass.FFI.withOptPtr
+        GtkTreeViewClass.FFI.withPtr false
+         &&&> GtkTreeViewColumnClass.FFI.withPtr false
+         &&&> GtkTreeViewColumnClass.FFI.withOptPtr false
          ---> I
       )
         moveColumnAfter_
@@ -1255,12 +1255,12 @@ structure GtkTreeView :>
            & column
            & baseColumn
         )
-    fun removeColumn self column = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreeViewColumnClass.FFI.withPtr ---> GInt32.FFI.fromVal) removeColumn_ (self & column)
+    fun removeColumn self column = (GtkTreeViewClass.FFI.withPtr false &&&> GtkTreeViewColumnClass.FFI.withPtr false ---> GInt32.FFI.fromVal) removeColumn_ (self & column)
     fun rowActivated self (path, column) =
       (
-        GtkTreeViewClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withPtr
-         &&&> GtkTreeViewColumnClass.FFI.withPtr
+        GtkTreeViewClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withPtr false
+         &&&> GtkTreeViewColumnClass.FFI.withPtr false
          ---> I
       )
         rowActivated_
@@ -1269,7 +1269,7 @@ structure GtkTreeView :>
            & path
            & column
         )
-    fun rowExpanded self path = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) rowExpanded_ (self & path)
+    fun rowExpanded self path = (GtkTreeViewClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GBool.FFI.fromVal) rowExpanded_ (self & path)
     fun scrollToCell
       self
       (
@@ -1280,9 +1280,9 @@ structure GtkTreeView :>
         colAlign
       ) =
       (
-        GtkTreeViewClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withOptPtr
-         &&&> GtkTreeViewColumnClass.FFI.withOptPtr
+        GtkTreeViewClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withOptPtr false
+         &&&> GtkTreeViewColumnClass.FFI.withOptPtr false
          &&&> GBool.FFI.withVal
          &&&> GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal
@@ -1299,7 +1299,7 @@ structure GtkTreeView :>
         )
     fun scrollToPoint self (treeX, treeY) =
       (
-        GtkTreeViewClass.FFI.withPtr
+        GtkTreeViewClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> I
@@ -1310,7 +1310,7 @@ structure GtkTreeView :>
            & treeX
            & treeY
         )
-    fun setActivateOnSingleClick self single = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActivateOnSingleClick_ (self & single)
+    fun setActivateOnSingleClick self single = (GtkTreeViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setActivateOnSingleClick_ (self & single)
     fun setCursor
       self
       (
@@ -1319,9 +1319,9 @@ structure GtkTreeView :>
         startEditing
       ) =
       (
-        GtkTreeViewClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withPtr
-         &&&> GtkTreeViewColumnClass.FFI.withOptPtr
+        GtkTreeViewClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withPtr false
+         &&&> GtkTreeViewColumnClass.FFI.withOptPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -1341,10 +1341,10 @@ structure GtkTreeView :>
         startEditing
       ) =
       (
-        GtkTreeViewClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withPtr
-         &&&> GtkTreeViewColumnClass.FFI.withOptPtr
-         &&&> GtkCellRendererClass.FFI.withOptPtr
+        GtkTreeViewClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withPtr false
+         &&&> GtkTreeViewColumnClass.FFI.withOptPtr false
+         &&&> GtkCellRendererClass.FFI.withOptPtr false
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -1358,8 +1358,8 @@ structure GtkTreeView :>
         )
     fun setDragDestRow self (path, pos) =
       (
-        GtkTreeViewClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withOptPtr
+        GtkTreeViewClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withOptPtr false
          &&&> GtkTreeViewDropPosition.FFI.withVal
          ---> I
       )
@@ -1369,24 +1369,24 @@ structure GtkTreeView :>
            & path
            & pos
         )
-    fun setEnableSearch self enableSearch = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setEnableSearch_ (self & enableSearch)
-    fun setEnableTreeLines self enabled = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setEnableTreeLines_ (self & enabled)
-    fun setExpanderColumn self column = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreeViewColumnClass.FFI.withPtr ---> I) setExpanderColumn_ (self & column)
-    fun setFixedHeightMode self enable = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setFixedHeightMode_ (self & enable)
-    fun setGridLines self gridLines = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreeViewGridLines.FFI.withVal ---> I) setGridLines_ (self & gridLines)
-    fun setHadjustment self adjustment = (GtkTreeViewClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setHadjustment_ (self & adjustment)
-    fun setHeadersClickable self setting = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHeadersClickable_ (self & setting)
-    fun setHeadersVisible self headersVisible = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHeadersVisible_ (self & headersVisible)
-    fun setHoverExpand self expand = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHoverExpand_ (self & expand)
-    fun setHoverSelection self hover = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHoverSelection_ (self & hover)
-    fun setLevelIndentation self indentation = (GtkTreeViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setLevelIndentation_ (self & indentation)
-    fun setModel self model = (GtkTreeViewClass.FFI.withPtr &&&> GtkTreeModelClass.FFI.withOptPtr ---> I) setModel_ (self & model)
-    fun setReorderable self reorderable = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setReorderable_ (self & reorderable)
-    fun setRubberBanding self enable = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRubberBanding_ (self & enable)
-    fun setRulesHint self setting = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRulesHint_ (self & setting)
-    fun setSearchColumn self column = (GtkTreeViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setSearchColumn_ (self & column)
-    fun setSearchEntry self entry = (GtkTreeViewClass.FFI.withPtr &&&> GtkEntryClass.FFI.withOptPtr ---> I) setSearchEntry_ (self & entry)
-    fun setShowExpanders self enabled = (GtkTreeViewClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowExpanders_ (self & enabled)
+    fun setEnableSearch self enableSearch = (GtkTreeViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setEnableSearch_ (self & enableSearch)
+    fun setEnableTreeLines self enabled = (GtkTreeViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setEnableTreeLines_ (self & enabled)
+    fun setExpanderColumn self column = (GtkTreeViewClass.FFI.withPtr false &&&> GtkTreeViewColumnClass.FFI.withPtr false ---> I) setExpanderColumn_ (self & column)
+    fun setFixedHeightMode self enable = (GtkTreeViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setFixedHeightMode_ (self & enable)
+    fun setGridLines self gridLines = (GtkTreeViewClass.FFI.withPtr false &&&> GtkTreeViewGridLines.FFI.withVal ---> I) setGridLines_ (self & gridLines)
+    fun setHadjustment self adjustment = (GtkTreeViewClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> I) setHadjustment_ (self & adjustment)
+    fun setHeadersClickable self setting = (GtkTreeViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHeadersClickable_ (self & setting)
+    fun setHeadersVisible self headersVisible = (GtkTreeViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHeadersVisible_ (self & headersVisible)
+    fun setHoverExpand self expand = (GtkTreeViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHoverExpand_ (self & expand)
+    fun setHoverSelection self hover = (GtkTreeViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHoverSelection_ (self & hover)
+    fun setLevelIndentation self indentation = (GtkTreeViewClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setLevelIndentation_ (self & indentation)
+    fun setModel self model = (GtkTreeViewClass.FFI.withPtr false &&&> GtkTreeModelClass.FFI.withOptPtr false ---> I) setModel_ (self & model)
+    fun setReorderable self reorderable = (GtkTreeViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setReorderable_ (self & reorderable)
+    fun setRubberBanding self enable = (GtkTreeViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRubberBanding_ (self & enable)
+    fun setRulesHint self setting = (GtkTreeViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRulesHint_ (self & setting)
+    fun setSearchColumn self column = (GtkTreeViewClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setSearchColumn_ (self & column)
+    fun setSearchEntry self entry = (GtkTreeViewClass.FFI.withPtr false &&&> GtkEntryClass.FFI.withOptPtr false ---> I) setSearchEntry_ (self & entry)
+    fun setShowExpanders self enabled = (GtkTreeViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowExpanders_ (self & enabled)
     fun setTooltipCell
       self
       (
@@ -1396,11 +1396,11 @@ structure GtkTreeView :>
         cell
       ) =
       (
-        GtkTreeViewClass.FFI.withPtr
-         &&&> GtkTooltipClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withOptPtr
-         &&&> GtkTreeViewColumnClass.FFI.withOptPtr
-         &&&> GtkCellRendererClass.FFI.withOptPtr
+        GtkTreeViewClass.FFI.withPtr false
+         &&&> GtkTooltipClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withOptPtr false
+         &&&> GtkTreeViewColumnClass.FFI.withOptPtr false
+         &&&> GtkCellRendererClass.FFI.withOptPtr false
          ---> I
       )
         setTooltipCell_
@@ -1411,12 +1411,12 @@ structure GtkTreeView :>
            & column
            & cell
         )
-    fun setTooltipColumn self column = (GtkTreeViewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setTooltipColumn_ (self & column)
+    fun setTooltipColumn self column = (GtkTreeViewClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setTooltipColumn_ (self & column)
     fun setTooltipRow self (tooltip, path) =
       (
-        GtkTreeViewClass.FFI.withPtr
-         &&&> GtkTooltipClass.FFI.withPtr
-         &&&> GtkTreePathRecord.FFI.withPtr
+        GtkTreeViewClass.FFI.withPtr false
+         &&&> GtkTooltipClass.FFI.withPtr false
+         &&&> GtkTreePathRecord.FFI.withPtr false
          ---> I
       )
         setTooltipRow_
@@ -1425,9 +1425,9 @@ structure GtkTreeView :>
            & tooltip
            & path
         )
-    fun setVadjustment self adjustment = (GtkTreeViewClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setVadjustment_ (self & adjustment)
-    fun unsetRowsDragDest self = (GtkTreeViewClass.FFI.withPtr ---> I) unsetRowsDragDest_ self
-    fun unsetRowsDragSource self = (GtkTreeViewClass.FFI.withPtr ---> I) unsetRowsDragSource_ self
+    fun setVadjustment self adjustment = (GtkTreeViewClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> I) setVadjustment_ (self & adjustment)
+    fun unsetRowsDragDest self = (GtkTreeViewClass.FFI.withPtr false ---> I) unsetRowsDragDest_ self
+    fun unsetRowsDragSource self = (GtkTreeViewClass.FFI.withPtr false ---> I) unsetRowsDragSource_ self
     local
       open ClosureMarshal Signal
     in

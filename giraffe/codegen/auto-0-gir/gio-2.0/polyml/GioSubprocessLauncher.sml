@@ -52,13 +52,13 @@ structure GioSubprocessLauncher :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new flags = (GioSubprocessFlags.FFI.withVal ---> GioSubprocessLauncherClass.FFI.fromPtr true) new_ flags
-    fun getenv self variable = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getenv_ (self & variable)
-    fun setCwd self cwd = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setCwd_ (self & cwd)
-    fun setEnviron self env = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8CPtrArray.FFI.withPtr ---> I) setEnviron_ (self & env)
-    fun setFlags self flags = (GioSubprocessLauncherClass.FFI.withPtr &&&> GioSubprocessFlags.FFI.withVal ---> I) setFlags_ (self & flags)
-    fun setStderrFilePath self path = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setStderrFilePath_ (self & path)
-    fun setStdinFilePath self path = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setStdinFilePath_ (self & path)
-    fun setStdoutFilePath self path = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setStdoutFilePath_ (self & path)
+    fun getenv self variable = (GioSubprocessLauncherClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getenv_ (self & variable)
+    fun setCwd self cwd = (GioSubprocessLauncherClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setCwd_ (self & cwd)
+    fun setEnviron self env = (GioSubprocessLauncherClass.FFI.withPtr false &&&> Utf8CPtrArray.FFI.withPtr 0 ---> I) setEnviron_ (self & env)
+    fun setFlags self flags = (GioSubprocessLauncherClass.FFI.withPtr false &&&> GioSubprocessFlags.FFI.withVal ---> I) setFlags_ (self & flags)
+    fun setStderrFilePath self path = (GioSubprocessLauncherClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setStderrFilePath_ (self & path)
+    fun setStdinFilePath self path = (GioSubprocessLauncherClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setStdinFilePath_ (self & path)
+    fun setStdoutFilePath self path = (GioSubprocessLauncherClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setStdoutFilePath_ (self & path)
     fun setenv
       self
       (
@@ -67,9 +67,9 @@ structure GioSubprocessLauncher :>
         overwrite
       ) =
       (
-        GioSubprocessLauncherClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSubprocessLauncherClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -82,8 +82,8 @@ structure GioSubprocessLauncher :>
         )
     fun spawnv self argv =
       (
-        GioSubprocessLauncherClass.FFI.withPtr
-         &&&> Utf8CPtrArray.FFI.withPtr
+        GioSubprocessLauncherClass.FFI.withPtr false
+         &&&> Utf8CPtrArray.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GioSubprocessClass.FFI.fromPtr true
       )
@@ -95,7 +95,7 @@ structure GioSubprocessLauncher :>
         )
     fun takeFd self (sourceFd, targetFd) =
       (
-        GioSubprocessLauncherClass.FFI.withPtr
+        GioSubprocessLauncherClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -106,10 +106,10 @@ structure GioSubprocessLauncher :>
            & sourceFd
            & targetFd
         )
-    fun takeStderrFd self fd = (GioSubprocessLauncherClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) takeStderrFd_ (self & fd)
-    fun takeStdinFd self fd = (GioSubprocessLauncherClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) takeStdinFd_ (self & fd)
-    fun takeStdoutFd self fd = (GioSubprocessLauncherClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) takeStdoutFd_ (self & fd)
-    fun unsetenv self variable = (GioSubprocessLauncherClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) unsetenv_ (self & variable)
+    fun takeStderrFd self fd = (GioSubprocessLauncherClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) takeStderrFd_ (self & fd)
+    fun takeStdinFd self fd = (GioSubprocessLauncherClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) takeStdinFd_ (self & fd)
+    fun takeStdoutFd self fd = (GioSubprocessLauncherClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) takeStdoutFd_ (self & fd)
+    fun unsetenv self variable = (GioSubprocessLauncherClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) unsetenv_ (self & variable)
     local
       open Property
     in

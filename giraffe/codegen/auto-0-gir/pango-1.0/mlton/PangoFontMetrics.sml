@@ -15,12 +15,12 @@ structure PangoFontMetrics :>
     type t = PangoFontMetricsRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoFontMetricsRecord.FFI.fromPtr true) new_ ()
-    fun getApproximateCharWidth self = (PangoFontMetricsRecord.FFI.withPtr ---> GInt.FFI.fromVal) getApproximateCharWidth_ self
-    fun getApproximateDigitWidth self = (PangoFontMetricsRecord.FFI.withPtr ---> GInt.FFI.fromVal) getApproximateDigitWidth_ self
-    fun getAscent self = (PangoFontMetricsRecord.FFI.withPtr ---> GInt.FFI.fromVal) getAscent_ self
-    fun getDescent self = (PangoFontMetricsRecord.FFI.withPtr ---> GInt.FFI.fromVal) getDescent_ self
-    fun getStrikethroughPosition self = (PangoFontMetricsRecord.FFI.withPtr ---> GInt.FFI.fromVal) getStrikethroughPosition_ self
-    fun getStrikethroughThickness self = (PangoFontMetricsRecord.FFI.withPtr ---> GInt.FFI.fromVal) getStrikethroughThickness_ self
-    fun getUnderlinePosition self = (PangoFontMetricsRecord.FFI.withPtr ---> GInt.FFI.fromVal) getUnderlinePosition_ self
-    fun getUnderlineThickness self = (PangoFontMetricsRecord.FFI.withPtr ---> GInt.FFI.fromVal) getUnderlineThickness_ self
+    fun getApproximateCharWidth self = (PangoFontMetricsRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getApproximateCharWidth_ self
+    fun getApproximateDigitWidth self = (PangoFontMetricsRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getApproximateDigitWidth_ self
+    fun getAscent self = (PangoFontMetricsRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getAscent_ self
+    fun getDescent self = (PangoFontMetricsRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getDescent_ self
+    fun getStrikethroughPosition self = (PangoFontMetricsRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getStrikethroughPosition_ self
+    fun getStrikethroughThickness self = (PangoFontMetricsRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getStrikethroughThickness_ self
+    fun getUnderlinePosition self = (PangoFontMetricsRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getUnderlinePosition_ self
+    fun getUnderlineThickness self = (PangoFontMetricsRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getUnderlineThickness_ self
   end

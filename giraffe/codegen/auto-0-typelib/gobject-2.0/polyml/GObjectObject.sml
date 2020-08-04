@@ -77,10 +77,10 @@ structure GObjectObject :>
         flags
       ) =
       (
-        GObjectObjectClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectObjectClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GObjectBindingFlags.FFI.withVal
          ---> GObjectBindingClass.FFI.fromPtr false
       )
@@ -103,13 +103,13 @@ structure GObjectObject :>
         transformFrom
       ) =
       (
-        GObjectObjectClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectObjectClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GObjectBindingFlags.FFI.withVal
-         &&&> GObjectClosureRecord.FFI.withPtr
-         &&&> GObjectClosureRecord.FFI.withPtr
+         &&&> GObjectClosureRecord.FFI.withPtr false
+         &&&> GObjectClosureRecord.FFI.withPtr false
          ---> GObjectBindingClass.FFI.fromPtr false
       )
         bindPropertyFull_
@@ -122,12 +122,12 @@ structure GObjectObject :>
            & transformTo
            & transformFrom
         )
-    fun freezeNotify self = (GObjectObjectClass.FFI.withPtr ---> I) freezeNotify_ self
+    fun freezeNotify self = (GObjectObjectClass.FFI.withPtr false ---> I) freezeNotify_ self
     fun getProperty self (propertyName, value) =
       (
-        GObjectObjectClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectValueRecord.FFI.withPtr
+        GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectValueRecord.FFI.withPtr false
          ---> I
       )
         getProperty_
@@ -136,14 +136,14 @@ structure GObjectObject :>
            & propertyName
            & value
         )
-    fun notify self propertyName = (GObjectObjectClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) notify_ (self & propertyName)
-    fun notifyByPspec self pspec = (GObjectObjectClass.FFI.withPtr &&&> GObjectParamSpecClass.FFI.withPtr ---> I) notifyByPspec_ (self & pspec)
-    fun runDispose self = (GObjectObjectClass.FFI.withPtr ---> I) runDispose_ self
+    fun notify self propertyName = (GObjectObjectClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) notify_ (self & propertyName)
+    fun notifyByPspec self pspec = (GObjectObjectClass.FFI.withPtr false &&&> GObjectParamSpecClass.FFI.withPtr false ---> I) notifyByPspec_ (self & pspec)
+    fun runDispose self = (GObjectObjectClass.FFI.withPtr false ---> I) runDispose_ self
     fun setProperty self (propertyName, value) =
       (
-        GObjectObjectClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectValueRecord.FFI.withPtr
+        GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectValueRecord.FFI.withPtr false
          ---> I
       )
         setProperty_
@@ -152,8 +152,8 @@ structure GObjectObject :>
            & propertyName
            & value
         )
-    fun thawNotify self = (GObjectObjectClass.FFI.withPtr ---> I) thawNotify_ self
-    fun watchClosure self closure = (GObjectObjectClass.FFI.withPtr &&&> GObjectClosureRecord.FFI.withPtr ---> I) watchClosure_ (self & closure)
+    fun thawNotify self = (GObjectObjectClass.FFI.withPtr false ---> I) thawNotify_ self
+    fun watchClosure self closure = (GObjectObjectClass.FFI.withPtr false &&&> GObjectClosureRecord.FFI.withPtr false ---> I) watchClosure_ (self & closure)
     local
       open ClosureMarshal Signal
     in

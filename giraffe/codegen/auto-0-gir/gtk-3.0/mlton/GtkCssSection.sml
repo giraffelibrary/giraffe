@@ -14,11 +14,11 @@ structure GtkCssSection :>
     type t = GtkCssSectionRecord.t
     type css_section_type_t = GtkCssSectionType.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getEndLine self = (GtkCssSectionRecord.FFI.withPtr ---> GUInt.FFI.fromVal) getEndLine_ self
-    fun getEndPosition self = (GtkCssSectionRecord.FFI.withPtr ---> GUInt.FFI.fromVal) getEndPosition_ self
-    fun getFile self = (GtkCssSectionRecord.FFI.withPtr ---> GioFileClass.FFI.fromPtr false) getFile_ self
-    fun getParent self = (GtkCssSectionRecord.FFI.withPtr ---> GtkCssSectionRecord.FFI.fromOptPtr false) getParent_ self
-    fun getSectionType self = (GtkCssSectionRecord.FFI.withPtr ---> GtkCssSectionType.FFI.fromVal) getSectionType_ self
-    fun getStartLine self = (GtkCssSectionRecord.FFI.withPtr ---> GUInt.FFI.fromVal) getStartLine_ self
-    fun getStartPosition self = (GtkCssSectionRecord.FFI.withPtr ---> GUInt.FFI.fromVal) getStartPosition_ self
+    fun getEndLine self = (GtkCssSectionRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) getEndLine_ self
+    fun getEndPosition self = (GtkCssSectionRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) getEndPosition_ self
+    fun getFile self = (GtkCssSectionRecord.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getFile_ self
+    fun getParent self = (GtkCssSectionRecord.FFI.withPtr false ---> GtkCssSectionRecord.FFI.fromOptPtr false) getParent_ self
+    fun getSectionType self = (GtkCssSectionRecord.FFI.withPtr false ---> GtkCssSectionType.FFI.fromVal) getSectionType_ self
+    fun getStartLine self = (GtkCssSectionRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) getStartLine_ self
+    fun getStartPosition self = (GtkCssSectionRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) getStartPosition_ self
   end

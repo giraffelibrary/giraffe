@@ -52,8 +52,8 @@ structure GtkSourceGutterRendererText :>
          & height
          & () =
           (
-            GtkSourceGutterRendererTextClass.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            GtkSourceGutterRendererTextClass.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GInt32.FFI.fromVal
@@ -76,8 +76,8 @@ structure GtkSourceGutterRendererText :>
          & height
          & () =
           (
-            GtkSourceGutterRendererTextClass.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            GtkSourceGutterRendererTextClass.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal
              ---> GInt32.FFI.fromVal
@@ -96,8 +96,8 @@ structure GtkSourceGutterRendererText :>
       end
     fun setMarkup self (markup, length) =
       (
-        GtkSourceGutterRendererTextClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkSourceGutterRendererTextClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -109,8 +109,8 @@ structure GtkSourceGutterRendererText :>
         )
     fun setText self (text, length) =
       (
-        GtkSourceGutterRendererTextClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkSourceGutterRendererTextClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> I
       )

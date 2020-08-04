@@ -53,14 +53,14 @@ structure GioResource :>
     type 'a input_stream_class = 'a GioInputStreamClass.class
     type resource_lookup_flags_t = GioResourceLookupFlags.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newFromData data = (GLibBytesRecord.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioResourceRecord.FFI.fromPtr true) newFromData_ (data & [])
+    fun newFromData data = (GLibBytesRecord.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioResourceRecord.FFI.fromPtr true) newFromData_ (data & [])
     fun enumerateChildren self (path, lookupFlags) =
       (
-        GioResourceRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioResourceRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CPtrArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr ~1
       )
         enumerateChildren_
         (
@@ -75,8 +75,8 @@ structure GioResource :>
          & flags
          & () =
           (
-            GioResourceRecord.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            GioResourceRecord.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GioResourceLookupFlags.FFI.withVal
              &&&> GSize.FFI.withRefVal
              &&&> GUInt32.FFI.withRefVal
@@ -99,8 +99,8 @@ structure GioResource :>
       end
     fun lookupData self (path, lookupFlags) =
       (
-        GioResourceRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioResourceRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GLibBytesRecord.FFI.fromPtr true
@@ -114,8 +114,8 @@ structure GioResource :>
         )
     fun openStream self (path, lookupFlags) =
       (
-        GioResourceRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioResourceRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GioResourceLookupFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioInputStreamClass.FFI.fromPtr true
@@ -127,5 +127,5 @@ structure GioResource :>
            & lookupFlags
            & []
         )
-    fun load filename = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioResourceRecord.FFI.fromPtr true) load_ (filename & [])
+    fun load filename = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GioResourceRecord.FFI.fromPtr true) load_ (filename & [])
   end

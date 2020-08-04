@@ -40,12 +40,12 @@ structure GtkSourceCompletion :>
     type 'a completion_context_class = 'a GtkSourceCompletionContextClass.class
     type 'a view_class = 'a GtkSourceViewClass.class
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun addProvider self provider =
       (
-        GtkSourceCompletionClass.FFI.withPtr
-         &&&> GtkSourceCompletionProviderClass.FFI.withPtr
+        GtkSourceCompletionClass.FFI.withPtr false
+         &&&> GtkSourceCompletionProviderClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -55,16 +55,16 @@ structure GtkSourceCompletion :>
            & provider
            & []
         )
-    fun blockInteractive self = (GtkSourceCompletionClass.FFI.withPtr ---> I) blockInteractive_ self
-    fun createContext self position = (GtkSourceCompletionClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withOptPtr ---> GtkSourceCompletionContextClass.FFI.fromPtr false) createContext_ (self & position)
-    fun getInfoWindow self = (GtkSourceCompletionClass.FFI.withPtr ---> GtkSourceCompletionInfoClass.FFI.fromPtr false) getInfoWindow_ self
-    fun getView self = (GtkSourceCompletionClass.FFI.withPtr ---> GtkSourceViewClass.FFI.fromOptPtr false) getView_ self
-    fun hide self = (GtkSourceCompletionClass.FFI.withPtr ---> I) hide_ self
-    fun moveWindow self iter = (GtkSourceCompletionClass.FFI.withPtr &&&> GtkTextIterRecord.FFI.withPtr ---> I) moveWindow_ (self & iter)
+    fun blockInteractive self = (GtkSourceCompletionClass.FFI.withPtr false ---> I) blockInteractive_ self
+    fun createContext self position = (GtkSourceCompletionClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withOptPtr false ---> GtkSourceCompletionContextClass.FFI.fromPtr false) createContext_ (self & position)
+    fun getInfoWindow self = (GtkSourceCompletionClass.FFI.withPtr false ---> GtkSourceCompletionInfoClass.FFI.fromPtr false) getInfoWindow_ self
+    fun getView self = (GtkSourceCompletionClass.FFI.withPtr false ---> GtkSourceViewClass.FFI.fromOptPtr false) getView_ self
+    fun hide self = (GtkSourceCompletionClass.FFI.withPtr false ---> I) hide_ self
+    fun moveWindow self iter = (GtkSourceCompletionClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> I) moveWindow_ (self & iter)
     fun removeProvider self provider =
       (
-        GtkSourceCompletionClass.FFI.withPtr
-         &&&> GtkSourceCompletionProviderClass.FFI.withPtr
+        GtkSourceCompletionClass.FFI.withPtr false
+         &&&> GtkSourceCompletionProviderClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -74,7 +74,7 @@ structure GtkSourceCompletion :>
            & provider
            & []
         )
-    fun unblockInteractive self = (GtkSourceCompletionClass.FFI.withPtr ---> I) unblockInteractive_ self
+    fun unblockInteractive self = (GtkSourceCompletionClass.FFI.withPtr false ---> I) unblockInteractive_ self
     local
       open ClosureMarshal Signal
     in

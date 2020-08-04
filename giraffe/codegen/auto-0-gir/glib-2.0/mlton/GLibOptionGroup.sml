@@ -23,6 +23,6 @@ structure GLibOptionGroup :>
     type t = GLibOptionGroupRecord.t
     type option_entry_t = GLibOptionEntryRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun addEntries self entries = (GLibOptionGroupRecord.FFI.withPtr &&&> GLibOptionEntryRecord.FFI.withPtr ---> I) addEntries_ (self & entries)
-    fun setTranslationDomain self domain = (GLibOptionGroupRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTranslationDomain_ (self & domain)
+    fun addEntries self entries = (GLibOptionGroupRecord.FFI.withPtr false &&&> GLibOptionEntryRecord.FFI.withPtr false ---> I) addEntries_ (self & entries)
+    fun setTranslationDomain self domain = (GLibOptionGroupRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTranslationDomain_ (self & domain)
   end

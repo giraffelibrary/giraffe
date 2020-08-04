@@ -50,8 +50,8 @@ structure GtkRecentInfo :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun createAppInfo self appName =
       (
-        GtkRecentInfoRecord.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        GtkRecentInfoRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GioAppInfoClass.FFI.fromOptPtr true
       )
@@ -61,9 +61,9 @@ structure GtkRecentInfo :>
            & appName
            & []
         )
-    fun exists self = (GtkRecentInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) exists_ self
-    fun getAdded self = (GtkRecentInfoRecord.FFI.withPtr ---> GInt64.FFI.fromVal) getAdded_ self
-    fun getAge self = (GtkRecentInfoRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getAge_ self
+    fun exists self = (GtkRecentInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) exists_ self
+    fun getAdded self = (GtkRecentInfoRecord.FFI.withPtr false ---> GInt64.FFI.fromVal) getAdded_ self
+    fun getAge self = (GtkRecentInfoRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getAge_ self
     fun getApplicationInfo self appName =
       let
         val appExec
@@ -71,9 +71,9 @@ structure GtkRecentInfo :>
          & time
          & retVal =
           (
-            GtkRecentInfoRecord.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
-             &&&> Utf8.FFI.withRefOptPtr
+            GtkRecentInfoRecord.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
+             &&&> Utf8.FFI.withRefOptPtr 0
              &&&> GUInt32.FFI.withRefVal
              &&&> GInt64.FFI.withRefVal
              ---> Utf8.FFI.fromPtr 0
@@ -102,30 +102,30 @@ structure GtkRecentInfo :>
       end
     fun getApplications self =
       let
-        val _ & retVal = (GtkRecentInfoRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 2) getApplications_ (self & GUInt64.null)
+        val _ & retVal = (GtkRecentInfoRecord.FFI.withPtr false &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr ~1) getApplications_ (self & GUInt64.null)
       in
         retVal
       end
-    fun getDescription self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDescription_ self
-    fun getDisplayName self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
-    fun getGicon self = (GtkRecentInfoRecord.FFI.withPtr ---> GioIconClass.FFI.fromOptPtr true) getGicon_ self
+    fun getDescription self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self
+    fun getDisplayName self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
+    fun getGicon self = (GtkRecentInfoRecord.FFI.withPtr false ---> GioIconClass.FFI.fromOptPtr true) getGicon_ self
     fun getGroups self =
       let
-        val _ & retVal = (GtkRecentInfoRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 2) getGroups_ (self & GUInt64.null)
+        val _ & retVal = (GtkRecentInfoRecord.FFI.withPtr false &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr ~1) getGroups_ (self & GUInt64.null)
       in
         retVal
       end
-    fun getIcon self size = (GtkRecentInfoRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getIcon_ (self & size)
-    fun getMimeType self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMimeType_ self
-    fun getModified self = (GtkRecentInfoRecord.FFI.withPtr ---> GInt64.FFI.fromVal) getModified_ self
-    fun getPrivateHint self = (GtkRecentInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) getPrivateHint_ self
-    fun getShortName self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getShortName_ self
-    fun getUri self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUri_ self
-    fun getUriDisplay self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getUriDisplay_ self
-    fun getVisited self = (GtkRecentInfoRecord.FFI.withPtr ---> GInt64.FFI.fromVal) getVisited_ self
-    fun hasApplication self appName = (GtkRecentInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasApplication_ (self & appName)
-    fun hasGroup self groupName = (GtkRecentInfoRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasGroup_ (self & groupName)
-    fun isLocal self = (GtkRecentInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) isLocal_ self
-    fun lastApplication self = (GtkRecentInfoRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) lastApplication_ self
-    fun match self infoB = (GtkRecentInfoRecord.FFI.withPtr &&&> GtkRecentInfoRecord.FFI.withPtr ---> GBool.FFI.fromVal) match_ (self & infoB)
+    fun getIcon self size = (GtkRecentInfoRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getIcon_ (self & size)
+    fun getMimeType self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMimeType_ self
+    fun getModified self = (GtkRecentInfoRecord.FFI.withPtr false ---> GInt64.FFI.fromVal) getModified_ self
+    fun getPrivateHint self = (GtkRecentInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getPrivateHint_ self
+    fun getShortName self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getShortName_ self
+    fun getUri self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUri_ self
+    fun getUriDisplay self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getUriDisplay_ self
+    fun getVisited self = (GtkRecentInfoRecord.FFI.withPtr false ---> GInt64.FFI.fromVal) getVisited_ self
+    fun hasApplication self appName = (GtkRecentInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasApplication_ (self & appName)
+    fun hasGroup self groupName = (GtkRecentInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasGroup_ (self & groupName)
+    fun isLocal self = (GtkRecentInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isLocal_ self
+    fun lastApplication self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) lastApplication_ self
+    fun match self infoB = (GtkRecentInfoRecord.FFI.withPtr false &&&> GtkRecentInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) match_ (self & infoB)
   end

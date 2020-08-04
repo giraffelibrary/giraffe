@@ -18,12 +18,12 @@ structure GtkCheckButton :>
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActionableClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCheckButtonClass.FFI.fromPtr false) new_ ()
-    fun newWithLabel label = (Utf8.FFI.withPtr ---> GtkCheckButtonClass.FFI.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (Utf8.FFI.withPtr ---> GtkCheckButtonClass.FFI.fromPtr false) newWithMnemonic_ label
+    fun newWithLabel label = (Utf8.FFI.withPtr 0 ---> GtkCheckButtonClass.FFI.fromPtr false) newWithLabel_ label
+    fun newWithMnemonic label = (Utf8.FFI.withPtr 0 ---> GtkCheckButtonClass.FFI.fromPtr false) newWithMnemonic_ label
   end

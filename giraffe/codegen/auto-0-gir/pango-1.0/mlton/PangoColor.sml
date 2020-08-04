@@ -22,7 +22,7 @@ structure PangoColor :>
     val toString_ = _import "pango_color_to_string" : PangoColorRecord.FFI.non_opt PangoColorRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     type t = PangoColorRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun copy self = (PangoColorRecord.FFI.withPtr ---> PangoColorRecord.FFI.fromOptPtr true) copy_ self
-    fun parse self spec = (PangoColorRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) parse_ (self & spec)
-    fun toString self = (PangoColorRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun copy self = (PangoColorRecord.FFI.withPtr false ---> PangoColorRecord.FFI.fromOptPtr true) copy_ self
+    fun parse self spec = (PangoColorRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) parse_ (self & spec)
+    fun toString self = (PangoColorRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
   end

@@ -41,9 +41,9 @@ structure GdkPixbufPixbufSimpleAnim :>
            & height
            & rate
         )
-    fun addFrame self pixbuf = (GdkPixbufPixbufSimpleAnimClass.FFI.withPtr &&&> GdkPixbufPixbufClass.FFI.withPtr ---> I) addFrame_ (self & pixbuf)
-    fun getLoop self = (GdkPixbufPixbufSimpleAnimClass.FFI.withPtr ---> GBool.FFI.fromVal) getLoop_ self
-    fun setLoop self loop = (GdkPixbufPixbufSimpleAnimClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setLoop_ (self & loop)
+    fun addFrame self pixbuf = (GdkPixbufPixbufSimpleAnimClass.FFI.withPtr false &&&> GdkPixbufPixbufClass.FFI.withPtr false ---> I) addFrame_ (self & pixbuf)
+    fun getLoop self = (GdkPixbufPixbufSimpleAnimClass.FFI.withPtr false ---> GBool.FFI.fromVal) getLoop_ self
+    fun setLoop self loop = (GdkPixbufPixbufSimpleAnimClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setLoop_ (self & loop)
     local
       open Property
     in

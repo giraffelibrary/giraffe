@@ -31,7 +31,7 @@ structure GioDatagramBased :>
     type 'a cancellable_class = 'a GioCancellableClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun conditionCheck self condition = (GioDatagramBasedClass.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibIOCondition.FFI.fromVal) conditionCheck_ (self & condition)
+    fun conditionCheck self condition = (GioDatagramBasedClass.FFI.withPtr false &&&> GLibIOCondition.FFI.withVal ---> GLibIOCondition.FFI.fromVal) conditionCheck_ (self & condition)
     fun conditionWait
       self
       (
@@ -40,10 +40,10 @@ structure GioDatagramBased :>
         cancellable
       ) =
       (
-        GioDatagramBasedClass.FFI.withPtr
+        GioDatagramBasedClass.FFI.withPtr false
          &&&> GLibIOCondition.FFI.withVal
          &&&> GInt64.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -57,9 +57,9 @@ structure GioDatagramBased :>
         )
     fun createSource self (condition, cancellable) =
       (
-        GioDatagramBasedClass.FFI.withPtr
+        GioDatagramBasedClass.FFI.withPtr false
          &&&> GLibIOCondition.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          ---> GLibSourceRecord.FFI.fromPtr true
       )
         createSource_

@@ -52,14 +52,14 @@ structure GioProxyResolver :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> GioProxyResolverClass.FFI.fromPtr false) getDefault_ ()
-    fun isSupported self = (GioProxyResolverClass.FFI.withPtr ---> GBool.FFI.fromVal) isSupported_ self
+    fun isSupported self = (GioProxyResolverClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSupported_ self
     fun lookup self (uri, cancellable) =
       (
-        GioProxyResolverClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioProxyResolverClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CPtrArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr ~1
       )
         lookup_
         (
@@ -70,10 +70,10 @@ structure GioProxyResolver :>
         )
     fun lookupFinish self result =
       (
-        GioProxyResolverClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioProxyResolverClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CPtrArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr ~1
       )
         lookupFinish_
         (

@@ -10,11 +10,11 @@ structure GLibTimeVal :>
       val fromIso8601_ = call (getSymbol "g_time_val_from_iso8601") (Utf8.PolyML.cInPtr &&> GLibTimeValRecord.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type t = GLibTimeValRecord.t
-    fun add self microseconds = (GLibTimeValRecord.FFI.withPtr &&&> GLong.FFI.withVal ---> I) add_ (self & microseconds)
-    fun toIso8601 self = (GLibTimeValRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toIso8601_ self
+    fun add self microseconds = (GLibTimeValRecord.FFI.withPtr false &&&> GLong.FFI.withVal ---> I) add_ (self & microseconds)
+    fun toIso8601 self = (GLibTimeValRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toIso8601_ self
     fun fromIso8601 isoDate =
       let
-        val time & retVal = (Utf8.FFI.withPtr &&&> GLibTimeValRecord.FFI.withNewPtr ---> GLibTimeValRecord.FFI.fromPtr true && GBool.FFI.fromVal) fromIso8601_ (isoDate & ())
+        val time & retVal = (Utf8.FFI.withPtr 0 &&&> GLibTimeValRecord.FFI.withNewPtr ---> GLibTimeValRecord.FFI.fromPtr true && GBool.FFI.fromVal) fromIso8601_ (isoDate & ())
       in
         if retVal then SOME time else NONE
       end

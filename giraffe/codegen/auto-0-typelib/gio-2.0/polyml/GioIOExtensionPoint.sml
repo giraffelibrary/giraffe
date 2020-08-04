@@ -23,9 +23,9 @@ structure GioIOExtensionPoint :>
     end
     type t = GioIOExtensionPointRecord.t
     type i_o_extension_t = GioIOExtensionRecord.t
-    fun getExtensionByName self name = (GioIOExtensionPointRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioIOExtensionRecord.FFI.fromPtr false) getExtensionByName_ (self & name)
-    fun getRequiredType self = (GioIOExtensionPointRecord.FFI.withPtr ---> GObjectType.FFI.fromVal) getRequiredType_ self
-    fun setRequiredType self type' = (GioIOExtensionPointRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> I) setRequiredType_ (self & type')
+    fun getExtensionByName self name = (GioIOExtensionPointRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioIOExtensionRecord.FFI.fromPtr false) getExtensionByName_ (self & name)
+    fun getRequiredType self = (GioIOExtensionPointRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal) getRequiredType_ self
+    fun setRequiredType self type' = (GioIOExtensionPointRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> I) setRequiredType_ (self & type')
     fun implement
       (
         extensionPointName,
@@ -34,9 +34,9 @@ structure GioIOExtensionPoint :>
         priority
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GObjectType.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> GioIOExtensionRecord.FFI.fromPtr false
       )
@@ -47,6 +47,6 @@ structure GioIOExtensionPoint :>
            & extensionName
            & priority
         )
-    fun lookup name = (Utf8.FFI.withPtr ---> GioIOExtensionPointRecord.FFI.fromPtr false) lookup_ name
-    fun register name = (Utf8.FFI.withPtr ---> GioIOExtensionPointRecord.FFI.fromPtr false) register_ name
+    fun lookup name = (Utf8.FFI.withPtr 0 ---> GioIOExtensionPointRecord.FFI.fromPtr false) lookup_ name
+    fun register name = (Utf8.FFI.withPtr 0 ---> GioIOExtensionPointRecord.FFI.fromPtr false) register_ name
   end

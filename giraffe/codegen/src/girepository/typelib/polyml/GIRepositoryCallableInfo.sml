@@ -52,36 +52,36 @@ structure GIRepositoryCallableInfo :>
 
     val getReturnType =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
           getReturnType_
           info
 
     val getCallerOwns =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTransfer.FFI.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTransfer.FFI.fromVal)
           getCallerOwns_
           info
 
     val mayReturnNull =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) mayReturnNull_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) mayReturnNull_ info
 
     val getReturnAttribute =
       fn info => fn name =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
-           &&&> Utf8.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
+           &&&> Utf8.FFI.withPtr 0
            ---> Utf8.FFI.fromOptPtr 0
         )
           getReturnAttribute_
           (info & name)
 
     val getNArgs =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNArgs_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNArgs_ info
 
     val getArg =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositoryArgInfoClass.FFI.fromPtr true
         )

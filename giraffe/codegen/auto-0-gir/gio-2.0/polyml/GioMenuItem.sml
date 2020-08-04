@@ -56,15 +56,15 @@ structure GioMenuItem :>
     type 'a menu_model_class = 'a GioMenuModelClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (label, detailedAction) = (Utf8.FFI.withOptPtr &&&> Utf8.FFI.withOptPtr ---> GioMenuItemClass.FFI.fromPtr true) new_ (label & detailedAction)
-    fun newFromModel (model, itemIndex) = (GioMenuModelClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GioMenuItemClass.FFI.fromPtr true) newFromModel_ (model & itemIndex)
-    fun newSection (label, section) = (Utf8.FFI.withOptPtr &&&> GioMenuModelClass.FFI.withPtr ---> GioMenuItemClass.FFI.fromPtr true) newSection_ (label & section)
-    fun newSubmenu (label, submenu) = (Utf8.FFI.withOptPtr &&&> GioMenuModelClass.FFI.withPtr ---> GioMenuItemClass.FFI.fromPtr true) newSubmenu_ (label & submenu)
+    fun new (label, detailedAction) = (Utf8.FFI.withOptPtr 0 &&&> Utf8.FFI.withOptPtr 0 ---> GioMenuItemClass.FFI.fromPtr true) new_ (label & detailedAction)
+    fun newFromModel (model, itemIndex) = (GioMenuModelClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GioMenuItemClass.FFI.fromPtr true) newFromModel_ (model & itemIndex)
+    fun newSection (label, section) = (Utf8.FFI.withOptPtr 0 &&&> GioMenuModelClass.FFI.withPtr false ---> GioMenuItemClass.FFI.fromPtr true) newSection_ (label & section)
+    fun newSubmenu (label, submenu) = (Utf8.FFI.withOptPtr 0 &&&> GioMenuModelClass.FFI.withPtr false ---> GioMenuItemClass.FFI.fromPtr true) newSubmenu_ (label & submenu)
     fun getAttributeValue self (attribute, expectedType) =
       (
-        GioMenuItemClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantTypeRecord.FFI.withOptPtr
+        GioMenuItemClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantTypeRecord.FFI.withOptPtr false
          ---> GLibVariantRecord.FFI.fromPtr true
       )
         getAttributeValue_
@@ -73,12 +73,12 @@ structure GioMenuItem :>
            & attribute
            & expectedType
         )
-    fun getLink self link = (GioMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioMenuModelClass.FFI.fromPtr true) getLink_ (self & link)
+    fun getLink self link = (GioMenuItemClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioMenuModelClass.FFI.fromPtr true) getLink_ (self & link)
     fun setActionAndTargetValue self (action, targetValue) =
       (
-        GioMenuItemClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> GLibVariantRecord.FFI.withOptPtr
+        GioMenuItemClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> GLibVariantRecord.FFI.withOptPtr false
          ---> I
       )
         setActionAndTargetValue_
@@ -89,9 +89,9 @@ structure GioMenuItem :>
         )
     fun setAttributeValue self (attribute, value) =
       (
-        GioMenuItemClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withOptPtr
+        GioMenuItemClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withOptPtr false
          ---> I
       )
         setAttributeValue_
@@ -100,14 +100,14 @@ structure GioMenuItem :>
            & attribute
            & value
         )
-    fun setDetailedAction self detailedAction = (GioMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDetailedAction_ (self & detailedAction)
-    fun setIcon self icon = (GioMenuItemClass.FFI.withPtr &&&> GioIconClass.FFI.withPtr ---> I) setIcon_ (self & icon)
-    fun setLabel self label = (GioMenuItemClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setLabel_ (self & label)
+    fun setDetailedAction self detailedAction = (GioMenuItemClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDetailedAction_ (self & detailedAction)
+    fun setIcon self icon = (GioMenuItemClass.FFI.withPtr false &&&> GioIconClass.FFI.withPtr false ---> I) setIcon_ (self & icon)
+    fun setLabel self label = (GioMenuItemClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setLabel_ (self & label)
     fun setLink self (link, model) =
       (
-        GioMenuItemClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GioMenuModelClass.FFI.withOptPtr
+        GioMenuItemClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GioMenuModelClass.FFI.withOptPtr false
          ---> I
       )
         setLink_
@@ -116,6 +116,6 @@ structure GioMenuItem :>
            & link
            & model
         )
-    fun setSection self section = (GioMenuItemClass.FFI.withPtr &&&> GioMenuModelClass.FFI.withOptPtr ---> I) setSection_ (self & section)
-    fun setSubmenu self submenu = (GioMenuItemClass.FFI.withPtr &&&> GioMenuModelClass.FFI.withOptPtr ---> I) setSubmenu_ (self & submenu)
+    fun setSection self section = (GioMenuItemClass.FFI.withPtr false &&&> GioMenuModelClass.FFI.withOptPtr false ---> I) setSection_ (self & section)
+    fun setSubmenu self submenu = (GioMenuItemClass.FFI.withPtr false &&&> GioMenuModelClass.FFI.withOptPtr false ---> I) setSubmenu_ (self & submenu)
   end

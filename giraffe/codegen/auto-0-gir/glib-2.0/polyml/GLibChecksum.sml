@@ -25,16 +25,16 @@ structure GLibChecksum :>
     type checksum_type_t = GLibChecksumType.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new checksumType = (GLibChecksumType.FFI.withVal ---> GLibChecksumRecord.FFI.fromPtr true) new_ checksumType
-    fun copy self = (GLibChecksumRecord.FFI.withPtr ---> GLibChecksumRecord.FFI.fromPtr true) copy_ self
-    fun getString self = (GLibChecksumRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getString_ self
-    fun reset self = (GLibChecksumRecord.FFI.withPtr ---> I) reset_ self
+    fun copy self = (GLibChecksumRecord.FFI.withPtr false ---> GLibChecksumRecord.FFI.fromPtr true) copy_ self
+    fun getString self = (GLibChecksumRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getString_ self
+    fun reset self = (GLibChecksumRecord.FFI.withPtr false ---> I) reset_ self
     fun update self data =
       let
         val length = GUInt8CArrayN.length data
         val () =
           (
-            GLibChecksumRecord.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GLibChecksumRecord.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              ---> I
           )

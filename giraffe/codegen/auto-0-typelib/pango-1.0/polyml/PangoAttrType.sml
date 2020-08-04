@@ -113,5 +113,5 @@ structure PangoAttrType :> PANGO_ATTR_TYPE =
     end
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getName type' = (FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getName_ type'
-    fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
+    fun register name = (Utf8.FFI.withPtr 0 ---> FFI.fromVal) register_ name
   end

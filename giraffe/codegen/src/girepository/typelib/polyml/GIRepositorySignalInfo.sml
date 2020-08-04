@@ -29,16 +29,16 @@ structure GIRepositorySignalInfo :>
 
     val getFlags =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GObjectSignalFlags.FFI.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GObjectSignalFlags.FFI.fromVal)
           getFlags_
           info
 
     val getClassClosure =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryVFuncInfoClass.FFI.fromOptPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryVFuncInfoClass.FFI.fromOptPtr true)
           getClassClosure_
           info
 
     val trueStopsEmit =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) trueStopsEmit_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) trueStopsEmit_ info
   end

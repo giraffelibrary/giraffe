@@ -59,8 +59,8 @@ structure GioFileEnumerator :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun close self cancellable =
       (
-        GioFileEnumeratorClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioFileEnumeratorClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -72,8 +72,8 @@ structure GioFileEnumerator :>
         )
     fun closeFinish self result =
       (
-        GioFileEnumeratorClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioFileEnumeratorClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -83,20 +83,20 @@ structure GioFileEnumerator :>
            & result
            & []
         )
-    fun getChild self info = (GioFileEnumeratorClass.FFI.withPtr &&&> GioFileInfoClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getChild_ (self & info)
-    fun getContainer self = (GioFileEnumeratorClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr false) getContainer_ self
-    fun hasPending self = (GioFileEnumeratorClass.FFI.withPtr ---> GBool.FFI.fromVal) hasPending_ self
-    fun isClosed self = (GioFileEnumeratorClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
+    fun getChild self info = (GioFileEnumeratorClass.FFI.withPtr false &&&> GioFileInfoClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr true) getChild_ (self & info)
+    fun getContainer self = (GioFileEnumeratorClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getContainer_ self
+    fun hasPending self = (GioFileEnumeratorClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasPending_ self
+    fun isClosed self = (GioFileEnumeratorClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self
     fun iterate self cancellable =
       let
         val outInfo
          & outChild
          & () =
           (
-            GioFileEnumeratorClass.FFI.withPtr
-             &&&> GioFileInfoClass.FFI.withRefOptPtr
-             &&&> GioFileClass.FFI.withRefOptPtr
-             &&&> GioCancellableClass.FFI.withOptPtr
+            GioFileEnumeratorClass.FFI.withPtr false
+             &&&> GioFileInfoClass.FFI.withRefOptPtr false
+             &&&> GioFileClass.FFI.withRefOptPtr false
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GioFileInfoClass.FFI.fromPtr false
                    && GioFileClass.FFI.fromPtr false
@@ -115,8 +115,8 @@ structure GioFileEnumerator :>
       end
     fun nextFile self cancellable =
       (
-        GioFileEnumeratorClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioFileEnumeratorClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioFileInfoClass.FFI.fromOptPtr true
       )
@@ -126,7 +126,7 @@ structure GioFileEnumerator :>
            & cancellable
            & []
         )
-    fun setPending self pending = (GioFileEnumeratorClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setPending_ (self & pending)
+    fun setPending self pending = (GioFileEnumeratorClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setPending_ (self & pending)
     local
       open Property
     in

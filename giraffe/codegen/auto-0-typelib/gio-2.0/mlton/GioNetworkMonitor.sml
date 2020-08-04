@@ -58,9 +58,9 @@ structure GioNetworkMonitor :>
     fun getDefault () = (I ---> GioNetworkMonitorClass.FFI.fromPtr false) getDefault_ ()
     fun canReach self (connectable, cancellable) =
       (
-        GioNetworkMonitorClass.FFI.withPtr
-         &&&> GioSocketConnectableClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioNetworkMonitorClass.FFI.withPtr false
+         &&&> GioSocketConnectableClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -73,8 +73,8 @@ structure GioNetworkMonitor :>
         )
     fun canReachFinish self result =
       (
-        GioNetworkMonitorClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioNetworkMonitorClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -84,9 +84,9 @@ structure GioNetworkMonitor :>
            & result
            & []
         )
-    fun getConnectivity self = (GioNetworkMonitorClass.FFI.withPtr ---> GioNetworkConnectivity.FFI.fromVal) getConnectivity_ self
-    fun getNetworkAvailable self = (GioNetworkMonitorClass.FFI.withPtr ---> GBool.FFI.fromVal) getNetworkAvailable_ self
-    fun getNetworkMetered self = (GioNetworkMonitorClass.FFI.withPtr ---> GBool.FFI.fromVal) getNetworkMetered_ self
+    fun getConnectivity self = (GioNetworkMonitorClass.FFI.withPtr false ---> GioNetworkConnectivity.FFI.fromVal) getConnectivity_ self
+    fun getNetworkAvailable self = (GioNetworkMonitorClass.FFI.withPtr false ---> GBool.FFI.fromVal) getNetworkAvailable_ self
+    fun getNetworkMetered self = (GioNetworkMonitorClass.FFI.withPtr false ---> GBool.FFI.fromVal) getNetworkMetered_ self
     local
       open ClosureMarshal Signal
     in

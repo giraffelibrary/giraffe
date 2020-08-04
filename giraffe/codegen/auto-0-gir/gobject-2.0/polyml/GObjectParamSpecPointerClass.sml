@@ -24,13 +24,13 @@ structure GObjectParamSpecPointerClass :>
         {
           getType = GObjectType.paramPointer,
           getValue = (I ---> FFI.fromPtr false) getValue_,
-          setValue = (I &&&> FFI.withPtr ---> I) setValue_
+          setValue = (I &&&> FFI.withPtr false ---> I) setValue_
         }
     val tOpt =
       ValueAccessor.C.createAccessor
         {
           getType = GObjectType.paramPointer,
           getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
-          setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_
+          setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
         }
   end

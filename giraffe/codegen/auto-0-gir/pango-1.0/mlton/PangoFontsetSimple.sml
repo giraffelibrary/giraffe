@@ -13,7 +13,7 @@ structure PangoFontsetSimple :>
     type 'a font_class = 'a PangoFontClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new language = (PangoLanguageRecord.FFI.withPtr ---> PangoFontsetSimpleClass.FFI.fromPtr true) new_ language
-    fun append self font = (PangoFontsetSimpleClass.FFI.withPtr &&&> PangoFontClass.FFI.withPtr ---> I) append_ (self & font)
-    fun size self = (PangoFontsetSimpleClass.FFI.withPtr ---> GInt.FFI.fromVal) size_ self
+    fun new language = (PangoLanguageRecord.FFI.withPtr false ---> PangoFontsetSimpleClass.FFI.fromPtr true) new_ language
+    fun append self font = (PangoFontsetSimpleClass.FFI.withPtr false &&&> PangoFontClass.FFI.withPtr false ---> I) append_ (self & font)
+    fun size self = (PangoFontsetSimpleClass.FFI.withPtr false ---> GInt.FFI.fromVal) size_ self
   end

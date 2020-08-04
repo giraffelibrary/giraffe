@@ -62,13 +62,13 @@ structure GioAppLaunchContext :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioAppLaunchContextClass.FFI.fromPtr true) new_ ()
-    fun getEnvironment self = (GioAppLaunchContextClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getEnvironment_ self
-    fun launchFailed self startupNotifyId = (GioAppLaunchContextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) launchFailed_ (self & startupNotifyId)
+    fun getEnvironment self = (GioAppLaunchContextClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) getEnvironment_ self
+    fun launchFailed self startupNotifyId = (GioAppLaunchContextClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) launchFailed_ (self & startupNotifyId)
     fun setenv self (variable, value) =
       (
-        GioAppLaunchContextClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioAppLaunchContextClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         setenv_
@@ -77,7 +77,7 @@ structure GioAppLaunchContext :>
            & variable
            & value
         )
-    fun unsetenv self variable = (GioAppLaunchContextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) unsetenv_ (self & variable)
+    fun unsetenv self variable = (GioAppLaunchContextClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) unsetenv_ (self & variable)
     local
       open ClosureMarshal Signal
     in

@@ -124,15 +124,15 @@ structure PangoGlyphString :>
     type analysis_t = PangoAnalysisRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoGlyphStringRecord.FFI.fromPtr true) new_ ()
-    fun copy self = (PangoGlyphStringRecord.FFI.withPtr ---> PangoGlyphStringRecord.FFI.fromOptPtr true) copy_ self
+    fun copy self = (PangoGlyphStringRecord.FFI.withPtr false ---> PangoGlyphStringRecord.FFI.fromOptPtr true) copy_ self
     fun extents self font =
       let
         val inkRect
          & logicalRect
          & () =
           (
-            PangoGlyphStringRecord.FFI.withPtr
-             &&&> PangoFontClass.FFI.withPtr
+            PangoGlyphStringRecord.FFI.withPtr false
+             &&&> PangoFontClass.FFI.withPtr false
              &&&> PangoRectangleRecord.FFI.withNewPtr
              &&&> PangoRectangleRecord.FFI.withNewPtr
              ---> PangoRectangleRecord.FFI.fromPtr true
@@ -161,10 +161,10 @@ structure PangoGlyphString :>
          & logicalRect
          & () =
           (
-            PangoGlyphStringRecord.FFI.withPtr
+            PangoGlyphStringRecord.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
-             &&&> PangoFontClass.FFI.withPtr
+             &&&> PangoFontClass.FFI.withPtr false
              &&&> PangoRectangleRecord.FFI.withNewPtr
              &&&> PangoRectangleRecord.FFI.withNewPtr
              ---> PangoRectangleRecord.FFI.fromPtr true
@@ -183,7 +183,7 @@ structure PangoGlyphString :>
       in
         (inkRect, logicalRect)
       end
-    fun getWidth self = (PangoGlyphStringRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getWidth_ self
+    fun getWidth self = (PangoGlyphStringRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getWidth_ self
     fun indexToX
       self
       (
@@ -196,10 +196,10 @@ structure PangoGlyphString :>
       let
         val xPos & () =
           (
-            PangoGlyphStringRecord.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            PangoGlyphStringRecord.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GInt32.FFI.withVal
-             &&&> PangoAnalysisRecord.FFI.withPtr
+             &&&> PangoAnalysisRecord.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GBool.FFI.withVal
              &&&> GInt32.FFI.withRefVal
@@ -218,7 +218,7 @@ structure PangoGlyphString :>
       in
         xPos
       end
-    fun setSize self newLen = (PangoGlyphStringRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setSize_ (self & newLen)
+    fun setSize self newLen = (PangoGlyphStringRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setSize_ (self & newLen)
     fun xToIndex
       self
       (
@@ -232,10 +232,10 @@ structure PangoGlyphString :>
          & trailing
          & () =
           (
-            PangoGlyphStringRecord.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            PangoGlyphStringRecord.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GInt32.FFI.withVal
-             &&&> PangoAnalysisRecord.FFI.withPtr
+             &&&> PangoAnalysisRecord.FFI.withPtr false
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withRefVal
              &&&> GInt32.FFI.withRefVal

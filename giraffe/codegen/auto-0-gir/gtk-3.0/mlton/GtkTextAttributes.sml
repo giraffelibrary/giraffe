@@ -9,6 +9,6 @@ structure GtkTextAttributes :>
     type t = GtkTextAttributesRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTextAttributesRecord.FFI.fromPtr true) new_ ()
-    fun copy self = (GtkTextAttributesRecord.FFI.withPtr ---> GtkTextAttributesRecord.FFI.fromPtr true) copy_ self
-    fun copyValues self dest = (GtkTextAttributesRecord.FFI.withPtr &&&> GtkTextAttributesRecord.FFI.withPtr ---> I) copyValues_ (self & dest)
+    fun copy self = (GtkTextAttributesRecord.FFI.withPtr false ---> GtkTextAttributesRecord.FFI.fromPtr true) copy_ self
+    fun copyValues self dest = (GtkTextAttributesRecord.FFI.withPtr false &&&> GtkTextAttributesRecord.FFI.withPtr false ---> I) copyValues_ (self & dest)
   end

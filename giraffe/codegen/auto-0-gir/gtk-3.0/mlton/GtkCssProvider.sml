@@ -100,18 +100,18 @@ structure GtkCssProvider :>
     type 'a class = 'a GtkCssProviderClass.class
     type 'a style_provider_class = 'a GtkStyleProviderClass.class
     type t = base class
-    fun asStyleProvider self = (GObjectObjectClass.FFI.withPtr ---> GtkStyleProviderClass.FFI.fromPtr false) I self
+    fun asStyleProvider self = (GObjectObjectClass.FFI.withPtr false ---> GtkStyleProviderClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCssProviderClass.FFI.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkCssProviderClass.FFI.fromPtr false) getDefault_ ()
-    fun getNamed (name, variant) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkCssProviderClass.FFI.fromPtr false) getNamed_ (name & variant)
+    fun getNamed (name, variant) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withOptPtr 0 ---> GtkCssProviderClass.FFI.fromPtr false) getNamed_ (name & variant)
     fun loadFromData self data =
       let
         val length = GUInt8CArrayN.length data
         val () =
           (
-            GtkCssProviderClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GtkCssProviderClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              &&&> GLibErrorRecord.handleError
              ---> ignore
@@ -128,8 +128,8 @@ structure GtkCssProvider :>
       end
     fun loadFromFile self file =
       (
-        GtkCssProviderClass.FFI.withPtr
-         &&&> GioFileClass.FFI.withPtr
+        GtkCssProviderClass.FFI.withPtr false
+         &&&> GioFileClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -141,8 +141,8 @@ structure GtkCssProvider :>
         )
     fun loadFromPath self path =
       (
-        GtkCssProviderClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkCssProviderClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -152,6 +152,6 @@ structure GtkCssProvider :>
            & path
            & []
         )
-    fun loadFromResource self resourcePath = (GtkCssProviderClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) loadFromResource_ (self & resourcePath)
-    fun toString self = (GtkCssProviderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun loadFromResource self resourcePath = (GtkCssProviderClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) loadFromResource_ (self & resourcePath)
+    fun toString self = (GtkCssProviderClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
   end

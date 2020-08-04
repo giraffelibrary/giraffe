@@ -31,7 +31,7 @@ structure GLibBytes :>
           case data of
             SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
           | NONE => GUInt64.null
-        val retVal = (GUInt8CArrayN.FFI.withOptPtr &&&> GUInt64.FFI.withVal ---> GLibBytesRecord.FFI.fromPtr true) new_ (data & size)
+        val retVal = (GUInt8CArrayN.FFI.withOptPtr 0 &&&> GUInt64.FFI.withVal ---> GLibBytesRecord.FFI.fromPtr true) new_ (data & size)
       in
         retVal
       end
@@ -41,23 +41,23 @@ structure GLibBytes :>
           case data of
             SOME data => LargeInt.fromInt (GUInt8CArrayN.length data)
           | NONE => GUInt64.null
-        val retVal = (GUInt8CArrayN.FFI.withDupOptPtr 1 &&&> GUInt64.FFI.withVal ---> GLibBytesRecord.FFI.fromPtr true) newTake_ (data & size)
+        val retVal = (GUInt8CArrayN.FFI.withOptPtr ~1 &&&> GUInt64.FFI.withVal ---> GLibBytesRecord.FFI.fromPtr true) newTake_ (data & size)
       in
         retVal
       end
-    fun compare self bytes2 = (GLibBytesRecord.FFI.withPtr &&&> GLibBytesRecord.FFI.withPtr ---> GInt32.FFI.fromVal) compare_ (self & bytes2)
-    fun equal self bytes2 = (GLibBytesRecord.FFI.withPtr &&&> GLibBytesRecord.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & bytes2)
+    fun compare self bytes2 = (GLibBytesRecord.FFI.withPtr false &&&> GLibBytesRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) compare_ (self & bytes2)
+    fun equal self bytes2 = (GLibBytesRecord.FFI.withPtr false &&&> GLibBytesRecord.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & bytes2)
     fun getData self =
       let
-        val size & retVal = (GLibBytesRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && GUInt8CArrayN.FFI.fromOptPtr 0) getData_ (self & GUInt64.null)
+        val size & retVal = (GLibBytesRecord.FFI.withPtr false &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && GUInt8CArrayN.FFI.fromOptPtr 0) getData_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt size)
       end
-    fun getSize self = (GLibBytesRecord.FFI.withPtr ---> GUInt64.FFI.fromVal) getSize_ self
-    fun hash self = (GLibBytesRecord.FFI.withPtr ---> GUInt32.FFI.fromVal) hash_ self
+    fun getSize self = (GLibBytesRecord.FFI.withPtr false ---> GUInt64.FFI.fromVal) getSize_ self
+    fun hash self = (GLibBytesRecord.FFI.withPtr false ---> GUInt32.FFI.fromVal) hash_ self
     fun newFromBytes self (offset, length) =
       (
-        GLibBytesRecord.FFI.withPtr
+        GLibBytesRecord.FFI.withPtr false
          &&&> GUInt64.FFI.withVal
          &&&> GUInt64.FFI.withVal
          ---> GLibBytesRecord.FFI.fromPtr true
@@ -70,7 +70,7 @@ structure GLibBytes :>
         )
     fun unrefToData self =
       let
-        val size & retVal = (GLibBytesRecord.FFI.withPtr &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 1) unrefToData_ (self & GUInt64.null)
+        val size & retVal = (GLibBytesRecord.FFI.withPtr false &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr ~1) unrefToData_ (self & GUInt64.null)
       in
         retVal (LargeInt.toInt size)
       end

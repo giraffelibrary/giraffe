@@ -16,11 +16,11 @@ structure GtkColorChooserDialog :>
     type 'a color_chooser_class = 'a GtkColorChooserClass.class
     type 'a window_class = 'a GtkWindowClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asColorChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkColorChooserClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asColorChooser self = (GObjectObjectClass.FFI.withPtr false ---> GtkColorChooserClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (title, parent) = (Utf8.FFI.withOptPtr &&&> GtkWindowClass.FFI.withOptPtr ---> GtkColorChooserDialogClass.FFI.fromPtr false) new_ (title & parent)
+    fun new (title, parent) = (Utf8.FFI.withOptPtr 0 &&&> GtkWindowClass.FFI.withOptPtr false ---> GtkColorChooserDialogClass.FFI.fromPtr false) new_ (title & parent)
     local
       open Property
     in

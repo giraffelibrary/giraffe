@@ -30,10 +30,10 @@ structure GioUnixFDMessage :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioUnixFDMessageClass.FFI.fromPtr true) new_ ()
-    fun newWithFdList fdList = (GioUnixFDListClass.FFI.withPtr ---> GioUnixFDMessageClass.FFI.fromPtr true) newWithFdList_ fdList
+    fun newWithFdList fdList = (GioUnixFDListClass.FFI.withPtr false ---> GioUnixFDMessageClass.FFI.fromPtr true) newWithFdList_ fdList
     fun appendFd self fd =
       (
-        GioUnixFDMessageClass.FFI.withPtr
+        GioUnixFDMessageClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> ignore
@@ -44,10 +44,10 @@ structure GioUnixFDMessage :>
            & fd
            & []
         )
-    fun getFdList self = (GioUnixFDMessageClass.FFI.withPtr ---> GioUnixFDListClass.FFI.fromPtr false) getFdList_ self
+    fun getFdList self = (GioUnixFDMessageClass.FFI.withPtr false ---> GioUnixFDListClass.FFI.fromPtr false) getFdList_ self
     fun stealFds self =
       let
-        val length & retVal = (GioUnixFDMessageClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCArrayN.FFI.fromPtr 1) stealFds_ (self & GInt.null)
+        val length & retVal = (GioUnixFDMessageClass.FFI.withPtr false &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCArrayN.FFI.fromPtr ~1) stealFds_ (self & GInt.null)
       in
         retVal (LargeInt.toInt length)
       end

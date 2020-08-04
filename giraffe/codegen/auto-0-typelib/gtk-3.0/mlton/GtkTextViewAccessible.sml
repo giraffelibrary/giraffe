@@ -5,9 +5,9 @@ structure GtkTextViewAccessible :>
     val getType_ = _import "gtk_text_view_accessible_get_type" : unit -> GObjectType.FFI.val_;
     type 'a class = 'a GtkTextViewAccessibleClass.class
     type t = base class
-    fun asComponent self = (GObjectObjectClass.FFI.withPtr ---> AtkComponentClass.FFI.fromPtr false) I self
-    fun asEditableText self = (GObjectObjectClass.FFI.withPtr ---> AtkEditableTextClass.FFI.fromPtr false) I self
-    fun asStreamableContent self = (GObjectObjectClass.FFI.withPtr ---> AtkStreamableContentClass.FFI.fromPtr false) I self
-    fun asText self = (GObjectObjectClass.FFI.withPtr ---> AtkTextClass.FFI.fromPtr false) I self
+    fun asComponent self = (GObjectObjectClass.FFI.withPtr false ---> AtkComponentClass.FFI.fromPtr false) I self
+    fun asEditableText self = (GObjectObjectClass.FFI.withPtr false ---> AtkEditableTextClass.FFI.fromPtr false) I self
+    fun asStreamableContent self = (GObjectObjectClass.FFI.withPtr false ---> AtkStreamableContentClass.FFI.fromPtr false) I self
+    fun asText self = (GObjectObjectClass.FFI.withPtr false ---> AtkTextClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
   end

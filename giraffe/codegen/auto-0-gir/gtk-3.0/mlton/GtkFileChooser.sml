@@ -404,11 +404,11 @@ structure GtkFileChooser :>
         optionLabels
       ) =
       (
-        GtkFileChooserClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkFileChooserClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         addChoice_
@@ -419,11 +419,11 @@ structure GtkFileChooser :>
            & options
            & optionLabels
         )
-    fun addFilter self filter = (GtkFileChooserClass.FFI.withPtr &&&> GtkFileFilterClass.FFI.withDupPtr ---> I) addFilter_ (self & filter)
+    fun addFilter self filter = (GtkFileChooserClass.FFI.withPtr false &&&> GtkFileFilterClass.FFI.withPtr true ---> I) addFilter_ (self & filter)
     fun addShortcutFolder self folder =
       (
-        GtkFileChooserClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkFileChooserClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -435,8 +435,8 @@ structure GtkFileChooser :>
         )
     fun addShortcutFolderUri self uri =
       (
-        GtkFileChooserClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkFileChooserClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -446,34 +446,34 @@ structure GtkFileChooser :>
            & uri
            & []
         )
-    fun getAction self = (GtkFileChooserClass.FFI.withPtr ---> GtkFileChooserAction.FFI.fromVal) getAction_ self
-    fun getChoice self id = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getChoice_ (self & id)
-    fun getCreateFolders self = (GtkFileChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getCreateFolders_ self
-    fun getCurrentFolder self = (GtkFileChooserClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getCurrentFolder_ self
-    fun getCurrentFolderFile self = (GtkFileChooserClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getCurrentFolderFile_ self
-    fun getCurrentFolderUri self = (GtkFileChooserClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getCurrentFolderUri_ self
-    fun getCurrentName self = (GtkFileChooserClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getCurrentName_ self
-    fun getDoOverwriteConfirmation self = (GtkFileChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getDoOverwriteConfirmation_ self
-    fun getExtraWidget self = (GtkFileChooserClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getExtraWidget_ self
-    fun getFile self = (GtkFileChooserClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getFile_ self
-    fun getFilename self = (GtkFileChooserClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getFilename_ self
-    fun getFilter self = (GtkFileChooserClass.FFI.withPtr ---> GtkFileFilterClass.FFI.fromOptPtr false) getFilter_ self
-    fun getLocalOnly self = (GtkFileChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getLocalOnly_ self
-    fun getPreviewFile self = (GtkFileChooserClass.FFI.withPtr ---> GioFileClass.FFI.fromOptPtr true) getPreviewFile_ self
-    fun getPreviewFilename self = (GtkFileChooserClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getPreviewFilename_ self
-    fun getPreviewUri self = (GtkFileChooserClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getPreviewUri_ self
-    fun getPreviewWidget self = (GtkFileChooserClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getPreviewWidget_ self
-    fun getPreviewWidgetActive self = (GtkFileChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getPreviewWidgetActive_ self
-    fun getSelectMultiple self = (GtkFileChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getSelectMultiple_ self
-    fun getShowHidden self = (GtkFileChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowHidden_ self
-    fun getUri self = (GtkFileChooserClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) getUri_ self
-    fun getUsePreviewLabel self = (GtkFileChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getUsePreviewLabel_ self
-    fun removeChoice self id = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) removeChoice_ (self & id)
-    fun removeFilter self filter = (GtkFileChooserClass.FFI.withPtr &&&> GtkFileFilterClass.FFI.withPtr ---> I) removeFilter_ (self & filter)
+    fun getAction self = (GtkFileChooserClass.FFI.withPtr false ---> GtkFileChooserAction.FFI.fromVal) getAction_ self
+    fun getChoice self id = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getChoice_ (self & id)
+    fun getCreateFolders self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCreateFolders_ self
+    fun getCurrentFolder self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getCurrentFolder_ self
+    fun getCurrentFolderFile self = (GtkFileChooserClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr true) getCurrentFolderFile_ self
+    fun getCurrentFolderUri self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getCurrentFolderUri_ self
+    fun getCurrentName self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getCurrentName_ self
+    fun getDoOverwriteConfirmation self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDoOverwriteConfirmation_ self
+    fun getExtraWidget self = (GtkFileChooserClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getExtraWidget_ self
+    fun getFile self = (GtkFileChooserClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr true) getFile_ self
+    fun getFilename self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getFilename_ self
+    fun getFilter self = (GtkFileChooserClass.FFI.withPtr false ---> GtkFileFilterClass.FFI.fromOptPtr false) getFilter_ self
+    fun getLocalOnly self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getLocalOnly_ self
+    fun getPreviewFile self = (GtkFileChooserClass.FFI.withPtr false ---> GioFileClass.FFI.fromOptPtr true) getPreviewFile_ self
+    fun getPreviewFilename self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getPreviewFilename_ self
+    fun getPreviewUri self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getPreviewUri_ self
+    fun getPreviewWidget self = (GtkFileChooserClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getPreviewWidget_ self
+    fun getPreviewWidgetActive self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPreviewWidgetActive_ self
+    fun getSelectMultiple self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSelectMultiple_ self
+    fun getShowHidden self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowHidden_ self
+    fun getUri self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getUri_ self
+    fun getUsePreviewLabel self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUsePreviewLabel_ self
+    fun removeChoice self id = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) removeChoice_ (self & id)
+    fun removeFilter self filter = (GtkFileChooserClass.FFI.withPtr false &&&> GtkFileFilterClass.FFI.withPtr false ---> I) removeFilter_ (self & filter)
     fun removeShortcutFolder self folder =
       (
-        GtkFileChooserClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkFileChooserClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -485,8 +485,8 @@ structure GtkFileChooser :>
         )
     fun removeShortcutFolderUri self uri =
       (
-        GtkFileChooserClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkFileChooserClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -496,11 +496,11 @@ structure GtkFileChooser :>
            & uri
            & []
         )
-    fun selectAll self = (GtkFileChooserClass.FFI.withPtr ---> I) selectAll_ self
+    fun selectAll self = (GtkFileChooserClass.FFI.withPtr false ---> I) selectAll_ self
     fun selectFile self file =
       (
-        GtkFileChooserClass.FFI.withPtr
-         &&&> GioFileClass.FFI.withPtr
+        GtkFileChooserClass.FFI.withPtr false
+         &&&> GioFileClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -510,14 +510,14 @@ structure GtkFileChooser :>
            & file
            & []
         )
-    fun selectFilename self filename = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) selectFilename_ (self & filename)
-    fun selectUri self uri = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) selectUri_ (self & uri)
-    fun setAction self action = (GtkFileChooserClass.FFI.withPtr &&&> GtkFileChooserAction.FFI.withVal ---> I) setAction_ (self & action)
+    fun selectFilename self filename = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) selectFilename_ (self & filename)
+    fun selectUri self uri = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) selectUri_ (self & uri)
+    fun setAction self action = (GtkFileChooserClass.FFI.withPtr false &&&> GtkFileChooserAction.FFI.withVal ---> I) setAction_ (self & action)
     fun setChoice self (id, option) =
       (
-        GtkFileChooserClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkFileChooserClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         setChoice_
@@ -526,12 +526,12 @@ structure GtkFileChooser :>
            & id
            & option
         )
-    fun setCreateFolders self createFolders = (GtkFileChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCreateFolders_ (self & createFolders)
-    fun setCurrentFolder self filename = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) setCurrentFolder_ (self & filename)
+    fun setCreateFolders self createFolders = (GtkFileChooserClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCreateFolders_ (self & createFolders)
+    fun setCurrentFolder self filename = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) setCurrentFolder_ (self & filename)
     fun setCurrentFolderFile self file =
       (
-        GtkFileChooserClass.FFI.withPtr
-         &&&> GioFileClass.FFI.withPtr
+        GtkFileChooserClass.FFI.withPtr false
+         &&&> GioFileClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -541,14 +541,14 @@ structure GtkFileChooser :>
            & file
            & []
         )
-    fun setCurrentFolderUri self uri = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) setCurrentFolderUri_ (self & uri)
-    fun setCurrentName self name = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setCurrentName_ (self & name)
-    fun setDoOverwriteConfirmation self doOverwriteConfirmation = (GtkFileChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setDoOverwriteConfirmation_ (self & doOverwriteConfirmation)
-    fun setExtraWidget self extraWidget = (GtkFileChooserClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) setExtraWidget_ (self & extraWidget)
+    fun setCurrentFolderUri self uri = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) setCurrentFolderUri_ (self & uri)
+    fun setCurrentName self name = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setCurrentName_ (self & name)
+    fun setDoOverwriteConfirmation self doOverwriteConfirmation = (GtkFileChooserClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setDoOverwriteConfirmation_ (self & doOverwriteConfirmation)
+    fun setExtraWidget self extraWidget = (GtkFileChooserClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setExtraWidget_ (self & extraWidget)
     fun setFile self file =
       (
-        GtkFileChooserClass.FFI.withPtr
-         &&&> GioFileClass.FFI.withPtr
+        GtkFileChooserClass.FFI.withPtr false
+         &&&> GioFileClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -558,19 +558,19 @@ structure GtkFileChooser :>
            & file
            & []
         )
-    fun setFilename self filename = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) setFilename_ (self & filename)
-    fun setFilter self filter = (GtkFileChooserClass.FFI.withPtr &&&> GtkFileFilterClass.FFI.withPtr ---> I) setFilter_ (self & filter)
-    fun setLocalOnly self localOnly = (GtkFileChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setLocalOnly_ (self & localOnly)
-    fun setPreviewWidget self previewWidget = (GtkFileChooserClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) setPreviewWidget_ (self & previewWidget)
-    fun setPreviewWidgetActive self active = (GtkFileChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setPreviewWidgetActive_ (self & active)
-    fun setSelectMultiple self selectMultiple = (GtkFileChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSelectMultiple_ (self & selectMultiple)
-    fun setShowHidden self showHidden = (GtkFileChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowHidden_ (self & showHidden)
-    fun setUri self uri = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) setUri_ (self & uri)
-    fun setUsePreviewLabel self useLabel = (GtkFileChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUsePreviewLabel_ (self & useLabel)
-    fun unselectAll self = (GtkFileChooserClass.FFI.withPtr ---> I) unselectAll_ self
-    fun unselectFile self file = (GtkFileChooserClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> I) unselectFile_ (self & file)
-    fun unselectFilename self filename = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) unselectFilename_ (self & filename)
-    fun unselectUri self uri = (GtkFileChooserClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) unselectUri_ (self & uri)
+    fun setFilename self filename = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) setFilename_ (self & filename)
+    fun setFilter self filter = (GtkFileChooserClass.FFI.withPtr false &&&> GtkFileFilterClass.FFI.withPtr false ---> I) setFilter_ (self & filter)
+    fun setLocalOnly self localOnly = (GtkFileChooserClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setLocalOnly_ (self & localOnly)
+    fun setPreviewWidget self previewWidget = (GtkFileChooserClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setPreviewWidget_ (self & previewWidget)
+    fun setPreviewWidgetActive self active = (GtkFileChooserClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setPreviewWidgetActive_ (self & active)
+    fun setSelectMultiple self selectMultiple = (GtkFileChooserClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSelectMultiple_ (self & selectMultiple)
+    fun setShowHidden self showHidden = (GtkFileChooserClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowHidden_ (self & showHidden)
+    fun setUri self uri = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) setUri_ (self & uri)
+    fun setUsePreviewLabel self useLabel = (GtkFileChooserClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUsePreviewLabel_ (self & useLabel)
+    fun unselectAll self = (GtkFileChooserClass.FFI.withPtr false ---> I) unselectAll_ self
+    fun unselectFile self file = (GtkFileChooserClass.FFI.withPtr false &&&> GioFileClass.FFI.withPtr false ---> I) unselectFile_ (self & file)
+    fun unselectFilename self filename = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) unselectFilename_ (self & filename)
+    fun unselectUri self uri = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) unselectUri_ (self & uri)
     local
       open ClosureMarshal Signal
     in

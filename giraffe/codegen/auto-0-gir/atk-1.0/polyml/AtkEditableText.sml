@@ -38,7 +38,7 @@ structure AtkEditableText :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun copyText self (startPos, endPos) =
       (
-        AtkEditableTextClass.FFI.withPtr
+        AtkEditableTextClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -51,7 +51,7 @@ structure AtkEditableText :>
         )
     fun cutText self (startPos, endPos) =
       (
-        AtkEditableTextClass.FFI.withPtr
+        AtkEditableTextClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -64,7 +64,7 @@ structure AtkEditableText :>
         )
     fun deleteText self (startPos, endPos) =
       (
-        AtkEditableTextClass.FFI.withPtr
+        AtkEditableTextClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -75,6 +75,6 @@ structure AtkEditableText :>
            & startPos
            & endPos
         )
-    fun pasteText self position = (AtkEditableTextClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) pasteText_ (self & position)
-    fun setTextContents self string = (AtkEditableTextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTextContents_ (self & string)
+    fun pasteText self position = (AtkEditableTextClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) pasteText_ (self & position)
+    fun setTextContents self string = (AtkEditableTextClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTextContents_ (self & string)
   end

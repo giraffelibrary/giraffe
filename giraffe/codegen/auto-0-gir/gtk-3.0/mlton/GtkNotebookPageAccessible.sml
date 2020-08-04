@@ -11,8 +11,8 @@ structure GtkNotebookPageAccessible :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type 'a notebook_accessible_class = 'a GtkNotebookAccessibleClass.class
     type t = base class
-    fun asComponent self = (GObjectObjectClass.FFI.withPtr ---> AtkComponentClass.FFI.fromPtr false) I self
+    fun asComponent self = (GObjectObjectClass.FFI.withPtr false ---> AtkComponentClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (notebook, child) = (GtkNotebookAccessibleClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> GtkNotebookPageAccessibleClass.FFI.fromPtr true) new_ (notebook & child)
-    fun invalidate self = (GtkNotebookPageAccessibleClass.FFI.withPtr ---> I) invalidate_ self
+    fun new (notebook, child) = (GtkNotebookAccessibleClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GtkNotebookPageAccessibleClass.FFI.fromPtr true) new_ (notebook & child)
+    fun invalidate self = (GtkNotebookPageAccessibleClass.FFI.withPtr false ---> I) invalidate_ self
   end

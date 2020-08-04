@@ -21,15 +21,15 @@ structure GtkFontSelectionDialog :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new title = (Utf8.FFI.withPtr ---> GtkFontSelectionDialogClass.FFI.fromPtr false) new_ title
-    fun getCancelButton self = (GtkFontSelectionDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getCancelButton_ self
-    fun getFontName self = (GtkFontSelectionDialogClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getFontName_ self
-    fun getFontSelection self = (GtkFontSelectionDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getFontSelection_ self
-    fun getOkButton self = (GtkFontSelectionDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getOkButton_ self
-    fun getPreviewText self = (GtkFontSelectionDialogClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getPreviewText_ self
-    fun setFontName self fontname = (GtkFontSelectionDialogClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) setFontName_ (self & fontname)
-    fun setPreviewText self text = (GtkFontSelectionDialogClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setPreviewText_ (self & text)
+    fun new title = (Utf8.FFI.withPtr 0 ---> GtkFontSelectionDialogClass.FFI.fromPtr false) new_ title
+    fun getCancelButton self = (GtkFontSelectionDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getCancelButton_ self
+    fun getFontName self = (GtkFontSelectionDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getFontName_ self
+    fun getFontSelection self = (GtkFontSelectionDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getFontSelection_ self
+    fun getOkButton self = (GtkFontSelectionDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getOkButton_ self
+    fun getPreviewText self = (GtkFontSelectionDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPreviewText_ self
+    fun setFontName self fontname = (GtkFontSelectionDialogClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) setFontName_ (self & fontname)
+    fun setPreviewText self text = (GtkFontSelectionDialogClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setPreviewText_ (self & text)
   end

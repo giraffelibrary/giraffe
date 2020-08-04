@@ -93,12 +93,12 @@ structure GioMount :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun canEject self = (GioMountClass.FFI.withPtr ---> GBool.FFI.fromVal) canEject_ self
-    fun canUnmount self = (GioMountClass.FFI.withPtr ---> GBool.FFI.fromVal) canUnmount_ self
+    fun canEject self = (GioMountClass.FFI.withPtr false ---> GBool.FFI.fromVal) canEject_ self
+    fun canUnmount self = (GioMountClass.FFI.withPtr false ---> GBool.FFI.fromVal) canUnmount_ self
     fun ejectFinish self result =
       (
-        GioMountClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioMountClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -110,8 +110,8 @@ structure GioMount :>
         )
     fun ejectWithOperationFinish self result =
       (
-        GioMountClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioMountClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -121,21 +121,21 @@ structure GioMount :>
            & result
            & []
         )
-    fun getDefaultLocation self = (GioMountClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getDefaultLocation_ self
-    fun getDrive self = (GioMountClass.FFI.withPtr ---> GioDriveClass.FFI.fromPtr true) getDrive_ self
-    fun getIcon self = (GioMountClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getIcon_ self
-    fun getName self = (GioMountClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getName_ self
-    fun getRoot self = (GioMountClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr true) getRoot_ self
-    fun getSortKey self = (GioMountClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSortKey_ self
-    fun getSymbolicIcon self = (GioMountClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getSymbolicIcon_ self
-    fun getUuid self = (GioMountClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getUuid_ self
-    fun getVolume self = (GioMountClass.FFI.withPtr ---> GioVolumeClass.FFI.fromPtr true) getVolume_ self
+    fun getDefaultLocation self = (GioMountClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr true) getDefaultLocation_ self
+    fun getDrive self = (GioMountClass.FFI.withPtr false ---> GioDriveClass.FFI.fromPtr true) getDrive_ self
+    fun getIcon self = (GioMountClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) getIcon_ self
+    fun getName self = (GioMountClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getName_ self
+    fun getRoot self = (GioMountClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr true) getRoot_ self
+    fun getSortKey self = (GioMountClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSortKey_ self
+    fun getSymbolicIcon self = (GioMountClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) getSymbolicIcon_ self
+    fun getUuid self = (GioMountClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getUuid_ self
+    fun getVolume self = (GioMountClass.FFI.withPtr false ---> GioVolumeClass.FFI.fromPtr true) getVolume_ self
     fun guessContentTypeFinish self result =
       (
-        GioMountClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioMountClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CPtrArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr ~1
       )
         guessContentTypeFinish_
         (
@@ -145,11 +145,11 @@ structure GioMount :>
         )
     fun guessContentTypeSync self (forceRescan, cancellable) =
       (
-        GioMountClass.FFI.withPtr
+        GioMountClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
-         ---> Utf8CPtrArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr ~1
       )
         guessContentTypeSync_
         (
@@ -158,11 +158,11 @@ structure GioMount :>
            & cancellable
            & []
         )
-    fun isShadowed self = (GioMountClass.FFI.withPtr ---> GBool.FFI.fromVal) isShadowed_ self
+    fun isShadowed self = (GioMountClass.FFI.withPtr false ---> GBool.FFI.fromVal) isShadowed_ self
     fun remountFinish self result =
       (
-        GioMountClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioMountClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -172,11 +172,11 @@ structure GioMount :>
            & result
            & []
         )
-    fun shadow self = (GioMountClass.FFI.withPtr ---> I) shadow_ self
+    fun shadow self = (GioMountClass.FFI.withPtr false ---> I) shadow_ self
     fun unmountFinish self result =
       (
-        GioMountClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioMountClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -188,8 +188,8 @@ structure GioMount :>
         )
     fun unmountWithOperationFinish self result =
       (
-        GioMountClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioMountClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -199,7 +199,7 @@ structure GioMount :>
            & result
            & []
         )
-    fun unshadow self = (GioMountClass.FFI.withPtr ---> I) unshadow_ self
+    fun unshadow self = (GioMountClass.FFI.withPtr false ---> I) unshadow_ self
     local
       open ClosureMarshal Signal
     in

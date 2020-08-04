@@ -27,7 +27,7 @@ structure GtkIMMulticontext :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkIMMulticontextClass.FFI.fromPtr true) new_ ()
-    fun appendMenuitems self menushell = (GtkIMMulticontextClass.FFI.withPtr &&&> GtkMenuShellClass.FFI.withPtr ---> I) appendMenuitems_ (self & menushell)
-    fun getContextId self = (GtkIMMulticontextClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getContextId_ self
-    fun setContextId self contextId = (GtkIMMulticontextClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setContextId_ (self & contextId)
+    fun appendMenuitems self menushell = (GtkIMMulticontextClass.FFI.withPtr false &&&> GtkMenuShellClass.FFI.withPtr false ---> I) appendMenuitems_ (self & menushell)
+    fun getContextId self = (GtkIMMulticontextClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getContextId_ self
+    fun setContextId self contextId = (GtkIMMulticontextClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setContextId_ (self & contextId)
   end

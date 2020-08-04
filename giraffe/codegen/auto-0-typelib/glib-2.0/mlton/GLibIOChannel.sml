@@ -245,8 +245,8 @@ structure GLibIOChannel :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newFile (filename, mode) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GLibIOChannelRecord.FFI.fromPtr true
       )
@@ -257,15 +257,15 @@ structure GLibIOChannel :>
            & []
         )
     fun unixNew fd = (GInt32.FFI.withVal ---> GLibIOChannelRecord.FFI.fromPtr true) unixNew_ fd
-    fun close self = (GLibIOChannelRecord.FFI.withPtr ---> I) close_ self
-    fun flush self = (GLibIOChannelRecord.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GLibIOStatus.FFI.fromVal) flush_ (self & [])
-    fun getBufferCondition self = (GLibIOChannelRecord.FFI.withPtr ---> GLibIOCondition.FFI.fromVal) getBufferCondition_ self
-    fun getBufferSize self = (GLibIOChannelRecord.FFI.withPtr ---> GUInt64.FFI.fromVal) getBufferSize_ self
-    fun getBuffered self = (GLibIOChannelRecord.FFI.withPtr ---> GBool.FFI.fromVal) getBuffered_ self
-    fun getCloseOnUnref self = (GLibIOChannelRecord.FFI.withPtr ---> GBool.FFI.fromVal) getCloseOnUnref_ self
-    fun getEncoding self = (GLibIOChannelRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getEncoding_ self
-    fun getFlags self = (GLibIOChannelRecord.FFI.withPtr ---> GLibIOFlags.FFI.fromVal) getFlags_ self
-    fun init self = (GLibIOChannelRecord.FFI.withPtr ---> I) init_ self
+    fun close self = (GLibIOChannelRecord.FFI.withPtr false ---> I) close_ self
+    fun flush self = (GLibIOChannelRecord.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GLibIOStatus.FFI.fromVal) flush_ (self & [])
+    fun getBufferCondition self = (GLibIOChannelRecord.FFI.withPtr false ---> GLibIOCondition.FFI.fromVal) getBufferCondition_ self
+    fun getBufferSize self = (GLibIOChannelRecord.FFI.withPtr false ---> GUInt64.FFI.fromVal) getBufferSize_ self
+    fun getBuffered self = (GLibIOChannelRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getBuffered_ self
+    fun getCloseOnUnref self = (GLibIOChannelRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getCloseOnUnref_ self
+    fun getEncoding self = (GLibIOChannelRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEncoding_ self
+    fun getFlags self = (GLibIOChannelRecord.FFI.withPtr false ---> GLibIOFlags.FFI.fromVal) getFlags_ self
+    fun init self = (GLibIOChannelRecord.FFI.withPtr false ---> I) init_ self
     fun readLine self =
       let
         val strReturn
@@ -273,12 +273,12 @@ structure GLibIOChannel :>
          & terminatorPos
          & retVal =
           (
-            GLibIOChannelRecord.FFI.withPtr
-             &&&> Utf8.FFI.withRefOptPtr
+            GLibIOChannelRecord.FFI.withPtr false
+             &&&> Utf8.FFI.withRefOptPtr 0
              &&&> GUInt64.FFI.withRefVal
              &&&> GUInt64.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1
+             ---> Utf8.FFI.fromPtr ~1
                    && GUInt64.FFI.fromVal
                    && GUInt64.FFI.fromVal
                    && GLibIOStatus.FFI.fromVal
@@ -305,11 +305,11 @@ structure GLibIOChannel :>
          & length
          & retVal =
           (
-            GLibIOChannelRecord.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withRefOptPtr
+            GLibIOChannelRecord.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withRefOptPtr 0
              &&&> GUInt64.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GUInt8CArrayN.FFI.fromPtr 1
+             ---> GUInt8CArrayN.FFI.fromPtr ~1
                    && GUInt64.FFI.fromVal
                    && GLibIOStatus.FFI.fromVal
           )
@@ -327,7 +327,7 @@ structure GLibIOChannel :>
       let
         val thechar & retVal =
           (
-            GLibIOChannelRecord.FFI.withPtr
+            GLibIOChannelRecord.FFI.withPtr false
              &&&> GChar.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GChar.FFI.fromVal && GLibIOStatus.FFI.fromVal
@@ -343,7 +343,7 @@ structure GLibIOChannel :>
       end
     fun seek self (offset, type') =
       (
-        GLibIOChannelRecord.FFI.withPtr
+        GLibIOChannelRecord.FFI.withPtr false
          &&&> GInt64.FFI.withVal
          &&&> GLibSeekType.FFI.withVal
          ---> GLibIOError.FFI.fromVal
@@ -356,7 +356,7 @@ structure GLibIOChannel :>
         )
     fun seekPosition self (offset, type') =
       (
-        GLibIOChannelRecord.FFI.withPtr
+        GLibIOChannelRecord.FFI.withPtr false
          &&&> GInt64.FFI.withVal
          &&&> GLibSeekType.FFI.withVal
          &&&> GLibErrorRecord.handleError
@@ -369,13 +369,13 @@ structure GLibIOChannel :>
            & type'
            & []
         )
-    fun setBufferSize self size = (GLibIOChannelRecord.FFI.withPtr &&&> GUInt64.FFI.withVal ---> I) setBufferSize_ (self & size)
-    fun setBuffered self buffered = (GLibIOChannelRecord.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setBuffered_ (self & buffered)
-    fun setCloseOnUnref self doClose = (GLibIOChannelRecord.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCloseOnUnref_ (self & doClose)
+    fun setBufferSize self size = (GLibIOChannelRecord.FFI.withPtr false &&&> GUInt64.FFI.withVal ---> I) setBufferSize_ (self & size)
+    fun setBuffered self buffered = (GLibIOChannelRecord.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setBuffered_ (self & buffered)
+    fun setCloseOnUnref self doClose = (GLibIOChannelRecord.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCloseOnUnref_ (self & doClose)
     fun setEncoding self encoding =
       (
-        GLibIOChannelRecord.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        GLibIOChannelRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.FFI.fromVal
       )
@@ -387,7 +387,7 @@ structure GLibIOChannel :>
         )
     fun setFlags self flags =
       (
-        GLibIOChannelRecord.FFI.withPtr
+        GLibIOChannelRecord.FFI.withPtr false
          &&&> GLibIOFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.FFI.fromVal
@@ -400,8 +400,8 @@ structure GLibIOChannel :>
         )
     fun setLineTerm self (lineTerm, length) =
       (
-        GLibIOChannelRecord.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        GLibIOChannelRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -413,7 +413,7 @@ structure GLibIOChannel :>
         )
     fun shutdown self flush =
       (
-        GLibIOChannelRecord.FFI.withPtr
+        GLibIOChannelRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.FFI.fromVal
@@ -424,10 +424,10 @@ structure GLibIOChannel :>
            & flush
            & []
         )
-    fun unixGetFd self = (GLibIOChannelRecord.FFI.withPtr ---> GInt32.FFI.fromVal) unixGetFd_ self
+    fun unixGetFd self = (GLibIOChannelRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) unixGetFd_ self
     fun writeUnichar self thechar =
       (
-        GLibIOChannelRecord.FFI.withPtr
+        GLibIOChannelRecord.FFI.withPtr false
          &&&> GChar.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.FFI.fromVal

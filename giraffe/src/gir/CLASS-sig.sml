@@ -34,17 +34,13 @@ signature CLASS =
         type 'a p = 'a C.p
         type ('a, 'b) r = ('a, 'b) C.r
 
-        val withPtr : (non_opt p -> 'a) -> 'b class -> 'a
-        val withDupPtr : (non_opt p -> 'a) -> 'b class -> 'a
-        val withOptPtr : (opt p -> 'a) -> 'b class option -> 'a
-        val withDupOptPtr : (opt p -> 'a) -> 'b class option -> 'a
+        val withPtr    : bool -> (non_opt p -> 'a) -> 'b class        -> 'a
+        val withOptPtr : bool -> (opt     p -> 'a) -> 'b class option -> 'a
 
-        val withRefPtr : ((non_opt, 'a) r -> 'b) -> 'c class -> ('a p, 'b) pair
-        val withRefDupPtr : ((non_opt, 'a) r -> 'b) -> 'c class -> ('a p, 'b) pair
-        val withRefOptPtr : ((opt, 'a) r -> 'b) -> 'c class option -> ('a p, 'b) pair
-        val withRefDupOptPtr : ((opt, 'a) r -> 'b) -> 'c class option -> ('a p, 'b) pair
+        val withRefPtr    : bool -> ((non_opt, 'a) r -> 'b) -> 'c class        -> ('a p, 'b) pair
+        val withRefOptPtr : bool -> ((opt,     'a) r -> 'b) -> 'c class option -> ('a p, 'b) pair
 
-        val fromPtr : bool -> non_opt p -> base class
-        val fromOptPtr : bool -> opt p -> base class option
+        val fromPtr    : bool -> non_opt p -> base class
+        val fromOptPtr : bool -> opt     p -> base class option
       end
   end

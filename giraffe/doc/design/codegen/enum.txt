@@ -205,8 +205,8 @@ structure <EnumNamespace><EnumName> :>
     val t =                                                                                |
       ValueAccessor.C.createAccessor {                                                     |
         getType  = (I ---> GObjectType.C.fromVal) getType_,                                |
-        getValue = (I ---> C.fromPtr false) getValue_,                                     |
-        setValue = (I &&&> C.withPtr ---> I) setValue_                                     |
+        getValue = (I ---> FFI.fromVal) getValue_,                                         |
+        setValue = (I &&&> FFI.withVal ---> I) setValue_                                   |
       }                                                                                   -'
 
                                                                      -.

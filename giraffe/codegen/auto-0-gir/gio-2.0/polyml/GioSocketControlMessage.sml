@@ -35,7 +35,7 @@ structure GioSocketControlMessage :>
             GInt.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> GSize.FFI.withVal
-             &&&> GUInt8CArrayN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              ---> GioSocketControlMessageClass.FFI.fromPtr true
           )
             deserialize_
@@ -48,7 +48,7 @@ structure GioSocketControlMessage :>
       in
         retVal
       end
-    fun getLevel self = (GioSocketControlMessageClass.FFI.withPtr ---> GInt.FFI.fromVal) getLevel_ self
-    fun getMsgType self = (GioSocketControlMessageClass.FFI.withPtr ---> GInt.FFI.fromVal) getMsgType_ self
-    fun getSize self = (GioSocketControlMessageClass.FFI.withPtr ---> GSize.FFI.fromVal) getSize_ self
+    fun getLevel self = (GioSocketControlMessageClass.FFI.withPtr false ---> GInt.FFI.fromVal) getLevel_ self
+    fun getMsgType self = (GioSocketControlMessageClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMsgType_ self
+    fun getSize self = (GioSocketControlMessageClass.FFI.withPtr false ---> GSize.FFI.fromVal) getSize_ self
   end

@@ -161,8 +161,8 @@ structure GioDtlsConnection :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun close self cancellable =
       (
-        GioDtlsConnectionClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioDtlsConnectionClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -174,8 +174,8 @@ structure GioDtlsConnection :>
         )
     fun closeFinish self result =
       (
-        GioDtlsConnectionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDtlsConnectionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -187,8 +187,8 @@ structure GioDtlsConnection :>
         )
     fun emitAcceptCertificate self (peerCert, errors) =
       (
-        GioDtlsConnectionClass.FFI.withPtr
-         &&&> GioTlsCertificateClass.FFI.withPtr
+        GioDtlsConnectionClass.FFI.withPtr false
+         &&&> GioTlsCertificateClass.FFI.withPtr false
          &&&> GioTlsCertificateFlags.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -198,17 +198,17 @@ structure GioDtlsConnection :>
            & peerCert
            & errors
         )
-    fun getCertificate self = (GioDtlsConnectionClass.FFI.withPtr ---> GioTlsCertificateClass.FFI.fromPtr false) getCertificate_ self
-    fun getDatabase self = (GioDtlsConnectionClass.FFI.withPtr ---> GioTlsDatabaseClass.FFI.fromPtr false) getDatabase_ self
-    fun getInteraction self = (GioDtlsConnectionClass.FFI.withPtr ---> GioTlsInteractionClass.FFI.fromPtr false) getInteraction_ self
-    fun getPeerCertificate self = (GioDtlsConnectionClass.FFI.withPtr ---> GioTlsCertificateClass.FFI.fromPtr false) getPeerCertificate_ self
-    fun getPeerCertificateErrors self = (GioDtlsConnectionClass.FFI.withPtr ---> GioTlsCertificateFlags.FFI.fromVal) getPeerCertificateErrors_ self
-    fun getRehandshakeMode self = (GioDtlsConnectionClass.FFI.withPtr ---> GioTlsRehandshakeMode.FFI.fromVal) getRehandshakeMode_ self
-    fun getRequireCloseNotify self = (GioDtlsConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getRequireCloseNotify_ self
+    fun getCertificate self = (GioDtlsConnectionClass.FFI.withPtr false ---> GioTlsCertificateClass.FFI.fromPtr false) getCertificate_ self
+    fun getDatabase self = (GioDtlsConnectionClass.FFI.withPtr false ---> GioTlsDatabaseClass.FFI.fromPtr false) getDatabase_ self
+    fun getInteraction self = (GioDtlsConnectionClass.FFI.withPtr false ---> GioTlsInteractionClass.FFI.fromPtr false) getInteraction_ self
+    fun getPeerCertificate self = (GioDtlsConnectionClass.FFI.withPtr false ---> GioTlsCertificateClass.FFI.fromPtr false) getPeerCertificate_ self
+    fun getPeerCertificateErrors self = (GioDtlsConnectionClass.FFI.withPtr false ---> GioTlsCertificateFlags.FFI.fromVal) getPeerCertificateErrors_ self
+    fun getRehandshakeMode self = (GioDtlsConnectionClass.FFI.withPtr false ---> GioTlsRehandshakeMode.FFI.fromVal) getRehandshakeMode_ self
+    fun getRequireCloseNotify self = (GioDtlsConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRequireCloseNotify_ self
     fun handshake self cancellable =
       (
-        GioDtlsConnectionClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioDtlsConnectionClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -220,8 +220,8 @@ structure GioDtlsConnection :>
         )
     fun handshakeFinish self result =
       (
-        GioDtlsConnectionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDtlsConnectionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -231,11 +231,11 @@ structure GioDtlsConnection :>
            & result
            & []
         )
-    fun setCertificate self certificate = (GioDtlsConnectionClass.FFI.withPtr &&&> GioTlsCertificateClass.FFI.withPtr ---> I) setCertificate_ (self & certificate)
-    fun setDatabase self database = (GioDtlsConnectionClass.FFI.withPtr &&&> GioTlsDatabaseClass.FFI.withPtr ---> I) setDatabase_ (self & database)
-    fun setInteraction self interaction = (GioDtlsConnectionClass.FFI.withPtr &&&> GioTlsInteractionClass.FFI.withOptPtr ---> I) setInteraction_ (self & interaction)
-    fun setRehandshakeMode self mode = (GioDtlsConnectionClass.FFI.withPtr &&&> GioTlsRehandshakeMode.FFI.withVal ---> I) setRehandshakeMode_ (self & mode)
-    fun setRequireCloseNotify self requireCloseNotify = (GioDtlsConnectionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRequireCloseNotify_ (self & requireCloseNotify)
+    fun setCertificate self certificate = (GioDtlsConnectionClass.FFI.withPtr false &&&> GioTlsCertificateClass.FFI.withPtr false ---> I) setCertificate_ (self & certificate)
+    fun setDatabase self database = (GioDtlsConnectionClass.FFI.withPtr false &&&> GioTlsDatabaseClass.FFI.withPtr false ---> I) setDatabase_ (self & database)
+    fun setInteraction self interaction = (GioDtlsConnectionClass.FFI.withPtr false &&&> GioTlsInteractionClass.FFI.withOptPtr false ---> I) setInteraction_ (self & interaction)
+    fun setRehandshakeMode self mode = (GioDtlsConnectionClass.FFI.withPtr false &&&> GioTlsRehandshakeMode.FFI.withVal ---> I) setRehandshakeMode_ (self & mode)
+    fun setRequireCloseNotify self requireCloseNotify = (GioDtlsConnectionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRequireCloseNotify_ (self & requireCloseNotify)
     fun shutdown
       self
       (
@@ -244,10 +244,10 @@ structure GioDtlsConnection :>
         cancellable
       ) =
       (
-        GioDtlsConnectionClass.FFI.withPtr
+        GioDtlsConnectionClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -261,8 +261,8 @@ structure GioDtlsConnection :>
         )
     fun shutdownFinish self result =
       (
-        GioDtlsConnectionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDtlsConnectionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

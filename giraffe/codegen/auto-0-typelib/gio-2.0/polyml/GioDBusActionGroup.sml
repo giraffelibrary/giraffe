@@ -23,8 +23,8 @@ structure GioDBusActionGroup :>
     type 'a remote_action_group_class = 'a GioRemoteActionGroupClass.class
     type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
     type t = base class
-    fun asActionGroup self = (GObjectObjectClass.FFI.withPtr ---> GioActionGroupClass.FFI.fromPtr false) I self
-    fun asRemoteActionGroup self = (GObjectObjectClass.FFI.withPtr ---> GioRemoteActionGroupClass.FFI.fromPtr false) I self
+    fun asActionGroup self = (GObjectObjectClass.FFI.withPtr false ---> GioActionGroupClass.FFI.fromPtr false) I self
+    fun asRemoteActionGroup self = (GObjectObjectClass.FFI.withPtr false ---> GioRemoteActionGroupClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun get
       (
@@ -33,9 +33,9 @@ structure GioDBusActionGroup :>
         objectPath
       ) =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> GioDBusActionGroupClass.FFI.fromPtr true
       )
         get_

@@ -13,9 +13,9 @@ structure GioUnixCredentialsMessage :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioUnixCredentialsMessageClass.FFI.fromPtr true) new_ ()
-    fun newWithCredentials credentials = (GioCredentialsClass.FFI.withPtr ---> GioUnixCredentialsMessageClass.FFI.fromPtr true) newWithCredentials_ credentials
+    fun newWithCredentials credentials = (GioCredentialsClass.FFI.withPtr false ---> GioUnixCredentialsMessageClass.FFI.fromPtr true) newWithCredentials_ credentials
     fun isSupported () = (I ---> GBool.FFI.fromVal) isSupported_ ()
-    fun getCredentials self = (GioUnixCredentialsMessageClass.FFI.withPtr ---> GioCredentialsClass.FFI.fromPtr false) getCredentials_ self
+    fun getCredentials self = (GioUnixCredentialsMessageClass.FFI.withPtr false ---> GioCredentialsClass.FFI.fromPtr false) getCredentials_ self
     local
       open Property
     in

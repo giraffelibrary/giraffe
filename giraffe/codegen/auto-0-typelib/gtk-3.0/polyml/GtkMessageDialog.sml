@@ -21,13 +21,13 @@ structure GtkMessageDialog :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type message_type_t = GtkMessageType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getImage self = (GtkMessageDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getImage_ self
-    fun getMessageArea self = (GtkMessageDialogClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromPtr false) getMessageArea_ self
-    fun setImage self image = (GtkMessageDialogClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) setImage_ (self & image)
-    fun setMarkup self str = (GtkMessageDialogClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setMarkup_ (self & str)
+    fun getImage self = (GtkMessageDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getImage_ self
+    fun getMessageArea self = (GtkMessageDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getMessageArea_ self
+    fun setImage self image = (GtkMessageDialogClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setImage_ (self & image)
+    fun setMarkup self str = (GtkMessageDialogClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setMarkup_ (self & str)
     local
       open Property
     in

@@ -31,6 +31,6 @@ structure Vte : VTE =
     fun getMajorVersion () = (I ---> GUInt32.FFI.fromVal) getMajorVersion_ ()
     fun getMicroVersion () = (I ---> GUInt32.FFI.fromVal) getMicroVersion_ ()
     fun getMinorVersion () = (I ---> GUInt32.FFI.fromVal) getMinorVersion_ ()
-    fun getUserShell () = (I ---> Utf8.FFI.fromPtr 1) getUserShell_ ()
+    fun getUserShell () = (I ---> Utf8.FFI.fromPtr ~1) getUserShell_ ()
     fun regexErrorQuark () = (I ---> GUInt32.FFI.fromVal) regexErrorQuark_ ()
   end

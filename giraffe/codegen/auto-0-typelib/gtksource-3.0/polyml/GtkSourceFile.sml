@@ -28,16 +28,16 @@ structure GtkSourceFile :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSourceFileClass.FFI.fromPtr true) new_ ()
-    fun checkFileOnDisk self = (GtkSourceFileClass.FFI.withPtr ---> I) checkFileOnDisk_ self
-    fun getCompressionType self = (GtkSourceFileClass.FFI.withPtr ---> GtkSourceCompressionType.FFI.fromVal) getCompressionType_ self
-    fun getEncoding self = (GtkSourceFileClass.FFI.withPtr ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self
-    fun getLocation self = (GtkSourceFileClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr false) getLocation_ self
-    fun getNewlineType self = (GtkSourceFileClass.FFI.withPtr ---> GtkSourceNewlineType.FFI.fromVal) getNewlineType_ self
-    fun isDeleted self = (GtkSourceFileClass.FFI.withPtr ---> GBool.FFI.fromVal) isDeleted_ self
-    fun isExternallyModified self = (GtkSourceFileClass.FFI.withPtr ---> GBool.FFI.fromVal) isExternallyModified_ self
-    fun isLocal self = (GtkSourceFileClass.FFI.withPtr ---> GBool.FFI.fromVal) isLocal_ self
-    fun isReadonly self = (GtkSourceFileClass.FFI.withPtr ---> GBool.FFI.fromVal) isReadonly_ self
-    fun setLocation self location = (GtkSourceFileClass.FFI.withPtr &&&> GioFileClass.FFI.withOptPtr ---> I) setLocation_ (self & location)
+    fun checkFileOnDisk self = (GtkSourceFileClass.FFI.withPtr false ---> I) checkFileOnDisk_ self
+    fun getCompressionType self = (GtkSourceFileClass.FFI.withPtr false ---> GtkSourceCompressionType.FFI.fromVal) getCompressionType_ self
+    fun getEncoding self = (GtkSourceFileClass.FFI.withPtr false ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self
+    fun getLocation self = (GtkSourceFileClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getLocation_ self
+    fun getNewlineType self = (GtkSourceFileClass.FFI.withPtr false ---> GtkSourceNewlineType.FFI.fromVal) getNewlineType_ self
+    fun isDeleted self = (GtkSourceFileClass.FFI.withPtr false ---> GBool.FFI.fromVal) isDeleted_ self
+    fun isExternallyModified self = (GtkSourceFileClass.FFI.withPtr false ---> GBool.FFI.fromVal) isExternallyModified_ self
+    fun isLocal self = (GtkSourceFileClass.FFI.withPtr false ---> GBool.FFI.fromVal) isLocal_ self
+    fun isReadonly self = (GtkSourceFileClass.FFI.withPtr false ---> GBool.FFI.fromVal) isReadonly_ self
+    fun setLocation self location = (GtkSourceFileClass.FFI.withPtr false &&&> GioFileClass.FFI.withOptPtr false ---> I) setLocation_ (self & location)
     local
       open Property
     in

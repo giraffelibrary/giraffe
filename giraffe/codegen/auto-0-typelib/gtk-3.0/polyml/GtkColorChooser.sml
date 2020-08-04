@@ -40,11 +40,11 @@ structure GtkColorChooser :>
           | NONE => GInt32.null
         val () =
           (
-            GtkColorChooserClass.FFI.withPtr
+            GtkColorChooserClass.FFI.withPtr false
              &&&> GtkOrientation.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GInt32.FFI.withVal
-             &&&> GdkRgbaRecordCArrayN.FFI.withOptPtr
+             &&&> GdkRgbaRecordCArrayN.FFI.withOptPtr 0
              ---> I
           )
             addPalette_
@@ -60,13 +60,13 @@ structure GtkColorChooser :>
       end
     fun getRgba self =
       let
-        val color & () = (GtkColorChooserClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withNewPtr ---> GdkRgbaRecord.FFI.fromPtr true && I) getRgba_ (self & ())
+        val color & () = (GtkColorChooserClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withNewPtr ---> GdkRgbaRecord.FFI.fromPtr true && I) getRgba_ (self & ())
       in
         color
       end
-    fun getUseAlpha self = (GtkColorChooserClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseAlpha_ self
-    fun setRgba self color = (GtkColorChooserClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withPtr ---> I) setRgba_ (self & color)
-    fun setUseAlpha self useAlpha = (GtkColorChooserClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseAlpha_ (self & useAlpha)
+    fun getUseAlpha self = (GtkColorChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseAlpha_ self
+    fun setRgba self color = (GtkColorChooserClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withPtr false ---> I) setRgba_ (self & color)
+    fun setUseAlpha self useAlpha = (GtkColorChooserClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseAlpha_ (self & useAlpha)
     local
       open ClosureMarshal Signal
     in

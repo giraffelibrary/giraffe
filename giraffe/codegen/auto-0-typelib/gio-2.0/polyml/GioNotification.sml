@@ -46,12 +46,12 @@ structure GioNotification :>
     type notification_priority_t = GioNotificationPriority.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new title = (Utf8.FFI.withPtr ---> GioNotificationClass.FFI.fromPtr true) new_ title
+    fun new title = (Utf8.FFI.withPtr 0 ---> GioNotificationClass.FFI.fromPtr true) new_ title
     fun addButton self (label, detailedAction) =
       (
-        GioNotificationClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioNotificationClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         addButton_
@@ -68,10 +68,10 @@ structure GioNotification :>
         target
       ) =
       (
-        GioNotificationClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withOptPtr
+        GioNotificationClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withOptPtr false
          ---> I
       )
         addButtonWithTarget_
@@ -81,13 +81,13 @@ structure GioNotification :>
            & action
            & target
         )
-    fun setBody self body = (GioNotificationClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setBody_ (self & body)
-    fun setDefaultAction self detailedAction = (GioNotificationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDefaultAction_ (self & detailedAction)
+    fun setBody self body = (GioNotificationClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setBody_ (self & body)
+    fun setDefaultAction self detailedAction = (GioNotificationClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDefaultAction_ (self & detailedAction)
     fun setDefaultActionAndTarget self (action, target) =
       (
-        GioNotificationClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withOptPtr
+        GioNotificationClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withOptPtr false
          ---> I
       )
         setDefaultActionAndTarget_
@@ -96,8 +96,8 @@ structure GioNotification :>
            & action
            & target
         )
-    fun setIcon self icon = (GioNotificationClass.FFI.withPtr &&&> GioIconClass.FFI.withPtr ---> I) setIcon_ (self & icon)
-    fun setPriority self priority = (GioNotificationClass.FFI.withPtr &&&> GioNotificationPriority.FFI.withVal ---> I) setPriority_ (self & priority)
-    fun setTitle self title = (GioNotificationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setTitle_ (self & title)
-    fun setUrgent self urgent = (GioNotificationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUrgent_ (self & urgent)
+    fun setIcon self icon = (GioNotificationClass.FFI.withPtr false &&&> GioIconClass.FFI.withPtr false ---> I) setIcon_ (self & icon)
+    fun setPriority self priority = (GioNotificationClass.FFI.withPtr false &&&> GioNotificationPriority.FFI.withVal ---> I) setPriority_ (self & priority)
+    fun setTitle self title = (GioNotificationClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTitle_ (self & title)
+    fun setUrgent self urgent = (GioNotificationClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUrgent_ (self & urgent)
   end

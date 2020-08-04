@@ -28,14 +28,14 @@ structure GtkSourceLanguageManager :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSourceLanguageManagerClass.FFI.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkSourceLanguageManagerClass.FFI.fromPtr false) getDefault_ ()
-    fun getLanguage self id = (GtkSourceLanguageManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkSourceLanguageClass.FFI.fromOptPtr false) getLanguage_ (self & id)
-    fun getLanguageIds self = (GtkSourceLanguageManagerClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromOptPtr 0) getLanguageIds_ self
-    fun getSearchPath self = (GtkSourceLanguageManagerClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getSearchPath_ self
+    fun getLanguage self id = (GtkSourceLanguageManagerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkSourceLanguageClass.FFI.fromOptPtr false) getLanguage_ (self & id)
+    fun getLanguageIds self = (GtkSourceLanguageManagerClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromOptPtr 0) getLanguageIds_ self
+    fun getSearchPath self = (GtkSourceLanguageManagerClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getSearchPath_ self
     fun guessLanguage self (filename, contentType) =
       (
-        GtkSourceLanguageManagerClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+        GtkSourceLanguageManagerClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GtkSourceLanguageClass.FFI.fromOptPtr false
       )
         guessLanguage_
@@ -44,5 +44,5 @@ structure GtkSourceLanguageManager :>
            & filename
            & contentType
         )
-    fun setSearchPath self dirs = (GtkSourceLanguageManagerClass.FFI.withPtr &&&> Utf8CPtrArray.FFI.withOptPtr ---> I) setSearchPath_ (self & dirs)
+    fun setSearchPath self dirs = (GtkSourceLanguageManagerClass.FFI.withPtr false &&&> Utf8CPtrArray.FFI.withOptPtr 0 ---> I) setSearchPath_ (self & dirs)
   end

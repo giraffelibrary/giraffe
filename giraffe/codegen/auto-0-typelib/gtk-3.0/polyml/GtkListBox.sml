@@ -50,22 +50,22 @@ structure GtkListBox :>
     type 'a list_box_row_class = 'a GtkListBoxRowClass.class
     type selection_mode_t = GtkSelectionMode.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkListBoxClass.FFI.fromPtr false) new_ ()
-    fun dragHighlightRow self row = (GtkListBoxClass.FFI.withPtr &&&> GtkListBoxRowClass.FFI.withPtr ---> I) dragHighlightRow_ (self & row)
-    fun dragUnhighlightRow self = (GtkListBoxClass.FFI.withPtr ---> I) dragUnhighlightRow_ self
-    fun getActivateOnSingleClick self = (GtkListBoxClass.FFI.withPtr ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
-    fun getAdjustment self = (GtkListBoxClass.FFI.withPtr ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self
-    fun getRowAtIndex self index = (GtkListBoxClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkListBoxRowClass.FFI.fromOptPtr false) getRowAtIndex_ (self & index)
-    fun getRowAtY self y = (GtkListBoxClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkListBoxRowClass.FFI.fromOptPtr false) getRowAtY_ (self & y)
-    fun getSelectedRow self = (GtkListBoxClass.FFI.withPtr ---> GtkListBoxRowClass.FFI.fromPtr false) getSelectedRow_ self
-    fun getSelectionMode self = (GtkListBoxClass.FFI.withPtr ---> GtkSelectionMode.FFI.fromVal) getSelectionMode_ self
+    fun dragHighlightRow self row = (GtkListBoxClass.FFI.withPtr false &&&> GtkListBoxRowClass.FFI.withPtr false ---> I) dragHighlightRow_ (self & row)
+    fun dragUnhighlightRow self = (GtkListBoxClass.FFI.withPtr false ---> I) dragUnhighlightRow_ self
+    fun getActivateOnSingleClick self = (GtkListBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
+    fun getAdjustment self = (GtkListBoxClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self
+    fun getRowAtIndex self index = (GtkListBoxClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkListBoxRowClass.FFI.fromOptPtr false) getRowAtIndex_ (self & index)
+    fun getRowAtY self y = (GtkListBoxClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkListBoxRowClass.FFI.fromOptPtr false) getRowAtY_ (self & y)
+    fun getSelectedRow self = (GtkListBoxClass.FFI.withPtr false ---> GtkListBoxRowClass.FFI.fromPtr false) getSelectedRow_ self
+    fun getSelectionMode self = (GtkListBoxClass.FFI.withPtr false ---> GtkSelectionMode.FFI.fromVal) getSelectionMode_ self
     fun insert self (child, position) =
       (
-        GtkListBoxClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkListBoxClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -75,18 +75,18 @@ structure GtkListBox :>
            & child
            & position
         )
-    fun invalidateFilter self = (GtkListBoxClass.FFI.withPtr ---> I) invalidateFilter_ self
-    fun invalidateHeaders self = (GtkListBoxClass.FFI.withPtr ---> I) invalidateHeaders_ self
-    fun invalidateSort self = (GtkListBoxClass.FFI.withPtr ---> I) invalidateSort_ self
-    fun prepend self child = (GtkListBoxClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) prepend_ (self & child)
-    fun selectAll self = (GtkListBoxClass.FFI.withPtr ---> I) selectAll_ self
-    fun selectRow self row = (GtkListBoxClass.FFI.withPtr &&&> GtkListBoxRowClass.FFI.withOptPtr ---> I) selectRow_ (self & row)
-    fun setActivateOnSingleClick self single = (GtkListBoxClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActivateOnSingleClick_ (self & single)
-    fun setAdjustment self adjustment = (GtkListBoxClass.FFI.withPtr &&&> GtkAdjustmentClass.FFI.withOptPtr ---> I) setAdjustment_ (self & adjustment)
-    fun setPlaceholder self placeholder = (GtkListBoxClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setPlaceholder_ (self & placeholder)
-    fun setSelectionMode self mode = (GtkListBoxClass.FFI.withPtr &&&> GtkSelectionMode.FFI.withVal ---> I) setSelectionMode_ (self & mode)
-    fun unselectAll self = (GtkListBoxClass.FFI.withPtr ---> I) unselectAll_ self
-    fun unselectRow self row = (GtkListBoxClass.FFI.withPtr &&&> GtkListBoxRowClass.FFI.withPtr ---> I) unselectRow_ (self & row)
+    fun invalidateFilter self = (GtkListBoxClass.FFI.withPtr false ---> I) invalidateFilter_ self
+    fun invalidateHeaders self = (GtkListBoxClass.FFI.withPtr false ---> I) invalidateHeaders_ self
+    fun invalidateSort self = (GtkListBoxClass.FFI.withPtr false ---> I) invalidateSort_ self
+    fun prepend self child = (GtkListBoxClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) prepend_ (self & child)
+    fun selectAll self = (GtkListBoxClass.FFI.withPtr false ---> I) selectAll_ self
+    fun selectRow self row = (GtkListBoxClass.FFI.withPtr false &&&> GtkListBoxRowClass.FFI.withOptPtr false ---> I) selectRow_ (self & row)
+    fun setActivateOnSingleClick self single = (GtkListBoxClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setActivateOnSingleClick_ (self & single)
+    fun setAdjustment self adjustment = (GtkListBoxClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> I) setAdjustment_ (self & adjustment)
+    fun setPlaceholder self placeholder = (GtkListBoxClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setPlaceholder_ (self & placeholder)
+    fun setSelectionMode self mode = (GtkListBoxClass.FFI.withPtr false &&&> GtkSelectionMode.FFI.withVal ---> I) setSelectionMode_ (self & mode)
+    fun unselectAll self = (GtkListBoxClass.FFI.withPtr false ---> I) unselectAll_ self
+    fun unselectRow self row = (GtkListBoxClass.FFI.withPtr false &&&> GtkListBoxRowClass.FFI.withPtr false ---> I) unselectRow_ (self & row)
     local
       open ClosureMarshal Signal
     in

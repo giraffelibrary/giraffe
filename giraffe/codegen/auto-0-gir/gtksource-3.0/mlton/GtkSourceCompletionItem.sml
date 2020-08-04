@@ -87,7 +87,7 @@ structure GtkSourceCompletionItem :>
     type 'a class = 'a GtkSourceCompletionItemClass.class
     type 'a completion_proposal_class = 'a GtkSourceCompletionProposalClass.class
     type t = base class
-    fun asCompletionProposal self = (GObjectObjectClass.FFI.withPtr ---> GtkSourceCompletionProposalClass.FFI.fromPtr false) I self
+    fun asCompletionProposal self = (GObjectObjectClass.FFI.withPtr false ---> GtkSourceCompletionProposalClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -97,10 +97,10 @@ structure GtkSourceCompletionItem :>
         info
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GdkPixbufPixbufClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GdkPixbufPixbufClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GtkSourceCompletionItemClass.FFI.fromPtr true
       )
         new_
@@ -118,10 +118,10 @@ structure GtkSourceCompletionItem :>
         info
       ) =
       (
-        Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GtkSourceCompletionItemClass.FFI.fromPtr true
       )
         newFromStock_
@@ -139,10 +139,10 @@ structure GtkSourceCompletionItem :>
         info
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GdkPixbufPixbufClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GdkPixbufPixbufClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GtkSourceCompletionItemClass.FFI.fromPtr true
       )
         newWithMarkup_

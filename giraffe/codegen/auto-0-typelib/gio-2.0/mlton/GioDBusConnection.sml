@@ -498,11 +498,11 @@ structure GioDBusConnection :>
     type d_bus_connection_flags_t = GioDBusConnectionFlags.t
     type 'a i_o_stream_class = 'a GioIOStreamClass.class
     type t = base class
-    fun asAsyncInitable self = (GObjectObjectClass.FFI.withPtr ---> GioAsyncInitableClass.FFI.fromPtr false) I self
-    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    fun asAsyncInitable self = (GObjectObjectClass.FFI.withPtr false ---> GioAsyncInitableClass.FFI.fromPtr false) I self
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr false ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.FFI.fromPtr true) newFinish_ (res & [])
-    fun newForAddressFinish res = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.FFI.fromPtr true) newForAddressFinish_ (res & [])
+    fun newFinish res = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.FFI.fromPtr true) newFinish_ (res & [])
+    fun newForAddressFinish res = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioDBusConnectionClass.FFI.fromPtr true) newForAddressFinish_ (res & [])
     fun newForAddressSync
       (
         address,
@@ -511,10 +511,10 @@ structure GioDBusConnection :>
         cancellable
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GioDBusConnectionFlags.FFI.withVal
-         &&&> GioDBusAuthObserverClass.FFI.withOptPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioDBusAuthObserverClass.FFI.withOptPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioDBusConnectionClass.FFI.fromPtr true
       )
@@ -535,11 +535,11 @@ structure GioDBusConnection :>
         cancellable
       ) =
       (
-        GioIOStreamClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        GioIOStreamClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GioDBusConnectionFlags.FFI.withVal
-         &&&> GioDBusAuthObserverClass.FFI.withOptPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioDBusAuthObserverClass.FFI.withOptPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioDBusConnectionClass.FFI.fromPtr true
       )
@@ -554,8 +554,8 @@ structure GioDBusConnection :>
         )
     fun callFinish self res =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GLibVariantRecord.FFI.fromPtr true
       )
@@ -579,16 +579,16 @@ structure GioDBusConnection :>
         cancellable
       ) =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withOptPtr
-         &&&> GLibVariantTypeRecord.FFI.withOptPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withOptPtr false
+         &&&> GLibVariantTypeRecord.FFI.withOptPtr false
          &&&> GioDBusCallFlags.FFI.withVal
          &&&> GInt32.FFI.withVal
-         &&&> GioCancellableClass.FFI.withOptPtr
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GLibVariantRecord.FFI.fromPtr true
       )
@@ -610,9 +610,9 @@ structure GioDBusConnection :>
       let
         val outFdList & retVal =
           (
-            GioDBusConnectionClass.FFI.withPtr
-             &&&> GioUnixFDListClass.FFI.withRefOptPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GioDBusConnectionClass.FFI.withPtr false
+             &&&> GioUnixFDListClass.FFI.withRefOptPtr true
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GLibErrorRecord.handleError
              ---> GioUnixFDListClass.FFI.fromPtr true && GLibVariantRecord.FFI.fromPtr true
           )
@@ -643,18 +643,18 @@ structure GioDBusConnection :>
       let
         val outFdList & retVal =
           (
-            GioDBusConnectionClass.FFI.withPtr
-             &&&> Utf8.FFI.withOptPtr
-             &&&> Utf8.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
-             &&&> GLibVariantRecord.FFI.withOptPtr
-             &&&> GLibVariantTypeRecord.FFI.withOptPtr
+            GioDBusConnectionClass.FFI.withPtr false
+             &&&> Utf8.FFI.withOptPtr 0
+             &&&> Utf8.FFI.withPtr 0
+             &&&> Utf8.FFI.withPtr 0
+             &&&> Utf8.FFI.withPtr 0
+             &&&> GLibVariantRecord.FFI.withOptPtr false
+             &&&> GLibVariantTypeRecord.FFI.withOptPtr false
              &&&> GioDBusCallFlags.FFI.withVal
              &&&> GInt32.FFI.withVal
-             &&&> GioUnixFDListClass.FFI.withOptPtr
-             &&&> GioUnixFDListClass.FFI.withRefOptPtr
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioUnixFDListClass.FFI.withOptPtr false
+             &&&> GioUnixFDListClass.FFI.withRefOptPtr true
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GioUnixFDListClass.FFI.fromPtr true && GLibVariantRecord.FFI.fromPtr true
           )
@@ -679,8 +679,8 @@ structure GioDBusConnection :>
       end
     fun closeFinish self res =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -692,8 +692,8 @@ structure GioDBusConnection :>
         )
     fun closeSync self cancellable =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -713,12 +713,12 @@ structure GioDBusConnection :>
         parameters
       ) =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withOptPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -734,9 +734,9 @@ structure GioDBusConnection :>
         )
     fun exportActionGroup self (objectPath, actionGroup) =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GioActionGroupClass.FFI.withPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GioActionGroupClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
       )
@@ -749,9 +749,9 @@ structure GioDBusConnection :>
         )
     fun exportMenuModel self (objectPath, menu) =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GioMenuModelClass.FFI.withPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GioMenuModelClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
       )
@@ -764,8 +764,8 @@ structure GioDBusConnection :>
         )
     fun flushFinish self res =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -777,8 +777,8 @@ structure GioDBusConnection :>
         )
     fun flushSync self cancellable =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -788,14 +788,14 @@ structure GioDBusConnection :>
            & cancellable
            & []
         )
-    fun getCapabilities self = (GioDBusConnectionClass.FFI.withPtr ---> GioDBusCapabilityFlags.FFI.fromVal) getCapabilities_ self
-    fun getExitOnClose self = (GioDBusConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) getExitOnClose_ self
-    fun getGuid self = (GioDBusConnectionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getGuid_ self
-    fun getLastSerial self = (GioDBusConnectionClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getLastSerial_ self
-    fun getPeerCredentials self = (GioDBusConnectionClass.FFI.withPtr ---> GioCredentialsClass.FFI.fromOptPtr false) getPeerCredentials_ self
-    fun getStream self = (GioDBusConnectionClass.FFI.withPtr ---> GioIOStreamClass.FFI.fromPtr false) getStream_ self
-    fun getUniqueName self = (GioDBusConnectionClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUniqueName_ self
-    fun isClosed self = (GioDBusConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) isClosed_ self
+    fun getCapabilities self = (GioDBusConnectionClass.FFI.withPtr false ---> GioDBusCapabilityFlags.FFI.fromVal) getCapabilities_ self
+    fun getExitOnClose self = (GioDBusConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getExitOnClose_ self
+    fun getGuid self = (GioDBusConnectionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getGuid_ self
+    fun getLastSerial self = (GioDBusConnectionClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getLastSerial_ self
+    fun getPeerCredentials self = (GioDBusConnectionClass.FFI.withPtr false ---> GioCredentialsClass.FFI.fromOptPtr false) getPeerCredentials_ self
+    fun getStream self = (GioDBusConnectionClass.FFI.withPtr false ---> GioIOStreamClass.FFI.fromPtr false) getStream_ self
+    fun getUniqueName self = (GioDBusConnectionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUniqueName_ self
+    fun isClosed self = (GioDBusConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self
     fun registerObject
       self
       (
@@ -806,12 +806,12 @@ structure GioDBusConnection :>
         setPropertyClosure
       ) =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GioDBusInterfaceInfoRecord.FFI.withPtr
-         &&&> GObjectClosureRecord.FFI.withOptPtr
-         &&&> GObjectClosureRecord.FFI.withOptPtr
-         &&&> GObjectClosureRecord.FFI.withOptPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GioDBusInterfaceInfoRecord.FFI.withPtr false
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
       )
@@ -825,13 +825,13 @@ structure GioDBusConnection :>
            & setPropertyClosure
            & []
         )
-    fun removeFilter self filterId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) removeFilter_ (self & filterId)
+    fun removeFilter self filterId = (GioDBusConnectionClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) removeFilter_ (self & filterId)
     fun sendMessage self (message, flags) =
       let
         val outSerial & () =
           (
-            GioDBusConnectionClass.FFI.withPtr
-             &&&> GioDBusMessageClass.FFI.withPtr
+            GioDBusConnectionClass.FFI.withPtr false
+             &&&> GioDBusMessageClass.FFI.withPtr false
              &&&> GioDBusSendMessageFlags.FFI.withVal
              &&&> GUInt32.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
@@ -850,8 +850,8 @@ structure GioDBusConnection :>
       end
     fun sendMessageWithReplyFinish self res =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioDBusMessageClass.FFI.fromPtr true
       )
@@ -872,12 +872,12 @@ structure GioDBusConnection :>
       let
         val outSerial & retVal =
           (
-            GioDBusConnectionClass.FFI.withPtr
-             &&&> GioDBusMessageClass.FFI.withPtr
+            GioDBusConnectionClass.FFI.withPtr false
+             &&&> GioDBusMessageClass.FFI.withPtr false
              &&&> GioDBusSendMessageFlags.FFI.withVal
              &&&> GInt32.FFI.withVal
              &&&> GUInt32.FFI.withRefVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
              ---> GUInt32.FFI.fromVal && GioDBusMessageClass.FFI.fromPtr true
           )
@@ -894,13 +894,13 @@ structure GioDBusConnection :>
       in
         (retVal, outSerial)
       end
-    fun setExitOnClose self exitOnClose = (GioDBusConnectionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setExitOnClose_ (self & exitOnClose)
-    fun signalUnsubscribe self subscriptionId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) signalUnsubscribe_ (self & subscriptionId)
-    fun startMessageProcessing self = (GioDBusConnectionClass.FFI.withPtr ---> I) startMessageProcessing_ self
-    fun unexportActionGroup self exportId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) unexportActionGroup_ (self & exportId)
-    fun unexportMenuModel self exportId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) unexportMenuModel_ (self & exportId)
-    fun unregisterObject self registrationId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> GBool.FFI.fromVal) unregisterObject_ (self & registrationId)
-    fun unregisterSubtree self registrationId = (GioDBusConnectionClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> GBool.FFI.fromVal) unregisterSubtree_ (self & registrationId)
+    fun setExitOnClose self exitOnClose = (GioDBusConnectionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setExitOnClose_ (self & exitOnClose)
+    fun signalUnsubscribe self subscriptionId = (GioDBusConnectionClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) signalUnsubscribe_ (self & subscriptionId)
+    fun startMessageProcessing self = (GioDBusConnectionClass.FFI.withPtr false ---> I) startMessageProcessing_ self
+    fun unexportActionGroup self exportId = (GioDBusConnectionClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) unexportActionGroup_ (self & exportId)
+    fun unexportMenuModel self exportId = (GioDBusConnectionClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) unexportMenuModel_ (self & exportId)
+    fun unregisterObject self registrationId = (GioDBusConnectionClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GBool.FFI.fromVal) unregisterObject_ (self & registrationId)
+    fun unregisterSubtree self registrationId = (GioDBusConnectionClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GBool.FFI.fromVal) unregisterSubtree_ (self & registrationId)
     local
       open Property
     in

@@ -27,9 +27,9 @@ structure GioDBusMenuModel :>
         objectPath
       ) =
       (
-        GioDBusConnectionClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioDBusConnectionClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> GioDBusMenuModelClass.FFI.fromPtr true
       )
         get_

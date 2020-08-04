@@ -14,5 +14,5 @@ structure Vte : VTE =
     structure Pty = VtePty
     structure Terminal = VteTerminal
     val SPAWN_NO_PARENT_ENVV = 33554432
-    fun getUserShell () = (I ---> Utf8.FFI.fromPtr 1) getUserShell_ ()
+    fun getUserShell () = (I ---> Utf8.FFI.fromPtr ~1) getUserShell_ ()
   end

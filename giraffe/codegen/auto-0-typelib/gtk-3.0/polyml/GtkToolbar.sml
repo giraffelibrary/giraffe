@@ -62,15 +62,15 @@ structure GtkToolbar :>
     type icon_size_t = GtkIconSize.t
     type toolbar_style_t = GtkToolbarStyle.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
-    fun asToolShell self = (GObjectObjectClass.FFI.withPtr ---> GtkToolShellClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asToolShell self = (GObjectObjectClass.FFI.withPtr false ---> GtkToolShellClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkToolbarClass.FFI.fromPtr false) new_ ()
     fun getDropIndex self (x, y) =
       (
-        GtkToolbarClass.FFI.withPtr
+        GtkToolbarClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> GInt32.FFI.fromVal
@@ -81,17 +81,17 @@ structure GtkToolbar :>
            & x
            & y
         )
-    fun getIconSize self = (GtkToolbarClass.FFI.withPtr ---> GtkIconSize.FFI.fromVal) getIconSize_ self
-    fun getItemIndex self item = (GtkToolbarClass.FFI.withPtr &&&> GtkToolItemClass.FFI.withPtr ---> GInt32.FFI.fromVal) getItemIndex_ (self & item)
-    fun getNItems self = (GtkToolbarClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNItems_ self
-    fun getNthItem self n = (GtkToolbarClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GtkToolItemClass.FFI.fromOptPtr false) getNthItem_ (self & n)
-    fun getReliefStyle self = (GtkToolbarClass.FFI.withPtr ---> GtkReliefStyle.FFI.fromVal) getReliefStyle_ self
-    fun getShowArrow self = (GtkToolbarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowArrow_ self
-    fun getStyle self = (GtkToolbarClass.FFI.withPtr ---> GtkToolbarStyle.FFI.fromVal) getStyle_ self
+    fun getIconSize self = (GtkToolbarClass.FFI.withPtr false ---> GtkIconSize.FFI.fromVal) getIconSize_ self
+    fun getItemIndex self item = (GtkToolbarClass.FFI.withPtr false &&&> GtkToolItemClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getItemIndex_ (self & item)
+    fun getNItems self = (GtkToolbarClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNItems_ self
+    fun getNthItem self n = (GtkToolbarClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkToolItemClass.FFI.fromOptPtr false) getNthItem_ (self & n)
+    fun getReliefStyle self = (GtkToolbarClass.FFI.withPtr false ---> GtkReliefStyle.FFI.fromVal) getReliefStyle_ self
+    fun getShowArrow self = (GtkToolbarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowArrow_ self
+    fun getStyle self = (GtkToolbarClass.FFI.withPtr false ---> GtkToolbarStyle.FFI.fromVal) getStyle_ self
     fun insert self (item, pos) =
       (
-        GtkToolbarClass.FFI.withPtr
-         &&&> GtkToolItemClass.FFI.withPtr
+        GtkToolbarClass.FFI.withPtr false
+         &&&> GtkToolItemClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -103,8 +103,8 @@ structure GtkToolbar :>
         )
     fun setDropHighlightItem self (toolItem, index) =
       (
-        GtkToolbarClass.FFI.withPtr
-         &&&> GtkToolItemClass.FFI.withOptPtr
+        GtkToolbarClass.FFI.withPtr false
+         &&&> GtkToolItemClass.FFI.withOptPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -114,11 +114,11 @@ structure GtkToolbar :>
            & toolItem
            & index
         )
-    fun setIconSize self iconSize = (GtkToolbarClass.FFI.withPtr &&&> GtkIconSize.FFI.withVal ---> I) setIconSize_ (self & iconSize)
-    fun setShowArrow self showArrow = (GtkToolbarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowArrow_ (self & showArrow)
-    fun setStyle self style = (GtkToolbarClass.FFI.withPtr &&&> GtkToolbarStyle.FFI.withVal ---> I) setStyle_ (self & style)
-    fun unsetIconSize self = (GtkToolbarClass.FFI.withPtr ---> I) unsetIconSize_ self
-    fun unsetStyle self = (GtkToolbarClass.FFI.withPtr ---> I) unsetStyle_ self
+    fun setIconSize self iconSize = (GtkToolbarClass.FFI.withPtr false &&&> GtkIconSize.FFI.withVal ---> I) setIconSize_ (self & iconSize)
+    fun setShowArrow self showArrow = (GtkToolbarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowArrow_ (self & showArrow)
+    fun setStyle self style = (GtkToolbarClass.FFI.withPtr false &&&> GtkToolbarStyle.FFI.withVal ---> I) setStyle_ (self & style)
+    fun unsetIconSize self = (GtkToolbarClass.FFI.withPtr false ---> I) unsetIconSize_ self
+    fun unsetStyle self = (GtkToolbarClass.FFI.withPtr false ---> I) unsetStyle_ self
     local
       open ClosureMarshal Signal
     in

@@ -58,14 +58,14 @@ structure AtkStateSet :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> AtkStateSetClass.FFI.fromPtr true) new_ ()
-    fun addState self type' = (AtkStateSetClass.FFI.withPtr &&&> AtkStateType.FFI.withVal ---> GBool.FFI.fromVal) addState_ (self & type')
+    fun addState self type' = (AtkStateSetClass.FFI.withPtr false &&&> AtkStateType.FFI.withVal ---> GBool.FFI.fromVal) addState_ (self & type')
     fun addStates self types =
       let
         val nTypes = LargeInt.fromInt (AtkStateTypeCArrayN.length types)
         val () =
           (
-            AtkStateSetClass.FFI.withPtr
-             &&&> AtkStateTypeCArrayN.FFI.withPtr
+            AtkStateSetClass.FFI.withPtr false
+             &&&> AtkStateTypeCArrayN.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              ---> I
           )
@@ -78,16 +78,16 @@ structure AtkStateSet :>
       in
         ()
       end
-    fun andSets self compareSet = (AtkStateSetClass.FFI.withPtr &&&> AtkStateSetClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromPtr true) andSets_ (self & compareSet)
-    fun clearStates self = (AtkStateSetClass.FFI.withPtr ---> I) clearStates_ self
-    fun containsState self type' = (AtkStateSetClass.FFI.withPtr &&&> AtkStateType.FFI.withVal ---> GBool.FFI.fromVal) containsState_ (self & type')
+    fun andSets self compareSet = (AtkStateSetClass.FFI.withPtr false &&&> AtkStateSetClass.FFI.withPtr false ---> AtkStateSetClass.FFI.fromPtr true) andSets_ (self & compareSet)
+    fun clearStates self = (AtkStateSetClass.FFI.withPtr false ---> I) clearStates_ self
+    fun containsState self type' = (AtkStateSetClass.FFI.withPtr false &&&> AtkStateType.FFI.withVal ---> GBool.FFI.fromVal) containsState_ (self & type')
     fun containsStates self types =
       let
         val nTypes = LargeInt.fromInt (AtkStateTypeCArrayN.length types)
         val retVal =
           (
-            AtkStateSetClass.FFI.withPtr
-             &&&> AtkStateTypeCArrayN.FFI.withPtr
+            AtkStateSetClass.FFI.withPtr false
+             &&&> AtkStateTypeCArrayN.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              ---> GBool.FFI.fromVal
           )
@@ -100,8 +100,8 @@ structure AtkStateSet :>
       in
         retVal
       end
-    fun isEmpty self = (AtkStateSetClass.FFI.withPtr ---> GBool.FFI.fromVal) isEmpty_ self
-    fun orSets self compareSet = (AtkStateSetClass.FFI.withPtr &&&> AtkStateSetClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromOptPtr true) orSets_ (self & compareSet)
-    fun removeState self type' = (AtkStateSetClass.FFI.withPtr &&&> AtkStateType.FFI.withVal ---> GBool.FFI.fromVal) removeState_ (self & type')
-    fun xorSets self compareSet = (AtkStateSetClass.FFI.withPtr &&&> AtkStateSetClass.FFI.withPtr ---> AtkStateSetClass.FFI.fromPtr true) xorSets_ (self & compareSet)
+    fun isEmpty self = (AtkStateSetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isEmpty_ self
+    fun orSets self compareSet = (AtkStateSetClass.FFI.withPtr false &&&> AtkStateSetClass.FFI.withPtr false ---> AtkStateSetClass.FFI.fromOptPtr true) orSets_ (self & compareSet)
+    fun removeState self type' = (AtkStateSetClass.FFI.withPtr false &&&> AtkStateType.FFI.withVal ---> GBool.FFI.fromVal) removeState_ (self & type')
+    fun xorSets self compareSet = (AtkStateSetClass.FFI.withPtr false &&&> AtkStateSetClass.FFI.withPtr false ---> AtkStateSetClass.FFI.fromPtr true) xorSets_ (self & compareSet)
   end

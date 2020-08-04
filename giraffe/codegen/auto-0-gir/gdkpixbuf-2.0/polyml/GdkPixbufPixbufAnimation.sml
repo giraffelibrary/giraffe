@@ -30,12 +30,12 @@ structure GdkPixbufPixbufAnimation :>
     type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newFromFile filename = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr true) newFromFile_ (filename & [])
-    fun newFromResource resourcePath = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr true) newFromResource_ (resourcePath & [])
+    fun newFromFile filename = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr true) newFromFile_ (filename & [])
+    fun newFromResource resourcePath = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr true) newFromResource_ (resourcePath & [])
     fun newFromStream (stream, cancellable) =
       (
-        GioInputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioInputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr true
       )
@@ -45,10 +45,10 @@ structure GdkPixbufPixbufAnimation :>
            & cancellable
            & []
         )
-    fun newFromStreamFinish asyncResult = (GioAsyncResultClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr true) newFromStreamFinish_ (asyncResult & [])
-    fun getHeight self = (GdkPixbufPixbufAnimationClass.FFI.withPtr ---> GInt.FFI.fromVal) getHeight_ self
-    fun getIter self startTime = (GdkPixbufPixbufAnimationClass.FFI.withPtr &&&> GLibTimeValRecord.FFI.withOptPtr ---> GdkPixbufPixbufAnimationIterClass.FFI.fromPtr true) getIter_ (self & startTime)
-    fun getStaticImage self = (GdkPixbufPixbufAnimationClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getStaticImage_ self
-    fun getWidth self = (GdkPixbufPixbufAnimationClass.FFI.withPtr ---> GInt.FFI.fromVal) getWidth_ self
-    fun isStaticImage self = (GdkPixbufPixbufAnimationClass.FFI.withPtr ---> GBool.FFI.fromVal) isStaticImage_ self
+    fun newFromStreamFinish asyncResult = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr true) newFromStreamFinish_ (asyncResult & [])
+    fun getHeight self = (GdkPixbufPixbufAnimationClass.FFI.withPtr false ---> GInt.FFI.fromVal) getHeight_ self
+    fun getIter self startTime = (GdkPixbufPixbufAnimationClass.FFI.withPtr false &&&> GLibTimeValRecord.FFI.withOptPtr false ---> GdkPixbufPixbufAnimationIterClass.FFI.fromPtr true) getIter_ (self & startTime)
+    fun getStaticImage self = (GdkPixbufPixbufAnimationClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getStaticImage_ self
+    fun getWidth self = (GdkPixbufPixbufAnimationClass.FFI.withPtr false ---> GInt.FFI.fromVal) getWidth_ self
+    fun isStaticImage self = (GdkPixbufPixbufAnimationClass.FFI.withPtr false ---> GBool.FFI.fromVal) isStaticImage_ self
   end

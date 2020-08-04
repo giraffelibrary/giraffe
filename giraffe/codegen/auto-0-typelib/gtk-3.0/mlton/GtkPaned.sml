@@ -65,18 +65,18 @@ structure GtkPaned :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type scroll_type_t = GtkScrollType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asOrientable self = (GObjectObjectClass.FFI.withPtr ---> GtkOrientableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new orientation = (GtkOrientation.FFI.withVal ---> GtkPanedClass.FFI.fromPtr false) new_ orientation
-    fun add1 self child = (GtkPanedClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) add1_ (self & child)
-    fun add2 self child = (GtkPanedClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withPtr ---> I) add2_ (self & child)
-    fun getChild1 self = (GtkPanedClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getChild1_ self
-    fun getChild2 self = (GtkPanedClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getChild2_ self
-    fun getHandleWindow self = (GtkPanedClass.FFI.withPtr ---> GdkWindowClass.FFI.fromPtr false) getHandleWindow_ self
-    fun getPosition self = (GtkPanedClass.FFI.withPtr ---> GInt32.FFI.fromVal) getPosition_ self
-    fun getWideHandle self = (GtkPanedClass.FFI.withPtr ---> GBool.FFI.fromVal) getWideHandle_ self
+    fun add1 self child = (GtkPanedClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) add1_ (self & child)
+    fun add2 self child = (GtkPanedClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) add2_ (self & child)
+    fun getChild1 self = (GtkPanedClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getChild1_ self
+    fun getChild2 self = (GtkPanedClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getChild2_ self
+    fun getHandleWindow self = (GtkPanedClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getHandleWindow_ self
+    fun getPosition self = (GtkPanedClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getPosition_ self
+    fun getWideHandle self = (GtkPanedClass.FFI.withPtr false ---> GBool.FFI.fromVal) getWideHandle_ self
     fun pack1
       self
       (
@@ -85,8 +85,8 @@ structure GtkPaned :>
         shrink
       ) =
       (
-        GtkPanedClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkPanedClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
@@ -106,8 +106,8 @@ structure GtkPaned :>
         shrink
       ) =
       (
-        GtkPanedClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkPanedClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
@@ -119,8 +119,8 @@ structure GtkPaned :>
            & resize
            & shrink
         )
-    fun setPosition self position = (GtkPanedClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setPosition_ (self & position)
-    fun setWideHandle self wide = (GtkPanedClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setWideHandle_ (self & wide)
+    fun setPosition self position = (GtkPanedClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setPosition_ (self & position)
+    fun setWideHandle self wide = (GtkPanedClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setWideHandle_ (self & wide)
     local
       open ClosureMarshal Signal
     in

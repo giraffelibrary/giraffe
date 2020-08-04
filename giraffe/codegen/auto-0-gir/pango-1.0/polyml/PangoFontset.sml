@@ -16,6 +16,6 @@ structure PangoFontset :>
     type font_metrics_t = PangoFontMetricsRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getFont self wc = (PangoFontsetClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> PangoFontClass.FFI.fromPtr true) getFont_ (self & wc)
-    fun getMetrics self = (PangoFontsetClass.FFI.withPtr ---> PangoFontMetricsRecord.FFI.fromPtr true) getMetrics_ self
+    fun getFont self wc = (PangoFontsetClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> PangoFontClass.FFI.fromPtr true) getFont_ (self & wc)
+    fun getMetrics self = (PangoFontsetClass.FFI.withPtr false ---> PangoFontMetricsRecord.FFI.fromPtr true) getMetrics_ self
   end

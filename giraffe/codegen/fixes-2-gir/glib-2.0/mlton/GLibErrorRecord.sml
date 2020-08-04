@@ -36,14 +36,14 @@ structure GLibErrorRecord :>
         {
           getType = (I ---> GObjectType.FFI.fromVal) getType_,
           getValue = (I ---> FFI.fromPtr false) getValue_,
-          setValue = (I &&&> FFI.withPtr ---> I) setValue_
+          setValue = (I &&&> FFI.withPtr false ---> I) setValue_
         }
     val tOpt =
       ValueAccessor.C.createAccessor
         {
           getType = (I ---> GObjectType.FFI.fromVal) getType_,
           getValue = (I ---> FFI.fromOptPtr false) getOptValue_,
-          setValue = (I &&&> FFI.withOptPtr ---> I) setOptValue_
+          setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
         }
 
     val getDomain_ = _import "giraffe_get_g_error_domain" : non_opt p -> GLibQuark.FFI.val_;
@@ -54,15 +54,15 @@ structure GLibErrorRecord :>
 
     val domain =
       {
-        get = fn self => (FFI.withPtr ---> GLibQuark.FFI.fromVal) getDomain_ self
+        get = fn self => (FFI.withPtr false ---> GLibQuark.FFI.fromVal) getDomain_ self
       }
     val code =
       {
-        get = fn self => (FFI.withPtr ---> GInt.FFI.fromVal) getCode_ self
+        get = fn self => (FFI.withPtr false ---> GInt.FFI.fromVal) getCode_ self
       }
     val message =
       {
-        get = fn self => (FFI.withPtr ---> Utf8.FFI.fromPtr 0) getMessage_ self
+        get = fn self => (FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMessage_ self
       }
 
     exception Error of exn * t
@@ -77,7 +77,7 @@ structure GLibErrorRecord :>
 
     fun handleError f handlers =
       let
-        val optErr & retVal = (FFI.withRefOptPtr ---> FFI.fromOptPtr true && I) f NONE
+        val optErr & retVal = (FFI.withRefOptPtr false ---> FFI.fromOptPtr true && I) f NONE
       in
         case optErr of
           NONE     => retVal
@@ -92,7 +92,7 @@ structure GLibErrorRecord :>
           in
             if errQuark = GLibQuark.fromString domainName
             then
-              SOME (domainExn ((FFI.withPtr ---> fromVal) getCode_ err))
+              SOME (domainExn ((FFI.withPtr false ---> fromVal) getCode_ err))
                 handle
                   _ =>
                     let

@@ -145,7 +145,7 @@ structure AtkText :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun addSelection self (startOffset, endOffset) =
       (
-        AtkTextClass.FFI.withPtr
+        AtkTextClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> GBool.FFI.fromVal
@@ -165,12 +165,12 @@ structure AtkText :>
         yClipType
       ) =
       (
-        AtkTextClass.FFI.withPtr
-         &&&> AtkTextRectangleRecord.FFI.withPtr
+        AtkTextClass.FFI.withPtr false
+         &&&> AtkTextRectangleRecord.FFI.withPtr false
          &&&> AtkCoordType.FFI.withVal
          &&&> AtkTextClipType.FFI.withVal
          &&&> AtkTextClipType.FFI.withVal
-         ---> AtkTextRangeRecordCPtrArray.FFI.fromPtr 2
+         ---> AtkTextRangeRecordCPtrArray.FFI.fromPtr ~1
       )
         getBoundedRanges_
         (
@@ -180,9 +180,9 @@ structure AtkText :>
            & xClipType
            & yClipType
         )
-    fun getCaretOffset self = (AtkTextClass.FFI.withPtr ---> GInt.FFI.fromVal) getCaretOffset_ self
-    fun getCharacterAtOffset self offset = (AtkTextClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GChar.FFI.fromVal) getCharacterAtOffset_ (self & offset)
-    fun getCharacterCount self = (AtkTextClass.FFI.withPtr ---> GInt.FFI.fromVal) getCharacterCount_ self
+    fun getCaretOffset self = (AtkTextClass.FFI.withPtr false ---> GInt.FFI.fromVal) getCaretOffset_ self
+    fun getCharacterAtOffset self offset = (AtkTextClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GChar.FFI.fromVal) getCharacterAtOffset_ (self & offset)
+    fun getCharacterCount self = (AtkTextClass.FFI.withPtr false ---> GInt.FFI.fromVal) getCharacterCount_ self
     fun getCharacterExtents self (offset, coords) =
       let
         val x
@@ -191,7 +191,7 @@ structure AtkText :>
          & height
          & () =
           (
-            AtkTextClass.FFI.withPtr
+            AtkTextClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
@@ -222,7 +222,7 @@ structure AtkText :>
           height
         )
       end
-    fun getNSelections self = (AtkTextClass.FFI.withPtr ---> GInt.FFI.fromVal) getNSelections_ self
+    fun getNSelections self = (AtkTextClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNSelections_ self
     fun getOffsetAtPoint
       self
       (
@@ -231,7 +231,7 @@ structure AtkText :>
         coords
       ) =
       (
-        AtkTextClass.FFI.withPtr
+        AtkTextClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> AtkCoordType.FFI.withVal
@@ -254,7 +254,7 @@ structure AtkText :>
       let
         val rect & () =
           (
-            AtkTextClass.FFI.withPtr
+            AtkTextClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withVal
              &&&> AtkCoordType.FFI.withVal
@@ -278,13 +278,13 @@ structure AtkText :>
          & endOffset
          & retVal =
           (
-            AtkTextClass.FFI.withPtr
+            AtkTextClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
           )
             getSelection_
             (
@@ -306,14 +306,14 @@ structure AtkText :>
          & endOffset
          & retVal =
           (
-            AtkTextClass.FFI.withPtr
+            AtkTextClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> AtkTextGranularity.FFI.withVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
-                   && Utf8.FFI.fromOptPtr 1
+                   && Utf8.FFI.fromOptPtr ~1
           )
             getStringAtOffset_
             (
@@ -332,10 +332,10 @@ structure AtkText :>
       end
     fun getText self (startOffset, endOffset) =
       (
-        AtkTextClass.FFI.withPtr
+        AtkTextClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromPtr ~1
       )
         getText_
         (
@@ -349,14 +349,14 @@ structure AtkText :>
          & endOffset
          & retVal =
           (
-            AtkTextClass.FFI.withPtr
+            AtkTextClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> AtkTextBoundary.FFI.withVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
           )
             getTextAfterOffset_
             (
@@ -379,14 +379,14 @@ structure AtkText :>
          & endOffset
          & retVal =
           (
-            AtkTextClass.FFI.withPtr
+            AtkTextClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> AtkTextBoundary.FFI.withVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
           )
             getTextAtOffset_
             (
@@ -409,14 +409,14 @@ structure AtkText :>
          & endOffset
          & retVal =
           (
-            AtkTextClass.FFI.withPtr
+            AtkTextClass.FFI.withPtr false
              &&&> GInt.FFI.withVal
              &&&> AtkTextBoundary.FFI.withVal
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
                    && GInt.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
           )
             getTextBeforeOffset_
             (
@@ -433,8 +433,8 @@ structure AtkText :>
           endOffset
         )
       end
-    fun removeSelection self selectionNum = (AtkTextClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) removeSelection_ (self & selectionNum)
-    fun setCaretOffset self offset = (AtkTextClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) setCaretOffset_ (self & offset)
+    fun removeSelection self selectionNum = (AtkTextClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) removeSelection_ (self & selectionNum)
+    fun setCaretOffset self offset = (AtkTextClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GBool.FFI.fromVal) setCaretOffset_ (self & offset)
     fun setSelection
       self
       (
@@ -443,7 +443,7 @@ structure AtkText :>
         endOffset
       ) =
       (
-        AtkTextClass.FFI.withPtr
+        AtkTextClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal

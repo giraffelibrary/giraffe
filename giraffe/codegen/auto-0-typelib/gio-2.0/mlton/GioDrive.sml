@@ -128,15 +128,15 @@ structure GioDrive :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun canEject self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) canEject_ self
-    fun canPollForMedia self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) canPollForMedia_ self
-    fun canStart self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) canStart_ self
-    fun canStartDegraded self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) canStartDegraded_ self
-    fun canStop self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) canStop_ self
+    fun canEject self = (GioDriveClass.FFI.withPtr false ---> GBool.FFI.fromVal) canEject_ self
+    fun canPollForMedia self = (GioDriveClass.FFI.withPtr false ---> GBool.FFI.fromVal) canPollForMedia_ self
+    fun canStart self = (GioDriveClass.FFI.withPtr false ---> GBool.FFI.fromVal) canStart_ self
+    fun canStartDegraded self = (GioDriveClass.FFI.withPtr false ---> GBool.FFI.fromVal) canStartDegraded_ self
+    fun canStop self = (GioDriveClass.FFI.withPtr false ---> GBool.FFI.fromVal) canStop_ self
     fun ejectFinish self result =
       (
-        GioDriveClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDriveClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -148,8 +148,8 @@ structure GioDrive :>
         )
     fun ejectWithOperationFinish self result =
       (
-        GioDriveClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDriveClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -159,22 +159,22 @@ structure GioDrive :>
            & result
            & []
         )
-    fun enumerateIdentifiers self = (GioDriveClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) enumerateIdentifiers_ self
-    fun getIcon self = (GioDriveClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getIcon_ self
-    fun getIdentifier self kind = (GioDriveClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getIdentifier_ (self & kind)
-    fun getName self = (GioDriveClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getName_ self
-    fun getSortKey self = (GioDriveClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSortKey_ self
-    fun getStartStopType self = (GioDriveClass.FFI.withPtr ---> GioDriveStartStopType.FFI.fromVal) getStartStopType_ self
-    fun getSymbolicIcon self = (GioDriveClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr true) getSymbolicIcon_ self
-    fun hasMedia self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) hasMedia_ self
-    fun hasVolumes self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) hasVolumes_ self
-    fun isMediaCheckAutomatic self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) isMediaCheckAutomatic_ self
-    fun isMediaRemovable self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) isMediaRemovable_ self
-    fun isRemovable self = (GioDriveClass.FFI.withPtr ---> GBool.FFI.fromVal) isRemovable_ self
+    fun enumerateIdentifiers self = (GioDriveClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) enumerateIdentifiers_ self
+    fun getIcon self = (GioDriveClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) getIcon_ self
+    fun getIdentifier self kind = (GioDriveClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) getIdentifier_ (self & kind)
+    fun getName self = (GioDriveClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getName_ self
+    fun getSortKey self = (GioDriveClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSortKey_ self
+    fun getStartStopType self = (GioDriveClass.FFI.withPtr false ---> GioDriveStartStopType.FFI.fromVal) getStartStopType_ self
+    fun getSymbolicIcon self = (GioDriveClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) getSymbolicIcon_ self
+    fun hasMedia self = (GioDriveClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasMedia_ self
+    fun hasVolumes self = (GioDriveClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasVolumes_ self
+    fun isMediaCheckAutomatic self = (GioDriveClass.FFI.withPtr false ---> GBool.FFI.fromVal) isMediaCheckAutomatic_ self
+    fun isMediaRemovable self = (GioDriveClass.FFI.withPtr false ---> GBool.FFI.fromVal) isMediaRemovable_ self
+    fun isRemovable self = (GioDriveClass.FFI.withPtr false ---> GBool.FFI.fromVal) isRemovable_ self
     fun pollForMediaFinish self result =
       (
-        GioDriveClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDriveClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -186,8 +186,8 @@ structure GioDrive :>
         )
     fun startFinish self result =
       (
-        GioDriveClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDriveClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -199,8 +199,8 @@ structure GioDrive :>
         )
     fun stopFinish self result =
       (
-        GioDriveClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioDriveClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

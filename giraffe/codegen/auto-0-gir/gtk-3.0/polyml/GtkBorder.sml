@@ -12,5 +12,5 @@ structure GtkBorder :>
     type t = GtkBorderRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkBorderRecord.FFI.fromPtr true) new_ ()
-    fun copy self = (GtkBorderRecord.FFI.withPtr ---> GtkBorderRecord.FFI.fromPtr true) copy_ self
+    fun copy self = (GtkBorderRecord.FFI.withPtr false ---> GtkBorderRecord.FFI.fromPtr true) copy_ self
   end

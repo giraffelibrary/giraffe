@@ -15,13 +15,13 @@ structure GtkSocket :>
     type 'a class = 'a GtkSocketClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSocketClass.FFI.fromPtr false) new_ ()
-    fun addId self window = (GtkSocketClass.FFI.withPtr &&&> GUInt64.FFI.withVal ---> I) addId_ (self & window)
-    fun getId self = (GtkSocketClass.FFI.withPtr ---> GUInt64.FFI.fromVal) getId_ self
-    fun getPlugWindow self = (GtkSocketClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getPlugWindow_ self
+    fun addId self window = (GtkSocketClass.FFI.withPtr false &&&> GUInt64.FFI.withVal ---> I) addId_ (self & window)
+    fun getId self = (GtkSocketClass.FFI.withPtr false ---> GUInt64.FFI.fromVal) getId_ self
+    fun getPlugWindow self = (GtkSocketClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getPlugWindow_ self
     local
       open ClosureMarshal Signal
     in

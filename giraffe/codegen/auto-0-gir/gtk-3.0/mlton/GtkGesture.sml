@@ -78,7 +78,7 @@ structure GtkGesture :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getBoundingBox self =
       let
-        val rect & retVal = (GtkGestureClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal) getBoundingBox_ (self & ())
+        val rect & retVal = (GtkGestureClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal) getBoundingBox_ (self & ())
       in
         if retVal then SOME rect else NONE
       end
@@ -88,7 +88,7 @@ structure GtkGesture :>
          & y
          & retVal =
           (
-            GtkGestureClass.FFI.withPtr
+            GtkGestureClass.FFI.withPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              ---> GDouble.FFI.fromVal
@@ -104,17 +104,17 @@ structure GtkGesture :>
       in
         if retVal then SOME (x, y) else NONE
       end
-    fun getDevice self = (GtkGestureClass.FFI.withPtr ---> GdkDeviceClass.FFI.fromOptPtr false) getDevice_ self
-    fun getLastEvent self sequence = (GtkGestureClass.FFI.withPtr &&&> GdkEventSequenceRecord.FFI.withPtr ---> GdkEvent.FFI.fromOptPtr false) getLastEvent_ (self & sequence)
-    fun getLastUpdatedSequence self = (GtkGestureClass.FFI.withPtr ---> GdkEventSequenceRecord.FFI.fromOptPtr false) getLastUpdatedSequence_ self
+    fun getDevice self = (GtkGestureClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromOptPtr false) getDevice_ self
+    fun getLastEvent self sequence = (GtkGestureClass.FFI.withPtr false &&&> GdkEventSequenceRecord.FFI.withPtr false ---> GdkEvent.FFI.fromOptPtr false) getLastEvent_ (self & sequence)
+    fun getLastUpdatedSequence self = (GtkGestureClass.FFI.withPtr false ---> GdkEventSequenceRecord.FFI.fromOptPtr false) getLastUpdatedSequence_ self
     fun getPoint self sequence =
       let
         val x
          & y
          & retVal =
           (
-            GtkGestureClass.FFI.withPtr
-             &&&> GdkEventSequenceRecord.FFI.withOptPtr
+            GtkGestureClass.FFI.withPtr false
+             &&&> GdkEventSequenceRecord.FFI.withOptPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              ---> GDouble.FFI.fromVal
@@ -131,17 +131,17 @@ structure GtkGesture :>
       in
         if retVal then SOME (x, y) else NONE
       end
-    fun getSequenceState self sequence = (GtkGestureClass.FFI.withPtr &&&> GdkEventSequenceRecord.FFI.withPtr ---> GtkEventSequenceState.FFI.fromVal) getSequenceState_ (self & sequence)
-    fun getWindow self = (GtkGestureClass.FFI.withPtr ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self
-    fun group self gesture = (GtkGestureClass.FFI.withPtr &&&> GtkGestureClass.FFI.withPtr ---> I) group_ (self & gesture)
-    fun handlesSequence self sequence = (GtkGestureClass.FFI.withPtr &&&> GdkEventSequenceRecord.FFI.withOptPtr ---> GBool.FFI.fromVal) handlesSequence_ (self & sequence)
-    fun isActive self = (GtkGestureClass.FFI.withPtr ---> GBool.FFI.fromVal) isActive_ self
-    fun isGroupedWith self other = (GtkGestureClass.FFI.withPtr &&&> GtkGestureClass.FFI.withPtr ---> GBool.FFI.fromVal) isGroupedWith_ (self & other)
-    fun isRecognized self = (GtkGestureClass.FFI.withPtr ---> GBool.FFI.fromVal) isRecognized_ self
+    fun getSequenceState self sequence = (GtkGestureClass.FFI.withPtr false &&&> GdkEventSequenceRecord.FFI.withPtr false ---> GtkEventSequenceState.FFI.fromVal) getSequenceState_ (self & sequence)
+    fun getWindow self = (GtkGestureClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self
+    fun group self gesture = (GtkGestureClass.FFI.withPtr false &&&> GtkGestureClass.FFI.withPtr false ---> I) group_ (self & gesture)
+    fun handlesSequence self sequence = (GtkGestureClass.FFI.withPtr false &&&> GdkEventSequenceRecord.FFI.withOptPtr false ---> GBool.FFI.fromVal) handlesSequence_ (self & sequence)
+    fun isActive self = (GtkGestureClass.FFI.withPtr false ---> GBool.FFI.fromVal) isActive_ self
+    fun isGroupedWith self other = (GtkGestureClass.FFI.withPtr false &&&> GtkGestureClass.FFI.withPtr false ---> GBool.FFI.fromVal) isGroupedWith_ (self & other)
+    fun isRecognized self = (GtkGestureClass.FFI.withPtr false ---> GBool.FFI.fromVal) isRecognized_ self
     fun setSequenceState self (sequence, state) =
       (
-        GtkGestureClass.FFI.withPtr
-         &&&> GdkEventSequenceRecord.FFI.withPtr
+        GtkGestureClass.FFI.withPtr false
+         &&&> GdkEventSequenceRecord.FFI.withPtr false
          &&&> GtkEventSequenceState.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -151,9 +151,9 @@ structure GtkGesture :>
            & sequence
            & state
         )
-    fun setState self state = (GtkGestureClass.FFI.withPtr &&&> GtkEventSequenceState.FFI.withVal ---> GBool.FFI.fromVal) setState_ (self & state)
-    fun setWindow self window = (GtkGestureClass.FFI.withPtr &&&> GdkWindowClass.FFI.withOptPtr ---> I) setWindow_ (self & window)
-    fun ungroup self = (GtkGestureClass.FFI.withPtr ---> I) ungroup_ self
+    fun setState self state = (GtkGestureClass.FFI.withPtr false &&&> GtkEventSequenceState.FFI.withVal ---> GBool.FFI.fromVal) setState_ (self & state)
+    fun setWindow self window = (GtkGestureClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withOptPtr false ---> I) setWindow_ (self & window)
+    fun ungroup self = (GtkGestureClass.FFI.withPtr false ---> I) ungroup_ self
     local
       open ClosureMarshal Signal
     in

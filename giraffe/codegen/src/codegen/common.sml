@@ -714,7 +714,7 @@ end
  *   withFun
  *     is defined as
  *
- *         FFI.withPtr
+ *         FFI.withPtr false
  *           if isPtr
  *
  *         FFI.withVal
@@ -724,7 +724,7 @@ end
  *   withOptFun
  *     is defined as
  *
- *         FFI.withOptPtr
+ *         FFI.withOptPtr false
  *           if isPtr
  *
  *         FFI.withVal
@@ -812,8 +812,11 @@ local
       val withFunExp =
         case ptrOpt of
           NONE       => mkLIdLNameExp [ffiStrId, withValId]
-        | SOME false => mkLIdLNameExp [ffiStrId, withPtrId]
-        | SOME true  => mkLIdLNameExp [ffiStrId, withOptPtrId]
+        | SOME isOpt =>
+            ExpApp (
+              mkLIdLNameExp [ffiStrId, if isOpt then withOptPtrId else withPtrId],
+              mkIdLNameExp "false"
+          )
     in
       ExpApp (
         mkParenExp (mkDDDRExp (mkAAARExp (iExp, withFunExp), iExp)),

@@ -13,9 +13,9 @@ structure GdkDeviceTool :>
     type device_tool_type_t = GdkDeviceToolType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getHardwareId self = (GdkDeviceToolClass.FFI.withPtr ---> GUInt64.FFI.fromVal) getHardwareId_ self
-    fun getSerial self = (GdkDeviceToolClass.FFI.withPtr ---> GUInt64.FFI.fromVal) getSerial_ self
-    fun getToolType self = (GdkDeviceToolClass.FFI.withPtr ---> GdkDeviceToolType.FFI.fromVal) getToolType_ self
+    fun getHardwareId self = (GdkDeviceToolClass.FFI.withPtr false ---> GUInt64.FFI.fromVal) getHardwareId_ self
+    fun getSerial self = (GdkDeviceToolClass.FFI.withPtr false ---> GUInt64.FFI.fromVal) getSerial_ self
+    fun getToolType self = (GdkDeviceToolClass.FFI.withPtr false ---> GdkDeviceToolType.FFI.fromVal) getToolType_ self
     local
       open Property
     in

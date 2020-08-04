@@ -27,27 +27,27 @@ structure GdkMonitor :>
     type rectangle_t = GdkRectangleRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getDisplay self = (GdkMonitorClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getDisplay self = (GdkMonitorClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
     fun getGeometry self =
       let
-        val geometry & () = (GdkMonitorClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getGeometry_ (self & ())
+        val geometry & () = (GdkMonitorClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getGeometry_ (self & ())
       in
         geometry
       end
-    fun getHeightMm self = (GdkMonitorClass.FFI.withPtr ---> GInt32.FFI.fromVal) getHeightMm_ self
-    fun getManufacturer self = (GdkMonitorClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getManufacturer_ self
-    fun getModel self = (GdkMonitorClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getModel_ self
-    fun getRefreshRate self = (GdkMonitorClass.FFI.withPtr ---> GInt32.FFI.fromVal) getRefreshRate_ self
-    fun getScaleFactor self = (GdkMonitorClass.FFI.withPtr ---> GInt32.FFI.fromVal) getScaleFactor_ self
-    fun getSubpixelLayout self = (GdkMonitorClass.FFI.withPtr ---> GdkSubpixelLayout.FFI.fromVal) getSubpixelLayout_ self
-    fun getWidthMm self = (GdkMonitorClass.FFI.withPtr ---> GInt32.FFI.fromVal) getWidthMm_ self
+    fun getHeightMm self = (GdkMonitorClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getHeightMm_ self
+    fun getManufacturer self = (GdkMonitorClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getManufacturer_ self
+    fun getModel self = (GdkMonitorClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getModel_ self
+    fun getRefreshRate self = (GdkMonitorClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getRefreshRate_ self
+    fun getScaleFactor self = (GdkMonitorClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getScaleFactor_ self
+    fun getSubpixelLayout self = (GdkMonitorClass.FFI.withPtr false ---> GdkSubpixelLayout.FFI.fromVal) getSubpixelLayout_ self
+    fun getWidthMm self = (GdkMonitorClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getWidthMm_ self
     fun getWorkarea self =
       let
-        val workarea & () = (GdkMonitorClass.FFI.withPtr &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getWorkarea_ (self & ())
+        val workarea & () = (GdkMonitorClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getWorkarea_ (self & ())
       in
         workarea
       end
-    fun isPrimary self = (GdkMonitorClass.FFI.withPtr ---> GBool.FFI.fromVal) isPrimary_ self
+    fun isPrimary self = (GdkMonitorClass.FFI.withPtr false ---> GBool.FFI.fromVal) isPrimary_ self
     local
       open ClosureMarshal Signal
     in

@@ -26,10 +26,10 @@ structure PangoAttrList :>
     type attribute_t = PangoAttributeRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> PangoAttrListRecord.FFI.fromPtr true) new_ ()
-    fun change self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withDupPtr ---> I) change_ (self & attr)
-    fun copy self = (PangoAttrListRecord.FFI.withPtr ---> PangoAttrListRecord.FFI.fromOptPtr true) copy_ self
-    fun insert self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withDupPtr ---> I) insert_ (self & attr)
-    fun insertBefore self attr = (PangoAttrListRecord.FFI.withPtr &&&> PangoAttributeRecord.FFI.withDupPtr ---> I) insertBefore_ (self & attr)
+    fun change self attr = (PangoAttrListRecord.FFI.withPtr false &&&> PangoAttributeRecord.FFI.withPtr true ---> I) change_ (self & attr)
+    fun copy self = (PangoAttrListRecord.FFI.withPtr false ---> PangoAttrListRecord.FFI.fromOptPtr true) copy_ self
+    fun insert self attr = (PangoAttrListRecord.FFI.withPtr false &&&> PangoAttributeRecord.FFI.withPtr true ---> I) insert_ (self & attr)
+    fun insertBefore self attr = (PangoAttrListRecord.FFI.withPtr false &&&> PangoAttributeRecord.FFI.withPtr true ---> I) insertBefore_ (self & attr)
     fun splice
       self
       (
@@ -38,8 +38,8 @@ structure PangoAttrList :>
         len
       ) =
       (
-        PangoAttrListRecord.FFI.withPtr
-         &&&> PangoAttrListRecord.FFI.withPtr
+        PangoAttrListRecord.FFI.withPtr false
+         &&&> PangoAttrListRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I

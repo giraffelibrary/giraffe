@@ -44,9 +44,9 @@ structure GioSimpleAction :>
     type 'a class = 'a GioSimpleActionClass.class
     type 'a action_class = 'a GioActionClass.class
     type t = base class
-    fun asAction self = (GObjectObjectClass.FFI.withPtr ---> GioActionClass.FFI.fromPtr false) I self
+    fun asAction self = (GObjectObjectClass.FFI.withPtr false ---> GioActionClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (name, parameterType) = (Utf8.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withOptPtr ---> GioSimpleActionClass.FFI.fromPtr true) new_ (name & parameterType)
+    fun new (name, parameterType) = (Utf8.FFI.withPtr 0 &&&> GLibVariantTypeRecord.FFI.withOptPtr false ---> GioSimpleActionClass.FFI.fromPtr true) new_ (name & parameterType)
     fun newStateful
       (
         name,
@@ -54,9 +54,9 @@ structure GioSimpleAction :>
         state
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> GLibVariantTypeRecord.FFI.withOptPtr
-         &&&> GLibVariantRecord.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> GLibVariantTypeRecord.FFI.withOptPtr false
+         &&&> GLibVariantRecord.FFI.withPtr false
          ---> GioSimpleActionClass.FFI.fromPtr true
       )
         newStateful_
@@ -65,9 +65,9 @@ structure GioSimpleAction :>
            & parameterType
            & state
         )
-    fun setEnabled self enabled = (GioSimpleActionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setEnabled_ (self & enabled)
-    fun setState self value = (GioSimpleActionClass.FFI.withPtr &&&> GLibVariantRecord.FFI.withPtr ---> I) setState_ (self & value)
-    fun setStateHint self stateHint = (GioSimpleActionClass.FFI.withPtr &&&> GLibVariantRecord.FFI.withOptPtr ---> I) setStateHint_ (self & stateHint)
+    fun setEnabled self enabled = (GioSimpleActionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setEnabled_ (self & enabled)
+    fun setState self value = (GioSimpleActionClass.FFI.withPtr false &&&> GLibVariantRecord.FFI.withPtr false ---> I) setState_ (self & value)
+    fun setStateHint self stateHint = (GioSimpleActionClass.FFI.withPtr false &&&> GLibVariantRecord.FFI.withOptPtr false ---> I) setStateHint_ (self & stateHint)
     local
       open ClosureMarshal Signal
     in

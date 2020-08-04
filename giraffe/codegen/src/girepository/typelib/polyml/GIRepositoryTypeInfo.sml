@@ -59,15 +59,15 @@ structure GIRepositoryTypeInfo :>
 
 
     val isPointer =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isPointer_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isPointer_ info
 
     val getTag =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypeTag.FFI.fromVal) getTag_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeTag.FFI.fromVal) getTag_ info
 
     val getParamType =
       fn info => fn n =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr
+        (GIRepositoryBaseInfoClass.FFI.withPtr false
           &&&> GInt32.FFI.withVal
           ---> GIRepositoryTypeInfoClass.FFI.fromOptPtr true)
           getParamType_
@@ -75,22 +75,22 @@ structure GIRepositoryTypeInfo :>
 
     val getInterface =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryBaseInfoClass.FFI.fromOptPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryBaseInfoClass.FFI.fromOptPtr true)
           getInterface_
           info
 
     val getArrayLength =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getArrayLength_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getArrayLength_ info
 
     val getArrayFixedSize =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getArrayFixedSize_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getArrayFixedSize_ info
 
     val isZeroTerminated =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isZeroTerminated_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isZeroTerminated_ info
 
     val getArrayType =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryArrayType.FFI.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryArrayType.FFI.fromVal)
           getArrayType_
           info
   end

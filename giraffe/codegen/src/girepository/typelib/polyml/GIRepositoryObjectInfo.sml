@@ -178,35 +178,35 @@ structure GIRepositoryObjectInfo :>
 
     val getTypeName =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
           getTypeName_
           info
 
     val getTypeInit =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
           getTypeInit_
           info
 
     val getAbstract =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) getAbstract_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAbstract_ info
 
     val getFundamental =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) getFundamental_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFundamental_ info
 
     val getParent =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryObjectInfoClass.FFI.fromOptPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryObjectInfoClass.FFI.fromOptPtr true)
           getParent_
           info
 
     val getNInterfaces =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNInterfaces_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNInterfaces_ info
 
     val getInterface =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositoryInterfaceInfoClass.FFI.fromPtr true
         )
@@ -214,12 +214,12 @@ structure GIRepositoryObjectInfo :>
           (info & n)
 
     val getNFields =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNFields_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNFields_ info
 
     val getField =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositoryFieldInfoClass.FFI.fromPtr true
         )
@@ -227,12 +227,12 @@ structure GIRepositoryObjectInfo :>
           (info & n)
 
     val getNProperties =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNProperties_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNProperties_ info
 
     val getProperty =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositoryPropertyInfoClass.FFI.fromPtr true
         )
@@ -240,12 +240,12 @@ structure GIRepositoryObjectInfo :>
           (info & n)
 
     val getNMethods =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNMethods_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNMethods_ info
 
     val getMethod =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
         )
@@ -255,20 +255,20 @@ structure GIRepositoryObjectInfo :>
     val findMethod =
       fn info => fn name =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
-           &&&> Utf8.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
+           &&&> Utf8.FFI.withPtr 0
            ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
         )
           findMethod_
           (info & name)
 
     val getNSignals =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNSignals_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNSignals_ info
 
     val getSignal =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositorySignalInfoClass.FFI.fromPtr true
         )
@@ -276,12 +276,12 @@ structure GIRepositoryObjectInfo :>
           (info & n)
 
     val getNVfuncs =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNVfuncs_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNVfuncs_ info
 
     val getVfunc =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositoryVFuncInfoClass.FFI.fromPtr true
         )
@@ -289,12 +289,12 @@ structure GIRepositoryObjectInfo :>
           (info & n)
 
     val getNConstants =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNConstants_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNConstants_ info
 
     val getConstant =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositoryConstantInfoClass.FFI.fromPtr true
         )
@@ -303,15 +303,15 @@ structure GIRepositoryObjectInfo :>
 
     val getClassStruct =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryStructInfoClass.FFI.fromOptPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryStructInfoClass.FFI.fromOptPtr true)
           getClassStruct_
           info
 
     val findVfunc =
       fn info => fn name =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
-           &&&> Utf8.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
+           &&&> Utf8.FFI.withPtr 0
            ---> GIRepositoryVFuncInfoClass.FFI.fromPtr true
         )
           findVfunc_
@@ -319,25 +319,25 @@ structure GIRepositoryObjectInfo :>
 
     val getUnrefFunction =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
           getUnrefFunction_
           info
 
     val getRefFunction =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
           getRefFunction_
           info
 
     val getSetValueFunction =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
           getSetValueFunction_
           info
 
     val getGetValueFunction =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
           getGetValueFunction_
           info
   end

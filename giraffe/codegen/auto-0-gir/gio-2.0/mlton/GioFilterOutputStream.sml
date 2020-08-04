@@ -11,9 +11,9 @@ structure GioFilterOutputStream :>
     type 'a output_stream_class = 'a GioOutputStreamClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getBaseStream self = (GioFilterOutputStreamClass.FFI.withPtr ---> GioOutputStreamClass.FFI.fromPtr false) getBaseStream_ self
-    fun getCloseBaseStream self = (GioFilterOutputStreamClass.FFI.withPtr ---> GBool.FFI.fromVal) getCloseBaseStream_ self
-    fun setCloseBaseStream self closeBase = (GioFilterOutputStreamClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setCloseBaseStream_ (self & closeBase)
+    fun getBaseStream self = (GioFilterOutputStreamClass.FFI.withPtr false ---> GioOutputStreamClass.FFI.fromPtr false) getBaseStream_ self
+    fun getCloseBaseStream self = (GioFilterOutputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCloseBaseStream_ self
+    fun setCloseBaseStream self closeBase = (GioFilterOutputStreamClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCloseBaseStream_ (self & closeBase)
     local
       open Property
     in

@@ -44,7 +44,7 @@ structure GtkSourceFileLoader :>
     type 'a file_class = 'a GtkSourceFileClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (buffer, file) = (GtkSourceBufferClass.FFI.withPtr &&&> GtkSourceFileClass.FFI.withPtr ---> GtkSourceFileLoaderClass.FFI.fromPtr true) new_ (buffer & file)
+    fun new (buffer, file) = (GtkSourceBufferClass.FFI.withPtr false &&&> GtkSourceFileClass.FFI.withPtr false ---> GtkSourceFileLoaderClass.FFI.fromPtr true) new_ (buffer & file)
     fun newFromStream
       (
         buffer,
@@ -52,9 +52,9 @@ structure GtkSourceFileLoader :>
         stream
       ) =
       (
-        GtkSourceBufferClass.FFI.withPtr
-         &&&> GtkSourceFileClass.FFI.withPtr
-         &&&> GioInputStreamClass.FFI.withPtr
+        GtkSourceBufferClass.FFI.withPtr false
+         &&&> GtkSourceFileClass.FFI.withPtr false
+         &&&> GioInputStreamClass.FFI.withPtr false
          ---> GtkSourceFileLoaderClass.FFI.fromPtr true
       )
         newFromStream_
@@ -63,17 +63,17 @@ structure GtkSourceFileLoader :>
            & file
            & stream
         )
-    fun getBuffer self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self
-    fun getCompressionType self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GtkSourceCompressionType.FFI.fromVal) getCompressionType_ self
-    fun getEncoding self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self
-    fun getFile self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GtkSourceFileClass.FFI.fromPtr false) getFile_ self
-    fun getInputStream self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GioInputStreamClass.FFI.fromOptPtr false) getInputStream_ self
-    fun getLocation self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GioFileClass.FFI.fromOptPtr false) getLocation_ self
-    fun getNewlineType self = (GtkSourceFileLoaderClass.FFI.withPtr ---> GtkSourceNewlineType.FFI.fromVal) getNewlineType_ self
+    fun getBuffer self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getCompressionType self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceCompressionType.FFI.fromVal) getCompressionType_ self
+    fun getEncoding self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self
+    fun getFile self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceFileClass.FFI.fromPtr false) getFile_ self
+    fun getInputStream self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromOptPtr false) getInputStream_ self
+    fun getLocation self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GioFileClass.FFI.fromOptPtr false) getLocation_ self
+    fun getNewlineType self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceNewlineType.FFI.fromVal) getNewlineType_ self
     fun loadFinish self result =
       (
-        GtkSourceFileLoaderClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GtkSourceFileLoaderClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

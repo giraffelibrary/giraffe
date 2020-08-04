@@ -64,19 +64,19 @@ structure GtkIconSet :>
     type 'a style_context_class = 'a GtkStyleContextClass.class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkIconSetRecord.FFI.fromPtr true) new_ ()
-    fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr ---> GtkIconSetRecord.FFI.fromPtr true) newFromPixbuf_ pixbuf
-    fun addSource self source = (GtkIconSetRecord.FFI.withPtr &&&> GtkIconSourceRecord.FFI.withPtr ---> I) addSource_ (self & source)
-    fun copy self = (GtkIconSetRecord.FFI.withPtr ---> GtkIconSetRecord.FFI.fromPtr true) copy_ self
+    fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr false ---> GtkIconSetRecord.FFI.fromPtr true) newFromPixbuf_ pixbuf
+    fun addSource self source = (GtkIconSetRecord.FFI.withPtr false &&&> GtkIconSourceRecord.FFI.withPtr false ---> I) addSource_ (self & source)
+    fun copy self = (GtkIconSetRecord.FFI.withPtr false ---> GtkIconSetRecord.FFI.fromPtr true) copy_ self
     fun getSizes self =
       let
         val sizes
          & nSizes
          & () =
           (
-            GtkIconSetRecord.FFI.withPtr
-             &&&> GIntCArrayN.FFI.withRefOptPtr
+            GtkIconSetRecord.FFI.withPtr false
+             &&&> GIntCArrayN.FFI.withRefOptPtr 0
              &&&> GInt.FFI.withRefVal
-             ---> GIntCArrayN.FFI.fromPtr 1
+             ---> GIntCArrayN.FFI.fromPtr ~1
                    && GInt.FFI.fromVal
                    && I
           )
@@ -100,13 +100,13 @@ structure GtkIconSet :>
         detail
       ) =
       (
-        GtkIconSetRecord.FFI.withPtr
-         &&&> GtkStyleClass.FFI.withOptPtr
+        GtkIconSetRecord.FFI.withPtr false
+         &&&> GtkStyleClass.FFI.withOptPtr false
          &&&> GtkTextDirection.FFI.withVal
          &&&> GtkStateType.FFI.withVal
          &&&> GInt.FFI.withVal
-         &&&> GtkWidgetClass.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> GtkWidgetClass.FFI.withOptPtr false
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GdkPixbufPixbufClass.FFI.fromPtr true
       )
         renderIcon_
@@ -121,8 +121,8 @@ structure GtkIconSet :>
         )
     fun renderIconPixbuf self (context, size) =
       (
-        GtkIconSetRecord.FFI.withPtr
-         &&&> GtkStyleContextClass.FFI.withPtr
+        GtkIconSetRecord.FFI.withPtr false
+         &&&> GtkStyleContextClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          ---> GdkPixbufPixbufClass.FFI.fromPtr true
       )
@@ -141,11 +141,11 @@ structure GtkIconSet :>
         forWindow
       ) =
       (
-        GtkIconSetRecord.FFI.withPtr
-         &&&> GtkStyleContextClass.FFI.withPtr
+        GtkIconSetRecord.FFI.withPtr false
+         &&&> GtkStyleContextClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         &&&> GdkWindowClass.FFI.withOptPtr
+         &&&> GdkWindowClass.FFI.withOptPtr false
          ---> CairoSurfaceRecord.FFI.fromPtr true
       )
         renderIconSurface_

@@ -37,22 +37,22 @@ structure GIRepositoryVFuncInfo :>
 
 
     val getFlags =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryVFuncInfoFlags.FFI.fromVal)
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryVFuncInfoFlags.FFI.fromVal)
         getFlags_
         info
 
     val getOffset =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getOffset_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getOffset_ info
 
     val getSignal =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositorySignalInfoClass.FFI.fromOptPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositorySignalInfoClass.FFI.fromOptPtr true)
           getSignal_
           info
 
     val getInvoker =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryFunctionInfoClass.FFI.fromOptPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryFunctionInfoClass.FFI.fromOptPtr true)
           getInvoker_
           info
   end

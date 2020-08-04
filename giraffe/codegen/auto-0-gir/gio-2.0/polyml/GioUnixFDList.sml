@@ -35,13 +35,13 @@ structure GioUnixFDList :>
     fun newFromArray fds =
       let
         val nFds = LargeInt.fromInt (GIntCArrayN.length fds)
-        val retVal = (GIntCArrayN.FFI.withPtr &&&> GInt.FFI.withVal ---> GioUnixFDListClass.FFI.fromPtr true) newFromArray_ (fds & nFds)
+        val retVal = (GIntCArrayN.FFI.withPtr 0 &&&> GInt.FFI.withVal ---> GioUnixFDListClass.FFI.fromPtr true) newFromArray_ (fds & nFds)
       in
         retVal
       end
     fun append self fd =
       (
-        GioUnixFDListClass.FFI.withPtr
+        GioUnixFDListClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GInt.FFI.fromVal
@@ -54,7 +54,7 @@ structure GioUnixFDList :>
         )
     fun get self index =
       (
-        GioUnixFDListClass.FFI.withPtr
+        GioUnixFDListClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GInt.FFI.fromVal
@@ -65,16 +65,16 @@ structure GioUnixFDList :>
            & index
            & []
         )
-    fun getLength self = (GioUnixFDListClass.FFI.withPtr ---> GInt.FFI.fromVal) getLength_ self
+    fun getLength self = (GioUnixFDListClass.FFI.withPtr false ---> GInt.FFI.fromVal) getLength_ self
     fun peekFds self =
       let
-        val length & retVal = (GioUnixFDListClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCArrayN.FFI.fromPtr 0) peekFds_ (self & GInt.null)
+        val length & retVal = (GioUnixFDListClass.FFI.withPtr false &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCArrayN.FFI.fromPtr 0) peekFds_ (self & GInt.null)
       in
         retVal (LargeInt.toInt length)
       end
     fun stealFds self =
       let
-        val length & retVal = (GioUnixFDListClass.FFI.withPtr &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCArrayN.FFI.fromPtr 1) stealFds_ (self & GInt.null)
+        val length & retVal = (GioUnixFDListClass.FFI.withPtr false &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCArrayN.FFI.fromPtr ~1) stealFds_ (self & GInt.null)
       in
         retVal (LargeInt.toInt length)
       end

@@ -30,7 +30,7 @@ structure GdkDevicePad :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getFeatureGroup self (feature, featureIdx) =
       (
-        GdkDevicePadClass.FFI.withPtr
+        GdkDevicePadClass.FFI.withPtr false
          &&&> GdkDevicePadFeature.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> GInt.FFI.fromVal
@@ -41,7 +41,7 @@ structure GdkDevicePad :>
            & feature
            & featureIdx
         )
-    fun getGroupNModes self groupIdx = (GdkDevicePadClass.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getGroupNModes_ (self & groupIdx)
-    fun getNFeatures self feature = (GdkDevicePadClass.FFI.withPtr &&&> GdkDevicePadFeature.FFI.withVal ---> GInt.FFI.fromVal) getNFeatures_ (self & feature)
-    fun getNGroups self = (GdkDevicePadClass.FFI.withPtr ---> GInt.FFI.fromVal) getNGroups_ self
+    fun getGroupNModes self groupIdx = (GdkDevicePadClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) getGroupNModes_ (self & groupIdx)
+    fun getNFeatures self feature = (GdkDevicePadClass.FFI.withPtr false &&&> GdkDevicePadFeature.FFI.withVal ---> GInt.FFI.fromVal) getNFeatures_ (self & feature)
+    fun getNGroups self = (GdkDevicePadClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNGroups_ self
   end

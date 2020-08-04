@@ -12,6 +12,6 @@ structure GLibQuark : G_LIB_QUARK =
       val toString_ = call (getSymbol "g_quark_to_string") (PolyML.cVal --> Utf8.PolyML.cOutPtr)
     end
 
-    fun fromString string = (Utf8.FFI.withPtr ---> FFI.fromVal) fromString_ string
+    fun fromString string = (Utf8.FFI.withPtr 0 ---> FFI.fromVal) fromString_ string
     fun toString quark = (FFI.withVal ---> Utf8.FFI.fromPtr 0) toString_ quark
   end

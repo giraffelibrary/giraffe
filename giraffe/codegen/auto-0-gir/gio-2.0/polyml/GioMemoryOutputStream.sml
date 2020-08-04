@@ -17,13 +17,13 @@ structure GioMemoryOutputStream :>
     type 'a pollable_output_stream_class = 'a GioPollableOutputStreamClass.class
     type 'a seekable_class = 'a GioSeekableClass.class
     type t = base class
-    fun asPollableOutputStream self = (GObjectObjectClass.FFI.withPtr ---> GioPollableOutputStreamClass.FFI.fromPtr false) I self
-    fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
+    fun asPollableOutputStream self = (GObjectObjectClass.FFI.withPtr false ---> GioPollableOutputStreamClass.FFI.fromPtr false) I self
+    fun asSeekable self = (GObjectObjectClass.FFI.withPtr false ---> GioSeekableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newResizable () = (I ---> GioMemoryOutputStreamClass.FFI.fromPtr true) newResizable_ ()
-    fun getDataSize self = (GioMemoryOutputStreamClass.FFI.withPtr ---> GSize.FFI.fromVal) getDataSize_ self
-    fun getSize self = (GioMemoryOutputStreamClass.FFI.withPtr ---> GSize.FFI.fromVal) getSize_ self
-    fun stealAsBytes self = (GioMemoryOutputStreamClass.FFI.withPtr ---> GLibBytesRecord.FFI.fromPtr true) stealAsBytes_ self
+    fun getDataSize self = (GioMemoryOutputStreamClass.FFI.withPtr false ---> GSize.FFI.fromVal) getDataSize_ self
+    fun getSize self = (GioMemoryOutputStreamClass.FFI.withPtr false ---> GSize.FFI.fromVal) getSize_ self
+    fun stealAsBytes self = (GioMemoryOutputStreamClass.FFI.withPtr false ---> GLibBytesRecord.FFI.fromPtr true) stealAsBytes_ self
     local
       open Property
     in

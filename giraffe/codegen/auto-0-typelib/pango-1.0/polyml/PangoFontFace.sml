@@ -23,19 +23,19 @@ structure PangoFontFace :>
     type font_description_t = PangoFontDescriptionRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun describe self = (PangoFontFaceClass.FFI.withPtr ---> PangoFontDescriptionRecord.FFI.fromPtr true) describe_ self
-    fun getFaceName self = (PangoFontFaceClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getFaceName_ self
-    fun isSynthesized self = (PangoFontFaceClass.FFI.withPtr ---> GBool.FFI.fromVal) isSynthesized_ self
+    fun describe self = (PangoFontFaceClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromPtr true) describe_ self
+    fun getFaceName self = (PangoFontFaceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getFaceName_ self
+    fun isSynthesized self = (PangoFontFaceClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSynthesized_ self
     fun listSizes self =
       let
         val sizes
          & nSizes
          & () =
           (
-            PangoFontFaceClass.FFI.withPtr
-             &&&> GInt32CArrayN.FFI.withRefOptPtr
+            PangoFontFaceClass.FFI.withPtr false
+             &&&> GInt32CArrayN.FFI.withRefOptPtr 0
              &&&> GInt32.FFI.withRefVal
-             ---> GInt32CArrayN.FFI.fromPtr 1
+             ---> GInt32CArrayN.FFI.fromPtr ~1
                    && GInt32.FFI.fromVal
                    && I
           )

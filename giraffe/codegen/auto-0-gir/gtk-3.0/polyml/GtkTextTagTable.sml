@@ -18,13 +18,13 @@ structure GtkTextTagTable :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a text_tag_class = 'a GtkTextTagClass.class
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTextTagTableClass.FFI.fromPtr true) new_ ()
-    fun add self tag = (GtkTextTagTableClass.FFI.withPtr &&&> GtkTextTagClass.FFI.withPtr ---> GBool.FFI.fromVal) add_ (self & tag)
-    fun getSize self = (GtkTextTagTableClass.FFI.withPtr ---> GInt.FFI.fromVal) getSize_ self
-    fun lookup self name = (GtkTextTagTableClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GtkTextTagClass.FFI.fromOptPtr false) lookup_ (self & name)
-    fun remove self tag = (GtkTextTagTableClass.FFI.withPtr &&&> GtkTextTagClass.FFI.withPtr ---> I) remove_ (self & tag)
+    fun add self tag = (GtkTextTagTableClass.FFI.withPtr false &&&> GtkTextTagClass.FFI.withPtr false ---> GBool.FFI.fromVal) add_ (self & tag)
+    fun getSize self = (GtkTextTagTableClass.FFI.withPtr false ---> GInt.FFI.fromVal) getSize_ self
+    fun lookup self name = (GtkTextTagTableClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkTextTagClass.FFI.fromOptPtr false) lookup_ (self & name)
+    fun remove self tag = (GtkTextTagTableClass.FFI.withPtr false &&&> GtkTextTagClass.FFI.withPtr false ---> I) remove_ (self & tag)
     local
       open ClosureMarshal Signal
     in

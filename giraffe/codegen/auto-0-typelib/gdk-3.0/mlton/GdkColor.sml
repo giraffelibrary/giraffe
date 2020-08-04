@@ -24,13 +24,13 @@ structure GdkColor :>
             )
     type t = GdkColorRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun copy self = (GdkColorRecord.FFI.withPtr ---> GdkColorRecord.FFI.fromPtr true) copy_ self
-    fun equal self colorb = (GdkColorRecord.FFI.withPtr &&&> GdkColorRecord.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & colorb)
-    fun hash self = (GdkColorRecord.FFI.withPtr ---> GUInt32.FFI.fromVal) hash_ self
-    fun toString self = (GdkColorRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun copy self = (GdkColorRecord.FFI.withPtr false ---> GdkColorRecord.FFI.fromPtr true) copy_ self
+    fun equal self colorb = (GdkColorRecord.FFI.withPtr false &&&> GdkColorRecord.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & colorb)
+    fun hash self = (GdkColorRecord.FFI.withPtr false ---> GUInt32.FFI.fromVal) hash_ self
+    fun toString self = (GdkColorRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
     fun parse spec =
       let
-        val color & retVal = (Utf8.FFI.withPtr &&&> GdkColorRecord.FFI.withNewPtr ---> GdkColorRecord.FFI.fromPtr true && GBool.FFI.fromVal) parse_ (spec & ())
+        val color & retVal = (Utf8.FFI.withPtr 0 &&&> GdkColorRecord.FFI.withNewPtr ---> GdkColorRecord.FFI.fromPtr true && GBool.FFI.fromVal) parse_ (spec & ())
       in
         if retVal then SOME color else NONE
       end

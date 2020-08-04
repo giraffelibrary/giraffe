@@ -75,16 +75,16 @@ structure GioSimpleProxyResolver :>
     type 'a class = 'a GioSimpleProxyResolverClass.class
     type 'a proxy_resolver_class = 'a GioProxyResolverClass.class
     type t = base class
-    fun asProxyResolver self = (GObjectObjectClass.FFI.withPtr ---> GioProxyResolverClass.FFI.fromPtr false) I self
+    fun asProxyResolver self = (GObjectObjectClass.FFI.withPtr false ---> GioProxyResolverClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (defaultProxy, ignoreHosts) = (Utf8.FFI.withOptPtr &&&> Utf8.FFI.withOptPtr ---> GioProxyResolverClass.FFI.fromPtr true) new_ (defaultProxy & ignoreHosts)
-    fun setDefaultProxy self defaultProxy = (GioSimpleProxyResolverClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDefaultProxy_ (self & defaultProxy)
-    fun setIgnoreHosts self ignoreHosts = (GioSimpleProxyResolverClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setIgnoreHosts_ (self & ignoreHosts)
+    fun new (defaultProxy, ignoreHosts) = (Utf8.FFI.withOptPtr 0 &&&> Utf8.FFI.withOptPtr 0 ---> GioProxyResolverClass.FFI.fromPtr true) new_ (defaultProxy & ignoreHosts)
+    fun setDefaultProxy self defaultProxy = (GioSimpleProxyResolverClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDefaultProxy_ (self & defaultProxy)
+    fun setIgnoreHosts self ignoreHosts = (GioSimpleProxyResolverClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setIgnoreHosts_ (self & ignoreHosts)
     fun setUriProxy self (uriScheme, proxy) =
       (
-        GioSimpleProxyResolverClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioSimpleProxyResolverClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         setUriProxy_

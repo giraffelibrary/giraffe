@@ -26,8 +26,8 @@ structure GioTlsServerConnection :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (baseIoStream, certificate) =
       (
-        GioIOStreamClass.FFI.withPtr
-         &&&> GioTlsCertificateClass.FFI.withOptPtr
+        GioIOStreamClass.FFI.withPtr false
+         &&&> GioTlsCertificateClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GioTlsServerConnectionClass.FFI.fromPtr true
       )

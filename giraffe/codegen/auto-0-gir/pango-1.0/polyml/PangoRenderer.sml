@@ -135,8 +135,8 @@ structure PangoRenderer :>
     type matrix_t = PangoMatrixRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun activate self = (PangoRendererClass.FFI.withPtr ---> I) activate_ self
-    fun deactivate self = (PangoRendererClass.FFI.withPtr ---> I) deactivate_ self
+    fun activate self = (PangoRendererClass.FFI.withPtr false ---> I) activate_ self
+    fun deactivate self = (PangoRendererClass.FFI.withPtr false ---> I) deactivate_ self
     fun drawErrorUnderline
       self
       (
@@ -146,7 +146,7 @@ structure PangoRenderer :>
         height
       ) =
       (
-        PangoRendererClass.FFI.withPtr
+        PangoRendererClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -170,8 +170,8 @@ structure PangoRenderer :>
         y
       ) =
       (
-        PangoRendererClass.FFI.withPtr
-         &&&> PangoFontClass.FFI.withPtr
+        PangoRendererClass.FFI.withPtr false
+         &&&> PangoFontClass.FFI.withPtr false
          &&&> PangoGlyph.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -194,9 +194,9 @@ structure PangoRenderer :>
         y
       ) =
       (
-        PangoRendererClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> PangoGlyphItemRecord.FFI.withPtr
+        PangoRendererClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> PangoGlyphItemRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -218,9 +218,9 @@ structure PangoRenderer :>
         y
       ) =
       (
-        PangoRendererClass.FFI.withPtr
-         &&&> PangoFontClass.FFI.withPtr
-         &&&> PangoGlyphStringRecord.FFI.withPtr
+        PangoRendererClass.FFI.withPtr false
+         &&&> PangoFontClass.FFI.withPtr false
+         &&&> PangoGlyphStringRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -241,8 +241,8 @@ structure PangoRenderer :>
         y
       ) =
       (
-        PangoRendererClass.FFI.withPtr
-         &&&> PangoLayoutClass.FFI.withPtr
+        PangoRendererClass.FFI.withPtr false
+         &&&> PangoLayoutClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -262,8 +262,8 @@ structure PangoRenderer :>
         y
       ) =
       (
-        PangoRendererClass.FFI.withPtr
-         &&&> PangoLayoutLineRecord.FFI.withPtr
+        PangoRendererClass.FFI.withPtr false
+         &&&> PangoLayoutLineRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -285,7 +285,7 @@ structure PangoRenderer :>
         height
       ) =
       (
-        PangoRendererClass.FFI.withPtr
+        PangoRendererClass.FFI.withPtr false
          &&&> PangoRenderPart.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
@@ -314,7 +314,7 @@ structure PangoRenderer :>
         x22
       ) =
       (
-        PangoRendererClass.FFI.withPtr
+        PangoRendererClass.FFI.withPtr false
          &&&> PangoRenderPart.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -335,15 +335,15 @@ structure PangoRenderer :>
            & x12
            & x22
         )
-    fun getAlpha self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> GUInt16.FFI.fromVal) getAlpha_ (self & part)
-    fun getColor self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> PangoColorRecord.FFI.fromOptPtr false) getColor_ (self & part)
-    fun getLayout self = (PangoRendererClass.FFI.withPtr ---> PangoLayoutClass.FFI.fromOptPtr false) getLayout_ self
-    fun getLayoutLine self = (PangoRendererClass.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLayoutLine_ self
-    fun getMatrix self = (PangoRendererClass.FFI.withPtr ---> PangoMatrixRecord.FFI.fromOptPtr false) getMatrix_ self
-    fun partChanged self part = (PangoRendererClass.FFI.withPtr &&&> PangoRenderPart.FFI.withVal ---> I) partChanged_ (self & part)
+    fun getAlpha self part = (PangoRendererClass.FFI.withPtr false &&&> PangoRenderPart.FFI.withVal ---> GUInt16.FFI.fromVal) getAlpha_ (self & part)
+    fun getColor self part = (PangoRendererClass.FFI.withPtr false &&&> PangoRenderPart.FFI.withVal ---> PangoColorRecord.FFI.fromOptPtr false) getColor_ (self & part)
+    fun getLayout self = (PangoRendererClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromOptPtr false) getLayout_ self
+    fun getLayoutLine self = (PangoRendererClass.FFI.withPtr false ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLayoutLine_ self
+    fun getMatrix self = (PangoRendererClass.FFI.withPtr false ---> PangoMatrixRecord.FFI.fromOptPtr false) getMatrix_ self
+    fun partChanged self part = (PangoRendererClass.FFI.withPtr false &&&> PangoRenderPart.FFI.withVal ---> I) partChanged_ (self & part)
     fun setAlpha self (part, alpha) =
       (
-        PangoRendererClass.FFI.withPtr
+        PangoRendererClass.FFI.withPtr false
          &&&> PangoRenderPart.FFI.withVal
          &&&> GUInt16.FFI.withVal
          ---> I
@@ -356,9 +356,9 @@ structure PangoRenderer :>
         )
     fun setColor self (part, color) =
       (
-        PangoRendererClass.FFI.withPtr
+        PangoRendererClass.FFI.withPtr false
          &&&> PangoRenderPart.FFI.withVal
-         &&&> PangoColorRecord.FFI.withOptPtr
+         &&&> PangoColorRecord.FFI.withOptPtr false
          ---> I
       )
         setColor_
@@ -367,5 +367,5 @@ structure PangoRenderer :>
            & part
            & color
         )
-    fun setMatrix self matrix = (PangoRendererClass.FFI.withPtr &&&> PangoMatrixRecord.FFI.withOptPtr ---> I) setMatrix_ (self & matrix)
+    fun setMatrix self matrix = (PangoRendererClass.FFI.withPtr false &&&> PangoMatrixRecord.FFI.withOptPtr false ---> I) setMatrix_ (self & matrix)
   end

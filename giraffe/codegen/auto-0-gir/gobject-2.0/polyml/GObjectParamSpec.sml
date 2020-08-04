@@ -16,10 +16,10 @@ structure GObjectParamSpec :>
     type 'a class = 'a GObjectParamSpecClass.class
     type value_t = GObjectValueRecord.t
     type t = base class
-    fun getBlurb self = (GObjectParamSpecClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getBlurb_ self
-    fun getDefaultValue self = (GObjectParamSpecClass.FFI.withPtr ---> GObjectValueRecord.FFI.fromPtr false) getDefaultValue_ self
-    fun getName self = (GObjectParamSpecClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getNameQuark self = (GObjectParamSpecClass.FFI.withPtr ---> GLibQuark.FFI.fromVal) getNameQuark_ self
-    fun getNick self = (GObjectParamSpecClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getNick_ self
-    fun getRedirectTarget self = (GObjectParamSpecClass.FFI.withPtr ---> GObjectParamSpecClass.FFI.fromPtr false) getRedirectTarget_ self
+    fun getBlurb self = (GObjectParamSpecClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getBlurb_ self
+    fun getDefaultValue self = (GObjectParamSpecClass.FFI.withPtr false ---> GObjectValueRecord.FFI.fromPtr false) getDefaultValue_ self
+    fun getName self = (GObjectParamSpecClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getNameQuark self = (GObjectParamSpecClass.FFI.withPtr false ---> GLibQuark.FFI.fromVal) getNameQuark_ self
+    fun getNick self = (GObjectParamSpecClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getNick_ self
+    fun getRedirectTarget self = (GObjectParamSpecClass.FFI.withPtr false ---> GObjectParamSpecClass.FFI.fromPtr false) getRedirectTarget_ self
   end

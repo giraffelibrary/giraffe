@@ -168,8 +168,8 @@ structure GtkTable :>
     type attach_options_t = GtkAttachOptions.t
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -203,8 +203,8 @@ structure GtkTable :>
         ypadding
       ) =
       (
-        GtkTableClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkTableClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal
@@ -238,8 +238,8 @@ structure GtkTable :>
         bottomAttach
       ) =
       (
-        GtkTableClass.FFI.withPtr
-         &&&> GtkWidgetClass.FFI.withPtr
+        GtkTableClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal
@@ -255,18 +255,18 @@ structure GtkTable :>
            & topAttach
            & bottomAttach
         )
-    fun getColSpacing self column = (GtkTableClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> GUInt32.FFI.fromVal) getColSpacing_ (self & column)
-    fun getDefaultColSpacing self = (GtkTableClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getDefaultColSpacing_ self
-    fun getDefaultRowSpacing self = (GtkTableClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getDefaultRowSpacing_ self
-    fun getHomogeneous self = (GtkTableClass.FFI.withPtr ---> GBool.FFI.fromVal) getHomogeneous_ self
-    fun getRowSpacing self row = (GtkTableClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> GUInt32.FFI.fromVal) getRowSpacing_ (self & row)
+    fun getColSpacing self column = (GtkTableClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GUInt32.FFI.fromVal) getColSpacing_ (self & column)
+    fun getDefaultColSpacing self = (GtkTableClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getDefaultColSpacing_ self
+    fun getDefaultRowSpacing self = (GtkTableClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getDefaultRowSpacing_ self
+    fun getHomogeneous self = (GtkTableClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHomogeneous_ self
+    fun getRowSpacing self row = (GtkTableClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GUInt32.FFI.fromVal) getRowSpacing_ (self & row)
     fun getSize self =
       let
         val rows
          & columns
          & () =
           (
-            GtkTableClass.FFI.withPtr
+            GtkTableClass.FFI.withPtr false
              &&&> GUInt32.FFI.withRefVal
              &&&> GUInt32.FFI.withRefVal
              ---> GUInt32.FFI.fromVal
@@ -284,7 +284,7 @@ structure GtkTable :>
       end
     fun resize self (rows, columns) =
       (
-        GtkTableClass.FFI.withPtr
+        GtkTableClass.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal
          ---> I
@@ -297,7 +297,7 @@ structure GtkTable :>
         )
     fun setColSpacing self (column, spacing) =
       (
-        GtkTableClass.FFI.withPtr
+        GtkTableClass.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal
          ---> I
@@ -308,11 +308,11 @@ structure GtkTable :>
            & column
            & spacing
         )
-    fun setColSpacings self spacing = (GtkTableClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setColSpacings_ (self & spacing)
-    fun setHomogeneous self homogeneous = (GtkTableClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
+    fun setColSpacings self spacing = (GtkTableClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setColSpacings_ (self & spacing)
+    fun setHomogeneous self homogeneous = (GtkTableClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
     fun setRowSpacing self (row, spacing) =
       (
-        GtkTableClass.FFI.withPtr
+        GtkTableClass.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal
          ---> I
@@ -323,7 +323,7 @@ structure GtkTable :>
            & row
            & spacing
         )
-    fun setRowSpacings self spacing = (GtkTableClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setRowSpacings_ (self & spacing)
+    fun setRowSpacings self spacing = (GtkTableClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setRowSpacings_ (self & spacing)
     local
       open Property
     in

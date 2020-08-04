@@ -33,13 +33,13 @@ structure GioCharsetConverter :>
     type 'a converter_class = 'a GioConverterClass.class
     type 'a initable_class = 'a GioInitableClass.class
     type t = base class
-    fun asConverter self = (GObjectObjectClass.FFI.withPtr ---> GioConverterClass.FFI.fromPtr false) I self
-    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    fun asConverter self = (GObjectObjectClass.FFI.withPtr false ---> GioConverterClass.FFI.fromPtr false) I self
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr false ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (toCharset, fromCharset) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GioCharsetConverterClass.FFI.fromPtr true
       )
@@ -49,9 +49,9 @@ structure GioCharsetConverter :>
            & fromCharset
            & []
         )
-    fun getNumFallbacks self = (GioCharsetConverterClass.FFI.withPtr ---> GUInt.FFI.fromVal) getNumFallbacks_ self
-    fun getUseFallback self = (GioCharsetConverterClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseFallback_ self
-    fun setUseFallback self useFallback = (GioCharsetConverterClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseFallback_ (self & useFallback)
+    fun getNumFallbacks self = (GioCharsetConverterClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getNumFallbacks_ self
+    fun getUseFallback self = (GioCharsetConverterClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseFallback_ self
+    fun setUseFallback self useFallback = (GioCharsetConverterClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseFallback_ (self & useFallback)
     local
       open Property
     in

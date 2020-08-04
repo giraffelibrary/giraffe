@@ -26,14 +26,14 @@ structure GtkGestureSwipe :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new widget = (GtkWidgetClass.FFI.withPtr ---> GtkGestureSwipeClass.FFI.fromPtr true) new_ widget
+    fun new widget = (GtkWidgetClass.FFI.withPtr false ---> GtkGestureSwipeClass.FFI.fromPtr true) new_ widget
     fun getVelocity self =
       let
         val velocityX
          & velocityY
          & retVal =
           (
-            GtkGestureSwipeClass.FFI.withPtr
+            GtkGestureSwipeClass.FFI.withPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              ---> GDouble.FFI.fromVal

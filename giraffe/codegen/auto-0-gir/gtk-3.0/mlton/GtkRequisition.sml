@@ -8,5 +8,5 @@ structure GtkRequisition :>
     type t = GtkRequisitionRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkRequisitionRecord.FFI.fromPtr true) new_ ()
-    fun copy self = (GtkRequisitionRecord.FFI.withPtr ---> GtkRequisitionRecord.FFI.fromPtr true) copy_ self
+    fun copy self = (GtkRequisitionRecord.FFI.withPtr false ---> GtkRequisitionRecord.FFI.fromPtr true) copy_ self
   end

@@ -629,11 +629,11 @@ structure GLib : G_LIB =
         expression
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         assertWarning_
@@ -653,11 +653,11 @@ structure GLib : G_LIB =
         message
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         assertionMessage_
@@ -680,14 +680,14 @@ structure GLib : G_LIB =
         arg2
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         assertionMessageCmpstr_
@@ -703,20 +703,20 @@ structure GLib : G_LIB =
         )
     fun base64Decode text =
       let
-        val outLen & retVal = (Utf8.FFI.withPtr &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 1) base64Decode_ (text & GSize.null)
+        val outLen & retVal = (Utf8.FFI.withPtr 0 &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr ~1) base64Decode_ (text & GSize.null)
       in
         retVal outLen
       end
     fun base64Encode data =
       let
         val len = GUInt8CArrayN.length data
-        val retVal = (GUInt8CArrayN.FFI.withPtr &&&> GSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) base64Encode_ (data & len)
+        val retVal = (GUInt8CArrayN.FFI.withPtr 0 &&&> GSize.FFI.withVal ---> Utf8.FFI.fromPtr ~1) base64Encode_ (data & len)
       in
         retVal
       end
-    fun buildFilenamev args = (Utf8CPtrArray.FFI.withPtr ---> Utf8.FFI.fromPtr 1) buildFilenamev_ args
-    fun buildPathv (separator, args) = (Utf8.FFI.withPtr &&&> Utf8CPtrArray.FFI.withPtr ---> Utf8.FFI.fromPtr 1) buildPathv_ (separator & args)
-    fun chdir path = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) chdir_ path
+    fun buildFilenamev args = (Utf8CPtrArray.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) buildFilenamev_ args
+    fun buildPathv (separator, args) = (Utf8.FFI.withPtr 0 &&&> Utf8CPtrArray.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) buildPathv_ (separator & args)
+    fun chdir path = (Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal) chdir_ path
     fun checkVersion
       (
         requiredMajor,
@@ -737,16 +737,16 @@ structure GLib : G_LIB =
         )
     fun childWatchSourceNew pid = (GLibPid.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ pid
     fun close fd = (GInt.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) close_ (fd & [])
-    fun computeChecksumForBytes (checksumType, data) = (GLibChecksumType.FFI.withVal &&&> GLibBytesRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) computeChecksumForBytes_ (checksumType & data)
+    fun computeChecksumForBytes (checksumType, data) = (GLibChecksumType.FFI.withVal &&&> GLibBytesRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) computeChecksumForBytes_ (checksumType & data)
     fun computeChecksumForData (checksumType, data) =
       let
         val length = GUInt8CArrayN.length data
         val retVal =
           (
             GLibChecksumType.FFI.withVal
-             &&&> GUInt8CArrayN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
-             ---> Utf8.FFI.fromPtr 1
+             ---> Utf8.FFI.fromPtr ~1
           )
             computeChecksumForData_
             (
@@ -765,9 +765,9 @@ structure GLib : G_LIB =
       ) =
       (
         GLibChecksumType.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          &&&> GSSize.FFI.withVal
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromPtr ~1
       )
         computeChecksumForString_
         (
@@ -783,9 +783,9 @@ structure GLib : G_LIB =
       ) =
       (
         GLibChecksumType.FFI.withVal
-         &&&> GLibBytesRecord.FFI.withPtr
-         &&&> GLibBytesRecord.FFI.withPtr
-         ---> Utf8.FFI.fromPtr 1
+         &&&> GLibBytesRecord.FFI.withPtr false
+         &&&> GLibBytesRecord.FFI.withPtr false
+         ---> Utf8.FFI.fromPtr ~1
       )
         computeHmacForBytes_
         (
@@ -805,11 +805,11 @@ structure GLib : G_LIB =
         val retVal =
           (
             GLibChecksumType.FFI.withVal
-             &&&> GUInt8CArrayN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
-             &&&> GUInt8CArrayN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
-             ---> Utf8.FFI.fromPtr 1
+             ---> Utf8.FFI.fromPtr ~1
           )
             computeHmacForData_
             (
@@ -834,11 +834,11 @@ structure GLib : G_LIB =
         val retVal =
           (
             GLibChecksumType.FFI.withVal
-             &&&> GUInt8CArrayN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
-             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
-             ---> Utf8.FFI.fromPtr 1
+             ---> Utf8.FFI.fromPtr ~1
           )
             computeHmacForString_
             (
@@ -863,16 +863,16 @@ structure GLib : G_LIB =
          & bytesWritten
          & retVal =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
-             &&&> Utf8.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+             &&&> Utf8.FFI.withPtr 0
+             &&&> Utf8.FFI.withPtr 0
              &&&> GSize.FFI.withRefVal
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GSize.FFI.fromVal
                    && GSize.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
           )
             convert_
             (
@@ -898,8 +898,8 @@ structure GLib : G_LIB =
         category
       ) =
       (
-        Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          ---> Utf8.FFI.fromPtr 0
       )
@@ -909,7 +909,7 @@ structure GLib : G_LIB =
            & msgid
            & category
         )
-    fun dgettext (domain, msgid) = (Utf8.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) dgettext_ (domain & msgid)
+    fun dgettext (domain, msgid) = (Utf8.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) dgettext_ (domain & msgid)
     fun dngettext
       (
         domain,
@@ -918,9 +918,9 @@ structure GLib : G_LIB =
         n
       ) =
       (
-        Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GULong.FFI.withVal
          ---> Utf8.FFI.fromPtr 0
       )
@@ -938,8 +938,8 @@ structure GLib : G_LIB =
         msgidoffset
       ) =
       (
-        Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GSize.FFI.withVal
          ---> Utf8.FFI.fromPtr 0
       )
@@ -956,9 +956,9 @@ structure GLib : G_LIB =
         msgid
       ) =
       (
-        Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> Utf8.FFI.fromPtr 0
       )
         dpgettext2_
@@ -967,7 +967,7 @@ structure GLib : G_LIB =
            & context
            & msgid
         )
-    fun environGetenv (envp, variable) = (Utf8CPtrArray.FFI.withOptPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) environGetenv_ (envp & variable)
+    fun environGetenv (envp, variable) = (Utf8CPtrArray.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) environGetenv_ (envp & variable)
     fun environSetenv
       (
         envp,
@@ -976,11 +976,11 @@ structure GLib : G_LIB =
         overwrite
       ) =
       (
-        Utf8CPtrArray.FFI.withDupOptPtr 2
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8CPtrArray.FFI.withOptPtr ~1
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GBool.FFI.withVal
-         ---> Utf8CPtrArray.FFI.fromPtr 2
+         ---> Utf8CPtrArray.FFI.fromPtr ~1
       )
         environSetenv_
         (
@@ -989,17 +989,17 @@ structure GLib : G_LIB =
            & value
            & overwrite
         )
-    fun environUnsetenv (envp, variable) = (Utf8CPtrArray.FFI.withDupOptPtr 2 &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) environUnsetenv_ (envp & variable)
-    fun filenameDisplayBasename filename = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) filenameDisplayBasename_ filename
-    fun filenameDisplayName filename = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) filenameDisplayName_ filename
+    fun environUnsetenv (envp, variable) = (Utf8CPtrArray.FFI.withOptPtr ~1 &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) environUnsetenv_ (envp & variable)
+    fun filenameDisplayBasename filename = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) filenameDisplayBasename_ filename
+    fun filenameDisplayName filename = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) filenameDisplayName_ filename
     fun filenameFromUri uri =
       let
         val hostname & retVal =
           (
-            Utf8.FFI.withPtr
-             &&&> Utf8.FFI.withRefOptPtr
+            Utf8.FFI.withPtr 0
+             &&&> Utf8.FFI.withRefOptPtr 0
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1 && Utf8.FFI.fromPtr 1
+             ---> Utf8.FFI.fromPtr ~1 && Utf8.FFI.fromPtr ~1
           )
             filenameFromUri_
             (
@@ -1016,14 +1016,14 @@ structure GLib : G_LIB =
          & bytesWritten
          & retVal =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              &&&> GSize.FFI.withRefVal
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GSize.FFI.fromVal
                    && GSize.FFI.fromVal
-                   && GUInt8CArrayN.FFI.fromPtr 1
+                   && GUInt8CArrayN.FFI.fromPtr ~1
           )
             filenameFromUtf8_
             (
@@ -1038,10 +1038,10 @@ structure GLib : G_LIB =
       end
     fun filenameToUri (filename, hostname) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GLibErrorRecord.handleError
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromPtr ~1
       )
         filenameToUri_
         (
@@ -1055,14 +1055,14 @@ structure GLib : G_LIB =
          & bytesWritten
          & retVal =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              &&&> GSize.FFI.withRefVal
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GSize.FFI.fromVal
                    && GSize.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
           )
             filenameToUtf8_
             (
@@ -1079,19 +1079,19 @@ structure GLib : G_LIB =
           bytesWritten
         )
       end
-    fun findProgramInPath program = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) findProgramInPath_ program
-    fun formatSize size = (GUInt64.FFI.withVal ---> Utf8.FFI.fromPtr 1) formatSize_ size
-    fun formatSizeForDisplay size = (GInt64.FFI.withVal ---> Utf8.FFI.fromPtr 1) formatSizeForDisplay_ size
-    fun formatSizeFull (size, flags) = (GUInt64.FFI.withVal &&&> GLibFormatSizeFlags.FFI.withVal ---> Utf8.FFI.fromPtr 1) formatSizeFull_ (size & flags)
+    fun findProgramInPath program = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) findProgramInPath_ program
+    fun formatSize size = (GUInt64.FFI.withVal ---> Utf8.FFI.fromPtr ~1) formatSize_ size
+    fun formatSizeForDisplay size = (GInt64.FFI.withVal ---> Utf8.FFI.fromPtr ~1) formatSizeForDisplay_ size
+    fun formatSizeFull (size, flags) = (GUInt64.FFI.withVal &&&> GLibFormatSizeFlags.FFI.withVal ---> Utf8.FFI.fromPtr ~1) formatSizeFull_ (size & flags)
     fun getApplicationName () = (I ---> Utf8.FFI.fromPtr 0) getApplicationName_ ()
-    fun getCodeset () = (I ---> Utf8.FFI.fromPtr 1) getCodeset_ ()
-    fun getCurrentDir () = (I ---> Utf8.FFI.fromPtr 1) getCurrentDir_ ()
-    fun getCurrentTime result = (GLibTimeValRecord.FFI.withPtr ---> I) getCurrentTime_ result
-    fun getEnviron () = (I ---> Utf8CPtrArray.FFI.fromPtr 2) getEnviron_ ()
+    fun getCodeset () = (I ---> Utf8.FFI.fromPtr ~1) getCodeset_ ()
+    fun getCurrentDir () = (I ---> Utf8.FFI.fromPtr ~1) getCurrentDir_ ()
+    fun getCurrentTime result = (GLibTimeValRecord.FFI.withPtr false ---> I) getCurrentTime_ result
+    fun getEnviron () = (I ---> Utf8CPtrArray.FFI.fromPtr ~1) getEnviron_ ()
     fun getHomeDir () = (I ---> Utf8.FFI.fromPtr 0) getHomeDir_ ()
     fun getHostName () = (I ---> Utf8.FFI.fromPtr 0) getHostName_ ()
     fun getLanguageNames () = (I ---> Utf8CPtrArray.FFI.fromPtr 0) getLanguageNames_ ()
-    fun getLocaleVariants locale = (Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) getLocaleVariants_ locale
+    fun getLocaleVariants locale = (Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) getLocaleVariants_ locale
     fun getMonotonicTime () = (I ---> GInt64.FFI.fromVal) getMonotonicTime_ ()
     fun getNumProcessors () = (I ---> GUInt.FFI.fromVal) getNumProcessors_ ()
     fun getPrgname () = (I ---> Utf8.FFI.fromPtr 0) getPrgname_ ()
@@ -1106,29 +1106,29 @@ structure GLib : G_LIB =
     fun getUserName () = (I ---> Utf8.FFI.fromPtr 0) getUserName_ ()
     fun getUserRuntimeDir () = (I ---> Utf8.FFI.fromPtr 0) getUserRuntimeDir_ ()
     fun getUserSpecialDir directory = (GLibUserDirectory.FFI.withVal ---> Utf8.FFI.fromPtr 0) getUserSpecialDir_ directory
-    fun getenv variable = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getenv_ variable
-    fun hostnameIsAsciiEncoded hostname = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hostnameIsAsciiEncoded_ hostname
-    fun hostnameIsIpAddress hostname = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hostnameIsIpAddress_ hostname
-    fun hostnameIsNonAscii hostname = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hostnameIsNonAscii_ hostname
-    fun hostnameToAscii hostname = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) hostnameToAscii_ hostname
-    fun hostnameToUnicode hostname = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) hostnameToUnicode_ hostname
+    fun getenv variable = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getenv_ variable
+    fun hostnameIsAsciiEncoded hostname = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hostnameIsAsciiEncoded_ hostname
+    fun hostnameIsIpAddress hostname = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hostnameIsIpAddress_ hostname
+    fun hostnameIsNonAscii hostname = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hostnameIsNonAscii_ hostname
+    fun hostnameToAscii hostname = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) hostnameToAscii_ hostname
+    fun hostnameToUnicode hostname = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) hostnameToUnicode_ hostname
     fun idleSourceNew () = (I ---> GLibSourceRecord.FFI.fromPtr true) idleSourceNew_ ()
-    fun ioCreateWatch (channel, condition) = (GLibIOChannelRecord.FFI.withPtr &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) ioCreateWatch_ (channel & condition)
-    fun listenv () = (I ---> Utf8CPtrArray.FFI.fromPtr 2) listenv_ ()
+    fun ioCreateWatch (channel, condition) = (GLibIOChannelRecord.FFI.withPtr false &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) ioCreateWatch_ (channel & condition)
+    fun listenv () = (I ---> Utf8CPtrArray.FFI.fromPtr ~1) listenv_ ()
     fun localeFromUtf8 (utf8string, len) =
       let
         val bytesRead
          & bytesWritten
          & retVal =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              &&&> GSize.FFI.withRefVal
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GSize.FFI.fromVal
                    && GSize.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
           )
             localeFromUtf8_
             (
@@ -1151,14 +1151,14 @@ structure GLib : G_LIB =
          & bytesWritten
          & retVal =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              &&&> GSize.FFI.withRefVal
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GSize.FFI.fromVal
                    && GSize.FFI.fromVal
-                   && Utf8.FFI.fromPtr 1
+                   && Utf8.FFI.fromPtr ~1
           )
             localeToUtf8_
             (
@@ -1175,9 +1175,9 @@ structure GLib : G_LIB =
           bytesWritten
         )
       end
-    fun logRemoveHandler (logDomain, handlerId) = (Utf8.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
+    fun logRemoveHandler (logDomain, handlerId) = (Utf8.FFI.withPtr 0 &&&> GUInt.FFI.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
     fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetAlwaysFatal_ fatalMask
-    fun logSetFatalMask (logDomain, fatalMask) = (Utf8.FFI.withPtr &&&> GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetFatalMask_ (logDomain & fatalMask)
+    fun logSetFatalMask (logDomain, fatalMask) = (Utf8.FFI.withPtr 0 &&&> GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetFatalMask_ (logDomain & fatalMask)
     fun logVariant
       (
         logDomain,
@@ -1185,9 +1185,9 @@ structure GLib : G_LIB =
         fields
       ) =
       (
-        Utf8.FFI.withOptPtr
+        Utf8.FFI.withOptPtr 0
          &&&> GLibLogLevelFlags.FFI.withVal
-         &&&> GLibVariantRecord.FFI.withPtr
+         &&&> GLibVariantRecord.FFI.withPtr false
          ---> I
       )
         logVariant_
@@ -1200,11 +1200,11 @@ structure GLib : G_LIB =
     fun logWriterSupportsColor outputFd = (GInt.FFI.withVal ---> GBool.FFI.fromVal) logWriterSupportsColor_ outputFd
     fun mainCurrentSource () = (I ---> GLibSourceRecord.FFI.fromPtr false) mainCurrentSource_ ()
     fun mainDepth () = (I ---> GInt.FFI.fromVal) mainDepth_ ()
-    fun markupEscapeText (text, length) = (Utf8.FFI.withPtr &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr 1) markupEscapeText_ (text & length)
-    fun mkdirWithParents (pathname, mode) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) mkdirWithParents_ (pathname & mode)
-    fun mkdtemp tmpl = (Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 1) mkdtemp_ tmpl
-    fun mkdtempFull (tmpl, mode) = (Utf8.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 1) mkdtempFull_ (tmpl & mode)
-    fun mkstemp tmpl = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) mkstemp_ tmpl
+    fun markupEscapeText (text, length) = (Utf8.FFI.withPtr 0 &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr ~1) markupEscapeText_ (text & length)
+    fun mkdirWithParents (pathname, mode) = (Utf8.FFI.withPtr 0 &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) mkdirWithParents_ (pathname & mode)
+    fun mkdtemp tmpl = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr ~1) mkdtemp_ tmpl
+    fun mkdtempFull (tmpl, mode) = (Utf8.FFI.withPtr 0 &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr ~1) mkdtempFull_ (tmpl & mode)
+    fun mkstemp tmpl = (Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal) mkstemp_ tmpl
     fun mkstempFull
       (
         tmpl,
@@ -1212,7 +1212,7 @@ structure GLib : G_LIB =
         mode
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> GInt.FFI.fromVal
@@ -1223,15 +1223,15 @@ structure GLib : G_LIB =
            & flags
            & mode
         )
-    fun onErrorQuery prgName = (Utf8.FFI.withPtr ---> I) onErrorQuery_ prgName
-    fun onErrorStackTrace prgName = (Utf8.FFI.withPtr ---> I) onErrorStackTrace_ prgName
+    fun onErrorQuery prgName = (Utf8.FFI.withPtr 0 ---> I) onErrorQuery_ prgName
+    fun onErrorStackTrace prgName = (Utf8.FFI.withPtr 0 ---> I) onErrorStackTrace_ prgName
     fun parseDebugString (string, keys) =
       let
         val nkeys = LargeInt.fromInt (GLibDebugKeyRecordCArrayN.length keys)
         val retVal =
           (
-            Utf8.FFI.withOptPtr
-             &&&> GLibDebugKeyRecordCArrayN.FFI.withPtr
+            Utf8.FFI.withOptPtr 0
+             &&&> GLibDebugKeyRecordCArrayN.FFI.withPtr 0
              &&&> GUInt.FFI.withVal
              ---> GUInt.FFI.fromVal
           )
@@ -1244,10 +1244,10 @@ structure GLib : G_LIB =
       in
         retVal
       end
-    fun pathGetBasename fileName = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) pathGetBasename_ fileName
-    fun pathGetDirname fileName = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) pathGetDirname_ fileName
-    fun pathIsAbsolute fileName = (Utf8.FFI.withPtr ---> GBool.FFI.fromVal) pathIsAbsolute_ fileName
-    fun pathSkipRoot fileName = (Utf8.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) pathSkipRoot_ fileName
+    fun pathGetBasename fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) pathGetBasename_ fileName
+    fun pathGetDirname fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) pathGetDirname_ fileName
+    fun pathIsAbsolute fileName = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) pathIsAbsolute_ fileName
+    fun pathSkipRoot fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) pathSkipRoot_ fileName
     fun patternMatch
       (
         pspec,
@@ -1256,10 +1256,10 @@ structure GLib : G_LIB =
         stringReversed
       ) =
       (
-        GLibPatternSpecRecord.FFI.withPtr
+        GLibPatternSpecRecord.FFI.withPtr false
          &&&> GUInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GBool.FFI.fromVal
       )
         patternMatch_
@@ -1269,17 +1269,17 @@ structure GLib : G_LIB =
            & string
            & stringReversed
         )
-    fun patternMatchSimple (pattern, string) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) patternMatchSimple_ (pattern & string)
-    fun patternMatchString (pspec, string) = (GLibPatternSpecRecord.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) patternMatchString_ (pspec & string)
+    fun patternMatchSimple (pattern, string) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) patternMatchSimple_ (pattern & string)
+    fun patternMatchString (pspec, string) = (GLibPatternSpecRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) patternMatchString_ (pspec & string)
     fun randomDouble () = (I ---> GDouble.FFI.fromVal) randomDouble_ ()
     fun randomDoubleRange (begin, end') = (GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal) randomDoubleRange_ (begin & end')
     fun randomInt () = (I ---> GUInt32.FFI.fromVal) randomInt_ ()
     fun randomIntRange (begin, end') = (GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) randomIntRange_ (begin & end')
     fun randomSetSeed seed = (GUInt32.FFI.withVal ---> I) randomSetSeed_ seed
     fun reloadUserSpecialDirsCache () = (I ---> I) reloadUserSpecialDirsCache_ ()
-    fun rmdir filename = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) rmdir_ filename
-    fun setApplicationName applicationName = (Utf8.FFI.withPtr ---> I) setApplicationName_ applicationName
-    fun setPrgname prgname = (Utf8.FFI.withPtr ---> I) setPrgname_ prgname
+    fun rmdir filename = (Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal) rmdir_ filename
+    fun setApplicationName applicationName = (Utf8.FFI.withPtr 0 ---> I) setApplicationName_ applicationName
+    fun setPrgname prgname = (Utf8.FFI.withPtr 0 ---> I) setPrgname_ prgname
     fun setenv
       (
         variable,
@@ -1287,8 +1287,8 @@ structure GLib : G_LIB =
         overwrite
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GBool.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -1304,12 +1304,12 @@ structure GLib : G_LIB =
          & argvp
          & () =
           (
-            Utf8.FFI.withPtr
+            Utf8.FFI.withPtr 0
              &&&> GInt.FFI.withRefVal
-             &&&> Utf8CPtrArray.FFI.withRefOptPtr
+             &&&> Utf8CPtrArray.FFI.withRefOptPtr 0
              &&&> GLibErrorRecord.handleError
              ---> GInt.FFI.fromVal
-                   && Utf8CPtrArray.FFI.fromPtr 2
+                   && Utf8CPtrArray.FFI.fromPtr ~1
                    && ignore
           )
             shellParseArgv_
@@ -1322,13 +1322,13 @@ structure GLib : G_LIB =
       in
         argvp
       end
-    fun shellQuote unquotedString = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) shellQuote_ unquotedString
-    fun shellUnquote quotedString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr 1) shellUnquote_ (quotedString & [])
+    fun shellQuote unquotedString = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) shellQuote_ unquotedString
+    fun shellUnquote quotedString = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr ~1) shellUnquote_ (quotedString & [])
     fun sliceGetConfig ckey = (GLibSliceConfig.FFI.withVal ---> GInt64.FFI.fromVal) sliceGetConfig_ ckey
     fun sliceSetConfig (ckey, value) = (GLibSliceConfig.FFI.withVal &&&> GInt64.FFI.withVal ---> I) sliceSetConfig_ (ckey & value)
     fun spawnCheckExitStatus exitStatus = (GInt.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) spawnCheckExitStatus_ (exitStatus & [])
     fun spawnClosePid pid = (GLibPid.FFI.withVal ---> I) spawnClosePid_ pid
-    fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> ignore) spawnCommandLineAsync_ (commandLine & [])
+    fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> ignore) spawnCommandLineAsync_ (commandLine & [])
     fun spawnCommandLineSync commandLine =
       let
         val standardOutput
@@ -1336,13 +1336,13 @@ structure GLib : G_LIB =
          & exitStatus
          & () =
           (
-            Utf8.FFI.withPtr
-             &&&> GUInt8CArray.FFI.withRefOptPtr
-             &&&> GUInt8CArray.FFI.withRefOptPtr
+            Utf8.FFI.withPtr 0
+             &&&> GUInt8CArray.FFI.withRefOptPtr 0
+             &&&> GUInt8CArray.FFI.withRefOptPtr 0
              &&&> GInt.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GUInt8CArray.FFI.fromPtr 1
-                   && GUInt8CArray.FFI.fromPtr 1
+             ---> GUInt8CArray.FFI.fromPtr ~1
+                   && GUInt8CArray.FFI.fromPtr ~1
                    && GInt.FFI.fromVal
                    && ignore
           )
@@ -1369,10 +1369,10 @@ structure GLib : G_LIB =
         func
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         testAssertExpectedMessagesInternal_
@@ -1382,8 +1382,8 @@ structure GLib : G_LIB =
            & line
            & func
         )
-    fun testBug bugUriSnippet = (Utf8.FFI.withPtr ---> I) testBug_ bugUriSnippet
-    fun testBugBase uriPattern = (Utf8.FFI.withPtr ---> I) testBugBase_ uriPattern
+    fun testBug bugUriSnippet = (Utf8.FFI.withPtr 0 ---> I) testBug_ bugUriSnippet
+    fun testBugBase uriPattern = (Utf8.FFI.withPtr 0 ---> I) testBugBase_ uriPattern
     fun testExpectMessage
       (
         logDomain,
@@ -1391,9 +1391,9 @@ structure GLib : G_LIB =
         pattern
       ) =
       (
-        Utf8.FFI.withOptPtr
+        Utf8.FFI.withOptPtr 0
          &&&> GLibLogLevelFlags.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         testExpectMessage_
@@ -1405,16 +1405,16 @@ structure GLib : G_LIB =
     fun testFail () = (I ---> I) testFail_ ()
     fun testFailed () = (I ---> GBool.FFI.fromVal) testFailed_ ()
     fun testGetDir fileType = (GLibTestFileType.FFI.withVal ---> Utf8.FFI.fromPtr 0) testGetDir_ fileType
-    fun testIncomplete msg = (Utf8.FFI.withOptPtr ---> I) testIncomplete_ msg
+    fun testIncomplete msg = (Utf8.FFI.withOptPtr 0 ---> I) testIncomplete_ msg
     fun testLogTypeName logType = (GLibTestLogType.FFI.withVal ---> Utf8.FFI.fromPtr 0) testLogTypeName_ logType
     fun testRandDouble () = (I ---> GDouble.FFI.fromVal) testRandDouble_ ()
     fun testRandDoubleRange (rangeStart, rangeEnd) = (GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal) testRandDoubleRange_ (rangeStart & rangeEnd)
     fun testRandInt () = (I ---> GInt32.FFI.fromVal) testRandInt_ ()
     fun testRandIntRange (begin, end') = (GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) testRandIntRange_ (begin & end')
     fun testRun () = (I ---> GInt.FFI.fromVal) testRun_ ()
-    fun testRunSuite suite = (GLibTestSuiteRecord.FFI.withPtr ---> GInt.FFI.fromVal) testRunSuite_ suite
+    fun testRunSuite suite = (GLibTestSuiteRecord.FFI.withPtr false ---> GInt.FFI.fromVal) testRunSuite_ suite
     fun testSetNonfatalAssertions () = (I ---> I) testSetNonfatalAssertions_ ()
-    fun testSkip msg = (Utf8.FFI.withOptPtr ---> I) testSkip_ msg
+    fun testSkip msg = (Utf8.FFI.withOptPtr 0 ---> I) testSkip_ msg
     fun testSubprocess () = (I ---> GBool.FFI.fromVal) testSubprocess_ ()
     fun testTimerElapsed () = (I ---> GDouble.FFI.fromVal) testTimerElapsed_ ()
     fun testTimerLast () = (I ---> GDouble.FFI.fromVal) testTimerLast_ ()
@@ -1429,12 +1429,12 @@ structure GLib : G_LIB =
         pattern
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt64.FFI.withVal
-         &&&> Utf8.FFI.withPtr
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         testTrapAssertions_
@@ -1456,7 +1456,7 @@ structure GLib : G_LIB =
         testFlags
       ) =
       (
-        Utf8.FFI.withOptPtr
+        Utf8.FFI.withOptPtr 0
          &&&> GUInt64.FFI.withVal
          &&&> GLibTestSubprocessFlags.FFI.withVal
          ---> I
@@ -1484,8 +1484,8 @@ structure GLib : G_LIB =
            & []
         )
     fun unixSignalSourceNew signum = (GInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) unixSignalSourceNew_ signum
-    fun unlink filename = (Utf8.FFI.withPtr ---> GInt.FFI.fromVal) unlink_ filename
-    fun unsetenv variable = (Utf8.FFI.withPtr ---> I) unsetenv_ variable
+    fun unlink filename = (Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal) unlink_ filename
+    fun unsetenv variable = (Utf8.FFI.withPtr 0 ---> I) unsetenv_ variable
     fun uriEscapeString
       (
         unescaped,
@@ -1493,10 +1493,10 @@ structure GLib : G_LIB =
         allowUtf8
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GBool.FFI.withVal
-         ---> Utf8.FFI.fromPtr 1
+         ---> Utf8.FFI.fromPtr ~1
       )
         uriEscapeString_
         (
@@ -1504,8 +1504,8 @@ structure GLib : G_LIB =
            & reservedCharsAllowed
            & allowUtf8
         )
-    fun uriListExtractUris uriList = (Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 2) uriListExtractUris_ uriList
-    fun uriParseScheme uri = (Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) uriParseScheme_ uri
+    fun uriListExtractUris uriList = (Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) uriListExtractUris_ uriList
+    fun uriParseScheme uri = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) uriParseScheme_ uri
     fun uriUnescapeSegment
       (
         escapedString,
@@ -1513,10 +1513,10 @@ structure GLib : G_LIB =
         illegalCharacters
       ) =
       (
-        Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
-         ---> Utf8.FFI.fromPtr 1
+        Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
+         ---> Utf8.FFI.fromPtr ~1
       )
         uriUnescapeSegment_
         (
@@ -1524,7 +1524,7 @@ structure GLib : G_LIB =
            & escapedStringEnd
            & illegalCharacters
         )
-    fun uriUnescapeString (escapedString, illegalCharacters) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> Utf8.FFI.fromPtr 1) uriUnescapeString_ (escapedString & illegalCharacters)
+    fun uriUnescapeString (escapedString, illegalCharacters) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withOptPtr 0 ---> Utf8.FFI.fromPtr ~1) uriUnescapeString_ (escapedString & illegalCharacters)
     fun usleep microseconds = (GULong.FFI.withVal ---> I) usleep_ microseconds
     fun variantGetGtype () = (I ---> GObjectType.FFI.fromVal) variantGetGtype_ ()
   end

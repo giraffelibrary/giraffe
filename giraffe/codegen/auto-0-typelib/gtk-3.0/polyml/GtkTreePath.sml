@@ -31,27 +31,27 @@ structure GtkTreePath :>
     fun newFromIndices indices =
       let
         val length = LargeInt.fromInt (GInt32CArrayN.length indices)
-        val retVal = (GInt32CArrayN.FFI.withPtr &&&> GUInt64.FFI.withVal ---> GtkTreePathRecord.FFI.fromPtr true) newFromIndices_ (indices & length)
+        val retVal = (GInt32CArrayN.FFI.withPtr 0 &&&> GUInt64.FFI.withVal ---> GtkTreePathRecord.FFI.fromPtr true) newFromIndices_ (indices & length)
       in
         retVal
       end
-    fun newFromString path = (Utf8.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) newFromString_ path
-    fun appendIndex self index = (GtkTreePathRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) appendIndex_ (self & index)
-    fun compare self b = (GtkTreePathRecord.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GInt32.FFI.fromVal) compare_ (self & b)
-    fun copy self = (GtkTreePathRecord.FFI.withPtr ---> GtkTreePathRecord.FFI.fromPtr true) copy_ self
-    fun down self = (GtkTreePathRecord.FFI.withPtr ---> I) down_ self
-    fun getDepth self = (GtkTreePathRecord.FFI.withPtr ---> GInt32.FFI.fromVal) getDepth_ self
+    fun newFromString path = (Utf8.FFI.withPtr 0 ---> GtkTreePathRecord.FFI.fromPtr true) newFromString_ path
+    fun appendIndex self index = (GtkTreePathRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) appendIndex_ (self & index)
+    fun compare self b = (GtkTreePathRecord.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) compare_ (self & b)
+    fun copy self = (GtkTreePathRecord.FFI.withPtr false ---> GtkTreePathRecord.FFI.fromPtr true) copy_ self
+    fun down self = (GtkTreePathRecord.FFI.withPtr false ---> I) down_ self
+    fun getDepth self = (GtkTreePathRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getDepth_ self
     fun getIndices self =
       let
-        val depth & retVal = (GtkTreePathRecord.FFI.withPtr &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GInt32CArrayN.FFI.fromPtr 0) getIndices_ (self & GInt32.null)
+        val depth & retVal = (GtkTreePathRecord.FFI.withPtr false &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GInt32CArrayN.FFI.fromPtr 0) getIndices_ (self & GInt32.null)
       in
         retVal (LargeInt.toInt depth)
       end
-    fun isAncestor self descendant = (GtkTreePathRecord.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) isAncestor_ (self & descendant)
-    fun isDescendant self ancestor = (GtkTreePathRecord.FFI.withPtr &&&> GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) isDescendant_ (self & ancestor)
-    fun next self = (GtkTreePathRecord.FFI.withPtr ---> I) next_ self
-    fun prependIndex self index = (GtkTreePathRecord.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) prependIndex_ (self & index)
-    fun prev self = (GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) prev_ self
-    fun toString self = (GtkTreePathRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
-    fun up self = (GtkTreePathRecord.FFI.withPtr ---> GBool.FFI.fromVal) up_ self
+    fun isAncestor self descendant = (GtkTreePathRecord.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isAncestor_ (self & descendant)
+    fun isDescendant self ancestor = (GtkTreePathRecord.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isDescendant_ (self & ancestor)
+    fun next self = (GtkTreePathRecord.FFI.withPtr false ---> I) next_ self
+    fun prependIndex self index = (GtkTreePathRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) prependIndex_ (self & index)
+    fun prev self = (GtkTreePathRecord.FFI.withPtr false ---> GBool.FFI.fromVal) prev_ self
+    fun toString self = (GtkTreePathRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
+    fun up self = (GtkTreePathRecord.FFI.withPtr false ---> GBool.FFI.fromVal) up_ self
   end

@@ -314,15 +314,15 @@ structure GioDataInputStream :>
     type data_stream_byte_order_t = GioDataStreamByteOrder.t
     type data_stream_newline_type_t = GioDataStreamNewlineType.t
     type t = base class
-    fun asSeekable self = (GObjectObjectClass.FFI.withPtr ---> GioSeekableClass.FFI.fromPtr false) I self
+    fun asSeekable self = (GObjectObjectClass.FFI.withPtr false ---> GioSeekableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new baseStream = (GioInputStreamClass.FFI.withPtr ---> GioDataInputStreamClass.FFI.fromPtr true) new_ baseStream
-    fun getByteOrder self = (GioDataInputStreamClass.FFI.withPtr ---> GioDataStreamByteOrder.FFI.fromVal) getByteOrder_ self
-    fun getNewlineType self = (GioDataInputStreamClass.FFI.withPtr ---> GioDataStreamNewlineType.FFI.fromVal) getNewlineType_ self
+    fun new baseStream = (GioInputStreamClass.FFI.withPtr false ---> GioDataInputStreamClass.FFI.fromPtr true) new_ baseStream
+    fun getByteOrder self = (GioDataInputStreamClass.FFI.withPtr false ---> GioDataStreamByteOrder.FFI.fromVal) getByteOrder_ self
+    fun getNewlineType self = (GioDataInputStreamClass.FFI.withPtr false ---> GioDataStreamNewlineType.FFI.fromVal) getNewlineType_ self
     fun readByte self cancellable =
       (
-        GioDataInputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioDataInputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GUInt8.FFI.fromVal
       )
@@ -334,8 +334,8 @@ structure GioDataInputStream :>
         )
     fun readInt16 self cancellable =
       (
-        GioDataInputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioDataInputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GInt16.FFI.fromVal
       )
@@ -347,8 +347,8 @@ structure GioDataInputStream :>
         )
     fun readInt32 self cancellable =
       (
-        GioDataInputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioDataInputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GInt32.FFI.fromVal
       )
@@ -360,8 +360,8 @@ structure GioDataInputStream :>
         )
     fun readInt64 self cancellable =
       (
-        GioDataInputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioDataInputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GInt64.FFI.fromVal
       )
@@ -375,11 +375,11 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GioDataInputStreamClass.FFI.withPtr
+            GioDataInputStreamClass.FFI.withPtr false
              &&&> GSize.FFI.withRefVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && GUInt8CArray.FFI.fromOptPtr 1
+             ---> GSize.FFI.fromVal && GUInt8CArray.FFI.fromOptPtr ~1
           )
             readLine_
             (
@@ -395,11 +395,11 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GioDataInputStreamClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GioDataInputStreamClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && GUInt8CArray.FFI.fromOptPtr 1
+             ---> GSize.FFI.fromVal && GUInt8CArray.FFI.fromOptPtr ~1
           )
             readLineFinish_
             (
@@ -415,11 +415,11 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GioDataInputStreamClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GioDataInputStreamClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8.FFI.fromOptPtr 1
+             ---> GSize.FFI.fromVal && Utf8.FFI.fromOptPtr ~1
           )
             readLineFinishUtf8_
             (
@@ -435,11 +435,11 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GioDataInputStreamClass.FFI.withPtr
+            GioDataInputStreamClass.FFI.withPtr false
              &&&> GSize.FFI.withRefVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8.FFI.fromOptPtr 1
+             ---> GSize.FFI.fromVal && Utf8.FFI.fromOptPtr ~1
           )
             readLineUtf8_
             (
@@ -453,8 +453,8 @@ structure GioDataInputStream :>
       end
     fun readUint16 self cancellable =
       (
-        GioDataInputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioDataInputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GUInt16.FFI.fromVal
       )
@@ -466,8 +466,8 @@ structure GioDataInputStream :>
         )
     fun readUint32 self cancellable =
       (
-        GioDataInputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioDataInputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GUInt32.FFI.fromVal
       )
@@ -479,8 +479,8 @@ structure GioDataInputStream :>
         )
     fun readUint64 self cancellable =
       (
-        GioDataInputStreamClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioDataInputStreamClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GUInt64.FFI.fromVal
       )
@@ -494,12 +494,12 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GioDataInputStreamClass.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            GioDataInputStreamClass.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GSize.FFI.withRefVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr ~1
           )
             readUntil_
             (
@@ -516,11 +516,11 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GioDataInputStreamClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GioDataInputStreamClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr ~1
           )
             readUntilFinish_
             (
@@ -542,13 +542,13 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GioDataInputStreamClass.FFI.withPtr
-             &&&> Utf8.FFI.withPtr
+            GioDataInputStreamClass.FFI.withPtr false
+             &&&> Utf8.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              &&&> GSize.FFI.withRefVal
-             &&&> GioCancellableClass.FFI.withOptPtr
+             &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr ~1
           )
             readUpto_
             (
@@ -566,11 +566,11 @@ structure GioDataInputStream :>
       let
         val length & retVal =
           (
-            GioDataInputStreamClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
+            GioDataInputStreamClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
              &&&> GSize.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr 1
+             ---> GSize.FFI.fromVal && Utf8.FFI.fromPtr ~1
           )
             readUptoFinish_
             (
@@ -582,8 +582,8 @@ structure GioDataInputStream :>
       in
         (retVal, length)
       end
-    fun setByteOrder self order = (GioDataInputStreamClass.FFI.withPtr &&&> GioDataStreamByteOrder.FFI.withVal ---> I) setByteOrder_ (self & order)
-    fun setNewlineType self type' = (GioDataInputStreamClass.FFI.withPtr &&&> GioDataStreamNewlineType.FFI.withVal ---> I) setNewlineType_ (self & type')
+    fun setByteOrder self order = (GioDataInputStreamClass.FFI.withPtr false &&&> GioDataStreamByteOrder.FFI.withVal ---> I) setByteOrder_ (self & order)
+    fun setNewlineType self type' = (GioDataInputStreamClass.FFI.withPtr false &&&> GioDataStreamNewlineType.FFI.withVal ---> I) setNewlineType_ (self & type')
     local
       open Property
     in

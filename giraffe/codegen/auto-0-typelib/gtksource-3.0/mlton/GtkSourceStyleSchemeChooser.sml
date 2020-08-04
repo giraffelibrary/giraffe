@@ -10,8 +10,8 @@ structure GtkSourceStyleSchemeChooser :>
     type 'a style_scheme_class = 'a GtkSourceStyleSchemeClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getStyleScheme self = (GtkSourceStyleSchemeChooserClass.FFI.withPtr ---> GtkSourceStyleSchemeClass.FFI.fromPtr false) getStyleScheme_ self
-    fun setStyleScheme self scheme = (GtkSourceStyleSchemeChooserClass.FFI.withPtr &&&> GtkSourceStyleSchemeClass.FFI.withPtr ---> I) setStyleScheme_ (self & scheme)
+    fun getStyleScheme self = (GtkSourceStyleSchemeChooserClass.FFI.withPtr false ---> GtkSourceStyleSchemeClass.FFI.fromPtr false) getStyleScheme_ self
+    fun setStyleScheme self scheme = (GtkSourceStyleSchemeChooserClass.FFI.withPtr false &&&> GtkSourceStyleSchemeClass.FFI.withPtr false ---> I) setStyleScheme_ (self & scheme)
     local
       open Property
     in

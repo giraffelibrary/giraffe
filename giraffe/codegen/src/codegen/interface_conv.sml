@@ -89,10 +89,13 @@ fun makeInterfaceConvStrDec
       | _                  => insert (interfaceIRef, iRefs)
 
     (*
-     *   <RootObjectNamespace><RootObjectName>Class.FFI.withPtr
+     *   <RootObjectNamespace><RootObjectName>Class.FFI.withPtr false
      *)
     val withFunExp =
-      mkLIdLNameExp (prefixInterfaceStrId rootObjectIRef [ffiStrId, withPtrId])
+      ExpApp (
+        mkLIdLNameExp (prefixInterfaceStrId rootObjectIRef [ffiStrId, withPtrId]),
+        falseExp
+      )
 
     (*
      *   <InterfaceNamespace><InterfaceName>Class.FFI.fromPtr false
@@ -104,7 +107,7 @@ fun makeInterfaceConvStrDec
       )
 
     (*
-     *   (<RootObjectNamespace><RootObjectName>Class.FFI.withPtr
+     *   (<RootObjectNamespace><RootObjectName>Class.FFI.withPtr false
      *     ---> <InterfaceNamespace><InterfaceName>Class.FFI.fromPtr false)
      *     I
      *     self

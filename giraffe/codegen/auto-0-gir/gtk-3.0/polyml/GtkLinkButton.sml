@@ -21,17 +21,17 @@ structure GtkLinkButton :>
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActionableClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new uri = (Utf8.FFI.withPtr ---> GtkLinkButtonClass.FFI.fromPtr false) new_ uri
-    fun newWithLabel (uri, label) = (Utf8.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GtkLinkButtonClass.FFI.fromPtr false) newWithLabel_ (uri & label)
-    fun getUri self = (GtkLinkButtonClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getUri_ self
-    fun getVisited self = (GtkLinkButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisited_ self
-    fun setUri self uri = (GtkLinkButtonClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setUri_ (self & uri)
-    fun setVisited self visited = (GtkLinkButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisited_ (self & visited)
+    fun new uri = (Utf8.FFI.withPtr 0 ---> GtkLinkButtonClass.FFI.fromPtr false) new_ uri
+    fun newWithLabel (uri, label) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withOptPtr 0 ---> GtkLinkButtonClass.FFI.fromPtr false) newWithLabel_ (uri & label)
+    fun getUri self = (GtkLinkButtonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUri_ self
+    fun getVisited self = (GtkLinkButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisited_ self
+    fun setUri self uri = (GtkLinkButtonClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setUri_ (self & uri)
+    fun setVisited self visited = (GtkLinkButtonClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisited_ (self & visited)
     local
       open ClosureMarshal Signal
     in

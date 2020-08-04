@@ -22,11 +22,11 @@ structure AtkRegistry :>
     type 'a object_factory_class = 'a AtkObjectFactoryClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getFactory self type' = (AtkRegistryClass.FFI.withPtr &&&> GObjectType.FFI.withVal ---> AtkObjectFactoryClass.FFI.fromPtr false) getFactory_ (self & type')
-    fun getFactoryType self type' = (AtkRegistryClass.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal) getFactoryType_ (self & type')
+    fun getFactory self type' = (AtkRegistryClass.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> AtkObjectFactoryClass.FFI.fromPtr false) getFactory_ (self & type')
+    fun getFactoryType self type' = (AtkRegistryClass.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal) getFactoryType_ (self & type')
     fun setFactoryType self (type', factoryType) =
       (
-        AtkRegistryClass.FFI.withPtr
+        AtkRegistryClass.FFI.withPtr false
          &&&> GObjectType.FFI.withVal
          &&&> GObjectType.FFI.withVal
          ---> I

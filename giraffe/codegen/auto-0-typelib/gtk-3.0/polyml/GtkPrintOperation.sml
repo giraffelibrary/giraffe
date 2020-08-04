@@ -67,26 +67,26 @@ structure GtkPrintOperation :>
     type print_status_t = GtkPrintStatus.t
     type unit_t = GtkUnit.t
     type t = base class
-    fun asPrintOperationPreview self = (GObjectObjectClass.FFI.withPtr ---> GtkPrintOperationPreviewClass.FFI.fromPtr false) I self
+    fun asPrintOperationPreview self = (GObjectObjectClass.FFI.withPtr false ---> GtkPrintOperationPreviewClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkPrintOperationClass.FFI.fromPtr true) new_ ()
-    fun cancel self = (GtkPrintOperationClass.FFI.withPtr ---> I) cancel_ self
-    fun drawPageFinish self = (GtkPrintOperationClass.FFI.withPtr ---> I) drawPageFinish_ self
-    fun getDefaultPageSetup self = (GtkPrintOperationClass.FFI.withPtr ---> GtkPageSetupClass.FFI.fromPtr false) getDefaultPageSetup_ self
-    fun getEmbedPageSetup self = (GtkPrintOperationClass.FFI.withPtr ---> GBool.FFI.fromVal) getEmbedPageSetup_ self
-    fun getError self = (GtkPrintOperationClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> I) getError_ (self & [])
-    fun getHasSelection self = (GtkPrintOperationClass.FFI.withPtr ---> GBool.FFI.fromVal) getHasSelection_ self
-    fun getNPagesToPrint self = (GtkPrintOperationClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNPagesToPrint_ self
-    fun getPrintSettings self = (GtkPrintOperationClass.FFI.withPtr ---> GtkPrintSettingsClass.FFI.fromPtr false) getPrintSettings_ self
-    fun getStatus self = (GtkPrintOperationClass.FFI.withPtr ---> GtkPrintStatus.FFI.fromVal) getStatus_ self
-    fun getStatusString self = (GtkPrintOperationClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStatusString_ self
-    fun getSupportSelection self = (GtkPrintOperationClass.FFI.withPtr ---> GBool.FFI.fromVal) getSupportSelection_ self
-    fun isFinished self = (GtkPrintOperationClass.FFI.withPtr ---> GBool.FFI.fromVal) isFinished_ self
+    fun cancel self = (GtkPrintOperationClass.FFI.withPtr false ---> I) cancel_ self
+    fun drawPageFinish self = (GtkPrintOperationClass.FFI.withPtr false ---> I) drawPageFinish_ self
+    fun getDefaultPageSetup self = (GtkPrintOperationClass.FFI.withPtr false ---> GtkPageSetupClass.FFI.fromPtr false) getDefaultPageSetup_ self
+    fun getEmbedPageSetup self = (GtkPrintOperationClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEmbedPageSetup_ self
+    fun getError self = (GtkPrintOperationClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> I) getError_ (self & [])
+    fun getHasSelection self = (GtkPrintOperationClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasSelection_ self
+    fun getNPagesToPrint self = (GtkPrintOperationClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNPagesToPrint_ self
+    fun getPrintSettings self = (GtkPrintOperationClass.FFI.withPtr false ---> GtkPrintSettingsClass.FFI.fromPtr false) getPrintSettings_ self
+    fun getStatus self = (GtkPrintOperationClass.FFI.withPtr false ---> GtkPrintStatus.FFI.fromVal) getStatus_ self
+    fun getStatusString self = (GtkPrintOperationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getStatusString_ self
+    fun getSupportSelection self = (GtkPrintOperationClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSupportSelection_ self
+    fun isFinished self = (GtkPrintOperationClass.FFI.withPtr false ---> GBool.FFI.fromVal) isFinished_ self
     fun run self (action, parent) =
       (
-        GtkPrintOperationClass.FFI.withPtr
+        GtkPrintOperationClass.FFI.withPtr false
          &&&> GtkPrintOperationAction.FFI.withVal
-         &&&> GtkWindowClass.FFI.withOptPtr
+         &&&> GtkWindowClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> GtkPrintOperationResult.FFI.fromVal
       )
@@ -97,22 +97,22 @@ structure GtkPrintOperation :>
            & parent
            & []
         )
-    fun setAllowAsync self allowAsync = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setAllowAsync_ (self & allowAsync)
-    fun setCurrentPage self currentPage = (GtkPrintOperationClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setCurrentPage_ (self & currentPage)
-    fun setCustomTabLabel self label = (GtkPrintOperationClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setCustomTabLabel_ (self & label)
-    fun setDefaultPageSetup self defaultPageSetup = (GtkPrintOperationClass.FFI.withPtr &&&> GtkPageSetupClass.FFI.withOptPtr ---> I) setDefaultPageSetup_ (self & defaultPageSetup)
-    fun setDeferDrawing self = (GtkPrintOperationClass.FFI.withPtr ---> I) setDeferDrawing_ self
-    fun setEmbedPageSetup self embed = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setEmbedPageSetup_ (self & embed)
-    fun setExportFilename self filename = (GtkPrintOperationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setExportFilename_ (self & filename)
-    fun setHasSelection self hasSelection = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHasSelection_ (self & hasSelection)
-    fun setJobName self jobName = (GtkPrintOperationClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setJobName_ (self & jobName)
-    fun setNPages self nPages = (GtkPrintOperationClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setNPages_ (self & nPages)
-    fun setPrintSettings self printSettings = (GtkPrintOperationClass.FFI.withPtr &&&> GtkPrintSettingsClass.FFI.withOptPtr ---> I) setPrintSettings_ (self & printSettings)
-    fun setShowProgress self showProgress = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowProgress_ (self & showProgress)
-    fun setSupportSelection self supportSelection = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setSupportSelection_ (self & supportSelection)
-    fun setTrackPrintStatus self trackStatus = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setTrackPrintStatus_ (self & trackStatus)
-    fun setUnit self unit = (GtkPrintOperationClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> I) setUnit_ (self & unit)
-    fun setUseFullPage self fullPage = (GtkPrintOperationClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseFullPage_ (self & fullPage)
+    fun setAllowAsync self allowAsync = (GtkPrintOperationClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAllowAsync_ (self & allowAsync)
+    fun setCurrentPage self currentPage = (GtkPrintOperationClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setCurrentPage_ (self & currentPage)
+    fun setCustomTabLabel self label = (GtkPrintOperationClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setCustomTabLabel_ (self & label)
+    fun setDefaultPageSetup self defaultPageSetup = (GtkPrintOperationClass.FFI.withPtr false &&&> GtkPageSetupClass.FFI.withOptPtr false ---> I) setDefaultPageSetup_ (self & defaultPageSetup)
+    fun setDeferDrawing self = (GtkPrintOperationClass.FFI.withPtr false ---> I) setDeferDrawing_ self
+    fun setEmbedPageSetup self embed = (GtkPrintOperationClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setEmbedPageSetup_ (self & embed)
+    fun setExportFilename self filename = (GtkPrintOperationClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setExportFilename_ (self & filename)
+    fun setHasSelection self hasSelection = (GtkPrintOperationClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasSelection_ (self & hasSelection)
+    fun setJobName self jobName = (GtkPrintOperationClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setJobName_ (self & jobName)
+    fun setNPages self nPages = (GtkPrintOperationClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setNPages_ (self & nPages)
+    fun setPrintSettings self printSettings = (GtkPrintOperationClass.FFI.withPtr false &&&> GtkPrintSettingsClass.FFI.withOptPtr false ---> I) setPrintSettings_ (self & printSettings)
+    fun setShowProgress self showProgress = (GtkPrintOperationClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowProgress_ (self & showProgress)
+    fun setSupportSelection self supportSelection = (GtkPrintOperationClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSupportSelection_ (self & supportSelection)
+    fun setTrackPrintStatus self trackStatus = (GtkPrintOperationClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setTrackPrintStatus_ (self & trackStatus)
+    fun setUnit self unit = (GtkPrintOperationClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> I) setUnit_ (self & unit)
+    fun setUseFullPage self fullPage = (GtkPrintOperationClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseFullPage_ (self & fullPage)
     local
       open ClosureMarshal Signal
     in

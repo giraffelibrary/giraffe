@@ -83,10 +83,10 @@ structure GtkAdjustment :>
            & pageIncrement
            & pageSize
         )
-    fun changed self = (GtkAdjustmentClass.FFI.withPtr ---> I) changed_ self
+    fun changed self = (GtkAdjustmentClass.FFI.withPtr false ---> I) changed_ self
     fun clampPage self (lower, upper) =
       (
-        GtkAdjustmentClass.FFI.withPtr
+        GtkAdjustmentClass.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          ---> I
@@ -108,7 +108,7 @@ structure GtkAdjustment :>
         pageSize
       ) =
       (
-        GtkAdjustmentClass.FFI.withPtr
+        GtkAdjustmentClass.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
@@ -127,20 +127,20 @@ structure GtkAdjustment :>
            & pageIncrement
            & pageSize
         )
-    fun getLower self = (GtkAdjustmentClass.FFI.withPtr ---> GDouble.FFI.fromVal) getLower_ self
-    fun getMinimumIncrement self = (GtkAdjustmentClass.FFI.withPtr ---> GDouble.FFI.fromVal) getMinimumIncrement_ self
-    fun getPageIncrement self = (GtkAdjustmentClass.FFI.withPtr ---> GDouble.FFI.fromVal) getPageIncrement_ self
-    fun getPageSize self = (GtkAdjustmentClass.FFI.withPtr ---> GDouble.FFI.fromVal) getPageSize_ self
-    fun getStepIncrement self = (GtkAdjustmentClass.FFI.withPtr ---> GDouble.FFI.fromVal) getStepIncrement_ self
-    fun getUpper self = (GtkAdjustmentClass.FFI.withPtr ---> GDouble.FFI.fromVal) getUpper_ self
-    fun getValue self = (GtkAdjustmentClass.FFI.withPtr ---> GDouble.FFI.fromVal) getValue_ self
-    fun setLower self lower = (GtkAdjustmentClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setLower_ (self & lower)
-    fun setPageIncrement self pageIncrement = (GtkAdjustmentClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setPageIncrement_ (self & pageIncrement)
-    fun setPageSize self pageSize = (GtkAdjustmentClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setPageSize_ (self & pageSize)
-    fun setStepIncrement self stepIncrement = (GtkAdjustmentClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setStepIncrement_ (self & stepIncrement)
-    fun setUpper self upper = (GtkAdjustmentClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setUpper_ (self & upper)
-    fun setValue self value = (GtkAdjustmentClass.FFI.withPtr &&&> GDouble.FFI.withVal ---> I) setValue_ (self & value)
-    fun valueChanged self = (GtkAdjustmentClass.FFI.withPtr ---> I) valueChanged_ self
+    fun getLower self = (GtkAdjustmentClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getLower_ self
+    fun getMinimumIncrement self = (GtkAdjustmentClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getMinimumIncrement_ self
+    fun getPageIncrement self = (GtkAdjustmentClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getPageIncrement_ self
+    fun getPageSize self = (GtkAdjustmentClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getPageSize_ self
+    fun getStepIncrement self = (GtkAdjustmentClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getStepIncrement_ self
+    fun getUpper self = (GtkAdjustmentClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getUpper_ self
+    fun getValue self = (GtkAdjustmentClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getValue_ self
+    fun setLower self lower = (GtkAdjustmentClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setLower_ (self & lower)
+    fun setPageIncrement self pageIncrement = (GtkAdjustmentClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setPageIncrement_ (self & pageIncrement)
+    fun setPageSize self pageSize = (GtkAdjustmentClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setPageSize_ (self & pageSize)
+    fun setStepIncrement self stepIncrement = (GtkAdjustmentClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setStepIncrement_ (self & stepIncrement)
+    fun setUpper self upper = (GtkAdjustmentClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setUpper_ (self & upper)
+    fun setValue self value = (GtkAdjustmentClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setValue_ (self & value)
+    fun valueChanged self = (GtkAdjustmentClass.FFI.withPtr false ---> I) valueChanged_ self
     local
       open ClosureMarshal Signal
     in

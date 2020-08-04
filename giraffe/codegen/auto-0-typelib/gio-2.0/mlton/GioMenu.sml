@@ -222,9 +222,9 @@ structure GioMenu :>
     fun new () = (I ---> GioMenuClass.FFI.fromPtr true) new_ ()
     fun append self (label, detailedAction) =
       (
-        GioMenuClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+        GioMenuClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> I
       )
         append_
@@ -233,12 +233,12 @@ structure GioMenu :>
            & label
            & detailedAction
         )
-    fun appendItem self item = (GioMenuClass.FFI.withPtr &&&> GioMenuItemClass.FFI.withPtr ---> I) appendItem_ (self & item)
+    fun appendItem self item = (GioMenuClass.FFI.withPtr false &&&> GioMenuItemClass.FFI.withPtr false ---> I) appendItem_ (self & item)
     fun appendSection self (label, section) =
       (
-        GioMenuClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> GioMenuModelClass.FFI.withPtr
+        GioMenuClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> GioMenuModelClass.FFI.withPtr false
          ---> I
       )
         appendSection_
@@ -249,9 +249,9 @@ structure GioMenu :>
         )
     fun appendSubmenu self (label, submenu) =
       (
-        GioMenuClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> GioMenuModelClass.FFI.withPtr
+        GioMenuClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> GioMenuModelClass.FFI.withPtr false
          ---> I
       )
         appendSubmenu_
@@ -260,7 +260,7 @@ structure GioMenu :>
            & label
            & submenu
         )
-    fun freeze self = (GioMenuClass.FFI.withPtr ---> I) freeze_ self
+    fun freeze self = (GioMenuClass.FFI.withPtr false ---> I) freeze_ self
     fun insert
       self
       (
@@ -269,10 +269,10 @@ structure GioMenu :>
         detailedAction
       ) =
       (
-        GioMenuClass.FFI.withPtr
+        GioMenuClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> I
       )
         insert_
@@ -284,9 +284,9 @@ structure GioMenu :>
         )
     fun insertItem self (position, item) =
       (
-        GioMenuClass.FFI.withPtr
+        GioMenuClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
-         &&&> GioMenuItemClass.FFI.withPtr
+         &&&> GioMenuItemClass.FFI.withPtr false
          ---> I
       )
         insertItem_
@@ -303,10 +303,10 @@ structure GioMenu :>
         section
       ) =
       (
-        GioMenuClass.FFI.withPtr
+        GioMenuClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
-         &&&> GioMenuModelClass.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> GioMenuModelClass.FFI.withPtr false
          ---> I
       )
         insertSection_
@@ -324,10 +324,10 @@ structure GioMenu :>
         submenu
       ) =
       (
-        GioMenuClass.FFI.withPtr
+        GioMenuClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
-         &&&> GioMenuModelClass.FFI.withPtr
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> GioMenuModelClass.FFI.withPtr false
          ---> I
       )
         insertSubmenu_
@@ -339,9 +339,9 @@ structure GioMenu :>
         )
     fun prepend self (label, detailedAction) =
       (
-        GioMenuClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+        GioMenuClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> I
       )
         prepend_
@@ -350,12 +350,12 @@ structure GioMenu :>
            & label
            & detailedAction
         )
-    fun prependItem self item = (GioMenuClass.FFI.withPtr &&&> GioMenuItemClass.FFI.withPtr ---> I) prependItem_ (self & item)
+    fun prependItem self item = (GioMenuClass.FFI.withPtr false &&&> GioMenuItemClass.FFI.withPtr false ---> I) prependItem_ (self & item)
     fun prependSection self (label, section) =
       (
-        GioMenuClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> GioMenuModelClass.FFI.withPtr
+        GioMenuClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> GioMenuModelClass.FFI.withPtr false
          ---> I
       )
         prependSection_
@@ -366,9 +366,9 @@ structure GioMenu :>
         )
     fun prependSubmenu self (label, submenu) =
       (
-        GioMenuClass.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> GioMenuModelClass.FFI.withPtr
+        GioMenuClass.FFI.withPtr false
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> GioMenuModelClass.FFI.withPtr false
          ---> I
       )
         prependSubmenu_
@@ -377,6 +377,6 @@ structure GioMenu :>
            & label
            & submenu
         )
-    fun remove self position = (GioMenuClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) remove_ (self & position)
-    fun removeAll self = (GioMenuClass.FFI.withPtr ---> I) removeAll_ self
+    fun remove self position = (GioMenuClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) remove_ (self & position)
+    fun removeAll self = (GioMenuClass.FFI.withPtr false ---> I) removeAll_ self
   end

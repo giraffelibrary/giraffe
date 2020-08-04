@@ -279,7 +279,7 @@ structure GObjectType :> G_OBJECT_TYPE =
 
     val fromName =
       fn name =>
-        (Utf8.FFI.withPtr ---> (fn 0 => NONE | n => SOME n) o FFI.fromVal)
+        (Utf8.FFI.withPtr 0 ---> (fn 0 => NONE | n => SOME n) o FFI.fromVal)
           fromName_
           name
 

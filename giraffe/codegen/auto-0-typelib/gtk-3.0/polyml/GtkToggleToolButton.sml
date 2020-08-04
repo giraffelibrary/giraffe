@@ -19,15 +19,15 @@ structure GtkToggleToolButton :>
     type 'a activatable_class = 'a GtkActivatableClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asActionable self = (GObjectObjectClass.FFI.withPtr ---> GtkActionableClass.FFI.fromPtr false) I self
-    fun asActivatable self = (GObjectObjectClass.FFI.withPtr ---> GtkActivatableClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asActionable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActionableClass.FFI.fromPtr false) I self
+    fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkToggleToolButtonClass.FFI.fromPtr false) new_ ()
-    fun newFromStock stockId = (Utf8.FFI.withPtr ---> GtkToggleToolButtonClass.FFI.fromPtr false) newFromStock_ stockId
-    fun getActive self = (GtkToggleToolButtonClass.FFI.withPtr ---> GBool.FFI.fromVal) getActive_ self
-    fun setActive self isActive = (GtkToggleToolButtonClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setActive_ (self & isActive)
+    fun newFromStock stockId = (Utf8.FFI.withPtr 0 ---> GtkToggleToolButtonClass.FFI.fromPtr false) newFromStock_ stockId
+    fun getActive self = (GtkToggleToolButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActive_ self
+    fun setActive self isActive = (GtkToggleToolButtonClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setActive_ (self & isActive)
     local
       open ClosureMarshal Signal
     in

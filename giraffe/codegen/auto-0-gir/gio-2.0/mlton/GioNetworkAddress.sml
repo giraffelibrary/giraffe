@@ -64,13 +64,13 @@ structure GioNetworkAddress :>
     type 'a class = 'a GioNetworkAddressClass.class
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type t = base class
-    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr ---> GioSocketConnectableClass.FFI.fromPtr false) I self
+    fun asSocketConnectable self = (GObjectObjectClass.FFI.withPtr false ---> GioSocketConnectableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (hostname, port) = (Utf8.FFI.withPtr &&&> GUInt16.FFI.withVal ---> GioNetworkAddressClass.FFI.fromPtr true) new_ (hostname & port)
+    fun new (hostname, port) = (Utf8.FFI.withPtr 0 &&&> GUInt16.FFI.withVal ---> GioNetworkAddressClass.FFI.fromPtr true) new_ (hostname & port)
     fun newLoopback port = (GUInt16.FFI.withVal ---> GioNetworkAddressClass.FFI.fromPtr true) newLoopback_ port
     fun parse (hostAndPort, defaultPort) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GUInt16.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioNetworkAddressClass.FFI.fromPtr true
@@ -83,7 +83,7 @@ structure GioNetworkAddress :>
         )
     fun parseUri (uri, defaultPort) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GUInt16.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioNetworkAddressClass.FFI.fromPtr true
@@ -94,9 +94,9 @@ structure GioNetworkAddress :>
            & defaultPort
            & []
         )
-    fun getHostname self = (GioNetworkAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getHostname_ self
-    fun getPort self = (GioNetworkAddressClass.FFI.withPtr ---> GUInt16.FFI.fromVal) getPort_ self
-    fun getScheme self = (GioNetworkAddressClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getScheme_ self
+    fun getHostname self = (GioNetworkAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getHostname_ self
+    fun getPort self = (GioNetworkAddressClass.FFI.withPtr false ---> GUInt16.FFI.fromVal) getPort_ self
+    fun getScheme self = (GioNetworkAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getScheme_ self
     local
       open Property
     in

@@ -32,15 +32,15 @@ structure GioDBusObjectManagerServer :>
     type 'a d_bus_object_skeleton_class = 'a GioDBusObjectSkeletonClass.class
     type 'a d_bus_connection_class = 'a GioDBusConnectionClass.class
     type t = base class
-    fun asDBusObjectManager self = (GObjectObjectClass.FFI.withPtr ---> GioDBusObjectManagerClass.FFI.fromPtr false) I self
+    fun asDBusObjectManager self = (GObjectObjectClass.FFI.withPtr false ---> GioDBusObjectManagerClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new objectPath = (Utf8.FFI.withPtr ---> GioDBusObjectManagerServerClass.FFI.fromPtr true) new_ objectPath
-    fun export self object = (GioDBusObjectManagerServerClass.FFI.withPtr &&&> GioDBusObjectSkeletonClass.FFI.withPtr ---> I) export_ (self & object)
-    fun exportUniquely self object = (GioDBusObjectManagerServerClass.FFI.withPtr &&&> GioDBusObjectSkeletonClass.FFI.withPtr ---> I) exportUniquely_ (self & object)
-    fun getConnection self = (GioDBusObjectManagerServerClass.FFI.withPtr ---> GioDBusConnectionClass.FFI.fromPtr true) getConnection_ self
-    fun isExported self object = (GioDBusObjectManagerServerClass.FFI.withPtr &&&> GioDBusObjectSkeletonClass.FFI.withPtr ---> GBool.FFI.fromVal) isExported_ (self & object)
-    fun setConnection self connection = (GioDBusObjectManagerServerClass.FFI.withPtr &&&> GioDBusConnectionClass.FFI.withOptPtr ---> I) setConnection_ (self & connection)
-    fun unexport self objectPath = (GioDBusObjectManagerServerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) unexport_ (self & objectPath)
+    fun new objectPath = (Utf8.FFI.withPtr 0 ---> GioDBusObjectManagerServerClass.FFI.fromPtr true) new_ objectPath
+    fun export self object = (GioDBusObjectManagerServerClass.FFI.withPtr false &&&> GioDBusObjectSkeletonClass.FFI.withPtr false ---> I) export_ (self & object)
+    fun exportUniquely self object = (GioDBusObjectManagerServerClass.FFI.withPtr false &&&> GioDBusObjectSkeletonClass.FFI.withPtr false ---> I) exportUniquely_ (self & object)
+    fun getConnection self = (GioDBusObjectManagerServerClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr true) getConnection_ self
+    fun isExported self object = (GioDBusObjectManagerServerClass.FFI.withPtr false &&&> GioDBusObjectSkeletonClass.FFI.withPtr false ---> GBool.FFI.fromVal) isExported_ (self & object)
+    fun setConnection self connection = (GioDBusObjectManagerServerClass.FFI.withPtr false &&&> GioDBusConnectionClass.FFI.withOptPtr false ---> I) setConnection_ (self & connection)
+    fun unexport self objectPath = (GioDBusObjectManagerServerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) unexport_ (self & objectPath)
     local
       open Property
     in

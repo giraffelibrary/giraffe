@@ -64,10 +64,10 @@ structure GioConverter :>
          & bytesWritten
          & retVal =
           (
-            GioConverterClass.FFI.withPtr
-             &&&> GUInt8CArrayN.FFI.withPtr
+            GioConverterClass.FFI.withPtr false
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
-             &&&> GUInt8CArrayN.FFI.withPtr
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
              &&&> GioConverterFlags.FFI.withVal
              &&&> GSize.FFI.withRefVal
@@ -96,5 +96,5 @@ structure GioConverter :>
           bytesWritten
         )
       end
-    fun reset self = (GioConverterClass.FFI.withPtr ---> I) reset_ self
+    fun reset self = (GioConverterClass.FFI.withPtr false ---> I) reset_ self
   end

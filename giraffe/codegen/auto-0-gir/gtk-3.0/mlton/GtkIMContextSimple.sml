@@ -23,5 +23,5 @@ structure GtkIMContextSimple :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkIMContextSimpleClass.FFI.fromPtr true) new_ ()
-    fun addComposeFile self composeFile = (GtkIMContextSimpleClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) addComposeFile_ (self & composeFile)
+    fun addComposeFile self composeFile = (GtkIMContextSimpleClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) addComposeFile_ (self & composeFile)
   end

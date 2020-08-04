@@ -19,7 +19,7 @@ structure GioPropertyAction :>
     type 'a class = 'a GioPropertyActionClass.class
     type 'a action_class = 'a GioActionClass.class
     type t = base class
-    fun asAction self = (GObjectObjectClass.FFI.withPtr ---> GioActionClass.FFI.fromPtr false) I self
+    fun asAction self = (GObjectObjectClass.FFI.withPtr false ---> GioActionClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -28,9 +28,9 @@ structure GioPropertyAction :>
         propertyName
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> GObjectObjectClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          ---> GioPropertyActionClass.FFI.fromPtr true
       )
         new_

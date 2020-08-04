@@ -54,18 +54,18 @@ structure GObjectValue :>
       end
 
     fun reset value =
-      (GObjectValueRecord.FFI.withPtr ---> I) (ignore o reset_) value
+      (GObjectValueRecord.FFI.withPtr false ---> I) (ignore o reset_) value
 
     fun getType () = (I ---> GObjectType.FFI.fromVal) getType_ ()
 
     fun holds gtype value =
-      (GObjectValueRecord.FFI.withPtr &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal)
+      (GObjectValueRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal)
         holds_
         (value & gtype)
 
     fun gTypeOf value =
-      (GObjectValueRecord.FFI.withPtr ---> GObjectType.FFI.fromVal) gtypeOf_ value
+      (GObjectValueRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal) gtypeOf_ value
 
     fun isValue value =
-      (GObjectValueRecord.FFI.withPtr ---> GBool.FFI.fromVal) isValue_ value
+      (GObjectValueRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isValue_ value
   end

@@ -45,27 +45,27 @@ structure GtkPlacesSidebar :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type places_open_flags_t = GtkPlacesOpenFlags.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkPlacesSidebarClass.FFI.fromPtr false) new_ ()
-    fun addShortcut self location = (GtkPlacesSidebarClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> I) addShortcut_ (self & location)
-    fun getLocalOnly self = (GtkPlacesSidebarClass.FFI.withPtr ---> GBool.FFI.fromVal) getLocalOnly_ self
-    fun getLocation self = (GtkPlacesSidebarClass.FFI.withPtr ---> GioFileClass.FFI.fromOptPtr true) getLocation_ self
-    fun getNthBookmark self n = (GtkPlacesSidebarClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GioFileClass.FFI.fromOptPtr true) getNthBookmark_ (self & n)
-    fun getOpenFlags self = (GtkPlacesSidebarClass.FFI.withPtr ---> GtkPlacesOpenFlags.FFI.fromVal) getOpenFlags_ self
-    fun getShowConnectToServer self = (GtkPlacesSidebarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowConnectToServer_ self
-    fun getShowDesktop self = (GtkPlacesSidebarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowDesktop_ self
-    fun getShowEnterLocation self = (GtkPlacesSidebarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowEnterLocation_ self
-    fun getShowOtherLocations self = (GtkPlacesSidebarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowOtherLocations_ self
-    fun getShowRecent self = (GtkPlacesSidebarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowRecent_ self
-    fun getShowTrash self = (GtkPlacesSidebarClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowTrash_ self
-    fun removeShortcut self location = (GtkPlacesSidebarClass.FFI.withPtr &&&> GioFileClass.FFI.withPtr ---> I) removeShortcut_ (self & location)
+    fun addShortcut self location = (GtkPlacesSidebarClass.FFI.withPtr false &&&> GioFileClass.FFI.withPtr false ---> I) addShortcut_ (self & location)
+    fun getLocalOnly self = (GtkPlacesSidebarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getLocalOnly_ self
+    fun getLocation self = (GtkPlacesSidebarClass.FFI.withPtr false ---> GioFileClass.FFI.fromOptPtr true) getLocation_ self
+    fun getNthBookmark self n = (GtkPlacesSidebarClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GioFileClass.FFI.fromOptPtr true) getNthBookmark_ (self & n)
+    fun getOpenFlags self = (GtkPlacesSidebarClass.FFI.withPtr false ---> GtkPlacesOpenFlags.FFI.fromVal) getOpenFlags_ self
+    fun getShowConnectToServer self = (GtkPlacesSidebarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowConnectToServer_ self
+    fun getShowDesktop self = (GtkPlacesSidebarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowDesktop_ self
+    fun getShowEnterLocation self = (GtkPlacesSidebarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowEnterLocation_ self
+    fun getShowOtherLocations self = (GtkPlacesSidebarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowOtherLocations_ self
+    fun getShowRecent self = (GtkPlacesSidebarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowRecent_ self
+    fun getShowTrash self = (GtkPlacesSidebarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowTrash_ self
+    fun removeShortcut self location = (GtkPlacesSidebarClass.FFI.withPtr false &&&> GioFileClass.FFI.withPtr false ---> I) removeShortcut_ (self & location)
     fun setDropTargetsVisible self (visible, context) =
       (
-        GtkPlacesSidebarClass.FFI.withPtr
+        GtkPlacesSidebarClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
-         &&&> GdkDragContextClass.FFI.withPtr
+         &&&> GdkDragContextClass.FFI.withPtr false
          ---> I
       )
         setDropTargetsVisible_
@@ -74,15 +74,15 @@ structure GtkPlacesSidebar :>
            & visible
            & context
         )
-    fun setLocalOnly self localOnly = (GtkPlacesSidebarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setLocalOnly_ (self & localOnly)
-    fun setLocation self location = (GtkPlacesSidebarClass.FFI.withPtr &&&> GioFileClass.FFI.withOptPtr ---> I) setLocation_ (self & location)
-    fun setOpenFlags self flags = (GtkPlacesSidebarClass.FFI.withPtr &&&> GtkPlacesOpenFlags.FFI.withVal ---> I) setOpenFlags_ (self & flags)
-    fun setShowConnectToServer self showConnectToServer = (GtkPlacesSidebarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowConnectToServer_ (self & showConnectToServer)
-    fun setShowDesktop self showDesktop = (GtkPlacesSidebarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowDesktop_ (self & showDesktop)
-    fun setShowEnterLocation self showEnterLocation = (GtkPlacesSidebarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowEnterLocation_ (self & showEnterLocation)
-    fun setShowOtherLocations self showOtherLocations = (GtkPlacesSidebarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowOtherLocations_ (self & showOtherLocations)
-    fun setShowRecent self showRecent = (GtkPlacesSidebarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowRecent_ (self & showRecent)
-    fun setShowTrash self showTrash = (GtkPlacesSidebarClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowTrash_ (self & showTrash)
+    fun setLocalOnly self localOnly = (GtkPlacesSidebarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setLocalOnly_ (self & localOnly)
+    fun setLocation self location = (GtkPlacesSidebarClass.FFI.withPtr false &&&> GioFileClass.FFI.withOptPtr false ---> I) setLocation_ (self & location)
+    fun setOpenFlags self flags = (GtkPlacesSidebarClass.FFI.withPtr false &&&> GtkPlacesOpenFlags.FFI.withVal ---> I) setOpenFlags_ (self & flags)
+    fun setShowConnectToServer self showConnectToServer = (GtkPlacesSidebarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowConnectToServer_ (self & showConnectToServer)
+    fun setShowDesktop self showDesktop = (GtkPlacesSidebarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowDesktop_ (self & showDesktop)
+    fun setShowEnterLocation self showEnterLocation = (GtkPlacesSidebarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowEnterLocation_ (self & showEnterLocation)
+    fun setShowOtherLocations self showOtherLocations = (GtkPlacesSidebarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowOtherLocations_ (self & showOtherLocations)
+    fun setShowRecent self showRecent = (GtkPlacesSidebarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowRecent_ (self & showRecent)
+    fun setShowTrash self showTrash = (GtkPlacesSidebarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowTrash_ (self & showTrash)
     local
       open ClosureMarshal Signal
     in

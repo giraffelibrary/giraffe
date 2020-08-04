@@ -36,14 +36,14 @@ structure GtkCellAccessibleParent :>
     type 'a cell_accessible_class = 'a GtkCellAccessibleClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun activate self cell = (GtkCellAccessibleParentClass.FFI.withPtr &&&> GtkCellAccessibleClass.FFI.withPtr ---> I) activate_ (self & cell)
-    fun edit self cell = (GtkCellAccessibleParentClass.FFI.withPtr &&&> GtkCellAccessibleClass.FFI.withPtr ---> I) edit_ (self & cell)
-    fun expandCollapse self cell = (GtkCellAccessibleParentClass.FFI.withPtr &&&> GtkCellAccessibleClass.FFI.withPtr ---> I) expandCollapse_ (self & cell)
+    fun activate self cell = (GtkCellAccessibleParentClass.FFI.withPtr false &&&> GtkCellAccessibleClass.FFI.withPtr false ---> I) activate_ (self & cell)
+    fun edit self cell = (GtkCellAccessibleParentClass.FFI.withPtr false &&&> GtkCellAccessibleClass.FFI.withPtr false ---> I) edit_ (self & cell)
+    fun expandCollapse self cell = (GtkCellAccessibleParentClass.FFI.withPtr false &&&> GtkCellAccessibleClass.FFI.withPtr false ---> I) expandCollapse_ (self & cell)
     fun getCellArea self (cell, cellRect) =
       (
-        GtkCellAccessibleParentClass.FFI.withPtr
-         &&&> GtkCellAccessibleClass.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
+        GtkCellAccessibleParentClass.FFI.withPtr false
+         &&&> GtkCellAccessibleClass.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
          ---> I
       )
         getCellArea_
@@ -52,14 +52,14 @@ structure GtkCellAccessibleParent :>
            & cell
            & cellRect
         )
-    fun getChildIndex self cell = (GtkCellAccessibleParentClass.FFI.withPtr &&&> GtkCellAccessibleClass.FFI.withPtr ---> GInt32.FFI.fromVal) getChildIndex_ (self & cell)
-    fun getRendererState self cell = (GtkCellAccessibleParentClass.FFI.withPtr &&&> GtkCellAccessibleClass.FFI.withPtr ---> GtkCellRendererState.FFI.fromVal) getRendererState_ (self & cell)
-    fun grabFocus self cell = (GtkCellAccessibleParentClass.FFI.withPtr &&&> GtkCellAccessibleClass.FFI.withPtr ---> GBool.FFI.fromVal) grabFocus_ (self & cell)
+    fun getChildIndex self cell = (GtkCellAccessibleParentClass.FFI.withPtr false &&&> GtkCellAccessibleClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getChildIndex_ (self & cell)
+    fun getRendererState self cell = (GtkCellAccessibleParentClass.FFI.withPtr false &&&> GtkCellAccessibleClass.FFI.withPtr false ---> GtkCellRendererState.FFI.fromVal) getRendererState_ (self & cell)
+    fun grabFocus self cell = (GtkCellAccessibleParentClass.FFI.withPtr false &&&> GtkCellAccessibleClass.FFI.withPtr false ---> GBool.FFI.fromVal) grabFocus_ (self & cell)
     fun updateRelationset self (cell, relationset) =
       (
-        GtkCellAccessibleParentClass.FFI.withPtr
-         &&&> GtkCellAccessibleClass.FFI.withPtr
-         &&&> AtkRelationSetClass.FFI.withPtr
+        GtkCellAccessibleParentClass.FFI.withPtr false
+         &&&> GtkCellAccessibleClass.FFI.withPtr false
+         &&&> AtkRelationSetClass.FFI.withPtr false
          ---> I
       )
         updateRelationset_

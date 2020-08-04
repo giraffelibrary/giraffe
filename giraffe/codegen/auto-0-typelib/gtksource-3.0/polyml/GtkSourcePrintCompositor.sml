@@ -104,12 +104,12 @@ structure GtkSourcePrintCompositor :>
     type 'a buffer_class = 'a GtkSourceBufferClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new buffer = (GtkSourceBufferClass.FFI.withPtr ---> GtkSourcePrintCompositorClass.FFI.fromPtr true) new_ buffer
-    fun newFromView view = (GtkSourceViewClass.FFI.withPtr ---> GtkSourcePrintCompositorClass.FFI.fromPtr true) newFromView_ view
+    fun new buffer = (GtkSourceBufferClass.FFI.withPtr false ---> GtkSourcePrintCompositorClass.FFI.fromPtr true) new_ buffer
+    fun newFromView view = (GtkSourceViewClass.FFI.withPtr false ---> GtkSourcePrintCompositorClass.FFI.fromPtr true) newFromView_ view
     fun drawPage self (context, pageNr) =
       (
-        GtkSourcePrintCompositorClass.FFI.withPtr
-         &&&> GtkPrintContextClass.FFI.withPtr
+        GtkSourcePrintCompositorClass.FFI.withPtr false
+         &&&> GtkPrintContextClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -119,28 +119,28 @@ structure GtkSourcePrintCompositor :>
            & context
            & pageNr
         )
-    fun getBodyFontName self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getBodyFontName_ self
-    fun getBottomMargin self unit = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getBottomMargin_ (self & unit)
-    fun getBuffer self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self
-    fun getFooterFontName self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getFooterFontName_ self
-    fun getHeaderFontName self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getHeaderFontName_ self
-    fun getHighlightSyntax self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> GBool.FFI.fromVal) getHighlightSyntax_ self
-    fun getLeftMargin self unit = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getLeftMargin_ (self & unit)
-    fun getLineNumbersFontName self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getLineNumbersFontName_ self
-    fun getNPages self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNPages_ self
-    fun getPaginationProgress self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> GDouble.FFI.fromVal) getPaginationProgress_ self
-    fun getPrintFooter self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> GBool.FFI.fromVal) getPrintFooter_ self
-    fun getPrintHeader self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> GBool.FFI.fromVal) getPrintHeader_ self
-    fun getPrintLineNumbers self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getPrintLineNumbers_ self
-    fun getRightMargin self unit = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getRightMargin_ (self & unit)
-    fun getTabWidth self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> GUInt32.FFI.fromVal) getTabWidth_ self
-    fun getTopMargin self unit = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getTopMargin_ (self & unit)
-    fun getWrapMode self = (GtkSourcePrintCompositorClass.FFI.withPtr ---> GtkWrapMode.FFI.fromVal) getWrapMode_ self
-    fun paginate self context = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> GtkPrintContextClass.FFI.withPtr ---> GBool.FFI.fromVal) paginate_ (self & context)
-    fun setBodyFontName self fontName = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setBodyFontName_ (self & fontName)
+    fun getBodyFontName self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getBodyFontName_ self
+    fun getBottomMargin self unit = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getBottomMargin_ (self & unit)
+    fun getBuffer self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getFooterFontName self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getFooterFontName_ self
+    fun getHeaderFontName self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getHeaderFontName_ self
+    fun getHighlightSyntax self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHighlightSyntax_ self
+    fun getLeftMargin self unit = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getLeftMargin_ (self & unit)
+    fun getLineNumbersFontName self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getLineNumbersFontName_ self
+    fun getNPages self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNPages_ self
+    fun getPaginationProgress self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getPaginationProgress_ self
+    fun getPrintFooter self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPrintFooter_ self
+    fun getPrintHeader self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPrintHeader_ self
+    fun getPrintLineNumbers self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getPrintLineNumbers_ self
+    fun getRightMargin self unit = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getRightMargin_ (self & unit)
+    fun getTabWidth self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getTabWidth_ self
+    fun getTopMargin self unit = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getTopMargin_ (self & unit)
+    fun getWrapMode self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> GtkWrapMode.FFI.fromVal) getWrapMode_ self
+    fun paginate self context = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GtkPrintContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) paginate_ (self & context)
+    fun setBodyFontName self fontName = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setBodyFontName_ (self & fontName)
     fun setBottomMargin self (margin, unit) =
       (
-        GtkSourcePrintCompositorClass.FFI.withPtr
+        GtkSourcePrintCompositorClass.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GtkUnit.FFI.withVal
          ---> I
@@ -151,7 +151,7 @@ structure GtkSourcePrintCompositor :>
            & margin
            & unit
         )
-    fun setFooterFontName self fontName = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setFooterFontName_ (self & fontName)
+    fun setFooterFontName self fontName = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setFooterFontName_ (self & fontName)
     fun setFooterFormat
       self
       (
@@ -161,11 +161,11 @@ structure GtkSourcePrintCompositor :>
         right
       ) =
       (
-        GtkSourcePrintCompositorClass.FFI.withPtr
+        GtkSourcePrintCompositorClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> I
       )
         setFooterFormat_
@@ -176,7 +176,7 @@ structure GtkSourcePrintCompositor :>
            & center
            & right
         )
-    fun setHeaderFontName self fontName = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setHeaderFontName_ (self & fontName)
+    fun setHeaderFontName self fontName = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setHeaderFontName_ (self & fontName)
     fun setHeaderFormat
       self
       (
@@ -186,11 +186,11 @@ structure GtkSourcePrintCompositor :>
         right
       ) =
       (
-        GtkSourcePrintCompositorClass.FFI.withPtr
+        GtkSourcePrintCompositorClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> I
       )
         setHeaderFormat_
@@ -201,10 +201,10 @@ structure GtkSourcePrintCompositor :>
            & center
            & right
         )
-    fun setHighlightSyntax self highlight = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setHighlightSyntax_ (self & highlight)
+    fun setHighlightSyntax self highlight = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHighlightSyntax_ (self & highlight)
     fun setLeftMargin self (margin, unit) =
       (
-        GtkSourcePrintCompositorClass.FFI.withPtr
+        GtkSourcePrintCompositorClass.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GtkUnit.FFI.withVal
          ---> I
@@ -215,13 +215,13 @@ structure GtkSourcePrintCompositor :>
            & margin
            & unit
         )
-    fun setLineNumbersFontName self fontName = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setLineNumbersFontName_ (self & fontName)
-    fun setPrintFooter self print = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setPrintFooter_ (self & print)
-    fun setPrintHeader self print = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setPrintHeader_ (self & print)
-    fun setPrintLineNumbers self interval = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setPrintLineNumbers_ (self & interval)
+    fun setLineNumbersFontName self fontName = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setLineNumbersFontName_ (self & fontName)
+    fun setPrintFooter self print = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setPrintFooter_ (self & print)
+    fun setPrintHeader self print = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setPrintHeader_ (self & print)
+    fun setPrintLineNumbers self interval = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setPrintLineNumbers_ (self & interval)
     fun setRightMargin self (margin, unit) =
       (
-        GtkSourcePrintCompositorClass.FFI.withPtr
+        GtkSourcePrintCompositorClass.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GtkUnit.FFI.withVal
          ---> I
@@ -232,10 +232,10 @@ structure GtkSourcePrintCompositor :>
            & margin
            & unit
         )
-    fun setTabWidth self width = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> GUInt32.FFI.withVal ---> I) setTabWidth_ (self & width)
+    fun setTabWidth self width = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setTabWidth_ (self & width)
     fun setTopMargin self (margin, unit) =
       (
-        GtkSourcePrintCompositorClass.FFI.withPtr
+        GtkSourcePrintCompositorClass.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GtkUnit.FFI.withVal
          ---> I
@@ -246,7 +246,7 @@ structure GtkSourcePrintCompositor :>
            & margin
            & unit
         )
-    fun setWrapMode self wrapMode = (GtkSourcePrintCompositorClass.FFI.withPtr &&&> GtkWrapMode.FFI.withVal ---> I) setWrapMode_ (self & wrapMode)
+    fun setWrapMode self wrapMode = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GtkWrapMode.FFI.withVal ---> I) setWrapMode_ (self & wrapMode)
     local
       open Property
     in

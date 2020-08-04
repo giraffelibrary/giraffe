@@ -30,8 +30,8 @@ structure GioAsyncInitable :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun initFinish self res =
       (
-        GioAsyncInitableClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioAsyncInitableClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -43,8 +43,8 @@ structure GioAsyncInitable :>
         )
     fun newFinish self res =
       (
-        GioAsyncInitableClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioAsyncInitableClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> GObjectObjectClass.FFI.fromPtr true
       )

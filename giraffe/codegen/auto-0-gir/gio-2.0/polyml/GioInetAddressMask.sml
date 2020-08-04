@@ -30,11 +30,11 @@ structure GioInetAddressMask :>
     type 'a inet_address_class = 'a GioInetAddressClass.class
     type socket_family_t = GioSocketFamily.t
     type t = base class
-    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr false ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (addr, length) =
       (
-        GioInetAddressClass.FFI.withPtr
+        GioInetAddressClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioInetAddressMaskClass.FFI.fromPtr true
@@ -45,13 +45,13 @@ structure GioInetAddressMask :>
            & length
            & []
         )
-    fun newFromString maskString = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioInetAddressMaskClass.FFI.fromPtr true) newFromString_ (maskString & [])
-    fun equal self mask2 = (GioInetAddressMaskClass.FFI.withPtr &&&> GioInetAddressMaskClass.FFI.withPtr ---> GBool.FFI.fromVal) equal_ (self & mask2)
-    fun getAddress self = (GioInetAddressMaskClass.FFI.withPtr ---> GioInetAddressClass.FFI.fromPtr false) getAddress_ self
-    fun getFamily self = (GioInetAddressMaskClass.FFI.withPtr ---> GioSocketFamily.FFI.fromVal) getFamily_ self
-    fun getLength self = (GioInetAddressMaskClass.FFI.withPtr ---> GUInt.FFI.fromVal) getLength_ self
-    fun matches self address = (GioInetAddressMaskClass.FFI.withPtr &&&> GioInetAddressClass.FFI.withPtr ---> GBool.FFI.fromVal) matches_ (self & address)
-    fun toString self = (GioInetAddressMaskClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun newFromString maskString = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GioInetAddressMaskClass.FFI.fromPtr true) newFromString_ (maskString & [])
+    fun equal self mask2 = (GioInetAddressMaskClass.FFI.withPtr false &&&> GioInetAddressMaskClass.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & mask2)
+    fun getAddress self = (GioInetAddressMaskClass.FFI.withPtr false ---> GioInetAddressClass.FFI.fromPtr false) getAddress_ self
+    fun getFamily self = (GioInetAddressMaskClass.FFI.withPtr false ---> GioSocketFamily.FFI.fromVal) getFamily_ self
+    fun getLength self = (GioInetAddressMaskClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getLength_ self
+    fun matches self address = (GioInetAddressMaskClass.FFI.withPtr false &&&> GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) matches_ (self & address)
+    fun toString self = (GioInetAddressMaskClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
     local
       open Property
     in

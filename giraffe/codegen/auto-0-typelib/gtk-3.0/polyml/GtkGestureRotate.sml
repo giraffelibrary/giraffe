@@ -14,8 +14,8 @@ structure GtkGestureRotate :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new widget = (GtkWidgetClass.FFI.withPtr ---> GtkGestureRotateClass.FFI.fromPtr true) new_ widget
-    fun getAngleDelta self = (GtkGestureRotateClass.FFI.withPtr ---> GDouble.FFI.fromVal) getAngleDelta_ self
+    fun new widget = (GtkWidgetClass.FFI.withPtr false ---> GtkGestureRotateClass.FFI.fromPtr true) new_ widget
+    fun getAngleDelta self = (GtkGestureRotateClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getAngleDelta_ self
     local
       open ClosureMarshal Signal
     in

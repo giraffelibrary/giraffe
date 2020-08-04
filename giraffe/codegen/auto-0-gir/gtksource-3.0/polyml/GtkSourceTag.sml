@@ -11,7 +11,7 @@ structure GtkSourceTag :>
     type 'a class = 'a GtkSourceTagClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new name = (Utf8.FFI.withOptPtr ---> GtkSourceTagClass.FFI.fromPtr true) new_ name
+    fun new name = (Utf8.FFI.withOptPtr 0 ---> GtkSourceTagClass.FFI.fromPtr true) new_ name
     local
       open Property
     in

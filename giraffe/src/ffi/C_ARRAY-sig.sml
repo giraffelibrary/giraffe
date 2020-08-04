@@ -200,19 +200,16 @@ signature C_ARRAY =
          * cases, `from[Opt]Ptr d` can be used where `d`, the depth to free
          * to, would be 0 for a static array.  In other cases, keeping a
          * reference to the C array may be unreliable so either
-         * `fromDup[Opt]Ptr d` should be used to duplicate the top `d` levels
+         * `from[Opt]Ptr d` should be used to duplicate the top `d` levels
          * or `copyPtr tab d` should be used to copy the whole array using
          * the tabulator `tab` and free the top `d` levels.
          *)
         type 'a tabulator = int * (int -> elem) -> 'a
 
-        val fromPtr    : int -> non_opt out_p -> t from_p
-        val fromDupPtr : int -> non_opt out_p -> t from_p
-        val copyPtr    : 'a tabulator -> int -> non_opt out_p -> 'a from_p
-
-        val fromOptPtr    : int -> opt out_p -> t option from_p
-        val fromDupOptPtr : int -> opt out_p -> t option from_p
-        val copyOptPtr    : 'a tabulator -> int -> opt out_p -> 'a option from_p
+        val fromPtr    :                 int -> non_opt out_p -> t        from_p
+        val fromOptPtr :                 int -> opt     out_p -> t option from_p
+        val copyPtr    : 'a tabulator -> int -> non_opt out_p -> 'a        from_p
+        val copyOptPtr : 'a tabulator -> int -> opt     out_p -> 'a option from_p
 
         (**
          * Value parameters
@@ -231,25 +228,16 @@ signature C_ARRAY =
          *   pointer because an implementation may need to pass multiple
          *   arguments that are transformed by C side interface code.
          *
-         * `withPtr f arr` ...
+         * `withPtr depth f arr` ...
          *
          *
          * `withDupPtr depth f arr` ...
          *
          *
-         * `withNewDupPtr depth f arr` ...
-         *
-         *
-         * `withOptPtr f optArr` ...
+         * `withOptPtr depth f optArr` ...
          *
          *
          * `withDupOptPtr depth f optArr` ...
-         *
-         *
-         * `withNewDupOptPtr depth f optArr` ...
-         *
-         *   The C function `f` must return an allocated array whose
-         *   ownership, i.e. responsibility for freeing, is transferred.
          *
          *
          * Considerations
@@ -258,13 +246,11 @@ signature C_ARRAY =
          *)
         type 'a in_p
 
-        val withPtr       :        (non_opt in_p -> 'r) -> t -> 'r
-        val withDupPtr    : int -> (non_opt in_p -> 'r) -> t -> 'r
-        val withNewDupPtr : int -> (non_opt in_p -> 'r) -> t -> (non_opt out_p, 'r) pair
+        val withPtr    : int -> (non_opt in_p -> 'r) -> t        -> 'r
+        val withOptPtr : int -> (opt     in_p -> 'r) -> t option -> 'r
 
-        val withOptPtr       :        (opt in_p -> 'r) -> t option -> 'r
-        val withDupOptPtr    : int -> (opt in_p -> 'r) -> t option -> 'r
-        val withNewDupOptPtr : int -> (opt in_p -> 'r) -> t option -> (opt out_p, 'r) pair
+        val withDupPtr    : int -> (non_opt in_p -> 'r) -> t        -> (non_opt out_p, 'r) pair
+        val withDupOptPtr : int -> (opt     in_p -> 'r) -> t option -> (opt     out_p, 'r) pair
 
         (**
          * Reference parameters
@@ -290,21 +276,15 @@ signature C_ARRAY =
          * `withNullRef f ()` ...
          *
          *
-         * `withRefPtr f arr` ...
+         * `withRefPtr depth f arr` ...
          *
          *
-         * `withRefDupPtr depth f arr` ...
-         *
-         *
-         * `withRefOptPtr f optArr` ...
-         *
-         *
-         * `withRefDupOptPtr depth f optArr` ...
+         * `withRefOptPtr depth f optArr` ...
          *
          *
          * Considerations
          *
-         * For `withRefPtr f cArr` with result `(p, _)`, when `f` does not
+         * For `withRefPtr 0 f cArr` with result `(p, _)`, when `f` does not
          * update the reference, `p` is a pointer to `cArr`.  In such cases,
          * `p` should be ignored.  For some implementations, `p` may even be
          * an unreliable pointer, for example, a pointer into the SML heap.
@@ -313,10 +293,7 @@ signature C_ARRAY =
 
         val withNullRef : (('a, 'b) r -> 'r) -> unit -> 'r
 
-        val withRefPtr    :        ((non_opt, 'b) r -> 'r) -> t -> ('b out_p, 'r) pair
-        val withRefDupPtr : int -> ((non_opt, 'b) r -> 'r) -> t -> ('b out_p, 'r) pair
-
-        val withRefOptPtr    :        ((opt, 'b) r -> 'r) -> t option -> ('b out_p, 'r) pair
-        val withRefDupOptPtr : int -> ((opt, 'b) r -> 'r) -> t option -> ('b out_p, 'r) pair
+        val withRefPtr : int -> ((non_opt, 'b) r -> 'r) -> t -> ('b out_p, 'r) pair
+        val withRefOptPtr : int -> ((opt, 'b) r -> 'r) -> t option -> ('b out_p, 'r) pair
       end
   end

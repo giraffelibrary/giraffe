@@ -14,8 +14,8 @@ structure GtkGestureZoom :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new widget = (GtkWidgetClass.FFI.withPtr ---> GtkGestureZoomClass.FFI.fromPtr true) new_ widget
-    fun getScaleDelta self = (GtkGestureZoomClass.FFI.withPtr ---> GDouble.FFI.fromVal) getScaleDelta_ self
+    fun new widget = (GtkWidgetClass.FFI.withPtr false ---> GtkGestureZoomClass.FFI.fromPtr true) new_ widget
+    fun getScaleDelta self = (GtkGestureZoomClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getScaleDelta_ self
     local
       open ClosureMarshal Signal
     in

@@ -41,27 +41,27 @@ structure GtkExpander :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new label = (Utf8.FFI.withPtr ---> GtkExpanderClass.FFI.fromPtr false) new_ label
-    fun newWithMnemonic label = (Utf8.FFI.withOptPtr ---> GtkExpanderClass.FFI.fromPtr false) newWithMnemonic_ label
-    fun getExpanded self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getExpanded_ self
-    fun getLabel self = (GtkExpanderClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getLabel_ self
-    fun getLabelFill self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getLabelFill_ self
-    fun getLabelWidget self = (GtkExpanderClass.FFI.withPtr ---> GtkWidgetClass.FFI.fromOptPtr false) getLabelWidget_ self
-    fun getResizeToplevel self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getResizeToplevel_ self
-    fun getSpacing self = (GtkExpanderClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSpacing_ self
-    fun getUseMarkup self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseMarkup_ self
-    fun getUseUnderline self = (GtkExpanderClass.FFI.withPtr ---> GBool.FFI.fromVal) getUseUnderline_ self
-    fun setExpanded self expanded = (GtkExpanderClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setExpanded_ (self & expanded)
-    fun setLabel self label = (GtkExpanderClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setLabel_ (self & label)
-    fun setLabelFill self labelFill = (GtkExpanderClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setLabelFill_ (self & labelFill)
-    fun setLabelWidget self labelWidget = (GtkExpanderClass.FFI.withPtr &&&> GtkWidgetClass.FFI.withOptPtr ---> I) setLabelWidget_ (self & labelWidget)
-    fun setResizeToplevel self resizeToplevel = (GtkExpanderClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setResizeToplevel_ (self & resizeToplevel)
-    fun setSpacing self spacing = (GtkExpanderClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setSpacing_ (self & spacing)
-    fun setUseMarkup self useMarkup = (GtkExpanderClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseMarkup_ (self & useMarkup)
-    fun setUseUnderline self useUnderline = (GtkExpanderClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setUseUnderline_ (self & useUnderline)
+    fun new label = (Utf8.FFI.withPtr 0 ---> GtkExpanderClass.FFI.fromPtr false) new_ label
+    fun newWithMnemonic label = (Utf8.FFI.withOptPtr 0 ---> GtkExpanderClass.FFI.fromPtr false) newWithMnemonic_ label
+    fun getExpanded self = (GtkExpanderClass.FFI.withPtr false ---> GBool.FFI.fromVal) getExpanded_ self
+    fun getLabel self = (GtkExpanderClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLabel_ self
+    fun getLabelFill self = (GtkExpanderClass.FFI.withPtr false ---> GBool.FFI.fromVal) getLabelFill_ self
+    fun getLabelWidget self = (GtkExpanderClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getLabelWidget_ self
+    fun getResizeToplevel self = (GtkExpanderClass.FFI.withPtr false ---> GBool.FFI.fromVal) getResizeToplevel_ self
+    fun getSpacing self = (GtkExpanderClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getSpacing_ self
+    fun getUseMarkup self = (GtkExpanderClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseMarkup_ self
+    fun getUseUnderline self = (GtkExpanderClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseUnderline_ self
+    fun setExpanded self expanded = (GtkExpanderClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setExpanded_ (self & expanded)
+    fun setLabel self label = (GtkExpanderClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setLabel_ (self & label)
+    fun setLabelFill self labelFill = (GtkExpanderClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setLabelFill_ (self & labelFill)
+    fun setLabelWidget self labelWidget = (GtkExpanderClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setLabelWidget_ (self & labelWidget)
+    fun setResizeToplevel self resizeToplevel = (GtkExpanderClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setResizeToplevel_ (self & resizeToplevel)
+    fun setSpacing self spacing = (GtkExpanderClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setSpacing_ (self & spacing)
+    fun setUseMarkup self useMarkup = (GtkExpanderClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseMarkup_ (self & useMarkup)
+    fun setUseUnderline self useUnderline = (GtkExpanderClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseUnderline_ (self & useUnderline)
     local
       open ClosureMarshal Signal
     in

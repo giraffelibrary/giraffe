@@ -51,12 +51,12 @@ structure GIRepositoryEnumInfo :>
 
 
     val getNValues =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNValues_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNValues_ info
 
     val getValue =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositoryValueInfoClass.FFI.fromPtr true
         )
@@ -64,12 +64,12 @@ structure GIRepositoryEnumInfo :>
           (info & n)
 
     val getNMethods =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNMethods_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNMethods_ info
 
     val getMethod =
       fn info => fn n =>
         (
-          GIRepositoryBaseInfoClass.FFI.withPtr
+          GIRepositoryBaseInfoClass.FFI.withPtr false
            &&&> GInt32.FFI.withVal
            ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
         )
@@ -78,13 +78,13 @@ structure GIRepositoryEnumInfo :>
 
     val getStorageType =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypeTag.FFI.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeTag.FFI.fromVal)
           getStorageType_
           info
 
     val getErrorDomain =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0)
           getErrorDomain_
           info
   end

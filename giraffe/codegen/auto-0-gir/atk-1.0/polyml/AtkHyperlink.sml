@@ -21,16 +21,16 @@ structure AtkHyperlink :>
     type 'a action_class = 'a AtkActionClass.class
     type 'a object_class = 'a AtkObjectClass.class
     type t = base class
-    fun asAction self = (GObjectObjectClass.FFI.withPtr ---> AtkActionClass.FFI.fromPtr false) I self
+    fun asAction self = (GObjectObjectClass.FFI.withPtr false ---> AtkActionClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getEndIndex self = (AtkHyperlinkClass.FFI.withPtr ---> GInt.FFI.fromVal) getEndIndex_ self
-    fun getNAnchors self = (AtkHyperlinkClass.FFI.withPtr ---> GInt.FFI.fromVal) getNAnchors_ self
-    fun getObject self i = (AtkHyperlinkClass.FFI.withPtr &&&> GInt.FFI.withVal ---> AtkObjectClass.FFI.fromPtr false) getObject_ (self & i)
-    fun getStartIndex self = (AtkHyperlinkClass.FFI.withPtr ---> GInt.FFI.fromVal) getStartIndex_ self
-    fun getUri self i = (AtkHyperlinkClass.FFI.withPtr &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr 1) getUri_ (self & i)
-    fun isInline self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isInline_ self
-    fun isSelectedLink self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isSelectedLink_ self
-    fun isValid self = (AtkHyperlinkClass.FFI.withPtr ---> GBool.FFI.fromVal) isValid_ self
+    fun getEndIndex self = (AtkHyperlinkClass.FFI.withPtr false ---> GInt.FFI.fromVal) getEndIndex_ self
+    fun getNAnchors self = (AtkHyperlinkClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNAnchors_ self
+    fun getObject self i = (AtkHyperlinkClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> AtkObjectClass.FFI.fromPtr false) getObject_ (self & i)
+    fun getStartIndex self = (AtkHyperlinkClass.FFI.withPtr false ---> GInt.FFI.fromVal) getStartIndex_ self
+    fun getUri self i = (AtkHyperlinkClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr ~1) getUri_ (self & i)
+    fun isInline self = (AtkHyperlinkClass.FFI.withPtr false ---> GBool.FFI.fromVal) isInline_ self
+    fun isSelectedLink self = (AtkHyperlinkClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSelectedLink_ self
+    fun isValid self = (AtkHyperlinkClass.FFI.withPtr false ---> GBool.FFI.fromVal) isValid_ self
     local
       open ClosureMarshal Signal
     in

@@ -29,14 +29,14 @@ structure GtkGestureDrag :>
     type 'a widget_class = 'a GtkWidgetClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new widget = (GtkWidgetClass.FFI.withPtr ---> GtkGestureDragClass.FFI.fromPtr true) new_ widget
+    fun new widget = (GtkWidgetClass.FFI.withPtr false ---> GtkGestureDragClass.FFI.fromPtr true) new_ widget
     fun getOffset self =
       let
         val x
          & y
          & retVal =
           (
-            GtkGestureDragClass.FFI.withPtr
+            GtkGestureDragClass.FFI.withPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              ---> GDouble.FFI.fromVal
@@ -58,7 +58,7 @@ structure GtkGestureDrag :>
          & y
          & retVal =
           (
-            GtkGestureDragClass.FFI.withPtr
+            GtkGestureDragClass.FFI.withPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              ---> GDouble.FFI.fromVal

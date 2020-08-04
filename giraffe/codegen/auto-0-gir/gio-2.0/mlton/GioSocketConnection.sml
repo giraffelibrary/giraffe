@@ -137,9 +137,9 @@ structure GioSocketConnection :>
         )
     fun connect self (address, cancellable) =
       (
-        GioSocketConnectionClass.FFI.withPtr
-         &&&> GioSocketAddressClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioSocketConnectionClass.FFI.withPtr false
+         &&&> GioSocketAddressClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -152,8 +152,8 @@ structure GioSocketConnection :>
         )
     fun connectFinish self result =
       (
-        GioSocketConnectionClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioSocketConnectionClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -163,10 +163,10 @@ structure GioSocketConnection :>
            & result
            & []
         )
-    fun getLocalAddress self = (GioSocketConnectionClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getLocalAddress_ (self & [])
-    fun getRemoteAddress self = (GioSocketConnectionClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getRemoteAddress_ (self & [])
-    fun getSocket self = (GioSocketConnectionClass.FFI.withPtr ---> GioSocketClass.FFI.fromPtr false) getSocket_ self
-    fun isConnected self = (GioSocketConnectionClass.FFI.withPtr ---> GBool.FFI.fromVal) isConnected_ self
+    fun getLocalAddress self = (GioSocketConnectionClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getLocalAddress_ (self & [])
+    fun getRemoteAddress self = (GioSocketConnectionClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getRemoteAddress_ (self & [])
+    fun getSocket self = (GioSocketConnectionClass.FFI.withPtr false ---> GioSocketClass.FFI.fromPtr false) getSocket_ self
+    fun isConnected self = (GioSocketConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) isConnected_ self
     local
       open Property
     in

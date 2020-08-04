@@ -115,11 +115,11 @@ structure GioSubprocess :>
     type 'a async_result_class = 'a GioAsyncResultClass.class
     type subprocess_flags_t = GioSubprocessFlags.t
     type t = base class
-    fun asInitable self = (GObjectObjectClass.FFI.withPtr ---> GioInitableClass.FFI.fromPtr false) I self
+    fun asInitable self = (GObjectObjectClass.FFI.withPtr false ---> GioInitableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (argv, flags) =
       (
-        Utf8CPtrArray.FFI.withPtr
+        Utf8CPtrArray.FFI.withPtr 0
          &&&> GioSubprocessFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioSubprocessClass.FFI.fromPtr true
@@ -136,11 +136,11 @@ structure GioSubprocess :>
          & stderrBuf
          & () =
           (
-            GioSubprocessClass.FFI.withPtr
-             &&&> GLibBytesRecord.FFI.withOptPtr
-             &&&> GioCancellableClass.FFI.withOptPtr
-             &&&> GLibBytesRecord.FFI.withRefOptPtr
-             &&&> GLibBytesRecord.FFI.withRefOptPtr
+            GioSubprocessClass.FFI.withPtr false
+             &&&> GLibBytesRecord.FFI.withOptPtr false
+             &&&> GioCancellableClass.FFI.withOptPtr false
+             &&&> GLibBytesRecord.FFI.withRefOptPtr true
+             &&&> GLibBytesRecord.FFI.withRefOptPtr true
              &&&> GLibErrorRecord.handleError
              ---> GLibBytesRecord.FFI.fromPtr true
                    && GLibBytesRecord.FFI.fromPtr true
@@ -164,10 +164,10 @@ structure GioSubprocess :>
          & stderrBuf
          & () =
           (
-            GioSubprocessClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
-             &&&> GLibBytesRecord.FFI.withRefOptPtr
-             &&&> GLibBytesRecord.FFI.withRefOptPtr
+            GioSubprocessClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
+             &&&> GLibBytesRecord.FFI.withRefOptPtr true
+             &&&> GLibBytesRecord.FFI.withRefOptPtr true
              &&&> GLibErrorRecord.handleError
              ---> GLibBytesRecord.FFI.fromPtr true
                    && GLibBytesRecord.FFI.fromPtr true
@@ -190,14 +190,14 @@ structure GioSubprocess :>
          & stderrBuf
          & () =
           (
-            GioSubprocessClass.FFI.withPtr
-             &&&> Utf8.FFI.withOptPtr
-             &&&> GioCancellableClass.FFI.withOptPtr
-             &&&> Utf8.FFI.withRefOptPtr
-             &&&> Utf8.FFI.withRefOptPtr
+            GioSubprocessClass.FFI.withPtr false
+             &&&> Utf8.FFI.withOptPtr 0
+             &&&> GioCancellableClass.FFI.withOptPtr false
+             &&&> Utf8.FFI.withRefOptPtr 0
+             &&&> Utf8.FFI.withRefOptPtr 0
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1
-                   && Utf8.FFI.fromPtr 1
+             ---> Utf8.FFI.fromPtr ~1
+                   && Utf8.FFI.fromPtr ~1
                    && ignore
           )
             communicateUtf8_
@@ -218,13 +218,13 @@ structure GioSubprocess :>
          & stderrBuf
          & () =
           (
-            GioSubprocessClass.FFI.withPtr
-             &&&> GioAsyncResultClass.FFI.withPtr
-             &&&> Utf8.FFI.withRefOptPtr
-             &&&> Utf8.FFI.withRefOptPtr
+            GioSubprocessClass.FFI.withPtr false
+             &&&> GioAsyncResultClass.FFI.withPtr false
+             &&&> Utf8.FFI.withRefOptPtr 0
+             &&&> Utf8.FFI.withRefOptPtr 0
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr 1
-                   && Utf8.FFI.fromPtr 1
+             ---> Utf8.FFI.fromPtr ~1
+                   && Utf8.FFI.fromPtr ~1
                    && ignore
           )
             communicateUtf8Finish_
@@ -238,22 +238,22 @@ structure GioSubprocess :>
       in
         (stdoutBuf, stderrBuf)
       end
-    fun forceExit self = (GioSubprocessClass.FFI.withPtr ---> I) forceExit_ self
-    fun getExitStatus self = (GioSubprocessClass.FFI.withPtr ---> GInt32.FFI.fromVal) getExitStatus_ self
-    fun getIdentifier self = (GioSubprocessClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getIdentifier_ self
-    fun getIfExited self = (GioSubprocessClass.FFI.withPtr ---> GBool.FFI.fromVal) getIfExited_ self
-    fun getIfSignaled self = (GioSubprocessClass.FFI.withPtr ---> GBool.FFI.fromVal) getIfSignaled_ self
-    fun getStatus self = (GioSubprocessClass.FFI.withPtr ---> GInt32.FFI.fromVal) getStatus_ self
-    fun getStderrPipe self = (GioSubprocessClass.FFI.withPtr ---> GioInputStreamClass.FFI.fromPtr false) getStderrPipe_ self
-    fun getStdinPipe self = (GioSubprocessClass.FFI.withPtr ---> GioOutputStreamClass.FFI.fromPtr false) getStdinPipe_ self
-    fun getStdoutPipe self = (GioSubprocessClass.FFI.withPtr ---> GioInputStreamClass.FFI.fromPtr false) getStdoutPipe_ self
-    fun getSuccessful self = (GioSubprocessClass.FFI.withPtr ---> GBool.FFI.fromVal) getSuccessful_ self
-    fun getTermSig self = (GioSubprocessClass.FFI.withPtr ---> GInt32.FFI.fromVal) getTermSig_ self
-    fun sendSignal self signalNum = (GioSubprocessClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) sendSignal_ (self & signalNum)
+    fun forceExit self = (GioSubprocessClass.FFI.withPtr false ---> I) forceExit_ self
+    fun getExitStatus self = (GioSubprocessClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getExitStatus_ self
+    fun getIdentifier self = (GioSubprocessClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIdentifier_ self
+    fun getIfExited self = (GioSubprocessClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIfExited_ self
+    fun getIfSignaled self = (GioSubprocessClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIfSignaled_ self
+    fun getStatus self = (GioSubprocessClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getStatus_ self
+    fun getStderrPipe self = (GioSubprocessClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromPtr false) getStderrPipe_ self
+    fun getStdinPipe self = (GioSubprocessClass.FFI.withPtr false ---> GioOutputStreamClass.FFI.fromPtr false) getStdinPipe_ self
+    fun getStdoutPipe self = (GioSubprocessClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromPtr false) getStdoutPipe_ self
+    fun getSuccessful self = (GioSubprocessClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSuccessful_ self
+    fun getTermSig self = (GioSubprocessClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getTermSig_ self
+    fun sendSignal self signalNum = (GioSubprocessClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) sendSignal_ (self & signalNum)
     fun wait self cancellable =
       (
-        GioSubprocessClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioSubprocessClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -265,8 +265,8 @@ structure GioSubprocess :>
         )
     fun waitCheck self cancellable =
       (
-        GioSubprocessClass.FFI.withPtr
-         &&&> GioCancellableClass.FFI.withOptPtr
+        GioSubprocessClass.FFI.withPtr false
+         &&&> GioCancellableClass.FFI.withOptPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -278,8 +278,8 @@ structure GioSubprocess :>
         )
     fun waitCheckFinish self result =
       (
-        GioSubprocessClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioSubprocessClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -291,8 +291,8 @@ structure GioSubprocess :>
         )
     fun waitFinish self result =
       (
-        GioSubprocessClass.FFI.withPtr
-         &&&> GioAsyncResultClass.FFI.withPtr
+        GioSubprocessClass.FFI.withPtr false
+         &&&> GioAsyncResultClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

@@ -36,8 +36,8 @@ structure GtkRecentAction :>
     type 'a recent_chooser_class = 'a GtkRecentChooserClass.class
     type 'a recent_manager_class = 'a GtkRecentManagerClass.class
     type t = base class
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
-    fun asRecentChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkRecentChooserClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asRecentChooser self = (GObjectObjectClass.FFI.withPtr false ---> GtkRecentChooserClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -47,10 +47,10 @@ structure GtkRecentAction :>
         stockId
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GtkRecentActionClass.FFI.fromPtr true
       )
         new_
@@ -69,11 +69,11 @@ structure GtkRecentAction :>
         manager
       ) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
-         &&&> GtkRecentManagerClass.FFI.withOptPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> GtkRecentManagerClass.FFI.withOptPtr false
          ---> GtkRecentActionClass.FFI.fromPtr true
       )
         newForManager_
@@ -84,8 +84,8 @@ structure GtkRecentAction :>
            & stockId
            & manager
         )
-    fun getShowNumbers self = (GtkRecentActionClass.FFI.withPtr ---> GBool.FFI.fromVal) getShowNumbers_ self
-    fun setShowNumbers self showNumbers = (GtkRecentActionClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setShowNumbers_ (self & showNumbers)
+    fun getShowNumbers self = (GtkRecentActionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowNumbers_ self
+    fun setShowNumbers self showNumbers = (GtkRecentActionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowNumbers_ (self & showNumbers)
     local
       open Property
     in

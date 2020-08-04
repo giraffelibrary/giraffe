@@ -16,11 +16,11 @@ structure GtkSourceEncoding :>
     end
     type t = GtkSourceEncodingRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun copy self = (GtkSourceEncodingRecord.FFI.withPtr ---> GtkSourceEncodingRecord.FFI.fromPtr true) copy_ self
-    fun getCharset self = (GtkSourceEncodingRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCharset_ self
-    fun getName self = (GtkSourceEncodingRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun toString self = (GtkSourceEncodingRecord.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun copy self = (GtkSourceEncodingRecord.FFI.withPtr false ---> GtkSourceEncodingRecord.FFI.fromPtr true) copy_ self
+    fun getCharset self = (GtkSourceEncodingRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCharset_ self
+    fun getName self = (GtkSourceEncodingRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun toString self = (GtkSourceEncodingRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
     fun getCurrent () = (I ---> GtkSourceEncodingRecord.FFI.fromPtr false) getCurrent_ ()
-    fun getFromCharset charset = (Utf8.FFI.withPtr ---> GtkSourceEncodingRecord.FFI.fromOptPtr false) getFromCharset_ charset
+    fun getFromCharset charset = (Utf8.FFI.withPtr 0 ---> GtkSourceEncodingRecord.FFI.fromOptPtr false) getFromCharset_ charset
     fun getUtf8 () = (I ---> GtkSourceEncodingRecord.FFI.fromPtr false) getUtf8_ ()
   end

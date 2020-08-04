@@ -144,50 +144,50 @@ structure GioFileInfo :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioFileInfoClass.FFI.fromPtr true) new_ ()
-    fun clearStatus self = (GioFileInfoClass.FFI.withPtr ---> I) clearStatus_ self
-    fun copyInto self destInfo = (GioFileInfoClass.FFI.withPtr &&&> GioFileInfoClass.FFI.withPtr ---> I) copyInto_ (self & destInfo)
-    fun dup self = (GioFileInfoClass.FFI.withPtr ---> GioFileInfoClass.FFI.fromPtr true) dup_ self
-    fun getAttributeAsString self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getAttributeAsString_ (self & attribute)
-    fun getAttributeBoolean self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) getAttributeBoolean_ (self & attribute)
-    fun getAttributeByteString self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAttributeByteString_ (self & attribute)
-    fun getAttributeInt32 self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt32.FFI.fromVal) getAttributeInt32_ (self & attribute)
-    fun getAttributeInt64 self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GInt64.FFI.fromVal) getAttributeInt64_ (self & attribute)
-    fun getAttributeObject self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GObjectObjectClass.FFI.fromPtr false) getAttributeObject_ (self & attribute)
-    fun getAttributeStatus self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileAttributeStatus.FFI.fromVal) getAttributeStatus_ (self & attribute)
-    fun getAttributeString self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getAttributeString_ (self & attribute)
-    fun getAttributeStringv self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getAttributeStringv_ (self & attribute)
-    fun getAttributeType self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioFileAttributeType.FFI.fromVal) getAttributeType_ (self & attribute)
-    fun getAttributeUint32 self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt32.FFI.fromVal) getAttributeUint32_ (self & attribute)
-    fun getAttributeUint64 self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GUInt64.FFI.fromVal) getAttributeUint64_ (self & attribute)
-    fun getContentType self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getContentType_ self
-    fun getDeletionDate self = (GioFileInfoClass.FFI.withPtr ---> GLibDateTimeRecord.FFI.fromPtr true) getDeletionDate_ self
-    fun getDisplayName self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
-    fun getEditName self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getEditName_ self
-    fun getEtag self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getEtag_ self
-    fun getFileType self = (GioFileInfoClass.FFI.withPtr ---> GioFileType.FFI.fromVal) getFileType_ self
-    fun getIcon self = (GioFileInfoClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getIcon_ self
-    fun getIsBackup self = (GioFileInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsBackup_ self
-    fun getIsHidden self = (GioFileInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsHidden_ self
-    fun getIsSymlink self = (GioFileInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsSymlink_ self
+    fun clearStatus self = (GioFileInfoClass.FFI.withPtr false ---> I) clearStatus_ self
+    fun copyInto self destInfo = (GioFileInfoClass.FFI.withPtr false &&&> GioFileInfoClass.FFI.withPtr false ---> I) copyInto_ (self & destInfo)
+    fun dup self = (GioFileInfoClass.FFI.withPtr false ---> GioFileInfoClass.FFI.fromPtr true) dup_ self
+    fun getAttributeAsString self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) getAttributeAsString_ (self & attribute)
+    fun getAttributeBoolean self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) getAttributeBoolean_ (self & attribute)
+    fun getAttributeByteString self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getAttributeByteString_ (self & attribute)
+    fun getAttributeInt32 self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GInt32.FFI.fromVal) getAttributeInt32_ (self & attribute)
+    fun getAttributeInt64 self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GInt64.FFI.fromVal) getAttributeInt64_ (self & attribute)
+    fun getAttributeObject self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectObjectClass.FFI.fromPtr false) getAttributeObject_ (self & attribute)
+    fun getAttributeStatus self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioFileAttributeStatus.FFI.fromVal) getAttributeStatus_ (self & attribute)
+    fun getAttributeString self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getAttributeString_ (self & attribute)
+    fun getAttributeStringv self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr 0) getAttributeStringv_ (self & attribute)
+    fun getAttributeType self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioFileAttributeType.FFI.fromVal) getAttributeType_ (self & attribute)
+    fun getAttributeUint32 self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GUInt32.FFI.fromVal) getAttributeUint32_ (self & attribute)
+    fun getAttributeUint64 self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GUInt64.FFI.fromVal) getAttributeUint64_ (self & attribute)
+    fun getContentType self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getContentType_ self
+    fun getDeletionDate self = (GioFileInfoClass.FFI.withPtr false ---> GLibDateTimeRecord.FFI.fromPtr true) getDeletionDate_ self
+    fun getDisplayName self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
+    fun getEditName self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEditName_ self
+    fun getEtag self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEtag_ self
+    fun getFileType self = (GioFileInfoClass.FFI.withPtr false ---> GioFileType.FFI.fromVal) getFileType_ self
+    fun getIcon self = (GioFileInfoClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self
+    fun getIsBackup self = (GioFileInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsBackup_ self
+    fun getIsHidden self = (GioFileInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsHidden_ self
+    fun getIsSymlink self = (GioFileInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsSymlink_ self
     fun getModificationTime self =
       let
-        val result & () = (GioFileInfoClass.FFI.withPtr &&&> GLibTimeValRecord.FFI.withNewPtr ---> GLibTimeValRecord.FFI.fromPtr true && I) getModificationTime_ (self & ())
+        val result & () = (GioFileInfoClass.FFI.withPtr false &&&> GLibTimeValRecord.FFI.withNewPtr ---> GLibTimeValRecord.FFI.fromPtr true && I) getModificationTime_ (self & ())
       in
         result
       end
-    fun getName self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getSize self = (GioFileInfoClass.FFI.withPtr ---> GInt64.FFI.fromVal) getSize_ self
-    fun getSortOrder self = (GioFileInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getSortOrder_ self
-    fun getSymbolicIcon self = (GioFileInfoClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) getSymbolicIcon_ self
-    fun getSymlinkTarget self = (GioFileInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getSymlinkTarget_ self
-    fun hasAttribute self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasAttribute_ (self & attribute)
-    fun hasNamespace self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasNamespace_ (self & nameSpace)
-    fun listAttributes self nameSpace = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> Utf8CPtrArray.FFI.fromOptPtr 2) listAttributes_ (self & nameSpace)
-    fun removeAttribute self attribute = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) removeAttribute_ (self & attribute)
+    fun getName self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getSize self = (GioFileInfoClass.FFI.withPtr false ---> GInt64.FFI.fromVal) getSize_ self
+    fun getSortOrder self = (GioFileInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getSortOrder_ self
+    fun getSymbolicIcon self = (GioFileInfoClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getSymbolicIcon_ self
+    fun getSymlinkTarget self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSymlinkTarget_ self
+    fun hasAttribute self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasAttribute_ (self & attribute)
+    fun hasNamespace self nameSpace = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasNamespace_ (self & nameSpace)
+    fun listAttributes self nameSpace = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> Utf8CPtrArray.FFI.fromOptPtr ~1) listAttributes_ (self & nameSpace)
+    fun removeAttribute self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) removeAttribute_ (self & attribute)
     fun setAttributeBoolean self (attribute, attrValue) =
       (
-        GioFileInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioFileInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GBool.FFI.withVal
          ---> I
       )
@@ -199,9 +199,9 @@ structure GioFileInfo :>
         )
     fun setAttributeByteString self (attribute, attrValue) =
       (
-        GioFileInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioFileInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         setAttributeByteString_
@@ -212,8 +212,8 @@ structure GioFileInfo :>
         )
     fun setAttributeInt32 self (attribute, attrValue) =
       (
-        GioFileInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioFileInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> I
       )
@@ -225,8 +225,8 @@ structure GioFileInfo :>
         )
     fun setAttributeInt64 self (attribute, attrValue) =
       (
-        GioFileInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioFileInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt64.FFI.withVal
          ---> I
       )
@@ -236,12 +236,12 @@ structure GioFileInfo :>
            & attribute
            & attrValue
         )
-    fun setAttributeMask self mask = (GioFileInfoClass.FFI.withPtr &&&> GioFileAttributeMatcherRecord.FFI.withPtr ---> I) setAttributeMask_ (self & mask)
+    fun setAttributeMask self mask = (GioFileInfoClass.FFI.withPtr false &&&> GioFileAttributeMatcherRecord.FFI.withPtr false ---> I) setAttributeMask_ (self & mask)
     fun setAttributeObject self (attribute, attrValue) =
       (
-        GioFileInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectObjectClass.FFI.withPtr
+        GioFileInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectObjectClass.FFI.withPtr false
          ---> I
       )
         setAttributeObject_
@@ -252,8 +252,8 @@ structure GioFileInfo :>
         )
     fun setAttributeStatus self (attribute, status) =
       (
-        GioFileInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioFileInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GioFileAttributeStatus.FFI.withVal
          ---> GBool.FFI.fromVal
       )
@@ -265,9 +265,9 @@ structure GioFileInfo :>
         )
     fun setAttributeString self (attribute, attrValue) =
       (
-        GioFileInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioFileInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          ---> I
       )
         setAttributeString_
@@ -278,8 +278,8 @@ structure GioFileInfo :>
         )
     fun setAttributeUint32 self (attribute, attrValue) =
       (
-        GioFileInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioFileInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt32.FFI.withVal
          ---> I
       )
@@ -291,8 +291,8 @@ structure GioFileInfo :>
         )
     fun setAttributeUint64 self (attribute, attrValue) =
       (
-        GioFileInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GioFileInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GUInt64.FFI.withVal
          ---> I
       )
@@ -302,18 +302,18 @@ structure GioFileInfo :>
            & attribute
            & attrValue
         )
-    fun setContentType self contentType = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setContentType_ (self & contentType)
-    fun setDisplayName self displayName = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDisplayName_ (self & displayName)
-    fun setEditName self editName = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setEditName_ (self & editName)
-    fun setFileType self type' = (GioFileInfoClass.FFI.withPtr &&&> GioFileType.FFI.withVal ---> I) setFileType_ (self & type')
-    fun setIcon self icon = (GioFileInfoClass.FFI.withPtr &&&> GioIconClass.FFI.withPtr ---> I) setIcon_ (self & icon)
-    fun setIsHidden self isHidden = (GioFileInfoClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setIsHidden_ (self & isHidden)
-    fun setIsSymlink self isSymlink = (GioFileInfoClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setIsSymlink_ (self & isSymlink)
-    fun setModificationTime self mtime = (GioFileInfoClass.FFI.withPtr &&&> GLibTimeValRecord.FFI.withPtr ---> I) setModificationTime_ (self & mtime)
-    fun setName self name = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setName_ (self & name)
-    fun setSize self size = (GioFileInfoClass.FFI.withPtr &&&> GInt64.FFI.withVal ---> I) setSize_ (self & size)
-    fun setSortOrder self sortOrder = (GioFileInfoClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) setSortOrder_ (self & sortOrder)
-    fun setSymbolicIcon self icon = (GioFileInfoClass.FFI.withPtr &&&> GioIconClass.FFI.withPtr ---> I) setSymbolicIcon_ (self & icon)
-    fun setSymlinkTarget self symlinkTarget = (GioFileInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setSymlinkTarget_ (self & symlinkTarget)
-    fun unsetAttributeMask self = (GioFileInfoClass.FFI.withPtr ---> I) unsetAttributeMask_ self
+    fun setContentType self contentType = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setContentType_ (self & contentType)
+    fun setDisplayName self displayName = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDisplayName_ (self & displayName)
+    fun setEditName self editName = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setEditName_ (self & editName)
+    fun setFileType self type' = (GioFileInfoClass.FFI.withPtr false &&&> GioFileType.FFI.withVal ---> I) setFileType_ (self & type')
+    fun setIcon self icon = (GioFileInfoClass.FFI.withPtr false &&&> GioIconClass.FFI.withPtr false ---> I) setIcon_ (self & icon)
+    fun setIsHidden self isHidden = (GioFileInfoClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setIsHidden_ (self & isHidden)
+    fun setIsSymlink self isSymlink = (GioFileInfoClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setIsSymlink_ (self & isSymlink)
+    fun setModificationTime self mtime = (GioFileInfoClass.FFI.withPtr false &&&> GLibTimeValRecord.FFI.withPtr false ---> I) setModificationTime_ (self & mtime)
+    fun setName self name = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setName_ (self & name)
+    fun setSize self size = (GioFileInfoClass.FFI.withPtr false &&&> GInt64.FFI.withVal ---> I) setSize_ (self & size)
+    fun setSortOrder self sortOrder = (GioFileInfoClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setSortOrder_ (self & sortOrder)
+    fun setSymbolicIcon self icon = (GioFileInfoClass.FFI.withPtr false &&&> GioIconClass.FFI.withPtr false ---> I) setSymbolicIcon_ (self & icon)
+    fun setSymlinkTarget self symlinkTarget = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setSymlinkTarget_ (self & symlinkTarget)
+    fun unsetAttributeMask self = (GioFileInfoClass.FFI.withPtr false ---> I) unsetAttributeMask_ self
   end

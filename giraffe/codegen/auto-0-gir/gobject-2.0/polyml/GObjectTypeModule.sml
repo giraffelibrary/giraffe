@@ -36,13 +36,13 @@ structure GObjectTypeModule :>
     type type_t = GObjectType.t
     type flags_value_t = GObjectFlagsValueRecord.t
     type t = base class
-    fun asTypePlugin self = (GObjectObjectClass.FFI.withPtr ---> GObjectTypePluginClass.FFI.fromPtr false) I self
+    fun asTypePlugin self = (GObjectObjectClass.FFI.withPtr false ---> GObjectTypePluginClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun registerEnum self (name, constStaticValues) =
       (
-        GObjectTypeModuleClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectEnumValueRecord.FFI.withPtr
+        GObjectTypeModuleClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectEnumValueRecord.FFI.withPtr false
          ---> GObjectType.FFI.fromVal
       )
         registerEnum_
@@ -53,9 +53,9 @@ structure GObjectTypeModule :>
         )
     fun registerFlags self (name, constStaticValues) =
       (
-        GObjectTypeModuleClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GObjectFlagsValueRecord.FFI.withPtr
+        GObjectTypeModuleClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectFlagsValueRecord.FFI.withPtr false
          ---> GObjectType.FFI.fromVal
       )
         registerFlags_
@@ -64,7 +64,7 @@ structure GObjectTypeModule :>
            & name
            & constStaticValues
         )
-    fun setName self name = (GObjectTypeModuleClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setName_ (self & name)
-    fun unuse self = (GObjectTypeModuleClass.FFI.withPtr ---> I) unuse_ self
-    fun use self = (GObjectTypeModuleClass.FFI.withPtr ---> GBool.FFI.fromVal) use_ self
+    fun setName self name = (GObjectTypeModuleClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setName_ (self & name)
+    fun unuse self = (GObjectTypeModuleClass.FFI.withPtr false ---> I) unuse_ self
+    fun use self = (GObjectTypeModuleClass.FFI.withPtr false ---> GBool.FFI.fromVal) use_ self
   end

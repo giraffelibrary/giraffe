@@ -159,7 +159,7 @@ structure AtkStateType :> ATK_STATE_TYPE =
     val getName_ = _import "atk_state_type_get_name" : FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val register_ = _import "mlton_atk_state_type_register" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> FFI.val_;
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun forName name = (Utf8.FFI.withPtr ---> FFI.fromVal) forName_ name
+    fun forName name = (Utf8.FFI.withPtr 0 ---> FFI.fromVal) forName_ name
     fun getName type' = (FFI.withVal ---> Utf8.FFI.fromPtr 0) getName_ type'
-    fun register name = (Utf8.FFI.withPtr ---> FFI.fromVal) register_ name
+    fun register name = (Utf8.FFI.withPtr 0 ---> FFI.fromVal) register_ name
   end

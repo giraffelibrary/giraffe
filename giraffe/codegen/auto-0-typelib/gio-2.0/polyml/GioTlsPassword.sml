@@ -19,13 +19,13 @@ structure GioTlsPassword :>
     type tls_password_flags_t = GioTlsPasswordFlags.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (flags, description) = (GioTlsPasswordFlags.FFI.withVal &&&> Utf8.FFI.withPtr ---> GioTlsPasswordClass.FFI.fromPtr true) new_ (flags & description)
-    fun getDescription self = (GioTlsPasswordClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getDescription_ self
-    fun getFlags self = (GioTlsPasswordClass.FFI.withPtr ---> GioTlsPasswordFlags.FFI.fromVal) getFlags_ self
-    fun getWarning self = (GioTlsPasswordClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getWarning_ self
-    fun setDescription self description = (GioTlsPasswordClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setDescription_ (self & description)
-    fun setFlags self flags = (GioTlsPasswordClass.FFI.withPtr &&&> GioTlsPasswordFlags.FFI.withVal ---> I) setFlags_ (self & flags)
-    fun setWarning self warning = (GioTlsPasswordClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setWarning_ (self & warning)
+    fun new (flags, description) = (GioTlsPasswordFlags.FFI.withVal &&&> Utf8.FFI.withPtr 0 ---> GioTlsPasswordClass.FFI.fromPtr true) new_ (flags & description)
+    fun getDescription self = (GioTlsPasswordClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self
+    fun getFlags self = (GioTlsPasswordClass.FFI.withPtr false ---> GioTlsPasswordFlags.FFI.fromVal) getFlags_ self
+    fun getWarning self = (GioTlsPasswordClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getWarning_ self
+    fun setDescription self description = (GioTlsPasswordClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDescription_ (self & description)
+    fun setFlags self flags = (GioTlsPasswordClass.FFI.withPtr false &&&> GioTlsPasswordFlags.FFI.withVal ---> I) setFlags_ (self & flags)
+    fun setWarning self warning = (GioTlsPasswordClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setWarning_ (self & warning)
     local
       open Property
     in

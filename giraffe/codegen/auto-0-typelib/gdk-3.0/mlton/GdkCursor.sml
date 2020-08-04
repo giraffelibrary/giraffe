@@ -88,8 +88,8 @@ structure GdkCursor :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new cursorType = (GdkCursorType.FFI.withVal ---> GdkCursorClass.FFI.fromPtr true) new_ cursorType
-    fun newForDisplay (display, cursorType) = (GdkDisplayClass.FFI.withPtr &&&> GdkCursorType.FFI.withVal ---> GdkCursorClass.FFI.fromPtr true) newForDisplay_ (display & cursorType)
-    fun newFromName (display, name) = (GdkDisplayClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GdkCursorClass.FFI.fromOptPtr true) newFromName_ (display & name)
+    fun newForDisplay (display, cursorType) = (GdkDisplayClass.FFI.withPtr false &&&> GdkCursorType.FFI.withVal ---> GdkCursorClass.FFI.fromPtr true) newForDisplay_ (display & cursorType)
+    fun newFromName (display, name) = (GdkDisplayClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GdkCursorClass.FFI.fromOptPtr true) newFromName_ (display & name)
     fun newFromPixbuf
       (
         display,
@@ -98,8 +98,8 @@ structure GdkCursor :>
         y
       ) =
       (
-        GdkDisplayClass.FFI.withPtr
-         &&&> GdkPixbufPixbufClass.FFI.withPtr
+        GdkDisplayClass.FFI.withPtr false
+         &&&> GdkPixbufPixbufClass.FFI.withPtr false
          &&&> GInt32.FFI.withVal
          &&&> GInt32.FFI.withVal
          ---> GdkCursorClass.FFI.fromPtr true
@@ -119,8 +119,8 @@ structure GdkCursor :>
         y
       ) =
       (
-        GdkDisplayClass.FFI.withPtr
-         &&&> CairoSurfaceRecord.FFI.withPtr
+        GdkDisplayClass.FFI.withPtr false
+         &&&> CairoSurfaceRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          ---> GdkCursorClass.FFI.fromPtr true
@@ -132,16 +132,16 @@ structure GdkCursor :>
            & x
            & y
         )
-    fun getCursorType self = (GdkCursorClass.FFI.withPtr ---> GdkCursorType.FFI.fromVal) getCursorType_ self
-    fun getDisplay self = (GdkCursorClass.FFI.withPtr ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
-    fun getImage self = (GdkCursorClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getImage_ self
+    fun getCursorType self = (GdkCursorClass.FFI.withPtr false ---> GdkCursorType.FFI.fromVal) getCursorType_ self
+    fun getDisplay self = (GdkCursorClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getImage self = (GdkCursorClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getImage_ self
     fun getSurface self =
       let
         val xHot
          & yHot
          & retVal =
           (
-            GdkCursorClass.FFI.withPtr
+            GdkCursorClass.FFI.withPtr false
              &&&> GDouble.FFI.withRefVal
              &&&> GDouble.FFI.withRefVal
              ---> GDouble.FFI.fromVal

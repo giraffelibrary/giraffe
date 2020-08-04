@@ -71,12 +71,12 @@ structure PangoLayoutIter :>
     type rectangle_t = PangoRectangleRecord.t
     type layout_run_t = PangoLayoutRunRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun atLastLine self = (PangoLayoutIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) atLastLine_ self
-    fun copy self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutIterRecord.FFI.fromOptPtr true) copy_ self
-    fun getBaseline self = (PangoLayoutIterRecord.FFI.withPtr ---> GInt.FFI.fromVal) getBaseline_ self
+    fun atLastLine self = (PangoLayoutIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) atLastLine_ self
+    fun copy self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutIterRecord.FFI.fromOptPtr true) copy_ self
+    fun getBaseline self = (PangoLayoutIterRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getBaseline_ self
     fun getCharExtents self =
       let
-        val logicalRect & () = (PangoLayoutIterRecord.FFI.withPtr &&&> PangoRectangleRecord.FFI.withNewPtr ---> PangoRectangleRecord.FFI.fromPtr true && I) getCharExtents_ (self & ())
+        val logicalRect & () = (PangoLayoutIterRecord.FFI.withPtr false &&&> PangoRectangleRecord.FFI.withNewPtr ---> PangoRectangleRecord.FFI.fromPtr true && I) getCharExtents_ (self & ())
       in
         logicalRect
       end
@@ -86,7 +86,7 @@ structure PangoLayoutIter :>
          & logicalRect
          & () =
           (
-            PangoLayoutIterRecord.FFI.withPtr
+            PangoLayoutIterRecord.FFI.withPtr false
              &&&> PangoRectangleRecord.FFI.withNewPtr
              &&&> PangoRectangleRecord.FFI.withNewPtr
              ---> PangoRectangleRecord.FFI.fromPtr true
@@ -102,15 +102,15 @@ structure PangoLayoutIter :>
       in
         (inkRect, logicalRect)
       end
-    fun getIndex self = (PangoLayoutIterRecord.FFI.withPtr ---> GInt.FFI.fromVal) getIndex_ self
-    fun getLayout self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self
+    fun getIndex self = (PangoLayoutIterRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getIndex_ self
+    fun getLayout self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self
     fun getLayoutExtents self =
       let
         val inkRect
          & logicalRect
          & () =
           (
-            PangoLayoutIterRecord.FFI.withPtr
+            PangoLayoutIterRecord.FFI.withPtr false
              &&&> PangoRectangleRecord.FFI.withNewPtr
              &&&> PangoRectangleRecord.FFI.withNewPtr
              ---> PangoRectangleRecord.FFI.fromPtr true
@@ -126,14 +126,14 @@ structure PangoLayoutIter :>
       in
         (inkRect, logicalRect)
       end
-    fun getLine self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromPtr true) getLine_ self
+    fun getLine self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutLineRecord.FFI.fromPtr true) getLine_ self
     fun getLineExtents self =
       let
         val inkRect
          & logicalRect
          & () =
           (
-            PangoLayoutIterRecord.FFI.withPtr
+            PangoLayoutIterRecord.FFI.withPtr false
              &&&> PangoRectangleRecord.FFI.withNewPtr
              &&&> PangoRectangleRecord.FFI.withNewPtr
              ---> PangoRectangleRecord.FFI.fromPtr true
@@ -149,14 +149,14 @@ structure PangoLayoutIter :>
       in
         (inkRect, logicalRect)
       end
-    fun getLineReadonly self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutLineRecord.FFI.fromPtr false) getLineReadonly_ self
+    fun getLineReadonly self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutLineRecord.FFI.fromPtr false) getLineReadonly_ self
     fun getLineYrange self =
       let
         val y0
          & y1
          & () =
           (
-            PangoLayoutIterRecord.FFI.withPtr
+            PangoLayoutIterRecord.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -172,14 +172,14 @@ structure PangoLayoutIter :>
       in
         (y0, y1)
       end
-    fun getRun self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutRunRecord.FFI.fromOptPtr false) getRun_ self
+    fun getRun self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutRunRecord.FFI.fromOptPtr false) getRun_ self
     fun getRunExtents self =
       let
         val inkRect
          & logicalRect
          & () =
           (
-            PangoLayoutIterRecord.FFI.withPtr
+            PangoLayoutIterRecord.FFI.withPtr false
              &&&> PangoRectangleRecord.FFI.withNewPtr
              &&&> PangoRectangleRecord.FFI.withNewPtr
              ---> PangoRectangleRecord.FFI.fromPtr true
@@ -195,9 +195,9 @@ structure PangoLayoutIter :>
       in
         (inkRect, logicalRect)
       end
-    fun getRunReadonly self = (PangoLayoutIterRecord.FFI.withPtr ---> PangoLayoutRunRecord.FFI.fromOptPtr false) getRunReadonly_ self
-    fun nextChar self = (PangoLayoutIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) nextChar_ self
-    fun nextCluster self = (PangoLayoutIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) nextCluster_ self
-    fun nextLine self = (PangoLayoutIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) nextLine_ self
-    fun nextRun self = (PangoLayoutIterRecord.FFI.withPtr ---> GBool.FFI.fromVal) nextRun_ self
+    fun getRunReadonly self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutRunRecord.FFI.fromOptPtr false) getRunReadonly_ self
+    fun nextChar self = (PangoLayoutIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) nextChar_ self
+    fun nextCluster self = (PangoLayoutIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) nextCluster_ self
+    fun nextLine self = (PangoLayoutIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) nextLine_ self
+    fun nextRun self = (PangoLayoutIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) nextRun_ self
   end

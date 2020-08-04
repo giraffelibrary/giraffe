@@ -32,7 +32,7 @@ structure GtkTargetEntry :>
         info
       ) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GUInt32.FFI.withVal
          &&&> GUInt32.FFI.withVal
          ---> GtkTargetEntryRecord.FFI.fromPtr true
@@ -43,5 +43,5 @@ structure GtkTargetEntry :>
            & flags
            & info
         )
-    fun copy self = (GtkTargetEntryRecord.FFI.withPtr ---> GtkTargetEntryRecord.FFI.fromPtr true) copy_ self
+    fun copy self = (GtkTargetEntryRecord.FFI.withPtr false ---> GtkTargetEntryRecord.FFI.fromPtr true) copy_ self
   end

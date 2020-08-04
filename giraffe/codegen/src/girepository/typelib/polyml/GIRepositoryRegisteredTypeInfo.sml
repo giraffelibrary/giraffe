@@ -27,17 +27,17 @@ structure GIRepositoryRegisteredTypeInfo :>
 
     val getTypeName =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0)
           getTypeName_
           info
 
     val getTypeInit =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0)
           getTypeInit_
           info
 
     val getGType =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GObjectType.FFI.fromVal) getGType_ info
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GObjectType.FFI.fromVal) getGType_ info
   end

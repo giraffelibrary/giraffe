@@ -13,11 +13,11 @@ structure GioFileIcon :>
     type 'a loadable_icon_class = 'a GioLoadableIconClass.class
     type 'a file_class = 'a GioFileClass.class
     type t = base class
-    fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
-    fun asLoadableIcon self = (GObjectObjectClass.FFI.withPtr ---> GioLoadableIconClass.FFI.fromPtr false) I self
+    fun asIcon self = (GObjectObjectClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) I self
+    fun asLoadableIcon self = (GObjectObjectClass.FFI.withPtr false ---> GioLoadableIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new file = (GioFileClass.FFI.withPtr ---> GioFileIconClass.FFI.fromPtr true) new_ file
-    fun getFile self = (GioFileIconClass.FFI.withPtr ---> GioFileClass.FFI.fromPtr false) getFile_ self
+    fun new file = (GioFileClass.FFI.withPtr false ---> GioFileIconClass.FFI.fromPtr true) new_ file
+    fun getFile self = (GioFileIconClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getFile_ self
     local
       open Property
     in

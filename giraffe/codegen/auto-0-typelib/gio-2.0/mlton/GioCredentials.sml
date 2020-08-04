@@ -45,12 +45,12 @@ structure GioCredentials :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioCredentialsClass.FFI.fromPtr true) new_ ()
-    fun getUnixPid self = (GioCredentialsClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GInt32.FFI.fromVal) getUnixPid_ (self & [])
-    fun getUnixUser self = (GioCredentialsClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GUInt32.FFI.fromVal) getUnixUser_ (self & [])
+    fun getUnixPid self = (GioCredentialsClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GInt32.FFI.fromVal) getUnixPid_ (self & [])
+    fun getUnixUser self = (GioCredentialsClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GUInt32.FFI.fromVal) getUnixUser_ (self & [])
     fun isSameUser self otherCredentials =
       (
-        GioCredentialsClass.FFI.withPtr
-         &&&> GioCredentialsClass.FFI.withPtr
+        GioCredentialsClass.FFI.withPtr false
+         &&&> GioCredentialsClass.FFI.withPtr false
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -62,7 +62,7 @@ structure GioCredentials :>
         )
     fun setUnixUser self uid =
       (
-        GioCredentialsClass.FFI.withPtr
+        GioCredentialsClass.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> ignore
@@ -73,5 +73,5 @@ structure GioCredentials :>
            & uid
            & []
         )
-    fun toString self = (GioCredentialsClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) toString_ self
+    fun toString self = (GioCredentialsClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
   end

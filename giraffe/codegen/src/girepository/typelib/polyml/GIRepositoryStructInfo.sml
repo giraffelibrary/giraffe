@@ -66,39 +66,39 @@ structure GIRepositoryStructInfo :>
 
 
     val getNFields =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNFields_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNFields_ info
 
     val getField =
       fn info => fn n =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GIRepositoryFieldInfoClass.FFI.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GIRepositoryFieldInfoClass.FFI.fromPtr true)
         getField_
         (info & n)
 
     val getNMethods =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GInt32.FFI.fromVal) getNMethods_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNMethods_ info
 
     val getMethod =
       fn info => fn n =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true)
         getMethod_
         (info & n)
 
     val findMethod =
       fn info => fn name =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr
-          &&&> Utf8.FFI.withPtr
+        (GIRepositoryBaseInfoClass.FFI.withPtr false
+          &&&> Utf8.FFI.withPtr 0
           ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true)
         findMethod_
         (info & name)
 
-    val getSize = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GULong.FFI.fromVal) getSize_ info
+    val getSize = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GULong.FFI.fromVal) getSize_ info
 
     val getAlignment =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GULong.FFI.fromVal) getAlignment_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GULong.FFI.fromVal) getAlignment_ info
 
     val isGtypeStruct =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isGtypeStruct_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isGtypeStruct_ info
 
     val isForeign =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) isForeign_ info
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isForeign_ info
   end

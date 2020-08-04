@@ -558,17 +558,17 @@ fun boolToInt b = if b then 1 else 0
 
 fun getArrayOwnXferDepth ownXferDepth elem =
   case elem of
-    IGTYPE _                     => ownXferDepth
-  | ISCALAR _                    => ownXferDepth
-  | IUTF8 {ownXfer, ...}         => ownXferDepth + (boolToInt ownXfer)
+    IGTYPE _                     => ~1
+  | ISCALAR _                    => ~1
+  | IUTF8 {ownXfer, ...}         => if ownXfer then ~1 else ownXferDepth
   | IARRAY {ownXfer, elem, ...}  =>
       if ownXfer
       then getArrayOwnXferDepth (ownXferDepth + 1) elem
       else ownXferDepth
   | IINTERFACE {ptrOwnXfer, ...} =>
       case ptrOwnXfer of
-        SOME ownXfer => ownXferDepth + (boolToInt ownXfer)
-      | NONE         => ownXferDepth
+        SOME ownXfer => if ownXfer then ~1 else ownXferDepth
+      | NONE         => ~1
 
 datatype dir =
   IN
@@ -2039,38 +2039,41 @@ local
         case optIRef of
           NONE      => [utf8StrId, ffiStrId]
         | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
-
-      val isDup = case dir of OUT _ => false | _ => ownXfer
     in
       withFunExp prefixIds {
         isRef = dir <> IN,
-        isDup = isDup,
+        isDup = false,
         isNew = false,
         isOpt = isOpt orelse case dir of OUT _ => true | _ => false,
         isPtr = true,
         xfer  =
-          if isDup
-          then XferDepth 1
-          else XferNone
+          XferDepth (
+            case dir of
+              OUT _ => 0
+            | _     => if ownXfer then ~1 else 0
+          )
       }
     end
 
   fun withFunArray (dir, {ownXfer, isOpt, iRef, elem, ...} : array_info) =
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
-
-      val isDup = case dir of OUT _ => false | _ => ownXfer
     in
       withFunExp prefixIds {
         isRef = dir <> IN,
-        isDup = isDup,
+        isDup = false,
         isNew = false,
         isOpt = isOpt orelse case dir of OUT _ => true | _ => false,
         isPtr = true,
         xfer  =
-          if isDup
-          then XferDepth (getArrayOwnXferDepth (boolToInt ownXfer) elem)
-          else XferNone
+          XferDepth (
+            case dir of
+              OUT _ => 0
+            | _     =>
+                if ownXfer
+                then getArrayOwnXferDepth 1 elem
+                else 0
+          )
       }
     end
 
@@ -2107,16 +2110,10 @@ local
             | _        => true
           ),
         isDup =
-          case (infoType, dir) of
-            (OBJECT _,    IN)    => ptrOwnXfer = SOME true
-          | (INTERFACE _, IN)    => ptrOwnXfer = SOME true
-          | (STRUCT _,    IN)    => ptrOwnXfer = SOME true
-          | (UNION _,     IN)    => ptrOwnXfer = SOME true
-          | (OBJECT _,    INOUT) => true
-          | (INTERFACE _, INOUT) => true
-          | (STRUCT _,    INOUT) => true
-          | (UNION _,     INOUT) => true
-          | _                    => false,
+          case infoType of
+            STRUCT _ => dir = INOUT andalso ptrOwnXfer = NONE
+          | UNION _  => dir = INOUT andalso ptrOwnXfer = NONE
+          | _        => false,
         isNew =
           case (dir, infoType) of
             (OUT isCallerAllocates, STRUCT _) =>
@@ -2124,7 +2121,6 @@ local
               (* Note that `isCallerAllocates` can be true when `ptrOwnXfer <> NONE`
                * for disguised structs, such as GdkAtom.  For information on disguised
                * structs, see https://bugzilla.gnome.org/show_bug.cgi?id=560248 . *)
-          | (INOUT,                 STRUCT _) => ptrOwnXfer = NONE
           | _                                 => false,
         isOpt =
           case dir of
@@ -2135,7 +2131,10 @@ local
           case infoType of
             STRUCT _ => true
           | _        => isSome ptrOwnXfer,
-        xfer  = XferNone
+        xfer  =
+          case ptrOwnXfer of
+            SOME ownXfer => XferFlag ownXfer
+          | NONE         => XferNone
       }
     end
 
@@ -2171,7 +2170,7 @@ local
     in
       fromFunExp prefixIds {
         isOpt = isOpt,
-        xfer  = XferDepth (boolToInt ownXfer)
+        xfer  = XferDepth (if ownXfer then ~1 else 0)
       }
     end
 
@@ -2181,12 +2180,17 @@ local
     in
       fromFunExp prefixIds {
         isOpt = isOpt,
-        xfer  = XferDepth (getArrayOwnXferDepth (boolToInt ownXfer) elem)
+        xfer  =
+          XferDepth (
+            if ownXfer
+            then getArrayOwnXferDepth 1 elem
+            else 0
+          )
       }
     end
 
   fun fromFunInterface
-    (isInOut, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interface_info) =
+    (_, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interface_info) =
     let
 (*
       val {isSelf, ...} = iRef
@@ -2213,12 +2217,9 @@ local
       fromFunExp prefixIds {
         isOpt = isOpt,
         xfer  =
-          case (infoType, isInOut, ptrOwnXfer) of
-            (OBJECT _,    true,  _)         => XferFlag true
-          | (INTERFACE _, true,  _)         => XferFlag true
-          | (STRUCT _,    false, NONE)      => XferFlag true
-          | (STRUCT _,    true,  _)         => XferFlag true
-          | _                               =>
+          case (infoType, ptrOwnXfer) of
+            (STRUCT _, NONE) => XferFlag true
+          | _                =>
               case ptrOwnXfer of
                 SOME ownXfer => XferFlag ownXfer
               | NONE         => XferNone
@@ -2593,8 +2594,11 @@ fun makeFunctionStrDecHighLevel
           SOME iRef =>
             let
               val withFun =
-                mkLIdLNameExp (
-                  prefixInterfaceStrId iRef [ffiStrId, withPtrId]
+                ExpApp (
+                  mkLIdLNameExp (
+                    prefixInterfaceStrId iRef [ffiStrId, withPtrId]
+                  ),
+                  falseExp
                 )
               val argVal = mkIdLNameExp selfId
               val inParamAPat = mkIdVarAPat selfId

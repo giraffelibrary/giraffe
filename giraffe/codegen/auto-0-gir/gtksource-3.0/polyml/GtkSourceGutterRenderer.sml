@@ -127,10 +127,10 @@ structure GtkSourceGutterRenderer :>
         event
       ) =
       (
-        GtkSourceGutterRendererClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
-         &&&> GdkEvent.FFI.withPtr
+        GtkSourceGutterRendererClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
+         &&&> GdkEvent.FFI.withPtr false
          ---> I
       )
         activate_
@@ -150,12 +150,12 @@ structure GtkSourceGutterRenderer :>
         end'
       ) =
       (
-        GtkSourceGutterRendererClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkSourceGutterRendererClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> I
       )
         begin_
@@ -178,12 +178,12 @@ structure GtkSourceGutterRenderer :>
         state
       ) =
       (
-        GtkSourceGutterRendererClass.FFI.withPtr
-         &&&> CairoContextRecord.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkSourceGutterRendererClass.FFI.withPtr false
+         &&&> CairoContextRecord.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          &&&> GtkSourceGutterRendererState.FFI.withVal
          ---> I
       )
@@ -197,14 +197,14 @@ structure GtkSourceGutterRenderer :>
            & end'
            & state
         )
-    fun end' self = (GtkSourceGutterRendererClass.FFI.withPtr ---> I) end_ self
+    fun end' self = (GtkSourceGutterRendererClass.FFI.withPtr false ---> I) end_ self
     fun getAlignment self =
       let
         val xalign
          & yalign
          & () =
           (
-            GtkSourceGutterRendererClass.FFI.withPtr
+            GtkSourceGutterRendererClass.FFI.withPtr false
              &&&> GFloat.FFI.withRefVal
              &&&> GFloat.FFI.withRefVal
              ---> GFloat.FFI.fromVal
@@ -220,10 +220,10 @@ structure GtkSourceGutterRenderer :>
       in
         (xalign, yalign)
       end
-    fun getAlignmentMode self = (GtkSourceGutterRendererClass.FFI.withPtr ---> GtkSourceGutterRendererAlignmentMode.FFI.fromVal) getAlignmentMode_ self
+    fun getAlignmentMode self = (GtkSourceGutterRendererClass.FFI.withPtr false ---> GtkSourceGutterRendererAlignmentMode.FFI.fromVal) getAlignmentMode_ self
     fun getBackground self =
       let
-        val color & retVal = (GtkSourceGutterRendererClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withNewPtr ---> GdkRgbaRecord.FFI.fromPtr true && GBool.FFI.fromVal) getBackground_ (self & ())
+        val color & retVal = (GtkSourceGutterRendererClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withNewPtr ---> GdkRgbaRecord.FFI.fromPtr true && GBool.FFI.fromVal) getBackground_ (self & ())
       in
         if retVal then SOME color else NONE
       end
@@ -233,7 +233,7 @@ structure GtkSourceGutterRenderer :>
          & ypad
          & () =
           (
-            GtkSourceGutterRendererClass.FFI.withPtr
+            GtkSourceGutterRendererClass.FFI.withPtr false
              &&&> GInt.FFI.withRefVal
              &&&> GInt.FFI.withRefVal
              ---> GInt.FFI.fromVal
@@ -249,10 +249,10 @@ structure GtkSourceGutterRenderer :>
       in
         (xpad, ypad)
       end
-    fun getSize self = (GtkSourceGutterRendererClass.FFI.withPtr ---> GInt.FFI.fromVal) getSize_ self
-    fun getView self = (GtkSourceGutterRendererClass.FFI.withPtr ---> GtkTextViewClass.FFI.fromPtr false) getView_ self
-    fun getVisible self = (GtkSourceGutterRendererClass.FFI.withPtr ---> GBool.FFI.fromVal) getVisible_ self
-    fun getWindowType self = (GtkSourceGutterRendererClass.FFI.withPtr ---> GtkTextWindowType.FFI.fromVal) getWindowType_ self
+    fun getSize self = (GtkSourceGutterRendererClass.FFI.withPtr false ---> GInt.FFI.fromVal) getSize_ self
+    fun getView self = (GtkSourceGutterRendererClass.FFI.withPtr false ---> GtkTextViewClass.FFI.fromPtr false) getView_ self
+    fun getVisible self = (GtkSourceGutterRendererClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
+    fun getWindowType self = (GtkSourceGutterRendererClass.FFI.withPtr false ---> GtkTextWindowType.FFI.fromVal) getWindowType_ self
     fun queryActivatable
       self
       (
@@ -261,10 +261,10 @@ structure GtkSourceGutterRenderer :>
         event
       ) =
       (
-        GtkSourceGutterRendererClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
-         &&&> GdkEvent.FFI.withPtr
+        GtkSourceGutterRendererClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
+         &&&> GdkEvent.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         queryActivatable_
@@ -282,9 +282,9 @@ structure GtkSourceGutterRenderer :>
         state
       ) =
       (
-        GtkSourceGutterRendererClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkSourceGutterRendererClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          &&&> GtkSourceGutterRendererState.FFI.withVal
          ---> I
       )
@@ -305,12 +305,12 @@ structure GtkSourceGutterRenderer :>
         tooltip
       ) =
       (
-        GtkSourceGutterRendererClass.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
-         &&&> GdkRectangleRecord.FFI.withPtr
+        GtkSourceGutterRendererClass.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
-         &&&> GtkTooltipClass.FFI.withPtr
+         &&&> GtkTooltipClass.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         queryTooltip_
@@ -322,10 +322,10 @@ structure GtkSourceGutterRenderer :>
            & y
            & tooltip
         )
-    fun queueDraw self = (GtkSourceGutterRendererClass.FFI.withPtr ---> I) queueDraw_ self
+    fun queueDraw self = (GtkSourceGutterRendererClass.FFI.withPtr false ---> I) queueDraw_ self
     fun setAlignment self (xalign, yalign) =
       (
-        GtkSourceGutterRendererClass.FFI.withPtr
+        GtkSourceGutterRendererClass.FFI.withPtr false
          &&&> GFloat.FFI.withVal
          &&&> GFloat.FFI.withVal
          ---> I
@@ -336,11 +336,11 @@ structure GtkSourceGutterRenderer :>
            & xalign
            & yalign
         )
-    fun setAlignmentMode self mode = (GtkSourceGutterRendererClass.FFI.withPtr &&&> GtkSourceGutterRendererAlignmentMode.FFI.withVal ---> I) setAlignmentMode_ (self & mode)
-    fun setBackground self color = (GtkSourceGutterRendererClass.FFI.withPtr &&&> GdkRgbaRecord.FFI.withOptPtr ---> I) setBackground_ (self & color)
+    fun setAlignmentMode self mode = (GtkSourceGutterRendererClass.FFI.withPtr false &&&> GtkSourceGutterRendererAlignmentMode.FFI.withVal ---> I) setAlignmentMode_ (self & mode)
+    fun setBackground self color = (GtkSourceGutterRendererClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withOptPtr false ---> I) setBackground_ (self & color)
     fun setPadding self (xpad, ypad) =
       (
-        GtkSourceGutterRendererClass.FFI.withPtr
+        GtkSourceGutterRendererClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
@@ -351,8 +351,8 @@ structure GtkSourceGutterRenderer :>
            & xpad
            & ypad
         )
-    fun setSize self size = (GtkSourceGutterRendererClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setSize_ (self & size)
-    fun setVisible self visible = (GtkSourceGutterRendererClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
+    fun setSize self size = (GtkSourceGutterRendererClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setSize_ (self & size)
+    fun setVisible self visible = (GtkSourceGutterRendererClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
     local
       open ClosureMarshal Signal
     in

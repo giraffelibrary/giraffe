@@ -17,20 +17,20 @@ structure GioThemedIcon :>
     type 'a class = 'a GioThemedIconClass.class
     type 'a icon_class = 'a GioIconClass.class
     type t = base class
-    fun asIcon self = (GObjectObjectClass.FFI.withPtr ---> GioIconClass.FFI.fromPtr false) I self
+    fun asIcon self = (GObjectObjectClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new iconname = (Utf8.FFI.withPtr ---> GioThemedIconClass.FFI.fromPtr true) new_ iconname
+    fun new iconname = (Utf8.FFI.withPtr 0 ---> GioThemedIconClass.FFI.fromPtr true) new_ iconname
     fun newFromNames iconnames =
       let
         val len = LargeInt.fromInt (Utf8CPtrArrayN.length iconnames)
-        val retVal = (Utf8CPtrArrayN.FFI.withPtr &&&> GInt32.FFI.withVal ---> GioThemedIconClass.FFI.fromPtr true) newFromNames_ (iconnames & len)
+        val retVal = (Utf8CPtrArrayN.FFI.withPtr 0 &&&> GInt32.FFI.withVal ---> GioThemedIconClass.FFI.fromPtr true) newFromNames_ (iconnames & len)
       in
         retVal
       end
-    fun newWithDefaultFallbacks iconname = (Utf8.FFI.withPtr ---> GioThemedIconClass.FFI.fromPtr true) newWithDefaultFallbacks_ iconname
-    fun appendName self iconname = (GioThemedIconClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) appendName_ (self & iconname)
-    fun getNames self = (GioThemedIconClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getNames_ self
-    fun prependName self iconname = (GioThemedIconClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) prependName_ (self & iconname)
+    fun newWithDefaultFallbacks iconname = (Utf8.FFI.withPtr 0 ---> GioThemedIconClass.FFI.fromPtr true) newWithDefaultFallbacks_ iconname
+    fun appendName self iconname = (GioThemedIconClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) appendName_ (self & iconname)
+    fun getNames self = (GioThemedIconClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getNames_ self
+    fun prependName self iconname = (GioThemedIconClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) prependName_ (self & iconname)
     local
       open Property
     in

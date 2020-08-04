@@ -9,8 +9,8 @@ structure AtkPlug :>
     type 'a class = 'a AtkPlugClass.class
     type 'a component_class = 'a AtkComponentClass.class
     type t = base class
-    fun asComponent self = (GObjectObjectClass.FFI.withPtr ---> AtkComponentClass.FFI.fromPtr false) I self
+    fun asComponent self = (GObjectObjectClass.FFI.withPtr false ---> AtkComponentClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> AtkPlugClass.FFI.fromPtr true) new_ ()
-    fun getId self = (AtkPlugClass.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getId_ self
+    fun getId self = (AtkPlugClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getId_ self
   end

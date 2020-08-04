@@ -16,8 +16,8 @@ structure GdkPixbufPixbufAnimationIter :>
     type 'a pixbuf_class = 'a GdkPixbufPixbufClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun advance self currentTime = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr &&&> GLibTimeValRecord.FFI.withOptPtr ---> GBool.FFI.fromVal) advance_ (self & currentTime)
-    fun getDelayTime self = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr ---> GInt.FFI.fromVal) getDelayTime_ self
-    fun getPixbuf self = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
-    fun onCurrentlyLoadingFrame self = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr ---> GBool.FFI.fromVal) onCurrentlyLoadingFrame_ self
+    fun advance self currentTime = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr false &&&> GLibTimeValRecord.FFI.withOptPtr false ---> GBool.FFI.fromVal) advance_ (self & currentTime)
+    fun getDelayTime self = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr false ---> GInt.FFI.fromVal) getDelayTime_ self
+    fun getPixbuf self = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
+    fun onCurrentlyLoadingFrame self = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr false ---> GBool.FFI.fromVal) onCurrentlyLoadingFrame_ self
   end

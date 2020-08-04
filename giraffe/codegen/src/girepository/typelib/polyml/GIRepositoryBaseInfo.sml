@@ -53,44 +53,44 @@ structure GIRepositoryBaseInfo :>
 
     val getName =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0)
           getName_ info
 
     val getNamespace =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
           getNamespace_
           info
 
     val isDeprecated =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal)
           isDeprecated_
           info
 
     val getAttribute =
       fn info => fn name =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr
-          &&&> Utf8.FFI.withPtr
+        (GIRepositoryBaseInfoClass.FFI.withPtr false
+          &&&> Utf8.FFI.withPtr 0
           ---> Utf8.FFI.fromOptPtr 0)
           getAttribute_
           (info & name)
 
     val getContainer =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryBaseInfoClass.FFI.fromOptPtr false)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryBaseInfoClass.FFI.fromOptPtr false)
           getContainer_
           info
 
     val getTypelib =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypelibType.FFI.fromPtr false)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypelibType.FFI.fromPtr false)
           getTypelib_
           info
 
     val equal =
       fn info1 => fn info2 =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr &&&> GIRepositoryBaseInfoClass.FFI.withPtr ---> GBool.FFI.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false &&&> GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal)
         equal_
         (info1 & info2)
   end

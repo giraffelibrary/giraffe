@@ -36,10 +36,10 @@ structure GioRemoteActionGroup :>
         platformData
       ) =
       (
-        GioRemoteActionGroupClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withOptPtr
-         &&&> GLibVariantRecord.FFI.withPtr
+        GioRemoteActionGroupClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withOptPtr false
+         &&&> GLibVariantRecord.FFI.withPtr false
          ---> I
       )
         activateActionFull_
@@ -57,10 +57,10 @@ structure GioRemoteActionGroup :>
         platformData
       ) =
       (
-        GioRemoteActionGroupClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withPtr
-         &&&> GLibVariantRecord.FFI.withPtr
+        GioRemoteActionGroupClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GLibVariantRecord.FFI.withPtr false
+         &&&> GLibVariantRecord.FFI.withPtr false
          ---> I
       )
         changeActionStateFull_

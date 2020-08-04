@@ -38,24 +38,24 @@ structure GIRepositoryFunctionInfo :>
 
     val getSymbol =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
           getSymbol_
           info
 
     val getFlags =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryFunctionInfoFlags.FFI.fromVal)
+      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryFunctionInfoFlags.FFI.fromVal)
         getFlags_
         info
 
     val getProperty =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryPropertyInfoClass.FFI.fromOptPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryPropertyInfoClass.FFI.fromOptPtr true)
           getProperty_
           info
 
     val getVfunc =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryVFuncInfoClass.FFI.fromOptPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryVFuncInfoClass.FFI.fromOptPtr true)
           getVfunc_
           info
   end

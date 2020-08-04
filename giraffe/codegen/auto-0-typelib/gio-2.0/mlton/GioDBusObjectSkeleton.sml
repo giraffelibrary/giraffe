@@ -45,14 +45,14 @@ structure GioDBusObjectSkeleton :>
     type 'a d_bus_method_invocation_class = 'a GioDBusMethodInvocationClass.class
     type 'a d_bus_interface_skeleton_class = 'a GioDBusInterfaceSkeletonClass.class
     type t = base class
-    fun asDBusObject self = (GObjectObjectClass.FFI.withPtr ---> GioDBusObjectClass.FFI.fromPtr false) I self
+    fun asDBusObject self = (GObjectObjectClass.FFI.withPtr false ---> GioDBusObjectClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new objectPath = (Utf8.FFI.withPtr ---> GioDBusObjectSkeletonClass.FFI.fromPtr true) new_ objectPath
-    fun addInterface self interface = (GioDBusObjectSkeletonClass.FFI.withPtr &&&> GioDBusInterfaceSkeletonClass.FFI.withPtr ---> I) addInterface_ (self & interface)
-    fun flush self = (GioDBusObjectSkeletonClass.FFI.withPtr ---> I) flush_ self
-    fun removeInterface self interface = (GioDBusObjectSkeletonClass.FFI.withPtr &&&> GioDBusInterfaceSkeletonClass.FFI.withPtr ---> I) removeInterface_ (self & interface)
-    fun removeInterfaceByName self interfaceName = (GioDBusObjectSkeletonClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) removeInterfaceByName_ (self & interfaceName)
-    fun setObjectPath self objectPath = (GioDBusObjectSkeletonClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) setObjectPath_ (self & objectPath)
+    fun new objectPath = (Utf8.FFI.withPtr 0 ---> GioDBusObjectSkeletonClass.FFI.fromPtr true) new_ objectPath
+    fun addInterface self interface = (GioDBusObjectSkeletonClass.FFI.withPtr false &&&> GioDBusInterfaceSkeletonClass.FFI.withPtr false ---> I) addInterface_ (self & interface)
+    fun flush self = (GioDBusObjectSkeletonClass.FFI.withPtr false ---> I) flush_ self
+    fun removeInterface self interface = (GioDBusObjectSkeletonClass.FFI.withPtr false &&&> GioDBusInterfaceSkeletonClass.FFI.withPtr false ---> I) removeInterface_ (self & interface)
+    fun removeInterfaceByName self interfaceName = (GioDBusObjectSkeletonClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) removeInterfaceByName_ (self & interfaceName)
+    fun setObjectPath self objectPath = (GioDBusObjectSkeletonClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setObjectPath_ (self & objectPath)
     local
       open ClosureMarshal Signal
     in

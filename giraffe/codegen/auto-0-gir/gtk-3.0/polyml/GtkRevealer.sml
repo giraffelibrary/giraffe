@@ -21,17 +21,17 @@ structure GtkRevealer :>
     type 'a buildable_class = 'a GtkBuildableClass.class
     type revealer_transition_type_t = GtkRevealerTransitionType.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr ---> GtkBuildableClass.FFI.fromPtr false) I self
+    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
+    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkRevealerClass.FFI.fromPtr false) new_ ()
-    fun getChildRevealed self = (GtkRevealerClass.FFI.withPtr ---> GBool.FFI.fromVal) getChildRevealed_ self
-    fun getRevealChild self = (GtkRevealerClass.FFI.withPtr ---> GBool.FFI.fromVal) getRevealChild_ self
-    fun getTransitionDuration self = (GtkRevealerClass.FFI.withPtr ---> GUInt.FFI.fromVal) getTransitionDuration_ self
-    fun getTransitionType self = (GtkRevealerClass.FFI.withPtr ---> GtkRevealerTransitionType.FFI.fromVal) getTransitionType_ self
-    fun setRevealChild self revealChild = (GtkRevealerClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) setRevealChild_ (self & revealChild)
-    fun setTransitionDuration self duration = (GtkRevealerClass.FFI.withPtr &&&> GUInt.FFI.withVal ---> I) setTransitionDuration_ (self & duration)
-    fun setTransitionType self transition = (GtkRevealerClass.FFI.withPtr &&&> GtkRevealerTransitionType.FFI.withVal ---> I) setTransitionType_ (self & transition)
+    fun getChildRevealed self = (GtkRevealerClass.FFI.withPtr false ---> GBool.FFI.fromVal) getChildRevealed_ self
+    fun getRevealChild self = (GtkRevealerClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRevealChild_ self
+    fun getTransitionDuration self = (GtkRevealerClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getTransitionDuration_ self
+    fun getTransitionType self = (GtkRevealerClass.FFI.withPtr false ---> GtkRevealerTransitionType.FFI.fromVal) getTransitionType_ self
+    fun setRevealChild self revealChild = (GtkRevealerClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRevealChild_ (self & revealChild)
+    fun setTransitionDuration self duration = (GtkRevealerClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) setTransitionDuration_ (self & duration)
+    fun setTransitionType self transition = (GtkRevealerClass.FFI.withPtr false &&&> GtkRevealerTransitionType.FFI.withVal ---> I) setTransitionType_ (self & transition)
     local
       open Property
     in

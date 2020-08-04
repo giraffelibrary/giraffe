@@ -18,9 +18,9 @@ structure GLibVariantBuilder :>
     type variant_t = GLibVariantRecord.t
     type variant_type_t = GLibVariantTypeRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new type' = (GLibVariantTypeRecord.FFI.withPtr ---> GLibVariantBuilderRecord.FFI.fromPtr true) new_ type'
-    fun addValue self value = (GLibVariantBuilderRecord.FFI.withPtr &&&> GLibVariantRecord.FFI.withPtr ---> I) addValue_ (self & value)
-    fun close self = (GLibVariantBuilderRecord.FFI.withPtr ---> I) close_ self
-    fun end' self = (GLibVariantBuilderRecord.FFI.withPtr ---> GLibVariantRecord.FFI.fromPtr false) end_ self
-    fun open' self type' = (GLibVariantBuilderRecord.FFI.withPtr &&&> GLibVariantTypeRecord.FFI.withPtr ---> I) open_ (self & type')
+    fun new type' = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantBuilderRecord.FFI.fromPtr true) new_ type'
+    fun addValue self value = (GLibVariantBuilderRecord.FFI.withPtr false &&&> GLibVariantRecord.FFI.withPtr false ---> I) addValue_ (self & value)
+    fun close self = (GLibVariantBuilderRecord.FFI.withPtr false ---> I) close_ self
+    fun end' self = (GLibVariantBuilderRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) end_ self
+    fun open' self type' = (GLibVariantBuilderRecord.FFI.withPtr false &&&> GLibVariantTypeRecord.FFI.withPtr false ---> I) open_ (self & type')
   end

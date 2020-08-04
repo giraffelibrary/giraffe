@@ -31,19 +31,19 @@ structure GIRepositoryPropertyInfo :>
 
     val getFlags =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GObjectParamFlags.FFI.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GObjectParamFlags.FFI.fromVal)
           getFlags_
           info
 
     val getType =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
           getType_
           info
 
     val getOwnershipTransfer =
       fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr ---> GIRepositoryTransfer.FFI.fromVal)
+        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTransfer.FFI.fromVal)
         getOwnershipTransfer_
         info
   end

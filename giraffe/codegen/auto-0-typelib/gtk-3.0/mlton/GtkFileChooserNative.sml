@@ -72,7 +72,7 @@ structure GtkFileChooserNative :>
     type file_chooser_action_t = GtkFileChooserAction.t
     type 'a window_class = 'a GtkWindowClass.class
     type t = base class
-    fun asFileChooser self = (GObjectObjectClass.FFI.withPtr ---> GtkFileChooserClass.FFI.fromPtr false) I self
+    fun asFileChooser self = (GObjectObjectClass.FFI.withPtr false ---> GtkFileChooserClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new
       (
@@ -83,11 +83,11 @@ structure GtkFileChooserNative :>
         cancelLabel
       ) =
       (
-        Utf8.FFI.withOptPtr
-         &&&> GtkWindowClass.FFI.withOptPtr
+        Utf8.FFI.withOptPtr 0
+         &&&> GtkWindowClass.FFI.withOptPtr false
          &&&> GtkFileChooserAction.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr
-         &&&> Utf8.FFI.withOptPtr
+         &&&> Utf8.FFI.withOptPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          ---> GtkFileChooserNativeClass.FFI.fromPtr true
       )
         new_
@@ -98,10 +98,10 @@ structure GtkFileChooserNative :>
            & acceptLabel
            & cancelLabel
         )
-    fun getAcceptLabel self = (GtkFileChooserNativeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getAcceptLabel_ self
-    fun getCancelLabel self = (GtkFileChooserNativeClass.FFI.withPtr ---> Utf8.FFI.fromOptPtr 0) getCancelLabel_ self
-    fun setAcceptLabel self acceptLabel = (GtkFileChooserNativeClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setAcceptLabel_ (self & acceptLabel)
-    fun setCancelLabel self cancelLabel = (GtkFileChooserNativeClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> I) setCancelLabel_ (self & cancelLabel)
+    fun getAcceptLabel self = (GtkFileChooserNativeClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getAcceptLabel_ self
+    fun getCancelLabel self = (GtkFileChooserNativeClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getCancelLabel_ self
+    fun setAcceptLabel self acceptLabel = (GtkFileChooserNativeClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setAcceptLabel_ (self & acceptLabel)
+    fun setCancelLabel self cancelLabel = (GtkFileChooserNativeClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setCancelLabel_ (self & cancelLabel)
     local
       open Property
     in

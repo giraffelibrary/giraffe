@@ -43,11 +43,11 @@ structure GioSimpleActionGroup :>
     type 'a action_map_class = 'a GioActionMapClass.class
     type 'a action_class = 'a GioActionClass.class
     type t = base class
-    fun asActionGroup self = (GObjectObjectClass.FFI.withPtr ---> GioActionGroupClass.FFI.fromPtr false) I self
-    fun asActionMap self = (GObjectObjectClass.FFI.withPtr ---> GioActionMapClass.FFI.fromPtr false) I self
+    fun asActionGroup self = (GObjectObjectClass.FFI.withPtr false ---> GioActionGroupClass.FFI.fromPtr false) I self
+    fun asActionMap self = (GObjectObjectClass.FFI.withPtr false ---> GioActionMapClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioSimpleActionGroupClass.FFI.fromPtr true) new_ ()
-    fun insert self action = (GioSimpleActionGroupClass.FFI.withPtr &&&> GioActionClass.FFI.withPtr ---> I) insert_ (self & action)
-    fun lookup self actionName = (GioSimpleActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GioActionClass.FFI.fromPtr false) lookup_ (self & actionName)
-    fun remove self actionName = (GioSimpleActionGroupClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> I) remove_ (self & actionName)
+    fun insert self action = (GioSimpleActionGroupClass.FFI.withPtr false &&&> GioActionClass.FFI.withPtr false ---> I) insert_ (self & action)
+    fun lookup self actionName = (GioSimpleActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioActionClass.FFI.fromPtr false) lookup_ (self & actionName)
+    fun remove self actionName = (GioSimpleActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) remove_ (self & actionName)
   end

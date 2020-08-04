@@ -38,8 +38,8 @@ structure GtkTextTag :>
     type wrap_mode_t = GtkWrapMode.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new name = (Utf8.FFI.withOptPtr ---> GtkTextTagClass.FFI.fromPtr true) new_ name
-    fun changed self sizeChanged = (GtkTextTagClass.FFI.withPtr &&&> GBool.FFI.withVal ---> I) changed_ (self & sizeChanged)
+    fun new name = (Utf8.FFI.withOptPtr 0 ---> GtkTextTagClass.FFI.fromPtr true) new_ name
+    fun changed self sizeChanged = (GtkTextTagClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) changed_ (self & sizeChanged)
     fun event
       self
       (
@@ -48,10 +48,10 @@ structure GtkTextTag :>
         iter
       ) =
       (
-        GtkTextTagClass.FFI.withPtr
-         &&&> GObjectObjectClass.FFI.withPtr
-         &&&> GdkEvent.FFI.withPtr
-         &&&> GtkTextIterRecord.FFI.withPtr
+        GtkTextTagClass.FFI.withPtr false
+         &&&> GObjectObjectClass.FFI.withPtr false
+         &&&> GdkEvent.FFI.withPtr false
+         &&&> GtkTextIterRecord.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         event_
@@ -61,8 +61,8 @@ structure GtkTextTag :>
            & event
            & iter
         )
-    fun getPriority self = (GtkTextTagClass.FFI.withPtr ---> GInt.FFI.fromVal) getPriority_ self
-    fun setPriority self priority = (GtkTextTagClass.FFI.withPtr &&&> GInt.FFI.withVal ---> I) setPriority_ (self & priority)
+    fun getPriority self = (GtkTextTagClass.FFI.withPtr false ---> GInt.FFI.fromVal) getPriority_ self
+    fun setPriority self priority = (GtkTextTagClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setPriority_ (self & priority)
     local
       open ClosureMarshal Signal
     in

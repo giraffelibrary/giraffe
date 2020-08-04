@@ -39,30 +39,30 @@ structure GioDesktopAppInfo :>
     type 'a app_info_class = 'a GioAppInfoClass.class
     type 'a app_launch_context_class = 'a GioAppLaunchContextClass.class
     type t = base class
-    fun asAppInfo self = (GObjectObjectClass.FFI.withPtr ---> GioAppInfoClass.FFI.fromPtr false) I self
+    fun asAppInfo self = (GObjectObjectClass.FFI.withPtr false ---> GioAppInfoClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new desktopId = (Utf8.FFI.withPtr ---> GioDesktopAppInfoClass.FFI.fromPtr true) new_ desktopId
-    fun newFromFilename filename = (Utf8.FFI.withPtr ---> GioDesktopAppInfoClass.FFI.fromPtr true) newFromFilename_ filename
-    fun newFromKeyfile keyFile = (GLibKeyFileRecord.FFI.withPtr ---> GioDesktopAppInfoClass.FFI.fromPtr true) newFromKeyfile_ keyFile
-    fun search searchString = (Utf8.FFI.withPtr ---> Utf8CPtrArrayCPtrArray.FFI.fromPtr 3) search_ searchString
-    fun setDesktopEnv desktopEnv = (Utf8.FFI.withPtr ---> I) setDesktopEnv_ desktopEnv
-    fun getActionName self actionName = (GioDesktopAppInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getActionName_ (self & actionName)
-    fun getBoolean self key = (GioDesktopAppInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) getBoolean_ (self & key)
-    fun getCategories self = (GioDesktopAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getCategories_ self
-    fun getFilename self = (GioDesktopAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getFilename_ self
-    fun getGenericName self = (GioDesktopAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getGenericName_ self
-    fun getIsHidden self = (GioDesktopAppInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) getIsHidden_ self
-    fun getKeywords self = (GioDesktopAppInfoClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) getKeywords_ self
-    fun getNodisplay self = (GioDesktopAppInfoClass.FFI.withPtr ---> GBool.FFI.fromVal) getNodisplay_ self
-    fun getShowIn self desktopEnv = (GioDesktopAppInfoClass.FFI.withPtr &&&> Utf8.FFI.withOptPtr ---> GBool.FFI.fromVal) getShowIn_ (self & desktopEnv)
-    fun getStartupWmClass self = (GioDesktopAppInfoClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getStartupWmClass_ self
-    fun getString self key = (GioDesktopAppInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> Utf8.FFI.fromPtr 1) getString_ (self & key)
-    fun hasKey self key = (GioDesktopAppInfoClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasKey_ (self & key)
+    fun new desktopId = (Utf8.FFI.withPtr 0 ---> GioDesktopAppInfoClass.FFI.fromPtr true) new_ desktopId
+    fun newFromFilename filename = (Utf8.FFI.withPtr 0 ---> GioDesktopAppInfoClass.FFI.fromPtr true) newFromFilename_ filename
+    fun newFromKeyfile keyFile = (GLibKeyFileRecord.FFI.withPtr false ---> GioDesktopAppInfoClass.FFI.fromPtr true) newFromKeyfile_ keyFile
+    fun search searchString = (Utf8.FFI.withPtr 0 ---> Utf8CPtrArrayCPtrArray.FFI.fromPtr ~1) search_ searchString
+    fun setDesktopEnv desktopEnv = (Utf8.FFI.withPtr 0 ---> I) setDesktopEnv_ desktopEnv
+    fun getActionName self actionName = (GioDesktopAppInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) getActionName_ (self & actionName)
+    fun getBoolean self key = (GioDesktopAppInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) getBoolean_ (self & key)
+    fun getCategories self = (GioDesktopAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCategories_ self
+    fun getFilename self = (GioDesktopAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getFilename_ self
+    fun getGenericName self = (GioDesktopAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getGenericName_ self
+    fun getIsHidden self = (GioDesktopAppInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsHidden_ self
+    fun getKeywords self = (GioDesktopAppInfoClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getKeywords_ self
+    fun getNodisplay self = (GioDesktopAppInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) getNodisplay_ self
+    fun getShowIn self desktopEnv = (GioDesktopAppInfoClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GBool.FFI.fromVal) getShowIn_ (self & desktopEnv)
+    fun getStartupWmClass self = (GioDesktopAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getStartupWmClass_ self
+    fun getString self key = (GioDesktopAppInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) getString_ (self & key)
+    fun hasKey self key = (GioDesktopAppInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasKey_ (self & key)
     fun launchAction self (actionName, launchContext) =
       (
-        GioDesktopAppInfoClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GioAppLaunchContextClass.FFI.withOptPtr
+        GioDesktopAppInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GioAppLaunchContextClass.FFI.withOptPtr false
          ---> I
       )
         launchAction_
@@ -71,7 +71,7 @@ structure GioDesktopAppInfo :>
            & actionName
            & launchContext
         )
-    fun listActions self = (GioDesktopAppInfoClass.FFI.withPtr ---> Utf8CPtrArray.FFI.fromPtr 0) listActions_ self
+    fun listActions self = (GioDesktopAppInfoClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) listActions_ self
     local
       open Property
     in

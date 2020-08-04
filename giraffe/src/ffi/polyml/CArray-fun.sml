@@ -33,7 +33,8 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
      * pointer to a C array allocated on the C heap.  A finalizable value
      * is used to free the array on the C heap when no longer reachable.
      *)
-    type array = C.non_opt C.p Finalizable.t
+    datatype array =
+      CArray of C.non_opt C.p Finalizable.t
 
     type t = array
 
@@ -53,16 +54,37 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
         structure OutPointer = Pointer
         type 'a out_p = 'a OutPointer.p
 
-        fun fromPtr d p =
-          let
-            val t = Finalizable.new p
-          in
-            Finalizable.addFinalizer (t, free d);
-            t
-          end
-
-        fun fromDupPtr d p =
-          fromPtr ~1 (dup ~1 p) before free d p
+        local
+          fun wrap d p =
+            let
+              val a = Finalizable.new p
+            in
+              Finalizable.addFinalizer (a, free d);
+              CArray a
+            end
+        in
+          fun fromPtr d =
+            if d < 0
+            then
+              (* If `d < 0`, we own everything so just wrap it. *)
+              wrap ~1
+            else
+              (* If `d = 0`, we own nothing so a full copy is required.
+               *
+               * If `d > 0`, we own `d` initial levels but need ownership of
+               * the deeper levels.  The implementation here is potentially
+               * inefficient in this case because it makes a full copy and
+               * frees the initial levels that we owned.  This is especially
+               * inefficient if the unowned elements are reference counted
+               * because the initial level could have been used.
+               * If this leads to a performance issue, consideration
+               * could be given to improving this case by copying the
+               * deeper levels and updating the initial levels that
+               * we own. *)
+              fn p =>
+                wrap ~1 (dup ~1 p)
+                 before free d p
+        end
 
         fun copyPtr tabulate d p =
           tabulate (len p, getElem p) before free d p
@@ -73,10 +95,6 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
           (* No finalizer added for null pointer.  Although g_free can be
            * called with a null pointer, adding unnecessary finalizers is
            * less efficient. *)
-
-        fun fromDupOptPtr d p =
-          Option.map (fromDupPtr d) (Pointer.toOpt p)
-          (* No finalizer added for null pointer. *)
 
         fun copyOptPtr tabulate d p =
           Option.map (copyPtr tabulate d) (Pointer.toOpt p)
@@ -89,46 +107,58 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
         type 'a in_p = 'a Pointer.p
 
         local
-          fun withPointer f = Pointer.withVal f
+          fun withPointer free f p =
+            Pointer.withVal f p handle e => (free p; raise e)
 
-          fun withOptPointer f = Pointer.withOptVal f
+          fun withOptPointer free f optp =
+            Pointer.withOptVal f optp
+              handle e => (Option.app free optp; raise e)
 
           fun withDupPointer free f p =
-            withPointer f p handle e => (free p; raise e)
+            p & withPointer free f p
 
-          fun withDupOptPointer free f pOpt =
-            withOptPointer f pOpt
-              handle e => (Option.app free pOpt; raise e)
-
-          fun withNewDupPointer free f p =
-            p & withDupPointer free f p
-
-          fun withNewDupOptPointer free f pOpt =
-            Pointer.fromOpt pOpt & withDupOptPointer free f pOpt
+          fun withDupOptPointer free f optp =
+            Pointer.fromOpt optp & withOptPointer free f optp
         in
-          fun withPtr f a = Finalizable.withValue (a, withPointer f)
+          fun withPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                CArray a => Finalizable.withValue (a, withPointer ignore f)
+            else
+              fn f =>
+              fn
+                CArray a =>
+                  Finalizable.withValue (a, withPointer (free d) f o dup d)
 
-          fun withDupPtr d f a =
-            Finalizable.withValue (a, withDupPointer (free d) f o dup d)
-
-          fun withNewDupPtr d f a =
-            Finalizable.withValue (a, withNewDupPointer (free d) f o dup d)
-
-
-          fun withOptPtr f =
+          fun withDupPtr d f =
             fn
-              SOME a => Finalizable.withValue (a, withOptPointer f o SOME)
-            | NONE => withOptPointer f NONE
+              CArray a =>
+                Finalizable.withValue (a, withDupPointer (free d) f o dup d)
+
+
+          fun withOptPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                SOME (CArray a) => Finalizable.withValue (a, withOptPointer ignore f o SOME)
+              | NONE => withOptPointer ignore f NONE
+            else
+              fn f =>
+              fn
+                SOME (CArray a) =>
+                  Finalizable.withValue
+                    (a, withOptPointer (free d) f o SOME o dup d)
+              | NONE => withOptPointer ignore f NONE
 
           fun withDupOptPtr d f =
             fn
-              SOME a => Finalizable.withValue (a, withDupOptPointer (free d) f o SOME o dup d)
+              SOME (CArray a) =>
+                Finalizable.withValue
+                  (a, withDupOptPointer (free d) f o SOME o dup d)
             | NONE => withDupOptPointer ignore f NONE
-
-          fun withNewDupOptPtr d f =
-            fn
-              SOME a => Finalizable.withValue (a, withNewDupOptPointer (free d) f o SOME o dup d)
-            | NONE => withNewDupOptPointer ignore f NONE
         end
 
 
@@ -138,36 +168,43 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
         local
-          fun withRefPointer f = Pointer.withRefVal f
+          fun withRefPointer free f p =
+            Pointer.withRefVal f p handle e => (free p; raise e)
 
-          fun withRefOptPointer f = Pointer.withRefOptVal f
-
-          fun withRefDupPointer free f p =
-            withRefPointer f p handle e => (free p; raise e)
-
-          fun withRefDupOptPointer free f pOpt =
-            withRefOptPointer f pOpt
-              handle e => (Option.app free pOpt; raise e)
+          fun withRefOptPointer free f optp =
+            Pointer.withRefOptVal f optp
+              handle e => (Option.app free optp; raise e)
         in
           fun withNullRef f = Pointer.withNullRef f
 
 
-          fun withRefPtr f a = Finalizable.withValue (a, withRefPointer f)
+          fun withRefPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                CArray a => Finalizable.withValue (a, withRefPointer ignore f)
+            else
+              fn f =>
+              fn
+                CArray a =>
+                  Finalizable.withValue (a, withRefPointer (free d) f o dup d)
 
-          fun withRefDupPtr d f a =
-            Finalizable.withValue (a, withRefDupPointer (free d) f o dup d)
 
-
-          fun withRefOptPtr f =
-            fn
-              SOME a => Finalizable.withValue (a, withRefOptPointer f o SOME)
-            | NONE => withRefOptPointer f NONE
-
-          fun withRefDupOptPtr d f =
-            fn
-              SOME a =>
-                Finalizable.withValue (a, withRefDupOptPointer (free d) f o SOME o dup d)
-            | NONE => withRefDupOptPointer ignore f NONE
+          fun withRefOptPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                SOME (CArray a) =>
+                  Finalizable.withValue (a, withRefOptPointer ignore f o SOME)
+              | NONE => withRefOptPointer ignore f NONE
+            else
+              fn f =>
+              fn
+                SOME (CArray a) =>
+                  Finalizable.withValue (a, withRefOptPointer (free d) f o SOME o dup d)
+              | NONE => withRefOptPointer ignore f NONE
         end
       end
 
@@ -176,7 +213,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
 
     val toSequence =
       fn
-        a => Finalizable.withValue (a, C.ArrayType.fromC)
+        CArray a => Finalizable.withValue (a, C.ArrayType.fromC)
 
     fun tabulate (n, f) =
       FFI.fromPtr ~1 (C.ArrayType.init C.ArrayType.setElem (n, f))
@@ -199,16 +236,16 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
         fun tabulateFromC p = List.tabulate (len p, getElem p)
       in
         fn
-          a => Finalizable.withValue (a, tabulateFromC)
+          CArray a => Finalizable.withValue (a, tabulateFromC)
       end
 
     val length =
       fn
-        a => Finalizable.withValue (a, C.ArrayType.len)
+        CArray a => Finalizable.withValue (a, C.ArrayType.len)
 
     val get =
       fn
-        t as a =>
+        t as CArray a =>
           let
             val n = length t
             val get = Finalizable.withValue (a, C.ArrayType.getElem)
@@ -223,7 +260,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
 
     val set =
       fn
-        t as a =>
+        t as CArray a =>
           let
             val n = length t
 

@@ -128,9 +128,9 @@ structure GtkRecentManager :>
     fun getDefault () = (I ---> GtkRecentManagerClass.FFI.fromPtr false) getDefault_ ()
     fun addFull self (uri, recentData) =
       (
-        GtkRecentManagerClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> GtkRecentDataRecord.FFI.withPtr
+        GtkRecentManagerClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GtkRecentDataRecord.FFI.withPtr false
          ---> GBool.FFI.fromVal
       )
         addFull_
@@ -139,12 +139,12 @@ structure GtkRecentManager :>
            & uri
            & recentData
         )
-    fun addItem self uri = (GtkRecentManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) addItem_ (self & uri)
-    fun hasItem self uri = (GtkRecentManagerClass.FFI.withPtr &&&> Utf8.FFI.withPtr ---> GBool.FFI.fromVal) hasItem_ (self & uri)
+    fun addItem self uri = (GtkRecentManagerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) addItem_ (self & uri)
+    fun hasItem self uri = (GtkRecentManagerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasItem_ (self & uri)
     fun lookupItem self uri =
       (
-        GtkRecentManagerClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkRecentManagerClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GtkRecentInfoRecord.FFI.fromOptPtr true
       )
@@ -156,9 +156,9 @@ structure GtkRecentManager :>
         )
     fun moveItem self (uri, newUri) =
       (
-        GtkRecentManagerClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withOptPtr
+        GtkRecentManagerClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withOptPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )
@@ -169,11 +169,11 @@ structure GtkRecentManager :>
            & newUri
            & []
         )
-    fun purgeItems self = (GtkRecentManagerClass.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GInt.FFI.fromVal) purgeItems_ (self & [])
+    fun purgeItems self = (GtkRecentManagerClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GInt.FFI.fromVal) purgeItems_ (self & [])
     fun removeItem self uri =
       (
-        GtkRecentManagerClass.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        GtkRecentManagerClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> ignore
       )

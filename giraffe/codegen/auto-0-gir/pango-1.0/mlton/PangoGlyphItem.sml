@@ -25,11 +25,11 @@ structure PangoGlyphItem :>
             )
     type t = PangoGlyphItemRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun copy self = (PangoGlyphItemRecord.FFI.withPtr ---> PangoGlyphItemRecord.FFI.fromOptPtr true) copy_ self
+    fun copy self = (PangoGlyphItemRecord.FFI.withPtr false ---> PangoGlyphItemRecord.FFI.fromOptPtr true) copy_ self
     fun split self (text, splitIndex) =
       (
-        PangoGlyphItemRecord.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        PangoGlyphItemRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          ---> PangoGlyphItemRecord.FFI.fromPtr true
       )

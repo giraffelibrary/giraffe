@@ -22,16 +22,16 @@ structure PangoFontFamily :>
     type font_face_class_c_ptr_array_n_t = PangoFontFaceClassCPtrArrayN.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getName self = (PangoFontFamilyClass.FFI.withPtr ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun isMonospace self = (PangoFontFamilyClass.FFI.withPtr ---> GBool.FFI.fromVal) isMonospace_ self
+    fun getName self = (PangoFontFamilyClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun isMonospace self = (PangoFontFamilyClass.FFI.withPtr false ---> GBool.FFI.fromVal) isMonospace_ self
     fun listFaces self =
       let
         val faces
          & nFaces
          & () =
           (
-            PangoFontFamilyClass.FFI.withPtr
-             &&&> PangoFontFaceClassCPtrArrayN.FFI.withRefOptPtr
+            PangoFontFamilyClass.FFI.withPtr false
+             &&&> PangoFontFaceClassCPtrArrayN.FFI.withRefOptPtr 0
              &&&> GInt.FFI.withRefVal
              ---> PangoFontFaceClassCPtrArrayN.FFI.fromPtr 1
                    && GInt.FFI.fromVal

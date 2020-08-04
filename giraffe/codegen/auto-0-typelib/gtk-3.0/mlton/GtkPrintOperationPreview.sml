@@ -13,9 +13,9 @@ structure GtkPrintOperationPreview :>
     type 'a print_context_class = 'a GtkPrintContextClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun endPreview self = (GtkPrintOperationPreviewClass.FFI.withPtr ---> I) endPreview_ self
-    fun isSelected self pageNr = (GtkPrintOperationPreviewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) isSelected_ (self & pageNr)
-    fun renderPage self pageNr = (GtkPrintOperationPreviewClass.FFI.withPtr &&&> GInt32.FFI.withVal ---> I) renderPage_ (self & pageNr)
+    fun endPreview self = (GtkPrintOperationPreviewClass.FFI.withPtr false ---> I) endPreview_ self
+    fun isSelected self pageNr = (GtkPrintOperationPreviewClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) isSelected_ (self & pageNr)
+    fun renderPage self pageNr = (GtkPrintOperationPreviewClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) renderPage_ (self & pageNr)
     local
       open ClosureMarshal Signal
     in

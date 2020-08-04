@@ -84,11 +84,11 @@ structure GioTlsCertificate :>
     type 'a socket_connectable_class = 'a GioSocketConnectableClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newFromFile file = (Utf8.FFI.withPtr &&&> GLibErrorRecord.handleError ---> GioTlsCertificateClass.FFI.fromPtr true) newFromFile_ (file & [])
+    fun newFromFile file = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GioTlsCertificateClass.FFI.fromPtr true) newFromFile_ (file & [])
     fun newFromFiles (certFile, keyFile) =
       (
-        Utf8.FFI.withPtr
-         &&&> Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateClass.FFI.fromPtr true
       )
@@ -100,7 +100,7 @@ structure GioTlsCertificate :>
         )
     fun newFromPem (data, length) =
       (
-        Utf8.FFI.withPtr
+        Utf8.FFI.withPtr 0
          &&&> GInt64.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GioTlsCertificateClass.FFI.fromPtr true
@@ -111,13 +111,13 @@ structure GioTlsCertificate :>
            & length
            & []
         )
-    fun getIssuer self = (GioTlsCertificateClass.FFI.withPtr ---> GioTlsCertificateClass.FFI.fromPtr false) getIssuer_ self
-    fun isSame self certTwo = (GioTlsCertificateClass.FFI.withPtr &&&> GioTlsCertificateClass.FFI.withPtr ---> GBool.FFI.fromVal) isSame_ (self & certTwo)
+    fun getIssuer self = (GioTlsCertificateClass.FFI.withPtr false ---> GioTlsCertificateClass.FFI.fromPtr false) getIssuer_ self
+    fun isSame self certTwo = (GioTlsCertificateClass.FFI.withPtr false &&&> GioTlsCertificateClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSame_ (self & certTwo)
     fun verify self (identity, trustedCa) =
       (
-        GioTlsCertificateClass.FFI.withPtr
-         &&&> GioSocketConnectableClass.FFI.withOptPtr
-         &&&> GioTlsCertificateClass.FFI.withOptPtr
+        GioTlsCertificateClass.FFI.withPtr false
+         &&&> GioSocketConnectableClass.FFI.withOptPtr false
+         &&&> GioTlsCertificateClass.FFI.withOptPtr false
          ---> GioTlsCertificateFlags.FFI.fromVal
       )
         verify_
