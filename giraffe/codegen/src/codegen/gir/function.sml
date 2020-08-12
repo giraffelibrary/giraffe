@@ -3327,7 +3327,7 @@ local
           REF (
             SOME {
               isInOut = dir = INOUT,
-              isOpt   = false
+              isOpt   = isOpt
             }
           )
         else if
@@ -4026,7 +4026,7 @@ local
           REF (
             SOME {
               isInOut = dir = INOUT,
-              isOpt   = false
+              isOpt   = isOpt
             }
           )
         else if

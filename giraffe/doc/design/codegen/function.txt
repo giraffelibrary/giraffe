@@ -1716,7 +1716,7 @@ where
           fromObjectFun is defined as follows:
 
             direction         = GIRepository.ArgInfo.getDirection argInfo
-            mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo  (not used: see Opt below)
+            mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
             ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
 
               direction   ownershipTra... | fromObjectFun
@@ -1739,13 +1739,14 @@ where
           InterfaceName = GIRepository.BaseInfo.getName argObjectInfo
           InterfaceNamespace = GIRepository.BaseInfo.getNamespace argObjectInfo
 
-          Opt cannot be determined because GIR does not capture
-          sufficient information.  For now, it is defined as follows:
+          Opt is defined as follows:
 
-              | Opt
-            ==+===================
-              | <empty>
-            --+-------------------
+              mayBeNull       | Opt
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | Opt
+            ------------------+-------------------
 
 
       <raise Error>  # for now
@@ -1758,7 +1759,7 @@ where
           fromStructFun is defined as follows:
 
             direction         = GIRepository.ArgInfo.getDirection argInfo
-            mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo  (not used: see Opt below)
+            mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
             ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
 
             isPointer         = GIRepository.TypeInfo.isPointer argTypeInfo
@@ -1801,13 +1802,14 @@ where
           InterfaceNamespace = GIRepository.BaseInfo.getNamespace argStructInfo
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
-          Opt cannot be determined because GIR does not capture
-          sufficient information.  For now, it is defined as follows:
+          Opt is defined as follows:
 
-              | Opt
-            ==+===================
-              | <empty>
-            --+-------------------
+              mayBeNull       | Opt
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | Opt
+            ------------------+-------------------
 
         It is necessary to handle the case when `isPointer` is false explicitly.
         When a STRUCT is not passed as a pointer, but a reference to a value, the
@@ -1988,7 +1990,7 @@ where
       retInterfaceTypeInfo = GIRepository.TypeInfo.getInterface retTypeInfo
       retInfoType = GIRepository.InfoType.getType retInterfaceTypeInfo
 
-      <fromObjectFun>
+      <retFromObjectFun>
         if retInfoType is OBJECT retObjectInfo, where
 
             isPointer = GIRepository.TypeInfo.isPointer retTypeInfo
@@ -2000,11 +2002,11 @@ where
               true            | <>
             ------------------+-----------------------------------
 
-          fromObjectFun is defined as follows:
+          retFromObjectFun is defined as follows:
 
             getCallerOwns = GIRepository.CallableInfo.getCallerOwns functionInfo
 
-              getCallerOwns   | fromObjectFun
+              getCallerOwns   | retFromObjectFun
             ==================+===================================
               NOTHING         | <A>.from<RetOpt>Ptr false
             ------------------+-----------------------------------
@@ -2042,18 +2044,18 @@ where
             ------------------+-------------------
 
 
-      <fromStructFun>
+      <retFromStructFun>
         if retInfoType is STRUCT argStructInfo, where
 
-          fromStructFun is the same as fromStructFun in fromInterfaceFun with direction = OUT.
+          retFromStructFun is the same as fromStructFun with direction = OUT.
 
-          fromStructFun is defined as follows:
+          retFromStructFun is defined as follows:
 
             getCallerOwns = GIRepository.CallableInfo.getCallerOwns functionInfo
 
             isPointer     = GIRepository.TypeInfo.isPointer retTypeInfo
 
-              isPointer   getCallerOwns   | fromStructFun
+              isPointer   getCallerOwns   | retFromStructFun
             ==============================+===================================
               false       _               | <raise Error nonPtrForStructRet>
             ------------------------------+-----------------------------------
