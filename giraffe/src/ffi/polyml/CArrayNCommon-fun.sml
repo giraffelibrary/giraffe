@@ -5,15 +5,7 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
-  C_ARRAY_N
-    where type elem = CArrayType.elem
-    where type sequence = CArrayType.t
-    where type 'a update = unit  (* mutable *)
-    where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
-    where type 'a C.p = 'a CArrayType.p
-    where type C.opt = CArrayType.opt
-    where type C.non_opt = CArrayType.non_opt =
+functor CArrayNCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) =
   struct
     type elem = CArrayType.elem
     type sequence = CArrayType.t
@@ -30,13 +22,10 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
       end
 
     (**
-     * For MLton, `array`, the representation of a mutable C array, is a
-     * pointer to a C array allocated on the C heap.  A finalizable value
-     * is used to free an array on the C heap when no longer reachable.
-     *
-     * Although MLton can pass a pointer to an SML array (that points into
-     * the SML heap) to a C function, this feature is not used because its
-     * effect is not generally portable to other SML compilers, e.g. Poly/ML.
+     * For Poly/ML, `array`, the representation of a mutable C array, is a
+     * pointer to a C array allocated on the C heap and the number of
+     * elements for which space was allocated.  A finalizable value
+     * is used to free the array on the C heap when no longer reachable.
      *)
     datatype array =
       CArray of C.non_opt C.p Finalizable.t * int
@@ -88,9 +77,7 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
                * we own. *)
               fn p =>
               fn n =>
-                (
-                  wrap ~1 (dup ~1 n p) n
-                )
+                wrap ~1 (dup ~1 n p) n
                  before free d n p
         end
 
@@ -110,52 +97,23 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
 
 
         (**
-         * Support for value and reference parameter encoding
-         *
-         * There are many possible values that can be used to represent the
-         * null pointer across the FFI because many possible values exist for
-         * the non-null pointer used in the encoding.  `nonNullPointer` is the
-         * representative non-null pointer.
-         *)
-
-        val nonNullPointer = Pointer.toOptPtr (Pointer.sub 0w1 Pointer.null)
-
-
-        (**
          * Value parameters
-         *
-         * The C interface uses two parameters, sml_str and c_str, with a
-         * C-side transformation that derives a single pointer str from
-         * sml_str and c_str according to the following table:
-         *
-         *   CVector.cvector     opt p       |
-         *                                   |
-         *   gchar *             gchar *     | gchar *
-         *   sml_str             c_str       | str
-         *   --------------------------------+---------
-         *   {_}                 non-NULL    | NULL
-         *   {_, _, ...}         non-NULL    | c_str
-         *
-         *   Note
-         *     {_}             is a vector of length 1
-         *     {_, _, ...}     is a vector of length 2 or more
-         *
-         * The local function `fromPointer` constructs the
-         * SML-side values for sml_str and c_str.
          *)
-        type 'a in_p = CVector.cvector * opt p
+        type 'a in_p = 'a Pointer.p
 
         local
-          fun fromPointer (p : 'a p) : 'b in_p =
-            if Pointer.isNull p
-            then (CVector.v1, nonNullPointer)
-            else (CVector.v2, Pointer.toOptPtr p)
-
           fun withPointer free f p =
-            f (fromPointer p) handle e => (Pointer.appNonNullPtr free p; raise e)
+            Pointer.withVal f p handle e => (free p; raise e)
+
+          fun withOptPointer free f optp =
+            Pointer.withOptVal f optp
+              handle e => (Option.app free optp; raise e)
 
           fun withDupPointer free f p =
             p & withPointer free f p
+
+          fun withDupOptPointer free f optp =
+            Pointer.fromOpt optp & withOptPointer free f optp
         in
           fun withPtr d =
             if d = 0
@@ -180,22 +138,22 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
             then
               fn f =>
               fn
-                SOME (CArray (a, _), _) => Finalizable.withValue (a, withPointer ignore f)
-              | NONE => withPointer ignore f Pointer.null
+                SOME (CArray (a, _), _) => Finalizable.withValue (a, withOptPointer ignore f o SOME)
+              | NONE => withOptPointer ignore f NONE
             else
               fn f =>
               fn
                 SOME (CArray (a, _), n) =>
                   Finalizable.withValue
-                    (a, withPointer (free d n) f o Pointer.toOptPtr o dup d n)
-              | NONE => withPointer ignore f Pointer.null
+                    (a, withOptPointer (free d n) f o SOME o dup d n)
+              | NONE => withOptPointer ignore f NONE
 
           fun withDupOptPtr f =
             fn
               SOME (CArray (a, _), n) =>
                 Finalizable.withValue
-                  (a, withDupPointer (free ~1 n) f o Pointer.toOptPtr o dup ~1 n)
-            | NONE => withDupPointer ignore f Pointer.null
+                  (a, withDupOptPointer (free ~1 n) f o SOME o dup ~1 n)
+            | NONE => withDupOptPointer ignore f NONE
 
 
           fun withNewPtr f n =
@@ -205,51 +163,18 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
 
         (**
          * Reference parameters
-         *
-         * The C interface uses two parameters, sml_str and c_str_ptr, with
-         * a C-side transformation that derives a single pointer str_ptr from
-         * sml_str and c_str_ptr according to the following table:
-         *
-         *   CVector.cvector     opt p                |
-         *                                            |
-         *   gchar *             gchar **             | gchar **
-         *   sml_str             c_str_ptr            | str_ptr
-         *   -----------------------------------------+---------
-         *   {_}                 pointer to non-NULL  | NULL
-         *   {_, _}              pointer to non-NULL  | pointer to NULL
-         *   {_, _, _, ...}      pointer to non-NULL  | c_str_ptr
-         *
-         *   Note
-         *     {_}             is a vector of length 1
-         *     {_, _}          is a vector of length 2
-         *     {_, _, _, ...}  is a vector of length 3 or more
-         *
-         * The local functions `null` and `fromPointer`
-         * construct the SML-side values for sml_str and c_str_ptr.
          *)
-        type ('a, 'b) r = CVector.cvector * (opt, 'b) Pointer.r
-
-        fun toRef x = Pointer.MLton.toRef x
-        fun fromRef x = Pointer.MLton.fromRef x
+        type ('a, 'b) r = ('a, 'b) Pointer.r
 
         local
-          (* `null` needs to be a function to work around the value restriction *)
-          fun null () : ('a, 'b) r =
-                 (CVector.v1, toRef nonNullPointer)
-
-          fun fromPointer (p : 'a p) : ('b, 'c) r =
-            if Pointer.isNull p
-            then (CVector.v2, toRef nonNullPointer)
-            else (CVector.v3, toRef (Pointer.toOptPtr p))
-
-          fun apply f (x as (_, e)) =
-            let val y = f x in fromRef e & y end
-            (* must evaluate `f x` before `fromRef e` *)
-
           fun withRefPointer free f p =
-            f (fromPointer p) handle e => (free p; raise e)
+            Pointer.withRefVal f p handle e => (free p; raise e)
+
+          fun withRefOptPointer free f optp =
+            Pointer.withRefOptVal f optp
+              handle e => (Option.app free optp; raise e)
         in
-          fun withNullRef f () = f (null ())
+          fun withNullRef f = Pointer.withNullRef f
 
 
           fun withRefPtr d =
@@ -257,13 +182,12 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
             then
               fn f =>
               fn
-                (CArray (a, _), _) => Finalizable.withValue (a, withRefPointer ignore (apply f))
+                (CArray (a, _), _) => Finalizable.withValue (a, withRefPointer ignore f)
             else
               fn f =>
               fn
                 (CArray (a, _), n) =>
-                  Finalizable.withValue
-                    (a, withRefPointer (free d n) (apply f) o dup d n)
+                  Finalizable.withValue (a, withRefPointer (free d n) f o dup d n)
 
 
           fun withRefOptPtr d =
@@ -272,15 +196,15 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
               fn f =>
               fn
                 SOME (CArray (a, _), _) =>
-                  Finalizable.withValue (a, withRefPointer ignore (apply f))
-              | NONE => withRefPointer ignore (apply f) Pointer.null
+                  Finalizable.withValue (a, withRefOptPointer ignore f o SOME)
+              | NONE => withRefOptPointer ignore f NONE
             else
               fn f =>
               fn
                 SOME (CArray (a, _), n) =>
                   Finalizable.withValue
-                    (a, withRefPointer (free d n) (apply f) o dup d n)
-              | NONE => withRefPointer ignore (apply f) Pointer.null
+                    (a, withRefOptPointer (free d n) f o SOME o dup d n)
+              | NONE => withRefOptPointer ignore f NONE
         end
       end
 
@@ -337,30 +261,6 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
 
     fun sub (t, i) = get t i
 
-    type 'a update = unit
-
-    val set =
-      fn
-        (CArray (a, _), n) =>
-          let
-            fun update p (i, elem) =
-              let
-                open C.ArrayType
-                val () = ElemType.free ~1 (get n p i)
-                val () = setElem n p (i, elem)
-              in
-                ()
-              end
-            val updateArray = Finalizable.withValue (a, update)
-          in
-            fn (i, elem) =>
-              if 0 <= i andalso i < n
-              then updateArray (i, elem)
-              else raise Subscript
-          end
-
-    fun update (t, i, e) = set t (i, e)
-
     val full =
       fn
         (array as CArray (_, len), _) => (array, len)
@@ -370,12 +270,17 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
       then (array, len)
       else raise Subscript
 
-    structure MLton =
+    structure PolyML =
       struct
-        type p1 = C.ArrayType.CVector.cvector
-        type 'a p2 = FFI.opt C.Pointer.p
+        val cInPtr = C.Pointer.PolyML.cVal
+        val cInOptPtr = C.Pointer.PolyML.cOptVal
 
-        type r1 = C.ArrayType.CVector.cvector
-        type ('a, 'b) r2 = (FFI.opt, 'b) C.Pointer.r
+        val cOutPtr = C.Pointer.PolyML.cVal
+        val cOutOptPtr = C.Pointer.PolyML.cOptVal
+
+        val cOutRef = C.Pointer.PolyML.cRef
+        val cOutOptRef = C.Pointer.PolyML.cOptOutRef
+        val cInOutRef = C.Pointer.PolyML.cInRef
+        val cInOutOptRef = C.Pointer.PolyML.cOptOutRef
       end
   end

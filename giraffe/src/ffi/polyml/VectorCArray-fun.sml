@@ -10,6 +10,7 @@ functor VectorCArray(CArray : C_ARRAY where type 'a C.ArrayType.from_p = 'a) :>
     where type t = CArray.sequence
     where type elem = CArray.elem
     where type sequence = CArray.sequence
+    where type 'a update = 'a  (* immutable *)
     where type 'a C.ArrayType.from_p = 'a CArray.C.ArrayType.from_p
     where type 'a C.p = 'a CArray.C.p
     where type C.opt = CArray.C.opt
@@ -17,6 +18,8 @@ functor VectorCArray(CArray : C_ARRAY where type 'a C.ArrayType.from_p = 'a) :>
   struct
     type t = CArray.sequence
     type elem = CArray.elem
+
+    type 'a update = 'a
 
     val length = CArray.C.ArrayType.ElemSequence.length
     val get = CArray.C.ArrayType.ElemSequence.get

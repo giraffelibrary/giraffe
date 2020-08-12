@@ -6,8 +6,9 @@
  *)
 
 (**
- * The signature C_ARRAY specifies the interface to C arrays and their high-
- * level FFI.
+ * The signature C_ARRAY specifies the interface to a C array and its high-
+ * level FFI.  The array is mutable or immutable according to the
+ * implementation of the type `'a update`.
  *)
 signature C_ARRAY =
   sig
@@ -40,17 +41,24 @@ signature C_ARRAY =
     val sub : t * int -> elem
 
     (**
-     * `set t (i, e)` returns `t` with the element at (zero-based) index `i`
-     * replaced by `e`.  It raises `Subscript` if `i < 0` or `length t <= i`.
-     * Otherwise, it raises `Null` if `t` is a null-terminated array and `e`
-     * is the null value.  Note, therefore, that `i` cannot index a null
-     * terminator and `e` cannot equal the null value if `t` is a null-
-     * terminated array.
+     * The type `'a update` is implemented by
+     *   - `unit` for a mutable array
+     *   - `'a `  for an immutable array
+     *
+     * For a mutable array, `set t (i, e)` modifies `t` by replacing the
+     * element at (zero-based) index `i` with `e`.  For an immutable array,
+     * `set t (i, e)` returns a copy of `t` with the element at (zero-based)
+     * index `i` replaced by `e`.  In either case, `set t (i, e)` raises
+     * `Subscript` if `i < 0` or `length t <= i`.  Otherwise, it raises
+     * `Null` if `t` is a null-terminated array and `e` is the null value.
+     * Note, therefore, that `i` cannot index a null terminator and `e`
+     * cannot equal the null value if `t` is a null-terminated array.
      *
      * `update (t, i, e)` is equivalent to `set t (i, e)`.
      *)
-    val set : t -> int * elem -> t
-    val update : t * int * elem -> t
+    type 'a update
+    val set : t -> int * elem -> t update
+    val update : t * int * elem -> t update
 
     (**
      * `tabulate (n, f)` returns a C array t such that `length t` is n

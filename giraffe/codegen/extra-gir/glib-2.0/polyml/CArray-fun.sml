@@ -9,6 +9,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
   C_ARRAY
     where type elem = CArrayType.elem
     where type sequence = CArrayType.t
+    where type 'a update = unit
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
     where type 'a C.p = 'a CArrayType.p
     where type C.opt = CArrayType.opt

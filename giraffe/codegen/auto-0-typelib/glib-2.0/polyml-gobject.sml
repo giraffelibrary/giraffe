@@ -9,6 +9,8 @@ use "polyml/GObjectValueRecord.sml";
 use "polyml/ValueAccessor.sml";
 use "polyml/CArray-fun.sml";
 use "polyml/CArrayN-fun.sml";
+use "polyml/ConstCArray-fun.sml";
+use "polyml/ConstCArrayN-fun.sml";
 use "polyml/VectorCArray-fun.sml";
 use "polyml/VectorCArrayN-fun.sml";
 use "polyml/GObject.sml";

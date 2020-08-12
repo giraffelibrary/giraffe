@@ -1,15 +1,15 @@
-(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
+functor ConstCArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
   C_ARRAY
     where type elem = CArrayType.elem
     where type sequence = CArrayType.t
-    where type 'a update = unit  (* mutable *)
+    where type 'a update = 'a  (* immutable *)
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
     where type 'a C.p = 'a CArrayType.p
     where type C.opt = CArrayType.opt
@@ -18,7 +18,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
     structure Common = CArrayCommon(CArrayType)
     open Common
 
-    type 'a update = unit
+    type 'a update = 'a
 
     val set =
       fn
@@ -26,19 +26,20 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
           let
             val n = length t
 
-            fun update p (i, elem) =
-              let
-                open C.ArrayType
-                val () = ElemType.free ~1 (get p i)
-                val () = setElem p (i, elem)
-              in
-                ()
-              end
-            val updateArray = Finalizable.withValue (a, update)
+            fun f (i, elem) j =
+              if i = j
+              then SOME elem
+              else NONE
+
+            val get = Finalizable.withValue (a, C.ArrayType.get)
+            fun set p (i, optElem) =
+              case optElem of
+                NONE      => C.ArrayType.set p (i, get i)
+              | SOME elem => C.ArrayType.setElem p (i, elem)
           in
             fn (i, elem) =>
               if 0 <= i andalso i < n
-              then updateArray (i, elem)
+              then FFI.fromPtr ~1 (C.ArrayType.init set (n, f (i, elem)))
               else raise Subscript
           end
 

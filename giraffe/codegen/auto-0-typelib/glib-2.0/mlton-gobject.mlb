@@ -20,6 +20,8 @@ in
     mlton/ValueAccessor.sml
     mlton/CArray-fun.sml
     mlton/CArrayN-fun.sml
+    mlton/ConstCArray-fun.sml
+    mlton/ConstCArrayN-fun.sml
     mlton/VectorCArray-fun.sml
     mlton/VectorCArrayN-fun.sml
     mlton/GObject.sml

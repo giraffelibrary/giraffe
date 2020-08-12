@@ -5,11 +5,11 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
+functor ConstCArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
   C_ARRAY
     where type elem = CArrayType.elem
     where type sequence = CArrayType.t
-    where type 'a update = unit  (* mutable *)
+    where type 'a update = 'a  (* immutable *)
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
     where type 'a C.p = 'a CArrayType.p
     where type C.opt = CArrayType.opt
@@ -30,18 +30,33 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
       end
 
     (**
-     * For MLton, `array`, the representation of a mutable C array, is a
-     * pointer to a C array allocated on the C heap.  A finalizable value
-     * is used to free an array on the C heap when no longer reachable.
+     * For MLton, `array`, the representation of an immutable C array, is
+     * either
+     *   - a pointer to a C array allocated on the C heap or
+     *   - an SML vector.
+     * A finalizable value is used to free an array on the C heap when no
+     * longer reachable.
      *
-     * Although MLton can pass a pointer to an SML array (that points into
-     * the SML heap) to a C function, this feature is not used because its
-     * effect is not generally portable to other SML compilers, e.g. Poly/ML.
+     * The SML vector case is included because MLton can pass a pointer to an
+     * SML vector value (that points into the SML heap) to a C function,
+     * avoiding the need to allocate a copy of the vector on the C heap.
+     * MLton requires that vectors allocated in the SML heap are not modified
+     * in place.  Consequently, `FFI.with[Ref]Ptr` should be used only for a
+     * C array parameter that is treated as const at every level.
      *)
     datatype array =
       CArray of C.non_opt C.p Finalizable.t
+    | SMLValue of C.ArrayType.CVector.cvector Finalizable.t
 
     type t = array
+
+    fun toSMLValue cvector =
+      let
+        val v = Finalizable.new cvector
+      in
+        Finalizable.addFinalizer (v, C.ArrayType.CVector.free);
+        SMLValue v
+      end
 
     structure FFI =
       struct
@@ -88,7 +103,8 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
                * we own. *)
               fn p =>
                 (
-                  wrap ~1 (dup ~1 p)
+                  toSMLValue (CVector.fromPointer p)
+                    handle CVector.NoSMLValue => wrap ~1 (dup ~1 p)
                 )
                  before free d p
         end
@@ -132,14 +148,16 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
          *   gchar *             gchar *     | gchar *
          *   sml_str             c_str       | str
          *   --------------------------------+---------
+         *   {...}               NULL        | sml_str
          *   {_}                 non-NULL    | NULL
          *   {_, _, ...}         non-NULL    | c_str
          *
          *   Note
+         *     {...}           is a vector of any length
          *     {_}             is a vector of length 1
          *     {_, _, ...}     is a vector of length 2 or more
          *
-         * The local function `fromPointer` constructs the
+         * The local functions `fromPointer` and `fromSMLValue` construct the
          * SML-side values for sml_str and c_str.
          *)
         type 'a in_p = CVector.cvector * opt p
@@ -149,6 +167,8 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
             if Pointer.isNull p
             then (CVector.v1, nonNullPointer)
             else (CVector.v2, Pointer.toOptPtr p)
+
+          fun fromSMLValue (v : CVector.cvector) : 'a in_p = (v, Pointer.null)
 
           fun withPointer free f p =
             f (fromPointer p) handle e => (Pointer.appNonNullPtr free p; raise e)
@@ -162,16 +182,23 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
               fn f =>
               fn
                 CArray a => Finalizable.withValue (a, withPointer ignore f)
+              | SMLValue v => Finalizable.withValue (v, f o fromSMLValue)
             else
               fn f =>
               fn
                 CArray a =>
                   Finalizable.withValue (a, withPointer (free d) f o dup d)
+              | SMLValue v =>
+                  Finalizable.withValue
+                    (v, withPointer (free ~1) f o CVector.toPointer)
 
           fun withDupPtr f =
             fn
               CArray a =>
                 Finalizable.withValue (a, withDupPointer (free ~1) f o dup ~1)
+            | SMLValue v =>
+                Finalizable.withValue
+                  (v, withDupPointer (free ~1) f o CVector.toPointer)
 
 
           fun withOptPtr d =
@@ -180,6 +207,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
               fn f =>
               fn
                 SOME (CArray a) => Finalizable.withValue (a, withPointer ignore f)
+              | SOME (SMLValue v) => Finalizable.withValue (v, f o fromSMLValue)
               | NONE => withPointer ignore f Pointer.null
             else
               fn f =>
@@ -187,6 +215,9 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
                 SOME (CArray a) =>
                   Finalizable.withValue
                     (a, withPointer (free d) f o Pointer.toOptPtr o dup d)
+              | SOME (SMLValue v) =>
+                  Finalizable.withValue
+                    (v, withPointer (free ~1) f o Pointer.toOptPtr o CVector.toPointer)
               | NONE => withPointer ignore f Pointer.null
 
           fun withDupOptPtr f =
@@ -194,6 +225,9 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
               SOME (CArray a) =>
                 Finalizable.withValue
                   (a, withDupPointer (free ~1) f o Pointer.toOptPtr o dup ~1)
+            | SOME (SMLValue v) =>
+                Finalizable.withValue
+                  (v, withDupPointer (free ~1) f o Pointer.toOptPtr o CVector.toPointer)
             | NONE => withDupPointer ignore f Pointer.null
 
 
@@ -214,16 +248,18 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
          *   gchar *             gchar **             | gchar **
          *   sml_str             c_str_ptr            | str_ptr
          *   -----------------------------------------+---------
+         *   {...}               pointer to NULL      | & sml_str
          *   {_}                 pointer to non-NULL  | NULL
          *   {_, _}              pointer to non-NULL  | pointer to NULL
          *   {_, _, _, ...}      pointer to non-NULL  | c_str_ptr
          *
          *   Note
+         *     {...}           is a vector of any length
          *     {_}             is a vector of length 1
          *     {_, _}          is a vector of length 2
          *     {_, _, _, ...}  is a vector of length 3 or more
          *
-         * The local functions `null` and `fromPointer`
+         * The local functions `null`, `fromPointer` and `fromSMLValue`
          * construct the SML-side values for sml_str and c_str_ptr.
          *)
         type ('a, 'b) r = CVector.cvector * (opt, 'b) Pointer.r
@@ -241,6 +277,9 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
             then (CVector.v2, toRef nonNullPointer)
             else (CVector.v3, toRef (Pointer.toOptPtr p))
 
+          fun fromSMLValue (v : CVector.cvector) : ('a, 'b) r =
+                 (v,          toRef Pointer.null)
+
           fun apply f (x as (_, e)) =
             let val y = f x in fromRef e & y end
             (* must evaluate `f x` before `fromRef e` *)
@@ -257,12 +296,16 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
               fn f =>
               fn
                 CArray a => Finalizable.withValue (a, withRefPointer ignore (apply f))
+              | SMLValue v => Finalizable.withValue (v, apply f o fromSMLValue)
             else
               fn f =>
               fn
                 CArray a =>
                   Finalizable.withValue
                     (a, withRefPointer (free d) (apply f) o dup d)
+              | SMLValue v =>
+                  Finalizable.withValue
+                    (v, withRefPointer (free ~1) (apply f) o CVector.toPointer)
 
 
           fun withRefOptPtr d =
@@ -272,6 +315,8 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
               fn
                 SOME (CArray a) =>
                   Finalizable.withValue (a, withRefPointer ignore (apply f))
+              | SOME (SMLValue v) =>
+                  Finalizable.withValue (v, apply f o fromSMLValue)
               | NONE => withRefPointer ignore (apply f) Pointer.null
             else
               fn f =>
@@ -279,16 +324,22 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
                 SOME (CArray a) =>
                   Finalizable.withValue
                     (a, withRefPointer (free d) (apply f) o dup d)
+              | SOME (SMLValue v) =>
+                  Finalizable.withValue
+                    (v, withRefPointer (free ~1) (apply f) o CVector.toPointer)
               | NONE => withRefPointer ignore (apply f) Pointer.null
         end
       end
 
     fun fromSequence v =
-      FFI.fromPtr ~1 (C.ArrayType.toC v)
+      toSMLValue (C.ArrayType.CVector.fromVal v)
+        handle C.ArrayType.CVector.NoSMLValue =>
+          FFI.fromPtr ~1 (C.ArrayType.toC v)
 
     val toSequence =
       fn
         CArray a => Finalizable.withValue (a, C.ArrayType.fromC)
+      | SMLValue v => Finalizable.withValue (v, C.ArrayType.CVector.toVal)
 
     fun tabulate (n, f) =
       FFI.fromPtr ~1 (C.ArrayType.init C.ArrayType.setElem (n, f))
@@ -309,14 +360,17 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
       let
         open C.ArrayType
         fun tabulateFromC p = List.tabulate (len p, getElem p)
+        fun tabulateFromSML v = List.tabulate (CVector.clen v, CVector.cget v)
       in
         fn
           CArray a => Finalizable.withValue (a, tabulateFromC)
+        | SMLValue v => Finalizable.withValue (v, tabulateFromSML)
       end
 
     val length =
       fn
         CArray a => Finalizable.withValue (a, C.ArrayType.len)
+      | SMLValue v => Finalizable.withValue (v, C.ArrayType.CVector.clen)
 
     val get =
       fn
@@ -330,10 +384,11 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
               then get i
               else raise Subscript
           end
+      | SMLValue v => Finalizable.withValue (v, C.ArrayType.CVector.cget)
 
     fun sub (t, i) = get t i
 
-    type 'a update = unit
+    type 'a update = 'a
 
     val set =
       fn
@@ -341,21 +396,24 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
           let
             val n = length t
 
-            fun update p (i, elem) =
-              let
-                open C.ArrayType
-                val () = ElemType.free ~1 (get p i)
-                val () = setElem p (i, elem)
-              in
-                ()
-              end
-            val updateArray = Finalizable.withValue (a, update)
+            fun f (i, elem) j =
+              if i = j
+              then SOME elem
+              else NONE
+
+            val get = Finalizable.withValue (a, C.ArrayType.get)
+            fun set p (i, optElem) =
+              case optElem of
+                NONE      => C.ArrayType.set p (i, get i)
+              | SOME elem => C.ArrayType.setElem p (i, elem)
           in
             fn (i, elem) =>
               if 0 <= i andalso i < n
-              then updateArray (i, elem)
+              then FFI.fromPtr ~1 (C.ArrayType.init set (n, f (i, elem)))
               else raise Subscript
           end
+      | SMLValue v =>
+          toSMLValue o Finalizable.withValue (v, C.ArrayType.CVector.cset)
 
     fun update (t, i, e) = set t (i, e)
 

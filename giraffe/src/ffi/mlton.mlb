@@ -58,10 +58,12 @@ in
     mlton/CScalarNull-fun.sml
     mlton/CScalarEq-fun.sml
     mlton/CScalarEqNull-fun.sml
-    mlton/VectorCArray-fun.sml
-    mlton/VectorCArrayN-fun.sml
     mlton/CArray-fun.sml
+    mlton/ConstCArray-fun.sml
+    mlton/VectorCArray-fun.sml
     mlton/CArrayN-fun.sml
+    mlton/ConstCArrayN-fun.sml
+    mlton/VectorCArrayN-fun.sml
     mlton/CValueCArrayType-fun.sml
     mlton/CValueCArrayNType-fun.sml
     mlton/CPointerCArrayType-fun.sml

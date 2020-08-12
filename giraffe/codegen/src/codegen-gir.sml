@@ -298,6 +298,8 @@ val () = ignore [
          * dependencies are included to ensure that they are loaded first. *)
         extendFunDeps "CArray" [] ["GObjectValueRecord", "ValueAccessor"],
         extendFunDeps "CArrayN" [] ["GObjectValueRecord", "ValueAccessor"],
+        extendFunDeps "ConstCArray" [] ["GObjectValueRecord", "ValueAccessor"],
+        extendFunDeps "ConstCArrayN" [] ["GObjectValueRecord", "ValueAccessor"],
         extendFunDeps "VectorCArray" [] ["ValueAccessor"],
         extendFunDeps "VectorCArrayN" [] ["ValueAccessor"]
       ]

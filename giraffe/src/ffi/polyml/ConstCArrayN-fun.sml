@@ -5,40 +5,39 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
-  C_ARRAY
+functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
+  C_ARRAY_N
     where type elem = CArrayType.elem
     where type sequence = CArrayType.t
-    where type 'a update = unit  (* mutable *)
+    where type 'a update = 'a  (* immutable *)
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
     where type 'a C.p = 'a CArrayType.p
     where type C.opt = CArrayType.opt
     where type C.non_opt = CArrayType.non_opt =
   struct
-    structure Common = CArrayCommon(CArrayType)
+    structure Common = CArrayNCommon(CArrayType)
     open Common
 
-    type 'a update = unit
+    type 'a update = 'a
 
     val set =
       fn
-        t as CArray a =>
+        (CArray (a, _), n) =>
           let
-            val n = length t
+            fun f (i, elem) j =
+              if i = j
+              then SOME elem
+              else NONE
 
-            fun update p (i, elem) =
-              let
-                open C.ArrayType
-                val () = ElemType.free ~1 (get p i)
-                val () = setElem p (i, elem)
-              in
-                ()
-              end
-            val updateArray = Finalizable.withValue (a, update)
+            val get = Finalizable.withValue (a, C.ArrayType.get n)
+            fun set n p (i, optElem) =
+              case optElem of
+                NONE      => C.ArrayType.set n p (i, get i)
+              | SOME elem => C.ArrayType.setElem n p (i, elem)
           in
             fn (i, elem) =>
               if 0 <= i andalso i < n
-              then updateArray (i, elem)
+              then FFI.fromPtr ~1 (C.ArrayType.init set (n, f (i, elem))) n
               else raise Subscript
           end
 
