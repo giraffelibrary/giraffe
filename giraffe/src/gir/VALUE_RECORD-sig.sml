@@ -40,8 +40,10 @@ signature VALUE_RECORD =
         val withPtr    : bool -> (non_opt p -> 'a) -> t        -> 'a
         val withOptPtr : bool -> (opt     p -> 'a) -> t option -> 'a
 
+        val withDupPtr    : (non_opt p -> 'a) -> t        -> (non_opt p, 'a) pair
+        val withDupOptPtr : (opt     p -> 'a) -> t option -> (opt     p, 'a) pair
+
         val withNewPtr : (non_opt p -> 'a) -> unit -> (non_opt p, 'a) pair
-        val withDupPtr : (non_opt p -> 'a) -> t    -> (non_opt p, 'a) pair
 
         val withRefPtr    : bool -> ((non_opt, 'a) r -> 'b) -> t        -> ('a p, 'b) pair
         val withRefOptPtr : bool -> ((opt,     'a) r -> 'b) -> t option -> ('a p, 'b) pair

@@ -1431,7 +1431,7 @@ where
             ------------------------------------------+-----------------------------------------------
                                       NOTHING         | <raise Error nothingForNonPtrStructInOutPar>
                                     ------------------+-----------------------------------------------
-                          false       EVERYTHING      | <A>.withDupPtr
+                          false       EVERYTHING      | <A>.withDup<Opt>Ptr
                                     ------------------+-----------------------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
               INOUT     ------------------------------+-----------------------------------------------
@@ -1780,7 +1780,7 @@ where
             ------------------------------------------+-----------------------------------
                                       NOTHING         | <raise Error nothingForNonPtrStructInOutPar>
                                     ------------------+-----------------------------------
-                          false       EVERYTHING      | <A>.fromPtr true
+                          false       EVERYTHING      | <A>.from<Opt>Ptr true
                                     ------------------+-----------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
               INOUT     ------------------------------+-----------------------------------

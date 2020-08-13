@@ -118,9 +118,15 @@ functor BoxedValueRecord(
           fun withPointer free f p =
             Pointer.withVal f p handle e => (free p; raise e)
 
-          fun withOptPointer free f optptr =
-            Pointer.withOptVal f optptr
-              handle e => (Option.app free optptr; raise e)
+          fun withOptPointer free f optp =
+            Pointer.withOptVal f optp
+              handle e => (Option.app free optp; raise e)
+
+          fun withDupPointer free f p =
+            p & withPointer free f p
+
+          fun withDupOptPointer free f optp =
+            Pointer.fromOpt optp & withOptPointer free f optp
         in
           fun withPtr transfer =
             if not transfer
@@ -132,6 +138,10 @@ functor BoxedValueRecord(
               fn f =>
               fn
                 ptr => Finalizable.withValue (ptr, withPointer free_ f o dup_)
+
+          fun withDupPtr f ptr =
+            Finalizable.withValue (ptr, withDupPointer free_ f o dup_)
+
 
           fun withOptPtr transfer =
             if not transfer
@@ -145,18 +155,16 @@ functor BoxedValueRecord(
               fn
                 SOME ptr => Finalizable.withValue (ptr, withOptPointer free_ f o SOME o dup_)
               | NONE     => withOptPointer ignore f NONE
+
+          fun withDupOptPtr f =
+            fn
+              SOME ptr => Finalizable.withValue (ptr, withDupOptPointer free_ f o SOME o dup_)
+            | NONE     => withDupOptPointer ignore f NONE
         end
 
         fun withNewPtr f () =
           let
             val p = new0_ ()
-          in
-            p & f p
-          end
-
-        fun withDupPtr f ptr =
-          let
-            val p = Finalizable.withValue (ptr, dup_)
           in
             p & f p
           end
