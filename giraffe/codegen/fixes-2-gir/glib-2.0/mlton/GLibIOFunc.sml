@@ -13,91 +13,56 @@ structure GLibIOFunc :>
     type i_o_channel_t = GLibIOChannelRecord.t
     type i_o_condition_t = GLibIOCondition.t
     type func = i_o_channel_t * i_o_condition_t -> bool
-    type t = func
-
-    structure C =
-      struct
+    structure Closure =
+      Closure(
+        val name = "GLib.IOFunc"
+        type args =
+          (
+            GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p,
+            GLibIOCondition.FFI.val_
+          ) pair
+        type ret = GBool.FFI.val_
+        val exnRetVal =
+          GBool.FFI.withVal I false (* return false to remove the source *)
+        val noneRetVal =
+          GBool.FFI.withVal I true  (* return true to prevent an attempt
+                                     * to remove a non-existent source *)
+      )
+    structure Callback =
+      Callback(
+        type t = func
+        structure Closure = Closure
+        fun marshaller func =
+          fn source & condition =>
+            GBool.FFI.withVal I (
+              func (
+                GLibIOChannelRecord.FFI.fromPtr false source,
+                GLibIOCondition.FFI.fromVal condition
+              )
+            )
         structure Pointer = CPointer(GMemory)
-        type opt = Pointer.opt
-        type non_opt = Pointer.non_opt
-        type 'a p = 'a Pointer.p
-      end
-
-    structure IOCallbackTable = CallbackTable(type callback = t)
-
-    local
-      fun dispatch
-        (
-          channel : GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p,
-          condition : GLibIOCondition.FFI.val_,
-          id : IOCallbackTable.id
-        ) : bool =
-        case IOCallbackTable.lookup id of
-          SOME f => (
-            f (GLibIOChannelRecord.FFI.fromPtr false channel, GLibIOCondition.FFI.fromVal condition)
-              handle
-                e => (
-                  GiraffeLog.critical (exnMessage e);
-                  false  (* return false to remove the source *)
-                )
-          )
-        | NONE   => (
-            GiraffeLog.critical (
-              concat [
-                "IO source callback error: source function id ",
-                IOCallbackTable.fmtId id,
-                " is invalid (callback does not exist)\n"
-              ]
-            );
-            true (* return true to prevent an attempt
-                  * to remove a non-existent source *)
-          )
-    in
-      val _ =
-        _export "giraffe_io_dispatch_smlside"
-          : (GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
-              * GLibIOCondition.FFI.val_
-              * IOCallbackTable.id
-              -> bool)
-             -> unit;
-      dispatch
-    end
-
-    val _ = _export "giraffe_io_destroy_smlside" : (IOCallbackTable.id -> unit) -> unit; 
-    IOCallbackTable.remove
-
-    structure FFI =
-      struct
-        type opt = C.opt
-        type non_opt = C.non_opt
-        type 'a p = 'a C.p
-
-        type callback = IOCallbackTable.id
-        fun withCallback f callback =
-          let
-            val callbackId = IOCallbackTable.add callback
-          in
-            f callbackId
-              handle
-                e => (IOCallbackTable.remove callbackId; raise e)
-          end
-        fun withOptCallback f optCallback =
-          case optCallback of
-            SOME callback => withCallback f callback
-          | NONE          => f IOCallbackTable.nullId
-
-        fun withPtrToDispatch f () =
-          f (_address "giraffe_io_dispatch" : 'a p;)
-        fun withOptPtrToDispatch f =
-          fn
-            true  => withPtrToDispatch f ()
-          | false => f C.Pointer.null
-
-        fun withPtrToDestroy f () =
-          f (_address "giraffe_io_destroy" : 'a p;)
-        fun withOptPtrToDestroy f =
-          fn
-            true  => withPtrToDestroy f ()
-          | false => f C.Pointer.null
-      end
+        fun dispatchPtr () = _address "giraffe_g_i_o_func_dispatch" : Pointer.t;
+        fun dispatchAsyncPtr () = _address "giraffe_g_i_o_func_dispatch_async" : Pointer.t;
+        fun destroyNotifyPtr () = _address "giraffe_g_i_o_func_destroy" : Pointer.t;
+      )
+    open Callback
+    val () =
+      _export "giraffe_g_i_o_func_dispatch_sml"
+        : (GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
+            * GLibIOCondition.FFI.val_
+            * Closure.t
+            -> GBool.FFI.val_)
+           -> unit;
+        (fn (source, condition, closure) => Closure.call closure (source & condition))
+    val () =
+      _export "giraffe_g_i_o_func_dispatch_async_sml"
+        : (GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
+            * GLibIOCondition.FFI.val_
+            * Closure.t
+            -> GBool.FFI.val_)
+           -> unit;
+        (fn (source, condition, closure) => Closure.call closure (source & condition) before Closure.free closure)
+    val () =
+      _export "giraffe_g_i_o_func_destroy_sml" : (Closure.t -> unit) -> unit;
+        Closure.free
   end

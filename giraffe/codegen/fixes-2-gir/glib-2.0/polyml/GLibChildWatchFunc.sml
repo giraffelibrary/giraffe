@@ -11,61 +11,33 @@ structure GLibChildWatchFunc :>
   struct
     type pid_t = GLibPid.t
     type func = pid_t * LargeInt.int -> unit
-    type t = func
-
-    structure C =
-      struct
-        structure Pointer = CPointer(GMemory)
-        type opt = Pointer.opt
-        type non_opt = Pointer.non_opt
-        type 'a p = 'a Pointer.p
-      end
-
-    structure FFI =
-      struct
-        type opt = C.opt
-        type non_opt = C.non_opt
-        type 'a p = 'a C.p
-
-        type callback = ((GLibPid.FFI.val_, GInt32.FFI.val_) pair -> unit) PolyMLFFI.closure
+    structure Closure =
+      Closure(
+        val name = "GLib.ChildWatchFunc"
+        type args = (GLibPid.FFI.val_, GInt32.FFI.val_) pair
+        type ret = unit
+        val exnRetVal = ()
         local
           open PolyMLFFI
         in
-          val makeClosure =
-            closure (GLibPid.PolyML.cVal &&> GInt32.PolyML.cVal --> cVoid)
-          val nullClosure = nullClosure
+          val callbackFunc = GLibPid.PolyML.cVal &&> GInt32.PolyML.cVal --> cVoid
         end
-        fun withCallback f callback =
-          f (
-            makeClosure (
-              fn (pid : GLibPid.FFI.val_) & (status : GInt32.FFI.val_) =>
-                callback (GLibPid.FFI.fromVal pid, GInt32.FFI.fromVal status)
-            )
-          )
-        fun withOptCallback f optCallback =
-          case optCallback of
-            SOME callback => withCallback f callback
-          | NONE          => f nullClosure
-
-        fun withPtrToDispatch f () =
-          f (C.Pointer.PolyML.symbolAsAddress (PolyMLFFI.getSymbol "giraffe_child_watch_dispatch"))
-        fun withOptPtrToDispatch f =
-          fn
-            true  => withPtrToDispatch f ()
-          | false => f C.Pointer.null
-
-        fun withPtrToDestroy f () =
-          f (C.Pointer.PolyML.symbolAsAddress (PolyMLFFI.getSymbol "giraffe_child_watch_destroy"))
-        fun withOptPtrToDestroy f =
-          fn
-            true  => withPtrToDestroy f ()
-          | false => f C.Pointer.null
-      end
-
-    structure PolyML =
-      struct
-        val cPtr = C.Pointer.PolyML.cVal
-        val cOptPtr = C.Pointer.PolyML.cOptVal
-        val cFunction = PolyMLFFI.cFunction
-      end
+      )
+    structure Callback =
+      Callback(
+        type t = func
+        structure Closure = Closure
+        fun marshaller func =
+          fn pid & status =>
+            func (GLibPid.FFI.fromVal pid, GInt32.FFI.fromVal status)
+        structure Pointer = CPointer(GMemory)
+        local
+          open PolyMLFFI
+        in
+          fun dispatchPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_g_child_watch_func_dispatch")
+          fun dispatchAsyncPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_g_child_watch_func_dispatch_async")
+          fun destroyNotifyPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_g_child_watch_func_destroy")
+        end
+      )
+    open Callback
   end

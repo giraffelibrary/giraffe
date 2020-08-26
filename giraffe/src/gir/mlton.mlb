@@ -17,8 +17,8 @@ in
   UNION-sig.sml
   RECORD-sig.sml
   VALUE_RECORD-sig.sml
+  CLOSURE-sig.sml
   CALLBACK-sig.sml
-  NOTIFIED_CALLBACK-sig.sml
   FLAGS-sig.sml
   ENUM-sig.sml
   ann
@@ -29,5 +29,7 @@ in
     mlton/BoxedValueRecord-fun.sml
     mlton/Flags-fun.sml
     mlton/Enum-fun.sml
+    mlton/Closure-fun.sml
+    mlton/Callback-fun.sml
   end
 end

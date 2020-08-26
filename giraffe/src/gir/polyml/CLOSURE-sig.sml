@@ -5,14 +5,12 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-signature NOTIFIED_CALLBACK =
+signature CLOSURE =
   sig
-    include NOTIFIED_CALLBACK
+    include CLOSURE
 
     structure PolyML :
       sig
-        val cPtr : FFI.non_opt FFI.p PolyMLFFI.conversion
-        val cOptPtr : FFI.opt FFI.p PolyMLFFI.conversion
-        val cFunction : FFI.callback PolyMLFFI.conversion
+        val cFunction : t PolyMLFFI.conversion
       end
   end

@@ -54,12 +54,12 @@ structure GLib : G_LIB =
           (
             GInt.PolyML.cVal
              &&> GLibPid.PolyML.cVal
-             &&> GLibChildWatchFunc.PolyML.cPtr
-             &&> GLibChildWatchFunc.PolyML.cFunction
-             &&> GLibChildWatchFunc.PolyML.cPtr
+             &&> GLibChildWatchFunc.PolyML.cDispatch
+             &&> GLibChildWatchFunc.PolyML.cClosure
+             &&> GLibChildWatchFunc.PolyML.cDestroyNotify
              --> GUInt.PolyML.cVal
           )
-      val childWatchSourceNew_ = call (getSymbol "giraffe_g_child_watch_source_new") (GLibPid.PolyML.cVal &&> GLibChildWatchFunc.PolyML.cFunction --> GLibSourceRecord.PolyML.cPtr)
+      val childWatchSourceNew_ = call (getSymbol "giraffe_g_child_watch_source_new") (GLibPid.PolyML.cVal &&> GLibChildWatchFunc.PolyML.cClosure --> GLibSourceRecord.PolyML.cPtr)
       val close_ = call (getSymbol "g_close") (GFileDesc.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val computeChecksumForBytes_ = call (getSymbol "g_compute_checksum_for_bytes") (GLibChecksumType.PolyML.cVal &&> GLibBytesRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val computeChecksumForData_ =
@@ -240,9 +240,9 @@ structure GLib : G_LIB =
           (getSymbol "g_idle_add_full")
           (
             GInt.PolyML.cVal
-             &&> GLibSourceFunc.PolyML.cPtr
-             &&> GLibSourceFunc.PolyML.cFunction
-             &&> GLibSourceFunc.PolyML.cPtr
+             &&> GLibSourceFunc.PolyML.cDispatch
+             &&> GLibSourceFunc.PolyML.cClosure
+             &&> GLibSourceFunc.PolyML.cDestroyNotify
              --> GUInt.PolyML.cVal
           )
       val ioAddWatch_ =
@@ -252,9 +252,9 @@ structure GLib : G_LIB =
             GLibIOChannelRecord.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GLibIOCondition.PolyML.cVal
-             &&> GLibIOFunc.PolyML.cPtr
-             &&> GLibIOFunc.PolyML.cFunction
-             &&> GLibIOFunc.PolyML.cPtr
+             &&> GLibIOFunc.PolyML.cDispatch
+             &&> GLibIOFunc.PolyML.cClosure
+             &&> GLibIOFunc.PolyML.cDestroyNotify
              --> GUInt.PolyML.cVal
           )
       val ioCreateWatch_ = call (getSymbol "g_io_create_watch") (GLibIOChannelRecord.PolyML.cPtr &&> GLibIOCondition.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
@@ -378,8 +378,8 @@ structure GLib : G_LIB =
              &&> Utf8CPtrArray.PolyML.cInPtr
              &&> Utf8CPtrArray.PolyML.cInOptPtr
              &&> GLibSpawnFlags.PolyML.cVal
-             &&> GLibSpawnChildSetupFunc.PolyML.cPtr
-             &&> GLibSpawnChildSetupFunc.PolyML.cFunction
+             &&> GLibSpawnChildSetupFunc.PolyML.cOptDispatch
+             &&> GLibSpawnChildSetupFunc.PolyML.cOptClosure
              &&> GLibPid.PolyML.cRef
              &&> GFileDesc.PolyML.cRef
              &&> GFileDesc.PolyML.cRef
@@ -464,9 +464,9 @@ structure GLib : G_LIB =
           (
             GInt.PolyML.cVal
              &&> GUInt.PolyML.cVal
-             &&> GLibSourceFunc.PolyML.cPtr
-             &&> GLibSourceFunc.PolyML.cFunction
-             &&> GLibSourceFunc.PolyML.cPtr
+             &&> GLibSourceFunc.PolyML.cDispatch
+             &&> GLibSourceFunc.PolyML.cClosure
+             &&> GLibSourceFunc.PolyML.cDestroyNotify
              --> GUInt.PolyML.cVal
           )
       val timeoutAddSeconds_ =
@@ -475,9 +475,9 @@ structure GLib : G_LIB =
           (
             GInt.PolyML.cVal
              &&> GUInt.PolyML.cVal
-             &&> GLibSourceFunc.PolyML.cPtr
-             &&> GLibSourceFunc.PolyML.cFunction
-             &&> GLibSourceFunc.PolyML.cPtr
+             &&> GLibSourceFunc.PolyML.cDispatch
+             &&> GLibSourceFunc.PolyML.cClosure
+             &&> GLibSourceFunc.PolyML.cDestroyNotify
              --> GUInt.PolyML.cVal
           )
       val timeoutSourceNew_ = call (getSymbol "g_timeout_source_new") (GUInt.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
@@ -819,9 +819,9 @@ structure GLib : G_LIB =
       (
         GInt.FFI.withVal
          &&&> GLibPid.FFI.withVal
-         &&&> GLibChildWatchFunc.FFI.withPtrToDispatch
-         &&&> GLibChildWatchFunc.FFI.withCallback
-         &&&> GLibChildWatchFunc.FFI.withPtrToDestroy
+         &&&> GLibChildWatchFunc.FFI.withDispatch false
+         &&&> GLibChildWatchFunc.FFI.withClosure false
+         &&&> GLibChildWatchFunc.FFI.withDestroyNotify
          ---> GUInt.FFI.fromVal
       )
         childWatchAdd_
@@ -832,7 +832,7 @@ structure GLib : G_LIB =
            & function
            & ()
         )
-    fun childWatchSourceNew (pid, function) = (GLibPid.FFI.withVal &&&> GLibChildWatchFunc.FFI.withCallback ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ (pid & function)
+    fun childWatchSourceNew (pid, function) = (GLibPid.FFI.withVal &&&> GLibChildWatchFunc.FFI.withClosure false ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ (pid & function)
     fun close fd = (GFileDesc.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) close_ (fd & [])
     fun computeChecksumForBytes (checksumType, data) = (GLibChecksumType.FFI.withVal &&&> GLibBytesRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) computeChecksumForBytes_ (checksumType & data)
     fun computeChecksumForData (checksumType, data) =
@@ -1213,9 +1213,9 @@ structure GLib : G_LIB =
     fun idleAdd (priority, function) =
       (
         GInt.FFI.withVal
-         &&&> GLibSourceFunc.FFI.withPtrToDispatch
-         &&&> GLibSourceFunc.FFI.withCallback
-         &&&> GLibSourceFunc.FFI.withPtrToDestroy
+         &&&> GLibSourceFunc.FFI.withDispatch false
+         &&&> GLibSourceFunc.FFI.withClosure false
+         &&&> GLibSourceFunc.FFI.withDestroyNotify
          ---> GUInt.FFI.fromVal
       )
         idleAdd_
@@ -1230,9 +1230,9 @@ structure GLib : G_LIB =
         GLibIOChannelRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GLibIOCondition.FFI.withVal
-         &&&> GLibIOFunc.FFI.withPtrToDispatch
-         &&&> GLibIOFunc.FFI.withCallback
-         &&&> GLibIOFunc.FFI.withPtrToDestroy
+         &&&> GLibIOFunc.FFI.withDispatch false
+         &&&> GLibIOFunc.FFI.withClosure false
+         &&&> GLibIOFunc.FFI.withDestroyNotify
          ---> GUInt.FFI.fromVal
       )
         ioAddWatch_
@@ -1483,8 +1483,8 @@ structure GLib : G_LIB =
              &&&> Utf8CPtrArray.FFI.withPtr 0
              &&&> Utf8CPtrArray.FFI.withOptPtr 0
              &&&> GLibSpawnFlags.FFI.withVal
-             &&&> GLibSpawnChildSetupFunc.FFI.withPtrToDispatch
-             &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptDispatch true
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptClosure false
              &&&> GLibPid.FFI.withRefVal
              &&&> GFileDesc.FFI.withRefVal
              &&&> GFileDesc.FFI.withRefVal
@@ -1502,7 +1502,7 @@ structure GLib : G_LIB =
                & argv
                & envp
                & flags
-               & ()
+               & isSome childSetup
                & childSetup
                & GLibPid.null
                & GFileDesc.null
@@ -1658,9 +1658,9 @@ structure GLib : G_LIB =
       (
         GInt.FFI.withVal
          &&&> GUInt.FFI.withVal
-         &&&> GLibSourceFunc.FFI.withPtrToDispatch
-         &&&> GLibSourceFunc.FFI.withCallback
-         &&&> GLibSourceFunc.FFI.withPtrToDestroy
+         &&&> GLibSourceFunc.FFI.withDispatch false
+         &&&> GLibSourceFunc.FFI.withClosure false
+         &&&> GLibSourceFunc.FFI.withDestroyNotify
          ---> GUInt.FFI.fromVal
       )
         timeoutAdd_
@@ -1675,9 +1675,9 @@ structure GLib : G_LIB =
       (
         GInt.FFI.withVal
          &&&> GUInt.FFI.withVal
-         &&&> GLibSourceFunc.FFI.withPtrToDispatch
-         &&&> GLibSourceFunc.FFI.withCallback
-         &&&> GLibSourceFunc.FFI.withPtrToDestroy
+         &&&> GLibSourceFunc.FFI.withDispatch false
+         &&&> GLibSourceFunc.FFI.withClosure false
+         &&&> GLibSourceFunc.FFI.withDestroyNotify
          ---> GUInt.FFI.fromVal
       )
         timeoutAddSeconds_

@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2016-2018 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016-2018, 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -68,58 +68,92 @@ giraffe_get_g_error_message (GError *error)
 /* GSourceFunc */
 
 gboolean
-giraffe_source_dispatch (gpointer data)
+giraffe_g_source_func_dispatch (gpointer data)
 {
-  return (gboolean) giraffe_source_dispatch_smlside (GPOINTER_TO_UINT(data));
+  return (gboolean) giraffe_g_source_func_dispatch_sml (GPOINTER_TO_UINT(data));
+}
+
+gboolean
+giraffe_g_source_func_dispatch_async (gpointer data)
+{
+  return (gboolean) giraffe_g_source_func_dispatch_async_sml (GPOINTER_TO_UINT(data));
 }
 
 void
-giraffe_source_destroy (gpointer data)
+giraffe_g_source_func_destroy (gpointer data)
 {
-  giraffe_source_destroy_smlside (GPOINTER_TO_UINT(data));
+  giraffe_g_source_func_destroy_sml (GPOINTER_TO_UINT(data));
 }
 
 
 /* GChildWatchFunc */
 
 void
-giraffe_child_watch_dispatch (GPid pid, gint status, gpointer data)
+giraffe_g_child_watch_func_dispatch (GPid pid, gint status, gpointer data)
 {
-  giraffe_child_watch_dispatch_smlside (pid, status, GPOINTER_TO_UINT(data));
+  giraffe_g_child_watch_func_dispatch_sml (pid, status, GPOINTER_TO_UINT(data));
 }
 
 void
-giraffe_child_watch_destroy (gpointer data)
+giraffe_g_child_watch_func_dispatch_async (GPid pid, gint status, gpointer data)
 {
-  giraffe_child_watch_destroy_smlside (GPOINTER_TO_UINT(data));
+  giraffe_g_child_watch_func_dispatch_async_sml (pid, status, GPOINTER_TO_UINT(data));
+}
+
+void
+giraffe_g_child_watch_func_destroy (gpointer data)
+{
+  giraffe_g_child_watch_func_destroy_sml (GPOINTER_TO_UINT(data));
 }
 
 
 /* GIOFunc */
 
 gboolean
-giraffe_io_dispatch (GIOChannel *source,
-                     GIOCondition condition,
-                     gpointer data)
+giraffe_g_i_o_func_dispatch (GIOChannel *source,
+                             GIOCondition condition,
+                             gpointer data)
 {
-  return giraffe_io_dispatch_smlside (source,
-                                      condition,
-                                      GPOINTER_TO_UINT(data));
+  return giraffe_g_i_o_func_dispatch_sml (source,
+                                          condition,
+                                          GPOINTER_TO_UINT(data));
+}
+
+gboolean
+giraffe_g_i_o_func_dispatch_async (GIOChannel *source,
+                                   GIOCondition condition,
+                                   gpointer data)
+{
+  return giraffe_g_i_o_func_dispatch_async_sml (source,
+                                                condition,
+                                                GPOINTER_TO_UINT(data));
 }
 
 void
-giraffe_io_destroy (gpointer data)
+giraffe_g_i_o_func_destroy (gpointer data)
 {
-  giraffe_io_destroy_smlside (GPOINTER_TO_UINT(data));
+  giraffe_g_i_o_func_destroy_sml (GPOINTER_TO_UINT(data));
 }
 
 
 /* GSpawnChildSetupFunc */
 
 void
-giraffe_spawn_child_setup_dispatch (gpointer data)
+giraffe_g_spawn_child_setup_func_dispatch (gpointer data)
 {
-  giraffe_spawn_child_setup_dispatch_smlside (GPOINTER_TO_UINT(data));
+  giraffe_g_spawn_child_setup_func_dispatch_sml (GPOINTER_TO_UINT(data));
+}
+
+void
+giraffe_g_spawn_child_setup_func_dispatch_async (gpointer data)
+{
+  giraffe_g_spawn_child_setup_func_dispatch_async_sml (GPOINTER_TO_UINT(data));
+}
+
+void
+giraffe_g_spawn_child_setup_func_destroy (gpointer data)
+{
+  giraffe_g_spawn_child_setup_func_destroy_sml (GPOINTER_TO_UINT(data));
 }
 
 
@@ -132,9 +166,9 @@ giraffe_g_timeout_source_new (guint interval,
   GSource *source;
   source = g_timeout_source_new (interval);
   g_source_set_callback (source,
-                         giraffe_source_dispatch,
+                         giraffe_g_source_func_dispatch,
                          GUINT_TO_POINTER(callback_id),
-                         giraffe_source_destroy);
+                         giraffe_g_source_func_destroy);
   return source;
 }
 
@@ -144,9 +178,9 @@ giraffe_g_idle_source_new (guint callback_id)
   GSource *source;
   source = g_idle_source_new ();
   g_source_set_callback (source,
-                         giraffe_source_dispatch,
+                         giraffe_g_source_func_dispatch,
                          GUINT_TO_POINTER(callback_id),
-                         giraffe_source_destroy);
+                         giraffe_g_source_func_destroy);
   return source;
 }
 
@@ -157,9 +191,9 @@ giraffe_g_child_watch_source_new (GPid pid,
   GSource *source;
   source = g_child_watch_source_new (pid);
   g_source_set_callback (source,
-                         (GSourceFunc) giraffe_child_watch_dispatch,
+                         (GSourceFunc) giraffe_g_child_watch_func_dispatch,
                          GUINT_TO_POINTER(callback_id),
-                         giraffe_child_watch_destroy);
+                         giraffe_g_child_watch_func_destroy);
   return source;
 }
 
@@ -260,9 +294,9 @@ giraffe_g_poll_source_new (guint callback_id)
   GSource *source;
   source = g_source_new (&giraffe_g_poll_funcs, sizeof (GSource));
   g_source_set_callback (source,
-                         giraffe_source_dispatch,
+                         giraffe_g_source_func_dispatch,
                          GUINT_TO_POINTER(callback_id),
-                         giraffe_source_destroy);
+                         giraffe_g_source_func_destroy);
   return source;
 }
 

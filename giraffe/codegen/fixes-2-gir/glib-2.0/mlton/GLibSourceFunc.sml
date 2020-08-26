@@ -8,80 +8,37 @@
 structure GLibSourceFunc :> G_LIB_SOURCE_FUNC =
   struct
     type func = unit -> bool
-    type t = func
-
-    structure C =
-      struct
+    structure Closure =
+      Closure(
+        val name = "GLib.SourceFunc"
+        type args = unit
+        type ret = GBool.FFI.val_
+        val exnRetVal =
+          GBool.FFI.withVal I false (* return false to remove the source *)
+        val noneRetVal =
+          GBool.FFI.withVal I true  (* return true to prevent an attempt
+                                     * to remove a non-existent source *)
+      )
+    structure Callback =
+      Callback(
+        type t = func
+        structure Closure = Closure
+        fun marshaller func =
+          fn () =>
+            GBool.FFI.withVal I (func ())
         structure Pointer = CPointer(GMemory)
-        type opt = Pointer.opt
-        type non_opt = Pointer.non_opt
-        type 'a p = 'a Pointer.p
-      end
-
-    structure SourceCallbackTable = CallbackTable(type callback = t)
-
-    local
-      fun dispatch (id : SourceCallbackTable.id) : bool =
-        case SourceCallbackTable.lookup id of
-          SOME f => (
-            f ()
-              handle
-                e => (
-                  GiraffeLog.critical (exnMessage e);
-                  false  (* return false to remove the source *)
-                )
-          )
-        | NONE   => (
-            GiraffeLog.critical (
-              concat [
-                "source callback error: source function id ",
-                SourceCallbackTable.fmtId id,
-                " is invalid (callback does not exist)"
-              ]
-            );
-            true (* return true to prevent an attempt
-                  * to remove a non-existent source *)
-          )
-    in
-      val _ = _export "giraffe_source_dispatch_smlside" : (SourceCallbackTable.id -> bool) -> unit;
-      dispatch
-    end
-
-    val _ = _export "giraffe_source_destroy_smlside" : (SourceCallbackTable.id -> unit) -> unit; 
-    SourceCallbackTable.remove
-
-    structure FFI =
-      struct
-        type opt = C.opt
-        type non_opt = C.non_opt
-        type 'a p = 'a C.p
-
-        type callback = SourceCallbackTable.id
-        fun withCallback f callback =
-          let
-            val callbackId = SourceCallbackTable.add callback
-          in
-            f callbackId
-              handle
-                e => (SourceCallbackTable.remove callbackId; raise e)
-          end
-        fun withOptCallback f optCallback =
-          case optCallback of
-            SOME callback => withCallback f callback
-          | NONE          => f SourceCallbackTable.nullId
-
-        fun withPtrToDispatch f () =
-          f (_address "giraffe_source_dispatch" : 'a p;)
-        fun withOptPtrToDispatch f =
-          fn
-            true  => withPtrToDispatch f ()
-          | false => f C.Pointer.null
-
-        fun withPtrToDestroy f () =
-          f (_address "giraffe_source_destroy" : 'a p;)
-        fun withOptPtrToDestroy f =
-          fn
-            true  => withPtrToDestroy f ()
-          | false => f C.Pointer.null
-      end
+        fun dispatchPtr () = _address "giraffe_g_source_func_dispatch" : Pointer.t;
+        fun dispatchAsyncPtr () = _address "giraffe_g_source_func_dispatch_async" : Pointer.t;
+        fun destroyNotifyPtr () = _address "giraffe_g_source_func_destroy" : Pointer.t;
+      )
+    open Callback
+    val () =
+      _export "giraffe_g_source_func_dispatch_sml" : (Closure.t -> GBool.FFI.val_) -> unit;
+        (fn closure => Closure.call closure ())
+    val () =
+      _export "giraffe_g_source_func_dispatch_async_sml" : (Closure.t -> GBool.FFI.val_) -> unit;
+        (fn closure => Closure.call closure () before Closure.free closure)
+    val () =
+      _export "giraffe_g_source_func_destroy_sml" : (Closure.t -> unit) -> unit;
+        Closure.free
   end

@@ -3,6 +3,6 @@ signature G_LIB_CHILD_WATCH_FUNC =
     type pid_t
     type func = pid_t * LargeInt.int -> unit
     include
-      NOTIFIED_CALLBACK
+      CALLBACK
         where type t = func
   end

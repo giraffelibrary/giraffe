@@ -12,7 +12,7 @@ structure ClosureMarshal :>
 
     structure PolyML :
       sig
-        val CALLBACK : FFI.callback PolyMLFFI.conversion
+        val cClosure : FFI.closure PolyMLFFI.conversion
       end
   end =
   struct
@@ -22,7 +22,7 @@ structure ClosureMarshal :>
       struct
         structure C =
           struct
-            structure Pointer = CTypedPointer (GObjectValueRecord.C.ValueType)
+            structure Pointer = CTypedPointer(GObjectValueRecord.C.ValueType)
             type opt = Pointer.opt
             type non_opt = Pointer.non_opt
             type 'a p = 'a Pointer.p
@@ -35,28 +35,43 @@ structure ClosureMarshal :>
           end
       end
 
-    type state = (
-      GObjectValueRecord.C.non_opt GObjectValueRecord.C.p,
-      (
-        GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p,
-        GUInt32.FFI.val_
-      ) pair
-    ) pair
-    type c_callback = state -> unit
+    structure Closure =
+      Closure(
+        val name = "GObject.Closure"
+        type args =
+          (
+            GObjectValueRecord.C.non_opt GObjectValueRecord.C.p,
+            (
+              GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p,
+              GUInt32.FFI.val_
+            ) pair
+          ) pair
+        type ret = unit
+        val exnRetVal = ()
+        local
+          open PolyMLFFI
+        in
+          val callbackFunc =
+            GObjectValueRecord.PolyML.cPtr
+             &&> GObjectValueRecordArray.PolyML.cPtr
+             &&> GUInt32.PolyML.cVal
+             --> cVoid
+        end
+      )
 
-    type 'a get = state -> 'a
-    type 'a set = state -> 'a -> unit
-    type 'a ret = state -> 'a -> unit
+    type 'a get = Closure.args -> 'a
+    type 'a set = Closure.args -> 'a -> unit
+    type 'a ret = Closure.args -> 'a -> unit
 
     fun get n a (_ & vs & _) = GObjectValueRecordArray.C.get a vs (Word.toInt n)
     fun set n a (_ & vs & _) = GObjectValueRecordArray.C.set a vs (Word.toInt n)
     fun ret a (v & _ & _) = ValueAccessor.C.set a v
 
-    type 'a marshaller = 'a -> c_callback
+    type 'a marshaller = 'a -> Closure.callback
 
-    fun (f &&&> g) state = f state & g state
-    fun (f ---> g) h state = g state (h (f state))
-    fun (f && g) state (x & y) = (f state x : unit; g state y : unit)
+    fun (f &&&> g) args = f args & g args
+    fun (f ---> g) h args = g args (h (f args))
+    fun (f && g) args (x & y) = (f args x : unit; g args y : unit)
 
     fun void _ = ()
 
@@ -66,30 +81,22 @@ structure ClosureMarshal :>
       else raise Fail "GIRAFFE internal error: ret_void used \
                       \for callback that has return value";
 
-    fun check f x =
-      f x handle e => GiraffeLog.critical (exnMessage e)
-
     structure FFI =
       struct
-        type callback = c_callback PolyMLFFI.closure
+        type closure = Closure.t
 
-        local
-          open PolyMLFFI
-        in
-          val makeClosure : c_callback -> c_callback closure =
-            closure
-              (GObjectValueRecord.PolyML.cPtr
-                &&> GObjectValueRecordArray.PolyML.cPtr
-                &&> GUInt32.PolyML.cVal
-                --> cVoid)
-        end
-
-        fun withCallback f (marshaller, callback) =
-          f (makeClosure (check (marshaller callback)))
+        fun withClosure f (marshaller, func) =
+          let
+            val closure = Closure.make (marshaller func)
+          in
+            f closure
+              handle
+                e => (Closure.free closure; raise e)
+          end
       end
 
     structure PolyML =
       struct
-        val CALLBACK : FFI.callback PolyMLFFI.conversion = PolyMLFFI.cFunction
+        val cClosure = Closure.PolyML.cFunction
       end
   end

@@ -185,9 +185,9 @@ structure GLib : G_LIB =
             _import "g_child_watch_add" :
               GInt.FFI.val_
                * GLibPid.FFI.val_
-               * GLibChildWatchFunc.FFI.non_opt GLibChildWatchFunc.FFI.p
-               * GLibChildWatchFunc.FFI.callback
-               * GLibChildWatchFunc.FFI.non_opt GLibChildWatchFunc.FFI.p
+               * GLibChildWatchFunc.FFI.non_opt GLibChildWatchFunc.FFI.dispatch
+               * GLibChildWatchFunc.FFI.non_opt GLibChildWatchFunc.FFI.closure
+               * GLibChildWatchFunc.FFI.destroy_notify
                -> GUInt.FFI.val_;
           )
             (
@@ -197,7 +197,7 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val childWatchSourceNew_ = fn x1 & x2 => (_import "giraffe_g_child_watch_source_new" : GLibPid.FFI.val_ * GLibChildWatchFunc.FFI.callback -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;) (x1, x2)
+    val childWatchSourceNew_ = fn x1 & x2 => (_import "giraffe_g_child_watch_source_new" : GLibPid.FFI.val_ * GLibChildWatchFunc.FFI.non_opt GLibChildWatchFunc.FFI.closure -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;) (x1, x2)
     val close_ = fn x1 & x2 => (_import "g_close" : GFileDesc.FFI.val_ * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
     val computeChecksumForBytes_ = fn x1 & x2 => (_import "g_compute_checksum_for_bytes" : GLibChecksumType.FFI.val_ * GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
     val computeChecksumForData_ =
@@ -649,9 +649,9 @@ structure GLib : G_LIB =
           (
             _import "g_idle_add_full" :
               GInt.FFI.val_
-               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.p
-               * GLibSourceFunc.FFI.callback
-               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.p
+               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.dispatch
+               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.closure
+               * GLibSourceFunc.FFI.destroy_notify
                -> GUInt.FFI.val_;
           )
             (
@@ -673,9 +673,9 @@ structure GLib : G_LIB =
               GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
                * GInt.FFI.val_
                * GLibIOCondition.FFI.val_
-               * GLibIOFunc.FFI.non_opt GLibIOFunc.FFI.p
-               * GLibIOFunc.FFI.callback
-               * GLibIOFunc.FFI.non_opt GLibIOFunc.FFI.p
+               * GLibIOFunc.FFI.non_opt GLibIOFunc.FFI.dispatch
+               * GLibIOFunc.FFI.non_opt GLibIOFunc.FFI.closure
+               * GLibIOFunc.FFI.destroy_notify
                -> GUInt.FFI.val_;
           )
             (
@@ -1055,8 +1055,8 @@ structure GLib : G_LIB =
                * Utf8CPtrArray.MLton.p1
                * Utf8CPtrArray.FFI.opt Utf8CPtrArray.MLton.p2
                * GLibSpawnFlags.FFI.val_
-               * GLibSpawnChildSetupFunc.FFI.non_opt GLibSpawnChildSetupFunc.FFI.p
-               * GLibSpawnChildSetupFunc.FFI.callback
+               * GLibSpawnChildSetupFunc.FFI.opt GLibSpawnChildSetupFunc.FFI.dispatch
+               * GLibSpawnChildSetupFunc.FFI.opt GLibSpawnChildSetupFunc.FFI.closure
                * GLibPid.FFI.ref_
                * GFileDesc.FFI.ref_
                * GFileDesc.FFI.ref_
@@ -1259,9 +1259,9 @@ structure GLib : G_LIB =
             _import "g_timeout_add" :
               GInt.FFI.val_
                * GUInt.FFI.val_
-               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.p
-               * GLibSourceFunc.FFI.callback
-               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.p
+               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.dispatch
+               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.closure
+               * GLibSourceFunc.FFI.destroy_notify
                -> GUInt.FFI.val_;
           )
             (
@@ -1282,9 +1282,9 @@ structure GLib : G_LIB =
             _import "g_timeout_add_seconds" :
               GInt.FFI.val_
                * GUInt.FFI.val_
-               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.p
-               * GLibSourceFunc.FFI.callback
-               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.p
+               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.dispatch
+               * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.closure
+               * GLibSourceFunc.FFI.destroy_notify
                -> GUInt.FFI.val_;
           )
             (
@@ -1685,9 +1685,9 @@ structure GLib : G_LIB =
       (
         GInt.FFI.withVal
          &&&> GLibPid.FFI.withVal
-         &&&> GLibChildWatchFunc.FFI.withPtrToDispatch
-         &&&> GLibChildWatchFunc.FFI.withCallback
-         &&&> GLibChildWatchFunc.FFI.withPtrToDestroy
+         &&&> GLibChildWatchFunc.FFI.withDispatch false
+         &&&> GLibChildWatchFunc.FFI.withClosure false
+         &&&> GLibChildWatchFunc.FFI.withDestroyNotify
          ---> GUInt.FFI.fromVal
       )
         childWatchAdd_
@@ -1698,7 +1698,7 @@ structure GLib : G_LIB =
            & function
            & ()
         )
-    fun childWatchSourceNew (pid, function) = (GLibPid.FFI.withVal &&&> GLibChildWatchFunc.FFI.withCallback ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ (pid & function)
+    fun childWatchSourceNew (pid, function) = (GLibPid.FFI.withVal &&&> GLibChildWatchFunc.FFI.withClosure false ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ (pid & function)
     fun close fd = (GFileDesc.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) close_ (fd & [])
     fun computeChecksumForBytes (checksumType, data) = (GLibChecksumType.FFI.withVal &&&> GLibBytesRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) computeChecksumForBytes_ (checksumType & data)
     fun computeChecksumForData (checksumType, data) =
@@ -2079,9 +2079,9 @@ structure GLib : G_LIB =
     fun idleAdd (priority, function) =
       (
         GInt.FFI.withVal
-         &&&> GLibSourceFunc.FFI.withPtrToDispatch
-         &&&> GLibSourceFunc.FFI.withCallback
-         &&&> GLibSourceFunc.FFI.withPtrToDestroy
+         &&&> GLibSourceFunc.FFI.withDispatch false
+         &&&> GLibSourceFunc.FFI.withClosure false
+         &&&> GLibSourceFunc.FFI.withDestroyNotify
          ---> GUInt.FFI.fromVal
       )
         idleAdd_
@@ -2096,9 +2096,9 @@ structure GLib : G_LIB =
         GLibIOChannelRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GLibIOCondition.FFI.withVal
-         &&&> GLibIOFunc.FFI.withPtrToDispatch
-         &&&> GLibIOFunc.FFI.withCallback
-         &&&> GLibIOFunc.FFI.withPtrToDestroy
+         &&&> GLibIOFunc.FFI.withDispatch false
+         &&&> GLibIOFunc.FFI.withClosure false
+         &&&> GLibIOFunc.FFI.withDestroyNotify
          ---> GUInt.FFI.fromVal
       )
         ioAddWatch_
@@ -2349,8 +2349,8 @@ structure GLib : G_LIB =
              &&&> Utf8CPtrArray.FFI.withPtr 0
              &&&> Utf8CPtrArray.FFI.withOptPtr 0
              &&&> GLibSpawnFlags.FFI.withVal
-             &&&> GLibSpawnChildSetupFunc.FFI.withPtrToDispatch
-             &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptDispatch true
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptClosure false
              &&&> GLibPid.FFI.withRefVal
              &&&> GFileDesc.FFI.withRefVal
              &&&> GFileDesc.FFI.withRefVal
@@ -2368,7 +2368,7 @@ structure GLib : G_LIB =
                & argv
                & envp
                & flags
-               & ()
+               & isSome childSetup
                & childSetup
                & GLibPid.null
                & GFileDesc.null
@@ -2524,9 +2524,9 @@ structure GLib : G_LIB =
       (
         GInt.FFI.withVal
          &&&> GUInt.FFI.withVal
-         &&&> GLibSourceFunc.FFI.withPtrToDispatch
-         &&&> GLibSourceFunc.FFI.withCallback
-         &&&> GLibSourceFunc.FFI.withPtrToDestroy
+         &&&> GLibSourceFunc.FFI.withDispatch false
+         &&&> GLibSourceFunc.FFI.withClosure false
+         &&&> GLibSourceFunc.FFI.withDestroyNotify
          ---> GUInt.FFI.fromVal
       )
         timeoutAdd_
@@ -2541,9 +2541,9 @@ structure GLib : G_LIB =
       (
         GInt.FFI.withVal
          &&&> GUInt.FFI.withVal
-         &&&> GLibSourceFunc.FFI.withPtrToDispatch
-         &&&> GLibSourceFunc.FFI.withCallback
-         &&&> GLibSourceFunc.FFI.withPtrToDestroy
+         &&&> GLibSourceFunc.FFI.withDispatch false
+         &&&> GLibSourceFunc.FFI.withClosure false
+         &&&> GLibSourceFunc.FFI.withDestroyNotify
          ---> GUInt.FFI.fromVal
       )
         timeoutAddSeconds_

@@ -30,6 +30,6 @@ functor CallbackTable(type callback) :>
     val table : callback t = new ()
 
     val add = insert table
-    val remove = ignore o delete table
+    val remove = delete table
     val lookup = lookup table
   end

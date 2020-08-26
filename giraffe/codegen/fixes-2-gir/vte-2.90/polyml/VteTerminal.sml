@@ -48,8 +48,8 @@ structure VteTerminal :>
              &&> Utf8CPtrArray.PolyML.cInPtr
              &&> Utf8CPtrArray.PolyML.cInOptPtr
              &&> GLibSpawnFlags.PolyML.cVal
-             &&> GLibSpawnChildSetupFunc.PolyML.cOptPtr
-             &&> GLibSpawnChildSetupFunc.PolyML.cFunction
+             &&> GLibSpawnChildSetupFunc.PolyML.cOptDispatch
+             &&> GLibSpawnChildSetupFunc.PolyML.cOptClosure
              &&> GLibPid.PolyML.cRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
@@ -298,8 +298,8 @@ structure VteTerminal :>
              &&&> Utf8CPtrArray.FFI.withPtr 0
              &&&> Utf8CPtrArray.FFI.withOptPtr 0
              &&&> GLibSpawnFlags.FFI.withVal
-             &&&> GLibSpawnChildSetupFunc.FFI.withOptPtrToDispatch
-             &&&> GLibSpawnChildSetupFunc.FFI.withOptCallback
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptDispatch true
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptClosure false
              &&&> GLibPid.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GLibPid.FFI.fromVal

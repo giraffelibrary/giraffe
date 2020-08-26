@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -15,10 +15,13 @@
 typedef gboolean (*SourceCallback) (void);
 
 extern
-gboolean giraffe_source_dispatch (gpointer data);
+gboolean giraffe_g_source_func_dispatch (gpointer data);
 
 extern
-void giraffe_source_destroy (gpointer data);
+gboolean giraffe_g_source_func_dispatch_async (gpointer data);
+
+extern
+void giraffe_g_source_func_destroy (gpointer data);
 
 
 /* GChildWatchFunc */
@@ -27,10 +30,13 @@ typedef void (*ChildWatchCallback) (GPid pid,
                                     gint status);
 
 extern
-void giraffe_child_watch_dispatch (GPid pid, gint status, gpointer data);
+void giraffe_g_child_watch_func_dispatch (GPid pid, gint status, gpointer data);
 
 extern
-void giraffe_child_watch_destroy (gpointer data);
+void giraffe_g_child_watch_func_dispatch_async (GPid pid, gint status, gpointer data);
+
+extern
+void giraffe_g_child_watch_func_destroy (gpointer data);
 
 
 /* GIOFunc */
@@ -39,12 +45,17 @@ typedef gboolean (*IOCallback) (GIOChannel *source,
                                 GIOCondition condition);
 
 extern
-gboolean giraffe_io_dispatch (GIOChannel *source,
-                              GIOCondition condition,
-                              gpointer data);
+gboolean giraffe_g_i_o_func_dispatch (GIOChannel *source,
+                                      GIOCondition condition,
+                                      gpointer data);
 
 extern
-void giraffe_io_destroy (gpointer data);
+gboolean giraffe_g_i_o_func_dispatch_async (GIOChannel *source,
+                                            GIOCondition condition,
+                                            gpointer data);
+
+extern
+void giraffe_g_i_o_func_destroy (gpointer data);
 
 
 /* GSpawnChildSetupFunc */
@@ -52,4 +63,10 @@ void giraffe_io_destroy (gpointer data);
 typedef void (*SpawnChildSetupCallback) (void);
 
 extern
-void giraffe_spawn_child_setup_dispatch (gpointer data);
+void giraffe_g_spawn_child_setup_func_dispatch (gpointer data);
+
+extern
+void giraffe_g_spawn_child_setup_func_dispatch_async (gpointer data);
+
+extern
+void giraffe_g_spawn_child_setup_func_destroy (gpointer data);

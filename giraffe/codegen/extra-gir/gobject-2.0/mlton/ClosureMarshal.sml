@@ -17,7 +17,7 @@ structure ClosureMarshal :>
       struct
         structure C =
           struct
-            structure Pointer = CTypedPointer (GObjectValueRecord.C.ValueType)
+            structure Pointer = CTypedPointer(GObjectValueRecord.C.ValueType)
             type opt = Pointer.opt
             type non_opt = Pointer.non_opt
             type 'a p = 'a Pointer.p
@@ -26,70 +26,53 @@ structure ClosureMarshal :>
           end
       end
 
-    type state =
-      GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
-       * GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p
-       * GUInt32.FFI.val_
-    type c_callback = state -> unit
+    structure Closure =
+      Closure(
+        val name = "GObject.Closure"
+        type args =
+          (
+            GObjectValueRecord.C.non_opt GObjectValueRecord.C.p,
+            (
+              GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p,
+              GUInt32.FFI.val_
+            ) pair
+          ) pair
+        type ret = unit
+        val exnRetVal = ()
+        val noneRetVal = ()
+      )
 
-    structure ClosureCallbackTable = CallbackTable(struct type callback = c_callback end)
+    val () =
+      _export "giraffe_closure_dispatch_sml" :
+        (Closure.t
+          * GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
+          * GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p
+          * GUInt32.FFI.val_
+          -> unit)
+         -> unit;
+        (fn (closure, v, vs, size) => Closure.call closure (v & vs & size))
 
-    local
-      val dispatch :
-        ClosureCallbackTable.id
-         * GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
-         * GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p
-         * GUInt32.FFI.val_
-         -> unit =
-        fn (id, v, vs, size) =>
-          case ClosureCallbackTable.lookup id of
-            SOME f => (
-              f (v, vs, size)
-                handle
-                  e => GiraffeLog.critical (exnMessage e)
-            )
-          | NONE   =>
-              GiraffeLog.critical (
-                concat [
-                  "closure callback error: invalid closure function id ",
-                  ClosureCallbackTable.fmtId id
-                ]
-              )
-    in
-      val _ =
-        _export "giraffe_closure_dispatch_smlside" :
-          (ClosureCallbackTable.id
-            * GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
-            * GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p
-            * GUInt32.FFI.val_
-            -> unit)
-           -> unit;
-      dispatch
-    end
+    val () =
+      _export "giraffe_closure_destroy_sml" : (Closure.t -> unit) -> unit;
+        Closure.free
 
-    val _ =
-      _export "giraffe_closure_destroy_smlside" :
-        (ClosureCallbackTable.id -> unit) -> unit;
-    ClosureCallbackTable.remove
+    type 'a get = Closure.args -> 'a
+    type 'a set = Closure.args -> 'a -> unit
+    type 'a ret = Closure.args -> 'a -> unit
 
+    fun get n a (_ & vs & _) = GObjectValueRecordArray.C.get a vs (Word.toInt n)
+    fun set n a (_ & vs & _) = GObjectValueRecordArray.C.set a vs (Word.toInt n)
+    fun ret a (v & _ & _) = ValueAccessor.C.set a v
 
-    type 'a get = state -> 'a
-    type 'a set = state -> 'a -> unit
-    type 'a ret = state -> 'a -> unit
+    type 'a marshaller = 'a -> Closure.callback
 
-    fun get n a (_, vs, _) = GObjectValueRecordArray.C.get a vs (Word.toInt n)
-    fun set n a (_, vs, _) = GObjectValueRecordArray.C.set a vs (Word.toInt n)
-    fun ret a (v, _, _) = ValueAccessor.C.set a v
-
-    type 'a marshaller = 'a -> c_callback
-
-    fun (f &&&> g) state = f state & g state
-    fun (f ---> g) h state = g state (h (f state))
-    fun (f && g) state (x & y) = (f state x : unit; g state y : unit)
+    fun (f &&&> g) args = f args & g args
+    fun (f ---> g) h args = g args (h (f args))
+    fun (f && g) args (x & y) = (f args x : unit; g args y : unit)
 
     fun void _ = ()
 
-    fun ret_void (v, _, _) () =
+    fun ret_void (v & _ & _) () =
       if not (ValueAccessor.C.isValue v)
       then ()
       else raise Fail "GIRAFFE internal error: ret_void used \
@@ -97,15 +80,15 @@ structure ClosureMarshal :>
 
     structure FFI =
       struct
-        type callback = ClosureCallbackTable.id
+        type closure = Closure.t
 
-        fun withCallback f (marshaller, callback) =
+        fun withClosure f (marshaller, func) =
           let
-            val callbackId = ClosureCallbackTable.add (marshaller callback)
+            val closure = Closure.make (marshaller func)
           in
-            f callbackId
+            f closure
               handle
-                e => (ClosureCallbackTable.remove callbackId; raise e)
+                e => (Closure.free closure; raise e)
           end
       end
   end

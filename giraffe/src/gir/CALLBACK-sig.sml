@@ -11,15 +11,18 @@ signature CALLBACK =
 
     structure FFI :
       sig
-        type opt
         type non_opt
-        type 'a p
+        type opt
 
-        type callback
-        val withCallback : (callback -> 'a) -> t -> 'a
-        val withOptCallback : (callback -> 'a) -> t option -> 'a
+        type 'a closure
+        val withClosure : bool -> (non_opt closure -> 'a) -> t -> 'a
+        val withOptClosure : bool -> (opt closure -> 'a) -> t option -> 'a
 
-        val withPtrToDispatch : (non_opt p -> 'a) -> unit -> 'a
-        val withOptPtrToDispatch : (opt p -> 'a) -> bool -> 'a
+        type 'a dispatch
+        val withDispatch : bool -> (non_opt dispatch -> 'a) -> unit -> 'a
+        val withOptDispatch : bool -> (opt dispatch -> 'a) -> bool -> 'a
+
+        type destroy_notify
+        val withDestroyNotify : (destroy_notify -> 'a) -> unit -> 'a
       end
   end

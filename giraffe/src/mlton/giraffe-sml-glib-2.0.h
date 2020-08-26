@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -12,35 +12,54 @@
 /* GSourceFunc */
 
 extern
-gint32 giraffe_source_dispatch_smlside (guint id);
+gint32 giraffe_g_source_func_dispatch_sml (guint id);
 
 extern
-void giraffe_source_destroy_smlside (guint id);
+gint32 giraffe_g_source_func_dispatch_async_sml (guint id);
+
+extern
+void giraffe_g_source_func_destroy_sml (guint id);
 
 
 /* GChildWatchFunc */
 
 extern
-void giraffe_child_watch_dispatch_smlside (GPid pid,
-                                           gint status,
-                                           guint id);
+void giraffe_g_child_watch_func_dispatch_sml (GPid pid,
+                                              gint status,
+                                              guint id);
 
 extern
-void giraffe_child_watch_destroy_smlside (guint id);
+void giraffe_g_child_watch_func_dispatch_async_sml (GPid pid,
+                                                    gint status,
+                                                    guint id);
+
+extern
+void giraffe_g_child_watch_func_destroy_sml (guint id);
 
 
 /* GSpawnChildSetupFunc */
 
 extern
-void giraffe_spawn_child_setup_dispatch_smlside (guint id);
+void giraffe_g_spawn_child_setup_func_dispatch_sml (guint id);
+
+extern
+void giraffe_g_spawn_child_setup_func_dispatch_async_sml (guint id);
+
+extern
+void giraffe_g_spawn_child_setup_func_destroy_sml (guint id);
 
 
 /* GIOFunc */
 
 extern
-gboolean giraffe_io_dispatch_smlside (GIOChannel *source,
-                                      GIOCondition condition,
-                                      guint id);
+gboolean giraffe_g_i_o_func_dispatch_sml (GIOChannel *source,
+                                          GIOCondition condition,
+                                          guint id);
 
 extern
-void giraffe_io_destroy_smlside (guint id);
+gboolean giraffe_g_i_o_func_dispatch_async_sml (GIOChannel *source,
+                                                GIOCondition condition,
+                                                guint id);
+
+extern
+void giraffe_g_i_o_func_destroy_sml (guint id);

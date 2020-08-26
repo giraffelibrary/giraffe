@@ -31,19 +31,20 @@ signature CLOSURE_MARSHAL =
 
     structure FFI :
       sig
-        type callback
-        val withCallback :
-          (callback -> 'c) -> (('a -> 'b) marshaller * ('a -> 'b)) -> 'c
+        type closure
+        val withClosure :
+          (closure -> 'c) -> (('a -> 'b) marshaller * ('a -> 'b)) -> 'c
+
         (* The callback value passed to the C side should be used as the
          * callback data argument and the dispatch and notify functions
          * set to `giraffe_closure_dispatch` and `giraffe_closure_destroy`
          * respectively, as done by `giraffe_g_closure_new`.  (Note that
-         * `withCallback` is unlikely to be used by any function other than
+         * `withClosure` is unlikely to be used by any function other than
          * `GClosure.new`.)
          *
          * MLton-specific note
          *
-         * `withCallback` adds the SML callback function to the closure
+         * `withClosure` adds the SML callback function to the closure
          * callback table.  It is removed when `giraffe_closure_destroy` is
          * called.  For a closure object created by `giraffe_g_closure_new`,
          * this occurs when  the closure's reference count becomes zero, just

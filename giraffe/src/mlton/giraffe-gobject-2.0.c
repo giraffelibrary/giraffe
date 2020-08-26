@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, 2016-2018 Phil Clayton <phil.clayton@veonix.com>
+/* Copyright (C) 2012, 2016-2018, 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -455,10 +455,10 @@ giraffe_closure_dispatch (GClosure *closure,
     fflush (stdout);
   }
 #endif /* GIRAFFE_DEBUG */
-  giraffe_closure_dispatch_smlside (GPOINTER_TO_UINT(closure->data),
-                                    return_value,
-                                    param_values,
-                                    n_param_values);
+  giraffe_closure_dispatch_sml (GPOINTER_TO_UINT(closure->data),
+                                return_value,
+                                param_values,
+                                n_param_values);
 #ifdef GIRAFFE_DEBUG
   if (giraffe_debug_closure)
   {
@@ -479,7 +479,7 @@ giraffe_closure_destroy (gpointer data,
     fflush (stdout);
   }
 #endif /* GIRAFFE_DEBUG */
-  giraffe_closure_destroy_smlside (GPOINTER_TO_UINT(data));
+  giraffe_closure_destroy_sml (GPOINTER_TO_UINT(data));
 #ifdef GIRAFFE_DEBUG
   if (giraffe_debug_closure)
   {

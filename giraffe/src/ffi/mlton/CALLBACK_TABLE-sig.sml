@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2018, 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -18,6 +18,6 @@ signature CALLBACK_TABLE =
 
     type callback
     val add : callback -> id
-    val remove : id -> unit
+    val remove : id -> callback option
     val lookup : id -> callback option
   end

@@ -8,55 +8,34 @@
 structure GLibSourceFunc :> G_LIB_SOURCE_FUNC =
   struct
     type func = unit -> bool
-    type t = func
-
-    structure C =
-      struct
-        structure Pointer = CPointer(GMemory)
-        type opt = Pointer.opt
-        type non_opt = Pointer.non_opt
-        type 'a p = 'a Pointer.p
-      end
-
-    structure FFI =
-      struct
-        type opt = C.opt
-        type non_opt = C.non_opt
-        type 'a p = 'a C.p
-
-        type callback = (unit -> GBool.FFI.val_) PolyMLFFI.closure
+    structure Closure =
+      Closure(
+        val name = "GLib.SourceFunc"
+        type args = unit
+        type ret = GBool.FFI.val_
+        val exnRetVal =
+          GBool.FFI.withVal I false (* return false to remove the source *)
         local
           open PolyMLFFI
         in
-          val makeClosure = closure (cVoid --> GBool.PolyML.cVal)
-          val nullClosure = nullClosure
+          val callbackFunc = cVoid --> GBool.PolyML.cVal
         end
-        fun withCallback f callback =
-          f (makeClosure (fn () => GBool.FFI.withVal I (callback ())))
-        fun withOptCallback f optCallback =
-          case optCallback of
-            SOME callback => withCallback f callback
-          | NONE          => f nullClosure
-
-        fun withPtrToDispatch f () =
-          f (C.Pointer.PolyML.symbolAsAddress (PolyMLFFI.getSymbol "giraffe_source_dispatch"))
-        fun withOptPtrToDispatch f =
-          fn
-            true  => withPtrToDispatch f ()
-          | false => f C.Pointer.null
-
-        fun withPtrToDestroy f () =
-          f (C.Pointer.PolyML.symbolAsAddress (PolyMLFFI.getSymbol "giraffe_source_destroy"))
-        fun withOptPtrToDestroy f =
-          fn
-            true  => withPtrToDestroy f ()
-          | false => f C.Pointer.null
-      end
-
-    structure PolyML =
-      struct
-        val cPtr = C.Pointer.PolyML.cVal
-        val cOptPtr = C.Pointer.PolyML.cOptVal
-        val cFunction = PolyMLFFI.cFunction
-      end
+      )
+    structure Callback =
+      Callback(
+        type t = func
+        structure Closure = Closure
+        fun marshaller func =
+          fn () =>
+            GBool.FFI.withVal I (func ())
+        structure Pointer = CPointer(GMemory)
+        local
+          open PolyMLFFI
+        in
+          fun dispatchPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_g_source_func_dispatch")
+          fun dispatchAsyncPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_g_source_func_dispatch_async")
+          fun destroyNotifyPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_g_source_func_destroy")
+        end
+      )
+    open Callback
   end
