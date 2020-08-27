@@ -182,7 +182,7 @@ structure GLib : G_LIB =
          & x4
          & x5 =>
           (
-            _import "g_child_watch_add" :
+            _import "g_child_watch_add_full" :
               GInt.FFI.val_
                * GLibPid.FFI.val_
                * GLibChildWatchFunc.FFI.non_opt GLibChildWatchFunc.FFI.dispatch
@@ -197,7 +197,7 @@ structure GLib : G_LIB =
               x4,
               x5
             )
-    val childWatchSourceNew_ = fn x1 & x2 => (_import "giraffe_g_child_watch_source_new" : GLibPid.FFI.val_ * GLibChildWatchFunc.FFI.non_opt GLibChildWatchFunc.FFI.closure -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;) (x1, x2)
+    val childWatchSourceNew_ = _import "g_child_watch_source_new" : GLibPid.FFI.val_ -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
     val close_ = fn x1 & x2 => (_import "g_close" : GFileDesc.FFI.val_ * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r -> GBool.FFI.val_;) (x1, x2)
     val computeChecksumForBytes_ = fn x1 & x2 => (_import "g_compute_checksum_for_bytes" : GLibChecksumType.FFI.val_ * GLibBytesRecord.FFI.non_opt GLibBytesRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
     val computeChecksumForData_ =
@@ -1256,7 +1256,7 @@ structure GLib : G_LIB =
          & x4
          & x5 =>
           (
-            _import "g_timeout_add" :
+            _import "g_timeout_add_full" :
               GInt.FFI.val_
                * GUInt.FFI.val_
                * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.dispatch
@@ -1279,7 +1279,7 @@ structure GLib : G_LIB =
          & x4
          & x5 =>
           (
-            _import "g_timeout_add_seconds" :
+            _import "g_timeout_add_seconds_full" :
               GInt.FFI.val_
                * GUInt.FFI.val_
                * GLibSourceFunc.FFI.non_opt GLibSourceFunc.FFI.dispatch
@@ -1698,7 +1698,7 @@ structure GLib : G_LIB =
            & function
            & ()
         )
-    fun childWatchSourceNew (pid, function) = (GLibPid.FFI.withVal &&&> GLibChildWatchFunc.FFI.withClosure false ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ (pid & function)
+    fun childWatchSourceNew pid = (GLibPid.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ pid
     fun close fd = (GFileDesc.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) close_ (fd & [])
     fun computeChecksumForBytes (checksumType, data) = (GLibChecksumType.FFI.withVal &&&> GLibBytesRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) computeChecksumForBytes_ (checksumType & data)
     fun computeChecksumForData (checksumType, data) =

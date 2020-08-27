@@ -340,12 +340,12 @@ signature G_LIB =
        * LargeInt.int
        * LargeInt.int
        -> string
-    val childWatchSourceNew : Pid.t * ChildWatchFunc.t -> SourceRecord.t
     val childWatchAdd :
       LargeInt.int
        * Pid.t
        * ChildWatchFunc.t
        -> LargeInt.int
+    val childWatchSourceNew : Pid.t -> SourceRecord.t
     val close : GFileDesc.t -> unit
     val computeChecksumForBytes : ChecksumType.t * BytesRecord.t -> string
     val computeChecksumForData : ChecksumType.t * GUInt8CArrayN.t -> string

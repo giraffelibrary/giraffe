@@ -50,7 +50,7 @@ structure GLib : G_LIB =
              --> Utf8.PolyML.cOutPtr
           )
       val childWatchAdd_ =
-        call (getSymbol "g_child_watch_add")
+        call (getSymbol "g_child_watch_add_full")
           (
             GInt.PolyML.cVal
              &&> GLibPid.PolyML.cVal
@@ -59,7 +59,7 @@ structure GLib : G_LIB =
              &&> GLibChildWatchFunc.PolyML.cDestroyNotify
              --> GUInt.PolyML.cVal
           )
-      val childWatchSourceNew_ = call (getSymbol "giraffe_g_child_watch_source_new") (GLibPid.PolyML.cVal &&> GLibChildWatchFunc.PolyML.cClosure --> GLibSourceRecord.PolyML.cPtr)
+      val childWatchSourceNew_ = call (getSymbol "g_child_watch_source_new") (GLibPid.PolyML.cVal --> GLibSourceRecord.PolyML.cPtr)
       val close_ = call (getSymbol "g_close") (GFileDesc.PolyML.cVal &&> GLibErrorRecord.PolyML.cOutOptRef --> GBool.PolyML.cVal)
       val computeChecksumForBytes_ = call (getSymbol "g_compute_checksum_for_bytes") (GLibChecksumType.PolyML.cVal &&> GLibBytesRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val computeChecksumForData_ =
@@ -460,7 +460,7 @@ structure GLib : G_LIB =
           )
       val timeoutAdd_ =
         call
-          (getSymbol "g_timeout_add")
+          (getSymbol "g_timeout_add_full")
           (
             GInt.PolyML.cVal
              &&> GUInt.PolyML.cVal
@@ -471,7 +471,7 @@ structure GLib : G_LIB =
           )
       val timeoutAddSeconds_ =
         call
-          (getSymbol "g_timeout_add_seconds")
+          (getSymbol "g_timeout_add_seconds_full")
           (
             GInt.PolyML.cVal
              &&> GUInt.PolyML.cVal
@@ -832,7 +832,7 @@ structure GLib : G_LIB =
            & function
            & ()
         )
-    fun childWatchSourceNew (pid, function) = (GLibPid.FFI.withVal &&&> GLibChildWatchFunc.FFI.withClosure false ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ (pid & function)
+    fun childWatchSourceNew pid = (GLibPid.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ pid
     fun close fd = (GFileDesc.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) close_ (fd & [])
     fun computeChecksumForBytes (checksumType, data) = (GLibChecksumType.FFI.withVal &&&> GLibBytesRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) computeChecksumForBytes_ (checksumType & data)
     fun computeChecksumForData (checksumType, data) =
