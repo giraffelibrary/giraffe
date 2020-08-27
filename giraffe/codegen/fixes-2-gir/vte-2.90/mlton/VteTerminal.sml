@@ -82,8 +82,8 @@ structure VteTerminal :>
              * Utf8CPtrArray.MLton.p1
              * Utf8CPtrArray.FFI.opt Utf8CPtrArray.MLton.p2
              * GLibSpawnFlags.FFI.val_
-             * GLibSpawnChildSetupFunc.FFI.opt GLibSpawnChildSetupFunc.FFI.dispatch
-             * GLibSpawnChildSetupFunc.FFI.opt GLibSpawnChildSetupFunc.FFI.closure
+             * GLibSpawnChildSetupFunc.FFI.opt GLibSpawnChildSetupFunc.FFI.dispatch_p
+             * GLibSpawnChildSetupFunc.FFI.opt GLibSpawnChildSetupFunc.FFI.p
              * GLibPid.FFI.ref_
              * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
              -> GBool.FFI.val_;
@@ -530,8 +530,8 @@ structure VteTerminal :>
              &&&> Utf8CPtrArray.FFI.withPtr 0
              &&&> Utf8CPtrArray.FFI.withOptPtr 0
              &&&> GLibSpawnFlags.FFI.withVal
-             &&&> GLibSpawnChildSetupFunc.FFI.withOptDispatch true
-             &&&> GLibSpawnChildSetupFunc.FFI.withOptClosure false
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptDispatchPtr true
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptPtr false
              &&&> GLibPid.FFI.withRefVal
              &&&> GLibErrorRecord.handleError
              ---> GLibPid.FFI.fromVal

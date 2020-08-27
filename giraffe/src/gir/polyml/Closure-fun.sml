@@ -5,6 +5,15 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
+(**
+ * The functor Closure constructs a closure instance given the type of the
+ * called function arguments and the return value.  The type `t` is abstract
+ * due to opaque signature matching to ensure that values from different
+ * instances cannot be mixed.  Internally the type `t` is representated using
+ * a pointer (though the value held may not actually be a meaningful address)
+ * to allow a closure value to be used with GLib as the 'user data' parameter
+ * whose C type is gpointer.
+ *)
 functor Closure(
   val name : string
   type args

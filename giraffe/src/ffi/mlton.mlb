@@ -15,9 +15,7 @@ in
     "resolveScope topdec"
   in
     mlton/TABLE-sig.sml
-    mlton/CALLBACK_TABLE-sig.sml
     mlton/WordTable-fun.sml
-    mlton/CallbackTable-fun.sml
     HighLevelFFI.sml
     FINALIZABLE-sig.sml
     C_MEMORY-sig.sml

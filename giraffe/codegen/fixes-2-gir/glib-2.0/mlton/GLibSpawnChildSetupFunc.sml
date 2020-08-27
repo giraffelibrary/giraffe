@@ -8,6 +8,7 @@
 structure GLibSpawnChildSetupFunc :> G_LIB_SPAWN_CHILD_SETUP_FUNC =
   struct
     type func = unit -> unit
+    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GLib.SpawnChildSetupFunc"
@@ -19,10 +20,10 @@ structure GLibSpawnChildSetupFunc :> G_LIB_SPAWN_CHILD_SETUP_FUNC =
     structure Callback =
       Callback(
         type t = func
+        structure Pointer = Pointer
         structure Closure = Closure
         fun marshaller func =
           fn () => func ()
-        structure Pointer = CPointer(GMemory)
         fun dispatchPtr () = _address "giraffe_g_spawn_child_setup_func_dispatch" : Pointer.t;
         fun dispatchAsyncPtr () = _address "giraffe_g_spawn_child_setup_func_dispatch_async" : Pointer.t;
         fun destroyNotifyPtr () = _address "giraffe_g_spawn_child_setup_func_destroy" : Pointer.t;

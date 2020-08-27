@@ -11,7 +11,7 @@ structure GObjectClosure :>
       val new_ =
         call
           (getSymbol "giraffe_g_closure_new")
-          (ClosureMarshal.PolyML.cClosure --> GObjectClosureRecord.PolyML.cPtr)
+          (ClosureMarshal.PolyML.cPtr --> GObjectClosureRecord.PolyML.cPtr)
       val invalidate_ = call (getSymbol "g_closure_invalidate") (GObjectClosureRecord.PolyML.cPtr --> cVoid)
     end
     type t = GObjectClosureRecord.t
@@ -19,7 +19,7 @@ structure GObjectClosure :>
     type 'a marshaller = 'a ClosureMarshal.marshaller
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new marshaller func =
-      (ClosureMarshal.FFI.withClosure ---> GObjectClosureRecord.FFI.fromPtr false)
+      (ClosureMarshal.FFI.withPtr ---> GObjectClosureRecord.FFI.fromPtr false)
         new_
         (marshaller, func)
     fun invalidate self = (GObjectClosureRecord.FFI.withPtr false ---> I) invalidate_ self

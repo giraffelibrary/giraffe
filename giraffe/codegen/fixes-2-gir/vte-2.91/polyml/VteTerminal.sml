@@ -242,8 +242,8 @@ structure VteTerminal :>
              &&> Utf8CPtrArray.PolyML.cInPtr
              &&> Utf8CPtrArray.PolyML.cInOptPtr
              &&> GLibSpawnFlags.PolyML.cVal
-             &&> GLibSpawnChildSetupFunc.PolyML.cOptDispatch
-             &&> GLibSpawnChildSetupFunc.PolyML.cOptClosure
+             &&> GLibSpawnChildSetupFunc.PolyML.cOptDispatchPtr
+             &&> GLibSpawnChildSetupFunc.PolyML.cOptPtr
              &&> GLibPid.PolyML.cRef
              &&> GioCancellableClass.PolyML.cOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
@@ -664,8 +664,8 @@ structure VteTerminal :>
              &&&> Utf8CPtrArray.FFI.withPtr 0
              &&&> Utf8CPtrArray.FFI.withOptPtr 0
              &&&> GLibSpawnFlags.FFI.withVal
-             &&&> GLibSpawnChildSetupFunc.FFI.withOptDispatch false
-             &&&> GLibSpawnChildSetupFunc.FFI.withOptClosure true
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptDispatchPtr false
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptPtr true
              &&&> GLibPid.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError

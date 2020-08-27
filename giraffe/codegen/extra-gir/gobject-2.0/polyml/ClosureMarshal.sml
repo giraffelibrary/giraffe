@@ -12,7 +12,7 @@ structure ClosureMarshal :>
 
     structure PolyML :
       sig
-        val cClosure : FFI.closure PolyMLFFI.conversion
+        val cPtr : FFI.non_opt FFI.p PolyMLFFI.conversion
       end
   end =
   struct
@@ -83,9 +83,11 @@ structure ClosureMarshal :>
 
     structure FFI =
       struct
-        type closure = Closure.t
+        type opt = unit
+        type non_opt = unit
+        type 'a p = Closure.t
 
-        fun withClosure f (marshaller, func) =
+        fun withPtr f (marshaller, func) =
           let
             val closure = Closure.make (marshaller func)
           in
@@ -97,6 +99,6 @@ structure ClosureMarshal :>
 
     structure PolyML =
       struct
-        val cClosure = Closure.PolyML.cFunction
+        val cPtr = Closure.PolyML.cFunction
       end
   end

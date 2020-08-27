@@ -7,9 +7,9 @@
 
 functor Callback(
   type t
+  structure Pointer : C_POINTER
   structure Closure : CLOSURE
   val marshaller : t -> Closure.callback
-  structure Pointer : C_POINTER
   val dispatchPtr : unit -> Pointer.t
   val dispatchAsyncPtr : unit -> Pointer.t
   val destroyNotifyPtr : unit -> Pointer.t
@@ -21,14 +21,13 @@ functor Callback(
 
     structure FFI =
       struct
-        type non_opt = Pointer.non_opt
         type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
+        type 'a p = Closure.t
+        type 'a dispatch_p = 'a Pointer.p
+        type destroy_notify_p = Pointer.t
 
-        type 'a closure = Closure.t
-        type 'a dispatch = 'a Pointer.p
-        type destroy_notify = Pointer.t
-
-        fun withClosure scopeCall f func =
+        fun withPtr scopeCall f func =
           let
             val closure = Closure.make (marshaller func)
           in
@@ -36,23 +35,22 @@ functor Callback(
               handle
                 e => (Closure.free closure; raise e)
           end
-        fun withOptClosure free f optFunc =
+        fun withOptPtr free f optFunc =
           case optFunc of
-            SOME func => withClosure free f func
+            SOME func => withPtr free f func
           | NONE      => f Closure.null
 
-        fun withDispatch scopeAsync f () =
+        fun withDispatchPtr scopeAsync f () =
           f (
             if scopeAsync
             then dispatchAsyncPtr ()
             else dispatchPtr ()
           )
-
-        fun withOptDispatch scopeAsync f =
+        fun withOptDispatchPtr scopeAsync f =
           fn
-            true  => withDispatch scopeAsync (f o Pointer.toOptPtr) ()
+            true  => withDispatchPtr scopeAsync (f o Pointer.toOptPtr) ()
           | false => f Pointer.null
 
-        fun withDestroyNotify f () = f (destroyNotifyPtr ())
+        fun withDestroyNotifyPtr f () = f (destroyNotifyPtr ())
       end
   end

@@ -12,13 +12,13 @@
 /* GSourceFunc */
 
 extern
-gint32 giraffe_g_source_func_dispatch_sml (guint id);
+gint32 giraffe_g_source_func_dispatch_sml (gpointer data);
 
 extern
-gint32 giraffe_g_source_func_dispatch_async_sml (guint id);
+gint32 giraffe_g_source_func_dispatch_async_sml (gpointer data);
 
 extern
-void giraffe_g_source_func_destroy_sml (guint id);
+void giraffe_g_source_func_destroy_sml (gpointer data);
 
 
 /* GChildWatchFunc */
@@ -26,27 +26,27 @@ void giraffe_g_source_func_destroy_sml (guint id);
 extern
 void giraffe_g_child_watch_func_dispatch_sml (GPid pid,
                                               gint status,
-                                              guint id);
+                                              gpointer data);
 
 extern
 void giraffe_g_child_watch_func_dispatch_async_sml (GPid pid,
                                                     gint status,
-                                                    guint id);
+                                                    gpointer data);
 
 extern
-void giraffe_g_child_watch_func_destroy_sml (guint id);
+void giraffe_g_child_watch_func_destroy_sml (gpointer data);
 
 
 /* GSpawnChildSetupFunc */
 
 extern
-void giraffe_g_spawn_child_setup_func_dispatch_sml (guint id);
+void giraffe_g_spawn_child_setup_func_dispatch_sml (gpointer data);
 
 extern
-void giraffe_g_spawn_child_setup_func_dispatch_async_sml (guint id);
+void giraffe_g_spawn_child_setup_func_dispatch_async_sml (gpointer data);
 
 extern
-void giraffe_g_spawn_child_setup_func_destroy_sml (guint id);
+void giraffe_g_spawn_child_setup_func_destroy_sml (gpointer data);
 
 
 /* GIOFunc */
@@ -54,12 +54,12 @@ void giraffe_g_spawn_child_setup_func_destroy_sml (guint id);
 extern
 gboolean giraffe_g_i_o_func_dispatch_sml (GIOChannel *source,
                                           GIOCondition condition,
-                                          guint id);
+                                          gpointer data);
 
 extern
 gboolean giraffe_g_i_o_func_dispatch_async_sml (GIOChannel *source,
                                                 GIOCondition condition,
-                                                guint id);
+                                                gpointer data);
 
 extern
-void giraffe_g_i_o_func_destroy_sml (guint id);
+void giraffe_g_i_o_func_destroy_sml (gpointer data);

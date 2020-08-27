@@ -80,9 +80,11 @@ structure ClosureMarshal :>
 
     structure FFI =
       struct
-        type closure = Closure.t
+        type opt = unit
+        type non_opt = unit
+        type 'a p = Closure.t
 
-        fun withClosure f (marshaller, func) =
+        fun withPtr f (marshaller, func) =
           let
             val closure = Closure.make (marshaller func)
           in

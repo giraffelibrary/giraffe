@@ -70,19 +70,19 @@ giraffe_get_g_error_message (GError *error)
 gboolean
 giraffe_g_source_func_dispatch (gpointer data)
 {
-  return (gboolean) giraffe_g_source_func_dispatch_sml (GPOINTER_TO_UINT(data));
+  return (gboolean) giraffe_g_source_func_dispatch_sml (data);
 }
 
 gboolean
 giraffe_g_source_func_dispatch_async (gpointer data)
 {
-  return (gboolean) giraffe_g_source_func_dispatch_async_sml (GPOINTER_TO_UINT(data));
+  return (gboolean) giraffe_g_source_func_dispatch_async_sml (data);
 }
 
 void
 giraffe_g_source_func_destroy (gpointer data)
 {
-  giraffe_g_source_func_destroy_sml (GPOINTER_TO_UINT(data));
+  giraffe_g_source_func_destroy_sml (data);
 }
 
 
@@ -91,19 +91,19 @@ giraffe_g_source_func_destroy (gpointer data)
 void
 giraffe_g_child_watch_func_dispatch (GPid pid, gint status, gpointer data)
 {
-  giraffe_g_child_watch_func_dispatch_sml (pid, status, GPOINTER_TO_UINT(data));
+  giraffe_g_child_watch_func_dispatch_sml (pid, status, data);
 }
 
 void
 giraffe_g_child_watch_func_dispatch_async (GPid pid, gint status, gpointer data)
 {
-  giraffe_g_child_watch_func_dispatch_async_sml (pid, status, GPOINTER_TO_UINT(data));
+  giraffe_g_child_watch_func_dispatch_async_sml (pid, status, data);
 }
 
 void
 giraffe_g_child_watch_func_destroy (gpointer data)
 {
-  giraffe_g_child_watch_func_destroy_sml (GPOINTER_TO_UINT(data));
+  giraffe_g_child_watch_func_destroy_sml (data);
 }
 
 
@@ -116,7 +116,7 @@ giraffe_g_i_o_func_dispatch (GIOChannel *source,
 {
   return giraffe_g_i_o_func_dispatch_sml (source,
                                           condition,
-                                          GPOINTER_TO_UINT(data));
+                                          data);
 }
 
 gboolean
@@ -126,13 +126,13 @@ giraffe_g_i_o_func_dispatch_async (GIOChannel *source,
 {
   return giraffe_g_i_o_func_dispatch_async_sml (source,
                                                 condition,
-                                                GPOINTER_TO_UINT(data));
+                                                data);
 }
 
 void
 giraffe_g_i_o_func_destroy (gpointer data)
 {
-  giraffe_g_i_o_func_destroy_sml (GPOINTER_TO_UINT(data));
+  giraffe_g_i_o_func_destroy_sml (data);
 }
 
 
@@ -141,17 +141,17 @@ giraffe_g_i_o_func_destroy (gpointer data)
 void
 giraffe_g_spawn_child_setup_func_dispatch (gpointer data)
 {
-  giraffe_g_spawn_child_setup_func_dispatch_sml (GPOINTER_TO_UINT(data));
+  giraffe_g_spawn_child_setup_func_dispatch_sml (data);
 }
 
 void
 giraffe_g_spawn_child_setup_func_dispatch_async (gpointer data)
 {
-  giraffe_g_spawn_child_setup_func_dispatch_async_sml (GPOINTER_TO_UINT(data));
+  giraffe_g_spawn_child_setup_func_dispatch_async_sml (data);
 }
 
 void
 giraffe_g_spawn_child_setup_func_destroy (gpointer data)
 {
-  giraffe_g_spawn_child_setup_func_destroy_sml (GPOINTER_TO_UINT(data));
+  giraffe_g_spawn_child_setup_func_destroy_sml (data);
 }

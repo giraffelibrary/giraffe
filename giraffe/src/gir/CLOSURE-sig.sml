@@ -13,6 +13,16 @@ signature CLOSURE =
     type ret
     type callback = args -> ret
 
+    (* `null` is some closure that is never returned by `make`.
+     *
+     * `free` has no effect if applied to a closure not returned by `make` or
+     * a closure that `free` has already been applied to and may report an
+     * error but does not raise an exception.
+     *
+     * `call` returns an implementation-defined value if applied to a closure
+     * not returned by `make` or a closure that `free` has already been
+     * applied to and may report an error but does not raise an exception.
+     *)
     val null : t
     val make : callback -> t
     val free : t -> unit

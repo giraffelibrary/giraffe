@@ -455,7 +455,7 @@ giraffe_closure_dispatch (GClosure *closure,
     fflush (stdout);
   }
 #endif /* GIRAFFE_DEBUG */
-  giraffe_closure_dispatch_sml (GPOINTER_TO_UINT(closure->data),
+  giraffe_closure_dispatch_sml (closure->data,
                                 return_value,
                                 param_values,
                                 n_param_values);
@@ -479,7 +479,7 @@ giraffe_closure_destroy (gpointer data,
     fflush (stdout);
   }
 #endif /* GIRAFFE_DEBUG */
-  giraffe_closure_destroy_sml (GPOINTER_TO_UINT(data));
+  giraffe_closure_destroy_sml (data);
 #ifdef GIRAFFE_DEBUG
   if (giraffe_debug_closure)
   {
@@ -533,16 +533,16 @@ giraffe_debug_g_closure_unref (GClosure *closure)
 #endif /* GIRAFFE_DEBUG */
 
 GClosure *
-giraffe_g_closure_new (guint callback_id)
+giraffe_g_closure_new (gpointer data)
 {
   GClosure *closure;
   closure = g_closure_new_simple (sizeof (GClosure), 
-                                  GUINT_TO_POINTER(callback_id));
+                                  data);
 
   g_closure_set_marshal (closure, giraffe_closure_dispatch);
 
   g_closure_add_finalize_notifier (closure, 
-                                   GUINT_TO_POINTER(callback_id), 
+                                   data, 
                                    giraffe_closure_destroy);
 
   return closure;

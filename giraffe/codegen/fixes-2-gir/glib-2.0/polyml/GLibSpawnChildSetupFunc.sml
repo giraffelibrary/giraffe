@@ -8,6 +8,7 @@
 structure GLibSpawnChildSetupFunc :> G_LIB_SPAWN_CHILD_SETUP_FUNC =
   struct
     type func = unit -> unit
+    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GLib.SpawnChildSetupFunc"
@@ -23,10 +24,10 @@ structure GLibSpawnChildSetupFunc :> G_LIB_SPAWN_CHILD_SETUP_FUNC =
     structure Callback =
       Callback(
         type t = func
+        structure Pointer = Pointer
         structure Closure = Closure
         fun marshaller func =
           fn () => func ()
-        structure Pointer = CPointer(GMemory)
         local
           open PolyMLFFI
         in

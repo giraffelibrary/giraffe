@@ -11,10 +11,10 @@ signature CALLBACK =
 
     structure PolyML :
       sig
-        val cClosure : FFI.non_opt FFI.closure PolyMLFFI.conversion
-        val cOptClosure : FFI.opt FFI.closure PolyMLFFI.conversion
-        val cDispatch : FFI.non_opt FFI.dispatch PolyMLFFI.conversion
-        val cOptDispatch : FFI.opt FFI.dispatch PolyMLFFI.conversion
-        val cDestroyNotify : FFI.destroy_notify PolyMLFFI.conversion
+        val cPtr : FFI.non_opt FFI.p PolyMLFFI.conversion
+        val cOptPtr : FFI.opt FFI.p PolyMLFFI.conversion
+        val cDispatchPtr : FFI.non_opt FFI.dispatch_p PolyMLFFI.conversion
+        val cOptDispatchPtr : FFI.opt FFI.dispatch_p PolyMLFFI.conversion
+        val cDestroyNotifyPtr : FFI.destroy_notify_p PolyMLFFI.conversion
       end
   end

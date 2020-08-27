@@ -8,6 +8,7 @@
 structure GLibSourceFunc :> G_LIB_SOURCE_FUNC =
   struct
     type func = unit -> bool
+    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GLib.SourceFunc"
@@ -22,11 +23,11 @@ structure GLibSourceFunc :> G_LIB_SOURCE_FUNC =
     structure Callback =
       Callback(
         type t = func
+        structure Pointer = Pointer
         structure Closure = Closure
         fun marshaller func =
           fn () =>
             GBool.FFI.withVal I (func ())
-        structure Pointer = CPointer(GMemory)
         fun dispatchPtr () = _address "giraffe_g_source_func_dispatch" : Pointer.t;
         fun dispatchAsyncPtr () = _address "giraffe_g_source_func_dispatch_async" : Pointer.t;
         fun destroyNotifyPtr () = _address "giraffe_g_source_func_destroy" : Pointer.t;

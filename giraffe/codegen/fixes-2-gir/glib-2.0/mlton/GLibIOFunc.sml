@@ -13,6 +13,7 @@ structure GLibIOFunc :>
     type i_o_channel_t = GLibIOChannelRecord.t
     type i_o_condition_t = GLibIOCondition.t
     type func = i_o_channel_t * i_o_condition_t -> bool
+    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GLib.IOFunc"
@@ -31,6 +32,7 @@ structure GLibIOFunc :>
     structure Callback =
       Callback(
         type t = func
+        structure Pointer = Pointer
         structure Closure = Closure
         fun marshaller func =
           fn source & condition =>
@@ -40,7 +42,6 @@ structure GLibIOFunc :>
                 GLibIOCondition.FFI.fromVal condition
               )
             )
-        structure Pointer = CPointer(GMemory)
         fun dispatchPtr () = _address "giraffe_g_i_o_func_dispatch" : Pointer.t;
         fun dispatchAsyncPtr () = _address "giraffe_g_i_o_func_dispatch_async" : Pointer.t;
         fun destroyNotifyPtr () = _address "giraffe_g_i_o_func_destroy" : Pointer.t;

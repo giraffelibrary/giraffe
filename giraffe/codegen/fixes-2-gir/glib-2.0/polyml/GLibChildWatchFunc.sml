@@ -11,6 +11,7 @@ structure GLibChildWatchFunc :>
   struct
     type pid_t = GLibPid.t
     type func = pid_t * LargeInt.int -> unit
+    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GLib.ChildWatchFunc"
@@ -26,11 +27,11 @@ structure GLibChildWatchFunc :>
     structure Callback =
       Callback(
         type t = func
+        structure Pointer = Pointer
         structure Closure = Closure
         fun marshaller func =
           fn pid & status =>
             func (GLibPid.FFI.fromVal pid, GInt32.FFI.fromVal status)
-        structure Pointer = CPointer(GMemory)
         local
           open PolyMLFFI
         in

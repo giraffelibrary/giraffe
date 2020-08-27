@@ -450,8 +450,8 @@ structure VteTerminal :>
              * Utf8CPtrArray.MLton.p1
              * Utf8CPtrArray.FFI.opt Utf8CPtrArray.MLton.p2
              * GLibSpawnFlags.FFI.val_
-             * GLibSpawnChildSetupFunc.FFI.opt GLibSpawnChildSetupFunc.FFI.dispatch
-             * GLibSpawnChildSetupFunc.FFI.opt GLibSpawnChildSetupFunc.FFI.closure
+             * GLibSpawnChildSetupFunc.FFI.opt GLibSpawnChildSetupFunc.FFI.dispatch_p
+             * GLibSpawnChildSetupFunc.FFI.opt GLibSpawnChildSetupFunc.FFI.p
              * GLibPid.FFI.ref_
              * GioCancellableClass.FFI.opt GioCancellableClass.FFI.p
              * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
@@ -900,8 +900,8 @@ structure VteTerminal :>
              &&&> Utf8CPtrArray.FFI.withPtr 0
              &&&> Utf8CPtrArray.FFI.withOptPtr 0
              &&&> GLibSpawnFlags.FFI.withVal
-             &&&> GLibSpawnChildSetupFunc.FFI.withOptDispatch false
-             &&&> GLibSpawnChildSetupFunc.FFI.withOptClosure true
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptDispatchPtr false
+             &&&> GLibSpawnChildSetupFunc.FFI.withOptPtr true
              &&&> GLibPid.FFI.withRefVal
              &&&> GioCancellableClass.FFI.withOptPtr false
              &&&> GLibErrorRecord.handleError
