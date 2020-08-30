@@ -25,8 +25,14 @@ structure PolyMLFFI :> POLYML_F_F_I =
             val toSysWord = voidStar2Sysword
             val fromSysWord = sysWord2VoidStar
             val null = null
-            val add = ++
-            val sub = --
+            (* `++` and `--` don't treat the offset as signed so we can't use
+             * them directly to implement `add` and `sub`, respectively.
+             * See https://github.com/polyml/polyml/issues/141
+             *)            
+            fun add (p, w) =
+              fromSysWord (toSysWord p + SysWord.fromLarge (Word.toLargeX w))
+            fun sub (p, w) =
+              fromSysWord (toSysWord p - SysWord.fromLarge (Word.toLargeX w))
           end
 
         fun getWord8 (p, i) = get8 (p, Word.fromInt i)
