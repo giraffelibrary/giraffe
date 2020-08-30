@@ -20,8 +20,8 @@ functor BoxedValueRecord(
     where type 'a C.Pointer.p = 'a Pointer.p
     where type ('a, 'b) C.Pointer.r = ('a, 'b) Pointer.r =
   struct
-    val malloc0_ = Pointer.malloc0
-    val free_ = Pointer.free
+    val malloc0_ = Pointer.Memory.malloc0
+    val free_ = Pointer.Memory.free
     val new0_ = malloc0_ o Word.fromInt o GSize.FFI.fromVal o size_
     fun dup_ ptr =
       let
@@ -74,7 +74,7 @@ functor BoxedValueRecord(
             fun get p = p
             fun set (p, v) = copy_ (v & p)
 
-            structure Memory = Pointer.NonOptValueType.Memory
+            structure Memory = Pointer.ValueType.Memory
           end
 
         structure PointerType =

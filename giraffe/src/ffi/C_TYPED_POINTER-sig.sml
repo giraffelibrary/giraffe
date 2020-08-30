@@ -1,4 +1,4 @@
-(* Copyright (C) 2016 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016, 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -28,7 +28,8 @@ signature C_TYPED_POINTER =
 
     (**
      * `new n` allocates an array of `n` elements and returns a pointer to
-     * the array.
+     * the array.  `free p` frees the array pointed to by `p`.
      *)
     val new : int -> t
+    val free : t -> unit
   end

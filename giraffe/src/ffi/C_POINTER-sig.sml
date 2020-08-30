@@ -87,37 +87,17 @@ signature C_POINTER =
     val appNonNullPtr : (t -> unit) -> 'a p -> unit
 
     (**
-     * `add w p` returns a pointer `w` bytes after `p`.
-     * `sub w p` returns a pointer `w` bytes before `p`.
-     * If the type word is not wide enough to represent the full address
-     * space, `w` is sign-extended to the type of addresses.
-     * 
-     * Poly/ML note: `ForeignMemory.++` (that is used to implement `add`)
-     * does not appear to sign-extend the offset:
-     *     fun s ++ w = s + SysWord.fromLarge(Word.toLarge w)
-     * Similarly for `ForeignMemory.--` (that is used to implement `sub`).
-     * On a 64 bit platform, SysWord.wordSize = 64 and Word.wordSize = 63
-     * so a negative offset is not properly handled.
+     * C memory operations on a pointer
      *)
-    val add : word -> t -> t
-    val sub : word -> t -> t
-
-    (**
-     * `malloc w`
-     * `malloc0 w`
-     * `free p`
-     *)
-    val malloc : word -> t
-    val malloc0 : word -> t
-    val free : t -> unit
+    structure Memory : C_MEMORY where type Pointer.t = non_opt p
 
     (**
      * C value types based on a pointer
      *
-     * The type `p` is exposed to support construction of othe C value types
+     * The type `p` is exposed to support construction of other C value types
      * based on a pointer.
      *)
-    structure NonOptValueType :
+    structure ValueType :
       C_VALUE_EQ_TYPE
         where type t = non_opt p
         where type v = non_opt p
@@ -127,7 +107,7 @@ signature C_POINTER =
       C_VALUE_EQ_NULL_TYPE
         where type t = opt p
         where type v = opt p
-        where type p = opt p
+        where type p = non_opt p
 
     (**
      * Support for constructing a high-level FFI based on a pointer

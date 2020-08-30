@@ -14,6 +14,14 @@ signature C_MEMORY =
         val toSysWord : t -> SysWord.word
         val fromSysWord : SysWord.word -> t
         val null : t
+
+        (**
+         * `add (p, w)` returns a pointer `w` bytes after `p`.
+         * `sub (p, w)` returns a pointer `w` bytes before `p`.
+         * Both functions treat the offset `w` as signed, i.e. if the type
+         * `word` is not wide enough to represent the full address space, `w`
+         * is sign-extended to the type of addresses.
+         *)
         val add : t * word -> t
         val sub : t * word -> t
       end

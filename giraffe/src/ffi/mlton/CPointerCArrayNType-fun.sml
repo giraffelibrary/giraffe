@@ -31,7 +31,7 @@ functor CPointerCArrayNType(
     type t = ElemSequence.t
 
     type 'a from_p = int -> 'a
-    structure Pointer = CTypedPointer(CElemType.Pointer.NonOptValueType)
+    structure Pointer = CTypedPointer(CElemType.Pointer.ValueType)
     type opt = Pointer.opt
     type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p

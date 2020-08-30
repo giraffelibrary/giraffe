@@ -37,12 +37,7 @@ functor CPointerInternal(Memory : C_MEMORY) :>
     fun mapNonNullPtr f p = if isNull p then p else toOptPtr (f p)
     fun appNonNullPtr f p = if isNull p then () else f p
 
-    fun add w p = Memory.Pointer.add (p, w)
-    fun sub w p = Memory.Pointer.sub (p, w)
-
-    val malloc = Memory.malloc
-    val malloc0 = Memory.malloc0
-    val free = Memory.free
+    structure Memory = Memory
 
     structure ValueType =
       struct
@@ -76,7 +71,6 @@ functor CPointerInternal(Memory : C_MEMORY) :>
 
         structure Memory = Memory
       end
-    structure NonOptValueType = ValueType
     structure OptValueType = ValueType
 
     val fromVal = Fn.id

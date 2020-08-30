@@ -14,10 +14,12 @@ functor CTypedPointer(CValueType : C_VALUE_TYPE) :>
 
     type e = CValueType.v
 
-    fun offset (p, i) = add (Word.fromInt i * CValueType.size ()) p
+    fun offset (p, i) =
+      Memory.Pointer.add (p, Word.fromInt i * CValueType.size ())
 
     fun set (p, i, x) = CValueType.set (offset (p, i), x)
     fun get (p, i) = CValueType.get (offset (p, i))
 
-    fun new n = malloc0 (Word.fromInt n * CValueType.size ())
+    fun new n = Memory.malloc0 (Word.fromInt n * CValueType.size ())
+    val free = Memory.free
   end

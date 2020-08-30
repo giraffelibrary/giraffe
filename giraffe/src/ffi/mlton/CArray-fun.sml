@@ -117,7 +117,8 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
          * representative non-null pointer.
          *)
 
-        val nonNullPointer = Pointer.toOptPtr (Pointer.sub 0w1 Pointer.null)
+        val nonNullPointer =
+          Pointer.toOptPtr (Pointer.Memory.Pointer.sub (Pointer.null, 0w1))
 
 
         (**
