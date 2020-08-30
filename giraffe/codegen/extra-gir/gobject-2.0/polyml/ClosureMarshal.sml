@@ -13,6 +13,10 @@ structure ClosureMarshal :>
     structure PolyML :
       sig
         val cPtr : FFI.non_opt FFI.p PolyMLFFI.conversion
+        val cOptPtr : FFI.opt FFI.p PolyMLFFI.conversion
+        val cDispatchPtr : FFI.non_opt FFI.dispatch_p PolyMLFFI.conversion
+        val cOptDispatchPtr : FFI.opt FFI.dispatch_p PolyMLFFI.conversion
+        val cDestroyNotifyPtr : FFI.destroy_notify_p PolyMLFFI.conversion
       end
   end =
   struct
@@ -35,6 +39,7 @@ structure ClosureMarshal :>
           end
       end
 
+    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GObject.Closure"
@@ -83,9 +88,11 @@ structure ClosureMarshal :>
 
     structure FFI =
       struct
-        type opt = unit
-        type non_opt = unit
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = Closure.t
+        type 'a dispatch_p = 'a Pointer.p
+        type destroy_notify_p = Pointer.t
 
         fun withPtr f (marshaller, func) =
           let
@@ -95,10 +102,33 @@ structure ClosureMarshal :>
               handle
                 e => (Closure.free closure; raise e)
           end
+        fun withOptPtr f optMarshallerFunc =
+          case optMarshallerFunc of
+            SOME marshallerFunc => withPtr f marshallerFunc
+          | NONE                => f Closure.null
+
+        local
+          open PolyMLFFI
+        in
+          fun dispatchPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_closure_dispatch")
+          fun destroyNotifyPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_closure_destroy")
+        end
+
+        fun withDispatchPtr f () = f (dispatchPtr ())
+        fun withOptDispatchPtr f =
+          fn
+            true  => withDispatchPtr (f o Pointer.toOptPtr) ()
+          | false => f Pointer.null
+
+        fun withDestroyNotifyPtr f () = f (destroyNotifyPtr ())
       end
 
     structure PolyML =
       struct
         val cPtr = Closure.PolyML.cFunction
+        val cOptPtr = Closure.PolyML.cFunction
+        val cDispatchPtr = Pointer.PolyML.cVal
+        val cOptDispatchPtr = Pointer.PolyML.cOptVal
+        val cDestroyNotifyPtr = Pointer.PolyML.cVal
       end
   end

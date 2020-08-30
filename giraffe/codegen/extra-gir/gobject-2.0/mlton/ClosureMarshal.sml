@@ -26,6 +26,7 @@ structure ClosureMarshal :>
           end
       end
 
+    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GObject.Closure"
@@ -42,19 +43,33 @@ structure ClosureMarshal :>
         val noneRetVal = ()
       )
 
-    val () =
-      _export "giraffe_closure_dispatch_sml" :
-        (Closure.t
-          * GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
-          * GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p
-          * GUInt32.FFI.val_
-          -> unit)
-         -> unit;
-        (fn (closure, v, vs, size) => Closure.call closure (v & vs & size))
+    val getData_ =
+      _import "giraffe_closure_get_data" :
+        GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p -> Closure.t;
 
     val () =
-      _export "giraffe_closure_destroy_sml" : (Closure.t -> unit) -> unit;
-        Closure.free
+      _export "giraffe_closure_dispatch_sml" :
+        (GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
+          * GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
+          * GUInt32.FFI.val_
+          * GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p
+          * Pointer.t
+          * Pointer.t
+          -> unit)
+         -> unit;
+        (
+          fn (closure, v, size, vs, _, _) =>
+            Closure.call (getData_ closure) (v & vs & size)
+        )
+
+    val () =
+      _export "giraffe_closure_destroy_sml" :
+        (
+          Closure.t
+           * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
+           -> unit
+        ) -> unit;
+        (fn (closure, _) => Closure.free closure)
 
     type 'a get = Closure.args -> 'a
     type 'a set = Closure.args -> 'a -> unit
@@ -80,9 +95,11 @@ structure ClosureMarshal :>
 
     structure FFI =
       struct
-        type opt = unit
-        type non_opt = unit
+        type opt = Pointer.opt
+        type non_opt = Pointer.non_opt
         type 'a p = Closure.t
+        type 'a dispatch_p = 'a Pointer.p
+        type destroy_notify_p = Pointer.t
 
         fun withPtr f (marshaller, func) =
           let
@@ -92,5 +109,20 @@ structure ClosureMarshal :>
               handle
                 e => (Closure.free closure; raise e)
           end
+        fun withOptPtr f optMarshallerFunc =
+          case optMarshallerFunc of
+            SOME marshallerFunc => withPtr f marshallerFunc
+          | NONE                => f Closure.null
+
+        fun dispatchPtr () = _address "giraffe_closure_dispatch" : Pointer.t;
+        fun destroyNotifyPtr () = _address "giraffe_closure_destroy" : Pointer.t;
+
+        fun withDispatchPtr f () = f (dispatchPtr ())
+        fun withOptDispatchPtr f =
+          fn
+            true  => withDispatchPtr (f o Pointer.toOptPtr) ()
+          | false => f Pointer.null
+
+        fun withDestroyNotifyPtr f () = f (destroyNotifyPtr ())
       end
   end

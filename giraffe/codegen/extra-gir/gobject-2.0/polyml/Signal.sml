@@ -49,7 +49,7 @@ structure Signal :>
     type 'object_class t = string * GObjectClosureRecord.t
 
     fun signal detailedSignal marshaller callback =
-      (detailedSignal, GObjectClosure.new marshaller callback)
+      (detailedSignal, GObjectClosure.new (marshaller, callback))
 
     type id = GULong.FFI.val_
 

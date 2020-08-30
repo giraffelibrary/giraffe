@@ -132,13 +132,12 @@ in
     GObjectTypeCArrayN.sml
     mlton/GObjectValue.sml
     mlton/GObjectValueArray.sml
-    mlton/ClosureMarshal.sml
     mlton/GObjectClosureRecord.sml
     mlton/GObjectObjectClass.sml
     mlton/GObjectParamSpecClass.sml
+    mlton/ClosureMarshal.sml
     mlton/Property.sml
     mlton/GObjectBindingClass.sml
-    mlton/GObjectClosure.sml
     mlton/GObjectInitiallyUnownedClass.sml
     mlton/GObjectParamSpec.sml
     mlton/GObjectParamSpecBooleanClass.sml
@@ -166,8 +165,8 @@ in
     mlton/GObjectParamSpecVariantClass.sml
     mlton/GObjectTypeModuleClass.sml
     mlton/GObjectTypePluginClass.sml
-    mlton/Signal.sml
     mlton/GObjectBinding.sml
+    mlton/GObjectClosure.sml
     mlton/GObjectInitiallyUnowned.sml
     mlton/GObjectParamSpecBoolean.sml
     mlton/GObjectParamSpecBoxed.sml
@@ -194,6 +193,7 @@ in
     mlton/GObjectParamSpecVariant.sml
     mlton/GObjectTypeModule.sml
     mlton/GObjectTypePlugin.sml
+    mlton/Signal.sml
     mlton/GObjectObject.sml
     mlton/GObject.sml
   end

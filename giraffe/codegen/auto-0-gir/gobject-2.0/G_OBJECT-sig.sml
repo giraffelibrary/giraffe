@@ -74,10 +74,6 @@ signature G_OBJECT =
       G_OBJECT_BINDING_CLASS
         where type 'a object_class = 'a ObjectClass.class
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
-    structure Closure :
-      G_OBJECT_CLOSURE
-        where type t = ClosureRecord.t
-        where type type_t = Type.t
     structure InitiallyUnownedClass :
       G_OBJECT_INITIALLY_UNOWNED_CLASS
         where type 'a object_class = 'a ObjectClass.class
@@ -193,6 +189,10 @@ signature G_OBJECT =
         where type binding_flags_t = BindingFlags.t
         where type 'a object_class = 'a ObjectClass.class
         where type 'object_class property_t = 'object_class property_t
+    structure Closure :
+      G_OBJECT_CLOSURE
+        where type t = ClosureRecord.t
+        where type type_t = Type.t
     structure InitiallyUnowned :
       G_OBJECT_INITIALLY_UNOWNED
         where type 'a class = 'a InitiallyUnownedClass.class

@@ -19,6 +19,7 @@ gboolean giraffe_debug_ref_count;
 #endif /* GIRAFFE_DEBUG */
 
 #include "giraffe.c"
+#include "giraffe-gobject-2.0.h"
 #include "gobject-2.0/giraffe.c"
 
 
@@ -426,11 +427,7 @@ giraffe_debug_g_object_unref (gpointer object)
 
 /* ClosureMarshal */
 
-typedef void (*ClosureMarshal) (GValue *return_value,
-                                const GValue *param_values,
-                                guint n_param_value);
-
-static void
+void
 giraffe_closure_dispatch (GClosure *closure,
                           GValue *return_value,
                           guint n_param_values,
@@ -457,7 +454,7 @@ giraffe_closure_dispatch (GClosure *closure,
 #endif /* GIRAFFE_DEBUG */
 }
 
-static void
+void
 giraffe_closure_destroy (gpointer data,
                          GClosure *closure)
 {
@@ -521,17 +518,19 @@ giraffe_debug_g_closure_unref (GClosure *closure)
 #endif /* GIRAFFE_DEBUG */
 
 GClosure *
-giraffe_g_closure_new (ClosureMarshal callback)
+giraffe_g_closure_new (GClosureMarshal dispatch,
+                       ClosureMarshal callback,
+                       GClosureNotify destroy)
 {
   GClosure *closure;
   closure = g_closure_new_simple (sizeof (GClosure), 
                                   (gpointer) callback);
 
-  g_closure_set_marshal (closure, giraffe_closure_dispatch);
+  g_closure_set_marshal (closure, dispatch);
 
   g_closure_add_finalize_notifier (closure, 
                                    NULL,
-                                   giraffe_closure_destroy);
+                                   destroy);
 
   return closure;
 }

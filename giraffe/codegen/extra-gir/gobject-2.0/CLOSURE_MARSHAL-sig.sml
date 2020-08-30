@@ -34,26 +34,17 @@ signature CLOSURE_MARSHAL =
         type opt
         type non_opt
         type 'a p              (* closure pointer *)
+        type 'a dispatch_p     (* dispatch function pointer *)
+        type destroy_notify_p  (* destroy notify function pointer *)
 
         val withPtr :
-          (non_opt p -> 'c) -> (('a -> 'b) marshaller * ('a -> 'b)) -> 'c
+          (non_opt p -> 'c) -> (('a -> 'b) marshaller * ('a -> 'b))        -> 'c
+        val withOptPtr :
+          (opt     p -> 'c) -> (('a -> 'b) marshaller * ('a -> 'b)) option -> 'c
 
-        (* The callback value passed to the C side should be used as the
-         * callback data argument and the dispatch and notify functions
-         * set to `giraffe_closure_dispatch` and `giraffe_closure_destroy`
-         * respectively, as done by `giraffe_g_closure_new`.  (Note that
-         * `withPtr` is unlikely to be used by any function other than
-         * `GClosure.new`.)
-         *
-         * MLton-specific note
-         *
-         * `withPtr` adds the SML callback function to a closure callback
-         * table.  It is removed when `giraffe_closure_destroy` is
-         * called.  For a closure object created by `giraffe_g_closure_new`,
-         * this occurs when  the closure's reference count becomes zero, just
-         * before the closure is destroyed.  Consequently, every closure
-         * object has an entry in the closure callback table for its
-         * lifetime.
-         *)
+        val withDispatchPtr    : (non_opt dispatch_p -> 'a) -> unit -> 'a
+        val withOptDispatchPtr : (opt     dispatch_p -> 'a) -> bool -> 'a
+
+        val withDestroyNotifyPtr : (destroy_notify_p -> 'a) -> unit -> 'a
       end
   end

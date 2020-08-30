@@ -20,6 +20,7 @@ gboolean giraffe_debug_ref_count;
 
 #include "giraffe.c"
 #include "giraffe-sml-gobject-2.0.h"
+#include "giraffe-gobject-2.0.h"
 #include "gobject-2.0/giraffe.c"
 #include "giraffe-gobject-2.0-mlton.c"
 
@@ -440,7 +441,13 @@ mlton_g_object_new_with_properties (GType object_type,
 
 /* ClosureMarshal */
 
-static void
+gpointer
+giraffe_closure_get_data (GClosure *closure)
+{
+  return closure->data;
+}
+
+void
 giraffe_closure_dispatch (GClosure *closure,
                           GValue *return_value,
                           guint n_param_values,
@@ -455,10 +462,12 @@ giraffe_closure_dispatch (GClosure *closure,
     fflush (stdout);
   }
 #endif /* GIRAFFE_DEBUG */
-  giraffe_closure_dispatch_sml (closure->data,
+  giraffe_closure_dispatch_sml (closure,
                                 return_value,
+                                n_param_values,
                                 param_values,
-                                n_param_values);
+                                invocation_hint,
+                                marshal_data);
 #ifdef GIRAFFE_DEBUG
   if (giraffe_debug_closure)
   {
@@ -468,7 +477,7 @@ giraffe_closure_dispatch (GClosure *closure,
 #endif /* GIRAFFE_DEBUG */
 }
 
-static void
+void
 giraffe_closure_destroy (gpointer data,
                          GClosure *closure)
 {
@@ -479,7 +488,7 @@ giraffe_closure_destroy (gpointer data,
     fflush (stdout);
   }
 #endif /* GIRAFFE_DEBUG */
-  giraffe_closure_destroy_sml (data);
+  giraffe_closure_destroy_sml (data, closure);
 #ifdef GIRAFFE_DEBUG
   if (giraffe_debug_closure)
   {
@@ -533,17 +542,19 @@ giraffe_debug_g_closure_unref (GClosure *closure)
 #endif /* GIRAFFE_DEBUG */
 
 GClosure *
-giraffe_g_closure_new (gpointer data)
+giraffe_g_closure_new (GClosureMarshal dispatch,
+                       gpointer data,
+                       GClosureNotify destroy)
 {
   GClosure *closure;
   closure = g_closure_new_simple (sizeof (GClosure), 
                                   data);
 
-  g_closure_set_marshal (closure, giraffe_closure_dispatch);
+  g_closure_set_marshal (closure, dispatch);
 
   g_closure_add_finalize_notifier (closure, 
-                                   data, 
-                                   giraffe_closure_destroy);
+                                   data,
+                                   destroy);
 
   return closure;
 }

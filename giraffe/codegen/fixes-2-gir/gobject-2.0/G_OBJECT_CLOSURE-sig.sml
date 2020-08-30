@@ -4,6 +4,6 @@ signature G_OBJECT_CLOSURE =
     type type_t
     type 'a marshaller
     val getType : unit -> type_t
-    val new : ('a -> 'b) marshaller -> ('a -> 'b) -> t
+    val new : ('a -> 'b) marshaller * ('a -> 'b) -> t
     val invalidate : t -> unit
   end

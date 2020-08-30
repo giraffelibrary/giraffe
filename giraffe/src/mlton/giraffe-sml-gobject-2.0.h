@@ -12,10 +12,13 @@
 /* ClosureMarshal */
 
 extern
-gint32 giraffe_closure_dispatch_sml (gpointer data,
+gint32 giraffe_closure_dispatch_sml (GClosure *closure,
                                      GValue *return_value,
+                                     guint n_param_values,
                                      const GValue *param_values,
-                                     guint n_param_values);
+                                     gpointer invocation_hint,
+                                     gpointer marshal_data);
 
 extern
-void giraffe_closure_destroy_sml (gpointer data);
+void giraffe_closure_destroy_sml (gpointer data,
+                                  GClosure *closure);
