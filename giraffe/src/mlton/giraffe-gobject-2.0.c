@@ -19,7 +19,6 @@ gboolean giraffe_debug_ref_count;
 #endif /* GIRAFFE_DEBUG */
 
 #include "giraffe.c"
-#include "giraffe-sml-gobject-2.0.h"
 #include "giraffe-gobject-2.0.h"
 #include "gobject-2.0/giraffe.c"
 #include "giraffe-gobject-2.0-mlton.c"
@@ -445,57 +444,6 @@ gpointer
 giraffe_closure_get_data (GClosure *closure)
 {
   return closure->data;
-}
-
-void
-giraffe_closure_dispatch (GClosure *closure,
-                          GValue *return_value,
-                          guint n_param_values,
-                          const GValue *param_values,
-                          gpointer invocation_hint,
-                          gpointer marshal_data)
-{
-#ifdef GIRAFFE_DEBUG
-  if (giraffe_debug_closure)
-  {
-    printf ("dispatch closure %p [enter]\n", closure);
-    fflush (stdout);
-  }
-#endif /* GIRAFFE_DEBUG */
-  giraffe_closure_dispatch_sml (closure,
-                                return_value,
-                                n_param_values,
-                                param_values,
-                                invocation_hint,
-                                marshal_data);
-#ifdef GIRAFFE_DEBUG
-  if (giraffe_debug_closure)
-  {
-    printf ("dispatch closure %p [leave]\n", closure);
-    fflush (stdout);
-  }
-#endif /* GIRAFFE_DEBUG */
-}
-
-void
-giraffe_closure_destroy (gpointer data,
-                         GClosure *closure)
-{
-#ifdef GIRAFFE_DEBUG
-  if (giraffe_debug_closure)
-  {
-    printf ("destroy closure %p [enter]\n", closure);
-    fflush (stdout);
-  }
-#endif /* GIRAFFE_DEBUG */
-  giraffe_closure_destroy_sml (data, closure);
-#ifdef GIRAFFE_DEBUG
-  if (giraffe_debug_closure)
-  {
-    printf ("destroy closure %p [leave]\n", closure);
-    fflush (stdout);
-  }
-#endif /* GIRAFFE_DEBUG */
 }
 
 

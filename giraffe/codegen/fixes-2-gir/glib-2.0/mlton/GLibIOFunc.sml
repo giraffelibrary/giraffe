@@ -42,13 +42,13 @@ structure GLibIOFunc :>
                 GLibIOCondition.FFI.fromVal condition
               )
             )
-        fun dispatchPtr () = _address "giraffe_g_i_o_func_dispatch" : Pointer.t;
-        fun dispatchAsyncPtr () = _address "giraffe_g_i_o_func_dispatch_async" : Pointer.t;
-        fun destroyNotifyPtr () = _address "giraffe_g_i_o_func_destroy" : Pointer.t;
+        fun dispatchPtr () = _address "giraffe_g_i_o_func_dispatch" private : Pointer.t;
+        fun dispatchAsyncPtr () = _address "giraffe_g_i_o_func_dispatch_async" private : Pointer.t;
+        fun destroyNotifyPtr () = _address "giraffe_g_i_o_func_destroy" private : Pointer.t;
       )
     open Callback
     val () =
-      _export "giraffe_g_i_o_func_dispatch_sml"
+      _export "giraffe_g_i_o_func_dispatch" private
         : (GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
             * GLibIOCondition.FFI.val_
             * Closure.t
@@ -56,14 +56,18 @@ structure GLibIOFunc :>
            -> unit;
         (fn (source, condition, closure) => Closure.call closure (source & condition))
     val () =
-      _export "giraffe_g_i_o_func_dispatch_async_sml"
+      _export "giraffe_g_i_o_func_dispatch_async" private
         : (GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
             * GLibIOCondition.FFI.val_
             * Closure.t
             -> GBool.FFI.val_)
            -> unit;
-        (fn (source, condition, closure) => Closure.call closure (source & condition) before Closure.free closure)
+        (
+          fn (source, condition, closure) =>
+            Closure.call closure (source & condition) before Closure.free closure
+        )
     val () =
-      _export "giraffe_g_i_o_func_destroy_sml" : (Closure.t -> unit) -> unit;
+      _export "giraffe_g_i_o_func_destroy" private
+        : (Closure.t -> unit) -> unit;
         Closure.free
   end

@@ -47,8 +47,21 @@ structure ClosureMarshal :>
       _import "giraffe_closure_get_data" :
         GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p -> Closure.t;
 
+    val log =
+      if GiraffeDebug.getClosure ()
+      then
+        fn (action, closure, dir) =>
+          List.app print [
+            action, " closure 0x",
+            SysWord.fmt StringCvt.HEX
+              (GObjectClosureRecord.C.Pointer.Memory.Pointer.toSysWord closure),
+            " [", dir, "]\n"
+          ]
+      else
+        fn _ => ()
+
     val () =
-      _export "giraffe_closure_dispatch_sml" :
+      _export "giraffe_closure_dispatch" private :
         (GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
           * GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
           * GUInt32.FFI.val_
@@ -58,18 +71,27 @@ structure ClosureMarshal :>
           -> unit)
          -> unit;
         (
-          fn (closure, v, size, vs, _, _) =>
+          fn (closure, v, size, vs, _, _) => (
+            log ("dispatch", closure, "enter");
             Closure.call (getData_ closure) (v & vs & size)
+             before log ("dispatch", closure, "leave")
+          )
         )
 
     val () =
-      _export "giraffe_closure_destroy_sml" :
+      _export "giraffe_closure_destroy" private :
         (
           Closure.t
            * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
            -> unit
         ) -> unit;
-        (fn (closure, _) => Closure.free closure)
+        (
+          fn (data, closure) => (
+            log ("destroy", closure, "enter");
+            Closure.free data
+             before log ("destroy", closure, "leave")
+          )
+        )
 
     type 'a get = Closure.args -> 'a
     type 'a set = Closure.args -> 'a -> unit
@@ -114,8 +136,8 @@ structure ClosureMarshal :>
             SOME marshallerFunc => withPtr f marshallerFunc
           | NONE                => f Closure.null
 
-        fun dispatchPtr () = _address "giraffe_closure_dispatch" : Pointer.t;
-        fun destroyNotifyPtr () = _address "giraffe_closure_destroy" : Pointer.t;
+        fun dispatchPtr () = _address "giraffe_closure_dispatch" private : Pointer.t;
+        fun destroyNotifyPtr () = _address "giraffe_closure_destroy" private : Pointer.t;
 
         fun withDispatchPtr f () = f (dispatchPtr ())
         fun withOptDispatchPtr f =

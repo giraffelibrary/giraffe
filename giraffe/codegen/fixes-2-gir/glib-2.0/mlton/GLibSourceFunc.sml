@@ -28,18 +28,21 @@ structure GLibSourceFunc :> G_LIB_SOURCE_FUNC =
         fun marshaller func =
           fn () =>
             GBool.FFI.withVal I (func ())
-        fun dispatchPtr () = _address "giraffe_g_source_func_dispatch" : Pointer.t;
-        fun dispatchAsyncPtr () = _address "giraffe_g_source_func_dispatch_async" : Pointer.t;
-        fun destroyNotifyPtr () = _address "giraffe_g_source_func_destroy" : Pointer.t;
+        fun dispatchPtr () = _address "giraffe_g_source_func_dispatch" private : Pointer.t;
+        fun dispatchAsyncPtr () = _address "giraffe_g_source_func_dispatch_async" private : Pointer.t;
+        fun destroyNotifyPtr () = _address "giraffe_g_source_func_destroy" private : Pointer.t;
       )
     open Callback
     val () =
-      _export "giraffe_g_source_func_dispatch_sml" : (Closure.t -> GBool.FFI.val_) -> unit;
+      _export "giraffe_g_source_func_dispatch" private
+        : (Closure.t -> GBool.FFI.val_) -> unit;
         (fn closure => Closure.call closure ())
     val () =
-      _export "giraffe_g_source_func_dispatch_async_sml" : (Closure.t -> GBool.FFI.val_) -> unit;
+      _export "giraffe_g_source_func_dispatch_async" private
+        : (Closure.t -> GBool.FFI.val_) -> unit;
         (fn closure => Closure.call closure () before Closure.free closure)
     val () =
-      _export "giraffe_g_source_func_destroy_sml" : (Closure.t -> unit) -> unit;
+      _export "giraffe_g_source_func_destroy" private
+        : (Closure.t -> unit) -> unit;
         Closure.free
   end

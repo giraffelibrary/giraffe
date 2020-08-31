@@ -10,18 +10,3 @@
  */
 
 
-/* GClosure */
-
-extern
-void
-giraffe_closure_dispatch (GClosure *closure,
-                          GValue *return_value,
-                          guint n_param_values,
-                          const GValue *param_values,
-                          gpointer invocation_hint,
-                          gpointer marshal_data);
-
-extern
-void
-giraffe_closure_destroy (gpointer data,
-                         GClosure *closure);
