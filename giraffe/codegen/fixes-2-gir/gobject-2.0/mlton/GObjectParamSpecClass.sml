@@ -7,6 +7,7 @@
 
 structure GObjectParamSpecClass :>
   G_OBJECT_PARAM_SPEC_CLASS
+    where type type_t = GObjectType.t
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
     structure Pointer = CPointer(GMemory)
@@ -181,6 +182,9 @@ structure GObjectParamSpecClass :>
            GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.opt FFI.p -> unit;)
         (x1, x2)
 
+    val instanceType_ = _import "giraffe_g_param_spec_type" : non_opt p -> GObjectType.FFI.val_;
+
+    type type_t = GObjectType.t
     type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
 
     val t =
@@ -197,25 +201,23 @@ structure GObjectParamSpecClass :>
         setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
       }
 
-    val objectType_ = _import "giraffe_g_object_type" : non_opt p -> GObjectType.FFI.val_;
+    fun instanceType object = (FFI.withPtr false ---> GObjectType.FFI.fromVal) instanceType_ object
 
-    fun objectType object = (FFI.withPtr false ---> GObjectType.FFI.fromVal) objectType_ object
-
-    fun toDerived subclass object = (
+    fun toDerived subclass instance = (
       let
-        val objectType = objectType object
+        val instanceType = instanceType instance
         val derivedType = ValueAccessor.gtype subclass
       in
-        if GObjectType.isA (objectType, derivedType)
+        if GObjectType.isA (instanceType, derivedType)
         then ()
         else
           GiraffeLog.critical (
             String.concat [
               "Invalid downcast to type ", GObjectType.name derivedType,
-              " on object of type ",       GObjectType.name objectType
+              " on object of type ",       GObjectType.name instanceType
             ]
           )
       end;
-      object
+      instance
     )
   end

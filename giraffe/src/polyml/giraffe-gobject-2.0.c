@@ -348,6 +348,15 @@ giraffe_g_value_size ()
 }
 
 
+/* GParamSpec */
+
+GType
+giraffe_g_param_spec_type (GParamSpec *param_spec)
+{
+  return G_PARAM_SPEC_TYPE (param_spec);
+}
+
+
 /* GObject */
 
 GType

@@ -69,9 +69,11 @@ signature G_OBJECT =
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
     structure ObjectClass :
       G_OBJECT_OBJECT_CLASS
+        where type type_t = Type.t
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
     structure ParamSpecClass :
       G_OBJECT_PARAM_SPEC_CLASS
+        where type type_t = Type.t
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
     structure BindingClass :
       G_OBJECT_BINDING_CLASS
