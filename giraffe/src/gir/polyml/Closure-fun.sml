@@ -19,7 +19,7 @@ functor Closure(
   type args
   type ret
   val exnRetVal : ret
-  val callbackFunc : (args, ret) PolyMLFFI.func
+  val noneRetVal : ret
 ) :>
   CLOSURE
     where type args = args
@@ -41,14 +41,46 @@ functor Closure(
               exnRetVal
             )
 
-    type t = (args -> ret) PolyMLFFI.closure
-    val null = PolyMLFFI.nullClosure
-    fun make f = PolyMLFFI.closure callbackFunc (check f)
-    fun free _ = ()  (* memory leaked *)
-    fun call _ = raise Fail "closure must be called from C"
+    structure Table = WordTable(Word)
+
+    val table = Table.new ()
+
+    structure Memory = GMemory
+    local
+      open Memory.Pointer
+    in
+      val toPointer = fromSysWord o SysWord.fromLarge o Word.toLarge
+      val fromPointer = Word.fromLarge o SysWord.toLarge o toSysWord
+    end
+
+    type t = Memory.Pointer.t
+    val null = toPointer Table.nullKey
+    val make = toPointer o Table.insert table
+    fun free closure =
+      case Table.delete table (fromPointer closure) of
+        SOME _ => ()
+      | NONE   =>
+          GiraffeLog.critical (
+            concat [
+              "cannot free non-existent ", name, " closure id ",
+              Table.fmtKey (fromPointer closure)
+            ]
+          )
+    fun call closure args =
+      case Table.lookup table (fromPointer closure) of
+        SOME f => check f args
+      | NONE   => (
+          GiraffeLog.critical (
+            concat [
+              "cannot call non-existent ", name, " closure id ",
+              Table.fmtKey (fromPointer closure)
+            ]
+          );
+          noneRetVal
+        )
 
     structure PolyML =
       struct
-        val cFunction = PolyMLFFI.cFunction
+        val cVal = Memory.PolyML.cPointer
       end
   end

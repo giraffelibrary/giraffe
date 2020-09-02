@@ -11,6 +11,6 @@ signature CLOSURE =
 
     structure PolyML :
       sig
-        val cFunction : t PolyMLFFI.conversion
+        val cVal : t PolyMLFFI.conversion
       end
   end

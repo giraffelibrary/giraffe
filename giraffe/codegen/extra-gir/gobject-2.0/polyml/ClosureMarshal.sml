@@ -53,16 +53,45 @@ structure ClosureMarshal :>
           ) pair
         type ret = unit
         val exnRetVal = ()
-        local
-          open PolyMLFFI
-        in
-          val callbackFunc =
-            GObjectValueRecord.PolyML.cPtr
-             &&> GObjectValueRecordArray.PolyML.cPtr
-             &&> GUInt32.PolyML.cVal
-             --> cVoid
-        end
+        val noneRetVal = ()
       )
+
+    local
+      open PolyMLFFI
+    in
+      val getData_ =
+        call (getSymbol "giraffe_closure_get_data")
+          (GObjectClosureRecord.PolyML.cPtr --> Closure.PolyML.cVal)
+    end
+
+    fun log action =
+      if GiraffeDebug.getClosure ()
+      then
+        fn (closure, dir) =>
+          List.app print [
+            action,
+            " closure ",
+            GObjectClosureRecord.C.Pointer.toString closure,
+            " [", dir, "]\n"
+          ]
+      else
+        fn _ => ()
+
+    (* The closure called in `dispatch` and `destroyNotify` should catch any
+     * exceptions but we still handle exceptions for unforeseen reasons to
+     * ensure that they are reported and control returns from the callback.
+     *)
+    fun dispatch (closure & v & size & vs & _ & _) = (
+      log "dispatch" (closure, "enter");
+      Closure.call (getData_ closure) (v & vs & size)
+       before log "dispatch" (closure, "leave")
+    ) handle e => app print [exnMessage e, "\n"]
+
+    fun destroyNotify (data & closure) = (
+      log "destroy" (closure, "enter");
+      Closure.free data
+       before log "destroy" (closure, "leave")
+    ) handle e => app print [exnMessage e, "\n"]
 
     type 'a get = Closure.args -> 'a
     type 'a set = Closure.args -> 'a -> unit
@@ -91,8 +120,26 @@ structure ClosureMarshal :>
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = Closure.t
-        type 'a dispatch_p = 'a Pointer.p
-        type destroy_notify_p = Pointer.t
+        type 'a dispatch_p =
+          (
+            (
+              GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p, (
+              GObjectValueRecord.C.non_opt GObjectValueRecord.C.p, (
+              GUInt32.FFI.val_, (
+              GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p, (
+              Pointer.t,
+              Pointer.t
+            ) pair) pair) pair) pair) pair
+             -> unit
+          ) PolyMLFFI.closure
+        type destroy_notify_p =
+          (
+            (
+              Closure.t,
+              GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
+            ) pair
+             -> unit
+          ) PolyMLFFI.closure
 
         fun withPtr f (marshaller, func) =
           let
@@ -109,26 +156,36 @@ structure ClosureMarshal :>
 
         local
           open PolyMLFFI
+          val dispatchFunc =
+            GObjectClosureRecord.PolyML.cPtr
+             &&> GObjectValueRecord.PolyML.cPtr
+             &&> GUInt32.PolyML.cVal
+             &&> GObjectValueRecordArray.PolyML.cPtr
+             &&> Pointer.ValueType.PolyML.cVal
+             &&> Pointer.ValueType.PolyML.cVal
+             --> cVoid
+          val destroyNotifyFunc =
+            Closure.PolyML.cVal &&> GObjectClosureRecord.PolyML.cPtr --> cVoid
         in
-          fun dispatchPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_closure_dispatch")
-          fun destroyNotifyPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_closure_destroy")
+          val dispatchPtr = closure dispatchFunc dispatch
+          val destroyNotifyPtr = closure destroyNotifyFunc destroyNotify
         end
 
-        fun withDispatchPtr f () = f (dispatchPtr ())
+        fun withDispatchPtr f () = f dispatchPtr
         fun withOptDispatchPtr f =
           fn
-            true  => withDispatchPtr (f o Pointer.toOptPtr) ()
-          | false => f Pointer.null
+            true  => withDispatchPtr f ()
+          | false => f PolyMLFFI.nullClosure
 
-        fun withDestroyNotifyPtr f () = f (destroyNotifyPtr ())
+        fun withDestroyNotifyPtr f () = f destroyNotifyPtr
       end
 
     structure PolyML =
       struct
-        val cPtr = Closure.PolyML.cFunction
-        val cOptPtr = Closure.PolyML.cFunction
-        val cDispatchPtr = Pointer.PolyML.cVal
-        val cOptDispatchPtr = Pointer.PolyML.cOptVal
-        val cDestroyNotifyPtr = Pointer.PolyML.cVal
+        val cPtr = Closure.PolyML.cVal
+        val cOptPtr = Closure.PolyML.cVal
+        val cDispatchPtr = PolyMLFFI.cFunction
+        val cOptDispatchPtr = PolyMLFFI.cFunction
+        val cDestroyNotifyPtr = PolyMLFFI.cFunction
       end
   end

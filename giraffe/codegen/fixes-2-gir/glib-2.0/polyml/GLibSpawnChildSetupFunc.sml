@@ -8,32 +8,32 @@
 structure GLibSpawnChildSetupFunc :> G_LIB_SPAWN_CHILD_SETUP_FUNC =
   struct
     type func = unit -> unit
-    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GLib.SpawnChildSetupFunc"
         type args = unit
         type ret = unit
         val exnRetVal = ()
-        local
-          open PolyMLFFI
-        in
-          val callbackFunc = cVoid --> cVoid
-        end
+        val noneRetVal = ()
       )
+    fun dispatch closure = Closure.call closure ()
+    fun dispatchAsync closure = Closure.call closure () before Closure.free closure
+    fun destroyNotify closure = Closure.free closure
     structure Callback =
       Callback(
         type t = func
-        structure Pointer = Pointer
         structure Closure = Closure
         fun marshaller func =
           fn () => func ()
+        type dispatch_args = Closure.t
         local
           open PolyMLFFI
+          val dispatchFunc = Closure.PolyML.cVal --> cVoid
+          val destroyNotifyFunc = Closure.PolyML.cVal --> cVoid
         in
-          fun dispatchPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_g_spawn_child_setup_func_dispatch")
-          fun dispatchAsyncPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_g_spawn_child_setup_func_dispatch_async")
-          fun destroyNotifyPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_g_spawn_child_setup_func_destroy")
+          val dispatchPtr = closure dispatchFunc dispatch
+          val dispatchAsyncPtr = closure dispatchFunc dispatchAsync
+          val destroyNotifyPtr = closure destroyNotifyFunc destroyNotify
         end
       )
     open Callback

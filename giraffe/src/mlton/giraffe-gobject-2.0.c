@@ -19,7 +19,6 @@ gboolean giraffe_debug_ref_count;
 #endif /* GIRAFFE_DEBUG */
 
 #include "giraffe.c"
-#include "giraffe-gobject-2.0.h"
 #include "gobject-2.0/giraffe.c"
 #include "giraffe-gobject-2.0-mlton.c"
 

@@ -19,7 +19,6 @@ gboolean giraffe_debug_ref_count;
 #endif /* GIRAFFE_DEBUG */
 
 #include "giraffe.c"
-#include "giraffe-gobject-2.0.h"
 #include "gobject-2.0/giraffe.c"
 
 
@@ -436,51 +435,10 @@ giraffe_debug_g_object_unref (gpointer object)
 
 /* ClosureMarshal */
 
-void
-giraffe_closure_dispatch (GClosure *closure,
-                          GValue *return_value,
-                          guint n_param_values,
-                          const GValue *param_values,
-                          gpointer invocation_hint,
-                          gpointer marshal_data)
+gpointer
+giraffe_closure_get_data (GClosure *closure)
 {
-#ifdef GIRAFFE_DEBUG
-  if (giraffe_debug_closure)
-  {
-    printf ("dispatch closure %p [enter]\n", closure);
-    fflush (stdout);
-  }
-#endif /* GIRAFFE_DEBUG */
-  ((ClosureMarshal) closure->data) (return_value,
-                                    param_values,
-                                    n_param_values);
-#ifdef GIRAFFE_DEBUG
-  if (giraffe_debug_closure)
-  {
-    printf ("dispatch closure %p [leave]\n", closure);
-    fflush (stdout);
-  }
-#endif /* GIRAFFE_DEBUG */
-}
-
-void
-giraffe_closure_destroy (gpointer data,
-                         GClosure *closure)
-{
-#ifdef GIRAFFE_DEBUG
-  if (giraffe_debug_closure)
-  {
-    printf ("destroy closure %p [enter]\n", closure);
-    fflush (stdout);
-  }
-#endif /* GIRAFFE_DEBUG */
-#ifdef GIRAFFE_DEBUG
-  if (giraffe_debug_closure)
-  {
-    printf ("destroy closure %p [leave]\n", closure);
-    fflush (stdout);
-  }
-#endif /* GIRAFFE_DEBUG */
+  return closure->data;
 }
 
 
@@ -528,17 +486,17 @@ giraffe_debug_g_closure_unref (GClosure *closure)
 
 GClosure *
 giraffe_g_closure_new (GClosureMarshal dispatch,
-                       ClosureMarshal callback,
+                       gpointer data,
                        GClosureNotify destroy)
 {
   GClosure *closure;
   closure = g_closure_new_simple (sizeof (GClosure), 
-                                  (gpointer) callback);
+                                  data);
 
   g_closure_set_marshal (closure, dispatch);
 
   g_closure_add_finalize_notifier (closure, 
-                                   NULL,
+                                   data,
                                    destroy);
 
   return closure;

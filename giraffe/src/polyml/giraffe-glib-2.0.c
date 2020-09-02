@@ -13,7 +13,6 @@
 #include <glib.h>
 
 #include "giraffe.c"
-#include "giraffe-glib-2.0.h"
 #include "glib-2.0/giraffe.c"
 
 
@@ -49,92 +48,4 @@ gchar *
 giraffe_get_g_error_message (GError *error)
 {
   return error->message;
-}
-
-
-/* GSourceFunc */
-
-gboolean
-giraffe_g_source_func_dispatch (gpointer data)
-{
-  return ((SourceCallback) data) ();
-}
-
-gboolean
-giraffe_g_source_func_dispatch_async (gpointer data)
-{
-  return ((SourceCallback) data) ();
-}
-
-void
-giraffe_g_source_func_destroy (gpointer data)
-{
-  return;  /* memory leaked */
-}
-
-
-/* GChildWatchFunc */
-
-void
-giraffe_g_child_watch_func_dispatch (GPid pid, gint status, gpointer data)
-{
-  ((ChildWatchCallback) data) (pid, status);
-}
-
-void
-giraffe_g_child_watch_func_dispatch_async (GPid pid, gint status, gpointer data)
-{
-  ((ChildWatchCallback) data) (pid, status);
-}
-
-void
-giraffe_g_child_watch_func_destroy (gpointer data)
-{
-  return;  /* memory leaked */
-}
-
-
-/* GIOFunc */
-
-gboolean
-giraffe_g_i_o_func_dispatch (GIOChannel *source,
-                             GIOCondition condition,
-                             gpointer data)
-{
-  return ((IOCallback) data) (source, condition);
-}
-
-gboolean
-giraffe_g_i_o_func_dispatch_async (GIOChannel *source,
-                                   GIOCondition condition,
-                                   gpointer data)
-{
-  return ((IOCallback) data) (source, condition);
-}
-
-void
-giraffe_g_i_o_func_destroy (gpointer data)
-{
-  return;  /* memory leaked */
-}
-
-
-/* GSpawnChildSetupFunc */
-
-void
-giraffe_g_spawn_child_setup_func_dispatch (gpointer data)
-{
-  ((SpawnChildSetupCallback) data) ();
-}
-
-void
-giraffe_g_spawn_child_setup_func_dispatch_async (gpointer data)
-{
-  ((SpawnChildSetupCallback) data) ();
-}
-
-void
-giraffe_g_spawn_child_setup_func_destroy (gpointer data)
-{
-  return;  /* memory leaked */
 }

@@ -14,7 +14,6 @@
 #include <glib/gstdio.h>
 
 #include "giraffe.c"
-#include "giraffe-glib-2.0.h"
 #include "glib-2.0/giraffe.c"
 #include "giraffe-glib-2.0-mlton.c"
 

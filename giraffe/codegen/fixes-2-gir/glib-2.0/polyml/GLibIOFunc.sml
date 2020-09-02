@@ -13,7 +13,6 @@ structure GLibIOFunc :>
     type i_o_channel_t = GLibIOChannelRecord.t
     type i_o_condition_t = GLibIOCondition.t
     type func = i_o_channel_t * i_o_condition_t -> bool
-    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GLib.IOFunc"
@@ -25,19 +24,17 @@ structure GLibIOFunc :>
         type ret = GBool.FFI.val_
         val exnRetVal =
           GBool.FFI.withVal I false (* return false to remove the source *)
-        local
-          open PolyMLFFI
-        in
-          val callbackFunc =
-            GLibIOChannelRecord.PolyML.cPtr
-             &&> GLibIOCondition.PolyML.cVal
-             --> GBool.PolyML.cVal
-        end
+        val noneRetVal =
+          GBool.FFI.withVal I true  (* return true to prevent an attempt
+                                     * to remove a non-existent source *)
       )
+    fun dispatch (source & condition & closure) = Closure.call closure (source & condition)
+    fun dispatchAsync (source & condition & closure) =
+      Closure.call closure (source & condition) before Closure.free closure
+    fun destroyNotify closure = Closure.free closure
     structure Callback =
       Callback(
         type t = func
-        structure Pointer = Pointer
         structure Closure = Closure
         fun marshaller func =
           fn source & condition =>
@@ -47,12 +44,26 @@ structure GLibIOFunc :>
                 GLibIOCondition.FFI.fromVal condition
               )
             )
+        type dispatch_args =
+          (
+            GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p,
+            (
+              GLibIOCondition.FFI.val_,
+              Closure.t
+            ) pair
+          ) pair
         local
           open PolyMLFFI
+          val dispatchFunc =
+            GLibIOChannelRecord.PolyML.cPtr
+             &&> GLibIOCondition.PolyML.cVal
+             &&> Closure.PolyML.cVal
+             --> GBool.PolyML.cVal
+          val destroyNotifyFunc = Closure.PolyML.cVal --> cVoid
         in
-          fun dispatchPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_g_i_o_func_dispatch")
-          fun dispatchAsyncPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_g_i_o_func_dispatch_async")
-          fun destroyNotifyPtr () = Pointer.PolyML.symbolAsAddress (getSymbol "giraffe_g_i_o_func_destroy")
+          val dispatchPtr = closure dispatchFunc dispatch
+          val dispatchAsyncPtr = closure dispatchFunc dispatchAsync
+          val destroyNotifyPtr = closure destroyNotifyFunc destroyNotify
         end
       )
     open Callback

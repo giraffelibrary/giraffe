@@ -7,12 +7,12 @@
 
 functor Callback(
   type t
-  structure Pointer : C_POINTER
   structure Closure : CLOSURE
   val marshaller : t -> Closure.callback
-  val dispatchPtr : unit -> Pointer.t
-  val dispatchAsyncPtr : unit -> Pointer.t
-  val destroyNotifyPtr : unit -> Pointer.t
+  structure Pointer : C_POINTER
+  val dispatchPtr : Pointer.t
+  val dispatchAsyncPtr : Pointer.t
+  val destroyNotifyPtr : Pointer.t
 ) :>
   CALLBACK
     where type t = t =
@@ -43,14 +43,14 @@ functor Callback(
         fun withDispatchPtr scopeAsync f () =
           f (
             if scopeAsync
-            then dispatchAsyncPtr ()
-            else dispatchPtr ()
+            then dispatchAsyncPtr
+            else dispatchPtr
           )
         fun withOptDispatchPtr scopeAsync f =
           fn
             true  => withDispatchPtr scopeAsync (f o Pointer.toOptPtr) ()
           | false => f Pointer.null
 
-        fun withDestroyNotifyPtr f () = f (destroyNotifyPtr ())
+        fun withDestroyNotifyPtr f () = f destroyNotifyPtr
       end
   end

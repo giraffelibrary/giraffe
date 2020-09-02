@@ -7,12 +7,12 @@
 
 functor Callback(
   type t
-  structure Pointer : C_POINTER
   structure Closure : CLOSURE
   val marshaller : t -> Closure.callback
-  val dispatchPtr : unit -> Pointer.t
-  val dispatchAsyncPtr : unit -> Pointer.t
-  val destroyNotifyPtr : unit -> Pointer.t
+  type dispatch_args
+  val dispatchPtr : (dispatch_args -> Closure.ret) PolyMLFFI.closure
+  val dispatchAsyncPtr : (dispatch_args -> Closure.ret) PolyMLFFI.closure
+  val destroyNotifyPtr : (Closure.t -> unit) PolyMLFFI.closure
 ) :>
   CALLBACK
     where type t = t =
@@ -21,11 +21,11 @@ functor Callback(
 
     structure FFI =
       struct
-        type opt = Pointer.opt
-        type non_opt = Pointer.non_opt
+        type opt = unit
+        type non_opt = unit
         type 'a p = Closure.t
-        type 'a dispatch_p = 'a Pointer.p
-        type destroy_notify_p = Pointer.t
+        type 'a dispatch_p = (dispatch_args -> Closure.ret) PolyMLFFI.closure
+        type destroy_notify_p = (Closure.t -> unit) PolyMLFFI.closure
 
         fun withPtr scopeCall f func =
           let
@@ -43,23 +43,23 @@ functor Callback(
         fun withDispatchPtr scopeAsync f () =
           f (
             if scopeAsync
-            then dispatchAsyncPtr ()
-            else dispatchPtr ()
+            then dispatchAsyncPtr
+            else dispatchPtr
           )
         fun withOptDispatchPtr scopeAsync f =
           fn
-            true  => withDispatchPtr scopeAsync (f o Pointer.toOptPtr) ()
-          | false => f Pointer.null
+            true  => withDispatchPtr scopeAsync f ()
+          | false => f PolyMLFFI.nullClosure
 
-        fun withDestroyNotifyPtr f () = f (destroyNotifyPtr ())
+        fun withDestroyNotifyPtr f () = f destroyNotifyPtr
       end
 
     structure PolyML =
       struct
-        val cPtr = Closure.PolyML.cFunction
-        val cOptPtr = Closure.PolyML.cFunction
-        val cDispatchPtr = Pointer.PolyML.cVal
-        val cOptDispatchPtr = Pointer.PolyML.cOptVal
-        val cDestroyNotifyPtr = Pointer.PolyML.cVal
+        val cPtr = Closure.PolyML.cVal
+        val cOptPtr = Closure.PolyML.cVal
+        val cDispatchPtr = PolyMLFFI.cFunction
+        val cOptDispatchPtr = PolyMLFFI.cFunction
+        val cDestroyNotifyPtr = PolyMLFFI.cFunction
       end
   end

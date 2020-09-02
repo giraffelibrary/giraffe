@@ -8,7 +8,6 @@
 structure GLibSourceFunc :> G_LIB_SOURCE_FUNC =
   struct
     type func = unit -> bool
-    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GLib.SourceFunc"
@@ -20,29 +19,32 @@ structure GLibSourceFunc :> G_LIB_SOURCE_FUNC =
           GBool.FFI.withVal I true  (* return true to prevent an attempt
                                      * to remove a non-existent source *)
       )
+    fun dispatch closure = Closure.call closure ()
+    fun dispatchAsync closure = Closure.call closure () before Closure.free closure
+    fun destroyNotify closure = Closure.free closure
+    val () =
+      _export "giraffe_g_source_func_dispatch" private
+        : (Closure.t -> GBool.FFI.val_) -> unit;
+        dispatch
+    val () =
+      _export "giraffe_g_source_func_dispatch_async" private
+        : (Closure.t -> GBool.FFI.val_) -> unit;
+        dispatchAsync
+    val () =
+      _export "giraffe_g_source_func_destroy" private
+        : (Closure.t -> unit) -> unit;
+        destroyNotify
     structure Callback =
       Callback(
         type t = func
-        structure Pointer = Pointer
         structure Closure = Closure
         fun marshaller func =
           fn () =>
             GBool.FFI.withVal I (func ())
-        fun dispatchPtr () = _address "giraffe_g_source_func_dispatch" private : Pointer.t;
-        fun dispatchAsyncPtr () = _address "giraffe_g_source_func_dispatch_async" private : Pointer.t;
-        fun destroyNotifyPtr () = _address "giraffe_g_source_func_destroy" private : Pointer.t;
+        structure Pointer = CPointer(GMemory)
+        val dispatchPtr = _address "giraffe_g_source_func_dispatch" private : Pointer.t;
+        val dispatchAsyncPtr = _address "giraffe_g_source_func_dispatch_async" private : Pointer.t;
+        val destroyNotifyPtr = _address "giraffe_g_source_func_destroy" private : Pointer.t;
       )
     open Callback
-    val () =
-      _export "giraffe_g_source_func_dispatch" private
-        : (Closure.t -> GBool.FFI.val_) -> unit;
-        (fn closure => Closure.call closure ())
-    val () =
-      _export "giraffe_g_source_func_dispatch_async" private
-        : (Closure.t -> GBool.FFI.val_) -> unit;
-        (fn closure => Closure.call closure () before Closure.free closure)
-    val () =
-      _export "giraffe_g_source_func_destroy" private
-        : (Closure.t -> unit) -> unit;
-        Closure.free
   end

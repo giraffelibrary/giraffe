@@ -13,7 +13,6 @@ structure GLibIOFunc :>
     type i_o_channel_t = GLibIOChannelRecord.t
     type i_o_condition_t = GLibIOCondition.t
     type func = i_o_channel_t * i_o_condition_t -> bool
-    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GLib.IOFunc"
@@ -29,10 +28,34 @@ structure GLibIOFunc :>
           GBool.FFI.withVal I true  (* return true to prevent an attempt
                                      * to remove a non-existent source *)
       )
+    fun dispatch (source, condition, closure) = Closure.call closure (source & condition)
+    fun dispatchAsync (source, condition, closure) =
+      Closure.call closure (source & condition) before Closure.free closure
+    fun destroyNotify closure = Closure.free closure
+    val () =
+      _export "giraffe_g_i_o_func_dispatch" private
+        : (GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
+            * GLibIOCondition.FFI.val_
+            * Closure.t
+            -> GBool.FFI.val_)
+           -> unit;
+        dispatch
+    val () =
+      _export "giraffe_g_i_o_func_dispatch_async" private
+        : (GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
+            * GLibIOCondition.FFI.val_
+            * Closure.t
+            -> GBool.FFI.val_)
+           -> unit;
+        dispatchAsync
+    val () =
+      _export "giraffe_g_i_o_func_destroy" private
+        : (Closure.t -> unit) -> unit;
+        destroyNotify
     structure Callback =
       Callback(
         type t = func
-        structure Pointer = Pointer
+        structure Pointer = CPointer(GMemory)
         structure Closure = Closure
         fun marshaller func =
           fn source & condition =>
@@ -42,32 +65,9 @@ structure GLibIOFunc :>
                 GLibIOCondition.FFI.fromVal condition
               )
             )
-        fun dispatchPtr () = _address "giraffe_g_i_o_func_dispatch" private : Pointer.t;
-        fun dispatchAsyncPtr () = _address "giraffe_g_i_o_func_dispatch_async" private : Pointer.t;
-        fun destroyNotifyPtr () = _address "giraffe_g_i_o_func_destroy" private : Pointer.t;
+        val dispatchPtr = _address "giraffe_g_i_o_func_dispatch" private : Pointer.t;
+        val dispatchAsyncPtr = _address "giraffe_g_i_o_func_dispatch_async" private : Pointer.t;
+        val destroyNotifyPtr = _address "giraffe_g_i_o_func_destroy" private : Pointer.t;
       )
     open Callback
-    val () =
-      _export "giraffe_g_i_o_func_dispatch" private
-        : (GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
-            * GLibIOCondition.FFI.val_
-            * Closure.t
-            -> GBool.FFI.val_)
-           -> unit;
-        (fn (source, condition, closure) => Closure.call closure (source & condition))
-    val () =
-      _export "giraffe_g_i_o_func_dispatch_async" private
-        : (GLibIOChannelRecord.FFI.non_opt GLibIOChannelRecord.FFI.p
-            * GLibIOCondition.FFI.val_
-            * Closure.t
-            -> GBool.FFI.val_)
-           -> unit;
-        (
-          fn (source, condition, closure) =>
-            Closure.call closure (source & condition) before Closure.free closure
-        )
-    val () =
-      _export "giraffe_g_i_o_func_destroy" private
-        : (Closure.t -> unit) -> unit;
-        Closure.free
   end

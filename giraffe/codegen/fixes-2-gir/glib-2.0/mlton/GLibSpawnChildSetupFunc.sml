@@ -8,7 +8,6 @@
 structure GLibSpawnChildSetupFunc :> G_LIB_SPAWN_CHILD_SETUP_FUNC =
   struct
     type func = unit -> unit
-    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GLib.SpawnChildSetupFunc"
@@ -17,28 +16,31 @@ structure GLibSpawnChildSetupFunc :> G_LIB_SPAWN_CHILD_SETUP_FUNC =
         val exnRetVal = ()
         val noneRetVal = ()
       )
-    structure Callback =
-      Callback(
-        type t = func
-        structure Pointer = Pointer
-        structure Closure = Closure
-        fun marshaller func =
-          fn () => func ()
-        fun dispatchPtr () = _address "giraffe_g_spawn_child_setup_func_dispatch" private : Pointer.t;
-        fun dispatchAsyncPtr () = _address "giraffe_g_spawn_child_setup_func_dispatch_async" private : Pointer.t;
-        fun destroyNotifyPtr () = _address "giraffe_g_spawn_child_setup_func_destroy" private : Pointer.t;
-      )
-    open Callback
+    fun dispatch closure = Closure.call closure ()
+    fun dispatchAsync closure = Closure.call closure () before Closure.free closure
+    fun destroyNotify closure = Closure.free closure
     val () =
       _export "giraffe_g_spawn_child_setup_func_dispatch" private
         : (Closure.t -> unit) -> unit;
-        (fn closure => Closure.call closure ())
+        dispatch
     val () =
       _export "giraffe_g_spawn_child_setup_func_dispatch_async" private
         : (Closure.t -> unit) -> unit;
-        (fn closure => Closure.call closure () before Closure.free closure)
+        dispatchAsync
     val () =
       _export "giraffe_g_spawn_child_setup_func_destroy" private
         : (Closure.t -> unit) -> unit;
-        Closure.free
+        destroyNotify
+    structure Callback =
+      Callback(
+        type t = func
+        structure Pointer = CPointer(GMemory)
+        structure Closure = Closure
+        fun marshaller func =
+          fn () => func ()
+        val dispatchPtr = _address "giraffe_g_spawn_child_setup_func_dispatch" private : Pointer.t;
+        val dispatchAsyncPtr = _address "giraffe_g_spawn_child_setup_func_dispatch_async" private : Pointer.t;
+        val destroyNotifyPtr = _address "giraffe_g_spawn_child_setup_func_destroy" private : Pointer.t;
+      )
+    open Callback
   end

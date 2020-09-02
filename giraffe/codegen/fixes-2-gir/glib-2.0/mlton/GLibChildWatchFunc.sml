@@ -11,7 +11,6 @@ structure GLibChildWatchFunc :>
   struct
     type pid_t = GLibPid.t
     type func = pid_t * LargeInt.int -> unit
-    structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
         val name = "GLib.ChildWatchFunc"
@@ -20,19 +19,10 @@ structure GLibChildWatchFunc :>
         val exnRetVal = ()
         val noneRetVal = ()
       )
-    structure Callback =
-      Callback(
-        type t = func
-        structure Pointer = Pointer
-        structure Closure = Closure
-        fun marshaller func =
-          fn pid & status =>
-            func (GLibPid.FFI.fromVal pid, GInt32.FFI.fromVal status)
-        fun dispatchPtr () = _address "giraffe_g_child_watch_func_dispatch" private : Pointer.t;
-        fun dispatchAsyncPtr () = _address "giraffe_g_child_watch_func_dispatch_async" private : Pointer.t;
-        fun destroyNotifyPtr () = _address "giraffe_g_child_watch_func_destroy" private : Pointer.t;
-      )
-    open Callback
+    fun dispatch (pid, status, closure) = Closure.call closure (pid & status)
+    fun dispatchAsync (pid, status, closure) =
+      Closure.call closure (pid & status) before Closure.free closure
+    fun destroyNotify closure = Closure.free closure
     val () =
       _export "giraffe_g_child_watch_func_dispatch" private
         : (GLibPid.FFI.val_
@@ -40,7 +30,7 @@ structure GLibChildWatchFunc :>
             * Closure.t
             -> unit)
            -> unit;
-        (fn (pid, status, closure) => Closure.call closure (pid & status))
+        dispatch
     val () =
       _export "giraffe_g_child_watch_func_dispatch_async" private
         : (GLibPid.FFI.val_
@@ -48,12 +38,22 @@ structure GLibChildWatchFunc :>
             * Closure.t
             -> unit)
            -> unit;
-        (
-          fn (pid, status, closure) =>
-            Closure.call closure (pid & status) before Closure.free closure
-        )
+        dispatchAsync
     val () =
       _export "giraffe_g_child_watch_func_destroy" private
         : (Closure.t -> unit) -> unit;
-        Closure.free
+        destroyNotify
+    structure Callback =
+      Callback(
+        type t = func
+        structure Pointer = CPointer(GMemory)
+        structure Closure = Closure
+        fun marshaller func =
+          fn pid & status =>
+            func (GLibPid.FFI.fromVal pid, GInt32.FFI.fromVal status)
+        val dispatchPtr = _address "giraffe_g_child_watch_func_dispatch" private : Pointer.t;
+        val dispatchAsyncPtr = _address "giraffe_g_child_watch_func_dispatch_async" private : Pointer.t;
+        val destroyNotifyPtr = _address "giraffe_g_child_watch_func_destroy" private : Pointer.t;
+      )
+    open Callback
   end

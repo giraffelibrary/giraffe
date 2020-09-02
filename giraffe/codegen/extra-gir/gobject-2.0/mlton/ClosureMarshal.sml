@@ -60,23 +60,34 @@ structure ClosureMarshal :>
       else
         fn _ => ()
 
+    (* The closure called in `dispatch` and `destroyNotify` should catch any
+     * exceptions but we still handle exceptions for unforeseen reasons to
+     * ensure that they are reported and control returns from the callback.
+     *)
+    fun dispatch (closure, v, size, vs, _, _) = (
+      log "dispatch" (closure, "enter");
+      Closure.call (getData_ closure) (v & vs & size)
+       before log "dispatch" (closure, "leave")
+    ) handle e => app print [exnMessage e, "\n"]
+
+    fun destroyNotify (data, closure) = (
+      log "destroy" (closure, "enter");
+      Closure.free data
+       before log "destroy" (closure, "leave")
+    ) handle e => app print [exnMessage e, "\n"]
+
     val () =
       _export "giraffe_closure_dispatch" private :
-        (GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
-          * GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
-          * GUInt32.FFI.val_
-          * GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p
-          * Pointer.t
-          * Pointer.t
-          -> unit)
-         -> unit;
         (
-          fn (closure, v, size, vs, _, _) => (
-            log "dispatch" (closure, "enter");
-            Closure.call (getData_ closure) (v & vs & size)
-             before log "dispatch" (closure, "leave")
-          )
-        )
+          GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
+           * GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
+           * GUInt32.FFI.val_
+           * GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p
+           * Pointer.t
+           * Pointer.t
+           -> unit
+        ) -> unit;
+        dispatch
 
     val () =
       _export "giraffe_closure_destroy" private :
@@ -85,13 +96,7 @@ structure ClosureMarshal :>
            * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
            -> unit
         ) -> unit;
-        (
-          fn (data, closure) => (
-            log "destroy" (closure, "enter");
-            Closure.free data
-             before log "destroy" (closure, "leave")
-          )
-        )
+        destroyNotify
 
     type 'a get = Closure.args -> 'a
     type 'a set = Closure.args -> 'a -> unit
@@ -136,15 +141,15 @@ structure ClosureMarshal :>
             SOME marshallerFunc => withPtr f marshallerFunc
           | NONE                => f Closure.null
 
-        fun dispatchPtr () = _address "giraffe_closure_dispatch" private : Pointer.t;
-        fun destroyNotifyPtr () = _address "giraffe_closure_destroy" private : Pointer.t;
+        val dispatchPtr = _address "giraffe_closure_dispatch" private : Pointer.t;
+        val destroyNotifyPtr = _address "giraffe_closure_destroy" private : Pointer.t;
 
-        fun withDispatchPtr f () = f (dispatchPtr ())
+        fun withDispatchPtr f () = f dispatchPtr
         fun withOptDispatchPtr f =
           fn
             true  => withDispatchPtr (f o Pointer.toOptPtr) ()
           | false => f Pointer.null
 
-        fun withDestroyNotifyPtr f () = f (destroyNotifyPtr ())
+        fun withDestroyNotifyPtr f () = f destroyNotifyPtr
       end
   end
