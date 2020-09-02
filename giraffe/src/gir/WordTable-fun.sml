@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2018, 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -175,7 +175,7 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
     (**
      * Deletion
      *)
-    fun delete {nextKey, recKeys, blocks} key =
+    fun delete {recKeys, blocks, ...} key =
       let
         val {bIdx, eIdx, ...} = keyIndex key
       in
@@ -199,7 +199,7 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
     (**
      * Look up
      *)
-    fun lookup {nextKey, recKeys, blocks} key =
+    fun lookup {blocks, ...} key =
       let
         val {bIdx, eIdx, ...} = keyIndex key
       in
