@@ -87,6 +87,19 @@ signature C_POINTER =
     val appNonNullPtr : (t -> unit) -> 'a p -> unit
 
     (**
+     * These functions convert a pointer to a string representation of its
+     * numeric value.
+     *
+     * `fmt radix p` returns a string containing the digits in base `radix`.
+     * `toString p` returns a string containing the hexadecimal digits, with
+     * prefix "0x".  `toOptString p` returns "NULL" if `p` is null and
+     * otherwise returns `toString p`.
+     *)
+    val fmt : StringCvt.radix -> 'a p -> string
+    val toString : non_opt p -> string
+    val toOptString : opt p -> string
+
+    (**
      * C memory operations on a pointer
      *)
     structure Memory : C_MEMORY where type Pointer.t = non_opt p

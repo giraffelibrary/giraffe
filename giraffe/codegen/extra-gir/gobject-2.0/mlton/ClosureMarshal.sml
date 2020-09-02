@@ -47,14 +47,14 @@ structure ClosureMarshal :>
       _import "giraffe_closure_get_data" :
         GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p -> Closure.t;
 
-    val log =
+    fun log action =
       if GiraffeDebug.getClosure ()
       then
-        fn (action, closure, dir) =>
+        fn (closure, dir) =>
           List.app print [
-            action, " closure 0x",
-            SysWord.fmt StringCvt.HEX
-              (GObjectClosureRecord.C.Pointer.Memory.Pointer.toSysWord closure),
+            action,
+            " closure ",
+            GObjectClosureRecord.C.Pointer.toString closure,
             " [", dir, "]\n"
           ]
       else
@@ -72,9 +72,9 @@ structure ClosureMarshal :>
          -> unit;
         (
           fn (closure, v, size, vs, _, _) => (
-            log ("dispatch", closure, "enter");
+            log "dispatch" (closure, "enter");
             Closure.call (getData_ closure) (v & vs & size)
-             before log ("dispatch", closure, "leave")
+             before log "dispatch" (closure, "leave")
           )
         )
 
@@ -87,9 +87,9 @@ structure ClosureMarshal :>
         ) -> unit;
         (
           fn (data, closure) => (
-            log ("destroy", closure, "enter");
+            log "destroy" (closure, "enter");
             Closure.free data
-             before log ("destroy", closure, "leave")
+             before log "destroy" (closure, "leave")
           )
         )
 

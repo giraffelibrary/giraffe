@@ -87,11 +87,33 @@ structure Signal :>
         signalHandlerIsConnected_
         (instance & handlerId)
 
+    fun log action =
+      if GiraffeDebug.getClosure ()
+      then
+        fn (closure, detailedSignal, instance) =>
+          List.app print [
+            action,
+            " closure ",
+            GObjectClosureRecord.FFI.withPtr false
+              GObjectClosureRecord.C.Pointer.toString
+              closure,
+            " \"", detailedSignal, "\"",
+            " instance ",
+            GObjectObjectClass.FFI.withPtr false
+              GObjectObjectClass.C.Pointer.toString
+              instance,
+            " (type ",
+            GObjectType.name (GObjectObjectClass.instanceType instance),
+            ")\n"
+          ]
+      else
+        fn _ => ()
 
     fun connect instance signal f =
       let
         val (detailedSignal, closure) = signal f
       in
+        log "connect" (closure, detailedSignal, instance);
         signalConnectClosure instance detailedSignal closure false
       end
 
@@ -99,6 +121,7 @@ structure Signal :>
       let
         val (detailedSignal, closure) = signal f
       in
+        log "connect-after" (closure, detailedSignal, instance);
         signalConnectClosure instance detailedSignal closure true
       end
 

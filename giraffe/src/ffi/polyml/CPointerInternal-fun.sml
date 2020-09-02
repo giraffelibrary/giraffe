@@ -37,6 +37,10 @@ functor CPointerInternal(Memory : C_MEMORY) :>
     fun mapNonNullPtr f p = if isNull p then p else toOptPtr (f p)
     fun appNonNullPtr f p = if isNull p then () else f p
 
+    fun fmt radix p = SysWord.fmt radix (Memory.Pointer.toSysWord p)
+    fun toString p = "0x" ^ SysWord.toString (Memory.Pointer.toSysWord p)
+    fun toOptString p = if isNull p then "NULL" else toString p
+
     structure Memory = Memory
 
     structure ValueType =

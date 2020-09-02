@@ -547,26 +547,3 @@ giraffe_g_closure_new (GClosureMarshal dispatch,
 
 /* GSignal */
 
-gulong
-giraffe_g_signal_connect_closure (gpointer instance,
-                                  const gchar *detailed_signal,
-                                  GClosure *closure,
-                                  gboolean after)
-{
-#ifdef GIRAFFE_DEBUG
-  if (giraffe_debug_closure)
-  {
-    printf ("connect%s closure %p \"%s\" instance %p (type %s)\n",
-            after ? "-after" : "",
-            closure,
-            detailed_signal,
-            instance,
-            G_OBJECT_TYPE_NAME(instance));
-    fflush (stdout);
-  }
-#endif /* GIRAFFE_DEBUG */
-  return g_signal_connect_closure (instance,
-                                   detailed_signal,
-                                   closure,
-                                   after);
-}
