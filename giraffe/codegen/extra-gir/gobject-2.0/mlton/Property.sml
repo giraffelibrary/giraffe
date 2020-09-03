@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2017-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2017-2018, 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -55,7 +55,7 @@ structure Property :>
     type ('a, 'b) accessor = ('a, 'b) ValueAccessor.t
     type 'a object_class = 'a GObjectObjectClass.class
 
-    fun getProperty self propertyName value =
+    fun getProperty self (propertyName, value) =
       (
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
@@ -69,7 +69,7 @@ structure Property :>
            & value
         )
 
-    fun setProperty self propertyName value =
+    fun setProperty self (propertyName, value) =
       (
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
@@ -94,18 +94,21 @@ structure Property :>
 
     fun get name t object =
       let
-        val value = GObjectValue.init (ValueAccessor.gtype t)
+        val value = GObjectValue.new ()
+        val () = GObjectValue.init value (ValueAccessor.gtype t)
+        val () = getProperty object (name, value)
       in
-        getProperty object name value;
         ValueAccessor.get t value
       end
 
     fun set name t x object =
       let
-        val value = GObjectValue.init (ValueAccessor.gtype t)
+        val value = GObjectValue.new ()
+        val () = GObjectValue.init value (ValueAccessor.gtype t)
+        val () = ValueAccessor.set t value x
+        val () = setProperty object (name, value)
       in
-        ValueAccessor.set t value x;
-        setProperty object name value
+        ()        
       end
   end
 

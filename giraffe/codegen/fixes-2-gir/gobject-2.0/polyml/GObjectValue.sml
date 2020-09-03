@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2015-2017 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2015-2017, 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -13,20 +13,15 @@ structure GObjectValue :>
     local
       open PolyMLFFI
     in
-      val init_ =
-        call
-          (getSymbol "g_value_init")
-          (GObjectValueRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GObjectValueRecord.PolyML.cPtr);
-
-      val reset_ =
-        call
-          (getSymbol "g_value_reset")
-          (GObjectValueRecord.PolyML.cPtr --> GObjectValueRecord.PolyML.cPtr);
-
-      val getType_ =
-        call
-          (getSymbol "g_value_get_type")
-          (cVoid --> GObjectType.PolyML.cVal);
+      val getType_ = call (getSymbol "g_value_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val copy_ = call (getSymbol "g_value_copy") (GObjectValueRecord.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> cVoid)
+      val fitsPointer_ = call (getSymbol "g_value_fits_pointer") (GObjectValueRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val init_ = call (getSymbol "g_value_init") (GObjectValueRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GObjectValueRecord.PolyML.cPtr)
+      val reset_ = call (getSymbol "g_value_reset") (GObjectValueRecord.PolyML.cPtr --> GObjectValueRecord.PolyML.cPtr)
+      val transform_ = call (getSymbol "g_value_transform") (GObjectValueRecord.PolyML.cPtr &&> GObjectValueRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val unset_ = call (getSymbol "g_value_unset") (GObjectValueRecord.PolyML.cPtr --> cVoid)
+      val typeCompatible_ = call (getSymbol "g_value_type_compatible") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
+      val typeTransformable_ = call (getSymbol "g_value_type_transformable") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
 
       val holds_ =
         call
@@ -43,26 +38,26 @@ structure GObjectValue :>
           (getSymbol "giraffe_g_is_value")
           (GObjectValueRecord.PolyML.cPtr --> GBool.PolyML.cVal);
     end
-
     type t = GObjectValueRecord.t
     type type_t = GObjectType.t
-
-    fun init gtype =
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () =
       let
-        val value & () =
-          (GObjectValueRecord.FFI.withNewPtr
-            &&&> GObjectType.FFI.withVal
-            ---> GObjectValueRecord.FFI.fromPtr true && I)
-            (ignore o init_)
-            (() & gtype)
+        val new & () =
+          (GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I)
+            ignore
+            ()
       in
-        value
+        new
       end
-
-    fun reset value =
-      (GObjectValueRecord.FFI.withPtr false ---> I) (ignore o reset_) value
-
-    fun getType () = (I ---> GObjectType.FFI.fromVal) getType_ ()
+    fun copy self destValue = (GObjectValueRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withPtr false ---> I) copy_ (self & destValue)
+    fun fitsPointer self = (GObjectValueRecord.FFI.withPtr false ---> GBool.FFI.fromVal) fitsPointer_ self
+    fun init self gType = (GObjectValueRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> I) (ignore o init_) (self & gType)
+    fun reset self = (GObjectValueRecord.FFI.withPtr false ---> I) (ignore o reset_) self
+    fun transform self destValue = (GObjectValueRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withPtr false ---> GBool.FFI.fromVal) transform_ (self & destValue)
+    fun unset self = (GObjectValueRecord.FFI.withPtr false ---> I) unset_ self
+    fun typeCompatible (srcType, destType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCompatible_ (srcType & destType)
+    fun typeTransformable (srcType, destType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeTransformable_ (srcType & destType)
 
     fun holds gtype value =
       (GObjectValueRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal)

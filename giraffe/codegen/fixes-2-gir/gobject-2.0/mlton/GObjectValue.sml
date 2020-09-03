@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2015-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2015-2017, 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -10,19 +10,15 @@ structure GObjectValue :>
     where type t = GObjectValueRecord.t
     where type type_t = GObjectType.t =
   struct
-    val init_ =
-      fn x1 & x2 =>
-        (_import "g_value_init" :
-           GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GObjectType.FFI.val_
-            -> GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p;)
-        (x1, x2)
-
-    val reset_ =
-      _import "g_value_reset" :
-        GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p;
-
-    val getType_ =
-      _import "g_value_get_type" : unit -> GObjectType.FFI.val_;
+    val getType_ = _import "g_value_get_type" : unit -> GObjectType.FFI.val_;
+    val copy_ = fn x1 & x2 => (_import "g_value_copy" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit;) (x1, x2)
+    val fitsPointer_ = _import "g_value_fits_pointer" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GBool.FFI.val_;
+    val init_ = fn x1 & x2 => (_import "g_value_init" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GObjectType.FFI.val_ -> GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p;) (x1, x2)
+    val reset_ = _import "g_value_reset" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p;
+    val transform_ = fn x1 & x2 => (_import "g_value_transform" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
+    val unset_ = _import "g_value_unset" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit;
+    val typeCompatible_ = fn x1 & x2 => (_import "g_value_type_compatible" : GObjectType.FFI.val_ * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
+    val typeTransformable_ = fn x1 & x2 => (_import "g_value_type_transformable" : GObjectType.FFI.val_ * GObjectType.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
 
     val holds_ =
       fn x1 & x2 =>
@@ -40,23 +36,24 @@ structure GObjectValue :>
 
     type t = GObjectValueRecord.t
     type type_t = GObjectType.t
-
-    fun init gtype =
+    val getType = (I ---> GObjectType.FFI.fromVal) getType_
+    fun new () =
       let
-        val value & () =
-          (GObjectValueRecord.FFI.withNewPtr
-            &&&> GObjectType.FFI.withVal
-            ---> GObjectValueRecord.FFI.fromPtr true && I)
-            (ignore o init_)
-            (() & gtype)
+        val new & () =
+          (GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I)
+            ignore
+            ()
       in
-        value
+        new
       end
-
-    fun reset value =
-      (GObjectValueRecord.FFI.withPtr false ---> I) (ignore o reset_) value
-
-    fun getType () = (I ---> GObjectType.FFI.fromVal) getType_ ()
+    fun copy self destValue = (GObjectValueRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withPtr false ---> I) copy_ (self & destValue)
+    fun fitsPointer self = (GObjectValueRecord.FFI.withPtr false ---> GBool.FFI.fromVal) fitsPointer_ self
+    fun init self gType = (GObjectValueRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> I) (ignore o init_) (self & gType)
+    fun reset self = (GObjectValueRecord.FFI.withPtr false ---> I) (ignore o reset_) self
+    fun transform self destValue = (GObjectValueRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withPtr false ---> GBool.FFI.fromVal) transform_ (self & destValue)
+    fun unset self = (GObjectValueRecord.FFI.withPtr false ---> I) unset_ self
+    fun typeCompatible (srcType, destType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCompatible_ (srcType & destType)
+    fun typeTransformable (srcType, destType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeTransformable_ (srcType & destType)
 
     fun holds gtype value =
       (GObjectValueRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal)
