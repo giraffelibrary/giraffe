@@ -80,6 +80,23 @@ exception InfoExcl of info_excl
 fun infoExcl msg = raise InfoExcl (IEMsg msg)
 
 
+fun existsInfo (getN : 'a -> LargeInt.int) getNth p info =
+  let
+    fun aux n =
+      if n <= 0
+      then false
+      else
+        let
+          val n' = n - 1
+        in
+          if p (getNth info n') handle InfoExcl _ => false
+          then true
+          else aux n'
+        end
+  in
+    aux (getN info)
+  end
+
 fun revMapInfos (getN : 'a -> LargeInt.int) getNth f (info, xs) =
   let
     fun aux xs n =

@@ -520,6 +520,53 @@ fun mkFieldTy isOpt ((isReadType, interfaceTyRef), tyVarIdx) =
     (if isOpt then optionTy ty else ty, tyVarIdx')
   end
 
+local
+  fun mkIRefTyRef iRef =
+    let
+      val ifTyRef = (
+        numInterfaceRefTyVars iRef,
+        makeInterfaceRefTyLongId iRef
+      )
+    in
+      ifTyRef
+    end
+
+  fun addIRefTyRef iRef isOpt (sigIRefs, extIRefs) =
+    let
+      val {scope, container, ...} = iRef
+      val sigIRefs' =
+        case scope of
+          GLOBAL             => sigIRefs
+        | LOCALINTERFACESELF => sigIRefs
+        | _                  => insert (iRef, sigIRefs)
+      val extIRefs' =
+        case (scope, container) of
+          (GLOBAL, SOME _) => insert (iRef, extIRefs)
+        | _                => extIRefs
+
+      val ifTyRef = mkIRefTyRef iRef
+    in
+      (ifTyRef, isOpt, (sigIRefs', extIRefs'))
+    end
+in
+  fun mkFieldTypeInfoTyRef info =
+    case info of
+      IGTYPE {iRef}                 => (mkIRefTyRef iRef, false)
+    | ISCALAR {ty}                  => (scalarTyRef ty, false)
+    | IUTF8 {isOpt, ...}            => (utf8TyRef, isOpt)
+    | IARRAY {iRef, isOpt, ...}     => (mkIRefTyRef iRef, isOpt)
+    | IINTERFACE {iRef, isOpt, ...} => (mkIRefTyRef iRef, isOpt)
+
+  (* same as above but also records interface references *)
+  fun addFieldTypeInfoTyRef (info, iRefs) =
+    case info of
+      IGTYPE {iRef}                 => addIRefTyRef iRef false iRefs
+    | ISCALAR {ty}                  => (scalarTyRef ty, false, iRefs)
+    | IUTF8 {isOpt, ...}            => (utf8TyRef, isOpt, iRefs)
+    | IARRAY {iRef, isOpt, ...}     => addIRefTyRef iRef isOpt iRefs
+    | IINTERFACE {iRef, isOpt, ...} => addIRefTyRef iRef isOpt iRefs
+end
+
 fun addFieldAccessorSpec
   (containerIRef : interfaceref)
   (fieldInfo : field_info, (specs, iRefs, excls))
@@ -531,35 +578,7 @@ fun addFieldAccessorSpec
     val (containerTy, tyVarIdx'1) =
       makeIRefLocalTypeRef (makeRefVarTy false) (containerIRef, tyVarIdx'0)
 
-    fun addIRefTy iRef isOpt (sigIRefs, extIRefs) =
-      let
-        val {scope, container, ...} = iRef
-        val sigIRefs' =
-          case scope of
-            GLOBAL             => sigIRefs
-          | LOCALINTERFACESELF => sigIRefs
-          | _                  => insert (iRef, sigIRefs)
-        val extIRefs' =
-          case (scope, container) of
-            (GLOBAL, SOME _) => insert (iRef, extIRefs)
-          | _                => extIRefs
-
-        val ifTyRef = (
-          numInterfaceRefTyVars iRef,
-          makeInterfaceRefTyLongId iRef
-        )
-      in
-        (ifTyRef, isOpt, (sigIRefs', extIRefs'))
-      end
-
-    val (tyRef, isOpt, iRefs'1) =
-      case info of
-        IGTYPE {iRef}                 => addIRefTy iRef false iRefs
-      | ISCALAR {ty}                  => (scalarTyRef ty, false, iRefs)
-      | IUTF8 {isOpt, ...}            => (utf8TyRef, isOpt, iRefs)
-      | IARRAY {iRef, isOpt, ...}     => addIRefTy iRef isOpt iRefs
-      | IINTERFACE {iRef, isOpt, ...} => addIRefTy iRef isOpt iRefs
-
+    val (tyRef, isOpt, iRefs'1) = addFieldTypeInfoTyRef (info, iRefs)
     val (fieldReadTy, tyVarIdx'2) = mkFieldTy isOpt ((true, tyRef), tyVarIdx'1)
     val (fieldWriteTy, _) = mkFieldTy isOpt ((false, tyRef), tyVarIdx'2)
 
@@ -570,6 +589,15 @@ fun addFieldAccessorSpec
     val fieldTy = TyRec fields
   in
     (mkValSpec (fieldId, fieldTy) :: specs, iRefs'1, excls)
+  end
+
+fun mkFieldIdTy isReadType (fieldInfo : field_info, tyVarIdx) =
+  let
+    val {id, info, ...} = fieldInfo
+    val (tyRef, isOpt) = mkFieldTypeInfoTyRef info
+    val (ty, tyVarIdx') = mkFieldTy isOpt ((isReadType, tyRef), tyVarIdx)
+  in
+    ((id, ty), tyVarIdx')
   end
 
 

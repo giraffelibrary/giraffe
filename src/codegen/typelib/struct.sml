@@ -894,8 +894,39 @@ end
 
 (* Struct signature *)
 
-fun addStructFieldSpecs structIRef (fieldInfos, acc) =
-  revFold (Option.fold (addFieldAccessorSpec structIRef)) (fieldInfos, acc)
+fun isInfoNameNew info = getName info = "new"
+
+fun existsStructMethodInfo info =
+  existsInfo StructInfo.getNMethods StructInfo.getMethod info
+
+fun addStructFieldSpecs structIRef (optFieldInfos, acc) =
+  revFold (Option.fold (addFieldAccessorSpec structIRef)) (optFieldInfos, acc)
+
+fun addNewFunctionSpec fieldInfos acc =
+  let
+    val newSpec =
+      let
+        val tyVarIdx = 0
+        val (idTys, _) = foldmapl (mkFieldIdTy false) (fieldInfos, tyVarIdx)
+        val tTy = mkIdTy tId
+      in
+        mkValSpec (newId, TyFun (TyRec idTys, tTy))
+      end
+
+    val (specs, (sigIRefs, extIRefs), excls) = acc
+    val specs' = newSpec :: specs
+  in
+    (specs', (sigIRefs, extIRefs), excls)
+  end
+
+fun addStructNewFunctionSpec optFieldInfos structType structInfo =
+  case structType of
+    ValueRecord _ => (
+      if existsStructMethodInfo isInfoNameNew structInfo
+      then I
+      else addNewFunctionSpec (map valOf optFieldInfos) handle Option => I
+    )
+  | _             => I
 
 fun addStructMethodSpecs repo vers structIRef =
   revFoldMapInfosWithExcls
@@ -909,7 +940,7 @@ fun makeStructSig
   (vers            : Repository.typelibvers_t)
   (structNamespace : string)
   (structInfo      : 'b StructInfoClass.class)
-  (fieldInfos      : field_info option list)
+  (optFieldInfos   : field_info option list)
   (excls'0         : info_excl_hier list)
   : id * program * interfaceref list * interfaceref list * info_excl_hier list =
   let
@@ -929,6 +960,8 @@ fun makeStructSig
     val structStrId = mkStrId structNamespace structName
     val structSigId = toUCU structStrId
 
+    val structType = getStructType repo vers structInfo
+
     val typeIRef = makeTypeIRef structNamespace (SOME structName)
 
     val addStructGetTypeFunctionSpec =
@@ -942,9 +975,10 @@ fun makeStructSig
          * info_excl_hier list =
       ([], ([], []), excls'0)
     val acc'1 = addStructMethodSpecs repo vers structIRef (structInfo, acc'0)
-    val acc'2 = addStructGetTypeFunctionSpec typeIRef acc'1
-    val acc'3 = addStructFieldSpecs structIRef (fieldInfos, acc'2)
-    val (specs'1, (sigIRefs'1, extIRefs'1), excls'1) = acc'3
+    val acc'2 = addStructNewFunctionSpec optFieldInfos structType structInfo acc'1
+    val acc'3 = addStructGetTypeFunctionSpec typeIRef acc'2
+    val acc'4 = addStructFieldSpecs structIRef (optFieldInfos, acc'3)
+    val (specs'1, (sigIRefs'1, extIRefs'1), excls'1) = acc'4
 
     val sigIRefs'2 =
       structIRef :: sigIRefs'1  (* `structIRef` for record structure dependence *)
@@ -972,18 +1006,84 @@ fun makeStructSig
 
 (* Struct structure *)
 
-fun addFieldStructureDeps (fieldInfo as {id, info, ...}) =
-  (
-    id,
-    (
-      fieldInfo,
-      case info of
-        IARRAY {lengths = (ArrayLengthParam (lenId, _), _), ...} => [lenId]
-      | _                                                        => []
-    )
-  )
+(*
+ *     fun init
+ *       {
+ *         <fieldId[1]>,
+ *         ...
+ *         <fieldId[F]>
+ *       } =
+ *       let
+ *         fun init_ p =
+ *           (
+ *             <FieldName[1]>Field.C.set <fieldId[1]> p;
+ *             ...
+ *             <FieldName[F]>Field.C.set <fieldId[F]> p;
+ *             ()
+ *           )
+ *         val retVal & () =
+ *           (
+ *             <StructNamespace><StructName>Record.FFI.withNewPtr
+ *              ---> <StructNamespace><StructName>Record.FFI.fromPtr true && I
+ *           )
+ *             init_
+ *             ()
+ *       in
+ *         retVal
+ *       end
+ *)
+fun newStrDecHighLevel structIRef (fieldInfos : field_info list) =
+  let
+    val fieldIdFPats = map (mkIdAsFPat o #id) fieldInfos
+    val fieldIdsRecAPat = APatRec fieldIdFPats
+    val initUId = initId ^ "_"
+    val initUDec =
+      let
+        fun consFieldSetExp ({name, id, ...}, es) =
+          foldL ExpApp (
+            mkLIdLNameExp [toUCC name ^ fieldStrId, cStrId, setId],
+            [mkIdLNameExp id, mkIdLNameExp ptrId]
+          )
+           :: es
+        val exps = foldR consFieldSetExp (fieldInfos, [unitExp])
+      in
+        mkIdFunDec (initUId, toList1 [mkIdVarAPat ptrId], ExpSeq (toList2 exps))
+      end
 
-fun addStructFieldStructureStrDecs structIRef (fieldInfos, acc) =
+    val retValDec =
+      let
+        val prefixIds = prefixInterfaceStrId structIRef [ffiStrId]
+        val ffiExp =
+          mkParenExp (
+            mkDDDRExp (
+              withFunExp prefixIds {
+                isRef = false,
+                isDup = false,
+                isNew = true,
+                isOpt = false,
+                isPtr = true,
+                xfer  = XferNone
+              },
+              mkAAExp (
+                fromFunExp prefixIds {
+                  isOpt = false,
+                  xfer  = XferFlag true
+                },
+                iExp
+              )
+            )
+          )
+        val exp = foldL ExpApp (ffiExp, [mkIdLNameExp initUId, unitExp])
+      in
+        DecVal (toList1 [([], false, mkAPat (retValPat, unitPat), exp)])
+      end
+
+    val funExp = ExpLet (mkDecs [initUDec, retValDec], toList1 [retValExp])
+  in
+    StrDecDec (mkIdFunDec (newId, toList1 [fieldIdsRecAPat], funExp))
+  end
+
+fun addStructFieldStructureStrDecs structIRef (optFieldInfos, acc) =
   let
     fun reportMissingOrCyclicFieldDependencies m =
       let
@@ -998,16 +1098,52 @@ fun addStructFieldStructureStrDecs structIRef (fieldInfos, acc) =
         )
       end
 
+    fun addDeps (fieldInfo as {id, info, ...}) =
+      (
+        id,
+        (
+          fieldInfo,
+          case info of
+            IARRAY {lengths = (ArrayLengthParam (lenId, _), _), ...} => [lenId]
+          | _                                                        => []
+        )
+      )
+    fun removeDeps (_, (fieldInfo, _)) = fieldInfo
+
     val revSortedFieldInfos =
-      revSortMap reportMissingOrCyclicFieldDependencies (#1 o #2)
-        (List.mapPartial (Option.map addFieldStructureDeps) fieldInfos)
+      revSortMap reportMissingOrCyclicFieldDependencies removeDeps
+        (List.mapPartial (Option.map addDeps) optFieldInfos)
   in
     fold (addFieldStructureStrDec structIRef)
       (revSortedFieldInfos, acc)
   end
 
-fun addStructFieldAccessorStrDecs (fieldInfos, acc) =
-  revFold (Option.fold addFieldAccessorStrDec) (fieldInfos, acc)
+fun addStructFieldAccessorStrDecs (optFieldInfos, acc) =
+  revFold (Option.fold addFieldAccessorStrDec) (optFieldInfos, acc)
+
+fun addNewFunctionStrDecHighLevel structIRef fieldInfos
+  (strDecs, (iRefs, structDeps), excls) =
+  let
+    val strDecs' = newStrDecHighLevel structIRef fieldInfos :: strDecs
+  in
+    (strDecs', (iRefs, structDeps), excls)
+  end
+
+fun addStructNewFunctionStrDecHighLevel
+  optFieldInfos
+  structType
+  structIRef
+  structInfo =
+  case structType of
+    ValueRecord _ => (
+      if existsStructMethodInfo isInfoNameNew structInfo
+      then I
+      else
+        addNewFunctionStrDecHighLevel structIRef (map valOf optFieldInfos)
+          handle
+            Option => I
+    )
+  | _             => I
 
 fun addStructMethodStrDecsLowLevel
   isPolyML
@@ -1015,7 +1151,7 @@ fun addStructMethodStrDecsLowLevel
   vers
   addInitStrDecs
   structIRef
-  fieldInfos =
+  optFieldInfos =
   addFunctionStrDecsLowLevel
     (StructInfo.getNMethods, StructInfo.getMethod)
     isPolyML
@@ -1024,7 +1160,7 @@ fun addStructMethodStrDecsLowLevel
     addInitStrDecs
     #2
     (SOME structIRef)
-    fieldInfos
+    optFieldInfos
 
 fun addStructMethodStrDecsHighLevel repo vers (structInfo, structIRef) =
   revFoldMapInfosWithExcls
@@ -1038,7 +1174,7 @@ fun makeStructStr
   (vers            : Repository.typelibvers_t)
   (structNamespace : string)
   (structInfo      : 'b StructInfoClass.class)
-  (fieldInfos      : field_info option list)
+  (optFieldInfos   : field_info option list)
   (excls'0         : info_excl_hier list)
   : id * (spec list * strdec list) * program * interfaceref list * info_excl_hier list =
   let
@@ -1059,6 +1195,8 @@ fun makeStructStr
     val structSigId = toUCU structStrId
 
     val structStrNameId = mkStrNameId structName
+
+    val structType = getStructType repo vers structInfo
 
     val typeIRef = makeTypeIRef structNamespace (SOME structName)
 
@@ -1084,10 +1222,17 @@ fun makeStructStr
         vers
         (structInfo, structIRef)
         (structInfo, acc'0)
-    val acc'2 = addStructGetTypeFunctionStrDecHighLevel typeIRef acc'1
-    val acc'3 = addStructFieldAccessorStrDecs (fieldInfos, acc'2)
-    val acc'4 = addStructFieldStructureStrDecs structIRef (fieldInfos, acc'3)
-    val (strDecs'2, (iRefs'2, structDeps'2), excls'2) = acc'4
+    val acc'2 =
+      addStructNewFunctionStrDecHighLevel
+        optFieldInfos
+        structType
+        structIRef
+        structInfo
+        acc'1
+    val acc'3 = addStructGetTypeFunctionStrDecHighLevel typeIRef acc'2
+    val acc'4 = addStructFieldAccessorStrDecs (optFieldInfos, acc'3)
+    val acc'5 = addStructFieldStructureStrDecs structIRef (optFieldInfos, acc'4)
+    val (strDecs'2, (iRefs'2, structDeps'2), excls'2) = acc'5
 
     val strIRefs =
       structIRef :: iRefs'2  (* `structIRef` for record structure dependence *)
@@ -1115,7 +1260,7 @@ fun makeStructStr
             vers
             addStructGetTypeFunctionStrDecLowLevel
             structIRef
-            fieldInfos
+            optFieldInfos
             (structInfo, (strDecs'3, excls'2))
 
         val strDecs'5 =

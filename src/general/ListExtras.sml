@@ -3,6 +3,8 @@ structure ListExtras =
 
     fun fold f (xs, e) = foldl f e xs
     fun revFold f (xs, e) = foldl f e (rev xs)
+    fun foldL f (e, xs) = foldl (fn (x, e) => f (e, x)) e xs
+    fun foldR f (xs, e) = foldr f e xs
 
 
     fun revMapAppendWith g f (xs, a) = foldl (fn (x, a) => g (f x, a)) a xs

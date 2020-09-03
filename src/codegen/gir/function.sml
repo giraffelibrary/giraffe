@@ -2277,53 +2277,53 @@ fun getTypeSpec typeIRef =
  * which are included at the start of the structure.
  *)
 
+datatype xfer =
+  XferFlag of bool
+| XferDepth of int
+| XferNone
+
+fun withFunExp prefixIds {isRef, isDup, isNew, isOpt, isPtr, xfer} =
+  let
+    val refStr = if isRef then "Ref" else ""
+    val dupStr = if isDup then "Dup" else ""
+    val newStr = if isNew then "New" else ""
+    val optStr = if isOpt then "Opt" else ""
+    val ptrStr = if isPtr then "Ptr" else "Val"
+
+    val withFunId =
+      concat ["with", refStr, newStr, dupStr, optStr, ptrStr]
+    val funExp = mkLIdLNameExp (prefixIds @ [withFunId])
+  in
+    case xfer of
+      XferFlag b  => ExpApp (funExp, mkIdLNameExp (Bool.toString b))
+    | XferDepth n => ExpApp (funExp, mkIntConstExp (LargeInt.fromInt n))
+    | XferNone    => funExp
+  end
+
+fun fromFunExp prefixIds {isOpt, xfer} =
+  let
+    val optStr = if isOpt then "Opt" else ""
+    val ptrStr = if xfer <> XferNone then "Ptr" else "Val"
+
+    val fromFunId = concat ["from", optStr, ptrStr]
+    val funExp = mkLIdLNameExp (prefixIds @ [fromFunId])
+  in
+    case xfer of
+      XferFlag b  => ExpApp (funExp, mkIdLNameExp (Bool.toString b))
+    | XferDepth n => ExpApp (funExp, mkIntConstExp (LargeInt.fromInt n))
+    | XferNone    => funExp
+  end
+
+fun touchFunExp prefixIds {isOpt} =
+  let
+    val optStr = if isOpt then "Opt" else ""
+
+    val touchFunId = concat ["touch", optStr, "Ptr"]
+  in
+    mkLIdLNameExp (prefixIds @ [touchFunId])
+  end
+
 local
-  datatype xfer =
-    XferFlag of bool
-  | XferDepth of int
-  | XferNone
-
-  fun withFunExp prefixIds {isRef, isDup, isNew, isOpt, isPtr, xfer} =
-    let
-      val refStr = if isRef then "Ref" else ""
-      val dupStr = if isDup then "Dup" else ""
-      val newStr = if isNew then "New" else ""
-      val optStr = if isOpt then "Opt" else ""
-      val ptrStr = if isPtr then "Ptr" else "Val"
-
-      val withFunId =
-        concat ["with", refStr, newStr, dupStr, optStr, ptrStr]
-      val funExp = mkLIdLNameExp (prefixIds @ [withFunId])
-    in
-      case xfer of
-        XferFlag b  => ExpApp (funExp, mkIdLNameExp (Bool.toString b))
-      | XferDepth n => ExpApp (funExp, mkIntConstExp (LargeInt.fromInt n))
-      | XferNone    => funExp
-    end
-
-  fun fromFunExp prefixIds {isOpt, xfer} =
-    let
-      val optStr = if isOpt then "Opt" else ""
-      val ptrStr = if xfer <> XferNone then "Ptr" else "Val"
-
-      val fromFunId = concat ["from", optStr, ptrStr]
-      val funExp = mkLIdLNameExp (prefixIds @ [fromFunId])
-    in
-      case xfer of
-        XferFlag b  => ExpApp (funExp, mkIdLNameExp (Bool.toString b))
-      | XferDepth n => ExpApp (funExp, mkIntConstExp (LargeInt.fromInt n))
-      | XferNone    => funExp
-    end
-
-  fun touchFunExp prefixIds {isOpt} =
-    let
-      val optStr = if isOpt then "Opt" else ""
-
-      val touchFunId = concat ["touch", optStr, "Ptr"]
-    in
-      mkLIdLNameExp (prefixIds @ [touchFunId])
-    end
-
   fun withFunGType (dir, {iRef, ...} : gtype_info) =
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
@@ -3313,20 +3313,7 @@ fun makeFunctionStrDecHighLevel
           end
   in
     (
-      StrDecDec (
-        DecFun (
-          [],
-          toList1 [
-            toList1 [
-              (
-                FunHeadPrefix (NameId functionNameId, functionArgPats1),
-                NONE,
-                functionExp
-              )
-            ]
-          ]
-        )
-      ),
+      StrDecDec (mkIdFunDec (functionNameId, functionArgPats1, functionExp)),
       ((iRefs'3, structDeps'3), excls)
     )
   end
@@ -4555,13 +4542,13 @@ fun addFunctionStrDecsLowLevel
   addInitStrDecs
   addFieldOffsetFunctionStrDecs
   optContainerIRef
-  fieldInfos =
+  optFieldInfos =
   if isPolyML
   then
     fn (containerInfo, (strDecs, excls)) =>
       let
         val acc'0 = ([], excls)
-        val acc'1 = addFieldOffsetFunctionStrDecs (fieldInfos, acc'0)
+        val acc'1 = addFieldOffsetFunctionStrDecs (optFieldInfos, acc'0)
         val acc'2 =
           revMapInfosWithExcls
             optCons
@@ -4579,7 +4566,7 @@ fun addFunctionStrDecsLowLevel
   else
     fn (containerInfo, acc'0) =>
       let
-        val acc'1 = addFieldOffsetFunctionStrDecs (fieldInfos, acc'0)
+        val acc'1 = addFieldOffsetFunctionStrDecs (optFieldInfos, acc'0)
         val acc'2 = 
           revMapInfosWithExcls
             optCons

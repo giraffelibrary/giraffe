@@ -420,6 +420,15 @@ signature <STRUCT_NAMESPACE>_<STRUCT_NAME> =
                                                           -.                           -. 
     val getType : unit -> <type>                           | getTypeSymbol <> "intern"  | optGetTypeSymbol is SOME getTypeSymbol
                                                           -'                           -'
+                                                          -.
+    val new :                                              |
+      {                                                    |
+        <fieldName[1]> : <fieldType[1](false)>,            |
+        ...                                                | structType is ValueRecord _
+        <fieldName[F]> : <fieldType[F](false)>             |
+      }                                                    |
+       -> t                                                |
+                                                          -'
     <FunctionSpec[1]>
 
     ...
@@ -547,6 +556,32 @@ structure <StructNamespace><StructName> :>
                                                           -.                           -. 
     val getType = (I ---> GObjectType.C.fromVal) getType_  | getTypeSymbol <> "intern"  | optGetTypeSymbol is SOME getTypeSymbol
                                                           -'                           -'
+                                                                                       -. 
+    fun new                                                                             |
+      {                                                                                 |
+        <fieldId[1]>,                                                                   |
+        ...                                                                             |
+        <fieldId[F]>                                                                    |
+      } =                                                                               |
+      let                                                                               |
+        fun init_ p =                                                                   |
+          (                                                                             |
+            <FieldName[1]>Field.C.set <fieldId[1]> p;                                   |
+            ...                                                                         |
+            <FieldName[F]>Field.C.set <fieldId[F]> p;                                   | structType is ValueRecord _
+            ()                                                                          |
+          )                                                                             |
+        val retVal & () =                                                               |
+          (                                                                             |
+            <StructNamespace><StructName>Record.FFI.withNewPtr                          |
+             ---> <StructNamespace><StructName>Record.FFI.fromPtr true && I             |
+          )                                                                             |
+            init_                                                                       |
+            ()                                                                          |
+      in                                                                                |
+        retVal                                                                          |
+      end                                                                               |
+                                                                                       -'
     <HighLevelFunction[1]>
 
     ...

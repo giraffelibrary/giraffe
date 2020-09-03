@@ -5,14 +5,19 @@
  *)
 
 
-(* `toList1` is for convenience when constructing non-empty lists.
- * It is only intended to be applied to literal list expressions.
+(* `toList1` and `toList2` are for convenience when constructing non-empty
+ * lists.  They are intended to be applied only to literal list expressions.
  *)
 
 fun toList1 xs =
   case xs of
     x :: xs => (x, xs)
   | []      => raise Empty
+
+fun toList2 xs =
+  case xs of
+    x :: xs1 => (x, toList1 xs1)
+  | []       => raise Empty
 
 fun getList1 (xs, x) =
   case xs of
@@ -139,6 +144,8 @@ fun mkTupleAPat1 aps1 =
     (ap, []) => ap
   | _        => APatParen (map1 PatA aps1)
 
+fun mkIdAsFPat id = FPatAs (id, NONE)
+
 fun mkIdVarPat id : pat = PatA (mkIdVarAPat id)
 fun mkConstPat const : pat = PatA (APatConst const)
 
@@ -234,6 +241,20 @@ end
 
 
 
+(* `mkIdFunDec (id, apats, exp)` constructs a single fun binding that
+ * as follows:
+ *
+ *   fun <id> <apat[1]> ... <apat[n]> = <exp>
+ *)
+
+fun mkIdFunDec (id, apats1, exp) =
+  DecFun (
+    [],
+    toList1 [
+      toList1 [(FunHeadPrefix (NameId id, apats1), NONE, exp)]
+    ]
+  )
+
 (* `mkIdValDec (id, exp)` constructs a single val binding that binds the
  * expression `exp` to the identifier `id` as follows:
  *
@@ -275,13 +296,7 @@ fun mkIdValDec (id, exp) : dec =
     if List.exists (fn x => x = id) (!constructorNames)
     then
       let
-        val funDec =
-          DecFun (
-            [],
-            toList1 [
-              toList1 [(FunHeadPrefix (NameId id, toList1 [unitAPat]), NONE, exp)]
-            ]
-          )
+        val funDec = mkIdFunDec (id, toList1 [unitAPat], exp)
         val funExp = mkIdLNameExp id
       in
         DecLocal (
