@@ -12,6 +12,7 @@ functor CArrayNCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a
 
     structure C =
       struct
+        type e = CArrayType.e
         structure Pointer = CArrayType.Pointer
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt

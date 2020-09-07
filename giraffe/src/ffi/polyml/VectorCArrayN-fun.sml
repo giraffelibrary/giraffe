@@ -12,9 +12,11 @@ functor VectorCArrayN(CArray : C_ARRAY where type 'a C.ArrayType.from_p = int ->
     where type sequence = CArray.sequence
     where type 'a update = 'a  (* immutable *)
     where type 'a C.ArrayType.from_p = 'a CArray.C.ArrayType.from_p
-    where type 'a C.p = 'a CArray.C.p
+    where type C.e = CArray.C.e
     where type C.opt = CArray.C.opt
-    where type C.non_opt = CArray.C.non_opt =
+    where type C.non_opt = CArray.C.non_opt
+    where type 'a C.p = 'a CArray.C.p
+    where type ('a, 'b) C.r = ('a, 'b) CArray.C.r =
   struct
     type t = CArray.sequence
     type elem = CArray.elem

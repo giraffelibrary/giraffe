@@ -12,6 +12,7 @@ functor CPointerCArrayNType(
   C_ARRAY_TYPE
     where type ElemSequence.elem = CElemType.t
     where type ElemSequence.t = CElemType.t Sequence.t
+    where type e = CElemType.non_opt CElemType.p
     where type 'a from_p = int -> 'a =
   struct
     structure ElemSequence =

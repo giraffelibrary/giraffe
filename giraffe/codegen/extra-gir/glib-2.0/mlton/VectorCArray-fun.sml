@@ -16,9 +16,11 @@ functor VectorCArray(
     where type elem = CArray.elem
     where type sequence = CArray.sequence
     where type 'a C.ArrayType.from_p = 'a CArray.C.ArrayType.from_p
-    where type 'a C.p = 'a CArray.C.p
+    where type C.e = CArray.C.e
     where type C.opt = CArray.C.opt
     where type C.non_opt = CArray.C.non_opt
+    where type 'a C.p = 'a CArray.C.p
+    where type ('a, 'b) C.r = ('a, 'b) CArray.C.r
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
   struct
     structure Array = VectorCArray(CArray)

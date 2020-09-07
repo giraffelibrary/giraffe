@@ -11,9 +11,10 @@ functor ConstCArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
     where type sequence = CArrayType.t
     where type 'a update = 'a  (* immutable *)
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
-    where type 'a C.p = 'a CArrayType.p
-    where type C.opt = CArrayType.opt
-    where type C.non_opt = CArrayType.non_opt =
+    where type C.ArrayType.e = CArrayType.e
+    where type 'a C.ArrayType.p = 'a CArrayType.p
+    where type C.ArrayType.opt = CArrayType.opt
+    where type C.ArrayType.non_opt = CArrayType.non_opt =
   struct
     structure Common = CArrayCommon(CArrayType)
     open Common

@@ -13,6 +13,7 @@ functor CValueCArrayNType(
   C_ARRAY_TYPE
     where type elem = ElemSequence.elem
     where type t = ElemSequence.t
+    where type e = CElemType.v
     where type 'a from_p = int -> 'a =
   struct
     structure ElemSequence = ElemSequence

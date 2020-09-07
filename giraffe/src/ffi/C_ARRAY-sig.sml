@@ -145,11 +145,13 @@ signature C_ARRAY =
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
+        type e
 
         structure ArrayType :
           C_ARRAY_TYPE
             where type t = sequence
             where type elem = elem
+            where type e = e
             where type opt = opt
             where type non_opt = non_opt
             where type 'a p = 'a p
