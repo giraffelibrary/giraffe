@@ -62,37 +62,47 @@ structure GtkNumerableIcon :>
     fun setLabel self label = (GtkNumerableIconClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setLabel_ (self & label)
     fun setStyleContext self style = (GtkNumerableIconClass.FFI.withPtr false &&&> GtkStyleContextClass.FFI.withPtr false ---> I) setStyleContext_ (self & style)
     local
-      open Property
+      open ValueAccessor
     in
       val backgroundIconProp =
         {
-          get = fn x => get "background-icon" GioIconClass.tOpt x,
-          set = fn x => set "background-icon" GioIconClass.tOpt x,
-          new = fn x => new "background-icon" GioIconClass.tOpt x
+          name = "background-icon",
+          gtype = fn () => C.gtype GioIconClass.tOpt (),
+          get = fn x => fn () => C.get GioIconClass.tOpt x,
+          set = fn x => C.set GioIconClass.tOpt x,
+          init = fn x => C.set GioIconClass.tOpt x
         }
       val backgroundIconNameProp =
         {
-          get = fn x => get "background-icon-name" stringOpt x,
-          set = fn x => set "background-icon-name" stringOpt x,
-          new = fn x => new "background-icon-name" stringOpt x
+          name = "background-icon-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val countProp =
         {
-          get = fn x => get "count" int x,
-          set = fn x => set "count" int x,
-          new = fn x => new "count" int x
+          name = "count",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val labelProp =
         {
-          get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x,
-          new = fn x => new "label" stringOpt x
+          name = "label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val styleContextProp =
         {
-          get = fn x => get "style-context" GtkStyleContextClass.tOpt x,
-          set = fn x => set "style-context" GtkStyleContextClass.tOpt x,
-          new = fn x => new "style-context" GtkStyleContextClass.tOpt x
+          name = "style-context",
+          gtype = fn () => C.gtype GtkStyleContextClass.tOpt (),
+          get = fn x => fn () => C.get GtkStyleContextClass.tOpt x,
+          set = fn x => C.set GtkStyleContextClass.tOpt x,
+          init = fn x => C.set GtkStyleContextClass.tOpt x
         }
     end
   end

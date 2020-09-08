@@ -64,19 +64,23 @@ structure GtkLinkButton :>
       fun activateLinkSig f = signal "activate-link" (void ---> ret boolean) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val uriProp =
         {
-          get = fn x => get "uri" stringOpt x,
-          set = fn x => set "uri" stringOpt x,
-          new = fn x => new "uri" stringOpt x
+          name = "uri",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val visitedProp =
         {
-          get = fn x => get "visited" boolean x,
-          set = fn x => set "visited" boolean x,
-          new = fn x => new "visited" boolean x
+          name = "visited",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

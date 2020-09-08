@@ -57,30 +57,39 @@ structure GtkImageMenuItem :>
     fun setImage self image = (GtkImageMenuItemClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setImage_ (self & image)
     fun setUseStock self useStock = (GtkImageMenuItemClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseStock_ (self & useStock)
     local
-      open Property
+      open ValueAccessor
     in
       val accelGroupProp =
         {
-          set = fn x => set "accel-group" GtkAccelGroupClass.tOpt x,
-          new = fn x => new "accel-group" GtkAccelGroupClass.tOpt x
+          name = "accel-group",
+          gtype = fn () => C.gtype GtkAccelGroupClass.tOpt (),
+          get = ignore,
+          set = fn x => C.set GtkAccelGroupClass.tOpt x,
+          init = fn x => C.set GtkAccelGroupClass.tOpt x
         }
       val alwaysShowImageProp =
         {
-          get = fn x => get "always-show-image" boolean x,
-          set = fn x => set "always-show-image" boolean x,
-          new = fn x => new "always-show-image" boolean x
+          name = "always-show-image",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val imageProp =
         {
-          get = fn x => get "image" GtkWidgetClass.tOpt x,
-          set = fn x => set "image" GtkWidgetClass.tOpt x,
-          new = fn x => new "image" GtkWidgetClass.tOpt x
+          name = "image",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
       val useStockProp =
         {
-          get = fn x => get "use-stock" boolean x,
-          set = fn x => set "use-stock" boolean x,
-          new = fn x => new "use-stock" boolean x
+          name = "use-stock",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

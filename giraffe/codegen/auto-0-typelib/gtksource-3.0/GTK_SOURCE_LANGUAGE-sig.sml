@@ -22,8 +22,8 @@ signature GTK_SOURCE_LANGUAGE =
       'a class
        -> string
        -> string option
-    val hiddenProp : {get : 'a class -> bool}
-    val idProp : {get : 'a class -> string option}
-    val nameProp : {get : 'a class -> string option}
-    val sectionProp : {get : 'a class -> string option}
+    val hiddenProp : ('a class, unit -> bool, unit, unit) Property.t
+    val idProp : ('a class, unit -> string option, unit, unit) Property.t
+    val nameProp : ('a class, unit -> string option, unit, unit) Property.t
+    val sectionProp : ('a class, unit -> string option, unit, unit) Property.t
   end

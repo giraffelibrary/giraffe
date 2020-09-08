@@ -185,14 +185,23 @@ structure GtkUIManager :>
       fun preActivateSig f = signal "pre-activate" (get 0w1 GtkActionClass.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val addTearoffsProp =
         {
-          get = fn x => get "add-tearoffs" boolean x,
-          set = fn x => set "add-tearoffs" boolean x,
-          new = fn x => new "add-tearoffs" boolean x
+          name = "add-tearoffs",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
-      val uiProp = {get = fn x => get "ui" stringOpt x}
+      val uiProp =
+        {
+          name = "ui",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

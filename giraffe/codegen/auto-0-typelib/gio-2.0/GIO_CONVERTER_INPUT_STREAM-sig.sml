@@ -9,9 +9,5 @@ signature GIO_CONVERTER_INPUT_STREAM =
     val getType : unit -> GObject.Type.t
     val new : 'a input_stream_class * 'b converter_class -> base class
     val getConverter : 'a class -> base converter_class
-    val converterProp :
-      {
-        get : 'a class -> base converter_class option,
-        new : 'b converter_class option -> 'a class Property.t
-      }
+    val converterProp : ('a class, unit -> base converter_class option, unit, 'b converter_class option -> unit) Property.t
   end

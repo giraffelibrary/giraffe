@@ -94,49 +94,13 @@ signature GIO_D_BUS_PROXY =
         * GLib.VariantRecord.t
         -> unit)
        -> 'a class Signal.t
-    val gBusTypeProp : {new : bus_type_t -> 'a class Property.t}
-    val gConnectionProp :
-      {
-        get : 'a class -> base d_bus_connection_class option,
-        new : 'b d_bus_connection_class option -> 'a class Property.t
-      }
-    val gDefaultTimeoutProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val gFlagsProp :
-      {
-        get : 'a class -> d_bus_proxy_flags_t,
-        new : d_bus_proxy_flags_t -> 'a class Property.t
-      }
-    val gInterfaceInfoProp :
-      {
-        get : 'a class -> d_bus_interface_info_t option,
-        set :
-          d_bus_interface_info_t option
-           -> 'a class
-           -> unit,
-        new : d_bus_interface_info_t option -> 'a class Property.t
-      }
-    val gInterfaceNameProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val gNameProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val gNameOwnerProp : {get : 'a class -> string option}
-    val gObjectPathProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
+    val gBusTypeProp : ('a class, unit, unit, bus_type_t -> unit) Property.t
+    val gConnectionProp : ('a class, unit -> base d_bus_connection_class option, unit, 'b d_bus_connection_class option -> unit) Property.t
+    val gDefaultTimeoutProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val gFlagsProp : ('a class, unit -> d_bus_proxy_flags_t, unit, d_bus_proxy_flags_t -> unit) Property.t
+    val gInterfaceInfoProp : ('a class, unit -> d_bus_interface_info_t option, d_bus_interface_info_t option -> unit, d_bus_interface_info_t option -> unit) Property.t
+    val gInterfaceNameProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val gNameProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val gNameOwnerProp : ('a class, unit -> string option, unit, unit) Property.t
+    val gObjectPathProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
   end

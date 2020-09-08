@@ -97,71 +97,19 @@ signature GDK_DEVICE =
        -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.t
     val toolChangedSig : (base device_tool_class -> unit) -> 'a class Signal.t
-    val associatedDeviceProp : {get : 'a class -> base class option}
-    val axesProp : {get : 'a class -> axis_flags_t}
-    val deviceManagerProp :
-      {
-        get : 'a class -> base device_manager_class option,
-        new : 'b device_manager_class option -> 'a class Property.t
-      }
-    val displayProp :
-      {
-        get : 'a class -> base display_class option,
-        new : 'b display_class option -> 'a class Property.t
-      }
-    val hasCursorProp :
-      {
-        get : 'a class -> bool,
-        new : bool -> 'a class Property.t
-      }
-    val inputModeProp :
-      {
-        get : 'a class -> input_mode_t,
-        set :
-          input_mode_t
-           -> 'a class
-           -> unit,
-        new : input_mode_t -> 'a class Property.t
-      }
-    val inputSourceProp :
-      {
-        get : 'a class -> input_source_t,
-        new : input_source_t -> 'a class Property.t
-      }
-    val nAxesProp : {get : 'a class -> LargeInt.int}
-    val nameProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val numTouchesProp :
-      {
-        get : 'a class -> LargeInt.int,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val productIdProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val seatProp :
-      {
-        get : 'a class -> base seat_class option,
-        set :
-          'b seat_class option
-           -> 'a class
-           -> unit,
-        new : 'b seat_class option -> 'a class Property.t
-      }
-    val toolProp : {get : 'a class -> base device_tool_class option}
-    val typeProp :
-      {
-        get : 'a class -> device_type_t,
-        new : device_type_t -> 'a class Property.t
-      }
-    val vendorIdProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
+    val associatedDeviceProp : ('a class, unit -> base class option, unit, unit) Property.t
+    val axesProp : ('a class, unit -> axis_flags_t, unit, unit) Property.t
+    val deviceManagerProp : ('a class, unit -> base device_manager_class option, unit, 'b device_manager_class option -> unit) Property.t
+    val displayProp : ('a class, unit -> base display_class option, unit, 'b display_class option -> unit) Property.t
+    val hasCursorProp : ('a class, unit -> bool, unit, bool -> unit) Property.t
+    val inputModeProp : ('a class, unit -> input_mode_t, input_mode_t -> unit, input_mode_t -> unit) Property.t
+    val inputSourceProp : ('a class, unit -> input_source_t, unit, input_source_t -> unit) Property.t
+    val nAxesProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val nameProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val numTouchesProp : ('a class, unit -> LargeInt.int, unit, LargeInt.int -> unit) Property.t
+    val productIdProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val seatProp : ('a class, unit -> base seat_class option, 'b seat_class option -> unit, 'b seat_class option -> unit) Property.t
+    val toolProp : ('a class, unit -> base device_tool_class option, unit, unit) Property.t
+    val typeProp : ('a class, unit -> device_type_t, unit, device_type_t -> unit) Property.t
+    val vendorIdProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
   end

@@ -410,61 +410,79 @@ structure GioSocketClient :>
           )
     end
     local
-      open Property
+      open ValueAccessor
     in
       val enableProxyProp =
         {
-          get = fn x => get "enable-proxy" boolean x,
-          set = fn x => set "enable-proxy" boolean x,
-          new = fn x => new "enable-proxy" boolean x
+          name = "enable-proxy",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val familyProp =
         {
-          get = fn x => get "family" GioSocketFamily.t x,
-          set = fn x => set "family" GioSocketFamily.t x,
-          new = fn x => new "family" GioSocketFamily.t x
+          name = "family",
+          gtype = fn () => C.gtype GioSocketFamily.t (),
+          get = fn x => fn () => C.get GioSocketFamily.t x,
+          set = fn x => C.set GioSocketFamily.t x,
+          init = fn x => C.set GioSocketFamily.t x
         }
       val localAddressProp =
         {
-          get = fn x => get "local-address" GioSocketAddressClass.tOpt x,
-          set = fn x => set "local-address" GioSocketAddressClass.tOpt x,
-          new = fn x => new "local-address" GioSocketAddressClass.tOpt x
+          name = "local-address",
+          gtype = fn () => C.gtype GioSocketAddressClass.tOpt (),
+          get = fn x => fn () => C.get GioSocketAddressClass.tOpt x,
+          set = fn x => C.set GioSocketAddressClass.tOpt x,
+          init = fn x => C.set GioSocketAddressClass.tOpt x
         }
       val protocolProp =
         {
-          get = fn x => get "protocol" GioSocketProtocol.t x,
-          set = fn x => set "protocol" GioSocketProtocol.t x,
-          new = fn x => new "protocol" GioSocketProtocol.t x
+          name = "protocol",
+          gtype = fn () => C.gtype GioSocketProtocol.t (),
+          get = fn x => fn () => C.get GioSocketProtocol.t x,
+          set = fn x => C.set GioSocketProtocol.t x,
+          init = fn x => C.set GioSocketProtocol.t x
         }
       val proxyResolverProp =
         {
-          get = fn x => get "proxy-resolver" GioProxyResolverClass.tOpt x,
-          set = fn x => set "proxy-resolver" GioProxyResolverClass.tOpt x,
-          new = fn x => new "proxy-resolver" GioProxyResolverClass.tOpt x
+          name = "proxy-resolver",
+          gtype = fn () => C.gtype GioProxyResolverClass.tOpt (),
+          get = fn x => fn () => C.get GioProxyResolverClass.tOpt x,
+          set = fn x => C.set GioProxyResolverClass.tOpt x,
+          init = fn x => C.set GioProxyResolverClass.tOpt x
         }
       val timeoutProp =
         {
-          get = fn x => get "timeout" uint x,
-          set = fn x => set "timeout" uint x,
-          new = fn x => new "timeout" uint x
+          name = "timeout",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val tlsProp =
         {
-          get = fn x => get "tls" boolean x,
-          set = fn x => set "tls" boolean x,
-          new = fn x => new "tls" boolean x
+          name = "tls",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val tlsValidationFlagsProp =
         {
-          get = fn x => get "tls-validation-flags" GioTlsCertificateFlags.t x,
-          set = fn x => set "tls-validation-flags" GioTlsCertificateFlags.t x,
-          new = fn x => new "tls-validation-flags" GioTlsCertificateFlags.t x
+          name = "tls-validation-flags",
+          gtype = fn () => C.gtype GioTlsCertificateFlags.t (),
+          get = fn x => fn () => C.get GioTlsCertificateFlags.t x,
+          set = fn x => C.set GioTlsCertificateFlags.t x,
+          init = fn x => C.set GioTlsCertificateFlags.t x
         }
       val typeProp =
         {
-          get = fn x => get "type" GioSocketType.t x,
-          set = fn x => set "type" GioSocketType.t x,
-          new = fn x => new "type" GioSocketType.t x
+          name = "type",
+          gtype = fn () => C.gtype GioSocketType.t (),
+          get = fn x => fn () => C.get GioSocketType.t x,
+          set = fn x => C.set GioSocketType.t x,
+          init = fn x => C.set GioSocketType.t x
         }
     end
   end

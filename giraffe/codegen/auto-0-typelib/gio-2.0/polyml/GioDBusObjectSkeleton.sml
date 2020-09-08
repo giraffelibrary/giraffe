@@ -35,13 +35,15 @@ structure GioDBusObjectSkeleton :>
       fun authorizeMethodSig f = signal "authorize-method" (get 0w1 GioDBusInterfaceSkeletonClass.t &&&> get 0w2 GioDBusMethodInvocationClass.t ---> ret boolean) (fn interface & invocation => f (interface, invocation))
     end
     local
-      open Property
+      open ValueAccessor
     in
       val gObjectPathProp =
         {
-          get = fn x => get "g-object-path" stringOpt x,
-          set = fn x => set "g-object-path" stringOpt x,
-          new = fn x => new "g-object-path" stringOpt x
+          name = "g-object-path",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

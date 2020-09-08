@@ -59,58 +59,10 @@ signature GTK_ADJUSTMENT =
     val valueChanged : 'a class -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.t
     val valueChangedSig : (unit -> unit) -> 'a class Signal.t
-    val lowerProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val pageIncrementProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val pageSizeProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val stepIncrementProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val upperProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val valueProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
+    val lowerProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val pageIncrementProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val pageSizeProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val stepIncrementProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val upperProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val valueProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
   end

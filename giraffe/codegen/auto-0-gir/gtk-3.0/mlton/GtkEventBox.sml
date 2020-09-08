@@ -21,19 +21,23 @@ structure GtkEventBox :>
     fun setAboveChild self aboveChild = (GtkEventBoxClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAboveChild_ (self & aboveChild)
     fun setVisibleWindow self visibleWindow = (GtkEventBoxClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisibleWindow_ (self & visibleWindow)
     local
-      open Property
+      open ValueAccessor
     in
       val aboveChildProp =
         {
-          get = fn x => get "above-child" boolean x,
-          set = fn x => set "above-child" boolean x,
-          new = fn x => new "above-child" boolean x
+          name = "above-child",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val visibleWindowProp =
         {
-          get = fn x => get "visible-window" boolean x,
-          set = fn x => set "visible-window" boolean x,
-          new = fn x => new "visible-window" boolean x
+          name = "visible-window",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

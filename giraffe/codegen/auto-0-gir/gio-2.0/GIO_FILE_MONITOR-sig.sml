@@ -23,14 +23,6 @@ signature GIO_FILE_MONITOR =
         * file_monitor_event_t
         -> unit)
        -> 'a class Signal.t
-    val cancelledProp : {get : 'a class -> bool}
-    val rateLimitProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val cancelledProp : ('a class, unit -> bool, unit, unit) Property.t
+    val rateLimitProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
   end

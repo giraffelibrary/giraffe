@@ -20,7 +20,7 @@ signature GIO_NETWORK_MONITOR =
     val getNetworkAvailable : 'a class -> bool
     val getNetworkMetered : 'a class -> bool
     val networkChangedSig : (bool -> unit) -> 'a class Signal.t
-    val connectivityProp : {get : 'a class -> network_connectivity_t}
-    val networkAvailableProp : {get : 'a class -> bool}
-    val networkMeteredProp : {get : 'a class -> bool}
+    val connectivityProp : ('a class, unit -> network_connectivity_t, unit, unit) Property.t
+    val networkAvailableProp : ('a class, unit -> bool, unit, unit) Property.t
+    val networkMeteredProp : ('a class, unit -> bool, unit, unit) Property.t
   end

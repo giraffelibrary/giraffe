@@ -288,55 +288,71 @@ structure GtkSpinButton :>
       fun wrappedSig f = signal "wrapped" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val adjustmentProp =
         {
-          get = fn x => get "adjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "adjustment" GtkAdjustmentClass.tOpt x,
-          new = fn x => new "adjustment" GtkAdjustmentClass.tOpt x
+          name = "adjustment",
+          gtype = fn () => C.gtype GtkAdjustmentClass.tOpt (),
+          get = fn x => fn () => C.get GtkAdjustmentClass.tOpt x,
+          set = fn x => C.set GtkAdjustmentClass.tOpt x,
+          init = fn x => C.set GtkAdjustmentClass.tOpt x
         }
       val climbRateProp =
         {
-          get = fn x => get "climb-rate" double x,
-          set = fn x => set "climb-rate" double x,
-          new = fn x => new "climb-rate" double x
+          name = "climb-rate",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
       val digitsProp =
         {
-          get = fn x => get "digits" uint x,
-          set = fn x => set "digits" uint x,
-          new = fn x => new "digits" uint x
+          name = "digits",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val numericProp =
         {
-          get = fn x => get "numeric" boolean x,
-          set = fn x => set "numeric" boolean x,
-          new = fn x => new "numeric" boolean x
+          name = "numeric",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val snapToTicksProp =
         {
-          get = fn x => get "snap-to-ticks" boolean x,
-          set = fn x => set "snap-to-ticks" boolean x,
-          new = fn x => new "snap-to-ticks" boolean x
+          name = "snap-to-ticks",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val updatePolicyProp =
         {
-          get = fn x => get "update-policy" GtkSpinButtonUpdatePolicy.t x,
-          set = fn x => set "update-policy" GtkSpinButtonUpdatePolicy.t x,
-          new = fn x => new "update-policy" GtkSpinButtonUpdatePolicy.t x
+          name = "update-policy",
+          gtype = fn () => C.gtype GtkSpinButtonUpdatePolicy.t (),
+          get = fn x => fn () => C.get GtkSpinButtonUpdatePolicy.t x,
+          set = fn x => C.set GtkSpinButtonUpdatePolicy.t x,
+          init = fn x => C.set GtkSpinButtonUpdatePolicy.t x
         }
       val valueProp =
         {
-          get = fn x => get "value" double x,
-          set = fn x => set "value" double x,
-          new = fn x => new "value" double x
+          name = "value",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
       val wrapProp =
         {
-          get = fn x => get "wrap" boolean x,
-          set = fn x => set "wrap" boolean x,
-          new = fn x => new "wrap" boolean x
+          name = "wrap",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

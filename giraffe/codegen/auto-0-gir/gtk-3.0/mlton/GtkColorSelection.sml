@@ -140,37 +140,47 @@ structure GtkColorSelection :>
       fun colorChangedSig f = signal "color-changed" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val currentAlphaProp =
         {
-          get = fn x => get "current-alpha" uint x,
-          set = fn x => set "current-alpha" uint x,
-          new = fn x => new "current-alpha" uint x
+          name = "current-alpha",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val currentColorProp =
         {
-          get = fn x => get "current-color" GdkColorRecord.tOpt x,
-          set = fn x => set "current-color" GdkColorRecord.tOpt x,
-          new = fn x => new "current-color" GdkColorRecord.tOpt x
+          name = "current-color",
+          gtype = fn () => C.gtype GdkColorRecord.tOpt (),
+          get = fn x => fn () => C.get GdkColorRecord.tOpt x,
+          set = fn x => C.set GdkColorRecord.tOpt x,
+          init = fn x => C.set GdkColorRecord.tOpt x
         }
       val currentRgbaProp =
         {
-          get = fn x => get "current-rgba" GdkRgbaRecord.tOpt x,
-          set = fn x => set "current-rgba" GdkRgbaRecord.tOpt x,
-          new = fn x => new "current-rgba" GdkRgbaRecord.tOpt x
+          name = "current-rgba",
+          gtype = fn () => C.gtype GdkRgbaRecord.tOpt (),
+          get = fn x => fn () => C.get GdkRgbaRecord.tOpt x,
+          set = fn x => C.set GdkRgbaRecord.tOpt x,
+          init = fn x => C.set GdkRgbaRecord.tOpt x
         }
       val hasOpacityControlProp =
         {
-          get = fn x => get "has-opacity-control" boolean x,
-          set = fn x => set "has-opacity-control" boolean x,
-          new = fn x => new "has-opacity-control" boolean x
+          name = "has-opacity-control",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val hasPaletteProp =
         {
-          get = fn x => get "has-palette" boolean x,
-          set = fn x => set "has-palette" boolean x,
-          new = fn x => new "has-palette" boolean x
+          name = "has-palette",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

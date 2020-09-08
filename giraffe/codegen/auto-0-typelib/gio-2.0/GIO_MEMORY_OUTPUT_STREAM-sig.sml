@@ -11,10 +11,6 @@ signature GIO_MEMORY_OUTPUT_STREAM =
     val getDataSize : 'a class -> LargeInt.int
     val getSize : 'a class -> LargeInt.int
     val stealAsBytes : 'a class -> GLib.BytesRecord.t
-    val dataSizeProp : {get : 'a class -> LargeInt.int}
-    val sizeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val dataSizeProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val sizeProp : ('a class, unit -> LargeInt.int, unit, LargeInt.int -> unit) Property.t
   end

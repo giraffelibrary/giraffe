@@ -210,13 +210,15 @@ structure GdkScreen :>
       fun sizeChangedSig f = signal "size-changed" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val resolutionProp =
         {
-          get = fn x => get "resolution" double x,
-          set = fn x => set "resolution" double x,
-          new = fn x => new "resolution" double x
+          name = "resolution",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
     end
   end

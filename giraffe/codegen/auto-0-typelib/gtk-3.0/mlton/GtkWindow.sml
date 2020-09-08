@@ -909,183 +909,271 @@ structure GtkWindow :>
       fun setFocusSig f = signal "set-focus" (get 0w1 GtkWidgetClass.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val acceptFocusProp =
         {
-          get = fn x => get "accept-focus" boolean x,
-          set = fn x => set "accept-focus" boolean x,
-          new = fn x => new "accept-focus" boolean x
+          name = "accept-focus",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val applicationProp =
         {
-          get = fn x => get "application" GtkApplicationClass.tOpt x,
-          set = fn x => set "application" GtkApplicationClass.tOpt x,
-          new = fn x => new "application" GtkApplicationClass.tOpt x
+          name = "application",
+          gtype = fn () => C.gtype GtkApplicationClass.tOpt (),
+          get = fn x => fn () => C.get GtkApplicationClass.tOpt x,
+          set = fn x => C.set GtkApplicationClass.tOpt x,
+          init = fn x => C.set GtkApplicationClass.tOpt x
         }
       val attachedToProp =
         {
-          get = fn x => get "attached-to" GtkWidgetClass.tOpt x,
-          set = fn x => set "attached-to" GtkWidgetClass.tOpt x,
-          new = fn x => new "attached-to" GtkWidgetClass.tOpt x
+          name = "attached-to",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
       val decoratedProp =
         {
-          get = fn x => get "decorated" boolean x,
-          set = fn x => set "decorated" boolean x,
-          new = fn x => new "decorated" boolean x
+          name = "decorated",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val defaultHeightProp =
         {
-          get = fn x => get "default-height" int x,
-          set = fn x => set "default-height" int x,
-          new = fn x => new "default-height" int x
+          name = "default-height",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val defaultWidthProp =
         {
-          get = fn x => get "default-width" int x,
-          set = fn x => set "default-width" int x,
-          new = fn x => new "default-width" int x
+          name = "default-width",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val deletableProp =
         {
-          get = fn x => get "deletable" boolean x,
-          set = fn x => set "deletable" boolean x,
-          new = fn x => new "deletable" boolean x
+          name = "deletable",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val destroyWithParentProp =
         {
-          get = fn x => get "destroy-with-parent" boolean x,
-          set = fn x => set "destroy-with-parent" boolean x,
-          new = fn x => new "destroy-with-parent" boolean x
+          name = "destroy-with-parent",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val focusOnMapProp =
         {
-          get = fn x => get "focus-on-map" boolean x,
-          set = fn x => set "focus-on-map" boolean x,
-          new = fn x => new "focus-on-map" boolean x
+          name = "focus-on-map",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val focusVisibleProp =
         {
-          get = fn x => get "focus-visible" boolean x,
-          set = fn x => set "focus-visible" boolean x,
-          new = fn x => new "focus-visible" boolean x
+          name = "focus-visible",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val gravityProp =
         {
-          get = fn x => get "gravity" GdkGravity.t x,
-          set = fn x => set "gravity" GdkGravity.t x,
-          new = fn x => new "gravity" GdkGravity.t x
+          name = "gravity",
+          gtype = fn () => C.gtype GdkGravity.t (),
+          get = fn x => fn () => C.get GdkGravity.t x,
+          set = fn x => C.set GdkGravity.t x,
+          init = fn x => C.set GdkGravity.t x
         }
       val hasResizeGripProp =
         {
-          get = fn x => get "has-resize-grip" boolean x,
-          set = fn x => set "has-resize-grip" boolean x,
-          new = fn x => new "has-resize-grip" boolean x
+          name = "has-resize-grip",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
-      val hasToplevelFocusProp = {get = fn x => get "has-toplevel-focus" boolean x}
+      val hasToplevelFocusProp =
+        {
+          name = "has-toplevel-focus",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val hideTitlebarWhenMaximizedProp =
         {
-          get = fn x => get "hide-titlebar-when-maximized" boolean x,
-          set = fn x => set "hide-titlebar-when-maximized" boolean x,
-          new = fn x => new "hide-titlebar-when-maximized" boolean x
+          name = "hide-titlebar-when-maximized",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val iconProp =
         {
-          get = fn x => get "icon" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "icon" GdkPixbufPixbufClass.tOpt x,
-          new = fn x => new "icon" GdkPixbufPixbufClass.tOpt x
+          name = "icon",
+          gtype = fn () => C.gtype GdkPixbufPixbufClass.tOpt (),
+          get = fn x => fn () => C.get GdkPixbufPixbufClass.tOpt x,
+          set = fn x => C.set GdkPixbufPixbufClass.tOpt x,
+          init = fn x => C.set GdkPixbufPixbufClass.tOpt x
         }
       val iconNameProp =
         {
-          get = fn x => get "icon-name" stringOpt x,
-          set = fn x => set "icon-name" stringOpt x,
-          new = fn x => new "icon-name" stringOpt x
+          name = "icon-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
-      val isActiveProp = {get = fn x => get "is-active" boolean x}
-      val isMaximizedProp = {get = fn x => get "is-maximized" boolean x}
+      val isActiveProp =
+        {
+          name = "is-active",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val isMaximizedProp =
+        {
+          name = "is-maximized",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val mnemonicsVisibleProp =
         {
-          get = fn x => get "mnemonics-visible" boolean x,
-          set = fn x => set "mnemonics-visible" boolean x,
-          new = fn x => new "mnemonics-visible" boolean x
+          name = "mnemonics-visible",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val modalProp =
         {
-          get = fn x => get "modal" boolean x,
-          set = fn x => set "modal" boolean x,
-          new = fn x => new "modal" boolean x
+          name = "modal",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val resizableProp =
         {
-          get = fn x => get "resizable" boolean x,
-          set = fn x => set "resizable" boolean x,
-          new = fn x => new "resizable" boolean x
+          name = "resizable",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
-      val resizeGripVisibleProp = {get = fn x => get "resize-grip-visible" boolean x}
+      val resizeGripVisibleProp =
+        {
+          name = "resize-grip-visible",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val roleProp =
         {
-          get = fn x => get "role" stringOpt x,
-          set = fn x => set "role" stringOpt x,
-          new = fn x => new "role" stringOpt x
+          name = "role",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val screenProp =
         {
-          get = fn x => get "screen" GdkScreenClass.tOpt x,
-          set = fn x => set "screen" GdkScreenClass.tOpt x,
-          new = fn x => new "screen" GdkScreenClass.tOpt x
+          name = "screen",
+          gtype = fn () => C.gtype GdkScreenClass.tOpt (),
+          get = fn x => fn () => C.get GdkScreenClass.tOpt x,
+          set = fn x => C.set GdkScreenClass.tOpt x,
+          init = fn x => C.set GdkScreenClass.tOpt x
         }
       val skipPagerHintProp =
         {
-          get = fn x => get "skip-pager-hint" boolean x,
-          set = fn x => set "skip-pager-hint" boolean x,
-          new = fn x => new "skip-pager-hint" boolean x
+          name = "skip-pager-hint",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val skipTaskbarHintProp =
         {
-          get = fn x => get "skip-taskbar-hint" boolean x,
-          set = fn x => set "skip-taskbar-hint" boolean x,
-          new = fn x => new "skip-taskbar-hint" boolean x
+          name = "skip-taskbar-hint",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val startupIdProp =
         {
-          set = fn x => set "startup-id" stringOpt x,
-          new = fn x => new "startup-id" stringOpt x
+          name = "startup-id",
+          gtype = fn () => C.gtype stringOpt (),
+          get = ignore,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val titleProp =
         {
-          get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x,
-          new = fn x => new "title" stringOpt x
+          name = "title",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val transientForProp =
         {
-          get = fn x => get "transient-for" GtkWindowClass.tOpt x,
-          set = fn x => set "transient-for" GtkWindowClass.tOpt x,
-          new = fn x => new "transient-for" GtkWindowClass.tOpt x
+          name = "transient-for",
+          gtype = fn () => C.gtype GtkWindowClass.tOpt (),
+          get = fn x => fn () => C.get GtkWindowClass.tOpt x,
+          set = fn x => C.set GtkWindowClass.tOpt x,
+          init = fn x => C.set GtkWindowClass.tOpt x
         }
       val typeProp =
         {
-          get = fn x => get "type" GtkWindowType.t x,
-          new = fn x => new "type" GtkWindowType.t x
+          name = "type",
+          gtype = fn () => C.gtype GtkWindowType.t (),
+          get = fn x => fn () => C.get GtkWindowType.t x,
+          set = ignore,
+          init = fn x => C.set GtkWindowType.t x
         }
       val typeHintProp =
         {
-          get = fn x => get "type-hint" GdkWindowTypeHint.t x,
-          set = fn x => set "type-hint" GdkWindowTypeHint.t x,
-          new = fn x => new "type-hint" GdkWindowTypeHint.t x
+          name = "type-hint",
+          gtype = fn () => C.gtype GdkWindowTypeHint.t (),
+          get = fn x => fn () => C.get GdkWindowTypeHint.t x,
+          set = fn x => C.set GdkWindowTypeHint.t x,
+          init = fn x => C.set GdkWindowTypeHint.t x
         }
       val urgencyHintProp =
         {
-          get = fn x => get "urgency-hint" boolean x,
-          set = fn x => set "urgency-hint" boolean x,
-          new = fn x => new "urgency-hint" boolean x
+          name = "urgency-hint",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val windowPositionProp =
         {
-          get = fn x => get "window-position" GtkWindowPosition.t x,
-          set = fn x => set "window-position" GtkWindowPosition.t x,
-          new = fn x => new "window-position" GtkWindowPosition.t x
+          name = "window-position",
+          gtype = fn () => C.gtype GtkWindowPosition.t (),
+          get = fn x => fn () => C.get GtkWindowPosition.t x,
+          set = fn x => C.set GtkWindowPosition.t x,
+          init = fn x => C.set GtkWindowPosition.t x
         }
     end
   end

@@ -56,43 +56,55 @@ structure GtkColorButton :>
       fun colorSetSig f = signal "color-set" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val alphaProp =
         {
-          get = fn x => get "alpha" uint x,
-          set = fn x => set "alpha" uint x,
-          new = fn x => new "alpha" uint x
+          name = "alpha",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val colorProp =
         {
-          get = fn x => get "color" GdkColorRecord.tOpt x,
-          set = fn x => set "color" GdkColorRecord.tOpt x,
-          new = fn x => new "color" GdkColorRecord.tOpt x
+          name = "color",
+          gtype = fn () => C.gtype GdkColorRecord.tOpt (),
+          get = fn x => fn () => C.get GdkColorRecord.tOpt x,
+          set = fn x => C.set GdkColorRecord.tOpt x,
+          init = fn x => C.set GdkColorRecord.tOpt x
         }
       val rgbaProp =
         {
-          get = fn x => get "rgba" GdkRgbaRecord.tOpt x,
-          set = fn x => set "rgba" GdkRgbaRecord.tOpt x,
-          new = fn x => new "rgba" GdkRgbaRecord.tOpt x
+          name = "rgba",
+          gtype = fn () => C.gtype GdkRgbaRecord.tOpt (),
+          get = fn x => fn () => C.get GdkRgbaRecord.tOpt x,
+          set = fn x => C.set GdkRgbaRecord.tOpt x,
+          init = fn x => C.set GdkRgbaRecord.tOpt x
         }
       val showEditorProp =
         {
-          get = fn x => get "show-editor" boolean x,
-          set = fn x => set "show-editor" boolean x,
-          new = fn x => new "show-editor" boolean x
+          name = "show-editor",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val titleProp =
         {
-          get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x,
-          new = fn x => new "title" stringOpt x
+          name = "title",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val useAlphaProp =
         {
-          get = fn x => get "use-alpha" boolean x,
-          set = fn x => set "use-alpha" boolean x,
-          new = fn x => new "use-alpha" boolean x
+          name = "use-alpha",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

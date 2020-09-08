@@ -109,87 +109,15 @@ signature GTK_SOURCE_GUTTER_RENDERER =
         -> bool)
        -> 'a class Signal.t
     val queueDrawSig : (unit -> unit) -> 'a class Signal.t
-    val alignmentModeProp :
-      {
-        get : 'a class -> gutter_renderer_alignment_mode_t,
-        set :
-          gutter_renderer_alignment_mode_t
-           -> 'a class
-           -> unit,
-        new : gutter_renderer_alignment_mode_t -> 'a class Property.t
-      }
-    val backgroundRgbaProp :
-      {
-        get : 'a class -> Gdk.RgbaRecord.t option,
-        set :
-          Gdk.RgbaRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.RgbaRecord.t option -> 'a class Property.t
-      }
-    val backgroundSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val sizeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val viewProp : {get : 'a class -> base Gtk.TextViewClass.class option}
-    val visibleProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val windowTypeProp : {get : 'a class -> Gtk.TextWindowType.t}
-    val xalignProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val xpadProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val yalignProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val ypadProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val alignmentModeProp : ('a class, unit -> gutter_renderer_alignment_mode_t, gutter_renderer_alignment_mode_t -> unit, gutter_renderer_alignment_mode_t -> unit) Property.t
+    val backgroundRgbaProp : ('a class, unit -> Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option -> unit, Gdk.RgbaRecord.t option -> unit) Property.t
+    val backgroundSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val sizeProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val viewProp : ('a class, unit -> base Gtk.TextViewClass.class option, unit, unit) Property.t
+    val visibleProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val windowTypeProp : ('a class, unit -> Gtk.TextWindowType.t, unit, unit) Property.t
+    val xalignProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val xpadProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val yalignProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val ypadProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
   end

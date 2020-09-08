@@ -266,25 +266,31 @@ structure GtkToolPalette :>
     fun unsetIconSize self = (GtkToolPaletteClass.FFI.withPtr false ---> I) unsetIconSize_ self
     fun unsetStyle self = (GtkToolPaletteClass.FFI.withPtr false ---> I) unsetStyle_ self
     local
-      open Property
+      open ValueAccessor
     in
       val iconSizeProp =
         {
-          get = fn x => get "icon-size" GtkIconSize.t x,
-          set = fn x => set "icon-size" GtkIconSize.t x,
-          new = fn x => new "icon-size" GtkIconSize.t x
+          name = "icon-size",
+          gtype = fn () => C.gtype GtkIconSize.t (),
+          get = fn x => fn () => C.get GtkIconSize.t x,
+          set = fn x => C.set GtkIconSize.t x,
+          init = fn x => C.set GtkIconSize.t x
         }
       val iconSizeSetProp =
         {
-          get = fn x => get "icon-size-set" boolean x,
-          set = fn x => set "icon-size-set" boolean x,
-          new = fn x => new "icon-size-set" boolean x
+          name = "icon-size-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val toolbarStyleProp =
         {
-          get = fn x => get "toolbar-style" GtkToolbarStyle.t x,
-          set = fn x => set "toolbar-style" GtkToolbarStyle.t x,
-          new = fn x => new "toolbar-style" GtkToolbarStyle.t x
+          name = "toolbar-style",
+          gtype = fn () => C.gtype GtkToolbarStyle.t (),
+          get = fn x => fn () => C.get GtkToolbarStyle.t x,
+          set = fn x => C.set GtkToolbarStyle.t x,
+          init = fn x => C.set GtkToolbarStyle.t x
         }
     end
   end

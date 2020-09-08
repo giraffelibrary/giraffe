@@ -18,22 +18,6 @@ signature GIO_BUFFERED_OUTPUT_STREAM =
       'a class
        -> LargeInt.int
        -> unit
-    val autoGrowProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val bufferSizeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val autoGrowProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val bufferSizeProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
   end

@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2018, 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -7,22 +7,38 @@
 
 signature PROPERTY =
   sig
-    type value_t
-    type ('a, 'b) accessor
+    type type_t
+    type value_v
     type 'a object_class
 
-    (*
-     * Initial value for properties
+    (**
+     * Representation of a property
      *)
-    type 'object_class t
-    val name : 'object_class t -> string
-    val value : 'object_class t -> value_t
-    val conv : ('a object_class -> 'b) -> 'b t -> 'a object_class t
+    type ('object_class, 'get, 'set, 'init) t =
+      {
+        name  : string,
+        gtype : unit -> type_t,
+        get   : value_v -> 'get,
+        set   : value_v -> 'set,
+        init  : value_v -> 'init
+      }
 
-    (*
-     * Declaration of property operators
+    val conv :
+      ('a -> 'b)
+       -> ('b, 'get, 'set, 'init) t
+       -> ('a, 'get, 'set, 'init) t
+
+    (**
+     * Access to a property
      *)
-    val new : string -> ('a, 'b) accessor -> 'b -> 'c object_class t
-    val get : string -> ('a, 'b) accessor -> 'c object_class -> 'a
-    val set : string -> ('a, 'b) accessor -> 'b -> 'c object_class -> unit
+    val get : ('a object_class, unit -> 'r, 'b, 'c) t -> 'a object_class -> 'r
+    val set : ('a object_class, 'b, 'w -> unit, 'c) t -> 'w -> 'a object_class -> unit
+
+    (**
+     * Initial value of a property, for use with `GObject.Object.new`
+     *)
+    type 'object_class init_t
+    val init : ('object_class, 'a, 'b, 'w -> unit) t -> 'w -> 'object_class init_t
+    val initName : 'object_class init_t -> string
+    val initValue : 'object_class init_t -> value_v -> unit
   end

@@ -25,8 +25,8 @@ signature GIO_APPLICATION_COMMAND_LINE =
       'a class
        -> LargeInt.int
        -> unit
-    val argumentsProp : {new : GLib.VariantRecord.t option -> 'a class Property.t}
-    val isRemoteProp : {get : 'a class -> bool}
-    val optionsProp : {new : GLib.VariantRecord.t option -> 'a class Property.t}
-    val platformDataProp : {new : GLib.VariantRecord.t option -> 'a class Property.t}
+    val argumentsProp : ('a class, unit, unit, GLib.VariantRecord.t option -> unit) Property.t
+    val isRemoteProp : ('a class, unit -> bool, unit, unit) Property.t
+    val optionsProp : ('a class, unit, unit, GLib.VariantRecord.t option -> unit) Property.t
+    val platformDataProp : ('a class, unit, unit, GLib.VariantRecord.t option -> unit) Property.t
   end

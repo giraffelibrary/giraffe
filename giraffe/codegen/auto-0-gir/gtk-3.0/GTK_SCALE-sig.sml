@@ -48,40 +48,8 @@ signature GTK_SCALE =
        -> position_type_t
        -> unit
     val formatValueSig : (real -> string) -> 'a class Signal.t
-    val digitsProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val drawValueProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val hasOriginProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val valuePosProp :
-      {
-        get : 'a class -> position_type_t,
-        set :
-          position_type_t
-           -> 'a class
-           -> unit,
-        new : position_type_t -> 'a class Property.t
-      }
+    val digitsProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val drawValueProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val hasOriginProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val valuePosProp : ('a class, unit -> position_type_t, position_type_t -> unit, position_type_t -> unit) Property.t
   end

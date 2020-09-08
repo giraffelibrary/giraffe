@@ -23,13 +23,15 @@ structure GtkStackSidebar :>
     fun getStack self = (GtkStackSidebarClass.FFI.withPtr false ---> GtkStackClass.FFI.fromOptPtr false) getStack_ self
     fun setStack self stack = (GtkStackSidebarClass.FFI.withPtr false &&&> GtkStackClass.FFI.withPtr false ---> I) setStack_ (self & stack)
     local
-      open Property
+      open ValueAccessor
     in
       val stackProp =
         {
-          get = fn x => get "stack" GtkStackClass.tOpt x,
-          set = fn x => set "stack" GtkStackClass.tOpt x,
-          new = fn x => new "stack" GtkStackClass.tOpt x
+          name = "stack",
+          gtype = fn () => C.gtype GtkStackClass.tOpt (),
+          get = fn x => fn () => C.get GtkStackClass.tOpt x,
+          set = fn x => C.set GtkStackClass.tOpt x,
+          init = fn x => C.set GtkStackClass.tOpt x
         }
     end
   end

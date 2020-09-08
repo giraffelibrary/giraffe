@@ -72,13 +72,5 @@ signature GTK_BUILDER =
       'a class
        -> GObject.Type.t * string
        -> GObject.ValueRecord.t
-    val translationDomainProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val translationDomainProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

@@ -33,37 +33,47 @@ structure GtkSourceSearchSettings :>
     fun setSearchText self searchText = (GtkSourceSearchSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setSearchText_ (self & searchText)
     fun setWrapAround self wrapAround = (GtkSourceSearchSettingsClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setWrapAround_ (self & wrapAround)
     local
-      open Property
+      open ValueAccessor
     in
       val atWordBoundariesProp =
         {
-          get = fn x => get "at-word-boundaries" boolean x,
-          set = fn x => set "at-word-boundaries" boolean x,
-          new = fn x => new "at-word-boundaries" boolean x
+          name = "at-word-boundaries",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val caseSensitiveProp =
         {
-          get = fn x => get "case-sensitive" boolean x,
-          set = fn x => set "case-sensitive" boolean x,
-          new = fn x => new "case-sensitive" boolean x
+          name = "case-sensitive",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val regexEnabledProp =
         {
-          get = fn x => get "regex-enabled" boolean x,
-          set = fn x => set "regex-enabled" boolean x,
-          new = fn x => new "regex-enabled" boolean x
+          name = "regex-enabled",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val searchTextProp =
         {
-          get = fn x => get "search-text" stringOpt x,
-          set = fn x => set "search-text" stringOpt x,
-          new = fn x => new "search-text" stringOpt x
+          name = "search-text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val wrapAroundProp =
         {
-          get = fn x => get "wrap-around" boolean x,
-          set = fn x => set "wrap-around" boolean x,
-          new = fn x => new "wrap-around" boolean x
+          name = "wrap-around",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

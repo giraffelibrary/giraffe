@@ -83,30 +83,7 @@ signature GTK_CONTAINER =
     val checkResizeSig : (unit -> unit) -> 'a class Signal.t
     val removeSig : (base widget_class -> unit) -> 'a class Signal.t
     val setFocusChildSig : (base widget_class option -> unit) -> 'a class Signal.t
-    val borderWidthProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val childProp :
-      {
-        set :
-          'b widget_class option
-           -> 'a class
-           -> unit,
-        new : 'b widget_class option -> 'a class Property.t
-      }
-    val resizeModeProp :
-      {
-        get : 'a class -> resize_mode_t,
-        set :
-          resize_mode_t
-           -> 'a class
-           -> unit,
-        new : resize_mode_t -> 'a class Property.t
-      }
+    val borderWidthProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val childProp : ('a class, unit, 'b widget_class option -> unit, 'b widget_class option -> unit) Property.t
+    val resizeModeProp : ('a class, unit -> resize_mode_t, resize_mode_t -> unit, resize_mode_t -> unit) Property.t
   end

@@ -17,17 +17,23 @@ structure GdkDrawingContext :>
     fun getWindow self = (GdkDrawingContextClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getWindow_ self
     fun isValid self = (GdkDrawingContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) isValid_ self
     local
-      open Property
+      open ValueAccessor
     in
       val clipProp =
         {
-          get = fn x => get "clip" CairoRegionRecord.tOpt x,
-          new = fn x => new "clip" CairoRegionRecord.tOpt x
+          name = "clip",
+          gtype = fn () => C.gtype CairoRegionRecord.tOpt (),
+          get = fn x => fn () => C.get CairoRegionRecord.tOpt x,
+          set = ignore,
+          init = fn x => C.set CairoRegionRecord.tOpt x
         }
       val windowProp =
         {
-          get = fn x => get "window" GdkWindowClass.tOpt x,
-          new = fn x => new "window" GdkWindowClass.tOpt x
+          name = "window",
+          gtype = fn () => C.gtype GdkWindowClass.tOpt (),
+          get = fn x => fn () => C.get GdkWindowClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GdkWindowClass.tOpt x
         }
     end
   end

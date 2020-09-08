@@ -106,139 +106,20 @@ signature GTK_CELL_RENDERER =
        -> unit
     val editingCanceledSig : (unit -> unit) -> 'a class Signal.t
     val editingStartedSig : (base cell_editable_class * string -> unit) -> 'a class Signal.t
-    val cellBackgroundProp :
-      {
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val cellBackgroundGdkProp :
-      {
-        get : 'a class -> Gdk.ColorRecord.t option,
-        set :
-          Gdk.ColorRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.ColorRecord.t option -> 'a class Property.t
-      }
-    val cellBackgroundRgbaProp :
-      {
-        get : 'a class -> Gdk.RgbaRecord.t option,
-        set :
-          Gdk.RgbaRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.RgbaRecord.t option -> 'a class Property.t
-      }
-    val cellBackgroundSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val editingProp : {get : 'a class -> bool}
-    val heightProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val isExpandedProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val isExpanderProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val modeProp :
-      {
-        get : 'a class -> cell_renderer_mode_t,
-        set :
-          cell_renderer_mode_t
-           -> 'a class
-           -> unit,
-        new : cell_renderer_mode_t -> 'a class Property.t
-      }
-    val sensitiveProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val visibleProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val widthProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val xalignProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val xpadProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val yalignProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val ypadProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val cellBackgroundProp : ('a class, unit, string option -> unit, string option -> unit) Property.t
+    val cellBackgroundGdkProp : ('a class, unit -> Gdk.ColorRecord.t option, Gdk.ColorRecord.t option -> unit, Gdk.ColorRecord.t option -> unit) Property.t
+    val cellBackgroundRgbaProp : ('a class, unit -> Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option -> unit, Gdk.RgbaRecord.t option -> unit) Property.t
+    val cellBackgroundSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val editingProp : ('a class, unit -> bool, unit, unit) Property.t
+    val heightProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val isExpandedProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val isExpanderProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val modeProp : ('a class, unit -> cell_renderer_mode_t, cell_renderer_mode_t -> unit, cell_renderer_mode_t -> unit) Property.t
+    val sensitiveProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val visibleProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val widthProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val xalignProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val xpadProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val yalignProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val ypadProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
   end

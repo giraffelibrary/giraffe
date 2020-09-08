@@ -248,37 +248,47 @@ structure GtkGrid :>
     fun setRowHomogeneous self homogeneous = (GtkGridClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRowHomogeneous_ (self & homogeneous)
     fun setRowSpacing self spacing = (GtkGridClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) setRowSpacing_ (self & spacing)
     local
-      open Property
+      open ValueAccessor
     in
       val baselineRowProp =
         {
-          get = fn x => get "baseline-row" int x,
-          set = fn x => set "baseline-row" int x,
-          new = fn x => new "baseline-row" int x
+          name = "baseline-row",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val columnHomogeneousProp =
         {
-          get = fn x => get "column-homogeneous" boolean x,
-          set = fn x => set "column-homogeneous" boolean x,
-          new = fn x => new "column-homogeneous" boolean x
+          name = "column-homogeneous",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val columnSpacingProp =
         {
-          get = fn x => get "column-spacing" int x,
-          set = fn x => set "column-spacing" int x,
-          new = fn x => new "column-spacing" int x
+          name = "column-spacing",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val rowHomogeneousProp =
         {
-          get = fn x => get "row-homogeneous" boolean x,
-          set = fn x => set "row-homogeneous" boolean x,
-          new = fn x => new "row-homogeneous" boolean x
+          name = "row-homogeneous",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val rowSpacingProp =
         {
-          get = fn x => get "row-spacing" int x,
-          set = fn x => set "row-spacing" int x,
-          new = fn x => new "row-spacing" int x
+          name = "row-spacing",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

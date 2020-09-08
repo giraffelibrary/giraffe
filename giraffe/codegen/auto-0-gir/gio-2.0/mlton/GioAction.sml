@@ -89,12 +89,47 @@ structure GioAction :>
     fun getStateHint self = (GioActionClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromOptPtr true) getStateHint_ self
     fun getStateType self = (GioActionClass.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getStateType_ self
     local
-      open Property
+      open ValueAccessor
     in
-      val enabledProp = {get = fn x => get "enabled" boolean x}
-      val nameProp = {get = fn x => get "name" stringOpt x}
-      val parameterTypeProp = {get = fn x => get "parameter-type" GLibVariantTypeRecord.tOpt x}
-      val stateProp = {get = fn x => get "state" GLibVariantRecord.tOpt x}
-      val stateTypeProp = {get = fn x => get "state-type" GLibVariantTypeRecord.tOpt x}
+      val enabledProp =
+        {
+          name = "enabled",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val nameProp =
+        {
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val parameterTypeProp =
+        {
+          name = "parameter-type",
+          gtype = fn () => C.gtype GLibVariantTypeRecord.tOpt (),
+          get = fn x => fn () => C.get GLibVariantTypeRecord.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val stateProp =
+        {
+          name = "state",
+          gtype = fn () => C.gtype GLibVariantRecord.tOpt (),
+          get = fn x => fn () => C.get GLibVariantRecord.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val stateTypeProp =
+        {
+          name = "state-type",
+          gtype = fn () => C.gtype GLibVariantTypeRecord.tOpt (),
+          get = fn x => fn () => C.get GLibVariantTypeRecord.tOpt x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

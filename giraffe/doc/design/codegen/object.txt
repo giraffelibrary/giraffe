@@ -201,7 +201,7 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME> =
     type 'a signal_t                                         | isGObject and S > 0
                                                             -'
                                                             -.
-    type 'object_class property_t                            | isGObject and P > 0
+    type ('object_class, 'get, 'set, 'init) property_t       | isGObject and P > 0
                                                             -'
 
     (* Type Abbreviations *)
@@ -303,7 +303,8 @@ structure <ObjectNamespace><ObjectName> :>
     where type 'a signal_t = 'a Signal.t                                                   | isGObject and S > 0
                                                                                           -'
                                                                                           -.
-    where type 'object_class property_t = 'object_class Property.t                         | isGObject and P > 0
+    where type ('object_class, 'get, 'set, 'init) property_t =                             | isGObject and P > 0
+            ('object_class, 'get, 'set, 'init) Property.t                                  |
                                                                                           -'
 =
   struct
@@ -347,7 +348,8 @@ structure <ObjectNamespace><ObjectName> :>
     type 'a signal_t = 'a Signal.t                                                         | isGObject and S > 0
                                                                                           -'
                                                                                           -.
-    type 'object_class property_t = 'object_class Property.t                               | isGObject and P > 0
+    type ('object_class, 'get, 'set, 'init) property_t =                                   | isGObject and P > 0
+      ('object_class, 'get, 'set, 'init) Property.t                                        |
                                                                                           -'
 
     (* Type Abbreviations *)
@@ -398,7 +400,7 @@ structure <ObjectNamespace><ObjectName> :>
     (* Properties *)
 
     local
-      open Property
+      open ValueAccessor
     in
       <PropertyDec[1]>
       ...

@@ -24,13 +24,15 @@ structure GtkGesturePan :>
       fun panSig f = signal "pan" (get 0w1 GtkPanDirection.t &&&> get 0w2 double ---> ret_void) (fn direction & offset => f (direction, offset))
     end
     local
-      open Property
+      open ValueAccessor
     in
       val orientationProp =
         {
-          get = fn x => get "orientation" GtkOrientation.t x,
-          set = fn x => set "orientation" GtkOrientation.t x,
-          new = fn x => new "orientation" GtkOrientation.t x
+          name = "orientation",
+          gtype = fn () => C.gtype GtkOrientation.t (),
+          get = fn x => fn () => C.get GtkOrientation.t x,
+          set = fn x => C.set GtkOrientation.t x,
+          init = fn x => C.set GtkOrientation.t x
         }
     end
   end

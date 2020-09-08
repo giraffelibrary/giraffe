@@ -53,13 +53,5 @@ signature GIO_SOCKET_LISTENER =
        -> LargeInt.int
        -> unit
     val eventSig : (socket_listener_event_t * base socket_class -> unit) -> 'a class Signal.t
-    val listenBacklogProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val listenBacklogProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
   end

@@ -65,25 +65,31 @@ structure GioTlsPassword :>
     fun setFlags self flags = (GioTlsPasswordClass.FFI.withPtr false &&&> GioTlsPasswordFlags.FFI.withVal ---> I) setFlags_ (self & flags)
     fun setWarning self warning = (GioTlsPasswordClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setWarning_ (self & warning)
     local
-      open Property
+      open ValueAccessor
     in
       val descriptionProp =
         {
-          get = fn x => get "description" stringOpt x,
-          set = fn x => set "description" stringOpt x,
-          new = fn x => new "description" stringOpt x
+          name = "description",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val flagsProp =
         {
-          get = fn x => get "flags" GioTlsPasswordFlags.t x,
-          set = fn x => set "flags" GioTlsPasswordFlags.t x,
-          new = fn x => new "flags" GioTlsPasswordFlags.t x
+          name = "flags",
+          gtype = fn () => C.gtype GioTlsPasswordFlags.t (),
+          get = fn x => fn () => C.get GioTlsPasswordFlags.t x,
+          set = fn x => C.set GioTlsPasswordFlags.t x,
+          init = fn x => C.set GioTlsPasswordFlags.t x
         }
       val warningProp =
         {
-          get = fn x => get "warning" stringOpt x,
-          set = fn x => set "warning" stringOpt x,
-          new = fn x => new "warning" stringOpt x
+          name = "warning",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

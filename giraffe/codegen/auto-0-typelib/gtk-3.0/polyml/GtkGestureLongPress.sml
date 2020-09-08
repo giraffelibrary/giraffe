@@ -21,13 +21,15 @@ structure GtkGestureLongPress :>
       fun pressedSig f = signal "pressed" (get 0w1 double &&&> get 0w2 double ---> ret_void) (fn x & y => f (x, y))
     end
     local
-      open Property
+      open ValueAccessor
     in
       val delayFactorProp =
         {
-          get = fn x => get "delay-factor" double x,
-          set = fn x => set "delay-factor" double x,
-          new = fn x => new "delay-factor" double x
+          name = "delay-factor",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
     end
   end

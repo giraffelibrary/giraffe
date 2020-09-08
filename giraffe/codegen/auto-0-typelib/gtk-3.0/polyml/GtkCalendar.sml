@@ -112,67 +112,87 @@ structure GtkCalendar :>
       fun prevYearSig f = signal "prev-year" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val dayProp =
         {
-          get = fn x => get "day" int x,
-          set = fn x => set "day" int x,
-          new = fn x => new "day" int x
+          name = "day",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val detailHeightRowsProp =
         {
-          get = fn x => get "detail-height-rows" int x,
-          set = fn x => set "detail-height-rows" int x,
-          new = fn x => new "detail-height-rows" int x
+          name = "detail-height-rows",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val detailWidthCharsProp =
         {
-          get = fn x => get "detail-width-chars" int x,
-          set = fn x => set "detail-width-chars" int x,
-          new = fn x => new "detail-width-chars" int x
+          name = "detail-width-chars",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val monthProp =
         {
-          get = fn x => get "month" int x,
-          set = fn x => set "month" int x,
-          new = fn x => new "month" int x
+          name = "month",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val noMonthChangeProp =
         {
-          get = fn x => get "no-month-change" boolean x,
-          set = fn x => set "no-month-change" boolean x,
-          new = fn x => new "no-month-change" boolean x
+          name = "no-month-change",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showDayNamesProp =
         {
-          get = fn x => get "show-day-names" boolean x,
-          set = fn x => set "show-day-names" boolean x,
-          new = fn x => new "show-day-names" boolean x
+          name = "show-day-names",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showDetailsProp =
         {
-          get = fn x => get "show-details" boolean x,
-          set = fn x => set "show-details" boolean x,
-          new = fn x => new "show-details" boolean x
+          name = "show-details",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showHeadingProp =
         {
-          get = fn x => get "show-heading" boolean x,
-          set = fn x => set "show-heading" boolean x,
-          new = fn x => new "show-heading" boolean x
+          name = "show-heading",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showWeekNumbersProp =
         {
-          get = fn x => get "show-week-numbers" boolean x,
-          set = fn x => set "show-week-numbers" boolean x,
-          new = fn x => new "show-week-numbers" boolean x
+          name = "show-week-numbers",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val yearProp =
         {
-          get = fn x => get "year" int x,
-          set = fn x => set "year" int x,
-          new = fn x => new "year" int x
+          name = "year",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

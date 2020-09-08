@@ -25,12 +25,15 @@ structure GtkRadioToolButton :>
     fun newFromWidget group = (GtkRadioToolButtonClass.FFI.withOptPtr false ---> GtkRadioToolButtonClass.FFI.fromPtr false) newFromWidget_ group
     fun newWithStockFromWidget (group, stockId) = (GtkRadioToolButtonClass.FFI.withOptPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkRadioToolButtonClass.FFI.fromPtr false) newWithStockFromWidget_ (group & stockId)
     local
-      open Property
+      open ValueAccessor
     in
       val groupProp =
         {
-          set = fn x => set "group" GtkRadioToolButtonClass.tOpt x,
-          new = fn x => new "group" GtkRadioToolButtonClass.tOpt x
+          name = "group",
+          gtype = fn () => C.gtype GtkRadioToolButtonClass.tOpt (),
+          get = ignore,
+          set = fn x => C.set GtkRadioToolButtonClass.tOpt x,
+          init = fn x => C.set GtkRadioToolButtonClass.tOpt x
         }
     end
   end

@@ -53,18 +53,6 @@ signature GTK_GESTURE =
     val endSig : (Gdk.EventSequenceRecord.t -> unit) -> 'a class Signal.t
     val sequenceStateChangedSig : (Gdk.EventSequenceRecord.t * event_sequence_state_t -> unit) -> 'a class Signal.t
     val updateSig : (Gdk.EventSequenceRecord.t -> unit) -> 'a class Signal.t
-    val nPointsProp :
-      {
-        get : 'a class -> LargeInt.int,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val windowProp :
-      {
-        get : 'a class -> base Gdk.WindowClass.class option,
-        set :
-          'b Gdk.WindowClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b Gdk.WindowClass.class option -> 'a class Property.t
-      }
+    val nPointsProp : ('a class, unit -> LargeInt.int, unit, LargeInt.int -> unit) Property.t
+    val windowProp : ('a class, unit -> base Gdk.WindowClass.class option, 'b Gdk.WindowClass.class option -> unit, 'b Gdk.WindowClass.class option -> unit) Property.t
   end

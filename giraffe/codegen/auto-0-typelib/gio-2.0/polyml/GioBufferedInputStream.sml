@@ -133,13 +133,15 @@ structure GioBufferedInputStream :>
         )
     fun setBufferSize self size = (GioBufferedInputStreamClass.FFI.withPtr false &&&> GUInt64.FFI.withVal ---> I) setBufferSize_ (self & size)
     local
-      open Property
+      open ValueAccessor
     in
       val bufferSizeProp =
         {
-          get = fn x => get "buffer-size" uint x,
-          set = fn x => set "buffer-size" uint x,
-          new = fn x => new "buffer-size" uint x
+          name = "buffer-size",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
     end
   end

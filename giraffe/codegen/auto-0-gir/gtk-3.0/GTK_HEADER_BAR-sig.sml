@@ -46,76 +46,12 @@ signature GTK_HEADER_BAR =
       'a class
        -> string option
        -> unit
-    val customTitleProp :
-      {
-        get : 'a class -> base widget_class option,
-        set :
-          'b widget_class option
-           -> 'a class
-           -> unit,
-        new : 'b widget_class option -> 'a class Property.t
-      }
-    val decorationLayoutProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val decorationLayoutSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val hasSubtitleProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val showCloseButtonProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val spacingProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val subtitleProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val titleProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val customTitleProp : ('a class, unit -> base widget_class option, 'b widget_class option -> unit, 'b widget_class option -> unit) Property.t
+    val decorationLayoutProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val decorationLayoutSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val hasSubtitleProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val showCloseButtonProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val spacingProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val subtitleProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val titleProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

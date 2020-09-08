@@ -372,8 +372,14 @@ end
 
 local
   val objectClassTyVar = (false, "object_class")
+  val getTyVar         = (false, getId)
+  val setTyVar         = (false, setId)
+  val initTyVar        = (false, initId)
   val propertyTemplates = [
-    ([objectClassTyVar], ("", propertyStrId, "", tId))
+    (
+      [objectClassTyVar, getTyVar, setTyVar, initTyVar],
+      ("", propertyStrId, "", tId)
+    )
   ]
   val revPropertySpecs = revMap (toSpec "") propertyTemplates
   val revPropertyLocalTypes = revMap (toLocalType "") propertyTemplates
@@ -382,7 +388,7 @@ in
    * `addPropertySpecs namespace numProps specs` adds
    *
    *                                                       -.
-   *     type 'object_class property_t                      | isGObject
+   *     type ('object_class, 'get, 'set, 'init) property_t | isGObject
    *                                                       -'  and numProps > 0
    *
    * to `specs`.
@@ -402,17 +408,17 @@ in
    * as follows:
    *
    *                                                       -.
-   *     type 'object_class property_t =                    | isGObject
-   *       'object_class Property.t                         |  and numProps > 0
-   *                                                       -'
+   *     type ('object_class, 'get, 'set, 'init) property_t =
+   *       ('object_class, 'get, 'set, 'init) Property.t    | isGObject
+   *                                                       -'  and numProps > 0
    *
    * and `revMap makeLocalTypeStrModuleQual revLocalTypes` produces qual
    * values as follows:
    *
    *                                                       -.
-   *     where type 'object_class property_t =              | isGObject
-   *       'object_class Property.t                         |  and numProps > 0
-   *                                                       -'
+   *     where type ('object_class, 'get, 'set, 'init) property_t =
+   *       'object_class Property.t                         | isGObject
+   *                                                       -'  and numProps > 0
    *)
   fun makePropertyLocalTypes isGObject (numProps : LargeInt.int) =
     if isGObject andalso numProps > 0

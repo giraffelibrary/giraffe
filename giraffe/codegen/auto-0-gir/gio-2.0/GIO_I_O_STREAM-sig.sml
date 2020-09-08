@@ -22,7 +22,7 @@ signature GIO_I_O_STREAM =
     val hasPending : 'a class -> bool
     val isClosed : 'a class -> bool
     val setPending : 'a class -> unit
-    val closedProp : {get : 'a class -> bool}
-    val inputStreamProp : {get : 'a class -> base input_stream_class option}
-    val outputStreamProp : {get : 'a class -> base output_stream_class option}
+    val closedProp : ('a class, unit -> bool, unit, unit) Property.t
+    val inputStreamProp : ('a class, unit -> base input_stream_class option, unit, unit) Property.t
+    val outputStreamProp : ('a class, unit -> base output_stream_class option, unit, unit) Property.t
   end

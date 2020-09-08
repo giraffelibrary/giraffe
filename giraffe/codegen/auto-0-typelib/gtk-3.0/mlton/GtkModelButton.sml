@@ -21,55 +21,71 @@ structure GtkModelButton :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkModelButtonClass.FFI.fromPtr false) new_ ()
     local
-      open Property
+      open ValueAccessor
     in
       val activeProp =
         {
-          get = fn x => get "active" boolean x,
-          set = fn x => set "active" boolean x,
-          new = fn x => new "active" boolean x
+          name = "active",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val centeredProp =
         {
-          get = fn x => get "centered" boolean x,
-          set = fn x => set "centered" boolean x,
-          new = fn x => new "centered" boolean x
+          name = "centered",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val iconProp =
         {
-          get = fn x => get "icon" GioIconClass.tOpt x,
-          set = fn x => set "icon" GioIconClass.tOpt x,
-          new = fn x => new "icon" GioIconClass.tOpt x
+          name = "icon",
+          gtype = fn () => C.gtype GioIconClass.tOpt (),
+          get = fn x => fn () => C.get GioIconClass.tOpt x,
+          set = fn x => C.set GioIconClass.tOpt x,
+          init = fn x => C.set GioIconClass.tOpt x
         }
       val iconicProp =
         {
-          get = fn x => get "iconic" boolean x,
-          set = fn x => set "iconic" boolean x,
-          new = fn x => new "iconic" boolean x
+          name = "iconic",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val invertedProp =
         {
-          get = fn x => get "inverted" boolean x,
-          set = fn x => set "inverted" boolean x,
-          new = fn x => new "inverted" boolean x
+          name = "inverted",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val menuNameProp =
         {
-          get = fn x => get "menu-name" stringOpt x,
-          set = fn x => set "menu-name" stringOpt x,
-          new = fn x => new "menu-name" stringOpt x
+          name = "menu-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val roleProp =
         {
-          get = fn x => get "role" GtkButtonRole.t x,
-          set = fn x => set "role" GtkButtonRole.t x,
-          new = fn x => new "role" GtkButtonRole.t x
+          name = "role",
+          gtype = fn () => C.gtype GtkButtonRole.t (),
+          get = fn x => fn () => C.get GtkButtonRole.t x,
+          set = fn x => C.set GtkButtonRole.t x,
+          init = fn x => C.set GtkButtonRole.t x
         }
       val textProp =
         {
-          get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x,
-          new = fn x => new "text" stringOpt x
+          name = "text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

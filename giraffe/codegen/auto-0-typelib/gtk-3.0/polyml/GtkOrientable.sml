@@ -17,13 +17,15 @@ structure GtkOrientable :>
     fun getOrientation self = (GtkOrientableClass.FFI.withPtr false ---> GtkOrientation.FFI.fromVal) getOrientation_ self
     fun setOrientation self orientation = (GtkOrientableClass.FFI.withPtr false &&&> GtkOrientation.FFI.withVal ---> I) setOrientation_ (self & orientation)
     local
-      open Property
+      open ValueAccessor
     in
       val orientationProp =
         {
-          get = fn x => get "orientation" GtkOrientation.t x,
-          set = fn x => set "orientation" GtkOrientation.t x,
-          new = fn x => new "orientation" GtkOrientation.t x
+          name = "orientation",
+          gtype = fn () => C.gtype GtkOrientation.t (),
+          get = fn x => fn () => C.get GtkOrientation.t x,
+          set = fn x => C.set GtkOrientation.t x,
+          init = fn x => C.set GtkOrientation.t x
         }
     end
   end

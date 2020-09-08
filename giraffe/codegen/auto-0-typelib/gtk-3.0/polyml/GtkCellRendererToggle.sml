@@ -30,37 +30,47 @@ structure GtkCellRendererToggle :>
       fun toggledSig f = signal "toggled" (get 0w1 string ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val activatableProp =
         {
-          get = fn x => get "activatable" boolean x,
-          set = fn x => set "activatable" boolean x,
-          new = fn x => new "activatable" boolean x
+          name = "activatable",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val activeProp =
         {
-          get = fn x => get "active" boolean x,
-          set = fn x => set "active" boolean x,
-          new = fn x => new "active" boolean x
+          name = "active",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val inconsistentProp =
         {
-          get = fn x => get "inconsistent" boolean x,
-          set = fn x => set "inconsistent" boolean x,
-          new = fn x => new "inconsistent" boolean x
+          name = "inconsistent",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val indicatorSizeProp =
         {
-          get = fn x => get "indicator-size" int x,
-          set = fn x => set "indicator-size" int x,
-          new = fn x => new "indicator-size" int x
+          name = "indicator-size",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val radioProp =
         {
-          get = fn x => get "radio" boolean x,
-          set = fn x => set "radio" boolean x,
-          new = fn x => new "radio" boolean x
+          name = "radio",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

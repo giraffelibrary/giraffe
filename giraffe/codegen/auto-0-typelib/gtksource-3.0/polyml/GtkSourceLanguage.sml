@@ -31,11 +31,39 @@ structure GtkSourceLanguage :>
     fun getStyleIds self = (GtkSourceLanguageClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromOptPtr ~1) getStyleIds_ self
     fun getStyleName self styleId = (GtkSourceLanguageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) getStyleName_ (self & styleId)
     local
-      open Property
+      open ValueAccessor
     in
-      val hiddenProp = {get = fn x => get "hidden" boolean x}
-      val idProp = {get = fn x => get "id" stringOpt x}
-      val nameProp = {get = fn x => get "name" stringOpt x}
-      val sectionProp = {get = fn x => get "section" stringOpt x}
+      val hiddenProp =
+        {
+          name = "hidden",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val idProp =
+        {
+          name = "id",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val nameProp =
+        {
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val sectionProp =
+        {
+          name = "section",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

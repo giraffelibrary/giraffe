@@ -133,12 +133,15 @@ structure GtkDialog :>
       fun responseSig f = signal "response" (get 0w1 int ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val useHeaderBarProp =
         {
-          get = fn x => get "use-header-bar" int x,
-          new = fn x => new "use-header-bar" int x
+          name = "use-header-bar",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = fn x => C.set int x
         }
     end
   end

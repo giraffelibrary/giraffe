@@ -25,24 +25,31 @@ structure GtkSourceCompletionContext :>
       fun cancelledSig f = signal "cancelled" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val activationProp =
         {
-          get = fn x => get "activation" GtkSourceCompletionActivation.t x,
-          set = fn x => set "activation" GtkSourceCompletionActivation.t x,
-          new = fn x => new "activation" GtkSourceCompletionActivation.t x
+          name = "activation",
+          gtype = fn () => C.gtype GtkSourceCompletionActivation.t (),
+          get = fn x => fn () => C.get GtkSourceCompletionActivation.t x,
+          set = fn x => C.set GtkSourceCompletionActivation.t x,
+          init = fn x => C.set GtkSourceCompletionActivation.t x
         }
       val completionProp =
         {
-          get = fn x => get "completion" GtkSourceCompletionClass.tOpt x,
-          new = fn x => new "completion" GtkSourceCompletionClass.tOpt x
+          name = "completion",
+          gtype = fn () => C.gtype GtkSourceCompletionClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceCompletionClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkSourceCompletionClass.tOpt x
         }
       val iterProp =
         {
-          get = fn x => get "iter" GtkTextIterRecord.tOpt x,
-          set = fn x => set "iter" GtkTextIterRecord.tOpt x,
-          new = fn x => new "iter" GtkTextIterRecord.tOpt x
+          name = "iter",
+          gtype = fn () => C.gtype GtkTextIterRecord.tOpt (),
+          get = fn x => fn () => C.get GtkTextIterRecord.tOpt x,
+          set = fn x => C.set GtkTextIterRecord.tOpt x,
+          init = fn x => C.set GtkTextIterRecord.tOpt x
         }
     end
   end

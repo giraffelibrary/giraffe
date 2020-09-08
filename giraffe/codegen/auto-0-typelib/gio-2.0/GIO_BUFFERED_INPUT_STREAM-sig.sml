@@ -33,13 +33,5 @@ signature GIO_BUFFERED_INPUT_STREAM =
       'a class
        -> LargeInt.int
        -> unit
-    val bufferSizeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val bufferSizeProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
   end

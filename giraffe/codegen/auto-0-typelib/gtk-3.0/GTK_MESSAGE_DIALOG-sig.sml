@@ -19,60 +19,12 @@ signature GTK_MESSAGE_DIALOG =
       'a class
        -> string
        -> unit
-    val buttonsProp : {new : buttons_type_t -> 'a class Property.t}
-    val imageProp :
-      {
-        get : 'a class -> base widget_class option,
-        set :
-          'b widget_class option
-           -> 'a class
-           -> unit,
-        new : 'b widget_class option -> 'a class Property.t
-      }
-    val messageAreaProp : {get : 'a class -> base widget_class option}
-    val messageTypeProp :
-      {
-        get : 'a class -> message_type_t,
-        set :
-          message_type_t
-           -> 'a class
-           -> unit,
-        new : message_type_t -> 'a class Property.t
-      }
-    val secondaryTextProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val secondaryUseMarkupProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val textProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val useMarkupProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val buttonsProp : ('a class, unit, unit, buttons_type_t -> unit) Property.t
+    val imageProp : ('a class, unit -> base widget_class option, 'b widget_class option -> unit, 'b widget_class option -> unit) Property.t
+    val messageAreaProp : ('a class, unit -> base widget_class option, unit, unit) Property.t
+    val messageTypeProp : ('a class, unit -> message_type_t, message_type_t -> unit, message_type_t -> unit) Property.t
+    val secondaryTextProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val secondaryUseMarkupProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val textProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val useMarkupProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

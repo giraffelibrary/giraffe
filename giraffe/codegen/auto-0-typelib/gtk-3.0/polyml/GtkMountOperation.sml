@@ -25,20 +25,31 @@ structure GtkMountOperation :>
     fun setParent self parent = (GtkMountOperationClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withOptPtr false ---> I) setParent_ (self & parent)
     fun setScreen self screen = (GtkMountOperationClass.FFI.withPtr false &&&> GdkScreenClass.FFI.withPtr false ---> I) setScreen_ (self & screen)
     local
-      open Property
+      open ValueAccessor
     in
-      val isShowingProp = {get = fn x => get "is-showing" boolean x}
+      val isShowingProp =
+        {
+          name = "is-showing",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val parentProp =
         {
-          get = fn x => get "parent" GtkWindowClass.tOpt x,
-          set = fn x => set "parent" GtkWindowClass.tOpt x,
-          new = fn x => new "parent" GtkWindowClass.tOpt x
+          name = "parent",
+          gtype = fn () => C.gtype GtkWindowClass.tOpt (),
+          get = fn x => fn () => C.get GtkWindowClass.tOpt x,
+          set = fn x => C.set GtkWindowClass.tOpt x,
+          init = fn x => C.set GtkWindowClass.tOpt x
         }
       val screenProp =
         {
-          get = fn x => get "screen" GdkScreenClass.tOpt x,
-          set = fn x => set "screen" GdkScreenClass.tOpt x,
-          new = fn x => new "screen" GdkScreenClass.tOpt x
+          name = "screen",
+          gtype = fn () => C.gtype GdkScreenClass.tOpt (),
+          get = fn x => fn () => C.get GdkScreenClass.tOpt x,
+          set = fn x => C.set GdkScreenClass.tOpt x,
+          init = fn x => C.set GdkScreenClass.tOpt x
         }
     end
   end

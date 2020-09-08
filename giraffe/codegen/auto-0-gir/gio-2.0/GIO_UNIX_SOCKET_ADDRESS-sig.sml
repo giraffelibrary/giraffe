@@ -14,19 +14,7 @@ signature GIO_UNIX_SOCKET_ADDRESS =
     val getIsAbstract : 'a class -> bool
     val getPath : 'a class -> string
     val getPathLen : 'a class -> int
-    val abstractProp :
-      {
-        get : 'a class -> bool,
-        new : bool -> 'a class Property.t
-      }
-    val addressTypeProp :
-      {
-        get : 'a class -> unix_socket_address_type_t,
-        new : unix_socket_address_type_t -> 'a class Property.t
-      }
-    val pathProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
+    val abstractProp : ('a class, unit -> bool, unit, bool -> unit) Property.t
+    val addressTypeProp : ('a class, unit -> unix_socket_address_type_t, unit, unix_socket_address_type_t -> unit) Property.t
+    val pathProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
   end

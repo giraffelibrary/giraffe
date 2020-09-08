@@ -20,31 +20,7 @@ signature GTK_GESTURE_SINGLE =
       'a class
        -> bool
        -> unit
-    val buttonProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val exclusiveProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val touchOnlyProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val buttonProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val exclusiveProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val touchOnlyProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

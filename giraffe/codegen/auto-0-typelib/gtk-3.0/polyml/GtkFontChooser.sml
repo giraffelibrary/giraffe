@@ -42,31 +42,39 @@ structure GtkFontChooser :>
       fun fontActivatedSig f = signal "font-activated" (get 0w1 string ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val fontProp =
         {
-          get = fn x => get "font" stringOpt x,
-          set = fn x => set "font" stringOpt x,
-          new = fn x => new "font" stringOpt x
+          name = "font",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val fontDescProp =
         {
-          get = fn x => get "font-desc" PangoFontDescriptionRecord.tOpt x,
-          set = fn x => set "font-desc" PangoFontDescriptionRecord.tOpt x,
-          new = fn x => new "font-desc" PangoFontDescriptionRecord.tOpt x
+          name = "font-desc",
+          gtype = fn () => C.gtype PangoFontDescriptionRecord.tOpt (),
+          get = fn x => fn () => C.get PangoFontDescriptionRecord.tOpt x,
+          set = fn x => C.set PangoFontDescriptionRecord.tOpt x,
+          init = fn x => C.set PangoFontDescriptionRecord.tOpt x
         }
       val previewTextProp =
         {
-          get = fn x => get "preview-text" stringOpt x,
-          set = fn x => set "preview-text" stringOpt x,
-          new = fn x => new "preview-text" stringOpt x
+          name = "preview-text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val showPreviewEntryProp =
         {
-          get = fn x => get "show-preview-entry" boolean x,
-          set = fn x => set "show-preview-entry" boolean x,
-          new = fn x => new "show-preview-entry" boolean x
+          name = "show-preview-entry",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

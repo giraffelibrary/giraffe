@@ -434,39 +434,71 @@ structure GioApplication :>
       fun startupSig f = signal "startup" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val actionGroupProp =
         {
-          set = fn x => set "action-group" GioActionGroupClass.tOpt x,
-          new = fn x => new "action-group" GioActionGroupClass.tOpt x
+          name = "action-group",
+          gtype = fn () => C.gtype GioActionGroupClass.tOpt (),
+          get = ignore,
+          set = fn x => C.set GioActionGroupClass.tOpt x,
+          init = fn x => C.set GioActionGroupClass.tOpt x
         }
       val applicationIdProp =
         {
-          get = fn x => get "application-id" stringOpt x,
-          set = fn x => set "application-id" stringOpt x,
-          new = fn x => new "application-id" stringOpt x
+          name = "application-id",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val flagsProp =
         {
-          get = fn x => get "flags" GioApplicationFlags.t x,
-          set = fn x => set "flags" GioApplicationFlags.t x,
-          new = fn x => new "flags" GioApplicationFlags.t x
+          name = "flags",
+          gtype = fn () => C.gtype GioApplicationFlags.t (),
+          get = fn x => fn () => C.get GioApplicationFlags.t x,
+          set = fn x => C.set GioApplicationFlags.t x,
+          init = fn x => C.set GioApplicationFlags.t x
         }
       val inactivityTimeoutProp =
         {
-          get = fn x => get "inactivity-timeout" uint x,
-          set = fn x => set "inactivity-timeout" uint x,
-          new = fn x => new "inactivity-timeout" uint x
+          name = "inactivity-timeout",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
-      val isBusyProp = {get = fn x => get "is-busy" boolean x}
-      val isRegisteredProp = {get = fn x => get "is-registered" boolean x}
-      val isRemoteProp = {get = fn x => get "is-remote" boolean x}
+      val isBusyProp =
+        {
+          name = "is-busy",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val isRegisteredProp =
+        {
+          name = "is-registered",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val isRemoteProp =
+        {
+          name = "is-remote",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val resourceBasePathProp =
         {
-          get = fn x => get "resource-base-path" stringOpt x,
-          set = fn x => set "resource-base-path" stringOpt x,
-          new = fn x => new "resource-base-path" stringOpt x
+          name = "resource-base-path",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

@@ -869,77 +869,119 @@ structure GioSocket :>
         )
     fun speaksIpv4 self = (GioSocketClass.FFI.withPtr false ---> GBool.FFI.fromVal) speaksIpv4_ self
     local
-      open Property
+      open ValueAccessor
     in
       val blockingProp =
         {
-          get = fn x => get "blocking" boolean x,
-          set = fn x => set "blocking" boolean x,
-          new = fn x => new "blocking" boolean x
+          name = "blocking",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val broadcastProp =
         {
-          get = fn x => get "broadcast" boolean x,
-          set = fn x => set "broadcast" boolean x,
-          new = fn x => new "broadcast" boolean x
+          name = "broadcast",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val familyProp =
         {
-          get = fn x => get "family" GioSocketFamily.t x,
-          new = fn x => new "family" GioSocketFamily.t x
+          name = "family",
+          gtype = fn () => C.gtype GioSocketFamily.t (),
+          get = fn x => fn () => C.get GioSocketFamily.t x,
+          set = ignore,
+          init = fn x => C.set GioSocketFamily.t x
         }
       val fdProp =
         {
-          get = fn x => get "fd" int x,
-          new = fn x => new "fd" int x
+          name = "fd",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = fn x => C.set int x
         }
       val keepaliveProp =
         {
-          get = fn x => get "keepalive" boolean x,
-          set = fn x => set "keepalive" boolean x,
-          new = fn x => new "keepalive" boolean x
+          name = "keepalive",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val listenBacklogProp =
         {
-          get = fn x => get "listen-backlog" int x,
-          set = fn x => set "listen-backlog" int x,
-          new = fn x => new "listen-backlog" int x
+          name = "listen-backlog",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
-      val localAddressProp = {get = fn x => get "local-address" GioSocketAddressClass.tOpt x}
+      val localAddressProp =
+        {
+          name = "local-address",
+          gtype = fn () => C.gtype GioSocketAddressClass.tOpt (),
+          get = fn x => fn () => C.get GioSocketAddressClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
       val multicastLoopbackProp =
         {
-          get = fn x => get "multicast-loopback" boolean x,
-          set = fn x => set "multicast-loopback" boolean x,
-          new = fn x => new "multicast-loopback" boolean x
+          name = "multicast-loopback",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val multicastTtlProp =
         {
-          get = fn x => get "multicast-ttl" uint x,
-          set = fn x => set "multicast-ttl" uint x,
-          new = fn x => new "multicast-ttl" uint x
+          name = "multicast-ttl",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val protocolProp =
         {
-          get = fn x => get "protocol" GioSocketProtocol.t x,
-          new = fn x => new "protocol" GioSocketProtocol.t x
+          name = "protocol",
+          gtype = fn () => C.gtype GioSocketProtocol.t (),
+          get = fn x => fn () => C.get GioSocketProtocol.t x,
+          set = ignore,
+          init = fn x => C.set GioSocketProtocol.t x
         }
-      val remoteAddressProp = {get = fn x => get "remote-address" GioSocketAddressClass.tOpt x}
+      val remoteAddressProp =
+        {
+          name = "remote-address",
+          gtype = fn () => C.gtype GioSocketAddressClass.tOpt (),
+          get = fn x => fn () => C.get GioSocketAddressClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
       val timeoutProp =
         {
-          get = fn x => get "timeout" uint x,
-          set = fn x => set "timeout" uint x,
-          new = fn x => new "timeout" uint x
+          name = "timeout",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val ttlProp =
         {
-          get = fn x => get "ttl" uint x,
-          set = fn x => set "ttl" uint x,
-          new = fn x => new "ttl" uint x
+          name = "ttl",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val typeProp =
         {
-          get = fn x => get "type" GioSocketType.t x,
-          new = fn x => new "type" GioSocketType.t x
+          name = "type",
+          gtype = fn () => C.gtype GioSocketType.t (),
+          get = fn x => fn () => C.get GioSocketType.t x,
+          set = ignore,
+          init = fn x => C.set GioSocketType.t x
         }
     end
   end

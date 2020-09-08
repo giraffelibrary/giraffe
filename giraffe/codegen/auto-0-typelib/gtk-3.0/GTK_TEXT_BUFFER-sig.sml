@@ -300,22 +300,10 @@ signature GTK_TEXT_BUFFER =
         * text_iter_t
         -> unit)
        -> 'a class Signal.t
-    val copyTargetListProp : {get : 'a class -> target_list_t option}
-    val cursorPositionProp : {get : 'a class -> LargeInt.int}
-    val hasSelectionProp : {get : 'a class -> bool}
-    val pasteTargetListProp : {get : 'a class -> target_list_t option}
-    val tagTableProp :
-      {
-        get : 'a class -> base text_tag_table_class option,
-        new : 'b text_tag_table_class option -> 'a class Property.t
-      }
-    val textProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val copyTargetListProp : ('a class, unit -> target_list_t option, unit, unit) Property.t
+    val cursorPositionProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val hasSelectionProp : ('a class, unit -> bool, unit, unit) Property.t
+    val pasteTargetListProp : ('a class, unit -> target_list_t option, unit, unit) Property.t
+    val tagTableProp : ('a class, unit -> base text_tag_table_class option, unit, 'b text_tag_table_class option -> unit) Property.t
+    val textProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

@@ -44,49 +44,9 @@ signature GTK_SOURCE_MARK_ATTRIBUTES =
        -> unit
     val queryTooltipMarkupSig : (base mark_class -> string) -> 'a class Signal.t
     val queryTooltipTextSig : (base mark_class -> string) -> 'a class Signal.t
-    val backgroundProp :
-      {
-        get : 'a class -> Gdk.RgbaRecord.t option,
-        set :
-          Gdk.RgbaRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.RgbaRecord.t option -> 'a class Property.t
-      }
-    val giconProp :
-      {
-        get : 'a class -> base Gio.IconClass.class option,
-        set :
-          'b Gio.IconClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b Gio.IconClass.class option -> 'a class Property.t
-      }
-    val iconNameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val pixbufProp :
-      {
-        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
-        set :
-          'b GdkPixbuf.PixbufClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
-      }
-    val stockIdProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val backgroundProp : ('a class, unit -> Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option -> unit, Gdk.RgbaRecord.t option -> unit) Property.t
+    val giconProp : ('a class, unit -> base Gio.IconClass.class option, 'b Gio.IconClass.class option -> unit, 'b Gio.IconClass.class option -> unit) Property.t
+    val iconNameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val pixbufProp : ('a class, unit -> base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option -> unit, 'b GdkPixbuf.PixbufClass.class option -> unit) Property.t
+    val stockIdProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

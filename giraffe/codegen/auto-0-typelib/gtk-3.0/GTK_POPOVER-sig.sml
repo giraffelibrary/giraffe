@@ -53,58 +53,10 @@ signature GTK_POPOVER =
        -> bool
        -> unit
     val closedSig : (unit -> unit) -> 'a class Signal.t
-    val constrainToProp :
-      {
-        get : 'a class -> popover_constraint_t,
-        set :
-          popover_constraint_t
-           -> 'a class
-           -> unit,
-        new : popover_constraint_t -> 'a class Property.t
-      }
-    val modalProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val pointingToProp :
-      {
-        get : 'a class -> Gdk.RectangleRecord.t option,
-        set :
-          Gdk.RectangleRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.RectangleRecord.t option -> 'a class Property.t
-      }
-    val positionProp :
-      {
-        get : 'a class -> position_type_t,
-        set :
-          position_type_t
-           -> 'a class
-           -> unit,
-        new : position_type_t -> 'a class Property.t
-      }
-    val relativeToProp :
-      {
-        get : 'a class -> base widget_class option,
-        set :
-          'b widget_class option
-           -> 'a class
-           -> unit,
-        new : 'b widget_class option -> 'a class Property.t
-      }
-    val transitionsEnabledProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val constrainToProp : ('a class, unit -> popover_constraint_t, popover_constraint_t -> unit, popover_constraint_t -> unit) Property.t
+    val modalProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val pointingToProp : ('a class, unit -> Gdk.RectangleRecord.t option, Gdk.RectangleRecord.t option -> unit, Gdk.RectangleRecord.t option -> unit) Property.t
+    val positionProp : ('a class, unit -> position_type_t, position_type_t -> unit, position_type_t -> unit) Property.t
+    val relativeToProp : ('a class, unit -> base widget_class option, 'b widget_class option -> unit, 'b widget_class option -> unit) Property.t
+    val transitionsEnabledProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

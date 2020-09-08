@@ -11,25 +11,31 @@ structure GtkCellRendererSpinner :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCellRendererSpinnerClass.FFI.fromPtr false) new_ ()
     local
-      open Property
+      open ValueAccessor
     in
       val activeProp =
         {
-          get = fn x => get "active" boolean x,
-          set = fn x => set "active" boolean x,
-          new = fn x => new "active" boolean x
+          name = "active",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val pulseProp =
         {
-          get = fn x => get "pulse" uint x,
-          set = fn x => set "pulse" uint x,
-          new = fn x => new "pulse" uint x
+          name = "pulse",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val sizeProp =
         {
-          get = fn x => get "size" GtkIconSize.t x,
-          set = fn x => set "size" GtkIconSize.t x,
-          new = fn x => new "size" GtkIconSize.t x
+          name = "size",
+          gtype = fn () => C.gtype GtkIconSize.t (),
+          get = fn x => fn () => C.get GtkIconSize.t x,
+          set = fn x => C.set GtkIconSize.t x,
+          init = fn x => C.set GtkIconSize.t x
         }
     end
   end

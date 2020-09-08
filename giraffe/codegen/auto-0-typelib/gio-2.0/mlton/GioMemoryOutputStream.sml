@@ -21,13 +21,23 @@ structure GioMemoryOutputStream :>
     fun getSize self = (GioMemoryOutputStreamClass.FFI.withPtr false ---> GUInt64.FFI.fromVal) getSize_ self
     fun stealAsBytes self = (GioMemoryOutputStreamClass.FFI.withPtr false ---> GLibBytesRecord.FFI.fromPtr true) stealAsBytes_ self
     local
-      open Property
+      open ValueAccessor
     in
-      val dataSizeProp = {get = fn x => get "data-size" ulong x}
+      val dataSizeProp =
+        {
+          name = "data-size",
+          gtype = fn () => C.gtype ulong (),
+          get = fn x => fn () => C.get ulong x,
+          set = ignore,
+          init = ignore
+        }
       val sizeProp =
         {
-          get = fn x => get "size" ulong x,
-          new = fn x => new "size" ulong x
+          name = "size",
+          gtype = fn () => C.gtype ulong (),
+          get = fn x => fn () => C.get ulong x,
+          set = ignore,
+          init = fn x => C.set ulong x
         }
     end
   end

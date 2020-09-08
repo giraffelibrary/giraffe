@@ -105,29 +105,39 @@ structure GtkSourceGutter :>
            & ypad
         )
     local
-      open Property
+      open ValueAccessor
     in
       val viewProp =
         {
-          get = fn x => get "view" GtkSourceViewClass.tOpt x,
-          new = fn x => new "view" GtkSourceViewClass.tOpt x
+          name = "view",
+          gtype = fn () => C.gtype GtkSourceViewClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceViewClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkSourceViewClass.tOpt x
         }
       val windowTypeProp =
         {
-          get = fn x => get "window-type" GtkTextWindowType.t x,
-          new = fn x => new "window-type" GtkTextWindowType.t x
+          name = "window-type",
+          gtype = fn () => C.gtype GtkTextWindowType.t (),
+          get = fn x => fn () => C.get GtkTextWindowType.t x,
+          set = ignore,
+          init = fn x => C.set GtkTextWindowType.t x
         }
       val xpadProp =
         {
-          get = fn x => get "xpad" int x,
-          set = fn x => set "xpad" int x,
-          new = fn x => new "xpad" int x
+          name = "xpad",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val ypadProp =
         {
-          get = fn x => get "ypad" int x,
-          set = fn x => set "ypad" int x,
-          new = fn x => new "ypad" int x
+          name = "ypad",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

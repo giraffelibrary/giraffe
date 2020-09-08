@@ -2,7 +2,8 @@ structure GObject :
   G_OBJECT
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     where type 'a signal_t = 'a Signal.t
-    where type 'object_class property_t = 'object_class Property.t =
+    where type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) Property.t
+    where type 'object_class property_init_t = 'object_class Property.init_t =
   struct
     local
       open PolyMLFFI
@@ -313,7 +314,8 @@ structure GObject :
     end
     type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     type 'a signal_t = 'a Signal.t
-    type 'object_class property_t = 'object_class Property.t
+    type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) Property.t
+    type 'object_class property_init_t = 'object_class Property.init_t
     structure Type = GObjectType
     structure ConnectFlags = GObjectConnectFlags
     structure EnumClassRecord = GObjectEnumClassRecord

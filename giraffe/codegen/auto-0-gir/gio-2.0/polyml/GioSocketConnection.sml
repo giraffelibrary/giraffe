@@ -132,12 +132,15 @@ structure GioSocketConnection :>
     fun getSocket self = (GioSocketConnectionClass.FFI.withPtr false ---> GioSocketClass.FFI.fromPtr false) getSocket_ self
     fun isConnected self = (GioSocketConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) isConnected_ self
     local
-      open Property
+      open ValueAccessor
     in
       val socketProp =
         {
-          get = fn x => get "socket" GioSocketClass.tOpt x,
-          new = fn x => new "socket" GioSocketClass.tOpt x
+          name = "socket",
+          gtype = fn () => C.gtype GioSocketClass.tOpt (),
+          get = fn x => fn () => C.get GioSocketClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioSocketClass.tOpt x
         }
     end
   end

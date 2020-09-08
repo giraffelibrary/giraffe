@@ -18,12 +18,15 @@ structure GioConverterOutputStream :>
     fun new (baseStream, converter) = (GioOutputStreamClass.FFI.withPtr false &&&> GioConverterClass.FFI.withPtr false ---> GioConverterOutputStreamClass.FFI.fromPtr true) new_ (baseStream & converter)
     fun getConverter self = (GioConverterOutputStreamClass.FFI.withPtr false ---> GioConverterClass.FFI.fromPtr false) getConverter_ self
     local
-      open Property
+      open ValueAccessor
     in
       val converterProp =
         {
-          get = fn x => get "converter" GioConverterClass.tOpt x,
-          new = fn x => new "converter" GioConverterClass.tOpt x
+          name = "converter",
+          gtype = fn () => C.gtype GioConverterClass.tOpt (),
+          get = fn x => fn () => C.get GioConverterClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioConverterClass.tOpt x
         }
     end
   end

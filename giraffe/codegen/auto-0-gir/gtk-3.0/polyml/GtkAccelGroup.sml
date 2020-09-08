@@ -212,9 +212,23 @@ structure GtkAccelGroup :>
           )
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val isLockedProp = {get = fn x => get "is-locked" boolean x}
-      val modifierMaskProp = {get = fn x => get "modifier-mask" GdkModifierType.t x}
+      val isLockedProp =
+        {
+          name = "is-locked",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val modifierMaskProp =
+        {
+          name = "modifier-mask",
+          gtype = fn () => C.gtype GdkModifierType.t (),
+          get = fn x => fn () => C.get GdkModifierType.t x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

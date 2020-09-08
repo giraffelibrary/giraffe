@@ -43,23 +43,7 @@ signature GTK_ENTRY_BUFFER =
         * LargeInt.int
         -> unit)
        -> 'a class Signal.t
-    val lengthProp : {get : 'a class -> LargeInt.int}
-    val maxLengthProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val textProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val lengthProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val maxLengthProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val textProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

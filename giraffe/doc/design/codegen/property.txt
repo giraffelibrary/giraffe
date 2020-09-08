@@ -42,45 +42,60 @@ PropertySpec has the form:
 
 
   val <propertyName>Prop :
-    {
-      get : 'a class -> <PropertyType(true)>,
-      set : <PropertyType(false)> -> 'a class -> unit,
-      new : <PropertyType(false)> -> 'a class <property_t>
-    }
+    (
+      'a class,
+      unit -> <PropertyType(true)>,
+      <PropertyType(false)> -> unit,
+      <PropertyType(false)> -> unit
+    )
+      <property_t>
 
     if isReadable and isWritable and not isConstructOnly
 
 
   val <propertyName>Prop :
-    {
-      get : 'a class -> <PropertyType(true)>,
-      new : <PropertyType(false)> -> 'a class <property_t>
-    }
+    (
+      'a class,
+      unit -> <PropertyType(true)>,
+      unit,
+      <PropertyType(false)> -> unit
+    )
+      <property_t>
 
     if isReadable and isWritable and isConstructOnly
 
 
   val <propertyName>Prop :
-    {
-      get : 'a class -> <PropertyType(true)>
-    }
+    (
+      'a class,
+      unit -> <PropertyType(true)>,
+      unit,
+      unit
+    )
+      <property_t>
 
     if isReadable and not isWritable
 
 
   val <propertyName>Prop :
-    {
-      set : <PropertyType(false)> -> 'a class -> unit,
-      new : <PropertyType(false)> -> 'a class <property_t>
-    }
+    (
+      'a class,
+      unit,
+      <PropertyType(false)> -> unit,
+      <PropertyType(false)> -> unit
+    )
+      <property_t>
 
     if not isReadable and isWritable and not isConstructOnly
 
 
   val <propertyName>Prop :
-    {
-      new : <PropertyType(false)> -> 'a class <property_t>
-    }
+    (
+      'a class,
+      unit,
+      unit,
+      <PropertyType(false)> -> unit
+    )
 
     if not isReadable and isWritable and isConstructOnly
 
@@ -221,9 +236,11 @@ PropertyDec has the form:
 
   val <propertyName>Prop =
     {
-      get = fn x => get "<property-name>" <PropertyAccessor> x,
-      set = fn x => set "<property-name>" <PropertyAccessor> x,
-      new = fn x => new "<property-name>" <PropertyAccessor> x
+      name  = "<property-name>",
+      gtype = fn () => C.gtype <PropertyAccessor> (),
+      get   = fn x => fn () => C.get <PropertyAccessor> x,
+      set   = fn x => C.set <PropertyAccessor> x,
+      init  = fn x => C.set <PropertyAccessor> x
     }
 
     if isReadable and isWritable and not isConstructOnly
@@ -231,8 +248,11 @@ PropertyDec has the form:
 
   val <propertyName>Prop =
     {
-      get = fn x => get "<property-name>" <PropertyAccessor> x,
-      new = fn x => new "<property-name>" <PropertyAccessor> x
+      name  = "<property-name>",
+      gtype = fn () => C.gtype <PropertyAccessor> (),
+      get   = fn x => fn () => C.get <PropertyAccessor> x,
+      set   = ignore,
+      init  = fn x => C.set <PropertyAccessor> x
     }
 
     if isReadable and isWritable and isConstructOnly
@@ -240,7 +260,11 @@ PropertyDec has the form:
 
   val <propertyName>Prop =
     {
-      get = fn x => get "<property-name>" <PropertyAccessor> x
+      name  = "<property-name>",
+      gtype = fn () => C.gtype <PropertyAccessor> (),
+      get   = fn x => fn () => C.get <PropertyAccessor> x,
+      set   = ignore,
+      init  = ignore
     }
 
     if isReadable and not isWritable
@@ -248,8 +272,11 @@ PropertyDec has the form:
 
   val <propertyName>Prop =
     {
-      set = fn x => set "<property-name>" <PropertyAccessor> x,
-      new = fn x => new "<property-name>" <PropertyAccessor> x
+      name  = "<property-name>",
+      gtype = fn () => C.gtype <PropertyAccessor> (),
+      get   = ignore,
+      set   = fn x => C.set <PropertyAccessor> x,
+      init  = fn x => C.set <PropertyAccessor> x
     }
 
     if not isReadable and isWritable and not isConstructOnly
@@ -257,7 +284,11 @@ PropertyDec has the form:
 
   val <propertyName>Prop =
     {
-      new = fn x => new "<property-name>" <PropertyAccessor> x
+      name  = "<property-name>",
+      gtype = fn () => C.gtype <PropertyAccessor> (),
+      get   = ignore,
+      set   = ignore,
+      init  = fn x => C.set <PropertyAccessor> x
     }
 
     if not isReadable and isWritable and isConstructOnly
@@ -338,4 +369,4 @@ where
               if isSelf and isOther
 
 
-Note that the expression on the right hand side of a PropertyDec value binding must be non-expansive.  Therefore it is not possible to introduce functions to simplify the expressions.
+Note that the expression on the right hand side of a PropertyDec value binding must be non-expansive.  Therefore it is not possible to introduce functions to simplify the expressions or to eta-reduce the expressions given above.

@@ -24,23 +24,31 @@ structure GioZlibCompressor :>
     fun getFileInfo self = (GioZlibCompressorClass.FFI.withPtr false ---> GioFileInfoClass.FFI.fromPtr false) getFileInfo_ self
     fun setFileInfo self fileInfo = (GioZlibCompressorClass.FFI.withPtr false &&&> GioFileInfoClass.FFI.withOptPtr false ---> I) setFileInfo_ (self & fileInfo)
     local
-      open Property
+      open ValueAccessor
     in
       val fileInfoProp =
         {
-          get = fn x => get "file-info" GioFileInfoClass.tOpt x,
-          set = fn x => set "file-info" GioFileInfoClass.tOpt x,
-          new = fn x => new "file-info" GioFileInfoClass.tOpt x
+          name = "file-info",
+          gtype = fn () => C.gtype GioFileInfoClass.tOpt (),
+          get = fn x => fn () => C.get GioFileInfoClass.tOpt x,
+          set = fn x => C.set GioFileInfoClass.tOpt x,
+          init = fn x => C.set GioFileInfoClass.tOpt x
         }
       val formatProp =
         {
-          get = fn x => get "format" GioZlibCompressorFormat.t x,
-          new = fn x => new "format" GioZlibCompressorFormat.t x
+          name = "format",
+          gtype = fn () => C.gtype GioZlibCompressorFormat.t (),
+          get = fn x => fn () => C.get GioZlibCompressorFormat.t x,
+          set = ignore,
+          init = fn x => C.set GioZlibCompressorFormat.t x
         }
       val levelProp =
         {
-          get = fn x => get "level" int x,
-          new = fn x => new "level" int x
+          name = "level",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = fn x => C.set int x
         }
     end
   end

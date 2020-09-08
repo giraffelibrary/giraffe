@@ -46,20 +46,31 @@ structure GtkFileChooserButton :>
       fun fileSetSig f = signal "file-set" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val dialogProp = {new = fn x => new "dialog" GtkFileChooserClass.tOpt x}
+      val dialogProp =
+        {
+          name = "dialog",
+          gtype = fn () => C.gtype GtkFileChooserClass.tOpt (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GtkFileChooserClass.tOpt x
+        }
       val titleProp =
         {
-          get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x,
-          new = fn x => new "title" stringOpt x
+          name = "title",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val widthCharsProp =
         {
-          get = fn x => get "width-chars" int x,
-          set = fn x => set "width-chars" int x,
-          new = fn x => new "width-chars" int x
+          name = "width-chars",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

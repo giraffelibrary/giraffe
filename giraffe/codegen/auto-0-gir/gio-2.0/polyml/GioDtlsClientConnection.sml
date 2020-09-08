@@ -46,19 +46,23 @@ structure GioDtlsClientConnection :>
     fun setServerIdentity self identity = (GioDtlsClientConnectionClass.FFI.withPtr false &&&> GioSocketConnectableClass.FFI.withPtr false ---> I) setServerIdentity_ (self & identity)
     fun setValidationFlags self flags = (GioDtlsClientConnectionClass.FFI.withPtr false &&&> GioTlsCertificateFlags.FFI.withVal ---> I) setValidationFlags_ (self & flags)
     local
-      open Property
+      open ValueAccessor
     in
       val serverIdentityProp =
         {
-          get = fn x => get "server-identity" GioSocketConnectableClass.tOpt x,
-          set = fn x => set "server-identity" GioSocketConnectableClass.tOpt x,
-          new = fn x => new "server-identity" GioSocketConnectableClass.tOpt x
+          name = "server-identity",
+          gtype = fn () => C.gtype GioSocketConnectableClass.tOpt (),
+          get = fn x => fn () => C.get GioSocketConnectableClass.tOpt x,
+          set = fn x => C.set GioSocketConnectableClass.tOpt x,
+          init = fn x => C.set GioSocketConnectableClass.tOpt x
         }
       val validationFlagsProp =
         {
-          get = fn x => get "validation-flags" GioTlsCertificateFlags.t x,
-          set = fn x => set "validation-flags" GioTlsCertificateFlags.t x,
-          new = fn x => new "validation-flags" GioTlsCertificateFlags.t x
+          name = "validation-flags",
+          gtype = fn () => C.gtype GioTlsCertificateFlags.t (),
+          get = fn x => fn () => C.get GioTlsCertificateFlags.t x,
+          set = fn x => C.set GioTlsCertificateFlags.t x,
+          init = fn x => C.set GioTlsCertificateFlags.t x
         }
     end
   end

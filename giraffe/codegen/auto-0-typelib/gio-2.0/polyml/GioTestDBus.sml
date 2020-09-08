@@ -29,12 +29,15 @@ structure GioTestDBus :>
     fun stop self = (GioTestDBusClass.FFI.withPtr false ---> I) stop_ self
     fun up self = (GioTestDBusClass.FFI.withPtr false ---> I) up_ self
     local
-      open Property
+      open ValueAccessor
     in
       val flagsProp =
         {
-          get = fn x => get "flags" GioTestDBusFlags.t x,
-          new = fn x => new "flags" GioTestDBusFlags.t x
+          name = "flags",
+          gtype = fn () => C.gtype GioTestDBusFlags.t (),
+          get = fn x => fn () => C.get GioTestDBusFlags.t x,
+          set = ignore,
+          init = fn x => C.set GioTestDBusFlags.t x
         }
     end
   end

@@ -29,663 +29,78 @@ signature GTK_TEXT_TAG =
         * text_iter_t
         -> bool)
        -> 'a class Signal.t
-    val accumulativeMarginProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val backgroundProp :
-      {
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val backgroundFullHeightProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val backgroundFullHeightSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val backgroundGdkProp :
-      {
-        get : 'a class -> Gdk.ColorRecord.t option,
-        set :
-          Gdk.ColorRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.ColorRecord.t option -> 'a class Property.t
-      }
-    val backgroundRgbaProp :
-      {
-        get : 'a class -> Gdk.RgbaRecord.t option,
-        set :
-          Gdk.RgbaRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.RgbaRecord.t option -> 'a class Property.t
-      }
-    val backgroundSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val directionProp :
-      {
-        get : 'a class -> text_direction_t,
-        set :
-          text_direction_t
-           -> 'a class
-           -> unit,
-        new : text_direction_t -> 'a class Property.t
-      }
-    val editableProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val editableSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val fallbackProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val fallbackSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val familyProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val familySetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val fontProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val fontDescProp :
-      {
-        get : 'a class -> Pango.FontDescriptionRecord.t option,
-        set :
-          Pango.FontDescriptionRecord.t option
-           -> 'a class
-           -> unit,
-        new : Pango.FontDescriptionRecord.t option -> 'a class Property.t
-      }
-    val fontFeaturesProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val fontFeaturesSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val foregroundProp :
-      {
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val foregroundGdkProp :
-      {
-        get : 'a class -> Gdk.ColorRecord.t option,
-        set :
-          Gdk.ColorRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.ColorRecord.t option -> 'a class Property.t
-      }
-    val foregroundRgbaProp :
-      {
-        get : 'a class -> Gdk.RgbaRecord.t option,
-        set :
-          Gdk.RgbaRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.RgbaRecord.t option -> 'a class Property.t
-      }
-    val foregroundSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val indentProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val indentSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val invisibleProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val invisibleSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val justificationProp :
-      {
-        get : 'a class -> justification_t,
-        set :
-          justification_t
-           -> 'a class
-           -> unit,
-        new : justification_t -> 'a class Property.t
-      }
-    val justificationSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val languageProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val languageSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val leftMarginProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val leftMarginSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val letterSpacingProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val letterSpacingSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val nameProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val paragraphBackgroundProp :
-      {
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val paragraphBackgroundGdkProp :
-      {
-        get : 'a class -> Gdk.ColorRecord.t option,
-        set :
-          Gdk.ColorRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.ColorRecord.t option -> 'a class Property.t
-      }
-    val paragraphBackgroundRgbaProp :
-      {
-        get : 'a class -> Gdk.RgbaRecord.t option,
-        set :
-          Gdk.RgbaRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.RgbaRecord.t option -> 'a class Property.t
-      }
-    val paragraphBackgroundSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val pixelsAboveLinesProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val pixelsAboveLinesSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val pixelsBelowLinesProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val pixelsBelowLinesSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val pixelsInsideWrapProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val pixelsInsideWrapSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val rightMarginProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val rightMarginSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val riseProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val riseSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val scaleProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val scaleSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val sizeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val sizePointsProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val sizeSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val stretchProp :
-      {
-        get : 'a class -> Pango.Stretch.t,
-        set :
-          Pango.Stretch.t
-           -> 'a class
-           -> unit,
-        new : Pango.Stretch.t -> 'a class Property.t
-      }
-    val stretchSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val strikethroughProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val strikethroughRgbaProp :
-      {
-        get : 'a class -> Gdk.RgbaRecord.t option,
-        set :
-          Gdk.RgbaRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.RgbaRecord.t option -> 'a class Property.t
-      }
-    val strikethroughRgbaSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val strikethroughSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val styleProp :
-      {
-        get : 'a class -> Pango.Style.t,
-        set :
-          Pango.Style.t
-           -> 'a class
-           -> unit,
-        new : Pango.Style.t -> 'a class Property.t
-      }
-    val styleSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val tabsProp :
-      {
-        get : 'a class -> Pango.TabArrayRecord.t option,
-        set :
-          Pango.TabArrayRecord.t option
-           -> 'a class
-           -> unit,
-        new : Pango.TabArrayRecord.t option -> 'a class Property.t
-      }
-    val tabsSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val underlineProp :
-      {
-        get : 'a class -> Pango.Underline.t,
-        set :
-          Pango.Underline.t
-           -> 'a class
-           -> unit,
-        new : Pango.Underline.t -> 'a class Property.t
-      }
-    val underlineRgbaProp :
-      {
-        get : 'a class -> Gdk.RgbaRecord.t option,
-        set :
-          Gdk.RgbaRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.RgbaRecord.t option -> 'a class Property.t
-      }
-    val underlineRgbaSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val underlineSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val variantProp :
-      {
-        get : 'a class -> Pango.Variant.t,
-        set :
-          Pango.Variant.t
-           -> 'a class
-           -> unit,
-        new : Pango.Variant.t -> 'a class Property.t
-      }
-    val variantSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val weightProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val weightSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val wrapModeProp :
-      {
-        get : 'a class -> wrap_mode_t,
-        set :
-          wrap_mode_t
-           -> 'a class
-           -> unit,
-        new : wrap_mode_t -> 'a class Property.t
-      }
-    val wrapModeSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val accumulativeMarginProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val backgroundProp : ('a class, unit, string option -> unit, string option -> unit) Property.t
+    val backgroundFullHeightProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val backgroundFullHeightSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val backgroundGdkProp : ('a class, unit -> Gdk.ColorRecord.t option, Gdk.ColorRecord.t option -> unit, Gdk.ColorRecord.t option -> unit) Property.t
+    val backgroundRgbaProp : ('a class, unit -> Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option -> unit, Gdk.RgbaRecord.t option -> unit) Property.t
+    val backgroundSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val directionProp : ('a class, unit -> text_direction_t, text_direction_t -> unit, text_direction_t -> unit) Property.t
+    val editableProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val editableSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val fallbackProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val fallbackSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val familyProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val familySetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val fontProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val fontDescProp : ('a class, unit -> Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option -> unit, Pango.FontDescriptionRecord.t option -> unit) Property.t
+    val fontFeaturesProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val fontFeaturesSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val foregroundProp : ('a class, unit, string option -> unit, string option -> unit) Property.t
+    val foregroundGdkProp : ('a class, unit -> Gdk.ColorRecord.t option, Gdk.ColorRecord.t option -> unit, Gdk.ColorRecord.t option -> unit) Property.t
+    val foregroundRgbaProp : ('a class, unit -> Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option -> unit, Gdk.RgbaRecord.t option -> unit) Property.t
+    val foregroundSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val indentProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val indentSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val invisibleProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val invisibleSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val justificationProp : ('a class, unit -> justification_t, justification_t -> unit, justification_t -> unit) Property.t
+    val justificationSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val languageProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val languageSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val leftMarginProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val leftMarginSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val letterSpacingProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val letterSpacingSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val nameProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val paragraphBackgroundProp : ('a class, unit, string option -> unit, string option -> unit) Property.t
+    val paragraphBackgroundGdkProp : ('a class, unit -> Gdk.ColorRecord.t option, Gdk.ColorRecord.t option -> unit, Gdk.ColorRecord.t option -> unit) Property.t
+    val paragraphBackgroundRgbaProp : ('a class, unit -> Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option -> unit, Gdk.RgbaRecord.t option -> unit) Property.t
+    val paragraphBackgroundSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val pixelsAboveLinesProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val pixelsAboveLinesSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val pixelsBelowLinesProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val pixelsBelowLinesSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val pixelsInsideWrapProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val pixelsInsideWrapSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val rightMarginProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val rightMarginSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val riseProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val riseSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val scaleProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val scaleSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val sizeProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val sizePointsProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val sizeSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val stretchProp : ('a class, unit -> Pango.Stretch.t, Pango.Stretch.t -> unit, Pango.Stretch.t -> unit) Property.t
+    val stretchSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val strikethroughProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val strikethroughRgbaProp : ('a class, unit -> Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option -> unit, Gdk.RgbaRecord.t option -> unit) Property.t
+    val strikethroughRgbaSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val strikethroughSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val styleProp : ('a class, unit -> Pango.Style.t, Pango.Style.t -> unit, Pango.Style.t -> unit) Property.t
+    val styleSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val tabsProp : ('a class, unit -> Pango.TabArrayRecord.t option, Pango.TabArrayRecord.t option -> unit, Pango.TabArrayRecord.t option -> unit) Property.t
+    val tabsSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val underlineProp : ('a class, unit -> Pango.Underline.t, Pango.Underline.t -> unit, Pango.Underline.t -> unit) Property.t
+    val underlineRgbaProp : ('a class, unit -> Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option -> unit, Gdk.RgbaRecord.t option -> unit) Property.t
+    val underlineRgbaSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val underlineSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val variantProp : ('a class, unit -> Pango.Variant.t, Pango.Variant.t -> unit, Pango.Variant.t -> unit) Property.t
+    val variantSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val weightProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val weightSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val wrapModeProp : ('a class, unit -> wrap_mode_t, wrap_mode_t -> unit, wrap_mode_t -> unit) Property.t
+    val wrapModeSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

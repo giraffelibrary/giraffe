@@ -13,12 +13,15 @@ structure GtkRendererCellAccessible :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new renderer = (GtkCellRendererClass.FFI.withPtr false ---> GtkRendererCellAccessibleClass.FFI.fromPtr true) new_ renderer
     local
-      open Property
+      open ValueAccessor
     in
       val rendererProp =
         {
-          get = fn x => get "renderer" GtkCellRendererClass.tOpt x,
-          new = fn x => new "renderer" GtkCellRendererClass.tOpt x
+          name = "renderer",
+          gtype = fn () => C.gtype GtkCellRendererClass.tOpt (),
+          get = fn x => fn () => C.get GtkCellRendererClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkCellRendererClass.tOpt x
         }
     end
   end

@@ -88,37 +88,9 @@ signature GTK_SOURCE_SEARCH_CONTEXT =
       'a class
        -> 'b search_settings_class option
        -> unit
-    val bufferProp :
-      {
-        get : 'a class -> base buffer_class option,
-        new : 'b buffer_class option -> 'a class Property.t
-      }
-    val highlightProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val matchStyleProp :
-      {
-        get : 'a class -> base style_class option,
-        set :
-          'b style_class option
-           -> 'a class
-           -> unit,
-        new : 'b style_class option -> 'a class Property.t
-      }
-    val occurrencesCountProp : {get : 'a class -> LargeInt.int}
-    val settingsProp :
-      {
-        get : 'a class -> base search_settings_class option,
-        set :
-          'b search_settings_class option
-           -> 'a class
-           -> unit,
-        new : 'b search_settings_class option -> 'a class Property.t
-      }
+    val bufferProp : ('a class, unit -> base buffer_class option, unit, 'b buffer_class option -> unit) Property.t
+    val highlightProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val matchStyleProp : ('a class, unit -> base style_class option, 'b style_class option -> unit, 'b style_class option -> unit) Property.t
+    val occurrencesCountProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val settingsProp : ('a class, unit -> base search_settings_class option, 'b search_settings_class option -> unit, 'b search_settings_class option -> unit) Property.t
   end

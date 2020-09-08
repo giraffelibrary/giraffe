@@ -75,85 +75,13 @@ signature GTK_BUTTON =
     val leaveSig : (unit -> unit) -> 'a class Signal.t
     val pressedSig : (unit -> unit) -> 'a class Signal.t
     val releasedSig : (unit -> unit) -> 'a class Signal.t
-    val alwaysShowImageProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val imageProp :
-      {
-        get : 'a class -> base widget_class option,
-        set :
-          'b widget_class option
-           -> 'a class
-           -> unit,
-        new : 'b widget_class option -> 'a class Property.t
-      }
-    val imagePositionProp :
-      {
-        get : 'a class -> position_type_t,
-        set :
-          position_type_t
-           -> 'a class
-           -> unit,
-        new : position_type_t -> 'a class Property.t
-      }
-    val labelProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val reliefProp :
-      {
-        get : 'a class -> relief_style_t,
-        set :
-          relief_style_t
-           -> 'a class
-           -> unit,
-        new : relief_style_t -> 'a class Property.t
-      }
-    val useStockProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val useUnderlineProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val xalignProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val yalignProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
+    val alwaysShowImageProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val imageProp : ('a class, unit -> base widget_class option, 'b widget_class option -> unit, 'b widget_class option -> unit) Property.t
+    val imagePositionProp : ('a class, unit -> position_type_t, position_type_t -> unit, position_type_t -> unit) Property.t
+    val labelProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val reliefProp : ('a class, unit -> relief_style_t, relief_style_t -> unit, relief_style_t -> unit) Property.t
+    val useStockProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val useUnderlineProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val xalignProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val yalignProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
   end

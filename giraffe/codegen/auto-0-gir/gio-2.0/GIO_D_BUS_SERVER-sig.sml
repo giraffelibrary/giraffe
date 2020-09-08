@@ -23,26 +23,10 @@ signature GIO_D_BUS_SERVER =
     val start : 'a class -> unit
     val stop : 'a class -> unit
     val newConnectionSig : (base d_bus_connection_class -> bool) -> 'a class Signal.t
-    val activeProp : {get : 'a class -> bool}
-    val addressProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val authenticationObserverProp :
-      {
-        get : 'a class -> base d_bus_auth_observer_class option,
-        new : 'b d_bus_auth_observer_class option -> 'a class Property.t
-      }
-    val clientAddressProp : {get : 'a class -> string option}
-    val flagsProp :
-      {
-        get : 'a class -> d_bus_server_flags_t,
-        new : d_bus_server_flags_t -> 'a class Property.t
-      }
-    val guidProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
+    val activeProp : ('a class, unit -> bool, unit, unit) Property.t
+    val addressProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val authenticationObserverProp : ('a class, unit -> base d_bus_auth_observer_class option, unit, 'b d_bus_auth_observer_class option -> unit) Property.t
+    val clientAddressProp : ('a class, unit -> string option, unit, unit) Property.t
+    val flagsProp : ('a class, unit -> d_bus_server_flags_t, unit, d_bus_server_flags_t -> unit) Property.t
+    val guidProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
   end

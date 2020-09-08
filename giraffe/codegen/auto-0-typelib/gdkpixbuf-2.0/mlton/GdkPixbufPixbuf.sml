@@ -1493,47 +1493,71 @@ structure GdkPixbufPixbuf :>
            & value
         )
     local
-      open Property
+      open ValueAccessor
     in
       val bitsPerSampleProp =
         {
-          get = fn x => get "bits-per-sample" int x,
-          new = fn x => new "bits-per-sample" int x
+          name = "bits-per-sample",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = fn x => C.set int x
         }
       val colorspaceProp =
         {
-          get = fn x => get "colorspace" GdkPixbufColorspace.t x,
-          new = fn x => new "colorspace" GdkPixbufColorspace.t x
+          name = "colorspace",
+          gtype = fn () => C.gtype GdkPixbufColorspace.t (),
+          get = fn x => fn () => C.get GdkPixbufColorspace.t x,
+          set = ignore,
+          init = fn x => C.set GdkPixbufColorspace.t x
         }
       val hasAlphaProp =
         {
-          get = fn x => get "has-alpha" boolean x,
-          new = fn x => new "has-alpha" boolean x
+          name = "has-alpha",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val heightProp =
         {
-          get = fn x => get "height" int x,
-          new = fn x => new "height" int x
+          name = "height",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = fn x => C.set int x
         }
       val nChannelsProp =
         {
-          get = fn x => get "n-channels" int x,
-          new = fn x => new "n-channels" int x
+          name = "n-channels",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = fn x => C.set int x
         }
       val pixelBytesProp =
         {
-          get = fn x => get "pixel-bytes" GLibBytesRecord.tOpt x,
-          new = fn x => new "pixel-bytes" GLibBytesRecord.tOpt x
+          name = "pixel-bytes",
+          gtype = fn () => C.gtype GLibBytesRecord.tOpt (),
+          get = fn x => fn () => C.get GLibBytesRecord.tOpt x,
+          set = ignore,
+          init = fn x => C.set GLibBytesRecord.tOpt x
         }
       val rowstrideProp =
         {
-          get = fn x => get "rowstride" int x,
-          new = fn x => new "rowstride" int x
+          name = "rowstride",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = fn x => C.set int x
         }
       val widthProp =
         {
-          get = fn x => get "width" int x,
-          new = fn x => new "width" int x
+          name = "width",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = fn x => C.set int x
         }
     end
   end

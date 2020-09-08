@@ -308,16 +308,47 @@ structure GtkCellAreaContext :>
         )
     fun reset self = (GtkCellAreaContextClass.FFI.withPtr false ---> I) reset_ self
     local
-      open Property
+      open ValueAccessor
     in
       val areaProp =
         {
-          get = fn x => get "area" GtkCellAreaClass.tOpt x,
-          new = fn x => new "area" GtkCellAreaClass.tOpt x
+          name = "area",
+          gtype = fn () => C.gtype GtkCellAreaClass.tOpt (),
+          get = fn x => fn () => C.get GtkCellAreaClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkCellAreaClass.tOpt x
         }
-      val minimumHeightProp = {get = fn x => get "minimum-height" int x}
-      val minimumWidthProp = {get = fn x => get "minimum-width" int x}
-      val naturalHeightProp = {get = fn x => get "natural-height" int x}
-      val naturalWidthProp = {get = fn x => get "natural-width" int x}
+      val minimumHeightProp =
+        {
+          name = "minimum-height",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
+      val minimumWidthProp =
+        {
+          name = "minimum-width",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
+      val naturalHeightProp =
+        {
+          name = "natural-height",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
+      val naturalWidthProp =
+        {
+          name = "natural-width",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

@@ -10,9 +10,5 @@ signature GIO_FILE_ICON =
     val getType : unit -> GObject.Type.t
     val new : 'a file_class -> base class
     val getFile : 'a class -> base file_class
-    val fileProp :
-      {
-        get : 'a class -> base file_class option,
-        new : 'b file_class option -> 'a class Property.t
-      }
+    val fileProp : ('a class, unit -> base file_class option, unit, 'b file_class option -> unit) Property.t
   end

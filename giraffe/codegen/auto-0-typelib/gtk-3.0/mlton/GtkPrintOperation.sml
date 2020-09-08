@@ -235,100 +235,151 @@ structure GtkPrintOperation :>
           )
     end
     local
-      open Property
+      open ValueAccessor
     in
       val allowAsyncProp =
         {
-          get = fn x => get "allow-async" boolean x,
-          set = fn x => set "allow-async" boolean x,
-          new = fn x => new "allow-async" boolean x
+          name = "allow-async",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val currentPageProp =
         {
-          get = fn x => get "current-page" int x,
-          set = fn x => set "current-page" int x,
-          new = fn x => new "current-page" int x
+          name = "current-page",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val customTabLabelProp =
         {
-          get = fn x => get "custom-tab-label" stringOpt x,
-          set = fn x => set "custom-tab-label" stringOpt x,
-          new = fn x => new "custom-tab-label" stringOpt x
+          name = "custom-tab-label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val defaultPageSetupProp =
         {
-          get = fn x => get "default-page-setup" GtkPageSetupClass.tOpt x,
-          set = fn x => set "default-page-setup" GtkPageSetupClass.tOpt x,
-          new = fn x => new "default-page-setup" GtkPageSetupClass.tOpt x
+          name = "default-page-setup",
+          gtype = fn () => C.gtype GtkPageSetupClass.tOpt (),
+          get = fn x => fn () => C.get GtkPageSetupClass.tOpt x,
+          set = fn x => C.set GtkPageSetupClass.tOpt x,
+          init = fn x => C.set GtkPageSetupClass.tOpt x
         }
       val embedPageSetupProp =
         {
-          get = fn x => get "embed-page-setup" boolean x,
-          set = fn x => set "embed-page-setup" boolean x,
-          new = fn x => new "embed-page-setup" boolean x
+          name = "embed-page-setup",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val exportFilenameProp =
         {
-          get = fn x => get "export-filename" stringOpt x,
-          set = fn x => set "export-filename" stringOpt x,
-          new = fn x => new "export-filename" stringOpt x
+          name = "export-filename",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val hasSelectionProp =
         {
-          get = fn x => get "has-selection" boolean x,
-          set = fn x => set "has-selection" boolean x,
-          new = fn x => new "has-selection" boolean x
+          name = "has-selection",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val jobNameProp =
         {
-          get = fn x => get "job-name" stringOpt x,
-          set = fn x => set "job-name" stringOpt x,
-          new = fn x => new "job-name" stringOpt x
+          name = "job-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val nPagesProp =
         {
-          get = fn x => get "n-pages" int x,
-          set = fn x => set "n-pages" int x,
-          new = fn x => new "n-pages" int x
+          name = "n-pages",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
-      val nPagesToPrintProp = {get = fn x => get "n-pages-to-print" int x}
+      val nPagesToPrintProp =
+        {
+          name = "n-pages-to-print",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
       val printSettingsProp =
         {
-          get = fn x => get "print-settings" GtkPrintSettingsClass.tOpt x,
-          set = fn x => set "print-settings" GtkPrintSettingsClass.tOpt x,
-          new = fn x => new "print-settings" GtkPrintSettingsClass.tOpt x
+          name = "print-settings",
+          gtype = fn () => C.gtype GtkPrintSettingsClass.tOpt (),
+          get = fn x => fn () => C.get GtkPrintSettingsClass.tOpt x,
+          set = fn x => C.set GtkPrintSettingsClass.tOpt x,
+          init = fn x => C.set GtkPrintSettingsClass.tOpt x
         }
       val showProgressProp =
         {
-          get = fn x => get "show-progress" boolean x,
-          set = fn x => set "show-progress" boolean x,
-          new = fn x => new "show-progress" boolean x
+          name = "show-progress",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
-      val statusProp = {get = fn x => get "status" GtkPrintStatus.t x}
-      val statusStringProp = {get = fn x => get "status-string" stringOpt x}
+      val statusProp =
+        {
+          name = "status",
+          gtype = fn () => C.gtype GtkPrintStatus.t (),
+          get = fn x => fn () => C.get GtkPrintStatus.t x,
+          set = ignore,
+          init = ignore
+        }
+      val statusStringProp =
+        {
+          name = "status-string",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
       val supportSelectionProp =
         {
-          get = fn x => get "support-selection" boolean x,
-          set = fn x => set "support-selection" boolean x,
-          new = fn x => new "support-selection" boolean x
+          name = "support-selection",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val trackPrintStatusProp =
         {
-          get = fn x => get "track-print-status" boolean x,
-          set = fn x => set "track-print-status" boolean x,
-          new = fn x => new "track-print-status" boolean x
+          name = "track-print-status",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val unitProp =
         {
-          get = fn x => get "unit" GtkUnit.t x,
-          set = fn x => set "unit" GtkUnit.t x,
-          new = fn x => new "unit" GtkUnit.t x
+          name = "unit",
+          gtype = fn () => C.gtype GtkUnit.t (),
+          get = fn x => fn () => C.get GtkUnit.t x,
+          set = fn x => C.set GtkUnit.t x,
+          init = fn x => C.set GtkUnit.t x
         }
       val useFullPageProp =
         {
-          get = fn x => get "use-full-page" boolean x,
-          set = fn x => set "use-full-page" boolean x,
-          new = fn x => new "use-full-page" boolean x
+          name = "use-full-page",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

@@ -57,43 +57,55 @@ structure GtkFontButton :>
       fun fontSetSig f = signal "font-set" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val fontNameProp =
         {
-          get = fn x => get "font-name" stringOpt x,
-          set = fn x => set "font-name" stringOpt x,
-          new = fn x => new "font-name" stringOpt x
+          name = "font-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val showSizeProp =
         {
-          get = fn x => get "show-size" boolean x,
-          set = fn x => set "show-size" boolean x,
-          new = fn x => new "show-size" boolean x
+          name = "show-size",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showStyleProp =
         {
-          get = fn x => get "show-style" boolean x,
-          set = fn x => set "show-style" boolean x,
-          new = fn x => new "show-style" boolean x
+          name = "show-style",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val titleProp =
         {
-          get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x,
-          new = fn x => new "title" stringOpt x
+          name = "title",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val useFontProp =
         {
-          get = fn x => get "use-font" boolean x,
-          set = fn x => set "use-font" boolean x,
-          new = fn x => new "use-font" boolean x
+          name = "use-font",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val useSizeProp =
         {
-          get = fn x => get "use-size" boolean x,
-          set = fn x => set "use-size" boolean x,
-          new = fn x => new "use-size" boolean x
+          name = "use-size",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

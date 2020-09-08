@@ -12,43 +12,55 @@ structure GtkCellRendererProgress :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCellRendererProgressClass.FFI.fromPtr false) new_ ()
     local
-      open Property
+      open ValueAccessor
     in
       val invertedProp =
         {
-          get = fn x => get "inverted" boolean x,
-          set = fn x => set "inverted" boolean x,
-          new = fn x => new "inverted" boolean x
+          name = "inverted",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val pulseProp =
         {
-          get = fn x => get "pulse" int x,
-          set = fn x => set "pulse" int x,
-          new = fn x => new "pulse" int x
+          name = "pulse",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val textProp =
         {
-          get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x,
-          new = fn x => new "text" stringOpt x
+          name = "text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val textXalignProp =
         {
-          get = fn x => get "text-xalign" float x,
-          set = fn x => set "text-xalign" float x,
-          new = fn x => new "text-xalign" float x
+          name = "text-xalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val textYalignProp =
         {
-          get = fn x => get "text-yalign" float x,
-          set = fn x => set "text-yalign" float x,
-          new = fn x => new "text-yalign" float x
+          name = "text-yalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val valueProp =
         {
-          get = fn x => get "value" int x,
-          set = fn x => set "value" int x,
-          new = fn x => new "value" int x
+          name = "value",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

@@ -152,97 +152,127 @@ structure GtkScrolledWindow :>
       fun scrollChildSig f = signal "scroll-child" (get 0w1 GtkScrollType.t &&&> get 0w2 boolean ---> ret boolean) (fn scroll & horizontal => f (scroll, horizontal))
     end
     local
-      open Property
+      open ValueAccessor
     in
       val hadjustmentProp =
         {
-          get = fn x => get "hadjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "hadjustment" GtkAdjustmentClass.tOpt x,
-          new = fn x => new "hadjustment" GtkAdjustmentClass.tOpt x
+          name = "hadjustment",
+          gtype = fn () => C.gtype GtkAdjustmentClass.tOpt (),
+          get = fn x => fn () => C.get GtkAdjustmentClass.tOpt x,
+          set = fn x => C.set GtkAdjustmentClass.tOpt x,
+          init = fn x => C.set GtkAdjustmentClass.tOpt x
         }
       val hscrollbarPolicyProp =
         {
-          get = fn x => get "hscrollbar-policy" GtkPolicyType.t x,
-          set = fn x => set "hscrollbar-policy" GtkPolicyType.t x,
-          new = fn x => new "hscrollbar-policy" GtkPolicyType.t x
+          name = "hscrollbar-policy",
+          gtype = fn () => C.gtype GtkPolicyType.t (),
+          get = fn x => fn () => C.get GtkPolicyType.t x,
+          set = fn x => C.set GtkPolicyType.t x,
+          init = fn x => C.set GtkPolicyType.t x
         }
       val kineticScrollingProp =
         {
-          get = fn x => get "kinetic-scrolling" boolean x,
-          set = fn x => set "kinetic-scrolling" boolean x,
-          new = fn x => new "kinetic-scrolling" boolean x
+          name = "kinetic-scrolling",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val maxContentHeightProp =
         {
-          get = fn x => get "max-content-height" int x,
-          set = fn x => set "max-content-height" int x,
-          new = fn x => new "max-content-height" int x
+          name = "max-content-height",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val maxContentWidthProp =
         {
-          get = fn x => get "max-content-width" int x,
-          set = fn x => set "max-content-width" int x,
-          new = fn x => new "max-content-width" int x
+          name = "max-content-width",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val minContentHeightProp =
         {
-          get = fn x => get "min-content-height" int x,
-          set = fn x => set "min-content-height" int x,
-          new = fn x => new "min-content-height" int x
+          name = "min-content-height",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val minContentWidthProp =
         {
-          get = fn x => get "min-content-width" int x,
-          set = fn x => set "min-content-width" int x,
-          new = fn x => new "min-content-width" int x
+          name = "min-content-width",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val overlayScrollingProp =
         {
-          get = fn x => get "overlay-scrolling" boolean x,
-          set = fn x => set "overlay-scrolling" boolean x,
-          new = fn x => new "overlay-scrolling" boolean x
+          name = "overlay-scrolling",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val propagateNaturalHeightProp =
         {
-          get = fn x => get "propagate-natural-height" boolean x,
-          set = fn x => set "propagate-natural-height" boolean x,
-          new = fn x => new "propagate-natural-height" boolean x
+          name = "propagate-natural-height",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val propagateNaturalWidthProp =
         {
-          get = fn x => get "propagate-natural-width" boolean x,
-          set = fn x => set "propagate-natural-width" boolean x,
-          new = fn x => new "propagate-natural-width" boolean x
+          name = "propagate-natural-width",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val shadowTypeProp =
         {
-          get = fn x => get "shadow-type" GtkShadowType.t x,
-          set = fn x => set "shadow-type" GtkShadowType.t x,
-          new = fn x => new "shadow-type" GtkShadowType.t x
+          name = "shadow-type",
+          gtype = fn () => C.gtype GtkShadowType.t (),
+          get = fn x => fn () => C.get GtkShadowType.t x,
+          set = fn x => C.set GtkShadowType.t x,
+          init = fn x => C.set GtkShadowType.t x
         }
       val vadjustmentProp =
         {
-          get = fn x => get "vadjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "vadjustment" GtkAdjustmentClass.tOpt x,
-          new = fn x => new "vadjustment" GtkAdjustmentClass.tOpt x
+          name = "vadjustment",
+          gtype = fn () => C.gtype GtkAdjustmentClass.tOpt (),
+          get = fn x => fn () => C.get GtkAdjustmentClass.tOpt x,
+          set = fn x => C.set GtkAdjustmentClass.tOpt x,
+          init = fn x => C.set GtkAdjustmentClass.tOpt x
         }
       val vscrollbarPolicyProp =
         {
-          get = fn x => get "vscrollbar-policy" GtkPolicyType.t x,
-          set = fn x => set "vscrollbar-policy" GtkPolicyType.t x,
-          new = fn x => new "vscrollbar-policy" GtkPolicyType.t x
+          name = "vscrollbar-policy",
+          gtype = fn () => C.gtype GtkPolicyType.t (),
+          get = fn x => fn () => C.get GtkPolicyType.t x,
+          set = fn x => C.set GtkPolicyType.t x,
+          init = fn x => C.set GtkPolicyType.t x
         }
       val windowPlacementProp =
         {
-          get = fn x => get "window-placement" GtkCornerType.t x,
-          set = fn x => set "window-placement" GtkCornerType.t x,
-          new = fn x => new "window-placement" GtkCornerType.t x
+          name = "window-placement",
+          gtype = fn () => C.gtype GtkCornerType.t (),
+          get = fn x => fn () => C.get GtkCornerType.t x,
+          set = fn x => C.set GtkCornerType.t x,
+          init = fn x => C.set GtkCornerType.t x
         }
       val windowPlacementSetProp =
         {
-          get = fn x => get "window-placement-set" boolean x,
-          set = fn x => set "window-placement-set" boolean x,
-          new = fn x => new "window-placement-set" boolean x
+          name = "window-placement-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

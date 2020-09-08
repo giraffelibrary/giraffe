@@ -42,25 +42,31 @@ structure GtkToggleButton :>
       fun toggledSig f = signal "toggled" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val activeProp =
         {
-          get = fn x => get "active" boolean x,
-          set = fn x => set "active" boolean x,
-          new = fn x => new "active" boolean x
+          name = "active",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val drawIndicatorProp =
         {
-          get = fn x => get "draw-indicator" boolean x,
-          set = fn x => set "draw-indicator" boolean x,
-          new = fn x => new "draw-indicator" boolean x
+          name = "draw-indicator",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val inconsistentProp =
         {
-          get = fn x => get "inconsistent" boolean x,
-          set = fn x => set "inconsistent" boolean x,
-          new = fn x => new "inconsistent" boolean x
+          name = "inconsistent",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

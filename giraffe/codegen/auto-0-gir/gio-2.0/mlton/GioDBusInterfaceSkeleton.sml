@@ -80,13 +80,15 @@ structure GioDBusInterfaceSkeleton :>
       fun gAuthorizeMethodSig f = signal "g-authorize-method" (get 0w1 GioDBusMethodInvocationClass.t ---> ret boolean) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val gFlagsProp =
         {
-          get = fn x => get "g-flags" GioDBusInterfaceSkeletonFlags.t x,
-          set = fn x => set "g-flags" GioDBusInterfaceSkeletonFlags.t x,
-          new = fn x => new "g-flags" GioDBusInterfaceSkeletonFlags.t x
+          name = "g-flags",
+          gtype = fn () => C.gtype GioDBusInterfaceSkeletonFlags.t (),
+          get = fn x => fn () => C.get GioDBusInterfaceSkeletonFlags.t x,
+          set = fn x => C.set GioDBusInterfaceSkeletonFlags.t x,
+          init = fn x => C.set GioDBusInterfaceSkeletonFlags.t x
         }
     end
   end

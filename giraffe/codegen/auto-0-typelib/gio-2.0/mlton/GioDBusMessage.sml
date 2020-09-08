@@ -472,8 +472,15 @@ structure GioDBusMessage :>
       end
     fun toGerror self = (GioDBusMessageClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) toGerror_ (self & [])
     local
-      open Property
+      open ValueAccessor
     in
-      val lockedProp = {get = fn x => get "locked" boolean x}
+      val lockedProp =
+        {
+          name = "locked",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

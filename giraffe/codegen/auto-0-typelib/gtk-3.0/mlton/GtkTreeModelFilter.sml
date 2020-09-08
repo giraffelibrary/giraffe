@@ -99,17 +99,23 @@ structure GtkTreeModelFilter :>
     fun refilter self = (GtkTreeModelFilterClass.FFI.withPtr false ---> I) refilter_ self
     fun setVisibleColumn self column = (GtkTreeModelFilterClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setVisibleColumn_ (self & column)
     local
-      open Property
+      open ValueAccessor
     in
       val childModelProp =
         {
-          get = fn x => get "child-model" GtkTreeModelClass.tOpt x,
-          new = fn x => new "child-model" GtkTreeModelClass.tOpt x
+          name = "child-model",
+          gtype = fn () => C.gtype GtkTreeModelClass.tOpt (),
+          get = fn x => fn () => C.get GtkTreeModelClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkTreeModelClass.tOpt x
         }
       val virtualRootProp =
         {
-          get = fn x => get "virtual-root" GtkTreePathRecord.tOpt x,
-          new = fn x => new "virtual-root" GtkTreePathRecord.tOpt x
+          name = "virtual-root",
+          gtype = fn () => C.gtype GtkTreePathRecord.tOpt (),
+          get = fn x => fn () => C.get GtkTreePathRecord.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkTreePathRecord.tOpt x
         }
     end
   end

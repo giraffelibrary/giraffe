@@ -22,19 +22,23 @@ structure GtkStackSwitcher :>
     fun getStack self = (GtkStackSwitcherClass.FFI.withPtr false ---> GtkStackClass.FFI.fromOptPtr false) getStack_ self
     fun setStack self stack = (GtkStackSwitcherClass.FFI.withPtr false &&&> GtkStackClass.FFI.withOptPtr false ---> I) setStack_ (self & stack)
     local
-      open Property
+      open ValueAccessor
     in
       val iconSizeProp =
         {
-          get = fn x => get "icon-size" int x,
-          set = fn x => set "icon-size" int x,
-          new = fn x => new "icon-size" int x
+          name = "icon-size",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val stackProp =
         {
-          get = fn x => get "stack" GtkStackClass.tOpt x,
-          set = fn x => set "stack" GtkStackClass.tOpt x,
-          new = fn x => new "stack" GtkStackClass.tOpt x
+          name = "stack",
+          gtype = fn () => C.gtype GtkStackClass.tOpt (),
+          get = fn x => fn () => C.get GtkStackClass.tOpt x,
+          set = fn x => C.set GtkStackClass.tOpt x,
+          init = fn x => C.set GtkStackClass.tOpt x
         }
     end
   end

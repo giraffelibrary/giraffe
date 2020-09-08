@@ -127,12 +127,15 @@ structure GtkSourceRegion :>
         )
     fun toString self = (GtkSourceRegionClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) toString_ self
     local
-      open Property
+      open ValueAccessor
     in
       val bufferProp =
         {
-          get = fn x => get "buffer" GtkTextBufferClass.tOpt x,
-          new = fn x => new "buffer" GtkTextBufferClass.tOpt x
+          name = "buffer",
+          gtype = fn () => C.gtype GtkTextBufferClass.tOpt (),
+          get = fn x => fn () => C.get GtkTextBufferClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkTextBufferClass.tOpt x
         }
     end
   end

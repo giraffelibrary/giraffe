@@ -95,43 +95,55 @@ structure GioMountOperation :>
           )
     end
     local
-      open Property
+      open ValueAccessor
     in
       val anonymousProp =
         {
-          get = fn x => get "anonymous" boolean x,
-          set = fn x => set "anonymous" boolean x,
-          new = fn x => new "anonymous" boolean x
+          name = "anonymous",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val choiceProp =
         {
-          get = fn x => get "choice" int x,
-          set = fn x => set "choice" int x,
-          new = fn x => new "choice" int x
+          name = "choice",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val domainProp =
         {
-          get = fn x => get "domain" stringOpt x,
-          set = fn x => set "domain" stringOpt x,
-          new = fn x => new "domain" stringOpt x
+          name = "domain",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val passwordProp =
         {
-          get = fn x => get "password" stringOpt x,
-          set = fn x => set "password" stringOpt x,
-          new = fn x => new "password" stringOpt x
+          name = "password",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val passwordSaveProp =
         {
-          get = fn x => get "password-save" GioPasswordSave.t x,
-          set = fn x => set "password-save" GioPasswordSave.t x,
-          new = fn x => new "password-save" GioPasswordSave.t x
+          name = "password-save",
+          gtype = fn () => C.gtype GioPasswordSave.t (),
+          get = fn x => fn () => C.get GioPasswordSave.t x,
+          set = fn x => C.set GioPasswordSave.t x,
+          init = fn x => C.set GioPasswordSave.t x
         }
       val usernameProp =
         {
-          get = fn x => get "username" stringOpt x,
-          set = fn x => set "username" stringOpt x,
-          new = fn x => new "username" stringOpt x
+          name = "username",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

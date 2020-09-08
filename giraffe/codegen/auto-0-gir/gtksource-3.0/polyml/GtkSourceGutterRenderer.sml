@@ -445,63 +445,95 @@ structure GtkSourceGutterRenderer :>
       fun queueDrawSig f = signal "queue-draw" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val alignmentModeProp =
         {
-          get = fn x => get "alignment-mode" GtkSourceGutterRendererAlignmentMode.t x,
-          set = fn x => set "alignment-mode" GtkSourceGutterRendererAlignmentMode.t x,
-          new = fn x => new "alignment-mode" GtkSourceGutterRendererAlignmentMode.t x
+          name = "alignment-mode",
+          gtype = fn () => C.gtype GtkSourceGutterRendererAlignmentMode.t (),
+          get = fn x => fn () => C.get GtkSourceGutterRendererAlignmentMode.t x,
+          set = fn x => C.set GtkSourceGutterRendererAlignmentMode.t x,
+          init = fn x => C.set GtkSourceGutterRendererAlignmentMode.t x
         }
       val backgroundRgbaProp =
         {
-          get = fn x => get "background-rgba" GdkRgbaRecord.tOpt x,
-          set = fn x => set "background-rgba" GdkRgbaRecord.tOpt x,
-          new = fn x => new "background-rgba" GdkRgbaRecord.tOpt x
+          name = "background-rgba",
+          gtype = fn () => C.gtype GdkRgbaRecord.tOpt (),
+          get = fn x => fn () => C.get GdkRgbaRecord.tOpt x,
+          set = fn x => C.set GdkRgbaRecord.tOpt x,
+          init = fn x => C.set GdkRgbaRecord.tOpt x
         }
       val backgroundSetProp =
         {
-          get = fn x => get "background-set" boolean x,
-          set = fn x => set "background-set" boolean x,
-          new = fn x => new "background-set" boolean x
+          name = "background-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val sizeProp =
         {
-          get = fn x => get "size" int x,
-          set = fn x => set "size" int x,
-          new = fn x => new "size" int x
+          name = "size",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
-      val viewProp = {get = fn x => get "view" GtkTextViewClass.tOpt x}
+      val viewProp =
+        {
+          name = "view",
+          gtype = fn () => C.gtype GtkTextViewClass.tOpt (),
+          get = fn x => fn () => C.get GtkTextViewClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
       val visibleProp =
         {
-          get = fn x => get "visible" boolean x,
-          set = fn x => set "visible" boolean x,
-          new = fn x => new "visible" boolean x
+          name = "visible",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
-      val windowTypeProp = {get = fn x => get "window-type" GtkTextWindowType.t x}
+      val windowTypeProp =
+        {
+          name = "window-type",
+          gtype = fn () => C.gtype GtkTextWindowType.t (),
+          get = fn x => fn () => C.get GtkTextWindowType.t x,
+          set = ignore,
+          init = ignore
+        }
       val xalignProp =
         {
-          get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x,
-          new = fn x => new "xalign" float x
+          name = "xalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val xpadProp =
         {
-          get = fn x => get "xpad" int x,
-          set = fn x => set "xpad" int x,
-          new = fn x => new "xpad" int x
+          name = "xpad",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val yalignProp =
         {
-          get = fn x => get "yalign" float x,
-          set = fn x => set "yalign" float x,
-          new = fn x => new "yalign" float x
+          name = "yalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val ypadProp =
         {
-          get = fn x => get "ypad" int x,
-          set = fn x => set "ypad" int x,
-          new = fn x => new "ypad" int x
+          name = "ypad",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2015, 2017-2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2015, 2017-2018, 2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -29,10 +29,13 @@ signature VALUE_ACCESSOR =
             getValue : value_v -> 'a,
             setValue : (value_v, 'b) pair -> unit
           }
-            -> ('a, 'b) t
+           -> ('a, 'b) t
 
+        val gtype : ('a, 'b) t -> unit -> type_t
         val get : ('a, 'b) t -> value_v -> 'a
         val set : ('a, 'b) t -> value_v -> 'b -> unit
+
+        val init : value_v -> type_t -> unit
 
         val isValue : value_v -> bool
       end

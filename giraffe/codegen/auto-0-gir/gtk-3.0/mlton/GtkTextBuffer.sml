@@ -1729,22 +1729,55 @@ structure GtkTextBuffer :>
           )
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val copyTargetListProp = {get = fn x => get "copy-target-list" GtkTargetListRecord.tOpt x}
-      val cursorPositionProp = {get = fn x => get "cursor-position" int x}
-      val hasSelectionProp = {get = fn x => get "has-selection" boolean x}
-      val pasteTargetListProp = {get = fn x => get "paste-target-list" GtkTargetListRecord.tOpt x}
+      val copyTargetListProp =
+        {
+          name = "copy-target-list",
+          gtype = fn () => C.gtype GtkTargetListRecord.tOpt (),
+          get = fn x => fn () => C.get GtkTargetListRecord.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val cursorPositionProp =
+        {
+          name = "cursor-position",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
+      val hasSelectionProp =
+        {
+          name = "has-selection",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val pasteTargetListProp =
+        {
+          name = "paste-target-list",
+          gtype = fn () => C.gtype GtkTargetListRecord.tOpt (),
+          get = fn x => fn () => C.get GtkTargetListRecord.tOpt x,
+          set = ignore,
+          init = ignore
+        }
       val tagTableProp =
         {
-          get = fn x => get "tag-table" GtkTextTagTableClass.tOpt x,
-          new = fn x => new "tag-table" GtkTextTagTableClass.tOpt x
+          name = "tag-table",
+          gtype = fn () => C.gtype GtkTextTagTableClass.tOpt (),
+          get = fn x => fn () => C.get GtkTextTagTableClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkTextTagTableClass.tOpt x
         }
       val textProp =
         {
-          get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x,
-          new = fn x => new "text" stringOpt x
+          name = "text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

@@ -9,10 +9,6 @@ signature GIO_ZLIB_DECOMPRESSOR =
     val getType : unit -> GObject.Type.t
     val new : zlib_compressor_format_t -> base class
     val getFileInfo : 'a class -> base file_info_class
-    val fileInfoProp : {get : 'a class -> base file_info_class option}
-    val formatProp :
-      {
-        get : 'a class -> zlib_compressor_format_t,
-        new : zlib_compressor_format_t -> 'a class Property.t
-      }
+    val fileInfoProp : ('a class, unit -> base file_info_class option, unit, unit) Property.t
+    val formatProp : ('a class, unit -> zlib_compressor_format_t, unit, zlib_compressor_format_t -> unit) Property.t
   end

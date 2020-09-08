@@ -24,22 +24,6 @@ signature GTK_FILE_CHOOSER_NATIVE =
       'a class
        -> string option
        -> unit
-    val acceptLabelProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val cancelLabelProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val acceptLabelProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val cancelLabelProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

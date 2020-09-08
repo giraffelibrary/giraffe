@@ -23,13 +23,15 @@ structure GtkInvisible :>
     fun getScreen self = (GtkInvisibleClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
     fun setScreen self screen = (GtkInvisibleClass.FFI.withPtr false &&&> GdkScreenClass.FFI.withPtr false ---> I) setScreen_ (self & screen)
     local
-      open Property
+      open ValueAccessor
     in
       val screenProp =
         {
-          get = fn x => get "screen" GdkScreenClass.tOpt x,
-          set = fn x => set "screen" GdkScreenClass.tOpt x,
-          new = fn x => new "screen" GdkScreenClass.tOpt x
+          name = "screen",
+          gtype = fn () => C.gtype GdkScreenClass.tOpt (),
+          get = fn x => fn () => C.get GdkScreenClass.tOpt x,
+          set = fn x => C.set GdkScreenClass.tOpt x,
+          init = fn x => C.set GdkScreenClass.tOpt x
         }
     end
   end

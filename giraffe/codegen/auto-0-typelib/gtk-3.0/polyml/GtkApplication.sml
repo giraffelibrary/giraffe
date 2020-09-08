@@ -157,26 +157,39 @@ structure GtkApplication :>
       fun windowRemovedSig f = signal "window-removed" (get 0w1 GtkWindowClass.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val activeWindowProp = {get = fn x => get "active-window" GtkWindowClass.tOpt x}
+      val activeWindowProp =
+        {
+          name = "active-window",
+          gtype = fn () => C.gtype GtkWindowClass.tOpt (),
+          get = fn x => fn () => C.get GtkWindowClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
       val appMenuProp =
         {
-          get = fn x => get "app-menu" GioMenuModelClass.tOpt x,
-          set = fn x => set "app-menu" GioMenuModelClass.tOpt x,
-          new = fn x => new "app-menu" GioMenuModelClass.tOpt x
+          name = "app-menu",
+          gtype = fn () => C.gtype GioMenuModelClass.tOpt (),
+          get = fn x => fn () => C.get GioMenuModelClass.tOpt x,
+          set = fn x => C.set GioMenuModelClass.tOpt x,
+          init = fn x => C.set GioMenuModelClass.tOpt x
         }
       val menubarProp =
         {
-          get = fn x => get "menubar" GioMenuModelClass.tOpt x,
-          set = fn x => set "menubar" GioMenuModelClass.tOpt x,
-          new = fn x => new "menubar" GioMenuModelClass.tOpt x
+          name = "menubar",
+          gtype = fn () => C.gtype GioMenuModelClass.tOpt (),
+          get = fn x => fn () => C.get GioMenuModelClass.tOpt x,
+          set = fn x => C.set GioMenuModelClass.tOpt x,
+          init = fn x => C.set GioMenuModelClass.tOpt x
         }
       val registerSessionProp =
         {
-          get = fn x => get "register-session" boolean x,
-          set = fn x => set "register-session" boolean x,
-          new = fn x => new "register-session" boolean x
+          name = "register-session",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

@@ -21,11 +21,39 @@ structure GtkColorSelectionDialog :>
     fun new title = (Utf8.FFI.withPtr 0 ---> GtkColorSelectionDialogClass.FFI.fromPtr false) new_ title
     fun getColorSelection self = (GtkColorSelectionDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getColorSelection_ self
     local
-      open Property
+      open ValueAccessor
     in
-      val cancelButtonProp = {get = fn x => get "cancel-button" GtkWidgetClass.tOpt x}
-      val colorSelectionProp = {get = fn x => get "color-selection" GtkWidgetClass.tOpt x}
-      val helpButtonProp = {get = fn x => get "help-button" GtkWidgetClass.tOpt x}
-      val okButtonProp = {get = fn x => get "ok-button" GtkWidgetClass.tOpt x}
+      val cancelButtonProp =
+        {
+          name = "cancel-button",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val colorSelectionProp =
+        {
+          name = "color-selection",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val helpButtonProp =
+        {
+          name = "help-button",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val okButtonProp =
+        {
+          name = "ok-button",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

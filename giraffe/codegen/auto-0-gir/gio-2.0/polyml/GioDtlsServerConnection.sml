@@ -38,13 +38,15 @@ structure GioDtlsServerConnection :>
            & []
         )
     local
-      open Property
+      open ValueAccessor
     in
       val authenticationModeProp =
         {
-          get = fn x => get "authentication-mode" GioTlsAuthenticationMode.t x,
-          set = fn x => set "authentication-mode" GioTlsAuthenticationMode.t x,
-          new = fn x => new "authentication-mode" GioTlsAuthenticationMode.t x
+          name = "authentication-mode",
+          gtype = fn () => C.gtype GioTlsAuthenticationMode.t (),
+          get = fn x => fn () => C.get GioTlsAuthenticationMode.t x,
+          set = fn x => C.set GioTlsAuthenticationMode.t x,
+          init = fn x => C.set GioTlsAuthenticationMode.t x
         }
     end
   end

@@ -16,8 +16,15 @@ structure GioSocketAddress :>
     fun getFamily self = (GioSocketAddressClass.FFI.withPtr false ---> GioSocketFamily.FFI.fromVal) getFamily_ self
     fun getNativeSize self = (GioSocketAddressClass.FFI.withPtr false ---> GInt64.FFI.fromVal) getNativeSize_ self
     local
-      open Property
+      open ValueAccessor
     in
-      val familyProp = {get = fn x => get "family" GioSocketFamily.t x}
+      val familyProp =
+        {
+          name = "family",
+          gtype = fn () => C.gtype GioSocketFamily.t (),
+          get = fn x => fn () => C.get GioSocketFamily.t x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

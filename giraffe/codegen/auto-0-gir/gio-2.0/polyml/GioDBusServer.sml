@@ -76,29 +76,55 @@ structure GioDBusServer :>
       fun newConnectionSig f = signal "new-connection" (get 0w1 GioDBusConnectionClass.t ---> ret boolean) f
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val activeProp = {get = fn x => get "active" boolean x}
+      val activeProp =
+        {
+          name = "active",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val addressProp =
         {
-          get = fn x => get "address" stringOpt x,
-          new = fn x => new "address" stringOpt x
+          name = "address",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val authenticationObserverProp =
         {
-          get = fn x => get "authentication-observer" GioDBusAuthObserverClass.tOpt x,
-          new = fn x => new "authentication-observer" GioDBusAuthObserverClass.tOpt x
+          name = "authentication-observer",
+          gtype = fn () => C.gtype GioDBusAuthObserverClass.tOpt (),
+          get = fn x => fn () => C.get GioDBusAuthObserverClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioDBusAuthObserverClass.tOpt x
         }
-      val clientAddressProp = {get = fn x => get "client-address" stringOpt x}
+      val clientAddressProp =
+        {
+          name = "client-address",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
       val flagsProp =
         {
-          get = fn x => get "flags" GioDBusServerFlags.t x,
-          new = fn x => new "flags" GioDBusServerFlags.t x
+          name = "flags",
+          gtype = fn () => C.gtype GioDBusServerFlags.t (),
+          get = fn x => fn () => C.get GioDBusServerFlags.t x,
+          set = ignore,
+          init = fn x => C.set GioDBusServerFlags.t x
         }
       val guidProp =
         {
-          get = fn x => get "guid" stringOpt x,
-          new = fn x => new "guid" stringOpt x
+          name = "guid",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

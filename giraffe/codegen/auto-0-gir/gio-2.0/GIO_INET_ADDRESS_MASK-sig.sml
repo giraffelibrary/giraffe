@@ -21,23 +21,7 @@ signature GIO_INET_ADDRESS_MASK =
        -> 'b inet_address_class
        -> bool
     val toString : 'a class -> string
-    val addressProp :
-      {
-        get : 'a class -> base inet_address_class option,
-        set :
-          'b inet_address_class option
-           -> 'a class
-           -> unit,
-        new : 'b inet_address_class option -> 'a class Property.t
-      }
-    val familyProp : {get : 'a class -> socket_family_t}
-    val lengthProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val addressProp : ('a class, unit -> base inet_address_class option, 'b inet_address_class option -> unit, 'b inet_address_class option -> unit) Property.t
+    val familyProp : ('a class, unit -> socket_family_t, unit, unit) Property.t
+    val lengthProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
   end

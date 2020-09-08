@@ -75,14 +75,23 @@ structure GioFileMonitor :>
           )
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val cancelledProp = {get = fn x => get "cancelled" boolean x}
+      val cancelledProp =
+        {
+          name = "cancelled",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val rateLimitProp =
         {
-          get = fn x => get "rate-limit" int x,
-          set = fn x => set "rate-limit" int x,
-          new = fn x => new "rate-limit" int x
+          name = "rate-limit",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

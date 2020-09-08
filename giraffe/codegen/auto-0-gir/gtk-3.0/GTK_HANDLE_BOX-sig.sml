@@ -28,41 +28,9 @@ signature GTK_HANDLE_BOX =
        -> unit
     val childAttachedSig : (base widget_class -> unit) -> 'a class Signal.t
     val childDetachedSig : (base widget_class -> unit) -> 'a class Signal.t
-    val childDetachedProp : {get : 'a class -> bool}
-    val handlePositionProp :
-      {
-        get : 'a class -> position_type_t,
-        set :
-          position_type_t
-           -> 'a class
-           -> unit,
-        new : position_type_t -> 'a class Property.t
-      }
-    val shadowTypeProp :
-      {
-        get : 'a class -> shadow_type_t,
-        set :
-          shadow_type_t
-           -> 'a class
-           -> unit,
-        new : shadow_type_t -> 'a class Property.t
-      }
-    val snapEdgeProp :
-      {
-        get : 'a class -> position_type_t,
-        set :
-          position_type_t
-           -> 'a class
-           -> unit,
-        new : position_type_t -> 'a class Property.t
-      }
-    val snapEdgeSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val childDetachedProp : ('a class, unit -> bool, unit, unit) Property.t
+    val handlePositionProp : ('a class, unit -> position_type_t, position_type_t -> unit, position_type_t -> unit) Property.t
+    val shadowTypeProp : ('a class, unit -> shadow_type_t, shadow_type_t -> unit, shadow_type_t -> unit) Property.t
+    val snapEdgeProp : ('a class, unit -> position_type_t, position_type_t -> unit, position_type_t -> unit) Property.t
+    val snapEdgeSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

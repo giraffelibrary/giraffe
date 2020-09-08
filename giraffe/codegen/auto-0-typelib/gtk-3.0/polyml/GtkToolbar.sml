@@ -147,31 +147,39 @@ structure GtkToolbar :>
       fun styleChangedSig f = signal "style-changed" (get 0w1 GtkToolbarStyle.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val iconSizeProp =
         {
-          get = fn x => get "icon-size" GtkIconSize.t x,
-          set = fn x => set "icon-size" GtkIconSize.t x,
-          new = fn x => new "icon-size" GtkIconSize.t x
+          name = "icon-size",
+          gtype = fn () => C.gtype GtkIconSize.t (),
+          get = fn x => fn () => C.get GtkIconSize.t x,
+          set = fn x => C.set GtkIconSize.t x,
+          init = fn x => C.set GtkIconSize.t x
         }
       val iconSizeSetProp =
         {
-          get = fn x => get "icon-size-set" boolean x,
-          set = fn x => set "icon-size-set" boolean x,
-          new = fn x => new "icon-size-set" boolean x
+          name = "icon-size-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showArrowProp =
         {
-          get = fn x => get "show-arrow" boolean x,
-          set = fn x => set "show-arrow" boolean x,
-          new = fn x => new "show-arrow" boolean x
+          name = "show-arrow",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val toolbarStyleProp =
         {
-          get = fn x => get "toolbar-style" GtkToolbarStyle.t x,
-          set = fn x => set "toolbar-style" GtkToolbarStyle.t x,
-          new = fn x => new "toolbar-style" GtkToolbarStyle.t x
+          name = "toolbar-style",
+          gtype = fn () => C.gtype GtkToolbarStyle.t (),
+          get = fn x => fn () => C.get GtkToolbarStyle.t x,
+          set = fn x => C.set GtkToolbarStyle.t x,
+          init = fn x => C.set GtkToolbarStyle.t x
         }
     end
   end

@@ -343,9 +343,10 @@ fun makeInterfaceSig
     val specs'7 = tTySpec :: specs'6
 
     (*
-     *                                       -.
-     *     type 'object_class property_t      | isGObject and numProps > 0
-     *                                       -'
+     *                                                     -.
+     *     type ('object_class, 'get, 'set, 'init) property_t
+     *                                                      | isGObject
+     *                                                     -'  and numProps > 0
      *)
     val numProps = InterfaceInfo.getNProperties interfaceInfo
     val specs'8 = addPropertySpecs interfaceNamespace numProps specs'7
@@ -461,7 +462,7 @@ fun addInterfacePropertyStrDecs repo interfaceIRef =
                   StrDecDec (
                     DecOpen (
                       toList1 [
-                        toList1 [propertyStrId]
+                        toList1 [valueAccessorStrId]
                       ]
                     )
                   )
@@ -542,10 +543,10 @@ fun makeInterfaceStr
     val strDecs'7 = StrDecDec tTypeDec :: strDecs'6
 
     (*
-     *                                                   -.
-     *     type 'object_class property_t =                | isGObject
-     *       'object_class Property.t                     |  and numProps > 0
-     *                                                   -'
+     *                                                     -.
+     *     type ('object_class, 'get, 'set, 'init) property_t =
+     *       ('object_class, 'get, 'set, 'init) Property.t  | isGObject
+     *                                                     -'  and numProps > 0
      *)
     val numProps = InterfaceInfo.getNProperties interfaceInfo
     val revPropLocalTypes = makePropertyLocalTypes isGObject numProps

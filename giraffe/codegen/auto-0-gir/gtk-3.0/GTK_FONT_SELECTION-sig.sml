@@ -28,22 +28,6 @@ signature GTK_FONT_SELECTION =
       'a class
        -> string
        -> unit
-    val fontNameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val previewTextProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val fontNameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val previewTextProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

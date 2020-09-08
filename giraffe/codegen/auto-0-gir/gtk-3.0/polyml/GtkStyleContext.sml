@@ -457,31 +457,39 @@ structure GtkStyleContext :>
       fun changedSig f = signal "changed" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val directionProp =
         {
-          get = fn x => get "direction" GtkTextDirection.t x,
-          set = fn x => set "direction" GtkTextDirection.t x,
-          new = fn x => new "direction" GtkTextDirection.t x
+          name = "direction",
+          gtype = fn () => C.gtype GtkTextDirection.t (),
+          get = fn x => fn () => C.get GtkTextDirection.t x,
+          set = fn x => C.set GtkTextDirection.t x,
+          init = fn x => C.set GtkTextDirection.t x
         }
       val paintClockProp =
         {
-          get = fn x => get "paint-clock" GdkFrameClockClass.tOpt x,
-          set = fn x => set "paint-clock" GdkFrameClockClass.tOpt x,
-          new = fn x => new "paint-clock" GdkFrameClockClass.tOpt x
+          name = "paint-clock",
+          gtype = fn () => C.gtype GdkFrameClockClass.tOpt (),
+          get = fn x => fn () => C.get GdkFrameClockClass.tOpt x,
+          set = fn x => C.set GdkFrameClockClass.tOpt x,
+          init = fn x => C.set GdkFrameClockClass.tOpt x
         }
       val parentProp =
         {
-          get = fn x => get "parent" GtkStyleContextClass.tOpt x,
-          set = fn x => set "parent" GtkStyleContextClass.tOpt x,
-          new = fn x => new "parent" GtkStyleContextClass.tOpt x
+          name = "parent",
+          gtype = fn () => C.gtype GtkStyleContextClass.tOpt (),
+          get = fn x => fn () => C.get GtkStyleContextClass.tOpt x,
+          set = fn x => C.set GtkStyleContextClass.tOpt x,
+          init = fn x => C.set GtkStyleContextClass.tOpt x
         }
       val screenProp =
         {
-          get = fn x => get "screen" GdkScreenClass.tOpt x,
-          set = fn x => set "screen" GdkScreenClass.tOpt x,
-          new = fn x => new "screen" GdkScreenClass.tOpt x
+          name = "screen",
+          gtype = fn () => C.gtype GdkScreenClass.tOpt (),
+          get = fn x => fn () => C.get GdkScreenClass.tOpt x,
+          set = fn x => C.set GdkScreenClass.tOpt x,
+          init = fn x => C.set GdkScreenClass.tOpt x
         }
     end
   end

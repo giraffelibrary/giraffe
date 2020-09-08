@@ -180,82 +180,127 @@ structure AtkObject :>
       fun visibleDataChangedSig f = signal "visible-data-changed" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val accessibleComponentLayerProp = {get = fn x => get "accessible-component-layer" int x}
-      val accessibleComponentMdiZorderProp = {get = fn x => get "accessible-component-mdi-zorder" int x}
+      val accessibleComponentLayerProp =
+        {
+          name = "accessible-component-layer",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
+      val accessibleComponentMdiZorderProp =
+        {
+          name = "accessible-component-mdi-zorder",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
       val accessibleDescriptionProp =
         {
-          get = fn x => get "accessible-description" stringOpt x,
-          set = fn x => set "accessible-description" stringOpt x,
-          new = fn x => new "accessible-description" stringOpt x
+          name = "accessible-description",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
-      val accessibleHypertextNlinksProp = {get = fn x => get "accessible-hypertext-nlinks" int x}
+      val accessibleHypertextNlinksProp =
+        {
+          name = "accessible-hypertext-nlinks",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
       val accessibleNameProp =
         {
-          get = fn x => get "accessible-name" stringOpt x,
-          set = fn x => set "accessible-name" stringOpt x,
-          new = fn x => new "accessible-name" stringOpt x
+          name = "accessible-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val accessibleParentProp =
         {
-          get = fn x => get "accessible-parent" AtkObjectClass.tOpt x,
-          set = fn x => set "accessible-parent" AtkObjectClass.tOpt x,
-          new = fn x => new "accessible-parent" AtkObjectClass.tOpt x
+          name = "accessible-parent",
+          gtype = fn () => C.gtype AtkObjectClass.tOpt (),
+          get = fn x => fn () => C.get AtkObjectClass.tOpt x,
+          set = fn x => C.set AtkObjectClass.tOpt x,
+          init = fn x => C.set AtkObjectClass.tOpt x
         }
       val accessibleRoleProp =
         {
-          get = fn x => get "accessible-role" int x,
-          set = fn x => set "accessible-role" int x,
-          new = fn x => new "accessible-role" int x
+          name = "accessible-role",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val accessibleTableCaptionProp =
         {
-          get = fn x => get "accessible-table-caption" stringOpt x,
-          set = fn x => set "accessible-table-caption" stringOpt x,
-          new = fn x => new "accessible-table-caption" stringOpt x
+          name = "accessible-table-caption",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val accessibleTableCaptionObjectProp =
         {
-          get = fn x => get "accessible-table-caption-object" AtkObjectClass.tOpt x,
-          set = fn x => set "accessible-table-caption-object" AtkObjectClass.tOpt x,
-          new = fn x => new "accessible-table-caption-object" AtkObjectClass.tOpt x
+          name = "accessible-table-caption-object",
+          gtype = fn () => C.gtype AtkObjectClass.tOpt (),
+          get = fn x => fn () => C.get AtkObjectClass.tOpt x,
+          set = fn x => C.set AtkObjectClass.tOpt x,
+          init = fn x => C.set AtkObjectClass.tOpt x
         }
       val accessibleTableColumnDescriptionProp =
         {
-          get = fn x => get "accessible-table-column-description" stringOpt x,
-          set = fn x => set "accessible-table-column-description" stringOpt x,
-          new = fn x => new "accessible-table-column-description" stringOpt x
+          name = "accessible-table-column-description",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val accessibleTableColumnHeaderProp =
         {
-          get = fn x => get "accessible-table-column-header" AtkObjectClass.tOpt x,
-          set = fn x => set "accessible-table-column-header" AtkObjectClass.tOpt x,
-          new = fn x => new "accessible-table-column-header" AtkObjectClass.tOpt x
+          name = "accessible-table-column-header",
+          gtype = fn () => C.gtype AtkObjectClass.tOpt (),
+          get = fn x => fn () => C.get AtkObjectClass.tOpt x,
+          set = fn x => C.set AtkObjectClass.tOpt x,
+          init = fn x => C.set AtkObjectClass.tOpt x
         }
       val accessibleTableRowDescriptionProp =
         {
-          get = fn x => get "accessible-table-row-description" stringOpt x,
-          set = fn x => set "accessible-table-row-description" stringOpt x,
-          new = fn x => new "accessible-table-row-description" stringOpt x
+          name = "accessible-table-row-description",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val accessibleTableRowHeaderProp =
         {
-          get = fn x => get "accessible-table-row-header" AtkObjectClass.tOpt x,
-          set = fn x => set "accessible-table-row-header" AtkObjectClass.tOpt x,
-          new = fn x => new "accessible-table-row-header" AtkObjectClass.tOpt x
+          name = "accessible-table-row-header",
+          gtype = fn () => C.gtype AtkObjectClass.tOpt (),
+          get = fn x => fn () => C.get AtkObjectClass.tOpt x,
+          set = fn x => C.set AtkObjectClass.tOpt x,
+          init = fn x => C.set AtkObjectClass.tOpt x
         }
       val accessibleTableSummaryProp =
         {
-          get = fn x => get "accessible-table-summary" AtkObjectClass.tOpt x,
-          set = fn x => set "accessible-table-summary" AtkObjectClass.tOpt x,
-          new = fn x => new "accessible-table-summary" AtkObjectClass.tOpt x
+          name = "accessible-table-summary",
+          gtype = fn () => C.gtype AtkObjectClass.tOpt (),
+          get = fn x => fn () => C.get AtkObjectClass.tOpt x,
+          set = fn x => C.set AtkObjectClass.tOpt x,
+          init = fn x => C.set AtkObjectClass.tOpt x
         }
       val accessibleValueProp =
         {
-          get = fn x => get "accessible-value" double x,
-          set = fn x => set "accessible-value" double x,
-          new = fn x => new "accessible-value" double x
+          name = "accessible-value",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
     end
   end

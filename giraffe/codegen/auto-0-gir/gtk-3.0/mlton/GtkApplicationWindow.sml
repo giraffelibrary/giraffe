@@ -29,13 +29,15 @@ structure GtkApplicationWindow :>
     fun setHelpOverlay self helpOverlay = (GtkApplicationWindowClass.FFI.withPtr false &&&> GtkShortcutsWindowClass.FFI.withOptPtr false ---> I) setHelpOverlay_ (self & helpOverlay)
     fun setShowMenubar self showMenubar = (GtkApplicationWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowMenubar_ (self & showMenubar)
     local
-      open Property
+      open ValueAccessor
     in
       val showMenubarProp =
         {
-          get = fn x => get "show-menubar" boolean x,
-          set = fn x => set "show-menubar" boolean x,
-          new = fn x => new "show-menubar" boolean x
+          name = "show-menubar",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

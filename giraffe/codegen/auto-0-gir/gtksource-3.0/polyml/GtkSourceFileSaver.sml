@@ -94,46 +94,63 @@ structure GtkSourceFileSaver :>
     fun setFlags self flags = (GtkSourceFileSaverClass.FFI.withPtr false &&&> GtkSourceFileSaverFlags.FFI.withVal ---> I) setFlags_ (self & flags)
     fun setNewlineType self newlineType = (GtkSourceFileSaverClass.FFI.withPtr false &&&> GtkSourceNewlineType.FFI.withVal ---> I) setNewlineType_ (self & newlineType)
     local
-      open Property
+      open ValueAccessor
     in
       val bufferProp =
         {
-          get = fn x => get "buffer" GtkSourceBufferClass.tOpt x,
-          new = fn x => new "buffer" GtkSourceBufferClass.tOpt x
+          name = "buffer",
+          gtype = fn () => C.gtype GtkSourceBufferClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceBufferClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkSourceBufferClass.tOpt x
         }
       val compressionTypeProp =
         {
-          get = fn x => get "compression-type" GtkSourceCompressionType.t x,
-          set = fn x => set "compression-type" GtkSourceCompressionType.t x,
-          new = fn x => new "compression-type" GtkSourceCompressionType.t x
+          name = "compression-type",
+          gtype = fn () => C.gtype GtkSourceCompressionType.t (),
+          get = fn x => fn () => C.get GtkSourceCompressionType.t x,
+          set = fn x => C.set GtkSourceCompressionType.t x,
+          init = fn x => C.set GtkSourceCompressionType.t x
         }
       val encodingProp =
         {
-          get = fn x => get "encoding" GtkSourceEncodingRecord.tOpt x,
-          set = fn x => set "encoding" GtkSourceEncodingRecord.tOpt x,
-          new = fn x => new "encoding" GtkSourceEncodingRecord.tOpt x
+          name = "encoding",
+          gtype = fn () => C.gtype GtkSourceEncodingRecord.tOpt (),
+          get = fn x => fn () => C.get GtkSourceEncodingRecord.tOpt x,
+          set = fn x => C.set GtkSourceEncodingRecord.tOpt x,
+          init = fn x => C.set GtkSourceEncodingRecord.tOpt x
         }
       val fileProp =
         {
-          get = fn x => get "file" GtkSourceFileClass.tOpt x,
-          new = fn x => new "file" GtkSourceFileClass.tOpt x
+          name = "file",
+          gtype = fn () => C.gtype GtkSourceFileClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceFileClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkSourceFileClass.tOpt x
         }
       val flagsProp =
         {
-          get = fn x => get "flags" GtkSourceFileSaverFlags.t x,
-          set = fn x => set "flags" GtkSourceFileSaverFlags.t x,
-          new = fn x => new "flags" GtkSourceFileSaverFlags.t x
+          name = "flags",
+          gtype = fn () => C.gtype GtkSourceFileSaverFlags.t (),
+          get = fn x => fn () => C.get GtkSourceFileSaverFlags.t x,
+          set = fn x => C.set GtkSourceFileSaverFlags.t x,
+          init = fn x => C.set GtkSourceFileSaverFlags.t x
         }
       val locationProp =
         {
-          get = fn x => get "location" GioFileClass.tOpt x,
-          new = fn x => new "location" GioFileClass.tOpt x
+          name = "location",
+          gtype = fn () => C.gtype GioFileClass.tOpt (),
+          get = fn x => fn () => C.get GioFileClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioFileClass.tOpt x
         }
       val newlineTypeProp =
         {
-          get = fn x => get "newline-type" GtkSourceNewlineType.t x,
-          set = fn x => set "newline-type" GtkSourceNewlineType.t x,
-          new = fn x => new "newline-type" GtkSourceNewlineType.t x
+          name = "newline-type",
+          gtype = fn () => C.gtype GtkSourceNewlineType.t (),
+          get = fn x => fn () => C.get GtkSourceNewlineType.t x,
+          set = fn x => C.set GtkSourceNewlineType.t x,
+          init = fn x => C.set GtkSourceNewlineType.t x
         }
     end
   end

@@ -524,68 +524,127 @@ structure GdkDevice :>
       fun toolChangedSig f = signal "tool-changed" (get 0w1 GdkDeviceToolClass.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val associatedDeviceProp = {get = fn x => get "associated-device" GdkDeviceClass.tOpt x}
-      val axesProp = {get = fn x => get "axes" GdkAxisFlags.t x}
+      val associatedDeviceProp =
+        {
+          name = "associated-device",
+          gtype = fn () => C.gtype GdkDeviceClass.tOpt (),
+          get = fn x => fn () => C.get GdkDeviceClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val axesProp =
+        {
+          name = "axes",
+          gtype = fn () => C.gtype GdkAxisFlags.t (),
+          get = fn x => fn () => C.get GdkAxisFlags.t x,
+          set = ignore,
+          init = ignore
+        }
       val deviceManagerProp =
         {
-          get = fn x => get "device-manager" GdkDeviceManagerClass.tOpt x,
-          new = fn x => new "device-manager" GdkDeviceManagerClass.tOpt x
+          name = "device-manager",
+          gtype = fn () => C.gtype GdkDeviceManagerClass.tOpt (),
+          get = fn x => fn () => C.get GdkDeviceManagerClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GdkDeviceManagerClass.tOpt x
         }
       val displayProp =
         {
-          get = fn x => get "display" GdkDisplayClass.tOpt x,
-          new = fn x => new "display" GdkDisplayClass.tOpt x
+          name = "display",
+          gtype = fn () => C.gtype GdkDisplayClass.tOpt (),
+          get = fn x => fn () => C.get GdkDisplayClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GdkDisplayClass.tOpt x
         }
       val hasCursorProp =
         {
-          get = fn x => get "has-cursor" boolean x,
-          new = fn x => new "has-cursor" boolean x
+          name = "has-cursor",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val inputModeProp =
         {
-          get = fn x => get "input-mode" GdkInputMode.t x,
-          set = fn x => set "input-mode" GdkInputMode.t x,
-          new = fn x => new "input-mode" GdkInputMode.t x
+          name = "input-mode",
+          gtype = fn () => C.gtype GdkInputMode.t (),
+          get = fn x => fn () => C.get GdkInputMode.t x,
+          set = fn x => C.set GdkInputMode.t x,
+          init = fn x => C.set GdkInputMode.t x
         }
       val inputSourceProp =
         {
-          get = fn x => get "input-source" GdkInputSource.t x,
-          new = fn x => new "input-source" GdkInputSource.t x
+          name = "input-source",
+          gtype = fn () => C.gtype GdkInputSource.t (),
+          get = fn x => fn () => C.get GdkInputSource.t x,
+          set = ignore,
+          init = fn x => C.set GdkInputSource.t x
         }
-      val nAxesProp = {get = fn x => get "n-axes" uint x}
+      val nAxesProp =
+        {
+          name = "n-axes",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = ignore,
+          init = ignore
+        }
       val nameProp =
         {
-          get = fn x => get "name" stringOpt x,
-          new = fn x => new "name" stringOpt x
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val numTouchesProp =
         {
-          get = fn x => get "num-touches" uint x,
-          new = fn x => new "num-touches" uint x
+          name = "num-touches",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = ignore,
+          init = fn x => C.set uint x
         }
       val productIdProp =
         {
-          get = fn x => get "product-id" stringOpt x,
-          new = fn x => new "product-id" stringOpt x
+          name = "product-id",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val seatProp =
         {
-          get = fn x => get "seat" GdkSeatClass.tOpt x,
-          set = fn x => set "seat" GdkSeatClass.tOpt x,
-          new = fn x => new "seat" GdkSeatClass.tOpt x
+          name = "seat",
+          gtype = fn () => C.gtype GdkSeatClass.tOpt (),
+          get = fn x => fn () => C.get GdkSeatClass.tOpt x,
+          set = fn x => C.set GdkSeatClass.tOpt x,
+          init = fn x => C.set GdkSeatClass.tOpt x
         }
-      val toolProp = {get = fn x => get "tool" GdkDeviceToolClass.tOpt x}
+      val toolProp =
+        {
+          name = "tool",
+          gtype = fn () => C.gtype GdkDeviceToolClass.tOpt (),
+          get = fn x => fn () => C.get GdkDeviceToolClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
       val typeProp =
         {
-          get = fn x => get "type" GdkDeviceType.t x,
-          new = fn x => new "type" GdkDeviceType.t x
+          name = "type",
+          gtype = fn () => C.gtype GdkDeviceType.t (),
+          get = fn x => fn () => C.get GdkDeviceType.t x,
+          set = ignore,
+          init = fn x => C.set GdkDeviceType.t x
         }
       val vendorIdProp =
         {
-          get = fn x => get "vendor-id" stringOpt x,
-          new = fn x => new "vendor-id" stringOpt x
+          name = "vendor-id",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

@@ -84,22 +84,31 @@ structure GioUnixSocketAddress :>
     fun getPath self = (GioUnixSocketAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPath_ self
     fun getPathLen self = (GioUnixSocketAddressClass.FFI.withPtr false ---> GUInt64.FFI.fromVal) getPathLen_ self
     local
-      open Property
+      open ValueAccessor
     in
       val abstractProp =
         {
-          get = fn x => get "abstract" boolean x,
-          new = fn x => new "abstract" boolean x
+          name = "abstract",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val addressTypeProp =
         {
-          get = fn x => get "address-type" GioUnixSocketAddressType.t x,
-          new = fn x => new "address-type" GioUnixSocketAddressType.t x
+          name = "address-type",
+          gtype = fn () => C.gtype GioUnixSocketAddressType.t (),
+          get = fn x => fn () => C.get GioUnixSocketAddressType.t x,
+          set = ignore,
+          init = fn x => C.set GioUnixSocketAddressType.t x
         }
       val pathProp =
         {
-          get = fn x => get "path" stringOpt x,
-          new = fn x => new "path" stringOpt x
+          name = "path",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

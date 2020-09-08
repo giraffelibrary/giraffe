@@ -28,19 +28,23 @@ structure GtkShortcutLabel :>
     fun setAccelerator self accelerator = (GtkShortcutLabelClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setAccelerator_ (self & accelerator)
     fun setDisabledText self disabledText = (GtkShortcutLabelClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDisabledText_ (self & disabledText)
     local
-      open Property
+      open ValueAccessor
     in
       val acceleratorProp =
         {
-          get = fn x => get "accelerator" stringOpt x,
-          set = fn x => set "accelerator" stringOpt x,
-          new = fn x => new "accelerator" stringOpt x
+          name = "accelerator",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val disabledTextProp =
         {
-          get = fn x => get "disabled-text" stringOpt x,
-          set = fn x => set "disabled-text" stringOpt x,
-          new = fn x => new "disabled-text" stringOpt x
+          name = "disabled-text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

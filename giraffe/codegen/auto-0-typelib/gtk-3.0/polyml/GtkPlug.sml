@@ -53,9 +53,23 @@ structure GtkPlug :>
       fun embeddedSig f = signal "embedded" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val embeddedProp = {get = fn x => get "embedded" boolean x}
-      val socketWindowProp = {get = fn x => get "socket-window" GdkWindowClass.tOpt x}
+      val embeddedProp =
+        {
+          name = "embedded",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val socketWindowProp =
+        {
+          name = "socket-window",
+          gtype = fn () => C.gtype GdkWindowClass.tOpt (),
+          get = fn x => fn () => C.get GdkWindowClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

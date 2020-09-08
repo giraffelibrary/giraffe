@@ -19,31 +19,39 @@ structure GtkShortcutsSection :>
       fun changeCurrentPageSig f = signal "change-current-page" (get 0w1 int ---> ret boolean) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val maxHeightProp =
         {
-          get = fn x => get "max-height" uint x,
-          set = fn x => set "max-height" uint x,
-          new = fn x => new "max-height" uint x
+          name = "max-height",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val sectionNameProp =
         {
-          get = fn x => get "section-name" stringOpt x,
-          set = fn x => set "section-name" stringOpt x,
-          new = fn x => new "section-name" stringOpt x
+          name = "section-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val titleProp =
         {
-          get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x,
-          new = fn x => new "title" stringOpt x
+          name = "title",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val viewNameProp =
         {
-          get = fn x => get "view-name" stringOpt x,
-          set = fn x => set "view-name" stringOpt x,
-          new = fn x => new "view-name" stringOpt x
+          name = "view-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

@@ -344,46 +344,79 @@ structure GioDBusProxy :>
           )
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val gBusTypeProp = {new = fn x => new "g-bus-type" GioBusType.t x}
+      val gBusTypeProp =
+        {
+          name = "g-bus-type",
+          gtype = fn () => C.gtype GioBusType.t (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GioBusType.t x
+        }
       val gConnectionProp =
         {
-          get = fn x => get "g-connection" GioDBusConnectionClass.tOpt x,
-          new = fn x => new "g-connection" GioDBusConnectionClass.tOpt x
+          name = "g-connection",
+          gtype = fn () => C.gtype GioDBusConnectionClass.tOpt (),
+          get = fn x => fn () => C.get GioDBusConnectionClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioDBusConnectionClass.tOpt x
         }
       val gDefaultTimeoutProp =
         {
-          get = fn x => get "g-default-timeout" int x,
-          set = fn x => set "g-default-timeout" int x,
-          new = fn x => new "g-default-timeout" int x
+          name = "g-default-timeout",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val gFlagsProp =
         {
-          get = fn x => get "g-flags" GioDBusProxyFlags.t x,
-          new = fn x => new "g-flags" GioDBusProxyFlags.t x
+          name = "g-flags",
+          gtype = fn () => C.gtype GioDBusProxyFlags.t (),
+          get = fn x => fn () => C.get GioDBusProxyFlags.t x,
+          set = ignore,
+          init = fn x => C.set GioDBusProxyFlags.t x
         }
       val gInterfaceInfoProp =
         {
-          get = fn x => get "g-interface-info" GioDBusInterfaceInfoRecord.tOpt x,
-          set = fn x => set "g-interface-info" GioDBusInterfaceInfoRecord.tOpt x,
-          new = fn x => new "g-interface-info" GioDBusInterfaceInfoRecord.tOpt x
+          name = "g-interface-info",
+          gtype = fn () => C.gtype GioDBusInterfaceInfoRecord.tOpt (),
+          get = fn x => fn () => C.get GioDBusInterfaceInfoRecord.tOpt x,
+          set = fn x => C.set GioDBusInterfaceInfoRecord.tOpt x,
+          init = fn x => C.set GioDBusInterfaceInfoRecord.tOpt x
         }
       val gInterfaceNameProp =
         {
-          get = fn x => get "g-interface-name" stringOpt x,
-          new = fn x => new "g-interface-name" stringOpt x
+          name = "g-interface-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val gNameProp =
         {
-          get = fn x => get "g-name" stringOpt x,
-          new = fn x => new "g-name" stringOpt x
+          name = "g-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
-      val gNameOwnerProp = {get = fn x => get "g-name-owner" stringOpt x}
+      val gNameOwnerProp =
+        {
+          name = "g-name-owner",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
       val gObjectPathProp =
         {
-          get = fn x => get "g-object-path" stringOpt x,
-          new = fn x => new "g-object-path" stringOpt x
+          name = "g-object-path",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

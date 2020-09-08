@@ -92,58 +92,79 @@ structure GtkCellView :>
     fun setFitModel self fitModel = (GtkCellViewClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setFitModel_ (self & fitModel)
     fun setModel self model = (GtkCellViewClass.FFI.withPtr false &&&> GtkTreeModelClass.FFI.withOptPtr false ---> I) setModel_ (self & model)
     local
-      open Property
+      open ValueAccessor
     in
       val backgroundProp =
         {
-          set = fn x => set "background" stringOpt x,
-          new = fn x => new "background" stringOpt x
+          name = "background",
+          gtype = fn () => C.gtype stringOpt (),
+          get = ignore,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val backgroundGdkProp =
         {
-          get = fn x => get "background-gdk" GdkColorRecord.tOpt x,
-          set = fn x => set "background-gdk" GdkColorRecord.tOpt x,
-          new = fn x => new "background-gdk" GdkColorRecord.tOpt x
+          name = "background-gdk",
+          gtype = fn () => C.gtype GdkColorRecord.tOpt (),
+          get = fn x => fn () => C.get GdkColorRecord.tOpt x,
+          set = fn x => C.set GdkColorRecord.tOpt x,
+          init = fn x => C.set GdkColorRecord.tOpt x
         }
       val backgroundRgbaProp =
         {
-          get = fn x => get "background-rgba" GdkRgbaRecord.tOpt x,
-          set = fn x => set "background-rgba" GdkRgbaRecord.tOpt x,
-          new = fn x => new "background-rgba" GdkRgbaRecord.tOpt x
+          name = "background-rgba",
+          gtype = fn () => C.gtype GdkRgbaRecord.tOpt (),
+          get = fn x => fn () => C.get GdkRgbaRecord.tOpt x,
+          set = fn x => C.set GdkRgbaRecord.tOpt x,
+          init = fn x => C.set GdkRgbaRecord.tOpt x
         }
       val backgroundSetProp =
         {
-          get = fn x => get "background-set" boolean x,
-          set = fn x => set "background-set" boolean x,
-          new = fn x => new "background-set" boolean x
+          name = "background-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val cellAreaProp =
         {
-          get = fn x => get "cell-area" GtkCellAreaClass.tOpt x,
-          new = fn x => new "cell-area" GtkCellAreaClass.tOpt x
+          name = "cell-area",
+          gtype = fn () => C.gtype GtkCellAreaClass.tOpt (),
+          get = fn x => fn () => C.get GtkCellAreaClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkCellAreaClass.tOpt x
         }
       val cellAreaContextProp =
         {
-          get = fn x => get "cell-area-context" GtkCellAreaContextClass.tOpt x,
-          new = fn x => new "cell-area-context" GtkCellAreaContextClass.tOpt x
+          name = "cell-area-context",
+          gtype = fn () => C.gtype GtkCellAreaContextClass.tOpt (),
+          get = fn x => fn () => C.get GtkCellAreaContextClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkCellAreaContextClass.tOpt x
         }
       val drawSensitiveProp =
         {
-          get = fn x => get "draw-sensitive" boolean x,
-          set = fn x => set "draw-sensitive" boolean x,
-          new = fn x => new "draw-sensitive" boolean x
+          name = "draw-sensitive",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val fitModelProp =
         {
-          get = fn x => get "fit-model" boolean x,
-          set = fn x => set "fit-model" boolean x,
-          new = fn x => new "fit-model" boolean x
+          name = "fit-model",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val modelProp =
         {
-          get = fn x => get "model" GtkTreeModelClass.tOpt x,
-          set = fn x => set "model" GtkTreeModelClass.tOpt x,
-          new = fn x => new "model" GtkTreeModelClass.tOpt x
+          name = "model",
+          gtype = fn () => C.gtype GtkTreeModelClass.tOpt (),
+          get = fn x => fn () => C.get GtkTreeModelClass.tOpt x,
+          set = fn x => C.set GtkTreeModelClass.tOpt x,
+          init = fn x => C.set GtkTreeModelClass.tOpt x
         }
     end
   end

@@ -17,15 +17,7 @@ signature GIO_TLS_CERTIFICATE =
       'a class
        -> 'b socket_connectable_class option * 'c class option
        -> tls_certificate_flags_t
-    val certificatePemProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val issuerProp :
-      {
-        get : 'a class -> base class option,
-        new : 'b class option -> 'a class Property.t
-      }
-    val privateKeyPemProp : {new : string option -> 'a class Property.t}
+    val certificatePemProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val issuerProp : ('a class, unit -> base class option, unit, 'b class option -> unit) Property.t
+    val privateKeyPemProp : ('a class, unit, unit, string option -> unit) Property.t
   end

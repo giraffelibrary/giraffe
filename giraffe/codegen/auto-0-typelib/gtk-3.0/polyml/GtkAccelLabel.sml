@@ -80,19 +80,23 @@ structure GtkAccelLabel :>
     fun setAccelClosure self accelClosure = (GtkAccelLabelClass.FFI.withPtr false &&&> GObjectClosureRecord.FFI.withPtr false ---> I) setAccelClosure_ (self & accelClosure)
     fun setAccelWidget self accelWidget = (GtkAccelLabelClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setAccelWidget_ (self & accelWidget)
     local
-      open Property
+      open ValueAccessor
     in
       val accelClosureProp =
         {
-          get = fn x => get "accel-closure" GObjectClosureRecord.tOpt x,
-          set = fn x => set "accel-closure" GObjectClosureRecord.tOpt x,
-          new = fn x => new "accel-closure" GObjectClosureRecord.tOpt x
+          name = "accel-closure",
+          gtype = fn () => C.gtype GObjectClosureRecord.tOpt (),
+          get = fn x => fn () => C.get GObjectClosureRecord.tOpt x,
+          set = fn x => C.set GObjectClosureRecord.tOpt x,
+          init = fn x => C.set GObjectClosureRecord.tOpt x
         }
       val accelWidgetProp =
         {
-          get = fn x => get "accel-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "accel-widget" GtkWidgetClass.tOpt x,
-          new = fn x => new "accel-widget" GtkWidgetClass.tOpt x
+          name = "accel-widget",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
     end
   end

@@ -135,10 +135,31 @@ structure GioPermission :>
            & []
         )
     local
-      open Property
+      open ValueAccessor
     in
-      val allowedProp = {get = fn x => get "allowed" boolean x}
-      val canAcquireProp = {get = fn x => get "can-acquire" boolean x}
-      val canReleaseProp = {get = fn x => get "can-release" boolean x}
+      val allowedProp =
+        {
+          name = "allowed",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val canAcquireProp =
+        {
+          name = "can-acquire",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val canReleaseProp =
+        {
+          name = "can-release",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

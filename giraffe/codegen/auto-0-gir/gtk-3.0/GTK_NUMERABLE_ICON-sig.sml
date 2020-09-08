@@ -32,49 +32,9 @@ signature GTK_NUMERABLE_ICON =
       'a class
        -> 'b style_context_class
        -> unit
-    val backgroundIconProp :
-      {
-        get : 'a class -> base Gio.IconClass.class option,
-        set :
-          'b Gio.IconClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b Gio.IconClass.class option -> 'a class Property.t
-      }
-    val backgroundIconNameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val countProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val labelProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val styleContextProp :
-      {
-        get : 'a class -> base style_context_class option,
-        set :
-          'b style_context_class option
-           -> 'a class
-           -> unit,
-        new : 'b style_context_class option -> 'a class Property.t
-      }
+    val backgroundIconProp : ('a class, unit -> base Gio.IconClass.class option, 'b Gio.IconClass.class option -> unit, 'b Gio.IconClass.class option -> unit) Property.t
+    val backgroundIconNameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val countProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val labelProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val styleContextProp : ('a class, unit -> base style_context_class option, 'b style_context_class option -> unit, 'b style_context_class option -> unit) Property.t
   end

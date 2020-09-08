@@ -16,9 +16,5 @@ signature GDK_SEAT =
     val deviceRemovedSig : (base device_class -> unit) -> 'a class Signal.t
     val toolAddedSig : (base device_tool_class -> unit) -> 'a class Signal.t
     val toolRemovedSig : (base device_tool_class -> unit) -> 'a class Signal.t
-    val displayProp :
-      {
-        get : 'a class -> base display_class option,
-        new : 'b display_class option -> 'a class Property.t
-      }
+    val displayProp : ('a class, unit -> base display_class option, unit, 'b display_class option -> unit) Property.t
   end

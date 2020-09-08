@@ -13,13 +13,15 @@ structure GioTlsFileDatabase :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new anchors = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GioTlsFileDatabaseClass.FFI.fromPtr true) new_ (anchors & [])
     local
-      open Property
+      open ValueAccessor
     in
       val anchorsProp =
         {
-          get = fn x => get "anchors" stringOpt x,
-          set = fn x => set "anchors" stringOpt x,
-          new = fn x => new "anchors" stringOpt x
+          name = "anchors",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

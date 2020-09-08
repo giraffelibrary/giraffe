@@ -29,45 +29,71 @@ structure GtkMessageDialog :>
     fun setImage self image = (GtkMessageDialogClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setImage_ (self & image)
     fun setMarkup self str = (GtkMessageDialogClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setMarkup_ (self & str)
     local
-      open Property
+      open ValueAccessor
     in
-      val buttonsProp = {new = fn x => new "buttons" GtkButtonsType.t x}
+      val buttonsProp =
+        {
+          name = "buttons",
+          gtype = fn () => C.gtype GtkButtonsType.t (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GtkButtonsType.t x
+        }
       val imageProp =
         {
-          get = fn x => get "image" GtkWidgetClass.tOpt x,
-          set = fn x => set "image" GtkWidgetClass.tOpt x,
-          new = fn x => new "image" GtkWidgetClass.tOpt x
+          name = "image",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
-      val messageAreaProp = {get = fn x => get "message-area" GtkWidgetClass.tOpt x}
+      val messageAreaProp =
+        {
+          name = "message-area",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
       val messageTypeProp =
         {
-          get = fn x => get "message-type" GtkMessageType.t x,
-          set = fn x => set "message-type" GtkMessageType.t x,
-          new = fn x => new "message-type" GtkMessageType.t x
+          name = "message-type",
+          gtype = fn () => C.gtype GtkMessageType.t (),
+          get = fn x => fn () => C.get GtkMessageType.t x,
+          set = fn x => C.set GtkMessageType.t x,
+          init = fn x => C.set GtkMessageType.t x
         }
       val secondaryTextProp =
         {
-          get = fn x => get "secondary-text" stringOpt x,
-          set = fn x => set "secondary-text" stringOpt x,
-          new = fn x => new "secondary-text" stringOpt x
+          name = "secondary-text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val secondaryUseMarkupProp =
         {
-          get = fn x => get "secondary-use-markup" boolean x,
-          set = fn x => set "secondary-use-markup" boolean x,
-          new = fn x => new "secondary-use-markup" boolean x
+          name = "secondary-use-markup",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val textProp =
         {
-          get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x,
-          new = fn x => new "text" stringOpt x
+          name = "text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val useMarkupProp =
         {
-          get = fn x => get "use-markup" boolean x,
-          set = fn x => set "use-markup" boolean x,
-          new = fn x => new "use-markup" boolean x
+          name = "use-markup",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

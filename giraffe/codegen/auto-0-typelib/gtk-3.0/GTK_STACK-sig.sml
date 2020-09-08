@@ -68,77 +68,13 @@ signature GTK_STACK =
       'a class
        -> string
        -> unit
-    val hhomogeneousProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val homogeneousProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val interpolateSizeProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val transitionDurationProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val transitionRunningProp : {get : 'a class -> bool}
-    val transitionTypeProp :
-      {
-        get : 'a class -> stack_transition_type_t,
-        set :
-          stack_transition_type_t
-           -> 'a class
-           -> unit,
-        new : stack_transition_type_t -> 'a class Property.t
-      }
-    val vhomogeneousProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val visibleChildProp :
-      {
-        get : 'a class -> base widget_class option,
-        set :
-          'b widget_class option
-           -> 'a class
-           -> unit,
-        new : 'b widget_class option -> 'a class Property.t
-      }
-    val visibleChildNameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val hhomogeneousProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val homogeneousProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val interpolateSizeProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val transitionDurationProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val transitionRunningProp : ('a class, unit -> bool, unit, unit) Property.t
+    val transitionTypeProp : ('a class, unit -> stack_transition_type_t, stack_transition_type_t -> unit, stack_transition_type_t -> unit) Property.t
+    val vhomogeneousProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val visibleChildProp : ('a class, unit -> base widget_class option, 'b widget_class option -> unit, 'b widget_class option -> unit) Property.t
+    val visibleChildNameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

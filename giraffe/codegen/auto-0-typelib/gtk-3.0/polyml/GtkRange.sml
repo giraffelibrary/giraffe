@@ -159,55 +159,71 @@ structure GtkRange :>
       fun valueChangedSig f = signal "value-changed" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val adjustmentProp =
         {
-          get = fn x => get "adjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "adjustment" GtkAdjustmentClass.tOpt x,
-          new = fn x => new "adjustment" GtkAdjustmentClass.tOpt x
+          name = "adjustment",
+          gtype = fn () => C.gtype GtkAdjustmentClass.tOpt (),
+          get = fn x => fn () => C.get GtkAdjustmentClass.tOpt x,
+          set = fn x => C.set GtkAdjustmentClass.tOpt x,
+          init = fn x => C.set GtkAdjustmentClass.tOpt x
         }
       val fillLevelProp =
         {
-          get = fn x => get "fill-level" double x,
-          set = fn x => set "fill-level" double x,
-          new = fn x => new "fill-level" double x
+          name = "fill-level",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
       val invertedProp =
         {
-          get = fn x => get "inverted" boolean x,
-          set = fn x => set "inverted" boolean x,
-          new = fn x => new "inverted" boolean x
+          name = "inverted",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val lowerStepperSensitivityProp =
         {
-          get = fn x => get "lower-stepper-sensitivity" GtkSensitivityType.t x,
-          set = fn x => set "lower-stepper-sensitivity" GtkSensitivityType.t x,
-          new = fn x => new "lower-stepper-sensitivity" GtkSensitivityType.t x
+          name = "lower-stepper-sensitivity",
+          gtype = fn () => C.gtype GtkSensitivityType.t (),
+          get = fn x => fn () => C.get GtkSensitivityType.t x,
+          set = fn x => C.set GtkSensitivityType.t x,
+          init = fn x => C.set GtkSensitivityType.t x
         }
       val restrictToFillLevelProp =
         {
-          get = fn x => get "restrict-to-fill-level" boolean x,
-          set = fn x => set "restrict-to-fill-level" boolean x,
-          new = fn x => new "restrict-to-fill-level" boolean x
+          name = "restrict-to-fill-level",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val roundDigitsProp =
         {
-          get = fn x => get "round-digits" int x,
-          set = fn x => set "round-digits" int x,
-          new = fn x => new "round-digits" int x
+          name = "round-digits",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val showFillLevelProp =
         {
-          get = fn x => get "show-fill-level" boolean x,
-          set = fn x => set "show-fill-level" boolean x,
-          new = fn x => new "show-fill-level" boolean x
+          name = "show-fill-level",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val upperStepperSensitivityProp =
         {
-          get = fn x => get "upper-stepper-sensitivity" GtkSensitivityType.t x,
-          set = fn x => set "upper-stepper-sensitivity" GtkSensitivityType.t x,
-          new = fn x => new "upper-stepper-sensitivity" GtkSensitivityType.t x
+          name = "upper-stepper-sensitivity",
+          gtype = fn () => C.gtype GtkSensitivityType.t (),
+          get = fn x => fn () => C.get GtkSensitivityType.t x,
+          set = fn x => C.set GtkSensitivityType.t x,
+          init = fn x => C.set GtkSensitivityType.t x
         }
     end
   end

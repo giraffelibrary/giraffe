@@ -20,12 +20,15 @@ structure GioThreadedSocketService :>
       fun runSig f = signal "run" (get 0w1 GioSocketConnectionClass.t &&&> get 0w2 GObjectObjectClass.t ---> ret boolean) (fn connection & sourceObject => f (connection, sourceObject))
     end
     local
-      open Property
+      open ValueAccessor
     in
       val maxThreadsProp =
         {
-          get = fn x => get "max-threads" int x,
-          new = fn x => new "max-threads" int x
+          name = "max-threads",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = fn x => C.set int x
         }
     end
   end

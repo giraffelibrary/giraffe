@@ -152,37 +152,47 @@ structure GtkToolItemGroup :>
     fun setLabel self label = (GtkToolItemGroupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setLabel_ (self & label)
     fun setLabelWidget self labelWidget = (GtkToolItemGroupClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setLabelWidget_ (self & labelWidget)
     local
-      open Property
+      open ValueAccessor
     in
       val collapsedProp =
         {
-          get = fn x => get "collapsed" boolean x,
-          set = fn x => set "collapsed" boolean x,
-          new = fn x => new "collapsed" boolean x
+          name = "collapsed",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val ellipsizeProp =
         {
-          get = fn x => get "ellipsize" PangoEllipsizeMode.t x,
-          set = fn x => set "ellipsize" PangoEllipsizeMode.t x,
-          new = fn x => new "ellipsize" PangoEllipsizeMode.t x
+          name = "ellipsize",
+          gtype = fn () => C.gtype PangoEllipsizeMode.t (),
+          get = fn x => fn () => C.get PangoEllipsizeMode.t x,
+          set = fn x => C.set PangoEllipsizeMode.t x,
+          init = fn x => C.set PangoEllipsizeMode.t x
         }
       val headerReliefProp =
         {
-          get = fn x => get "header-relief" GtkReliefStyle.t x,
-          set = fn x => set "header-relief" GtkReliefStyle.t x,
-          new = fn x => new "header-relief" GtkReliefStyle.t x
+          name = "header-relief",
+          gtype = fn () => C.gtype GtkReliefStyle.t (),
+          get = fn x => fn () => C.get GtkReliefStyle.t x,
+          set = fn x => C.set GtkReliefStyle.t x,
+          init = fn x => C.set GtkReliefStyle.t x
         }
       val labelProp =
         {
-          get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x,
-          new = fn x => new "label" stringOpt x
+          name = "label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val labelWidgetProp =
         {
-          get = fn x => get "label-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "label-widget" GtkWidgetClass.tOpt x,
-          new = fn x => new "label-widget" GtkWidgetClass.tOpt x
+          name = "label-widget",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
     end
   end

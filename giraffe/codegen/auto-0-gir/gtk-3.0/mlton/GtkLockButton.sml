@@ -23,43 +23,55 @@ structure GtkLockButton :>
     fun getPermission self = (GtkLockButtonClass.FFI.withPtr false ---> GioPermissionClass.FFI.fromPtr false) getPermission_ self
     fun setPermission self permission = (GtkLockButtonClass.FFI.withPtr false &&&> GioPermissionClass.FFI.withOptPtr false ---> I) setPermission_ (self & permission)
     local
-      open Property
+      open ValueAccessor
     in
       val permissionProp =
         {
-          get = fn x => get "permission" GioPermissionClass.tOpt x,
-          set = fn x => set "permission" GioPermissionClass.tOpt x,
-          new = fn x => new "permission" GioPermissionClass.tOpt x
+          name = "permission",
+          gtype = fn () => C.gtype GioPermissionClass.tOpt (),
+          get = fn x => fn () => C.get GioPermissionClass.tOpt x,
+          set = fn x => C.set GioPermissionClass.tOpt x,
+          init = fn x => C.set GioPermissionClass.tOpt x
         }
       val textLockProp =
         {
-          get = fn x => get "text-lock" stringOpt x,
-          set = fn x => set "text-lock" stringOpt x,
-          new = fn x => new "text-lock" stringOpt x
+          name = "text-lock",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val textUnlockProp =
         {
-          get = fn x => get "text-unlock" stringOpt x,
-          set = fn x => set "text-unlock" stringOpt x,
-          new = fn x => new "text-unlock" stringOpt x
+          name = "text-unlock",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val tooltipLockProp =
         {
-          get = fn x => get "tooltip-lock" stringOpt x,
-          set = fn x => set "tooltip-lock" stringOpt x,
-          new = fn x => new "tooltip-lock" stringOpt x
+          name = "tooltip-lock",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val tooltipNotAuthorizedProp =
         {
-          get = fn x => get "tooltip-not-authorized" stringOpt x,
-          set = fn x => set "tooltip-not-authorized" stringOpt x,
-          new = fn x => new "tooltip-not-authorized" stringOpt x
+          name = "tooltip-not-authorized",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val tooltipUnlockProp =
         {
-          get = fn x => get "tooltip-unlock" stringOpt x,
-          set = fn x => set "tooltip-unlock" stringOpt x,
-          new = fn x => new "tooltip-unlock" stringOpt x
+          name = "tooltip-unlock",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

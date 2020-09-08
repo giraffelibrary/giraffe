@@ -114,27 +114,47 @@ structure GtkPaned :>
       fun toggleHandleFocusSig f = signal "toggle-handle-focus" (void ---> ret boolean) f
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val maxPositionProp = {get = fn x => get "max-position" int x}
-      val minPositionProp = {get = fn x => get "min-position" int x}
+      val maxPositionProp =
+        {
+          name = "max-position",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
+      val minPositionProp =
+        {
+          name = "min-position",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
       val positionProp =
         {
-          get = fn x => get "position" int x,
-          set = fn x => set "position" int x,
-          new = fn x => new "position" int x
+          name = "position",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val positionSetProp =
         {
-          get = fn x => get "position-set" boolean x,
-          set = fn x => set "position-set" boolean x,
-          new = fn x => new "position-set" boolean x
+          name = "position-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val wideHandleProp =
         {
-          get = fn x => get "wide-handle" boolean x,
-          set = fn x => set "wide-handle" boolean x,
-          new = fn x => new "wide-handle" boolean x
+          name = "wide-handle",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

@@ -33,12 +33,15 @@ structure GdkSeat :>
       fun toolRemovedSig f = signal "tool-removed" (get 0w1 GdkDeviceToolClass.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val displayProp =
         {
-          get = fn x => get "display" GdkDisplayClass.tOpt x,
-          new = fn x => new "display" GdkDisplayClass.tOpt x
+          name = "display",
+          gtype = fn () => C.gtype GdkDisplayClass.tOpt (),
+          get = fn x => fn () => C.get GdkDisplayClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GdkDisplayClass.tOpt x
         }
     end
   end

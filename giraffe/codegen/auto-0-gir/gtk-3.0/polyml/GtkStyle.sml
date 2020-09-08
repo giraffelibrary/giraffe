@@ -203,12 +203,15 @@ structure GtkStyle :>
       fun unrealizeSig f = signal "unrealize" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val contextProp =
         {
-          get = fn x => get "context" GtkStyleContextClass.tOpt x,
-          new = fn x => new "context" GtkStyleContextClass.tOpt x
+          name = "context",
+          gtype = fn () => C.gtype GtkStyleContextClass.tOpt (),
+          get = fn x => fn () => C.get GtkStyleContextClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkStyleContextClass.tOpt x
         }
     end
   end

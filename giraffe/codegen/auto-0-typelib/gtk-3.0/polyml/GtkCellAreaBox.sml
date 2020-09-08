@@ -96,13 +96,15 @@ structure GtkCellAreaBox :>
         )
     fun setSpacing self spacing = (GtkCellAreaBoxClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setSpacing_ (self & spacing)
     local
-      open Property
+      open ValueAccessor
     in
       val spacingProp =
         {
-          get = fn x => get "spacing" int x,
-          set = fn x => set "spacing" int x,
-          new = fn x => new "spacing" int x
+          name = "spacing",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

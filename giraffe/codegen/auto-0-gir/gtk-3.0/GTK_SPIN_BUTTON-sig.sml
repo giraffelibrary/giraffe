@@ -88,76 +88,12 @@ signature GTK_SPIN_BUTTON =
     val outputSig : (unit -> bool) -> 'a class Signal.t
     val valueChangedSig : (unit -> unit) -> 'a class Signal.t
     val wrappedSig : (unit -> unit) -> 'a class Signal.t
-    val adjustmentProp :
-      {
-        get : 'a class -> base adjustment_class option,
-        set :
-          'b adjustment_class option
-           -> 'a class
-           -> unit,
-        new : 'b adjustment_class option -> 'a class Property.t
-      }
-    val climbRateProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val digitsProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val numericProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val snapToTicksProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val updatePolicyProp :
-      {
-        get : 'a class -> spin_button_update_policy_t,
-        set :
-          spin_button_update_policy_t
-           -> 'a class
-           -> unit,
-        new : spin_button_update_policy_t -> 'a class Property.t
-      }
-    val valueProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val wrapProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val adjustmentProp : ('a class, unit -> base adjustment_class option, 'b adjustment_class option -> unit, 'b adjustment_class option -> unit) Property.t
+    val climbRateProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val digitsProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val numericProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val snapToTicksProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val updatePolicyProp : ('a class, unit -> spin_button_update_policy_t, spin_button_update_policy_t -> unit, spin_button_update_policy_t -> unit) Property.t
+    val valueProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val wrapProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

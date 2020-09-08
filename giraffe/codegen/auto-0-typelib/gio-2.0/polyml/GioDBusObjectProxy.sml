@@ -20,17 +20,23 @@ structure GioDBusObjectProxy :>
     fun new (connection, objectPath) = (GioDBusConnectionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusObjectProxyClass.FFI.fromPtr true) new_ (connection & objectPath)
     fun getConnection self = (GioDBusObjectProxyClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
     local
-      open Property
+      open ValueAccessor
     in
       val gConnectionProp =
         {
-          get = fn x => get "g-connection" GioDBusConnectionClass.tOpt x,
-          new = fn x => new "g-connection" GioDBusConnectionClass.tOpt x
+          name = "g-connection",
+          gtype = fn () => C.gtype GioDBusConnectionClass.tOpt (),
+          get = fn x => fn () => C.get GioDBusConnectionClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioDBusConnectionClass.tOpt x
         }
       val gObjectPathProp =
         {
-          get = fn x => get "g-object-path" stringOpt x,
-          new = fn x => new "g-object-path" stringOpt x
+          name = "g-object-path",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

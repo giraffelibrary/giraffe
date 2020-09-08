@@ -26,13 +26,15 @@ structure GdkDisplayManager :>
       fun displayOpenedSig f = signal "display-opened" (get 0w1 GdkDisplayClass.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val defaultDisplayProp =
         {
-          get = fn x => get "default-display" GdkDisplayClass.tOpt x,
-          set = fn x => set "default-display" GdkDisplayClass.tOpt x,
-          new = fn x => new "default-display" GdkDisplayClass.tOpt x
+          name = "default-display",
+          gtype = fn () => C.gtype GdkDisplayClass.tOpt (),
+          get = fn x => fn () => C.get GdkDisplayClass.tOpt x,
+          set = fn x => C.set GdkDisplayClass.tOpt x,
+          init = fn x => C.set GdkDisplayClass.tOpt x
         }
     end
   end

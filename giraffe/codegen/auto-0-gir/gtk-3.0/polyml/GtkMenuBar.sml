@@ -29,19 +29,23 @@ structure GtkMenuBar :>
     fun setChildPackDirection self childPackDir = (GtkMenuBarClass.FFI.withPtr false &&&> GtkPackDirection.FFI.withVal ---> I) setChildPackDirection_ (self & childPackDir)
     fun setPackDirection self packDir = (GtkMenuBarClass.FFI.withPtr false &&&> GtkPackDirection.FFI.withVal ---> I) setPackDirection_ (self & packDir)
     local
-      open Property
+      open ValueAccessor
     in
       val childPackDirectionProp =
         {
-          get = fn x => get "child-pack-direction" GtkPackDirection.t x,
-          set = fn x => set "child-pack-direction" GtkPackDirection.t x,
-          new = fn x => new "child-pack-direction" GtkPackDirection.t x
+          name = "child-pack-direction",
+          gtype = fn () => C.gtype GtkPackDirection.t (),
+          get = fn x => fn () => C.get GtkPackDirection.t x,
+          set = fn x => C.set GtkPackDirection.t x,
+          init = fn x => C.set GtkPackDirection.t x
         }
       val packDirectionProp =
         {
-          get = fn x => get "pack-direction" GtkPackDirection.t x,
-          set = fn x => set "pack-direction" GtkPackDirection.t x,
-          new = fn x => new "pack-direction" GtkPackDirection.t x
+          name = "pack-direction",
+          gtype = fn () => C.gtype GtkPackDirection.t (),
+          get = fn x => fn () => C.get GtkPackDirection.t x,
+          set = fn x => C.set GtkPackDirection.t x,
+          init = fn x => C.set GtkPackDirection.t x
         }
     end
   end

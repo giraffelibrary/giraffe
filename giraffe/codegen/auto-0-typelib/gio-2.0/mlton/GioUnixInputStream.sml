@@ -21,18 +21,23 @@ structure GioUnixInputStream :>
     fun getFd self = (GioUnixInputStreamClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getFd_ self
     fun setCloseFd self closeFd = (GioUnixInputStreamClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCloseFd_ (self & closeFd)
     local
-      open Property
+      open ValueAccessor
     in
       val closeFdProp =
         {
-          get = fn x => get "close-fd" boolean x,
-          set = fn x => set "close-fd" boolean x,
-          new = fn x => new "close-fd" boolean x
+          name = "close-fd",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val fdProp =
         {
-          get = fn x => get "fd" int x,
-          new = fn x => new "fd" int x
+          name = "fd",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = fn x => C.set int x
         }
     end
   end

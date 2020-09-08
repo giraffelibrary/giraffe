@@ -76,24 +76,31 @@ structure GtkRadioAction :>
       fun changedSig f = signal "changed" (get 0w1 GtkRadioActionClass.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val currentValueProp =
         {
-          get = fn x => get "current-value" int x,
-          set = fn x => set "current-value" int x,
-          new = fn x => new "current-value" int x
+          name = "current-value",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val groupProp =
         {
-          set = fn x => set "group" GtkRadioActionClass.tOpt x,
-          new = fn x => new "group" GtkRadioActionClass.tOpt x
+          name = "group",
+          gtype = fn () => C.gtype GtkRadioActionClass.tOpt (),
+          get = ignore,
+          set = fn x => C.set GtkRadioActionClass.tOpt x,
+          init = fn x => C.set GtkRadioActionClass.tOpt x
         }
       val valueProp =
         {
-          get = fn x => get "value" int x,
-          set = fn x => set "value" int x,
-          new = fn x => new "value" int x
+          name = "value",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

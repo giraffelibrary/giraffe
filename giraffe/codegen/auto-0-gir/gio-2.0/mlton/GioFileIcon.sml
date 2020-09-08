@@ -19,12 +19,15 @@ structure GioFileIcon :>
     fun new file = (GioFileClass.FFI.withPtr false ---> GioFileIconClass.FFI.fromPtr true) new_ file
     fun getFile self = (GioFileIconClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getFile_ self
     local
-      open Property
+      open ValueAccessor
     in
       val fileProp =
         {
-          get = fn x => get "file" GioFileClass.tOpt x,
-          new = fn x => new "file" GioFileClass.tOpt x
+          name = "file",
+          gtype = fn () => C.gtype GioFileClass.tOpt (),
+          get = fn x => fn () => C.get GioFileClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioFileClass.tOpt x
         }
     end
   end

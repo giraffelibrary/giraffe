@@ -158,55 +158,71 @@ structure GtkAlignment :>
            & paddingRight
         )
     local
-      open Property
+      open ValueAccessor
     in
       val bottomPaddingProp =
         {
-          get = fn x => get "bottom-padding" uint x,
-          set = fn x => set "bottom-padding" uint x,
-          new = fn x => new "bottom-padding" uint x
+          name = "bottom-padding",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val leftPaddingProp =
         {
-          get = fn x => get "left-padding" uint x,
-          set = fn x => set "left-padding" uint x,
-          new = fn x => new "left-padding" uint x
+          name = "left-padding",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val rightPaddingProp =
         {
-          get = fn x => get "right-padding" uint x,
-          set = fn x => set "right-padding" uint x,
-          new = fn x => new "right-padding" uint x
+          name = "right-padding",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val topPaddingProp =
         {
-          get = fn x => get "top-padding" uint x,
-          set = fn x => set "top-padding" uint x,
-          new = fn x => new "top-padding" uint x
+          name = "top-padding",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val xalignProp =
         {
-          get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x,
-          new = fn x => new "xalign" float x
+          name = "xalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val xscaleProp =
         {
-          get = fn x => get "xscale" float x,
-          set = fn x => set "xscale" float x,
-          new = fn x => new "xscale" float x
+          name = "xscale",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val yalignProp =
         {
-          get = fn x => get "yalign" float x,
-          set = fn x => set "yalign" float x,
-          new = fn x => new "yalign" float x
+          name = "yalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val yscaleProp =
         {
-          get = fn x => get "yscale" float x,
-          set = fn x => set "yscale" float x,
-          new = fn x => new "yscale" float x
+          name = "yscale",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
     end
   end

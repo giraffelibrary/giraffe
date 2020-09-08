@@ -13,19 +13,23 @@ structure GtkSourceTag :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new name = (Utf8.FFI.withOptPtr 0 ---> GtkSourceTagClass.FFI.fromPtr true) new_ name
     local
-      open Property
+      open ValueAccessor
     in
       val drawSpacesProp =
         {
-          get = fn x => get "draw-spaces" boolean x,
-          set = fn x => set "draw-spaces" boolean x,
-          new = fn x => new "draw-spaces" boolean x
+          name = "draw-spaces",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val drawSpacesSetProp =
         {
-          get = fn x => get "draw-spaces-set" boolean x,
-          set = fn x => set "draw-spaces-set" boolean x,
-          new = fn x => new "draw-spaces-set" boolean x
+          name = "draw-spaces-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

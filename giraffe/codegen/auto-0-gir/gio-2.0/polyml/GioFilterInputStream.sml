@@ -19,18 +19,23 @@ structure GioFilterInputStream :>
     fun getCloseBaseStream self = (GioFilterInputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCloseBaseStream_ self
     fun setCloseBaseStream self closeBase = (GioFilterInputStreamClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCloseBaseStream_ (self & closeBase)
     local
-      open Property
+      open ValueAccessor
     in
       val baseStreamProp =
         {
-          get = fn x => get "base-stream" GioInputStreamClass.tOpt x,
-          new = fn x => new "base-stream" GioInputStreamClass.tOpt x
+          name = "base-stream",
+          gtype = fn () => C.gtype GioInputStreamClass.tOpt (),
+          get = fn x => fn () => C.get GioInputStreamClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioInputStreamClass.tOpt x
         }
       val closeBaseStreamProp =
         {
-          get = fn x => get "close-base-stream" boolean x,
-          set = fn x => set "close-base-stream" boolean x,
-          new = fn x => new "close-base-stream" boolean x
+          name = "close-base-stream",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

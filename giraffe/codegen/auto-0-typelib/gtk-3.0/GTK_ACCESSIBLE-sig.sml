@@ -10,13 +10,5 @@ signature GTK_ACCESSIBLE =
       'a class
        -> 'b widget_class option
        -> unit
-    val widgetProp :
-      {
-        get : 'a class -> base widget_class option,
-        set :
-          'b widget_class option
-           -> 'a class
-           -> unit,
-        new : 'b widget_class option -> 'a class Property.t
-      }
+    val widgetProp : ('a class, unit -> base widget_class option, 'b widget_class option -> unit, 'b widget_class option -> unit) Property.t
   end

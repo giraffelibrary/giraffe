@@ -13,22 +13,6 @@ signature GTK_SOURCE_MAP =
       'a class
        -> 'b view_class
        -> unit
-    val fontDescProp :
-      {
-        get : 'a class -> Pango.FontDescriptionRecord.t option,
-        set :
-          Pango.FontDescriptionRecord.t option
-           -> 'a class
-           -> unit,
-        new : Pango.FontDescriptionRecord.t option -> 'a class Property.t
-      }
-    val viewProp :
-      {
-        get : 'a class -> base view_class option,
-        set :
-          'b view_class option
-           -> 'a class
-           -> unit,
-        new : 'b view_class option -> 'a class Property.t
-      }
+    val fontDescProp : ('a class, unit -> Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option -> unit, Pango.FontDescriptionRecord.t option -> unit) Property.t
+    val viewProp : ('a class, unit -> base view_class option, 'b view_class option -> unit, 'b view_class option -> unit) Property.t
   end

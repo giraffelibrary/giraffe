@@ -14,23 +14,7 @@ signature GIO_CHARSET_CONVERTER =
       'a class
        -> bool
        -> unit
-    val fromCharsetProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val toCharsetProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val useFallbackProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val fromCharsetProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val toCharsetProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val useFallbackProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

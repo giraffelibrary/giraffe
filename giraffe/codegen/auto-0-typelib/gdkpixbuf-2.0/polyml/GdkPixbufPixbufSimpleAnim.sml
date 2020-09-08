@@ -45,13 +45,15 @@ structure GdkPixbufPixbufSimpleAnim :>
     fun getLoop self = (GdkPixbufPixbufSimpleAnimClass.FFI.withPtr false ---> GBool.FFI.fromVal) getLoop_ self
     fun setLoop self loop = (GdkPixbufPixbufSimpleAnimClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setLoop_ (self & loop)
     local
-      open Property
+      open ValueAccessor
     in
       val loopProp =
         {
-          get = fn x => get "loop" boolean x,
-          set = fn x => set "loop" boolean x,
-          new = fn x => new "loop" boolean x
+          name = "loop",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

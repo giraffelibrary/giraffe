@@ -32,18 +32,23 @@ structure GioDBusObjectManagerServer :>
     fun setConnection self connection = (GioDBusObjectManagerServerClass.FFI.withPtr false &&&> GioDBusConnectionClass.FFI.withOptPtr false ---> I) setConnection_ (self & connection)
     fun unexport self objectPath = (GioDBusObjectManagerServerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) unexport_ (self & objectPath)
     local
-      open Property
+      open ValueAccessor
     in
       val connectionProp =
         {
-          get = fn x => get "connection" GioDBusConnectionClass.tOpt x,
-          set = fn x => set "connection" GioDBusConnectionClass.tOpt x,
-          new = fn x => new "connection" GioDBusConnectionClass.tOpt x
+          name = "connection",
+          gtype = fn () => C.gtype GioDBusConnectionClass.tOpt (),
+          get = fn x => fn () => C.get GioDBusConnectionClass.tOpt x,
+          set = fn x => C.set GioDBusConnectionClass.tOpt x,
+          init = fn x => C.set GioDBusConnectionClass.tOpt x
         }
       val objectPathProp =
         {
-          get = fn x => get "object-path" stringOpt x,
-          new = fn x => new "object-path" stringOpt x
+          name = "object-path",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

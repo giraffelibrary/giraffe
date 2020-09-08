@@ -240,8 +240,15 @@ structure GioSubprocessLauncher :>
     fun takeStdoutFd self fd = (GioSubprocessLauncherClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) takeStdoutFd_ (self & fd)
     fun unsetenv self variable = (GioSubprocessLauncherClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) unsetenv_ (self & variable)
     local
-      open Property
+      open ValueAccessor
     in
-      val flagsProp = {new = fn x => new "flags" GioSubprocessFlags.t x}
+      val flagsProp =
+        {
+          name = "flags",
+          gtype = fn () => C.gtype GioSubprocessFlags.t (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GioSubprocessFlags.t x
+        }
     end
   end

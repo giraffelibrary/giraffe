@@ -29,12 +29,15 @@ structure GdkAppLaunchContext :>
     fun setScreen self screen = (GdkAppLaunchContextClass.FFI.withPtr false &&&> GdkScreenClass.FFI.withPtr false ---> I) setScreen_ (self & screen)
     fun setTimestamp self timestamp = (GdkAppLaunchContextClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setTimestamp_ (self & timestamp)
     local
-      open Property
+      open ValueAccessor
     in
       val displayProp =
         {
-          get = fn x => get "display" GdkDisplayClass.tOpt x,
-          new = fn x => new "display" GdkDisplayClass.tOpt x
+          name = "display",
+          gtype = fn () => C.gtype GdkDisplayClass.tOpt (),
+          get = fn x => fn () => C.get GdkDisplayClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GdkDisplayClass.tOpt x
         }
     end
   end

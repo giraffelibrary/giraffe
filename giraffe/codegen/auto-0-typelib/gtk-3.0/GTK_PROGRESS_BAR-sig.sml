@@ -40,58 +40,10 @@ signature GTK_PROGRESS_BAR =
       'a class
        -> string option
        -> unit
-    val ellipsizeProp :
-      {
-        get : 'a class -> Pango.EllipsizeMode.t,
-        set :
-          Pango.EllipsizeMode.t
-           -> 'a class
-           -> unit,
-        new : Pango.EllipsizeMode.t -> 'a class Property.t
-      }
-    val fractionProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val invertedProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val pulseStepProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val showTextProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val textProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val ellipsizeProp : ('a class, unit -> Pango.EllipsizeMode.t, Pango.EllipsizeMode.t -> unit, Pango.EllipsizeMode.t -> unit) Property.t
+    val fractionProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val invertedProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val pulseStepProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val showTextProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val textProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

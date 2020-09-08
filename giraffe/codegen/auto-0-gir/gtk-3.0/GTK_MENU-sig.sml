@@ -90,112 +90,16 @@ signature GTK_MENU =
        -> string
        -> unit
     val moveScrollSig : (scroll_type_t -> unit) -> 'a class Signal.t
-    val accelGroupProp :
-      {
-        get : 'a class -> base accel_group_class option,
-        set :
-          'b accel_group_class option
-           -> 'a class
-           -> unit,
-        new : 'b accel_group_class option -> 'a class Property.t
-      }
-    val accelPathProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val activeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val anchorHintsProp :
-      {
-        get : 'a class -> Gdk.AnchorHints.t,
-        set :
-          Gdk.AnchorHints.t
-           -> 'a class
-           -> unit,
-        new : Gdk.AnchorHints.t -> 'a class Property.t
-      }
-    val attachWidgetProp :
-      {
-        get : 'a class -> base widget_class option,
-        set :
-          'b widget_class option
-           -> 'a class
-           -> unit,
-        new : 'b widget_class option -> 'a class Property.t
-      }
-    val menuTypeHintProp :
-      {
-        get : 'a class -> Gdk.WindowTypeHint.t,
-        set :
-          Gdk.WindowTypeHint.t
-           -> 'a class
-           -> unit,
-        new : Gdk.WindowTypeHint.t -> 'a class Property.t
-      }
-    val monitorProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val rectAnchorDxProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val rectAnchorDyProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val reserveToggleSizeProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val tearoffStateProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val tearoffTitleProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val accelGroupProp : ('a class, unit -> base accel_group_class option, 'b accel_group_class option -> unit, 'b accel_group_class option -> unit) Property.t
+    val accelPathProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val activeProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val anchorHintsProp : ('a class, unit -> Gdk.AnchorHints.t, Gdk.AnchorHints.t -> unit, Gdk.AnchorHints.t -> unit) Property.t
+    val attachWidgetProp : ('a class, unit -> base widget_class option, 'b widget_class option -> unit, 'b widget_class option -> unit) Property.t
+    val menuTypeHintProp : ('a class, unit -> Gdk.WindowTypeHint.t, Gdk.WindowTypeHint.t -> unit, Gdk.WindowTypeHint.t -> unit) Property.t
+    val monitorProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val rectAnchorDxProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val rectAnchorDyProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val reserveToggleSizeProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val tearoffStateProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val tearoffTitleProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

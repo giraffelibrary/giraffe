@@ -29,49 +29,9 @@ signature GTK_SOURCE_SEARCH_SETTINGS =
       'a class
        -> bool
        -> unit
-    val atWordBoundariesProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val caseSensitiveProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val regexEnabledProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val searchTextProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val wrapAroundProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val atWordBoundariesProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val caseSensitiveProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val regexEnabledProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val searchTextProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val wrapAroundProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

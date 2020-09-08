@@ -30,8 +30,6 @@ structure ClosureMarshal :>
             type opt = Pointer.opt
             type non_opt = Pointer.non_opt
             type 'a p = 'a Pointer.p
-            fun get a vs n = ValueAccessor.C.get a (Pointer.get (vs, n))
-            fun set a vs n = ValueAccessor.C.set a (Pointer.get (vs, n))
           end
         structure PolyML =
           struct
@@ -97,9 +95,10 @@ structure ClosureMarshal :>
     type 'a set = Closure.args -> 'a -> unit
     type 'a ret = Closure.args -> 'a -> unit
 
-    fun get n a (_ & vs & _) = GObjectValueRecordArray.C.get a vs (Word.toInt n)
-    fun set n a (_ & vs & _) = GObjectValueRecordArray.C.set a vs (Word.toInt n)
-    fun ret a (v & _ & _) = ValueAccessor.C.set a v
+    fun offset vs n = GObjectValueRecordArray.C.Pointer.get (vs, Word.toInt n)
+    fun get n a (_ & vs & _) = ValueAccessor.C.get a (offset vs n)
+    fun set n a (_ & vs & _) x = ValueAccessor.C.set a (offset vs n) x
+    fun ret a (v & _ & _) x = ValueAccessor.C.set a v x
 
     type 'a marshaller = 'a -> Closure.callback
 

@@ -17,27 +17,39 @@ structure GdkDeviceTool :>
     fun getSerial self = (GdkDeviceToolClass.FFI.withPtr false ---> GUInt64.FFI.fromVal) getSerial_ self
     fun getToolType self = (GdkDeviceToolClass.FFI.withPtr false ---> GdkDeviceToolType.FFI.fromVal) getToolType_ self
     local
-      open Property
+      open ValueAccessor
     in
       val axesProp =
         {
-          get = fn x => get "axes" GdkAxisFlags.t x,
-          new = fn x => new "axes" GdkAxisFlags.t x
+          name = "axes",
+          gtype = fn () => C.gtype GdkAxisFlags.t (),
+          get = fn x => fn () => C.get GdkAxisFlags.t x,
+          set = ignore,
+          init = fn x => C.set GdkAxisFlags.t x
         }
       val hardwareIdProp =
         {
-          get = fn x => get "hardware-id" uint64 x,
-          new = fn x => new "hardware-id" uint64 x
+          name = "hardware-id",
+          gtype = fn () => C.gtype uint64 (),
+          get = fn x => fn () => C.get uint64 x,
+          set = ignore,
+          init = fn x => C.set uint64 x
         }
       val serialProp =
         {
-          get = fn x => get "serial" uint64 x,
-          new = fn x => new "serial" uint64 x
+          name = "serial",
+          gtype = fn () => C.gtype uint64 (),
+          get = fn x => fn () => C.get uint64 x,
+          set = ignore,
+          init = fn x => C.set uint64 x
         }
       val toolTypeProp =
         {
-          get = fn x => get "tool-type" GdkDeviceToolType.t x,
-          new = fn x => new "tool-type" GdkDeviceToolType.t x
+          name = "tool-type",
+          gtype = fn () => C.gtype GdkDeviceToolType.t (),
+          get = fn x => fn () => C.get GdkDeviceToolType.t x,
+          set = ignore,
+          init = fn x => C.set GdkDeviceToolType.t x
         }
     end
   end

@@ -43,31 +43,39 @@ structure GtkCellRendererAccel :>
           )
     end
     local
-      open Property
+      open ValueAccessor
     in
       val accelKeyProp =
         {
-          get = fn x => get "accel-key" uint x,
-          set = fn x => set "accel-key" uint x,
-          new = fn x => new "accel-key" uint x
+          name = "accel-key",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val accelModeProp =
         {
-          get = fn x => get "accel-mode" GtkCellRendererAccelMode.t x,
-          set = fn x => set "accel-mode" GtkCellRendererAccelMode.t x,
-          new = fn x => new "accel-mode" GtkCellRendererAccelMode.t x
+          name = "accel-mode",
+          gtype = fn () => C.gtype GtkCellRendererAccelMode.t (),
+          get = fn x => fn () => C.get GtkCellRendererAccelMode.t x,
+          set = fn x => C.set GtkCellRendererAccelMode.t x,
+          init = fn x => C.set GtkCellRendererAccelMode.t x
         }
       val accelModsProp =
         {
-          get = fn x => get "accel-mods" GdkModifierType.t x,
-          set = fn x => set "accel-mods" GdkModifierType.t x,
-          new = fn x => new "accel-mods" GdkModifierType.t x
+          name = "accel-mods",
+          gtype = fn () => C.gtype GdkModifierType.t (),
+          get = fn x => fn () => C.get GdkModifierType.t x,
+          set = fn x => C.set GdkModifierType.t x,
+          init = fn x => C.set GdkModifierType.t x
         }
       val keycodeProp =
         {
-          get = fn x => get "keycode" uint x,
-          set = fn x => set "keycode" uint x,
-          new = fn x => new "keycode" uint x
+          name = "keycode",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
     end
   end

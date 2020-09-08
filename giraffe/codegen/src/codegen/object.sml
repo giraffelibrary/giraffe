@@ -477,9 +477,10 @@ fun makeObjectSig
     val specs'7 = tTySpec :: specs'6
 
     (*
-     *                                       -.
-     *     type 'object_class property_t      | isGObject and numProps > 0
-     *                                       -'
+     *                                                     -.
+     *     type ('object_class, 'get, 'set, 'init) property_t
+     *                                                      | isGObject
+     *                                                     -'  and numProps > 0
      *)
     val numProps = ObjectInfo.getNProperties objectInfo
     val specs'8 = addPropertySpecs objectNamespace numProps specs'7
@@ -601,7 +602,7 @@ fun addObjectPropertyStrDecs repo objectIRef =
                   StrDecDec (
                     DecOpen (
                       toList1 [
-                        toList1 [propertyStrId]
+                        toList1 [valueAccessorStrId]
                       ]
                     )
                   )
@@ -682,10 +683,10 @@ fun makeObjectStr
     val strDecs'7 = StrDecDec tTypeDec :: strDecs'6
 
     (*
-     *                                                   -.
-     *     type 'object_class property_t =                | isGObject
-     *       'object_class Property.t                     |  and numProps > 0
-     *                                                   -'
+     *                                                     -.
+     *     type ('object_class, 'get, 'set, 'init) property_t =
+     *       ('object_class, 'get, 'set, 'init) Property.t  | isGObject
+     *                                                     -'  and numProps > 0
      *)
     val numProps = ObjectInfo.getNProperties objectInfo
     val revPropLocalTypes = makePropertyLocalTypes isGObject numProps

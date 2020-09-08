@@ -123,96 +123,135 @@ structure GtkComboBox :>
       fun popupSig f = signal "popup" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val activeProp =
         {
-          get = fn x => get "active" int x,
-          set = fn x => set "active" int x,
-          new = fn x => new "active" int x
+          name = "active",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val activeIdProp =
         {
-          get = fn x => get "active-id" stringOpt x,
-          set = fn x => set "active-id" stringOpt x,
-          new = fn x => new "active-id" stringOpt x
+          name = "active-id",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val addTearoffsProp =
         {
-          get = fn x => get "add-tearoffs" boolean x,
-          set = fn x => set "add-tearoffs" boolean x,
-          new = fn x => new "add-tearoffs" boolean x
+          name = "add-tearoffs",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val buttonSensitivityProp =
         {
-          get = fn x => get "button-sensitivity" GtkSensitivityType.t x,
-          set = fn x => set "button-sensitivity" GtkSensitivityType.t x,
-          new = fn x => new "button-sensitivity" GtkSensitivityType.t x
+          name = "button-sensitivity",
+          gtype = fn () => C.gtype GtkSensitivityType.t (),
+          get = fn x => fn () => C.get GtkSensitivityType.t x,
+          set = fn x => C.set GtkSensitivityType.t x,
+          init = fn x => C.set GtkSensitivityType.t x
         }
       val cellAreaProp =
         {
-          get = fn x => get "cell-area" GtkCellAreaClass.tOpt x,
-          new = fn x => new "cell-area" GtkCellAreaClass.tOpt x
+          name = "cell-area",
+          gtype = fn () => C.gtype GtkCellAreaClass.tOpt (),
+          get = fn x => fn () => C.get GtkCellAreaClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkCellAreaClass.tOpt x
         }
       val columnSpanColumnProp =
         {
-          get = fn x => get "column-span-column" int x,
-          set = fn x => set "column-span-column" int x,
-          new = fn x => new "column-span-column" int x
+          name = "column-span-column",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val entryTextColumnProp =
         {
-          get = fn x => get "entry-text-column" int x,
-          set = fn x => set "entry-text-column" int x,
-          new = fn x => new "entry-text-column" int x
+          name = "entry-text-column",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val hasEntryProp =
         {
-          get = fn x => get "has-entry" boolean x,
-          new = fn x => new "has-entry" boolean x
+          name = "has-entry",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val hasFrameProp =
         {
-          get = fn x => get "has-frame" boolean x,
-          set = fn x => set "has-frame" boolean x,
-          new = fn x => new "has-frame" boolean x
+          name = "has-frame",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val idColumnProp =
         {
-          get = fn x => get "id-column" int x,
-          set = fn x => set "id-column" int x,
-          new = fn x => new "id-column" int x
+          name = "id-column",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val modelProp =
         {
-          get = fn x => get "model" GtkTreeModelClass.tOpt x,
-          set = fn x => set "model" GtkTreeModelClass.tOpt x,
-          new = fn x => new "model" GtkTreeModelClass.tOpt x
+          name = "model",
+          gtype = fn () => C.gtype GtkTreeModelClass.tOpt (),
+          get = fn x => fn () => C.get GtkTreeModelClass.tOpt x,
+          set = fn x => C.set GtkTreeModelClass.tOpt x,
+          init = fn x => C.set GtkTreeModelClass.tOpt x
         }
       val popupFixedWidthProp =
         {
-          get = fn x => get "popup-fixed-width" boolean x,
-          set = fn x => set "popup-fixed-width" boolean x,
-          new = fn x => new "popup-fixed-width" boolean x
+          name = "popup-fixed-width",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
-      val popupShownProp = {get = fn x => get "popup-shown" boolean x}
+      val popupShownProp =
+        {
+          name = "popup-shown",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val rowSpanColumnProp =
         {
-          get = fn x => get "row-span-column" int x,
-          set = fn x => set "row-span-column" int x,
-          new = fn x => new "row-span-column" int x
+          name = "row-span-column",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val tearoffTitleProp =
         {
-          get = fn x => get "tearoff-title" stringOpt x,
-          set = fn x => set "tearoff-title" stringOpt x,
-          new = fn x => new "tearoff-title" stringOpt x
+          name = "tearoff-title",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val wrapWidthProp =
         {
-          get = fn x => get "wrap-width" int x,
-          set = fn x => set "wrap-width" int x,
-          new = fn x => new "wrap-width" int x
+          name = "wrap-width",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

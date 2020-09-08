@@ -93,29 +93,55 @@ structure GioDBusObjectManagerClient :>
           )
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val busTypeProp = {new = fn x => new "bus-type" GioBusType.t x}
+      val busTypeProp =
+        {
+          name = "bus-type",
+          gtype = fn () => C.gtype GioBusType.t (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GioBusType.t x
+        }
       val connectionProp =
         {
-          get = fn x => get "connection" GioDBusConnectionClass.tOpt x,
-          new = fn x => new "connection" GioDBusConnectionClass.tOpt x
+          name = "connection",
+          gtype = fn () => C.gtype GioDBusConnectionClass.tOpt (),
+          get = fn x => fn () => C.get GioDBusConnectionClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioDBusConnectionClass.tOpt x
         }
       val flagsProp =
         {
-          get = fn x => get "flags" GioDBusObjectManagerClientFlags.t x,
-          new = fn x => new "flags" GioDBusObjectManagerClientFlags.t x
+          name = "flags",
+          gtype = fn () => C.gtype GioDBusObjectManagerClientFlags.t (),
+          get = fn x => fn () => C.get GioDBusObjectManagerClientFlags.t x,
+          set = ignore,
+          init = fn x => C.set GioDBusObjectManagerClientFlags.t x
         }
       val nameProp =
         {
-          get = fn x => get "name" stringOpt x,
-          new = fn x => new "name" stringOpt x
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
-      val nameOwnerProp = {get = fn x => get "name-owner" stringOpt x}
+      val nameOwnerProp =
+        {
+          name = "name-owner",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
       val objectPathProp =
         {
-          get = fn x => get "object-path" stringOpt x,
-          new = fn x => new "object-path" stringOpt x
+          name = "object-path",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

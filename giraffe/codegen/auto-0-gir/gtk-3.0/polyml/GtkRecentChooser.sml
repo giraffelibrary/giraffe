@@ -124,62 +124,87 @@ structure GtkRecentChooser :>
       fun selectionChangedSig f = signal "selection-changed" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val filterProp =
         {
-          get = fn x => get "filter" GtkRecentFilterClass.tOpt x,
-          set = fn x => set "filter" GtkRecentFilterClass.tOpt x,
-          new = fn x => new "filter" GtkRecentFilterClass.tOpt x
+          name = "filter",
+          gtype = fn () => C.gtype GtkRecentFilterClass.tOpt (),
+          get = fn x => fn () => C.get GtkRecentFilterClass.tOpt x,
+          set = fn x => C.set GtkRecentFilterClass.tOpt x,
+          init = fn x => C.set GtkRecentFilterClass.tOpt x
         }
       val limitProp =
         {
-          get = fn x => get "limit" int x,
-          set = fn x => set "limit" int x,
-          new = fn x => new "limit" int x
+          name = "limit",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val localOnlyProp =
         {
-          get = fn x => get "local-only" boolean x,
-          set = fn x => set "local-only" boolean x,
-          new = fn x => new "local-only" boolean x
+          name = "local-only",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
-      val recentManagerProp = {new = fn x => new "recent-manager" GtkRecentManagerClass.tOpt x}
+      val recentManagerProp =
+        {
+          name = "recent-manager",
+          gtype = fn () => C.gtype GtkRecentManagerClass.tOpt (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GtkRecentManagerClass.tOpt x
+        }
       val selectMultipleProp =
         {
-          get = fn x => get "select-multiple" boolean x,
-          set = fn x => set "select-multiple" boolean x,
-          new = fn x => new "select-multiple" boolean x
+          name = "select-multiple",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showIconsProp =
         {
-          get = fn x => get "show-icons" boolean x,
-          set = fn x => set "show-icons" boolean x,
-          new = fn x => new "show-icons" boolean x
+          name = "show-icons",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showNotFoundProp =
         {
-          get = fn x => get "show-not-found" boolean x,
-          set = fn x => set "show-not-found" boolean x,
-          new = fn x => new "show-not-found" boolean x
+          name = "show-not-found",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showPrivateProp =
         {
-          get = fn x => get "show-private" boolean x,
-          set = fn x => set "show-private" boolean x,
-          new = fn x => new "show-private" boolean x
+          name = "show-private",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showTipsProp =
         {
-          get = fn x => get "show-tips" boolean x,
-          set = fn x => set "show-tips" boolean x,
-          new = fn x => new "show-tips" boolean x
+          name = "show-tips",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val sortTypeProp =
         {
-          get = fn x => get "sort-type" GtkRecentSortType.t x,
-          set = fn x => set "sort-type" GtkRecentSortType.t x,
-          new = fn x => new "sort-type" GtkRecentSortType.t x
+          name = "sort-type",
+          gtype = fn () => C.gtype GtkRecentSortType.t (),
+          get = fn x => fn () => C.get GtkRecentSortType.t x,
+          set = fn x => C.set GtkRecentSortType.t x,
+          init = fn x => C.set GtkRecentSortType.t x
         }
     end
   end

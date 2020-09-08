@@ -304,13 +304,15 @@ structure GtkBuilder :>
         value
       end
     local
-      open Property
+      open ValueAccessor
     in
       val translationDomainProp =
         {
-          get = fn x => get "translation-domain" stringOpt x,
-          set = fn x => set "translation-domain" stringOpt x,
-          new = fn x => new "translation-domain" stringOpt x
+          name = "translation-domain",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

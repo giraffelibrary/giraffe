@@ -21,19 +21,23 @@ structure GtkActionable :>
     fun setActionTargetValue self targetValue = (GtkActionableClass.FFI.withPtr false &&&> GLibVariantRecord.FFI.withPtr false ---> I) setActionTargetValue_ (self & targetValue)
     fun setDetailedActionName self detailedActionName = (GtkActionableClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDetailedActionName_ (self & detailedActionName)
     local
-      open Property
+      open ValueAccessor
     in
       val actionNameProp =
         {
-          get = fn x => get "action-name" stringOpt x,
-          set = fn x => set "action-name" stringOpt x,
-          new = fn x => new "action-name" stringOpt x
+          name = "action-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val actionTargetProp =
         {
-          get = fn x => get "action-target" GLibVariantRecord.tOpt x,
-          set = fn x => set "action-target" GLibVariantRecord.tOpt x,
-          new = fn x => new "action-target" GLibVariantRecord.tOpt x
+          name = "action-target",
+          gtype = fn () => C.gtype GLibVariantRecord.tOpt (),
+          get = fn x => fn () => C.get GLibVariantRecord.tOpt x,
+          set = fn x => C.set GLibVariantRecord.tOpt x,
+          init = fn x => C.set GLibVariantRecord.tOpt x
         }
     end
   end

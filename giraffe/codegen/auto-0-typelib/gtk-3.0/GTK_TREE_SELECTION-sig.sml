@@ -51,13 +51,5 @@ signature GTK_TREE_SELECTION =
        -> tree_path_t * tree_path_t
        -> unit
     val changedSig : (unit -> unit) -> 'a class Signal.t
-    val modeProp :
-      {
-        get : 'a class -> selection_mode_t,
-        set :
-          selection_mode_t
-           -> 'a class
-           -> unit,
-        new : selection_mode_t -> 'a class Property.t
-      }
+    val modeProp : ('a class, unit -> selection_mode_t, selection_mode_t -> unit, selection_mode_t -> unit) Property.t
   end

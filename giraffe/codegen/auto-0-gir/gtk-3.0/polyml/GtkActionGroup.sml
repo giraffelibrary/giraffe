@@ -75,30 +75,39 @@ structure GtkActionGroup :>
       fun preActivateSig f = signal "pre-activate" (get 0w1 GtkActionClass.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val accelGroupProp =
         {
-          get = fn x => get "accel-group" GtkAccelGroupClass.tOpt x,
-          set = fn x => set "accel-group" GtkAccelGroupClass.tOpt x,
-          new = fn x => new "accel-group" GtkAccelGroupClass.tOpt x
+          name = "accel-group",
+          gtype = fn () => C.gtype GtkAccelGroupClass.tOpt (),
+          get = fn x => fn () => C.get GtkAccelGroupClass.tOpt x,
+          set = fn x => C.set GtkAccelGroupClass.tOpt x,
+          init = fn x => C.set GtkAccelGroupClass.tOpt x
         }
       val nameProp =
         {
-          get = fn x => get "name" stringOpt x,
-          new = fn x => new "name" stringOpt x
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val sensitiveProp =
         {
-          get = fn x => get "sensitive" boolean x,
-          set = fn x => set "sensitive" boolean x,
-          new = fn x => new "sensitive" boolean x
+          name = "sensitive",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val visibleProp =
         {
-          get = fn x => get "visible" boolean x,
-          set = fn x => set "visible" boolean x,
-          new = fn x => new "visible" boolean x
+          name = "visible",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

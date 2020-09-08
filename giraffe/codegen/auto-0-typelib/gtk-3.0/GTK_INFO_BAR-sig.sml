@@ -46,22 +46,6 @@ signature GTK_INFO_BAR =
        -> unit
     val closeSig : (unit -> unit) -> 'a class Signal.t
     val responseSig : (LargeInt.int -> unit) -> 'a class Signal.t
-    val messageTypeProp :
-      {
-        get : 'a class -> message_type_t,
-        set :
-          message_type_t
-           -> 'a class
-           -> unit,
-        new : message_type_t -> 'a class Property.t
-      }
-    val showCloseButtonProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val messageTypeProp : ('a class, unit -> message_type_t, message_type_t -> unit, message_type_t -> unit) Property.t
+    val showCloseButtonProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

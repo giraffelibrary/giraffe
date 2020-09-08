@@ -122,13 +122,15 @@ structure GtkTreeSelection :>
       fun changedSig f = signal "changed" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val modeProp =
         {
-          get = fn x => get "mode" GtkSelectionMode.t x,
-          set = fn x => set "mode" GtkSelectionMode.t x,
-          new = fn x => new "mode" GtkSelectionMode.t x
+          name = "mode",
+          gtype = fn () => C.gtype GtkSelectionMode.t (),
+          get = fn x => fn () => C.get GtkSelectionMode.t x,
+          set = fn x => C.set GtkSelectionMode.t x,
+          init = fn x => C.set GtkSelectionMode.t x
         }
     end
   end

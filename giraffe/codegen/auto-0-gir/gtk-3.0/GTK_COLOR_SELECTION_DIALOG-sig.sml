@@ -9,8 +9,8 @@ signature GTK_COLOR_SELECTION_DIALOG =
     val getType : unit -> GObject.Type.t
     val new : string -> base class
     val getColorSelection : 'a class -> base widget_class
-    val cancelButtonProp : {get : 'a class -> base widget_class option}
-    val colorSelectionProp : {get : 'a class -> base widget_class option}
-    val helpButtonProp : {get : 'a class -> base widget_class option}
-    val okButtonProp : {get : 'a class -> base widget_class option}
+    val cancelButtonProp : ('a class, unit -> base widget_class option, unit, unit) Property.t
+    val colorSelectionProp : ('a class, unit -> base widget_class option, unit, unit) Property.t
+    val helpButtonProp : ('a class, unit -> base widget_class option, unit, unit) Property.t
+    val okButtonProp : ('a class, unit -> base widget_class option, unit, unit) Property.t
   end

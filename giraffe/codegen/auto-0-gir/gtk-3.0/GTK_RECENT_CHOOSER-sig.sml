@@ -79,86 +79,14 @@ signature GTK_RECENT_CHOOSER =
        -> unit
     val itemActivatedSig : (unit -> unit) -> 'a class Signal.t
     val selectionChangedSig : (unit -> unit) -> 'a class Signal.t
-    val filterProp :
-      {
-        get : 'a class -> base recent_filter_class option,
-        set :
-          'b recent_filter_class option
-           -> 'a class
-           -> unit,
-        new : 'b recent_filter_class option -> 'a class Property.t
-      }
-    val limitProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val localOnlyProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val recentManagerProp : {new : 'b recent_manager_class option -> 'a class Property.t}
-    val selectMultipleProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val showIconsProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val showNotFoundProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val showPrivateProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val showTipsProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val sortTypeProp :
-      {
-        get : 'a class -> recent_sort_type_t,
-        set :
-          recent_sort_type_t
-           -> 'a class
-           -> unit,
-        new : recent_sort_type_t -> 'a class Property.t
-      }
+    val filterProp : ('a class, unit -> base recent_filter_class option, 'b recent_filter_class option -> unit, 'b recent_filter_class option -> unit) Property.t
+    val limitProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val localOnlyProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val recentManagerProp : ('a class, unit, unit, 'b recent_manager_class option -> unit) Property.t
+    val selectMultipleProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val showIconsProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val showNotFoundProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val showPrivateProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val showTipsProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val sortTypeProp : ('a class, unit -> recent_sort_type_t, recent_sort_type_t -> unit, recent_sort_type_t -> unit) Property.t
   end

@@ -21,22 +21,6 @@ signature GTK_COLOR_CHOOSER =
        -> bool
        -> unit
     val colorActivatedSig : (Gdk.RgbaRecord.t -> unit) -> 'a class Signal.t
-    val rgbaProp :
-      {
-        get : 'a class -> Gdk.RgbaRecord.t option,
-        set :
-          Gdk.RgbaRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.RgbaRecord.t option -> 'a class Property.t
-      }
-    val useAlphaProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val rgbaProp : ('a class, unit -> Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option -> unit, Gdk.RgbaRecord.t option -> unit) Property.t
+    val useAlphaProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

@@ -32,9 +32,5 @@ signature GIO_SOCKET_CONNECTION =
     val getRemoteAddress : 'a class -> base socket_address_class
     val getSocket : 'a class -> base socket_class
     val isConnected : 'a class -> bool
-    val socketProp :
-      {
-        get : 'a class -> base socket_class option,
-        new : 'b socket_class option -> 'a class Property.t
-      }
+    val socketProp : ('a class, unit -> base socket_class option, unit, 'b socket_class option -> unit) Property.t
   end

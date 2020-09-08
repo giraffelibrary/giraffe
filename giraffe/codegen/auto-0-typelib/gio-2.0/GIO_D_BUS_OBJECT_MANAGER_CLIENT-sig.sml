@@ -36,26 +36,10 @@ signature GIO_D_BUS_OBJECT_MANAGER_CLIENT =
         * GLib.VariantRecord.t
         -> unit)
        -> 'a class Signal.t
-    val busTypeProp : {new : bus_type_t -> 'a class Property.t}
-    val connectionProp :
-      {
-        get : 'a class -> base d_bus_connection_class option,
-        new : 'b d_bus_connection_class option -> 'a class Property.t
-      }
-    val flagsProp :
-      {
-        get : 'a class -> d_bus_object_manager_client_flags_t,
-        new : d_bus_object_manager_client_flags_t -> 'a class Property.t
-      }
-    val nameProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val nameOwnerProp : {get : 'a class -> string option}
-    val objectPathProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
+    val busTypeProp : ('a class, unit, unit, bus_type_t -> unit) Property.t
+    val connectionProp : ('a class, unit -> base d_bus_connection_class option, unit, 'b d_bus_connection_class option -> unit) Property.t
+    val flagsProp : ('a class, unit -> d_bus_object_manager_client_flags_t, unit, d_bus_object_manager_client_flags_t -> unit) Property.t
+    val nameProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val nameOwnerProp : ('a class, unit -> string option, unit, unit) Property.t
+    val objectPathProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
   end

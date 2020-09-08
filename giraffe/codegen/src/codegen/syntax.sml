@@ -442,9 +442,6 @@ val setOptValueUId : id = setOptValueId ^ "_"
 val signalId : id = "signal"
 val signalExp : exp = mkIdLNameExp signalId
 
-val propertyId : id = "property"
-val propertyStrId : id = "Property"
-
 val getId : id = "get"
 val setId : id = "set"
 val retId : id = "ret"
@@ -456,6 +453,16 @@ val voidId : id = "void"
 val retVoidId : id = "ret_void"
 val voidExp : exp = mkIdLNameExp voidId
 val retVoidExp : exp = mkIdLNameExp retVoidId
+
+val propertyId : id = "property"
+val propertyStrId : id = "Property"
+val valueAccessorStrId : id = "ValueAccessor"
+val gtypeId : id = "gtype"
+val cGtypeExp : exp = mkLIdLNameExp [cStrId, gtypeId]
+val cGetExp : exp = mkLIdLNameExp [cStrId, getId]
+val cSetExp : exp = mkLIdLNameExp [cStrId, setId]
+val nameId : id = "name"
+val initId : id = "init"
 
 
 

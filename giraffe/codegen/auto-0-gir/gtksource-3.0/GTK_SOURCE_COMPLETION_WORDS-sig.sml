@@ -15,76 +15,12 @@ signature GTK_SOURCE_COMPLETION_WORDS =
       'a class
        -> 'b Gtk.TextBufferClass.class
        -> unit
-    val activationProp :
-      {
-        get : 'a class -> completion_activation_t,
-        set :
-          completion_activation_t
-           -> 'a class
-           -> unit,
-        new : completion_activation_t -> 'a class Property.t
-      }
-    val iconProp :
-      {
-        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
-        set :
-          'b GdkPixbuf.PixbufClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
-      }
-    val interactiveDelayProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val minimumWordSizeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val nameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val priorityProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val proposalsBatchSizeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val scanBatchSizeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val activationProp : ('a class, unit -> completion_activation_t, completion_activation_t -> unit, completion_activation_t -> unit) Property.t
+    val iconProp : ('a class, unit -> base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option -> unit, 'b GdkPixbuf.PixbufClass.class option -> unit) Property.t
+    val interactiveDelayProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val minimumWordSizeProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val nameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val priorityProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val proposalsBatchSizeProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val scanBatchSizeProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
   end

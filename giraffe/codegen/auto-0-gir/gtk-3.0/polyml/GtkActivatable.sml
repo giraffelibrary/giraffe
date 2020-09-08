@@ -25,19 +25,23 @@ structure GtkActivatable :>
     fun setUseActionAppearance self useAppearance = (GtkActivatableClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseActionAppearance_ (self & useAppearance)
     fun syncActionProperties self action = (GtkActivatableClass.FFI.withPtr false &&&> GtkActionClass.FFI.withOptPtr false ---> I) syncActionProperties_ (self & action)
     local
-      open Property
+      open ValueAccessor
     in
       val relatedActionProp =
         {
-          get = fn x => get "related-action" GtkActionClass.tOpt x,
-          set = fn x => set "related-action" GtkActionClass.tOpt x,
-          new = fn x => new "related-action" GtkActionClass.tOpt x
+          name = "related-action",
+          gtype = fn () => C.gtype GtkActionClass.tOpt (),
+          get = fn x => fn () => C.get GtkActionClass.tOpt x,
+          set = fn x => C.set GtkActionClass.tOpt x,
+          init = fn x => C.set GtkActionClass.tOpt x
         }
       val useActionAppearanceProp =
         {
-          get = fn x => get "use-action-appearance" boolean x,
-          set = fn x => set "use-action-appearance" boolean x,
-          new = fn x => new "use-action-appearance" boolean x
+          name = "use-action-appearance",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

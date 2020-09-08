@@ -8,27 +8,7 @@ signature GTK_SOURCE_COMPLETION_CONTEXT =
     val getActivation : 'a class -> completion_activation_t
     val getIter : 'a class -> Gtk.TextIterRecord.t option
     val cancelledSig : (unit -> unit) -> 'a class Signal.t
-    val activationProp :
-      {
-        get : 'a class -> completion_activation_t,
-        set :
-          completion_activation_t
-           -> 'a class
-           -> unit,
-        new : completion_activation_t -> 'a class Property.t
-      }
-    val completionProp :
-      {
-        get : 'a class -> base completion_class option,
-        new : 'b completion_class option -> 'a class Property.t
-      }
-    val iterProp :
-      {
-        get : 'a class -> Gtk.TextIterRecord.t option,
-        set :
-          Gtk.TextIterRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gtk.TextIterRecord.t option -> 'a class Property.t
-      }
+    val activationProp : ('a class, unit -> completion_activation_t, completion_activation_t -> unit, completion_activation_t -> unit) Property.t
+    val completionProp : ('a class, unit -> base completion_class option, unit, 'b completion_class option -> unit) Property.t
+    val iterProp : ('a class, unit -> Gtk.TextIterRecord.t option, Gtk.TextIterRecord.t option -> unit, Gtk.TextIterRecord.t option -> unit) Property.t
   end

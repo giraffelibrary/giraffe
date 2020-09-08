@@ -639,29 +639,79 @@ structure GioDBusConnection :>
     fun unregisterObject self registrationId = (GioDBusConnectionClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GBool.FFI.fromVal) unregisterObject_ (self & registrationId)
     fun unregisterSubtree self registrationId = (GioDBusConnectionClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GBool.FFI.fromVal) unregisterSubtree_ (self & registrationId)
     local
-      open Property
+      open ValueAccessor
     in
-      val addressProp = {new = fn x => new "address" stringOpt x}
-      val authenticationObserverProp = {new = fn x => new "authentication-observer" GioDBusAuthObserverClass.tOpt x}
-      val capabilitiesProp = {get = fn x => get "capabilities" GioDBusCapabilityFlags.t x}
-      val closedProp = {get = fn x => get "closed" boolean x}
+      val addressProp =
+        {
+          name = "address",
+          gtype = fn () => C.gtype stringOpt (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set stringOpt x
+        }
+      val authenticationObserverProp =
+        {
+          name = "authentication-observer",
+          gtype = fn () => C.gtype GioDBusAuthObserverClass.tOpt (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GioDBusAuthObserverClass.tOpt x
+        }
+      val capabilitiesProp =
+        {
+          name = "capabilities",
+          gtype = fn () => C.gtype GioDBusCapabilityFlags.t (),
+          get = fn x => fn () => C.get GioDBusCapabilityFlags.t x,
+          set = ignore,
+          init = ignore
+        }
+      val closedProp =
+        {
+          name = "closed",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val exitOnCloseProp =
         {
-          get = fn x => get "exit-on-close" boolean x,
-          set = fn x => set "exit-on-close" boolean x,
-          new = fn x => new "exit-on-close" boolean x
+          name = "exit-on-close",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
-      val flagsProp = {new = fn x => new "flags" GioDBusConnectionFlags.t x}
+      val flagsProp =
+        {
+          name = "flags",
+          gtype = fn () => C.gtype GioDBusConnectionFlags.t (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GioDBusConnectionFlags.t x
+        }
       val guidProp =
         {
-          get = fn x => get "guid" stringOpt x,
-          new = fn x => new "guid" stringOpt x
+          name = "guid",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val streamProp =
         {
-          get = fn x => get "stream" GioIOStreamClass.tOpt x,
-          new = fn x => new "stream" GioIOStreamClass.tOpt x
+          name = "stream",
+          gtype = fn () => C.gtype GioIOStreamClass.tOpt (),
+          get = fn x => fn () => C.get GioIOStreamClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioIOStreamClass.tOpt x
         }
-      val uniqueNameProp = {get = fn x => get "unique-name" stringOpt x}
+      val uniqueNameProp =
+        {
+          name = "unique-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

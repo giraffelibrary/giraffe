@@ -7,13 +7,5 @@ signature GTK_GESTURE_LONG_PRESS =
     val new : 'a widget_class -> base class
     val cancelledSig : (unit -> unit) -> 'a class Signal.t
     val pressedSig : (real * real -> unit) -> 'a class Signal.t
-    val delayFactorProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
+    val delayFactorProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
   end

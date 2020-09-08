@@ -24,13 +24,15 @@ structure GtkSeparatorToolItem :>
     fun getDraw self = (GtkSeparatorToolItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDraw_ self
     fun setDraw self draw = (GtkSeparatorToolItemClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setDraw_ (self & draw)
     local
-      open Property
+      open ValueAccessor
     in
       val drawProp =
         {
-          get = fn x => get "draw" boolean x,
-          set = fn x => set "draw" boolean x,
-          new = fn x => new "draw" boolean x
+          name = "draw",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

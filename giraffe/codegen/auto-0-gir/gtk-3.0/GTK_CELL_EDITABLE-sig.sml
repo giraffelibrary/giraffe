@@ -11,13 +11,5 @@ signature GTK_CELL_EDITABLE =
        -> unit
     val editingDoneSig : (unit -> unit) -> 'a class Signal.t
     val removeWidgetSig : (unit -> unit) -> 'a class Signal.t
-    val editingCanceledProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val editingCanceledProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

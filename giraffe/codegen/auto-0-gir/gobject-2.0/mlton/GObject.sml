@@ -2,7 +2,7 @@ structure GObject :
   G_OBJECT
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     where type 'a signal_t = 'a Signal.t
-    where type 'object_class property_t = 'object_class Property.t =
+    where type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) Property.t =
   struct
     val enumGetValue_ = fn x1 & x2 => (_import "g_enum_get_value" : GObjectEnumClassRecord.FFI.non_opt GObjectEnumClassRecord.FFI.p * GInt.FFI.val_ -> GObjectEnumValueRecord.FFI.non_opt GObjectEnumValueRecord.FFI.p;) (x1, x2)
     val enumGetValueByName_ =
@@ -898,7 +898,7 @@ structure GObject :
     val typeTestFlags_ = fn x1 & x2 => (_import "g_type_test_flags" : GObjectType.FFI.val_ * GUInt.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
     type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     type 'a signal_t = 'a Signal.t
-    type 'object_class property_t = 'object_class Property.t
+    type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) Property.t
     structure Type = GObjectType
     structure ConnectFlags = GObjectConnectFlags
     structure EnumClassRecord = GObjectEnumClassRecord

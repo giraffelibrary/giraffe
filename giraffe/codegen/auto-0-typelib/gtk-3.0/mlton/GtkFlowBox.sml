@@ -143,49 +143,63 @@ structure GtkFlowBox :>
       fun unselectAllSig f = signal "unselect-all" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val activateOnSingleClickProp =
         {
-          get = fn x => get "activate-on-single-click" boolean x,
-          set = fn x => set "activate-on-single-click" boolean x,
-          new = fn x => new "activate-on-single-click" boolean x
+          name = "activate-on-single-click",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val columnSpacingProp =
         {
-          get = fn x => get "column-spacing" uint x,
-          set = fn x => set "column-spacing" uint x,
-          new = fn x => new "column-spacing" uint x
+          name = "column-spacing",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val homogeneousProp =
         {
-          get = fn x => get "homogeneous" boolean x,
-          set = fn x => set "homogeneous" boolean x,
-          new = fn x => new "homogeneous" boolean x
+          name = "homogeneous",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val maxChildrenPerLineProp =
         {
-          get = fn x => get "max-children-per-line" uint x,
-          set = fn x => set "max-children-per-line" uint x,
-          new = fn x => new "max-children-per-line" uint x
+          name = "max-children-per-line",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val minChildrenPerLineProp =
         {
-          get = fn x => get "min-children-per-line" uint x,
-          set = fn x => set "min-children-per-line" uint x,
-          new = fn x => new "min-children-per-line" uint x
+          name = "min-children-per-line",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val rowSpacingProp =
         {
-          get = fn x => get "row-spacing" uint x,
-          set = fn x => set "row-spacing" uint x,
-          new = fn x => new "row-spacing" uint x
+          name = "row-spacing",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val selectionModeProp =
         {
-          get = fn x => get "selection-mode" GtkSelectionMode.t x,
-          set = fn x => set "selection-mode" GtkSelectionMode.t x,
-          new = fn x => new "selection-mode" GtkSelectionMode.t x
+          name = "selection-mode",
+          gtype = fn () => C.gtype GtkSelectionMode.t (),
+          get = fn x => fn () => C.get GtkSelectionMode.t x,
+          set = fn x => C.set GtkSelectionMode.t x,
+          init = fn x => C.set GtkSelectionMode.t x
         }
     end
   end

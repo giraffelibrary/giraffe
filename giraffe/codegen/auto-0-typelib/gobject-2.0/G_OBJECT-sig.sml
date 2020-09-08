@@ -2,7 +2,7 @@ signature G_OBJECT =
   sig
     type ('a, 'b) value_accessor_t
     type 'a signal_t
-    type 'object_class property_t
+    type ('object_class, 'get, 'set, 'init) property_t
     structure Type : G_OBJECT_TYPE
     structure ConnectFlags : G_OBJECT_CONNECT_FLAGS
     structure EnumClassRecord : G_OBJECT_ENUM_CLASS_RECORD
@@ -188,7 +188,7 @@ signature G_OBJECT =
         where type type_t = Type.t
         where type binding_flags_t = BindingFlags.t
         where type 'a object_class = 'a ObjectClass.class
-        where type 'object_class property_t = 'object_class property_t
+        where type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) property_t
     structure Closure :
       G_OBJECT_CLOSURE
         where type t = ClosureRecord.t

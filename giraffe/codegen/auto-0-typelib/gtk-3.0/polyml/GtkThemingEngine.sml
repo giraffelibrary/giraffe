@@ -301,12 +301,15 @@ structure GtkThemingEngine :>
         if retVal then SOME progress else NONE
       end
     local
-      open Property
+      open ValueAccessor
     in
       val nameProp =
         {
-          get = fn x => get "name" stringOpt x,
-          new = fn x => new "name" stringOpt x
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

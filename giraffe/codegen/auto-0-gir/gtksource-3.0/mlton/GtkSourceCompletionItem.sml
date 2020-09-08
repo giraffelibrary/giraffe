@@ -153,49 +153,63 @@ structure GtkSourceCompletionItem :>
            & info
         )
     local
-      open Property
+      open ValueAccessor
     in
       val giconProp =
         {
-          get = fn x => get "gicon" GioIconClass.tOpt x,
-          set = fn x => set "gicon" GioIconClass.tOpt x,
-          new = fn x => new "gicon" GioIconClass.tOpt x
+          name = "gicon",
+          gtype = fn () => C.gtype GioIconClass.tOpt (),
+          get = fn x => fn () => C.get GioIconClass.tOpt x,
+          set = fn x => C.set GioIconClass.tOpt x,
+          init = fn x => C.set GioIconClass.tOpt x
         }
       val iconProp =
         {
-          get = fn x => get "icon" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "icon" GdkPixbufPixbufClass.tOpt x,
-          new = fn x => new "icon" GdkPixbufPixbufClass.tOpt x
+          name = "icon",
+          gtype = fn () => C.gtype GdkPixbufPixbufClass.tOpt (),
+          get = fn x => fn () => C.get GdkPixbufPixbufClass.tOpt x,
+          set = fn x => C.set GdkPixbufPixbufClass.tOpt x,
+          init = fn x => C.set GdkPixbufPixbufClass.tOpt x
         }
       val iconNameProp =
         {
-          get = fn x => get "icon-name" stringOpt x,
-          set = fn x => set "icon-name" stringOpt x,
-          new = fn x => new "icon-name" stringOpt x
+          name = "icon-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val infoProp =
         {
-          get = fn x => get "info" stringOpt x,
-          set = fn x => set "info" stringOpt x,
-          new = fn x => new "info" stringOpt x
+          name = "info",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val labelProp =
         {
-          get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x,
-          new = fn x => new "label" stringOpt x
+          name = "label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val markupProp =
         {
-          get = fn x => get "markup" stringOpt x,
-          set = fn x => set "markup" stringOpt x,
-          new = fn x => new "markup" stringOpt x
+          name = "markup",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val textProp =
         {
-          get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x,
-          new = fn x => new "text" stringOpt x
+          name = "text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

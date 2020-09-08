@@ -30,23 +30,7 @@ signature GTK_FILE_CHOOSER_BUTTON =
        -> LargeInt.int
        -> unit
     val fileSetSig : (unit -> unit) -> 'a class Signal.t
-    val dialogProp : {new : 'b file_chooser_class option -> 'a class Property.t}
-    val titleProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val widthCharsProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val dialogProp : ('a class, unit, unit, 'b file_chooser_class option -> unit) Property.t
+    val titleProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val widthCharsProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
   end

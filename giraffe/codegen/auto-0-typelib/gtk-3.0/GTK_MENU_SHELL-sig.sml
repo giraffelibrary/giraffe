@@ -58,13 +58,5 @@ signature GTK_MENU_SHELL =
     val moveCurrentSig : (menu_direction_type_t -> unit) -> 'a class Signal.t
     val moveSelectedSig : (LargeInt.int -> bool) -> 'a class Signal.t
     val selectionDoneSig : (unit -> unit) -> 'a class Signal.t
-    val takeFocusProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val takeFocusProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

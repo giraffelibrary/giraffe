@@ -42,11 +42,39 @@ structure GioApplicationCommandLine :>
     fun getenv self name = (GioApplicationCommandLineClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getenv_ (self & name)
     fun setExitStatus self exitStatus = (GioApplicationCommandLineClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setExitStatus_ (self & exitStatus)
     local
-      open Property
+      open ValueAccessor
     in
-      val argumentsProp = {new = fn x => new "arguments" GLibVariantRecord.tOpt x}
-      val isRemoteProp = {get = fn x => get "is-remote" boolean x}
-      val optionsProp = {new = fn x => new "options" GLibVariantRecord.tOpt x}
-      val platformDataProp = {new = fn x => new "platform-data" GLibVariantRecord.tOpt x}
+      val argumentsProp =
+        {
+          name = "arguments",
+          gtype = fn () => C.gtype GLibVariantRecord.tOpt (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GLibVariantRecord.tOpt x
+        }
+      val isRemoteProp =
+        {
+          name = "is-remote",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val optionsProp =
+        {
+          name = "options",
+          gtype = fn () => C.gtype GLibVariantRecord.tOpt (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GLibVariantRecord.tOpt x
+        }
+      val platformDataProp =
+        {
+          name = "platform-data",
+          gtype = fn () => C.gtype GLibVariantRecord.tOpt (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GLibVariantRecord.tOpt x
+        }
     end
   end

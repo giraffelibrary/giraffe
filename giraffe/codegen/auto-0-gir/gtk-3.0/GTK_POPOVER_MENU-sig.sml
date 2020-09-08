@@ -11,13 +11,5 @@ signature GTK_POPOVER_MENU =
       'a class
        -> string
        -> unit
-    val visibleSubmenuProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val visibleSubmenuProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

@@ -42,19 +42,23 @@ structure GtkArrow :>
            & shadowType
         )
     local
-      open Property
+      open ValueAccessor
     in
       val arrowTypeProp =
         {
-          get = fn x => get "arrow-type" GtkArrowType.t x,
-          set = fn x => set "arrow-type" GtkArrowType.t x,
-          new = fn x => new "arrow-type" GtkArrowType.t x
+          name = "arrow-type",
+          gtype = fn () => C.gtype GtkArrowType.t (),
+          get = fn x => fn () => C.get GtkArrowType.t x,
+          set = fn x => C.set GtkArrowType.t x,
+          init = fn x => C.set GtkArrowType.t x
         }
       val shadowTypeProp =
         {
-          get = fn x => get "shadow-type" GtkShadowType.t x,
-          set = fn x => set "shadow-type" GtkShadowType.t x,
-          new = fn x => new "shadow-type" GtkShadowType.t x
+          name = "shadow-type",
+          gtype = fn () => C.gtype GtkShadowType.t (),
+          get = fn x => fn () => C.get GtkShadowType.t x,
+          set = fn x => C.set GtkShadowType.t x,
+          init = fn x => C.set GtkShadowType.t x
         }
     end
   end

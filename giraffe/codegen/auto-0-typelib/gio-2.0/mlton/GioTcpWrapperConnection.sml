@@ -15,12 +15,15 @@ structure GioTcpWrapperConnection :>
     fun new (baseIoStream, socket) = (GioIOStreamClass.FFI.withPtr false &&&> GioSocketClass.FFI.withPtr false ---> GioTcpWrapperConnectionClass.FFI.fromPtr true) new_ (baseIoStream & socket)
     fun getBaseIoStream self = (GioTcpWrapperConnectionClass.FFI.withPtr false ---> GioIOStreamClass.FFI.fromPtr false) getBaseIoStream_ self
     local
-      open Property
+      open ValueAccessor
     in
       val baseIoStreamProp =
         {
-          get = fn x => get "base-io-stream" GioIOStreamClass.tOpt x,
-          new = fn x => new "base-io-stream" GioIOStreamClass.tOpt x
+          name = "base-io-stream",
+          gtype = fn () => C.gtype GioIOStreamClass.tOpt (),
+          get = fn x => fn () => C.get GioIOStreamClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioIOStreamClass.tOpt x
         }
     end
   end

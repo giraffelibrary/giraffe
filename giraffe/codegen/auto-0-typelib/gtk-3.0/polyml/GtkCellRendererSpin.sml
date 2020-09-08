@@ -15,25 +15,31 @@ structure GtkCellRendererSpin :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCellRendererSpinClass.FFI.fromPtr false) new_ ()
     local
-      open Property
+      open ValueAccessor
     in
       val adjustmentProp =
         {
-          get = fn x => get "adjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "adjustment" GtkAdjustmentClass.tOpt x,
-          new = fn x => new "adjustment" GtkAdjustmentClass.tOpt x
+          name = "adjustment",
+          gtype = fn () => C.gtype GtkAdjustmentClass.tOpt (),
+          get = fn x => fn () => C.get GtkAdjustmentClass.tOpt x,
+          set = fn x => C.set GtkAdjustmentClass.tOpt x,
+          init = fn x => C.set GtkAdjustmentClass.tOpt x
         }
       val climbRateProp =
         {
-          get = fn x => get "climb-rate" double x,
-          set = fn x => set "climb-rate" double x,
-          new = fn x => new "climb-rate" double x
+          name = "climb-rate",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
       val digitsProp =
         {
-          get = fn x => get "digits" uint x,
-          set = fn x => set "digits" uint x,
-          new = fn x => new "digits" uint x
+          name = "digits",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
     end
   end

@@ -9,67 +9,87 @@ structure GtkCellRendererPixbuf :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCellRendererPixbufClass.FFI.fromPtr false) new_ ()
     local
-      open Property
+      open ValueAccessor
     in
       val followStateProp =
         {
-          get = fn x => get "follow-state" boolean x,
-          set = fn x => set "follow-state" boolean x,
-          new = fn x => new "follow-state" boolean x
+          name = "follow-state",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val giconProp =
         {
-          get = fn x => get "gicon" GioIconClass.tOpt x,
-          set = fn x => set "gicon" GioIconClass.tOpt x,
-          new = fn x => new "gicon" GioIconClass.tOpt x
+          name = "gicon",
+          gtype = fn () => C.gtype GioIconClass.tOpt (),
+          get = fn x => fn () => C.get GioIconClass.tOpt x,
+          set = fn x => C.set GioIconClass.tOpt x,
+          init = fn x => C.set GioIconClass.tOpt x
         }
       val iconNameProp =
         {
-          get = fn x => get "icon-name" stringOpt x,
-          set = fn x => set "icon-name" stringOpt x,
-          new = fn x => new "icon-name" stringOpt x
+          name = "icon-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val pixbufProp =
         {
-          get = fn x => get "pixbuf" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "pixbuf" GdkPixbufPixbufClass.tOpt x,
-          new = fn x => new "pixbuf" GdkPixbufPixbufClass.tOpt x
+          name = "pixbuf",
+          gtype = fn () => C.gtype GdkPixbufPixbufClass.tOpt (),
+          get = fn x => fn () => C.get GdkPixbufPixbufClass.tOpt x,
+          set = fn x => C.set GdkPixbufPixbufClass.tOpt x,
+          init = fn x => C.set GdkPixbufPixbufClass.tOpt x
         }
       val pixbufExpanderClosedProp =
         {
-          get = fn x => get "pixbuf-expander-closed" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "pixbuf-expander-closed" GdkPixbufPixbufClass.tOpt x,
-          new = fn x => new "pixbuf-expander-closed" GdkPixbufPixbufClass.tOpt x
+          name = "pixbuf-expander-closed",
+          gtype = fn () => C.gtype GdkPixbufPixbufClass.tOpt (),
+          get = fn x => fn () => C.get GdkPixbufPixbufClass.tOpt x,
+          set = fn x => C.set GdkPixbufPixbufClass.tOpt x,
+          init = fn x => C.set GdkPixbufPixbufClass.tOpt x
         }
       val pixbufExpanderOpenProp =
         {
-          get = fn x => get "pixbuf-expander-open" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "pixbuf-expander-open" GdkPixbufPixbufClass.tOpt x,
-          new = fn x => new "pixbuf-expander-open" GdkPixbufPixbufClass.tOpt x
+          name = "pixbuf-expander-open",
+          gtype = fn () => C.gtype GdkPixbufPixbufClass.tOpt (),
+          get = fn x => fn () => C.get GdkPixbufPixbufClass.tOpt x,
+          set = fn x => C.set GdkPixbufPixbufClass.tOpt x,
+          init = fn x => C.set GdkPixbufPixbufClass.tOpt x
         }
       val stockDetailProp =
         {
-          get = fn x => get "stock-detail" stringOpt x,
-          set = fn x => set "stock-detail" stringOpt x,
-          new = fn x => new "stock-detail" stringOpt x
+          name = "stock-detail",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val stockIdProp =
         {
-          get = fn x => get "stock-id" stringOpt x,
-          set = fn x => set "stock-id" stringOpt x,
-          new = fn x => new "stock-id" stringOpt x
+          name = "stock-id",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val stockSizeProp =
         {
-          get = fn x => get "stock-size" uint x,
-          set = fn x => set "stock-size" uint x,
-          new = fn x => new "stock-size" uint x
+          name = "stock-size",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val surfaceProp =
         {
-          get = fn x => get "surface" CairoSurfaceRecord.tOpt x,
-          set = fn x => set "surface" CairoSurfaceRecord.tOpt x,
-          new = fn x => new "surface" CairoSurfaceRecord.tOpt x
+          name = "surface",
+          gtype = fn () => C.gtype CairoSurfaceRecord.tOpt (),
+          get = fn x => fn () => C.get CairoSurfaceRecord.tOpt x,
+          set = fn x => C.set CairoSurfaceRecord.tOpt x,
+          init = fn x => C.set CairoSurfaceRecord.tOpt x
         }
     end
   end

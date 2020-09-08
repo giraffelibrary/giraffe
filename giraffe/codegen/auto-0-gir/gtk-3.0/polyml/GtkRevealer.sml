@@ -33,26 +33,39 @@ structure GtkRevealer :>
     fun setTransitionDuration self duration = (GtkRevealerClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) setTransitionDuration_ (self & duration)
     fun setTransitionType self transition = (GtkRevealerClass.FFI.withPtr false &&&> GtkRevealerTransitionType.FFI.withVal ---> I) setTransitionType_ (self & transition)
     local
-      open Property
+      open ValueAccessor
     in
-      val childRevealedProp = {get = fn x => get "child-revealed" boolean x}
+      val childRevealedProp =
+        {
+          name = "child-revealed",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val revealChildProp =
         {
-          get = fn x => get "reveal-child" boolean x,
-          set = fn x => set "reveal-child" boolean x,
-          new = fn x => new "reveal-child" boolean x
+          name = "reveal-child",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val transitionDurationProp =
         {
-          get = fn x => get "transition-duration" uint x,
-          set = fn x => set "transition-duration" uint x,
-          new = fn x => new "transition-duration" uint x
+          name = "transition-duration",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val transitionTypeProp =
         {
-          get = fn x => get "transition-type" GtkRevealerTransitionType.t x,
-          set = fn x => set "transition-type" GtkRevealerTransitionType.t x,
-          new = fn x => new "transition-type" GtkRevealerTransitionType.t x
+          name = "transition-type",
+          gtype = fn () => C.gtype GtkRevealerTransitionType.t (),
+          get = fn x => fn () => C.get GtkRevealerTransitionType.t x,
+          set = fn x => C.set GtkRevealerTransitionType.t x,
+          init = fn x => C.set GtkRevealerTransitionType.t x
         }
     end
   end

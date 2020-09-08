@@ -85,55 +85,71 @@ structure GtkHeaderBar :>
     fun setSubtitle self subtitle = (GtkHeaderBarClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setSubtitle_ (self & subtitle)
     fun setTitle self title = (GtkHeaderBarClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setTitle_ (self & title)
     local
-      open Property
+      open ValueAccessor
     in
       val customTitleProp =
         {
-          get = fn x => get "custom-title" GtkWidgetClass.tOpt x,
-          set = fn x => set "custom-title" GtkWidgetClass.tOpt x,
-          new = fn x => new "custom-title" GtkWidgetClass.tOpt x
+          name = "custom-title",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
       val decorationLayoutProp =
         {
-          get = fn x => get "decoration-layout" stringOpt x,
-          set = fn x => set "decoration-layout" stringOpt x,
-          new = fn x => new "decoration-layout" stringOpt x
+          name = "decoration-layout",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val decorationLayoutSetProp =
         {
-          get = fn x => get "decoration-layout-set" boolean x,
-          set = fn x => set "decoration-layout-set" boolean x,
-          new = fn x => new "decoration-layout-set" boolean x
+          name = "decoration-layout-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val hasSubtitleProp =
         {
-          get = fn x => get "has-subtitle" boolean x,
-          set = fn x => set "has-subtitle" boolean x,
-          new = fn x => new "has-subtitle" boolean x
+          name = "has-subtitle",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showCloseButtonProp =
         {
-          get = fn x => get "show-close-button" boolean x,
-          set = fn x => set "show-close-button" boolean x,
-          new = fn x => new "show-close-button" boolean x
+          name = "show-close-button",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val spacingProp =
         {
-          get = fn x => get "spacing" int x,
-          set = fn x => set "spacing" int x,
-          new = fn x => new "spacing" int x
+          name = "spacing",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val subtitleProp =
         {
-          get = fn x => get "subtitle" stringOpt x,
-          set = fn x => set "subtitle" stringOpt x,
-          new = fn x => new "subtitle" stringOpt x
+          name = "subtitle",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val titleProp =
         {
-          get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x,
-          new = fn x => new "title" stringOpt x
+          name = "title",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

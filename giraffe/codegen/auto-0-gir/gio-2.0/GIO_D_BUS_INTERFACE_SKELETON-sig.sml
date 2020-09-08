@@ -33,13 +33,5 @@ signature GIO_D_BUS_INTERFACE_SKELETON =
        -> 'b d_bus_connection_class
        -> unit
     val gAuthorizeMethodSig : (base d_bus_method_invocation_class -> bool) -> 'a class Signal.t
-    val gFlagsProp :
-      {
-        get : 'a class -> d_bus_interface_skeleton_flags_t,
-        set :
-          d_bus_interface_skeleton_flags_t
-           -> 'a class
-           -> unit,
-        new : d_bus_interface_skeleton_flags_t -> 'a class Property.t
-      }
+    val gFlagsProp : ('a class, unit -> d_bus_interface_skeleton_flags_t, d_bus_interface_skeleton_flags_t -> unit, d_bus_interface_skeleton_flags_t -> unit) Property.t
   end

@@ -219,25 +219,31 @@ structure GtkBox :>
     fun setHomogeneous self homogeneous = (GtkBoxClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
     fun setSpacing self spacing = (GtkBoxClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setSpacing_ (self & spacing)
     local
-      open Property
+      open ValueAccessor
     in
       val baselinePositionProp =
         {
-          get = fn x => get "baseline-position" GtkBaselinePosition.t x,
-          set = fn x => set "baseline-position" GtkBaselinePosition.t x,
-          new = fn x => new "baseline-position" GtkBaselinePosition.t x
+          name = "baseline-position",
+          gtype = fn () => C.gtype GtkBaselinePosition.t (),
+          get = fn x => fn () => C.get GtkBaselinePosition.t x,
+          set = fn x => C.set GtkBaselinePosition.t x,
+          init = fn x => C.set GtkBaselinePosition.t x
         }
       val homogeneousProp =
         {
-          get = fn x => get "homogeneous" boolean x,
-          set = fn x => set "homogeneous" boolean x,
-          new = fn x => new "homogeneous" boolean x
+          name = "homogeneous",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val spacingProp =
         {
-          get = fn x => get "spacing" int x,
-          set = fn x => set "spacing" int x,
-          new = fn x => new "spacing" int x
+          name = "spacing",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

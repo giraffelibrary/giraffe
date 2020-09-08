@@ -7,8 +7,8 @@
 
 structure Property :>
   PROPERTY
-    where type value_t = GObjectValueRecord.t
-    where type ('a, 'b) accessor = ('a, 'b) ValueAccessor.t
+    where type type_t = GObjectType.t
+    where type value_v = GObjectValueRecord.C.v
     where type 'a object_class = 'a GObjectObjectClass.class =
   struct
     local
@@ -33,8 +33,8 @@ structure Property :>
           )
     end
 
-    type value_t = GObjectValueRecord.t
-    type ('a, 'b) accessor = ('a, 'b) ValueAccessor.t
+    type type_t = GObjectType.t
+    type value_v = GObjectValueRecord.C.v
     type 'a object_class = 'a GObjectObjectClass.class
 
     fun getProperty self (propertyName, value) =
@@ -65,38 +65,48 @@ structure Property :>
            & value
         )
 
-    type 'object_class t =
-      {name : string, value : unit -> GObject.ValueRecord.t}
+    type ('object_class, 'get, 'set, 'init) t =
+      {
+        name  : string,
+        gtype : unit -> type_t,  (* function due to value restriction *)
+        get   : GObjectValueRecord.C.v -> 'get,
+        set   : GObjectValueRecord.C.v -> 'set,
+        init  : GObjectValueRecord.C.v -> 'init
+      }
 
-    fun new name t x = {name = name, value = fn () => ValueAccessor.new t x}
+    fun conv _ = Fn.id
 
-    fun name {name, ...} = name
-    fun value {value, ...} = value ()
-    fun conv _ t = t
-
-    fun get name t object =
+    fun get {name, gtype, get, ...} object =
       let
         val value = GObjectValue.new ()
-        val () = GObjectValue.init value (ValueAccessor.gtype t)
+        val () = GObjectValue.init value (gtype ())
         val () = getProperty object (name, value)
       in
-        ValueAccessor.get t value
+        (GObjectValueRecord.FFI.withPtr false ---> I) get value ()
       end
 
-    fun set name t x object =
+    fun set {name, gtype, set, ...} x object =
       let
         val value = GObjectValue.new ()
-        val () = GObjectValue.init value (ValueAccessor.gtype t)
-        val () = ValueAccessor.set t value x
+        val () = GObjectValue.init value (gtype ())
+        val () = (GObjectValueRecord.FFI.withPtr false ---> I) set value x
         val () = setProperty object (name, value)
       in
         ()        
       end
-  end
 
-fun propConv asX {get, set, new} =
-  {
-    get = get o asX,
-    set = fn a => set a o asX,
-    new = Property.conv asX o new
-  }
+    type 'object_class init_t =
+      {
+        name : string,
+        init : GObjectValueRecord.C.v -> unit
+      }
+
+    fun init {name, gtype, init, ...} x =
+      {
+        name = name,
+        init = fn v => (ValueAccessor.C.init v (gtype ()); init v x)
+      }
+
+    fun initName {name, ...} = name
+    fun initValue {init, ...} v = init v
+  end

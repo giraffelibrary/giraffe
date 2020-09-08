@@ -8,7 +8,7 @@ structure GObjectObject :>
     where type closure_t = GObjectClosureRecord.t
     where type 'a param_spec_class = 'a GObjectParamSpecClass.class
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
-    where type 'object_class property_t = 'object_class Property.t
+    where type 'object_class property_init_t = 'object_class Property.init_t
     where type 'a signal_t = 'a Signal.t =
   struct
     local
@@ -77,20 +77,31 @@ structure GObjectObject :>
     type closure_t = GObjectClosureRecord.t
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
     type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
-    type 'object_class property_t = 'object_class Property.t
+    type 'object_class property_init_t = 'object_class Property.init_t
     type 'a signal_t = 'a Signal.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (class, parameters) =
       let
         val objectType = ValueAccessor.gtype class
-        val nProperties = LargeInt.fromInt (List.length parameters)
+        val n = List.length parameters
+        val nProperties = LargeInt.fromInt n
         val names =
-          Utf8CPtrArrayN.fromSequence
-            (Vector.fromList (List.map Property.name parameters))
+          Utf8CPtrArrayN.tabulate
+            (n, Property.initName o ListSequence.get parameters)
         val values =
-          GObjectValueRecordCArrayN.fromSequence
-            (Vector.fromList (List.map Property.value parameters))
+          (* Using `GObjectValueRecordCArrayN.tabulate` would create a
+           * temporary GObjectValue for each element so we use a lower level
+           * implementation that initializes each array element directly. *)
+          let
+            open GObjectValueRecordCArrayN
+            fun initValue _ p (i, param) =
+              Property.initValue param (C.ArrayType.get n p i)
+          in
+            FFI.fromPtr ~1 (
+              C.ArrayType.init initValue (n, ListSequence.get parameters)
+            ) n
+          end
         val retVal =
           (
             GObjectType.FFI.withVal

@@ -39,17 +39,47 @@ structure GtkSourceFile :>
     fun isReadonly self = (GtkSourceFileClass.FFI.withPtr false ---> GBool.FFI.fromVal) isReadonly_ self
     fun setLocation self location = (GtkSourceFileClass.FFI.withPtr false &&&> GioFileClass.FFI.withOptPtr false ---> I) setLocation_ (self & location)
     local
-      open Property
+      open ValueAccessor
     in
-      val compressionTypeProp = {get = fn x => get "compression-type" GtkSourceCompressionType.t x}
-      val encodingProp = {get = fn x => get "encoding" GtkSourceEncodingRecord.tOpt x}
+      val compressionTypeProp =
+        {
+          name = "compression-type",
+          gtype = fn () => C.gtype GtkSourceCompressionType.t (),
+          get = fn x => fn () => C.get GtkSourceCompressionType.t x,
+          set = ignore,
+          init = ignore
+        }
+      val encodingProp =
+        {
+          name = "encoding",
+          gtype = fn () => C.gtype GtkSourceEncodingRecord.tOpt (),
+          get = fn x => fn () => C.get GtkSourceEncodingRecord.tOpt x,
+          set = ignore,
+          init = ignore
+        }
       val locationProp =
         {
-          get = fn x => get "location" GioFileClass.tOpt x,
-          set = fn x => set "location" GioFileClass.tOpt x,
-          new = fn x => new "location" GioFileClass.tOpt x
+          name = "location",
+          gtype = fn () => C.gtype GioFileClass.tOpt (),
+          get = fn x => fn () => C.get GioFileClass.tOpt x,
+          set = fn x => C.set GioFileClass.tOpt x,
+          init = fn x => C.set GioFileClass.tOpt x
         }
-      val newlineTypeProp = {get = fn x => get "newline-type" GtkSourceNewlineType.t x}
-      val readOnlyProp = {get = fn x => get "read-only" boolean x}
+      val newlineTypeProp =
+        {
+          name = "newline-type",
+          gtype = fn () => C.gtype GtkSourceNewlineType.t (),
+          get = fn x => fn () => C.get GtkSourceNewlineType.t x,
+          set = ignore,
+          init = ignore
+        }
+      val readOnlyProp =
+        {
+          name = "read-only",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

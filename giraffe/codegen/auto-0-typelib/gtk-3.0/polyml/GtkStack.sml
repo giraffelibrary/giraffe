@@ -129,56 +129,79 @@ structure GtkStack :>
         )
     fun setVisibleChildName self name = (GtkStackClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setVisibleChildName_ (self & name)
     local
-      open Property
+      open ValueAccessor
     in
       val hhomogeneousProp =
         {
-          get = fn x => get "hhomogeneous" boolean x,
-          set = fn x => set "hhomogeneous" boolean x,
-          new = fn x => new "hhomogeneous" boolean x
+          name = "hhomogeneous",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val homogeneousProp =
         {
-          get = fn x => get "homogeneous" boolean x,
-          set = fn x => set "homogeneous" boolean x,
-          new = fn x => new "homogeneous" boolean x
+          name = "homogeneous",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val interpolateSizeProp =
         {
-          get = fn x => get "interpolate-size" boolean x,
-          set = fn x => set "interpolate-size" boolean x,
-          new = fn x => new "interpolate-size" boolean x
+          name = "interpolate-size",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val transitionDurationProp =
         {
-          get = fn x => get "transition-duration" uint x,
-          set = fn x => set "transition-duration" uint x,
-          new = fn x => new "transition-duration" uint x
+          name = "transition-duration",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
-      val transitionRunningProp = {get = fn x => get "transition-running" boolean x}
+      val transitionRunningProp =
+        {
+          name = "transition-running",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val transitionTypeProp =
         {
-          get = fn x => get "transition-type" GtkStackTransitionType.t x,
-          set = fn x => set "transition-type" GtkStackTransitionType.t x,
-          new = fn x => new "transition-type" GtkStackTransitionType.t x
+          name = "transition-type",
+          gtype = fn () => C.gtype GtkStackTransitionType.t (),
+          get = fn x => fn () => C.get GtkStackTransitionType.t x,
+          set = fn x => C.set GtkStackTransitionType.t x,
+          init = fn x => C.set GtkStackTransitionType.t x
         }
       val vhomogeneousProp =
         {
-          get = fn x => get "vhomogeneous" boolean x,
-          set = fn x => set "vhomogeneous" boolean x,
-          new = fn x => new "vhomogeneous" boolean x
+          name = "vhomogeneous",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val visibleChildProp =
         {
-          get = fn x => get "visible-child" GtkWidgetClass.tOpt x,
-          set = fn x => set "visible-child" GtkWidgetClass.tOpt x,
-          new = fn x => new "visible-child" GtkWidgetClass.tOpt x
+          name = "visible-child",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
       val visibleChildNameProp =
         {
-          get = fn x => get "visible-child-name" stringOpt x,
-          set = fn x => set "visible-child-name" stringOpt x,
-          new = fn x => new "visible-child-name" stringOpt x
+          name = "visible-child-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

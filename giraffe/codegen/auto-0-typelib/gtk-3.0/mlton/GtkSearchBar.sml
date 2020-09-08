@@ -27,19 +27,23 @@ structure GtkSearchBar :>
     fun setSearchMode self searchMode = (GtkSearchBarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSearchMode_ (self & searchMode)
     fun setShowCloseButton self visible = (GtkSearchBarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowCloseButton_ (self & visible)
     local
-      open Property
+      open ValueAccessor
     in
       val searchModeEnabledProp =
         {
-          get = fn x => get "search-mode-enabled" boolean x,
-          set = fn x => set "search-mode-enabled" boolean x,
-          new = fn x => new "search-mode-enabled" boolean x
+          name = "search-mode-enabled",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showCloseButtonProp =
         {
-          get = fn x => get "show-close-button" boolean x,
-          set = fn x => set "show-close-button" boolean x,
-          new = fn x => new "show-close-button" boolean x
+          name = "show-close-button",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

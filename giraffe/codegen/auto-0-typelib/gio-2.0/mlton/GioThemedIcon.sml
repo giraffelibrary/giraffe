@@ -70,13 +70,23 @@ structure GioThemedIcon :>
     fun getNames self = (GioThemedIconClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getNames_ self
     fun prependName self iconname = (GioThemedIconClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) prependName_ (self & iconname)
     local
-      open Property
+      open ValueAccessor
     in
-      val nameProp = {new = fn x => new "name" stringOpt x}
+      val nameProp =
+        {
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set stringOpt x
+        }
       val useDefaultFallbacksProp =
         {
-          get = fn x => get "use-default-fallbacks" boolean x,
-          new = fn x => new "use-default-fallbacks" boolean x
+          name = "use-default-fallbacks",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
     end
   end

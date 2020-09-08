@@ -98,27 +98,39 @@ structure GtkSourceFileLoader :>
            & []
         )
     local
-      open Property
+      open ValueAccessor
     in
       val bufferProp =
         {
-          get = fn x => get "buffer" GtkSourceBufferClass.tOpt x,
-          new = fn x => new "buffer" GtkSourceBufferClass.tOpt x
+          name = "buffer",
+          gtype = fn () => C.gtype GtkSourceBufferClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceBufferClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkSourceBufferClass.tOpt x
         }
       val fileProp =
         {
-          get = fn x => get "file" GtkSourceFileClass.tOpt x,
-          new = fn x => new "file" GtkSourceFileClass.tOpt x
+          name = "file",
+          gtype = fn () => C.gtype GtkSourceFileClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceFileClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkSourceFileClass.tOpt x
         }
       val inputStreamProp =
         {
-          get = fn x => get "input-stream" GioInputStreamClass.tOpt x,
-          new = fn x => new "input-stream" GioInputStreamClass.tOpt x
+          name = "input-stream",
+          gtype = fn () => C.gtype GioInputStreamClass.tOpt (),
+          get = fn x => fn () => C.get GioInputStreamClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioInputStreamClass.tOpt x
         }
       val locationProp =
         {
-          get = fn x => get "location" GioFileClass.tOpt x,
-          new = fn x => new "location" GioFileClass.tOpt x
+          name = "location",
+          gtype = fn () => C.gtype GioFileClass.tOpt (),
+          get = fn x => fn () => C.get GioFileClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioFileClass.tOpt x
         }
     end
   end

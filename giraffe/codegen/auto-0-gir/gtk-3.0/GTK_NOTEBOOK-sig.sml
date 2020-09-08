@@ -173,67 +173,11 @@ signature GTK_NOTEBOOK =
     val reorderTabSig : (direction_type_t * bool -> bool) -> 'a class Signal.t
     val selectPageSig : (bool -> bool) -> 'a class Signal.t
     val switchPageSig : (base widget_class * LargeInt.int -> unit) -> 'a class Signal.t
-    val enablePopupProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val groupNameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val pageProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val scrollableProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val showBorderProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val showTabsProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val tabPosProp :
-      {
-        get : 'a class -> position_type_t,
-        set :
-          position_type_t
-           -> 'a class
-           -> unit,
-        new : position_type_t -> 'a class Property.t
-      }
+    val enablePopupProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val groupNameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val pageProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val scrollableProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val showBorderProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val showTabsProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val tabPosProp : ('a class, unit -> position_type_t, position_type_t -> unit, position_type_t -> unit) Property.t
   end

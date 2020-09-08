@@ -184,61 +184,79 @@ structure GtkButton :>
       fun releasedSig f = signal "released" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val alwaysShowImageProp =
         {
-          get = fn x => get "always-show-image" boolean x,
-          set = fn x => set "always-show-image" boolean x,
-          new = fn x => new "always-show-image" boolean x
+          name = "always-show-image",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val imageProp =
         {
-          get = fn x => get "image" GtkWidgetClass.tOpt x,
-          set = fn x => set "image" GtkWidgetClass.tOpt x,
-          new = fn x => new "image" GtkWidgetClass.tOpt x
+          name = "image",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
       val imagePositionProp =
         {
-          get = fn x => get "image-position" GtkPositionType.t x,
-          set = fn x => set "image-position" GtkPositionType.t x,
-          new = fn x => new "image-position" GtkPositionType.t x
+          name = "image-position",
+          gtype = fn () => C.gtype GtkPositionType.t (),
+          get = fn x => fn () => C.get GtkPositionType.t x,
+          set = fn x => C.set GtkPositionType.t x,
+          init = fn x => C.set GtkPositionType.t x
         }
       val labelProp =
         {
-          get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x,
-          new = fn x => new "label" stringOpt x
+          name = "label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val reliefProp =
         {
-          get = fn x => get "relief" GtkReliefStyle.t x,
-          set = fn x => set "relief" GtkReliefStyle.t x,
-          new = fn x => new "relief" GtkReliefStyle.t x
+          name = "relief",
+          gtype = fn () => C.gtype GtkReliefStyle.t (),
+          get = fn x => fn () => C.get GtkReliefStyle.t x,
+          set = fn x => C.set GtkReliefStyle.t x,
+          init = fn x => C.set GtkReliefStyle.t x
         }
       val useStockProp =
         {
-          get = fn x => get "use-stock" boolean x,
-          set = fn x => set "use-stock" boolean x,
-          new = fn x => new "use-stock" boolean x
+          name = "use-stock",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val useUnderlineProp =
         {
-          get = fn x => get "use-underline" boolean x,
-          set = fn x => set "use-underline" boolean x,
-          new = fn x => new "use-underline" boolean x
+          name = "use-underline",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val xalignProp =
         {
-          get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x,
-          new = fn x => new "xalign" float x
+          name = "xalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val yalignProp =
         {
-          get = fn x => get "yalign" float x,
-          set = fn x => set "yalign" float x,
-          new = fn x => new "yalign" float x
+          name = "yalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
     end
   end

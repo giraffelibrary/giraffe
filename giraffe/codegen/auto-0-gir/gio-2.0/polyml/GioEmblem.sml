@@ -24,17 +24,23 @@ structure GioEmblem :>
     fun getIcon self = (GioEmblemClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self
     fun getOrigin self = (GioEmblemClass.FFI.withPtr false ---> GioEmblemOrigin.FFI.fromVal) getOrigin_ self
     local
-      open Property
+      open ValueAccessor
     in
       val iconProp =
         {
-          get = fn x => get "icon" GObjectObjectClass.tOpt x,
-          new = fn x => new "icon" GObjectObjectClass.tOpt x
+          name = "icon",
+          gtype = fn () => C.gtype GObjectObjectClass.tOpt (),
+          get = fn x => fn () => C.get GObjectObjectClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GObjectObjectClass.tOpt x
         }
       val originProp =
         {
-          get = fn x => get "origin" GioEmblemOrigin.t x,
-          new = fn x => new "origin" GioEmblemOrigin.t x
+          name = "origin",
+          gtype = fn () => C.gtype GioEmblemOrigin.t (),
+          get = fn x => fn () => C.get GioEmblemOrigin.t x,
+          set = ignore,
+          init = fn x => C.set GioEmblemOrigin.t x
         }
     end
   end

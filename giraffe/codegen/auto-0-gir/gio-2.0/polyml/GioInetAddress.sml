@@ -47,22 +47,95 @@ structure GioInetAddress :>
     fun getNativeSize self = (GioInetAddressClass.FFI.withPtr false ---> GSize.FFI.fromVal) getNativeSize_ self
     fun toString self = (GioInetAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
     local
-      open Property
+      open ValueAccessor
     in
       val familyProp =
         {
-          get = fn x => get "family" GioSocketFamily.t x,
-          new = fn x => new "family" GioSocketFamily.t x
+          name = "family",
+          gtype = fn () => C.gtype GioSocketFamily.t (),
+          get = fn x => fn () => C.get GioSocketFamily.t x,
+          set = ignore,
+          init = fn x => C.set GioSocketFamily.t x
         }
-      val isAnyProp = {get = fn x => get "is-any" boolean x}
-      val isLinkLocalProp = {get = fn x => get "is-link-local" boolean x}
-      val isLoopbackProp = {get = fn x => get "is-loopback" boolean x}
-      val isMcGlobalProp = {get = fn x => get "is-mc-global" boolean x}
-      val isMcLinkLocalProp = {get = fn x => get "is-mc-link-local" boolean x}
-      val isMcNodeLocalProp = {get = fn x => get "is-mc-node-local" boolean x}
-      val isMcOrgLocalProp = {get = fn x => get "is-mc-org-local" boolean x}
-      val isMcSiteLocalProp = {get = fn x => get "is-mc-site-local" boolean x}
-      val isMulticastProp = {get = fn x => get "is-multicast" boolean x}
-      val isSiteLocalProp = {get = fn x => get "is-site-local" boolean x}
+      val isAnyProp =
+        {
+          name = "is-any",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val isLinkLocalProp =
+        {
+          name = "is-link-local",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val isLoopbackProp =
+        {
+          name = "is-loopback",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val isMcGlobalProp =
+        {
+          name = "is-mc-global",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val isMcLinkLocalProp =
+        {
+          name = "is-mc-link-local",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val isMcNodeLocalProp =
+        {
+          name = "is-mc-node-local",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val isMcOrgLocalProp =
+        {
+          name = "is-mc-org-local",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val isMcSiteLocalProp =
+        {
+          name = "is-mc-site-local",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val isMulticastProp =
+        {
+          name = "is-multicast",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val isSiteLocalProp =
+        {
+          name = "is-site-local",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

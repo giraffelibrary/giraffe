@@ -26,22 +26,6 @@ signature GTK_SIZE_GROUP =
       'a class
        -> size_group_mode_t
        -> unit
-    val ignoreHiddenProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val modeProp :
-      {
-        get : 'a class -> size_group_mode_t,
-        set :
-          size_group_mode_t
-           -> 'a class
-           -> unit,
-        new : size_group_mode_t -> 'a class Property.t
-      }
+    val ignoreHiddenProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val modeProp : ('a class, unit -> size_group_mode_t, size_group_mode_t -> unit, size_group_mode_t -> unit) Property.t
   end

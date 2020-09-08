@@ -38,19 +38,23 @@ structure GtkListBoxRow :>
       fun activateSig f = signal "activate" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val activatableProp =
         {
-          get = fn x => get "activatable" boolean x,
-          set = fn x => set "activatable" boolean x,
-          new = fn x => new "activatable" boolean x
+          name = "activatable",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val selectableProp =
         {
-          get = fn x => get "selectable" boolean x,
-          set = fn x => set "selectable" boolean x,
-          new = fn x => new "selectable" boolean x
+          name = "selectable",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

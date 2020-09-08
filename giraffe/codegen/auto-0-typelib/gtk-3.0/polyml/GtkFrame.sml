@@ -84,37 +84,47 @@ structure GtkFrame :>
     fun setLabelWidget self labelWidget = (GtkFrameClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setLabelWidget_ (self & labelWidget)
     fun setShadowType self type' = (GtkFrameClass.FFI.withPtr false &&&> GtkShadowType.FFI.withVal ---> I) setShadowType_ (self & type')
     local
-      open Property
+      open ValueAccessor
     in
       val labelProp =
         {
-          get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x,
-          new = fn x => new "label" stringOpt x
+          name = "label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val labelWidgetProp =
         {
-          get = fn x => get "label-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "label-widget" GtkWidgetClass.tOpt x,
-          new = fn x => new "label-widget" GtkWidgetClass.tOpt x
+          name = "label-widget",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
       val labelXalignProp =
         {
-          get = fn x => get "label-xalign" float x,
-          set = fn x => set "label-xalign" float x,
-          new = fn x => new "label-xalign" float x
+          name = "label-xalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val labelYalignProp =
         {
-          get = fn x => get "label-yalign" float x,
-          set = fn x => set "label-yalign" float x,
-          new = fn x => new "label-yalign" float x
+          name = "label-yalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val shadowTypeProp =
         {
-          get = fn x => get "shadow-type" GtkShadowType.t x,
-          set = fn x => set "shadow-type" GtkShadowType.t x,
-          new = fn x => new "shadow-type" GtkShadowType.t x
+          name = "shadow-type",
+          gtype = fn () => C.gtype GtkShadowType.t (),
+          get = fn x => fn () => C.get GtkShadowType.t x,
+          set = fn x => C.set GtkShadowType.t x,
+          init = fn x => C.set GtkShadowType.t x
         }
     end
   end

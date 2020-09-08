@@ -304,13 +304,15 @@ structure GioDataOutputStream :>
         )
     fun setByteOrder self order = (GioDataOutputStreamClass.FFI.withPtr false &&&> GioDataStreamByteOrder.FFI.withVal ---> I) setByteOrder_ (self & order)
     local
-      open Property
+      open ValueAccessor
     in
       val byteOrderProp =
         {
-          get = fn x => get "byte-order" GioDataStreamByteOrder.t x,
-          set = fn x => set "byte-order" GioDataStreamByteOrder.t x,
-          new = fn x => new "byte-order" GioDataStreamByteOrder.t x
+          name = "byte-order",
+          gtype = fn () => C.gtype GioDataStreamByteOrder.t (),
+          get = fn x => fn () => C.get GioDataStreamByteOrder.t x,
+          set = fn x => C.set GioDataStreamByteOrder.t x,
+          init = fn x => C.set GioDataStreamByteOrder.t x
         }
     end
   end

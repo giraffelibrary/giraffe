@@ -23,13 +23,15 @@ structure GtkCellEditable :>
       fun removeWidgetSig f = signal "remove-widget" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val editingCanceledProp =
         {
-          get = fn x => get "editing-canceled" boolean x,
-          set = fn x => set "editing-canceled" boolean x,
-          new = fn x => new "editing-canceled" boolean x
+          name = "editing-canceled",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

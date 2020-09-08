@@ -58,12 +58,15 @@ structure GtkRadioButton :>
       fun groupChangedSig f = signal "group-changed" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val groupProp =
         {
-          set = fn x => set "group" GtkRadioButtonClass.tOpt x,
-          new = fn x => new "group" GtkRadioButtonClass.tOpt x
+          name = "group",
+          gtype = fn () => C.gtype GtkRadioButtonClass.tOpt (),
+          get = ignore,
+          set = fn x => C.set GtkRadioButtonClass.tOpt x,
+          init = fn x => C.set GtkRadioButtonClass.tOpt x
         }
     end
   end

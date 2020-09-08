@@ -21,8 +21,8 @@ signature ATK_HYPERLINK =
     val isSelectedLink : 'a class -> bool
     val isValid : 'a class -> bool
     val linkActivatedSig : (unit -> unit) -> 'a class Signal.t
-    val endIndexProp : {get : 'a class -> LargeInt.int}
-    val numberOfAnchorsProp : {get : 'a class -> LargeInt.int}
-    val selectedLinkProp : {get : 'a class -> bool}
-    val startIndexProp : {get : 'a class -> LargeInt.int}
+    val endIndexProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val numberOfAnchorsProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val selectedLinkProp : ('a class, unit -> bool, unit, unit) Property.t
+    val startIndexProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
   end

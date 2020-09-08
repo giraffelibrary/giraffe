@@ -32,55 +32,71 @@ structure GtkSourceCompletionWords :>
     fun register self buffer = (GtkSourceCompletionWordsClass.FFI.withPtr false &&&> GtkTextBufferClass.FFI.withPtr false ---> I) register_ (self & buffer)
     fun unregister self buffer = (GtkSourceCompletionWordsClass.FFI.withPtr false &&&> GtkTextBufferClass.FFI.withPtr false ---> I) unregister_ (self & buffer)
     local
-      open Property
+      open ValueAccessor
     in
       val activationProp =
         {
-          get = fn x => get "activation" GtkSourceCompletionActivation.t x,
-          set = fn x => set "activation" GtkSourceCompletionActivation.t x,
-          new = fn x => new "activation" GtkSourceCompletionActivation.t x
+          name = "activation",
+          gtype = fn () => C.gtype GtkSourceCompletionActivation.t (),
+          get = fn x => fn () => C.get GtkSourceCompletionActivation.t x,
+          set = fn x => C.set GtkSourceCompletionActivation.t x,
+          init = fn x => C.set GtkSourceCompletionActivation.t x
         }
       val iconProp =
         {
-          get = fn x => get "icon" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "icon" GdkPixbufPixbufClass.tOpt x,
-          new = fn x => new "icon" GdkPixbufPixbufClass.tOpt x
+          name = "icon",
+          gtype = fn () => C.gtype GdkPixbufPixbufClass.tOpt (),
+          get = fn x => fn () => C.get GdkPixbufPixbufClass.tOpt x,
+          set = fn x => C.set GdkPixbufPixbufClass.tOpt x,
+          init = fn x => C.set GdkPixbufPixbufClass.tOpt x
         }
       val interactiveDelayProp =
         {
-          get = fn x => get "interactive-delay" int x,
-          set = fn x => set "interactive-delay" int x,
-          new = fn x => new "interactive-delay" int x
+          name = "interactive-delay",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val minimumWordSizeProp =
         {
-          get = fn x => get "minimum-word-size" uint x,
-          set = fn x => set "minimum-word-size" uint x,
-          new = fn x => new "minimum-word-size" uint x
+          name = "minimum-word-size",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val nameProp =
         {
-          get = fn x => get "name" stringOpt x,
-          set = fn x => set "name" stringOpt x,
-          new = fn x => new "name" stringOpt x
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val priorityProp =
         {
-          get = fn x => get "priority" int x,
-          set = fn x => set "priority" int x,
-          new = fn x => new "priority" int x
+          name = "priority",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val proposalsBatchSizeProp =
         {
-          get = fn x => get "proposals-batch-size" uint x,
-          set = fn x => set "proposals-batch-size" uint x,
-          new = fn x => new "proposals-batch-size" uint x
+          name = "proposals-batch-size",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val scanBatchSizeProp =
         {
-          get = fn x => get "scan-batch-size" uint x,
-          set = fn x => set "scan-batch-size" uint x,
-          new = fn x => new "scan-batch-size" uint x
+          name = "scan-batch-size",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
     end
   end

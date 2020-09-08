@@ -201,19 +201,23 @@ structure GtkIMContext :>
       fun retrieveSurroundingSig f = signal "retrieve-surrounding" (void ---> ret boolean) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val inputHintsProp =
         {
-          get = fn x => get "input-hints" GtkInputHints.t x,
-          set = fn x => set "input-hints" GtkInputHints.t x,
-          new = fn x => new "input-hints" GtkInputHints.t x
+          name = "input-hints",
+          gtype = fn () => C.gtype GtkInputHints.t (),
+          get = fn x => fn () => C.get GtkInputHints.t x,
+          set = fn x => C.set GtkInputHints.t x,
+          init = fn x => C.set GtkInputHints.t x
         }
       val inputPurposeProp =
         {
-          get = fn x => get "input-purpose" GtkInputPurpose.t x,
-          set = fn x => set "input-purpose" GtkInputPurpose.t x,
-          new = fn x => new "input-purpose" GtkInputPurpose.t x
+          name = "input-purpose",
+          gtype = fn () => C.gtype GtkInputPurpose.t (),
+          get = fn x => fn () => C.get GtkInputPurpose.t x,
+          set = fn x => C.set GtkInputPurpose.t x,
+          init = fn x => C.set GtkInputPurpose.t x
         }
     end
   end

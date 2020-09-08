@@ -102,12 +102,15 @@ structure GtkTreeModelSort :>
     fun iterIsValid self iter = (GtkTreeModelSortClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) iterIsValid_ (self & iter)
     fun resetDefaultSortFunc self = (GtkTreeModelSortClass.FFI.withPtr false ---> I) resetDefaultSortFunc_ self
     local
-      open Property
+      open ValueAccessor
     in
       val modelProp =
         {
-          get = fn x => get "model" GtkTreeModelClass.tOpt x,
-          new = fn x => new "model" GtkTreeModelClass.tOpt x
+          name = "model",
+          gtype = fn () => C.gtype GtkTreeModelClass.tOpt (),
+          get = fn x => fn () => C.get GtkTreeModelClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkTreeModelClass.tOpt x
         }
     end
   end

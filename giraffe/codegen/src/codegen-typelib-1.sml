@@ -376,7 +376,12 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         extendStrDeps "Signal"
           ["GObjectObjectClass", "GObjectClosureRecord", "GObjectClosure"],
         extendStrDeps "Property"
-          ["GObjectObjectClass", "GObjectValueRecord", "GObjectValue"],
+          [
+            "GObjectObjectClass",
+            "GObjectValueRecord",
+            "GObjectValue",
+            "GObjectType"
+          ],
 
         (* Signal and Property must be loaded before structures that depend
            on them. *)

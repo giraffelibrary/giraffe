@@ -4,94 +4,14 @@ signature GTK_CELL_RENDERER_PIXBUF =
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
-    val followStateProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val giconProp :
-      {
-        get : 'a class -> base Gio.IconClass.class option,
-        set :
-          'b Gio.IconClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b Gio.IconClass.class option -> 'a class Property.t
-      }
-    val iconNameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val pixbufProp :
-      {
-        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
-        set :
-          'b GdkPixbuf.PixbufClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
-      }
-    val pixbufExpanderClosedProp :
-      {
-        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
-        set :
-          'b GdkPixbuf.PixbufClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
-      }
-    val pixbufExpanderOpenProp :
-      {
-        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
-        set :
-          'b GdkPixbuf.PixbufClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
-      }
-    val stockDetailProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val stockIdProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val stockSizeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val surfaceProp :
-      {
-        get : 'a class -> Cairo.SurfaceRecord.t option,
-        set :
-          Cairo.SurfaceRecord.t option
-           -> 'a class
-           -> unit,
-        new : Cairo.SurfaceRecord.t option -> 'a class Property.t
-      }
+    val followStateProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val giconProp : ('a class, unit -> base Gio.IconClass.class option, 'b Gio.IconClass.class option -> unit, 'b Gio.IconClass.class option -> unit) Property.t
+    val iconNameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val pixbufProp : ('a class, unit -> base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option -> unit, 'b GdkPixbuf.PixbufClass.class option -> unit) Property.t
+    val pixbufExpanderClosedProp : ('a class, unit -> base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option -> unit, 'b GdkPixbuf.PixbufClass.class option -> unit) Property.t
+    val pixbufExpanderOpenProp : ('a class, unit -> base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option -> unit, 'b GdkPixbuf.PixbufClass.class option -> unit) Property.t
+    val stockDetailProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val stockIdProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val stockSizeProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val surfaceProp : ('a class, unit -> Cairo.SurfaceRecord.t option, Cairo.SurfaceRecord.t option -> unit, Cairo.SurfaceRecord.t option -> unit) Property.t
   end

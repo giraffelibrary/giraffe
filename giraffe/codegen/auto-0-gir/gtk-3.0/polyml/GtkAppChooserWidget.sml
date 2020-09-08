@@ -56,43 +56,55 @@ structure GtkAppChooserWidget :>
       fun populatePopupSig f = signal "populate-popup" (get 0w1 GtkMenuClass.t &&&> get 0w2 GioAppInfoClass.t ---> ret_void) (fn menu & application => f (menu, application))
     end
     local
-      open Property
+      open ValueAccessor
     in
       val defaultTextProp =
         {
-          get = fn x => get "default-text" stringOpt x,
-          set = fn x => set "default-text" stringOpt x,
-          new = fn x => new "default-text" stringOpt x
+          name = "default-text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val showAllProp =
         {
-          get = fn x => get "show-all" boolean x,
-          set = fn x => set "show-all" boolean x,
-          new = fn x => new "show-all" boolean x
+          name = "show-all",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showDefaultProp =
         {
-          get = fn x => get "show-default" boolean x,
-          set = fn x => set "show-default" boolean x,
-          new = fn x => new "show-default" boolean x
+          name = "show-default",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showFallbackProp =
         {
-          get = fn x => get "show-fallback" boolean x,
-          set = fn x => set "show-fallback" boolean x,
-          new = fn x => new "show-fallback" boolean x
+          name = "show-fallback",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showOtherProp =
         {
-          get = fn x => get "show-other" boolean x,
-          set = fn x => set "show-other" boolean x,
-          new = fn x => new "show-other" boolean x
+          name = "show-other",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showRecommendedProp =
         {
-          get = fn x => get "show-recommended" boolean x,
-          set = fn x => set "show-recommended" boolean x,
-          new = fn x => new "show-recommended" boolean x
+          name = "show-recommended",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

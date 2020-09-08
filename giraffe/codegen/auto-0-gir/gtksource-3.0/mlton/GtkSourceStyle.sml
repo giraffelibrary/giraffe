@@ -11,102 +11,159 @@ structure GtkSourceStyle :>
     fun apply self tag = (GtkSourceStyleClass.FFI.withPtr false &&&> GtkTextTagClass.FFI.withPtr false ---> I) apply_ (self & tag)
     fun copy self = (GtkSourceStyleClass.FFI.withPtr false ---> GtkSourceStyleClass.FFI.fromPtr true) copy_ self
     local
-      open Property
+      open ValueAccessor
     in
       val backgroundProp =
         {
-          get = fn x => get "background" stringOpt x,
-          new = fn x => new "background" stringOpt x
+          name = "background",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val backgroundSetProp =
         {
-          get = fn x => get "background-set" boolean x,
-          new = fn x => new "background-set" boolean x
+          name = "background-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val boldProp =
         {
-          get = fn x => get "bold" boolean x,
-          new = fn x => new "bold" boolean x
+          name = "bold",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val boldSetProp =
         {
-          get = fn x => get "bold-set" boolean x,
-          new = fn x => new "bold-set" boolean x
+          name = "bold-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val foregroundProp =
         {
-          get = fn x => get "foreground" stringOpt x,
-          new = fn x => new "foreground" stringOpt x
+          name = "foreground",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val foregroundSetProp =
         {
-          get = fn x => get "foreground-set" boolean x,
-          new = fn x => new "foreground-set" boolean x
+          name = "foreground-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val italicProp =
         {
-          get = fn x => get "italic" boolean x,
-          new = fn x => new "italic" boolean x
+          name = "italic",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val italicSetProp =
         {
-          get = fn x => get "italic-set" boolean x,
-          new = fn x => new "italic-set" boolean x
+          name = "italic-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val lineBackgroundProp =
         {
-          get = fn x => get "line-background" stringOpt x,
-          new = fn x => new "line-background" stringOpt x
+          name = "line-background",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val lineBackgroundSetProp =
         {
-          get = fn x => get "line-background-set" boolean x,
-          new = fn x => new "line-background-set" boolean x
+          name = "line-background-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val pangoUnderlineProp =
         {
-          get = fn x => get "pango-underline" PangoUnderline.t x,
-          new = fn x => new "pango-underline" PangoUnderline.t x
+          name = "pango-underline",
+          gtype = fn () => C.gtype PangoUnderline.t (),
+          get = fn x => fn () => C.get PangoUnderline.t x,
+          set = ignore,
+          init = fn x => C.set PangoUnderline.t x
         }
       val scaleProp =
         {
-          get = fn x => get "scale" stringOpt x,
-          new = fn x => new "scale" stringOpt x
+          name = "scale",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val scaleSetProp =
         {
-          get = fn x => get "scale-set" boolean x,
-          new = fn x => new "scale-set" boolean x
+          name = "scale-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val strikethroughProp =
         {
-          get = fn x => get "strikethrough" boolean x,
-          new = fn x => new "strikethrough" boolean x
+          name = "strikethrough",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val strikethroughSetProp =
         {
-          get = fn x => get "strikethrough-set" boolean x,
-          new = fn x => new "strikethrough-set" boolean x
+          name = "strikethrough-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val underlineProp =
         {
-          get = fn x => get "underline" boolean x,
-          new = fn x => new "underline" boolean x
+          name = "underline",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val underlineColorProp =
         {
-          get = fn x => get "underline-color" stringOpt x,
-          new = fn x => new "underline-color" stringOpt x
+          name = "underline-color",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val underlineColorSetProp =
         {
-          get = fn x => get "underline-color-set" boolean x,
-          new = fn x => new "underline-color-set" boolean x
+          name = "underline-color-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val underlineSetProp =
         {
-          get = fn x => get "underline-set" boolean x,
-          new = fn x => new "underline-set" boolean x
+          name = "underline-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
     end
   end

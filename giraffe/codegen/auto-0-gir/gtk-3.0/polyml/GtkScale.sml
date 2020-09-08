@@ -141,31 +141,39 @@ structure GtkScale :>
       fun formatValueSig f = signal "format-value" (get 0w1 double ---> ret string) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val digitsProp =
         {
-          get = fn x => get "digits" int x,
-          set = fn x => set "digits" int x,
-          new = fn x => new "digits" int x
+          name = "digits",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val drawValueProp =
         {
-          get = fn x => get "draw-value" boolean x,
-          set = fn x => set "draw-value" boolean x,
-          new = fn x => new "draw-value" boolean x
+          name = "draw-value",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val hasOriginProp =
         {
-          get = fn x => get "has-origin" boolean x,
-          set = fn x => set "has-origin" boolean x,
-          new = fn x => new "has-origin" boolean x
+          name = "has-origin",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val valuePosProp =
         {
-          get = fn x => get "value-pos" GtkPositionType.t x,
-          set = fn x => set "value-pos" GtkPositionType.t x,
-          new = fn x => new "value-pos" GtkPositionType.t x
+          name = "value-pos",
+          gtype = fn () => C.gtype GtkPositionType.t (),
+          get = fn x => fn () => C.get GtkPositionType.t x,
+          set = fn x => C.set GtkPositionType.t x,
+          init = fn x => C.set GtkPositionType.t x
         }
     end
   end

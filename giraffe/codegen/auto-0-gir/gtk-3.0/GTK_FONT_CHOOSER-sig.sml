@@ -32,40 +32,8 @@ signature GTK_FONT_CHOOSER =
        -> bool
        -> unit
     val fontActivatedSig : (string -> unit) -> 'a class Signal.t
-    val fontProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val fontDescProp :
-      {
-        get : 'a class -> Pango.FontDescriptionRecord.t option,
-        set :
-          Pango.FontDescriptionRecord.t option
-           -> 'a class
-           -> unit,
-        new : Pango.FontDescriptionRecord.t option -> 'a class Property.t
-      }
-    val previewTextProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val showPreviewEntryProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val fontProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val fontDescProp : ('a class, unit -> Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option -> unit, Pango.FontDescriptionRecord.t option -> unit) Property.t
+    val previewTextProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val showPreviewEntryProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

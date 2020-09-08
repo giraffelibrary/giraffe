@@ -17,17 +17,23 @@ structure GioSimpleIOStream :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (inputStream, outputStream) = (GioInputStreamClass.FFI.withPtr false &&&> GioOutputStreamClass.FFI.withPtr false ---> GioSimpleIOStreamClass.FFI.fromPtr true) new_ (inputStream & outputStream)
     local
-      open Property
+      open ValueAccessor
     in
       val inputStreamProp =
         {
-          get = fn x => get "input-stream" GioInputStreamClass.tOpt x,
-          new = fn x => new "input-stream" GioInputStreamClass.tOpt x
+          name = "input-stream",
+          gtype = fn () => C.gtype GioInputStreamClass.tOpt (),
+          get = fn x => fn () => C.get GioInputStreamClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioInputStreamClass.tOpt x
         }
       val outputStreamProp =
         {
-          get = fn x => get "output-stream" GioOutputStreamClass.tOpt x,
-          new = fn x => new "output-stream" GioOutputStreamClass.tOpt x
+          name = "output-stream",
+          gtype = fn () => C.gtype GioOutputStreamClass.tOpt (),
+          get = fn x => fn () => C.get GioOutputStreamClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioOutputStreamClass.tOpt x
         }
     end
   end

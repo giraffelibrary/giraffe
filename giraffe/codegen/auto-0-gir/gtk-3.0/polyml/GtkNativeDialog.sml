@@ -40,31 +40,39 @@ structure GtkNativeDialog :>
       fun responseSig f = signal "response" (get 0w1 int ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val modalProp =
         {
-          get = fn x => get "modal" boolean x,
-          set = fn x => set "modal" boolean x,
-          new = fn x => new "modal" boolean x
+          name = "modal",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val titleProp =
         {
-          get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x,
-          new = fn x => new "title" stringOpt x
+          name = "title",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val transientForProp =
         {
-          get = fn x => get "transient-for" GtkWindowClass.tOpt x,
-          set = fn x => set "transient-for" GtkWindowClass.tOpt x,
-          new = fn x => new "transient-for" GtkWindowClass.tOpt x
+          name = "transient-for",
+          gtype = fn () => C.gtype GtkWindowClass.tOpt (),
+          get = fn x => fn () => C.get GtkWindowClass.tOpt x,
+          set = fn x => C.set GtkWindowClass.tOpt x,
+          init = fn x => C.set GtkWindowClass.tOpt x
         }
       val visibleProp =
         {
-          get = fn x => get "visible" boolean x,
-          set = fn x => set "visible" boolean x,
-          new = fn x => new "visible" boolean x
+          name = "visible",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

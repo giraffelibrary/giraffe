@@ -98,22 +98,31 @@ structure GioNetworkAddress :>
     fun getPort self = (GioNetworkAddressClass.FFI.withPtr false ---> GUInt16.FFI.fromVal) getPort_ self
     fun getScheme self = (GioNetworkAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getScheme_ self
     local
-      open Property
+      open ValueAccessor
     in
       val hostnameProp =
         {
-          get = fn x => get "hostname" stringOpt x,
-          new = fn x => new "hostname" stringOpt x
+          name = "hostname",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val portProp =
         {
-          get = fn x => get "port" uint x,
-          new = fn x => new "port" uint x
+          name = "port",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = ignore,
+          init = fn x => C.set uint x
         }
       val schemeProp =
         {
-          get = fn x => get "scheme" stringOpt x,
-          new = fn x => new "scheme" stringOpt x
+          name = "scheme",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

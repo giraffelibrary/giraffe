@@ -89,25 +89,31 @@ structure GtkScaleButton :>
       fun valueChangedSig f = signal "value-changed" (get 0w1 double ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val adjustmentProp =
         {
-          get = fn x => get "adjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "adjustment" GtkAdjustmentClass.tOpt x,
-          new = fn x => new "adjustment" GtkAdjustmentClass.tOpt x
+          name = "adjustment",
+          gtype = fn () => C.gtype GtkAdjustmentClass.tOpt (),
+          get = fn x => fn () => C.get GtkAdjustmentClass.tOpt x,
+          set = fn x => C.set GtkAdjustmentClass.tOpt x,
+          init = fn x => C.set GtkAdjustmentClass.tOpt x
         }
       val sizeProp =
         {
-          get = fn x => get "size" GtkIconSize.t x,
-          set = fn x => set "size" GtkIconSize.t x,
-          new = fn x => new "size" GtkIconSize.t x
+          name = "size",
+          gtype = fn () => C.gtype GtkIconSize.t (),
+          get = fn x => fn () => C.get GtkIconSize.t x,
+          set = fn x => C.set GtkIconSize.t x,
+          init = fn x => C.set GtkIconSize.t x
         }
       val valueProp =
         {
-          get = fn x => get "value" double x,
-          set = fn x => set "value" double x,
-          new = fn x => new "value" double x
+          name = "value",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
     end
   end

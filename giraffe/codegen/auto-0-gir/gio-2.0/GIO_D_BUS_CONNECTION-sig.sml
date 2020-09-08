@@ -161,29 +161,13 @@ signature GIO_D_BUS_CONNECTION =
       'a class
        -> LargeInt.int
        -> bool
-    val addressProp : {new : string option -> 'a class Property.t}
-    val authenticationObserverProp : {new : 'b d_bus_auth_observer_class option -> 'a class Property.t}
-    val capabilitiesProp : {get : 'a class -> d_bus_capability_flags_t}
-    val closedProp : {get : 'a class -> bool}
-    val exitOnCloseProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val flagsProp : {new : d_bus_connection_flags_t -> 'a class Property.t}
-    val guidProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val streamProp :
-      {
-        get : 'a class -> base i_o_stream_class option,
-        new : 'b i_o_stream_class option -> 'a class Property.t
-      }
-    val uniqueNameProp : {get : 'a class -> string option}
+    val addressProp : ('a class, unit, unit, string option -> unit) Property.t
+    val authenticationObserverProp : ('a class, unit, unit, 'b d_bus_auth_observer_class option -> unit) Property.t
+    val capabilitiesProp : ('a class, unit -> d_bus_capability_flags_t, unit, unit) Property.t
+    val closedProp : ('a class, unit -> bool, unit, unit) Property.t
+    val exitOnCloseProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val flagsProp : ('a class, unit, unit, d_bus_connection_flags_t -> unit) Property.t
+    val guidProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val streamProp : ('a class, unit -> base i_o_stream_class option, unit, 'b i_o_stream_class option -> unit) Property.t
+    val uniqueNameProp : ('a class, unit -> string option, unit, unit) Property.t
   end

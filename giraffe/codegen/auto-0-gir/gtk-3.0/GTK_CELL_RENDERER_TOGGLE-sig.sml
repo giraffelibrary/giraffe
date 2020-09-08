@@ -20,49 +20,9 @@ signature GTK_CELL_RENDERER_TOGGLE =
        -> bool
        -> unit
     val toggledSig : (string -> unit) -> 'a class Signal.t
-    val activatableProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val activeProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val inconsistentProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val indicatorSizeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val radioProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val activatableProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val activeProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val inconsistentProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val indicatorSizeProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val radioProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

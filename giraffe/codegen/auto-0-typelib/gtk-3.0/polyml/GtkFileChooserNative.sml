@@ -60,19 +60,23 @@ structure GtkFileChooserNative :>
     fun setAcceptLabel self acceptLabel = (GtkFileChooserNativeClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setAcceptLabel_ (self & acceptLabel)
     fun setCancelLabel self cancelLabel = (GtkFileChooserNativeClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setCancelLabel_ (self & cancelLabel)
     local
-      open Property
+      open ValueAccessor
     in
       val acceptLabelProp =
         {
-          get = fn x => get "accept-label" stringOpt x,
-          set = fn x => set "accept-label" stringOpt x,
-          new = fn x => new "accept-label" stringOpt x
+          name = "accept-label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val cancelLabelProp =
         {
-          get = fn x => get "cancel-label" stringOpt x,
-          set = fn x => set "cancel-label" stringOpt x,
-          new = fn x => new "cancel-label" stringOpt x
+          name = "cancel-label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

@@ -246,37 +246,47 @@ structure GtkTable :>
         )
     fun setRowSpacings self spacing = (GtkTableClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> I) setRowSpacings_ (self & spacing)
     local
-      open Property
+      open ValueAccessor
     in
       val columnSpacingProp =
         {
-          get = fn x => get "column-spacing" uint x,
-          set = fn x => set "column-spacing" uint x,
-          new = fn x => new "column-spacing" uint x
+          name = "column-spacing",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val homogeneousProp =
         {
-          get = fn x => get "homogeneous" boolean x,
-          set = fn x => set "homogeneous" boolean x,
-          new = fn x => new "homogeneous" boolean x
+          name = "homogeneous",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val nColumnsProp =
         {
-          get = fn x => get "n-columns" uint x,
-          set = fn x => set "n-columns" uint x,
-          new = fn x => new "n-columns" uint x
+          name = "n-columns",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val nRowsProp =
         {
-          get = fn x => get "n-rows" uint x,
-          set = fn x => set "n-rows" uint x,
-          new = fn x => new "n-rows" uint x
+          name = "n-rows",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val rowSpacingProp =
         {
-          get = fn x => get "row-spacing" uint x,
-          set = fn x => set "row-spacing" uint x,
-          new = fn x => new "row-spacing" uint x
+          name = "row-spacing",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
     end
   end

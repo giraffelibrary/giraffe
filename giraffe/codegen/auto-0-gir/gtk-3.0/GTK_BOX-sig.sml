@@ -66,31 +66,7 @@ signature GTK_BOX =
       'a class
        -> LargeInt.int
        -> unit
-    val baselinePositionProp :
-      {
-        get : 'a class -> baseline_position_t,
-        set :
-          baseline_position_t
-           -> 'a class
-           -> unit,
-        new : baseline_position_t -> 'a class Property.t
-      }
-    val homogeneousProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val spacingProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val baselinePositionProp : ('a class, unit -> baseline_position_t, baseline_position_t -> unit, baseline_position_t -> unit) Property.t
+    val homogeneousProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val spacingProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
   end

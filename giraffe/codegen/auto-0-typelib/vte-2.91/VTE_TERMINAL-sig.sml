@@ -290,171 +290,27 @@ signature VTE_TERMINAL =
     val textModifiedSig : (unit -> unit) -> 'a class Signal.t
     val textScrolledSig : (LargeInt.int -> unit) -> 'a class Signal.t
     val windowTitleChangedSig : (unit -> unit) -> 'a class Signal.t
-    val allowBoldProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val audibleBellProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val backspaceBindingProp :
-      {
-        get : 'a class -> erase_binding_t,
-        set :
-          erase_binding_t
-           -> 'a class
-           -> unit,
-        new : erase_binding_t -> 'a class Property.t
-      }
-    val cjkAmbiguousWidthProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val currentDirectoryUriProp : {get : 'a class -> string option}
-    val currentFileUriProp : {get : 'a class -> string option}
-    val cursorBlinkModeProp :
-      {
-        get : 'a class -> cursor_blink_mode_t,
-        set :
-          cursor_blink_mode_t
-           -> 'a class
-           -> unit,
-        new : cursor_blink_mode_t -> 'a class Property.t
-      }
-    val cursorShapeProp :
-      {
-        get : 'a class -> cursor_shape_t,
-        set :
-          cursor_shape_t
-           -> 'a class
-           -> unit,
-        new : cursor_shape_t -> 'a class Property.t
-      }
-    val deleteBindingProp :
-      {
-        get : 'a class -> erase_binding_t,
-        set :
-          erase_binding_t
-           -> 'a class
-           -> unit,
-        new : erase_binding_t -> 'a class Property.t
-      }
-    val encodingProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val fontDescProp :
-      {
-        get : 'a class -> Pango.FontDescriptionRecord.t option,
-        set :
-          Pango.FontDescriptionRecord.t option
-           -> 'a class
-           -> unit,
-        new : Pango.FontDescriptionRecord.t option -> 'a class Property.t
-      }
-    val fontScaleProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val iconTitleProp : {get : 'a class -> string option}
-    val inputEnabledProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val pointerAutohideProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val ptyProp :
-      {
-        get : 'a class -> base pty_class option,
-        set :
-          'b pty_class option
-           -> 'a class
-           -> unit,
-        new : 'b pty_class option -> 'a class Property.t
-      }
-    val rewrapOnResizeProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val scrollOnKeystrokeProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val scrollOnOutputProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val scrollSpeedProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val scrollbackLinesProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val windowTitleProp : {get : 'a class -> string option}
-    val wordCharExceptionsProp : {get : 'a class -> string option}
+    val allowBoldProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val audibleBellProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val backspaceBindingProp : ('a class, unit -> erase_binding_t, erase_binding_t -> unit, erase_binding_t -> unit) Property.t
+    val cjkAmbiguousWidthProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val currentDirectoryUriProp : ('a class, unit -> string option, unit, unit) Property.t
+    val currentFileUriProp : ('a class, unit -> string option, unit, unit) Property.t
+    val cursorBlinkModeProp : ('a class, unit -> cursor_blink_mode_t, cursor_blink_mode_t -> unit, cursor_blink_mode_t -> unit) Property.t
+    val cursorShapeProp : ('a class, unit -> cursor_shape_t, cursor_shape_t -> unit, cursor_shape_t -> unit) Property.t
+    val deleteBindingProp : ('a class, unit -> erase_binding_t, erase_binding_t -> unit, erase_binding_t -> unit) Property.t
+    val encodingProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val fontDescProp : ('a class, unit -> Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option -> unit, Pango.FontDescriptionRecord.t option -> unit) Property.t
+    val fontScaleProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val iconTitleProp : ('a class, unit -> string option, unit, unit) Property.t
+    val inputEnabledProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val pointerAutohideProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val ptyProp : ('a class, unit -> base pty_class option, 'b pty_class option -> unit, 'b pty_class option -> unit) Property.t
+    val rewrapOnResizeProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val scrollOnKeystrokeProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val scrollOnOutputProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val scrollSpeedProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val scrollbackLinesProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val windowTitleProp : ('a class, unit -> string option, unit, unit) Property.t
+    val wordCharExceptionsProp : ('a class, unit -> string option, unit, unit) Property.t
   end

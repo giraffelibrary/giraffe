@@ -13,12 +13,15 @@ structure GtkAppChooser :>
     fun getContentType self = (GtkAppChooserClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getContentType_ self
     fun refresh self = (GtkAppChooserClass.FFI.withPtr false ---> I) refresh_ self
     local
-      open Property
+      open ValueAccessor
     in
       val contentTypeProp =
         {
-          get = fn x => get "content-type" stringOpt x,
-          new = fn x => new "content-type" stringOpt x
+          name = "content-type",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2015-2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2015-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -9,7 +9,7 @@ structure ValueAccessor :>
   VALUE_ACCESSOR
     where type type_t = GObjectType.t
     where type value_t = GObjectValueRecord.t
-    where type C.value_v = GObjectValueRecord.C.ValueType.v =
+    where type C.value_v = GObjectValueRecord.C.v =
   struct
     local
       open PolyMLFFI
@@ -27,49 +27,43 @@ structure ValueAccessor :>
 
     type type_t = GObjectType.t
     type value_t = GObjectValueRecord.t
-    type value_v = GObjectValueRecord.C.ValueType.v
 
     type ('a, 'b) t = {
       getType  : unit -> type_t,
-      getValue : value_v -> 'a,
-      setValue : (value_v, 'b) pair -> unit
+      getValue : GObjectValueRecord.C.v -> 'a,
+      setValue : (GObjectValueRecord.C.v, 'b) pair -> unit
     }
 
     structure C =
       struct
-        type value_v = value_v
+        type value_v = GObjectValueRecord.C.v
 
         fun createAccessor x = x
 
-        fun get ({getValue, ...} : ('a, 'b) t) ptr = getValue ptr
-        fun set ({setValue, ...} : ('a, 'b) t) ptr x = setValue (ptr & x)
+        fun gtype ({getType, ...} : ('a, 'b) t) = getType
+        fun get ({getValue, ...} : ('a, 'b) t) v = getValue v
+        fun set ({setValue, ...} : ('a, 'b) t) v x = setValue (v & x)
+        fun init v gtype =
+          (I &&&> GObjectType.FFI.withVal ---> I) (ignore o init_) (v & gtype)
 
         val isValue = (I ---> GBool.FFI.fromVal) isValue_
       end
 
-    fun get ({getValue, ...} : ('a, 'b) t) value =
+    fun get {getValue, ...} value =
       (GObjectValueRecord.FFI.withPtr false ---> I) getValue value
 
-    fun set ({setValue, ...} : ('a, 'b) t) value x =
+    fun set {setValue, ...} value x =
       (GObjectValueRecord.FFI.withPtr false &&&> I ---> I) setValue (value & x)
 
-    fun gtype ({getType, ...} : ('a, 'b) t) = getType ()
+    fun gtype {getType, ...} = getType ()
 
-    fun init gtype =
+    fun new t x =
       let
         val value & () =
-          (GObjectValueRecord.FFI.withNewPtr
-            &&&> GObjectType.FFI.withVal
+          (GObjectValueRecord.FFI.withNewPtr &&&> GObjectType.FFI.withVal
             ---> GObjectValueRecord.FFI.fromPtr true && I)
             (ignore o init_)
-            (() & gtype)
-      in
-        value
-      end
-
-    fun new (t : ('a, 'b) t) x =
-      let
-        val value = init (gtype t)
+            (() & gtype t)
         val () = set t value x
       in
         value

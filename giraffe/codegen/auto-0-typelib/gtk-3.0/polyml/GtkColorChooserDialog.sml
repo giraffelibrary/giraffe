@@ -22,13 +22,15 @@ structure GtkColorChooserDialog :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (title, parent) = (Utf8.FFI.withOptPtr 0 &&&> GtkWindowClass.FFI.withOptPtr false ---> GtkColorChooserDialogClass.FFI.fromPtr false) new_ (title & parent)
     local
-      open Property
+      open ValueAccessor
     in
       val showEditorProp =
         {
-          get = fn x => get "show-editor" boolean x,
-          set = fn x => set "show-editor" boolean x,
-          new = fn x => new "show-editor" boolean x
+          name = "show-editor",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

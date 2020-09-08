@@ -52,12 +52,15 @@ structure GioUnixFDMessage :>
         retVal (LargeInt.toInt length)
       end
     local
-      open Property
+      open ValueAccessor
     in
       val fdListProp =
         {
-          get = fn x => get "fd-list" GioUnixFDListClass.tOpt x,
-          new = fn x => new "fd-list" GioUnixFDListClass.tOpt x
+          name = "fd-list",
+          gtype = fn () => C.gtype GioUnixFDListClass.tOpt (),
+          get = fn x => fn () => C.get GioUnixFDListClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioUnixFDListClass.tOpt x
         }
     end
   end

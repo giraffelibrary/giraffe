@@ -56,43 +56,55 @@ structure GtkToolButton :>
       fun clickedSig f = signal "clicked" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val iconNameProp =
         {
-          get = fn x => get "icon-name" stringOpt x,
-          set = fn x => set "icon-name" stringOpt x,
-          new = fn x => new "icon-name" stringOpt x
+          name = "icon-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val iconWidgetProp =
         {
-          get = fn x => get "icon-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "icon-widget" GtkWidgetClass.tOpt x,
-          new = fn x => new "icon-widget" GtkWidgetClass.tOpt x
+          name = "icon-widget",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
       val labelProp =
         {
-          get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x,
-          new = fn x => new "label" stringOpt x
+          name = "label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val labelWidgetProp =
         {
-          get = fn x => get "label-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "label-widget" GtkWidgetClass.tOpt x,
-          new = fn x => new "label-widget" GtkWidgetClass.tOpt x
+          name = "label-widget",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
       val stockIdProp =
         {
-          get = fn x => get "stock-id" stringOpt x,
-          set = fn x => set "stock-id" stringOpt x,
-          new = fn x => new "stock-id" stringOpt x
+          name = "stock-id",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val useUnderlineProp =
         {
-          get = fn x => get "use-underline" boolean x,
-          set = fn x => set "use-underline" boolean x,
-          new = fn x => new "use-underline" boolean x
+          name = "use-underline",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

@@ -467,13 +467,5 @@ signature GDK_WINDOW =
     val fromEmbedderSig : (real * real -> real * real) -> 'a class Signal.t
     val pickEmbeddedChildSig : (real * real -> 'a class option) -> 'b class Signal.t
     val toEmbedderSig : (real * real -> real * real) -> 'a class Signal.t
-    val cursorProp :
-      {
-        get : 'a class -> base cursor_class option,
-        set :
-          'b cursor_class option
-           -> 'a class
-           -> unit,
-        new : 'b cursor_class option -> 'a class Property.t
-      }
+    val cursorProp : ('a class, unit -> base cursor_class option, 'b cursor_class option -> unit, 'b cursor_class option -> unit) Property.t
   end

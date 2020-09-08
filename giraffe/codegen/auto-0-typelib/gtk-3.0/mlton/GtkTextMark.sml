@@ -37,17 +37,23 @@ structure GtkTextMark :>
     fun getVisible self = (GtkTextMarkClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
     fun setVisible self setting = (GtkTextMarkClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisible_ (self & setting)
     local
-      open Property
+      open ValueAccessor
     in
       val leftGravityProp =
         {
-          get = fn x => get "left-gravity" boolean x,
-          new = fn x => new "left-gravity" boolean x
+          name = "left-gravity",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val nameProp =
         {
-          get = fn x => get "name" stringOpt x,
-          new = fn x => new "name" stringOpt x
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

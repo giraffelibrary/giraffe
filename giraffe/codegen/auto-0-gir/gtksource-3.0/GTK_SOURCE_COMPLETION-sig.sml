@@ -35,81 +35,13 @@ signature GTK_SOURCE_COMPLETION =
     val movePageSig : (Gtk.ScrollStep.t * LargeInt.int -> unit) -> 'a class Signal.t
     val populateContextSig : (base completion_context_class -> unit) -> 'a class Signal.t
     val showSig : (unit -> unit) -> 'a class Signal.t
-    val acceleratorsProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val autoCompleteDelayProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val proposalPageSizeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val providerPageSizeProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val rememberInfoVisibilityProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val selectOnShowProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val showHeadersProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val showIconsProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val viewProp :
-      {
-        get : 'a class -> base view_class option,
-        new : 'b view_class option -> 'a class Property.t
-      }
+    val acceleratorsProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val autoCompleteDelayProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val proposalPageSizeProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val providerPageSizeProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val rememberInfoVisibilityProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val selectOnShowProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val showHeadersProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val showIconsProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val viewProp : ('a class, unit -> base view_class option, unit, 'b view_class option -> unit) Property.t
   end

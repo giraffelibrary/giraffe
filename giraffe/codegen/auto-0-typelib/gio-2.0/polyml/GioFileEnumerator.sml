@@ -128,8 +128,15 @@ structure GioFileEnumerator :>
         )
     fun setPending self pending = (GioFileEnumeratorClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setPending_ (self & pending)
     local
-      open Property
+      open ValueAccessor
     in
-      val containerProp = {new = fn x => new "container" GioFileClass.tOpt x}
+      val containerProp =
+        {
+          name = "container",
+          gtype = fn () => C.gtype GioFileClass.tOpt (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GioFileClass.tOpt x
+        }
     end
   end

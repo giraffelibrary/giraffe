@@ -32,19 +32,23 @@ structure GtkSizeGroup :>
     fun setIgnoreHidden self ignoreHidden = (GtkSizeGroupClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setIgnoreHidden_ (self & ignoreHidden)
     fun setMode self mode = (GtkSizeGroupClass.FFI.withPtr false &&&> GtkSizeGroupMode.FFI.withVal ---> I) setMode_ (self & mode)
     local
-      open Property
+      open ValueAccessor
     in
       val ignoreHiddenProp =
         {
-          get = fn x => get "ignore-hidden" boolean x,
-          set = fn x => set "ignore-hidden" boolean x,
-          new = fn x => new "ignore-hidden" boolean x
+          name = "ignore-hidden",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val modeProp =
         {
-          get = fn x => get "mode" GtkSizeGroupMode.t x,
-          set = fn x => set "mode" GtkSizeGroupMode.t x,
-          new = fn x => new "mode" GtkSizeGroupMode.t x
+          name = "mode",
+          gtype = fn () => C.gtype GtkSizeGroupMode.t (),
+          get = fn x => fn () => C.get GtkSizeGroupMode.t x,
+          set = fn x => C.set GtkSizeGroupMode.t x,
+          init = fn x => C.set GtkSizeGroupMode.t x
         }
     end
   end

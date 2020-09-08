@@ -83,31 +83,39 @@ structure GtkAspectFrame :>
            & obeyChild
         )
     local
-      open Property
+      open ValueAccessor
     in
       val obeyChildProp =
         {
-          get = fn x => get "obey-child" boolean x,
-          set = fn x => set "obey-child" boolean x,
-          new = fn x => new "obey-child" boolean x
+          name = "obey-child",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val ratioProp =
         {
-          get = fn x => get "ratio" float x,
-          set = fn x => set "ratio" float x,
-          new = fn x => new "ratio" float x
+          name = "ratio",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val xalignProp =
         {
-          get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x,
-          new = fn x => new "xalign" float x
+          name = "xalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val yalignProp =
         {
-          get = fn x => get "yalign" float x,
-          set = fn x => set "yalign" float x,
-          new = fn x => new "yalign" float x
+          name = "yalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
     end
   end

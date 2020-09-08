@@ -32,14 +32,6 @@ signature GTK_TREE_MODEL_FILTER =
       'a class
        -> LargeInt.int
        -> unit
-    val childModelProp :
-      {
-        get : 'a class -> base tree_model_class option,
-        new : 'b tree_model_class option -> 'a class Property.t
-      }
-    val virtualRootProp :
-      {
-        get : 'a class -> tree_path_t option,
-        new : tree_path_t option -> 'a class Property.t
-      }
+    val childModelProp : ('a class, unit -> base tree_model_class option, unit, 'b tree_model_class option -> unit) Property.t
+    val virtualRootProp : ('a class, unit -> tree_path_t option, unit, tree_path_t option -> unit) Property.t
   end

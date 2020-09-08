@@ -53,23 +53,31 @@ structure GioCharsetConverter :>
     fun getUseFallback self = (GioCharsetConverterClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseFallback_ self
     fun setUseFallback self useFallback = (GioCharsetConverterClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseFallback_ (self & useFallback)
     local
-      open Property
+      open ValueAccessor
     in
       val fromCharsetProp =
         {
-          get = fn x => get "from-charset" stringOpt x,
-          new = fn x => new "from-charset" stringOpt x
+          name = "from-charset",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val toCharsetProp =
         {
-          get = fn x => get "to-charset" stringOpt x,
-          new = fn x => new "to-charset" stringOpt x
+          name = "to-charset",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val useFallbackProp =
         {
-          get = fn x => get "use-fallback" boolean x,
-          set = fn x => set "use-fallback" boolean x,
-          new = fn x => new "use-fallback" boolean x
+          name = "use-fallback",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

@@ -50,76 +50,12 @@ signature GTK_EXPANDER =
        -> bool
        -> unit
     val activateSig : (unit -> unit) -> 'a class Signal.t
-    val expandedProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val labelProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val labelFillProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val labelWidgetProp :
-      {
-        get : 'a class -> base widget_class option,
-        set :
-          'b widget_class option
-           -> 'a class
-           -> unit,
-        new : 'b widget_class option -> 'a class Property.t
-      }
-    val resizeToplevelProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val spacingProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val useMarkupProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val useUnderlineProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val expandedProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val labelProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val labelFillProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val labelWidgetProp : ('a class, unit -> base widget_class option, 'b widget_class option -> unit, 'b widget_class option -> unit) Property.t
+    val resizeToplevelProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val spacingProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val useMarkupProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val useUnderlineProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

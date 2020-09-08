@@ -20,30 +20,47 @@ structure GtkShortcutsGroup :>
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     local
-      open Property
+      open ValueAccessor
     in
       val accelSizeGroupProp =
         {
-          set = fn x => set "accel-size-group" GtkSizeGroupClass.tOpt x,
-          new = fn x => new "accel-size-group" GtkSizeGroupClass.tOpt x
+          name = "accel-size-group",
+          gtype = fn () => C.gtype GtkSizeGroupClass.tOpt (),
+          get = ignore,
+          set = fn x => C.set GtkSizeGroupClass.tOpt x,
+          init = fn x => C.set GtkSizeGroupClass.tOpt x
         }
-      val heightProp = {get = fn x => get "height" uint x}
+      val heightProp =
+        {
+          name = "height",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = ignore,
+          init = ignore
+        }
       val titleProp =
         {
-          get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x,
-          new = fn x => new "title" stringOpt x
+          name = "title",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val titleSizeGroupProp =
         {
-          set = fn x => set "title-size-group" GtkSizeGroupClass.tOpt x,
-          new = fn x => new "title-size-group" GtkSizeGroupClass.tOpt x
+          name = "title-size-group",
+          gtype = fn () => C.gtype GtkSizeGroupClass.tOpt (),
+          get = ignore,
+          set = fn x => C.set GtkSizeGroupClass.tOpt x,
+          init = fn x => C.set GtkSizeGroupClass.tOpt x
         }
       val viewProp =
         {
-          get = fn x => get "view" stringOpt x,
-          set = fn x => set "view" stringOpt x,
-          new = fn x => new "view" stringOpt x
+          name = "view",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

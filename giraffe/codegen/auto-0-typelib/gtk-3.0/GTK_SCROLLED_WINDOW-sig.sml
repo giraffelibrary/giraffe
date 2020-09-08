@@ -96,139 +96,19 @@ signature GTK_SCROLLED_WINDOW =
     val edgeReachedSig : (position_type_t -> unit) -> 'a class Signal.t
     val moveFocusOutSig : (direction_type_t -> unit) -> 'a class Signal.t
     val scrollChildSig : (scroll_type_t * bool -> bool) -> 'a class Signal.t
-    val hadjustmentProp :
-      {
-        get : 'a class -> base adjustment_class option,
-        set :
-          'b adjustment_class option
-           -> 'a class
-           -> unit,
-        new : 'b adjustment_class option -> 'a class Property.t
-      }
-    val hscrollbarPolicyProp :
-      {
-        get : 'a class -> policy_type_t,
-        set :
-          policy_type_t
-           -> 'a class
-           -> unit,
-        new : policy_type_t -> 'a class Property.t
-      }
-    val kineticScrollingProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val maxContentHeightProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val maxContentWidthProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val minContentHeightProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val minContentWidthProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val overlayScrollingProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val propagateNaturalHeightProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val propagateNaturalWidthProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val shadowTypeProp :
-      {
-        get : 'a class -> shadow_type_t,
-        set :
-          shadow_type_t
-           -> 'a class
-           -> unit,
-        new : shadow_type_t -> 'a class Property.t
-      }
-    val vadjustmentProp :
-      {
-        get : 'a class -> base adjustment_class option,
-        set :
-          'b adjustment_class option
-           -> 'a class
-           -> unit,
-        new : 'b adjustment_class option -> 'a class Property.t
-      }
-    val vscrollbarPolicyProp :
-      {
-        get : 'a class -> policy_type_t,
-        set :
-          policy_type_t
-           -> 'a class
-           -> unit,
-        new : policy_type_t -> 'a class Property.t
-      }
-    val windowPlacementProp :
-      {
-        get : 'a class -> corner_type_t,
-        set :
-          corner_type_t
-           -> 'a class
-           -> unit,
-        new : corner_type_t -> 'a class Property.t
-      }
-    val windowPlacementSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val hadjustmentProp : ('a class, unit -> base adjustment_class option, 'b adjustment_class option -> unit, 'b adjustment_class option -> unit) Property.t
+    val hscrollbarPolicyProp : ('a class, unit -> policy_type_t, policy_type_t -> unit, policy_type_t -> unit) Property.t
+    val kineticScrollingProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val maxContentHeightProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val maxContentWidthProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val minContentHeightProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val minContentWidthProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val overlayScrollingProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val propagateNaturalHeightProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val propagateNaturalWidthProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val shadowTypeProp : ('a class, unit -> shadow_type_t, shadow_type_t -> unit, shadow_type_t -> unit) Property.t
+    val vadjustmentProp : ('a class, unit -> base adjustment_class option, 'b adjustment_class option -> unit, 'b adjustment_class option -> unit) Property.t
+    val vscrollbarPolicyProp : ('a class, unit -> policy_type_t, policy_type_t -> unit, policy_type_t -> unit) Property.t
+    val windowPlacementProp : ('a class, unit -> corner_type_t, corner_type_t -> unit, corner_type_t -> unit) Property.t
+    val windowPlacementSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

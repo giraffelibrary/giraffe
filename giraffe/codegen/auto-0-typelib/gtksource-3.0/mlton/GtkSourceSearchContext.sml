@@ -630,31 +630,47 @@ structure GtkSourceSearchContext :>
     fun setMatchStyle self matchStyle = (GtkSourceSearchContextClass.FFI.withPtr false &&&> GtkSourceStyleClass.FFI.withOptPtr false ---> I) setMatchStyle_ (self & matchStyle)
     fun setSettings self settings = (GtkSourceSearchContextClass.FFI.withPtr false &&&> GtkSourceSearchSettingsClass.FFI.withOptPtr false ---> I) setSettings_ (self & settings)
     local
-      open Property
+      open ValueAccessor
     in
       val bufferProp =
         {
-          get = fn x => get "buffer" GtkSourceBufferClass.tOpt x,
-          new = fn x => new "buffer" GtkSourceBufferClass.tOpt x
+          name = "buffer",
+          gtype = fn () => C.gtype GtkSourceBufferClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceBufferClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkSourceBufferClass.tOpt x
         }
       val highlightProp =
         {
-          get = fn x => get "highlight" boolean x,
-          set = fn x => set "highlight" boolean x,
-          new = fn x => new "highlight" boolean x
+          name = "highlight",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val matchStyleProp =
         {
-          get = fn x => get "match-style" GtkSourceStyleClass.tOpt x,
-          set = fn x => set "match-style" GtkSourceStyleClass.tOpt x,
-          new = fn x => new "match-style" GtkSourceStyleClass.tOpt x
+          name = "match-style",
+          gtype = fn () => C.gtype GtkSourceStyleClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceStyleClass.tOpt x,
+          set = fn x => C.set GtkSourceStyleClass.tOpt x,
+          init = fn x => C.set GtkSourceStyleClass.tOpt x
         }
-      val occurrencesCountProp = {get = fn x => get "occurrences-count" int x}
+      val occurrencesCountProp =
+        {
+          name = "occurrences-count",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
       val settingsProp =
         {
-          get = fn x => get "settings" GtkSourceSearchSettingsClass.tOpt x,
-          set = fn x => set "settings" GtkSourceSearchSettingsClass.tOpt x,
-          new = fn x => new "settings" GtkSourceSearchSettingsClass.tOpt x
+          name = "settings",
+          gtype = fn () => C.gtype GtkSourceSearchSettingsClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceSearchSettingsClass.tOpt x,
+          set = fn x => C.set GtkSourceSearchSettingsClass.tOpt x,
+          init = fn x => C.set GtkSourceSearchSettingsClass.tOpt x
         }
     end
   end

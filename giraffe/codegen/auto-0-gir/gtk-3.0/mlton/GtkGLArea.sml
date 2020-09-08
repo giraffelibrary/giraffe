@@ -117,38 +117,55 @@ structure GtkGLArea :>
       fun resizeSig f = signal "resize" (get 0w1 int &&&> get 0w2 int ---> ret_void) (fn width & height => f (width, height))
     end
     local
-      open Property
+      open ValueAccessor
     in
       val autoRenderProp =
         {
-          get = fn x => get "auto-render" boolean x,
-          set = fn x => set "auto-render" boolean x,
-          new = fn x => new "auto-render" boolean x
+          name = "auto-render",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
-      val contextProp = {get = fn x => get "context" GdkGLContextClass.tOpt x}
+      val contextProp =
+        {
+          name = "context",
+          gtype = fn () => C.gtype GdkGLContextClass.tOpt (),
+          get = fn x => fn () => C.get GdkGLContextClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
       val hasAlphaProp =
         {
-          get = fn x => get "has-alpha" boolean x,
-          set = fn x => set "has-alpha" boolean x,
-          new = fn x => new "has-alpha" boolean x
+          name = "has-alpha",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val hasDepthBufferProp =
         {
-          get = fn x => get "has-depth-buffer" boolean x,
-          set = fn x => set "has-depth-buffer" boolean x,
-          new = fn x => new "has-depth-buffer" boolean x
+          name = "has-depth-buffer",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val hasStencilBufferProp =
         {
-          get = fn x => get "has-stencil-buffer" boolean x,
-          set = fn x => set "has-stencil-buffer" boolean x,
-          new = fn x => new "has-stencil-buffer" boolean x
+          name = "has-stencil-buffer",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val useEsProp =
         {
-          get = fn x => get "use-es" boolean x,
-          set = fn x => set "use-es" boolean x,
-          new = fn x => new "use-es" boolean x
+          name = "use-es",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

@@ -112,18 +112,23 @@ structure GtkAppChooserDialog :>
     fun getWidget self = (GtkAppChooserDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
     fun setHeading self heading = (GtkAppChooserDialogClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setHeading_ (self & heading)
     local
-      open Property
+      open ValueAccessor
     in
       val gfileProp =
         {
-          get = fn x => get "gfile" GioFileClass.tOpt x,
-          new = fn x => new "gfile" GioFileClass.tOpt x
+          name = "gfile",
+          gtype = fn () => C.gtype GioFileClass.tOpt (),
+          get = fn x => fn () => C.get GioFileClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioFileClass.tOpt x
         }
       val headingProp =
         {
-          get = fn x => get "heading" stringOpt x,
-          set = fn x => set "heading" stringOpt x,
-          new = fn x => new "heading" stringOpt x
+          name = "heading",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

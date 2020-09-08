@@ -72,20 +72,31 @@ structure GioInetAddressMask :>
     fun matches self address = (GioInetAddressMaskClass.FFI.withPtr false &&&> GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) matches_ (self & address)
     fun toString self = (GioInetAddressMaskClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) toString_ self
     local
-      open Property
+      open ValueAccessor
     in
       val addressProp =
         {
-          get = fn x => get "address" GioInetAddressClass.tOpt x,
-          set = fn x => set "address" GioInetAddressClass.tOpt x,
-          new = fn x => new "address" GioInetAddressClass.tOpt x
+          name = "address",
+          gtype = fn () => C.gtype GioInetAddressClass.tOpt (),
+          get = fn x => fn () => C.get GioInetAddressClass.tOpt x,
+          set = fn x => C.set GioInetAddressClass.tOpt x,
+          init = fn x => C.set GioInetAddressClass.tOpt x
         }
-      val familyProp = {get = fn x => get "family" GioSocketFamily.t x}
+      val familyProp =
+        {
+          name = "family",
+          gtype = fn () => C.gtype GioSocketFamily.t (),
+          get = fn x => fn () => C.get GioSocketFamily.t x,
+          set = ignore,
+          init = ignore
+        }
       val lengthProp =
         {
-          get = fn x => get "length" uint x,
-          set = fn x => set "length" uint x,
-          new = fn x => new "length" uint x
+          name = "length",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
     end
   end

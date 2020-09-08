@@ -58,5 +58,5 @@ signature GIO_SUBPROCESS =
       'a class
        -> 'b async_result_class
        -> unit
-    val flagsProp : {new : subprocess_flags_t -> 'a class Property.t}
+    val flagsProp : ('a class, unit, unit, subprocess_flags_t -> unit) Property.t
   end

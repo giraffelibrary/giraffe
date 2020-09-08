@@ -13,13 +13,15 @@ structure GtkSourceStyleSchemeChooser :>
     fun getStyleScheme self = (GtkSourceStyleSchemeChooserClass.FFI.withPtr false ---> GtkSourceStyleSchemeClass.FFI.fromPtr false) getStyleScheme_ self
     fun setStyleScheme self scheme = (GtkSourceStyleSchemeChooserClass.FFI.withPtr false &&&> GtkSourceStyleSchemeClass.FFI.withPtr false ---> I) setStyleScheme_ (self & scheme)
     local
-      open Property
+      open ValueAccessor
     in
       val styleSchemeProp =
         {
-          get = fn x => get "style-scheme" GtkSourceStyleSchemeClass.tOpt x,
-          set = fn x => set "style-scheme" GtkSourceStyleSchemeClass.tOpt x,
-          new = fn x => new "style-scheme" GtkSourceStyleSchemeClass.tOpt x
+          name = "style-scheme",
+          gtype = fn () => C.gtype GtkSourceStyleSchemeClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceStyleSchemeClass.tOpt x,
+          set = fn x => C.set GtkSourceStyleSchemeClass.tOpt x,
+          init = fn x => C.set GtkSourceStyleSchemeClass.tOpt x
         }
     end
   end

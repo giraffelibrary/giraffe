@@ -9,13 +9,5 @@ signature GIO_SOCKET_SERVICE =
     val start : 'a class -> unit
     val stop : 'a class -> unit
     val incomingSig : (base socket_connection_class * base GObject.ObjectClass.class option -> bool) -> 'a class Signal.t
-    val activeProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val activeProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

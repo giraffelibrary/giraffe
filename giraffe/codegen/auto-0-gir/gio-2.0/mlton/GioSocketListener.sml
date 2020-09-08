@@ -356,13 +356,15 @@ structure GioSocketListener :>
       fun eventSig f = signal "event" (get 0w1 GioSocketListenerEvent.t &&&> get 0w2 GioSocketClass.t ---> ret_void) (fn event & socket => f (event, socket))
     end
     local
-      open Property
+      open ValueAccessor
     in
       val listenBacklogProp =
         {
-          get = fn x => get "listen-backlog" int x,
-          set = fn x => set "listen-backlog" int x,
-          new = fn x => new "listen-backlog" int x
+          name = "listen-backlog",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

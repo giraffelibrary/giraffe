@@ -46,43 +46,55 @@ structure GtkProgressBar :>
     fun setShowText self showText = (GtkProgressBarClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowText_ (self & showText)
     fun setText self text = (GtkProgressBarClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setText_ (self & text)
     local
-      open Property
+      open ValueAccessor
     in
       val ellipsizeProp =
         {
-          get = fn x => get "ellipsize" PangoEllipsizeMode.t x,
-          set = fn x => set "ellipsize" PangoEllipsizeMode.t x,
-          new = fn x => new "ellipsize" PangoEllipsizeMode.t x
+          name = "ellipsize",
+          gtype = fn () => C.gtype PangoEllipsizeMode.t (),
+          get = fn x => fn () => C.get PangoEllipsizeMode.t x,
+          set = fn x => C.set PangoEllipsizeMode.t x,
+          init = fn x => C.set PangoEllipsizeMode.t x
         }
       val fractionProp =
         {
-          get = fn x => get "fraction" double x,
-          set = fn x => set "fraction" double x,
-          new = fn x => new "fraction" double x
+          name = "fraction",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
       val invertedProp =
         {
-          get = fn x => get "inverted" boolean x,
-          set = fn x => set "inverted" boolean x,
-          new = fn x => new "inverted" boolean x
+          name = "inverted",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val pulseStepProp =
         {
-          get = fn x => get "pulse-step" double x,
-          set = fn x => set "pulse-step" double x,
-          new = fn x => new "pulse-step" double x
+          name = "pulse-step",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
       val showTextProp =
         {
-          get = fn x => get "show-text" boolean x,
-          set = fn x => set "show-text" boolean x,
-          new = fn x => new "show-text" boolean x
+          name = "show-text",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val textProp =
         {
-          get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x,
-          new = fn x => new "text" stringOpt x
+          name = "text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

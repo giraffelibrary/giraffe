@@ -52,76 +52,13 @@ signature GTK_CELL_VIEW =
       'a class
        -> 'b tree_model_class option
        -> unit
-    val backgroundProp :
-      {
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val backgroundGdkProp :
-      {
-        get : 'a class -> Gdk.ColorRecord.t option,
-        set :
-          Gdk.ColorRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.ColorRecord.t option -> 'a class Property.t
-      }
-    val backgroundRgbaProp :
-      {
-        get : 'a class -> Gdk.RgbaRecord.t option,
-        set :
-          Gdk.RgbaRecord.t option
-           -> 'a class
-           -> unit,
-        new : Gdk.RgbaRecord.t option -> 'a class Property.t
-      }
-    val backgroundSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val cellAreaProp :
-      {
-        get : 'a class -> base cell_area_class option,
-        new : 'b cell_area_class option -> 'a class Property.t
-      }
-    val cellAreaContextProp :
-      {
-        get : 'a class -> base cell_area_context_class option,
-        new : 'b cell_area_context_class option -> 'a class Property.t
-      }
-    val drawSensitiveProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val fitModelProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val modelProp :
-      {
-        get : 'a class -> base tree_model_class option,
-        set :
-          'b tree_model_class option
-           -> 'a class
-           -> unit,
-        new : 'b tree_model_class option -> 'a class Property.t
-      }
+    val backgroundProp : ('a class, unit, string option -> unit, string option -> unit) Property.t
+    val backgroundGdkProp : ('a class, unit -> Gdk.ColorRecord.t option, Gdk.ColorRecord.t option -> unit, Gdk.ColorRecord.t option -> unit) Property.t
+    val backgroundRgbaProp : ('a class, unit -> Gdk.RgbaRecord.t option, Gdk.RgbaRecord.t option -> unit, Gdk.RgbaRecord.t option -> unit) Property.t
+    val backgroundSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val cellAreaProp : ('a class, unit -> base cell_area_class option, unit, 'b cell_area_class option -> unit) Property.t
+    val cellAreaContextProp : ('a class, unit -> base cell_area_context_class option, unit, 'b cell_area_context_class option -> unit) Property.t
+    val drawSensitiveProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val fitModelProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val modelProp : ('a class, unit -> base tree_model_class option, 'b tree_model_class option -> unit, 'b tree_model_class option -> unit) Property.t
   end

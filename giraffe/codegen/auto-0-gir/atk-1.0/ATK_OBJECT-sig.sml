@@ -60,115 +60,19 @@ signature ATK_OBJECT =
     val focusEventSig : (bool -> unit) -> 'a class Signal.t
     val stateChangeSig : (string * bool -> unit) -> 'a class Signal.t
     val visibleDataChangedSig : (unit -> unit) -> 'a class Signal.t
-    val accessibleComponentLayerProp : {get : 'a class -> LargeInt.int}
-    val accessibleComponentMdiZorderProp : {get : 'a class -> LargeInt.int}
-    val accessibleDescriptionProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val accessibleHypertextNlinksProp : {get : 'a class -> LargeInt.int}
-    val accessibleNameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val accessibleParentProp :
-      {
-        get : 'a class -> base class option,
-        set :
-          'b class option
-           -> 'a class
-           -> unit,
-        new : 'b class option -> 'a class Property.t
-      }
-    val accessibleRoleProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val accessibleTableCaptionProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val accessibleTableCaptionObjectProp :
-      {
-        get : 'a class -> base class option,
-        set :
-          'b class option
-           -> 'a class
-           -> unit,
-        new : 'b class option -> 'a class Property.t
-      }
-    val accessibleTableColumnDescriptionProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val accessibleTableColumnHeaderProp :
-      {
-        get : 'a class -> base class option,
-        set :
-          'b class option
-           -> 'a class
-           -> unit,
-        new : 'b class option -> 'a class Property.t
-      }
-    val accessibleTableRowDescriptionProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val accessibleTableRowHeaderProp :
-      {
-        get : 'a class -> base class option,
-        set :
-          'b class option
-           -> 'a class
-           -> unit,
-        new : 'b class option -> 'a class Property.t
-      }
-    val accessibleTableSummaryProp :
-      {
-        get : 'a class -> base class option,
-        set :
-          'b class option
-           -> 'a class
-           -> unit,
-        new : 'b class option -> 'a class Property.t
-      }
-    val accessibleValueProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
+    val accessibleComponentLayerProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val accessibleComponentMdiZorderProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val accessibleDescriptionProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val accessibleHypertextNlinksProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val accessibleNameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val accessibleParentProp : ('a class, unit -> base class option, 'b class option -> unit, 'b class option -> unit) Property.t
+    val accessibleRoleProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val accessibleTableCaptionProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val accessibleTableCaptionObjectProp : ('a class, unit -> base class option, 'b class option -> unit, 'b class option -> unit) Property.t
+    val accessibleTableColumnDescriptionProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val accessibleTableColumnHeaderProp : ('a class, unit -> base class option, 'b class option -> unit, 'b class option -> unit) Property.t
+    val accessibleTableRowDescriptionProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val accessibleTableRowHeaderProp : ('a class, unit -> base class option, 'b class option -> unit, 'b class option -> unit) Property.t
+    val accessibleTableSummaryProp : ('a class, unit -> base class option, 'b class option -> unit, 'b class option -> unit) Property.t
+    val accessibleValueProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
   end

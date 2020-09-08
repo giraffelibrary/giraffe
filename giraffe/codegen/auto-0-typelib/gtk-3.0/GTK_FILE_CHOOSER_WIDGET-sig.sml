@@ -24,14 +24,6 @@ signature GTK_FILE_CHOOSER_WIDGET =
     val searchShortcutSig : (unit -> unit) -> 'a class Signal.t
     val showHiddenSig : (unit -> unit) -> 'a class Signal.t
     val upFolderSig : (unit -> unit) -> 'a class Signal.t
-    val searchModeProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val subtitleProp : {get : 'a class -> string option}
+    val searchModeProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val subtitleProp : ('a class, unit -> string option, unit, unit) Property.t
   end

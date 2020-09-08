@@ -33,11 +33,39 @@ structure AtkHyperlink :>
       fun linkActivatedSig f = signal "link-activated" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val endIndexProp = {get = fn x => get "end-index" int x}
-      val numberOfAnchorsProp = {get = fn x => get "number-of-anchors" int x}
-      val selectedLinkProp = {get = fn x => get "selected-link" boolean x}
-      val startIndexProp = {get = fn x => get "start-index" int x}
+      val endIndexProp =
+        {
+          name = "end-index",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
+      val numberOfAnchorsProp =
+        {
+          name = "number-of-anchors",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
+      val selectedLinkProp =
+        {
+          name = "selected-link",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val startIndexProp =
+        {
+          name = "start-index",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

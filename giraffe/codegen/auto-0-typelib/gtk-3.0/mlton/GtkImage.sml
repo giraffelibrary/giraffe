@@ -397,80 +397,111 @@ structure GtkImage :>
     fun setFromSurface self surface = (GtkImageClass.FFI.withPtr false &&&> CairoSurfaceRecord.FFI.withOptPtr false ---> I) setFromSurface_ (self & surface)
     fun setPixelSize self pixelSize = (GtkImageClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setPixelSize_ (self & pixelSize)
     local
-      open Property
+      open ValueAccessor
     in
       val fileProp =
         {
-          get = fn x => get "file" stringOpt x,
-          set = fn x => set "file" stringOpt x,
-          new = fn x => new "file" stringOpt x
+          name = "file",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val giconProp =
         {
-          get = fn x => get "gicon" GioIconClass.tOpt x,
-          set = fn x => set "gicon" GioIconClass.tOpt x,
-          new = fn x => new "gicon" GioIconClass.tOpt x
+          name = "gicon",
+          gtype = fn () => C.gtype GioIconClass.tOpt (),
+          get = fn x => fn () => C.get GioIconClass.tOpt x,
+          set = fn x => C.set GioIconClass.tOpt x,
+          init = fn x => C.set GioIconClass.tOpt x
         }
       val iconNameProp =
         {
-          get = fn x => get "icon-name" stringOpt x,
-          set = fn x => set "icon-name" stringOpt x,
-          new = fn x => new "icon-name" stringOpt x
+          name = "icon-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val iconSetProp =
         {
-          get = fn x => get "icon-set" GtkIconSetRecord.tOpt x,
-          set = fn x => set "icon-set" GtkIconSetRecord.tOpt x,
-          new = fn x => new "icon-set" GtkIconSetRecord.tOpt x
+          name = "icon-set",
+          gtype = fn () => C.gtype GtkIconSetRecord.tOpt (),
+          get = fn x => fn () => C.get GtkIconSetRecord.tOpt x,
+          set = fn x => C.set GtkIconSetRecord.tOpt x,
+          init = fn x => C.set GtkIconSetRecord.tOpt x
         }
       val iconSizeProp =
         {
-          get = fn x => get "icon-size" int x,
-          set = fn x => set "icon-size" int x,
-          new = fn x => new "icon-size" int x
+          name = "icon-size",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val pixbufProp =
         {
-          get = fn x => get "pixbuf" GdkPixbufPixbufClass.tOpt x,
-          set = fn x => set "pixbuf" GdkPixbufPixbufClass.tOpt x,
-          new = fn x => new "pixbuf" GdkPixbufPixbufClass.tOpt x
+          name = "pixbuf",
+          gtype = fn () => C.gtype GdkPixbufPixbufClass.tOpt (),
+          get = fn x => fn () => C.get GdkPixbufPixbufClass.tOpt x,
+          set = fn x => C.set GdkPixbufPixbufClass.tOpt x,
+          init = fn x => C.set GdkPixbufPixbufClass.tOpt x
         }
       val pixbufAnimationProp =
         {
-          get = fn x => get "pixbuf-animation" GdkPixbufPixbufAnimationClass.tOpt x,
-          set = fn x => set "pixbuf-animation" GdkPixbufPixbufAnimationClass.tOpt x,
-          new = fn x => new "pixbuf-animation" GdkPixbufPixbufAnimationClass.tOpt x
+          name = "pixbuf-animation",
+          gtype = fn () => C.gtype GdkPixbufPixbufAnimationClass.tOpt (),
+          get = fn x => fn () => C.get GdkPixbufPixbufAnimationClass.tOpt x,
+          set = fn x => C.set GdkPixbufPixbufAnimationClass.tOpt x,
+          init = fn x => C.set GdkPixbufPixbufAnimationClass.tOpt x
         }
       val pixelSizeProp =
         {
-          get = fn x => get "pixel-size" int x,
-          set = fn x => set "pixel-size" int x,
-          new = fn x => new "pixel-size" int x
+          name = "pixel-size",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val resourceProp =
         {
-          get = fn x => get "resource" stringOpt x,
-          set = fn x => set "resource" stringOpt x,
-          new = fn x => new "resource" stringOpt x
+          name = "resource",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val stockProp =
         {
-          get = fn x => get "stock" stringOpt x,
-          set = fn x => set "stock" stringOpt x,
-          new = fn x => new "stock" stringOpt x
+          name = "stock",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
-      val storageTypeProp = {get = fn x => get "storage-type" GtkImageType.t x}
+      val storageTypeProp =
+        {
+          name = "storage-type",
+          gtype = fn () => C.gtype GtkImageType.t (),
+          get = fn x => fn () => C.get GtkImageType.t x,
+          set = ignore,
+          init = ignore
+        }
       val surfaceProp =
         {
-          get = fn x => get "surface" CairoSurfaceRecord.tOpt x,
-          set = fn x => set "surface" CairoSurfaceRecord.tOpt x,
-          new = fn x => new "surface" CairoSurfaceRecord.tOpt x
+          name = "surface",
+          gtype = fn () => C.gtype CairoSurfaceRecord.tOpt (),
+          get = fn x => fn () => C.get CairoSurfaceRecord.tOpt x,
+          set = fn x => C.set CairoSurfaceRecord.tOpt x,
+          init = fn x => C.set CairoSurfaceRecord.tOpt x
         }
       val useFallbackProp =
         {
-          get = fn x => get "use-fallback" boolean x,
-          set = fn x => set "use-fallback" boolean x,
-          new = fn x => new "use-fallback" boolean x
+          name = "use-fallback",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

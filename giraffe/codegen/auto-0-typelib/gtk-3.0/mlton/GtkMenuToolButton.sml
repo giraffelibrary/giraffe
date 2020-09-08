@@ -80,13 +80,15 @@ structure GtkMenuToolButton :>
       fun showMenuSig f = signal "show-menu" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val menuProp =
         {
-          get = fn x => get "menu" GtkMenuClass.tOpt x,
-          set = fn x => set "menu" GtkMenuClass.tOpt x,
-          new = fn x => new "menu" GtkMenuClass.tOpt x
+          name = "menu",
+          gtype = fn () => C.gtype GtkMenuClass.tOpt (),
+          get = fn x => fn () => C.get GtkMenuClass.tOpt x,
+          set = fn x => C.set GtkMenuClass.tOpt x,
+          init = fn x => C.set GtkMenuClass.tOpt x
         }
     end
   end

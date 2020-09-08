@@ -24,32 +24,8 @@ signature GTK_REVEALER =
       'a class
        -> revealer_transition_type_t
        -> unit
-    val childRevealedProp : {get : 'a class -> bool}
-    val revealChildProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val transitionDurationProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val transitionTypeProp :
-      {
-        get : 'a class -> revealer_transition_type_t,
-        set :
-          revealer_transition_type_t
-           -> 'a class
-           -> unit,
-        new : revealer_transition_type_t -> 'a class Property.t
-      }
+    val childRevealedProp : ('a class, unit -> bool, unit, unit) Property.t
+    val revealChildProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val transitionDurationProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val transitionTypeProp : ('a class, unit -> revealer_transition_type_t, revealer_transition_type_t -> unit, revealer_transition_type_t -> unit) Property.t
   end

@@ -47,9 +47,5 @@ signature GTK_DIALOG =
        -> unit
     val closeSig : (unit -> unit) -> 'a class Signal.t
     val responseSig : (LargeInt.int -> unit) -> 'a class Signal.t
-    val useHeaderBarProp :
-      {
-        get : 'a class -> LargeInt.int,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val useHeaderBarProp : ('a class, unit -> LargeInt.int, unit, LargeInt.int -> unit) Property.t
   end

@@ -98,37 +98,47 @@ structure GtkLevelBar :>
       fun offsetChangedSig f = signal "offset-changed" (get 0w1 string ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val invertedProp =
         {
-          get = fn x => get "inverted" boolean x,
-          set = fn x => set "inverted" boolean x,
-          new = fn x => new "inverted" boolean x
+          name = "inverted",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val maxValueProp =
         {
-          get = fn x => get "max-value" double x,
-          set = fn x => set "max-value" double x,
-          new = fn x => new "max-value" double x
+          name = "max-value",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
       val minValueProp =
         {
-          get = fn x => get "min-value" double x,
-          set = fn x => set "min-value" double x,
-          new = fn x => new "min-value" double x
+          name = "min-value",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
       val modeProp =
         {
-          get = fn x => get "mode" GtkLevelBarMode.t x,
-          set = fn x => set "mode" GtkLevelBarMode.t x,
-          new = fn x => new "mode" GtkLevelBarMode.t x
+          name = "mode",
+          gtype = fn () => C.gtype GtkLevelBarMode.t (),
+          get = fn x => fn () => C.get GtkLevelBarMode.t x,
+          set = fn x => C.set GtkLevelBarMode.t x,
+          init = fn x => C.set GtkLevelBarMode.t x
         }
       val valueProp =
         {
-          get = fn x => get "value" double x,
-          set = fn x => set "value" double x,
-          new = fn x => new "value" double x
+          name = "value",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
     end
   end

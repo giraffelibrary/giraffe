@@ -251,397 +251,53 @@ signature GTK_ENTRY =
     val populatePopupSig : (base widget_class -> unit) -> 'a class Signal.t
     val preeditChangedSig : (string -> unit) -> 'a class Signal.t
     val toggleOverwriteSig : (unit -> unit) -> 'a class Signal.t
-    val activatesDefaultProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val attributesProp :
-      {
-        get : 'a class -> Pango.AttrListRecord.t option,
-        set :
-          Pango.AttrListRecord.t option
-           -> 'a class
-           -> unit,
-        new : Pango.AttrListRecord.t option -> 'a class Property.t
-      }
-    val bufferProp :
-      {
-        get : 'a class -> base entry_buffer_class option,
-        set :
-          'b entry_buffer_class option
-           -> 'a class
-           -> unit,
-        new : 'b entry_buffer_class option -> 'a class Property.t
-      }
-    val capsLockWarningProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val completionProp :
-      {
-        get : 'a class -> base entry_completion_class option,
-        set :
-          'b entry_completion_class option
-           -> 'a class
-           -> unit,
-        new : 'b entry_completion_class option -> 'a class Property.t
-      }
-    val cursorPositionProp : {get : 'a class -> LargeInt.int}
-    val editableProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val hasFrameProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val imModuleProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val innerBorderProp :
-      {
-        get : 'a class -> border_t option,
-        set :
-          border_t option
-           -> 'a class
-           -> unit,
-        new : border_t option -> 'a class Property.t
-      }
-    val inputHintsProp :
-      {
-        get : 'a class -> input_hints_t,
-        set :
-          input_hints_t
-           -> 'a class
-           -> unit,
-        new : input_hints_t -> 'a class Property.t
-      }
-    val inputPurposeProp :
-      {
-        get : 'a class -> input_purpose_t,
-        set :
-          input_purpose_t
-           -> 'a class
-           -> unit,
-        new : input_purpose_t -> 'a class Property.t
-      }
-    val invisibleCharProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val invisibleCharSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val maxLengthProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val maxWidthCharsProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val overwriteModeProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val placeholderTextProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val populateAllProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val primaryIconActivatableProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val primaryIconGiconProp :
-      {
-        get : 'a class -> base Gio.IconClass.class option,
-        set :
-          'b Gio.IconClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b Gio.IconClass.class option -> 'a class Property.t
-      }
-    val primaryIconNameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val primaryIconPixbufProp :
-      {
-        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
-        set :
-          'b GdkPixbuf.PixbufClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
-      }
-    val primaryIconSensitiveProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val primaryIconStockProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val primaryIconStorageTypeProp : {get : 'a class -> image_type_t}
-    val primaryIconTooltipMarkupProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val primaryIconTooltipTextProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val progressFractionProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val progressPulseStepProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val scrollOffsetProp : {get : 'a class -> LargeInt.int}
-    val secondaryIconActivatableProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val secondaryIconGiconProp :
-      {
-        get : 'a class -> base Gio.IconClass.class option,
-        set :
-          'b Gio.IconClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b Gio.IconClass.class option -> 'a class Property.t
-      }
-    val secondaryIconNameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val secondaryIconPixbufProp :
-      {
-        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
-        set :
-          'b GdkPixbuf.PixbufClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
-      }
-    val secondaryIconSensitiveProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val secondaryIconStockProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val secondaryIconStorageTypeProp : {get : 'a class -> image_type_t}
-    val secondaryIconTooltipMarkupProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val secondaryIconTooltipTextProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val selectionBoundProp : {get : 'a class -> LargeInt.int}
-    val shadowTypeProp :
-      {
-        get : 'a class -> shadow_type_t,
-        set :
-          shadow_type_t
-           -> 'a class
-           -> unit,
-        new : shadow_type_t -> 'a class Property.t
-      }
-    val tabsProp :
-      {
-        get : 'a class -> Pango.TabArrayRecord.t option,
-        set :
-          Pango.TabArrayRecord.t option
-           -> 'a class
-           -> unit,
-        new : Pango.TabArrayRecord.t option -> 'a class Property.t
-      }
-    val textProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val textLengthProp : {get : 'a class -> LargeInt.int}
-    val truncateMultilineProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val visibilityProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val widthCharsProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val xalignProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
+    val activatesDefaultProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val attributesProp : ('a class, unit -> Pango.AttrListRecord.t option, Pango.AttrListRecord.t option -> unit, Pango.AttrListRecord.t option -> unit) Property.t
+    val bufferProp : ('a class, unit -> base entry_buffer_class option, 'b entry_buffer_class option -> unit, 'b entry_buffer_class option -> unit) Property.t
+    val capsLockWarningProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val completionProp : ('a class, unit -> base entry_completion_class option, 'b entry_completion_class option -> unit, 'b entry_completion_class option -> unit) Property.t
+    val cursorPositionProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val editableProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val hasFrameProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val imModuleProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val innerBorderProp : ('a class, unit -> border_t option, border_t option -> unit, border_t option -> unit) Property.t
+    val inputHintsProp : ('a class, unit -> input_hints_t, input_hints_t -> unit, input_hints_t -> unit) Property.t
+    val inputPurposeProp : ('a class, unit -> input_purpose_t, input_purpose_t -> unit, input_purpose_t -> unit) Property.t
+    val invisibleCharProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val invisibleCharSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val maxLengthProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val maxWidthCharsProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val overwriteModeProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val placeholderTextProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val populateAllProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val primaryIconActivatableProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val primaryIconGiconProp : ('a class, unit -> base Gio.IconClass.class option, 'b Gio.IconClass.class option -> unit, 'b Gio.IconClass.class option -> unit) Property.t
+    val primaryIconNameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val primaryIconPixbufProp : ('a class, unit -> base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option -> unit, 'b GdkPixbuf.PixbufClass.class option -> unit) Property.t
+    val primaryIconSensitiveProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val primaryIconStockProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val primaryIconStorageTypeProp : ('a class, unit -> image_type_t, unit, unit) Property.t
+    val primaryIconTooltipMarkupProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val primaryIconTooltipTextProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val progressFractionProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val progressPulseStepProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val scrollOffsetProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val secondaryIconActivatableProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val secondaryIconGiconProp : ('a class, unit -> base Gio.IconClass.class option, 'b Gio.IconClass.class option -> unit, 'b Gio.IconClass.class option -> unit) Property.t
+    val secondaryIconNameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val secondaryIconPixbufProp : ('a class, unit -> base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option -> unit, 'b GdkPixbuf.PixbufClass.class option -> unit) Property.t
+    val secondaryIconSensitiveProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val secondaryIconStockProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val secondaryIconStorageTypeProp : ('a class, unit -> image_type_t, unit, unit) Property.t
+    val secondaryIconTooltipMarkupProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val secondaryIconTooltipTextProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val selectionBoundProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val shadowTypeProp : ('a class, unit -> shadow_type_t, shadow_type_t -> unit, shadow_type_t -> unit) Property.t
+    val tabsProp : ('a class, unit -> Pango.TabArrayRecord.t option, Pango.TabArrayRecord.t option -> unit, Pango.TabArrayRecord.t option -> unit) Property.t
+    val textProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val textLengthProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val truncateMultilineProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val visibilityProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val widthCharsProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val xalignProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
   end

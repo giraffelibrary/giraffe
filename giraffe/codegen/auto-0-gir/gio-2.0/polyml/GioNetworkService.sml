@@ -50,28 +50,39 @@ structure GioNetworkService :>
     fun getService self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getService_ self
     fun setScheme self scheme = (GioNetworkServiceClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setScheme_ (self & scheme)
     local
-      open Property
+      open ValueAccessor
     in
       val domainProp =
         {
-          get = fn x => get "domain" stringOpt x,
-          new = fn x => new "domain" stringOpt x
+          name = "domain",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val protocolProp =
         {
-          get = fn x => get "protocol" stringOpt x,
-          new = fn x => new "protocol" stringOpt x
+          name = "protocol",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val schemeProp =
         {
-          get = fn x => get "scheme" stringOpt x,
-          set = fn x => set "scheme" stringOpt x,
-          new = fn x => new "scheme" stringOpt x
+          name = "scheme",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val serviceProp =
         {
-          get = fn x => get "service" stringOpt x,
-          new = fn x => new "service" stringOpt x
+          name = "service",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

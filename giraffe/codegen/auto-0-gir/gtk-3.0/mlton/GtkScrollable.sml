@@ -36,31 +36,39 @@ structure GtkScrollable :>
     fun setVadjustment self vadjustment = (GtkScrollableClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> I) setVadjustment_ (self & vadjustment)
     fun setVscrollPolicy self policy = (GtkScrollableClass.FFI.withPtr false &&&> GtkScrollablePolicy.FFI.withVal ---> I) setVscrollPolicy_ (self & policy)
     local
-      open Property
+      open ValueAccessor
     in
       val hadjustmentProp =
         {
-          get = fn x => get "hadjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "hadjustment" GtkAdjustmentClass.tOpt x,
-          new = fn x => new "hadjustment" GtkAdjustmentClass.tOpt x
+          name = "hadjustment",
+          gtype = fn () => C.gtype GtkAdjustmentClass.tOpt (),
+          get = fn x => fn () => C.get GtkAdjustmentClass.tOpt x,
+          set = fn x => C.set GtkAdjustmentClass.tOpt x,
+          init = fn x => C.set GtkAdjustmentClass.tOpt x
         }
       val hscrollPolicyProp =
         {
-          get = fn x => get "hscroll-policy" GtkScrollablePolicy.t x,
-          set = fn x => set "hscroll-policy" GtkScrollablePolicy.t x,
-          new = fn x => new "hscroll-policy" GtkScrollablePolicy.t x
+          name = "hscroll-policy",
+          gtype = fn () => C.gtype GtkScrollablePolicy.t (),
+          get = fn x => fn () => C.get GtkScrollablePolicy.t x,
+          set = fn x => C.set GtkScrollablePolicy.t x,
+          init = fn x => C.set GtkScrollablePolicy.t x
         }
       val vadjustmentProp =
         {
-          get = fn x => get "vadjustment" GtkAdjustmentClass.tOpt x,
-          set = fn x => set "vadjustment" GtkAdjustmentClass.tOpt x,
-          new = fn x => new "vadjustment" GtkAdjustmentClass.tOpt x
+          name = "vadjustment",
+          gtype = fn () => C.gtype GtkAdjustmentClass.tOpt (),
+          get = fn x => fn () => C.get GtkAdjustmentClass.tOpt x,
+          set = fn x => C.set GtkAdjustmentClass.tOpt x,
+          init = fn x => C.set GtkAdjustmentClass.tOpt x
         }
       val vscrollPolicyProp =
         {
-          get = fn x => get "vscroll-policy" GtkScrollablePolicy.t x,
-          set = fn x => set "vscroll-policy" GtkScrollablePolicy.t x,
-          new = fn x => new "vscroll-policy" GtkScrollablePolicy.t x
+          name = "vscroll-policy",
+          gtype = fn () => C.gtype GtkScrollablePolicy.t (),
+          get = fn x => fn () => C.get GtkScrollablePolicy.t x,
+          set = fn x => C.set GtkScrollablePolicy.t x,
+          init = fn x => C.set GtkScrollablePolicy.t x
         }
     end
   end

@@ -115,69 +115,13 @@ signature GTK_SOURCE_BUFFER =
     val redoSig : (unit -> unit) -> 'a class Signal.t
     val sourceMarkUpdatedSig : (base Gtk.TextMarkClass.class -> unit) -> 'a class Signal.t
     val undoSig : (unit -> unit) -> 'a class Signal.t
-    val canRedoProp : {get : 'a class -> bool}
-    val canUndoProp : {get : 'a class -> bool}
-    val highlightMatchingBracketsProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val highlightSyntaxProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val implicitTrailingNewlineProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val languageProp :
-      {
-        get : 'a class -> base language_class option,
-        set :
-          'b language_class option
-           -> 'a class
-           -> unit,
-        new : 'b language_class option -> 'a class Property.t
-      }
-    val maxUndoLevelsProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val styleSchemeProp :
-      {
-        get : 'a class -> base style_scheme_class option,
-        set :
-          'b style_scheme_class option
-           -> 'a class
-           -> unit,
-        new : 'b style_scheme_class option -> 'a class Property.t
-      }
-    val undoManagerProp :
-      {
-        get : 'a class -> base undo_manager_class option,
-        set :
-          'b undo_manager_class option
-           -> 'a class
-           -> unit,
-        new : 'b undo_manager_class option -> 'a class Property.t
-      }
+    val canRedoProp : ('a class, unit -> bool, unit, unit) Property.t
+    val canUndoProp : ('a class, unit -> bool, unit, unit) Property.t
+    val highlightMatchingBracketsProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val highlightSyntaxProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val implicitTrailingNewlineProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val languageProp : ('a class, unit -> base language_class option, 'b language_class option -> unit, 'b language_class option -> unit) Property.t
+    val maxUndoLevelsProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val styleSchemeProp : ('a class, unit -> base style_scheme_class option, 'b style_scheme_class option -> unit, 'b style_scheme_class option -> unit) Property.t
+    val undoManagerProp : ('a class, unit -> base undo_manager_class option, 'b undo_manager_class option -> unit, 'b undo_manager_class option -> unit) Property.t
   end

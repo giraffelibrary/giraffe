@@ -33,13 +33,5 @@ signature GTK_BUTTON_BOX =
       'a class
        -> button_box_style_t
        -> unit
-    val layoutStyleProp :
-      {
-        get : 'a class -> button_box_style_t,
-        set :
-          button_box_style_t
-           -> 'a class
-           -> unit,
-        new : button_box_style_t -> 'a class Property.t
-      }
+    val layoutStyleProp : ('a class, unit -> button_box_style_t, button_box_style_t -> unit, button_box_style_t -> unit) Property.t
   end

@@ -27,32 +27,8 @@ signature GTK_SOURCE_GUTTER =
       'a class
        -> LargeInt.int * LargeInt.int
        -> unit
-    val viewProp :
-      {
-        get : 'a class -> base view_class option,
-        new : 'b view_class option -> 'a class Property.t
-      }
-    val windowTypeProp :
-      {
-        get : 'a class -> Gtk.TextWindowType.t,
-        new : Gtk.TextWindowType.t -> 'a class Property.t
-      }
-    val xpadProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val ypadProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
+    val viewProp : ('a class, unit -> base view_class option, unit, 'b view_class option -> unit) Property.t
+    val windowTypeProp : ('a class, unit -> Gtk.TextWindowType.t, unit, Gtk.TextWindowType.t -> unit) Property.t
+    val xpadProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val ypadProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
   end

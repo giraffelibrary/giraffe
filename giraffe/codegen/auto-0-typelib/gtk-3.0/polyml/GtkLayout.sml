@@ -145,19 +145,23 @@ structure GtkLayout :>
         )
     fun setVadjustment self adjustment = (GtkLayoutClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> I) setVadjustment_ (self & adjustment)
     local
-      open Property
+      open ValueAccessor
     in
       val heightProp =
         {
-          get = fn x => get "height" uint x,
-          set = fn x => set "height" uint x,
-          new = fn x => new "height" uint x
+          name = "height",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val widthProp =
         {
-          get = fn x => get "width" uint x,
-          set = fn x => set "width" uint x,
-          new = fn x => new "width" uint x
+          name = "width",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
     end
   end

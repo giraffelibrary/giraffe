@@ -6,9 +6,5 @@ signature GTK_APP_CHOOSER =
     val getAppInfo : 'a class -> base Gio.AppInfoClass.class option
     val getContentType : 'a class -> string
     val refresh : 'a class -> unit
-    val contentTypeProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
+    val contentTypeProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
   end

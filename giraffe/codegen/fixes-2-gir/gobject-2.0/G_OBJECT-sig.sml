@@ -2,7 +2,8 @@ signature G_OBJECT =
   sig
     type ('a, 'b) value_accessor_t
     type 'a signal_t
-    type 'object_class property_t
+    type ('object_class, 'get, 'set, 'init) property_t
+    type 'object_class property_init_t
     structure Type : G_OBJECT_TYPE
     structure ConnectFlags : G_OBJECT_CONNECT_FLAGS
     structure EnumClassRecord : G_OBJECT_ENUM_CLASS_RECORD
@@ -193,7 +194,7 @@ signature G_OBJECT =
         where type type_t = Type.t
         where type binding_flags_t = BindingFlags.t
         where type 'a object_class = 'a ObjectClass.class
-        where type 'object_class property_t = 'object_class property_t
+        where type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) property_t
     structure Closure :
       G_OBJECT_CLOSURE
         where type t = ClosureRecord.t
@@ -292,7 +293,7 @@ signature G_OBJECT =
         where type closure_t = ClosureRecord.t
         where type 'a param_spec_class = 'a ParamSpecClass.class
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
-        where type 'a property_t = 'a property_t
+        where type 'a property_init_t = 'a property_init_t
         where type 'a signal_t = 'a signal_t
     val PARAM_MASK : LargeInt.int
     val PARAM_STATIC_STRINGS : LargeInt.int

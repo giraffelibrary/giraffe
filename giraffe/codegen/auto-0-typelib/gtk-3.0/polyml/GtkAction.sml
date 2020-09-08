@@ -135,102 +135,135 @@ structure GtkAction :>
       fun activateSig f = signal "activate" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val actionGroupProp =
         {
-          get = fn x => get "action-group" GtkActionGroupClass.tOpt x,
-          set = fn x => set "action-group" GtkActionGroupClass.tOpt x,
-          new = fn x => new "action-group" GtkActionGroupClass.tOpt x
+          name = "action-group",
+          gtype = fn () => C.gtype GtkActionGroupClass.tOpt (),
+          get = fn x => fn () => C.get GtkActionGroupClass.tOpt x,
+          set = fn x => C.set GtkActionGroupClass.tOpt x,
+          init = fn x => C.set GtkActionGroupClass.tOpt x
         }
       val alwaysShowImageProp =
         {
-          get = fn x => get "always-show-image" boolean x,
-          set = fn x => set "always-show-image" boolean x,
-          new = fn x => new "always-show-image" boolean x
+          name = "always-show-image",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val giconProp =
         {
-          get = fn x => get "gicon" GioIconClass.tOpt x,
-          set = fn x => set "gicon" GioIconClass.tOpt x,
-          new = fn x => new "gicon" GioIconClass.tOpt x
+          name = "gicon",
+          gtype = fn () => C.gtype GioIconClass.tOpt (),
+          get = fn x => fn () => C.get GioIconClass.tOpt x,
+          set = fn x => C.set GioIconClass.tOpt x,
+          init = fn x => C.set GioIconClass.tOpt x
         }
       val hideIfEmptyProp =
         {
-          get = fn x => get "hide-if-empty" boolean x,
-          set = fn x => set "hide-if-empty" boolean x,
-          new = fn x => new "hide-if-empty" boolean x
+          name = "hide-if-empty",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val iconNameProp =
         {
-          get = fn x => get "icon-name" stringOpt x,
-          set = fn x => set "icon-name" stringOpt x,
-          new = fn x => new "icon-name" stringOpt x
+          name = "icon-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val isImportantProp =
         {
-          get = fn x => get "is-important" boolean x,
-          set = fn x => set "is-important" boolean x,
-          new = fn x => new "is-important" boolean x
+          name = "is-important",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val labelProp =
         {
-          get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x,
-          new = fn x => new "label" stringOpt x
+          name = "label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val nameProp =
         {
-          get = fn x => get "name" stringOpt x,
-          new = fn x => new "name" stringOpt x
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val sensitiveProp =
         {
-          get = fn x => get "sensitive" boolean x,
-          set = fn x => set "sensitive" boolean x,
-          new = fn x => new "sensitive" boolean x
+          name = "sensitive",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val shortLabelProp =
         {
-          get = fn x => get "short-label" stringOpt x,
-          set = fn x => set "short-label" stringOpt x,
-          new = fn x => new "short-label" stringOpt x
+          name = "short-label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val stockIdProp =
         {
-          get = fn x => get "stock-id" stringOpt x,
-          set = fn x => set "stock-id" stringOpt x,
-          new = fn x => new "stock-id" stringOpt x
+          name = "stock-id",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val tooltipProp =
         {
-          get = fn x => get "tooltip" stringOpt x,
-          set = fn x => set "tooltip" stringOpt x,
-          new = fn x => new "tooltip" stringOpt x
+          name = "tooltip",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val visibleProp =
         {
-          get = fn x => get "visible" boolean x,
-          set = fn x => set "visible" boolean x,
-          new = fn x => new "visible" boolean x
+          name = "visible",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val visibleHorizontalProp =
         {
-          get = fn x => get "visible-horizontal" boolean x,
-          set = fn x => set "visible-horizontal" boolean x,
-          new = fn x => new "visible-horizontal" boolean x
+          name = "visible-horizontal",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val visibleOverflownProp =
         {
-          get = fn x => get "visible-overflown" boolean x,
-          set = fn x => set "visible-overflown" boolean x,
-          new = fn x => new "visible-overflown" boolean x
+          name = "visible-overflown",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val visibleVerticalProp =
         {
-          get = fn x => get "visible-vertical" boolean x,
-          set = fn x => set "visible-vertical" boolean x,
-          new = fn x => new "visible-vertical" boolean x
+          name = "visible-vertical",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

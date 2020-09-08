@@ -472,51 +472,79 @@ structure GtkSourceBuffer :>
       fun undoSig f = signal "undo" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val canRedoProp = {get = fn x => get "can-redo" boolean x}
-      val canUndoProp = {get = fn x => get "can-undo" boolean x}
+      val canRedoProp =
+        {
+          name = "can-redo",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val canUndoProp =
+        {
+          name = "can-undo",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val highlightMatchingBracketsProp =
         {
-          get = fn x => get "highlight-matching-brackets" boolean x,
-          set = fn x => set "highlight-matching-brackets" boolean x,
-          new = fn x => new "highlight-matching-brackets" boolean x
+          name = "highlight-matching-brackets",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val highlightSyntaxProp =
         {
-          get = fn x => get "highlight-syntax" boolean x,
-          set = fn x => set "highlight-syntax" boolean x,
-          new = fn x => new "highlight-syntax" boolean x
+          name = "highlight-syntax",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val implicitTrailingNewlineProp =
         {
-          get = fn x => get "implicit-trailing-newline" boolean x,
-          set = fn x => set "implicit-trailing-newline" boolean x,
-          new = fn x => new "implicit-trailing-newline" boolean x
+          name = "implicit-trailing-newline",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val languageProp =
         {
-          get = fn x => get "language" GtkSourceLanguageClass.tOpt x,
-          set = fn x => set "language" GtkSourceLanguageClass.tOpt x,
-          new = fn x => new "language" GtkSourceLanguageClass.tOpt x
+          name = "language",
+          gtype = fn () => C.gtype GtkSourceLanguageClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceLanguageClass.tOpt x,
+          set = fn x => C.set GtkSourceLanguageClass.tOpt x,
+          init = fn x => C.set GtkSourceLanguageClass.tOpt x
         }
       val maxUndoLevelsProp =
         {
-          get = fn x => get "max-undo-levels" int x,
-          set = fn x => set "max-undo-levels" int x,
-          new = fn x => new "max-undo-levels" int x
+          name = "max-undo-levels",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val styleSchemeProp =
         {
-          get = fn x => get "style-scheme" GtkSourceStyleSchemeClass.tOpt x,
-          set = fn x => set "style-scheme" GtkSourceStyleSchemeClass.tOpt x,
-          new = fn x => new "style-scheme" GtkSourceStyleSchemeClass.tOpt x
+          name = "style-scheme",
+          gtype = fn () => C.gtype GtkSourceStyleSchemeClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceStyleSchemeClass.tOpt x,
+          set = fn x => C.set GtkSourceStyleSchemeClass.tOpt x,
+          init = fn x => C.set GtkSourceStyleSchemeClass.tOpt x
         }
       val undoManagerProp =
         {
-          get = fn x => get "undo-manager" GtkSourceUndoManagerClass.tOpt x,
-          set = fn x => set "undo-manager" GtkSourceUndoManagerClass.tOpt x,
-          new = fn x => new "undo-manager" GtkSourceUndoManagerClass.tOpt x
+          name = "undo-manager",
+          gtype = fn () => C.gtype GtkSourceUndoManagerClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceUndoManagerClass.tOpt x,
+          set = fn x => C.set GtkSourceUndoManagerClass.tOpt x,
+          init = fn x => C.set GtkSourceUndoManagerClass.tOpt x
         }
     end
   end

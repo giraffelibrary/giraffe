@@ -57,58 +57,10 @@ signature GIO_MOUNT_OPERATION =
         * LargeInt.int
         -> unit)
        -> 'a class Signal.t
-    val anonymousProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val choiceProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val domainProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val passwordProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val passwordSaveProp :
-      {
-        get : 'a class -> password_save_t,
-        set :
-          password_save_t
-           -> 'a class
-           -> unit,
-        new : password_save_t -> 'a class Property.t
-      }
-    val usernameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val anonymousProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val choiceProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val domainProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val passwordProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val passwordSaveProp : ('a class, unit -> password_save_t, password_save_t -> unit, password_save_t -> unit) Property.t
+    val usernameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

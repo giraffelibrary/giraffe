@@ -38,5 +38,5 @@ signature GIO_TASK =
       'a class
        -> bool
        -> bool
-    val completedProp : {get : 'a class -> bool}
+    val completedProp : ('a class, unit -> bool, unit, unit) Property.t
   end

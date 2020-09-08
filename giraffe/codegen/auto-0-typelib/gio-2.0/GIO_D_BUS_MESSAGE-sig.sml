@@ -125,5 +125,5 @@ signature GIO_D_BUS_MESSAGE =
        -> d_bus_capability_flags_t
        -> GUInt8CArrayN.t
     val toGerror : 'a class -> unit
-    val lockedProp : {get : 'a class -> bool}
+    val lockedProp : ('a class, unit -> bool, unit, unit) Property.t
   end

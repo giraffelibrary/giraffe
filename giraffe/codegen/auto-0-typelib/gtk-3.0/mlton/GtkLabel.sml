@@ -333,123 +333,183 @@ structure GtkLabel :>
       fun populatePopupSig f = signal "populate-popup" (get 0w1 GtkMenuClass.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val angleProp =
         {
-          get = fn x => get "angle" double x,
-          set = fn x => set "angle" double x,
-          new = fn x => new "angle" double x
+          name = "angle",
+          gtype = fn () => C.gtype double (),
+          get = fn x => fn () => C.get double x,
+          set = fn x => C.set double x,
+          init = fn x => C.set double x
         }
       val attributesProp =
         {
-          get = fn x => get "attributes" PangoAttrListRecord.tOpt x,
-          set = fn x => set "attributes" PangoAttrListRecord.tOpt x,
-          new = fn x => new "attributes" PangoAttrListRecord.tOpt x
+          name = "attributes",
+          gtype = fn () => C.gtype PangoAttrListRecord.tOpt (),
+          get = fn x => fn () => C.get PangoAttrListRecord.tOpt x,
+          set = fn x => C.set PangoAttrListRecord.tOpt x,
+          init = fn x => C.set PangoAttrListRecord.tOpt x
         }
-      val cursorPositionProp = {get = fn x => get "cursor-position" int x}
+      val cursorPositionProp =
+        {
+          name = "cursor-position",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
       val ellipsizeProp =
         {
-          get = fn x => get "ellipsize" PangoEllipsizeMode.t x,
-          set = fn x => set "ellipsize" PangoEllipsizeMode.t x,
-          new = fn x => new "ellipsize" PangoEllipsizeMode.t x
+          name = "ellipsize",
+          gtype = fn () => C.gtype PangoEllipsizeMode.t (),
+          get = fn x => fn () => C.get PangoEllipsizeMode.t x,
+          set = fn x => C.set PangoEllipsizeMode.t x,
+          init = fn x => C.set PangoEllipsizeMode.t x
         }
       val justifyProp =
         {
-          get = fn x => get "justify" GtkJustification.t x,
-          set = fn x => set "justify" GtkJustification.t x,
-          new = fn x => new "justify" GtkJustification.t x
+          name = "justify",
+          gtype = fn () => C.gtype GtkJustification.t (),
+          get = fn x => fn () => C.get GtkJustification.t x,
+          set = fn x => C.set GtkJustification.t x,
+          init = fn x => C.set GtkJustification.t x
         }
       val labelProp =
         {
-          get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x,
-          new = fn x => new "label" stringOpt x
+          name = "label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val linesProp =
         {
-          get = fn x => get "lines" int x,
-          set = fn x => set "lines" int x,
-          new = fn x => new "lines" int x
+          name = "lines",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val maxWidthCharsProp =
         {
-          get = fn x => get "max-width-chars" int x,
-          set = fn x => set "max-width-chars" int x,
-          new = fn x => new "max-width-chars" int x
+          name = "max-width-chars",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
-      val mnemonicKeyvalProp = {get = fn x => get "mnemonic-keyval" uint x}
+      val mnemonicKeyvalProp =
+        {
+          name = "mnemonic-keyval",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = ignore,
+          init = ignore
+        }
       val mnemonicWidgetProp =
         {
-          get = fn x => get "mnemonic-widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "mnemonic-widget" GtkWidgetClass.tOpt x,
-          new = fn x => new "mnemonic-widget" GtkWidgetClass.tOpt x
+          name = "mnemonic-widget",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
       val patternProp =
         {
-          set = fn x => set "pattern" stringOpt x,
-          new = fn x => new "pattern" stringOpt x
+          name = "pattern",
+          gtype = fn () => C.gtype stringOpt (),
+          get = ignore,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val selectableProp =
         {
-          get = fn x => get "selectable" boolean x,
-          set = fn x => set "selectable" boolean x,
-          new = fn x => new "selectable" boolean x
+          name = "selectable",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
-      val selectionBoundProp = {get = fn x => get "selection-bound" int x}
+      val selectionBoundProp =
+        {
+          name = "selection-bound",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
       val singleLineModeProp =
         {
-          get = fn x => get "single-line-mode" boolean x,
-          set = fn x => set "single-line-mode" boolean x,
-          new = fn x => new "single-line-mode" boolean x
+          name = "single-line-mode",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val trackVisitedLinksProp =
         {
-          get = fn x => get "track-visited-links" boolean x,
-          set = fn x => set "track-visited-links" boolean x,
-          new = fn x => new "track-visited-links" boolean x
+          name = "track-visited-links",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val useMarkupProp =
         {
-          get = fn x => get "use-markup" boolean x,
-          set = fn x => set "use-markup" boolean x,
-          new = fn x => new "use-markup" boolean x
+          name = "use-markup",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val useUnderlineProp =
         {
-          get = fn x => get "use-underline" boolean x,
-          set = fn x => set "use-underline" boolean x,
-          new = fn x => new "use-underline" boolean x
+          name = "use-underline",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val widthCharsProp =
         {
-          get = fn x => get "width-chars" int x,
-          set = fn x => set "width-chars" int x,
-          new = fn x => new "width-chars" int x
+          name = "width-chars",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val wrapProp =
         {
-          get = fn x => get "wrap" boolean x,
-          set = fn x => set "wrap" boolean x,
-          new = fn x => new "wrap" boolean x
+          name = "wrap",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val wrapModeProp =
         {
-          get = fn x => get "wrap-mode" PangoWrapMode.t x,
-          set = fn x => set "wrap-mode" PangoWrapMode.t x,
-          new = fn x => new "wrap-mode" PangoWrapMode.t x
+          name = "wrap-mode",
+          gtype = fn () => C.gtype PangoWrapMode.t (),
+          get = fn x => fn () => C.get PangoWrapMode.t x,
+          set = fn x => C.set PangoWrapMode.t x,
+          init = fn x => C.set PangoWrapMode.t x
         }
       val xalignProp =
         {
-          get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x,
-          new = fn x => new "xalign" float x
+          name = "xalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val yalignProp =
         {
-          get = fn x => get "yalign" float x,
-          set = fn x => set "yalign" float x,
-          new = fn x => new "yalign" float x
+          name = "yalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
     end
   end

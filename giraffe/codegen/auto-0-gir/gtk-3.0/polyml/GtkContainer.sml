@@ -190,24 +190,31 @@ structure GtkContainer :>
       fun setFocusChildSig f = signal "set-focus-child" (get 0w1 GtkWidgetClass.tOpt ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val borderWidthProp =
         {
-          get = fn x => get "border-width" uint x,
-          set = fn x => set "border-width" uint x,
-          new = fn x => new "border-width" uint x
+          name = "border-width",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val childProp =
         {
-          set = fn x => set "child" GtkWidgetClass.tOpt x,
-          new = fn x => new "child" GtkWidgetClass.tOpt x
+          name = "child",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = ignore,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
       val resizeModeProp =
         {
-          get = fn x => get "resize-mode" GtkResizeMode.t x,
-          set = fn x => set "resize-mode" GtkResizeMode.t x,
-          new = fn x => new "resize-mode" GtkResizeMode.t x
+          name = "resize-mode",
+          gtype = fn () => C.gtype GtkResizeMode.t (),
+          get = fn x => fn () => C.get GtkResizeMode.t x,
+          set = fn x => C.set GtkResizeMode.t x,
+          init = fn x => C.set GtkResizeMode.t x
         }
     end
   end

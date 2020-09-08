@@ -121,19 +121,23 @@ structure GtkSourceGutterRendererText :>
            & length
         )
     local
-      open Property
+      open ValueAccessor
     in
       val markupProp =
         {
-          get = fn x => get "markup" stringOpt x,
-          set = fn x => set "markup" stringOpt x,
-          new = fn x => new "markup" stringOpt x
+          name = "markup",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val textProp =
         {
-          get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x,
-          new = fn x => new "text" stringOpt x
+          name = "text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

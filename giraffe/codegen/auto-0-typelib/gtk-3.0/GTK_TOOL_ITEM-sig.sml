@@ -73,31 +73,7 @@ signature GTK_TOOL_ITEM =
     val toolbarReconfigured : 'a class -> unit
     val createMenuProxySig : (unit -> bool) -> 'a class Signal.t
     val toolbarReconfiguredSig : (unit -> unit) -> 'a class Signal.t
-    val isImportantProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val visibleHorizontalProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val visibleVerticalProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val isImportantProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val visibleHorizontalProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val visibleVerticalProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

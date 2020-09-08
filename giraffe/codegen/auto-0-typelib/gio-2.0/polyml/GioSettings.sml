@@ -461,29 +461,55 @@ structure GioSettings :>
       fun writableChangedSig f = signal "writable-changed" (get 0w1 string ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val delayApplyProp = {get = fn x => get "delay-apply" boolean x}
-      val hasUnappliedProp = {get = fn x => get "has-unapplied" boolean x}
+      val delayApplyProp =
+        {
+          name = "delay-apply",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val hasUnappliedProp =
+        {
+          name = "has-unapplied",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val pathProp =
         {
-          get = fn x => get "path" stringOpt x,
-          new = fn x => new "path" stringOpt x
+          name = "path",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val schemaProp =
         {
-          get = fn x => get "schema" stringOpt x,
-          new = fn x => new "schema" stringOpt x
+          name = "schema",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val schemaIdProp =
         {
-          get = fn x => get "schema-id" stringOpt x,
-          new = fn x => new "schema-id" stringOpt x
+          name = "schema-id",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val settingsSchemaProp =
         {
-          get = fn x => get "settings-schema" GioSettingsSchemaRecord.tOpt x,
-          new = fn x => new "settings-schema" GioSettingsSchemaRecord.tOpt x
+          name = "settings-schema",
+          gtype = fn () => C.gtype GioSettingsSchemaRecord.tOpt (),
+          get = fn x => fn () => C.get GioSettingsSchemaRecord.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioSettingsSchemaRecord.tOpt x
         }
     end
   end

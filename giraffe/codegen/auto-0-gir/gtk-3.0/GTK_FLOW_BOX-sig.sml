@@ -88,67 +88,11 @@ signature GTK_FLOW_BOX =
     val selectedChildrenChangedSig : (unit -> unit) -> 'a class Signal.t
     val toggleCursorChildSig : (unit -> unit) -> 'a class Signal.t
     val unselectAllSig : (unit -> unit) -> 'a class Signal.t
-    val activateOnSingleClickProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val columnSpacingProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val homogeneousProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val maxChildrenPerLineProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val minChildrenPerLineProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val rowSpacingProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val selectionModeProp :
-      {
-        get : 'a class -> selection_mode_t,
-        set :
-          selection_mode_t
-           -> 'a class
-           -> unit,
-        new : selection_mode_t -> 'a class Property.t
-      }
+    val activateOnSingleClickProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val columnSpacingProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val homogeneousProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val maxChildrenPerLineProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val minChildrenPerLineProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val rowSpacingProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val selectionModeProp : ('a class, unit -> selection_mode_t, selection_mode_t -> unit, selection_mode_t -> unit) Property.t
   end

@@ -412,8 +412,15 @@ structure GioSubprocess :>
            & []
         )
     local
-      open Property
+      open ValueAccessor
     in
-      val flagsProp = {new = fn x => new "flags" GioSubprocessFlags.t x}
+      val flagsProp =
+        {
+          name = "flags",
+          gtype = fn () => C.gtype GioSubprocessFlags.t (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GioSubprocessFlags.t x
+        }
     end
   end

@@ -27,13 +27,15 @@ structure GtkRecentChooserMenu :>
     fun getShowNumbers self = (GtkRecentChooserMenuClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowNumbers_ self
     fun setShowNumbers self showNumbers = (GtkRecentChooserMenuClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setShowNumbers_ (self & showNumbers)
     local
-      open Property
+      open ValueAccessor
     in
       val showNumbersProp =
         {
-          get = fn x => get "show-numbers" boolean x,
-          set = fn x => set "show-numbers" boolean x,
-          new = fn x => new "show-numbers" boolean x
+          name = "show-numbers",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

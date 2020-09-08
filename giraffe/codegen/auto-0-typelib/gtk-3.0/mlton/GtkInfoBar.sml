@@ -136,19 +136,23 @@ structure GtkInfoBar :>
       fun responseSig f = signal "response" (get 0w1 int ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val messageTypeProp =
         {
-          get = fn x => get "message-type" GtkMessageType.t x,
-          set = fn x => set "message-type" GtkMessageType.t x,
-          new = fn x => new "message-type" GtkMessageType.t x
+          name = "message-type",
+          gtype = fn () => C.gtype GtkMessageType.t (),
+          get = fn x => fn () => C.get GtkMessageType.t x,
+          set = fn x => C.set GtkMessageType.t x,
+          init = fn x => C.set GtkMessageType.t x
         }
       val showCloseButtonProp =
         {
-          get = fn x => get "show-close-button" boolean x,
-          set = fn x => set "show-close-button" boolean x,
-          new = fn x => new "show-close-button" boolean x
+          name = "show-close-button",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

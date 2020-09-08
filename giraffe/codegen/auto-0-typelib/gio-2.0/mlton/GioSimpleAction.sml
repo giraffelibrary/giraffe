@@ -75,30 +75,47 @@ structure GioSimpleAction :>
       fun changeStateSig f = signal "change-state" (get 0w1 GLibVariantRecord.tOpt ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val enabledProp =
         {
-          get = fn x => get "enabled" boolean x,
-          set = fn x => set "enabled" boolean x,
-          new = fn x => new "enabled" boolean x
+          name = "enabled",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val nameProp =
         {
-          get = fn x => get "name" stringOpt x,
-          new = fn x => new "name" stringOpt x
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val parameterTypeProp =
         {
-          get = fn x => get "parameter-type" GLibVariantTypeRecord.tOpt x,
-          new = fn x => new "parameter-type" GLibVariantTypeRecord.tOpt x
+          name = "parameter-type",
+          gtype = fn () => C.gtype GLibVariantTypeRecord.tOpt (),
+          get = fn x => fn () => C.get GLibVariantTypeRecord.tOpt x,
+          set = ignore,
+          init = fn x => C.set GLibVariantTypeRecord.tOpt x
         }
       val stateProp =
         {
-          get = fn x => get "state" GLibVariantRecord.tOpt x,
-          set = fn x => set "state" GLibVariantRecord.tOpt x,
-          new = fn x => new "state" GLibVariantRecord.tOpt x
+          name = "state",
+          gtype = fn () => C.gtype GLibVariantRecord.tOpt (),
+          get = fn x => fn () => C.get GLibVariantRecord.tOpt x,
+          set = fn x => C.set GLibVariantRecord.tOpt x,
+          init = fn x => C.set GLibVariantRecord.tOpt x
         }
-      val stateTypeProp = {get = fn x => get "state-type" GLibVariantTypeRecord.tOpt x}
+      val stateTypeProp =
+        {
+          name = "state-type",
+          gtype = fn () => C.gtype GLibVariantTypeRecord.tOpt (),
+          get = fn x => fn () => C.get GLibVariantTypeRecord.tOpt x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

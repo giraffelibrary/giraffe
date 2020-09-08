@@ -105,19 +105,23 @@ structure GtkListBox :>
       fun unselectAllSig f = signal "unselect-all" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val activateOnSingleClickProp =
         {
-          get = fn x => get "activate-on-single-click" boolean x,
-          set = fn x => set "activate-on-single-click" boolean x,
-          new = fn x => new "activate-on-single-click" boolean x
+          name = "activate-on-single-click",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val selectionModeProp =
         {
-          get = fn x => get "selection-mode" GtkSelectionMode.t x,
-          set = fn x => set "selection-mode" GtkSelectionMode.t x,
-          new = fn x => new "selection-mode" GtkSelectionMode.t x
+          name = "selection-mode",
+          gtype = fn () => C.gtype GtkSelectionMode.t (),
+          get = fn x => fn () => C.get GtkSelectionMode.t x,
+          set = fn x => C.set GtkSelectionMode.t x,
+          init = fn x => C.set GtkSelectionMode.t x
         }
     end
   end

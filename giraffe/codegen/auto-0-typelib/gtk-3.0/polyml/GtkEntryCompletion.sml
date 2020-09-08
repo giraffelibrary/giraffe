@@ -124,60 +124,79 @@ structure GtkEntryCompletion :>
       fun noMatchesSig f = signal "no-matches" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val cellAreaProp =
         {
-          get = fn x => get "cell-area" GtkCellAreaClass.tOpt x,
-          new = fn x => new "cell-area" GtkCellAreaClass.tOpt x
+          name = "cell-area",
+          gtype = fn () => C.gtype GtkCellAreaClass.tOpt (),
+          get = fn x => fn () => C.get GtkCellAreaClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkCellAreaClass.tOpt x
         }
       val inlineCompletionProp =
         {
-          get = fn x => get "inline-completion" boolean x,
-          set = fn x => set "inline-completion" boolean x,
-          new = fn x => new "inline-completion" boolean x
+          name = "inline-completion",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val inlineSelectionProp =
         {
-          get = fn x => get "inline-selection" boolean x,
-          set = fn x => set "inline-selection" boolean x,
-          new = fn x => new "inline-selection" boolean x
+          name = "inline-selection",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val minimumKeyLengthProp =
         {
-          get = fn x => get "minimum-key-length" int x,
-          set = fn x => set "minimum-key-length" int x,
-          new = fn x => new "minimum-key-length" int x
+          name = "minimum-key-length",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val modelProp =
         {
-          get = fn x => get "model" GtkTreeModelClass.tOpt x,
-          set = fn x => set "model" GtkTreeModelClass.tOpt x,
-          new = fn x => new "model" GtkTreeModelClass.tOpt x
+          name = "model",
+          gtype = fn () => C.gtype GtkTreeModelClass.tOpt (),
+          get = fn x => fn () => C.get GtkTreeModelClass.tOpt x,
+          set = fn x => C.set GtkTreeModelClass.tOpt x,
+          init = fn x => C.set GtkTreeModelClass.tOpt x
         }
       val popupCompletionProp =
         {
-          get = fn x => get "popup-completion" boolean x,
-          set = fn x => set "popup-completion" boolean x,
-          new = fn x => new "popup-completion" boolean x
+          name = "popup-completion",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val popupSetWidthProp =
         {
-          get = fn x => get "popup-set-width" boolean x,
-          set = fn x => set "popup-set-width" boolean x,
-          new = fn x => new "popup-set-width" boolean x
+          name = "popup-set-width",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val popupSingleMatchProp =
         {
-          get = fn x => get "popup-single-match" boolean x,
-          set = fn x => set "popup-single-match" boolean x,
-          new = fn x => new "popup-single-match" boolean x
+          name = "popup-single-match",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val textColumnProp =
         {
-          get = fn x => get "text-column" int x,
-          set = fn x => set "text-column" int x,
-          new = fn x => new "text-column" int x
+          name = "text-column",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

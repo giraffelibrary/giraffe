@@ -93,10 +93,31 @@ structure GioNetworkMonitor :>
       fun networkChangedSig f = signal "network-changed" (get 0w1 boolean ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val connectivityProp = {get = fn x => get "connectivity" GioNetworkConnectivity.t x}
-      val networkAvailableProp = {get = fn x => get "network-available" boolean x}
-      val networkMeteredProp = {get = fn x => get "network-metered" boolean x}
+      val connectivityProp =
+        {
+          name = "connectivity",
+          gtype = fn () => C.gtype GioNetworkConnectivity.t (),
+          get = fn x => fn () => C.get GioNetworkConnectivity.t x,
+          set = ignore,
+          init = ignore
+        }
+      val networkAvailableProp =
+        {
+          name = "network-available",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val networkMeteredProp =
+        {
+          name = "network-metered",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

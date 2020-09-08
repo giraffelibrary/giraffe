@@ -11,13 +11,15 @@ structure GioTcpConnection :>
     fun getGracefulDisconnect self = (GioTcpConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getGracefulDisconnect_ self
     fun setGracefulDisconnect self gracefulDisconnect = (GioTcpConnectionClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setGracefulDisconnect_ (self & gracefulDisconnect)
     local
-      open Property
+      open ValueAccessor
     in
       val gracefulDisconnectProp =
         {
-          get = fn x => get "graceful-disconnect" boolean x,
-          set = fn x => set "graceful-disconnect" boolean x,
-          new = fn x => new "graceful-disconnect" boolean x
+          name = "graceful-disconnect",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

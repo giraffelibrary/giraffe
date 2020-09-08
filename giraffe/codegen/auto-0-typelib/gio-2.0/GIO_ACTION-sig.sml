@@ -20,9 +20,9 @@ signature GIO_ACTION =
     val getState : 'a class -> GLib.VariantRecord.t
     val getStateHint : 'a class -> GLib.VariantRecord.t option
     val getStateType : 'a class -> GLib.VariantTypeRecord.t option
-    val enabledProp : {get : 'a class -> bool}
-    val nameProp : {get : 'a class -> string option}
-    val parameterTypeProp : {get : 'a class -> GLib.VariantTypeRecord.t option}
-    val stateProp : {get : 'a class -> GLib.VariantRecord.t option}
-    val stateTypeProp : {get : 'a class -> GLib.VariantTypeRecord.t option}
+    val enabledProp : ('a class, unit -> bool, unit, unit) Property.t
+    val nameProp : ('a class, unit -> string option, unit, unit) Property.t
+    val parameterTypeProp : ('a class, unit -> GLib.VariantTypeRecord.t option, unit, unit) Property.t
+    val stateProp : ('a class, unit -> GLib.VariantRecord.t option, unit, unit) Property.t
+    val stateTypeProp : ('a class, unit -> GLib.VariantTypeRecord.t option, unit, unit) Property.t
   end

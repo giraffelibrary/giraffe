@@ -22,39 +22,11 @@ signature GIO_PROXY_ADDRESS =
     val getProtocol : 'a class -> string
     val getUri : 'a class -> string
     val getUsername : 'a class -> string
-    val destinationHostnameProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val destinationPortProp :
-      {
-        get : 'a class -> LargeInt.int,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val destinationProtocolProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val passwordProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val protocolProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val uriProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val usernameProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
+    val destinationHostnameProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val destinationPortProp : ('a class, unit -> LargeInt.int, unit, LargeInt.int -> unit) Property.t
+    val destinationProtocolProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val passwordProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val protocolProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val uriProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val usernameProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
   end

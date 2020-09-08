@@ -36,13 +36,15 @@ structure GtkViewport :>
     fun setShadowType self type' = (GtkViewportClass.FFI.withPtr false &&&> GtkShadowType.FFI.withVal ---> I) setShadowType_ (self & type')
     fun setVadjustment self adjustment = (GtkViewportClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> I) setVadjustment_ (self & adjustment)
     local
-      open Property
+      open ValueAccessor
     in
       val shadowTypeProp =
         {
-          get = fn x => get "shadow-type" GtkShadowType.t x,
-          set = fn x => set "shadow-type" GtkShadowType.t x,
-          new = fn x => new "shadow-type" GtkShadowType.t x
+          name = "shadow-type",
+          gtype = fn () => C.gtype GtkShadowType.t (),
+          get = fn x => fn () => C.get GtkShadowType.t x,
+          set = fn x => C.set GtkShadowType.t x,
+          init = fn x => C.set GtkShadowType.t x
         }
     end
   end

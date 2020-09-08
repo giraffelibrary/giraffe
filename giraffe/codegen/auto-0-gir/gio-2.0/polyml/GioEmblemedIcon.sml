@@ -24,12 +24,15 @@ structure GioEmblemedIcon :>
     fun clearEmblems self = (GioEmblemedIconClass.FFI.withPtr false ---> I) clearEmblems_ self
     fun getIcon self = (GioEmblemedIconClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self
     local
-      open Property
+      open ValueAccessor
     in
       val giconProp =
         {
-          get = fn x => get "gicon" GioIconClass.tOpt x,
-          new = fn x => new "gicon" GioIconClass.tOpt x
+          name = "gicon",
+          gtype = fn () => C.gtype GioIconClass.tOpt (),
+          get = fn x => fn () => C.get GioIconClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioIconClass.tOpt x
         }
     end
   end

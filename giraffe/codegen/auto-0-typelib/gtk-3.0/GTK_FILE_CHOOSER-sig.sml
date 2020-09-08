@@ -174,103 +174,15 @@ signature GTK_FILE_CHOOSER =
     val fileActivatedSig : (unit -> unit) -> 'a class Signal.t
     val selectionChangedSig : (unit -> unit) -> 'a class Signal.t
     val updatePreviewSig : (unit -> unit) -> 'a class Signal.t
-    val actionProp :
-      {
-        get : 'a class -> file_chooser_action_t,
-        set :
-          file_chooser_action_t
-           -> 'a class
-           -> unit,
-        new : file_chooser_action_t -> 'a class Property.t
-      }
-    val createFoldersProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val doOverwriteConfirmationProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val extraWidgetProp :
-      {
-        get : 'a class -> base widget_class option,
-        set :
-          'b widget_class option
-           -> 'a class
-           -> unit,
-        new : 'b widget_class option -> 'a class Property.t
-      }
-    val filterProp :
-      {
-        get : 'a class -> base file_filter_class option,
-        set :
-          'b file_filter_class option
-           -> 'a class
-           -> unit,
-        new : 'b file_filter_class option -> 'a class Property.t
-      }
-    val localOnlyProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val previewWidgetProp :
-      {
-        get : 'a class -> base widget_class option,
-        set :
-          'b widget_class option
-           -> 'a class
-           -> unit,
-        new : 'b widget_class option -> 'a class Property.t
-      }
-    val previewWidgetActiveProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val selectMultipleProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val showHiddenProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val usePreviewLabelProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val actionProp : ('a class, unit -> file_chooser_action_t, file_chooser_action_t -> unit, file_chooser_action_t -> unit) Property.t
+    val createFoldersProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val doOverwriteConfirmationProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val extraWidgetProp : ('a class, unit -> base widget_class option, 'b widget_class option -> unit, 'b widget_class option -> unit) Property.t
+    val filterProp : ('a class, unit -> base file_filter_class option, 'b file_filter_class option -> unit, 'b file_filter_class option -> unit) Property.t
+    val localOnlyProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val previewWidgetProp : ('a class, unit -> base widget_class option, 'b widget_class option -> unit, 'b widget_class option -> unit) Property.t
+    val previewWidgetActiveProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val selectMultipleProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val showHiddenProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val usePreviewLabelProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

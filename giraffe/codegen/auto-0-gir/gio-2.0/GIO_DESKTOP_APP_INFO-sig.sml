@@ -43,9 +43,5 @@ signature GIO_DESKTOP_APP_INFO =
        -> string * 'b app_launch_context_class option
        -> unit
     val listActions : 'a class -> Utf8CPtrArray.t
-    val filenameProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
+    val filenameProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
   end

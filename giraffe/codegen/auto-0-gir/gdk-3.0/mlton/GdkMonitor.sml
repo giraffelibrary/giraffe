@@ -50,21 +50,87 @@ structure GdkMonitor :>
       fun invalidateSig f = signal "invalidate" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val displayProp =
         {
-          get = fn x => get "display" GdkDisplayClass.tOpt x,
-          new = fn x => new "display" GdkDisplayClass.tOpt x
+          name = "display",
+          gtype = fn () => C.gtype GdkDisplayClass.tOpt (),
+          get = fn x => fn () => C.get GdkDisplayClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GdkDisplayClass.tOpt x
         }
-      val geometryProp = {get = fn x => get "geometry" GdkRectangleRecord.tOpt x}
-      val heightMmProp = {get = fn x => get "height-mm" int x}
-      val manufacturerProp = {get = fn x => get "manufacturer" stringOpt x}
-      val modelProp = {get = fn x => get "model" stringOpt x}
-      val refreshRateProp = {get = fn x => get "refresh-rate" int x}
-      val scaleFactorProp = {get = fn x => get "scale-factor" int x}
-      val subpixelLayoutProp = {get = fn x => get "subpixel-layout" GdkSubpixelLayout.t x}
-      val widthMmProp = {get = fn x => get "width-mm" int x}
-      val workareaProp = {get = fn x => get "workarea" GdkRectangleRecord.tOpt x}
+      val geometryProp =
+        {
+          name = "geometry",
+          gtype = fn () => C.gtype GdkRectangleRecord.tOpt (),
+          get = fn x => fn () => C.get GdkRectangleRecord.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val heightMmProp =
+        {
+          name = "height-mm",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
+      val manufacturerProp =
+        {
+          name = "manufacturer",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val modelProp =
+        {
+          name = "model",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val refreshRateProp =
+        {
+          name = "refresh-rate",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
+      val scaleFactorProp =
+        {
+          name = "scale-factor",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
+      val subpixelLayoutProp =
+        {
+          name = "subpixel-layout",
+          gtype = fn () => C.gtype GdkSubpixelLayout.t (),
+          get = fn x => fn () => C.get GdkSubpixelLayout.t x,
+          set = ignore,
+          init = ignore
+        }
+      val widthMmProp =
+        {
+          name = "width-mm",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
+      val workareaProp =
+        {
+          name = "workarea",
+          gtype = fn () => C.gtype GdkRectangleRecord.tOpt (),
+          get = fn x => fn () => C.get GdkRectangleRecord.tOpt x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

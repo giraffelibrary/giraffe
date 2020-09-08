@@ -18,25 +18,31 @@ structure GtkCellRendererCombo :>
       fun changedSig f = signal "changed" (get 0w1 string &&&> get 0w2 GtkTreeIterRecord.t ---> ret_void) (fn pathString & newIter => f (pathString, newIter))
     end
     local
-      open Property
+      open ValueAccessor
     in
       val hasEntryProp =
         {
-          get = fn x => get "has-entry" boolean x,
-          set = fn x => set "has-entry" boolean x,
-          new = fn x => new "has-entry" boolean x
+          name = "has-entry",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val modelProp =
         {
-          get = fn x => get "model" GtkTreeModelClass.tOpt x,
-          set = fn x => set "model" GtkTreeModelClass.tOpt x,
-          new = fn x => new "model" GtkTreeModelClass.tOpt x
+          name = "model",
+          gtype = fn () => C.gtype GtkTreeModelClass.tOpt (),
+          get = fn x => fn () => C.get GtkTreeModelClass.tOpt x,
+          set = fn x => C.set GtkTreeModelClass.tOpt x,
+          init = fn x => C.set GtkTreeModelClass.tOpt x
         }
       val textColumnProp =
         {
-          get = fn x => get "text-column" int x,
-          set = fn x => set "text-column" int x,
-          new = fn x => new "text-column" int x
+          name = "text-column",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

@@ -29,18 +29,6 @@ signature GIO_D_BUS_OBJECT_MANAGER_SERVER =
       'a class
        -> string
        -> bool
-    val connectionProp :
-      {
-        get : 'a class -> base d_bus_connection_class option,
-        set :
-          'b d_bus_connection_class option
-           -> 'a class
-           -> unit,
-        new : 'b d_bus_connection_class option -> 'a class Property.t
-      }
-    val objectPathProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
+    val connectionProp : ('a class, unit -> base d_bus_connection_class option, 'b d_bus_connection_class option -> unit, 'b d_bus_connection_class option -> unit) Property.t
+    val objectPathProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
   end

@@ -454,49 +454,63 @@ structure GtkNotebook :>
       fun switchPageSig f = signal "switch-page" (get 0w1 GtkWidgetClass.t &&&> get 0w2 uint ---> ret_void) (fn page & pageNum => f (page, pageNum))
     end
     local
-      open Property
+      open ValueAccessor
     in
       val enablePopupProp =
         {
-          get = fn x => get "enable-popup" boolean x,
-          set = fn x => set "enable-popup" boolean x,
-          new = fn x => new "enable-popup" boolean x
+          name = "enable-popup",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val groupNameProp =
         {
-          get = fn x => get "group-name" stringOpt x,
-          set = fn x => set "group-name" stringOpt x,
-          new = fn x => new "group-name" stringOpt x
+          name = "group-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val pageProp =
         {
-          get = fn x => get "page" int x,
-          set = fn x => set "page" int x,
-          new = fn x => new "page" int x
+          name = "page",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val scrollableProp =
         {
-          get = fn x => get "scrollable" boolean x,
-          set = fn x => set "scrollable" boolean x,
-          new = fn x => new "scrollable" boolean x
+          name = "scrollable",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showBorderProp =
         {
-          get = fn x => get "show-border" boolean x,
-          set = fn x => set "show-border" boolean x,
-          new = fn x => new "show-border" boolean x
+          name = "show-border",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showTabsProp =
         {
-          get = fn x => get "show-tabs" boolean x,
-          set = fn x => set "show-tabs" boolean x,
-          new = fn x => new "show-tabs" boolean x
+          name = "show-tabs",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val tabPosProp =
         {
-          get = fn x => get "tab-pos" GtkPositionType.t x,
-          set = fn x => set "tab-pos" GtkPositionType.t x,
-          new = fn x => new "tab-pos" GtkPositionType.t x
+          name = "tab-pos",
+          gtype = fn () => C.gtype GtkPositionType.t (),
+          get = fn x => fn () => C.get GtkPositionType.t x,
+          set = fn x => C.set GtkPositionType.t x,
+          init = fn x => C.set GtkPositionType.t x
         }
     end
   end

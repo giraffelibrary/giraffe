@@ -124,22 +124,31 @@ structure GdkGLContext :>
         )
     fun setUseEs self useEs = (GdkGLContextClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setUseEs_ (self & useEs)
     local
-      open Property
+      open ValueAccessor
     in
       val displayProp =
         {
-          get = fn x => get "display" GdkDisplayClass.tOpt x,
-          new = fn x => new "display" GdkDisplayClass.tOpt x
+          name = "display",
+          gtype = fn () => C.gtype GdkDisplayClass.tOpt (),
+          get = fn x => fn () => C.get GdkDisplayClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GdkDisplayClass.tOpt x
         }
       val sharedContextProp =
         {
-          get = fn x => get "shared-context" GdkGLContextClass.tOpt x,
-          new = fn x => new "shared-context" GdkGLContextClass.tOpt x
+          name = "shared-context",
+          gtype = fn () => C.gtype GdkGLContextClass.tOpt (),
+          get = fn x => fn () => C.get GdkGLContextClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GdkGLContextClass.tOpt x
         }
       val windowProp =
         {
-          get = fn x => get "window" GdkWindowClass.tOpt x,
-          new = fn x => new "window" GdkWindowClass.tOpt x
+          name = "window",
+          gtype = fn () => C.gtype GdkWindowClass.tOpt (),
+          get = fn x => fn () => C.get GdkWindowClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GdkWindowClass.tOpt x
         }
     end
   end

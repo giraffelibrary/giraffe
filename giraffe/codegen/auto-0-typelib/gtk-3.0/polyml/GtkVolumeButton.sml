@@ -26,13 +26,15 @@ structure GtkVolumeButton :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkVolumeButtonClass.FFI.fromPtr false) new_ ()
     local
-      open Property
+      open ValueAccessor
     in
       val useSymbolicProp =
         {
-          get = fn x => get "use-symbolic" boolean x,
-          set = fn x => set "use-symbolic" boolean x,
-          new = fn x => new "use-symbolic" boolean x
+          name = "use-symbolic",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

@@ -79,37 +79,47 @@ structure GtkMenuItem :>
       fun toggleSizeAllocateSig f = signal "toggle-size-allocate" (get 0w1 int ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val accelPathProp =
         {
-          get = fn x => get "accel-path" stringOpt x,
-          set = fn x => set "accel-path" stringOpt x,
-          new = fn x => new "accel-path" stringOpt x
+          name = "accel-path",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val labelProp =
         {
-          get = fn x => get "label" stringOpt x,
-          set = fn x => set "label" stringOpt x,
-          new = fn x => new "label" stringOpt x
+          name = "label",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val rightJustifiedProp =
         {
-          get = fn x => get "right-justified" boolean x,
-          set = fn x => set "right-justified" boolean x,
-          new = fn x => new "right-justified" boolean x
+          name = "right-justified",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val submenuProp =
         {
-          get = fn x => get "submenu" GtkMenuClass.tOpt x,
-          set = fn x => set "submenu" GtkMenuClass.tOpt x,
-          new = fn x => new "submenu" GtkMenuClass.tOpt x
+          name = "submenu",
+          gtype = fn () => C.gtype GtkMenuClass.tOpt (),
+          get = fn x => fn () => C.get GtkMenuClass.tOpt x,
+          set = fn x => C.set GtkMenuClass.tOpt x,
+          init = fn x => C.set GtkMenuClass.tOpt x
         }
       val useUnderlineProp =
         {
-          get = fn x => get "use-underline" boolean x,
-          set = fn x => set "use-underline" boolean x,
-          new = fn x => new "use-underline" boolean x
+          name = "use-underline",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

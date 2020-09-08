@@ -41,13 +41,15 @@ structure GioSimpleProxyResolver :>
            & proxy
         )
     local
-      open Property
+      open ValueAccessor
     in
       val defaultProxyProp =
         {
-          get = fn x => get "default-proxy" stringOpt x,
-          set = fn x => set "default-proxy" stringOpt x,
-          new = fn x => new "default-proxy" stringOpt x
+          name = "default-proxy",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

@@ -817,331 +817,43 @@ signature GTK_WIDGET =
     val unrealizeSig : (unit -> unit) -> 'a class Signal.t
     val visibilityNotifyEventSig : (Gdk.EventVisibilityRecord.t -> bool) -> 'a class Signal.t
     val windowStateEventSig : (Gdk.EventWindowStateRecord.t -> bool) -> 'a class Signal.t
-    val appPaintableProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val canDefaultProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val canFocusProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val compositeChildProp : {get : 'a class -> bool}
-    val doubleBufferedProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val eventsProp :
-      {
-        get : 'a class -> Gdk.EventMask.t,
-        set :
-          Gdk.EventMask.t
-           -> 'a class
-           -> unit,
-        new : Gdk.EventMask.t -> 'a class Property.t
-      }
-    val expandProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val focusOnClickProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val halignProp :
-      {
-        get : 'a class -> align_t,
-        set :
-          align_t
-           -> 'a class
-           -> unit,
-        new : align_t -> 'a class Property.t
-      }
-    val hasDefaultProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val hasFocusProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val hasTooltipProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val heightRequestProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val hexpandProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val hexpandSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val isFocusProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val marginProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val marginBottomProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val marginEndProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val marginLeftProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val marginRightProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val marginStartProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val marginTopProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val nameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val noShowAllProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val opacityProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val parentProp :
-      {
-        get : 'a class -> base container_class option,
-        set :
-          'b container_class option
-           -> 'a class
-           -> unit,
-        new : 'b container_class option -> 'a class Property.t
-      }
-    val receivesDefaultProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val scaleFactorProp : {get : 'a class -> LargeInt.int}
-    val sensitiveProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val styleProp :
-      {
-        get : 'a class -> base style_class option,
-        set :
-          'b style_class option
-           -> 'a class
-           -> unit,
-        new : 'b style_class option -> 'a class Property.t
-      }
-    val tooltipMarkupProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val tooltipTextProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val valignProp :
-      {
-        get : 'a class -> align_t,
-        set :
-          align_t
-           -> 'a class
-           -> unit,
-        new : align_t -> 'a class Property.t
-      }
-    val vexpandProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val vexpandSetProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val visibleProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val widthRequestProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val windowProp : {get : 'a class -> base Gdk.WindowClass.class option}
+    val appPaintableProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val canDefaultProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val canFocusProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val compositeChildProp : ('a class, unit -> bool, unit, unit) Property.t
+    val doubleBufferedProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val eventsProp : ('a class, unit -> Gdk.EventMask.t, Gdk.EventMask.t -> unit, Gdk.EventMask.t -> unit) Property.t
+    val expandProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val focusOnClickProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val halignProp : ('a class, unit -> align_t, align_t -> unit, align_t -> unit) Property.t
+    val hasDefaultProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val hasFocusProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val hasTooltipProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val heightRequestProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val hexpandProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val hexpandSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val isFocusProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val marginProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val marginBottomProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val marginEndProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val marginLeftProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val marginRightProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val marginStartProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val marginTopProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val nameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val noShowAllProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val opacityProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val parentProp : ('a class, unit -> base container_class option, 'b container_class option -> unit, 'b container_class option -> unit) Property.t
+    val receivesDefaultProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val scaleFactorProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val sensitiveProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val styleProp : ('a class, unit -> base style_class option, 'b style_class option -> unit, 'b style_class option -> unit) Property.t
+    val tooltipMarkupProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val tooltipTextProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val valignProp : ('a class, unit -> align_t, align_t -> unit, align_t -> unit) Property.t
+    val vexpandProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val vexpandSetProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val visibleProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val widthRequestProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val windowProp : ('a class, unit -> base Gdk.WindowClass.class option, unit, unit) Property.t
   end

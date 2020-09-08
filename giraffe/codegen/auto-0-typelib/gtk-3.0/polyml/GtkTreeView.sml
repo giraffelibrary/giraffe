@@ -1137,115 +1137,151 @@ structure GtkTreeView :>
       fun unselectAllSig f = signal "unselect-all" (void ---> ret boolean) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val activateOnSingleClickProp =
         {
-          get = fn x => get "activate-on-single-click" boolean x,
-          set = fn x => set "activate-on-single-click" boolean x,
-          new = fn x => new "activate-on-single-click" boolean x
+          name = "activate-on-single-click",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val enableGridLinesProp =
         {
-          get = fn x => get "enable-grid-lines" GtkTreeViewGridLines.t x,
-          set = fn x => set "enable-grid-lines" GtkTreeViewGridLines.t x,
-          new = fn x => new "enable-grid-lines" GtkTreeViewGridLines.t x
+          name = "enable-grid-lines",
+          gtype = fn () => C.gtype GtkTreeViewGridLines.t (),
+          get = fn x => fn () => C.get GtkTreeViewGridLines.t x,
+          set = fn x => C.set GtkTreeViewGridLines.t x,
+          init = fn x => C.set GtkTreeViewGridLines.t x
         }
       val enableSearchProp =
         {
-          get = fn x => get "enable-search" boolean x,
-          set = fn x => set "enable-search" boolean x,
-          new = fn x => new "enable-search" boolean x
+          name = "enable-search",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val enableTreeLinesProp =
         {
-          get = fn x => get "enable-tree-lines" boolean x,
-          set = fn x => set "enable-tree-lines" boolean x,
-          new = fn x => new "enable-tree-lines" boolean x
+          name = "enable-tree-lines",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val expanderColumnProp =
         {
-          get = fn x => get "expander-column" GtkTreeViewColumnClass.tOpt x,
-          set = fn x => set "expander-column" GtkTreeViewColumnClass.tOpt x,
-          new = fn x => new "expander-column" GtkTreeViewColumnClass.tOpt x
+          name = "expander-column",
+          gtype = fn () => C.gtype GtkTreeViewColumnClass.tOpt (),
+          get = fn x => fn () => C.get GtkTreeViewColumnClass.tOpt x,
+          set = fn x => C.set GtkTreeViewColumnClass.tOpt x,
+          init = fn x => C.set GtkTreeViewColumnClass.tOpt x
         }
       val fixedHeightModeProp =
         {
-          get = fn x => get "fixed-height-mode" boolean x,
-          set = fn x => set "fixed-height-mode" boolean x,
-          new = fn x => new "fixed-height-mode" boolean x
+          name = "fixed-height-mode",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val headersClickableProp =
         {
-          get = fn x => get "headers-clickable" boolean x,
-          set = fn x => set "headers-clickable" boolean x,
-          new = fn x => new "headers-clickable" boolean x
+          name = "headers-clickable",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val headersVisibleProp =
         {
-          get = fn x => get "headers-visible" boolean x,
-          set = fn x => set "headers-visible" boolean x,
-          new = fn x => new "headers-visible" boolean x
+          name = "headers-visible",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val hoverExpandProp =
         {
-          get = fn x => get "hover-expand" boolean x,
-          set = fn x => set "hover-expand" boolean x,
-          new = fn x => new "hover-expand" boolean x
+          name = "hover-expand",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val hoverSelectionProp =
         {
-          get = fn x => get "hover-selection" boolean x,
-          set = fn x => set "hover-selection" boolean x,
-          new = fn x => new "hover-selection" boolean x
+          name = "hover-selection",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val levelIndentationProp =
         {
-          get = fn x => get "level-indentation" int x,
-          set = fn x => set "level-indentation" int x,
-          new = fn x => new "level-indentation" int x
+          name = "level-indentation",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val modelProp =
         {
-          get = fn x => get "model" GtkTreeModelClass.tOpt x,
-          set = fn x => set "model" GtkTreeModelClass.tOpt x,
-          new = fn x => new "model" GtkTreeModelClass.tOpt x
+          name = "model",
+          gtype = fn () => C.gtype GtkTreeModelClass.tOpt (),
+          get = fn x => fn () => C.get GtkTreeModelClass.tOpt x,
+          set = fn x => C.set GtkTreeModelClass.tOpt x,
+          init = fn x => C.set GtkTreeModelClass.tOpt x
         }
       val reorderableProp =
         {
-          get = fn x => get "reorderable" boolean x,
-          set = fn x => set "reorderable" boolean x,
-          new = fn x => new "reorderable" boolean x
+          name = "reorderable",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val rubberBandingProp =
         {
-          get = fn x => get "rubber-banding" boolean x,
-          set = fn x => set "rubber-banding" boolean x,
-          new = fn x => new "rubber-banding" boolean x
+          name = "rubber-banding",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val rulesHintProp =
         {
-          get = fn x => get "rules-hint" boolean x,
-          set = fn x => set "rules-hint" boolean x,
-          new = fn x => new "rules-hint" boolean x
+          name = "rules-hint",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val searchColumnProp =
         {
-          get = fn x => get "search-column" int x,
-          set = fn x => set "search-column" int x,
-          new = fn x => new "search-column" int x
+          name = "search-column",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val showExpandersProp =
         {
-          get = fn x => get "show-expanders" boolean x,
-          set = fn x => set "show-expanders" boolean x,
-          new = fn x => new "show-expanders" boolean x
+          name = "show-expanders",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val tooltipColumnProp =
         {
-          get = fn x => get "tooltip-column" int x,
-          set = fn x => set "tooltip-column" int x,
-          new = fn x => new "tooltip-column" int x
+          name = "tooltip-column",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

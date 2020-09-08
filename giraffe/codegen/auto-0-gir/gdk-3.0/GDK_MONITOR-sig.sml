@@ -18,18 +18,14 @@ signature GDK_MONITOR =
     val getWorkarea : 'a class -> rectangle_t
     val isPrimary : 'a class -> bool
     val invalidateSig : (unit -> unit) -> 'a class Signal.t
-    val displayProp :
-      {
-        get : 'a class -> base display_class option,
-        new : 'b display_class option -> 'a class Property.t
-      }
-    val geometryProp : {get : 'a class -> rectangle_t option}
-    val heightMmProp : {get : 'a class -> LargeInt.int}
-    val manufacturerProp : {get : 'a class -> string option}
-    val modelProp : {get : 'a class -> string option}
-    val refreshRateProp : {get : 'a class -> LargeInt.int}
-    val scaleFactorProp : {get : 'a class -> LargeInt.int}
-    val subpixelLayoutProp : {get : 'a class -> subpixel_layout_t}
-    val widthMmProp : {get : 'a class -> LargeInt.int}
-    val workareaProp : {get : 'a class -> rectangle_t option}
+    val displayProp : ('a class, unit -> base display_class option, unit, 'b display_class option -> unit) Property.t
+    val geometryProp : ('a class, unit -> rectangle_t option, unit, unit) Property.t
+    val heightMmProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val manufacturerProp : ('a class, unit -> string option, unit, unit) Property.t
+    val modelProp : ('a class, unit -> string option, unit, unit) Property.t
+    val refreshRateProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val scaleFactorProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val subpixelLayoutProp : ('a class, unit -> subpixel_layout_t, unit, unit) Property.t
+    val widthMmProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val workareaProp : ('a class, unit -> rectangle_t option, unit, unit) Property.t
   end

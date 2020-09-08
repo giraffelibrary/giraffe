@@ -27,25 +27,31 @@ structure GtkGestureSingle :>
     fun setExclusive self exclusive = (GtkGestureSingleClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setExclusive_ (self & exclusive)
     fun setTouchOnly self touchOnly = (GtkGestureSingleClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setTouchOnly_ (self & touchOnly)
     local
-      open Property
+      open ValueAccessor
     in
       val buttonProp =
         {
-          get = fn x => get "button" uint x,
-          set = fn x => set "button" uint x,
-          new = fn x => new "button" uint x
+          name = "button",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val exclusiveProp =
         {
-          get = fn x => get "exclusive" boolean x,
-          set = fn x => set "exclusive" boolean x,
-          new = fn x => new "exclusive" boolean x
+          name = "exclusive",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val touchOnlyProp =
         {
-          get = fn x => get "touch-only" boolean x,
-          set = fn x => set "touch-only" boolean x,
-          new = fn x => new "touch-only" boolean x
+          name = "touch-only",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

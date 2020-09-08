@@ -8,14 +8,6 @@ signature GDK_DRAWING_CONTEXT =
     val getClip : 'a class -> Cairo.RegionRecord.t option
     val getWindow : 'a class -> base window_class
     val isValid : 'a class -> bool
-    val clipProp :
-      {
-        get : 'a class -> Cairo.RegionRecord.t option,
-        new : Cairo.RegionRecord.t option -> 'a class Property.t
-      }
-    val windowProp :
-      {
-        get : 'a class -> base window_class option,
-        new : 'b window_class option -> 'a class Property.t
-      }
+    val clipProp : ('a class, unit -> Cairo.RegionRecord.t option, unit, Cairo.RegionRecord.t option -> unit) Property.t
+    val windowProp : ('a class, unit -> base window_class option, unit, 'b window_class option -> unit) Property.t
   end

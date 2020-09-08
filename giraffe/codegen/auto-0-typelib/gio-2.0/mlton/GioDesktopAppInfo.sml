@@ -150,12 +150,15 @@ structure GioDesktopAppInfo :>
         )
     fun listActions self = (GioDesktopAppInfoClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) listActions_ self
     local
-      open Property
+      open ValueAccessor
     in
       val filenameProp =
         {
-          get = fn x => get "filename" stringOpt x,
-          new = fn x => new "filename" stringOpt x
+          name = "filename",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

@@ -50,8 +50,15 @@ structure GioTask :>
     fun setPriority self priority = (GioTaskClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setPriority_ (self & priority)
     fun setReturnOnCancel self returnOnCancel = (GioTaskClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) setReturnOnCancel_ (self & returnOnCancel)
     local
-      open Property
+      open ValueAccessor
     in
-      val completedProp = {get = fn x => get "completed" boolean x}
+      val completedProp =
+        {
+          name = "completed",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

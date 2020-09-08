@@ -802,97 +802,135 @@ structure GtkCellRenderer :>
       fun editingStartedSig f = signal "editing-started" (get 0w1 GtkCellEditableClass.t &&&> get 0w2 string ---> ret_void) (fn editable & path => f (editable, path))
     end
     local
-      open Property
+      open ValueAccessor
     in
       val cellBackgroundProp =
         {
-          set = fn x => set "cell-background" stringOpt x,
-          new = fn x => new "cell-background" stringOpt x
+          name = "cell-background",
+          gtype = fn () => C.gtype stringOpt (),
+          get = ignore,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val cellBackgroundGdkProp =
         {
-          get = fn x => get "cell-background-gdk" GdkColorRecord.tOpt x,
-          set = fn x => set "cell-background-gdk" GdkColorRecord.tOpt x,
-          new = fn x => new "cell-background-gdk" GdkColorRecord.tOpt x
+          name = "cell-background-gdk",
+          gtype = fn () => C.gtype GdkColorRecord.tOpt (),
+          get = fn x => fn () => C.get GdkColorRecord.tOpt x,
+          set = fn x => C.set GdkColorRecord.tOpt x,
+          init = fn x => C.set GdkColorRecord.tOpt x
         }
       val cellBackgroundRgbaProp =
         {
-          get = fn x => get "cell-background-rgba" GdkRgbaRecord.tOpt x,
-          set = fn x => set "cell-background-rgba" GdkRgbaRecord.tOpt x,
-          new = fn x => new "cell-background-rgba" GdkRgbaRecord.tOpt x
+          name = "cell-background-rgba",
+          gtype = fn () => C.gtype GdkRgbaRecord.tOpt (),
+          get = fn x => fn () => C.get GdkRgbaRecord.tOpt x,
+          set = fn x => C.set GdkRgbaRecord.tOpt x,
+          init = fn x => C.set GdkRgbaRecord.tOpt x
         }
       val cellBackgroundSetProp =
         {
-          get = fn x => get "cell-background-set" boolean x,
-          set = fn x => set "cell-background-set" boolean x,
-          new = fn x => new "cell-background-set" boolean x
+          name = "cell-background-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
-      val editingProp = {get = fn x => get "editing" boolean x}
+      val editingProp =
+        {
+          name = "editing",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val heightProp =
         {
-          get = fn x => get "height" int x,
-          set = fn x => set "height" int x,
-          new = fn x => new "height" int x
+          name = "height",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val isExpandedProp =
         {
-          get = fn x => get "is-expanded" boolean x,
-          set = fn x => set "is-expanded" boolean x,
-          new = fn x => new "is-expanded" boolean x
+          name = "is-expanded",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val isExpanderProp =
         {
-          get = fn x => get "is-expander" boolean x,
-          set = fn x => set "is-expander" boolean x,
-          new = fn x => new "is-expander" boolean x
+          name = "is-expander",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val modeProp =
         {
-          get = fn x => get "mode" GtkCellRendererMode.t x,
-          set = fn x => set "mode" GtkCellRendererMode.t x,
-          new = fn x => new "mode" GtkCellRendererMode.t x
+          name = "mode",
+          gtype = fn () => C.gtype GtkCellRendererMode.t (),
+          get = fn x => fn () => C.get GtkCellRendererMode.t x,
+          set = fn x => C.set GtkCellRendererMode.t x,
+          init = fn x => C.set GtkCellRendererMode.t x
         }
       val sensitiveProp =
         {
-          get = fn x => get "sensitive" boolean x,
-          set = fn x => set "sensitive" boolean x,
-          new = fn x => new "sensitive" boolean x
+          name = "sensitive",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val visibleProp =
         {
-          get = fn x => get "visible" boolean x,
-          set = fn x => set "visible" boolean x,
-          new = fn x => new "visible" boolean x
+          name = "visible",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val widthProp =
         {
-          get = fn x => get "width" int x,
-          set = fn x => set "width" int x,
-          new = fn x => new "width" int x
+          name = "width",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val xalignProp =
         {
-          get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x,
-          new = fn x => new "xalign" float x
+          name = "xalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val xpadProp =
         {
-          get = fn x => get "xpad" uint x,
-          set = fn x => set "xpad" uint x,
-          new = fn x => new "xpad" uint x
+          name = "xpad",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val yalignProp =
         {
-          get = fn x => get "yalign" float x,
-          set = fn x => set "yalign" float x,
-          new = fn x => new "yalign" float x
+          name = "yalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val ypadProp =
         {
-          get = fn x => get "ypad" uint x,
-          set = fn x => set "ypad" uint x,
-          new = fn x => new "ypad" uint x
+          name = "ypad",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
     end
   end

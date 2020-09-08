@@ -22,19 +22,23 @@ structure GtkSourceMap :>
     fun getView self = (GtkSourceMapClass.FFI.withPtr false ---> GtkSourceViewClass.FFI.fromOptPtr false) getView_ self
     fun setView self view = (GtkSourceMapClass.FFI.withPtr false &&&> GtkSourceViewClass.FFI.withPtr false ---> I) setView_ (self & view)
     local
-      open Property
+      open ValueAccessor
     in
       val fontDescProp =
         {
-          get = fn x => get "font-desc" PangoFontDescriptionRecord.tOpt x,
-          set = fn x => set "font-desc" PangoFontDescriptionRecord.tOpt x,
-          new = fn x => new "font-desc" PangoFontDescriptionRecord.tOpt x
+          name = "font-desc",
+          gtype = fn () => C.gtype PangoFontDescriptionRecord.tOpt (),
+          get = fn x => fn () => C.get PangoFontDescriptionRecord.tOpt x,
+          set = fn x => C.set PangoFontDescriptionRecord.tOpt x,
+          init = fn x => C.set PangoFontDescriptionRecord.tOpt x
         }
       val viewProp =
         {
-          get = fn x => get "view" GtkSourceViewClass.tOpt x,
-          set = fn x => set "view" GtkSourceViewClass.tOpt x,
-          new = fn x => new "view" GtkSourceViewClass.tOpt x
+          name = "view",
+          gtype = fn () => C.gtype GtkSourceViewClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceViewClass.tOpt x,
+          set = fn x => C.set GtkSourceViewClass.tOpt x,
+          init = fn x => C.set GtkSourceViewClass.tOpt x
         }
     end
   end

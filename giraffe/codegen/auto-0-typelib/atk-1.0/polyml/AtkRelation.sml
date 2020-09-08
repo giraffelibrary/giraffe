@@ -50,19 +50,23 @@ structure AtkRelation :>
     fun getRelationType self = (AtkRelationClass.FFI.withPtr false ---> AtkRelationType.FFI.fromVal) getRelationType_ self
     fun removeTarget self target = (AtkRelationClass.FFI.withPtr false &&&> AtkObjectClass.FFI.withPtr false ---> GBool.FFI.fromVal) removeTarget_ (self & target)
     local
-      open Property
+      open ValueAccessor
     in
       val relationTypeProp =
         {
-          get = fn x => get "relation-type" AtkRelationType.t x,
-          set = fn x => set "relation-type" AtkRelationType.t x,
-          new = fn x => new "relation-type" AtkRelationType.t x
+          name = "relation-type",
+          gtype = fn () => C.gtype AtkRelationType.t (),
+          get = fn x => fn () => C.get AtkRelationType.t x,
+          set = fn x => C.set AtkRelationType.t x,
+          init = fn x => C.set AtkRelationType.t x
         }
       val targetProp =
         {
-          get = fn x => get "target" GObjectValueArrayRecord.tOpt x,
-          set = fn x => set "target" GObjectValueArrayRecord.tOpt x,
-          new = fn x => new "target" GObjectValueArrayRecord.tOpt x
+          name = "target",
+          gtype = fn () => C.gtype GObjectValueArrayRecord.tOpt (),
+          get = fn x => fn () => C.get GObjectValueArrayRecord.tOpt x,
+          set = fn x => C.set GObjectValueArrayRecord.tOpt x,
+          init = fn x => C.set GObjectValueArrayRecord.tOpt x
         }
     end
   end

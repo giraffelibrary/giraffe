@@ -149,31 +149,39 @@ structure GtkMisc :>
            & ypad
         )
     local
-      open Property
+      open ValueAccessor
     in
       val xalignProp =
         {
-          get = fn x => get "xalign" float x,
-          set = fn x => set "xalign" float x,
-          new = fn x => new "xalign" float x
+          name = "xalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val xpadProp =
         {
-          get = fn x => get "xpad" int x,
-          set = fn x => set "xpad" int x,
-          new = fn x => new "xpad" int x
+          name = "xpad",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val yalignProp =
         {
-          get = fn x => get "yalign" float x,
-          set = fn x => set "yalign" float x,
-          new = fn x => new "yalign" float x
+          name = "yalign",
+          gtype = fn () => C.gtype float (),
+          get = fn x => fn () => C.get float x,
+          set = fn x => C.set float x,
+          init = fn x => C.set float x
         }
       val ypadProp =
         {
-          get = fn x => get "ypad" int x,
-          set = fn x => set "ypad" int x,
-          new = fn x => new "ypad" int x
+          name = "ypad",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
     end
   end

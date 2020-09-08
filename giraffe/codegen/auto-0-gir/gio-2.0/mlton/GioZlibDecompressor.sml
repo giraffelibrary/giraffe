@@ -18,13 +18,23 @@ structure GioZlibDecompressor :>
     fun new format = (GioZlibCompressorFormat.FFI.withVal ---> GioZlibDecompressorClass.FFI.fromPtr true) new_ format
     fun getFileInfo self = (GioZlibDecompressorClass.FFI.withPtr false ---> GioFileInfoClass.FFI.fromPtr false) getFileInfo_ self
     local
-      open Property
+      open ValueAccessor
     in
-      val fileInfoProp = {get = fn x => get "file-info" GioFileInfoClass.tOpt x}
+      val fileInfoProp =
+        {
+          name = "file-info",
+          gtype = fn () => C.gtype GioFileInfoClass.tOpt (),
+          get = fn x => fn () => C.get GioFileInfoClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
       val formatProp =
         {
-          get = fn x => get "format" GioZlibCompressorFormat.t x,
-          new = fn x => new "format" GioZlibCompressorFormat.t x
+          name = "format",
+          gtype = fn () => C.gtype GioZlibCompressorFormat.t (),
+          get = fn x => fn () => C.get GioZlibCompressorFormat.t x,
+          set = ignore,
+          init = fn x => C.set GioZlibCompressorFormat.t x
         }
     end
   end

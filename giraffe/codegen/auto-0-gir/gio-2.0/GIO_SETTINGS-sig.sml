@@ -168,26 +168,10 @@ signature GIO_SETTINGS =
     val changedSig : (string -> unit) -> 'a class Signal.t
     val writableChangeEventSig : (LargeInt.int -> bool) -> 'a class Signal.t
     val writableChangedSig : (string -> unit) -> 'a class Signal.t
-    val delayApplyProp : {get : 'a class -> bool}
-    val hasUnappliedProp : {get : 'a class -> bool}
-    val pathProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val schemaProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val schemaIdProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val settingsSchemaProp :
-      {
-        get : 'a class -> settings_schema_t option,
-        new : settings_schema_t option -> 'a class Property.t
-      }
+    val delayApplyProp : ('a class, unit -> bool, unit, unit) Property.t
+    val hasUnappliedProp : ('a class, unit -> bool, unit, unit) Property.t
+    val pathProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val schemaProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val schemaIdProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val settingsSchemaProp : ('a class, unit -> settings_schema_t option, unit, settings_schema_t option -> unit) Property.t
   end

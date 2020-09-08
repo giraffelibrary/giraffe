@@ -30,31 +30,7 @@ signature GTK_TOGGLE_BUTTON =
        -> unit
     val toggled : 'a class -> unit
     val toggledSig : (unit -> unit) -> 'a class Signal.t
-    val activeProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val drawIndicatorProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val inconsistentProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val activeProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val drawIndicatorProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val inconsistentProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

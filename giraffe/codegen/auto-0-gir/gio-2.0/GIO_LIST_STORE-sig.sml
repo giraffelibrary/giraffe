@@ -25,9 +25,5 @@ signature GIO_LIST_STORE =
            * LargeInt.int
            * GObjectObjectClassCPtrArrayN.t
        -> unit
-    val itemTypeProp :
-      {
-        get : 'a class -> GObject.Type.t,
-        new : GObject.Type.t -> 'a class Property.t
-      }
+    val itemTypeProp : ('a class, unit -> GObject.Type.t, unit, GObject.Type.t -> unit) Property.t
   end

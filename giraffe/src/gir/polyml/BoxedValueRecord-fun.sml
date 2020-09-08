@@ -43,6 +43,8 @@ functor BoxedValueRecord(
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
+        type v = non_opt p
+
         structure ValueType =
           struct
             type t = non_opt p Finalizable.t

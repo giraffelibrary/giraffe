@@ -145,155 +145,23 @@ signature GTK_TREE_VIEW_COLUMN =
        -> 'b widget_class option
        -> unit
     val clickedSig : (unit -> unit) -> 'a class Signal.t
-    val alignmentProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val cellAreaProp :
-      {
-        get : 'a class -> base cell_area_class option,
-        new : 'b cell_area_class option -> 'a class Property.t
-      }
-    val clickableProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val expandProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val fixedWidthProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val maxWidthProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val minWidthProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val reorderableProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val resizableProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val sizingProp :
-      {
-        get : 'a class -> tree_view_column_sizing_t,
-        set :
-          tree_view_column_sizing_t
-           -> 'a class
-           -> unit,
-        new : tree_view_column_sizing_t -> 'a class Property.t
-      }
-    val sortColumnIdProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val sortIndicatorProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val sortOrderProp :
-      {
-        get : 'a class -> sort_type_t,
-        set :
-          sort_type_t
-           -> 'a class
-           -> unit,
-        new : sort_type_t -> 'a class Property.t
-      }
-    val spacingProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val titleProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val visibleProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val widgetProp :
-      {
-        get : 'a class -> base widget_class option,
-        set :
-          'b widget_class option
-           -> 'a class
-           -> unit,
-        new : 'b widget_class option -> 'a class Property.t
-      }
-    val widthProp : {get : 'a class -> LargeInt.int}
-    val xOffsetProp : {get : 'a class -> LargeInt.int}
+    val alignmentProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val cellAreaProp : ('a class, unit -> base cell_area_class option, unit, 'b cell_area_class option -> unit) Property.t
+    val clickableProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val expandProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val fixedWidthProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val maxWidthProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val minWidthProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val reorderableProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val resizableProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val sizingProp : ('a class, unit -> tree_view_column_sizing_t, tree_view_column_sizing_t -> unit, tree_view_column_sizing_t -> unit) Property.t
+    val sortColumnIdProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val sortIndicatorProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val sortOrderProp : ('a class, unit -> sort_type_t, sort_type_t -> unit, sort_type_t -> unit) Property.t
+    val spacingProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val titleProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val visibleProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val widgetProp : ('a class, unit -> base widget_class option, 'b widget_class option -> unit, 'b widget_class option -> unit) Property.t
+    val widthProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val xOffsetProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
   end

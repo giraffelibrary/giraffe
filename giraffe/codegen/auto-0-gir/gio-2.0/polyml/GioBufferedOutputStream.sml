@@ -28,19 +28,23 @@ structure GioBufferedOutputStream :>
     fun setAutoGrow self autoGrow = (GioBufferedOutputStreamClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAutoGrow_ (self & autoGrow)
     fun setBufferSize self size = (GioBufferedOutputStreamClass.FFI.withPtr false &&&> GSize.FFI.withVal ---> I) setBufferSize_ (self & size)
     local
-      open Property
+      open ValueAccessor
     in
       val autoGrowProp =
         {
-          get = fn x => get "auto-grow" boolean x,
-          set = fn x => set "auto-grow" boolean x,
-          new = fn x => new "auto-grow" boolean x
+          name = "auto-grow",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val bufferSizeProp =
         {
-          get = fn x => get "buffer-size" uint x,
-          set = fn x => set "buffer-size" uint x,
-          new = fn x => new "buffer-size" uint x
+          name = "buffer-size",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
     end
   end

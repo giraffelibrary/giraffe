@@ -29,13 +29,15 @@ structure GtkPopoverMenu :>
     fun new () = (I ---> GtkPopoverMenuClass.FFI.fromPtr false) new_ ()
     fun openSubmenu self name = (GtkPopoverMenuClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) openSubmenu_ (self & name)
     local
-      open Property
+      open ValueAccessor
     in
       val visibleSubmenuProp =
         {
-          get = fn x => get "visible-submenu" stringOpt x,
-          set = fn x => set "visible-submenu" stringOpt x,
-          new = fn x => new "visible-submenu" stringOpt x
+          name = "visible-submenu",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

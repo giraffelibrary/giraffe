@@ -103,17 +103,23 @@ structure GtkPadController :>
            & actionName
         )
     local
-      open Property
+      open ValueAccessor
     in
       val actionGroupProp =
         {
-          get = fn x => get "action-group" GioActionGroupClass.tOpt x,
-          new = fn x => new "action-group" GioActionGroupClass.tOpt x
+          name = "action-group",
+          gtype = fn () => C.gtype GioActionGroupClass.tOpt (),
+          get = fn x => fn () => C.get GioActionGroupClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioActionGroupClass.tOpt x
         }
       val padProp =
         {
-          get = fn x => get "pad" GdkDeviceClass.tOpt x,
-          new = fn x => new "pad" GdkDeviceClass.tOpt x
+          name = "pad",
+          gtype = fn () => C.gtype GdkDeviceClass.tOpt (),
+          get = fn x => fn () => C.get GdkDeviceClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GdkDeviceClass.tOpt x
         }
     end
   end

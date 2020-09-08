@@ -18,12 +18,5 @@ signature GTK_RADIO_MENU_ITEM =
        -> 'b class option
        -> unit
     val groupChangedSig : (unit -> unit) -> 'a class Signal.t
-    val groupProp :
-      {
-        set :
-          'b class option
-           -> 'a class
-           -> unit,
-        new : 'b class option -> 'a class Property.t
-      }
+    val groupProp : ('a class, unit, 'b class option -> unit, 'b class option -> unit) Property.t
   end

@@ -25,24 +25,8 @@ signature GTK_SOURCE_FILE_LOADER =
       'a class
        -> 'b Gio.AsyncResultClass.class
        -> unit
-    val bufferProp :
-      {
-        get : 'a class -> base buffer_class option,
-        new : 'b buffer_class option -> 'a class Property.t
-      }
-    val fileProp :
-      {
-        get : 'a class -> base file_class option,
-        new : 'b file_class option -> 'a class Property.t
-      }
-    val inputStreamProp :
-      {
-        get : 'a class -> base Gio.InputStreamClass.class option,
-        new : 'b Gio.InputStreamClass.class option -> 'a class Property.t
-      }
-    val locationProp :
-      {
-        get : 'a class -> base Gio.FileClass.class option,
-        new : 'b Gio.FileClass.class option -> 'a class Property.t
-      }
+    val bufferProp : ('a class, unit -> base buffer_class option, unit, 'b buffer_class option -> unit) Property.t
+    val fileProp : ('a class, unit -> base file_class option, unit, 'b file_class option -> unit) Property.t
+    val inputStreamProp : ('a class, unit -> base Gio.InputStreamClass.class option, unit, 'b Gio.InputStreamClass.class option -> unit) Property.t
+    val locationProp : ('a class, unit -> base Gio.FileClass.class option, unit, 'b Gio.FileClass.class option -> unit) Property.t
   end

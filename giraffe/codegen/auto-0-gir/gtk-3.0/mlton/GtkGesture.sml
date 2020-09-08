@@ -164,18 +164,23 @@ structure GtkGesture :>
       fun updateSig f = signal "update" (get 0w1 GdkEventSequenceRecord.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val nPointsProp =
         {
-          get = fn x => get "n-points" uint x,
-          new = fn x => new "n-points" uint x
+          name = "n-points",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = ignore,
+          init = fn x => C.set uint x
         }
       val windowProp =
         {
-          get = fn x => get "window" GdkWindowClass.tOpt x,
-          set = fn x => set "window" GdkWindowClass.tOpt x,
-          new = fn x => new "window" GdkWindowClass.tOpt x
+          name = "window",
+          gtype = fn () => C.gtype GdkWindowClass.tOpt (),
+          get = fn x => fn () => C.get GdkWindowClass.tOpt x,
+          set = fn x => C.set GdkWindowClass.tOpt x,
+          init = fn x => C.set GdkWindowClass.tOpt x
         }
     end
   end

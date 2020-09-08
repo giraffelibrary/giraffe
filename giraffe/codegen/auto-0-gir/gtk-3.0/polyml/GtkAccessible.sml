@@ -19,13 +19,15 @@ structure GtkAccessible :>
     fun getWidget self = (GtkAccessibleClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getWidget_ self
     fun setWidget self widget = (GtkAccessibleClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setWidget_ (self & widget)
     local
-      open Property
+      open ValueAccessor
     in
       val widgetProp =
         {
-          get = fn x => get "widget" GtkWidgetClass.tOpt x,
-          set = fn x => set "widget" GtkWidgetClass.tOpt x,
-          new = fn x => new "widget" GtkWidgetClass.tOpt x
+          name = "widget",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
     end
   end

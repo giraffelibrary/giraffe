@@ -102,12 +102,15 @@ structure GioListStore :>
         ()
       end
     local
-      open Property
+      open ValueAccessor
     in
       val itemTypeProp =
         {
-          get = fn x => get "item-type" GObjectType.t x,
-          new = fn x => new "item-type" GObjectType.t x
+          name = "item-type",
+          gtype = fn () => C.gtype GObjectType.t (),
+          get = fn x => fn () => C.get GObjectType.t x,
+          set = ignore,
+          init = fn x => C.set GObjectType.t x
         }
     end
   end

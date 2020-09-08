@@ -836,15 +836,31 @@ structure GtkCellArea :>
       fun removeEditableSig f = signal "remove-editable" (get 0w1 GtkCellRendererClass.t &&&> get 0w2 GtkCellEditableClass.t ---> ret_void) (fn renderer & editable => f (renderer, editable))
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val editWidgetProp = {get = fn x => get "edit-widget" GtkCellEditableClass.tOpt x}
-      val editedCellProp = {get = fn x => get "edited-cell" GtkCellRendererClass.tOpt x}
+      val editWidgetProp =
+        {
+          name = "edit-widget",
+          gtype = fn () => C.gtype GtkCellEditableClass.tOpt (),
+          get = fn x => fn () => C.get GtkCellEditableClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val editedCellProp =
+        {
+          name = "edited-cell",
+          gtype = fn () => C.gtype GtkCellRendererClass.tOpt (),
+          get = fn x => fn () => C.get GtkCellRendererClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
       val focusCellProp =
         {
-          get = fn x => get "focus-cell" GtkCellRendererClass.tOpt x,
-          set = fn x => set "focus-cell" GtkCellRendererClass.tOpt x,
-          new = fn x => new "focus-cell" GtkCellRendererClass.tOpt x
+          name = "focus-cell",
+          gtype = fn () => C.gtype GtkCellRendererClass.tOpt (),
+          get = fn x => fn () => C.get GtkCellRendererClass.tOpt x,
+          set = fn x => C.set GtkCellRendererClass.tOpt x,
+          init = fn x => C.set GtkCellRendererClass.tOpt x
         }
     end
   end

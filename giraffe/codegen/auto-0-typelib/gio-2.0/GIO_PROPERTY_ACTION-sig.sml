@@ -10,20 +10,12 @@ signature GIO_PROPERTY_ACTION =
        * 'a GObject.ObjectClass.class
        * string
        -> base class
-    val enabledProp : {get : 'a class -> bool}
-    val invertBooleanProp :
-      {
-        get : 'a class -> bool,
-        new : bool -> 'a class Property.t
-      }
-    val nameProp :
-      {
-        get : 'a class -> string option,
-        new : string option -> 'a class Property.t
-      }
-    val objectProp : {new : 'b GObject.ObjectClass.class option -> 'a class Property.t}
-    val parameterTypeProp : {get : 'a class -> GLib.VariantTypeRecord.t option}
-    val propertyNameProp : {new : string option -> 'a class Property.t}
-    val stateProp : {get : 'a class -> GLib.VariantRecord.t option}
-    val stateTypeProp : {get : 'a class -> GLib.VariantTypeRecord.t option}
+    val enabledProp : ('a class, unit -> bool, unit, unit) Property.t
+    val invertBooleanProp : ('a class, unit -> bool, unit, bool -> unit) Property.t
+    val nameProp : ('a class, unit -> string option, unit, string option -> unit) Property.t
+    val objectProp : ('a class, unit, unit, 'b GObject.ObjectClass.class option -> unit) Property.t
+    val parameterTypeProp : ('a class, unit -> GLib.VariantTypeRecord.t option, unit, unit) Property.t
+    val propertyNameProp : ('a class, unit, unit, string option -> unit) Property.t
+    val stateProp : ('a class, unit -> GLib.VariantRecord.t option, unit, unit) Property.t
+    val stateTypeProp : ('a class, unit -> GLib.VariantTypeRecord.t option, unit, unit) Property.t
   end

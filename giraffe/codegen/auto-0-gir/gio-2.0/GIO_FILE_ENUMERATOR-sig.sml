@@ -34,5 +34,5 @@ signature GIO_FILE_ENUMERATOR =
       'a class
        -> bool
        -> unit
-    val containerProp : {new : 'b file_class option -> 'a class Property.t}
+    val containerProp : ('a class, unit, unit, 'b file_class option -> unit) Property.t
   end

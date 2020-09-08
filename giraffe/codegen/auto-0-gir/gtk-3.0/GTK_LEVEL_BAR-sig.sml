@@ -49,49 +49,9 @@ signature GTK_LEVEL_BAR =
        -> real
        -> unit
     val offsetChangedSig : (string -> unit) -> 'a class Signal.t
-    val invertedProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val maxValueProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val minValueProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val modeProp :
-      {
-        get : 'a class -> level_bar_mode_t,
-        set :
-          level_bar_mode_t
-           -> 'a class
-           -> unit,
-        new : level_bar_mode_t -> 'a class Property.t
-      }
-    val valueProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
+    val invertedProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val maxValueProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val minValueProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val modeProp : ('a class, unit -> level_bar_mode_t, level_bar_mode_t -> unit, level_bar_mode_t -> unit) Property.t
+    val valueProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
   end

@@ -17,10 +17,12 @@ signature VALUE_RECORD =
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
+        type v = non_opt p
+
         structure ValueType :
           C_VALUE_TYPE
             where type t = t
-            where type v = non_opt p
+            where type v = v
 
         structure PointerType :
           C_POINTER_TYPE

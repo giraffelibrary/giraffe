@@ -10,14 +10,6 @@ signature GIO_FILTER_OUTPUT_STREAM =
       'a class
        -> bool
        -> unit
-    val baseStreamProp :
-      {
-        get : 'a class -> base output_stream_class option,
-        new : 'b output_stream_class option -> 'a class Property.t
-      }
-    val closeBaseStreamProp :
-      {
-        get : 'a class -> bool,
-        new : bool -> 'a class Property.t
-      }
+    val baseStreamProp : ('a class, unit -> base output_stream_class option, unit, 'b output_stream_class option -> unit) Property.t
+    val closeBaseStreamProp : ('a class, unit -> bool, unit, bool -> unit) Property.t
   end

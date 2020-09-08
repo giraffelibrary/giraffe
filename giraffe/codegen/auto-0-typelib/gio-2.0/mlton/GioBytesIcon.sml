@@ -17,12 +17,15 @@ structure GioBytesIcon :>
     fun new bytes = (GLibBytesRecord.FFI.withPtr false ---> GioBytesIconClass.FFI.fromPtr true) new_ bytes
     fun getBytes self = (GioBytesIconClass.FFI.withPtr false ---> GLibBytesRecord.FFI.fromPtr false) getBytes_ self
     local
-      open Property
+      open ValueAccessor
     in
       val bytesProp =
         {
-          get = fn x => get "bytes" GLibBytesRecord.tOpt x,
-          new = fn x => new "bytes" GLibBytesRecord.tOpt x
+          name = "bytes",
+          gtype = fn () => C.gtype GLibBytesRecord.tOpt (),
+          get = fn x => fn () => C.get GLibBytesRecord.tOpt x,
+          set = ignore,
+          init = fn x => C.set GLibBytesRecord.tOpt x
         }
     end
   end

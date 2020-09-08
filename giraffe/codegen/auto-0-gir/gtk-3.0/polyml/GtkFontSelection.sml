@@ -46,19 +46,23 @@ structure GtkFontSelection :>
     fun setFontName self fontname = (GtkFontSelectionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) setFontName_ (self & fontname)
     fun setPreviewText self text = (GtkFontSelectionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setPreviewText_ (self & text)
     local
-      open Property
+      open ValueAccessor
     in
       val fontNameProp =
         {
-          get = fn x => get "font-name" stringOpt x,
-          set = fn x => set "font-name" stringOpt x,
-          new = fn x => new "font-name" stringOpt x
+          name = "font-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val previewTextProp =
         {
-          get = fn x => get "preview-text" stringOpt x,
-          set = fn x => set "preview-text" stringOpt x,
-          new = fn x => new "preview-text" stringOpt x
+          name = "preview-text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

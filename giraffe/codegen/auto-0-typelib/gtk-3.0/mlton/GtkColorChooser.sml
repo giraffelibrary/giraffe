@@ -84,19 +84,23 @@ structure GtkColorChooser :>
       fun colorActivatedSig f = signal "color-activated" (get 0w1 GdkRgbaRecord.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val rgbaProp =
         {
-          get = fn x => get "rgba" GdkRgbaRecord.tOpt x,
-          set = fn x => set "rgba" GdkRgbaRecord.tOpt x,
-          new = fn x => new "rgba" GdkRgbaRecord.tOpt x
+          name = "rgba",
+          gtype = fn () => C.gtype GdkRgbaRecord.tOpt (),
+          get = fn x => fn () => C.get GdkRgbaRecord.tOpt x,
+          set = fn x => C.set GdkRgbaRecord.tOpt x,
+          init = fn x => C.set GdkRgbaRecord.tOpt x
         }
       val useAlphaProp =
         {
-          get = fn x => get "use-alpha" boolean x,
-          set = fn x => set "use-alpha" boolean x,
-          new = fn x => new "use-alpha" boolean x
+          name = "use-alpha",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

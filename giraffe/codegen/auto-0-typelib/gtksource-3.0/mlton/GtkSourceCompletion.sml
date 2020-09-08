@@ -100,60 +100,79 @@ structure GtkSourceCompletion :>
       fun showSig f = signal "show" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val acceleratorsProp =
         {
-          get = fn x => get "accelerators" uint x,
-          set = fn x => set "accelerators" uint x,
-          new = fn x => new "accelerators" uint x
+          name = "accelerators",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val autoCompleteDelayProp =
         {
-          get = fn x => get "auto-complete-delay" uint x,
-          set = fn x => set "auto-complete-delay" uint x,
-          new = fn x => new "auto-complete-delay" uint x
+          name = "auto-complete-delay",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val proposalPageSizeProp =
         {
-          get = fn x => get "proposal-page-size" uint x,
-          set = fn x => set "proposal-page-size" uint x,
-          new = fn x => new "proposal-page-size" uint x
+          name = "proposal-page-size",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val providerPageSizeProp =
         {
-          get = fn x => get "provider-page-size" uint x,
-          set = fn x => set "provider-page-size" uint x,
-          new = fn x => new "provider-page-size" uint x
+          name = "provider-page-size",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val rememberInfoVisibilityProp =
         {
-          get = fn x => get "remember-info-visibility" boolean x,
-          set = fn x => set "remember-info-visibility" boolean x,
-          new = fn x => new "remember-info-visibility" boolean x
+          name = "remember-info-visibility",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val selectOnShowProp =
         {
-          get = fn x => get "select-on-show" boolean x,
-          set = fn x => set "select-on-show" boolean x,
-          new = fn x => new "select-on-show" boolean x
+          name = "select-on-show",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showHeadersProp =
         {
-          get = fn x => get "show-headers" boolean x,
-          set = fn x => set "show-headers" boolean x,
-          new = fn x => new "show-headers" boolean x
+          name = "show-headers",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val showIconsProp =
         {
-          get = fn x => get "show-icons" boolean x,
-          set = fn x => set "show-icons" boolean x,
-          new = fn x => new "show-icons" boolean x
+          name = "show-icons",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val viewProp =
         {
-          get = fn x => get "view" GtkSourceViewClass.tOpt x,
-          new = fn x => new "view" GtkSourceViewClass.tOpt x
+          name = "view",
+          gtype = fn () => C.gtype GtkSourceViewClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceViewClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkSourceViewClass.tOpt x
         }
     end
   end

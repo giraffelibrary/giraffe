@@ -160,98 +160,18 @@ signature GIO_SOCKET =
        -> bool * bool
        -> unit
     val speaksIpv4 : 'a class -> bool
-    val blockingProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val broadcastProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val familyProp :
-      {
-        get : 'a class -> socket_family_t,
-        new : socket_family_t -> 'a class Property.t
-      }
-    val fdProp :
-      {
-        get : 'a class -> LargeInt.int,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val keepaliveProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val listenBacklogProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val localAddressProp : {get : 'a class -> base socket_address_class option}
-    val multicastLoopbackProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val multicastTtlProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val protocolProp :
-      {
-        get : 'a class -> socket_protocol_t,
-        new : socket_protocol_t -> 'a class Property.t
-      }
-    val remoteAddressProp : {get : 'a class -> base socket_address_class option}
-    val timeoutProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val ttlProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val typeProp :
-      {
-        get : 'a class -> socket_type_t,
-        new : socket_type_t -> 'a class Property.t
-      }
+    val blockingProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val broadcastProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val familyProp : ('a class, unit -> socket_family_t, unit, socket_family_t -> unit) Property.t
+    val fdProp : ('a class, unit -> LargeInt.int, unit, LargeInt.int -> unit) Property.t
+    val keepaliveProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val listenBacklogProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val localAddressProp : ('a class, unit -> base socket_address_class option, unit, unit) Property.t
+    val multicastLoopbackProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val multicastTtlProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val protocolProp : ('a class, unit -> socket_protocol_t, unit, socket_protocol_t -> unit) Property.t
+    val remoteAddressProp : ('a class, unit -> base socket_address_class option, unit, unit) Property.t
+    val timeoutProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val ttlProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val typeProp : ('a class, unit -> socket_type_t, unit, socket_type_t -> unit) Property.t
   end

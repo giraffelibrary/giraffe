@@ -13,13 +13,5 @@ signature GTK_GESTURE_PAN =
        -> orientation_t
        -> unit
     val panSig : (pan_direction_t * real -> unit) -> 'a class Signal.t
-    val orientationProp :
-      {
-        get : 'a class -> orientation_t,
-        set :
-          orientation_t
-           -> 'a class
-           -> unit,
-        new : orientation_t -> 'a class Property.t
-      }
+    val orientationProp : ('a class, unit -> orientation_t, orientation_t -> unit, orientation_t -> unit) Property.t
   end

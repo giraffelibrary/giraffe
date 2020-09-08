@@ -28,27 +28,39 @@ structure GioInetSocketAddress :>
     fun getPort self = (GioInetSocketAddressClass.FFI.withPtr false ---> GUInt16.FFI.fromVal) getPort_ self
     fun getScopeId self = (GioInetSocketAddressClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getScopeId_ self
     local
-      open Property
+      open ValueAccessor
     in
       val addressProp =
         {
-          get = fn x => get "address" GioInetAddressClass.tOpt x,
-          new = fn x => new "address" GioInetAddressClass.tOpt x
+          name = "address",
+          gtype = fn () => C.gtype GioInetAddressClass.tOpt (),
+          get = fn x => fn () => C.get GioInetAddressClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioInetAddressClass.tOpt x
         }
       val flowinfoProp =
         {
-          get = fn x => get "flowinfo" uint x,
-          new = fn x => new "flowinfo" uint x
+          name = "flowinfo",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = ignore,
+          init = fn x => C.set uint x
         }
       val portProp =
         {
-          get = fn x => get "port" uint x,
-          new = fn x => new "port" uint x
+          name = "port",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = ignore,
+          init = fn x => C.set uint x
         }
       val scopeIdProp =
         {
-          get = fn x => get "scope-id" uint x,
-          new = fn x => new "scope-id" uint x
+          name = "scope-id",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = ignore,
+          init = fn x => C.set uint x
         }
     end
   end

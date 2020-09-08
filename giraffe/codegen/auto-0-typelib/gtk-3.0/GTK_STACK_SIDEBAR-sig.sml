@@ -13,13 +13,5 @@ signature GTK_STACK_SIDEBAR =
       'a class
        -> 'b stack_class
        -> unit
-    val stackProp :
-      {
-        get : 'a class -> base stack_class option,
-        set :
-          'b stack_class option
-           -> 'a class
-           -> unit,
-        new : 'b stack_class option -> 'a class Property.t
-      }
+    val stackProp : ('a class, unit -> base stack_class option, 'b stack_class option -> unit, 'b stack_class option -> unit) Property.t
   end

@@ -171,20 +171,31 @@ structure GtkEntryBuffer :>
           )
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val lengthProp = {get = fn x => get "length" uint x}
+      val lengthProp =
+        {
+          name = "length",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = ignore,
+          init = ignore
+        }
       val maxLengthProp =
         {
-          get = fn x => get "max-length" int x,
-          set = fn x => set "max-length" int x,
-          new = fn x => new "max-length" int x
+          name = "max-length",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val textProp =
         {
-          get = fn x => get "text" stringOpt x,
-          set = fn x => set "text" stringOpt x,
-          new = fn x => new "text" stringOpt x
+          name = "text",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
     end
   end

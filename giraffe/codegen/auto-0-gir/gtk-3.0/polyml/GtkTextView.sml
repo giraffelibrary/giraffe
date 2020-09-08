@@ -714,133 +714,175 @@ structure GtkTextView :>
       fun toggleOverwriteSig f = signal "toggle-overwrite" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val acceptsTabProp =
         {
-          get = fn x => get "accepts-tab" boolean x,
-          set = fn x => set "accepts-tab" boolean x,
-          new = fn x => new "accepts-tab" boolean x
+          name = "accepts-tab",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val bottomMarginProp =
         {
-          get = fn x => get "bottom-margin" int x,
-          set = fn x => set "bottom-margin" int x,
-          new = fn x => new "bottom-margin" int x
+          name = "bottom-margin",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val bufferProp =
         {
-          get = fn x => get "buffer" GtkTextBufferClass.tOpt x,
-          set = fn x => set "buffer" GtkTextBufferClass.tOpt x,
-          new = fn x => new "buffer" GtkTextBufferClass.tOpt x
+          name = "buffer",
+          gtype = fn () => C.gtype GtkTextBufferClass.tOpt (),
+          get = fn x => fn () => C.get GtkTextBufferClass.tOpt x,
+          set = fn x => C.set GtkTextBufferClass.tOpt x,
+          init = fn x => C.set GtkTextBufferClass.tOpt x
         }
       val cursorVisibleProp =
         {
-          get = fn x => get "cursor-visible" boolean x,
-          set = fn x => set "cursor-visible" boolean x,
-          new = fn x => new "cursor-visible" boolean x
+          name = "cursor-visible",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val editableProp =
         {
-          get = fn x => get "editable" boolean x,
-          set = fn x => set "editable" boolean x,
-          new = fn x => new "editable" boolean x
+          name = "editable",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val imModuleProp =
         {
-          get = fn x => get "im-module" stringOpt x,
-          set = fn x => set "im-module" stringOpt x,
-          new = fn x => new "im-module" stringOpt x
+          name = "im-module",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val indentProp =
         {
-          get = fn x => get "indent" int x,
-          set = fn x => set "indent" int x,
-          new = fn x => new "indent" int x
+          name = "indent",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val inputHintsProp =
         {
-          get = fn x => get "input-hints" GtkInputHints.t x,
-          set = fn x => set "input-hints" GtkInputHints.t x,
-          new = fn x => new "input-hints" GtkInputHints.t x
+          name = "input-hints",
+          gtype = fn () => C.gtype GtkInputHints.t (),
+          get = fn x => fn () => C.get GtkInputHints.t x,
+          set = fn x => C.set GtkInputHints.t x,
+          init = fn x => C.set GtkInputHints.t x
         }
       val inputPurposeProp =
         {
-          get = fn x => get "input-purpose" GtkInputPurpose.t x,
-          set = fn x => set "input-purpose" GtkInputPurpose.t x,
-          new = fn x => new "input-purpose" GtkInputPurpose.t x
+          name = "input-purpose",
+          gtype = fn () => C.gtype GtkInputPurpose.t (),
+          get = fn x => fn () => C.get GtkInputPurpose.t x,
+          set = fn x => C.set GtkInputPurpose.t x,
+          init = fn x => C.set GtkInputPurpose.t x
         }
       val justificationProp =
         {
-          get = fn x => get "justification" GtkJustification.t x,
-          set = fn x => set "justification" GtkJustification.t x,
-          new = fn x => new "justification" GtkJustification.t x
+          name = "justification",
+          gtype = fn () => C.gtype GtkJustification.t (),
+          get = fn x => fn () => C.get GtkJustification.t x,
+          set = fn x => C.set GtkJustification.t x,
+          init = fn x => C.set GtkJustification.t x
         }
       val leftMarginProp =
         {
-          get = fn x => get "left-margin" int x,
-          set = fn x => set "left-margin" int x,
-          new = fn x => new "left-margin" int x
+          name = "left-margin",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val monospaceProp =
         {
-          get = fn x => get "monospace" boolean x,
-          set = fn x => set "monospace" boolean x,
-          new = fn x => new "monospace" boolean x
+          name = "monospace",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val overwriteProp =
         {
-          get = fn x => get "overwrite" boolean x,
-          set = fn x => set "overwrite" boolean x,
-          new = fn x => new "overwrite" boolean x
+          name = "overwrite",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val pixelsAboveLinesProp =
         {
-          get = fn x => get "pixels-above-lines" int x,
-          set = fn x => set "pixels-above-lines" int x,
-          new = fn x => new "pixels-above-lines" int x
+          name = "pixels-above-lines",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val pixelsBelowLinesProp =
         {
-          get = fn x => get "pixels-below-lines" int x,
-          set = fn x => set "pixels-below-lines" int x,
-          new = fn x => new "pixels-below-lines" int x
+          name = "pixels-below-lines",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val pixelsInsideWrapProp =
         {
-          get = fn x => get "pixels-inside-wrap" int x,
-          set = fn x => set "pixels-inside-wrap" int x,
-          new = fn x => new "pixels-inside-wrap" int x
+          name = "pixels-inside-wrap",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val populateAllProp =
         {
-          get = fn x => get "populate-all" boolean x,
-          set = fn x => set "populate-all" boolean x,
-          new = fn x => new "populate-all" boolean x
+          name = "populate-all",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val rightMarginProp =
         {
-          get = fn x => get "right-margin" int x,
-          set = fn x => set "right-margin" int x,
-          new = fn x => new "right-margin" int x
+          name = "right-margin",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val tabsProp =
         {
-          get = fn x => get "tabs" PangoTabArrayRecord.tOpt x,
-          set = fn x => set "tabs" PangoTabArrayRecord.tOpt x,
-          new = fn x => new "tabs" PangoTabArrayRecord.tOpt x
+          name = "tabs",
+          gtype = fn () => C.gtype PangoTabArrayRecord.tOpt (),
+          get = fn x => fn () => C.get PangoTabArrayRecord.tOpt x,
+          set = fn x => C.set PangoTabArrayRecord.tOpt x,
+          init = fn x => C.set PangoTabArrayRecord.tOpt x
         }
       val topMarginProp =
         {
-          get = fn x => get "top-margin" int x,
-          set = fn x => set "top-margin" int x,
-          new = fn x => new "top-margin" int x
+          name = "top-margin",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = fn x => C.set int x,
+          init = fn x => C.set int x
         }
       val wrapModeProp =
         {
-          get = fn x => get "wrap-mode" GtkWrapMode.t x,
-          set = fn x => set "wrap-mode" GtkWrapMode.t x,
-          new = fn x => new "wrap-mode" GtkWrapMode.t x
+          name = "wrap-mode",
+          gtype = fn () => C.gtype GtkWrapMode.t (),
+          get = fn x => fn () => C.get GtkWrapMode.t x,
+          set = fn x => C.set GtkWrapMode.t x,
+          init = fn x => C.set GtkWrapMode.t x
         }
     end
   end

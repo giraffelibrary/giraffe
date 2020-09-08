@@ -109,25 +109,31 @@ structure GtkToolItem :>
       fun toolbarReconfiguredSig f = signal "toolbar-reconfigured" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val isImportantProp =
         {
-          get = fn x => get "is-important" boolean x,
-          set = fn x => set "is-important" boolean x,
-          new = fn x => new "is-important" boolean x
+          name = "is-important",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val visibleHorizontalProp =
         {
-          get = fn x => get "visible-horizontal" boolean x,
-          set = fn x => set "visible-horizontal" boolean x,
-          new = fn x => new "visible-horizontal" boolean x
+          name = "visible-horizontal",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val visibleVerticalProp =
         {
-          get = fn x => get "visible-vertical" boolean x,
-          set = fn x => set "visible-vertical" boolean x,
-          new = fn x => new "visible-vertical" boolean x
+          name = "visible-vertical",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

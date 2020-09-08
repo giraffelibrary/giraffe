@@ -43,32 +43,47 @@ structure GtkHandleBox :>
       fun childDetachedSig f = signal "child-detached" (get 0w1 GtkWidgetClass.t ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
-      val childDetachedProp = {get = fn x => get "child-detached" boolean x}
+      val childDetachedProp =
+        {
+          name = "child-detached",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val handlePositionProp =
         {
-          get = fn x => get "handle-position" GtkPositionType.t x,
-          set = fn x => set "handle-position" GtkPositionType.t x,
-          new = fn x => new "handle-position" GtkPositionType.t x
+          name = "handle-position",
+          gtype = fn () => C.gtype GtkPositionType.t (),
+          get = fn x => fn () => C.get GtkPositionType.t x,
+          set = fn x => C.set GtkPositionType.t x,
+          init = fn x => C.set GtkPositionType.t x
         }
       val shadowTypeProp =
         {
-          get = fn x => get "shadow-type" GtkShadowType.t x,
-          set = fn x => set "shadow-type" GtkShadowType.t x,
-          new = fn x => new "shadow-type" GtkShadowType.t x
+          name = "shadow-type",
+          gtype = fn () => C.gtype GtkShadowType.t (),
+          get = fn x => fn () => C.get GtkShadowType.t x,
+          set = fn x => C.set GtkShadowType.t x,
+          init = fn x => C.set GtkShadowType.t x
         }
       val snapEdgeProp =
         {
-          get = fn x => get "snap-edge" GtkPositionType.t x,
-          set = fn x => set "snap-edge" GtkPositionType.t x,
-          new = fn x => new "snap-edge" GtkPositionType.t x
+          name = "snap-edge",
+          gtype = fn () => C.gtype GtkPositionType.t (),
+          get = fn x => fn () => C.get GtkPositionType.t x,
+          set = fn x => C.set GtkPositionType.t x,
+          init = fn x => C.set GtkPositionType.t x
         }
       val snapEdgeSetProp =
         {
-          get = fn x => get "snap-edge-set" boolean x,
-          set = fn x => set "snap-edge-set" boolean x,
-          new = fn x => new "snap-edge-set" boolean x
+          name = "snap-edge-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

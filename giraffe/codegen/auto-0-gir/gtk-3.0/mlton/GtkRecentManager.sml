@@ -189,13 +189,23 @@ structure GtkRecentManager :>
       fun changedSig f = signal "changed" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val filenameProp =
         {
-          get = fn x => get "filename" stringOpt x,
-          new = fn x => new "filename" stringOpt x
+          name = "filename",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
-      val sizeProp = {get = fn x => get "size" int x}
+      val sizeProp =
+        {
+          name = "size",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

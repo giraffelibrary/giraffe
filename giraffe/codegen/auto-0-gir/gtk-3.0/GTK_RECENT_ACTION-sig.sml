@@ -26,13 +26,5 @@ signature GTK_RECENT_ACTION =
       'a class
        -> bool
        -> unit
-    val showNumbersProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val showNumbersProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

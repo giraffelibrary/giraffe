@@ -85,76 +85,12 @@ signature GTK_RANGE =
     val changeValueSig : (scroll_type_t * real -> bool) -> 'a class Signal.t
     val moveSliderSig : (scroll_type_t -> unit) -> 'a class Signal.t
     val valueChangedSig : (unit -> unit) -> 'a class Signal.t
-    val adjustmentProp :
-      {
-        get : 'a class -> base adjustment_class option,
-        set :
-          'b adjustment_class option
-           -> 'a class
-           -> unit,
-        new : 'b adjustment_class option -> 'a class Property.t
-      }
-    val fillLevelProp :
-      {
-        get : 'a class -> real,
-        set :
-          real
-           -> 'a class
-           -> unit,
-        new : real -> 'a class Property.t
-      }
-    val invertedProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val lowerStepperSensitivityProp :
-      {
-        get : 'a class -> sensitivity_type_t,
-        set :
-          sensitivity_type_t
-           -> 'a class
-           -> unit,
-        new : sensitivity_type_t -> 'a class Property.t
-      }
-    val restrictToFillLevelProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val roundDigitsProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val showFillLevelProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val upperStepperSensitivityProp :
-      {
-        get : 'a class -> sensitivity_type_t,
-        set :
-          sensitivity_type_t
-           -> 'a class
-           -> unit,
-        new : sensitivity_type_t -> 'a class Property.t
-      }
+    val adjustmentProp : ('a class, unit -> base adjustment_class option, 'b adjustment_class option -> unit, 'b adjustment_class option -> unit) Property.t
+    val fillLevelProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val invertedProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val lowerStepperSensitivityProp : ('a class, unit -> sensitivity_type_t, sensitivity_type_t -> unit, sensitivity_type_t -> unit) Property.t
+    val restrictToFillLevelProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val roundDigitsProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val showFillLevelProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val upperStepperSensitivityProp : ('a class, unit -> sensitivity_type_t, sensitivity_type_t -> unit, sensitivity_type_t -> unit) Property.t
   end

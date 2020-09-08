@@ -72,42 +72,63 @@ structure GioProxyAddress :>
     fun getUri self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUri_ self
     fun getUsername self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUsername_ self
     local
-      open Property
+      open ValueAccessor
     in
       val destinationHostnameProp =
         {
-          get = fn x => get "destination-hostname" stringOpt x,
-          new = fn x => new "destination-hostname" stringOpt x
+          name = "destination-hostname",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val destinationPortProp =
         {
-          get = fn x => get "destination-port" uint x,
-          new = fn x => new "destination-port" uint x
+          name = "destination-port",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = ignore,
+          init = fn x => C.set uint x
         }
       val destinationProtocolProp =
         {
-          get = fn x => get "destination-protocol" stringOpt x,
-          new = fn x => new "destination-protocol" stringOpt x
+          name = "destination-protocol",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val passwordProp =
         {
-          get = fn x => get "password" stringOpt x,
-          new = fn x => new "password" stringOpt x
+          name = "password",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val protocolProp =
         {
-          get = fn x => get "protocol" stringOpt x,
-          new = fn x => new "protocol" stringOpt x
+          name = "protocol",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val uriProp =
         {
-          get = fn x => get "uri" stringOpt x,
-          new = fn x => new "uri" stringOpt x
+          name = "uri",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val usernameProp =
         {
-          get = fn x => get "username" stringOpt x,
-          new = fn x => new "username" stringOpt x
+          name = "username",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

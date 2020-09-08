@@ -21,18 +21,23 @@ structure GtkEventController :>
     fun reset self = (GtkEventControllerClass.FFI.withPtr false ---> I) reset_ self
     fun setPropagationPhase self phase = (GtkEventControllerClass.FFI.withPtr false &&&> GtkPropagationPhase.FFI.withVal ---> I) setPropagationPhase_ (self & phase)
     local
-      open Property
+      open ValueAccessor
     in
       val propagationPhaseProp =
         {
-          get = fn x => get "propagation-phase" GtkPropagationPhase.t x,
-          set = fn x => set "propagation-phase" GtkPropagationPhase.t x,
-          new = fn x => new "propagation-phase" GtkPropagationPhase.t x
+          name = "propagation-phase",
+          gtype = fn () => C.gtype GtkPropagationPhase.t (),
+          get = fn x => fn () => C.get GtkPropagationPhase.t x,
+          set = fn x => C.set GtkPropagationPhase.t x,
+          init = fn x => C.set GtkPropagationPhase.t x
         }
       val widgetProp =
         {
-          get = fn x => get "widget" GtkWidgetClass.tOpt x,
-          new = fn x => new "widget" GtkWidgetClass.tOpt x
+          name = "widget",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
     end
   end

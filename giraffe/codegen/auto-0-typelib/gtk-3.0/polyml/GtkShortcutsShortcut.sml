@@ -24,71 +24,95 @@ structure GtkShortcutsShortcut :>
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     local
-      open Property
+      open ValueAccessor
     in
       val accelSizeGroupProp =
         {
-          set = fn x => set "accel-size-group" GtkSizeGroupClass.tOpt x,
-          new = fn x => new "accel-size-group" GtkSizeGroupClass.tOpt x
+          name = "accel-size-group",
+          gtype = fn () => C.gtype GtkSizeGroupClass.tOpt (),
+          get = ignore,
+          set = fn x => C.set GtkSizeGroupClass.tOpt x,
+          init = fn x => C.set GtkSizeGroupClass.tOpt x
         }
       val acceleratorProp =
         {
-          get = fn x => get "accelerator" stringOpt x,
-          set = fn x => set "accelerator" stringOpt x,
-          new = fn x => new "accelerator" stringOpt x
+          name = "accelerator",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val actionNameProp =
         {
-          get = fn x => get "action-name" stringOpt x,
-          set = fn x => set "action-name" stringOpt x,
-          new = fn x => new "action-name" stringOpt x
+          name = "action-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val directionProp =
         {
-          get = fn x => get "direction" GtkTextDirection.t x,
-          set = fn x => set "direction" GtkTextDirection.t x,
-          new = fn x => new "direction" GtkTextDirection.t x
+          name = "direction",
+          gtype = fn () => C.gtype GtkTextDirection.t (),
+          get = fn x => fn () => C.get GtkTextDirection.t x,
+          set = fn x => C.set GtkTextDirection.t x,
+          init = fn x => C.set GtkTextDirection.t x
         }
       val iconProp =
         {
-          get = fn x => get "icon" GioIconClass.tOpt x,
-          set = fn x => set "icon" GioIconClass.tOpt x,
-          new = fn x => new "icon" GioIconClass.tOpt x
+          name = "icon",
+          gtype = fn () => C.gtype GioIconClass.tOpt (),
+          get = fn x => fn () => C.get GioIconClass.tOpt x,
+          set = fn x => C.set GioIconClass.tOpt x,
+          init = fn x => C.set GioIconClass.tOpt x
         }
       val iconSetProp =
         {
-          get = fn x => get "icon-set" boolean x,
-          set = fn x => set "icon-set" boolean x,
-          new = fn x => new "icon-set" boolean x
+          name = "icon-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val shortcutTypeProp =
         {
-          get = fn x => get "shortcut-type" GtkShortcutType.t x,
-          set = fn x => set "shortcut-type" GtkShortcutType.t x,
-          new = fn x => new "shortcut-type" GtkShortcutType.t x
+          name = "shortcut-type",
+          gtype = fn () => C.gtype GtkShortcutType.t (),
+          get = fn x => fn () => C.get GtkShortcutType.t x,
+          set = fn x => C.set GtkShortcutType.t x,
+          init = fn x => C.set GtkShortcutType.t x
         }
       val subtitleProp =
         {
-          get = fn x => get "subtitle" stringOpt x,
-          set = fn x => set "subtitle" stringOpt x,
-          new = fn x => new "subtitle" stringOpt x
+          name = "subtitle",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val subtitleSetProp =
         {
-          get = fn x => get "subtitle-set" boolean x,
-          set = fn x => set "subtitle-set" boolean x,
-          new = fn x => new "subtitle-set" boolean x
+          name = "subtitle-set",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val titleProp =
         {
-          get = fn x => get "title" stringOpt x,
-          set = fn x => set "title" stringOpt x,
-          new = fn x => new "title" stringOpt x
+          name = "title",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val titleSizeGroupProp =
         {
-          set = fn x => set "title-size-group" GtkSizeGroupClass.tOpt x,
-          new = fn x => new "title-size-group" GtkSizeGroupClass.tOpt x
+          name = "title-size-group",
+          gtype = fn () => C.gtype GtkSizeGroupClass.tOpt (),
+          get = ignore,
+          set = fn x => C.set GtkSizeGroupClass.tOpt x,
+          init = fn x => C.set GtkSizeGroupClass.tOpt x
         }
     end
   end

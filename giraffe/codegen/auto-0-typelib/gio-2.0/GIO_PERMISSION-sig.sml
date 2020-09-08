@@ -30,7 +30,7 @@ signature GIO_PERMISSION =
       'a class
        -> 'b async_result_class
        -> unit
-    val allowedProp : {get : 'a class -> bool}
-    val canAcquireProp : {get : 'a class -> bool}
-    val canReleaseProp : {get : 'a class -> bool}
+    val allowedProp : ('a class, unit -> bool, unit, unit) Property.t
+    val canAcquireProp : ('a class, unit -> bool, unit, unit) Property.t
+    val canReleaseProp : ('a class, unit -> bool, unit, unit) Property.t
   end

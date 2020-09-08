@@ -88,43 +88,55 @@ structure GtkPopover :>
       fun closedSig f = signal "closed" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val constrainToProp =
         {
-          get = fn x => get "constrain-to" GtkPopoverConstraint.t x,
-          set = fn x => set "constrain-to" GtkPopoverConstraint.t x,
-          new = fn x => new "constrain-to" GtkPopoverConstraint.t x
+          name = "constrain-to",
+          gtype = fn () => C.gtype GtkPopoverConstraint.t (),
+          get = fn x => fn () => C.get GtkPopoverConstraint.t x,
+          set = fn x => C.set GtkPopoverConstraint.t x,
+          init = fn x => C.set GtkPopoverConstraint.t x
         }
       val modalProp =
         {
-          get = fn x => get "modal" boolean x,
-          set = fn x => set "modal" boolean x,
-          new = fn x => new "modal" boolean x
+          name = "modal",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val pointingToProp =
         {
-          get = fn x => get "pointing-to" GdkRectangleRecord.tOpt x,
-          set = fn x => set "pointing-to" GdkRectangleRecord.tOpt x,
-          new = fn x => new "pointing-to" GdkRectangleRecord.tOpt x
+          name = "pointing-to",
+          gtype = fn () => C.gtype GdkRectangleRecord.tOpt (),
+          get = fn x => fn () => C.get GdkRectangleRecord.tOpt x,
+          set = fn x => C.set GdkRectangleRecord.tOpt x,
+          init = fn x => C.set GdkRectangleRecord.tOpt x
         }
       val positionProp =
         {
-          get = fn x => get "position" GtkPositionType.t x,
-          set = fn x => set "position" GtkPositionType.t x,
-          new = fn x => new "position" GtkPositionType.t x
+          name = "position",
+          gtype = fn () => C.gtype GtkPositionType.t (),
+          get = fn x => fn () => C.get GtkPositionType.t x,
+          set = fn x => C.set GtkPositionType.t x,
+          init = fn x => C.set GtkPositionType.t x
         }
       val relativeToProp =
         {
-          get = fn x => get "relative-to" GtkWidgetClass.tOpt x,
-          set = fn x => set "relative-to" GtkWidgetClass.tOpt x,
-          new = fn x => new "relative-to" GtkWidgetClass.tOpt x
+          name = "relative-to",
+          gtype = fn () => C.gtype GtkWidgetClass.tOpt (),
+          get = fn x => fn () => C.get GtkWidgetClass.tOpt x,
+          set = fn x => C.set GtkWidgetClass.tOpt x,
+          init = fn x => C.set GtkWidgetClass.tOpt x
         }
       val transitionsEnabledProp =
         {
-          get = fn x => get "transitions-enabled" boolean x,
-          set = fn x => set "transitions-enabled" boolean x,
-          new = fn x => new "transitions-enabled" boolean x
+          name = "transitions-enabled",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

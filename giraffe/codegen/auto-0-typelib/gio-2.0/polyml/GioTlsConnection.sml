@@ -123,50 +123,79 @@ structure GioTlsConnection :>
       fun acceptCertificateSig f = signal "accept-certificate" (get 0w1 GioTlsCertificateClass.t &&&> get 0w2 GioTlsCertificateFlags.t ---> ret boolean) (fn peerCert & errors => f (peerCert, errors))
     end
     local
-      open Property
+      open ValueAccessor
     in
       val baseIoStreamProp =
         {
-          get = fn x => get "base-io-stream" GioIOStreamClass.tOpt x,
-          new = fn x => new "base-io-stream" GioIOStreamClass.tOpt x
+          name = "base-io-stream",
+          gtype = fn () => C.gtype GioIOStreamClass.tOpt (),
+          get = fn x => fn () => C.get GioIOStreamClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioIOStreamClass.tOpt x
         }
       val certificateProp =
         {
-          get = fn x => get "certificate" GioTlsCertificateClass.tOpt x,
-          set = fn x => set "certificate" GioTlsCertificateClass.tOpt x,
-          new = fn x => new "certificate" GioTlsCertificateClass.tOpt x
+          name = "certificate",
+          gtype = fn () => C.gtype GioTlsCertificateClass.tOpt (),
+          get = fn x => fn () => C.get GioTlsCertificateClass.tOpt x,
+          set = fn x => C.set GioTlsCertificateClass.tOpt x,
+          init = fn x => C.set GioTlsCertificateClass.tOpt x
         }
       val databaseProp =
         {
-          get = fn x => get "database" GioTlsDatabaseClass.tOpt x,
-          set = fn x => set "database" GioTlsDatabaseClass.tOpt x,
-          new = fn x => new "database" GioTlsDatabaseClass.tOpt x
+          name = "database",
+          gtype = fn () => C.gtype GioTlsDatabaseClass.tOpt (),
+          get = fn x => fn () => C.get GioTlsDatabaseClass.tOpt x,
+          set = fn x => C.set GioTlsDatabaseClass.tOpt x,
+          init = fn x => C.set GioTlsDatabaseClass.tOpt x
         }
       val interactionProp =
         {
-          get = fn x => get "interaction" GioTlsInteractionClass.tOpt x,
-          set = fn x => set "interaction" GioTlsInteractionClass.tOpt x,
-          new = fn x => new "interaction" GioTlsInteractionClass.tOpt x
+          name = "interaction",
+          gtype = fn () => C.gtype GioTlsInteractionClass.tOpt (),
+          get = fn x => fn () => C.get GioTlsInteractionClass.tOpt x,
+          set = fn x => C.set GioTlsInteractionClass.tOpt x,
+          init = fn x => C.set GioTlsInteractionClass.tOpt x
         }
-      val peerCertificateProp = {get = fn x => get "peer-certificate" GioTlsCertificateClass.tOpt x}
-      val peerCertificateErrorsProp = {get = fn x => get "peer-certificate-errors" GioTlsCertificateFlags.t x}
+      val peerCertificateProp =
+        {
+          name = "peer-certificate",
+          gtype = fn () => C.gtype GioTlsCertificateClass.tOpt (),
+          get = fn x => fn () => C.get GioTlsCertificateClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val peerCertificateErrorsProp =
+        {
+          name = "peer-certificate-errors",
+          gtype = fn () => C.gtype GioTlsCertificateFlags.t (),
+          get = fn x => fn () => C.get GioTlsCertificateFlags.t x,
+          set = ignore,
+          init = ignore
+        }
       val rehandshakeModeProp =
         {
-          get = fn x => get "rehandshake-mode" GioTlsRehandshakeMode.t x,
-          set = fn x => set "rehandshake-mode" GioTlsRehandshakeMode.t x,
-          new = fn x => new "rehandshake-mode" GioTlsRehandshakeMode.t x
+          name = "rehandshake-mode",
+          gtype = fn () => C.gtype GioTlsRehandshakeMode.t (),
+          get = fn x => fn () => C.get GioTlsRehandshakeMode.t x,
+          set = fn x => C.set GioTlsRehandshakeMode.t x,
+          init = fn x => C.set GioTlsRehandshakeMode.t x
         }
       val requireCloseNotifyProp =
         {
-          get = fn x => get "require-close-notify" boolean x,
-          set = fn x => set "require-close-notify" boolean x,
-          new = fn x => new "require-close-notify" boolean x
+          name = "require-close-notify",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val useSystemCertdbProp =
         {
-          get = fn x => get "use-system-certdb" boolean x,
-          set = fn x => set "use-system-certdb" boolean x,
-          new = fn x => new "use-system-certdb" boolean x
+          name = "use-system-certdb",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

@@ -383,73 +383,103 @@ structure GtkSourcePrintCompositor :>
         )
     fun setWrapMode self wrapMode = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GtkWrapMode.FFI.withVal ---> I) setWrapMode_ (self & wrapMode)
     local
-      open Property
+      open ValueAccessor
     in
       val bodyFontNameProp =
         {
-          get = fn x => get "body-font-name" stringOpt x,
-          set = fn x => set "body-font-name" stringOpt x,
-          new = fn x => new "body-font-name" stringOpt x
+          name = "body-font-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val bufferProp =
         {
-          get = fn x => get "buffer" GtkSourceBufferClass.tOpt x,
-          new = fn x => new "buffer" GtkSourceBufferClass.tOpt x
+          name = "buffer",
+          gtype = fn () => C.gtype GtkSourceBufferClass.tOpt (),
+          get = fn x => fn () => C.get GtkSourceBufferClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GtkSourceBufferClass.tOpt x
         }
       val footerFontNameProp =
         {
-          get = fn x => get "footer-font-name" stringOpt x,
-          set = fn x => set "footer-font-name" stringOpt x,
-          new = fn x => new "footer-font-name" stringOpt x
+          name = "footer-font-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val headerFontNameProp =
         {
-          get = fn x => get "header-font-name" stringOpt x,
-          set = fn x => set "header-font-name" stringOpt x,
-          new = fn x => new "header-font-name" stringOpt x
+          name = "header-font-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
       val highlightSyntaxProp =
         {
-          get = fn x => get "highlight-syntax" boolean x,
-          set = fn x => set "highlight-syntax" boolean x,
-          new = fn x => new "highlight-syntax" boolean x
+          name = "highlight-syntax",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val lineNumbersFontNameProp =
         {
-          get = fn x => get "line-numbers-font-name" stringOpt x,
-          set = fn x => set "line-numbers-font-name" stringOpt x,
-          new = fn x => new "line-numbers-font-name" stringOpt x
+          name = "line-numbers-font-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = fn x => C.set stringOpt x,
+          init = fn x => C.set stringOpt x
         }
-      val nPagesProp = {get = fn x => get "n-pages" int x}
+      val nPagesProp =
+        {
+          name = "n-pages",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = ignore
+        }
       val printFooterProp =
         {
-          get = fn x => get "print-footer" boolean x,
-          set = fn x => set "print-footer" boolean x,
-          new = fn x => new "print-footer" boolean x
+          name = "print-footer",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val printHeaderProp =
         {
-          get = fn x => get "print-header" boolean x,
-          set = fn x => set "print-header" boolean x,
-          new = fn x => new "print-header" boolean x
+          name = "print-header",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val printLineNumbersProp =
         {
-          get = fn x => get "print-line-numbers" uint x,
-          set = fn x => set "print-line-numbers" uint x,
-          new = fn x => new "print-line-numbers" uint x
+          name = "print-line-numbers",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val tabWidthProp =
         {
-          get = fn x => get "tab-width" uint x,
-          set = fn x => set "tab-width" uint x,
-          new = fn x => new "tab-width" uint x
+          name = "tab-width",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = fn x => C.set uint x,
+          init = fn x => C.set uint x
         }
       val wrapModeProp =
         {
-          get = fn x => get "wrap-mode" GtkWrapMode.t x,
-          set = fn x => set "wrap-mode" GtkWrapMode.t x,
-          new = fn x => new "wrap-mode" GtkWrapMode.t x
+          name = "wrap-mode",
+          gtype = fn () => C.gtype GtkWrapMode.t (),
+          get = fn x => fn () => C.get GtkWrapMode.t x,
+          set = fn x => C.set GtkWrapMode.t x,
+          init = fn x => C.set GtkWrapMode.t x
         }
     end
   end

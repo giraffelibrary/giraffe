@@ -102,106 +102,19 @@ signature GTK_STATUS_ICON =
        -> 'a class Signal.t
     val scrollEventSig : (Gdk.EventScrollRecord.t -> bool) -> 'a class Signal.t
     val sizeChangedSig : (LargeInt.int -> bool) -> 'a class Signal.t
-    val embeddedProp : {get : 'a class -> bool}
-    val fileProp :
-      {
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val giconProp :
-      {
-        get : 'a class -> base Gio.IconClass.class option,
-        set :
-          'b Gio.IconClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b Gio.IconClass.class option -> 'a class Property.t
-      }
-    val hasTooltipProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val iconNameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val orientationProp : {get : 'a class -> orientation_t}
-    val pixbufProp :
-      {
-        get : 'a class -> base GdkPixbuf.PixbufClass.class option,
-        set :
-          'b GdkPixbuf.PixbufClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b GdkPixbuf.PixbufClass.class option -> 'a class Property.t
-      }
-    val screenProp :
-      {
-        get : 'a class -> base Gdk.ScreenClass.class option,
-        set :
-          'b Gdk.ScreenClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b Gdk.ScreenClass.class option -> 'a class Property.t
-      }
-    val sizeProp : {get : 'a class -> LargeInt.int}
-    val stockProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val storageTypeProp : {get : 'a class -> image_type_t}
-    val titleProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val tooltipMarkupProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val tooltipTextProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val visibleProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val embeddedProp : ('a class, unit -> bool, unit, unit) Property.t
+    val fileProp : ('a class, unit, string option -> unit, string option -> unit) Property.t
+    val giconProp : ('a class, unit -> base Gio.IconClass.class option, 'b Gio.IconClass.class option -> unit, 'b Gio.IconClass.class option -> unit) Property.t
+    val hasTooltipProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val iconNameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val orientationProp : ('a class, unit -> orientation_t, unit, unit) Property.t
+    val pixbufProp : ('a class, unit -> base GdkPixbuf.PixbufClass.class option, 'b GdkPixbuf.PixbufClass.class option -> unit, 'b GdkPixbuf.PixbufClass.class option -> unit) Property.t
+    val screenProp : ('a class, unit -> base Gdk.ScreenClass.class option, 'b Gdk.ScreenClass.class option -> unit, 'b Gdk.ScreenClass.class option -> unit) Property.t
+    val sizeProp : ('a class, unit -> LargeInt.int, unit, unit) Property.t
+    val stockProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val storageTypeProp : ('a class, unit -> image_type_t, unit, unit) Property.t
+    val titleProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val tooltipMarkupProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val tooltipTextProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val visibleProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

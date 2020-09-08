@@ -15,28 +15,39 @@ structure GioProxyAddressEnumerator :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     local
-      open Property
+      open ValueAccessor
     in
       val connectableProp =
         {
-          get = fn x => get "connectable" GioSocketConnectableClass.tOpt x,
-          new = fn x => new "connectable" GioSocketConnectableClass.tOpt x
+          name = "connectable",
+          gtype = fn () => C.gtype GioSocketConnectableClass.tOpt (),
+          get = fn x => fn () => C.get GioSocketConnectableClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioSocketConnectableClass.tOpt x
         }
       val defaultPortProp =
         {
-          get = fn x => get "default-port" uint x,
-          new = fn x => new "default-port" uint x
+          name = "default-port",
+          gtype = fn () => C.gtype uint (),
+          get = fn x => fn () => C.get uint x,
+          set = ignore,
+          init = fn x => C.set uint x
         }
       val proxyResolverProp =
         {
-          get = fn x => get "proxy-resolver" GioProxyResolverClass.tOpt x,
-          set = fn x => set "proxy-resolver" GioProxyResolverClass.tOpt x,
-          new = fn x => new "proxy-resolver" GioProxyResolverClass.tOpt x
+          name = "proxy-resolver",
+          gtype = fn () => C.gtype GioProxyResolverClass.tOpt (),
+          get = fn x => fn () => C.get GioProxyResolverClass.tOpt x,
+          set = fn x => C.set GioProxyResolverClass.tOpt x,
+          init = fn x => C.set GioProxyResolverClass.tOpt x
         }
       val uriProp =
         {
-          get = fn x => get "uri" stringOpt x,
-          new = fn x => new "uri" stringOpt x
+          name = "uri",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

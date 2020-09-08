@@ -99,51 +99,12 @@ signature GIO_APPLICATION =
     val openSig : (file_class_c_ptr_array_n_t * string -> unit) -> 'a class Signal.t
     val shutdownSig : (unit -> unit) -> 'a class Signal.t
     val startupSig : (unit -> unit) -> 'a class Signal.t
-    val actionGroupProp :
-      {
-        set :
-          'b action_group_class option
-           -> 'a class
-           -> unit,
-        new : 'b action_group_class option -> 'a class Property.t
-      }
-    val applicationIdProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val flagsProp :
-      {
-        get : 'a class -> application_flags_t,
-        set :
-          application_flags_t
-           -> 'a class
-           -> unit,
-        new : application_flags_t -> 'a class Property.t
-      }
-    val inactivityTimeoutProp :
-      {
-        get : 'a class -> LargeInt.int,
-        set :
-          LargeInt.int
-           -> 'a class
-           -> unit,
-        new : LargeInt.int -> 'a class Property.t
-      }
-    val isBusyProp : {get : 'a class -> bool}
-    val isRegisteredProp : {get : 'a class -> bool}
-    val isRemoteProp : {get : 'a class -> bool}
-    val resourceBasePathProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
+    val actionGroupProp : ('a class, unit, 'b action_group_class option -> unit, 'b action_group_class option -> unit) Property.t
+    val applicationIdProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val flagsProp : ('a class, unit -> application_flags_t, application_flags_t -> unit, application_flags_t -> unit) Property.t
+    val inactivityTimeoutProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val isBusyProp : ('a class, unit -> bool, unit, unit) Property.t
+    val isRegisteredProp : ('a class, unit -> bool, unit, unit) Property.t
+    val isRemoteProp : ('a class, unit -> bool, unit, unit) Property.t
+    val resourceBasePathProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
   end

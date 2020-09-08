@@ -17,22 +17,6 @@ signature GTK_ACTIONABLE =
       'a class
        -> string
        -> unit
-    val actionNameProp :
-      {
-        get : 'a class -> string option,
-        set :
-          string option
-           -> 'a class
-           -> unit,
-        new : string option -> 'a class Property.t
-      }
-    val actionTargetProp :
-      {
-        get : 'a class -> GLib.VariantRecord.t option,
-        set :
-          GLib.VariantRecord.t option
-           -> 'a class
-           -> unit,
-        new : GLib.VariantRecord.t option -> 'a class Property.t
-      }
+    val actionNameProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    val actionTargetProp : ('a class, unit -> GLib.VariantRecord.t option, GLib.VariantRecord.t option -> unit, GLib.VariantRecord.t option -> unit) Property.t
   end

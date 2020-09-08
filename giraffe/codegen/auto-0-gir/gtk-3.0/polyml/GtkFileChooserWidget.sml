@@ -41,14 +41,23 @@ structure GtkFileChooserWidget :>
       fun upFolderSig f = signal "up-folder" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val searchModeProp =
         {
-          get = fn x => get "search-mode" boolean x,
-          set = fn x => set "search-mode" boolean x,
-          new = fn x => new "search-mode" boolean x
+          name = "search-mode",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
-      val subtitleProp = {get = fn x => get "subtitle" stringOpt x}
+      val subtitleProp =
+        {
+          name = "subtitle",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

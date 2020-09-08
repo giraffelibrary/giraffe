@@ -84,18 +84,31 @@ structure GioTlsCertificate :>
            & trustedCa
         )
     local
-      open Property
+      open ValueAccessor
     in
       val certificatePemProp =
         {
-          get = fn x => get "certificate-pem" stringOpt x,
-          new = fn x => new "certificate-pem" stringOpt x
+          name = "certificate-pem",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
       val issuerProp =
         {
-          get = fn x => get "issuer" GioTlsCertificateClass.tOpt x,
-          new = fn x => new "issuer" GioTlsCertificateClass.tOpt x
+          name = "issuer",
+          gtype = fn () => C.gtype GioTlsCertificateClass.tOpt (),
+          get = fn x => fn () => C.get GioTlsCertificateClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioTlsCertificateClass.tOpt x
         }
-      val privateKeyPemProp = {new = fn x => new "private-key-pem" stringOpt x}
+      val privateKeyPemProp =
+        {
+          name = "private-key-pem",
+          gtype = fn () => C.gtype stringOpt (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set stringOpt x
+        }
     end
   end

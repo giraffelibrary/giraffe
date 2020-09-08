@@ -46,13 +46,5 @@ signature GIO_DATA_OUTPUT_STREAM =
       'a class
        -> data_stream_byte_order_t
        -> unit
-    val byteOrderProp :
-      {
-        get : 'a class -> data_stream_byte_order_t,
-        set :
-          data_stream_byte_order_t
-           -> 'a class
-           -> unit,
-        new : data_stream_byte_order_t -> 'a class Property.t
-      }
+    val byteOrderProp : ('a class, unit -> data_stream_byte_order_t, data_stream_byte_order_t -> unit, data_stream_byte_order_t -> unit) Property.t
   end

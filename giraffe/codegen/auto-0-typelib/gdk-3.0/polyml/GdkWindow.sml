@@ -1437,13 +1437,15 @@ structure GdkWindow :>
           )
     end
     local
-      open Property
+      open ValueAccessor
     in
       val cursorProp =
         {
-          get = fn x => get "cursor" GdkCursorClass.tOpt x,
-          set = fn x => set "cursor" GdkCursorClass.tOpt x,
-          new = fn x => new "cursor" GdkCursorClass.tOpt x
+          name = "cursor",
+          gtype = fn () => C.gtype GdkCursorClass.tOpt (),
+          get = fn x => fn () => C.get GdkCursorClass.tOpt x,
+          set = fn x => C.set GdkCursorClass.tOpt x,
+          init = fn x => C.set GdkCursorClass.tOpt x
         }
     end
   end

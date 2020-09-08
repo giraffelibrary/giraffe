@@ -19,12 +19,15 @@ structure GtkSourceMark :>
     fun next self category = (GtkSourceMarkClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GtkSourceMarkClass.FFI.fromOptPtr false) next_ (self & category)
     fun prev self category = (GtkSourceMarkClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkSourceMarkClass.FFI.fromOptPtr false) prev_ (self & category)
     local
-      open Property
+      open ValueAccessor
     in
       val categoryProp =
         {
-          get = fn x => get "category" stringOpt x,
-          new = fn x => new "category" stringOpt x
+          name = "category",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
     end
   end

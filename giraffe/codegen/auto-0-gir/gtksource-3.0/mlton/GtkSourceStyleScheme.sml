@@ -35,15 +35,39 @@ structure GtkSourceStyleScheme :>
     fun getName self = (GtkSourceStyleSchemeClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
     fun getStyle self styleId = (GtkSourceStyleSchemeClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkSourceStyleClass.FFI.fromOptPtr false) getStyle_ (self & styleId)
     local
-      open Property
+      open ValueAccessor
     in
-      val descriptionProp = {get = fn x => get "description" stringOpt x}
-      val filenameProp = {get = fn x => get "filename" stringOpt x}
+      val descriptionProp =
+        {
+          name = "description",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val filenameProp =
+        {
+          name = "filename",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
       val idProp =
         {
-          get = fn x => get "id" stringOpt x,
-          new = fn x => new "id" stringOpt x
+          name = "id",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
-      val nameProp = {get = fn x => get "name" stringOpt x}
+      val nameProp =
+        {
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

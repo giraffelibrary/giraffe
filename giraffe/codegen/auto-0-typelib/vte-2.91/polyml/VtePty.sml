@@ -140,17 +140,23 @@ structure VtePty :>
            & []
         )
     local
-      open Property
+      open ValueAccessor
     in
       val fdProp =
         {
-          get = fn x => get "fd" int x,
-          new = fn x => new "fd" int x
+          name = "fd",
+          gtype = fn () => C.gtype int (),
+          get = fn x => fn () => C.get int x,
+          set = ignore,
+          init = fn x => C.set int x
         }
       val flagsProp =
         {
-          get = fn x => get "flags" VtePtyFlags.t x,
-          new = fn x => new "flags" VtePtyFlags.t x
+          name = "flags",
+          gtype = fn () => C.gtype VtePtyFlags.t (),
+          get = fn x => fn () => C.get VtePtyFlags.t x,
+          set = ignore,
+          init = fn x => C.set VtePtyFlags.t x
         }
     end
   end

@@ -33,19 +33,23 @@ structure GtkSwitch :>
       fun stateSetSig f = signal "state-set" (get 0w1 boolean ---> ret boolean) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val activeProp =
         {
-          get = fn x => get "active" boolean x,
-          set = fn x => set "active" boolean x,
-          new = fn x => new "active" boolean x
+          name = "active",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
       val stateProp =
         {
-          get = fn x => get "state" boolean x,
-          set = fn x => set "state" boolean x,
-          new = fn x => new "state" boolean x
+          name = "state",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

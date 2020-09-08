@@ -49,23 +49,71 @@ structure GioPropertyAction :>
            & propertyName
         )
     local
-      open Property
+      open ValueAccessor
     in
-      val enabledProp = {get = fn x => get "enabled" boolean x}
+      val enabledProp =
+        {
+          name = "enabled",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
       val invertBooleanProp =
         {
-          get = fn x => get "invert-boolean" boolean x,
-          new = fn x => new "invert-boolean" boolean x
+          name = "invert-boolean",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = fn x => C.set boolean x
         }
       val nameProp =
         {
-          get = fn x => get "name" stringOpt x,
-          new = fn x => new "name" stringOpt x
+          name = "name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = fn x => fn () => C.get stringOpt x,
+          set = ignore,
+          init = fn x => C.set stringOpt x
         }
-      val objectProp = {new = fn x => new "object" GObjectObjectClass.tOpt x}
-      val parameterTypeProp = {get = fn x => get "parameter-type" GLibVariantTypeRecord.tOpt x}
-      val propertyNameProp = {new = fn x => new "property-name" stringOpt x}
-      val stateProp = {get = fn x => get "state" GLibVariantRecord.tOpt x}
-      val stateTypeProp = {get = fn x => get "state-type" GLibVariantTypeRecord.tOpt x}
+      val objectProp =
+        {
+          name = "object",
+          gtype = fn () => C.gtype GObjectObjectClass.tOpt (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set GObjectObjectClass.tOpt x
+        }
+      val parameterTypeProp =
+        {
+          name = "parameter-type",
+          gtype = fn () => C.gtype GLibVariantTypeRecord.tOpt (),
+          get = fn x => fn () => C.get GLibVariantTypeRecord.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val propertyNameProp =
+        {
+          name = "property-name",
+          gtype = fn () => C.gtype stringOpt (),
+          get = ignore,
+          set = ignore,
+          init = fn x => C.set stringOpt x
+        }
+      val stateProp =
+        {
+          name = "state",
+          gtype = fn () => C.gtype GLibVariantRecord.tOpt (),
+          get = fn x => fn () => C.get GLibVariantRecord.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val stateTypeProp =
+        {
+          name = "state-type",
+          gtype = fn () => C.gtype GLibVariantTypeRecord.tOpt (),
+          get = fn x => fn () => C.get GLibVariantTypeRecord.tOpt x,
+          set = ignore,
+          init = ignore
+        }
     end
   end

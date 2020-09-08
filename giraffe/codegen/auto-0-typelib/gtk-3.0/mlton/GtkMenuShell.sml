@@ -156,13 +156,15 @@ structure GtkMenuShell :>
       fun selectionDoneSig f = signal "selection-done" (void ---> ret_void) f
     end
     local
-      open Property
+      open ValueAccessor
     in
       val takeFocusProp =
         {
-          get = fn x => get "take-focus" boolean x,
-          set = fn x => set "take-focus" boolean x,
-          new = fn x => new "take-focus" boolean x
+          name = "take-focus",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = fn x => C.set boolean x,
+          init = fn x => C.set boolean x
         }
     end
   end

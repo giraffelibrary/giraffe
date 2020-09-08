@@ -21,12 +21,15 @@ structure GioUnixCredentialsMessage :>
     fun isSupported () = (I ---> GBool.FFI.fromVal) isSupported_ ()
     fun getCredentials self = (GioUnixCredentialsMessageClass.FFI.withPtr false ---> GioCredentialsClass.FFI.fromPtr false) getCredentials_ self
     local
-      open Property
+      open ValueAccessor
     in
       val credentialsProp =
         {
-          get = fn x => get "credentials" GioCredentialsClass.tOpt x,
-          new = fn x => new "credentials" GioCredentialsClass.tOpt x
+          name = "credentials",
+          gtype = fn () => C.gtype GioCredentialsClass.tOpt (),
+          get = fn x => fn () => C.get GioCredentialsClass.tOpt x,
+          set = ignore,
+          init = fn x => C.set GioCredentialsClass.tOpt x
         }
     end
   end

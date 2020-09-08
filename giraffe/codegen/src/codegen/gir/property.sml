@@ -2,52 +2,70 @@
  * Property
  * -------------------------------------------------------------------------- *)
 
-datatype param_op =
-  GET
-| SET
-| NEW
-
-val paramOpName =
-  fn
-    GET => getId
-  | SET => setId
-  | NEW => newId
-
 (*
- *   <containerTy> -> <ParamReadTy>
- *)
-fun mkGetOpTy (containerTy, paramReadTy) = TyFun (containerTy, paramReadTy)
-
-(*
- *   <ParamWriteTy> -> <containerTy> -> unit
- *)
-fun mkSetOpTy (containerTy, paramWriteTy) =
-  TyFun (paramWriteTy, TyFun (containerTy, unitTy))
-
-(*
- *   <ParamWriteTy> -> <containerTy> Property.t
- *     if notGObject
+ * `mkParamModeTy (paramReadTy, paramWriteTy) paramMode` returns
  *
- *   <ParamWriteTy> -> <containerTy> property_t
- *     if isGObject
+ *   unit
+ *     if paramMode is NONE
+ *
+ *   unit -> <paramReadTy>
+ *     if paramMode is SOME true
+ *
+ *   <paramWriteTy> -> unit
+ *     if paramMode is SOME false
  *)
-fun mkNewOpTy (containerTy, paramWriteTy) isGObject =
-  let
-    val propertyTypeLId =
-  if isGObject
-  then toList1 [concat [propertyId, "_", tId]]
-  else toList1 [toUCC propertyId, tId]
-  in
-    TyFun (paramWriteTy, TyRef ([containerTy], propertyTypeLId))
-  end
-
-fun mkParamOpTy (containerTy, paramReadTy, paramWriteTy) isGObject =
+fun mkParamModeTy (paramReadTy, paramWriteTy) =
   fn
-    GET => mkGetOpTy (containerTy, paramReadTy)
-  | SET => mkSetOpTy (containerTy, paramWriteTy)
-  | NEW => mkNewOpTy (containerTy, paramWriteTy) isGObject
+    NONE       => unitTy
+  | SOME true  => TyFun (unitTy, paramReadTy)
+  | SOME false => TyFun (paramWriteTy, unitTy)
 
-fun getParamOps propertyInfo =
+(*
+ * `mkParamGtypeExp accExp` returns
+ *
+ *   fn () => C.gtype <accExp> ()
+ *)
+fun mkParamGtypeExp accExp =
+  ExpFn (toList1 [
+    (
+      PatA (APatConst ConstUnit),
+      ExpApp (ExpApp (cGtypeExp, accExp), ExpConst ConstUnit)
+    )
+  ])
+
+(*
+ * `mkParamModeExp accExp paramMode` returns
+ *
+ *   ignore
+ *     if paramMode is NONE
+ *
+ *   fn x => fn () => C.get <accExp> x
+ *     if paramMode is SOME true
+ *
+ *   fn x => C.set <accExp> x
+ *     if paramMode is SOME false
+ *)
+fun mkParamModeExp accExp =
+  fn
+    NONE        => mkIdLNameExp ignoreId
+  | SOME isRead =>
+      let
+        val xId : id = "x"
+        val pat = mkIdVarPat xId
+        val appExp =
+          ExpApp (
+            ExpApp (if isRead then cGetExp else cSetExp, accExp),
+            mkIdLNameExp xId
+          )
+        val exp =
+          if isRead
+          then ExpFn (toList1 [(mkConstPat ConstUnit, appExp)])
+          else appExp
+      in
+        ExpFn (toList1 [(pat, exp)])
+      end
+
+fun getParamModes propertyInfo =
   let
     val paramFlags = PropertyInfo.getFlags propertyInfo
     val isReadable =
@@ -58,11 +76,11 @@ fun getParamOps propertyInfo =
       GObjectParamFlags.anySet (paramFlags, GObjectParamFlags.CONSTRUCT_ONLY)
   in
     case (isReadable, isWritable, isConstructOnly) of
-      (true,  true,  false) => [GET, SET, NEW]
-    | (true,  true,  true)  => [GET, NEW]
-    | (true,  false, _)     => [GET]
-    | (false, true,  false) => [SET, NEW]
-    | (false, true,  true)  => [NEW]
+      (true,  true,  false) => {get = SOME true, set = SOME false, init = SOME false}
+    | (true,  true,  true)  => {get = SOME true, set = NONE,       init = SOME false}
+    | (true,  false, _)     => {get = SOME true, set = NONE,       init = NONE}
+    | (false, true,  false) => {get = NONE,      set = SOME false, init = SOME false}
+    | (false, true,  true)  => {get = NONE,      set = NONE,       init = SOME false}
     | (false, false, _)     => infoExcl "property neither readable nor writable"
   end
 
@@ -321,7 +339,7 @@ fun makePropertySpec
 
     val isGObject = containerNamespace = "GObject"
 
-    val paramOps = getParamOps propertyInfo
+    val paramModes = getParamModes propertyInfo
     val paramInfo = getParamInfo repo containerIRef propertyInfo
 
     val tyVarIdx'0 = 0
@@ -376,13 +394,19 @@ fun makePropertySpec
     val (paramReadTy, tyVarIdx'2) = mkParamTy isOpt ((true, tyRef), tyVarIdx'1)
     val (paramWriteTy, _) = mkParamTy isOpt ((false, tyRef), tyVarIdx'2)
 
-    val labels = map paramOpName paramOps
     val tys =
-      map (mkParamOpTy (containerTy, paramReadTy, paramWriteTy) isGObject)
-        paramOps
-    val fields = ListPair.zipEq (labels, tys)
+      map (mkParamModeTy (paramReadTy, paramWriteTy)) [
+        #get  paramModes,
+        #set  paramModes,
+        #init paramModes
+      ]
 
-    val propertyTy = TyRec fields
+    val propertyTypeLId =
+      if isGObject
+      then toList1 [concat [propertyId, "_", tId]]
+      else toList1 [toUCC propertyId, tId]
+
+    val propertyTy = TyRef (containerTy :: tys, propertyTypeLId)
   in
     (mkValSpec (propertyNameId, propertyTy), (iRefs'1, excls))
   end
@@ -401,7 +425,7 @@ fun makePropertyStrDec
     val propertyName = getName propertyInfo
     val propertyNameId = mkPropertyNameId propertyName
 
-    val paramOps = getParamOps propertyInfo
+    val paramModes = getParamModes propertyInfo
     val paramInfo = getParamInfo repo containerIRef propertyInfo
 
     val (accExp, iRefs'1) =
@@ -444,27 +468,16 @@ fun makePropertyStrDec
             (accExp, iRefs')
           end
 
-    (*
-     *   <id> = fn x => <id> "<property-name>" <accExp> x
-     *)
-    fun mkField id =
-      let
-        val xId : id = "x"
-        val propertyNameExp = ExpConst (ConstString propertyName)
-        val pat = mkIdVarPat xId
-        val exp =
-          ExpApp (
-            ExpApp (
-              ExpApp (mkIdLNameExp id, propertyNameExp),
-              accExp
-            ),
-            mkIdLNameExp xId
-          )
-      in
-        (id : label, ExpFn (toList1 [(pat, exp)]))
-      end
+    val nameExp = ExpConst (ConstString propertyName)
 
-    val propertyExp = ExpRec (map (mkField o paramOpName) paramOps)
+    val propertyExp =
+      ExpRec [
+        (nameId,  nameExp),
+        (gtypeId, mkParamGtypeExp accExp),
+        (getId,   mkParamModeExp accExp (#get  paramModes)),
+        (setId,   mkParamModeExp accExp (#set  paramModes)),
+        (initId,  mkParamModeExp accExp (#init paramModes))
+      ]
   in
     (
       StrDecDec (mkIdValDec (propertyNameId, propertyExp)),

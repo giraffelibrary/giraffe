@@ -16,23 +16,7 @@ signature GTK_MOUNT_OPERATION =
       'a class
        -> 'b Gdk.ScreenClass.class
        -> unit
-    val isShowingProp : {get : 'a class -> bool}
-    val parentProp :
-      {
-        get : 'a class -> base window_class option,
-        set :
-          'b window_class option
-           -> 'a class
-           -> unit,
-        new : 'b window_class option -> 'a class Property.t
-      }
-    val screenProp :
-      {
-        get : 'a class -> base Gdk.ScreenClass.class option,
-        set :
-          'b Gdk.ScreenClass.class option
-           -> 'a class
-           -> unit,
-        new : 'b Gdk.ScreenClass.class option -> 'a class Property.t
-      }
+    val isShowingProp : ('a class, unit -> bool, unit, unit) Property.t
+    val parentProp : ('a class, unit -> base window_class option, 'b window_class option -> unit, 'b window_class option -> unit) Property.t
+    val screenProp : ('a class, unit -> base Gdk.ScreenClass.class option, 'b Gdk.ScreenClass.class option -> unit, 'b Gdk.ScreenClass.class option -> unit) Property.t
   end

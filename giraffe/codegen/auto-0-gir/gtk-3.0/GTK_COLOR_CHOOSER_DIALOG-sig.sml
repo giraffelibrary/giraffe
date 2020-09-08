@@ -10,13 +10,5 @@ signature GTK_COLOR_CHOOSER_DIALOG =
     val asColorChooser : 'a class -> base color_chooser_class
     val getType : unit -> GObject.Type.t
     val new : string option * 'a window_class option -> base class
-    val showEditorProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val showEditorProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

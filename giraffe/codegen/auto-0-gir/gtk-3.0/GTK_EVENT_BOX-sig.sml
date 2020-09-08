@@ -17,22 +17,6 @@ signature GTK_EVENT_BOX =
       'a class
        -> bool
        -> unit
-    val aboveChildProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
-    val visibleWindowProp :
-      {
-        get : 'a class -> bool,
-        set :
-          bool
-           -> 'a class
-           -> unit,
-        new : bool -> 'a class Property.t
-      }
+    val aboveChildProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val visibleWindowProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
   end

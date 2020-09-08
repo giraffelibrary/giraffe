@@ -89,10 +89,31 @@ structure GioIOStream :>
     fun isClosed self = (GioIOStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self
     fun setPending self = (GioIOStreamClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) setPending_ (self & [])
     local
-      open Property
+      open ValueAccessor
     in
-      val closedProp = {get = fn x => get "closed" boolean x}
-      val inputStreamProp = {get = fn x => get "input-stream" GioInputStreamClass.tOpt x}
-      val outputStreamProp = {get = fn x => get "output-stream" GioOutputStreamClass.tOpt x}
+      val closedProp =
+        {
+          name = "closed",
+          gtype = fn () => C.gtype boolean (),
+          get = fn x => fn () => C.get boolean x,
+          set = ignore,
+          init = ignore
+        }
+      val inputStreamProp =
+        {
+          name = "input-stream",
+          gtype = fn () => C.gtype GioInputStreamClass.tOpt (),
+          get = fn x => fn () => C.get GioInputStreamClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
+      val outputStreamProp =
+        {
+          name = "output-stream",
+          gtype = fn () => C.gtype GioOutputStreamClass.tOpt (),
+          get = fn x => fn () => C.get GioOutputStreamClass.tOpt x,
+          set = ignore,
+          init = ignore
+        }
     end
   end
