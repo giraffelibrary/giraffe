@@ -9,7 +9,8 @@ structure Property :>
   PROPERTY
     where type type_t = GObjectType.t
     where type value_v = GObjectValueRecord.C.v
-    where type 'a object_class = 'a GObjectObjectClass.class =
+    where type 'a object_class = 'a GObjectObjectClass.class
+    where type 'a binding_class = 'a GObjectBindingClass.class =
   struct
     local
       open PolyMLFFI
@@ -31,11 +32,35 @@ structure Property :>
              &&> GObjectValueRecord.PolyML.cPtr
              --> cVoid
           )
+      val bindProperty_ =
+        call (getSymbol "g_object_bind_property")
+          (
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectBindingFlags.PolyML.cVal
+             --> GObjectBindingClass.PolyML.cPtr
+          )
+
+      val bindPropertyFull_ =
+        call (getSymbol "g_object_bind_property_with_closures")
+          (
+            GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectObjectClass.PolyML.cPtr
+             &&> Utf8.PolyML.cInPtr
+             &&> GObjectBindingFlags.PolyML.cVal
+             &&> GObjectClosureRecord.PolyML.cOptPtr
+             &&> GObjectClosureRecord.PolyML.cOptPtr
+             --> GObjectBindingClass.PolyML.cPtr
+          )
     end
 
     type type_t = GObjectType.t
     type value_v = GObjectValueRecord.C.v
     type 'a object_class = 'a GObjectObjectClass.class
+    type 'a binding_class = 'a GObjectBindingClass.class
 
     fun getProperty self (propertyName, value) =
       (
@@ -109,4 +134,287 @@ structure Property :>
 
     fun initName {name, ...} = name
     fun initValue {init, ...} v = init v
+
+    fun bindProperty
+      (
+        source,
+        sourceProperty,
+        target,
+        targetProperty,
+        flags
+      ) =
+      (
+        GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectBindingFlags.FFI.withVal
+         ---> GObjectBindingClass.FFI.fromPtr false
+      )
+        bindProperty_
+        (
+          source
+           & sourceProperty
+           & target
+           & targetProperty
+           & flags
+        )
+
+    fun bindPropertyFull
+      (
+        source,
+        sourceProperty,
+        target,
+        targetProperty,
+        flags,
+        transformTo,
+        transformFrom
+      ) =
+      (
+        GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectBindingFlags.FFI.withVal
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
+         &&&> GObjectClosureRecord.FFI.withOptPtr false
+         ---> GObjectBindingClass.FFI.fromPtr false
+      )
+        bindPropertyFull_
+        (
+          source
+           & sourceProperty
+           & target
+           & targetProperty
+           & flags
+           & transformTo
+           & transformFrom
+        )
+
+    fun bind
+      (
+        source,
+        sourceProperty,
+        target,
+        targetProperty,
+        syncOnCreate
+      ) =
+        bindProperty
+          (
+            source,
+            #name sourceProperty,
+            target,
+            #name targetProperty,
+            let
+              open GObjectBindingFlags
+            in
+              flags [
+                flags (if syncOnCreate then [SYNC_CREATE] else [])
+              ]
+            end
+          )
+
+    fun bindBidir
+      (
+        source,
+        sourceProperty,
+        target,
+        targetProperty,
+        syncOnCreate
+      ) =
+        bindProperty
+          (
+            source,
+            #name sourceProperty,
+            target,
+            #name targetProperty,
+            let
+              open GObjectBindingFlags
+            in
+              flags [
+                BIDIRECTIONAL,
+                flags (if syncOnCreate then [SYNC_CREATE] else [])
+              ]
+            end
+          )
+
+    fun bindInvertBool
+      (
+        source,
+        sourceProperty,
+        target,
+        targetProperty,
+        syncOnCreate
+      ) =
+        bindProperty
+          (
+            source,
+            #name sourceProperty,
+            target,
+            #name targetProperty,
+            let
+              open GObjectBindingFlags
+            in
+              flags [
+                INVERT_BOOLEAN,
+                flags (if syncOnCreate then [SYNC_CREATE] else [])
+              ]
+            end
+          )
+
+    fun bindBidirInvertBool
+      (
+        source,
+        sourceProperty,
+        target,
+        targetProperty,
+        syncOnCreate
+      ) =
+        bindProperty
+          (
+            source,
+            #name sourceProperty,
+            target,
+            #name targetProperty,
+            let
+              open GObjectBindingFlags
+            in
+              flags [
+                BIDIRECTIONAL,
+                INVERT_BOOLEAN,
+                flags (if syncOnCreate then [SYNC_CREATE] else [])
+              ]
+            end
+          )
+
+    fun bindFull
+      (
+        source,
+        sourceProperty,
+        target,
+        targetProperty,
+        syncOnCreate,
+        convertToFun
+      ) =
+        let
+          local
+            open ClosureMarshal
+          in
+            val marshaller =
+              get 0w1 GObjectValueRecord.t
+               &&&> get 0w2 GObjectValueRecord.t
+               ---> set 0w2 GObjectValueRecord.t && ret boolean
+          end
+
+          fun convert (fromValue & toValue) =
+            let
+              val from =
+                (GObjectValueRecord.FFI.withPtr false ---> I)
+                  (#get sourceProperty)
+                  fromValue
+                  ()
+              val to = convertToFun from
+              val () =
+                (GObjectValueRecord.FFI.withPtr false ---> I)
+                  (#set targetProperty)
+                  toValue
+                  to
+            in
+              toValue & true
+            end
+          val transformTo = SOME (GObjectClosure.new (marshaller, convert))
+          val transformFrom = NONE
+        in
+          bindPropertyFull
+            (
+              source,
+              #name sourceProperty,
+              target,
+              #name targetProperty,
+              let
+                open GObjectBindingFlags
+              in
+                flags [
+                  flags (if syncOnCreate then [SYNC_CREATE] else [])
+                ]
+              end,
+              transformTo,
+              transformFrom
+            )
+        end
+
+    fun bindFullBidir
+      (
+        source,
+        sourceProperty,
+        target,
+        targetProperty,
+        syncOnCreate,
+        convertToFun,
+        convertFromFun
+      ) =
+        let
+          local
+            open ClosureMarshal
+          in
+            val marshaller =
+              get 0w1 GObjectValueRecord.t
+               &&&> get 0w2 GObjectValueRecord.t
+               ---> set 0w2 GObjectValueRecord.t && ret boolean
+          end
+
+          fun convertTo (fromValue & toValue) =
+            let
+              val from =
+                (GObjectValueRecord.FFI.withPtr false ---> I)
+                  (#get sourceProperty)
+                  fromValue
+                  ()
+              val to = convertToFun from
+              val () =
+                (GObjectValueRecord.FFI.withPtr false ---> I)
+                  (#set targetProperty)
+                  toValue
+                  to
+            in
+              toValue & true
+            end
+
+          fun convertFrom (fromValue & toValue) =
+            let
+              val from =
+                (GObjectValueRecord.FFI.withPtr false ---> I)
+                  (#get targetProperty)
+                  fromValue
+                  ()
+              val to = convertFromFun from
+              val () =
+                (GObjectValueRecord.FFI.withPtr false ---> I)
+                  (#set sourceProperty)
+                  toValue
+                  to
+            in
+              toValue & true
+            end
+          val transformTo = SOME (GObjectClosure.new (marshaller, convertTo))
+          val transformFrom = SOME (GObjectClosure.new (marshaller, convertFrom))
+        in
+          bindPropertyFull
+            (
+              source,
+              #name sourceProperty,
+              target,
+              #name targetProperty,
+              let
+                open GObjectBindingFlags
+              in
+                flags [
+                  BIDIRECTIONAL,
+                  flags (if syncOnCreate then [SYNC_CREATE] else [])
+                ]
+              end,
+              transformTo,
+              transformFrom
+            )
+        end
   end

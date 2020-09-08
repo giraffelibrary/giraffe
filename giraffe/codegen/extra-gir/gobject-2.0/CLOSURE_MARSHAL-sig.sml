@@ -29,6 +29,16 @@ signature CLOSURE_MARSHAL =
     val ret_void : unit ret
 
 
+    structure C :
+      sig
+        type value_v
+
+        val get : word -> (value_v -> 'a) -> 'a get
+        val set : word -> (value_v -> 'a -> unit) -> 'a set
+        val ret : (value_v -> 'a -> unit) -> 'a ret
+      end
+
+
     structure FFI :
       sig
         type opt

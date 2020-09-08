@@ -9,6 +9,7 @@ structure ClosureMarshal :>
   sig
     include CLOSURE_MARSHAL
       where type ('a, 'b) accessor = ('a, 'b) ValueAccessor.t
+      where type C.value_v = GObjectValueRecord.C.v
   end =
   struct
     type ('a, 'b) accessor = ('a, 'b) ValueAccessor.t
@@ -100,10 +101,18 @@ structure ClosureMarshal :>
     type 'a set = Closure.args -> 'a -> unit
     type 'a ret = Closure.args -> 'a -> unit
 
-    fun offset vs n = GObjectValueRecordArray.C.Pointer.get (vs, Word.toInt n)
-    fun get n a (_ & vs & _) = ValueAccessor.C.get a (offset vs n)
-    fun set n a (_ & vs & _) x = ValueAccessor.C.set a (offset vs n) x
-    fun ret a (v & _ & _) x = ValueAccessor.C.set a v x
+    structure C =
+      struct
+        type value_v = GObjectValueRecord.C.v
+        fun offset vs n = GObjectValueRecordArray.C.Pointer.get (vs, Word.toInt n)
+        fun get n getValue (_ & vs & _) = getValue (offset vs n)
+        fun set n setValue (_ & vs & _) x = setValue (offset vs n) x
+        fun ret setValue (v & _ & _) x = setValue v x
+      end
+
+    fun get n a = C.get n (ValueAccessor.C.get a)
+    fun set n a = C.set n (ValueAccessor.C.set a)
+    fun ret a = C.ret (ValueAccessor.C.set a)
 
     type 'a marshaller = 'a -> Closure.callback
 

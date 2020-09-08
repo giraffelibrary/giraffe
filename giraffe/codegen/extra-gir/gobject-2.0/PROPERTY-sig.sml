@@ -10,6 +10,7 @@ signature PROPERTY =
     type type_t
     type value_v
     type 'a object_class
+    type 'a binding_class
 
     (**
      * Representation of a property
@@ -41,4 +42,62 @@ signature PROPERTY =
     val init : ('object_class, 'a, 'b, 'w -> unit) t -> 'w -> 'object_class init_t
     val initName : 'object_class init_t -> string
     val initValue : 'object_class init_t -> value_v -> unit
+
+    (**
+     * Binding two properties
+     *
+     * These functions provide a type safe interface to
+     * `GObject.Object.bindProperty[Full]`.  For the non-full versions, where
+     * the conversion is implicit, it is assumed that if two properties have
+     * the same SML type but different GObject types, then the value of one
+     * can be transformed to the value of the other.
+     *
+     * In every function, the `bool` argument determines whether the
+     * properties are synchronized on creation.
+     *)
+    val bind :
+      'a object_class
+       * ('a object_class, unit -> 'c, 'set, 'init) t
+       * 'b object_class
+       * ('b object_class, 'get, 'c -> unit, 'init) t
+       * bool
+       -> base binding_class
+    val bindBidir :
+      'a object_class
+       * ('a object_class, unit -> 'c, 'd -> unit, 'init) t
+       * 'b object_class
+       * ('b object_class, unit -> 'd, 'c -> unit, 'init) t
+       * bool
+       -> base binding_class
+    val bindInvertBool :
+      'a object_class
+       * ('a object_class, unit -> bool, 'set, 'init) t
+       * 'b object_class
+       * ('b object_class, 'get, bool -> unit, 'init) t
+       * bool
+       -> base binding_class
+    val bindBidirInvertBool :
+      'a object_class
+       * ('a object_class, unit -> bool, bool -> unit, 'init) t
+       * 'b object_class
+       * ('b object_class, unit -> bool, bool -> unit, 'init) t
+       * bool
+       -> base binding_class
+    val bindFull :
+      'a object_class
+       * ('a object_class, unit -> 'c, 'set, 'init) t
+       * 'b object_class
+       * ('b object_class, 'get, 'd -> unit, 'init) t
+       * bool
+       * ('c -> 'd)
+       -> base binding_class
+    val bindFullBidir :
+      'a object_class
+       * ('a object_class, unit -> 'c, 'f -> unit, 'init) t
+       * 'b object_class
+       * ('b object_class, unit -> 'e, 'd -> unit, 'init) t
+       * bool
+       * ('c -> 'd)
+       * ('e -> 'f)
+       -> base binding_class
   end

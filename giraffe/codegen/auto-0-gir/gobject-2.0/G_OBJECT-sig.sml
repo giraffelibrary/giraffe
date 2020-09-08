@@ -182,13 +182,6 @@ signature G_OBJECT =
       G_OBJECT_TYPE_PLUGIN_CLASS
         where type 'a object_class = 'a ObjectClass.class
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
-    structure Binding :
-      G_OBJECT_BINDING
-        where type 'a class = 'a BindingClass.class
-        where type type_t = Type.t
-        where type binding_flags_t = BindingFlags.t
-        where type 'a object_class = 'a ObjectClass.class
-        where type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) property_t
     structure Closure :
       G_OBJECT_CLOSURE
         where type t = ClosureRecord.t
@@ -277,6 +270,13 @@ signature G_OBJECT =
       G_OBJECT_TYPE_PLUGIN
         where type 'a class = 'a TypePluginClass.class
         where type type_t = Type.t
+    structure Binding :
+      G_OBJECT_BINDING
+        where type 'a class = 'a BindingClass.class
+        where type type_t = Type.t
+        where type binding_flags_t = BindingFlags.t
+        where type 'a object_class = 'a ObjectClass.class
+        where type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) property_t
     structure Object :
       G_OBJECT_OBJECT
         where type 'a class = 'a ObjectClass.class

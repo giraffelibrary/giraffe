@@ -378,7 +378,6 @@ structure GObject :
     structure ParamSpecVariantClass = GObjectParamSpecVariantClass
     structure TypeModuleClass = GObjectTypeModuleClass
     structure TypePluginClass = GObjectTypePluginClass
-    structure Binding = GObjectBinding
     structure Closure = GObjectClosure
     structure InitiallyUnowned = GObjectInitiallyUnowned
     structure ParamSpecBoolean = GObjectParamSpecBoolean
@@ -406,6 +405,7 @@ structure GObject :
     structure ParamSpecVariant = GObjectParamSpecVariant
     structure TypeModule = GObjectTypeModule
     structure TypePlugin = GObjectTypePlugin
+    structure Binding = GObjectBinding
     structure Object = GObjectObject
     val PARAM_MASK = 255
     val PARAM_STATIC_STRINGS = 0
