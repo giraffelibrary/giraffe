@@ -1189,17 +1189,17 @@ where
                                 ------------------+-----------------------------------------------
                                   EVERYTHING      | <raise Error nonPtrForUtf8InPar>
           IN        ------------------------------+-----------------------------------------------
-                                  NOTHING         | <A>.with<Opt>Ptr 0                (see note 1)
+                                  NOTHING         | <A>.with<Opt>Ptr 0
                                 ------------------+-----------------------------------------------
                       true        CONTAINER       | <raise Error containerForUtf8>
                                 ------------------+-----------------------------------------------
-                                  EVERYTHING      | <A>.with<Opt>Ptr ~1               (see note 2)
+                                  EVERYTHING      | <A>.with<Opt>Ptr ~1
         ------------------------------------------+-----------------------------------------------
-                                  NOTHING         | <raise Error nonPtrForUtf8OutPar> (see note 4)
+                                  NOTHING         | <raise Error nonPtrForUtf8OutPar> (see note 2)
                                 ------------------+-----------------------------------------------
                       false       CONTAINER       | <raise Error containerForUtf8>
                                 ------------------+-----------------------------------------------
-                                  EVERYTHING      | <raise Error nonPtrForUtf8OutPar> (see note 4)
+                                  EVERYTHING      | <raise Error nonPtrForUtf8OutPar> (see note 2)
           OUT       ------------------------------+-----------------------------------------------
                                   NOTHING         | <A>.withRefOptPtr 0
                                 ------------------+-----------------------------------------------
@@ -1207,33 +1207,24 @@ where
                                 ------------------+-----------------------------------------------
                                   EVERYTHING      | <A>.withRefOptPtr 0
         ------------------------------------------+-----------------------------------------------
-                                  NOTHING         | <raise Error nothingForNonPtrUtf8InOutPar>
+                                  NOTHING         | <A>.withDup<Opt>Ptr 0
                                 ------------------+-----------------------------------------------
                       false       CONTAINER       | <raise Error containerForUtf8>
                                 ------------------+-----------------------------------------------
-                                  EVERYTHING      | <A>.withDup<Opt>Ptr
+                                  EVERYTHING      | <A>.withDup<Opt>Ptr ~1
           INOUT     ------------------------------+-----------------------------------------------
-                                  NOTHING         | <A>.withRef<Opt>Ptr 0             (see note 1)
+                                  NOTHING         | <A>.withRef<Opt>Ptr 0
                                 ------------------+-----------------------------------------------
                       true        CONTAINER       | <raise Error containerForUtf8>
                                 ------------------+-----------------------------------------------
-                                  EVERYTHING      | <A>.withRef<Opt>Ptr ~1            (see note 3)
+                                  EVERYTHING      | <A>.withRef<Opt>Ptr ~1            (see note 1)
         ------------------------------------------+-----------------------------------------------
 
-          Note 1: we assume that the parameter is not destructively updated so
-            don't give a non-zero argument to `with[Ref][Opt]Ptr` to provide a copy.
-
-          Note 2: if ownership is transferred for an IN parameter, the function
-            may destructively update the parameter so `with[Opt]Ptr` is used with a
-            non-zero argument to provide a copy; note that although ownership is not transferred back
-            via the IN parameter, it is possible that ownership is transferred back
-            via another parameter or the return value, e.g. g_environ_setenv.
-
-          Note 3: ownership transfer EVERYTHING is not the same as NOTHING:
+          Note 1: ownership transfer EVERYTHING and NOTHING are not the same:
             handing ownership to the function and taking ownership back allows
             the function to free and/or allocate memory.
 
-          Note 4: unlike an ARRAY OUT parameter, it is not possible for the caller to
+          Note 2: unlike an ARRAY OUT parameter, it is not possible for the caller to
             allocate memory for a UTF8 OUT parameter because girepository does not
             allow a length parameter or fixed size to be specified for non ARRAY types
             so there is no way of knowing the size to allocate.
@@ -1266,11 +1257,11 @@ where
                                 ------------------+-----------------------------------------------
                                   EVERYTHING      | <raise Error nonPtrForArrayInPar>
           IN        ------------------------------+-----------------------------------------------
-                                  NOTHING         | <A>.with<Opt>Ptr 0                (see note 1)
+                                  NOTHING         | <A>.with<Opt>Ptr 0
                                 ------------------+-----------------------------------------------
-                      true        CONTAINER       | <A>.with<Opt>Ptr 1                (see note 2)
+                      true        CONTAINER       | <A>.with<Opt>Ptr 1
                                 ------------------+-----------------------------------------------
-                                  EVERYTHING      | <A>.with<Opt>Ptr ~1               (see note 2)
+                                  EVERYTHING      | <A>.with<Opt>Ptr ~1
         ------------------------------------------+-----------------------------------------------
                                   NOTHING         | <A>.withNewPtr
                                 ------------------+-----------------------------------------------
@@ -1284,29 +1275,20 @@ where
                                 ------------------+-----------------------------------------------
                                   EVERYTHING      | <A>.withRefOptPtr 0
         ------------------------------------------+-----------------------------------------------
-                                  NOTHING         | <raise Error nothingForNonPtrArrayInOutPar>
+                                  NOTHING         | <A>.withDup<Opt>Ptr 0
                                 ------------------+-----------------------------------------------
-                      false       CONTAINER       | <A>.withDup<Opt>Ptr
+                      false       CONTAINER       | <A>.withDup<Opt>Ptr 1             (see note 1)
                                 ------------------+-----------------------------------------------
-                                  EVERYTHING      | <A>.withDup<Opt>Ptr
+                                  EVERYTHING      | <A>.withDup<Opt>Ptr ~1            (see note 1)
           INOUT     ------------------------------+-----------------------------------------------
-                                  NOTHING         | <A>.withRef<Opt>Ptr 0             (see note 1)
+                                  NOTHING         | <A>.withRef<Opt>Ptr 0
                                 ------------------+-----------------------------------------------
-                      true        CONTAINER       | <A>.withRef<Opt>Ptr 1             (see note 3)
+                      true        CONTAINER       | <A>.withRef<Opt>Ptr 1             (see note 1)
                                 ------------------+-----------------------------------------------
-                                  EVERYTHING      | <A>.withRef<Opt>Ptr ~1            (see note 3)
+                                  EVERYTHING      | <A>.withRef<Opt>Ptr ~1            (see note 1)
         ------------------------------------------+-----------------------------------------------
 
-          Note 1: we assume that the parameter is not destructively updated so
-            don't give a non-zero argument to `with[Ref][Opt]Ptr` to provide a copy.
-
-          Note 2: if ownership is transferred for an IN parameter, the function
-            may destructively update the parameter so `with[Opt]Ptr` is used with a
-            non-zero argument to provide a copy; note that although ownership is not transferred back
-            via the IN parameter, it is possible that ownership is transferred back
-            via another parameter or the return value, e.g. g_environ_setenv.
-
-          Note 3: ownership transfer EVERYTHING is not the same as NOTHING:
+          Note 1: ownership transfer EVERYTHING, CONTAINER and NOTHING are not the same:
             handing ownership to the function and taking ownership back allows
             the function to free and/or allocate memory.
 
@@ -1429,9 +1411,9 @@ where
                                     ------------------+-----------------------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
             ------------------------------------------+-----------------------------------------------
-                                      NOTHING         | <raise Error nothingForNonPtrStructInOutPar>
+                                      NOTHING         | <A>.withDup<Opt>Ptr false
                                     ------------------+-----------------------------------------------
-                          false       EVERYTHING      | <A>.withDup<Opt>Ptr
+                          false       EVERYTHING      | <A>.withDup<Opt>Ptr true
                                     ------------------+-----------------------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
               INOUT     ------------------------------+-----------------------------------------------
@@ -1610,7 +1592,7 @@ where
                                 ------------------+-----------------------------------------------
                                   EVERYTHING      | <A>.from<Opt>Ptr ~1
         ------------------------------------------+-----------------------------------------------
-                                  NOTHING         | <raise Error nothingForNonPtrUtf8InOutPar>
+                                  NOTHING         | <A>.from<Opt>Ptr 0
                                 ------------------+-----------------------------------------------
                       false       CONTAINER       | <raise Error containerForUtf8>
                                 ------------------+-----------------------------------------------
@@ -1666,9 +1648,9 @@ where
                                 ------------------+-----------------------------------------------
                                   EVERYTHING      | <A>.from<Opt>Ptr ~1
         ------------------------------------------+-----------------------------------------------
-                                  NOTHING         | <raise Error nothingForNonPtrArrayInOutPar>
+                                  NOTHING         | <A>.from<Opt>Ptr 0
                                 ------------------+-----------------------------------------------
-                      false       CONTAINER       | <A>.from<Opt>Ptr ~1
+                      false       CONTAINER       | <A>.from<Opt>Ptr 1
                                 ------------------+-----------------------------------------------
                                   EVERYTHING      | <A>.from<Opt>Ptr ~1
           INOUT     ------------------------------+-----------------------------------------------
@@ -1778,7 +1760,7 @@ where
                                     ------------------+-----------------------------------
                                       CONTAINER       | <raise Error containerForInterface>
             ------------------------------------------+-----------------------------------
-                                      NOTHING         | <raise Error nothingForNonPtrStructInOutPar>
+                                      NOTHING         | <A>.from<Opt>Ptr false
                                     ------------------+-----------------------------------
                           false       EVERYTHING      | <A>.from<Opt>Ptr true
                                     ------------------+-----------------------------------

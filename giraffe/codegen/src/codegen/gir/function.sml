@@ -57,26 +57,6 @@ val everythingForNonPtrUnionOutPar =
   "ownership transfer EVERYTHING for OUT parameter with \
   \non-pointer UNION type not supported"
 
-val nothingForNonPtrArrayInOutPar =
-  "ownership transfer NOTHING for INOUT parameter with \
-  \non-pointer ARRAY type not supported"
-
-val nothingForNonPtrUtf8InOutPar =
-  "ownership transfer NOTHING for INOUT parameter with \
-  \non-pointer UTF8 type not supported"
-
-val nothingForNonPtrFilenameInOutPar =
-  "ownership transfer NOTHING for INOUT parameter with \
-  \non-pointer FILENAME type not supported"
-
-val nothingForNonPtrStructInOutPar =
-  "ownership transfer NOTHING for INOUT parameter with \
-  \non-pointer STRUCT type not supported"
-
-val nothingForNonPtrUnionInOutPar =
-  "ownership transfer NOTHING for INOUT parameter with \
-  \non-pointer UNION type not supported"
-
 val nonPtrForArrayInPar =
   "non-pointer C type for ARRAY type not supported"
 
@@ -373,7 +353,8 @@ type scalar_info =
 type utf8_info =
   {
     isOpt      : bool,
-    ptrOwnXfer : bool option,  (* NONE when non-pointer *)
+    isPtr      : bool,
+    xferOwn    : bool,
     optIRef    : interfaceref option
   }
 
@@ -383,23 +364,19 @@ type interface_info =
     iRef       : interfaceref,
     infoType   : InfoType.t,
     isOpt      : bool,
-    ptrOwnXfer : bool option  (* NONE when non-pointer *)
+    isPtr      : bool,
+    xferOwn    : bool
   }
 
-(* The ownership transfer flag is only present for a pointer.  The conditions
- * for a pointer and ownership transfer are combined into a single field
- * `ptrOwnXfer` that takes the following values:
- *
- *   NONE          non-pointer
- *   SOME false    pointer with ownership not transferred
- *   SOME true     pointer with ownership transferred
- *
- * The condition `isSome ptrOwnXfer` tests for a pointer.
+(* In most cases, the ownership transfer flag is only required for a pointer.
+ * However, for a parameter with direction `INOUT` that is not a pointer, the
+ * ownership transfer flag is still required.  Therefore `isPtr` and
+ * `xferOwn` are separate state.
  *
  * It is not always true that if a value is optionally null, then it must
- * be a pointer, i.e. `isOpt` does not always imply `isSome ptrOwnXfer`: for
- * a CALLBACK, `ptrOwnXfer` is `NONE` but it is possible that `isOpt` is true.
- * Therefore `isOpt` is not included as part of option type for `ptrOwnXfer`.
+ * be a pointer, i.e. `isOpt` does not always imply `isPtr`: for a
+ * CALLBACK, `isPtr` is false but it is possible that `isOpt` is true.
+ * Therefore `isOpt` and `isPtr` are separate state.
  *)
 
 datatype array_length =
@@ -423,7 +400,8 @@ datatype info =
 withtype array_info =
   {
     isOpt      : bool,
-    ptrOwnXfer : bool option,  (* NONE when non-pointer *)
+    isPtr      : bool,
+    xferOwn    : bool,
     lengths    : array_length list1,
     iRef       : interfaceref,
     elem       : info
@@ -621,25 +599,25 @@ fun makeCArrayIRef functionNamespace optContainerName length elem =
 
 fun getArrayOwnXferDepth ownXferDepth elem =
   case elem of
-    IGTYPE _                       => ~1
-  | ISCALAR _                      => ~1
-  | IUTF8 {ptrOwnXfer, ...}        => (
-      case ptrOwnXfer of
-        SOME true  => ~1
-      | SOME false => ownXferDepth
-      | NONE       => ~1
+    IGTYPE _                           => ~1
+  | ISCALAR _                          => ~1
+  | IUTF8 {isPtr, xferOwn, ...}        => (
+      case (isPtr, xferOwn) of
+        (true,  true)  => ~1
+      | (true,  false) => ownXferDepth
+      | (false, _)     => ~1
     )
-  | IARRAY {ptrOwnXfer, elem, ...} => (
-      case ptrOwnXfer of
-        SOME true  => getArrayOwnXferDepth (ownXferDepth + 1) elem
-      | SOME false => ownXferDepth
-      | NONE       => ~1
+  | IARRAY {isPtr, xferOwn, elem, ...} => (
+      case (isPtr, xferOwn) of
+        (true,  true)  => getArrayOwnXferDepth (ownXferDepth + 1) elem
+      | (true,  false) => ownXferDepth
+      | (false, _)     => ~1
     )
-  | IINTERFACE {ptrOwnXfer, ...}   => (
-      case ptrOwnXfer of
-        SOME true  => ~1
-      | SOME false => ownXferDepth
-      | NONE       => ~1
+  | IINTERFACE {isPtr, xferOwn, ...}   => (
+      case (isPtr, xferOwn) of
+        (true,  true)  => ~1
+      | (true,  false) => ownXferDepth
+      | (false, _)     => ~1
     )
 
 datatype dir =
@@ -739,104 +717,90 @@ fun getParInfo
     local
       open Transfer
     in
-      fun ptrOwnXferArray dir isPtr ownXfer
+      fun xferOwnArray dir isPtr ownXfer
         (
           nonPtrForXInPar,
           containerForNonPtrXOutPar,
-          everythingForNonPtrXOutPar,
-          nothingForNonPtrXInOutPar
+          everythingForNonPtrXOutPar
         ) =
         case (dir, isPtr, ownXfer) of
           (SOME IN,      false, _)          => infoExcl nonPtrForXInPar
         | (SOME (OUT _), false, CONTAINER)  => infoExcl containerForNonPtrXOutPar
         | (SOME (OUT _), false, EVERYTHING) => infoExcl everythingForNonPtrXOutPar
-        | (SOME INOUT,   false, NOTHING)    => infoExcl nothingForNonPtrXInOutPar
-        | (_,            false, _)          => NONE
-        | (_,            true,  NOTHING)    => SOME false
-        | (_,            true,  CONTAINER)  => SOME true
-        | (_,            true,  EVERYTHING) => SOME true
+        | (_,            _,     NOTHING)    => false
+        | (_,            _,     CONTAINER)  => true
+        | (_,            _,     EVERYTHING) => true
       val arrayMsg =
         (
           nonPtrForArrayInPar,
           containerForNonPtrArrayOutPar,
-          everythingForNonPtrArrayOutPar,
-          nothingForNonPtrArrayInOutPar
+          everythingForNonPtrArrayOutPar
         )
 
-      fun ptrOwnXferUtf8Filename dir isPtr ownXfer
+      fun xferOwnUtf8Filename dir isPtr ownXfer
         (
           containerForX,
           nonPtrForXInPar,
-          nonPtrForXOutPar,
-          nothingForNonPtrXInOutPar
+          nonPtrForXOutPar
         ) =
         case (dir, isPtr, ownXfer) of
           (_,            _,     CONTAINER)  => infoExcl containerForX
         | (SOME IN,      false, _)          => infoExcl nonPtrForXInPar
         | (SOME (OUT _), false, _)          => infoExcl nonPtrForXOutPar
-        | (SOME INOUT,   false, NOTHING)    => infoExcl nothingForNonPtrXInOutPar
-        | (_,            false, _)          => NONE
-        | (_,            true,  NOTHING)    => SOME false
-        | (_,            true,  EVERYTHING) => SOME true
+        | (_,            _,     NOTHING)    => false
+        | (_,            _,     EVERYTHING) => true
       val utf8Msg =
         (
           containerForUtf8,
           nonPtrForUtf8InPar,
-          nonPtrForUtf8OutPar,
-          nothingForNonPtrUtf8InOutPar
+          nonPtrForUtf8OutPar
         )
       val filenameMsg =
         (
           containerForFilename,
           nonPtrForFilenameInPar,
-          nonPtrForFilenameOutPar,
-          nothingForNonPtrFilenameInOutPar
+          nonPtrForFilenameOutPar
         )
 
-      fun ptrOwnXferObjectInterface isPtr ownXfer nonPtrForX =
+      fun xferOwnObjectInterface isPtr ownXfer nonPtrForX =
         if isPtr
         then
           case ownXfer of
-            NOTHING    => SOME false
-          | EVERYTHING => SOME true
+            NOTHING    => false
+          | EVERYTHING => true
           | CONTAINER  => infoExcl containerForInterface
         else
           infoExcl nonPtrForX
       val objectMsg = nonPtrForObject
       val interfaceMsg = nonPtrForInterface
 
-      fun ptrOwnXferStructUnion dir isPtr ownXfer
+      fun xferOwnStructUnion dir isPtr ownXfer
         (
           nonPtrForXInPar,
-          everythingForNonPtrXOutPar,
-          nothingForNonPtrXInOutPar
+          everythingForNonPtrXOutPar
         ) =
         case (dir, isPtr, ownXfer) of
           (SOME IN,      false, NOTHING)    => infoExcl nonPtrForXInPar
         | (SOME IN,      false, EVERYTHING) => infoExcl nonPtrForXInPar
         | (SOME (OUT _), false, EVERYTHING) => infoExcl everythingForNonPtrXOutPar
-        | (SOME INOUT,   false, NOTHING)    => infoExcl nothingForNonPtrXInOutPar
         | (_,            _,     CONTAINER)  => infoExcl containerForInterface
-        | (_,            false, _)          => NONE
-        | (_,            true,  NOTHING)    => SOME false
-        | (_,            true,  EVERYTHING) => SOME true
+        | (_,            _,     NOTHING)    => false
+        | (_,            _,     EVERYTHING) => true
       val structMsg =
         (
           nonPtrForStructInPar,
-          everythingForNonPtrStructOutPar,
-          nothingForNonPtrStructInOutPar
+          everythingForNonPtrStructOutPar
         )
       val unionMsg =
         (
           nonPtrForUnionInPar,
-          everythingForNonPtrUnionOutPar,
-          nothingForNonPtrUnionInOutPar
+          everythingForNonPtrUnionOutPar
         )
 
-      fun ptrOwnXferFlagsEnum isPtr ptrForX =
+      fun xferOwnFlagsEnum isPtr ptrForX =
         if isPtr
         then infoExcl ptrForX
-        else NONE
+        else false  (* not used *)
       val flagsMsg = ptrForFlags
       val enumMsg = ptrForEnum
     end
@@ -953,7 +917,7 @@ fun getParInfo
                     handle
                       Fail msg => infoExcl msg
 
-              val ptrOwnXfer = ptrOwnXferArray dir isPtr ownXfer arrayMsg
+              val xferOwn = xferOwnArray dir isPtr ownXfer arrayMsg
  
               val lengths =
                 case TypeInfo.getArrayFixedSize typeInfo of
@@ -1007,7 +971,8 @@ fun getParInfo
 
               val arrayInfo = {
                 isOpt      = isOpt,
-                ptrOwnXfer = ptrOwnXfer,
+                isPtr      = isPtr,
+                xferOwn    = xferOwn,
                 lengths    = lengths,
                 iRef       = iRef,
                 elem       = elem
@@ -1056,11 +1021,12 @@ fun getParInfo
                     handle
                       Fail msg => infoExcl msg
 
-              val ptrOwnXfer = ptrOwnXferUtf8Filename dir isPtr ownXfer filenameMsg
+              val xferOwn = xferOwnUtf8Filename dir isPtr ownXfer filenameMsg
  
               val utf8Info = {
                 isOpt      = isOpt,
-                ptrOwnXfer = ptrOwnXfer,
+                isPtr      = isPtr,
+                xferOwn    = xferOwn,
                 optIRef    = optIRef
               }
             in
@@ -1079,11 +1045,12 @@ fun getParInfo
                     handle
                       Fail msg => infoExcl msg
 
-              val ptrOwnXfer = ptrOwnXferUtf8Filename dir isPtr ownXfer utf8Msg
+              val xferOwn = xferOwnUtf8Filename dir isPtr ownXfer utf8Msg
  
               val utf8Info = {
                 isOpt      = isOpt,
-                ptrOwnXfer = ptrOwnXfer,
+                isPtr      = isPtr,
+                xferOwn    = xferOwn,
                 optIRef    = optIRef
               }
             in
@@ -1162,26 +1129,26 @@ fun getParInfo
                           handle
                             Fail msg => infoExcl msg
 
-                    val (ptrOwnXfer, rootIRef) =
+                    val (xferOwn, rootIRef) =
                       case infoType of
                         OBJECT objectInfo
                                     =>
                           (
-                            ptrOwnXferObjectInterface isPtr ownXfer objectMsg,
+                            xferOwnObjectInterface isPtr ownXfer objectMsg,
                             getRootObjectIRef repo functionNamespace
                               optContainerName
                               (objectInfo, iRef)
                           )
                       | INTERFACE _ =>
                           (
-                            ptrOwnXferObjectInterface isPtr ownXfer interfaceMsg,
+                            xferOwnObjectInterface isPtr ownXfer interfaceMsg,
                             makeInterfaceRootIRef functionNamespace
                               optContainerName
                           )
-                      | STRUCT _    => (ptrOwnXferStructUnion dir isPtr ownXfer structMsg, iRef)
-                      | UNION _     => (ptrOwnXferStructUnion dir isPtr ownXfer unionMsg, iRef)
-                      | FLAGS _     => (ptrOwnXferFlagsEnum isPtr flagsMsg, iRef)
-                      | ENUM _      => (ptrOwnXferFlagsEnum isPtr enumMsg, iRef)
+                      | STRUCT _    => (xferOwnStructUnion dir isPtr ownXfer structMsg, iRef)
+                      | UNION _     => (xferOwnStructUnion dir isPtr ownXfer unionMsg, iRef)
+                      | FLAGS _     => (xferOwnFlagsEnum isPtr flagsMsg, iRef)
+                      | ENUM _      => (xferOwnFlagsEnum isPtr enumMsg, iRef)
                       | _           => infoExcl (unsupportedInterface infoType)
 
                     val interfaceInfo = {
@@ -1189,7 +1156,8 @@ fun getParInfo
                       iRef       = iRef,
                       infoType   = infoType,
                       isOpt      = isOpt,
-                      ptrOwnXfer = ptrOwnXfer
+                      isPtr      = isPtr,
+                      xferOwn    = xferOwn
                     }
                   in
                     IINTERFACE interfaceInfo
@@ -1354,7 +1322,7 @@ fun getRetInfo
     local
       open Transfer
     in
-      fun ptrOwnXferArray dir isPtr ownXfer
+      fun xferOwnArray dir isPtr ownXfer
         (
           nonPtrForXRet,
           nonPtrForNestedX
@@ -1362,16 +1330,16 @@ fun getRetInfo
         case (dir, isPtr, ownXfer) of
           (SOME (),      false, _)          => infoExcl nonPtrForXRet
         | (_,            false, _)          => raise Fail nonPtrForNestedX
-        | (_,            true,  NOTHING)    => SOME false
-        | (_,            true,  CONTAINER)  => SOME true
-        | (_,            true,  EVERYTHING) => SOME true
+        | (_,            true,  NOTHING)    => false
+        | (_,            true,  CONTAINER)  => true
+        | (_,            true,  EVERYTHING) => true
       val arrayMsg =
         (
           nonPtrForArrayRet,
           nonPtrForNestedArray
         )
 
-      fun ptrOwnXferUtf8Filename dir isPtr ownXfer
+      fun xferOwnUtf8Filename dir isPtr ownXfer
         (
           containerForX,
           nonPtrForXRet,
@@ -1380,9 +1348,9 @@ fun getRetInfo
         case (dir, isPtr, ownXfer) of
           (SOME (),      false, _)          => infoExcl nonPtrForXRet
         | (_,            false, _)          => raise Fail nonPtrForNestedX
-        | (_,            true,  NOTHING)    => SOME false
+        | (_,            true,  NOTHING)    => false
         | (_,            true,  CONTAINER)  => infoExcl containerForX
-        | (_,            true,  EVERYTHING) => SOME true
+        | (_,            true,  EVERYTHING) => true
       val utf8Msg =
         (
           containerForUtf8,
@@ -1396,33 +1364,33 @@ fun getRetInfo
           nonPtrForNestedFilename
         )
 
-      fun ptrOwnXferObjectInterface isPtr ownXfer nonPtrForXRet =
+      fun xferOwnObjectInterface isPtr ownXfer nonPtrForXRet =
         if isPtr
         then
           case ownXfer of
-            NOTHING    => SOME false
-          | EVERYTHING => SOME true
+            NOTHING    => false
+          | EVERYTHING => true
           | CONTAINER  => infoExcl containerForInterface
         else
           infoExcl nonPtrForXRet
       val objectMsg = nonPtrForObject
       val interfaceMsg = nonPtrForInterface
 
-      fun ptrOwnXferStructUnion dir isPtr ownXfer nonPtrForXRet =
+      fun xferOwnStructUnion dir isPtr ownXfer nonPtrForXRet =
         case (dir, isPtr, ownXfer) of
           (SOME (),      false, NOTHING)    => infoExcl nonPtrForXRet
         | (SOME (),      false, EVERYTHING) => infoExcl nonPtrForXRet
         | (_,            _,     CONTAINER)  => infoExcl containerForInterface
-        | (_,            false, _)          => NONE
-        | (_,            true,  NOTHING)    => SOME false
-        | (_   ,         true,  EVERYTHING) => SOME true
+        | (_,            false, _)          => false  (* not used *)
+        | (_,            true,  NOTHING)    => false
+        | (_   ,         true,  EVERYTHING) => true
       val structMsg = nonPtrForStructRet
       val unionMsg = nonPtrForUnionRet
 
-      fun ptrOwnXferFlagsEnum isPtr ptrForX =
+      fun xferOwnFlagsEnum isPtr ptrForX =
         if isPtr
         then infoExcl ptrForX
-        else NONE
+        else false  (* not used *)
       val flagsMsg = ptrForFlags
       val enumMsg = ptrForEnum
     end
@@ -1539,7 +1507,7 @@ fun getRetInfo
                     handle
                       Fail msg => infoExcl msg
 
-              val ptrOwnXfer = ptrOwnXferArray dir isPtr ownXfer arrayMsg 
+              val xferOwn = xferOwnArray dir isPtr ownXfer arrayMsg 
 
               val lengths =
                 case TypeInfo.getArrayFixedSize typeInfo of
@@ -1589,7 +1557,8 @@ fun getRetInfo
 
               val arrayInfo = {
                 isOpt      = isOpt,
-                ptrOwnXfer = ptrOwnXfer,
+                isPtr      = isPtr,
+                xferOwn    = xferOwn,
                 lengths    = lengths,
                 iRef       = iRef,
                 elem       = elem
@@ -1638,11 +1607,12 @@ fun getRetInfo
                     handle
                       Fail msg => infoExcl msg
 
-              val ptrOwnXfer = ptrOwnXferUtf8Filename dir isPtr ownXfer filenameMsg 
+              val xferOwn = xferOwnUtf8Filename dir isPtr ownXfer filenameMsg 
 
               val utf8Info = {
                 isOpt      = isOpt,
-                ptrOwnXfer = ptrOwnXfer,
+                isPtr      = isPtr,
+                xferOwn    = xferOwn,
                 optIRef    = optIRef
               }
             in
@@ -1661,11 +1631,12 @@ fun getRetInfo
                     handle
                       Fail msg => infoExcl msg
 
-              val ptrOwnXfer = ptrOwnXferUtf8Filename dir isPtr ownXfer utf8Msg 
+              val xferOwn = xferOwnUtf8Filename dir isPtr ownXfer utf8Msg 
 
               val utf8Info = {
                 isOpt      = isOpt,
-                ptrOwnXfer = ptrOwnXfer,
+                isPtr      = isPtr,
+                xferOwn    = xferOwn,
                 optIRef    = optIRef
               }
             in
@@ -1744,26 +1715,26 @@ fun getRetInfo
                           handle
                             Fail msg => infoExcl msg
 
-                    val (ptrOwnXfer, rootIRef) =
+                    val (xferOwn, rootIRef) =
                       case infoType of
                         OBJECT objectInfo
                                     =>
                           (
-                            ptrOwnXferObjectInterface isPtr ownXfer objectMsg,
+                            xferOwnObjectInterface isPtr ownXfer objectMsg,
                             getRootObjectIRef repo functionNamespace
                               optContainerName
                               (objectInfo, iRef)
                           )
                       | INTERFACE _ =>
                           (
-                            ptrOwnXferObjectInterface isPtr ownXfer interfaceMsg,
+                            xferOwnObjectInterface isPtr ownXfer interfaceMsg,
                             makeInterfaceRootIRef functionNamespace
                               optContainerName
                           )
-                      | STRUCT _    => (ptrOwnXferStructUnion dir isPtr ownXfer structMsg, iRef)
-                      | UNION _     => (ptrOwnXferStructUnion dir isPtr ownXfer unionMsg, iRef)
-                      | FLAGS _     => (ptrOwnXferFlagsEnum isPtr flagsMsg, iRef)
-                      | ENUM _      => (ptrOwnXferFlagsEnum isPtr enumMsg, iRef)
+                      | STRUCT _    => (xferOwnStructUnion dir isPtr ownXfer structMsg, iRef)
+                      | UNION _     => (xferOwnStructUnion dir isPtr ownXfer unionMsg, iRef)
+                      | FLAGS _     => (xferOwnFlagsEnum isPtr flagsMsg, iRef)
+                      | ENUM _      => (xferOwnFlagsEnum isPtr enumMsg, iRef)
                       | _           => infoExcl (unsupportedInterface infoType)
 
                     val interfaceInfo = {
@@ -1771,7 +1742,8 @@ fun getRetInfo
                       iRef       = iRef,
                       infoType   = infoType,
                       isOpt      = isOpt,
-                      ptrOwnXfer = ptrOwnXfer
+                      isPtr      = isPtr,
+                      xferOwn    = xferOwn
                     }
                   in
                     IINTERFACE interfaceInfo
@@ -1942,7 +1914,8 @@ fun addSpecRetInfo
                 iRef,
                 infoType,
                 isOpt,
-                ptrOwnXfer,
+                isPtr,
+                xferOwn,
                 ...
               }                                  =>
                 let
@@ -1954,7 +1927,8 @@ fun addSpecRetInfo
                       | _                                            => iRef,
                     infoType   = infoType,
                     isOpt      = isOpt,
-                    ptrOwnXfer = ptrOwnXfer
+                    isPtr      = isPtr,
+                    xferOwn    = xferOwn
                   }
                   val {iRef, isOpt, ...} = interfaceRetInfo
                 in
@@ -2259,7 +2233,7 @@ local
       }
     end
 
-  fun withFunUtf8 (dir, {ptrOwnXfer, isOpt, optIRef, ...} : utf8_info) =
+  fun withFunUtf8 (dir, {isPtr, xferOwn, isOpt, optIRef, ...} : utf8_info) =
     let
       val prefixIds =
         case optIRef of
@@ -2267,8 +2241,8 @@ local
         | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
     in
       withFunExp prefixIds {
-        isRef = dir <> IN andalso isSome ptrOwnXfer,
-        isDup = ptrOwnXfer = NONE,
+        isRef = dir <> IN andalso isPtr,
+        isDup = not isPtr,
         isNew = false,
         isOpt =
           case dir of
@@ -2277,42 +2251,41 @@ local
           | INOUT => isOpt,
         isPtr = true,
         xfer  =
-          case (dir, ptrOwnXfer) of
-            (_,     NONE)       => XferNone
-          | (OUT _, _)          => XferDepth 0
-          | (_,     SOME true)  => XferDepth ~1
-          | (_,     SOME false) => XferDepth 0
+          case (dir, xferOwn) of
+            (OUT _, _)     => XferDepth 0
+          | (_,     true)  => XferDepth ~1
+          | (_,     false) => XferDepth 0
       }
     end
 
-  fun withFunArray (dir, {ptrOwnXfer, isOpt, iRef, elem, ...} : array_info) =
+  fun withFunArray (dir, {isPtr, xferOwn, isOpt, iRef, elem, ...} : array_info) =
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
     in
       withFunExp prefixIds {
-        isRef = dir <> IN andalso isSome ptrOwnXfer,
-        isDup = dir = INOUT andalso ptrOwnXfer = NONE,
+        isRef = dir <> IN andalso isPtr,
+        isDup = dir = INOUT andalso not isPtr,
         isNew =
           case dir of
-            OUT _ => ptrOwnXfer = NONE
+            OUT _ => not isPtr
           | _     => false,
         isOpt =
           case dir of
             IN    => isOpt
-          | OUT _ => isSome ptrOwnXfer
+          | OUT _ => isPtr
           | INOUT => isOpt,
         isPtr = true,
         xfer  =
-          case (dir, ptrOwnXfer) of
-            (_,     NONE)       => XferNone
-          | (OUT _, _)          => XferDepth 0
-          | (_,     SOME true)  => XferDepth (getArrayOwnXferDepth 1 elem)
-          | (_,     SOME false) => XferDepth 0
+          case (dir, isPtr, xferOwn) of
+            (OUT _, false, _)     => XferNone
+          | (OUT _, true,  _)     => XferDepth 0
+          | (_,     _,     true)  => XferDepth (getArrayOwnXferDepth 1 elem)
+          | (_,     _,     false) => XferDepth 0
       }
     end
 
   fun withFunInterface
-    (dir, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interface_info) =
+    (dir, {iRef, infoType, isPtr, xferOwn, isOpt, ...} : interface_info) =
     let
 (*
       val {isSelf, ...} = iRef
@@ -2340,35 +2313,36 @@ local
         isRef =
           dir <> IN andalso (
             case infoType of
-              STRUCT _ => isSome ptrOwnXfer
+              STRUCT _ => isPtr
             | _        => true
           ),
         isDup =
-          case infoType of
-            STRUCT _ => dir = INOUT andalso ptrOwnXfer = NONE
-          | UNION _  => dir = INOUT andalso ptrOwnXfer = NONE
-          | _        => false,
+          case (dir, infoType, isPtr) of
+            (INOUT, STRUCT _, false) => true
+          | (INOUT, UNION _,  false) => true
+          | _                        => false,
         isNew =
           case (dir, infoType) of
             (OUT isCallerAllocates, STRUCT _) =>
-              isCallerAllocates andalso ptrOwnXfer = NONE
-              (* Note that `isCallerAllocates` can be true when `ptrOwnXfer <> NONE`
+              isCallerAllocates andalso not isPtr
+              (* Note that `isCallerAllocates` can be true when `isPtr`
                * for disguised structs, such as GdkAtom.  For information on disguised
                * structs, see https://bugzilla.gnome.org/show_bug.cgi?id=560248 . *)
           | _                                 => false,
         isOpt =
           case dir of
             IN    => isOpt
-          | OUT _ => isSome ptrOwnXfer
+          | OUT _ => isPtr
           | INOUT => isOpt,
         isPtr =
           case infoType of
             STRUCT _ => true
-          | _        => isSome ptrOwnXfer,
+          | _        => isPtr,
         xfer  =
-          case ptrOwnXfer of
-            SOME ownXfer => XferFlag ownXfer
-          | NONE         => XferNone
+          case (dir, infoType, isPtr) of
+            (INOUT, STRUCT _, _)     => XferFlag xferOwn
+          | (_,     _,        true)  => XferFlag xferOwn
+          | (_,     _,        false) => XferNone
       }
     end
 
@@ -2395,7 +2369,7 @@ local
       }
     end
 
-  fun fromFunUtf8 (_, {ptrOwnXfer, isOpt, optIRef, ...} : utf8_info) =
+  fun fromFunUtf8 (_, {xferOwn, isOpt, optIRef, ...} : utf8_info) =
     let
       val prefixIds =
         case optIRef of
@@ -2406,35 +2380,37 @@ local
         isOpt = isOpt,
         xfer  =
           XferDepth (
-            case ptrOwnXfer of
-              SOME true  => ~1
-            | SOME false => 0
-            | NONE       => ~1
+            if xferOwn
+            then ~1
+            else 0
           )
       }
     end
 
-  fun fromFunArray (isInOut, {ptrOwnXfer, isOpt, iRef, elem, ...} : array_info) =
+  fun fromFunArray (isInOut, {isPtr, xferOwn, isOpt, iRef, elem, ...} : array_info) =
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
     in
       fromFunExp prefixIds {
         isOpt =
-          case (isInOut, ptrOwnXfer) of
-            (false, NONE) => false  (* `ptrOwnXfer` is not NONE for return value *)
-          | _             => isOpt,
+          case (isInOut, isPtr) of
+            (false, false) => false (* `isPtr` is not false for return values
+                                       so this case applies to OUT parameters *)
+          | _              => isOpt,
         xfer  =
           XferDepth (
-            case ptrOwnXfer of
-              SOME true  => getArrayOwnXferDepth 1 elem
-            | SOME false => 0
-            | NONE       => ~1
+            case (isInOut, isPtr) of
+              (false, false) => ~1
+            | _              =>
+                if xferOwn
+                then getArrayOwnXferDepth 1 elem
+                else 0
           )
       }
     end
 
   fun fromFunInterface
-    (_, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interface_info) =
+    (isInOut, {iRef, infoType, isPtr, xferOwn, isOpt, ...} : interface_info) =
     let
 (*
       val {isSelf, ...} = iRef
@@ -2461,12 +2437,13 @@ local
       fromFunExp prefixIds {
         isOpt = isOpt,
         xfer  =
-          case (infoType, ptrOwnXfer) of
-            (STRUCT _, NONE) => XferFlag true
-          | _                =>
-              case ptrOwnXfer of
-                SOME ownXfer => XferFlag ownXfer
-              | NONE         => XferNone
+          case (isInOut, infoType, isPtr) of
+            (false, STRUCT _, false) => XferFlag true  (* OUT parameter *)
+          | (true,  STRUCT _, false) => XferFlag xferOwn
+          | _                        =>
+              if isPtr
+              then XferFlag xferOwn
+              else XferNone
       }
     end
 
@@ -2489,10 +2466,10 @@ local
       OUT _ => noneExp
     | _     => mkIdLNameExp name
 
-  fun argValArray (name, dir, {ptrOwnXfer, lengths, ...} : array_info) =
-    case (dir, ptrOwnXfer) of
-      (OUT _, SOME _) => noneExp
-    | (OUT _, NONE)   => (
+  fun argValArray (name, dir, {isPtr, lengths, ...} : array_info) =
+    case (dir, isPtr) of
+      (OUT _, true)  => noneExp
+    | (OUT _, false) => (
         (* `lengths` contains `ArrayLengthFixed` in
          * preference to `ArrayLengthParam` *)
         case findMap mkArrayLenExp (op :: lengths) of
@@ -2502,7 +2479,7 @@ local
     | _               => mkIdLNameExp name
 
   fun argValInterface
-    (name, dir, {iRef, infoType, ptrOwnXfer, ...} : interface_info) =
+    (name, dir, {iRef, infoType, isPtr, ...} : interface_info) =
     case dir of
       OUT _ =>
         let
@@ -2512,7 +2489,7 @@ local
             OBJECT _    => noneExp
           | INTERFACE _ => noneExp
           | STRUCT _    =>
-              if isSome ptrOwnXfer
+              if isPtr
               then noneExp
               else ExpConst ConstUnit
           | FLAGS _     =>
@@ -2685,7 +2662,8 @@ in
                 iRef,
                 infoType,
                 isOpt,
-                ptrOwnXfer
+                isPtr,
+                xferOwn
               }         =>
                 IINTERFACE {
                   rootIRef   = rootIRef,
@@ -2696,7 +2674,8 @@ in
                     | _                                            => iRef,
                   infoType   = infoType,
                   isOpt      = isOpt,
-                  ptrOwnXfer = ptrOwnXfer
+                  isPtr      = isPtr,
+                  xferOwn    = xferOwn
                 }
 
           val (fromFunExp, structDeps') =
@@ -3222,7 +3201,7 @@ local
       convExp prefixIds VAL
     end
 
-  fun parUtf8Conv (dir, {ptrOwnXfer, isOpt, optIRef, ...} : utf8_info) =
+  fun parUtf8Conv (dir, {isPtr, isOpt, optIRef, ...} : utf8_info) =
     let
       val prefixIds =
         case optIRef of
@@ -3230,7 +3209,7 @@ local
         | SOME iRef => prefixInterfaceStrId iRef [polyMLStrId]
     in
       convExp prefixIds (
-        if dir <> IN andalso isSome ptrOwnXfer
+        if dir <> IN andalso isPtr
         then
           REF (
             SOME {
@@ -3261,12 +3240,12 @@ local
       )
     end
 
-  fun parArrayConv (dir, {ptrOwnXfer, isOpt, iRef, ...} : array_info) =
+  fun parArrayConv (dir, {isPtr, isOpt, iRef, ...} : array_info) =
     let
       val prefixIds = prefixInterfaceStrId iRef [polyMLStrId]
     in
       convExp prefixIds (
-        if dir <> IN andalso isSome ptrOwnXfer
+        if dir <> IN andalso isPtr
         then
           REF (
             SOME {
@@ -3278,9 +3257,9 @@ local
           PTR {
             optDir = SOME In,
             isOpt  =
-              case (dir, ptrOwnXfer) of
-                (OUT _, NONE) => false
-              | _             => isOpt
+              case (dir, isPtr) of
+                (OUT _, false) => false
+              | _              => isOpt
           }
       )
     end
@@ -3298,7 +3277,7 @@ local
     end
 
   fun parInterfaceConv
-    (dir, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interface_info) =
+    (dir, {iRef, infoType, isPtr, isOpt, ...} : interface_info) =
     let
 (*
       val {isSelf, ...} = iRef
@@ -3322,7 +3301,7 @@ local
       open InfoType
     in
       convExp prefixIds (
-        if dir <> IN andalso isSome ptrOwnXfer
+        if dir <> IN andalso isPtr
         then
           REF (
             SOME {
@@ -3344,7 +3323,7 @@ local
         else
           PTR {
             optDir = NONE,
-            isOpt  = isOpt andalso isSome ptrOwnXfer
+            isOpt  = isOpt andalso isPtr
           }
       )
     end
@@ -3921,7 +3900,7 @@ local
       typeTy false prefixIds VAL
     end
 
-  fun parUtf8Type (dir, {ptrOwnXfer, isOpt, optIRef, ...} : utf8_info) =
+  fun parUtf8Type (dir, {isPtr, isOpt, optIRef, ...} : utf8_info) =
     let
       val prefixIds =
         case optIRef of
@@ -3929,7 +3908,7 @@ local
         | SOME iRef => prefixInterfaceStrId iRef [ffiStrId]
     in
       typeTy true prefixIds (
-        if dir <> IN andalso isSome ptrOwnXfer
+        if dir <> IN andalso isPtr
         then
           REF (
             SOME {
@@ -3960,12 +3939,12 @@ local
       )
     end
 
-  fun parArrayType (dir, {ptrOwnXfer, isOpt, iRef, ...} : array_info) =
+  fun parArrayType (dir, {isPtr, isOpt, iRef, ...} : array_info) =
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
     in
       typeTy true prefixIds (
-        if dir <> IN andalso isSome ptrOwnXfer
+        if dir <> IN andalso isPtr
         then
           REF (
             SOME {
@@ -3977,9 +3956,9 @@ local
           PTR {
             optDir = SOME In,
             isOpt  =
-              case (dir, ptrOwnXfer) of
-                (OUT _, NONE) => false
-              | _             => isOpt
+              case (dir, isPtr) of
+                (OUT _, false) => false
+              | _              => isOpt
           }
       )
     end
@@ -3997,7 +3976,7 @@ local
     end
 
   fun parInterfaceType
-    (dir, {iRef, infoType, ptrOwnXfer, isOpt, ...} : interface_info) =
+    (dir, {iRef, infoType, isPtr, isOpt, ...} : interface_info) =
     let
 (*
       val {isSelf, ...} = iRef
@@ -4021,7 +4000,7 @@ local
       open InfoType
     in
       typeTy false prefixIds (
-        if dir <> IN andalso isSome ptrOwnXfer
+        if dir <> IN andalso isPtr
         then
           REF (
             SOME {
@@ -4043,7 +4022,7 @@ local
         else
           PTR {
             optDir = NONE,
-            isOpt  = isOpt andalso isSome ptrOwnXfer
+            isOpt  = isOpt andalso isPtr
           }
       )
     end

@@ -151,8 +151,16 @@ functor BoxedValueRecord(
               fn
                 ptr => Finalizable.withValue (ptr, withPointer free_ f o dup_)
 
-          fun withDupPtr f ptr =
-            Finalizable.withValue (ptr, withDupPointer free_ f o dup_)
+          fun withDupPtr transfer =
+            if not transfer
+            then
+              fn f =>
+              fn
+                ptr => Finalizable.withValue (ptr, withDupPointer ignore f)
+            else
+              fn f =>
+              fn
+                ptr => Finalizable.withValue (ptr, withDupPointer free_ f o dup_)
 
 
           fun withOptPtr transfer =
@@ -168,10 +176,18 @@ functor BoxedValueRecord(
                 SOME ptr => Finalizable.withValue (ptr, withOptPointer free_ f o SOME o dup_)
               | NONE     => withOptPointer ignore f NONE
 
-          fun withDupOptPtr f =
-            fn
-              SOME ptr => Finalizable.withValue (ptr, withDupOptPointer free_ f o SOME o dup_)
-            | NONE     => withDupOptPointer ignore f NONE
+          fun withDupOptPtr transfer =
+            if not transfer
+            then
+              fn f =>
+              fn
+                SOME ptr => Finalizable.withValue (ptr, withDupOptPointer ignore f o SOME)
+              | NONE     => withDupOptPointer ignore f NONE
+            else
+              fn f =>
+              fn
+                SOME ptr => Finalizable.withValue (ptr, withDupOptPointer free_ f o SOME o dup_)
+              | NONE     => withDupOptPointer ignore f NONE
         end
 
         fun withNewPtr f () =

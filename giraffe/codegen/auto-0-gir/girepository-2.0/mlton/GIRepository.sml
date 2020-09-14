@@ -432,7 +432,7 @@ structure GIRepository : G_I_REPOSITORY =
          & retVal =
           (
             GIRepositoryCallableInfoRecord.FFI.withPtr false
-             &&&> GIRepositoryAttributeIterRecord.FFI.withDupPtr
+             &&&> GIRepositoryAttributeIterRecord.FFI.withDupPtr true
              &&&> Utf8.FFI.withRefOptPtr 0
              &&&> Utf8.FFI.withRefOptPtr 0
              ---> GIRepositoryAttributeIterRecord.FFI.fromPtr true

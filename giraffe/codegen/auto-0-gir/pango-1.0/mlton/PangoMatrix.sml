@@ -161,7 +161,7 @@ structure PangoMatrix :>
       end
     fun transformPixelRectangle self rect =
       let
-        val rect & () = (PangoMatrixRecord.FFI.withPtr false &&&> PangoRectangleRecord.FFI.withDupPtr ---> PangoRectangleRecord.FFI.fromPtr true && I) transformPixelRectangle_ (self & rect)
+        val rect & () = (PangoMatrixRecord.FFI.withPtr false &&&> PangoRectangleRecord.FFI.withDupPtr true ---> PangoRectangleRecord.FFI.fromPtr true && I) transformPixelRectangle_ (self & rect)
       in
         rect
       end
@@ -189,7 +189,7 @@ structure PangoMatrix :>
       end
     fun transformRectangle self rect =
       let
-        val rect & () = (PangoMatrixRecord.FFI.withPtr false &&&> PangoRectangleRecord.FFI.withDupPtr ---> PangoRectangleRecord.FFI.fromPtr true && I) transformRectangle_ (self & rect)
+        val rect & () = (PangoMatrixRecord.FFI.withPtr false &&&> PangoRectangleRecord.FFI.withDupPtr true ---> PangoRectangleRecord.FFI.fromPtr true && I) transformRectangle_ (self & rect)
       in
         rect
       end

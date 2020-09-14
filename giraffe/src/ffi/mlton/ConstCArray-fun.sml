@@ -195,13 +195,23 @@ functor ConstCArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
                   Finalizable.withValue
                     (v, withPointer (free ~1) f o CVector.toPointer)
 
-          fun withDupPtr f =
-            fn
-              CArray a =>
-                Finalizable.withValue (a, withDupPointer (free ~1) f o dup ~1)
-            | SMLValue v =>
-                Finalizable.withValue
-                  (v, withDupPointer (free ~1) f o CVector.toPointer)
+          fun withDupPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                CArray a => Finalizable.withValue (a, withDupPointer ignore f)
+              | SMLValue v =>
+                  Finalizable.withValue
+                    (v, withDupPointer (free ~1) f o CVector.toPointer)
+            else
+              fn f =>
+              fn
+                CArray a =>
+                  Finalizable.withValue (a, withDupPointer (free d) f o dup d)
+              | SMLValue v =>
+                  Finalizable.withValue
+                    (v, withDupPointer (free ~1) f o CVector.toPointer)
 
 
           fun withOptPtr d =
@@ -209,7 +219,8 @@ functor ConstCArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
             then
               fn f =>
               fn
-                SOME (CArray a) => Finalizable.withValue (a, withPointer ignore f)
+                SOME (CArray a) =>
+                  Finalizable.withValue (a, withPointer ignore f)
               | SOME (SMLValue v) => Finalizable.withValue (v, f o fromSMLValue)
               | NONE => withPointer ignore f Pointer.null
             else
@@ -223,15 +234,27 @@ functor ConstCArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
                     (v, withPointer (free ~1) f o Pointer.toOptPtr o CVector.toPointer)
               | NONE => withPointer ignore f Pointer.null
 
-          fun withDupOptPtr f =
-            fn
-              SOME (CArray a) =>
-                Finalizable.withValue
-                  (a, withDupPointer (free ~1) f o Pointer.toOptPtr o dup ~1)
-            | SOME (SMLValue v) =>
-                Finalizable.withValue
-                  (v, withDupPointer (free ~1) f o Pointer.toOptPtr o CVector.toPointer)
-            | NONE => withDupPointer ignore f Pointer.null
+          fun withDupOptPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                SOME (CArray a) =>
+                  Finalizable.withValue (a, withDupPointer ignore f o Pointer.toOptPtr)
+              | SOME (SMLValue v) =>
+                  Finalizable.withValue
+                    (v, withDupPointer (free ~1) f o Pointer.toOptPtr o CVector.toPointer)
+              | NONE => withDupPointer ignore f Pointer.null
+            else
+              fn f =>
+              fn
+                SOME (CArray a) =>
+                  Finalizable.withValue
+                    (a, withDupPointer (free d) f o Pointer.toOptPtr o dup d)
+              | SOME (SMLValue v) =>
+                  Finalizable.withValue
+                    (v, withDupPointer (free ~1) f o Pointer.toOptPtr o CVector.toPointer)
+              | NONE => withDupPointer ignore f Pointer.null
 
 
           fun withNewPtr f n =

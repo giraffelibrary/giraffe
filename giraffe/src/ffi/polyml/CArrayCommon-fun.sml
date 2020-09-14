@@ -126,10 +126,17 @@ functor CArrayCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) =
                 CArray a =>
                   Finalizable.withValue (a, withPointer (free d) f o dup d)
 
-          fun withDupPtr f =
-            fn
-              CArray a =>
-                Finalizable.withValue (a, withDupPointer (free ~1) f o dup ~1)
+          fun withDupPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                CArray a => Finalizable.withValue (a, withDupPointer ignore f)
+            else
+              fn f =>
+              fn
+                CArray a =>
+                  Finalizable.withValue (a, withDupPointer (free d) f o dup d)
 
 
           fun withOptPtr d =
@@ -147,12 +154,21 @@ functor CArrayCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) =
                     (a, withOptPointer (free d) f o SOME o dup d)
               | NONE => withOptPointer ignore f NONE
 
-          fun withDupOptPtr f =
-            fn
-              SOME (CArray a) =>
-                Finalizable.withValue
-                  (a, withDupOptPointer (free ~1) f o SOME o dup ~1)
-            | NONE => withDupOptPointer ignore f NONE
+          fun withDupOptPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                SOME (CArray a) =>
+                  Finalizable.withValue (a, withDupOptPointer ignore f o SOME)
+              | NONE => withDupOptPointer ignore f NONE
+            else
+              fn f =>
+              fn
+                SOME (CArray a) =>
+                  Finalizable.withValue
+                    (a, withDupOptPointer (free d) f o SOME o dup d)
+              | NONE => withDupOptPointer ignore f NONE
 
 
           fun withNewPtr f n =

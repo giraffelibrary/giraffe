@@ -171,10 +171,17 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
                 CArray a =>
                   Finalizable.withValue (a, withPointer (free d) f o dup d)
 
-          fun withDupPtr f =
-            fn
-              CArray a =>
-                Finalizable.withValue (a, withDupPointer (free ~1) f o dup ~1)
+          fun withDupPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                CArray a => Finalizable.withValue (a, withDupPointer ignore f)
+            else
+              fn f =>
+              fn
+                CArray a =>
+                  Finalizable.withValue (a, withDupPointer (free d) f o dup d)
 
 
           fun withOptPtr d =
@@ -182,7 +189,8 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
             then
               fn f =>
               fn
-                SOME (CArray a) => Finalizable.withValue (a, withPointer ignore f)
+                SOME (CArray a) =>
+                  Finalizable.withValue (a, withPointer ignore f)
               | NONE => withPointer ignore f Pointer.null
             else
               fn f =>
@@ -192,12 +200,21 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
                     (a, withPointer (free d) f o Pointer.toOptPtr o dup d)
               | NONE => withPointer ignore f Pointer.null
 
-          fun withDupOptPtr f =
-            fn
-              SOME (CArray a) =>
-                Finalizable.withValue
-                  (a, withDupPointer (free ~1) f o Pointer.toOptPtr o dup ~1)
-            | NONE => withDupPointer ignore f Pointer.null
+          fun withDupOptPtr d =
+            if d = 0
+            then
+              fn f =>
+              fn
+                SOME (CArray a) =>
+                  Finalizable.withValue (a, withDupPointer ignore f o Pointer.toOptPtr)
+              | NONE => withDupPointer ignore f Pointer.null
+            else
+              fn f =>
+              fn
+                SOME (CArray a) =>
+                  Finalizable.withValue
+                    (a, withDupPointer (free d) f o Pointer.toOptPtr o dup d)
+              | NONE => withDupPointer ignore f Pointer.null
 
 
           fun withNewPtr f n =

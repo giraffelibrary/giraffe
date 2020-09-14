@@ -262,8 +262,8 @@ signature C_ARRAY =
         val withPtr    : int -> (non_opt in_p -> 'r) -> t        -> 'r
         val withOptPtr : int -> (opt     in_p -> 'r) -> t option -> 'r
 
-        val withDupPtr    : (non_opt in_p -> 'r) -> t        -> (non_opt out_p, 'r) pair
-        val withDupOptPtr : (opt     in_p -> 'r) -> t option -> (opt     out_p, 'r) pair
+        val withDupPtr    : int -> (non_opt in_p -> 'r) -> t        -> (non_opt out_p, 'r) pair
+        val withDupOptPtr : int -> (opt     in_p -> 'r) -> t option -> (opt     out_p, 'r) pair
 
         val withNewPtr : (non_opt in_p -> 'r) -> int -> (non_opt out_p, 'r) pair
 
