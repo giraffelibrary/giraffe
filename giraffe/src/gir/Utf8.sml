@@ -11,7 +11,7 @@ local
       structure CElemType = GCharType
       structure ElemSequence = MonoVectorSequence(CharVector)
     )
-  structure GConstCharArray = ConstCArray(GCharArrayType)
+  structure GCharArray = CArray(GCharArrayType)
 in
-  structure Utf8 :> UTF8 = VectorCArray(GConstCharArray)
+  structure Utf8 :> UTF8 = VectorCArray(GCharArray)
 end

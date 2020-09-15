@@ -5,6 +5,29 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
+(**
+ * DESIGN ISSUE
+ *
+ * The purpose of this high-level FFI module is to enable a pointer to an SML
+ * vector in the ML heap to be supplied for an array argument that is treated
+ * as const.  This avoids the need to temporarily copy the array onto the
+ * C heap.  However, if a C function is given a pointer into the ML heap, it
+ * is possible that the C function returns a pointer into the ML heap to the
+ * caller.  GI annotations for such a C function would indicate that the data
+ * in the ML heap is not owned, so a copy would be taken.  The copy is made
+ * from the SML side using `FFI.[from|copy][Opt]Ptr`.  If a GC occurs after
+ * the C function returns but before the copy is made, the pointer to copy
+ * from may no longer be valid.  There is no obvious work around for this
+ * issue.
+ *
+ * The instability of addresses in the ML heap also means that the functions
+ * `FFI.with[Ref|Dup][Opt]Ptr d` do not support all possible depths `d`.
+ *
+ * Despite these general issues, many C functions are not affected so the
+ * module is retained for experimental purposes and for targeted use but it
+ * is not used elsewhere in Giraffe Library.
+ *)
+
 functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
   C_ARRAY_N
     where type elem = CArrayType.elem
@@ -38,14 +61,17 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
      *     elements for which space was allocated or
      *   - an SML vector.
      * A finalizable value is used to free an array on the C heap when no
-     * longer reachable.
+     * longer reachable.  An SML vector may contain elements that are
+     * allocated on the C heap so a finalizable value is used to free the
+     * elements when the vector is no longer reachable.
      *
      * The SML vector case is included because MLton can pass a pointer to an
      * SML vector value (that points into the SML heap) to a C function,
      * avoiding the need to allocate a copy of the vector on the C heap.
      * MLton requires that vectors allocated in the SML heap are not modified
-     * in place.  Consequently, FFI.with[Ref]Ptr should be used only for a
-     * C array parameter that is treated as const at every level.
+     * in place.  Consequently, `FFI.with[Ref|Dup][Opt]Ptr d` should be used
+     * only for a C array parameter that is treated as const from depth `d`
+     * and below.
      *)
     datatype array =
       CArray of C.non_opt C.p Finalizable.t * int
@@ -189,6 +215,8 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
                 (CArray (a, _), _) => Finalizable.withValue (a, withPointer ignore f)
               | (SMLValue v, _) => Finalizable.withValue (v, f o fromSMLValue)
             else
+            if d < 0
+            then
               fn f =>
               fn
                 (CArray (a, _), n) =>
@@ -200,20 +228,13 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
                       fn c =>
                         withPointer (free ~1 n) f (CVector.toPointer n c)
                     )
+            else
+              raise Fail "ConstCArrayN().FFI.withPtr: transfer depth > 0 not supported"
 
           fun withDupPtr d =
-            if d = 0
+            if d >= 0
             then
-              fn f =>
-              fn
-                (CArray (a, _), _) => Finalizable.withValue (a, withDupPointer ignore f)
-              | (SMLValue v, n) =>
-                  Finalizable.withValue
-                    (
-                      v,
-                      fn c =>
-                        withDupPointer (free ~1 n) f (CVector.toPointer n c)
-                    )
+              raise Fail "ConstCArrayN().FFI.withDupPtr: transfer depth >= 0 not supported"
             else
               fn f =>
               fn
@@ -238,6 +259,8 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
               | SOME (SMLValue v, _) => Finalizable.withValue (v, f o fromSMLValue)
               | NONE => withPointer ignore f Pointer.null
             else
+            if d < 0
+            then
               fn f =>
               fn
                 SOME (CArray (a, _), n) =>
@@ -252,23 +275,13 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
                          (Pointer.toOptPtr (CVector.toPointer n c))
                     )
               | NONE => withPointer ignore f Pointer.null
+            else
+              raise Fail "ConstCArrayN().FFI.withOptPtr: transfer depth > 0 not supported"
 
           fun withDupOptPtr d =
-            if d = 0
+            if d >= 0
             then
-              fn f =>
-              fn
-                SOME (CArray (a, _), _) =>
-                  Finalizable.withValue (a, withDupPointer ignore f o Pointer.toOptPtr)
-              | SOME (SMLValue v, n) =>
-                  Finalizable.withValue
-                    (
-                      v,
-                      fn c =>
-                        withDupPointer (free ~1 n) f
-                         (Pointer.toOptPtr (CVector.toPointer n c))
-                    )
-              | NONE => withDupPointer ignore f Pointer.null
+              raise Fail "ConstCArrayN().FFI.withDupOptPtr: transfer depth >= 0 not supported"
             else
               fn f =>
               fn
@@ -353,6 +366,8 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
                 (CArray (a, _), _) => Finalizable.withValue (a, withRefPointer ignore (apply f))
               | (SMLValue v, _) => Finalizable.withValue (v, apply f o fromSMLValue)
             else
+            if d < 0
+            then
               fn f =>
               fn
                 (CArray (a, _), n) =>
@@ -366,6 +381,8 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
                         withRefPointer (free ~1 n) (apply f)
                           (CVector.toPointer n c)
                     )
+            else
+              raise Fail "ConstCArrayN().FFI.withRefPtr: transfer depth > 0 not supported"
 
 
           fun withRefOptPtr d =
@@ -379,6 +396,8 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
                   Finalizable.withValue (v, apply f o fromSMLValue)
               | NONE => withRefPointer ignore (apply f) Pointer.null
             else
+            if d < 0
+            then
               fn f =>
               fn
                 SOME (CArray (a, _), n) =>
@@ -393,6 +412,8 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
                           (CVector.toPointer n c)
                     )
               | NONE => withRefPointer ignore (apply f) Pointer.null
+            else
+              raise Fail "ConstCArrayN().FFI.withRefOptPtr: transfer depth > 0 not supported"
         end
       end
 
