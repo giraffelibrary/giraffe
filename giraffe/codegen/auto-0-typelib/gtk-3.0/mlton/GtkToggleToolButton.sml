@@ -21,7 +21,7 @@ structure GtkToggleToolButton :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkToggleToolButtonClass.FFI.fromPtr false) new_ ()
-    fun newFromStock stockId = (Utf8.FFI.withPtr 0 ---> GtkToggleToolButtonClass.FFI.fromPtr false) newFromStock_ stockId
+    fun newFromStock stockId = (Utf8.FFI.withPtr 0 ---> GtkToggleToolButtonClass.FFI.fromPtr false) newFromStock_ stockId before Utf8.FFI.touchPtr stockId
     fun getActive self = (GtkToggleToolButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActive_ self
     fun setActive self isActive = (GtkToggleToolButtonClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setActive_ (self & isActive)
     local

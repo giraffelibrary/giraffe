@@ -83,8 +83,8 @@ structure GioIOStream :>
            & result
            & []
         )
-    fun getInputStream self = (GioIOStreamClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromPtr false) getInputStream_ self
-    fun getOutputStream self = (GioIOStreamClass.FFI.withPtr false ---> GioOutputStreamClass.FFI.fromPtr false) getOutputStream_ self
+    fun getInputStream self = (GioIOStreamClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromPtr false) getInputStream_ self before GioIOStreamClass.FFI.touchPtr self
+    fun getOutputStream self = (GioIOStreamClass.FFI.withPtr false ---> GioOutputStreamClass.FFI.fromPtr false) getOutputStream_ self before GioIOStreamClass.FFI.touchPtr self
     fun hasPending self = (GioIOStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasPending_ self
     fun isClosed self = (GioIOStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self
     fun setPending self = (GioIOStreamClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) setPending_ (self & [])

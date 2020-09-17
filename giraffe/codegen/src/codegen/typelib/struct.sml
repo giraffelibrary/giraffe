@@ -635,13 +635,13 @@ fun addStructMethodStrDecsLowLevel
     repo
     vers
     addInitStrDecs
-    (SOME (structIRef, structIRef))
+    (SOME structIRef)
 
-fun addStructMethodStrDecsHighLevel repo vers structIRef =
+fun addStructMethodStrDecsHighLevel repo vers (structInfo, structIRef) =
   revFoldMapInfosWithExcls
     StructInfo.getNMethods
     StructInfo.getMethod
-    (makeFunctionStrDecHighLevel repo vers (SOME (structIRef, structIRef)))
+    (makeFunctionStrDecHighLevel repo vers (SOME (structInfo, structIRef)))
 
 fun makeStructStr
   (repo            : 'a RepositoryClass.class)
@@ -688,7 +688,11 @@ fun makeStructStr
          * info_excl_hier list =
       ([], ([], ListDict.empty), excls'0)
     val acc'1 =
-      addStructMethodStrDecsHighLevel repo vers structIRef (structInfo, acc'0)
+      addStructMethodStrDecsHighLevel
+        repo
+        vers
+        (structInfo, structIRef)
+        (structInfo, acc'0)
     val acc'2 = addStructGetTypeFunctionStrDecHighLevel typeIRef acc'1
     val (strDecs'2, (iRefs'2, structDeps'2), excls'2) = acc'2
 

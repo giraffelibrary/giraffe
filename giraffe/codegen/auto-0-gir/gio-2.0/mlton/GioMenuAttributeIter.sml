@@ -28,7 +28,7 @@ structure GioMenuAttributeIter :>
     type 'a class = 'a GioMenuAttributeIterClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getName self = (GioMenuAttributeIterClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getName self = (GioMenuAttributeIterClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GioMenuAttributeIterClass.FFI.touchPtr self
     fun getNext self =
       let
         val outName
@@ -49,7 +49,7 @@ structure GioMenuAttributeIter :>
                & NONE
             )
       in
-        if retVal then SOME (outName, value) else NONE
+        (if retVal then SOME (outName, value) else NONE) before GioMenuAttributeIterClass.FFI.touchPtr self
       end
     fun getValue self = (GioMenuAttributeIterClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr true) getValue_ self
     fun next self = (GioMenuAttributeIterClass.FFI.withPtr false ---> GBool.FFI.fromVal) next_ self

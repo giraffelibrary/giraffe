@@ -23,7 +23,7 @@ structure GtkTextTagTable :>
     fun new () = (I ---> GtkTextTagTableClass.FFI.fromPtr true) new_ ()
     fun add self tag = (GtkTextTagTableClass.FFI.withPtr false &&&> GtkTextTagClass.FFI.withPtr false ---> GBool.FFI.fromVal) add_ (self & tag)
     fun getSize self = (GtkTextTagTableClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getSize_ self
-    fun lookup self name = (GtkTextTagTableClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkTextTagClass.FFI.fromOptPtr false) lookup_ (self & name)
+    fun lookup self name = (GtkTextTagTableClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkTextTagClass.FFI.fromOptPtr false) lookup_ (self & name) before GtkTextTagTableClass.FFI.touchPtr self before Utf8.FFI.touchPtr name
     fun remove self tag = (GtkTextTagTableClass.FFI.withPtr false &&&> GtkTextTagClass.FFI.withPtr false ---> I) remove_ (self & tag)
     local
       open ClosureMarshal Signal

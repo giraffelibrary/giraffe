@@ -19,8 +19,8 @@ structure GtkMountOperation :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new parent = (GtkWindowClass.FFI.withOptPtr false ---> GtkMountOperationClass.FFI.fromPtr true) new_ parent
-    fun getParent self = (GtkMountOperationClass.FFI.withPtr false ---> GtkWindowClass.FFI.fromPtr false) getParent_ self
-    fun getScreen self = (GtkMountOperationClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun getParent self = (GtkMountOperationClass.FFI.withPtr false ---> GtkWindowClass.FFI.fromPtr false) getParent_ self before GtkMountOperationClass.FFI.touchPtr self
+    fun getScreen self = (GtkMountOperationClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self before GtkMountOperationClass.FFI.touchPtr self
     fun isShowing self = (GtkMountOperationClass.FFI.withPtr false ---> GBool.FFI.fromVal) isShowing_ self
     fun setParent self parent = (GtkMountOperationClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withOptPtr false ---> I) setParent_ (self & parent)
     fun setScreen self screen = (GtkMountOperationClass.FFI.withPtr false &&&> GdkScreenClass.FFI.withPtr false ---> I) setScreen_ (self & screen)

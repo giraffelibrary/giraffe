@@ -62,7 +62,7 @@ structure GtkPrintContext :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun createPangoContext self = (GtkPrintContextClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr true) createPangoContext_ self
     fun createPangoLayout self = (GtkPrintContextClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromPtr true) createPangoLayout_ self
-    fun getCairoContext self = (GtkPrintContextClass.FFI.withPtr false ---> CairoContextRecord.FFI.fromPtr false) getCairoContext_ self
+    fun getCairoContext self = (GtkPrintContextClass.FFI.withPtr false ---> CairoContextRecord.FFI.fromPtr false) getCairoContext_ self before GtkPrintContextClass.FFI.touchPtr self
     fun getDpiX self = (GtkPrintContextClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getDpiX_ self
     fun getDpiY self = (GtkPrintContextClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getDpiY_ self
     fun getHardMargins self =
@@ -105,8 +105,8 @@ structure GtkPrintContext :>
         else NONE
       end
     fun getHeight self = (GtkPrintContextClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getHeight_ self
-    fun getPageSetup self = (GtkPrintContextClass.FFI.withPtr false ---> GtkPageSetupClass.FFI.fromPtr false) getPageSetup_ self
-    fun getPangoFontmap self = (GtkPrintContextClass.FFI.withPtr false ---> PangoFontMapClass.FFI.fromPtr false) getPangoFontmap_ self
+    fun getPageSetup self = (GtkPrintContextClass.FFI.withPtr false ---> GtkPageSetupClass.FFI.fromPtr false) getPageSetup_ self before GtkPrintContextClass.FFI.touchPtr self
+    fun getPangoFontmap self = (GtkPrintContextClass.FFI.withPtr false ---> PangoFontMapClass.FFI.fromPtr false) getPangoFontmap_ self before GtkPrintContextClass.FFI.touchPtr self
     fun getWidth self = (GtkPrintContextClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getWidth_ self
     fun setCairoContext
       self

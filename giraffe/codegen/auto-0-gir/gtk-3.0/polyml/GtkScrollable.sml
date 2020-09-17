@@ -31,9 +31,9 @@ structure GtkScrollable :>
       in
         if retVal then SOME border else NONE
       end
-    fun getHadjustment self = (GtkScrollableClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
+    fun getHadjustment self = (GtkScrollableClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self before GtkScrollableClass.FFI.touchPtr self
     fun getHscrollPolicy self = (GtkScrollableClass.FFI.withPtr false ---> GtkScrollablePolicy.FFI.fromVal) getHscrollPolicy_ self
-    fun getVadjustment self = (GtkScrollableClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
+    fun getVadjustment self = (GtkScrollableClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self before GtkScrollableClass.FFI.touchPtr self
     fun getVscrollPolicy self = (GtkScrollableClass.FFI.withPtr false ---> GtkScrollablePolicy.FFI.fromVal) getVscrollPolicy_ self
     fun setHadjustment self hadjustment = (GtkScrollableClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> I) setHadjustment_ (self & hadjustment)
     fun setHscrollPolicy self policy = (GtkScrollableClass.FFI.withPtr false &&&> GtkScrollablePolicy.FFI.withVal ---> I) setHscrollPolicy_ (self & policy)

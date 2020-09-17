@@ -67,7 +67,7 @@ structure GtkSettings :>
     fun asStyleProvider self = (GObjectObjectClass.FFI.withPtr false ---> GtkStyleProviderClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> GtkSettingsClass.FFI.fromOptPtr false) getDefault_ ()
-    fun getForScreen screen = (GdkScreenClass.FFI.withPtr false ---> GtkSettingsClass.FFI.fromPtr false) getForScreen_ screen
+    fun getForScreen screen = (GdkScreenClass.FFI.withPtr false ---> GtkSettingsClass.FFI.fromPtr false) getForScreen_ screen before GdkScreenClass.FFI.touchPtr screen
     fun installProperty pspec = (GObjectParamSpecClass.FFI.withPtr false ---> I) installProperty_ pspec
     fun resetProperty self name = (GtkSettingsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) resetProperty_ (self & name)
     fun setDoubleProperty

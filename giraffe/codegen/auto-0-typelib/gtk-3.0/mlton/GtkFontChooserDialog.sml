@@ -30,5 +30,5 @@ structure GtkFontChooserDialog :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asFontChooser self = (GObjectObjectClass.FFI.withPtr false ---> GtkFontChooserClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (title, parent) = (Utf8.FFI.withOptPtr 0 &&&> GtkWindowClass.FFI.withOptPtr false ---> GtkFontChooserDialogClass.FFI.fromPtr false) new_ (title & parent)
+    fun new (title, parent) = (Utf8.FFI.withOptPtr 0 &&&> GtkWindowClass.FFI.withOptPtr false ---> GtkFontChooserDialogClass.FFI.fromPtr false) new_ (title & parent) before Utf8.FFI.touchOptPtr title before GtkWindowClass.FFI.touchOptPtr parent
   end

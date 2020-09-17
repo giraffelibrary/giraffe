@@ -18,6 +18,6 @@ structure GdkPixbufPixbufAnimationIter :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun advance self currentTime = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr false &&&> GLibTimeValRecord.FFI.withOptPtr false ---> GBool.FFI.fromVal) advance_ (self & currentTime)
     fun getDelayTime self = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getDelayTime_ self
-    fun getPixbuf self = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
+    fun getPixbuf self = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self before GdkPixbufPixbufAnimationIterClass.FFI.touchPtr self
     fun onCurrentlyLoadingFrame self = (GdkPixbufPixbufAnimationIterClass.FFI.withPtr false ---> GBool.FFI.fromVal) onCurrentlyLoadingFrame_ self
   end

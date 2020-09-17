@@ -218,7 +218,7 @@ structure GtkThemingEngine :>
     type state_type_t = GtkStateType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun load name = (Utf8.FFI.withPtr 0 ---> GtkThemingEngineClass.FFI.fromOptPtr false) load_ name
+    fun load name = (Utf8.FFI.withPtr 0 ---> GtkThemingEngineClass.FFI.fromOptPtr false) load_ name before Utf8.FFI.touchPtr name
     fun getBackgroundColor self state =
       let
         val color & () =
@@ -292,7 +292,7 @@ structure GtkThemingEngine :>
         color
       end
     fun getDirection self = (GtkThemingEngineClass.FFI.withPtr false ---> GtkTextDirection.FFI.fromVal) getDirection_ self
-    fun getFont self state = (GtkThemingEngineClass.FFI.withPtr false &&&> GtkStateFlags.FFI.withVal ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFont_ (self & state)
+    fun getFont self state = (GtkThemingEngineClass.FFI.withPtr false &&&> GtkStateFlags.FFI.withVal ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFont_ (self & state) before GtkThemingEngineClass.FFI.touchPtr self
     fun getJunctionSides self = (GtkThemingEngineClass.FFI.withPtr false ---> GtkJunctionSides.FFI.fromVal) getJunctionSides_ self
     fun getMargin self state =
       let
@@ -330,8 +330,8 @@ structure GtkThemingEngine :>
       in
         padding
       end
-    fun getPath self = (GtkThemingEngineClass.FFI.withPtr false ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self
-    fun getScreen self = (GtkThemingEngineClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromOptPtr false) getScreen_ self
+    fun getPath self = (GtkThemingEngineClass.FFI.withPtr false ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self before GtkThemingEngineClass.FFI.touchPtr self
+    fun getScreen self = (GtkThemingEngineClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromOptPtr false) getScreen_ self before GtkThemingEngineClass.FFI.touchPtr self
     fun getState self = (GtkThemingEngineClass.FFI.withPtr false ---> GtkStateFlags.FFI.fromVal) getState_ self
     fun getStyleProperty self propertyName =
       let

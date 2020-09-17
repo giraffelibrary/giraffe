@@ -32,14 +32,14 @@ structure GioApplicationCommandLine :>
       in
         retVal (LargeInt.toInt argc)
       end
-    fun getCwd self = (GioApplicationCommandLineClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getCwd_ self
-    fun getEnviron self = (GioApplicationCommandLineClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getEnviron_ self
+    fun getCwd self = (GioApplicationCommandLineClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getCwd_ self before GioApplicationCommandLineClass.FFI.touchPtr self
+    fun getEnviron self = (GioApplicationCommandLineClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getEnviron_ self before GioApplicationCommandLineClass.FFI.touchPtr self
     fun getExitStatus self = (GioApplicationCommandLineClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getExitStatus_ self
     fun getIsRemote self = (GioApplicationCommandLineClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsRemote_ self
-    fun getOptionsDict self = (GioApplicationCommandLineClass.FFI.withPtr false ---> GLibVariantDictRecord.FFI.fromPtr false) getOptionsDict_ self
+    fun getOptionsDict self = (GioApplicationCommandLineClass.FFI.withPtr false ---> GLibVariantDictRecord.FFI.fromPtr false) getOptionsDict_ self before GioApplicationCommandLineClass.FFI.touchPtr self
     fun getPlatformData self = (GioApplicationCommandLineClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromOptPtr true) getPlatformData_ self
     fun getStdin self = (GioApplicationCommandLineClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromPtr true) getStdin_ self
-    fun getenv self name = (GioApplicationCommandLineClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getenv_ (self & name)
+    fun getenv self name = (GioApplicationCommandLineClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getenv_ (self & name) before GioApplicationCommandLineClass.FFI.touchPtr self before Utf8.FFI.touchPtr name
     fun setExitStatus self exitStatus = (GioApplicationCommandLineClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setExitStatus_ (self & exitStatus)
     local
       open ValueAccessor

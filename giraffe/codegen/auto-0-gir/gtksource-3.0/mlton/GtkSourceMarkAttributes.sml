@@ -73,10 +73,10 @@ structure GtkSourceMarkAttributes :>
       in
         if retVal then SOME background else NONE
       end
-    fun getGicon self = (GtkSourceMarkAttributesClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getGicon_ self
-    fun getIconName self = (GtkSourceMarkAttributesClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIconName_ self
-    fun getPixbuf self = (GtkSourceMarkAttributesClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
-    fun getStockId self = (GtkSourceMarkAttributesClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getStockId_ self
+    fun getGicon self = (GtkSourceMarkAttributesClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getGicon_ self before GtkSourceMarkAttributesClass.FFI.touchPtr self
+    fun getIconName self = (GtkSourceMarkAttributesClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIconName_ self before GtkSourceMarkAttributesClass.FFI.touchPtr self
+    fun getPixbuf self = (GtkSourceMarkAttributesClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self before GtkSourceMarkAttributesClass.FFI.touchPtr self
+    fun getStockId self = (GtkSourceMarkAttributesClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getStockId_ self before GtkSourceMarkAttributesClass.FFI.touchPtr self
     fun getTooltipMarkup self mark = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> GtkSourceMarkClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getTooltipMarkup_ (self & mark)
     fun getTooltipText self mark = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> GtkSourceMarkClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getTooltipText_ (self & mark)
     fun renderIcon self (widget, size) =
@@ -92,6 +92,8 @@ structure GtkSourceMarkAttributes :>
            & widget
            & size
         )
+       before GtkSourceMarkAttributesClass.FFI.touchPtr self
+       before GtkWidgetClass.FFI.touchPtr widget
     fun setBackground self background = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> GdkRgbaRecord.FFI.withPtr false ---> I) setBackground_ (self & background)
     fun setGicon self gicon = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> GioIconClass.FFI.withPtr false ---> I) setGicon_ (self & gicon)
     fun setIconName self iconName = (GtkSourceMarkAttributesClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setIconName_ (self & iconName)

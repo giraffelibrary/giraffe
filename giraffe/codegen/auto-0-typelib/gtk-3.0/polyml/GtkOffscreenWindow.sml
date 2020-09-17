@@ -19,5 +19,5 @@ structure GtkOffscreenWindow :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkOffscreenWindowClass.FFI.fromPtr false) new_ ()
     fun getPixbuf self = (GtkOffscreenWindowClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getPixbuf_ self
-    fun getSurface self = (GtkOffscreenWindowClass.FFI.withPtr false ---> CairoSurfaceRecord.FFI.fromOptPtr false) getSurface_ self
+    fun getSurface self = (GtkOffscreenWindowClass.FFI.withPtr false ---> CairoSurfaceRecord.FFI.fromOptPtr false) getSurface_ self before GtkOffscreenWindowClass.FFI.touchPtr self
   end

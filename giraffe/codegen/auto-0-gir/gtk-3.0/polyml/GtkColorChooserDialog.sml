@@ -20,7 +20,7 @@ structure GtkColorChooserDialog :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asColorChooser self = (GObjectObjectClass.FFI.withPtr false ---> GtkColorChooserClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (title, parent) = (Utf8.FFI.withOptPtr 0 &&&> GtkWindowClass.FFI.withOptPtr false ---> GtkColorChooserDialogClass.FFI.fromPtr false) new_ (title & parent)
+    fun new (title, parent) = (Utf8.FFI.withOptPtr 0 &&&> GtkWindowClass.FFI.withOptPtr false ---> GtkColorChooserDialogClass.FFI.fromPtr false) new_ (title & parent) before Utf8.FFI.touchOptPtr title before GtkWindowClass.FFI.touchOptPtr parent
     local
       open ValueAccessor
     in

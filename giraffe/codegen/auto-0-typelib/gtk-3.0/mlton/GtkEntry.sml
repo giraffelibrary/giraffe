@@ -350,14 +350,14 @@ structure GtkEntry :>
     fun asEditable self = (GObjectObjectClass.FFI.withPtr false ---> GtkEditableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkEntryClass.FFI.fromPtr false) new_ ()
-    fun newWithBuffer buffer = (GtkEntryBufferClass.FFI.withPtr false ---> GtkEntryClass.FFI.fromPtr false) newWithBuffer_ buffer
+    fun newWithBuffer buffer = (GtkEntryBufferClass.FFI.withPtr false ---> GtkEntryClass.FFI.fromPtr false) newWithBuffer_ buffer before GtkEntryBufferClass.FFI.touchPtr buffer
     fun getActivatesDefault self = (GtkEntryClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActivatesDefault_ self
     fun getAlignment self = (GtkEntryClass.FFI.withPtr false ---> GFloat.FFI.fromVal) getAlignment_ self
-    fun getAttributes self = (GtkEntryClass.FFI.withPtr false ---> PangoAttrListRecord.FFI.fromOptPtr false) getAttributes_ self
-    fun getBuffer self = (GtkEntryClass.FFI.withPtr false ---> GtkEntryBufferClass.FFI.fromPtr false) getBuffer_ self
-    fun getCompletion self = (GtkEntryClass.FFI.withPtr false ---> GtkEntryCompletionClass.FFI.fromPtr false) getCompletion_ self
+    fun getAttributes self = (GtkEntryClass.FFI.withPtr false ---> PangoAttrListRecord.FFI.fromOptPtr false) getAttributes_ self before GtkEntryClass.FFI.touchPtr self
+    fun getBuffer self = (GtkEntryClass.FFI.withPtr false ---> GtkEntryBufferClass.FFI.fromPtr false) getBuffer_ self before GtkEntryClass.FFI.touchPtr self
+    fun getCompletion self = (GtkEntryClass.FFI.withPtr false ---> GtkEntryCompletionClass.FFI.fromPtr false) getCompletion_ self before GtkEntryClass.FFI.touchPtr self
     fun getCurrentIconDragSource self = (GtkEntryClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getCurrentIconDragSource_ self
-    fun getCursorHadjustment self = (GtkEntryClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromOptPtr false) getCursorHadjustment_ self
+    fun getCursorHadjustment self = (GtkEntryClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromOptPtr false) getCursorHadjustment_ self before GtkEntryClass.FFI.touchPtr self
     fun getHasFrame self = (GtkEntryClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasFrame_ self
     fun getIconActivatable self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> GBool.FFI.fromVal) getIconActivatable_ (self & iconPos)
     fun getIconArea self iconPos =
@@ -391,19 +391,19 @@ structure GtkEntry :>
            & x
            & y
         )
-    fun getIconGicon self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> GioIconClass.FFI.fromOptPtr false) getIconGicon_ (self & iconPos)
-    fun getIconName self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getIconName_ (self & iconPos)
-    fun getIconPixbuf self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getIconPixbuf_ (self & iconPos)
+    fun getIconGicon self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> GioIconClass.FFI.fromOptPtr false) getIconGicon_ (self & iconPos) before GtkEntryClass.FFI.touchPtr self
+    fun getIconName self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getIconName_ (self & iconPos) before GtkEntryClass.FFI.touchPtr self
+    fun getIconPixbuf self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getIconPixbuf_ (self & iconPos) before GtkEntryClass.FFI.touchPtr self
     fun getIconSensitive self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> GBool.FFI.fromVal) getIconSensitive_ (self & iconPos)
-    fun getIconStock self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> Utf8.FFI.fromPtr 0) getIconStock_ (self & iconPos)
+    fun getIconStock self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> Utf8.FFI.fromPtr 0) getIconStock_ (self & iconPos) before GtkEntryClass.FFI.touchPtr self
     fun getIconStorageType self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> GtkImageType.FFI.fromVal) getIconStorageType_ (self & iconPos)
     fun getIconTooltipMarkup self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> Utf8.FFI.fromOptPtr ~1) getIconTooltipMarkup_ (self & iconPos)
     fun getIconTooltipText self iconPos = (GtkEntryClass.FFI.withPtr false &&&> GtkEntryIconPosition.FFI.withVal ---> Utf8.FFI.fromOptPtr ~1) getIconTooltipText_ (self & iconPos)
-    fun getInnerBorder self = (GtkEntryClass.FFI.withPtr false ---> GtkBorderRecord.FFI.fromOptPtr false) getInnerBorder_ self
+    fun getInnerBorder self = (GtkEntryClass.FFI.withPtr false ---> GtkBorderRecord.FFI.fromOptPtr false) getInnerBorder_ self before GtkEntryClass.FFI.touchPtr self
     fun getInputHints self = (GtkEntryClass.FFI.withPtr false ---> GtkInputHints.FFI.fromVal) getInputHints_ self
     fun getInputPurpose self = (GtkEntryClass.FFI.withPtr false ---> GtkInputPurpose.FFI.fromVal) getInputPurpose_ self
     fun getInvisibleChar self = (GtkEntryClass.FFI.withPtr false ---> GChar.FFI.fromVal) getInvisibleChar_ self
-    fun getLayout self = (GtkEntryClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self
+    fun getLayout self = (GtkEntryClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self before GtkEntryClass.FFI.touchPtr self
     fun getLayoutOffsets self =
       let
         val x
@@ -429,11 +429,11 @@ structure GtkEntry :>
     fun getMaxLength self = (GtkEntryClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getMaxLength_ self
     fun getMaxWidthChars self = (GtkEntryClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getMaxWidthChars_ self
     fun getOverwriteMode self = (GtkEntryClass.FFI.withPtr false ---> GBool.FFI.fromVal) getOverwriteMode_ self
-    fun getPlaceholderText self = (GtkEntryClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPlaceholderText_ self
+    fun getPlaceholderText self = (GtkEntryClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPlaceholderText_ self before GtkEntryClass.FFI.touchPtr self
     fun getProgressFraction self = (GtkEntryClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getProgressFraction_ self
     fun getProgressPulseStep self = (GtkEntryClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getProgressPulseStep_ self
-    fun getTabs self = (GtkEntryClass.FFI.withPtr false ---> PangoTabArrayRecord.FFI.fromOptPtr false) getTabs_ self
-    fun getText self = (GtkEntryClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getText_ self
+    fun getTabs self = (GtkEntryClass.FFI.withPtr false ---> PangoTabArrayRecord.FFI.fromOptPtr false) getTabs_ self before GtkEntryClass.FFI.touchPtr self
+    fun getText self = (GtkEntryClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getText_ self before GtkEntryClass.FFI.touchPtr self
     fun getTextArea self =
       let
         val textArea & () = (GtkEntryClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getTextArea_ (self & ())

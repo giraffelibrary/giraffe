@@ -32,10 +32,10 @@ structure GtkFileChooserButton :>
     fun asFileChooser self = (GObjectObjectClass.FFI.withPtr false ---> GtkFileChooserClass.FFI.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (title, action) = (Utf8.FFI.withPtr 0 &&&> GtkFileChooserAction.FFI.withVal ---> GtkFileChooserButtonClass.FFI.fromPtr false) new_ (title & action)
-    fun newWithDialog dialog = (GtkDialogClass.FFI.withPtr false ---> GtkFileChooserButtonClass.FFI.fromPtr false) newWithDialog_ dialog
+    fun new (title, action) = (Utf8.FFI.withPtr 0 &&&> GtkFileChooserAction.FFI.withVal ---> GtkFileChooserButtonClass.FFI.fromPtr false) new_ (title & action) before Utf8.FFI.touchPtr title
+    fun newWithDialog dialog = (GtkDialogClass.FFI.withPtr false ---> GtkFileChooserButtonClass.FFI.fromPtr false) newWithDialog_ dialog before GtkDialogClass.FFI.touchPtr dialog
     fun getFocusOnClick self = (GtkFileChooserButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFocusOnClick_ self
-    fun getTitle self = (GtkFileChooserButtonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTitle_ self
+    fun getTitle self = (GtkFileChooserButtonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTitle_ self before GtkFileChooserButtonClass.FFI.touchPtr self
     fun getWidthChars self = (GtkFileChooserButtonClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getWidthChars_ self
     fun setFocusOnClick self focusOnClick = (GtkFileChooserButtonClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setFocusOnClick_ (self & focusOnClick)
     fun setTitle self title = (GtkFileChooserButtonClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setTitle_ (self & title)

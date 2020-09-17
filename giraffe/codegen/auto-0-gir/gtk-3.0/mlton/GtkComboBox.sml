@@ -94,13 +94,13 @@ structure GtkComboBox :>
     fun asCellLayout self = (GObjectObjectClass.FFI.withPtr false ---> GtkCellLayoutClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkComboBoxClass.FFI.fromPtr false) new_ ()
-    fun newWithArea area = (GtkCellAreaClass.FFI.withPtr false ---> GtkComboBoxClass.FFI.fromPtr false) newWithArea_ area
-    fun newWithAreaAndEntry area = (GtkCellAreaClass.FFI.withPtr false ---> GtkComboBoxClass.FFI.fromPtr false) newWithAreaAndEntry_ area
+    fun newWithArea area = (GtkCellAreaClass.FFI.withPtr false ---> GtkComboBoxClass.FFI.fromPtr false) newWithArea_ area before GtkCellAreaClass.FFI.touchPtr area
+    fun newWithAreaAndEntry area = (GtkCellAreaClass.FFI.withPtr false ---> GtkComboBoxClass.FFI.fromPtr false) newWithAreaAndEntry_ area before GtkCellAreaClass.FFI.touchPtr area
     fun newWithEntry () = (I ---> GtkComboBoxClass.FFI.fromPtr false) newWithEntry_ ()
-    fun newWithModel model = (GtkTreeModelClass.FFI.withPtr false ---> GtkComboBoxClass.FFI.fromPtr false) newWithModel_ model
-    fun newWithModelAndEntry model = (GtkTreeModelClass.FFI.withPtr false ---> GtkComboBoxClass.FFI.fromPtr false) newWithModelAndEntry_ model
+    fun newWithModel model = (GtkTreeModelClass.FFI.withPtr false ---> GtkComboBoxClass.FFI.fromPtr false) newWithModel_ model before GtkTreeModelClass.FFI.touchPtr model
+    fun newWithModelAndEntry model = (GtkTreeModelClass.FFI.withPtr false ---> GtkComboBoxClass.FFI.fromPtr false) newWithModelAndEntry_ model before GtkTreeModelClass.FFI.touchPtr model
     fun getActive self = (GtkComboBoxClass.FFI.withPtr false ---> GInt.FFI.fromVal) getActive_ self
-    fun getActiveId self = (GtkComboBoxClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getActiveId_ self
+    fun getActiveId self = (GtkComboBoxClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getActiveId_ self before GtkComboBoxClass.FFI.touchPtr self
     fun getActiveIter self =
       let
         val iter & retVal = (GtkComboBoxClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withNewPtr ---> GtkTreeIterRecord.FFI.fromPtr true && GBool.FFI.fromVal) getActiveIter_ (self & ())
@@ -114,11 +114,11 @@ structure GtkComboBox :>
     fun getFocusOnClick self = (GtkComboBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFocusOnClick_ self
     fun getHasEntry self = (GtkComboBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasEntry_ self
     fun getIdColumn self = (GtkComboBoxClass.FFI.withPtr false ---> GInt.FFI.fromVal) getIdColumn_ self
-    fun getModel self = (GtkComboBoxClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
-    fun getPopupAccessible self = (GtkComboBoxClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr false) getPopupAccessible_ self
+    fun getModel self = (GtkComboBoxClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self before GtkComboBoxClass.FFI.touchPtr self
+    fun getPopupAccessible self = (GtkComboBoxClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr false) getPopupAccessible_ self before GtkComboBoxClass.FFI.touchPtr self
     fun getPopupFixedWidth self = (GtkComboBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPopupFixedWidth_ self
     fun getRowSpanColumn self = (GtkComboBoxClass.FFI.withPtr false ---> GInt.FFI.fromVal) getRowSpanColumn_ self
-    fun getTitle self = (GtkComboBoxClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTitle_ self
+    fun getTitle self = (GtkComboBoxClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTitle_ self before GtkComboBoxClass.FFI.touchPtr self
     fun getWrapWidth self = (GtkComboBoxClass.FFI.withPtr false ---> GInt.FFI.fromVal) getWrapWidth_ self
     fun popdown self = (GtkComboBoxClass.FFI.withPtr false ---> I) popdown_ self
     fun popup self = (GtkComboBoxClass.FFI.withPtr false ---> I) popup_ self

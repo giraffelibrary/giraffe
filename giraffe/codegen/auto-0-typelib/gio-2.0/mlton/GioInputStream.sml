@@ -261,7 +261,7 @@ structure GioInputStream :>
                & []
             )
       in
-        (retVal, buffer (LargeInt.toInt count))
+        (retVal, buffer (LargeInt.toInt count)) before GioInputStreamClass.FFI.touchPtr self before GioCancellableClass.FFI.touchOptPtr cancellable
       end
     fun readAll self (count, cancellable) =
       let
@@ -289,7 +289,7 @@ structure GioInputStream :>
                & []
             )
       in
-        (buffer (LargeInt.toInt count), bytesRead)
+        (buffer (LargeInt.toInt count), bytesRead) before GioInputStreamClass.FFI.touchPtr self before GioCancellableClass.FFI.touchOptPtr cancellable
       end
     fun readAllFinish self result =
       let

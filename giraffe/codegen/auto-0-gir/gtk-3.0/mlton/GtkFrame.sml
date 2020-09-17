@@ -69,8 +69,8 @@ structure GtkFrame :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new label = (Utf8.FFI.withOptPtr 0 ---> GtkFrameClass.FFI.fromPtr false) new_ label
-    fun getLabel self = (GtkFrameClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getLabel_ self
+    fun new label = (Utf8.FFI.withOptPtr 0 ---> GtkFrameClass.FFI.fromPtr false) new_ label before Utf8.FFI.touchOptPtr label
+    fun getLabel self = (GtkFrameClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getLabel_ self before GtkFrameClass.FFI.touchPtr self
     fun getLabelAlign self =
       let
         val xalign
@@ -93,7 +93,7 @@ structure GtkFrame :>
       in
         (xalign, yalign)
       end
-    fun getLabelWidget self = (GtkFrameClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getLabelWidget_ self
+    fun getLabelWidget self = (GtkFrameClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getLabelWidget_ self before GtkFrameClass.FFI.touchPtr self
     fun getShadowType self = (GtkFrameClass.FFI.withPtr false ---> GtkShadowType.FFI.fromVal) getShadowType_ self
     fun setLabel self label = (GtkFrameClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setLabel_ (self & label)
     fun setLabelAlign self (xalign, yalign) =

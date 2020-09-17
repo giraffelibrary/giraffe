@@ -28,7 +28,7 @@ structure GLibMainContext :>
     fun new () = (I ---> GLibMainContextRecord.FFI.fromPtr true) new_ ()
     fun acquire self = (GLibMainContextRecord.FFI.withPtr false ---> GBool.FFI.fromVal) acquire_ self
     fun dispatch self = (GLibMainContextRecord.FFI.withPtr false ---> I) dispatch_ self
-    fun findSourceById self sourceId = (GLibMainContextRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr false) findSourceById_ (self & sourceId)
+    fun findSourceById self sourceId = (GLibMainContextRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr false) findSourceById_ (self & sourceId) before GLibMainContextRecord.FFI.touchPtr self
     fun isOwner self = (GLibMainContextRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isOwner_ self
     fun iteration self mayBlock = (GLibMainContextRecord.FFI.withPtr false &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) iteration_ (self & mayBlock)
     fun pending self = (GLibMainContextRecord.FFI.withPtr false ---> GBool.FFI.fromVal) pending_ self

@@ -64,13 +64,13 @@ structure GioProxyAddress :>
            & username
            & password
         )
-    fun getDestinationHostname self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDestinationHostname_ self
+    fun getDestinationHostname self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDestinationHostname_ self before GioProxyAddressClass.FFI.touchPtr self
     fun getDestinationPort self = (GioProxyAddressClass.FFI.withPtr false ---> GUInt16.FFI.fromVal) getDestinationPort_ self
-    fun getDestinationProtocol self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDestinationProtocol_ self
-    fun getPassword self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPassword_ self
-    fun getProtocol self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getProtocol_ self
-    fun getUri self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUri_ self
-    fun getUsername self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUsername_ self
+    fun getDestinationProtocol self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDestinationProtocol_ self before GioProxyAddressClass.FFI.touchPtr self
+    fun getPassword self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPassword_ self before GioProxyAddressClass.FFI.touchPtr self
+    fun getProtocol self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getProtocol_ self before GioProxyAddressClass.FFI.touchPtr self
+    fun getUri self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUri_ self before GioProxyAddressClass.FFI.touchPtr self
+    fun getUsername self = (GioProxyAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUsername_ self before GioProxyAddressClass.FFI.touchPtr self
     local
       open ValueAccessor
     in

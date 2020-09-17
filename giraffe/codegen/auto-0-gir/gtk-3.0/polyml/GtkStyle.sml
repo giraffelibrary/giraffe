@@ -152,7 +152,7 @@ structure GtkStyle :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GtkStyleClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkIconSetRecord.FFI.fromPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GtkStyleClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkIconSetRecord.FFI.fromPtr false) lookupIconSet_ (self & stockId) before GtkStyleClass.FFI.touchPtr self before Utf8.FFI.touchPtr stockId
     fun renderIcon
       self
       (

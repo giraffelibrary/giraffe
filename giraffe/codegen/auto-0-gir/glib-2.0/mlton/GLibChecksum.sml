@@ -33,7 +33,7 @@ structure GLibChecksum :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new checksumType = (GLibChecksumType.FFI.withVal ---> GLibChecksumRecord.FFI.fromPtr true) new_ checksumType
     fun copy self = (GLibChecksumRecord.FFI.withPtr false ---> GLibChecksumRecord.FFI.fromPtr true) copy_ self
-    fun getString self = (GLibChecksumRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getString_ self
+    fun getString self = (GLibChecksumRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getString_ self before GLibChecksumRecord.FFI.touchPtr self
     fun reset self = (GLibChecksumRecord.FFI.withPtr false ---> I) reset_ self
     fun update self data =
       let

@@ -26,8 +26,8 @@ structure GtkSourceFile :>
     fun new () = (I ---> GtkSourceFileClass.FFI.fromPtr true) new_ ()
     fun checkFileOnDisk self = (GtkSourceFileClass.FFI.withPtr false ---> I) checkFileOnDisk_ self
     fun getCompressionType self = (GtkSourceFileClass.FFI.withPtr false ---> GtkSourceCompressionType.FFI.fromVal) getCompressionType_ self
-    fun getEncoding self = (GtkSourceFileClass.FFI.withPtr false ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self
-    fun getLocation self = (GtkSourceFileClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getLocation_ self
+    fun getEncoding self = (GtkSourceFileClass.FFI.withPtr false ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self before GtkSourceFileClass.FFI.touchPtr self
+    fun getLocation self = (GtkSourceFileClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getLocation_ self before GtkSourceFileClass.FFI.touchPtr self
     fun getNewlineType self = (GtkSourceFileClass.FFI.withPtr false ---> GtkSourceNewlineType.FFI.fromVal) getNewlineType_ self
     fun isDeleted self = (GtkSourceFileClass.FFI.withPtr false ---> GBool.FFI.fromVal) isDeleted_ self
     fun isExternallyModified self = (GtkSourceFileClass.FFI.withPtr false ---> GBool.FFI.fromVal) isExternallyModified_ self

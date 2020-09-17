@@ -47,7 +47,7 @@ structure GioInetAddressMask :>
         )
     fun newFromString maskString = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GioInetAddressMaskClass.FFI.fromPtr true) newFromString_ (maskString & [])
     fun equal self mask2 = (GioInetAddressMaskClass.FFI.withPtr false &&&> GioInetAddressMaskClass.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & mask2)
-    fun getAddress self = (GioInetAddressMaskClass.FFI.withPtr false ---> GioInetAddressClass.FFI.fromPtr false) getAddress_ self
+    fun getAddress self = (GioInetAddressMaskClass.FFI.withPtr false ---> GioInetAddressClass.FFI.fromPtr false) getAddress_ self before GioInetAddressMaskClass.FFI.touchPtr self
     fun getFamily self = (GioInetAddressMaskClass.FFI.withPtr false ---> GioSocketFamily.FFI.fromVal) getFamily_ self
     fun getLength self = (GioInetAddressMaskClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getLength_ self
     fun matches self address = (GioInetAddressMaskClass.FFI.withPtr false &&&> GioInetAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) matches_ (self & address)

@@ -22,9 +22,9 @@ structure GtkSourceCompletionProposal :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun changed self = (GtkSourceCompletionProposalClass.FFI.withPtr false ---> I) changed_ self
     fun equal self other = (GtkSourceCompletionProposalClass.FFI.withPtr false &&&> GtkSourceCompletionProposalClass.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & other)
-    fun getGicon self = (GtkSourceCompletionProposalClass.FFI.withPtr false ---> GioIconClass.FFI.fromOptPtr false) getGicon_ self
-    fun getIcon self = (GtkSourceCompletionProposalClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getIcon_ self
-    fun getIconName self = (GtkSourceCompletionProposalClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
+    fun getGicon self = (GtkSourceCompletionProposalClass.FFI.withPtr false ---> GioIconClass.FFI.fromOptPtr false) getGicon_ self before GtkSourceCompletionProposalClass.FFI.touchPtr self
+    fun getIcon self = (GtkSourceCompletionProposalClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getIcon_ self before GtkSourceCompletionProposalClass.FFI.touchPtr self
+    fun getIconName self = (GtkSourceCompletionProposalClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getIconName_ self before GtkSourceCompletionProposalClass.FFI.touchPtr self
     fun getInfo self = (GtkSourceCompletionProposalClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getInfo_ self
     fun getLabel self = (GtkSourceCompletionProposalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getLabel_ self
     fun getMarkup self = (GtkSourceCompletionProposalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getMarkup_ self

@@ -67,7 +67,7 @@ structure GioThemedIcon :>
       end
     fun newWithDefaultFallbacks iconname = (Utf8.FFI.withPtr 0 ---> GioThemedIconClass.FFI.fromPtr true) newWithDefaultFallbacks_ iconname
     fun appendName self iconname = (GioThemedIconClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) appendName_ (self & iconname)
-    fun getNames self = (GioThemedIconClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getNames_ self
+    fun getNames self = (GioThemedIconClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getNames_ self before GioThemedIconClass.FFI.touchPtr self
     fun prependName self iconname = (GioThemedIconClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) prependName_ (self & iconname)
     local
       open ValueAccessor

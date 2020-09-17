@@ -62,9 +62,9 @@ structure GioNetworkAddress :>
            & defaultPort
            & []
         )
-    fun getHostname self = (GioNetworkAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getHostname_ self
+    fun getHostname self = (GioNetworkAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getHostname_ self before GioNetworkAddressClass.FFI.touchPtr self
     fun getPort self = (GioNetworkAddressClass.FFI.withPtr false ---> GUInt16.FFI.fromVal) getPort_ self
-    fun getScheme self = (GioNetworkAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getScheme_ self
+    fun getScheme self = (GioNetworkAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getScheme_ self before GioNetworkAddressClass.FFI.touchPtr self
     local
       open ValueAccessor
     in

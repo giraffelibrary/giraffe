@@ -35,7 +35,7 @@ structure GtkSourceSearchSettings :>
     fun getAtWordBoundaries self = (GtkSourceSearchSettingsClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAtWordBoundaries_ self
     fun getCaseSensitive self = (GtkSourceSearchSettingsClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCaseSensitive_ self
     fun getRegexEnabled self = (GtkSourceSearchSettingsClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRegexEnabled_ self
-    fun getSearchText self = (GtkSourceSearchSettingsClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getSearchText_ self
+    fun getSearchText self = (GtkSourceSearchSettingsClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getSearchText_ self before GtkSourceSearchSettingsClass.FFI.touchPtr self
     fun getWrapAround self = (GtkSourceSearchSettingsClass.FFI.withPtr false ---> GBool.FFI.fromVal) getWrapAround_ self
     fun setAtWordBoundaries self atWordBoundaries = (GtkSourceSearchSettingsClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAtWordBoundaries_ (self & atWordBoundaries)
     fun setCaseSensitive self caseSensitive = (GtkSourceSearchSettingsClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCaseSensitive_ (self & caseSensitive)

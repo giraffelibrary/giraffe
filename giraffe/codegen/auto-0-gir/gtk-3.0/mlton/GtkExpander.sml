@@ -44,12 +44,12 @@ structure GtkExpander :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new label = (Utf8.FFI.withPtr 0 ---> GtkExpanderClass.FFI.fromPtr false) new_ label
-    fun newWithMnemonic label = (Utf8.FFI.withOptPtr 0 ---> GtkExpanderClass.FFI.fromPtr false) newWithMnemonic_ label
+    fun new label = (Utf8.FFI.withPtr 0 ---> GtkExpanderClass.FFI.fromPtr false) new_ label before Utf8.FFI.touchPtr label
+    fun newWithMnemonic label = (Utf8.FFI.withOptPtr 0 ---> GtkExpanderClass.FFI.fromPtr false) newWithMnemonic_ label before Utf8.FFI.touchOptPtr label
     fun getExpanded self = (GtkExpanderClass.FFI.withPtr false ---> GBool.FFI.fromVal) getExpanded_ self
-    fun getLabel self = (GtkExpanderClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLabel_ self
+    fun getLabel self = (GtkExpanderClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLabel_ self before GtkExpanderClass.FFI.touchPtr self
     fun getLabelFill self = (GtkExpanderClass.FFI.withPtr false ---> GBool.FFI.fromVal) getLabelFill_ self
-    fun getLabelWidget self = (GtkExpanderClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getLabelWidget_ self
+    fun getLabelWidget self = (GtkExpanderClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getLabelWidget_ self before GtkExpanderClass.FFI.touchPtr self
     fun getResizeToplevel self = (GtkExpanderClass.FFI.withPtr false ---> GBool.FFI.fromVal) getResizeToplevel_ self
     fun getSpacing self = (GtkExpanderClass.FFI.withPtr false ---> GInt.FFI.fromVal) getSpacing_ self
     fun getUseMarkup self = (GtkExpanderClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseMarkup_ self

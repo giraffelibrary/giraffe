@@ -70,7 +70,7 @@ structure GioUnixFDList :>
       let
         val length & retVal = (GioUnixFDListClass.FFI.withPtr false &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCArrayN.FFI.fromPtr 0) peekFds_ (self & GInt.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal (LargeInt.toInt length) before GioUnixFDListClass.FFI.touchPtr self
       end
     fun stealFds self =
       let

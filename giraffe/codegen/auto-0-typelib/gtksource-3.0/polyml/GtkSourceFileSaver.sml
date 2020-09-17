@@ -69,12 +69,12 @@ structure GtkSourceFileSaver :>
            & file
            & targetLocation
         )
-    fun getBuffer self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getBuffer self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self before GtkSourceFileSaverClass.FFI.touchPtr self
     fun getCompressionType self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceCompressionType.FFI.fromVal) getCompressionType_ self
-    fun getEncoding self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self
-    fun getFile self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceFileClass.FFI.fromPtr false) getFile_ self
+    fun getEncoding self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self before GtkSourceFileSaverClass.FFI.touchPtr self
+    fun getFile self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceFileClass.FFI.fromPtr false) getFile_ self before GtkSourceFileSaverClass.FFI.touchPtr self
     fun getFlags self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceFileSaverFlags.FFI.fromVal) getFlags_ self
-    fun getLocation self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getLocation_ self
+    fun getLocation self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getLocation_ self before GtkSourceFileSaverClass.FFI.touchPtr self
     fun getNewlineType self = (GtkSourceFileSaverClass.FFI.withPtr false ---> GtkSourceNewlineType.FFI.fromVal) getNewlineType_ self
     fun saveFinish self result =
       (

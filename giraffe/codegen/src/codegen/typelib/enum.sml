@@ -405,7 +405,11 @@ in
            * info_excl_hier list =
         ([], ([], ListDict.empty), excls'0)
       val acc'1 =
-        addFlagsEnumMethodStrDecsHighLevel repo vers enumIRef (enumInfo, acc'0)
+        addFlagsEnumMethodStrDecsHighLevel
+          repo
+          vers
+          (enumInfo, enumIRef)
+          (enumInfo, acc'0)
       val acc'2 = addOptGetTypeFunctionStrDecHighLevel optGetTypeSymbol typeIRef acc'1
       val (strDecs'2, (iRefs'2, structDeps'2), excls'2) = acc'2
 

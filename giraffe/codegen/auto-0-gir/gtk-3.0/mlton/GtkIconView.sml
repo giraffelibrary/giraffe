@@ -415,8 +415,8 @@ structure GtkIconView :>
     fun asScrollable self = (GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkIconViewClass.FFI.fromPtr false) new_ ()
-    fun newWithArea area = (GtkCellAreaClass.FFI.withPtr false ---> GtkIconViewClass.FFI.fromPtr false) newWithArea_ area
-    fun newWithModel model = (GtkTreeModelClass.FFI.withPtr false ---> GtkIconViewClass.FFI.fromPtr false) newWithModel_ model
+    fun newWithArea area = (GtkCellAreaClass.FFI.withPtr false ---> GtkIconViewClass.FFI.fromPtr false) newWithArea_ area before GtkCellAreaClass.FFI.touchPtr area
+    fun newWithModel model = (GtkTreeModelClass.FFI.withPtr false ---> GtkIconViewClass.FFI.fromPtr false) newWithModel_ model before GtkTreeModelClass.FFI.touchPtr model
     fun convertWidgetToBinWindowCoords self (wx, wy) =
       let
         val bx
@@ -537,7 +537,7 @@ structure GtkIconView :>
                & NONE
             )
       in
-        if retVal then SOME (path, cell) else NONE
+        (if retVal then SOME (path, cell) else NONE) before GtkIconViewClass.FFI.touchPtr self
       end
     fun getDestItemAtPos self (dragX, dragY) =
       let
@@ -620,7 +620,7 @@ structure GtkIconView :>
     fun getItemWidth self = (GtkIconViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getItemWidth_ self
     fun getMargin self = (GtkIconViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMargin_ self
     fun getMarkupColumn self = (GtkIconViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarkupColumn_ self
-    fun getModel self = (GtkIconViewClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self
+    fun getModel self = (GtkIconViewClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self before GtkIconViewClass.FFI.touchPtr self
     fun getPathAtPos self (x, y) =
       (
         GtkIconViewClass.FFI.withPtr false
@@ -694,6 +694,7 @@ structure GtkIconView :>
           x,
           y
         )
+         before GtkIconViewClass.FFI.touchPtr self
       end
     fun getVisibleRange self =
       let

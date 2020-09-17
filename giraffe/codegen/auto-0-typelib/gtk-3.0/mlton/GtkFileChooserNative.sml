@@ -98,8 +98,8 @@ structure GtkFileChooserNative :>
            & acceptLabel
            & cancelLabel
         )
-    fun getAcceptLabel self = (GtkFileChooserNativeClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getAcceptLabel_ self
-    fun getCancelLabel self = (GtkFileChooserNativeClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getCancelLabel_ self
+    fun getAcceptLabel self = (GtkFileChooserNativeClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getAcceptLabel_ self before GtkFileChooserNativeClass.FFI.touchPtr self
+    fun getCancelLabel self = (GtkFileChooserNativeClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getCancelLabel_ self before GtkFileChooserNativeClass.FFI.touchPtr self
     fun setAcceptLabel self acceptLabel = (GtkFileChooserNativeClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setAcceptLabel_ (self & acceptLabel)
     fun setCancelLabel self cancelLabel = (GtkFileChooserNativeClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setCancelLabel_ (self & cancelLabel)
     local

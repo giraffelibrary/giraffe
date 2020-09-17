@@ -55,9 +55,9 @@ structure GtkSourceMark :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (name, category) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GtkSourceMarkClass.FFI.fromPtr true) new_ (name & category)
-    fun getCategory self = (GtkSourceMarkClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCategory_ self
-    fun next self category = (GtkSourceMarkClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GtkSourceMarkClass.FFI.fromOptPtr false) next_ (self & category)
-    fun prev self category = (GtkSourceMarkClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkSourceMarkClass.FFI.fromOptPtr false) prev_ (self & category)
+    fun getCategory self = (GtkSourceMarkClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCategory_ self before GtkSourceMarkClass.FFI.touchPtr self
+    fun next self category = (GtkSourceMarkClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GtkSourceMarkClass.FFI.fromOptPtr false) next_ (self & category) before GtkSourceMarkClass.FFI.touchPtr self before Utf8.FFI.touchOptPtr category
+    fun prev self category = (GtkSourceMarkClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkSourceMarkClass.FFI.fromOptPtr false) prev_ (self & category) before GtkSourceMarkClass.FFI.touchPtr self before Utf8.FFI.touchPtr category
     local
       open ValueAccessor
     in

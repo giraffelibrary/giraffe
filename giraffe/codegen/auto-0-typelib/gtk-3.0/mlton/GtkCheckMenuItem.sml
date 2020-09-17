@@ -27,8 +27,8 @@ structure GtkCheckMenuItem :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCheckMenuItemClass.FFI.fromPtr false) new_ ()
-    fun newWithLabel label = (Utf8.FFI.withPtr 0 ---> GtkCheckMenuItemClass.FFI.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (Utf8.FFI.withPtr 0 ---> GtkCheckMenuItemClass.FFI.fromPtr false) newWithMnemonic_ label
+    fun newWithLabel label = (Utf8.FFI.withPtr 0 ---> GtkCheckMenuItemClass.FFI.fromPtr false) newWithLabel_ label before Utf8.FFI.touchPtr label
+    fun newWithMnemonic label = (Utf8.FFI.withPtr 0 ---> GtkCheckMenuItemClass.FFI.fromPtr false) newWithMnemonic_ label before Utf8.FFI.touchPtr label
     fun getActive self = (GtkCheckMenuItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActive_ self
     fun getDrawAsRadio self = (GtkCheckMenuItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDrawAsRadio_ self
     fun getInconsistent self = (GtkCheckMenuItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInconsistent_ self

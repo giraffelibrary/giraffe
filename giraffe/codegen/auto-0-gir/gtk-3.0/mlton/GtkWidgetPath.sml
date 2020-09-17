@@ -367,11 +367,11 @@ structure GtkWidgetPath :>
         )
     fun iterClearClasses self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) iterClearClasses_ (self & pos)
     fun iterClearRegions self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) iterClearRegions_ (self & pos)
-    fun iterGetName self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) iterGetName_ (self & pos)
-    fun iterGetObjectName self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) iterGetObjectName_ (self & pos)
+    fun iterGetName self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) iterGetName_ (self & pos) before GtkWidgetPathRecord.FFI.touchPtr self
+    fun iterGetObjectName self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) iterGetObjectName_ (self & pos) before GtkWidgetPathRecord.FFI.touchPtr self
     fun iterGetObjectType self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GObjectType.FFI.fromVal) iterGetObjectType_ (self & pos)
     fun iterGetSiblingIndex self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GUInt.FFI.fromVal) iterGetSiblingIndex_ (self & pos)
-    fun iterGetSiblings self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkWidgetPathRecord.FFI.fromPtr false) iterGetSiblings_ (self & pos)
+    fun iterGetSiblings self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkWidgetPathRecord.FFI.fromPtr false) iterGetSiblings_ (self & pos) before GtkWidgetPathRecord.FFI.touchPtr self
     fun iterGetState self pos = (GtkWidgetPathRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkStateFlags.FFI.fromVal) iterGetState_ (self & pos)
     fun iterHasClass self (pos, name) =
       (

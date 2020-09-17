@@ -25,5 +25,5 @@ structure GtkRecentChooserWidget :>
     fun asRecentChooser self = (GObjectObjectClass.FFI.withPtr false ---> GtkRecentChooserClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkRecentChooserWidgetClass.FFI.fromPtr false) new_ ()
-    fun newForManager manager = (GtkRecentManagerClass.FFI.withPtr false ---> GtkRecentChooserWidgetClass.FFI.fromPtr false) newForManager_ manager
+    fun newForManager manager = (GtkRecentManagerClass.FFI.withPtr false ---> GtkRecentChooserWidgetClass.FFI.fromPtr false) newForManager_ manager before GtkRecentManagerClass.FFI.touchPtr manager
   end

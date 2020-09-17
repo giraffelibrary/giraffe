@@ -76,7 +76,7 @@ structure GioVfs :>
     fun getLocal () = (I ---> GioVfsClass.FFI.fromPtr false) getLocal_ ()
     fun getFileForPath self path = (GioVfsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioFileClass.FFI.fromPtr true) getFileForPath_ (self & path)
     fun getFileForUri self uri = (GioVfsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioFileClass.FFI.fromPtr true) getFileForUri_ (self & uri)
-    fun getSupportedUriSchemes self = (GioVfsClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getSupportedUriSchemes_ self
+    fun getSupportedUriSchemes self = (GioVfsClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getSupportedUriSchemes_ self before GioVfsClass.FFI.touchPtr self
     fun isActive self = (GioVfsClass.FFI.withPtr false ---> GBool.FFI.fromVal) isActive_ self
     fun parseName self parseName = (GioVfsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioFileClass.FFI.fromPtr true) parseName_ (self & parseName)
     fun unregisterUriScheme self scheme = (GioVfsClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) unregisterUriScheme_ (self & scheme)

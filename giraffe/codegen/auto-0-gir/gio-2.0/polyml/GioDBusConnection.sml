@@ -527,11 +527,11 @@ structure GioDBusConnection :>
         )
     fun getCapabilities self = (GioDBusConnectionClass.FFI.withPtr false ---> GioDBusCapabilityFlags.FFI.fromVal) getCapabilities_ self
     fun getExitOnClose self = (GioDBusConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getExitOnClose_ self
-    fun getGuid self = (GioDBusConnectionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getGuid_ self
+    fun getGuid self = (GioDBusConnectionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getGuid_ self before GioDBusConnectionClass.FFI.touchPtr self
     fun getLastSerial self = (GioDBusConnectionClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getLastSerial_ self
-    fun getPeerCredentials self = (GioDBusConnectionClass.FFI.withPtr false ---> GioCredentialsClass.FFI.fromOptPtr false) getPeerCredentials_ self
-    fun getStream self = (GioDBusConnectionClass.FFI.withPtr false ---> GioIOStreamClass.FFI.fromPtr false) getStream_ self
-    fun getUniqueName self = (GioDBusConnectionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUniqueName_ self
+    fun getPeerCredentials self = (GioDBusConnectionClass.FFI.withPtr false ---> GioCredentialsClass.FFI.fromOptPtr false) getPeerCredentials_ self before GioDBusConnectionClass.FFI.touchPtr self
+    fun getStream self = (GioDBusConnectionClass.FFI.withPtr false ---> GioIOStreamClass.FFI.fromPtr false) getStream_ self before GioDBusConnectionClass.FFI.touchPtr self
+    fun getUniqueName self = (GioDBusConnectionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUniqueName_ self before GioDBusConnectionClass.FFI.touchPtr self
     fun isClosed self = (GioDBusConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self
     fun registerObject
       self

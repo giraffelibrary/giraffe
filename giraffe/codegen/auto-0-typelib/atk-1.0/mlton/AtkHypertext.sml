@@ -11,7 +11,7 @@ structure AtkHypertext :>
     type 'a hyperlink_class = 'a AtkHyperlinkClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getLink self linkIndex = (AtkHypertextClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkHyperlinkClass.FFI.fromPtr false) getLink_ (self & linkIndex)
+    fun getLink self linkIndex = (AtkHypertextClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkHyperlinkClass.FFI.fromPtr false) getLink_ (self & linkIndex) before AtkHypertextClass.FFI.touchPtr self
     fun getLinkIndex self charIndex = (AtkHypertextClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) getLinkIndex_ (self & charIndex)
     fun getNLinks self = (AtkHypertextClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNLinks_ self
     local

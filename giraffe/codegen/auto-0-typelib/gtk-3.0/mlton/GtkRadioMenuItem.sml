@@ -48,9 +48,9 @@ structure GtkRadioMenuItem :>
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newFromWidget group = (GtkRadioMenuItemClass.FFI.withOptPtr false ---> GtkRadioMenuItemClass.FFI.fromPtr false) newFromWidget_ group
-    fun newWithLabelFromWidget (group, label) = (GtkRadioMenuItemClass.FFI.withOptPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GtkRadioMenuItemClass.FFI.fromPtr false) newWithLabelFromWidget_ (group & label)
-    fun newWithMnemonicFromWidget (group, label) = (GtkRadioMenuItemClass.FFI.withOptPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GtkRadioMenuItemClass.FFI.fromPtr false) newWithMnemonicFromWidget_ (group & label)
+    fun newFromWidget group = (GtkRadioMenuItemClass.FFI.withOptPtr false ---> GtkRadioMenuItemClass.FFI.fromPtr false) newFromWidget_ group before GtkRadioMenuItemClass.FFI.touchOptPtr group
+    fun newWithLabelFromWidget (group, label) = (GtkRadioMenuItemClass.FFI.withOptPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GtkRadioMenuItemClass.FFI.fromPtr false) newWithLabelFromWidget_ (group & label) before GtkRadioMenuItemClass.FFI.touchOptPtr group before Utf8.FFI.touchOptPtr label
+    fun newWithMnemonicFromWidget (group, label) = (GtkRadioMenuItemClass.FFI.withOptPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GtkRadioMenuItemClass.FFI.fromPtr false) newWithMnemonicFromWidget_ (group & label) before GtkRadioMenuItemClass.FFI.touchOptPtr group before Utf8.FFI.touchOptPtr label
     fun joinGroup self groupSource = (GtkRadioMenuItemClass.FFI.withPtr false &&&> GtkRadioMenuItemClass.FFI.withOptPtr false ---> I) joinGroup_ (self & groupSource)
     local
       open ClosureMarshal Signal

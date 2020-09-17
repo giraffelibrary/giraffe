@@ -163,15 +163,15 @@ structure GioApplication :>
            & object
            & property
         )
-    fun getApplicationId self = (GioApplicationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getApplicationId_ self
-    fun getDbusConnection self = (GioApplicationClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getDbusConnection_ self
-    fun getDbusObjectPath self = (GioApplicationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDbusObjectPath_ self
+    fun getApplicationId self = (GioApplicationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getApplicationId_ self before GioApplicationClass.FFI.touchPtr self
+    fun getDbusConnection self = (GioApplicationClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getDbusConnection_ self before GioApplicationClass.FFI.touchPtr self
+    fun getDbusObjectPath self = (GioApplicationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDbusObjectPath_ self before GioApplicationClass.FFI.touchPtr self
     fun getFlags self = (GioApplicationClass.FFI.withPtr false ---> GioApplicationFlags.FFI.fromVal) getFlags_ self
     fun getInactivityTimeout self = (GioApplicationClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getInactivityTimeout_ self
     fun getIsBusy self = (GioApplicationClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsBusy_ self
     fun getIsRegistered self = (GioApplicationClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsRegistered_ self
     fun getIsRemote self = (GioApplicationClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsRemote_ self
-    fun getResourceBasePath self = (GioApplicationClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getResourceBasePath_ self
+    fun getResourceBasePath self = (GioApplicationClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getResourceBasePath_ self before GioApplicationClass.FFI.touchPtr self
     fun hold self = (GioApplicationClass.FFI.withPtr false ---> I) hold_ self
     fun markBusy self = (GioApplicationClass.FFI.withPtr false ---> I) markBusy_ self
     fun open' self (files, hint) =

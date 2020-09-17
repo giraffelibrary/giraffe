@@ -22,14 +22,14 @@ structure GtkSourceLanguage :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getGlobs self = (GtkSourceLanguageClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromOptPtr ~1) getGlobs_ self
     fun getHidden self = (GtkSourceLanguageClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHidden_ self
-    fun getId self = (GtkSourceLanguageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getId_ self
-    fun getMetadata self name = (GtkSourceLanguageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) getMetadata_ (self & name)
+    fun getId self = (GtkSourceLanguageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getId_ self before GtkSourceLanguageClass.FFI.touchPtr self
+    fun getMetadata self name = (GtkSourceLanguageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) getMetadata_ (self & name) before GtkSourceLanguageClass.FFI.touchPtr self before Utf8.FFI.touchPtr name
     fun getMimeTypes self = (GtkSourceLanguageClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromOptPtr ~1) getMimeTypes_ self
-    fun getName self = (GtkSourceLanguageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getSection self = (GtkSourceLanguageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSection_ self
-    fun getStyleFallback self styleId = (GtkSourceLanguageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) getStyleFallback_ (self & styleId)
+    fun getName self = (GtkSourceLanguageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GtkSourceLanguageClass.FFI.touchPtr self
+    fun getSection self = (GtkSourceLanguageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSection_ self before GtkSourceLanguageClass.FFI.touchPtr self
+    fun getStyleFallback self styleId = (GtkSourceLanguageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) getStyleFallback_ (self & styleId) before GtkSourceLanguageClass.FFI.touchPtr self before Utf8.FFI.touchPtr styleId
     fun getStyleIds self = (GtkSourceLanguageClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromOptPtr ~1) getStyleIds_ self
-    fun getStyleName self styleId = (GtkSourceLanguageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) getStyleName_ (self & styleId)
+    fun getStyleName self styleId = (GtkSourceLanguageClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) getStyleName_ (self & styleId) before GtkSourceLanguageClass.FFI.touchPtr self before Utf8.FFI.touchPtr styleId
     local
       open ValueAccessor
     in

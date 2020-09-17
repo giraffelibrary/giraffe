@@ -59,14 +59,14 @@ structure GtkCellView :>
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCellViewClass.FFI.fromPtr false) new_ ()
-    fun newWithContext (area, context) = (GtkCellAreaClass.FFI.withPtr false &&&> GtkCellAreaContextClass.FFI.withPtr false ---> GtkCellViewClass.FFI.fromPtr false) newWithContext_ (area & context)
-    fun newWithMarkup markup = (Utf8.FFI.withPtr 0 ---> GtkCellViewClass.FFI.fromPtr false) newWithMarkup_ markup
-    fun newWithPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr false ---> GtkCellViewClass.FFI.fromPtr false) newWithPixbuf_ pixbuf
-    fun newWithText text = (Utf8.FFI.withPtr 0 ---> GtkCellViewClass.FFI.fromPtr false) newWithText_ text
+    fun newWithContext (area, context) = (GtkCellAreaClass.FFI.withPtr false &&&> GtkCellAreaContextClass.FFI.withPtr false ---> GtkCellViewClass.FFI.fromPtr false) newWithContext_ (area & context) before GtkCellAreaClass.FFI.touchPtr area before GtkCellAreaContextClass.FFI.touchPtr context
+    fun newWithMarkup markup = (Utf8.FFI.withPtr 0 ---> GtkCellViewClass.FFI.fromPtr false) newWithMarkup_ markup before Utf8.FFI.touchPtr markup
+    fun newWithPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withPtr false ---> GtkCellViewClass.FFI.fromPtr false) newWithPixbuf_ pixbuf before GdkPixbufPixbufClass.FFI.touchPtr pixbuf
+    fun newWithText text = (Utf8.FFI.withPtr 0 ---> GtkCellViewClass.FFI.fromPtr false) newWithText_ text before Utf8.FFI.touchPtr text
     fun getDisplayedRow self = (GtkCellViewClass.FFI.withPtr false ---> GtkTreePathRecord.FFI.fromOptPtr true) getDisplayedRow_ self
     fun getDrawSensitive self = (GtkCellViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDrawSensitive_ self
     fun getFitModel self = (GtkCellViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFitModel_ self
-    fun getModel self = (GtkCellViewClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self
+    fun getModel self = (GtkCellViewClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self before GtkCellViewClass.FFI.touchPtr self
     fun getSizeOfRow self path =
       let
         val requisition & retVal =

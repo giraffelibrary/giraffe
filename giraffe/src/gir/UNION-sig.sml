@@ -42,5 +42,8 @@ signature UNION =
 
         val fromPtr : bool -> non_opt p -> base union
         val fromOptPtr : bool -> opt p -> base union option
+
+        val touchPtr    : 'a union        -> unit
+        val touchOptPtr : 'a union option -> unit
       end
   end

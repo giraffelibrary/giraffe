@@ -249,7 +249,7 @@ structure GtkTextView :>
     fun asScrollable self = (GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTextViewClass.FFI.fromPtr false) new_ ()
-    fun newWithBuffer buffer = (GtkTextBufferClass.FFI.withPtr false ---> GtkTextViewClass.FFI.fromPtr false) newWithBuffer_ buffer
+    fun newWithBuffer buffer = (GtkTextBufferClass.FFI.withPtr false ---> GtkTextViewClass.FFI.fromPtr false) newWithBuffer_ buffer before GtkTextBufferClass.FFI.touchPtr buffer
     fun addChildAtAnchor self (child, anchor) =
       (
         GtkTextViewClass.FFI.withPtr false
@@ -328,7 +328,7 @@ structure GtkTextView :>
     fun getAcceptsTab self = (GtkTextViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAcceptsTab_ self
     fun getBorderWindowSize self type' = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextWindowType.FFI.withVal ---> GInt.FFI.fromVal) getBorderWindowSize_ (self & type')
     fun getBottomMargin self = (GtkTextViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getBottomMargin_ self
-    fun getBuffer self = (GtkTextViewClass.FFI.withPtr false ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getBuffer self = (GtkTextViewClass.FFI.withPtr false ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self before GtkTextViewClass.FFI.touchPtr self
     fun getCursorLocations self iter =
       let
         val strong
@@ -356,7 +356,7 @@ structure GtkTextView :>
     fun getCursorVisible self = (GtkTextViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCursorVisible_ self
     fun getDefaultAttributes self = (GtkTextViewClass.FFI.withPtr false ---> GtkTextAttributesRecord.FFI.fromPtr true) getDefaultAttributes_ self
     fun getEditable self = (GtkTextViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEditable_ self
-    fun getHadjustment self = (GtkTextViewClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
+    fun getHadjustment self = (GtkTextViewClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self before GtkTextViewClass.FFI.touchPtr self
     fun getIndent self = (GtkTextViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getIndent_ self
     fun getInputHints self = (GtkTextViewClass.FFI.withPtr false ---> GtkInputHints.FFI.fromVal) getInputHints_ self
     fun getInputPurpose self = (GtkTextViewClass.FFI.withPtr false ---> GtkInputPurpose.FFI.fromVal) getInputPurpose_ self
@@ -482,14 +482,14 @@ structure GtkTextView :>
     fun getRightMargin self = (GtkTextViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getRightMargin_ self
     fun getTabs self = (GtkTextViewClass.FFI.withPtr false ---> PangoTabArrayRecord.FFI.fromOptPtr true) getTabs_ self
     fun getTopMargin self = (GtkTextViewClass.FFI.withPtr false ---> GInt.FFI.fromVal) getTopMargin_ self
-    fun getVadjustment self = (GtkTextViewClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
+    fun getVadjustment self = (GtkTextViewClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self before GtkTextViewClass.FFI.touchPtr self
     fun getVisibleRect self =
       let
         val visibleRect & () = (GtkTextViewClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getVisibleRect_ (self & ())
       in
         visibleRect
       end
-    fun getWindow self win = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextWindowType.FFI.withVal ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ (self & win)
+    fun getWindow self win = (GtkTextViewClass.FFI.withPtr false &&&> GtkTextWindowType.FFI.withVal ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ (self & win) before GtkTextViewClass.FFI.touchPtr self
     fun getWindowType self window = (GtkTextViewClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> GtkTextWindowType.FFI.fromVal) getWindowType_ (self & window)
     fun getWrapMode self = (GtkTextViewClass.FFI.withPtr false ---> GtkWrapMode.FFI.fromVal) getWrapMode_ self
     fun imContextFilterKeypress self event = (GtkTextViewClass.FFI.withPtr false &&&> GdkEventKeyRecord.FFI.withPtr false ---> GBool.FFI.fromVal) imContextFilterKeypress_ (self & event)

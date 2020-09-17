@@ -21,7 +21,7 @@ structure GtkSocket :>
     fun new () = (I ---> GtkSocketClass.FFI.fromPtr false) new_ ()
     fun addId self window = (GtkSocketClass.FFI.withPtr false &&&> XlibWindow.FFI.withVal ---> I) addId_ (self & window)
     fun getId self = (GtkSocketClass.FFI.withPtr false ---> XlibWindow.FFI.fromVal) getId_ self
-    fun getPlugWindow self = (GtkSocketClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getPlugWindow_ self
+    fun getPlugWindow self = (GtkSocketClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getPlugWindow_ self before GtkSocketClass.FFI.touchPtr self
     local
       open ClosureMarshal Signal
     in

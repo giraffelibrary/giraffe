@@ -48,6 +48,9 @@ functor VectorCArray(CArray : C_ARRAY where type 'a C.ArrayType.from_p = 'a) :>
         type 'a from_p = 'a CArray.FFI.from_p
         type 'a tabulator = 'a CArray.FFI.tabulator
 
+        val touchPtr = ignore
+        val touchOptPtr = ignore
+
         type 'a out_p = 'a CArray.FFI.out_p
         fun fromPtr d = CArray.FFI.copyPtr C.ArrayType.ElemSequence.tabulate d
         val copyPtr = CArray.FFI.copyPtr

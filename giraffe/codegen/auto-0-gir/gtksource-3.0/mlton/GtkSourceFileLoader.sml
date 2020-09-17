@@ -77,12 +77,12 @@ structure GtkSourceFileLoader :>
            & file
            & stream
         )
-    fun getBuffer self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getBuffer self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self before GtkSourceFileLoaderClass.FFI.touchPtr self
     fun getCompressionType self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceCompressionType.FFI.fromVal) getCompressionType_ self
-    fun getEncoding self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self
-    fun getFile self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceFileClass.FFI.fromPtr false) getFile_ self
-    fun getInputStream self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromOptPtr false) getInputStream_ self
-    fun getLocation self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GioFileClass.FFI.fromOptPtr false) getLocation_ self
+    fun getEncoding self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceEncodingRecord.FFI.fromPtr false) getEncoding_ self before GtkSourceFileLoaderClass.FFI.touchPtr self
+    fun getFile self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceFileClass.FFI.fromPtr false) getFile_ self before GtkSourceFileLoaderClass.FFI.touchPtr self
+    fun getInputStream self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromOptPtr false) getInputStream_ self before GtkSourceFileLoaderClass.FFI.touchPtr self
+    fun getLocation self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GioFileClass.FFI.fromOptPtr false) getLocation_ self before GtkSourceFileLoaderClass.FFI.touchPtr self
     fun getNewlineType self = (GtkSourceFileLoaderClass.FFI.withPtr false ---> GtkSourceNewlineType.FFI.fromVal) getNewlineType_ self
     fun loadFinish self result =
       (

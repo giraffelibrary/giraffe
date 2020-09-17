@@ -349,13 +349,13 @@ structure GioSubprocess :>
       end
     fun forceExit self = (GioSubprocessClass.FFI.withPtr false ---> I) forceExit_ self
     fun getExitStatus self = (GioSubprocessClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getExitStatus_ self
-    fun getIdentifier self = (GioSubprocessClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIdentifier_ self
+    fun getIdentifier self = (GioSubprocessClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIdentifier_ self before GioSubprocessClass.FFI.touchPtr self
     fun getIfExited self = (GioSubprocessClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIfExited_ self
     fun getIfSignaled self = (GioSubprocessClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIfSignaled_ self
     fun getStatus self = (GioSubprocessClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getStatus_ self
-    fun getStderrPipe self = (GioSubprocessClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromPtr false) getStderrPipe_ self
-    fun getStdinPipe self = (GioSubprocessClass.FFI.withPtr false ---> GioOutputStreamClass.FFI.fromPtr false) getStdinPipe_ self
-    fun getStdoutPipe self = (GioSubprocessClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromPtr false) getStdoutPipe_ self
+    fun getStderrPipe self = (GioSubprocessClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromPtr false) getStderrPipe_ self before GioSubprocessClass.FFI.touchPtr self
+    fun getStdinPipe self = (GioSubprocessClass.FFI.withPtr false ---> GioOutputStreamClass.FFI.fromPtr false) getStdinPipe_ self before GioSubprocessClass.FFI.touchPtr self
+    fun getStdoutPipe self = (GioSubprocessClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromPtr false) getStdoutPipe_ self before GioSubprocessClass.FFI.touchPtr self
     fun getSuccessful self = (GioSubprocessClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSuccessful_ self
     fun getTermSig self = (GioSubprocessClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getTermSig_ self
     fun sendSignal self signalNum = (GioSubprocessClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) sendSignal_ (self & signalNum)

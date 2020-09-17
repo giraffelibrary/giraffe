@@ -13,5 +13,5 @@ structure GtkBin :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getChild self = (GtkBinClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getChild_ self
+    fun getChild self = (GtkBinClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getChild_ self before GtkBinClass.FFI.touchPtr self
   end

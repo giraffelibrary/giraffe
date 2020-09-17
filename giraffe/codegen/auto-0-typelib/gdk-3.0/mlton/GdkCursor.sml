@@ -133,7 +133,7 @@ structure GdkCursor :>
            & y
         )
     fun getCursorType self = (GdkCursorClass.FFI.withPtr false ---> GdkCursorType.FFI.fromVal) getCursorType_ self
-    fun getDisplay self = (GdkCursorClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getDisplay self = (GdkCursorClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self before GdkCursorClass.FFI.touchPtr self
     fun getImage self = (GdkCursorClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getImage_ self
     fun getSurface self =
       let

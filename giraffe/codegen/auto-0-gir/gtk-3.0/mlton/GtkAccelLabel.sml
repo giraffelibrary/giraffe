@@ -52,7 +52,7 @@ structure GtkAccelLabel :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new string = (Utf8.FFI.withPtr 0 ---> GtkAccelLabelClass.FFI.fromPtr false) new_ string
+    fun new string = (Utf8.FFI.withPtr 0 ---> GtkAccelLabelClass.FFI.fromPtr false) new_ string before Utf8.FFI.touchPtr string
     fun getAccel self =
       let
         val acceleratorKey
@@ -75,7 +75,7 @@ structure GtkAccelLabel :>
       in
         (acceleratorKey, acceleratorMods)
       end
-    fun getAccelWidget self = (GtkAccelLabelClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getAccelWidget_ self
+    fun getAccelWidget self = (GtkAccelLabelClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getAccelWidget_ self before GtkAccelLabelClass.FFI.touchPtr self
     fun getAccelWidth self = (GtkAccelLabelClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getAccelWidth_ self
     fun refetch self = (GtkAccelLabelClass.FFI.withPtr false ---> GBool.FFI.fromVal) refetch_ self
     fun setAccel self (acceleratorKey, acceleratorMods) =

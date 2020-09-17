@@ -19,7 +19,7 @@ structure GtkStackSwitcher :>
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkStackSwitcherClass.FFI.fromPtr false) new_ ()
-    fun getStack self = (GtkStackSwitcherClass.FFI.withPtr false ---> GtkStackClass.FFI.fromOptPtr false) getStack_ self
+    fun getStack self = (GtkStackSwitcherClass.FFI.withPtr false ---> GtkStackClass.FFI.fromOptPtr false) getStack_ self before GtkStackSwitcherClass.FFI.touchPtr self
     fun setStack self stack = (GtkStackSwitcherClass.FFI.withPtr false &&&> GtkStackClass.FFI.withOptPtr false ---> I) setStack_ (self & stack)
     local
       open ValueAccessor

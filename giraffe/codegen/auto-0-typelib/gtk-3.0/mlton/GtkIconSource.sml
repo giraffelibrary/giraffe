@@ -61,9 +61,9 @@ structure GtkIconSource :>
     fun copy self = (GtkIconSourceRecord.FFI.withPtr false ---> GtkIconSourceRecord.FFI.fromPtr true) copy_ self
     fun getDirection self = (GtkIconSourceRecord.FFI.withPtr false ---> GtkTextDirection.FFI.fromVal) getDirection_ self
     fun getDirectionWildcarded self = (GtkIconSourceRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getDirectionWildcarded_ self
-    fun getFilename self = (GtkIconSourceRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getFilename_ self
-    fun getIconName self = (GtkIconSourceRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIconName_ self
-    fun getPixbuf self = (GtkIconSourceRecord.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
+    fun getFilename self = (GtkIconSourceRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getFilename_ self before GtkIconSourceRecord.FFI.touchPtr self
+    fun getIconName self = (GtkIconSourceRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIconName_ self before GtkIconSourceRecord.FFI.touchPtr self
+    fun getPixbuf self = (GtkIconSourceRecord.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self before GtkIconSourceRecord.FFI.touchPtr self
     fun getSize self = (GtkIconSourceRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getSize_ self
     fun getSizeWildcarded self = (GtkIconSourceRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getSizeWildcarded_ self
     fun getState self = (GtkIconSourceRecord.FFI.withPtr false ---> GtkStateType.FFI.fromVal) getState_ self

@@ -48,9 +48,9 @@ structure GtkRadioButton :>
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newFromWidget radioGroupMember = (GtkRadioButtonClass.FFI.withOptPtr false ---> GtkRadioButtonClass.FFI.fromPtr false) newFromWidget_ radioGroupMember
-    fun newWithLabelFromWidget (radioGroupMember, label) = (GtkRadioButtonClass.FFI.withOptPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkRadioButtonClass.FFI.fromPtr false) newWithLabelFromWidget_ (radioGroupMember & label)
-    fun newWithMnemonicFromWidget (radioGroupMember, label) = (GtkRadioButtonClass.FFI.withOptPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkRadioButtonClass.FFI.fromPtr false) newWithMnemonicFromWidget_ (radioGroupMember & label)
+    fun newFromWidget radioGroupMember = (GtkRadioButtonClass.FFI.withOptPtr false ---> GtkRadioButtonClass.FFI.fromPtr false) newFromWidget_ radioGroupMember before GtkRadioButtonClass.FFI.touchOptPtr radioGroupMember
+    fun newWithLabelFromWidget (radioGroupMember, label) = (GtkRadioButtonClass.FFI.withOptPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkRadioButtonClass.FFI.fromPtr false) newWithLabelFromWidget_ (radioGroupMember & label) before GtkRadioButtonClass.FFI.touchOptPtr radioGroupMember before Utf8.FFI.touchPtr label
+    fun newWithMnemonicFromWidget (radioGroupMember, label) = (GtkRadioButtonClass.FFI.withOptPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkRadioButtonClass.FFI.fromPtr false) newWithMnemonicFromWidget_ (radioGroupMember & label) before GtkRadioButtonClass.FFI.touchOptPtr radioGroupMember before Utf8.FFI.touchPtr label
     fun joinGroup self groupSource = (GtkRadioButtonClass.FFI.withPtr false &&&> GtkRadioButtonClass.FFI.withOptPtr false ---> I) joinGroup_ (self & groupSource)
     local
       open ClosureMarshal Signal

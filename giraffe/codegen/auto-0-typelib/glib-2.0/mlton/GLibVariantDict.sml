@@ -83,7 +83,7 @@ structure GLibVariantDict :>
     fun new fromAsv = (GLibVariantRecord.FFI.withOptPtr false ---> GLibVariantDictRecord.FFI.fromPtr true) new_ fromAsv
     fun clear self = (GLibVariantDictRecord.FFI.withPtr false ---> I) clear_ self
     fun contains self key = (GLibVariantDictRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) contains_ (self & key)
-    fun end' self = (GLibVariantDictRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) end_ self
+    fun end' self = (GLibVariantDictRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) end_ self before GLibVariantDictRecord.FFI.touchPtr self
     fun insertValue self (key, value) =
       (
         GLibVariantDictRecord.FFI.withPtr false

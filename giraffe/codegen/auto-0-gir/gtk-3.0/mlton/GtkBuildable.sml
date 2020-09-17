@@ -154,7 +154,10 @@ structure GtkBuildable :>
            & builder
            & childname
         )
-    fun getName self = (GtkBuildableClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+       before GtkBuildableClass.FFI.touchPtr self
+       before GtkBuilderClass.FFI.touchPtr builder
+       before Utf8.FFI.touchPtr childname
+    fun getName self = (GtkBuildableClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GtkBuildableClass.FFI.touchPtr self
     fun parserFinished self builder = (GtkBuildableClass.FFI.withPtr false &&&> GtkBuilderClass.FFI.withPtr false ---> I) parserFinished_ (self & builder)
     fun setBuildableProperty
       self

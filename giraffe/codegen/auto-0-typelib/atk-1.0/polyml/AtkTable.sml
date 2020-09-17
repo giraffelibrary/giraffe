@@ -104,9 +104,9 @@ structure AtkTable :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun addColumnSelection self column = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) addColumnSelection_ (self & column)
     fun addRowSelection self row = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) addRowSelection_ (self & row)
-    fun getCaption self = (AtkTableClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromOptPtr false) getCaption_ self
+    fun getCaption self = (AtkTableClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromOptPtr false) getCaption_ self before AtkTableClass.FFI.touchPtr self
     fun getColumnAtIndex self index = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) getColumnAtIndex_ (self & index)
-    fun getColumnDescription self column = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getColumnDescription_ (self & column)
+    fun getColumnDescription self column = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getColumnDescription_ (self & column) before AtkTableClass.FFI.touchPtr self
     fun getColumnExtentAt self (row, column) =
       (
         AtkTableClass.FFI.withPtr false
@@ -120,7 +120,7 @@ structure AtkTable :>
            & row
            & column
         )
-    fun getColumnHeader self column = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromOptPtr false) getColumnHeader_ (self & column)
+    fun getColumnHeader self column = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromOptPtr false) getColumnHeader_ (self & column) before AtkTableClass.FFI.touchPtr self
     fun getIndexAt self (row, column) =
       (
         AtkTableClass.FFI.withPtr false
@@ -137,7 +137,7 @@ structure AtkTable :>
     fun getNColumns self = (AtkTableClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNColumns_ self
     fun getNRows self = (AtkTableClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNRows_ self
     fun getRowAtIndex self index = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) getRowAtIndex_ (self & index)
-    fun getRowDescription self row = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getRowDescription_ (self & row)
+    fun getRowDescription self row = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromOptPtr 0) getRowDescription_ (self & row) before AtkTableClass.FFI.touchPtr self
     fun getRowExtentAt self (row, column) =
       (
         AtkTableClass.FFI.withPtr false
@@ -151,7 +151,7 @@ structure AtkTable :>
            & row
            & column
         )
-    fun getRowHeader self row = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromOptPtr false) getRowHeader_ (self & row)
+    fun getRowHeader self row = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromOptPtr false) getRowHeader_ (self & row) before AtkTableClass.FFI.touchPtr self
     fun getSummary self = (AtkTableClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr true) getSummary_ self
     fun isColumnSelected self column = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) isColumnSelected_ (self & column)
     fun isRowSelected self row = (AtkTableClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) isRowSelected_ (self & row)

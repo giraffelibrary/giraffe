@@ -97,7 +97,7 @@ structure GtkStack :>
            & name
            & title
         )
-    fun getChildByName self name = (GtkStackClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromOptPtr false) getChildByName_ (self & name)
+    fun getChildByName self name = (GtkStackClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromOptPtr false) getChildByName_ (self & name) before GtkStackClass.FFI.touchPtr self before Utf8.FFI.touchPtr name
     fun getHhomogeneous self = (GtkStackClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHhomogeneous_ self
     fun getHomogeneous self = (GtkStackClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHomogeneous_ self
     fun getInterpolateSize self = (GtkStackClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInterpolateSize_ self
@@ -105,8 +105,8 @@ structure GtkStack :>
     fun getTransitionRunning self = (GtkStackClass.FFI.withPtr false ---> GBool.FFI.fromVal) getTransitionRunning_ self
     fun getTransitionType self = (GtkStackClass.FFI.withPtr false ---> GtkStackTransitionType.FFI.fromVal) getTransitionType_ self
     fun getVhomogeneous self = (GtkStackClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVhomogeneous_ self
-    fun getVisibleChild self = (GtkStackClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getVisibleChild_ self
-    fun getVisibleChildName self = (GtkStackClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getVisibleChildName_ self
+    fun getVisibleChild self = (GtkStackClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getVisibleChild_ self before GtkStackClass.FFI.touchPtr self
+    fun getVisibleChildName self = (GtkStackClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getVisibleChildName_ self before GtkStackClass.FFI.touchPtr self
     fun setHhomogeneous self hhomogeneous = (GtkStackClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHhomogeneous_ (self & hhomogeneous)
     fun setHomogeneous self homogeneous = (GtkStackClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHomogeneous_ (self & homogeneous)
     fun setInterpolateSize self interpolateSize = (GtkStackClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setInterpolateSize_ (self & interpolateSize)

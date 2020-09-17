@@ -45,8 +45,8 @@ structure GtkAppChooserWidget :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new contentType = (Utf8.FFI.withPtr 0 ---> GtkAppChooserWidgetClass.FFI.fromPtr false) new_ contentType
-    fun getDefaultText self = (GtkAppChooserWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDefaultText_ self
+    fun new contentType = (Utf8.FFI.withPtr 0 ---> GtkAppChooserWidgetClass.FFI.fromPtr false) new_ contentType before Utf8.FFI.touchPtr contentType
+    fun getDefaultText self = (GtkAppChooserWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDefaultText_ self before GtkAppChooserWidgetClass.FFI.touchPtr self
     fun getShowAll self = (GtkAppChooserWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowAll_ self
     fun getShowDefault self = (GtkAppChooserWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowDefault_ self
     fun getShowFallback self = (GtkAppChooserWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowFallback_ self

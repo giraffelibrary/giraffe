@@ -495,7 +495,7 @@ structure Pango : PANGO =
         )
     fun gravityToRotation gravity = (PangoGravity.FFI.withVal ---> GDouble.FFI.fromVal) gravityToRotation_ gravity
     fun isZeroWidth ch = (GChar.FFI.withVal ---> GBool.FFI.fromVal) isZeroWidth_ ch
-    fun languageFromString language = (Utf8.FFI.withOptPtr 0 ---> PangoLanguageRecord.FFI.fromOptPtr false) languageFromString_ language
+    fun languageFromString language = (Utf8.FFI.withOptPtr 0 ---> PangoLanguageRecord.FFI.fromOptPtr false) languageFromString_ language before Utf8.FFI.touchOptPtr language
     fun languageGetDefault () = (I ---> PangoLanguageRecord.FFI.fromPtr false) languageGetDefault_ ()
     fun lookupAliases fontname =
       let

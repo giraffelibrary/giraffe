@@ -103,7 +103,7 @@ structure PangoLayoutIter :>
         (inkRect, logicalRect)
       end
     fun getIndex self = (PangoLayoutIterRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getIndex_ self
-    fun getLayout self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self
+    fun getLayout self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self before PangoLayoutIterRecord.FFI.touchPtr self
     fun getLayoutExtents self =
       let
         val inkRect
@@ -149,7 +149,7 @@ structure PangoLayoutIter :>
       in
         (inkRect, logicalRect)
       end
-    fun getLineReadonly self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutLineRecord.FFI.fromPtr false) getLineReadonly_ self
+    fun getLineReadonly self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutLineRecord.FFI.fromPtr false) getLineReadonly_ self before PangoLayoutIterRecord.FFI.touchPtr self
     fun getLineYrange self =
       let
         val y0
@@ -172,7 +172,7 @@ structure PangoLayoutIter :>
       in
         (y0, y1)
       end
-    fun getRun self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutRunRecord.FFI.fromOptPtr false) getRun_ self
+    fun getRun self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutRunRecord.FFI.fromOptPtr false) getRun_ self before PangoLayoutIterRecord.FFI.touchPtr self
     fun getRunExtents self =
       let
         val inkRect
@@ -195,7 +195,7 @@ structure PangoLayoutIter :>
       in
         (inkRect, logicalRect)
       end
-    fun getRunReadonly self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutRunRecord.FFI.fromOptPtr false) getRunReadonly_ self
+    fun getRunReadonly self = (PangoLayoutIterRecord.FFI.withPtr false ---> PangoLayoutRunRecord.FFI.fromOptPtr false) getRunReadonly_ self before PangoLayoutIterRecord.FFI.touchPtr self
     fun nextChar self = (PangoLayoutIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) nextChar_ self
     fun nextCluster self = (PangoLayoutIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) nextCluster_ self
     fun nextLine self = (PangoLayoutIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) nextLine_ self

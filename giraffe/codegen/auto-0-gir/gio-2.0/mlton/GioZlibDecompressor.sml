@@ -16,7 +16,7 @@ structure GioZlibDecompressor :>
     fun asConverter self = (GObjectObjectClass.FFI.withPtr false ---> GioConverterClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new format = (GioZlibCompressorFormat.FFI.withVal ---> GioZlibDecompressorClass.FFI.fromPtr true) new_ format
-    fun getFileInfo self = (GioZlibDecompressorClass.FFI.withPtr false ---> GioFileInfoClass.FFI.fromPtr false) getFileInfo_ self
+    fun getFileInfo self = (GioZlibDecompressorClass.FFI.withPtr false ---> GioFileInfoClass.FFI.fromPtr false) getFileInfo_ self before GioZlibDecompressorClass.FFI.touchPtr self
     local
       open ValueAccessor
     in

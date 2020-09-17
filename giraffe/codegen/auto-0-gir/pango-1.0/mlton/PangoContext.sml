@@ -104,12 +104,12 @@ structure PangoContext :>
     fun changed self = (PangoContextClass.FFI.withPtr false ---> I) changed_ self
     fun getBaseDir self = (PangoContextClass.FFI.withPtr false ---> PangoDirection.FFI.fromVal) getBaseDir_ self
     fun getBaseGravity self = (PangoContextClass.FFI.withPtr false ---> PangoGravity.FFI.fromVal) getBaseGravity_ self
-    fun getFontDescription self = (PangoContextClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFontDescription_ self
-    fun getFontMap self = (PangoContextClass.FFI.withPtr false ---> PangoFontMapClass.FFI.fromPtr false) getFontMap_ self
+    fun getFontDescription self = (PangoContextClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFontDescription_ self before PangoContextClass.FFI.touchPtr self
+    fun getFontMap self = (PangoContextClass.FFI.withPtr false ---> PangoFontMapClass.FFI.fromPtr false) getFontMap_ self before PangoContextClass.FFI.touchPtr self
     fun getGravity self = (PangoContextClass.FFI.withPtr false ---> PangoGravity.FFI.fromVal) getGravity_ self
     fun getGravityHint self = (PangoContextClass.FFI.withPtr false ---> PangoGravityHint.FFI.fromVal) getGravityHint_ self
     fun getLanguage self = (PangoContextClass.FFI.withPtr false ---> PangoLanguageRecord.FFI.fromPtr true) getLanguage_ self
-    fun getMatrix self = (PangoContextClass.FFI.withPtr false ---> PangoMatrixRecord.FFI.fromOptPtr false) getMatrix_ self
+    fun getMatrix self = (PangoContextClass.FFI.withPtr false ---> PangoMatrixRecord.FFI.fromOptPtr false) getMatrix_ self before PangoContextClass.FFI.touchPtr self
     fun getMetrics self (desc, language) =
       (
         PangoContextClass.FFI.withPtr false
@@ -144,7 +144,7 @@ structure PangoContext :>
                & GInt.null
             )
       in
-        families (LargeInt.toInt nFamilies)
+        families (LargeInt.toInt nFamilies) before PangoContextClass.FFI.touchPtr self
       end
     fun loadFont self desc = (PangoContextClass.FFI.withPtr false &&&> PangoFontDescriptionRecord.FFI.withPtr false ---> PangoFontClass.FFI.fromOptPtr true) loadFont_ (self & desc)
     fun loadFontset self (desc, language) =

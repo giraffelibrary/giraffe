@@ -144,6 +144,10 @@ structure GObjectObject :>
            & targetProperty
            & flags
         )
+       before GObjectObjectClass.FFI.touchPtr self
+       before Utf8.FFI.touchPtr sourceProperty
+       before GObjectObjectClass.FFI.touchPtr target
+       before Utf8.FFI.touchPtr targetProperty
     fun bindPropertyFull
       self
       (
@@ -174,6 +178,12 @@ structure GObjectObject :>
            & transformTo
            & transformFrom
         )
+       before GObjectObjectClass.FFI.touchPtr self
+       before Utf8.FFI.touchPtr sourceProperty
+       before GObjectObjectClass.FFI.touchPtr target
+       before Utf8.FFI.touchPtr targetProperty
+       before GObjectClosureRecord.FFI.touchPtr transformTo
+       before GObjectClosureRecord.FFI.touchPtr transformFrom
     fun freezeNotify self = (GObjectObjectClass.FFI.withPtr false ---> I) freezeNotify_ self
     fun getProperty self (propertyName, value) =
       (

@@ -195,11 +195,11 @@ structure GtkApplication :>
     fun addWindow self window = (GtkApplicationClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withPtr false ---> I) addWindow_ (self & window)
     fun getAccelsForAction self detailedActionName = (GtkApplicationClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) getAccelsForAction_ (self & detailedActionName)
     fun getActionsForAccel self accel = (GtkApplicationClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) getActionsForAccel_ (self & accel)
-    fun getActiveWindow self = (GtkApplicationClass.FFI.withPtr false ---> GtkWindowClass.FFI.fromOptPtr false) getActiveWindow_ self
-    fun getAppMenu self = (GtkApplicationClass.FFI.withPtr false ---> GioMenuModelClass.FFI.fromOptPtr false) getAppMenu_ self
-    fun getMenuById self id = (GtkApplicationClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioMenuClass.FFI.fromPtr false) getMenuById_ (self & id)
-    fun getMenubar self = (GtkApplicationClass.FFI.withPtr false ---> GioMenuModelClass.FFI.fromPtr false) getMenubar_ self
-    fun getWindowById self id = (GtkApplicationClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GtkWindowClass.FFI.fromOptPtr false) getWindowById_ (self & id)
+    fun getActiveWindow self = (GtkApplicationClass.FFI.withPtr false ---> GtkWindowClass.FFI.fromOptPtr false) getActiveWindow_ self before GtkApplicationClass.FFI.touchPtr self
+    fun getAppMenu self = (GtkApplicationClass.FFI.withPtr false ---> GioMenuModelClass.FFI.fromOptPtr false) getAppMenu_ self before GtkApplicationClass.FFI.touchPtr self
+    fun getMenuById self id = (GtkApplicationClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioMenuClass.FFI.fromPtr false) getMenuById_ (self & id) before GtkApplicationClass.FFI.touchPtr self before Utf8.FFI.touchPtr id
+    fun getMenubar self = (GtkApplicationClass.FFI.withPtr false ---> GioMenuModelClass.FFI.fromPtr false) getMenubar_ self before GtkApplicationClass.FFI.touchPtr self
+    fun getWindowById self id = (GtkApplicationClass.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GtkWindowClass.FFI.fromOptPtr false) getWindowById_ (self & id) before GtkApplicationClass.FFI.touchPtr self
     fun inhibit
       self
       (

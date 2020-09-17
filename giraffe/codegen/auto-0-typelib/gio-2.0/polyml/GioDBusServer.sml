@@ -64,9 +64,9 @@ structure GioDBusServer :>
            & cancellable
            & []
         )
-    fun getClientAddress self = (GioDBusServerClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getClientAddress_ self
+    fun getClientAddress self = (GioDBusServerClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getClientAddress_ self before GioDBusServerClass.FFI.touchPtr self
     fun getFlags self = (GioDBusServerClass.FFI.withPtr false ---> GioDBusServerFlags.FFI.fromVal) getFlags_ self
-    fun getGuid self = (GioDBusServerClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getGuid_ self
+    fun getGuid self = (GioDBusServerClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getGuid_ self before GioDBusServerClass.FFI.touchPtr self
     fun isActive self = (GioDBusServerClass.FFI.withPtr false ---> GBool.FFI.fromVal) isActive_ self
     fun start self = (GioDBusServerClass.FFI.withPtr false ---> I) start_ self
     fun stop self = (GioDBusServerClass.FFI.withPtr false ---> I) stop_ self

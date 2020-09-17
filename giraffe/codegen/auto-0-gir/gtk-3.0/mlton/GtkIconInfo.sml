@@ -214,15 +214,15 @@ structure GtkIconInfo :>
       end
     fun getBaseScale self = (GtkIconInfoClass.FFI.withPtr false ---> GInt.FFI.fromVal) getBaseScale_ self
     fun getBaseSize self = (GtkIconInfoClass.FFI.withPtr false ---> GInt.FFI.fromVal) getBaseSize_ self
-    fun getBuiltinPixbuf self = (GtkIconInfoClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getBuiltinPixbuf_ self
-    fun getDisplayName self = (GtkIconInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
+    fun getBuiltinPixbuf self = (GtkIconInfoClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getBuiltinPixbuf_ self before GtkIconInfoClass.FFI.touchPtr self
+    fun getDisplayName self = (GtkIconInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self before GtkIconInfoClass.FFI.touchPtr self
     fun getEmbeddedRect self =
       let
         val rectangle & retVal = (GtkIconInfoClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal) getEmbeddedRect_ (self & ())
       in
         if retVal then SOME rectangle else NONE
       end
-    fun getFilename self = (GtkIconInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getFilename_ self
+    fun getFilename self = (GtkIconInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getFilename_ self before GtkIconInfoClass.FFI.touchPtr self
     fun isSymbolic self = (GtkIconInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSymbolic_ self
     fun loadIcon self = (GtkIconInfoClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufClass.FFI.fromPtr true) loadIcon_ (self & [])
     fun loadIconFinish self res =

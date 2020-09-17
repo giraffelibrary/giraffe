@@ -52,7 +52,7 @@ structure GioSubprocessLauncher :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new flags = (GioSubprocessFlags.FFI.withVal ---> GioSubprocessLauncherClass.FFI.fromPtr true) new_ flags
-    fun getenv self variable = (GioSubprocessLauncherClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getenv_ (self & variable)
+    fun getenv self variable = (GioSubprocessLauncherClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getenv_ (self & variable) before GioSubprocessLauncherClass.FFI.touchPtr self before Utf8.FFI.touchPtr variable
     fun setCwd self cwd = (GioSubprocessLauncherClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setCwd_ (self & cwd)
     fun setEnviron self env = (GioSubprocessLauncherClass.FFI.withPtr false &&&> Utf8CPtrArray.FFI.withPtr 0 ---> I) setEnviron_ (self & env)
     fun setFlags self flags = (GioSubprocessLauncherClass.FFI.withPtr false &&&> GioSubprocessFlags.FFI.withVal ---> I) setFlags_ (self & flags)

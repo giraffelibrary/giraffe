@@ -95,7 +95,7 @@ structure GtkTreeModelFilter :>
         childIter
       end
     fun convertPathToChildPath self filterPath = (GtkTreeModelFilterClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GtkTreePathRecord.FFI.fromOptPtr true) convertPathToChildPath_ (self & filterPath)
-    fun getModel self = (GtkTreeModelFilterClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
+    fun getModel self = (GtkTreeModelFilterClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self before GtkTreeModelFilterClass.FFI.touchPtr self
     fun refilter self = (GtkTreeModelFilterClass.FFI.withPtr false ---> I) refilter_ self
     fun setVisibleColumn self column = (GtkTreeModelFilterClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setVisibleColumn_ (self & column)
     local

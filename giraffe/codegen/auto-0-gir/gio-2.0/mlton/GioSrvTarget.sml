@@ -54,7 +54,7 @@ structure GioSrvTarget :>
            & weight
         )
     fun copy self = (GioSrvTargetRecord.FFI.withPtr false ---> GioSrvTargetRecord.FFI.fromPtr true) copy_ self
-    fun getHostname self = (GioSrvTargetRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getHostname_ self
+    fun getHostname self = (GioSrvTargetRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getHostname_ self before GioSrvTargetRecord.FFI.touchPtr self
     fun getPort self = (GioSrvTargetRecord.FFI.withPtr false ---> GUInt16.FFI.fromVal) getPort_ self
     fun getPriority self = (GioSrvTargetRecord.FFI.withPtr false ---> GUInt16.FFI.fromVal) getPriority_ self
     fun getWeight self = (GioSrvTargetRecord.FFI.withPtr false ---> GUInt16.FFI.fromVal) getWeight_ self

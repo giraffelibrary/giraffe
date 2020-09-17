@@ -672,7 +672,7 @@ structure GioSocket :>
                & []
             )
       in
-        (retVal, buffer (LargeInt.toInt size))
+        (retVal, buffer (LargeInt.toInt size)) before GioSocketClass.FFI.touchPtr self before GioCancellableClass.FFI.touchOptPtr cancellable
       end
     fun receiveFrom self (size, cancellable) =
       let
@@ -705,6 +705,8 @@ structure GioSocket :>
           address,
           buffer (LargeInt.toInt size)
         )
+         before GioSocketClass.FFI.touchPtr self
+         before GioCancellableClass.FFI.touchOptPtr cancellable
       end
     fun receiveWithBlocking
       self
@@ -734,7 +736,7 @@ structure GioSocket :>
                & []
             )
       in
-        (retVal, buffer (LargeInt.toInt size))
+        (retVal, buffer (LargeInt.toInt size)) before GioSocketClass.FFI.touchPtr self before GioCancellableClass.FFI.touchOptPtr cancellable
       end
     fun send self (buffer, cancellable) =
       let

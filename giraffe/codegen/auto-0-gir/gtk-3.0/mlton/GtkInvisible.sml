@@ -15,8 +15,8 @@ structure GtkInvisible :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkInvisibleClass.FFI.fromPtr false) new_ ()
-    fun newForScreen screen = (GdkScreenClass.FFI.withPtr false ---> GtkInvisibleClass.FFI.fromPtr false) newForScreen_ screen
-    fun getScreen self = (GtkInvisibleClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun newForScreen screen = (GdkScreenClass.FFI.withPtr false ---> GtkInvisibleClass.FFI.fromPtr false) newForScreen_ screen before GdkScreenClass.FFI.touchPtr screen
+    fun getScreen self = (GtkInvisibleClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self before GtkInvisibleClass.FFI.touchPtr self
     fun setScreen self screen = (GtkInvisibleClass.FFI.withPtr false &&&> GdkScreenClass.FFI.withPtr false ---> I) setScreen_ (self & screen)
     local
       open ValueAccessor

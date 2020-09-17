@@ -332,7 +332,7 @@ structure GLibDateTime :>
     fun getMonth self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getMonth_ self
     fun getSecond self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getSecond_ self
     fun getSeconds self = (GLibDateTimeRecord.FFI.withPtr false ---> GDouble.FFI.fromVal) getSeconds_ self
-    fun getTimezoneAbbreviation self = (GLibDateTimeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTimezoneAbbreviation_ self
+    fun getTimezoneAbbreviation self = (GLibDateTimeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTimezoneAbbreviation_ self before GLibDateTimeRecord.FFI.touchPtr self
     fun getUtcOffset self = (GLibDateTimeRecord.FFI.withPtr false ---> GLibTimeSpan.FFI.fromVal) getUtcOffset_ self
     fun getWeekNumberingYear self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getWeekNumberingYear_ self
     fun getWeekOfYear self = (GLibDateTimeRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getWeekOfYear_ self

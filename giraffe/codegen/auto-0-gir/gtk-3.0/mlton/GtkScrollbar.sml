@@ -18,5 +18,5 @@ structure GtkScrollbar :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (orientation, adjustment) = (GtkOrientation.FFI.withVal &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkScrollbarClass.FFI.fromPtr false) new_ (orientation & adjustment)
+    fun new (orientation, adjustment) = (GtkOrientation.FFI.withVal &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkScrollbarClass.FFI.fromPtr false) new_ (orientation & adjustment) before GtkAdjustmentClass.FFI.touchOptPtr adjustment
   end

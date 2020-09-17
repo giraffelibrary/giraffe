@@ -30,10 +30,10 @@ structure GtkTextMark :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (name, leftGravity) = (Utf8.FFI.withOptPtr 0 &&&> GBool.FFI.withVal ---> GtkTextMarkClass.FFI.fromPtr true) new_ (name & leftGravity)
-    fun getBuffer self = (GtkTextMarkClass.FFI.withPtr false ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getBuffer self = (GtkTextMarkClass.FFI.withPtr false ---> GtkTextBufferClass.FFI.fromPtr false) getBuffer_ self before GtkTextMarkClass.FFI.touchPtr self
     fun getDeleted self = (GtkTextMarkClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDeleted_ self
     fun getLeftGravity self = (GtkTextMarkClass.FFI.withPtr false ---> GBool.FFI.fromVal) getLeftGravity_ self
-    fun getName self = (GtkTextMarkClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getName_ self
+    fun getName self = (GtkTextMarkClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getName_ self before GtkTextMarkClass.FFI.touchPtr self
     fun getVisible self = (GtkTextMarkClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
     fun setVisible self setting = (GtkTextMarkClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisible_ (self & setting)
     local

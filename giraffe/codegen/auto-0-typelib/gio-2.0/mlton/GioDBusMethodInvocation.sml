@@ -86,15 +86,15 @@ structure GioDBusMethodInvocation :>
     type 'a unix_f_d_list_class = 'a GioUnixFDListClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getConnection self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
-    fun getInterfaceName self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getInterfaceName_ self
-    fun getMessage self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GioDBusMessageClass.FFI.fromPtr false) getMessage_ self
-    fun getMethodInfo self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GioDBusMethodInfoRecord.FFI.fromPtr false) getMethodInfo_ self
-    fun getMethodName self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMethodName_ self
-    fun getObjectPath self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
-    fun getParameters self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) getParameters_ self
-    fun getPropertyInfo self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GioDBusPropertyInfoRecord.FFI.fromPtr false) getPropertyInfo_ self
-    fun getSender self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSender_ self
+    fun getConnection self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self before GioDBusMethodInvocationClass.FFI.touchPtr self
+    fun getInterfaceName self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getInterfaceName_ self before GioDBusMethodInvocationClass.FFI.touchPtr self
+    fun getMessage self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GioDBusMessageClass.FFI.fromPtr false) getMessage_ self before GioDBusMethodInvocationClass.FFI.touchPtr self
+    fun getMethodInfo self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GioDBusMethodInfoRecord.FFI.fromPtr false) getMethodInfo_ self before GioDBusMethodInvocationClass.FFI.touchPtr self
+    fun getMethodName self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMethodName_ self before GioDBusMethodInvocationClass.FFI.touchPtr self
+    fun getObjectPath self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectPath_ self before GioDBusMethodInvocationClass.FFI.touchPtr self
+    fun getParameters self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) getParameters_ self before GioDBusMethodInvocationClass.FFI.touchPtr self
+    fun getPropertyInfo self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> GioDBusPropertyInfoRecord.FFI.fromPtr false) getPropertyInfo_ self before GioDBusMethodInvocationClass.FFI.touchPtr self
+    fun getSender self = (GioDBusMethodInvocationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSender_ self before GioDBusMethodInvocationClass.FFI.touchPtr self
     fun returnDbusError self (errorName, errorMessage) =
       (
         GioDBusMethodInvocationClass.FFI.withPtr false

@@ -33,10 +33,10 @@ structure GioMountOperation :>
     fun new () = (I ---> GioMountOperationClass.FFI.fromPtr true) new_ ()
     fun getAnonymous self = (GioMountOperationClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAnonymous_ self
     fun getChoice self = (GioMountOperationClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getChoice_ self
-    fun getDomain self = (GioMountOperationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDomain_ self
-    fun getPassword self = (GioMountOperationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPassword_ self
+    fun getDomain self = (GioMountOperationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDomain_ self before GioMountOperationClass.FFI.touchPtr self
+    fun getPassword self = (GioMountOperationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPassword_ self before GioMountOperationClass.FFI.touchPtr self
     fun getPasswordSave self = (GioMountOperationClass.FFI.withPtr false ---> GioPasswordSave.FFI.fromVal) getPasswordSave_ self
-    fun getUsername self = (GioMountOperationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUsername_ self
+    fun getUsername self = (GioMountOperationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUsername_ self before GioMountOperationClass.FFI.touchPtr self
     fun reply self result = (GioMountOperationClass.FFI.withPtr false &&&> GioMountOperationResult.FFI.withVal ---> I) reply_ (self & result)
     fun setAnonymous self anonymous = (GioMountOperationClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAnonymous_ (self & anonymous)
     fun setChoice self choice = (GioMountOperationClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) setChoice_ (self & choice)

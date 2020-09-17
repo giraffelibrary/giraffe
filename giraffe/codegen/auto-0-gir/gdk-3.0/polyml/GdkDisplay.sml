@@ -126,7 +126,7 @@ structure GdkDisplay :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> GdkDisplayClass.FFI.fromOptPtr false) getDefault_ ()
-    fun open' displayName = (Utf8.FFI.withPtr 0 ---> GdkDisplayClass.FFI.fromOptPtr false) open_ displayName
+    fun open' displayName = (Utf8.FFI.withPtr 0 ---> GdkDisplayClass.FFI.fromOptPtr false) open_ displayName before Utf8.FFI.touchPtr displayName
     fun openDefaultLibgtkOnly () = (I ---> GdkDisplayClass.FFI.fromOptPtr false) openDefaultLibgtkOnly_ ()
     fun beep self = (GdkDisplayClass.FFI.withPtr false ---> I) beep_ self
     fun close self = (GdkDisplayClass.FFI.withPtr false ---> I) close_ self
@@ -134,10 +134,10 @@ structure GdkDisplay :>
     fun flush self = (GdkDisplayClass.FFI.withPtr false ---> I) flush_ self
     fun getAppLaunchContext self = (GdkDisplayClass.FFI.withPtr false ---> GdkAppLaunchContextClass.FFI.fromPtr true) getAppLaunchContext_ self
     fun getDefaultCursorSize self = (GdkDisplayClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getDefaultCursorSize_ self
-    fun getDefaultGroup self = (GdkDisplayClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getDefaultGroup_ self
-    fun getDefaultScreen self = (GdkDisplayClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getDefaultScreen_ self
-    fun getDefaultSeat self = (GdkDisplayClass.FFI.withPtr false ---> GdkSeatClass.FFI.fromPtr false) getDefaultSeat_ self
-    fun getDeviceManager self = (GdkDisplayClass.FFI.withPtr false ---> GdkDeviceManagerClass.FFI.fromOptPtr false) getDeviceManager_ self
+    fun getDefaultGroup self = (GdkDisplayClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getDefaultGroup_ self before GdkDisplayClass.FFI.touchPtr self
+    fun getDefaultScreen self = (GdkDisplayClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getDefaultScreen_ self before GdkDisplayClass.FFI.touchPtr self
+    fun getDefaultSeat self = (GdkDisplayClass.FFI.withPtr false ---> GdkSeatClass.FFI.fromPtr false) getDefaultSeat_ self before GdkDisplayClass.FFI.touchPtr self
+    fun getDeviceManager self = (GdkDisplayClass.FFI.withPtr false ---> GdkDeviceManagerClass.FFI.fromOptPtr false) getDeviceManager_ self before GdkDisplayClass.FFI.touchPtr self
     fun getEvent self = (GdkDisplayClass.FFI.withPtr false ---> GdkEvent.FFI.fromOptPtr true) getEvent_ self
     fun getMaximalCursorSize self =
       let
@@ -161,7 +161,7 @@ structure GdkDisplay :>
       in
         (width, height)
       end
-    fun getMonitor self monitorNum = (GdkDisplayClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GdkMonitorClass.FFI.fromOptPtr false) getMonitor_ (self & monitorNum)
+    fun getMonitor self monitorNum = (GdkDisplayClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GdkMonitorClass.FFI.fromOptPtr false) getMonitor_ (self & monitorNum) before GdkDisplayClass.FFI.touchPtr self
     fun getMonitorAtPoint self (x, y) =
       (
         GdkDisplayClass.FFI.withPtr false
@@ -175,10 +175,11 @@ structure GdkDisplay :>
            & x
            & y
         )
-    fun getMonitorAtWindow self window = (GdkDisplayClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> GdkMonitorClass.FFI.fromPtr false) getMonitorAtWindow_ (self & window)
+       before GdkDisplayClass.FFI.touchPtr self
+    fun getMonitorAtWindow self window = (GdkDisplayClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> GdkMonitorClass.FFI.fromPtr false) getMonitorAtWindow_ (self & window) before GdkDisplayClass.FFI.touchPtr self before GdkWindowClass.FFI.touchPtr window
     fun getNMonitors self = (GdkDisplayClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNMonitors_ self
     fun getNScreens self = (GdkDisplayClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNScreens_ self
-    fun getName self = (GdkDisplayClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getName self = (GdkDisplayClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GdkDisplayClass.FFI.touchPtr self
     fun getPointer self =
       let
         val screen
@@ -213,9 +214,10 @@ structure GdkDisplay :>
           y,
           mask
         )
+         before GdkDisplayClass.FFI.touchPtr self
       end
-    fun getPrimaryMonitor self = (GdkDisplayClass.FFI.withPtr false ---> GdkMonitorClass.FFI.fromOptPtr false) getPrimaryMonitor_ self
-    fun getScreen self screenNum = (GdkDisplayClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GdkScreenClass.FFI.fromPtr false) getScreen_ (self & screenNum)
+    fun getPrimaryMonitor self = (GdkDisplayClass.FFI.withPtr false ---> GdkMonitorClass.FFI.fromOptPtr false) getPrimaryMonitor_ self before GdkDisplayClass.FFI.touchPtr self
+    fun getScreen self screenNum = (GdkDisplayClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GdkScreenClass.FFI.fromPtr false) getScreen_ (self & screenNum) before GdkDisplayClass.FFI.touchPtr self
     fun getWindowAtPointer self =
       let
         val winX
@@ -241,6 +243,7 @@ structure GdkDisplay :>
           winX,
           winY
         )
+         before GdkDisplayClass.FFI.touchPtr self
       end
     fun hasPending self = (GdkDisplayClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasPending_ self
     fun isClosed self = (GdkDisplayClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self

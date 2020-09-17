@@ -41,7 +41,7 @@ structure GioDtlsClientConnection :>
            & serverIdentity
            & []
         )
-    fun getServerIdentity self = (GioDtlsClientConnectionClass.FFI.withPtr false ---> GioSocketConnectableClass.FFI.fromPtr false) getServerIdentity_ self
+    fun getServerIdentity self = (GioDtlsClientConnectionClass.FFI.withPtr false ---> GioSocketConnectableClass.FFI.fromPtr false) getServerIdentity_ self before GioDtlsClientConnectionClass.FFI.touchPtr self
     fun getValidationFlags self = (GioDtlsClientConnectionClass.FFI.withPtr false ---> GioTlsCertificateFlags.FFI.fromVal) getValidationFlags_ self
     fun setServerIdentity self identity = (GioDtlsClientConnectionClass.FFI.withPtr false &&&> GioSocketConnectableClass.FFI.withPtr false ---> I) setServerIdentity_ (self & identity)
     fun setValidationFlags self flags = (GioDtlsClientConnectionClass.FFI.withPtr false &&&> GioTlsCertificateFlags.FFI.withVal ---> I) setValidationFlags_ (self & flags)

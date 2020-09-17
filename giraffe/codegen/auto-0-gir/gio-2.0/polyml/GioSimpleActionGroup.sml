@@ -24,6 +24,6 @@ structure GioSimpleActionGroup :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GioSimpleActionGroupClass.FFI.fromPtr true) new_ ()
     fun insert self action = (GioSimpleActionGroupClass.FFI.withPtr false &&&> GioActionClass.FFI.withPtr false ---> I) insert_ (self & action)
-    fun lookup self actionName = (GioSimpleActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioActionClass.FFI.fromPtr false) lookup_ (self & actionName)
+    fun lookup self actionName = (GioSimpleActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioActionClass.FFI.fromPtr false) lookup_ (self & actionName) before GioSimpleActionGroupClass.FFI.touchPtr self before Utf8.FFI.touchPtr actionName
     fun remove self actionName = (GioSimpleActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) remove_ (self & actionName)
   end

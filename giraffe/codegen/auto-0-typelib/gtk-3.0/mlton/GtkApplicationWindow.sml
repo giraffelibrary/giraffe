@@ -22,8 +22,8 @@ structure GtkApplicationWindow :>
     fun asActionMap self = (GObjectObjectClass.FFI.withPtr false ---> GioActionMapClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new application = (GtkApplicationClass.FFI.withPtr false ---> GtkApplicationWindowClass.FFI.fromPtr false) new_ application
-    fun getHelpOverlay self = (GtkApplicationWindowClass.FFI.withPtr false ---> GtkShortcutsWindowClass.FFI.fromOptPtr false) getHelpOverlay_ self
+    fun new application = (GtkApplicationClass.FFI.withPtr false ---> GtkApplicationWindowClass.FFI.fromPtr false) new_ application before GtkApplicationClass.FFI.touchPtr application
+    fun getHelpOverlay self = (GtkApplicationWindowClass.FFI.withPtr false ---> GtkShortcutsWindowClass.FFI.fromOptPtr false) getHelpOverlay_ self before GtkApplicationWindowClass.FFI.touchPtr self
     fun getId self = (GtkApplicationWindowClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getId_ self
     fun getShowMenubar self = (GtkApplicationWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowMenubar_ self
     fun setHelpOverlay self helpOverlay = (GtkApplicationWindowClass.FFI.withPtr false &&&> GtkShortcutsWindowClass.FFI.withOptPtr false ---> I) setHelpOverlay_ (self & helpOverlay)

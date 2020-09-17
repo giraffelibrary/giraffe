@@ -19,7 +19,7 @@ structure GtkSourceMap :>
     fun asScrollable self = (GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSourceMapClass.FFI.fromPtr false) new_ ()
-    fun getView self = (GtkSourceMapClass.FFI.withPtr false ---> GtkSourceViewClass.FFI.fromOptPtr false) getView_ self
+    fun getView self = (GtkSourceMapClass.FFI.withPtr false ---> GtkSourceViewClass.FFI.fromOptPtr false) getView_ self before GtkSourceMapClass.FFI.touchPtr self
     fun setView self view = (GtkSourceMapClass.FFI.withPtr false &&&> GtkSourceViewClass.FFI.withPtr false ---> I) setView_ (self & view)
     local
       open ValueAccessor

@@ -120,7 +120,7 @@ structure GioFileEnumerator :>
            & []
         )
     fun getChild self info = (GioFileEnumeratorClass.FFI.withPtr false &&&> GioFileInfoClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr true) getChild_ (self & info)
-    fun getContainer self = (GioFileEnumeratorClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getContainer_ self
+    fun getContainer self = (GioFileEnumeratorClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getContainer_ self before GioFileEnumeratorClass.FFI.touchPtr self
     fun hasPending self = (GioFileEnumeratorClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasPending_ self
     fun isClosed self = (GioFileEnumeratorClass.FFI.withPtr false ---> GBool.FFI.fromVal) isClosed_ self
     fun iterate self cancellable =
@@ -147,7 +147,7 @@ structure GioFileEnumerator :>
                & []
             )
       in
-        (outInfo, outChild)
+        (outInfo, outChild) before GioFileEnumeratorClass.FFI.touchPtr self before GioCancellableClass.FFI.touchOptPtr cancellable
       end
     fun nextFile self cancellable =
       (

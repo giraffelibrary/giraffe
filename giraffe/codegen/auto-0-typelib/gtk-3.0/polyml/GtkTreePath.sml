@@ -45,7 +45,7 @@ structure GtkTreePath :>
       let
         val depth & retVal = (GtkTreePathRecord.FFI.withPtr false &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GInt32CArrayN.FFI.fromPtr 0) getIndices_ (self & GInt32.null)
       in
-        retVal (LargeInt.toInt depth)
+        retVal (LargeInt.toInt depth) before GtkTreePathRecord.FFI.touchPtr self
       end
     fun isAncestor self descendant = (GtkTreePathRecord.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isAncestor_ (self & descendant)
     fun isDescendant self ancestor = (GtkTreePathRecord.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isDescendant_ (self & ancestor)

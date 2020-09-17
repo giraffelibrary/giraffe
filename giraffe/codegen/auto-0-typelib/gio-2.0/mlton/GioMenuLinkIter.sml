@@ -30,7 +30,7 @@ structure GioMenuLinkIter :>
     type 'a menu_model_class = 'a GioMenuModelClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getName self = (GioMenuLinkIterClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getName self = (GioMenuLinkIterClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GioMenuLinkIterClass.FFI.touchPtr self
     fun getNext self =
       let
         val outLink
@@ -51,7 +51,7 @@ structure GioMenuLinkIter :>
                & NONE
             )
       in
-        if retVal then SOME (outLink, value) else NONE
+        (if retVal then SOME (outLink, value) else NONE) before GioMenuLinkIterClass.FFI.touchPtr self
       end
     fun getValue self = (GioMenuLinkIterClass.FFI.withPtr false ---> GioMenuModelClass.FFI.fromPtr true) getValue_ self
     fun next self = (GioMenuLinkIterClass.FFI.withPtr false ---> GBool.FFI.fromVal) next_ self

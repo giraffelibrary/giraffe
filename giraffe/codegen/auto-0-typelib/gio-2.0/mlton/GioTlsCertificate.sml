@@ -111,7 +111,7 @@ structure GioTlsCertificate :>
            & length
            & []
         )
-    fun getIssuer self = (GioTlsCertificateClass.FFI.withPtr false ---> GioTlsCertificateClass.FFI.fromPtr false) getIssuer_ self
+    fun getIssuer self = (GioTlsCertificateClass.FFI.withPtr false ---> GioTlsCertificateClass.FFI.fromPtr false) getIssuer_ self before GioTlsCertificateClass.FFI.touchPtr self
     fun isSame self certTwo = (GioTlsCertificateClass.FFI.withPtr false &&&> GioTlsCertificateClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSame_ (self & certTwo)
     fun verify self (identity, trustedCa) =
       (

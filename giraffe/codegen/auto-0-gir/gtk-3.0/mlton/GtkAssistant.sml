@@ -161,12 +161,12 @@ structure GtkAssistant :>
     fun commit self = (GtkAssistantClass.FFI.withPtr false ---> I) commit_ self
     fun getCurrentPage self = (GtkAssistantClass.FFI.withPtr false ---> GInt.FFI.fromVal) getCurrentPage_ self
     fun getNPages self = (GtkAssistantClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNPages_ self
-    fun getNthPage self pageNum = (GtkAssistantClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getNthPage_ (self & pageNum)
+    fun getNthPage self pageNum = (GtkAssistantClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getNthPage_ (self & pageNum) before GtkAssistantClass.FFI.touchPtr self
     fun getPageComplete self page = (GtkAssistantClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPageComplete_ (self & page)
     fun getPageHasPadding self page = (GtkAssistantClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPageHasPadding_ (self & page)
-    fun getPageHeaderImage self page = (GtkAssistantClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPageHeaderImage_ (self & page)
-    fun getPageSideImage self page = (GtkAssistantClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPageSideImage_ (self & page)
-    fun getPageTitle self page = (GtkAssistantClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPageTitle_ (self & page)
+    fun getPageHeaderImage self page = (GtkAssistantClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPageHeaderImage_ (self & page) before GtkAssistantClass.FFI.touchPtr self before GtkWidgetClass.FFI.touchPtr page
+    fun getPageSideImage self page = (GtkAssistantClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPageSideImage_ (self & page) before GtkAssistantClass.FFI.touchPtr self before GtkWidgetClass.FFI.touchPtr page
+    fun getPageTitle self page = (GtkAssistantClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPageTitle_ (self & page) before GtkAssistantClass.FFI.touchPtr self before GtkWidgetClass.FFI.touchPtr page
     fun getPageType self page = (GtkAssistantClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GtkAssistantPageType.FFI.fromVal) getPageType_ (self & page)
     fun insertPage self (page, position) =
       (

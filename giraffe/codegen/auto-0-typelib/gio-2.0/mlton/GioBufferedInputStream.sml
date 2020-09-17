@@ -154,7 +154,7 @@ structure GioBufferedInputStream :>
       let
         val count & retVal = (GioBufferedInputStreamClass.FFI.withPtr false &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 0) peekBuffer_ (self & GUInt64.null)
       in
-        retVal (LargeInt.toInt count)
+        retVal (LargeInt.toInt count) before GioBufferedInputStreamClass.FFI.touchPtr self
       end
     fun readByte self cancellable =
       (

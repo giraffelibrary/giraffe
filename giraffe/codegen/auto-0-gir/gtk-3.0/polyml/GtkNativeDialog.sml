@@ -25,8 +25,8 @@ structure GtkNativeDialog :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun destroy self = (GtkNativeDialogClass.FFI.withPtr false ---> I) destroy_ self
     fun getModal self = (GtkNativeDialogClass.FFI.withPtr false ---> GBool.FFI.fromVal) getModal_ self
-    fun getTitle self = (GtkNativeDialogClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getTitle_ self
-    fun getTransientFor self = (GtkNativeDialogClass.FFI.withPtr false ---> GtkWindowClass.FFI.fromOptPtr false) getTransientFor_ self
+    fun getTitle self = (GtkNativeDialogClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getTitle_ self before GtkNativeDialogClass.FFI.touchPtr self
+    fun getTransientFor self = (GtkNativeDialogClass.FFI.withPtr false ---> GtkWindowClass.FFI.fromOptPtr false) getTransientFor_ self before GtkNativeDialogClass.FFI.touchPtr self
     fun getVisible self = (GtkNativeDialogClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
     fun hide self = (GtkNativeDialogClass.FFI.withPtr false ---> I) hide_ self
     fun run self = (GtkNativeDialogClass.FFI.withPtr false ---> GInt.FFI.fromVal) run_ self

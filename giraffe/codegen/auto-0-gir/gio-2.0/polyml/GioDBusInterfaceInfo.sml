@@ -43,7 +43,7 @@ structure GioDBusInterfaceInfo :>
            & indent
            & stringBuilder
         )
-    fun lookupMethod self name = (GioDBusInterfaceInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusMethodInfoRecord.FFI.fromPtr false) lookupMethod_ (self & name)
-    fun lookupProperty self name = (GioDBusInterfaceInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusPropertyInfoRecord.FFI.fromPtr false) lookupProperty_ (self & name)
-    fun lookupSignal self name = (GioDBusInterfaceInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusSignalInfoRecord.FFI.fromPtr false) lookupSignal_ (self & name)
+    fun lookupMethod self name = (GioDBusInterfaceInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusMethodInfoRecord.FFI.fromPtr false) lookupMethod_ (self & name) before GioDBusInterfaceInfoRecord.FFI.touchPtr self before Utf8.FFI.touchPtr name
+    fun lookupProperty self name = (GioDBusInterfaceInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusPropertyInfoRecord.FFI.fromPtr false) lookupProperty_ (self & name) before GioDBusInterfaceInfoRecord.FFI.touchPtr self before Utf8.FFI.touchPtr name
+    fun lookupSignal self name = (GioDBusInterfaceInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusSignalInfoRecord.FFI.fromPtr false) lookupSignal_ (self & name) before GioDBusInterfaceInfoRecord.FFI.touchPtr self before Utf8.FFI.touchPtr name
   end

@@ -542,23 +542,23 @@ structure GioFileInfo :>
     fun dup self = (GioFileInfoClass.FFI.withPtr false ---> GioFileInfoClass.FFI.fromPtr true) dup_ self
     fun getAttributeAsString self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) getAttributeAsString_ (self & attribute)
     fun getAttributeBoolean self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) getAttributeBoolean_ (self & attribute)
-    fun getAttributeByteString self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getAttributeByteString_ (self & attribute)
+    fun getAttributeByteString self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getAttributeByteString_ (self & attribute) before GioFileInfoClass.FFI.touchPtr self before Utf8.FFI.touchPtr attribute
     fun getAttributeInt32 self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GInt32.FFI.fromVal) getAttributeInt32_ (self & attribute)
     fun getAttributeInt64 self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GInt64.FFI.fromVal) getAttributeInt64_ (self & attribute)
-    fun getAttributeObject self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectObjectClass.FFI.fromPtr false) getAttributeObject_ (self & attribute)
+    fun getAttributeObject self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectObjectClass.FFI.fromPtr false) getAttributeObject_ (self & attribute) before GioFileInfoClass.FFI.touchPtr self before Utf8.FFI.touchPtr attribute
     fun getAttributeStatus self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioFileAttributeStatus.FFI.fromVal) getAttributeStatus_ (self & attribute)
-    fun getAttributeString self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getAttributeString_ (self & attribute)
-    fun getAttributeStringv self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr 0) getAttributeStringv_ (self & attribute)
+    fun getAttributeString self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getAttributeString_ (self & attribute) before GioFileInfoClass.FFI.touchPtr self before Utf8.FFI.touchPtr attribute
+    fun getAttributeStringv self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr 0) getAttributeStringv_ (self & attribute) before GioFileInfoClass.FFI.touchPtr self before Utf8.FFI.touchPtr attribute
     fun getAttributeType self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioFileAttributeType.FFI.fromVal) getAttributeType_ (self & attribute)
     fun getAttributeUint32 self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GUInt32.FFI.fromVal) getAttributeUint32_ (self & attribute)
     fun getAttributeUint64 self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GUInt64.FFI.fromVal) getAttributeUint64_ (self & attribute)
-    fun getContentType self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getContentType_ self
+    fun getContentType self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getContentType_ self before GioFileInfoClass.FFI.touchPtr self
     fun getDeletionDate self = (GioFileInfoClass.FFI.withPtr false ---> GLibDateTimeRecord.FFI.fromPtr true) getDeletionDate_ self
-    fun getDisplayName self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
-    fun getEditName self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEditName_ self
-    fun getEtag self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEtag_ self
+    fun getDisplayName self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self before GioFileInfoClass.FFI.touchPtr self
+    fun getEditName self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEditName_ self before GioFileInfoClass.FFI.touchPtr self
+    fun getEtag self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEtag_ self before GioFileInfoClass.FFI.touchPtr self
     fun getFileType self = (GioFileInfoClass.FFI.withPtr false ---> GioFileType.FFI.fromVal) getFileType_ self
-    fun getIcon self = (GioFileInfoClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self
+    fun getIcon self = (GioFileInfoClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self before GioFileInfoClass.FFI.touchPtr self
     fun getIsBackup self = (GioFileInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsBackup_ self
     fun getIsHidden self = (GioFileInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsHidden_ self
     fun getIsSymlink self = (GioFileInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsSymlink_ self
@@ -568,11 +568,11 @@ structure GioFileInfo :>
       in
         result
       end
-    fun getName self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getName self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GioFileInfoClass.FFI.touchPtr self
     fun getSize self = (GioFileInfoClass.FFI.withPtr false ---> GInt64.FFI.fromVal) getSize_ self
     fun getSortOrder self = (GioFileInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getSortOrder_ self
-    fun getSymbolicIcon self = (GioFileInfoClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getSymbolicIcon_ self
-    fun getSymlinkTarget self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSymlinkTarget_ self
+    fun getSymbolicIcon self = (GioFileInfoClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getSymbolicIcon_ self before GioFileInfoClass.FFI.touchPtr self
+    fun getSymlinkTarget self = (GioFileInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSymlinkTarget_ self before GioFileInfoClass.FFI.touchPtr self
     fun hasAttribute self attribute = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasAttribute_ (self & attribute)
     fun hasNamespace self nameSpace = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasNamespace_ (self & nameSpace)
     fun listAttributes self nameSpace = (GioFileInfoClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> Utf8CPtrArray.FFI.fromOptPtr ~1) listAttributes_ (self & nameSpace)

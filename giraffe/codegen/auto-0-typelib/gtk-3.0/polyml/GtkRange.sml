@@ -72,7 +72,7 @@ structure GtkRange :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getAdjustment self = (GtkRangeClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self
+    fun getAdjustment self = (GtkRangeClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self before GtkRangeClass.FFI.touchPtr self
     fun getFillLevel self = (GtkRangeClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getFillLevel_ self
     fun getFlippable self = (GtkRangeClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFlippable_ self
     fun getInverted self = (GtkRangeClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInverted_ self

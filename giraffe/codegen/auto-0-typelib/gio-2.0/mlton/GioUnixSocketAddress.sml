@@ -81,7 +81,7 @@ structure GioUnixSocketAddress :>
     fun abstractNamesSupported () = (I ---> GBool.FFI.fromVal) abstractNamesSupported_ ()
     fun getAddressType self = (GioUnixSocketAddressClass.FFI.withPtr false ---> GioUnixSocketAddressType.FFI.fromVal) getAddressType_ self
     fun getIsAbstract self = (GioUnixSocketAddressClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIsAbstract_ self
-    fun getPath self = (GioUnixSocketAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPath_ self
+    fun getPath self = (GioUnixSocketAddressClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPath_ self before GioUnixSocketAddressClass.FFI.touchPtr self
     fun getPathLen self = (GioUnixSocketAddressClass.FFI.withPtr false ---> GUInt64.FFI.fromVal) getPathLen_ self
     local
       open ValueAccessor

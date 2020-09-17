@@ -41,7 +41,7 @@ structure GtkAppChooserButton :>
     fun asCellEditable self = (GObjectObjectClass.FFI.withPtr false ---> GtkCellEditableClass.FFI.fromPtr false) I self
     fun asCellLayout self = (GObjectObjectClass.FFI.withPtr false ---> GtkCellLayoutClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new contentType = (Utf8.FFI.withPtr 0 ---> GtkAppChooserButtonClass.FFI.fromPtr false) new_ contentType
+    fun new contentType = (Utf8.FFI.withPtr 0 ---> GtkAppChooserButtonClass.FFI.fromPtr false) new_ contentType before Utf8.FFI.touchPtr contentType
     fun appendCustomItem
       self
       (
@@ -64,7 +64,7 @@ structure GtkAppChooserButton :>
            & icon
         )
     fun appendSeparator self = (GtkAppChooserButtonClass.FFI.withPtr false ---> I) appendSeparator_ self
-    fun getHeading self = (GtkAppChooserButtonClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getHeading_ self
+    fun getHeading self = (GtkAppChooserButtonClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getHeading_ self before GtkAppChooserButtonClass.FFI.touchPtr self
     fun getShowDefaultItem self = (GtkAppChooserButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowDefaultItem_ self
     fun getShowDialogItem self = (GtkAppChooserButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowDialogItem_ self
     fun setActiveCustomItem self name = (GtkAppChooserButtonClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setActiveCustomItem_ (self & name)

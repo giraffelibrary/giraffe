@@ -33,9 +33,9 @@ structure GObjectValueArray :>
     type value_t = GObjectValueRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new nPrealloced = (GUInt32.FFI.withVal ---> GObjectValueArrayRecord.FFI.fromPtr true) new_ nPrealloced
-    fun append self value = (GObjectValueArrayRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withOptPtr false ---> GObjectValueArrayRecord.FFI.fromPtr false) append_ (self & value)
+    fun append self value = (GObjectValueArrayRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withOptPtr false ---> GObjectValueArrayRecord.FFI.fromPtr false) append_ (self & value) before GObjectValueArrayRecord.FFI.touchPtr self before GObjectValueRecord.FFI.touchOptPtr value
     fun copy self = (GObjectValueArrayRecord.FFI.withPtr false ---> GObjectValueArrayRecord.FFI.fromPtr true) copy_ self
-    fun getNth self index = (GObjectValueArrayRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GObjectValueRecord.FFI.fromPtr false) getNth_ (self & index)
+    fun getNth self index = (GObjectValueArrayRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GObjectValueRecord.FFI.fromPtr false) getNth_ (self & index) before GObjectValueArrayRecord.FFI.touchPtr self
     fun insert self (index, value) =
       (
         GObjectValueArrayRecord.FFI.withPtr false
@@ -49,6 +49,8 @@ structure GObjectValueArray :>
            & index
            & value
         )
-    fun prepend self value = (GObjectValueArrayRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withOptPtr false ---> GObjectValueArrayRecord.FFI.fromPtr false) prepend_ (self & value)
-    fun remove self index = (GObjectValueArrayRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GObjectValueArrayRecord.FFI.fromPtr false) remove_ (self & index)
+       before GObjectValueArrayRecord.FFI.touchPtr self
+       before GObjectValueRecord.FFI.touchOptPtr value
+    fun prepend self value = (GObjectValueArrayRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withOptPtr false ---> GObjectValueArrayRecord.FFI.fromPtr false) prepend_ (self & value) before GObjectValueArrayRecord.FFI.touchPtr self before GObjectValueRecord.FFI.touchOptPtr value
+    fun remove self index = (GObjectValueArrayRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GObjectValueArrayRecord.FFI.fromPtr false) remove_ (self & index) before GObjectValueArrayRecord.FFI.touchPtr self
   end

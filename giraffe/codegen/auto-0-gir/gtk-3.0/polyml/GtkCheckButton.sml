@@ -24,6 +24,6 @@ structure GtkCheckButton :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCheckButtonClass.FFI.fromPtr false) new_ ()
-    fun newWithLabel label = (Utf8.FFI.withPtr 0 ---> GtkCheckButtonClass.FFI.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (Utf8.FFI.withPtr 0 ---> GtkCheckButtonClass.FFI.fromPtr false) newWithMnemonic_ label
+    fun newWithLabel label = (Utf8.FFI.withPtr 0 ---> GtkCheckButtonClass.FFI.fromPtr false) newWithLabel_ label before Utf8.FFI.touchPtr label
+    fun newWithMnemonic label = (Utf8.FFI.withPtr 0 ---> GtkCheckButtonClass.FFI.fromPtr false) newWithMnemonic_ label before Utf8.FFI.touchPtr label
   end

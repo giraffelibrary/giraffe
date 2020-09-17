@@ -55,7 +55,7 @@ structure GtkStyleProperties :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkStylePropertiesClass.FFI.fromPtr true) new_ ()
     fun clear self = (GtkStylePropertiesClass.FFI.withPtr false ---> I) clear_ self
-    fun lookupColor self name = (GtkStylePropertiesClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkSymbolicColorRecord.FFI.fromPtr false) lookupColor_ (self & name)
+    fun lookupColor self name = (GtkStylePropertiesClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkSymbolicColorRecord.FFI.fromPtr false) lookupColor_ (self & name) before GtkStylePropertiesClass.FFI.touchPtr self before Utf8.FFI.touchPtr name
     fun mapColor self (name, color) =
       (
         GtkStylePropertiesClass.FFI.withPtr false

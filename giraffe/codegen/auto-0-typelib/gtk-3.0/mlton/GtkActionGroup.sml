@@ -104,9 +104,9 @@ structure GtkActionGroup :>
            & action
            & accelerator
         )
-    fun getAccelGroup self = (GtkActionGroupClass.FFI.withPtr false ---> GtkAccelGroupClass.FFI.fromPtr false) getAccelGroup_ self
-    fun getAction self actionName = (GtkActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkActionClass.FFI.fromPtr false) getAction_ (self & actionName)
-    fun getName self = (GtkActionGroupClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getAccelGroup self = (GtkActionGroupClass.FFI.withPtr false ---> GtkAccelGroupClass.FFI.fromPtr false) getAccelGroup_ self before GtkActionGroupClass.FFI.touchPtr self
+    fun getAction self actionName = (GtkActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkActionClass.FFI.fromPtr false) getAction_ (self & actionName) before GtkActionGroupClass.FFI.touchPtr self before Utf8.FFI.touchPtr actionName
+    fun getName self = (GtkActionGroupClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GtkActionGroupClass.FFI.touchPtr self
     fun getSensitive self = (GtkActionGroupClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSensitive_ self
     fun getVisible self = (GtkActionGroupClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
     fun removeAction self action = (GtkActionGroupClass.FFI.withPtr false &&&> GtkActionClass.FFI.withPtr false ---> I) removeAction_ (self & action)
@@ -114,7 +114,7 @@ structure GtkActionGroup :>
     fun setSensitive self sensitive = (GtkActionGroupClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSensitive_ (self & sensitive)
     fun setTranslationDomain self domain = (GtkActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setTranslationDomain_ (self & domain)
     fun setVisible self visible = (GtkActionGroupClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
-    fun translateString self string = (GtkActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) translateString_ (self & string)
+    fun translateString self string = (GtkActionGroupClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) translateString_ (self & string) before GtkActionGroupClass.FFI.touchPtr self before Utf8.FFI.touchPtr string
     local
       open ClosureMarshal Signal
     in

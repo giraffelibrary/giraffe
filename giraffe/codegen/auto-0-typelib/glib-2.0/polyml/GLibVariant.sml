@@ -140,19 +140,19 @@ structure GLibVariant :>
                & nChildren
             )
       in
-        retVal
+        retVal before GLibVariantTypeRecord.FFI.touchOptPtr childType before GLibVariantRecordCPtrArrayN.FFI.touchOptPtr children
       end
     fun newBoolean value = (GBool.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newBoolean_ value
     fun newByte value = (GUInt8.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newByte_ value
-    fun newBytestring string = (GUInt8CArray.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromPtr false) newBytestring_ string
+    fun newBytestring string = (GUInt8CArray.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromPtr false) newBytestring_ string before GUInt8CArray.FFI.touchPtr string
     fun newBytestringArray strv =
       let
         val length = LargeInt.fromInt (Utf8CPtrArrayN.length strv)
         val retVal = (Utf8CPtrArrayN.FFI.withPtr 0 &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newBytestringArray_ (strv & length)
       in
-        retVal
+        retVal before Utf8CPtrArrayN.FFI.touchPtr strv
       end
-    fun newDictEntry (key, value) = (GLibVariantRecord.FFI.withPtr false &&&> GLibVariantRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) newDictEntry_ (key & value)
+    fun newDictEntry (key, value) = (GLibVariantRecord.FFI.withPtr false &&&> GLibVariantRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) newDictEntry_ (key & value) before GLibVariantRecord.FFI.touchPtr key before GLibVariantRecord.FFI.touchPtr value
     fun newDouble value = (GDouble.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newDouble_ value
     fun newFromBytes
       (
@@ -172,39 +172,41 @@ structure GLibVariant :>
            & bytes
            & trusted
         )
+       before GLibVariantTypeRecord.FFI.touchPtr type'
+       before GLibBytesRecord.FFI.touchPtr bytes
     fun newHandle value = (GInt32.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newHandle_ value
     fun newInt16 value = (GInt16.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newInt16_ value
     fun newInt32 value = (GInt32.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newInt32_ value
     fun newInt64 value = (GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newInt64_ value
-    fun newMaybe (childType, child) = (GLibVariantTypeRecord.FFI.withOptPtr false &&&> GLibVariantRecord.FFI.withOptPtr false ---> GLibVariantRecord.FFI.fromPtr false) newMaybe_ (childType & child)
-    fun newObjectPath objectPath = (Utf8.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromPtr false) newObjectPath_ objectPath
+    fun newMaybe (childType, child) = (GLibVariantTypeRecord.FFI.withOptPtr false &&&> GLibVariantRecord.FFI.withOptPtr false ---> GLibVariantRecord.FFI.fromPtr false) newMaybe_ (childType & child) before GLibVariantTypeRecord.FFI.touchOptPtr childType before GLibVariantRecord.FFI.touchOptPtr child
+    fun newObjectPath objectPath = (Utf8.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromPtr false) newObjectPath_ objectPath before Utf8.FFI.touchPtr objectPath
     fun newObjv strv =
       let
         val length = LargeInt.fromInt (Utf8CPtrArrayN.length strv)
         val retVal = (Utf8CPtrArrayN.FFI.withPtr 0 &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newObjv_ (strv & length)
       in
-        retVal
+        retVal before Utf8CPtrArrayN.FFI.touchPtr strv
       end
-    fun newSignature signature' = (Utf8.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromPtr false) newSignature_ signature'
-    fun newString string = (Utf8.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromPtr false) newString_ string
+    fun newSignature signature' = (Utf8.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromPtr false) newSignature_ signature' before Utf8.FFI.touchPtr signature'
+    fun newString string = (Utf8.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromPtr false) newString_ string before Utf8.FFI.touchPtr string
     fun newStrv strv =
       let
         val length = LargeInt.fromInt (Utf8CPtrArrayN.length strv)
         val retVal = (Utf8CPtrArrayN.FFI.withPtr 0 &&&> GInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newStrv_ (strv & length)
       in
-        retVal
+        retVal before Utf8CPtrArrayN.FFI.touchPtr strv
       end
     fun newTuple children =
       let
         val nChildren = LargeInt.fromInt (GLibVariantRecordCPtrArrayN.length children)
         val retVal = (GLibVariantRecordCPtrArrayN.FFI.withPtr 0 &&&> GUInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newTuple_ (children & nChildren)
       in
-        retVal
+        retVal before GLibVariantRecordCPtrArrayN.FFI.touchPtr children
       end
     fun newUint16 value = (GUInt16.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newUint16_ value
     fun newUint32 value = (GUInt32.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newUint32_ value
     fun newUint64 value = (GUInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr false) newUint64_ value
-    fun newVariant value = (GLibVariantRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) newVariant_ value
+    fun newVariant value = (GLibVariantRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) newVariant_ value before GLibVariantRecord.FFI.touchPtr value
     fun byteswap self = (GLibVariantRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr true) byteswap_ self
     fun checkFormatString self (formatString, copyOnly) =
       (
@@ -254,12 +256,12 @@ structure GLibVariant :>
     fun equal self two = (GLibVariantRecord.FFI.withPtr false &&&> GLibVariantRecord.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & two)
     fun getBoolean self = (GLibVariantRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getBoolean_ self
     fun getByte self = (GLibVariantRecord.FFI.withPtr false ---> GUInt8.FFI.fromVal) getByte_ self
-    fun getBytestring self = (GLibVariantRecord.FFI.withPtr false ---> GUInt8CArray.FFI.fromPtr 0) getBytestring_ self
+    fun getBytestring self = (GLibVariantRecord.FFI.withPtr false ---> GUInt8CArray.FFI.fromPtr 0) getBytestring_ self before GLibVariantRecord.FFI.touchPtr self
     fun getBytestringArray self =
       let
         val length & retVal = (GLibVariantRecord.FFI.withPtr false &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArrayN.FFI.fromPtr 1) getBytestringArray_ (self & GUInt64.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal (LargeInt.toInt length) before GLibVariantRecord.FFI.touchPtr self
       end
     fun getChildValue self index = (GLibVariantRecord.FFI.withPtr false &&&> GUInt64.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr true) getChildValue_ (self & index)
     fun getDataAsBytes self = (GLibVariantRecord.FFI.withPtr false ---> GLibBytesRecord.FFI.fromPtr true) getDataAsBytes_ self
@@ -274,23 +276,23 @@ structure GLibVariant :>
       let
         val _ & retVal = (GLibVariantRecord.FFI.withPtr false &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 1) getObjv_ (self & GUInt64.null)
       in
-        retVal
+        retVal before GLibVariantRecord.FFI.touchPtr self
       end
     fun getSize self = (GLibVariantRecord.FFI.withPtr false ---> GUInt64.FFI.fromVal) getSize_ self
     fun getString self =
       let
         val length & retVal = (GLibVariantRecord.FFI.withPtr false &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8.FFI.fromPtr 0) getString_ (self & GUInt64.null)
       in
-        (retVal, length)
+        (retVal, length) before GLibVariantRecord.FFI.touchPtr self
       end
     fun getStrv self =
       let
         val _ & retVal = (GLibVariantRecord.FFI.withPtr false &&&> GUInt64.FFI.withRefVal ---> GUInt64.FFI.fromVal && Utf8CPtrArray.FFI.fromPtr 1) getStrv_ (self & GUInt64.null)
       in
-        retVal
+        retVal before GLibVariantRecord.FFI.touchPtr self
       end
-    fun getType self = (GLibVariantRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) getType_ self
-    fun getTypeString self = (GLibVariantRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTypeString_ self
+    fun getType self = (GLibVariantRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) getType_ self before GLibVariantRecord.FFI.touchPtr self
+    fun getTypeString self = (GLibVariantRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTypeString_ self before GLibVariantRecord.FFI.touchPtr self
     fun getUint16 self = (GLibVariantRecord.FFI.withPtr false ---> GUInt16.FFI.fromVal) getUint16_ self
     fun getUint32 self = (GLibVariantRecord.FFI.withPtr false ---> GUInt32.FFI.fromVal) getUint32_ self
     fun getUint64 self = (GLibVariantRecord.FFI.withPtr false ---> GUInt64.FFI.fromVal) getUint64_ self

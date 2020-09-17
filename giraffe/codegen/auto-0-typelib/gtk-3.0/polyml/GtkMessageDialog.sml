@@ -24,8 +24,8 @@ structure GtkMessageDialog :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getImage self = (GtkMessageDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getImage_ self
-    fun getMessageArea self = (GtkMessageDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getMessageArea_ self
+    fun getImage self = (GtkMessageDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getImage_ self before GtkMessageDialogClass.FFI.touchPtr self
+    fun getMessageArea self = (GtkMessageDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getMessageArea_ self before GtkMessageDialogClass.FFI.touchPtr self
     fun setImage self image = (GtkMessageDialogClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setImage_ (self & image)
     fun setMarkup self str = (GtkMessageDialogClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setMarkup_ (self & str)
     local

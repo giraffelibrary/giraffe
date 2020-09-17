@@ -794,6 +794,12 @@ structure GtkCellRenderer :>
            & cellArea
            & flags
         )
+       before GtkCellRendererClass.FFI.touchPtr self
+       before GdkEvent.FFI.touchOptPtr event
+       before GtkWidgetClass.FFI.touchPtr widget
+       before Utf8.FFI.touchPtr path
+       before GdkRectangleRecord.FFI.touchPtr backgroundArea
+       before GdkRectangleRecord.FFI.touchPtr cellArea
     fun stopEditing self canceled = (GtkCellRendererClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) stopEditing_ (self & canceled)
     local
       open ClosureMarshal Signal

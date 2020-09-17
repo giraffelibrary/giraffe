@@ -67,10 +67,10 @@ structure GtkSourceCompletionProvider :>
            & iter
         )
     fun getActivation self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> GtkSourceCompletionActivation.FFI.fromVal) getActivation_ self
-    fun getGicon self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> GioIconClass.FFI.fromOptPtr false) getGicon_ self
-    fun getIcon self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getIcon_ self
-    fun getIconName self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
-    fun getInfoWidget self proposal = (GtkSourceCompletionProviderClass.FFI.withPtr false &&&> GtkSourceCompletionProposalClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getInfoWidget_ (self & proposal)
+    fun getGicon self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> GioIconClass.FFI.fromOptPtr false) getGicon_ self before GtkSourceCompletionProviderClass.FFI.touchPtr self
+    fun getIcon self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getIcon_ self before GtkSourceCompletionProviderClass.FFI.touchPtr self
+    fun getIconName self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getIconName_ self before GtkSourceCompletionProviderClass.FFI.touchPtr self
+    fun getInfoWidget self proposal = (GtkSourceCompletionProviderClass.FFI.withPtr false &&&> GtkSourceCompletionProposalClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getInfoWidget_ (self & proposal) before GtkSourceCompletionProviderClass.FFI.touchPtr self before GtkSourceCompletionProposalClass.FFI.touchPtr proposal
     fun getInteractiveDelay self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> GInt.FFI.fromVal) getInteractiveDelay_ self
     fun getName self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getName_ self
     fun getPriority self = (GtkSourceCompletionProviderClass.FFI.withPtr false ---> GInt.FFI.fromVal) getPriority_ self

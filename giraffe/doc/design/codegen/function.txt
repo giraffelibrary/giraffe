@@ -645,6 +645,16 @@ We also treat J, K, L, M and N as arrays whose elements are the zero-based param
 full list of parameters.  Each array is injective (i.e. elements are unique) and the
 inverse of an array X is denoted X~.
 
+If any fromFun[n], for 1 <= n <= N, or retFromFun copies data from a pointer, we need
+to make sure that every pointer instance/IN/INOUT parameter is touched after
+all 'from' functions have been evaluated to prevent a GC from freeing data that is still required.
+This could occur when the last reference of such a parameter is the function call argument
+and data copied by a 'from' function depends on data that would be destroyed if it were freed.
+If the form described below produces an expression of the form
+  <e> before ()
+this is simplified to
+  <e>
+
 
   fun <functionName> self (<inParamName[1]>, ..., <inParamName[L]>) =
     let
@@ -659,6 +669,12 @@ inverse of an array X is denoted X~.
           (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
     in
       <retExp>
+                               -.
+       before <touchFunSelf>    |
+       before <touchFun[1]>     | if copyFromPtr
+       ...                      |
+       before <touchFun[L]>     |
+                               -'
     end
 
     if N + M > 0 and L > 0 and anySet (FunctionFlags, IS_METHOD)
@@ -677,6 +693,9 @@ inverse of an array X is denoted X~.
           (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
     in
       <retExp>
+                               -.
+       before <touchFunSelf>    | if copyFromPtr
+                               -'
     end
 
     if N + M > 0 and L = 0 and anySet (FunctionFlags, IS_METHOD)
@@ -695,6 +714,11 @@ inverse of an array X is denoted X~.
           (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
     in
       <retExp>
+                               -.
+       before <touchFun[1]>     |
+       ...                      | if copyFromPtr
+       before <touchFun[L]>     |
+                               -'
     end
 
     if N + M > 0 and not anySet (FunctionFlags, IS_METHOD)
@@ -704,6 +728,12 @@ inverse of an array X is denoted X~.
     (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>)
       <functionName>_
       (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+                               -.
+     before <touchFunSelf>      |
+     before <touchFun[1]>       | if copyFromPtr
+     ...                        |
+     before <touchFun[L]>       |
+                               -'
 
     if N + M = 0 and L > 0 and anySet (FunctionFlags, IS_METHOD)
 
@@ -712,6 +742,9 @@ inverse of an array X is denoted X~.
     (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>)
       <functionName>_
       (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+                               -.
+     before <touchFunSelf>      | if copyFromPtr
+                               -'
 
     if N + M = 0 and L = 0 and anySet (FunctionFlags, IS_METHOD)
 
@@ -720,6 +753,11 @@ inverse of an array X is denoted X~.
     (<withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>)
       <functionName>_
       (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+                               -.
+     before <touchFun[1]>       |
+     ...                        | if copyFromPtr
+     before <touchFun[L]>       |
+                               -'
 
     if N + M = 0 and not anySet (FunctionFlags, IS_METHOD)
 
@@ -754,6 +792,15 @@ where
 
       <empty>
         otherwise
+
+
+  copyFromPtr
+    is true if any 'from' function copies data from a pointer, i.e. it
+    is true if any fromFun[n], for 1 <= n <= N, or retFromFun has the form
+      <A>.from[Opt]Ptr
+    with a transfer flag/depth argument that causes a copy, i.e.
+      - a flag argument that is false
+      - a depth argument that is non-negative
 
 
   convertToInt(i, x)
@@ -2248,6 +2295,146 @@ where
 
       <raise Error "not supported">  # ignore other cases for now
         otherwise.
+
+
+  touchFunSelf
+    is
+
+      <touchInterfaceFun> self
+
+    where the interface is the enclosing entity.
+    Note that the GIR type tag of the enclosing entity must be INTERFACE: no
+    other type tag is an entity that has functions.
+
+
+  touchFun[l]
+    is defined according to the GIR type tag of the type of the
+    <l>th non-VOID non-length IN/INOUT parameter of the function as follows:
+
+      argTypeInfo = GIRepository.ArgInfo.getType argInfo
+      tag = GIRepository.TypeInfo.get_tag argTypeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        FILENAME  --->    <touchUtf8Fun> <inParamName[l]>
+        ARRAY     --->    <touchArrayFun> <inParamName[l]>
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Error "not expected">
+                          -.
+        BOOLEAN   --->     |
+        CHAR      --->     |
+        UCHAR     --->     |
+        INT       --->     |
+        UINT      --->     |
+        SHORT     --->     |
+        USHORT    --->     |
+        LONG      --->     |
+        ULONG     --->     |
+        INT8      --->     |
+        UINT8     --->     |
+        INT16     --->     |
+        UINT16    --->     |
+        INT32     --->     | ()
+        UINT32    --->     |
+        INT64     --->     |
+        UINT64    --->     |
+        FLOAT     --->     |
+        DOUBLE    --->     |
+        SSIZE     --->     |
+        SIZE      --->     |
+        OFFSET    --->     |
+        INTPTR    --->     |
+        UINTPTR   --->     |
+        UNICHAR   --->     |
+                          -'
+        UTF8      --->    <touchUtf8Fun> <inParamName[l]>
+        INTERFACE --->    <touchInterfaceFun> <inParamName[l]>
+
+
+  touchUtf8Fun
+    is defined as
+
+        mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
+
+      <A>.touch<Opt>Ptr
+
+    where
+
+      A is Utf8.FFI
+
+      Opt is defined as follows:
+
+          mayBeNull       | Opt
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | Opt
+        ------------------+-------------------
+
+
+  touchArrayFun
+    is defined as
+
+        mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
+
+      <A>.touch<Opt>Ptr
+
+    where
+
+      A is <ArrayStructId(argTypeInfo)>.FFI
+
+      Opt is defined as follows:
+
+          mayBeNull       | Opt
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | Opt
+        ------------------+-------------------
+
+
+  touchInterfaceFun
+    is defined according to the interface type as follows:
+
+        mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
+        argInterfaceTypeInfo = GIRepository.TypeInfo.getInterface argTypeInfo
+        argInfoType = GIRepository.InfoType.getType argInterfaceTypeInfo
+
+      <InterfaceNamespace><InterfaceName>Class.FFI.touch<Opt>Ptr
+        if argInfoType is OBJECT _ | INTERFACE _
+
+
+      <InterfaceNamespace><InterfaceName>Record.FFI.touch<Opt>Ptr
+        if argInfoType is STRUCT _
+
+
+      <InterfaceNamespace><InterfaceName>.FFI.touch<Opt>Ptr
+        if argInfoType is UNION _
+
+
+      ()
+        if argInfoType is FLAGS _ | ENUM _.
+
+
+      <raise Error "not supported">  # ignore other cases for now
+        otherwise.
+
+    where
+
+      InterfaceName = GIRepository.BaseInfo.getName argInfo
+      InterfaceNamespace = GIRepository.BaseInfo.getNamespace argInfo
+
+      Opt is defined as follows:
+
+          mayBeNull       | Opt
+        ==================+===================
+          false           | <empty>
+        ------------------+-------------------
+          true            | Opt
+        ------------------+-------------------
 
 
   errorDomain[e] is the <e>th error domain.

@@ -40,7 +40,7 @@ structure AtkRange :>
            & description
         )
     fun copy self = (AtkRangeRecord.FFI.withPtr false ---> AtkRangeRecord.FFI.fromPtr true) copy_ self
-    fun getDescription self = (AtkRangeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self
+    fun getDescription self = (AtkRangeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self before AtkRangeRecord.FFI.touchPtr self
     fun getLowerLimit self = (AtkRangeRecord.FFI.withPtr false ---> GDouble.FFI.fromVal) getLowerLimit_ self
     fun getUpperLimit self = (AtkRangeRecord.FFI.withPtr false ---> GDouble.FFI.fromVal) getUpperLimit_ self
   end

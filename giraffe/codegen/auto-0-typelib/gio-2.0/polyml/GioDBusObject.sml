@@ -15,7 +15,7 @@ structure GioDBusObject :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getInterface self interfaceName = (GioDBusObjectClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusInterfaceClass.FFI.fromPtr true) getInterface_ (self & interfaceName)
-    fun getObjectPath self = (GioDBusObjectClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
+    fun getObjectPath self = (GioDBusObjectClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectPath_ self before GioDBusObjectClass.FFI.touchPtr self
     local
       open ClosureMarshal Signal
     in

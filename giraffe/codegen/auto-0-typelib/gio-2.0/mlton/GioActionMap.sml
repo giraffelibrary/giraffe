@@ -40,6 +40,6 @@ structure GioActionMap :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun addAction self action = (GioActionMapClass.FFI.withPtr false &&&> GioActionClass.FFI.withPtr false ---> I) addAction_ (self & action)
-    fun lookupAction self actionName = (GioActionMapClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioActionClass.FFI.fromPtr false) lookupAction_ (self & actionName)
+    fun lookupAction self actionName = (GioActionMapClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioActionClass.FFI.fromPtr false) lookupAction_ (self & actionName) before GioActionMapClass.FFI.touchPtr self before Utf8.FFI.touchPtr actionName
     fun removeAction self actionName = (GioActionMapClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) removeAction_ (self & actionName)
   end

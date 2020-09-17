@@ -38,7 +38,7 @@ structure GioDBusObjectManager :>
            & interfaceName
         )
     fun getObject self objectPath = (GioDBusObjectManagerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusObjectClass.FFI.fromPtr true) getObject_ (self & objectPath)
-    fun getObjectPath self = (GioDBusObjectManagerClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
+    fun getObjectPath self = (GioDBusObjectManagerClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectPath_ self before GioDBusObjectManagerClass.FFI.touchPtr self
     local
       open ClosureMarshal Signal
     in

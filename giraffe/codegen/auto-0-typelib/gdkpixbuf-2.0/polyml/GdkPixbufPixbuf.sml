@@ -567,6 +567,7 @@ structure GdkPixbufPixbuf :>
           width,
           height
         )
+         before Utf8.FFI.touchPtr filename
       end
     fun getFileInfoFinish asyncResult =
       let
@@ -595,6 +596,7 @@ structure GdkPixbufPixbuf :>
           width,
           height
         )
+         before GioAsyncResultClass.FFI.touchPtr asyncResult
       end
     fun saveToStreamFinish asyncResult = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) saveToStreamFinish_ (asyncResult & [])
     fun addAlpha
@@ -803,12 +805,12 @@ structure GdkPixbufPixbuf :>
     fun getHasAlpha self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasAlpha_ self
     fun getHeight self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getHeight_ self
     fun getNChannels self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNChannels_ self
-    fun getOption self key = (GdkPixbufPixbufClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getOption_ (self & key)
+    fun getOption self key = (GdkPixbufPixbufClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getOption_ (self & key) before GdkPixbufPixbufClass.FFI.touchPtr self before Utf8.FFI.touchPtr key
     fun getPixels self =
       let
         val length & retVal = (GdkPixbufPixbufClass.FFI.withPtr false &&&> GUInt32.FFI.withRefVal ---> GUInt32.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 0) getPixels_ (self & GUInt32.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal (LargeInt.toInt length) before GdkPixbufPixbufClass.FFI.touchPtr self
       end
     fun getRowstride self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getRowstride_ self
     fun getWidth self = (GdkPixbufPixbufClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getWidth_ self

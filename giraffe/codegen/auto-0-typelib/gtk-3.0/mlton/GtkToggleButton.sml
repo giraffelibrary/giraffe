@@ -27,8 +27,8 @@ structure GtkToggleButton :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkToggleButtonClass.FFI.fromPtr false) new_ ()
-    fun newWithLabel label = (Utf8.FFI.withPtr 0 ---> GtkToggleButtonClass.FFI.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (Utf8.FFI.withPtr 0 ---> GtkToggleButtonClass.FFI.fromPtr false) newWithMnemonic_ label
+    fun newWithLabel label = (Utf8.FFI.withPtr 0 ---> GtkToggleButtonClass.FFI.fromPtr false) newWithLabel_ label before Utf8.FFI.touchPtr label
+    fun newWithMnemonic label = (Utf8.FFI.withPtr 0 ---> GtkToggleButtonClass.FFI.fromPtr false) newWithMnemonic_ label before Utf8.FFI.touchPtr label
     fun getActive self = (GtkToggleButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActive_ self
     fun getInconsistent self = (GtkToggleButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInconsistent_ self
     fun getMode self = (GtkToggleButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getMode_ self

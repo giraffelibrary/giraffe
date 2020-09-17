@@ -67,7 +67,7 @@ structure GtkAccelGroup :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkAccelGroupClass.FFI.fromPtr true) new_ ()
-    fun fromAccelClosure closure = (GObjectClosureRecord.FFI.withPtr false ---> GtkAccelGroupClass.FFI.fromOptPtr false) fromAccelClosure_ closure
+    fun fromAccelClosure closure = (GObjectClosureRecord.FFI.withPtr false ---> GtkAccelGroupClass.FFI.fromOptPtr false) fromAccelClosure_ closure before GObjectClosureRecord.FFI.touchPtr closure
     fun activate
       self
       (
@@ -164,7 +164,7 @@ structure GtkAccelGroup :>
                & GUInt32.null
             )
       in
-        retVal (LargeInt.toInt nEntries)
+        retVal (LargeInt.toInt nEntries) before GtkAccelGroupClass.FFI.touchPtr self
       end
     fun unlock self = (GtkAccelGroupClass.FFI.withPtr false ---> I) unlock_ self
     local

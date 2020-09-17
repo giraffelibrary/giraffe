@@ -186,6 +186,6 @@ structure GdkVisual :>
           precision
         )
       end
-    fun getScreen self = (GdkVisualClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun getScreen self = (GdkVisualClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self before GdkVisualClass.FFI.touchPtr self
     fun getVisualType self = (GdkVisualClass.FFI.withPtr false ---> GdkVisualType.FFI.fromVal) getVisualType_ self
   end

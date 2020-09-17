@@ -46,12 +46,12 @@ structure GdkDragContext :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getActions self = (GdkDragContextClass.FFI.withPtr false ---> GdkDragAction.FFI.fromVal) getActions_ self
-    fun getDestWindow self = (GdkDragContextClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getDestWindow_ self
-    fun getDevice self = (GdkDragContextClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromPtr false) getDevice_ self
-    fun getDragWindow self = (GdkDragContextClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getDragWindow_ self
+    fun getDestWindow self = (GdkDragContextClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getDestWindow_ self before GdkDragContextClass.FFI.touchPtr self
+    fun getDevice self = (GdkDragContextClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromPtr false) getDevice_ self before GdkDragContextClass.FFI.touchPtr self
+    fun getDragWindow self = (GdkDragContextClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getDragWindow_ self before GdkDragContextClass.FFI.touchPtr self
     fun getProtocol self = (GdkDragContextClass.FFI.withPtr false ---> GdkDragProtocol.FFI.fromVal) getProtocol_ self
     fun getSelectedAction self = (GdkDragContextClass.FFI.withPtr false ---> GdkDragAction.FFI.fromVal) getSelectedAction_ self
-    fun getSourceWindow self = (GdkDragContextClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getSourceWindow_ self
+    fun getSourceWindow self = (GdkDragContextClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getSourceWindow_ self before GdkDragContextClass.FFI.touchPtr self
     fun getSuggestedAction self = (GdkDragContextClass.FFI.withPtr false ---> GdkDragAction.FFI.fromVal) getSuggestedAction_ self
     fun manageDnd self (ipcWindow, actions) =
       (

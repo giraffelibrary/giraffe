@@ -36,7 +36,7 @@ structure GtkRecentFilter :>
     fun addPattern self pattern = (GtkRecentFilterClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) addPattern_ (self & pattern)
     fun addPixbufFormats self = (GtkRecentFilterClass.FFI.withPtr false ---> I) addPixbufFormats_ self
     fun filter self filterInfo = (GtkRecentFilterClass.FFI.withPtr false &&&> GtkRecentFilterInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) filter_ (self & filterInfo)
-    fun getName self = (GtkRecentFilterClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getName_ self
+    fun getName self = (GtkRecentFilterClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getName_ self before GtkRecentFilterClass.FFI.touchPtr self
     fun getNeeded self = (GtkRecentFilterClass.FFI.withPtr false ---> GtkRecentFilterFlags.FFI.fromVal) getNeeded_ self
     fun setName self name = (GtkRecentFilterClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setName_ (self & name)
   end

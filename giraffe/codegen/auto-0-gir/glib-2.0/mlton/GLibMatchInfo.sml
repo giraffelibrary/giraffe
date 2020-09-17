@@ -157,7 +157,7 @@ structure GLibMatchInfo :>
       end
     fun getMatchCount self = (GLibMatchInfoRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getMatchCount_ self
     fun getRegex self = (GLibMatchInfoRecord.FFI.withPtr false ---> GLibRegexRecord.FFI.fromPtr true) getRegex_ self
-    fun getString self = (GLibMatchInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getString_ self
+    fun getString self = (GLibMatchInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getString_ self before GLibMatchInfoRecord.FFI.touchPtr self
     fun isPartialMatch self = (GLibMatchInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isPartialMatch_ self
     fun matches self = (GLibMatchInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) matches_ self
     fun next self = (GLibMatchInfoRecord.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) next_ (self & [])

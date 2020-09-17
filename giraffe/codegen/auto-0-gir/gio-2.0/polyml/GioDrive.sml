@@ -108,7 +108,7 @@ structure GioDrive :>
     fun getIcon self = (GioDriveClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) getIcon_ self
     fun getIdentifier self kind = (GioDriveClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) getIdentifier_ (self & kind)
     fun getName self = (GioDriveClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getName_ self
-    fun getSortKey self = (GioDriveClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSortKey_ self
+    fun getSortKey self = (GioDriveClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSortKey_ self before GioDriveClass.FFI.touchPtr self
     fun getStartStopType self = (GioDriveClass.FFI.withPtr false ---> GioDriveStartStopType.FFI.fromVal) getStartStopType_ self
     fun getSymbolicIcon self = (GioDriveClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) getSymbolicIcon_ self
     fun hasMedia self = (GioDriveClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasMedia_ self

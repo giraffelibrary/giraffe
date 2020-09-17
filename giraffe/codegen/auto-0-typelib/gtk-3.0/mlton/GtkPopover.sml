@@ -53,8 +53,8 @@ structure GtkPopover :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new relativeTo = (GtkWidgetClass.FFI.withOptPtr false ---> GtkPopoverClass.FFI.fromPtr false) new_ relativeTo
-    fun newFromModel (relativeTo, model) = (GtkWidgetClass.FFI.withOptPtr false &&&> GioMenuModelClass.FFI.withPtr false ---> GtkPopoverClass.FFI.fromPtr false) newFromModel_ (relativeTo & model)
+    fun new relativeTo = (GtkWidgetClass.FFI.withOptPtr false ---> GtkPopoverClass.FFI.fromPtr false) new_ relativeTo before GtkWidgetClass.FFI.touchOptPtr relativeTo
+    fun newFromModel (relativeTo, model) = (GtkWidgetClass.FFI.withOptPtr false &&&> GioMenuModelClass.FFI.withPtr false ---> GtkPopoverClass.FFI.fromPtr false) newFromModel_ (relativeTo & model) before GtkWidgetClass.FFI.touchOptPtr relativeTo before GioMenuModelClass.FFI.touchPtr model
     fun bindModel self (model, actionNamespace) =
       (
         GtkPopoverClass.FFI.withPtr false
@@ -69,7 +69,7 @@ structure GtkPopover :>
            & actionNamespace
         )
     fun getConstrainTo self = (GtkPopoverClass.FFI.withPtr false ---> GtkPopoverConstraint.FFI.fromVal) getConstrainTo_ self
-    fun getDefaultWidget self = (GtkPopoverClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getDefaultWidget_ self
+    fun getDefaultWidget self = (GtkPopoverClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getDefaultWidget_ self before GtkPopoverClass.FFI.touchPtr self
     fun getModal self = (GtkPopoverClass.FFI.withPtr false ---> GBool.FFI.fromVal) getModal_ self
     fun getPointingTo self =
       let
@@ -78,7 +78,7 @@ structure GtkPopover :>
         if retVal then SOME rect else NONE
       end
     fun getPosition self = (GtkPopoverClass.FFI.withPtr false ---> GtkPositionType.FFI.fromVal) getPosition_ self
-    fun getRelativeTo self = (GtkPopoverClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getRelativeTo_ self
+    fun getRelativeTo self = (GtkPopoverClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getRelativeTo_ self before GtkPopoverClass.FFI.touchPtr self
     fun getTransitionsEnabled self = (GtkPopoverClass.FFI.withPtr false ---> GBool.FFI.fromVal) getTransitionsEnabled_ self
     fun popdown self = (GtkPopoverClass.FFI.withPtr false ---> I) popdown_ self
     fun popup self = (GtkPopoverClass.FFI.withPtr false ---> I) popup_ self

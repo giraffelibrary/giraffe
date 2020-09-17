@@ -20,7 +20,7 @@ structure GioConverterOutputStream :>
     fun asPollableOutputStream self = (GObjectObjectClass.FFI.withPtr false ---> GioPollableOutputStreamClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (baseStream, converter) = (GioOutputStreamClass.FFI.withPtr false &&&> GioConverterClass.FFI.withPtr false ---> GioConverterOutputStreamClass.FFI.fromPtr true) new_ (baseStream & converter)
-    fun getConverter self = (GioConverterOutputStreamClass.FFI.withPtr false ---> GioConverterClass.FFI.fromPtr false) getConverter_ self
+    fun getConverter self = (GioConverterOutputStreamClass.FFI.withPtr false ---> GioConverterClass.FFI.fromPtr false) getConverter_ self before GioConverterOutputStreamClass.FFI.touchPtr self
     local
       open ValueAccessor
     in

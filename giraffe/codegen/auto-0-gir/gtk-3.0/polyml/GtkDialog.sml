@@ -86,11 +86,13 @@ structure GtkDialog :>
            & buttonText
            & responseId
         )
-    fun getActionArea self = (GtkDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self
-    fun getContentArea self = (GtkDialogClass.FFI.withPtr false ---> GtkBoxClass.FFI.fromPtr false) getContentArea_ self
-    fun getHeaderBar self = (GtkDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getHeaderBar_ self
+       before GtkDialogClass.FFI.touchPtr self
+       before Utf8.FFI.touchPtr buttonText
+    fun getActionArea self = (GtkDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self before GtkDialogClass.FFI.touchPtr self
+    fun getContentArea self = (GtkDialogClass.FFI.withPtr false ---> GtkBoxClass.FFI.fromPtr false) getContentArea_ self before GtkDialogClass.FFI.touchPtr self
+    fun getHeaderBar self = (GtkDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getHeaderBar_ self before GtkDialogClass.FFI.touchPtr self
     fun getResponseForWidget self widget = (GtkDialogClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getResponseForWidget_ (self & widget)
-    fun getWidgetForResponse self responseId = (GtkDialogClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getWidgetForResponse_ (self & responseId)
+    fun getWidgetForResponse self responseId = (GtkDialogClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getWidgetForResponse_ (self & responseId) before GtkDialogClass.FFI.touchPtr self
     fun response self responseId = (GtkDialogClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) response_ (self & responseId)
     fun run self = (GtkDialogClass.FFI.withPtr false ---> GInt.FFI.fromVal) run_ self
     fun setAlternativeButtonOrderFromArray self newOrder =

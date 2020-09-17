@@ -65,13 +65,13 @@ fun addFlagsEnumMethodStrDecsLowLevel
     repo
     vers
     addInitStrDecs
-    (SOME (enumIRef, enumIRef))
+    (SOME enumIRef)
 
-fun addFlagsEnumMethodStrDecsHighLevel repo vers enumIRef =
+fun addFlagsEnumMethodStrDecsHighLevel repo vers (enumInfo, enumIRef) =
   revFoldMapInfosWithExcls
     EnumInfo.getNMethods
     EnumInfo.getMethod
-    (makeFunctionStrDecHighLevel repo vers (SOME (enumIRef, enumIRef)))
+    (makeFunctionStrDecHighLevel repo vers (SOME (enumInfo, enumIRef)))
 
 (*
  *     structure PolyML :                            -.

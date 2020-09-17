@@ -96,6 +96,14 @@ functor ConstCArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
          * `0 <= i andalso i < n` *)
 
 
+        val touchPtr =
+          fn
+            CArray a => Finalizable.touch a
+          | _        => ()
+
+        fun touchOptPtr t = Option.app touchPtr t
+
+
         (**
          * Return values
          *)

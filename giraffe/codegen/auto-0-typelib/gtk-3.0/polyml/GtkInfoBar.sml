@@ -83,8 +83,10 @@ structure GtkInfoBar :>
            & buttonText
            & responseId
         )
-    fun getActionArea self = (GtkInfoBarClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self
-    fun getContentArea self = (GtkInfoBarClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getContentArea_ self
+       before GtkInfoBarClass.FFI.touchPtr self
+       before Utf8.FFI.touchPtr buttonText
+    fun getActionArea self = (GtkInfoBarClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getActionArea_ self before GtkInfoBarClass.FFI.touchPtr self
+    fun getContentArea self = (GtkInfoBarClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getContentArea_ self before GtkInfoBarClass.FFI.touchPtr self
     fun getMessageType self = (GtkInfoBarClass.FFI.withPtr false ---> GtkMessageType.FFI.fromVal) getMessageType_ self
     fun getShowCloseButton self = (GtkInfoBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowCloseButton_ self
     fun response self responseId = (GtkInfoBarClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) response_ (self & responseId)

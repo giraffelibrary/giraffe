@@ -1967,6 +1967,15 @@ local
       | XferNone    => funExp
     end
 
+  fun touchFunExp prefixIds {isOpt} =
+    let
+      val optStr = if isOpt then "Opt" else ""
+
+      val touchFunId = concat ["touch", optStr, "Ptr"]
+    in
+      mkLIdLNameExp (prefixIds @ [touchFunId])
+    end
+
   fun withFunGType (dir, {iRef, ...} : gtype_info) =
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
@@ -2108,58 +2117,69 @@ local
   fun fromFunGType ({iRef, ...} : gtype_info) =
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
+      val exp =
+        fromFunExp prefixIds {
+          isOpt = false,
+          xfer  = XferNone
+        }
+      val copiesFromPtr = false
     in
-      fromFunExp prefixIds {
-        isOpt = false,
-        xfer  = XferNone
-      }
+      (exp, copiesFromPtr)
     end
 
   fun fromFunScalar ({ty, ...} : scalar_info) =
     let
       val prefixIds = [gStrId ^ scalarStrId ty, ffiStrId]
+      val exp =
+        fromFunExp prefixIds {
+          isOpt = false,
+          xfer  = XferNone
+        }
+      val copiesFromPtr = false
     in
-      fromFunExp prefixIds {
-        isOpt = false,
-        xfer  = XferNone
-      }
+      (exp, copiesFromPtr)
     end
 
   fun fromFunUtf8 (_, {xferOwn, isOpt, ...} : utf8_info) =
     let
       val prefixIds = [utf8StrId, ffiStrId]
+      val exp =
+        fromFunExp prefixIds {
+          isOpt = isOpt,
+          xfer  =
+            XferDepth (
+              if xferOwn
+              then ~1
+              else 0
+            )
+        }
+      val copiesFromPtr = not xferOwn
     in
-      fromFunExp prefixIds {
-        isOpt = isOpt,
-        xfer  =
-          XferDepth (
-            if xferOwn
-            then ~1
-            else 0
-          )
-      }
+      (exp, copiesFromPtr)
     end
 
   fun fromFunArray (isInOut, {isPtr, xferOwn, isOpt, iRef, elem, ...} : array_info) =
     let
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
-    in
-      fromFunExp prefixIds {
-        isOpt =
-          case (isInOut, isPtr) of
-            (false, false) => false (* `isPtr` is not false for return values
-                                       so this case applies to OUT parameters *)
-          | _              => isOpt,
-        xfer  =
-          XferDepth (
+      val depth =
+        case (isInOut, isPtr) of
+          (false, false) => ~1
+        | _              =>
+            if xferOwn
+            then getArrayOwnXferDepth 1 elem
+            else 0
+      val exp =
+        fromFunExp prefixIds {
+          isOpt =
             case (isInOut, isPtr) of
-              (false, false) => ~1
-            | _              =>
-                if xferOwn
-                then getArrayOwnXferDepth 1 elem
-                else 0
-          )
-      }
+              (false, false) => false (* `isPtr` is not false for return values
+                                         so this case applies to OUT parameters *)
+            | _              => isOpt,
+          xfer  = XferDepth depth
+        }
+      val copiesFromPtr = depth >= 0
+    in
+      (exp, copiesFromPtr)
     end
 
   fun fromFunInterface
@@ -2186,18 +2206,23 @@ local
       val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
 
       open InfoType
+
+      val xfer =
+        case (isInOut, infoType, isPtr) of
+          (false, STRUCT _, false) => XferFlag true  (* OUT parameter *)
+        | (true,  STRUCT _, false) => XferFlag xferOwn
+        | _                        =>
+            if isPtr
+            then XferFlag xferOwn
+            else XferNone
+      val exp =
+        fromFunExp prefixIds {
+          isOpt = isOpt,
+          xfer  = xfer
+        }
+      val copiesFromPtr = xfer = XferFlag false
     in
-      fromFunExp prefixIds {
-        isOpt = isOpt,
-        xfer  =
-          case (isInOut, infoType, isPtr) of
-            (false, STRUCT _, false) => XferFlag true  (* OUT parameter *)
-          | (true,  STRUCT _, false) => XferFlag xferOwn
-          | _                        =>
-              if isPtr
-              then XferFlag xferOwn
-              else XferNone
-      }
+      (exp, copiesFromPtr)
     end
 
   fun argValGType (name, dir, {iRef, ...} : gtype_info) =
@@ -2252,6 +2277,59 @@ local
         end
     | _     => mkIdLNameExp name
 
+  fun touchFunUtf8 (name, {isOpt, ...} : utf8_info) =
+    let
+      val prefixIds = [utf8StrId, ffiStrId]
+
+      val funExp =
+        touchFunExp prefixIds {
+          isOpt = isOpt
+        }
+      val exp = ExpApp (funExp, mkIdLNameExp name)
+    in
+      SOME exp
+    end
+
+  fun touchFunArray (name, {isOpt, iRef, ...} : array_info) =
+    let
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
+
+      val funExp =
+        touchFunExp prefixIds {
+          isOpt = isOpt
+        }
+      val exp = ExpApp (funExp, mkIdLNameExp name)
+    in
+      SOME exp
+    end
+
+  fun touchFunInterface (name, {iRef, infoType, isOpt, ...} : interface_info) =
+    let
+      val prefixIds = prefixInterfaceStrId iRef [ffiStrId]
+
+      fun mkExp () =
+        let
+          val funExp =
+            touchFunExp prefixIds {
+              isOpt = isOpt
+            }
+        in
+          ExpApp (funExp, mkIdLNameExp name)
+        end
+
+      open InfoType
+    in
+      case infoType of
+        OBJECT _    => SOME (mkExp ())
+      | INTERFACE _ => SOME (mkExp ())
+      | STRUCT _    => SOME (mkExp ())
+      | UNION _     => SOME (mkExp ())
+      | FLAGS _     => NONE
+      | ENUM _      => NONE
+      | _           =>
+          infoExcl "touchFun for unidentified INTERFACE not supported"
+    end
+
   fun mkLenParamExp ty arrayInfo arrayName =
     let
       val {iRef, isOpt, ...} = arrayInfo
@@ -2290,12 +2368,12 @@ local
         lenExp
     end
 in
-  fun addParInfo (parInfo, acc as (js, ks, ls, ms, ns, iRefs, structDeps)) =
+  fun addParInfo (parInfo, acc as (js, ks, ls, ms, ns, copyFromPtr, iRefs, structDeps)) =
     case parInfo of
       PIVOID                          => acc
     | PISOME {name, dir, array, info} =>
         let
-          val (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, structDeps'1) =
+          val (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, touchFunOptExp, structDeps'1) =
             case info of
               IGTYPE gtypeParInfo         =>
                 let
@@ -2304,8 +2382,9 @@ in
                   fun fromFunExp () = fromFunGType gtypeParInfo
                   fun outParamName () = mkIdVarPat name
                   fun outParamExp () = mkIdLNameExp name
+                  fun touchFunOptExp () = NONE
                 in
-                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, structDeps)
+                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, touchFunOptExp, structDeps)
                 end
             | ISCALAR scalarParInfo       =>
                 let
@@ -2317,8 +2396,9 @@ in
                       SOME {info = NONE, ...} => PatA APatU
                     | _                       => mkIdVarPat name
                   fun outParamExp () = mkIdLNameExp name
+                  fun touchFunOptExp () = NONE
                 in
-                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, structDeps)
+                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, touchFunOptExp, structDeps)
                 end
             | IUTF8 utf8ParInfo           =>
                 let
@@ -2327,8 +2407,9 @@ in
                   fun fromFunExp () = fromFunUtf8 (dir = INOUT, utf8ParInfo)
                   fun outParamName () = mkIdVarPat name
                   fun outParamExp () = mkIdLNameExp name
+                  fun touchFunOptExp () = touchFunUtf8 (name, utf8ParInfo)
                 in
-                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, structDeps)
+                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, touchFunOptExp, structDeps)
                 end
             | IARRAY arrayParInfo         =>
                 let
@@ -2340,8 +2421,9 @@ in
                   fun fromFunExp () = fromFunArray (dir = INOUT, arrayParInfo)
                   fun outParamName () = mkIdVarPat name
                   fun outParamExp () = mkArrayLenAppExp length (mkIdLNameExp name)
+                  fun touchFunOptExp () = touchFunArray (name, arrayParInfo)
                 in
-                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, structDeps)
+                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, touchFunOptExp, structDeps)
                 end
             | IINTERFACE interfaceParInfo =>
                 let
@@ -2351,8 +2433,9 @@ in
                     fromFunInterface (dir = INOUT, interfaceParInfo)
                   fun outParamName () = mkIdVarPat name
                   fun outParamExp () = mkIdLNameExp name
+                  fun touchFunOptExp () = touchFunInterface (name, interfaceParInfo)
                 in
-                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, structDeps)
+                  (withFunExp, argValExp, fromFunExp, outParamName, outParamExp, touchFunOptExp, structDeps)
                 end
 
           val js' = (withFunExp, argValExp) :: js
@@ -2365,7 +2448,7 @@ in
           fun addL ls =
             case array of
               SOME _ => ls
-            | NONE   => mkIdVarAPat name :: ls
+            | NONE   => (mkIdVarAPat name, touchFunOptExp ()) :: ls
           fun addM ms =
             case array of
               SOME {
@@ -2381,20 +2464,29 @@ in
                 ...
               }    => raise Fail "unused length parameter not expected for IN/INOUT parameter"
             | NONE => ms
-          fun addN ns = (fromFunExp (), outParamName ()) :: ns
+          fun addN ns =
+            let
+              val (fromFunExp, copiesFromPtr) = fromFunExp ()
+              val copyFromPtr' = copyFromPtr orelse copiesFromPtr
+            in
+              (
+                (fromFunExp, outParamName ()) :: ns,
+                copyFromPtr'
+              )
+            end
 
-          val (ks', ls', ms', ns') =
+          val (ks', ls', ms', (ns', copyFromPtr')) =
             case dir of
               OUT _ => (addK ks, ls,      ms,      addN ns)
             | INOUT => (addK ks, addL ls, addM ms, addN ns)
-            | IN    => (ks,      addL ls, addM ms, ns)
+            | IN    => (ks,      addL ls, addM ms, (ns, copyFromPtr))
 
           val iRefs' = addIRef (info, iRefs)
         in
-          (js', ks', ls', ms', ns', iRefs', structDeps')
+          (js', ks', ls', ms', ns', copyFromPtr', iRefs', structDeps')
         end
 
-  fun addRetInfo optConstructorIRef throws (retInfo, acc as (iRefs, structDeps)) =
+  fun addRetInfo optConstructorIRef throws (retInfo, acc as (copyFromPtr, iRefs, structDeps)) =
     case retInfo of
       RIVOID        => (mkIdLNameExp "I", acc)
     | RISOME {info} =>
@@ -2427,7 +2519,7 @@ in
                   xferOwn    = xferOwn
                 }
 
-          val (fromFunExp, structDeps') =
+          val ((fromFunExp, copiesFromPtr), structDeps') =
             case info' of
               IGTYPE gtypeParInfo                  =>
                 let
@@ -2439,7 +2531,7 @@ in
                 let
                   val fromFunExp =
                     case (ty, throws) of
-                      (STBOOLEAN, true) => mkIdLNameExp ignoreId
+                      (STBOOLEAN, true) => (mkIdLNameExp ignoreId, false)
                     | _                 => fromFunScalar scalarParInfo
                 in
                   (fromFunExp, structDeps)
@@ -2464,8 +2556,9 @@ in
                 end
 
           val iRefs' = addIRef (info', iRefs)
+          val copyFromPtr' = copyFromPtr orelse copiesFromPtr
         in
-          (fromFunExp, (iRefs', structDeps'))
+          (fromFunExp, (copyFromPtr', iRefs', structDeps'))
         end
 end
 
@@ -2515,6 +2608,8 @@ fun mkAAARExp (a, b) = ExpInfixApp (a, aAARInfixId, b)
 fun mkDDRExp (a, b) = ExpInfixApp (a, dDRInfixId, b)
 fun mkDDDRExp (a, b) = ExpInfixApp (a, dDDRInfixId, b)
 
+fun mkBeforeExp (a, b) = ExpInfixApp (a, beforeId, b)
+
 
 fun retValCondExp retValExp (es1 : exp list1) : exp =
   ExpCond (retValExp, someExp (mkTupleExp1 es1), noneExp)
@@ -2523,7 +2618,7 @@ fun retValCondExp retValExp (es1 : exp list1) : exp =
 fun makeFunctionStrDecHighLevel
   repo
   vers
-  (optRootContainerIRef : (interfaceref * interfaceref) option)
+  (optContainerInfoIRef : ('a BaseInfoClass.class * interfaceref) option)
   (functionInfo, ((iRefs, structDeps), excls))
   : strdec * ((interfaceref list * struct1 ListDict.t) * info_excl_hier list) =
   let
@@ -2540,10 +2635,7 @@ fun makeFunctionStrDecHighLevel
     val functionNamespace = BaseInfo.getNamespace functionInfo
     val functionFlags = FunctionInfo.getFlags functionInfo
 
-    val (_, optContainerIRef) =
-      case optRootContainerIRef of
-        SOME (rootIRef, containerIRef) => (SOME rootIRef, SOME containerIRef)
-      | NONE                           => (NONE, NONE)
+    val optContainerIRef = Option.map #2 optContainerInfoIRef
     val optContainerName = Option.map #name optContainerIRef
 
     (* Construct parameter infos and return value info *)
@@ -2563,43 +2655,71 @@ fun makeFunctionStrDecHighLevel
 
     (* For a method function, add an initial argument for the interface
      * that contains this function. *)
-    val (revJs'1, inParamNameSelf) =
+    val (revJs'1, touchFunSelf, inParamNameSelf) =
       if FunctionInfoFlags.anySet
            (functionFlags, FunctionInfoFlags.IS_METHOD)
       then
-        case optContainerIRef of
-          SOME iRef =>
+        case optContainerInfoIRef of
+          SOME (info, iRef) =>
             let
+              open InfoType
+              val infoType = getType info
+
+              val ptrIds = (withPtrId, SOME touchPtrId)
+              val valIds = (withValId, NONE)
+
+              val (withFunId, optTouchFunId) =
+                case infoType of
+                  OBJECT _    => ptrIds
+                | INTERFACE _ => ptrIds
+                | STRUCT _    => ptrIds
+                | UNION _     => ptrIds
+                | FLAGS _     => valIds
+                | ENUM _      => valIds
+                | _           => infoExcl (unsupportedInterface infoType)
+
               val withFun =
                 ExpApp (
                   mkLIdLNameExp (
-                    prefixInterfaceStrId iRef [ffiStrId, withPtrId]
+                    prefixInterfaceStrId iRef [ffiStrId, withFunId]
                   ),
                   falseExp
                 )
-              val argVal = mkIdLNameExp selfId
+              val argVal = selfExp
+              val touchFunSelf =
+                case optTouchFunId of
+                  SOME touchFunId => SOME (
+                    ExpApp (
+                      mkLIdLNameExp (
+                        prefixInterfaceStrId iRef [ffiStrId, touchFunId]
+                      ),
+                      selfExp
+                    )
+                  )
+                | NONE            => NONE
               val inParamAPat = mkIdVarAPat selfId
             in
-              ([(withFun, argVal)], SOME inParamAPat)
+              ([(withFun, argVal)], touchFunSelf, SOME inParamAPat)
             end
-        | NONE      =>
+        | NONE              =>
             infoExcl "function outside interface has method flag set"
       else
-        ([], NONE)
+        ([], NONE, NONE)
     val revKs'1 = []
     val revLs'1 = []
     val revMs'1 = []
     val revNs'1 = []
     val iRefs'1 = iRefs
+    val copyFromPtr'1 = false
     val structDeps'1 = structDeps
 
     (* Construct J, K, L, M, N vectors in forward pass over parameter infos.
      * As for a function spec, `iRefs` should be generated in a forwards
      * pass over the parameter infos so types appear in order of first
      * appearance. *)
-    val (revJs'2, revKs'2, revLs'2, revMs'2, revNs'2, iRefs'2, structDeps'2) =
+    val (revJs'2, revKs'2, revLs'2, revMs'2, revNs'2, copyFromPtr'2, iRefs'2, structDeps'2) =
       foldl addParInfo
-        (revJs'1, revKs'1, revLs'1, revMs'1, revNs'1, iRefs'1, structDeps'1)
+        (revJs'1, revKs'1, revLs'1, revMs'1, revNs'1, copyFromPtr'1, iRefs'1, structDeps'1)
         parInfos
 
     (* For a function that may raise an exception, add a final argument for
@@ -2629,8 +2749,8 @@ fun makeFunctionStrDecHighLevel
     val throws =
       FunctionInfoFlags.anySet (functionFlags, FunctionInfoFlags.THROWS)
 
-    val (retFromFun, (iRefs'3, structDeps'3)) =
-      addRetInfo optConstructorIRef throws (retInfo, (iRefs'2, structDeps'2))
+    val (retFromFun, (copyFromPtr'3, iRefs'3, structDeps'3)) =
+      addRetInfo optConstructorIRef throws (retInfo, (copyFromPtr'2, iRefs'2, structDeps'2))
 
     (* Construct curried function arguments with the form:
      *
@@ -2648,12 +2768,13 @@ fun makeFunctionStrDecHighLevel
      *
      * where
      *
-     *   [<inParamName[1]>, ..., <inParamName[L]>] = rev revLs'2
+     *   [<inParamName[1]>, ..., <inParamName[L]>] = revMap #1 revLs'2
      *
      *   SOME <self> = inParamNameSelf
      *)
+    val (inParamNames, touchFuns) = foldl unzipStep unzipInit revLs'2
     val functionArgPats1 : apat list1 = toList1 (
-      case (inParamNameSelf, rev revLs'2) of
+      case (inParamNameSelf, inParamNames) of
         (NONE,      [])                  => [APatConst ConstUnit]
       | (SOME self, [])                  => [self]
       | (SOME self, op :: inParamNames1) => [self, mkTupleAPat1 inParamNames1]
@@ -2711,6 +2832,32 @@ fun makeFunctionStrDecHighLevel
         | _                  => argValsExp
       )
 
+    (*   <e1>
+     *                 -.                                          -.
+     *    before <e2>   | for SOME e2 in touchFunSelf :: touchFuns  | if copyFromPtr'3
+     *                 -'                                          -'
+     *)
+    local
+      fun mkOptBeforeExp (e1, opt) =
+        case opt of
+          SOME e2 => mkBeforeExp (e1, e2)
+        | NONE    => e1
+    in
+      fun beforeTouchFuns e1 =
+        if copyFromPtr'3
+        then
+          let
+            val e1' =
+              case e1 of
+                ExpCond _ => mkParenExp e1
+              | _         => e1
+          in
+            foldl (fn (b, a) => mkOptBeforeExp (a, b)) e1' (touchFunSelf :: touchFuns)
+          end
+        else
+          e1
+    end
+
     (* Construct the function body with the form:
      *
      *   let
@@ -2722,16 +2869,24 @@ fun makeFunctionStrDecHighLevel
      *       <functionCoreExp>
      *   in
      *     <retExp>
+     *                 -.                                         -.
+     *      before <e>  | for SOME e in touchFunSelf :: touchFuns  | if copyFromPtr'3
+     *                 -'                                         -'
      *   end
+     *
      *     if N + M > 0, i.e. N > 0 or M > 0
      *
      *
      *   <functionCoreExp>
+     *                 -.                                         -.
+     *    before <e>    | for SOME e in touchFunSelf :: touchFuns  | if copyFromPtr'3
+     *                 -'                                         -'
+     *
      *     otherwise, i.e. N = 0 and M = 0
      *)
     val functionExp =
       case (revOutParams, revMs'2) of
-        ([], []) => functionCoreExp
+        ([], []) => beforeTouchFuns functionCoreExp
       | _        =>
           let
             fun getNameExp (exp, _) = exp
@@ -2785,7 +2940,7 @@ fun makeFunctionStrDecHighLevel
             val decs'1 = [DecVal (toList1 [([], false, pat, functionCoreExp)])]
             val decs'2 = revMapAppend mkIdValDec (revMs'2, decs'1)
           in
-            ExpLet (mkDecs decs'2, toList1 [retExp])
+            ExpLet (mkDecs decs'2, toList1 [beforeTouchFuns retExp])
           end
   in
     (
@@ -3181,7 +3336,7 @@ end
 fun makeFunctionStrDecLowLevelPolyML
   repo
   vers
-  (optRootContainerIRef : (interfaceref * interfaceref) option)
+  (optContainerIRef : interfaceref option)
   (functionInfo, excls)
   : strdec * info_excl_hier list =
   let
@@ -3196,10 +3351,6 @@ fun makeFunctionStrDecLowLevelPolyML
     val functionNamespace = BaseInfo.getNamespace functionInfo
     val functionFlags = FunctionInfo.getFlags functionInfo
 
-    val (_, optContainerIRef) =
-      case optRootContainerIRef of
-        SOME (rootIRef, containerIRef) => (SOME rootIRef, SOME containerIRef)
-      | NONE                           => (NONE, NONE)
     val optContainerName = Option.map #name optContainerIRef
 
     (* Construct parameter infos and return value info *)
@@ -3866,7 +4017,7 @@ end
 fun makeFunctionStrDecLowLevelMLton
   repo
   vers
-  (optRootContainerIRef : (interfaceref * interfaceref) option)
+  (optContainerIRef : interfaceref option)
   (functionInfo, excls)
   : strdec * info_excl_hier list =
   let
@@ -3881,10 +4032,6 @@ fun makeFunctionStrDecLowLevelMLton
     val functionNamespace = BaseInfo.getNamespace functionInfo
     val functionFlags = FunctionInfo.getFlags functionInfo
 
-    val (_, optContainerIRef) =
-      case optRootContainerIRef of
-        SOME (rootIRef, containerIRef) => (SOME rootIRef, SOME containerIRef)
-      | NONE                           => (NONE, NONE)
     val optContainerName = Option.map #name optContainerIRef
 
     (* Construct parameter infos and return value info *)
@@ -3997,7 +4144,7 @@ fun addFunctionStrDecsLowLevel
   repo
   vers
   addInitStrDecs
-  optRootContainerIRef =
+  optContainerIRef =
   if isPolyML
   then
     fn (containerInfo, (strDecs, excls)) =>
@@ -4006,7 +4153,7 @@ fun addFunctionStrDecsLowLevel
           revMapInfosWithExcls
             getNMethods
             getMethod
-            (makeFunctionStrDecLowLevelPolyML repo vers optRootContainerIRef)
+            (makeFunctionStrDecLowLevelPolyML repo vers optContainerIRef)
             (containerInfo, ([], excls))
         val (localStrDecs'2, excls'2) = addInitStrDecs isPolyML acc'1
       in
@@ -4019,4 +4166,4 @@ fun addFunctionStrDecsLowLevel
       revMapInfosWithExcls
         getNMethods
         getMethod
-        (makeFunctionStrDecLowLevelMLton repo vers optRootContainerIRef)
+        (makeFunctionStrDecLowLevelMLton repo vers optContainerIRef)

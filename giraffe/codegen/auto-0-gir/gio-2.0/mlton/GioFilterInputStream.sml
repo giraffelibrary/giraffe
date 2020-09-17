@@ -11,7 +11,7 @@ structure GioFilterInputStream :>
     type 'a input_stream_class = 'a GioInputStreamClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getBaseStream self = (GioFilterInputStreamClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromPtr false) getBaseStream_ self
+    fun getBaseStream self = (GioFilterInputStreamClass.FFI.withPtr false ---> GioInputStreamClass.FFI.fromPtr false) getBaseStream_ self before GioFilterInputStreamClass.FFI.touchPtr self
     fun getCloseBaseStream self = (GioFilterInputStreamClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCloseBaseStream_ self
     fun setCloseBaseStream self closeBase = (GioFilterInputStreamClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCloseBaseStream_ (self & closeBase)
     local

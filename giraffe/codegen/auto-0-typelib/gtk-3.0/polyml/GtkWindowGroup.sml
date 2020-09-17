@@ -21,7 +21,7 @@ structure GtkWindowGroup :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkWindowGroupClass.FFI.fromPtr true) new_ ()
     fun addWindow self window = (GtkWindowGroupClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withPtr false ---> I) addWindow_ (self & window)
-    fun getCurrentDeviceGrab self device = (GtkWindowGroupClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getCurrentDeviceGrab_ (self & device)
-    fun getCurrentGrab self = (GtkWindowGroupClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getCurrentGrab_ self
+    fun getCurrentDeviceGrab self device = (GtkWindowGroupClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getCurrentDeviceGrab_ (self & device) before GtkWindowGroupClass.FFI.touchPtr self before GdkDeviceClass.FFI.touchPtr device
+    fun getCurrentGrab self = (GtkWindowGroupClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getCurrentGrab_ self before GtkWindowGroupClass.FFI.touchPtr self
     fun removeWindow self window = (GtkWindowGroupClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withPtr false ---> I) removeWindow_ (self & window)
   end

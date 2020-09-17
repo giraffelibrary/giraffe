@@ -26,9 +26,9 @@ structure GtkLinkButton :>
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new uri = (Utf8.FFI.withPtr 0 ---> GtkLinkButtonClass.FFI.fromPtr false) new_ uri
-    fun newWithLabel (uri, label) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withOptPtr 0 ---> GtkLinkButtonClass.FFI.fromPtr false) newWithLabel_ (uri & label)
-    fun getUri self = (GtkLinkButtonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUri_ self
+    fun new uri = (Utf8.FFI.withPtr 0 ---> GtkLinkButtonClass.FFI.fromPtr false) new_ uri before Utf8.FFI.touchPtr uri
+    fun newWithLabel (uri, label) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withOptPtr 0 ---> GtkLinkButtonClass.FFI.fromPtr false) newWithLabel_ (uri & label) before Utf8.FFI.touchPtr uri before Utf8.FFI.touchOptPtr label
+    fun getUri self = (GtkLinkButtonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUri_ self before GtkLinkButtonClass.FFI.touchPtr self
     fun getVisited self = (GtkLinkButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisited_ self
     fun setUri self uri = (GtkLinkButtonClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setUri_ (self & uri)
     fun setVisited self visited = (GtkLinkButtonClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisited_ (self & visited)

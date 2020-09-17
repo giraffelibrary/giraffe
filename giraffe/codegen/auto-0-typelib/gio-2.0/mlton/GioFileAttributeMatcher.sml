@@ -56,7 +56,7 @@ structure GioFileAttributeMatcher :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new attributes = (Utf8.FFI.withPtr 0 ---> GioFileAttributeMatcherRecord.FFI.fromPtr true) new_ attributes
     fun enumerateNamespace self ns = (GioFileAttributeMatcherRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) enumerateNamespace_ (self & ns)
-    fun enumerateNext self = (GioFileAttributeMatcherRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) enumerateNext_ self
+    fun enumerateNext self = (GioFileAttributeMatcherRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) enumerateNext_ self before GioFileAttributeMatcherRecord.FFI.touchPtr self
     fun matches self attribute = (GioFileAttributeMatcherRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) matches_ (self & attribute)
     fun matchesOnly self attribute = (GioFileAttributeMatcherRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) matchesOnly_ (self & attribute)
     fun subtract self subtract = (GioFileAttributeMatcherRecord.FFI.withPtr false &&&> GioFileAttributeMatcherRecord.FFI.withPtr false ---> GioFileAttributeMatcherRecord.FFI.fromPtr true) subtract_ (self & subtract)

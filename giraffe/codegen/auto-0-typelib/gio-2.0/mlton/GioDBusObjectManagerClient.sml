@@ -35,9 +35,9 @@ structure GioDBusObjectManagerClient :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newFinish res = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioDBusObjectManagerClientClass.FFI.fromPtr true) newFinish_ (res & [])
     fun newForBusFinish res = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioDBusObjectManagerClientClass.FFI.fromPtr true) newForBusFinish_ (res & [])
-    fun getConnection self = (GioDBusObjectManagerClientClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
+    fun getConnection self = (GioDBusObjectManagerClientClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self before GioDBusObjectManagerClientClass.FFI.touchPtr self
     fun getFlags self = (GioDBusObjectManagerClientClass.FFI.withPtr false ---> GioDBusObjectManagerClientFlags.FFI.fromVal) getFlags_ self
-    fun getName self = (GioDBusObjectManagerClientClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getName self = (GioDBusObjectManagerClientClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GioDBusObjectManagerClientClass.FFI.touchPtr self
     fun getNameOwner self = (GioDBusObjectManagerClientClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getNameOwner_ self
     local
       open ClosureMarshal Signal

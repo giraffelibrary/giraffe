@@ -29,7 +29,7 @@ structure GtkSourceCompletionInfo :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSourceCompletionInfoClass.FFI.fromPtr false) new_ ()
-    fun getWidget self = (GtkSourceCompletionInfoClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
+    fun getWidget self = (GtkSourceCompletionInfoClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self before GtkSourceCompletionInfoClass.FFI.touchPtr self
     fun moveToIter self (view, iter) =
       (
         GtkSourceCompletionInfoClass.FFI.withPtr false

@@ -205,9 +205,9 @@ structure GtkContainer :>
         )
     fun childType self = (GtkContainerClass.FFI.withPtr false ---> GObjectType.FFI.fromVal) childType_ self
     fun getBorderWidth self = (GtkContainerClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getBorderWidth_ self
-    fun getFocusChild self = (GtkContainerClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getFocusChild_ self
-    fun getFocusHadjustment self = (GtkContainerClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromOptPtr false) getFocusHadjustment_ self
-    fun getFocusVadjustment self = (GtkContainerClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromOptPtr false) getFocusVadjustment_ self
+    fun getFocusChild self = (GtkContainerClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getFocusChild_ self before GtkContainerClass.FFI.touchPtr self
+    fun getFocusHadjustment self = (GtkContainerClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromOptPtr false) getFocusHadjustment_ self before GtkContainerClass.FFI.touchPtr self
+    fun getFocusVadjustment self = (GtkContainerClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromOptPtr false) getFocusVadjustment_ self before GtkContainerClass.FFI.touchPtr self
     fun getPathForChild self child = (GtkContainerClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GtkWidgetPathRecord.FFI.fromPtr true) getPathForChild_ (self & child)
     fun getResizeMode self = (GtkContainerClass.FFI.withPtr false ---> GtkResizeMode.FFI.fromVal) getResizeMode_ self
     fun propagateDraw self (child, cr) =

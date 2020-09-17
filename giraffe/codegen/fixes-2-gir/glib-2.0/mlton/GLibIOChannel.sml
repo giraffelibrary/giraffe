@@ -288,7 +288,7 @@ structure GLibIOChannel :>
     fun getBufferSize self = (GLibIOChannelRecord.FFI.withPtr false ---> GSize.FFI.fromVal) getBufferSize_ self
     fun getBuffered self = (GLibIOChannelRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getBuffered_ self
     fun getCloseOnUnref self = (GLibIOChannelRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getCloseOnUnref_ self
-    fun getEncoding self = (GLibIOChannelRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEncoding_ self
+    fun getEncoding self = (GLibIOChannelRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEncoding_ self before GLibIOChannelRecord.FFI.touchPtr self
     fun getFlags self = (GLibIOChannelRecord.FFI.withPtr false ---> GLibIOFlags.FFI.fromVal) getFlags_ self
     fun init self = (GLibIOChannelRecord.FFI.withPtr false ---> I) init_ self
     fun readChars self count =

@@ -40,11 +40,11 @@ structure GtkMenuButton :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkMenuButtonClass.FFI.fromPtr false) new_ ()
-    fun getAlignWidget self = (GtkMenuButtonClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getAlignWidget_ self
+    fun getAlignWidget self = (GtkMenuButtonClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getAlignWidget_ self before GtkMenuButtonClass.FFI.touchPtr self
     fun getDirection self = (GtkMenuButtonClass.FFI.withPtr false ---> GtkArrowType.FFI.fromVal) getDirection_ self
-    fun getMenuModel self = (GtkMenuButtonClass.FFI.withPtr false ---> GioMenuModelClass.FFI.fromOptPtr false) getMenuModel_ self
-    fun getPopover self = (GtkMenuButtonClass.FFI.withPtr false ---> GtkPopoverClass.FFI.fromOptPtr false) getPopover_ self
-    fun getPopup self = (GtkMenuButtonClass.FFI.withPtr false ---> GtkMenuClass.FFI.fromOptPtr false) getPopup_ self
+    fun getMenuModel self = (GtkMenuButtonClass.FFI.withPtr false ---> GioMenuModelClass.FFI.fromOptPtr false) getMenuModel_ self before GtkMenuButtonClass.FFI.touchPtr self
+    fun getPopover self = (GtkMenuButtonClass.FFI.withPtr false ---> GtkPopoverClass.FFI.fromOptPtr false) getPopover_ self before GtkMenuButtonClass.FFI.touchPtr self
+    fun getPopup self = (GtkMenuButtonClass.FFI.withPtr false ---> GtkMenuClass.FFI.fromOptPtr false) getPopup_ self before GtkMenuButtonClass.FFI.touchPtr self
     fun getUsePopover self = (GtkMenuButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUsePopover_ self
     fun setAlignWidget self alignWidget = (GtkMenuButtonClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setAlignWidget_ (self & alignWidget)
     fun setDirection self direction = (GtkMenuButtonClass.FFI.withPtr false &&&> GtkArrowType.FFI.withVal ---> I) setDirection_ (self & direction)

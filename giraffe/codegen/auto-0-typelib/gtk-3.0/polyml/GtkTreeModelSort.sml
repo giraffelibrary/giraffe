@@ -84,7 +84,7 @@ structure GtkTreeModelSort :>
         childIter
       end
     fun convertPathToChildPath self sortedPath = (GtkTreeModelSortClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GtkTreePathRecord.FFI.fromOptPtr true) convertPathToChildPath_ (self & sortedPath)
-    fun getModel self = (GtkTreeModelSortClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self
+    fun getModel self = (GtkTreeModelSortClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromPtr false) getModel_ self before GtkTreeModelSortClass.FFI.touchPtr self
     fun iterIsValid self iter = (GtkTreeModelSortClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) iterIsValid_ (self & iter)
     fun resetDefaultSortFunc self = (GtkTreeModelSortClass.FFI.withPtr false ---> I) resetDefaultSortFunc_ self
     local

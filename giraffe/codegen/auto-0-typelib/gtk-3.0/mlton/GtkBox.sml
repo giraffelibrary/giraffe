@@ -147,7 +147,7 @@ structure GtkBox :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (orientation, spacing) = (GtkOrientation.FFI.withVal &&&> GInt32.FFI.withVal ---> GtkBoxClass.FFI.fromPtr false) new_ (orientation & spacing)
     fun getBaselinePosition self = (GtkBoxClass.FFI.withPtr false ---> GtkBaselinePosition.FFI.fromVal) getBaselinePosition_ self
-    fun getCenterWidget self = (GtkBoxClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getCenterWidget_ self
+    fun getCenterWidget self = (GtkBoxClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getCenterWidget_ self before GtkBoxClass.FFI.touchPtr self
     fun getHomogeneous self = (GtkBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHomogeneous_ self
     fun getSpacing self = (GtkBoxClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getSpacing_ self
     fun packEnd

@@ -78,9 +78,9 @@ structure GtkTreeSelection :>
                & ()
             )
       in
-        if retVal then SOME (model, iter) else NONE
+        (if retVal then SOME (model, iter) else NONE) before GtkTreeSelectionClass.FFI.touchPtr self
       end
-    fun getTreeView self = (GtkTreeSelectionClass.FFI.withPtr false ---> GtkTreeViewClass.FFI.fromPtr false) getTreeView_ self
+    fun getTreeView self = (GtkTreeSelectionClass.FFI.withPtr false ---> GtkTreeViewClass.FFI.fromPtr false) getTreeView_ self before GtkTreeSelectionClass.FFI.touchPtr self
     fun iterIsSelected self iter = (GtkTreeSelectionClass.FFI.withPtr false &&&> GtkTreeIterRecord.FFI.withPtr false ---> GBool.FFI.fromVal) iterIsSelected_ (self & iter)
     fun pathIsSelected self path = (GtkTreeSelectionClass.FFI.withPtr false &&&> GtkTreePathRecord.FFI.withPtr false ---> GBool.FFI.fromVal) pathIsSelected_ (self & path)
     fun selectAll self = (GtkTreeSelectionClass.FFI.withPtr false ---> I) selectAll_ self

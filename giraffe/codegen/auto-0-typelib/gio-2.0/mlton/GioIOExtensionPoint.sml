@@ -48,7 +48,7 @@ structure GioIOExtensionPoint :>
     val register_ = _import "mlton_g_io_extension_point_register" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GioIOExtensionPointRecord.FFI.non_opt GioIOExtensionPointRecord.FFI.p;
     type t = GioIOExtensionPointRecord.t
     type i_o_extension_t = GioIOExtensionRecord.t
-    fun getExtensionByName self name = (GioIOExtensionPointRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioIOExtensionRecord.FFI.fromPtr false) getExtensionByName_ (self & name)
+    fun getExtensionByName self name = (GioIOExtensionPointRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioIOExtensionRecord.FFI.fromPtr false) getExtensionByName_ (self & name) before GioIOExtensionPointRecord.FFI.touchPtr self before Utf8.FFI.touchPtr name
     fun getRequiredType self = (GioIOExtensionPointRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal) getRequiredType_ self
     fun setRequiredType self type' = (GioIOExtensionPointRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> I) setRequiredType_ (self & type')
     fun implement
@@ -72,6 +72,8 @@ structure GioIOExtensionPoint :>
            & extensionName
            & priority
         )
-    fun lookup name = (Utf8.FFI.withPtr 0 ---> GioIOExtensionPointRecord.FFI.fromPtr false) lookup_ name
-    fun register name = (Utf8.FFI.withPtr 0 ---> GioIOExtensionPointRecord.FFI.fromPtr false) register_ name
+       before Utf8.FFI.touchPtr extensionPointName
+       before Utf8.FFI.touchPtr extensionName
+    fun lookup name = (Utf8.FFI.withPtr 0 ---> GioIOExtensionPointRecord.FFI.fromPtr false) lookup_ name before Utf8.FFI.touchPtr name
+    fun register name = (Utf8.FFI.withPtr 0 ---> GioIOExtensionPointRecord.FFI.fromPtr false) register_ name before Utf8.FFI.touchPtr name
   end

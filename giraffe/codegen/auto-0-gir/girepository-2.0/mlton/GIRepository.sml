@@ -421,7 +421,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun callableInfoGetCallerOwns info = (GIRepositoryCallableInfoRecord.FFI.withPtr false ---> GIRepositoryTransfer.FFI.fromVal) callableInfoGetCallerOwns_ info
     fun callableInfoGetInstanceOwnershipTransfer info = (GIRepositoryCallableInfoRecord.FFI.withPtr false ---> GIRepositoryTransfer.FFI.fromVal) callableInfoGetInstanceOwnershipTransfer_ info
     fun callableInfoGetNArgs info = (GIRepositoryCallableInfoRecord.FFI.withPtr false ---> GInt.FFI.fromVal) callableInfoGetNArgs_ info
-    fun callableInfoGetReturnAttribute (info, name) = (GIRepositoryCallableInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) callableInfoGetReturnAttribute_ (info & name)
+    fun callableInfoGetReturnAttribute (info, name) = (GIRepositoryCallableInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) callableInfoGetReturnAttribute_ (info & name) before GIRepositoryCallableInfoRecord.FFI.touchPtr info before Utf8.FFI.touchPtr name
     fun callableInfoGetReturnType info = (GIRepositoryCallableInfoRecord.FFI.withPtr false ---> GIRepositoryTypeInfoRecord.FFI.fromPtr true) callableInfoGetReturnType_ info
     fun callableInfoIsMethod info = (GIRepositoryCallableInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) callableInfoIsMethod_ info
     fun callableInfoIterateReturnAttributes (info, iterator) =
@@ -448,7 +448,7 @@ structure GIRepository : G_I_REPOSITORY =
                & NONE
             )
       in
-        (if retVal then SOME (name, value) else NONE, iterator)
+        (if retVal then SOME (name, value) else NONE, iterator) before GIRepositoryCallableInfoRecord.FFI.touchPtr info before GIRepositoryAttributeIterRecord.FFI.touchPtr iterator
       end
     fun callableInfoLoadArg (info, n) =
       let
@@ -477,7 +477,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun callableInfoMayReturnNull info = (GIRepositoryCallableInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) callableInfoMayReturnNull_ info
     fun callableInfoSkipReturn info = (GIRepositoryCallableInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) callableInfoSkipReturn_ info
     fun constantInfoGetType info = (GIRepositoryConstantInfoRecord.FFI.withPtr false ---> GIRepositoryTypeInfoRecord.FFI.fromPtr true) constantInfoGetType_ info
-    fun enumInfoGetErrorDomain info = (GIRepositoryEnumInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) enumInfoGetErrorDomain_ info
+    fun enumInfoGetErrorDomain info = (GIRepositoryEnumInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) enumInfoGetErrorDomain_ info before GIRepositoryEnumInfoRecord.FFI.touchPtr info
     fun enumInfoGetMethod (info, n) = (GIRepositoryEnumInfoRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GIRepositoryFunctionInfoRecord.FFI.fromPtr true) enumInfoGetMethod_ (info & n)
     fun enumInfoGetNMethods info = (GIRepositoryEnumInfoRecord.FFI.withPtr false ---> GInt.FFI.fromVal) enumInfoGetNMethods_ info
     fun enumInfoGetNValues info = (GIRepositoryEnumInfoRecord.FFI.withPtr false ---> GInt.FFI.fromVal) enumInfoGetNValues_ info
@@ -489,7 +489,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun fieldInfoGetType info = (GIRepositoryFieldInfoRecord.FFI.withPtr false ---> GIRepositoryTypeInfoRecord.FFI.fromPtr true) fieldInfoGetType_ info
     fun functionInfoGetFlags info = (GIRepositoryFunctionInfoRecord.FFI.withPtr false ---> GIRepositoryFunctionInfoFlags.FFI.fromVal) functionInfoGetFlags_ info
     fun functionInfoGetProperty info = (GIRepositoryFunctionInfoRecord.FFI.withPtr false ---> GIRepositoryPropertyInfoRecord.FFI.fromPtr true) functionInfoGetProperty_ info
-    fun functionInfoGetSymbol info = (GIRepositoryFunctionInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) functionInfoGetSymbol_ info
+    fun functionInfoGetSymbol info = (GIRepositoryFunctionInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) functionInfoGetSymbol_ info before GIRepositoryFunctionInfoRecord.FFI.touchPtr info
     fun functionInfoGetVfunc info = (GIRepositoryFunctionInfoRecord.FFI.withPtr false ---> GIRepositoryVFuncInfoRecord.FFI.fromPtr true) functionInfoGetVfunc_ info
     fun infoNew
       (
@@ -574,7 +574,7 @@ structure GIRepository : G_I_REPOSITORY =
     fun objectInfoGetConstant (info, n) = (GIRepositoryObjectInfoRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GIRepositoryConstantInfoRecord.FFI.fromPtr true) objectInfoGetConstant_ (info & n)
     fun objectInfoGetField (info, n) = (GIRepositoryObjectInfoRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GIRepositoryFieldInfoRecord.FFI.fromPtr true) objectInfoGetField_ (info & n)
     fun objectInfoGetFundamental info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) objectInfoGetFundamental_ info
-    fun objectInfoGetGetValueFunction info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) objectInfoGetGetValueFunction_ info
+    fun objectInfoGetGetValueFunction info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) objectInfoGetGetValueFunction_ info before GIRepositoryObjectInfoRecord.FFI.touchPtr info
     fun objectInfoGetInterface (info, n) = (GIRepositoryObjectInfoRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GIRepositoryInterfaceInfoRecord.FFI.fromPtr true) objectInfoGetInterface_ (info & n)
     fun objectInfoGetMethod (info, n) = (GIRepositoryObjectInfoRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GIRepositoryFunctionInfoRecord.FFI.fromPtr true) objectInfoGetMethod_ (info & n)
     fun objectInfoGetNConstants info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> GInt.FFI.fromVal) objectInfoGetNConstants_ info
@@ -586,19 +586,19 @@ structure GIRepository : G_I_REPOSITORY =
     fun objectInfoGetNVfuncs info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> GInt.FFI.fromVal) objectInfoGetNVfuncs_ info
     fun objectInfoGetParent info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> GIRepositoryObjectInfoRecord.FFI.fromPtr true) objectInfoGetParent_ info
     fun objectInfoGetProperty (info, n) = (GIRepositoryObjectInfoRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GIRepositoryPropertyInfoRecord.FFI.fromPtr true) objectInfoGetProperty_ (info & n)
-    fun objectInfoGetRefFunction info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) objectInfoGetRefFunction_ info
-    fun objectInfoGetSetValueFunction info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) objectInfoGetSetValueFunction_ info
+    fun objectInfoGetRefFunction info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) objectInfoGetRefFunction_ info before GIRepositoryObjectInfoRecord.FFI.touchPtr info
+    fun objectInfoGetSetValueFunction info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) objectInfoGetSetValueFunction_ info before GIRepositoryObjectInfoRecord.FFI.touchPtr info
     fun objectInfoGetSignal (info, n) = (GIRepositoryObjectInfoRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GIRepositorySignalInfoRecord.FFI.fromPtr true) objectInfoGetSignal_ (info & n)
-    fun objectInfoGetTypeInit info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) objectInfoGetTypeInit_ info
-    fun objectInfoGetTypeName info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) objectInfoGetTypeName_ info
-    fun objectInfoGetUnrefFunction info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) objectInfoGetUnrefFunction_ info
+    fun objectInfoGetTypeInit info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) objectInfoGetTypeInit_ info before GIRepositoryObjectInfoRecord.FFI.touchPtr info
+    fun objectInfoGetTypeName info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) objectInfoGetTypeName_ info before GIRepositoryObjectInfoRecord.FFI.touchPtr info
+    fun objectInfoGetUnrefFunction info = (GIRepositoryObjectInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) objectInfoGetUnrefFunction_ info before GIRepositoryObjectInfoRecord.FFI.touchPtr info
     fun objectInfoGetVfunc (info, n) = (GIRepositoryObjectInfoRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GIRepositoryVFuncInfoRecord.FFI.fromPtr true) objectInfoGetVfunc_ (info & n)
     fun propertyInfoGetFlags info = (GIRepositoryPropertyInfoRecord.FFI.withPtr false ---> GObjectParamFlags.FFI.fromVal) propertyInfoGetFlags_ info
     fun propertyInfoGetOwnershipTransfer info = (GIRepositoryPropertyInfoRecord.FFI.withPtr false ---> GIRepositoryTransfer.FFI.fromVal) propertyInfoGetOwnershipTransfer_ info
     fun propertyInfoGetType info = (GIRepositoryPropertyInfoRecord.FFI.withPtr false ---> GIRepositoryTypeInfoRecord.FFI.fromPtr true) propertyInfoGetType_ info
     fun registeredTypeInfoGetGType info = (GIRepositoryRegisteredTypeInfoRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal) registeredTypeInfoGetGType_ info
-    fun registeredTypeInfoGetTypeInit info = (GIRepositoryRegisteredTypeInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) registeredTypeInfoGetTypeInit_ info
-    fun registeredTypeInfoGetTypeName info = (GIRepositoryRegisteredTypeInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) registeredTypeInfoGetTypeName_ info
+    fun registeredTypeInfoGetTypeInit info = (GIRepositoryRegisteredTypeInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) registeredTypeInfoGetTypeInit_ info before GIRepositoryRegisteredTypeInfoRecord.FFI.touchPtr info
+    fun registeredTypeInfoGetTypeName info = (GIRepositoryRegisteredTypeInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) registeredTypeInfoGetTypeName_ info before GIRepositoryRegisteredTypeInfoRecord.FFI.touchPtr info
     fun signalInfoGetClassClosure info = (GIRepositorySignalInfoRecord.FFI.withPtr false ---> GIRepositoryVFuncInfoRecord.FFI.fromPtr true) signalInfoGetClassClosure_ info
     fun signalInfoGetFlags info = (GIRepositorySignalInfoRecord.FFI.withPtr false ---> GObjectSignalFlags.FFI.fromVal) signalInfoGetFlags_ info
     fun signalInfoTrueStopsEmit info = (GIRepositorySignalInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) signalInfoTrueStopsEmit_ info

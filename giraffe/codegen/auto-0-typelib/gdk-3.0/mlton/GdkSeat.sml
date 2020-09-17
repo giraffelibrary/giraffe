@@ -20,9 +20,9 @@ structure GdkSeat :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getCapabilities self = (GdkSeatClass.FFI.withPtr false ---> GdkSeatCapabilities.FFI.fromVal) getCapabilities_ self
-    fun getDisplay self = (GdkSeatClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
-    fun getKeyboard self = (GdkSeatClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromOptPtr false) getKeyboard_ self
-    fun getPointer self = (GdkSeatClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromOptPtr false) getPointer_ self
+    fun getDisplay self = (GdkSeatClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self before GdkSeatClass.FFI.touchPtr self
+    fun getKeyboard self = (GdkSeatClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromOptPtr false) getKeyboard_ self before GdkSeatClass.FFI.touchPtr self
+    fun getPointer self = (GdkSeatClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromOptPtr false) getPointer_ self before GdkSeatClass.FFI.touchPtr self
     fun ungrab self = (GdkSeatClass.FFI.withPtr false ---> I) ungrab_ self
     local
       open ClosureMarshal Signal

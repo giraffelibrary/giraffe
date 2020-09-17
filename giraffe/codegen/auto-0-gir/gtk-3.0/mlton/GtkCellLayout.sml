@@ -109,7 +109,7 @@ structure GtkCellLayout :>
         )
     fun clear self = (GtkCellLayoutClass.FFI.withPtr false ---> I) clear_ self
     fun clearAttributes self cell = (GtkCellLayoutClass.FFI.withPtr false &&&> GtkCellRendererClass.FFI.withPtr false ---> I) clearAttributes_ (self & cell)
-    fun getArea self = (GtkCellLayoutClass.FFI.withPtr false ---> GtkCellAreaClass.FFI.fromOptPtr false) getArea_ self
+    fun getArea self = (GtkCellLayoutClass.FFI.withPtr false ---> GtkCellAreaClass.FFI.fromOptPtr false) getArea_ self before GtkCellLayoutClass.FFI.touchPtr self
     fun packEnd self (cell, expand) =
       (
         GtkCellLayoutClass.FFI.withPtr false

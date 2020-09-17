@@ -130,7 +130,7 @@ structure GtkPageSetup :>
     fun getPageHeight self unit = (GtkPageSetupClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPageHeight_ (self & unit)
     fun getPageWidth self unit = (GtkPageSetupClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPageWidth_ (self & unit)
     fun getPaperHeight self unit = (GtkPageSetupClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPaperHeight_ (self & unit)
-    fun getPaperSize self = (GtkPageSetupClass.FFI.withPtr false ---> GtkPaperSizeRecord.FFI.fromPtr false) getPaperSize_ self
+    fun getPaperSize self = (GtkPageSetupClass.FFI.withPtr false ---> GtkPaperSizeRecord.FFI.fromPtr false) getPaperSize_ self before GtkPageSetupClass.FFI.touchPtr self
     fun getPaperWidth self unit = (GtkPageSetupClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getPaperWidth_ (self & unit)
     fun getRightMargin self unit = (GtkPageSetupClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getRightMargin_ (self & unit)
     fun getTopMargin self unit = (GtkPageSetupClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getTopMargin_ (self & unit)
@@ -230,7 +230,7 @@ structure GtkPageSetup :>
            & fileName
            & []
         )
-    fun toGvariant self = (GtkPageSetupClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
+    fun toGvariant self = (GtkPageSetupClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self before GtkPageSetupClass.FFI.touchPtr self
     fun toKeyFile self (keyFile, groupName) =
       (
         GtkPageSetupClass.FFI.withPtr false

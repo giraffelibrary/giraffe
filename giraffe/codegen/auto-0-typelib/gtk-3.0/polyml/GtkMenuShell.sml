@@ -96,8 +96,8 @@ structure GtkMenuShell :>
     fun cancel self = (GtkMenuShellClass.FFI.withPtr false ---> I) cancel_ self
     fun deactivate self = (GtkMenuShellClass.FFI.withPtr false ---> I) deactivate_ self
     fun deselect self = (GtkMenuShellClass.FFI.withPtr false ---> I) deselect_ self
-    fun getParentShell self = (GtkMenuShellClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getParentShell_ self
-    fun getSelectedItem self = (GtkMenuShellClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getSelectedItem_ self
+    fun getParentShell self = (GtkMenuShellClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getParentShell_ self before GtkMenuShellClass.FFI.touchPtr self
+    fun getSelectedItem self = (GtkMenuShellClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getSelectedItem_ self before GtkMenuShellClass.FFI.touchPtr self
     fun getTakeFocus self = (GtkMenuShellClass.FFI.withPtr false ---> GBool.FFI.fromVal) getTakeFocus_ self
     fun insert self (child, position) =
       (

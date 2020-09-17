@@ -30,12 +30,12 @@ structure GtkViewport :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkViewportClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
-    fun getBinWindow self = (GtkViewportClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
-    fun getHadjustment self = (GtkViewportClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
+    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkViewportClass.FFI.fromPtr false) new_ (hadjustment & vadjustment) before GtkAdjustmentClass.FFI.touchOptPtr hadjustment before GtkAdjustmentClass.FFI.touchOptPtr vadjustment
+    fun getBinWindow self = (GtkViewportClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self before GtkViewportClass.FFI.touchPtr self
+    fun getHadjustment self = (GtkViewportClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self before GtkViewportClass.FFI.touchPtr self
     fun getShadowType self = (GtkViewportClass.FFI.withPtr false ---> GtkShadowType.FFI.fromVal) getShadowType_ self
-    fun getVadjustment self = (GtkViewportClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
-    fun getViewWindow self = (GtkViewportClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getViewWindow_ self
+    fun getVadjustment self = (GtkViewportClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self before GtkViewportClass.FFI.touchPtr self
+    fun getViewWindow self = (GtkViewportClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getViewWindow_ self before GtkViewportClass.FFI.touchPtr self
     fun setHadjustment self adjustment = (GtkViewportClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> I) setHadjustment_ (self & adjustment)
     fun setShadowType self type' = (GtkViewportClass.FFI.withPtr false &&&> GtkShadowType.FFI.withVal ---> I) setShadowType_ (self & type')
     fun setVadjustment self adjustment = (GtkViewportClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> I) setVadjustment_ (self & adjustment)

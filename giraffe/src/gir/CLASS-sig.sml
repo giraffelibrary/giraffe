@@ -42,5 +42,8 @@ signature CLASS =
 
         val fromPtr    : bool -> non_opt p -> base class
         val fromOptPtr : bool -> opt     p -> base class option
+
+        val touchPtr    : 'a class        -> unit
+        val touchOptPtr : 'a class option -> unit
       end
   end

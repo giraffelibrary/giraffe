@@ -336,11 +336,11 @@ structure PangoLayout :>
     fun contextChanged self = (PangoLayoutClass.FFI.withPtr false ---> I) contextChanged_ self
     fun copy self = (PangoLayoutClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromPtr true) copy_ self
     fun getAlignment self = (PangoLayoutClass.FFI.withPtr false ---> PangoAlignment.FFI.fromVal) getAlignment_ self
-    fun getAttributes self = (PangoLayoutClass.FFI.withPtr false ---> PangoAttrListRecord.FFI.fromPtr false) getAttributes_ self
+    fun getAttributes self = (PangoLayoutClass.FFI.withPtr false ---> PangoAttrListRecord.FFI.fromPtr false) getAttributes_ self before PangoLayoutClass.FFI.touchPtr self
     fun getAutoDir self = (PangoLayoutClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAutoDir_ self
     fun getBaseline self = (PangoLayoutClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getBaseline_ self
     fun getCharacterCount self = (PangoLayoutClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getCharacterCount_ self
-    fun getContext self = (PangoLayoutClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr false) getContext_ self
+    fun getContext self = (PangoLayoutClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr false) getContext_ self before PangoLayoutClass.FFI.touchPtr self
     fun getCursorPos self index =
       let
         val strongPos
@@ -388,14 +388,14 @@ structure PangoLayout :>
       in
         (inkRect, logicalRect)
       end
-    fun getFontDescription self = (PangoLayoutClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromOptPtr false) getFontDescription_ self
+    fun getFontDescription self = (PangoLayoutClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromOptPtr false) getFontDescription_ self before PangoLayoutClass.FFI.touchPtr self
     fun getHeight self = (PangoLayoutClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getHeight_ self
     fun getIndent self = (PangoLayoutClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getIndent_ self
     fun getIter self = (PangoLayoutClass.FFI.withPtr false ---> PangoLayoutIterRecord.FFI.fromPtr true) getIter_ self
     fun getJustify self = (PangoLayoutClass.FFI.withPtr false ---> GBool.FFI.fromVal) getJustify_ self
-    fun getLine self line = (PangoLayoutClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLine_ (self & line)
+    fun getLine self line = (PangoLayoutClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLine_ (self & line) before PangoLayoutClass.FFI.touchPtr self
     fun getLineCount self = (PangoLayoutClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getLineCount_ self
-    fun getLineReadonly self line = (PangoLayoutClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLineReadonly_ (self & line)
+    fun getLineReadonly self line = (PangoLayoutClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLineReadonly_ (self & line) before PangoLayoutClass.FFI.touchPtr self
     fun getLogAttrs self =
       let
         val attrs
@@ -422,7 +422,7 @@ structure PangoLayout :>
       let
         val nAttrs & retVal = (PangoLayoutClass.FFI.withPtr false &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && PangoLogAttrRecordCArrayN.FFI.fromPtr 0) getLogAttrsReadonly_ (self & GInt32.null)
       in
-        retVal (LargeInt.toInt nAttrs)
+        retVal (LargeInt.toInt nAttrs) before PangoLayoutClass.FFI.touchPtr self
       end
     fun getPixelExtents self =
       let
@@ -494,7 +494,7 @@ structure PangoLayout :>
       end
     fun getSpacing self = (PangoLayoutClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getSpacing_ self
     fun getTabs self = (PangoLayoutClass.FFI.withPtr false ---> PangoTabArrayRecord.FFI.fromOptPtr true) getTabs_ self
-    fun getText self = (PangoLayoutClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getText_ self
+    fun getText self = (PangoLayoutClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getText_ self before PangoLayoutClass.FFI.touchPtr self
     fun getUnknownGlyphsCount self = (PangoLayoutClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getUnknownGlyphsCount_ self
     fun getWidth self = (PangoLayoutClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getWidth_ self
     fun getWrap self = (PangoLayoutClass.FFI.withPtr false ---> PangoWrapMode.FFI.fromVal) getWrap_ self

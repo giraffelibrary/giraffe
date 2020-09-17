@@ -70,10 +70,10 @@ structure GtkButton :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkButtonClass.FFI.fromPtr false) new_ ()
-    fun newFromIconName (iconName, size) = (Utf8.FFI.withOptPtr 0 &&&> GInt32.FFI.withVal ---> GtkButtonClass.FFI.fromPtr false) newFromIconName_ (iconName & size)
-    fun newFromStock stockId = (Utf8.FFI.withPtr 0 ---> GtkButtonClass.FFI.fromPtr false) newFromStock_ stockId
-    fun newWithLabel label = (Utf8.FFI.withPtr 0 ---> GtkButtonClass.FFI.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (Utf8.FFI.withPtr 0 ---> GtkButtonClass.FFI.fromPtr false) newWithMnemonic_ label
+    fun newFromIconName (iconName, size) = (Utf8.FFI.withOptPtr 0 &&&> GInt32.FFI.withVal ---> GtkButtonClass.FFI.fromPtr false) newFromIconName_ (iconName & size) before Utf8.FFI.touchOptPtr iconName
+    fun newFromStock stockId = (Utf8.FFI.withPtr 0 ---> GtkButtonClass.FFI.fromPtr false) newFromStock_ stockId before Utf8.FFI.touchPtr stockId
+    fun newWithLabel label = (Utf8.FFI.withPtr 0 ---> GtkButtonClass.FFI.fromPtr false) newWithLabel_ label before Utf8.FFI.touchPtr label
+    fun newWithMnemonic label = (Utf8.FFI.withPtr 0 ---> GtkButtonClass.FFI.fromPtr false) newWithMnemonic_ label before Utf8.FFI.touchPtr label
     fun clicked self = (GtkButtonClass.FFI.withPtr false ---> I) clicked_ self
     fun enter self = (GtkButtonClass.FFI.withPtr false ---> I) enter_ self
     fun getAlignment self =
@@ -99,11 +99,11 @@ structure GtkButton :>
         (xalign, yalign)
       end
     fun getAlwaysShowImage self = (GtkButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAlwaysShowImage_ self
-    fun getEventWindow self = (GtkButtonClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getEventWindow_ self
+    fun getEventWindow self = (GtkButtonClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getEventWindow_ self before GtkButtonClass.FFI.touchPtr self
     fun getFocusOnClick self = (GtkButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFocusOnClick_ self
-    fun getImage self = (GtkButtonClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getImage_ self
+    fun getImage self = (GtkButtonClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getImage_ self before GtkButtonClass.FFI.touchPtr self
     fun getImagePosition self = (GtkButtonClass.FFI.withPtr false ---> GtkPositionType.FFI.fromVal) getImagePosition_ self
-    fun getLabel self = (GtkButtonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLabel_ self
+    fun getLabel self = (GtkButtonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLabel_ self before GtkButtonClass.FFI.touchPtr self
     fun getRelief self = (GtkButtonClass.FFI.withPtr false ---> GtkReliefStyle.FFI.fromVal) getRelief_ self
     fun getUseStock self = (GtkButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseStock_ self
     fun getUseUnderline self = (GtkButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseUnderline_ self

@@ -2086,7 +2086,7 @@ structure Gtk : GTK =
            & del
            & time
         )
-    fun dragGetSourceWidget context = (GdkDragContextClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) dragGetSourceWidget_ context
+    fun dragGetSourceWidget context = (GdkDragContextClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) dragGetSourceWidget_ context before GdkDragContextClass.FFI.touchPtr context
     fun dragSetIconDefault context = (GdkDragContextClass.FFI.withPtr false ---> I) dragSetIconDefault_ context
     fun dragSetIconGicon
       (
@@ -2234,7 +2234,7 @@ structure Gtk : GTK =
     fun getCurrentEventTime () = (I ---> GUInt32.FFI.fromVal) getCurrentEventTime_ ()
     fun getDebugFlags () = (I ---> GUInt.FFI.fromVal) getDebugFlags_ ()
     fun getDefaultLanguage () = (I ---> PangoLanguageRecord.FFI.fromPtr false) getDefaultLanguage_ ()
-    fun getEventWidget event = (GdkEvent.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getEventWidget_ event
+    fun getEventWidget event = (GdkEvent.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getEventWidget_ event before GdkEvent.FFI.touchPtr event
     fun getInterfaceAge () = (I ---> GUInt.FFI.fromVal) getInterfaceAge_ ()
     fun getLocaleDirection () = (I ---> GtkTextDirection.FFI.fromVal) getLocaleDirection_ ()
     fun getMajorVersion () = (I ---> GUInt.FFI.fromVal) getMajorVersion_ ()
@@ -3114,7 +3114,7 @@ structure Gtk : GTK =
     fun rcGetImModuleFile () = (I ---> Utf8.FFI.fromPtr ~1) rcGetImModuleFile_ ()
     fun rcGetImModulePath () = (I ---> Utf8.FFI.fromPtr ~1) rcGetImModulePath_ ()
     fun rcGetModuleDir () = (I ---> Utf8.FFI.fromPtr ~1) rcGetModuleDir_ ()
-    fun rcGetStyle widget = (GtkWidgetClass.FFI.withPtr false ---> GtkStyleClass.FFI.fromPtr false) rcGetStyle_ widget
+    fun rcGetStyle widget = (GtkWidgetClass.FFI.withPtr false ---> GtkStyleClass.FFI.fromPtr false) rcGetStyle_ widget before GtkWidgetClass.FFI.touchPtr widget
     fun rcGetStyleByPaths
       (
         settings,
@@ -3136,6 +3136,9 @@ structure Gtk : GTK =
            & classPath
            & type'
         )
+       before GtkSettingsClass.FFI.touchPtr settings
+       before Utf8.FFI.touchOptPtr widgetPath
+       before Utf8.FFI.touchOptPtr classPath
     fun rcGetThemeDir () = (I ---> Utf8.FFI.fromPtr ~1) rcGetThemeDir_ ()
     fun rcParse filename = (Utf8.FFI.withPtr 0 ---> I) rcParse_ filename
     fun rcParseString rcString = (Utf8.FFI.withPtr 0 ---> I) rcParseString_ rcString
@@ -3934,9 +3937,9 @@ structure Gtk : GTK =
       in
         retVal
       end
-    fun testCreateSimpleWindow (windowTitle, dialogText) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText)
-    fun testFindLabel (widget, labelPattern) = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromPtr false) testFindLabel_ (widget & labelPattern)
-    fun testFindSibling (baseWidget, widgetType) = (GtkWidgetClass.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) testFindSibling_ (baseWidget & widgetType)
+    fun testCreateSimpleWindow (windowTitle, dialogText) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromPtr false) testCreateSimpleWindow_ (windowTitle & dialogText) before Utf8.FFI.touchPtr windowTitle before Utf8.FFI.touchPtr dialogText
+    fun testFindLabel (widget, labelPattern) = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromPtr false) testFindLabel_ (widget & labelPattern) before GtkWidgetClass.FFI.touchPtr widget before Utf8.FFI.touchPtr labelPattern
+    fun testFindSibling (baseWidget, widgetType) = (GtkWidgetClass.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromPtr false) testFindSibling_ (baseWidget & widgetType) before GtkWidgetClass.FFI.touchPtr baseWidget
     fun testFindWidget
       (
         widget,
@@ -3955,6 +3958,8 @@ structure Gtk : GTK =
            & labelPattern
            & widgetType
         )
+       before GtkWidgetClass.FFI.touchPtr widget
+       before Utf8.FFI.touchPtr labelPattern
     fun testListAllTypes () =
       let
         val _ & retVal = (GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCArray.FFI.fromPtr 0) testListAllTypes_ GUInt.null
@@ -4041,7 +4046,7 @@ structure Gtk : GTK =
                & NONE
             )
       in
-        if retVal then SOME (treeModel, path) else NONE
+        (if retVal then SOME (treeModel, path) else NONE) before GtkSelectionDataRecord.FFI.touchPtr selectionData
       end
     fun treeSetRowDragData
       (

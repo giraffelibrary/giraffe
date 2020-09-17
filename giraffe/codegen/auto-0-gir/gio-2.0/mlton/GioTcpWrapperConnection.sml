@@ -13,7 +13,7 @@ structure GioTcpWrapperConnection :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new (baseIoStream, socket) = (GioIOStreamClass.FFI.withPtr false &&&> GioSocketClass.FFI.withPtr false ---> GioTcpWrapperConnectionClass.FFI.fromPtr true) new_ (baseIoStream & socket)
-    fun getBaseIoStream self = (GioTcpWrapperConnectionClass.FFI.withPtr false ---> GioIOStreamClass.FFI.fromPtr false) getBaseIoStream_ self
+    fun getBaseIoStream self = (GioTcpWrapperConnectionClass.FFI.withPtr false ---> GioIOStreamClass.FFI.fromPtr false) getBaseIoStream_ self before GioTcpWrapperConnectionClass.FFI.touchPtr self
     local
       open ValueAccessor
     in

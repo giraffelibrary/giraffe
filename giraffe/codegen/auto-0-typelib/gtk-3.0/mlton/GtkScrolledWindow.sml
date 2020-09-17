@@ -91,11 +91,11 @@ structure GtkScrolledWindow :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkScrolledWindowClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
+    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkScrolledWindowClass.FFI.fromPtr false) new_ (hadjustment & vadjustment) before GtkAdjustmentClass.FFI.touchOptPtr hadjustment before GtkAdjustmentClass.FFI.touchOptPtr vadjustment
     fun addWithViewport self child = (GtkScrolledWindowClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) addWithViewport_ (self & child)
     fun getCaptureButtonPress self = (GtkScrolledWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCaptureButtonPress_ self
-    fun getHadjustment self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
-    fun getHscrollbar self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getHscrollbar_ self
+    fun getHadjustment self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self before GtkScrolledWindowClass.FFI.touchPtr self
+    fun getHscrollbar self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getHscrollbar_ self before GtkScrolledWindowClass.FFI.touchPtr self
     fun getKineticScrolling self = (GtkScrolledWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getKineticScrolling_ self
     fun getMaxContentHeight self = (GtkScrolledWindowClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getMaxContentHeight_ self
     fun getMaxContentWidth self = (GtkScrolledWindowClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getMaxContentWidth_ self
@@ -128,8 +128,8 @@ structure GtkScrolledWindow :>
     fun getPropagateNaturalHeight self = (GtkScrolledWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPropagateNaturalHeight_ self
     fun getPropagateNaturalWidth self = (GtkScrolledWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPropagateNaturalWidth_ self
     fun getShadowType self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkShadowType.FFI.fromVal) getShadowType_ self
-    fun getVadjustment self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
-    fun getVscrollbar self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getVscrollbar_ self
+    fun getVadjustment self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self before GtkScrolledWindowClass.FFI.touchPtr self
+    fun getVscrollbar self = (GtkScrolledWindowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getVscrollbar_ self before GtkScrolledWindowClass.FFI.touchPtr self
     fun setCaptureButtonPress self captureButtonPress = (GtkScrolledWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCaptureButtonPress_ (self & captureButtonPress)
     fun setHadjustment self hadjustment = (GtkScrolledWindowClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withPtr false ---> I) setHadjustment_ (self & hadjustment)
     fun setKineticScrolling self kineticScrolling = (GtkScrolledWindowClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setKineticScrolling_ (self & kineticScrolling)

@@ -15,8 +15,8 @@ structure GtkActionable :>
     type 'a class = 'a GtkActionableClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getActionName self = (GtkActionableClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getActionName_ self
-    fun getActionTargetValue self = (GtkActionableClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) getActionTargetValue_ self
+    fun getActionName self = (GtkActionableClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getActionName_ self before GtkActionableClass.FFI.touchPtr self
+    fun getActionTargetValue self = (GtkActionableClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) getActionTargetValue_ self before GtkActionableClass.FFI.touchPtr self
     fun setActionName self actionName = (GtkActionableClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setActionName_ (self & actionName)
     fun setActionTargetValue self targetValue = (GtkActionableClass.FFI.withPtr false &&&> GLibVariantRecord.FFI.withPtr false ---> I) setActionTargetValue_ (self & targetValue)
     fun setDetailedActionName self detailedActionName = (GtkActionableClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDetailedActionName_ (self & detailedActionName)

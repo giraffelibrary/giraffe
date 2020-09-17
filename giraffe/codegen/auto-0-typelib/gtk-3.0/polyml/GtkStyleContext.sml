@@ -299,8 +299,8 @@ structure GtkStyleContext :>
         color
       end
     fun getDirection self = (GtkStyleContextClass.FFI.withPtr false ---> GtkTextDirection.FFI.fromVal) getDirection_ self
-    fun getFont self state = (GtkStyleContextClass.FFI.withPtr false &&&> GtkStateFlags.FFI.withVal ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFont_ (self & state)
-    fun getFrameClock self = (GtkStyleContextClass.FFI.withPtr false ---> GdkFrameClockClass.FFI.fromOptPtr false) getFrameClock_ self
+    fun getFont self state = (GtkStyleContextClass.FFI.withPtr false &&&> GtkStateFlags.FFI.withVal ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFont_ (self & state) before GtkStyleContextClass.FFI.touchPtr self
+    fun getFrameClock self = (GtkStyleContextClass.FFI.withPtr false ---> GdkFrameClockClass.FFI.fromOptPtr false) getFrameClock_ self before GtkStyleContextClass.FFI.touchPtr self
     fun getJunctionSides self = (GtkStyleContextClass.FFI.withPtr false ---> GtkJunctionSides.FFI.fromVal) getJunctionSides_ self
     fun getMargin self state =
       let
@@ -338,11 +338,11 @@ structure GtkStyleContext :>
       in
         padding
       end
-    fun getParent self = (GtkStyleContextClass.FFI.withPtr false ---> GtkStyleContextClass.FFI.fromOptPtr false) getParent_ self
-    fun getPath self = (GtkStyleContextClass.FFI.withPtr false ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self
+    fun getParent self = (GtkStyleContextClass.FFI.withPtr false ---> GtkStyleContextClass.FFI.fromOptPtr false) getParent_ self before GtkStyleContextClass.FFI.touchPtr self
+    fun getPath self = (GtkStyleContextClass.FFI.withPtr false ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self before GtkStyleContextClass.FFI.touchPtr self
     fun getScale self = (GtkStyleContextClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getScale_ self
-    fun getScreen self = (GtkStyleContextClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
-    fun getSection self property = (GtkStyleContextClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkCssSectionRecord.FFI.fromOptPtr false) getSection_ (self & property)
+    fun getScreen self = (GtkStyleContextClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self before GtkStyleContextClass.FFI.touchPtr self
+    fun getSection self property = (GtkStyleContextClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkCssSectionRecord.FFI.fromOptPtr false) getSection_ (self & property) before GtkStyleContextClass.FFI.touchPtr self before Utf8.FFI.touchPtr property
     fun getState self = (GtkStyleContextClass.FFI.withPtr false ---> GtkStateFlags.FFI.fromVal) getState_ self
     fun getStyleProperty self (propertyName, value) =
       (
@@ -395,7 +395,7 @@ structure GtkStyleContext :>
       in
         if retVal then SOME color else NONE
       end
-    fun lookupIconSet self stockId = (GtkStyleContextClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkIconSetRecord.FFI.fromOptPtr false) lookupIconSet_ (self & stockId)
+    fun lookupIconSet self stockId = (GtkStyleContextClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkIconSetRecord.FFI.fromOptPtr false) lookupIconSet_ (self & stockId) before GtkStyleContextClass.FFI.touchPtr self before Utf8.FFI.touchPtr stockId
     fun popAnimatableRegion self = (GtkStyleContextClass.FFI.withPtr false ---> I) popAnimatableRegion_ self
     fun removeClass self className = (GtkStyleContextClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) removeClass_ (self & className)
     fun removeProvider self provider = (GtkStyleContextClass.FFI.withPtr false &&&> GtkStyleProviderClass.FFI.withPtr false ---> I) removeProvider_ (self & provider)

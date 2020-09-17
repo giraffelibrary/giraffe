@@ -36,10 +36,10 @@ structure GLibSource :>
     fun attach self context = (GLibSourceRecord.FFI.withPtr false &&&> GLibMainContextRecord.FFI.withOptPtr false ---> GUInt.FFI.fromVal) attach_ (self & context)
     fun destroy self = (GLibSourceRecord.FFI.withPtr false ---> I) destroy_ self
     fun getCanRecurse self = (GLibSourceRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getCanRecurse_ self
-    fun getContext self = (GLibSourceRecord.FFI.withPtr false ---> GLibMainContextRecord.FFI.fromOptPtr false) getContext_ self
+    fun getContext self = (GLibSourceRecord.FFI.withPtr false ---> GLibMainContextRecord.FFI.fromOptPtr false) getContext_ self before GLibSourceRecord.FFI.touchPtr self
     fun getCurrentTime self timeval = (GLibSourceRecord.FFI.withPtr false &&&> GLibTimeValRecord.FFI.withPtr false ---> I) getCurrentTime_ (self & timeval)
     fun getId self = (GLibSourceRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) getId_ self
-    fun getName self = (GLibSourceRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getName self = (GLibSourceRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GLibSourceRecord.FFI.touchPtr self
     fun getPriority self = (GLibSourceRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getPriority_ self
     fun getReadyTime self = (GLibSourceRecord.FFI.withPtr false ---> GInt64.FFI.fromVal) getReadyTime_ self
     fun getTime self = (GLibSourceRecord.FFI.withPtr false ---> GInt64.FFI.fromVal) getTime_ self

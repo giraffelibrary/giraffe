@@ -82,6 +82,7 @@ structure GtkAspectFrame :>
            & ratio
            & obeyChild
         )
+       before Utf8.FFI.touchOptPtr label
     fun set
       self
       (

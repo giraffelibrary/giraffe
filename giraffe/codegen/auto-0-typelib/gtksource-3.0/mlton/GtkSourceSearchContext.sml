@@ -541,9 +541,9 @@ structure GtkSourceSearchContext :>
           hasWrappedAround
         )
       end
-    fun getBuffer self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getBuffer self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self before GtkSourceSearchContextClass.FFI.touchPtr self
     fun getHighlight self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHighlight_ self
-    fun getMatchStyle self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GtkSourceStyleClass.FFI.fromPtr false) getMatchStyle_ self
+    fun getMatchStyle self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GtkSourceStyleClass.FFI.fromPtr false) getMatchStyle_ self before GtkSourceSearchContextClass.FFI.touchPtr self
     fun getOccurrencePosition self (matchStart, matchEnd) =
       (
         GtkSourceSearchContextClass.FFI.withPtr false
@@ -558,7 +558,7 @@ structure GtkSourceSearchContext :>
            & matchEnd
         )
     fun getOccurrencesCount self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getOccurrencesCount_ self
-    fun getSettings self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GtkSourceSearchSettingsClass.FFI.fromPtr false) getSettings_ self
+    fun getSettings self = (GtkSourceSearchContextClass.FFI.withPtr false ---> GtkSourceSearchSettingsClass.FFI.fromPtr false) getSettings_ self before GtkSourceSearchContextClass.FFI.touchPtr self
     fun replace
       self
       (

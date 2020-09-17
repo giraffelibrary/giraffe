@@ -55,7 +55,7 @@ structure GdkGLContext :>
     fun clearCurrent () = (I ---> I) clearCurrent_ ()
     fun getCurrent () = (I ---> GdkGLContextClass.FFI.fromOptPtr false) getCurrent_ ()
     fun getDebugEnabled self = (GdkGLContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDebugEnabled_ self
-    fun getDisplay self = (GdkGLContextClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromOptPtr false) getDisplay_ self
+    fun getDisplay self = (GdkGLContextClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromOptPtr false) getDisplay_ self before GdkGLContextClass.FFI.touchPtr self
     fun getForwardCompatible self = (GdkGLContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) getForwardCompatible_ self
     fun getRequiredVersion self =
       let
@@ -79,7 +79,7 @@ structure GdkGLContext :>
       in
         (major, minor)
       end
-    fun getSharedContext self = (GdkGLContextClass.FFI.withPtr false ---> GdkGLContextClass.FFI.fromOptPtr false) getSharedContext_ self
+    fun getSharedContext self = (GdkGLContextClass.FFI.withPtr false ---> GdkGLContextClass.FFI.fromOptPtr false) getSharedContext_ self before GdkGLContextClass.FFI.touchPtr self
     fun getUseEs self = (GdkGLContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseEs_ self
     fun getVersion self =
       let
@@ -103,7 +103,7 @@ structure GdkGLContext :>
       in
         (major, minor)
       end
-    fun getWindow self = (GdkGLContextClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self
+    fun getWindow self = (GdkGLContextClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self before GdkGLContextClass.FFI.touchPtr self
     fun isLegacy self = (GdkGLContextClass.FFI.withPtr false ---> GBool.FFI.fromVal) isLegacy_ self
     fun makeCurrent self = (GdkGLContextClass.FFI.withPtr false ---> I) makeCurrent_ self
     fun realize self = (GdkGLContextClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) realize_ (self & [])

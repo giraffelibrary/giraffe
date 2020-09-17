@@ -12,5 +12,5 @@ structure GioDBusAnnotationInfo :>
     type t = GioDBusAnnotationInfoRecord.t
     type d_bus_annotation_info_record_c_ptr_array_t = GioDBusAnnotationInfoRecordCPtrArray.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun lookup (annotations, name) = (GioDBusAnnotationInfoRecordCPtrArray.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) lookup_ (annotations & name)
+    fun lookup (annotations, name) = (GioDBusAnnotationInfoRecordCPtrArray.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) lookup_ (annotations & name) before GioDBusAnnotationInfoRecordCPtrArray.FFI.touchOptPtr annotations before Utf8.FFI.touchPtr name
   end

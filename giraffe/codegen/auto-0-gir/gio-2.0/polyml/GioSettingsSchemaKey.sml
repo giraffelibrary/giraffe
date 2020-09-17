@@ -17,10 +17,10 @@ structure GioSettingsSchemaKey :>
     type t = GioSettingsSchemaKeyRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefaultValue self = (GioSettingsSchemaKeyRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr true) getDefaultValue_ self
-    fun getDescription self = (GioSettingsSchemaKeyRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self
-    fun getName self = (GioSettingsSchemaKeyRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getDescription self = (GioSettingsSchemaKeyRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self before GioSettingsSchemaKeyRecord.FFI.touchPtr self
+    fun getName self = (GioSettingsSchemaKeyRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GioSettingsSchemaKeyRecord.FFI.touchPtr self
     fun getRange self = (GioSettingsSchemaKeyRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr true) getRange_ self
-    fun getSummary self = (GioSettingsSchemaKeyRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSummary_ self
-    fun getValueType self = (GioSettingsSchemaKeyRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) getValueType_ self
+    fun getSummary self = (GioSettingsSchemaKeyRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSummary_ self before GioSettingsSchemaKeyRecord.FFI.touchPtr self
+    fun getValueType self = (GioSettingsSchemaKeyRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) getValueType_ self before GioSettingsSchemaKeyRecord.FFI.touchPtr self
     fun rangeCheck self value = (GioSettingsSchemaKeyRecord.FFI.withPtr false &&&> GLibVariantRecord.FFI.withPtr false ---> GBool.FFI.fromVal) rangeCheck_ (self & value)
   end

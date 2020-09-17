@@ -118,8 +118,8 @@ structure GdkScreen :>
     fun width () = (I ---> GInt32.FFI.fromVal) width_ ()
     fun widthMm () = (I ---> GInt32.FFI.fromVal) widthMm_ ()
     fun getActiveWindow self = (GdkScreenClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr true) getActiveWindow_ self
-    fun getDisplay self = (GdkScreenClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
-    fun getFontOptions self = (GdkScreenClass.FFI.withPtr false ---> CairoFontOptionsRecord.FFI.fromOptPtr false) getFontOptions_ self
+    fun getDisplay self = (GdkScreenClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self before GdkScreenClass.FFI.touchPtr self
+    fun getFontOptions self = (GdkScreenClass.FFI.withPtr false ---> CairoFontOptionsRecord.FFI.fromOptPtr false) getFontOptions_ self before GdkScreenClass.FFI.touchPtr self
     fun getHeight self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getHeight_ self
     fun getHeightMm self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getHeightMm_ self
     fun getMonitorAtPoint self (x, y) =
@@ -180,8 +180,8 @@ structure GdkScreen :>
     fun getNumber self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNumber_ self
     fun getPrimaryMonitor self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getPrimaryMonitor_ self
     fun getResolution self = (GdkScreenClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getResolution_ self
-    fun getRgbaVisual self = (GdkScreenClass.FFI.withPtr false ---> GdkVisualClass.FFI.fromOptPtr false) getRgbaVisual_ self
-    fun getRootWindow self = (GdkScreenClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getRootWindow_ self
+    fun getRgbaVisual self = (GdkScreenClass.FFI.withPtr false ---> GdkVisualClass.FFI.fromOptPtr false) getRgbaVisual_ self before GdkScreenClass.FFI.touchPtr self
+    fun getRootWindow self = (GdkScreenClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getRootWindow_ self before GdkScreenClass.FFI.touchPtr self
     fun getSetting self (name, value) =
       (
         GdkScreenClass.FFI.withPtr false
@@ -195,7 +195,7 @@ structure GdkScreen :>
            & name
            & value
         )
-    fun getSystemVisual self = (GdkScreenClass.FFI.withPtr false ---> GdkVisualClass.FFI.fromPtr false) getSystemVisual_ self
+    fun getSystemVisual self = (GdkScreenClass.FFI.withPtr false ---> GdkVisualClass.FFI.fromPtr false) getSystemVisual_ self before GdkScreenClass.FFI.touchPtr self
     fun getWidth self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getWidth_ self
     fun getWidthMm self = (GdkScreenClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getWidthMm_ self
     fun isComposited self = (GdkScreenClass.FFI.withPtr false ---> GBool.FFI.fromVal) isComposited_ self

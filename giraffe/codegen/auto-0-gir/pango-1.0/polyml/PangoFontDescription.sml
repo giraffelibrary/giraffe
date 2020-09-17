@@ -89,7 +89,7 @@ structure PangoFontDescription :>
     fun copy self = (PangoFontDescriptionRecord.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromOptPtr true) copy_ self
     fun copyStatic self = (PangoFontDescriptionRecord.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromOptPtr true) copyStatic_ self
     fun equal self desc2 = (PangoFontDescriptionRecord.FFI.withPtr false &&&> PangoFontDescriptionRecord.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & desc2)
-    fun getFamily self = (PangoFontDescriptionRecord.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getFamily_ self
+    fun getFamily self = (PangoFontDescriptionRecord.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getFamily_ self before PangoFontDescriptionRecord.FFI.touchPtr self
     fun getGravity self = (PangoFontDescriptionRecord.FFI.withPtr false ---> PangoGravity.FFI.fromVal) getGravity_ self
     fun getSetFields self = (PangoFontDescriptionRecord.FFI.withPtr false ---> PangoFontMask.FFI.fromVal) getSetFields_ self
     fun getSize self = (PangoFontDescriptionRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getSize_ self

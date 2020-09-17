@@ -34,7 +34,7 @@ structure GioTestDBus :>
     fun unset () = (I ---> I) unset_ ()
     fun addServiceDir self path = (GioTestDBusClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) addServiceDir_ (self & path)
     fun down self = (GioTestDBusClass.FFI.withPtr false ---> I) down_ self
-    fun getBusAddress self = (GioTestDBusClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getBusAddress_ self
+    fun getBusAddress self = (GioTestDBusClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getBusAddress_ self before GioTestDBusClass.FFI.touchPtr self
     fun getFlags self = (GioTestDBusClass.FFI.withPtr false ---> GioTestDBusFlags.FFI.fromVal) getFlags_ self
     fun stop self = (GioTestDBusClass.FFI.withPtr false ---> I) stop_ self
     fun up self = (GioTestDBusClass.FFI.withPtr false ---> I) up_ self

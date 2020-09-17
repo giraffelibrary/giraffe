@@ -62,7 +62,8 @@ structure GtkSourceGutter :>
            & x
            & y
         )
-    fun getWindow self = (GtkSourceGutterClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getWindow_ self
+       before GtkSourceGutterClass.FFI.touchPtr self
+    fun getWindow self = (GtkSourceGutterClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getWindow_ self before GtkSourceGutterClass.FFI.touchPtr self
     fun insert self (renderer, position) =
       (
         GtkSourceGutterClass.FFI.withPtr false

@@ -44,7 +44,7 @@ structure GioUnixFDMessage :>
            & fd
            & []
         )
-    fun getFdList self = (GioUnixFDMessageClass.FFI.withPtr false ---> GioUnixFDListClass.FFI.fromPtr false) getFdList_ self
+    fun getFdList self = (GioUnixFDMessageClass.FFI.withPtr false ---> GioUnixFDListClass.FFI.fromPtr false) getFdList_ self before GioUnixFDMessageClass.FFI.touchPtr self
     fun stealFds self =
       let
         val length & retVal = (GioUnixFDMessageClass.FFI.withPtr false &&&> GInt.FFI.withRefVal ---> GInt.FFI.fromVal && GIntCArrayN.FFI.fromPtr ~1) stealFds_ (self & GInt.null)

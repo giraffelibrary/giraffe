@@ -241,14 +241,14 @@ structure GioAppInfo :>
     fun delete self = (GioAppInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) delete_ self
     fun dup self = (GioAppInfoClass.FFI.withPtr false ---> GioAppInfoClass.FFI.fromPtr true) dup_ self
     fun equal self appinfo2 = (GioAppInfoClass.FFI.withPtr false &&&> GioAppInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & appinfo2)
-    fun getCommandline self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCommandline_ self
-    fun getDescription self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self
-    fun getDisplayName self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
-    fun getExecutable self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getExecutable_ self
-    fun getIcon self = (GioAppInfoClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self
-    fun getId self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getId_ self
-    fun getName self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getSupportedTypes self = (GioAppInfoClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getSupportedTypes_ self
+    fun getCommandline self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCommandline_ self before GioAppInfoClass.FFI.touchPtr self
+    fun getDescription self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self before GioAppInfoClass.FFI.touchPtr self
+    fun getDisplayName self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self before GioAppInfoClass.FFI.touchPtr self
+    fun getExecutable self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getExecutable_ self before GioAppInfoClass.FFI.touchPtr self
+    fun getIcon self = (GioAppInfoClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self before GioAppInfoClass.FFI.touchPtr self
+    fun getId self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getId_ self before GioAppInfoClass.FFI.touchPtr self
+    fun getName self = (GioAppInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GioAppInfoClass.FFI.touchPtr self
+    fun getSupportedTypes self = (GioAppInfoClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getSupportedTypes_ self before GioAppInfoClass.FFI.touchPtr self
     fun removeSupportsType self contentType =
       (
         GioAppInfoClass.FFI.withPtr false

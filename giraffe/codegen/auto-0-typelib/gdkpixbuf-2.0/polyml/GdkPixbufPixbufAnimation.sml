@@ -48,7 +48,7 @@ structure GdkPixbufPixbufAnimation :>
     fun newFromStreamFinish asyncResult = (GioAsyncResultClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr true) newFromStreamFinish_ (asyncResult & [])
     fun getHeight self = (GdkPixbufPixbufAnimationClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getHeight_ self
     fun getIter self startTime = (GdkPixbufPixbufAnimationClass.FFI.withPtr false &&&> GLibTimeValRecord.FFI.withOptPtr false ---> GdkPixbufPixbufAnimationIterClass.FFI.fromPtr true) getIter_ (self & startTime)
-    fun getStaticImage self = (GdkPixbufPixbufAnimationClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getStaticImage_ self
+    fun getStaticImage self = (GdkPixbufPixbufAnimationClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getStaticImage_ self before GdkPixbufPixbufAnimationClass.FFI.touchPtr self
     fun getWidth self = (GdkPixbufPixbufAnimationClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getWidth_ self
     fun isStaticImage self = (GdkPixbufPixbufAnimationClass.FFI.withPtr false ---> GBool.FFI.fromVal) isStaticImage_ self
   end

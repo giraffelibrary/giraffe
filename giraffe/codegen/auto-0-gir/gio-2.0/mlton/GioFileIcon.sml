@@ -17,7 +17,7 @@ structure GioFileIcon :>
     fun asLoadableIcon self = (GObjectObjectClass.FFI.withPtr false ---> GioLoadableIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new file = (GioFileClass.FFI.withPtr false ---> GioFileIconClass.FFI.fromPtr true) new_ file
-    fun getFile self = (GioFileIconClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getFile_ self
+    fun getFile self = (GioFileIconClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getFile_ self before GioFileIconClass.FFI.touchPtr self
     local
       open ValueAccessor
     in

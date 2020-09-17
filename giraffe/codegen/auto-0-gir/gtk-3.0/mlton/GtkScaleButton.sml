@@ -98,10 +98,11 @@ structure GtkScaleButton :>
            & step
            & icons
         )
-    fun getAdjustment self = (GtkScaleButtonClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self
-    fun getMinusButton self = (GtkScaleButtonClass.FFI.withPtr false ---> GtkButtonClass.FFI.fromPtr false) getMinusButton_ self
-    fun getPlusButton self = (GtkScaleButtonClass.FFI.withPtr false ---> GtkButtonClass.FFI.fromPtr false) getPlusButton_ self
-    fun getPopup self = (GtkScaleButtonClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getPopup_ self
+       before Utf8CPtrArray.FFI.touchOptPtr icons
+    fun getAdjustment self = (GtkScaleButtonClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self before GtkScaleButtonClass.FFI.touchPtr self
+    fun getMinusButton self = (GtkScaleButtonClass.FFI.withPtr false ---> GtkButtonClass.FFI.fromPtr false) getMinusButton_ self before GtkScaleButtonClass.FFI.touchPtr self
+    fun getPlusButton self = (GtkScaleButtonClass.FFI.withPtr false ---> GtkButtonClass.FFI.fromPtr false) getPlusButton_ self before GtkScaleButtonClass.FFI.touchPtr self
+    fun getPopup self = (GtkScaleButtonClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getPopup_ self before GtkScaleButtonClass.FFI.touchPtr self
     fun getValue self = (GtkScaleButtonClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getValue_ self
     fun setAdjustment self adjustment = (GtkScaleButtonClass.FFI.withPtr false &&&> GtkAdjustmentClass.FFI.withPtr false ---> I) setAdjustment_ (self & adjustment)
     fun setIcons self icons = (GtkScaleButtonClass.FFI.withPtr false &&&> Utf8CPtrArray.FFI.withPtr 0 ---> I) setIcons_ (self & icons)

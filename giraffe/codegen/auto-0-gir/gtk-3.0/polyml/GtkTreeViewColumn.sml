@@ -130,7 +130,7 @@ structure GtkTreeViewColumn :>
     fun asCellLayout self = (GObjectObjectClass.FFI.withPtr false ---> GtkCellLayoutClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkTreeViewColumnClass.FFI.fromPtr false) new_ ()
-    fun newWithArea area = (GtkCellAreaClass.FFI.withPtr false ---> GtkTreeViewColumnClass.FFI.fromPtr false) newWithArea_ area
+    fun newWithArea area = (GtkCellAreaClass.FFI.withPtr false ---> GtkTreeViewColumnClass.FFI.fromPtr false) newWithArea_ area before GtkCellAreaClass.FFI.touchPtr area
     fun addAttribute
       self
       (
@@ -243,7 +243,7 @@ structure GtkTreeViewColumn :>
     fun clicked self = (GtkTreeViewColumnClass.FFI.withPtr false ---> I) clicked_ self
     fun focusCell self cell = (GtkTreeViewColumnClass.FFI.withPtr false &&&> GtkCellRendererClass.FFI.withPtr false ---> I) focusCell_ (self & cell)
     fun getAlignment self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GFloat.FFI.fromVal) getAlignment_ self
-    fun getButton self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getButton_ self
+    fun getButton self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getButton_ self before GtkTreeViewColumnClass.FFI.touchPtr self
     fun getClickable self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GBool.FFI.fromVal) getClickable_ self
     fun getExpand self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GBool.FFI.fromVal) getExpand_ self
     fun getFixedWidth self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GInt.FFI.fromVal) getFixedWidth_ self
@@ -256,10 +256,10 @@ structure GtkTreeViewColumn :>
     fun getSortIndicator self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSortIndicator_ self
     fun getSortOrder self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GtkSortType.FFI.fromVal) getSortOrder_ self
     fun getSpacing self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GInt.FFI.fromVal) getSpacing_ self
-    fun getTitle self = (GtkTreeViewColumnClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTitle_ self
-    fun getTreeView self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getTreeView_ self
+    fun getTitle self = (GtkTreeViewColumnClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTitle_ self before GtkTreeViewColumnClass.FFI.touchPtr self
+    fun getTreeView self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getTreeView_ self before GtkTreeViewColumnClass.FFI.touchPtr self
     fun getVisible self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
-    fun getWidget self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getWidget_ self
+    fun getWidget self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getWidget_ self before GtkTreeViewColumnClass.FFI.touchPtr self
     fun getWidth self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GInt.FFI.fromVal) getWidth_ self
     fun getXOffset self = (GtkTreeViewColumnClass.FFI.withPtr false ---> GInt.FFI.fromVal) getXOffset_ self
     fun packEnd self (cell, expand) =

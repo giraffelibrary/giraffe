@@ -20,7 +20,7 @@ structure GtkStackSidebar :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkStackSidebarClass.FFI.fromPtr false) new_ ()
-    fun getStack self = (GtkStackSidebarClass.FFI.withPtr false ---> GtkStackClass.FFI.fromOptPtr false) getStack_ self
+    fun getStack self = (GtkStackSidebarClass.FFI.withPtr false ---> GtkStackClass.FFI.fromOptPtr false) getStack_ self before GtkStackSidebarClass.FFI.touchPtr self
     fun setStack self stack = (GtkStackSidebarClass.FFI.withPtr false &&&> GtkStackClass.FFI.withPtr false ---> I) setStack_ (self & stack)
     local
       open ValueAccessor

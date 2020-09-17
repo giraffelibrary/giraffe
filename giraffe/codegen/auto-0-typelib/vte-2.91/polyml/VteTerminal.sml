@@ -318,7 +318,7 @@ structure VteTerminal :>
                & NONE
             )
       in
-        if retVal then SOME (matches (LargeInt.toInt nRegexes)) else NONE
+        (if retVal then SOME (matches (LargeInt.toInt nRegexes)) else NONE) before VteTerminalClass.FFI.touchPtr self before GdkEvent.FFI.touchPtr event before GLibRegexRecordCPtrArrayN.FFI.touchPtr regexes
       end
     fun eventCheckRegexSimple
       self
@@ -352,7 +352,7 @@ structure VteTerminal :>
                & NONE
             )
       in
-        if retVal then SOME (matches (LargeInt.toInt nRegexes)) else NONE
+        (if retVal then SOME (matches (LargeInt.toInt nRegexes)) else NONE) before VteTerminalClass.FFI.touchPtr self before GdkEvent.FFI.touchPtr event before VteRegexRecordCPtrArrayN.FFI.touchPtr regexes
       end
     fun feed self data =
       let
@@ -417,8 +417,8 @@ structure VteTerminal :>
     fun getCharWidth self = (VteTerminalClass.FFI.withPtr false ---> GInt64.FFI.fromVal) getCharWidth_ self
     fun getCjkAmbiguousWidth self = (VteTerminalClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getCjkAmbiguousWidth_ self
     fun getColumnCount self = (VteTerminalClass.FFI.withPtr false ---> GInt64.FFI.fromVal) getColumnCount_ self
-    fun getCurrentDirectoryUri self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCurrentDirectoryUri_ self
-    fun getCurrentFileUri self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCurrentFileUri_ self
+    fun getCurrentDirectoryUri self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCurrentDirectoryUri_ self before VteTerminalClass.FFI.touchPtr self
+    fun getCurrentFileUri self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCurrentFileUri_ self before VteTerminalClass.FFI.touchPtr self
     fun getCursorBlinkMode self = (VteTerminalClass.FFI.withPtr false ---> VteCursorBlinkMode.FFI.fromVal) getCursorBlinkMode_ self
     fun getCursorPosition self =
       let
@@ -443,8 +443,8 @@ structure VteTerminal :>
         (column, row)
       end
     fun getCursorShape self = (VteTerminalClass.FFI.withPtr false ---> VteCursorShape.FFI.fromVal) getCursorShape_ self
-    fun getEncoding self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEncoding_ self
-    fun getFont self = (VteTerminalClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFont_ self
+    fun getEncoding self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEncoding_ self before VteTerminalClass.FFI.touchPtr self
+    fun getFont self = (VteTerminalClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromPtr false) getFont_ self before VteTerminalClass.FFI.touchPtr self
     fun getFontScale self = (VteTerminalClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getFontScale_ self
     fun getGeometryHints self (minRows, minColumns) =
       let
@@ -467,14 +467,14 @@ structure VteTerminal :>
         hints
       end
     fun getHasSelection self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasSelection_ self
-    fun getIconTitle self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIconTitle_ self
+    fun getIconTitle self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getIconTitle_ self before VteTerminalClass.FFI.touchPtr self
     fun getInputEnabled self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInputEnabled_ self
     fun getMouseAutohide self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) getMouseAutohide_ self
-    fun getPty self = (VteTerminalClass.FFI.withPtr false ---> VtePtyClass.FFI.fromPtr false) getPty_ self
+    fun getPty self = (VteTerminalClass.FFI.withPtr false ---> VtePtyClass.FFI.fromPtr false) getPty_ self before VteTerminalClass.FFI.touchPtr self
     fun getRewrapOnResize self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRewrapOnResize_ self
     fun getRowCount self = (VteTerminalClass.FFI.withPtr false ---> GInt64.FFI.fromVal) getRowCount_ self
-    fun getWindowTitle self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getWindowTitle_ self
-    fun getWordCharExceptions self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getWordCharExceptions_ self
+    fun getWindowTitle self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getWindowTitle_ self before VteTerminalClass.FFI.touchPtr self
+    fun getWordCharExceptions self = (VteTerminalClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getWordCharExceptions_ self before VteTerminalClass.FFI.touchPtr self
     fun matchAddGregex self (gregex, gflags) =
       (
         VteTerminalClass.FFI.withPtr false
@@ -612,8 +612,8 @@ structure VteTerminal :>
         )
     fun searchFindNext self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) searchFindNext_ self
     fun searchFindPrevious self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) searchFindPrevious_ self
-    fun searchGetGregex self = (VteTerminalClass.FFI.withPtr false ---> GLibRegexRecord.FFI.fromPtr false) searchGetGregex_ self
-    fun searchGetRegex self = (VteTerminalClass.FFI.withPtr false ---> VteRegexRecord.FFI.fromPtr false) searchGetRegex_ self
+    fun searchGetGregex self = (VteTerminalClass.FFI.withPtr false ---> GLibRegexRecord.FFI.fromPtr false) searchGetGregex_ self before VteTerminalClass.FFI.touchPtr self
+    fun searchGetRegex self = (VteTerminalClass.FFI.withPtr false ---> VteRegexRecord.FFI.fromPtr false) searchGetRegex_ self before VteTerminalClass.FFI.touchPtr self
     fun searchGetWrapAround self = (VteTerminalClass.FFI.withPtr false ---> GBool.FFI.fromVal) searchGetWrapAround_ self
     fun searchSetGregex self (gregex, gflags) =
       (

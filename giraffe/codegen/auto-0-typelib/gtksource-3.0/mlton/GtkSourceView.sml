@@ -115,12 +115,12 @@ structure GtkSourceView :>
     fun asScrollable self = (GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkSourceViewClass.FFI.fromPtr false) new_ ()
-    fun newWithBuffer buffer = (GtkSourceBufferClass.FFI.withPtr false ---> GtkSourceViewClass.FFI.fromPtr false) newWithBuffer_ buffer
+    fun newWithBuffer buffer = (GtkSourceBufferClass.FFI.withPtr false ---> GtkSourceViewClass.FFI.fromPtr false) newWithBuffer_ buffer before GtkSourceBufferClass.FFI.touchPtr buffer
     fun getAutoIndent self = (GtkSourceViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAutoIndent_ self
     fun getBackgroundPattern self = (GtkSourceViewClass.FFI.withPtr false ---> GtkSourceBackgroundPatternType.FFI.fromVal) getBackgroundPattern_ self
-    fun getCompletion self = (GtkSourceViewClass.FFI.withPtr false ---> GtkSourceCompletionClass.FFI.fromPtr false) getCompletion_ self
+    fun getCompletion self = (GtkSourceViewClass.FFI.withPtr false ---> GtkSourceCompletionClass.FFI.fromPtr false) getCompletion_ self before GtkSourceViewClass.FFI.touchPtr self
     fun getDrawSpaces self = (GtkSourceViewClass.FFI.withPtr false ---> GtkSourceDrawSpacesFlags.FFI.fromVal) getDrawSpaces_ self
-    fun getGutter self windowType = (GtkSourceViewClass.FFI.withPtr false &&&> GtkTextWindowType.FFI.withVal ---> GtkSourceGutterClass.FFI.fromPtr false) getGutter_ (self & windowType)
+    fun getGutter self windowType = (GtkSourceViewClass.FFI.withPtr false &&&> GtkTextWindowType.FFI.withVal ---> GtkSourceGutterClass.FFI.fromPtr false) getGutter_ (self & windowType) before GtkSourceViewClass.FFI.touchPtr self
     fun getHighlightCurrentLine self = (GtkSourceViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHighlightCurrentLine_ self
     fun getIndentOnTab self = (GtkSourceViewClass.FFI.withPtr false ---> GBool.FFI.fromVal) getIndentOnTab_ self
     fun getIndentWidth self = (GtkSourceViewClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getIndentWidth_ self

@@ -243,11 +243,11 @@ structure GtkUIManager :>
            & []
         )
     fun ensureUpdate self = (GtkUIManagerClass.FFI.withPtr false ---> I) ensureUpdate_ self
-    fun getAccelGroup self = (GtkUIManagerClass.FFI.withPtr false ---> GtkAccelGroupClass.FFI.fromPtr false) getAccelGroup_ self
-    fun getAction self path = (GtkUIManagerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkActionClass.FFI.fromPtr false) getAction_ (self & path)
+    fun getAccelGroup self = (GtkUIManagerClass.FFI.withPtr false ---> GtkAccelGroupClass.FFI.fromPtr false) getAccelGroup_ self before GtkUIManagerClass.FFI.touchPtr self
+    fun getAction self path = (GtkUIManagerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkActionClass.FFI.fromPtr false) getAction_ (self & path) before GtkUIManagerClass.FFI.touchPtr self before Utf8.FFI.touchPtr path
     fun getAddTearoffs self = (GtkUIManagerClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAddTearoffs_ self
     fun getUi self = (GtkUIManagerClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getUi_ self
-    fun getWidget self path = (GtkUIManagerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ (self & path)
+    fun getWidget self path = (GtkUIManagerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ (self & path) before GtkUIManagerClass.FFI.touchPtr self before Utf8.FFI.touchPtr path
     fun insertActionGroup self (actionGroup, pos) =
       (
         GtkUIManagerClass.FFI.withPtr false

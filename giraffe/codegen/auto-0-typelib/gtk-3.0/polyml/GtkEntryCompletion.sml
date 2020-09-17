@@ -69,12 +69,12 @@ structure GtkEntryCompletion :>
     fun complete self = (GtkEntryCompletionClass.FFI.withPtr false ---> I) complete_ self
     fun computePrefix self key = (GtkEntryCompletionClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr ~1) computePrefix_ (self & key)
     fun deleteAction self index = (GtkEntryCompletionClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) deleteAction_ (self & index)
-    fun getCompletionPrefix self = (GtkEntryCompletionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCompletionPrefix_ self
-    fun getEntry self = (GtkEntryCompletionClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getEntry_ self
+    fun getCompletionPrefix self = (GtkEntryCompletionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCompletionPrefix_ self before GtkEntryCompletionClass.FFI.touchPtr self
+    fun getEntry self = (GtkEntryCompletionClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getEntry_ self before GtkEntryCompletionClass.FFI.touchPtr self
     fun getInlineCompletion self = (GtkEntryCompletionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInlineCompletion_ self
     fun getInlineSelection self = (GtkEntryCompletionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInlineSelection_ self
     fun getMinimumKeyLength self = (GtkEntryCompletionClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getMinimumKeyLength_ self
-    fun getModel self = (GtkEntryCompletionClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self
+    fun getModel self = (GtkEntryCompletionClass.FFI.withPtr false ---> GtkTreeModelClass.FFI.fromOptPtr false) getModel_ self before GtkEntryCompletionClass.FFI.touchPtr self
     fun getPopupCompletion self = (GtkEntryCompletionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPopupCompletion_ self
     fun getPopupSetWidth self = (GtkEntryCompletionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPopupSetWidth_ self
     fun getPopupSingleMatch self = (GtkEntryCompletionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPopupSingleMatch_ self

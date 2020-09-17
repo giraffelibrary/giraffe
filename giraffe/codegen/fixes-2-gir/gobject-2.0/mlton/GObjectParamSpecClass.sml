@@ -160,6 +160,10 @@ structure GObjectParamSpecClass :>
 
         fun fromOptPtr transfer optptr =
           Option.map (fromPtr transfer) (Pointer.fromOptVal optptr)
+
+        val touchPtr = Finalizable.touch
+
+        fun touchOptPtr t = Option.app touchPtr t
       end
 
     val getValue_ =

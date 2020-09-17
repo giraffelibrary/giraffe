@@ -250,7 +250,7 @@ structure GtkSourceGutterRenderer :>
         (xpad, ypad)
       end
     fun getSize self = (GtkSourceGutterRendererClass.FFI.withPtr false ---> GInt.FFI.fromVal) getSize_ self
-    fun getView self = (GtkSourceGutterRendererClass.FFI.withPtr false ---> GtkTextViewClass.FFI.fromPtr false) getView_ self
+    fun getView self = (GtkSourceGutterRendererClass.FFI.withPtr false ---> GtkTextViewClass.FFI.fromPtr false) getView_ self before GtkSourceGutterRendererClass.FFI.touchPtr self
     fun getVisible self = (GtkSourceGutterRendererClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
     fun getWindowType self = (GtkSourceGutterRendererClass.FFI.withPtr false ---> GtkTextWindowType.FFI.fromVal) getWindowType_ self
     fun queryActivatable

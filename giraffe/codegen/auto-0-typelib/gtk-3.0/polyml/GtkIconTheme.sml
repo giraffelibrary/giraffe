@@ -160,7 +160,7 @@ structure GtkIconTheme :>
            & pixbuf
         )
     fun getDefault () = (I ---> GtkIconThemeClass.FFI.fromPtr false) getDefault_ ()
-    fun getForScreen screen = (GdkScreenClass.FFI.withPtr false ---> GtkIconThemeClass.FFI.fromPtr false) getForScreen_ screen
+    fun getForScreen screen = (GdkScreenClass.FFI.withPtr false ---> GtkIconThemeClass.FFI.fromPtr false) getForScreen_ screen before GdkScreenClass.FFI.touchPtr screen
     fun addResourcePath self path = (GtkIconThemeClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) addResourcePath_ (self & path)
     fun appendSearchPath self path = (GtkIconThemeClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) appendSearchPath_ (self & path)
     fun chooseIcon

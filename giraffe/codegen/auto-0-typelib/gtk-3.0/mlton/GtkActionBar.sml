@@ -18,7 +18,7 @@ structure GtkActionBar :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkActionBarClass.FFI.fromPtr false) new_ ()
-    fun getCenterWidget self = (GtkActionBarClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getCenterWidget_ self
+    fun getCenterWidget self = (GtkActionBarClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getCenterWidget_ self before GtkActionBarClass.FFI.touchPtr self
     fun packEnd self child = (GtkActionBarClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) packEnd_ (self & child)
     fun packStart self child = (GtkActionBarClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) packStart_ (self & child)
     fun setCenterWidget self centerWidget = (GtkActionBarClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setCenterWidget_ (self & centerWidget)

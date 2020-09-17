@@ -29,7 +29,7 @@ structure GtkIconFactory :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkIconFactoryClass.FFI.fromPtr true) new_ ()
-    fun lookupDefault stockId = (Utf8.FFI.withPtr 0 ---> GtkIconSetRecord.FFI.fromPtr false) lookupDefault_ stockId
+    fun lookupDefault stockId = (Utf8.FFI.withPtr 0 ---> GtkIconSetRecord.FFI.fromPtr false) lookupDefault_ stockId before Utf8.FFI.touchPtr stockId
     fun add self (stockId, iconSet) =
       (
         GtkIconFactoryClass.FFI.withPtr false
@@ -44,6 +44,6 @@ structure GtkIconFactory :>
            & iconSet
         )
     fun addDefault self = (GtkIconFactoryClass.FFI.withPtr false ---> I) addDefault_ self
-    fun lookup self stockId = (GtkIconFactoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkIconSetRecord.FFI.fromPtr false) lookup_ (self & stockId)
+    fun lookup self stockId = (GtkIconFactoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkIconSetRecord.FFI.fromPtr false) lookup_ (self & stockId) before GtkIconFactoryClass.FFI.touchPtr self before Utf8.FFI.touchPtr stockId
     fun removeDefault self = (GtkIconFactoryClass.FFI.withPtr false ---> I) removeDefault_ self
   end

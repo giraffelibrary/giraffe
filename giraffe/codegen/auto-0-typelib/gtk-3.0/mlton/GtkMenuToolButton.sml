@@ -68,9 +68,9 @@ structure GtkMenuToolButton :>
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (iconWidget, label) = (GtkWidgetClass.FFI.withOptPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GtkMenuToolButtonClass.FFI.fromPtr false) new_ (iconWidget & label)
-    fun newFromStock stockId = (Utf8.FFI.withPtr 0 ---> GtkMenuToolButtonClass.FFI.fromPtr false) newFromStock_ stockId
-    fun getMenu self = (GtkMenuToolButtonClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getMenu_ self
+    fun new (iconWidget, label) = (GtkWidgetClass.FFI.withOptPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GtkMenuToolButtonClass.FFI.fromPtr false) new_ (iconWidget & label) before GtkWidgetClass.FFI.touchOptPtr iconWidget before Utf8.FFI.touchOptPtr label
+    fun newFromStock stockId = (Utf8.FFI.withPtr 0 ---> GtkMenuToolButtonClass.FFI.fromPtr false) newFromStock_ stockId before Utf8.FFI.touchPtr stockId
+    fun getMenu self = (GtkMenuToolButtonClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getMenu_ self before GtkMenuToolButtonClass.FFI.touchPtr self
     fun setArrowTooltipMarkup self markup = (GtkMenuToolButtonClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setArrowTooltipMarkup_ (self & markup)
     fun setArrowTooltipText self text = (GtkMenuToolButtonClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setArrowTooltipText_ (self & text)
     fun setMenu self menu = (GtkMenuToolButtonClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setMenu_ (self & menu)

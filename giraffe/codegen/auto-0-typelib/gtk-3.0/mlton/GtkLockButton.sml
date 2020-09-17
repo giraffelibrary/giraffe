@@ -19,8 +19,8 @@ structure GtkLockButton :>
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new permission = (GioPermissionClass.FFI.withOptPtr false ---> GtkLockButtonClass.FFI.fromPtr false) new_ permission
-    fun getPermission self = (GtkLockButtonClass.FFI.withPtr false ---> GioPermissionClass.FFI.fromPtr false) getPermission_ self
+    fun new permission = (GioPermissionClass.FFI.withOptPtr false ---> GtkLockButtonClass.FFI.fromPtr false) new_ permission before GioPermissionClass.FFI.touchOptPtr permission
+    fun getPermission self = (GtkLockButtonClass.FFI.withPtr false ---> GioPermissionClass.FFI.fromPtr false) getPermission_ self before GtkLockButtonClass.FFI.touchPtr self
     fun setPermission self permission = (GtkLockButtonClass.FFI.withPtr false &&&> GioPermissionClass.FFI.withOptPtr false ---> I) setPermission_ (self & permission)
     local
       open ValueAccessor

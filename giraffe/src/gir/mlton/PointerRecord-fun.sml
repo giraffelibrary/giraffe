@@ -84,5 +84,9 @@ functor PointerRecord(val name : string) :> RECORD =
           if not transfer
           then Pointer.fromOptVal
           else raise Fail ("fromOptPtr cannot transfer ownership of disguised struct (" ^ name ^ ")")
+
+        val touchPtr = ignore
+
+        val touchOptPtr = ignore
       end
   end

@@ -534,7 +534,6 @@ fun addObjectMethodStrDecsLowLevel
   repo
   vers
   addInitStrDecs
-  rootObjectIRef
   objectIRef =
   addFunctionStrDecsLowLevel
     (ObjectInfo.getNMethods, ObjectInfo.getMethod)
@@ -542,13 +541,13 @@ fun addObjectMethodStrDecsLowLevel
     repo
     vers
     addInitStrDecs
-    (SOME (rootObjectIRef, objectIRef))
+    (SOME objectIRef)
 
-fun addObjectMethodStrDecsHighLevel repo vers rootObjectIRef objectIRef =
+fun addObjectMethodStrDecsHighLevel repo vers (objectInfo, objectIRef) =
   revFoldMapInfosWithExcls
     ObjectInfo.getNMethods
     ObjectInfo.getMethod
-    (makeFunctionStrDecHighLevel repo vers (SOME (rootObjectIRef, objectIRef)))
+    (makeFunctionStrDecHighLevel repo vers (SOME (objectInfo, objectIRef)))
 
 fun addObjectSignalStrDecs repo objectIRef =
   fn (objectInfo, (strDecs, x, excls)) =>
@@ -660,8 +659,7 @@ fun makeObjectStr
       addObjectMethodStrDecsHighLevel
         repo
         vers
-        rootObjectIRef
-        objectIRef
+        (objectInfo, objectIRef)
         (objectInfo, acc'2)
     val acc'4 = addGetTypeFunctionStrDecHighLevel getTypeSymbol typeIRef acc'3
     val acc'5 = addObjectConstantStrDecs repo vers (objectInfo, acc'4)
@@ -725,7 +723,6 @@ fun makeObjectStr
             repo
             vers
             (addGetTypeFunctionStrDecLowLevel getTypeSymbol)
-            rootObjectIRef
             objectIRef
             (objectInfo, (strDecs'10, excls'6))
 

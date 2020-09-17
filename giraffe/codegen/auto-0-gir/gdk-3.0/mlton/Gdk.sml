@@ -3216,7 +3216,7 @@ structure Gdk : GDK =
       in
         if retVal then SOME rect else NONE
       end
-    fun cairoGetDrawingContext cr = (CairoContextRecord.FFI.withPtr false ---> GdkDrawingContextClass.FFI.fromOptPtr false) cairoGetDrawingContext_ cr
+    fun cairoGetDrawingContext cr = (CairoContextRecord.FFI.withPtr false ---> GdkDrawingContextClass.FFI.fromOptPtr false) cairoGetDrawingContext_ cr before CairoContextRecord.FFI.touchPtr cr
     fun cairoRectangle (cr, rectangle) = (CairoContextRecord.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withPtr false ---> I) cairoRectangle_ (cr & rectangle)
     fun cairoRegion (cr, region) = (CairoContextRecord.FFI.withPtr false &&&> CairoRegionRecord.FFI.withPtr false ---> I) cairoRegion_ (cr & region)
     fun cairoRegionCreateFromSurface surface = (CairoSurfaceRecord.FFI.withPtr false ---> CairoRegionRecord.FFI.fromPtr true) cairoRegionCreateFromSurface_ surface
@@ -3324,7 +3324,7 @@ structure Gdk : GDK =
       in
         (destWindow, protocol)
       end
-    fun dragGetSelection context = (GdkDragContextClass.FFI.withPtr false ---> GdkAtomRecord.FFI.fromPtr false) dragGetSelection_ context
+    fun dragGetSelection context = (GdkDragContextClass.FFI.withPtr false ---> GdkAtomRecord.FFI.fromPtr false) dragGetSelection_ context before GdkDragContextClass.FFI.touchPtr context
     fun dragMotion
       (
         context,
@@ -3566,8 +3566,8 @@ structure Gdk : GDK =
     fun keyvalToUpper keyval = (GUInt.FFI.withVal ---> GUInt.FFI.fromVal) keyvalToUpper_ keyval
     fun notifyStartupComplete () = (I ---> I) notifyStartupComplete_ ()
     fun notifyStartupCompleteWithId startupId = (Utf8.FFI.withPtr 0 ---> I) notifyStartupCompleteWithId_ startupId
-    fun offscreenWindowGetEmbedder window = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) offscreenWindowGetEmbedder_ window
-    fun offscreenWindowGetSurface window = (GdkWindowClass.FFI.withPtr false ---> CairoSurfaceRecord.FFI.fromOptPtr false) offscreenWindowGetSurface_ window
+    fun offscreenWindowGetEmbedder window = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) offscreenWindowGetEmbedder_ window before GdkWindowClass.FFI.touchPtr window
+    fun offscreenWindowGetSurface window = (GdkWindowClass.FFI.withPtr false ---> CairoSurfaceRecord.FFI.fromOptPtr false) offscreenWindowGetSurface_ window before GdkWindowClass.FFI.touchPtr window
     fun offscreenWindowSetEmbedder (window, embedder) = (GdkWindowClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> I) offscreenWindowSetEmbedder_ (window & embedder)
     fun pangoContextGet () = (I ---> PangoContextClass.FFI.fromPtr true) pangoContextGet_ ()
     fun pangoContextGetForDisplay display = (GdkDisplayClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr true) pangoContextGetForDisplay_ display
@@ -3714,15 +3714,20 @@ structure Gdk : GDK =
                & NONE
             )
       in
-        if retVal
-        then
-          SOME
-            (
-              actualPropertyType,
-              actualFormat,
-              data (LargeInt.toInt actualLength)
-            )
-        else NONE
+        (
+          if retVal
+          then
+            SOME
+              (
+                actualPropertyType,
+                actualFormat,
+                data (LargeInt.toInt actualLength)
+              )
+          else NONE
+        )
+         before GdkWindowClass.FFI.touchPtr window
+         before GdkAtomRecord.FFI.touchPtr property
+         before GdkAtomRecord.FFI.touchPtr type'
       end
     fun queryDepths () =
       let
@@ -3777,8 +3782,8 @@ structure Gdk : GDK =
            & target
            & time
         )
-    fun selectionOwnerGet selection = (GdkAtomRecord.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) selectionOwnerGet_ selection
-    fun selectionOwnerGetForDisplay (display, selection) = (GdkDisplayClass.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) selectionOwnerGetForDisplay_ (display & selection)
+    fun selectionOwnerGet selection = (GdkAtomRecord.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) selectionOwnerGet_ selection before GdkAtomRecord.FFI.touchPtr selection
+    fun selectionOwnerGetForDisplay (display, selection) = (GdkDisplayClass.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) selectionOwnerGetForDisplay_ (display & selection) before GdkDisplayClass.FFI.touchPtr display before GdkAtomRecord.FFI.touchPtr selection
     fun selectionOwnerSet
       (
         owner,

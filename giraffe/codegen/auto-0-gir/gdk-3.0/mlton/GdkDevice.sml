@@ -277,13 +277,13 @@ structure GdkDevice :>
                & GBool.null
             )
       in
-        if retVal then SOME (grabWindow, ownerEvents) else NONE
+        (if retVal then SOME (grabWindow, ownerEvents) else NONE) before GdkDisplayClass.FFI.touchPtr display before GdkDeviceClass.FFI.touchPtr device
       end
-    fun getAssociatedDevice self = (GdkDeviceClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromOptPtr false) getAssociatedDevice_ self
+    fun getAssociatedDevice self = (GdkDeviceClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromOptPtr false) getAssociatedDevice_ self before GdkDeviceClass.FFI.touchPtr self
     fun getAxes self = (GdkDeviceClass.FFI.withPtr false ---> GdkAxisFlags.FFI.fromVal) getAxes_ self
     fun getAxisUse self index = (GdkDeviceClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GdkAxisUse.FFI.fromVal) getAxisUse_ (self & index)
     fun getDeviceType self = (GdkDeviceClass.FFI.withPtr false ---> GdkDeviceType.FFI.fromVal) getDeviceType_ self
-    fun getDisplay self = (GdkDeviceClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getDisplay self = (GdkDeviceClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self before GdkDeviceClass.FFI.touchPtr self
     fun getHasCursor self = (GdkDeviceClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasCursor_ self
     fun getKey self index =
       let
@@ -309,11 +309,11 @@ structure GdkDevice :>
       in
         if retVal then SOME (keyval, modifiers) else NONE
       end
-    fun getLastEventWindow self = (GdkDeviceClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getLastEventWindow_ self
+    fun getLastEventWindow self = (GdkDeviceClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getLastEventWindow_ self before GdkDeviceClass.FFI.touchPtr self
     fun getMode self = (GdkDeviceClass.FFI.withPtr false ---> GdkInputMode.FFI.fromVal) getMode_ self
     fun getNAxes self = (GdkDeviceClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNAxes_ self
     fun getNKeys self = (GdkDeviceClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNKeys_ self
-    fun getName self = (GdkDeviceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getName self = (GdkDeviceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GdkDeviceClass.FFI.touchPtr self
     fun getPosition self =
       let
         val screen
@@ -343,6 +343,7 @@ structure GdkDevice :>
           x,
           y
         )
+         before GdkDeviceClass.FFI.touchPtr self
       end
     fun getPositionDouble self =
       let
@@ -373,11 +374,12 @@ structure GdkDevice :>
           x,
           y
         )
+         before GdkDeviceClass.FFI.touchPtr self
       end
-    fun getProductId self = (GdkDeviceClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getProductId_ self
-    fun getSeat self = (GdkDeviceClass.FFI.withPtr false ---> GdkSeatClass.FFI.fromPtr false) getSeat_ self
+    fun getProductId self = (GdkDeviceClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getProductId_ self before GdkDeviceClass.FFI.touchPtr self
+    fun getSeat self = (GdkDeviceClass.FFI.withPtr false ---> GdkSeatClass.FFI.fromPtr false) getSeat_ self before GdkDeviceClass.FFI.touchPtr self
     fun getSource self = (GdkDeviceClass.FFI.withPtr false ---> GdkInputSource.FFI.fromVal) getSource_ self
-    fun getVendorId self = (GdkDeviceClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getVendorId_ self
+    fun getVendorId self = (GdkDeviceClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getVendorId_ self before GdkDeviceClass.FFI.touchPtr self
     fun getWindowAtPosition self =
       let
         val winX
@@ -403,6 +405,7 @@ structure GdkDevice :>
           winX,
           winY
         )
+         before GdkDeviceClass.FFI.touchPtr self
       end
     fun getWindowAtPositionDouble self =
       let
@@ -429,6 +432,7 @@ structure GdkDevice :>
           winX,
           winY
         )
+         before GdkDeviceClass.FFI.touchPtr self
       end
     fun grab
       self

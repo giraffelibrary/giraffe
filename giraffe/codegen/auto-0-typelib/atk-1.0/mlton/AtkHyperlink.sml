@@ -21,7 +21,7 @@ structure AtkHyperlink :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getEndIndex self = (AtkHyperlinkClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getEndIndex_ self
     fun getNAnchors self = (AtkHyperlinkClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNAnchors_ self
-    fun getObject self i = (AtkHyperlinkClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromPtr false) getObject_ (self & i)
+    fun getObject self i = (AtkHyperlinkClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromPtr false) getObject_ (self & i) before AtkHyperlinkClass.FFI.touchPtr self
     fun getStartIndex self = (AtkHyperlinkClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getStartIndex_ self
     fun getUri self i = (AtkHyperlinkClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr ~1) getUri_ (self & i)
     fun isInline self = (AtkHyperlinkClass.FFI.withPtr false ---> GBool.FFI.fromVal) isInline_ self

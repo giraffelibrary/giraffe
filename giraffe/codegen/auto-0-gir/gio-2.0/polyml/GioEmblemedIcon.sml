@@ -22,7 +22,7 @@ structure GioEmblemedIcon :>
     fun new (icon, emblem) = (GioIconClass.FFI.withPtr false &&&> GioEmblemClass.FFI.withOptPtr false ---> GioEmblemedIconClass.FFI.fromPtr true) new_ (icon & emblem)
     fun addEmblem self emblem = (GioEmblemedIconClass.FFI.withPtr false &&&> GioEmblemClass.FFI.withPtr false ---> I) addEmblem_ (self & emblem)
     fun clearEmblems self = (GioEmblemedIconClass.FFI.withPtr false ---> I) clearEmblems_ self
-    fun getIcon self = (GioEmblemedIconClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self
+    fun getIcon self = (GioEmblemedIconClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self before GioEmblemedIconClass.FFI.touchPtr self
     local
       open ValueAccessor
     in

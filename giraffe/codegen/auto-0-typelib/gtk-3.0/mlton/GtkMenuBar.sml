@@ -19,7 +19,7 @@ structure GtkMenuBar :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkMenuBarClass.FFI.fromPtr false) new_ ()
-    fun newFromModel model = (GioMenuModelClass.FFI.withPtr false ---> GtkMenuBarClass.FFI.fromPtr false) newFromModel_ model
+    fun newFromModel model = (GioMenuModelClass.FFI.withPtr false ---> GtkMenuBarClass.FFI.fromPtr false) newFromModel_ model before GioMenuModelClass.FFI.touchPtr model
     fun getChildPackDirection self = (GtkMenuBarClass.FFI.withPtr false ---> GtkPackDirection.FFI.fromVal) getChildPackDirection_ self
     fun getPackDirection self = (GtkMenuBarClass.FFI.withPtr false ---> GtkPackDirection.FFI.fromVal) getPackDirection_ self
     fun setChildPackDirection self childPackDir = (GtkMenuBarClass.FFI.withPtr false &&&> GtkPackDirection.FFI.withVal ---> I) setChildPackDirection_ (self & childPackDir)

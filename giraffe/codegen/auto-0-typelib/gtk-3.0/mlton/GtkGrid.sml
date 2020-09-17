@@ -207,6 +207,7 @@ structure GtkGrid :>
            & left
            & top
         )
+       before GtkGridClass.FFI.touchPtr self
     fun getColumnHomogeneous self = (GtkGridClass.FFI.withPtr false ---> GBool.FFI.fromVal) getColumnHomogeneous_ self
     fun getColumnSpacing self = (GtkGridClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getColumnSpacing_ self
     fun getRowBaselinePosition self row = (GtkGridClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkBaselinePosition.FFI.fromVal) getRowBaselinePosition_ (self & row)

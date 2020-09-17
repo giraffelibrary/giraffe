@@ -129,7 +129,7 @@ structure GioSocketConnection :>
         )
     fun getLocalAddress self = (GioSocketConnectionClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getLocalAddress_ (self & [])
     fun getRemoteAddress self = (GioSocketConnectionClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioSocketAddressClass.FFI.fromPtr true) getRemoteAddress_ (self & [])
-    fun getSocket self = (GioSocketConnectionClass.FFI.withPtr false ---> GioSocketClass.FFI.fromPtr false) getSocket_ self
+    fun getSocket self = (GioSocketConnectionClass.FFI.withPtr false ---> GioSocketClass.FFI.fromPtr false) getSocket_ self before GioSocketConnectionClass.FFI.touchPtr self
     fun isConnected self = (GioSocketConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) isConnected_ self
     local
       open ValueAccessor

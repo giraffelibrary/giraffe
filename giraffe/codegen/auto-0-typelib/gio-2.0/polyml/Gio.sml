@@ -1089,7 +1089,7 @@ structure Gio : GIO =
       in
         (retVal, outGuid)
       end
-    fun dbusAnnotationInfoLookup (annotations, name) = (GioDBusAnnotationInfoRecordCPtrArray.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) dbusAnnotationInfoLookup_ (annotations & name)
+    fun dbusAnnotationInfoLookup (annotations, name) = (GioDBusAnnotationInfoRecordCPtrArray.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) dbusAnnotationInfoLookup_ (annotations & name) before GioDBusAnnotationInfoRecordCPtrArray.FFI.touchOptPtr annotations before Utf8.FFI.touchPtr name
     fun dbusErrorQuark () = (I ---> GUInt32.FFI.fromVal) dbusErrorQuark_ ()
     fun dbusGenerateGuid () = (I ---> Utf8.FFI.fromPtr ~1) dbusGenerateGuid_ ()
     fun dbusGvalueToGvariant (gvalue, type') = (GObjectValueRecord.FFI.withPtr false &&&> GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr true) dbusGvalueToGvariant_ (gvalue & type')
@@ -1180,8 +1180,10 @@ structure Gio : GIO =
            & extensionName
            & priority
         )
-    fun ioExtensionPointLookup name = (Utf8.FFI.withPtr 0 ---> GioIOExtensionPointRecord.FFI.fromPtr false) ioExtensionPointLookup_ name
-    fun ioExtensionPointRegister name = (Utf8.FFI.withPtr 0 ---> GioIOExtensionPointRecord.FFI.fromPtr false) ioExtensionPointRegister_ name
+       before Utf8.FFI.touchPtr extensionPointName
+       before Utf8.FFI.touchPtr extensionName
+    fun ioExtensionPointLookup name = (Utf8.FFI.withPtr 0 ---> GioIOExtensionPointRecord.FFI.fromPtr false) ioExtensionPointLookup_ name before Utf8.FFI.touchPtr name
+    fun ioExtensionPointRegister name = (Utf8.FFI.withPtr 0 ---> GioIOExtensionPointRecord.FFI.fromPtr false) ioExtensionPointRegister_ name before Utf8.FFI.touchPtr name
     fun ioModulesScanAllInDirectory dirname = (Utf8.FFI.withPtr 0 ---> I) ioModulesScanAllInDirectory_ dirname
     fun ioModulesScanAllInDirectoryWithScope (dirname, scope) = (Utf8.FFI.withPtr 0 &&&> GioIOModuleScopeRecord.FFI.withPtr false ---> I) ioModulesScanAllInDirectoryWithScope_ (dirname & scope)
     fun ioSchedulerCancelAllJobs () = (I ---> I) ioSchedulerCancelAllJobs_ ()
@@ -1406,9 +1408,9 @@ structure Gio : GIO =
     fun unixIsMountPathSystemInternal mountPath = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) unixIsMountPathSystemInternal_ mountPath
     fun unixMountCompare (mount1, mount2) = (GioUnixMountEntryRecord.FFI.withPtr false &&&> GioUnixMountEntryRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) unixMountCompare_ (mount1 & mount2)
     fun unixMountFree mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> I) unixMountFree_ mountEntry
-    fun unixMountGetDevicePath mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) unixMountGetDevicePath_ mountEntry
-    fun unixMountGetFsType mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) unixMountGetFsType_ mountEntry
-    fun unixMountGetMountPath mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) unixMountGetMountPath_ mountEntry
+    fun unixMountGetDevicePath mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) unixMountGetDevicePath_ mountEntry before GioUnixMountEntryRecord.FFI.touchPtr mountEntry
+    fun unixMountGetFsType mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) unixMountGetFsType_ mountEntry before GioUnixMountEntryRecord.FFI.touchPtr mountEntry
+    fun unixMountGetMountPath mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) unixMountGetMountPath_ mountEntry before GioUnixMountEntryRecord.FFI.touchPtr mountEntry
     fun unixMountGuessCanEject mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> GBool.FFI.fromVal) unixMountGuessCanEject_ mountEntry
     fun unixMountGuessIcon mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) unixMountGuessIcon_ mountEntry
     fun unixMountGuessName mountEntry = (GioUnixMountEntryRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) unixMountGuessName_ mountEntry

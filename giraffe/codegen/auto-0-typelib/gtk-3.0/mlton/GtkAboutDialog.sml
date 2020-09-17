@@ -246,20 +246,20 @@ structure GtkAboutDialog :>
            & sectionName
            & people
         )
-    fun getArtists self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getArtists_ self
-    fun getAuthors self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getAuthors_ self
-    fun getComments self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getComments_ self
-    fun getCopyright self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCopyright_ self
-    fun getDocumenters self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getDocumenters_ self
-    fun getLicense self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLicense_ self
+    fun getArtists self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getArtists_ self before GtkAboutDialogClass.FFI.touchPtr self
+    fun getAuthors self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getAuthors_ self before GtkAboutDialogClass.FFI.touchPtr self
+    fun getComments self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getComments_ self before GtkAboutDialogClass.FFI.touchPtr self
+    fun getCopyright self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCopyright_ self before GtkAboutDialogClass.FFI.touchPtr self
+    fun getDocumenters self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 0) getDocumenters_ self before GtkAboutDialogClass.FFI.touchPtr self
+    fun getLicense self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLicense_ self before GtkAboutDialogClass.FFI.touchPtr self
     fun getLicenseType self = (GtkAboutDialogClass.FFI.withPtr false ---> GtkLicense.FFI.fromVal) getLicenseType_ self
-    fun getLogo self = (GtkAboutDialogClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getLogo_ self
-    fun getLogoIconName self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLogoIconName_ self
-    fun getProgramName self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getProgramName_ self
-    fun getTranslatorCredits self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTranslatorCredits_ self
-    fun getVersion self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getVersion_ self
-    fun getWebsite self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getWebsite_ self
-    fun getWebsiteLabel self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getWebsiteLabel_ self
+    fun getLogo self = (GtkAboutDialogClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getLogo_ self before GtkAboutDialogClass.FFI.touchPtr self
+    fun getLogoIconName self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLogoIconName_ self before GtkAboutDialogClass.FFI.touchPtr self
+    fun getProgramName self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getProgramName_ self before GtkAboutDialogClass.FFI.touchPtr self
+    fun getTranslatorCredits self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTranslatorCredits_ self before GtkAboutDialogClass.FFI.touchPtr self
+    fun getVersion self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getVersion_ self before GtkAboutDialogClass.FFI.touchPtr self
+    fun getWebsite self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getWebsite_ self before GtkAboutDialogClass.FFI.touchPtr self
+    fun getWebsiteLabel self = (GtkAboutDialogClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getWebsiteLabel_ self before GtkAboutDialogClass.FFI.touchPtr self
     fun getWrapLicense self = (GtkAboutDialogClass.FFI.withPtr false ---> GBool.FFI.fromVal) getWrapLicense_ self
     fun setArtists self artists = (GtkAboutDialogClass.FFI.withPtr false &&&> Utf8CPtrArray.FFI.withPtr 0 ---> I) setArtists_ (self & artists)
     fun setAuthors self authors = (GtkAboutDialogClass.FFI.withPtr false &&&> Utf8CPtrArray.FFI.withPtr 0 ---> I) setAuthors_ (self & authors)

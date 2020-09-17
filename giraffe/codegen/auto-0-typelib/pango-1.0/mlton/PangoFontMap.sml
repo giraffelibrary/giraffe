@@ -81,7 +81,7 @@ structure PangoFontMap :>
     fun changed self = (PangoFontMapClass.FFI.withPtr false ---> I) changed_ self
     fun createContext self = (PangoFontMapClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr true) createContext_ self
     fun getSerial self = (PangoFontMapClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getSerial_ self
-    fun getShapeEngineType self = (PangoFontMapClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getShapeEngineType_ self
+    fun getShapeEngineType self = (PangoFontMapClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getShapeEngineType_ self before PangoFontMapClass.FFI.touchPtr self
     fun listFamilies self =
       let
         val families
@@ -102,7 +102,7 @@ structure PangoFontMap :>
                & GInt32.null
             )
       in
-        families (LargeInt.toInt nFamilies)
+        families (LargeInt.toInt nFamilies) before PangoFontMapClass.FFI.touchPtr self
       end
     fun loadFont self (context, desc) =
       (

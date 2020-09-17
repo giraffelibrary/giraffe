@@ -1004,13 +1004,13 @@ structure GObject :
     val TYPE_RESERVED_USER_FIRST = 49
     val VALUE_COLLECT_FORMAT_MAX_LENGTH = 8
     val VALUE_NOCOPY_CONTENTS = 134217728
-    fun enumGetValue (enumClass, value) = (GObjectEnumClassRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValue_ (enumClass & value)
-    fun enumGetValueByName (enumClass, name) = (GObjectEnumClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByName_ (enumClass & name)
-    fun enumGetValueByNick (enumClass, nick) = (GObjectEnumClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByNick_ (enumClass & nick)
+    fun enumGetValue (enumClass, value) = (GObjectEnumClassRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValue_ (enumClass & value) before GObjectEnumClassRecord.FFI.touchPtr enumClass
+    fun enumGetValueByName (enumClass, name) = (GObjectEnumClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByName_ (enumClass & name) before GObjectEnumClassRecord.FFI.touchPtr enumClass before Utf8.FFI.touchPtr name
+    fun enumGetValueByNick (enumClass, nick) = (GObjectEnumClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByNick_ (enumClass & nick) before GObjectEnumClassRecord.FFI.touchPtr enumClass before Utf8.FFI.touchPtr nick
     fun enumRegisterStatic (name, constStaticValues) = (Utf8.FFI.withPtr 0 &&&> GObjectEnumValueRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal) enumRegisterStatic_ (name & constStaticValues)
-    fun flagsGetFirstValue (flagsClass, value) = (GObjectFlagsClassRecord.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetFirstValue_ (flagsClass & value)
-    fun flagsGetValueByName (flagsClass, name) = (GObjectFlagsClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByName_ (flagsClass & name)
-    fun flagsGetValueByNick (flagsClass, nick) = (GObjectFlagsClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByNick_ (flagsClass & nick)
+    fun flagsGetFirstValue (flagsClass, value) = (GObjectFlagsClassRecord.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetFirstValue_ (flagsClass & value) before GObjectFlagsClassRecord.FFI.touchPtr flagsClass
+    fun flagsGetValueByName (flagsClass, name) = (GObjectFlagsClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByName_ (flagsClass & name) before GObjectFlagsClassRecord.FFI.touchPtr flagsClass before Utf8.FFI.touchPtr name
+    fun flagsGetValueByNick (flagsClass, nick) = (GObjectFlagsClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByNick_ (flagsClass & nick) before GObjectFlagsClassRecord.FFI.touchPtr flagsClass before Utf8.FFI.touchPtr nick
     fun flagsRegisterStatic (name, constStaticValues) = (Utf8.FFI.withPtr 0 &&&> GObjectFlagsValueRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal) flagsRegisterStatic_ (name & constStaticValues)
     fun gtypeGetType () = (I ---> GObjectType.FFI.fromVal) gtypeGetType_ ()
     fun paramSpecBoolean

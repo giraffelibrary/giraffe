@@ -35,8 +35,8 @@ structure GtkColorButton :>
     fun asColorChooser self = (GObjectObjectClass.FFI.withPtr false ---> GtkColorChooserClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkColorButtonClass.FFI.fromPtr false) new_ ()
-    fun newWithColor color = (GdkColorRecord.FFI.withPtr false ---> GtkColorButtonClass.FFI.fromPtr false) newWithColor_ color
-    fun newWithRgba rgba = (GdkRgbaRecord.FFI.withPtr false ---> GtkColorButtonClass.FFI.fromPtr false) newWithRgba_ rgba
+    fun newWithColor color = (GdkColorRecord.FFI.withPtr false ---> GtkColorButtonClass.FFI.fromPtr false) newWithColor_ color before GdkColorRecord.FFI.touchPtr color
+    fun newWithRgba rgba = (GdkRgbaRecord.FFI.withPtr false ---> GtkColorButtonClass.FFI.fromPtr false) newWithRgba_ rgba before GdkRgbaRecord.FFI.touchPtr rgba
     fun getAlpha self = (GtkColorButtonClass.FFI.withPtr false ---> GUInt16.FFI.fromVal) getAlpha_ self
     fun getColor self =
       let
@@ -44,7 +44,7 @@ structure GtkColorButton :>
       in
         color
       end
-    fun getTitle self = (GtkColorButtonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTitle_ self
+    fun getTitle self = (GtkColorButtonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTitle_ self before GtkColorButtonClass.FFI.touchPtr self
     fun getUseAlpha self = (GtkColorButtonClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseAlpha_ self
     fun setAlpha self alpha = (GtkColorButtonClass.FFI.withPtr false &&&> GUInt16.FFI.withVal ---> I) setAlpha_ (self & alpha)
     fun setColor self color = (GtkColorButtonClass.FFI.withPtr false &&&> GdkColorRecord.FFI.withPtr false ---> I) setColor_ (self & color)

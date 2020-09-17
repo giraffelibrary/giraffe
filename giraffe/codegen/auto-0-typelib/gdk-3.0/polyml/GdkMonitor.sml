@@ -27,7 +27,7 @@ structure GdkMonitor :>
     type rectangle_t = GdkRectangleRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getDisplay self = (GdkMonitorClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getDisplay self = (GdkMonitorClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self before GdkMonitorClass.FFI.touchPtr self
     fun getGeometry self =
       let
         val geometry & () = (GdkMonitorClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getGeometry_ (self & ())
@@ -35,8 +35,8 @@ structure GdkMonitor :>
         geometry
       end
     fun getHeightMm self = (GdkMonitorClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getHeightMm_ self
-    fun getManufacturer self = (GdkMonitorClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getManufacturer_ self
-    fun getModel self = (GdkMonitorClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getModel_ self
+    fun getManufacturer self = (GdkMonitorClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getManufacturer_ self before GdkMonitorClass.FFI.touchPtr self
+    fun getModel self = (GdkMonitorClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getModel_ self before GdkMonitorClass.FFI.touchPtr self
     fun getRefreshRate self = (GdkMonitorClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getRefreshRate_ self
     fun getScaleFactor self = (GdkMonitorClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getScaleFactor_ self
     fun getSubpixelLayout self = (GdkMonitorClass.FFI.withPtr false ---> GdkSubpixelLayout.FFI.fromVal) getSubpixelLayout_ self

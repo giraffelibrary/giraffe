@@ -171,7 +171,7 @@ structure GLibRegex :>
     fun getMatchFlags self = (GLibRegexRecord.FFI.withPtr false ---> GLibRegexMatchFlags.FFI.fromVal) getMatchFlags_ self
     fun getMaxBackref self = (GLibRegexRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getMaxBackref_ self
     fun getMaxLookbehind self = (GLibRegexRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getMaxLookbehind_ self
-    fun getPattern self = (GLibRegexRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPattern_ self
+    fun getPattern self = (GLibRegexRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPattern_ self before GLibRegexRecord.FFI.touchPtr self
     fun getStringNumber self name = (GLibRegexRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GInt32.FFI.fromVal) getStringNumber_ (self & name)
     fun match self (string, matchOptions) =
       let

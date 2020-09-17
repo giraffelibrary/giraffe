@@ -62,8 +62,8 @@ structure AtkImage :>
     type coord_type_t = AtkCoordType.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getImageDescription self = (AtkImageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getImageDescription_ self
-    fun getImageLocale self = (AtkImageClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getImageLocale_ self
+    fun getImageDescription self = (AtkImageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getImageDescription_ self before AtkImageClass.FFI.touchPtr self
+    fun getImageLocale self = (AtkImageClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getImageLocale_ self before AtkImageClass.FFI.touchPtr self
     fun getImagePosition self coordType =
       let
         val x

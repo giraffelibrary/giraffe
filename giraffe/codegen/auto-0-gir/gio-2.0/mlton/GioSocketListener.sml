@@ -210,7 +210,7 @@ structure GioSocketListener :>
                & []
             )
       in
-        (retVal, sourceObject)
+        (retVal, sourceObject) before GioSocketListenerClass.FFI.touchPtr self before GioCancellableClass.FFI.touchOptPtr cancellable
       end
     fun acceptFinish self result =
       let
@@ -230,7 +230,7 @@ structure GioSocketListener :>
                & []
             )
       in
-        (retVal, sourceObject)
+        (retVal, sourceObject) before GioSocketListenerClass.FFI.touchPtr self before GioAsyncResultClass.FFI.touchPtr result
       end
     fun acceptSocket self cancellable =
       let
@@ -250,7 +250,7 @@ structure GioSocketListener :>
                & []
             )
       in
-        (retVal, sourceObject)
+        (retVal, sourceObject) before GioSocketListenerClass.FFI.touchPtr self before GioCancellableClass.FFI.touchOptPtr cancellable
       end
     fun acceptSocketFinish self result =
       let
@@ -270,7 +270,7 @@ structure GioSocketListener :>
                & []
             )
       in
-        (retVal, sourceObject)
+        (retVal, sourceObject) before GioSocketListenerClass.FFI.touchPtr self before GioAsyncResultClass.FFI.touchPtr result
       end
     fun addAddress
       self

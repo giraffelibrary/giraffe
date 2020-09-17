@@ -68,5 +68,5 @@ structure GioDBusNodeInfo :>
            & indent
            & stringBuilder
         )
-    fun lookupInterface self name = (GioDBusNodeInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusInterfaceInfoRecord.FFI.fromPtr false) lookupInterface_ (self & name)
+    fun lookupInterface self name = (GioDBusNodeInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusInterfaceInfoRecord.FFI.fromPtr false) lookupInterface_ (self & name) before GioDBusNodeInfoRecord.FFI.touchPtr self before Utf8.FFI.touchPtr name
   end

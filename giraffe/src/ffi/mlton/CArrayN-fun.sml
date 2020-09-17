@@ -55,6 +55,13 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
          * `0 <= i andalso i < n` *)
 
 
+        val touchPtr =
+          fn
+            (CArray (a, _), _) => Finalizable.touch a
+
+        fun touchOptPtr t = Option.app touchPtr t
+
+
         (**
          * Return values
          *)

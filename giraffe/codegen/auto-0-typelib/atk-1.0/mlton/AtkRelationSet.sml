@@ -83,7 +83,7 @@ structure AtkRelationSet :>
            & target
         )
     fun getNRelations self = (AtkRelationSetClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNRelations_ self
-    fun getRelation self i = (AtkRelationSetClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelation_ (self & i)
-    fun getRelationByType self relationship = (AtkRelationSetClass.FFI.withPtr false &&&> AtkRelationType.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelationByType_ (self & relationship)
+    fun getRelation self i = (AtkRelationSetClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelation_ (self & i) before AtkRelationSetClass.FFI.touchPtr self
+    fun getRelationByType self relationship = (AtkRelationSetClass.FFI.withPtr false &&&> AtkRelationType.FFI.withVal ---> AtkRelationClass.FFI.fromPtr false) getRelationByType_ (self & relationship) before AtkRelationSetClass.FFI.touchPtr self
     fun remove self relation = (AtkRelationSetClass.FFI.withPtr false &&&> AtkRelationClass.FFI.withPtr false ---> I) remove_ (self & relation)
   end

@@ -387,25 +387,25 @@ structure GioDBusMessage :>
         retVal
       end
     fun copy self = (GioDBusMessageClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GioDBusMessageClass.FFI.fromPtr true) copy_ (self & [])
-    fun getArg0 self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getArg0_ self
-    fun getBody self = (GioDBusMessageClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) getBody_ self
+    fun getArg0 self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getArg0_ self before GioDBusMessageClass.FFI.touchPtr self
+    fun getBody self = (GioDBusMessageClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) getBody_ self before GioDBusMessageClass.FFI.touchPtr self
     fun getByteOrder self = (GioDBusMessageClass.FFI.withPtr false ---> GioDBusMessageByteOrder.FFI.fromVal) getByteOrder_ self
-    fun getDestination self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDestination_ self
-    fun getErrorName self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getErrorName_ self
+    fun getDestination self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDestination_ self before GioDBusMessageClass.FFI.touchPtr self
+    fun getErrorName self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getErrorName_ self before GioDBusMessageClass.FFI.touchPtr self
     fun getFlags self = (GioDBusMessageClass.FFI.withPtr false ---> GioDBusMessageFlags.FFI.fromVal) getFlags_ self
     fun getHeader self headerField = (GioDBusMessageClass.FFI.withPtr false &&&> GioDBusMessageHeaderField.FFI.withVal ---> GLibVariantRecord.FFI.fromPtr true) getHeader_ (self & headerField)
-    fun getHeaderFields self = (GioDBusMessageClass.FFI.withPtr false ---> GUInt8CArray.FFI.fromPtr 0) getHeaderFields_ self
-    fun getInterface self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getInterface_ self
+    fun getHeaderFields self = (GioDBusMessageClass.FFI.withPtr false ---> GUInt8CArray.FFI.fromPtr 0) getHeaderFields_ self before GioDBusMessageClass.FFI.touchPtr self
+    fun getInterface self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getInterface_ self before GioDBusMessageClass.FFI.touchPtr self
     fun getLocked self = (GioDBusMessageClass.FFI.withPtr false ---> GBool.FFI.fromVal) getLocked_ self
-    fun getMember self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMember_ self
+    fun getMember self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMember_ self before GioDBusMessageClass.FFI.touchPtr self
     fun getMessageType self = (GioDBusMessageClass.FFI.withPtr false ---> GioDBusMessageType.FFI.fromVal) getMessageType_ self
     fun getNumUnixFds self = (GioDBusMessageClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getNumUnixFds_ self
-    fun getPath self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPath_ self
+    fun getPath self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPath_ self before GioDBusMessageClass.FFI.touchPtr self
     fun getReplySerial self = (GioDBusMessageClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getReplySerial_ self
-    fun getSender self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSender_ self
+    fun getSender self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSender_ self before GioDBusMessageClass.FFI.touchPtr self
     fun getSerial self = (GioDBusMessageClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getSerial_ self
-    fun getSignature self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSignature_ self
-    fun getUnixFdList self = (GioDBusMessageClass.FFI.withPtr false ---> GioUnixFDListClass.FFI.fromPtr false) getUnixFdList_ self
+    fun getSignature self = (GioDBusMessageClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSignature_ self before GioDBusMessageClass.FFI.touchPtr self
+    fun getUnixFdList self = (GioDBusMessageClass.FFI.withPtr false ---> GioUnixFDListClass.FFI.fromPtr false) getUnixFdList_ self before GioDBusMessageClass.FFI.touchPtr self
     fun lock self = (GioDBusMessageClass.FFI.withPtr false ---> I) lock_ self
     fun newMethodErrorLiteral self (errorName, errorMessage) =
       (

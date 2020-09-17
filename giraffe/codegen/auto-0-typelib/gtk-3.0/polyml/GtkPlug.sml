@@ -29,7 +29,7 @@ structure GtkPlug :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new socketId = (GUInt64.FFI.withVal ---> GtkPlugClass.FFI.fromPtr false) new_ socketId
-    fun newForDisplay (display, socketId) = (GdkDisplayClass.FFI.withPtr false &&&> GUInt64.FFI.withVal ---> GtkPlugClass.FFI.fromPtr false) newForDisplay_ (display & socketId)
+    fun newForDisplay (display, socketId) = (GdkDisplayClass.FFI.withPtr false &&&> GUInt64.FFI.withVal ---> GtkPlugClass.FFI.fromPtr false) newForDisplay_ (display & socketId) before GdkDisplayClass.FFI.touchPtr display
     fun construct self socketId = (GtkPlugClass.FFI.withPtr false &&&> GUInt64.FFI.withVal ---> I) construct_ (self & socketId)
     fun constructForDisplay self (display, socketId) =
       (
@@ -46,7 +46,7 @@ structure GtkPlug :>
         )
     fun getEmbedded self = (GtkPlugClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEmbedded_ self
     fun getId self = (GtkPlugClass.FFI.withPtr false ---> GUInt64.FFI.fromVal) getId_ self
-    fun getSocketWindow self = (GtkPlugClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getSocketWindow_ self
+    fun getSocketWindow self = (GtkPlugClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getSocketWindow_ self before GtkPlugClass.FFI.touchPtr self
     local
       open ClosureMarshal Signal
     in

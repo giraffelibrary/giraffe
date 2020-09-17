@@ -255,25 +255,28 @@ structure GtkStatusIcon :>
                & GtkOrientation.null
             )
       in
-        if retVal
-        then
-          SOME
-            (
-              screen,
-              area,
-              orientation
-            )
-        else NONE
+        (
+          if retVal
+          then
+            SOME
+              (
+                screen,
+                area,
+                orientation
+              )
+          else NONE
+        )
+         before GtkStatusIconClass.FFI.touchPtr self
       end
-    fun getGicon self = (GtkStatusIconClass.FFI.withPtr false ---> GioIconClass.FFI.fromOptPtr false) getGicon_ self
+    fun getGicon self = (GtkStatusIconClass.FFI.withPtr false ---> GioIconClass.FFI.fromOptPtr false) getGicon_ self before GtkStatusIconClass.FFI.touchPtr self
     fun getHasTooltip self = (GtkStatusIconClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasTooltip_ self
-    fun getIconName self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getIconName_ self
-    fun getPixbuf self = (GtkStatusIconClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getPixbuf_ self
-    fun getScreen self = (GtkStatusIconClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun getIconName self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getIconName_ self before GtkStatusIconClass.FFI.touchPtr self
+    fun getPixbuf self = (GtkStatusIconClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getPixbuf_ self before GtkStatusIconClass.FFI.touchPtr self
+    fun getScreen self = (GtkStatusIconClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self before GtkStatusIconClass.FFI.touchPtr self
     fun getSize self = (GtkStatusIconClass.FFI.withPtr false ---> GInt.FFI.fromVal) getSize_ self
-    fun getStock self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getStock_ self
+    fun getStock self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getStock_ self before GtkStatusIconClass.FFI.touchPtr self
     fun getStorageType self = (GtkStatusIconClass.FFI.withPtr false ---> GtkImageType.FFI.fromVal) getStorageType_ self
-    fun getTitle self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTitle_ self
+    fun getTitle self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTitle_ self before GtkStatusIconClass.FFI.touchPtr self
     fun getTooltipMarkup self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getTooltipMarkup_ self
     fun getTooltipText self = (GtkStatusIconClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getTooltipText_ self
     fun getVisible self = (GtkStatusIconClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self

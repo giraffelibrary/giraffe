@@ -369,9 +369,9 @@ structure GioSocketClient :>
         )
     fun getEnableProxy self = (GioSocketClientClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEnableProxy_ self
     fun getFamily self = (GioSocketClientClass.FFI.withPtr false ---> GioSocketFamily.FFI.fromVal) getFamily_ self
-    fun getLocalAddress self = (GioSocketClientClass.FFI.withPtr false ---> GioSocketAddressClass.FFI.fromPtr false) getLocalAddress_ self
+    fun getLocalAddress self = (GioSocketClientClass.FFI.withPtr false ---> GioSocketAddressClass.FFI.fromPtr false) getLocalAddress_ self before GioSocketClientClass.FFI.touchPtr self
     fun getProtocol self = (GioSocketClientClass.FFI.withPtr false ---> GioSocketProtocol.FFI.fromVal) getProtocol_ self
-    fun getProxyResolver self = (GioSocketClientClass.FFI.withPtr false ---> GioProxyResolverClass.FFI.fromPtr false) getProxyResolver_ self
+    fun getProxyResolver self = (GioSocketClientClass.FFI.withPtr false ---> GioProxyResolverClass.FFI.fromPtr false) getProxyResolver_ self before GioSocketClientClass.FFI.touchPtr self
     fun getSocketType self = (GioSocketClientClass.FFI.withPtr false ---> GioSocketType.FFI.fromVal) getSocketType_ self
     fun getTimeout self = (GioSocketClientClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getTimeout_ self
     fun getTls self = (GioSocketClientClass.FFI.withPtr false ---> GBool.FFI.fromVal) getTls_ self

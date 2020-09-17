@@ -60,7 +60,7 @@ structure GtkScale :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (orientation, adjustment) = (GtkOrientation.FFI.withVal &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkScaleClass.FFI.fromPtr false) new_ (orientation & adjustment)
+    fun new (orientation, adjustment) = (GtkOrientation.FFI.withVal &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkScaleClass.FFI.fromPtr false) new_ (orientation & adjustment) before GtkAdjustmentClass.FFI.touchOptPtr adjustment
     fun newWithRange
       (
         orientation,
@@ -107,7 +107,7 @@ structure GtkScale :>
     fun getDigits self = (GtkScaleClass.FFI.withPtr false ---> GInt.FFI.fromVal) getDigits_ self
     fun getDrawValue self = (GtkScaleClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDrawValue_ self
     fun getHasOrigin self = (GtkScaleClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasOrigin_ self
-    fun getLayout self = (GtkScaleClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromOptPtr false) getLayout_ self
+    fun getLayout self = (GtkScaleClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromOptPtr false) getLayout_ self before GtkScaleClass.FFI.touchPtr self
     fun getLayoutOffsets self =
       let
         val x

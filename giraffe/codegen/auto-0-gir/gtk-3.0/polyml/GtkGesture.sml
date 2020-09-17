@@ -79,9 +79,9 @@ structure GtkGesture :>
       in
         if retVal then SOME (x, y) else NONE
       end
-    fun getDevice self = (GtkGestureClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromOptPtr false) getDevice_ self
-    fun getLastEvent self sequence = (GtkGestureClass.FFI.withPtr false &&&> GdkEventSequenceRecord.FFI.withPtr false ---> GdkEvent.FFI.fromOptPtr false) getLastEvent_ (self & sequence)
-    fun getLastUpdatedSequence self = (GtkGestureClass.FFI.withPtr false ---> GdkEventSequenceRecord.FFI.fromOptPtr false) getLastUpdatedSequence_ self
+    fun getDevice self = (GtkGestureClass.FFI.withPtr false ---> GdkDeviceClass.FFI.fromOptPtr false) getDevice_ self before GtkGestureClass.FFI.touchPtr self
+    fun getLastEvent self sequence = (GtkGestureClass.FFI.withPtr false &&&> GdkEventSequenceRecord.FFI.withPtr false ---> GdkEvent.FFI.fromOptPtr false) getLastEvent_ (self & sequence) before GtkGestureClass.FFI.touchPtr self before GdkEventSequenceRecord.FFI.touchPtr sequence
+    fun getLastUpdatedSequence self = (GtkGestureClass.FFI.withPtr false ---> GdkEventSequenceRecord.FFI.fromOptPtr false) getLastUpdatedSequence_ self before GtkGestureClass.FFI.touchPtr self
     fun getPoint self sequence =
       let
         val x
@@ -107,7 +107,7 @@ structure GtkGesture :>
         if retVal then SOME (x, y) else NONE
       end
     fun getSequenceState self sequence = (GtkGestureClass.FFI.withPtr false &&&> GdkEventSequenceRecord.FFI.withPtr false ---> GtkEventSequenceState.FFI.fromVal) getSequenceState_ (self & sequence)
-    fun getWindow self = (GtkGestureClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self
+    fun getWindow self = (GtkGestureClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self before GtkGestureClass.FFI.touchPtr self
     fun group self gesture = (GtkGestureClass.FFI.withPtr false &&&> GtkGestureClass.FFI.withPtr false ---> I) group_ (self & gesture)
     fun handlesSequence self sequence = (GtkGestureClass.FFI.withPtr false &&&> GdkEventSequenceRecord.FFI.withOptPtr false ---> GBool.FFI.fromVal) handlesSequence_ (self & sequence)
     fun isActive self = (GtkGestureClass.FFI.withPtr false ---> GBool.FFI.fromVal) isActive_ self

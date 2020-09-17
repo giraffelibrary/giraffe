@@ -48,7 +48,7 @@ structure GtkGLArea :>
     fun new () = (I ---> GtkGLAreaClass.FFI.fromPtr true) new_ ()
     fun attachBuffers self = (GtkGLAreaClass.FFI.withPtr false ---> I) attachBuffers_ self
     fun getAutoRender self = (GtkGLAreaClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAutoRender_ self
-    fun getContext self = (GtkGLAreaClass.FFI.withPtr false ---> GdkGLContextClass.FFI.fromPtr false) getContext_ self
+    fun getContext self = (GtkGLAreaClass.FFI.withPtr false ---> GdkGLContextClass.FFI.fromPtr false) getContext_ self before GtkGLAreaClass.FFI.touchPtr self
     fun getHasAlpha self = (GtkGLAreaClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasAlpha_ self
     fun getHasDepthBuffer self = (GtkGLAreaClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasDepthBuffer_ self
     fun getHasStencilBuffer self = (GtkGLAreaClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasStencilBuffer_ self

@@ -47,8 +47,8 @@ structure GtkShortcutLabel :>
     fun asOrientable self = (GObjectObjectClass.FFI.withPtr false ---> GtkOrientableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new accelerator = (Utf8.FFI.withPtr 0 ---> GtkShortcutLabelClass.FFI.fromPtr true) new_ accelerator
-    fun getAccelerator self = (GtkShortcutLabelClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getAccelerator_ self
-    fun getDisabledText self = (GtkShortcutLabelClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getDisabledText_ self
+    fun getAccelerator self = (GtkShortcutLabelClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getAccelerator_ self before GtkShortcutLabelClass.FFI.touchPtr self
+    fun getDisabledText self = (GtkShortcutLabelClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getDisabledText_ self before GtkShortcutLabelClass.FFI.touchPtr self
     fun setAccelerator self accelerator = (GtkShortcutLabelClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setAccelerator_ (self & accelerator)
     fun setDisabledText self disabledText = (GtkShortcutLabelClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setDisabledText_ (self & disabledText)
     local

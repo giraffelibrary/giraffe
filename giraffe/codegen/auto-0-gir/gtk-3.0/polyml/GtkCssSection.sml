@@ -20,8 +20,8 @@ structure GtkCssSection :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getEndLine self = (GtkCssSectionRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) getEndLine_ self
     fun getEndPosition self = (GtkCssSectionRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) getEndPosition_ self
-    fun getFile self = (GtkCssSectionRecord.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getFile_ self
-    fun getParent self = (GtkCssSectionRecord.FFI.withPtr false ---> GtkCssSectionRecord.FFI.fromOptPtr false) getParent_ self
+    fun getFile self = (GtkCssSectionRecord.FFI.withPtr false ---> GioFileClass.FFI.fromPtr false) getFile_ self before GtkCssSectionRecord.FFI.touchPtr self
+    fun getParent self = (GtkCssSectionRecord.FFI.withPtr false ---> GtkCssSectionRecord.FFI.fromOptPtr false) getParent_ self before GtkCssSectionRecord.FFI.touchPtr self
     fun getSectionType self = (GtkCssSectionRecord.FFI.withPtr false ---> GtkCssSectionType.FFI.fromVal) getSectionType_ self
     fun getStartLine self = (GtkCssSectionRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) getStartLine_ self
     fun getStartPosition self = (GtkCssSectionRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) getStartPosition_ self

@@ -174,7 +174,7 @@ structure GtkEntryBuffer :>
     fun getBytes self = (GtkEntryBufferClass.FFI.withPtr false ---> GUInt64.FFI.fromVal) getBytes_ self
     fun getLength self = (GtkEntryBufferClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getLength_ self
     fun getMaxLength self = (GtkEntryBufferClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getMaxLength_ self
-    fun getText self = (GtkEntryBufferClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getText_ self
+    fun getText self = (GtkEntryBufferClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getText_ self before GtkEntryBufferClass.FFI.touchPtr self
     fun insertText
       self
       (

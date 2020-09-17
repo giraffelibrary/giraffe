@@ -295,14 +295,14 @@ structure GioDBusProxy :>
       end
     fun getCachedProperty self propertyName = (GioDBusProxyClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GLibVariantRecord.FFI.fromPtr true) getCachedProperty_ (self & propertyName)
     fun getCachedPropertyNames self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) getCachedPropertyNames_ self
-    fun getConnection self = (GioDBusProxyClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
+    fun getConnection self = (GioDBusProxyClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self before GioDBusProxyClass.FFI.touchPtr self
     fun getDefaultTimeout self = (GioDBusProxyClass.FFI.withPtr false ---> GInt.FFI.fromVal) getDefaultTimeout_ self
     fun getFlags self = (GioDBusProxyClass.FFI.withPtr false ---> GioDBusProxyFlags.FFI.fromVal) getFlags_ self
     fun getInterfaceInfo self = (GioDBusProxyClass.FFI.withPtr false ---> GioDBusInterfaceInfoRecord.FFI.fromPtr true) getInterfaceInfo_ self
-    fun getInterfaceName self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getInterfaceName_ self
-    fun getName self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
+    fun getInterfaceName self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getInterfaceName_ self before GioDBusProxyClass.FFI.touchPtr self
+    fun getName self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GioDBusProxyClass.FFI.touchPtr self
     fun getNameOwner self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getNameOwner_ self
-    fun getObjectPath self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
+    fun getObjectPath self = (GioDBusProxyClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectPath_ self before GioDBusProxyClass.FFI.touchPtr self
     fun setCachedProperty self (propertyName, value) =
       (
         GioDBusProxyClass.FFI.withPtr false

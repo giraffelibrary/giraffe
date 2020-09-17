@@ -52,5 +52,8 @@ signature VALUE_RECORD =
 
         val fromPtr    : bool -> non_opt p -> t
         val fromOptPtr : bool -> opt     p -> t option
+
+        val touchPtr    : t        -> unit
+        val touchOptPtr : t option -> unit
       end
   end

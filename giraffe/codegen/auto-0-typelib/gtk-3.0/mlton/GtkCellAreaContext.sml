@@ -187,7 +187,7 @@ structure GtkCellAreaContext :>
       in
         (width, height)
       end
-    fun getArea self = (GtkCellAreaContextClass.FFI.withPtr false ---> GtkCellAreaClass.FFI.fromPtr false) getArea_ self
+    fun getArea self = (GtkCellAreaContextClass.FFI.withPtr false ---> GtkCellAreaClass.FFI.fromPtr false) getArea_ self before GtkCellAreaContextClass.FFI.touchPtr self
     fun getPreferredHeight self =
       let
         val minimumHeight

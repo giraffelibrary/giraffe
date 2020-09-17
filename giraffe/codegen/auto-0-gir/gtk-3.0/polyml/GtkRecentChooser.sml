@@ -63,7 +63,7 @@ structure GtkRecentChooser :>
     fun addFilter self filter = (GtkRecentChooserClass.FFI.withPtr false &&&> GtkRecentFilterClass.FFI.withPtr false ---> I) addFilter_ (self & filter)
     fun getCurrentItem self = (GtkRecentChooserClass.FFI.withPtr false ---> GtkRecentInfoRecord.FFI.fromPtr true) getCurrentItem_ self
     fun getCurrentUri self = (GtkRecentChooserClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getCurrentUri_ self
-    fun getFilter self = (GtkRecentChooserClass.FFI.withPtr false ---> GtkRecentFilterClass.FFI.fromPtr false) getFilter_ self
+    fun getFilter self = (GtkRecentChooserClass.FFI.withPtr false ---> GtkRecentFilterClass.FFI.fromPtr false) getFilter_ self before GtkRecentChooserClass.FFI.touchPtr self
     fun getLimit self = (GtkRecentChooserClass.FFI.withPtr false ---> GInt.FFI.fromVal) getLimit_ self
     fun getLocalOnly self = (GtkRecentChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getLocalOnly_ self
     fun getSelectMultiple self = (GtkRecentChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSelectMultiple_ self

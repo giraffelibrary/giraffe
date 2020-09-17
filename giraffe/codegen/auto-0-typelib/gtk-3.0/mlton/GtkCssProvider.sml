@@ -104,7 +104,7 @@ structure GtkCssProvider :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkCssProviderClass.FFI.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkCssProviderClass.FFI.fromPtr false) getDefault_ ()
-    fun getNamed (name, variant) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withOptPtr 0 ---> GtkCssProviderClass.FFI.fromPtr false) getNamed_ (name & variant)
+    fun getNamed (name, variant) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withOptPtr 0 ---> GtkCssProviderClass.FFI.fromPtr false) getNamed_ (name & variant) before Utf8.FFI.touchPtr name before Utf8.FFI.touchOptPtr variant
     fun loadFromData self data =
       let
         val length = LargeInt.fromInt (GUInt8CArrayN.length data)

@@ -46,7 +46,7 @@ structure GLibTimeZone :>
            & type'
            & time
         )
-    fun getAbbreviation self interval = (GLibTimeZoneRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getAbbreviation_ (self & interval)
+    fun getAbbreviation self interval = (GLibTimeZoneRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> Utf8.FFI.fromPtr 0) getAbbreviation_ (self & interval) before GLibTimeZoneRecord.FFI.touchPtr self
     fun getOffset self interval = (GLibTimeZoneRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) getOffset_ (self & interval)
     fun isDst self interval = (GLibTimeZoneRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GBool.FFI.fromVal) isDst_ (self & interval)
   end

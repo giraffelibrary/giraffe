@@ -59,9 +59,9 @@ structure GLibVariantType :>
       end
     fun copy self = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr true) copy_ self
     fun dupString self = (GLibVariantTypeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) dupString_ self
-    fun element self = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) element_ self
+    fun element self = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) element_ self before GLibVariantTypeRecord.FFI.touchPtr self
     fun equal self type2 = (GLibVariantTypeRecord.FFI.withPtr false &&&> GLibVariantTypeRecord.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & type2)
-    fun first self = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) first_ self
+    fun first self = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) first_ self before GLibVariantTypeRecord.FFI.touchPtr self
     fun getStringLength self = (GLibVariantTypeRecord.FFI.withPtr false ---> GUInt64.FFI.fromVal) getStringLength_ self
     fun hash self = (GLibVariantTypeRecord.FFI.withPtr false ---> GUInt32.FFI.fromVal) hash_ self
     fun isArray self = (GLibVariantTypeRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isArray_ self
@@ -73,11 +73,11 @@ structure GLibVariantType :>
     fun isSubtypeOf self supertype = (GLibVariantTypeRecord.FFI.withPtr false &&&> GLibVariantTypeRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isSubtypeOf_ (self & supertype)
     fun isTuple self = (GLibVariantTypeRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isTuple_ self
     fun isVariant self = (GLibVariantTypeRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isVariant_ self
-    fun key self = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) key_ self
+    fun key self = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) key_ self before GLibVariantTypeRecord.FFI.touchPtr self
     fun nItems self = (GLibVariantTypeRecord.FFI.withPtr false ---> GUInt64.FFI.fromVal) nItems_ self
-    fun next self = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) next_ self
-    fun value self = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) value_ self
-    fun checked arg0 = (Utf8.FFI.withPtr 0 ---> GLibVariantTypeRecord.FFI.fromPtr false) checked_ arg0
+    fun next self = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) next_ self before GLibVariantTypeRecord.FFI.touchPtr self
+    fun value self = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromPtr false) value_ self before GLibVariantTypeRecord.FFI.touchPtr self
+    fun checked arg0 = (Utf8.FFI.withPtr 0 ---> GLibVariantTypeRecord.FFI.fromPtr false) checked_ arg0 before Utf8.FFI.touchPtr arg0
     fun stringIsValid typeString = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) stringIsValid_ typeString
     fun stringScan (string, limit) =
       let

@@ -16,7 +16,7 @@ structure GtkEventController :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getPropagationPhase self = (GtkEventControllerClass.FFI.withPtr false ---> GtkPropagationPhase.FFI.fromVal) getPropagationPhase_ self
-    fun getWidget self = (GtkEventControllerClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
+    fun getWidget self = (GtkEventControllerClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self before GtkEventControllerClass.FFI.touchPtr self
     fun handleEvent self event = (GtkEventControllerClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> GBool.FFI.fromVal) handleEvent_ (self & event)
     fun reset self = (GtkEventControllerClass.FFI.withPtr false ---> I) reset_ self
     fun setPropagationPhase self phase = (GtkEventControllerClass.FFI.withPtr false &&&> GtkPropagationPhase.FFI.withVal ---> I) setPropagationPhase_ (self & phase)

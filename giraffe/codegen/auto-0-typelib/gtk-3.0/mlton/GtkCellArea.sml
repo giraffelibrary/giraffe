@@ -811,13 +811,13 @@ structure GtkCellArea :>
                & ()
             )
       in
-        (retVal, allocArea)
+        (retVal, allocArea) before GtkCellAreaClass.FFI.touchPtr self before GtkCellAreaContextClass.FFI.touchPtr context before GtkWidgetClass.FFI.touchPtr widget before GdkRectangleRecord.FFI.touchPtr cellArea
       end
-    fun getCurrentPathString self = (GtkCellAreaClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCurrentPathString_ self
-    fun getEditWidget self = (GtkCellAreaClass.FFI.withPtr false ---> GtkCellEditableClass.FFI.fromPtr false) getEditWidget_ self
-    fun getEditedCell self = (GtkCellAreaClass.FFI.withPtr false ---> GtkCellRendererClass.FFI.fromPtr false) getEditedCell_ self
-    fun getFocusCell self = (GtkCellAreaClass.FFI.withPtr false ---> GtkCellRendererClass.FFI.fromPtr false) getFocusCell_ self
-    fun getFocusFromSibling self renderer = (GtkCellAreaClass.FFI.withPtr false &&&> GtkCellRendererClass.FFI.withPtr false ---> GtkCellRendererClass.FFI.fromOptPtr false) getFocusFromSibling_ (self & renderer)
+    fun getCurrentPathString self = (GtkCellAreaClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCurrentPathString_ self before GtkCellAreaClass.FFI.touchPtr self
+    fun getEditWidget self = (GtkCellAreaClass.FFI.withPtr false ---> GtkCellEditableClass.FFI.fromPtr false) getEditWidget_ self before GtkCellAreaClass.FFI.touchPtr self
+    fun getEditedCell self = (GtkCellAreaClass.FFI.withPtr false ---> GtkCellRendererClass.FFI.fromPtr false) getEditedCell_ self before GtkCellAreaClass.FFI.touchPtr self
+    fun getFocusCell self = (GtkCellAreaClass.FFI.withPtr false ---> GtkCellRendererClass.FFI.fromPtr false) getFocusCell_ self before GtkCellAreaClass.FFI.touchPtr self
+    fun getFocusFromSibling self renderer = (GtkCellAreaClass.FFI.withPtr false &&&> GtkCellRendererClass.FFI.withPtr false ---> GtkCellRendererClass.FFI.fromOptPtr false) getFocusFromSibling_ (self & renderer) before GtkCellAreaClass.FFI.touchPtr self before GtkCellRendererClass.FFI.touchPtr renderer
     fun getPreferredHeight self (context, widget) =
       let
         val minimumHeight

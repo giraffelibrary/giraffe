@@ -75,14 +75,14 @@ structure AtkObject :>
            & relationship
            & target
         )
-    fun getDescription self = (AtkObjectClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self
+    fun getDescription self = (AtkObjectClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self before AtkObjectClass.FFI.touchPtr self
     fun getIndexInParent self = (AtkObjectClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getIndexInParent_ self
     fun getLayer self = (AtkObjectClass.FFI.withPtr false ---> AtkLayer.FFI.fromVal) getLayer_ self
     fun getMdiZorder self = (AtkObjectClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getMdiZorder_ self
     fun getNAccessibleChildren self = (AtkObjectClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNAccessibleChildren_ self
-    fun getName self = (AtkObjectClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getObjectLocale self = (AtkObjectClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectLocale_ self
-    fun getParent self = (AtkObjectClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr false) getParent_ self
+    fun getName self = (AtkObjectClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before AtkObjectClass.FFI.touchPtr self
+    fun getObjectLocale self = (AtkObjectClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectLocale_ self before AtkObjectClass.FFI.touchPtr self
+    fun getParent self = (AtkObjectClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr false) getParent_ self before AtkObjectClass.FFI.touchPtr self
     fun getRole self = (AtkObjectClass.FFI.withPtr false ---> AtkRole.FFI.fromVal) getRole_ self
     fun notifyStateChange self (state, value) =
       (
@@ -97,7 +97,7 @@ structure AtkObject :>
            & state
            & value
         )
-    fun peekParent self = (AtkObjectClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr false) peekParent_ self
+    fun peekParent self = (AtkObjectClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr false) peekParent_ self before AtkObjectClass.FFI.touchPtr self
     fun refAccessibleChild self i = (AtkObjectClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> AtkObjectClass.FFI.fromPtr true) refAccessibleChild_ (self & i)
     fun refRelationSet self = (AtkObjectClass.FFI.withPtr false ---> AtkRelationSetClass.FFI.fromPtr true) refRelationSet_ self
     fun refStateSet self = (AtkObjectClass.FFI.withPtr false ---> AtkStateSetClass.FFI.fromPtr true) refStateSet_ self

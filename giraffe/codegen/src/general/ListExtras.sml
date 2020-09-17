@@ -1,14 +1,18 @@
 structure ListExtras =
   struct
 
-    fun revMapAppendWith g f (xs, ys) = foldl (fn (x, ys) => g (f x, ys)) ys xs
+    fun revMapAppendWith g f (xs, a) = foldl (fn (x, a) => g (f x, a)) a xs
     fun revMapAppend f = revMapAppendWith (op ::) f
     fun revMap f xs = revMapAppend f (xs, [])
 
-    fun revMapPartialAppendWith g f (xs, ys) =
-      foldl (fn (x, ys) => case f x of SOME y => g (y, ys) | NONE => ys) ys xs
+    fun revMapPartialAppendWith g f (xs, a) =
+      foldl (fn (x, a) => case f x of SOME y => g (y, a) | NONE => a) a xs
     fun revMapPartialAppend f = revMapPartialAppendWith (op ::) f
     fun revMapPartial f xs = revMapPartialAppend f (xs, [])
+
+
+    val unzipInit = ([], [])
+    fun unzipStep ((x, y), (xs, ys)) = (x :: xs, y :: ys)
 
 
     fun foldmapwithl

@@ -31,7 +31,7 @@ structure PangoFontFace :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun describe self = (PangoFontFaceClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromPtr true) describe_ self
-    fun getFaceName self = (PangoFontFaceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getFaceName_ self
+    fun getFaceName self = (PangoFontFaceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getFaceName_ self before PangoFontFaceClass.FFI.touchPtr self
     fun isSynthesized self = (PangoFontFaceClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSynthesized_ self
     fun listSizes self =
       let

@@ -44,10 +44,10 @@ structure GioNetworkService :>
            & protocol
            & domain
         )
-    fun getDomain self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDomain_ self
-    fun getProtocol self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getProtocol_ self
-    fun getScheme self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getScheme_ self
-    fun getService self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getService_ self
+    fun getDomain self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDomain_ self before GioNetworkServiceClass.FFI.touchPtr self
+    fun getProtocol self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getProtocol_ self before GioNetworkServiceClass.FFI.touchPtr self
+    fun getScheme self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getScheme_ self before GioNetworkServiceClass.FFI.touchPtr self
+    fun getService self = (GioNetworkServiceClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getService_ self before GioNetworkServiceClass.FFI.touchPtr self
     fun setScheme self scheme = (GioNetworkServiceClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setScheme_ (self & scheme)
     local
       open ValueAccessor

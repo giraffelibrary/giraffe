@@ -42,7 +42,7 @@ structure GtkStatusbar :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkStatusbarClass.FFI.fromPtr false) new_ ()
     fun getContextId self contextDescription = (GtkStatusbarClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GUInt.FFI.fromVal) getContextId_ (self & contextDescription)
-    fun getMessageArea self = (GtkStatusbarClass.FFI.withPtr false ---> GtkBoxClass.FFI.fromPtr false) getMessageArea_ self
+    fun getMessageArea self = (GtkStatusbarClass.FFI.withPtr false ---> GtkBoxClass.FFI.fromPtr false) getMessageArea_ self before GtkStatusbarClass.FFI.touchPtr self
     fun pop self contextId = (GtkStatusbarClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) pop_ (self & contextId)
     fun push self (contextId, text) =
       (

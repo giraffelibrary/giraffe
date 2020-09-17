@@ -25,10 +25,10 @@ structure GObjectBinding :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getFlags self = (GObjectBindingClass.FFI.withPtr false ---> GObjectBindingFlags.FFI.fromVal) getFlags_ self
-    fun getSource self = (GObjectBindingClass.FFI.withPtr false ---> GObjectObjectClass.FFI.fromPtr false) getSource_ self
-    fun getSourceProperty self = (GObjectBindingClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSourceProperty_ self
-    fun getTarget self = (GObjectBindingClass.FFI.withPtr false ---> GObjectObjectClass.FFI.fromPtr false) getTarget_ self
-    fun getTargetProperty self = (GObjectBindingClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTargetProperty_ self
+    fun getSource self = (GObjectBindingClass.FFI.withPtr false ---> GObjectObjectClass.FFI.fromPtr false) getSource_ self before GObjectBindingClass.FFI.touchPtr self
+    fun getSourceProperty self = (GObjectBindingClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSourceProperty_ self before GObjectBindingClass.FFI.touchPtr self
+    fun getTarget self = (GObjectBindingClass.FFI.withPtr false ---> GObjectObjectClass.FFI.fromPtr false) getTarget_ self before GObjectBindingClass.FFI.touchPtr self
+    fun getTargetProperty self = (GObjectBindingClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTargetProperty_ self before GObjectBindingClass.FFI.touchPtr self
     fun unbind self = (GObjectBindingClass.FFI.withPtr false ---> I) unbind_ self
     local
       open ValueAccessor

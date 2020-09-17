@@ -60,6 +60,8 @@ structure GtkAppChooserDialog :>
            & flags
            & file
         )
+       before GtkWindowClass.FFI.touchOptPtr parent
+       before GioFileClass.FFI.touchPtr file
     fun newForContentType
       (
         parent,
@@ -78,8 +80,10 @@ structure GtkAppChooserDialog :>
            & flags
            & contentType
         )
-    fun getHeading self = (GtkAppChooserDialogClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getHeading_ self
-    fun getWidget self = (GtkAppChooserDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self
+       before GtkWindowClass.FFI.touchOptPtr parent
+       before Utf8.FFI.touchPtr contentType
+    fun getHeading self = (GtkAppChooserDialogClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getHeading_ self before GtkAppChooserDialogClass.FFI.touchPtr self
+    fun getWidget self = (GtkAppChooserDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getWidget_ self before GtkAppChooserDialogClass.FFI.touchPtr self
     fun setHeading self heading = (GtkAppChooserDialogClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setHeading_ (self & heading)
     local
       open ValueAccessor

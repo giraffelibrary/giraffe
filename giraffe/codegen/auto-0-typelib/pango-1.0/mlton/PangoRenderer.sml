@@ -458,10 +458,10 @@ structure PangoRenderer :>
            & x22
         )
     fun getAlpha self part = (PangoRendererClass.FFI.withPtr false &&&> PangoRenderPart.FFI.withVal ---> GUInt16.FFI.fromVal) getAlpha_ (self & part)
-    fun getColor self part = (PangoRendererClass.FFI.withPtr false &&&> PangoRenderPart.FFI.withVal ---> PangoColorRecord.FFI.fromOptPtr false) getColor_ (self & part)
-    fun getLayout self = (PangoRendererClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromOptPtr false) getLayout_ self
-    fun getLayoutLine self = (PangoRendererClass.FFI.withPtr false ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLayoutLine_ self
-    fun getMatrix self = (PangoRendererClass.FFI.withPtr false ---> PangoMatrixRecord.FFI.fromOptPtr false) getMatrix_ self
+    fun getColor self part = (PangoRendererClass.FFI.withPtr false &&&> PangoRenderPart.FFI.withVal ---> PangoColorRecord.FFI.fromOptPtr false) getColor_ (self & part) before PangoRendererClass.FFI.touchPtr self
+    fun getLayout self = (PangoRendererClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromOptPtr false) getLayout_ self before PangoRendererClass.FFI.touchPtr self
+    fun getLayoutLine self = (PangoRendererClass.FFI.withPtr false ---> PangoLayoutLineRecord.FFI.fromOptPtr false) getLayoutLine_ self before PangoRendererClass.FFI.touchPtr self
+    fun getMatrix self = (PangoRendererClass.FFI.withPtr false ---> PangoMatrixRecord.FFI.fromOptPtr false) getMatrix_ self before PangoRendererClass.FFI.touchPtr self
     fun partChanged self part = (PangoRendererClass.FFI.withPtr false &&&> PangoRenderPart.FFI.withVal ---> I) partChanged_ (self & part)
     fun setAlpha self (part, alpha) =
       (

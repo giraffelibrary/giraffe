@@ -208,20 +208,20 @@ structure GtkNotebook :>
            & menuLabel
         )
     fun detachTab self child = (GtkNotebookClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) detachTab_ (self & child)
-    fun getActionWidget self packType = (GtkNotebookClass.FFI.withPtr false &&&> GtkPackType.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getActionWidget_ (self & packType)
+    fun getActionWidget self packType = (GtkNotebookClass.FFI.withPtr false &&&> GtkPackType.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getActionWidget_ (self & packType) before GtkNotebookClass.FFI.touchPtr self
     fun getCurrentPage self = (GtkNotebookClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getCurrentPage_ self
-    fun getGroupName self = (GtkNotebookClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getGroupName_ self
-    fun getMenuLabel self child = (GtkNotebookClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getMenuLabel_ (self & child)
-    fun getMenuLabelText self child = (GtkNotebookClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getMenuLabelText_ (self & child)
+    fun getGroupName self = (GtkNotebookClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getGroupName_ self before GtkNotebookClass.FFI.touchPtr self
+    fun getMenuLabel self child = (GtkNotebookClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getMenuLabel_ (self & child) before GtkNotebookClass.FFI.touchPtr self before GtkWidgetClass.FFI.touchPtr child
+    fun getMenuLabelText self child = (GtkNotebookClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getMenuLabelText_ (self & child) before GtkNotebookClass.FFI.touchPtr self before GtkWidgetClass.FFI.touchPtr child
     fun getNPages self = (GtkNotebookClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNPages_ self
-    fun getNthPage self pageNum = (GtkNotebookClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getNthPage_ (self & pageNum)
+    fun getNthPage self pageNum = (GtkNotebookClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getNthPage_ (self & pageNum) before GtkNotebookClass.FFI.touchPtr self
     fun getScrollable self = (GtkNotebookClass.FFI.withPtr false ---> GBool.FFI.fromVal) getScrollable_ self
     fun getShowBorder self = (GtkNotebookClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowBorder_ self
     fun getShowTabs self = (GtkNotebookClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowTabs_ self
     fun getTabDetachable self child = (GtkNotebookClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getTabDetachable_ (self & child)
     fun getTabHborder self = (GtkNotebookClass.FFI.withPtr false ---> GUInt16.FFI.fromVal) getTabHborder_ self
-    fun getTabLabel self child = (GtkNotebookClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getTabLabel_ (self & child)
-    fun getTabLabelText self child = (GtkNotebookClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getTabLabelText_ (self & child)
+    fun getTabLabel self child = (GtkNotebookClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getTabLabel_ (self & child) before GtkNotebookClass.FFI.touchPtr self before GtkWidgetClass.FFI.touchPtr child
+    fun getTabLabelText self child = (GtkNotebookClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getTabLabelText_ (self & child) before GtkNotebookClass.FFI.touchPtr self before GtkWidgetClass.FFI.touchPtr child
     fun getTabPos self = (GtkNotebookClass.FFI.withPtr false ---> GtkPositionType.FFI.fromVal) getTabPos_ self
     fun getTabReorderable self child = (GtkNotebookClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getTabReorderable_ (self & child)
     fun getTabVborder self = (GtkNotebookClass.FFI.withPtr false ---> GUInt16.FFI.fromVal) getTabVborder_ self

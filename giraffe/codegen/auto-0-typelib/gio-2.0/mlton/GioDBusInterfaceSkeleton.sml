@@ -65,10 +65,10 @@ structure GioDBusInterfaceSkeleton :>
            & []
         )
     fun flush self = (GioDBusInterfaceSkeletonClass.FFI.withPtr false ---> I) flush_ self
-    fun getConnection self = (GioDBusInterfaceSkeletonClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self
+    fun getConnection self = (GioDBusInterfaceSkeletonClass.FFI.withPtr false ---> GioDBusConnectionClass.FFI.fromPtr false) getConnection_ self before GioDBusInterfaceSkeletonClass.FFI.touchPtr self
     fun getFlags self = (GioDBusInterfaceSkeletonClass.FFI.withPtr false ---> GioDBusInterfaceSkeletonFlags.FFI.fromVal) getFlags_ self
-    fun getInfo self = (GioDBusInterfaceSkeletonClass.FFI.withPtr false ---> GioDBusInterfaceInfoRecord.FFI.fromPtr false) getInfo_ self
-    fun getObjectPath self = (GioDBusInterfaceSkeletonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectPath_ self
+    fun getInfo self = (GioDBusInterfaceSkeletonClass.FFI.withPtr false ---> GioDBusInterfaceInfoRecord.FFI.fromPtr false) getInfo_ self before GioDBusInterfaceSkeletonClass.FFI.touchPtr self
+    fun getObjectPath self = (GioDBusInterfaceSkeletonClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getObjectPath_ self before GioDBusInterfaceSkeletonClass.FFI.touchPtr self
     fun getProperties self = (GioDBusInterfaceSkeletonClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr true) getProperties_ self
     fun hasConnection self connection = (GioDBusInterfaceSkeletonClass.FFI.withPtr false &&&> GioDBusConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasConnection_ (self & connection)
     fun setFlags self flags = (GioDBusInterfaceSkeletonClass.FFI.withPtr false &&&> GioDBusInterfaceSkeletonFlags.FFI.withVal ---> I) setFlags_ (self & flags)

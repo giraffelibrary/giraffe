@@ -19,7 +19,7 @@ structure GioBytesIcon :>
     fun asLoadableIcon self = (GObjectObjectClass.FFI.withPtr false ---> GioLoadableIconClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new bytes = (GLibBytesRecord.FFI.withPtr false ---> GioBytesIconClass.FFI.fromPtr true) new_ bytes
-    fun getBytes self = (GioBytesIconClass.FFI.withPtr false ---> GLibBytesRecord.FFI.fromPtr false) getBytes_ self
+    fun getBytes self = (GioBytesIconClass.FFI.withPtr false ---> GLibBytesRecord.FFI.fromPtr false) getBytes_ self before GioBytesIconClass.FFI.touchPtr self
     local
       open ValueAccessor
     in

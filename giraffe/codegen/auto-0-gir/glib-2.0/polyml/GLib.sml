@@ -909,7 +909,9 @@ structure GLib : G_LIB =
            & msgid
            & category
         )
-    fun dgettext (domain, msgid) = (Utf8.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) dgettext_ (domain & msgid)
+       before Utf8.FFI.touchOptPtr domain
+       before Utf8.FFI.touchPtr msgid
+    fun dgettext (domain, msgid) = (Utf8.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) dgettext_ (domain & msgid) before Utf8.FFI.touchOptPtr domain before Utf8.FFI.touchPtr msgid
     fun dngettext
       (
         domain,
@@ -931,6 +933,9 @@ structure GLib : G_LIB =
            & msgidPlural
            & n
         )
+       before Utf8.FFI.touchOptPtr domain
+       before Utf8.FFI.touchPtr msgid
+       before Utf8.FFI.touchPtr msgidPlural
     fun dpgettext
       (
         domain,
@@ -949,6 +954,8 @@ structure GLib : G_LIB =
            & msgctxtid
            & msgidoffset
         )
+       before Utf8.FFI.touchOptPtr domain
+       before Utf8.FFI.touchPtr msgctxtid
     fun dpgettext2
       (
         domain,
@@ -967,7 +974,10 @@ structure GLib : G_LIB =
            & context
            & msgid
         )
-    fun environGetenv (envp, variable) = (Utf8CPtrArray.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) environGetenv_ (envp & variable)
+       before Utf8.FFI.touchOptPtr domain
+       before Utf8.FFI.touchPtr context
+       before Utf8.FFI.touchPtr msgid
+    fun environGetenv (envp, variable) = (Utf8CPtrArray.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) environGetenv_ (envp & variable) before Utf8CPtrArray.FFI.touchOptPtr envp before Utf8.FFI.touchPtr variable
     fun environSetenv
       (
         envp,
@@ -1106,7 +1116,7 @@ structure GLib : G_LIB =
     fun getUserName () = (I ---> Utf8.FFI.fromPtr 0) getUserName_ ()
     fun getUserRuntimeDir () = (I ---> Utf8.FFI.fromPtr 0) getUserRuntimeDir_ ()
     fun getUserSpecialDir directory = (GLibUserDirectory.FFI.withVal ---> Utf8.FFI.fromPtr 0) getUserSpecialDir_ directory
-    fun getenv variable = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getenv_ variable
+    fun getenv variable = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getenv_ variable before Utf8.FFI.touchPtr variable
     fun hostnameIsAsciiEncoded hostname = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hostnameIsAsciiEncoded_ hostname
     fun hostnameIsIpAddress hostname = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hostnameIsIpAddress_ hostname
     fun hostnameIsNonAscii hostname = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hostnameIsNonAscii_ hostname
@@ -1247,7 +1257,7 @@ structure GLib : G_LIB =
     fun pathGetBasename fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) pathGetBasename_ fileName
     fun pathGetDirname fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) pathGetDirname_ fileName
     fun pathIsAbsolute fileName = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) pathIsAbsolute_ fileName
-    fun pathSkipRoot fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) pathSkipRoot_ fileName
+    fun pathSkipRoot fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) pathSkipRoot_ fileName before Utf8.FFI.touchPtr fileName
     fun patternMatch
       (
         pspec,

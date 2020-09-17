@@ -107,9 +107,9 @@ structure GdkPixbufPixbufLoader :>
     fun newWithMimeType mimeType = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) newWithMimeType_ (mimeType & [])
     fun newWithType imageType = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GdkPixbufPixbufLoaderClass.FFI.fromPtr true) newWithType_ (imageType & [])
     fun close self = (GdkPixbufPixbufLoaderClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> ignore) close_ (self & [])
-    fun getAnimation self = (GdkPixbufPixbufLoaderClass.FFI.withPtr false ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr false) getAnimation_ self
-    fun getFormat self = (GdkPixbufPixbufLoaderClass.FFI.withPtr false ---> GdkPixbufPixbufFormatRecord.FFI.fromOptPtr false) getFormat_ self
-    fun getPixbuf self = (GdkPixbufPixbufLoaderClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self
+    fun getAnimation self = (GdkPixbufPixbufLoaderClass.FFI.withPtr false ---> GdkPixbufPixbufAnimationClass.FFI.fromPtr false) getAnimation_ self before GdkPixbufPixbufLoaderClass.FFI.touchPtr self
+    fun getFormat self = (GdkPixbufPixbufLoaderClass.FFI.withPtr false ---> GdkPixbufPixbufFormatRecord.FFI.fromOptPtr false) getFormat_ self before GdkPixbufPixbufLoaderClass.FFI.touchPtr self
+    fun getPixbuf self = (GdkPixbufPixbufLoaderClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromPtr false) getPixbuf_ self before GdkPixbufPixbufLoaderClass.FFI.touchPtr self
     fun setSize self (width, height) =
       (
         GdkPixbufPixbufLoaderClass.FFI.withPtr false

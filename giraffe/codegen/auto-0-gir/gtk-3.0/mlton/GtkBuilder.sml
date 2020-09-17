@@ -445,9 +445,9 @@ structure GtkBuilder :>
            & length
            & []
         )
-    fun getApplication self = (GtkBuilderClass.FFI.withPtr false ---> GtkApplicationClass.FFI.fromOptPtr false) getApplication_ self
-    fun getObject self name = (GtkBuilderClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectObjectClass.FFI.fromOptPtr false) getObject_ (self & name)
-    fun getTranslationDomain self = (GtkBuilderClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTranslationDomain_ self
+    fun getApplication self = (GtkBuilderClass.FFI.withPtr false ---> GtkApplicationClass.FFI.fromOptPtr false) getApplication_ self before GtkBuilderClass.FFI.touchPtr self
+    fun getObject self name = (GtkBuilderClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectObjectClass.FFI.fromOptPtr false) getObject_ (self & name) before GtkBuilderClass.FFI.touchPtr self before Utf8.FFI.touchPtr name
+    fun getTranslationDomain self = (GtkBuilderClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getTranslationDomain_ self before GtkBuilderClass.FFI.touchPtr self
     fun getTypeFromName self typeName = (GtkBuilderClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectType.FFI.fromVal) getTypeFromName_ (self & typeName)
     fun setApplication self application = (GtkBuilderClass.FFI.withPtr false &&&> GtkApplicationClass.FFI.withPtr false ---> I) setApplication_ (self & application)
     fun setTranslationDomain self domain = (GtkBuilderClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setTranslationDomain_ (self & domain)

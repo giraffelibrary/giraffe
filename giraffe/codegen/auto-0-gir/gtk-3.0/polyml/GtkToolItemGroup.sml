@@ -61,7 +61,7 @@ structure GtkToolItemGroup :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asToolShell self = (GObjectObjectClass.FFI.withPtr false ---> GtkToolShellClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new label = (Utf8.FFI.withPtr 0 ---> GtkToolItemGroupClass.FFI.fromPtr false) new_ label
+    fun new label = (Utf8.FFI.withPtr 0 ---> GtkToolItemGroupClass.FFI.fromPtr false) new_ label before Utf8.FFI.touchPtr label
     fun getCollapsed self = (GtkToolItemGroupClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCollapsed_ self
     fun getDropItem self (x, y) =
       (
@@ -76,13 +76,14 @@ structure GtkToolItemGroup :>
            & x
            & y
         )
+       before GtkToolItemGroupClass.FFI.touchPtr self
     fun getEllipsize self = (GtkToolItemGroupClass.FFI.withPtr false ---> PangoEllipsizeMode.FFI.fromVal) getEllipsize_ self
     fun getHeaderRelief self = (GtkToolItemGroupClass.FFI.withPtr false ---> GtkReliefStyle.FFI.fromVal) getHeaderRelief_ self
     fun getItemPosition self item = (GtkToolItemGroupClass.FFI.withPtr false &&&> GtkToolItemClass.FFI.withPtr false ---> GInt.FFI.fromVal) getItemPosition_ (self & item)
-    fun getLabel self = (GtkToolItemGroupClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLabel_ self
-    fun getLabelWidget self = (GtkToolItemGroupClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getLabelWidget_ self
+    fun getLabel self = (GtkToolItemGroupClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLabel_ self before GtkToolItemGroupClass.FFI.touchPtr self
+    fun getLabelWidget self = (GtkToolItemGroupClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getLabelWidget_ self before GtkToolItemGroupClass.FFI.touchPtr self
     fun getNItems self = (GtkToolItemGroupClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getNItems_ self
-    fun getNthItem self index = (GtkToolItemGroupClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GtkToolItemClass.FFI.fromPtr false) getNthItem_ (self & index)
+    fun getNthItem self index = (GtkToolItemGroupClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GtkToolItemClass.FFI.fromPtr false) getNthItem_ (self & index) before GtkToolItemGroupClass.FFI.touchPtr self
     fun insert self (item, position) =
       (
         GtkToolItemGroupClass.FFI.withPtr false

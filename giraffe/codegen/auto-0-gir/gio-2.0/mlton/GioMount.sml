@@ -187,7 +187,7 @@ structure GioMount :>
     fun getIcon self = (GioMountClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) getIcon_ self
     fun getName self = (GioMountClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getName_ self
     fun getRoot self = (GioMountClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr true) getRoot_ self
-    fun getSortKey self = (GioMountClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSortKey_ self
+    fun getSortKey self = (GioMountClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSortKey_ self before GioMountClass.FFI.touchPtr self
     fun getSymbolicIcon self = (GioMountClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) getSymbolicIcon_ self
     fun getUuid self = (GioMountClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getUuid_ self
     fun getVolume self = (GioMountClass.FFI.withPtr false ---> GioVolumeClass.FFI.fromPtr true) getVolume_ self

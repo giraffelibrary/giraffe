@@ -42,7 +42,7 @@ structure PangoFont :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun describe self = (PangoFontClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromPtr true) describe_ self
     fun describeWithAbsoluteSize self = (PangoFontClass.FFI.withPtr false ---> PangoFontDescriptionRecord.FFI.fromPtr true) describeWithAbsoluteSize_ self
-    fun getFontMap self = (PangoFontClass.FFI.withPtr false ---> PangoFontMapClass.FFI.fromOptPtr false) getFontMap_ self
+    fun getFontMap self = (PangoFontClass.FFI.withPtr false ---> PangoFontMapClass.FFI.fromOptPtr false) getFontMap_ self before PangoFontClass.FFI.touchPtr self
     fun getGlyphExtents self glyph =
       let
         val inkRect

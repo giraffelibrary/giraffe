@@ -36,11 +36,11 @@ structure GtkImageMenuItem :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkImageMenuItemClass.FFI.fromPtr false) new_ ()
-    fun newFromStock (stockId, accelGroup) = (Utf8.FFI.withPtr 0 &&&> GtkAccelGroupClass.FFI.withOptPtr false ---> GtkImageMenuItemClass.FFI.fromPtr false) newFromStock_ (stockId & accelGroup)
-    fun newWithLabel label = (Utf8.FFI.withPtr 0 ---> GtkImageMenuItemClass.FFI.fromPtr false) newWithLabel_ label
-    fun newWithMnemonic label = (Utf8.FFI.withPtr 0 ---> GtkImageMenuItemClass.FFI.fromPtr false) newWithMnemonic_ label
+    fun newFromStock (stockId, accelGroup) = (Utf8.FFI.withPtr 0 &&&> GtkAccelGroupClass.FFI.withOptPtr false ---> GtkImageMenuItemClass.FFI.fromPtr false) newFromStock_ (stockId & accelGroup) before Utf8.FFI.touchPtr stockId before GtkAccelGroupClass.FFI.touchOptPtr accelGroup
+    fun newWithLabel label = (Utf8.FFI.withPtr 0 ---> GtkImageMenuItemClass.FFI.fromPtr false) newWithLabel_ label before Utf8.FFI.touchPtr label
+    fun newWithMnemonic label = (Utf8.FFI.withPtr 0 ---> GtkImageMenuItemClass.FFI.fromPtr false) newWithMnemonic_ label before Utf8.FFI.touchPtr label
     fun getAlwaysShowImage self = (GtkImageMenuItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAlwaysShowImage_ self
-    fun getImage self = (GtkImageMenuItemClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getImage_ self
+    fun getImage self = (GtkImageMenuItemClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getImage_ self before GtkImageMenuItemClass.FFI.touchPtr self
     fun getUseStock self = (GtkImageMenuItemClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseStock_ self
     fun setAccelGroup self accelGroup = (GtkImageMenuItemClass.FFI.withPtr false &&&> GtkAccelGroupClass.FFI.withPtr false ---> I) setAccelGroup_ (self & accelGroup)
     fun setAlwaysShowImage self alwaysShow = (GtkImageMenuItemClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAlwaysShowImage_ (self & alwaysShow)

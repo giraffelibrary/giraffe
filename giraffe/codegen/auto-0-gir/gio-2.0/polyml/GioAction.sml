@@ -58,11 +58,11 @@ structure GioAction :>
     fun activate self parameter = (GioActionClass.FFI.withPtr false &&&> GLibVariantRecord.FFI.withOptPtr false ---> I) activate_ (self & parameter)
     fun changeState self value = (GioActionClass.FFI.withPtr false &&&> GLibVariantRecord.FFI.withPtr false ---> I) changeState_ (self & value)
     fun getEnabled self = (GioActionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEnabled_ self
-    fun getName self = (GioActionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getParameterType self = (GioActionClass.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getParameterType_ self
+    fun getName self = (GioActionClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GioActionClass.FFI.touchPtr self
+    fun getParameterType self = (GioActionClass.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getParameterType_ self before GioActionClass.FFI.touchPtr self
     fun getState self = (GioActionClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr true) getState_ self
     fun getStateHint self = (GioActionClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromOptPtr true) getStateHint_ self
-    fun getStateType self = (GioActionClass.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getStateType_ self
+    fun getStateType self = (GioActionClass.FFI.withPtr false ---> GLibVariantTypeRecord.FFI.fromOptPtr false) getStateType_ self before GioActionClass.FFI.touchPtr self
     local
       open ValueAccessor
     in

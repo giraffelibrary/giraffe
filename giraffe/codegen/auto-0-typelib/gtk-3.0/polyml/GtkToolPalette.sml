@@ -133,7 +133,7 @@ structure GtkToolPalette :>
            & targets
            & actions
         )
-    fun getDragItem self selection = (GtkToolPaletteClass.FFI.withPtr false &&&> GtkSelectionDataRecord.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getDragItem_ (self & selection)
+    fun getDragItem self selection = (GtkToolPaletteClass.FFI.withPtr false &&&> GtkSelectionDataRecord.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getDragItem_ (self & selection) before GtkToolPaletteClass.FFI.touchPtr self before GtkSelectionDataRecord.FFI.touchPtr selection
     fun getDropGroup self (x, y) =
       (
         GtkToolPaletteClass.FFI.withPtr false
@@ -147,6 +147,7 @@ structure GtkToolPalette :>
            & x
            & y
         )
+       before GtkToolPaletteClass.FFI.touchPtr self
     fun getDropItem self (x, y) =
       (
         GtkToolPaletteClass.FFI.withPtr false
@@ -160,13 +161,14 @@ structure GtkToolPalette :>
            & x
            & y
         )
+       before GtkToolPaletteClass.FFI.touchPtr self
     fun getExclusive self group = (GtkToolPaletteClass.FFI.withPtr false &&&> GtkToolItemGroupClass.FFI.withPtr false ---> GBool.FFI.fromVal) getExclusive_ (self & group)
     fun getExpand self group = (GtkToolPaletteClass.FFI.withPtr false &&&> GtkToolItemGroupClass.FFI.withPtr false ---> GBool.FFI.fromVal) getExpand_ (self & group)
     fun getGroupPosition self group = (GtkToolPaletteClass.FFI.withPtr false &&&> GtkToolItemGroupClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getGroupPosition_ (self & group)
-    fun getHadjustment self = (GtkToolPaletteClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
+    fun getHadjustment self = (GtkToolPaletteClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self before GtkToolPaletteClass.FFI.touchPtr self
     fun getIconSize self = (GtkToolPaletteClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getIconSize_ self
     fun getStyle self = (GtkToolPaletteClass.FFI.withPtr false ---> GtkToolbarStyle.FFI.fromVal) getStyle_ self
-    fun getVadjustment self = (GtkToolPaletteClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
+    fun getVadjustment self = (GtkToolPaletteClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self before GtkToolPaletteClass.FFI.touchPtr self
     fun setDragSource self targets = (GtkToolPaletteClass.FFI.withPtr false &&&> GtkToolPaletteDragTargets.FFI.withVal ---> I) setDragSource_ (self & targets)
     fun setExclusive self (group, exclusive) =
       (

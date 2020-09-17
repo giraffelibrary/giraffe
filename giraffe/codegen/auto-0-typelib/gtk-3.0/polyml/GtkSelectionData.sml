@@ -55,19 +55,19 @@ structure GtkSelectionData :>
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun copy self = (GtkSelectionDataRecord.FFI.withPtr false ---> GtkSelectionDataRecord.FFI.fromPtr true) copy_ self
-    fun getDataType self = (GtkSelectionDataRecord.FFI.withPtr false ---> GdkAtomRecord.FFI.fromPtr false) getDataType_ self
+    fun getDataType self = (GtkSelectionDataRecord.FFI.withPtr false ---> GdkAtomRecord.FFI.fromPtr false) getDataType_ self before GtkSelectionDataRecord.FFI.touchPtr self
     fun getData self =
       let
         val length & retVal = (GtkSelectionDataRecord.FFI.withPtr false &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr 0) getData_ (self & GInt32.null)
       in
-        retVal (LargeInt.toInt length)
+        retVal (LargeInt.toInt length) before GtkSelectionDataRecord.FFI.touchPtr self
       end
-    fun getDisplay self = (GtkSelectionDataRecord.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getDisplay self = (GtkSelectionDataRecord.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self before GtkSelectionDataRecord.FFI.touchPtr self
     fun getFormat self = (GtkSelectionDataRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getFormat_ self
     fun getLength self = (GtkSelectionDataRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) getLength_ self
     fun getPixbuf self = (GtkSelectionDataRecord.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getPixbuf_ self
-    fun getSelection self = (GtkSelectionDataRecord.FFI.withPtr false ---> GdkAtomRecord.FFI.fromPtr false) getSelection_ self
-    fun getTarget self = (GtkSelectionDataRecord.FFI.withPtr false ---> GdkAtomRecord.FFI.fromPtr false) getTarget_ self
+    fun getSelection self = (GtkSelectionDataRecord.FFI.withPtr false ---> GdkAtomRecord.FFI.fromPtr false) getSelection_ self before GtkSelectionDataRecord.FFI.touchPtr self
+    fun getTarget self = (GtkSelectionDataRecord.FFI.withPtr false ---> GdkAtomRecord.FFI.fromPtr false) getTarget_ self before GtkSelectionDataRecord.FFI.touchPtr self
     fun getTargets self =
       let
         val targets
@@ -88,7 +88,7 @@ structure GtkSelectionData :>
                & GInt32.null
             )
       in
-        if retVal then SOME (targets (LargeInt.toInt nAtoms)) else NONE
+        (if retVal then SOME (targets (LargeInt.toInt nAtoms)) else NONE) before GtkSelectionDataRecord.FFI.touchPtr self
       end
     fun getText self = (GtkSelectionDataRecord.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getText_ self
     fun getUris self = (GtkSelectionDataRecord.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) getUris_ self

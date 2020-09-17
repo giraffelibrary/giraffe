@@ -169,6 +169,12 @@ signature C_ARRAY =
         type non_opt = C.non_opt
 
         (**
+         * Reference a C array to ensure that a pointer it still available.
+         *)
+        val touchPtr    : t        -> unit
+        val touchOptPtr : t option -> unit
+
+        (**
          * Return values
          *
          * The type `'a out_p` is the FFI type for a pointer to a C array

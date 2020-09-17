@@ -37,7 +37,7 @@ structure GtkProgressBar :>
     fun getInverted self = (GtkProgressBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getInverted_ self
     fun getPulseStep self = (GtkProgressBarClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getPulseStep_ self
     fun getShowText self = (GtkProgressBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowText_ self
-    fun getText self = (GtkProgressBarClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getText_ self
+    fun getText self = (GtkProgressBarClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getText_ self before GtkProgressBarClass.FFI.touchPtr self
     fun pulse self = (GtkProgressBarClass.FFI.withPtr false ---> I) pulse_ self
     fun setEllipsize self mode = (GtkProgressBarClass.FFI.withPtr false &&&> PangoEllipsizeMode.FFI.withVal ---> I) setEllipsize_ (self & mode)
     fun setFraction self fraction = (GtkProgressBarClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setFraction_ (self & fraction)

@@ -14,8 +14,8 @@ structure GtkColorSelectionDialog :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new title = (Utf8.FFI.withPtr 0 ---> GtkColorSelectionDialogClass.FFI.fromPtr false) new_ title
-    fun getColorSelection self = (GtkColorSelectionDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getColorSelection_ self
+    fun new title = (Utf8.FFI.withPtr 0 ---> GtkColorSelectionDialogClass.FFI.fromPtr false) new_ title before Utf8.FFI.touchPtr title
+    fun getColorSelection self = (GtkColorSelectionDialogClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getColorSelection_ self before GtkColorSelectionDialogClass.FFI.touchPtr self
     local
       open ValueAccessor
     in

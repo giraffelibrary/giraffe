@@ -104,17 +104,17 @@ structure GtkImage :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkImageClass.FFI.fromPtr false) new_ ()
-    fun newFromAnimation animation = (GdkPixbufPixbufAnimationClass.FFI.withPtr false ---> GtkImageClass.FFI.fromPtr false) newFromAnimation_ animation
-    fun newFromFile filename = (Utf8.FFI.withPtr 0 ---> GtkImageClass.FFI.fromPtr false) newFromFile_ filename
-    fun newFromGicon (icon, size) = (GioIconClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromGicon_ (icon & size)
-    fun newFromIconName (iconName, size) = (Utf8.FFI.withOptPtr 0 &&&> GInt32.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromIconName_ (iconName & size)
-    fun newFromIconSet (iconSet, size) = (GtkIconSetRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromIconSet_ (iconSet & size)
-    fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withOptPtr false ---> GtkImageClass.FFI.fromPtr false) newFromPixbuf_ pixbuf
-    fun newFromResource resourcePath = (Utf8.FFI.withPtr 0 ---> GtkImageClass.FFI.fromPtr false) newFromResource_ resourcePath
-    fun newFromStock (stockId, size) = (Utf8.FFI.withPtr 0 &&&> GInt32.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromStock_ (stockId & size)
-    fun newFromSurface surface = (CairoSurfaceRecord.FFI.withOptPtr false ---> GtkImageClass.FFI.fromPtr false) newFromSurface_ surface
+    fun newFromAnimation animation = (GdkPixbufPixbufAnimationClass.FFI.withPtr false ---> GtkImageClass.FFI.fromPtr false) newFromAnimation_ animation before GdkPixbufPixbufAnimationClass.FFI.touchPtr animation
+    fun newFromFile filename = (Utf8.FFI.withPtr 0 ---> GtkImageClass.FFI.fromPtr false) newFromFile_ filename before Utf8.FFI.touchPtr filename
+    fun newFromGicon (icon, size) = (GioIconClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromGicon_ (icon & size) before GioIconClass.FFI.touchPtr icon
+    fun newFromIconName (iconName, size) = (Utf8.FFI.withOptPtr 0 &&&> GInt32.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromIconName_ (iconName & size) before Utf8.FFI.touchOptPtr iconName
+    fun newFromIconSet (iconSet, size) = (GtkIconSetRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromIconSet_ (iconSet & size) before GtkIconSetRecord.FFI.touchPtr iconSet
+    fun newFromPixbuf pixbuf = (GdkPixbufPixbufClass.FFI.withOptPtr false ---> GtkImageClass.FFI.fromPtr false) newFromPixbuf_ pixbuf before GdkPixbufPixbufClass.FFI.touchOptPtr pixbuf
+    fun newFromResource resourcePath = (Utf8.FFI.withPtr 0 ---> GtkImageClass.FFI.fromPtr false) newFromResource_ resourcePath before Utf8.FFI.touchPtr resourcePath
+    fun newFromStock (stockId, size) = (Utf8.FFI.withPtr 0 &&&> GInt32.FFI.withVal ---> GtkImageClass.FFI.fromPtr false) newFromStock_ (stockId & size) before Utf8.FFI.touchPtr stockId
+    fun newFromSurface surface = (CairoSurfaceRecord.FFI.withOptPtr false ---> GtkImageClass.FFI.fromPtr false) newFromSurface_ surface before CairoSurfaceRecord.FFI.touchOptPtr surface
     fun clear self = (GtkImageClass.FFI.withPtr false ---> I) clear_ self
-    fun getAnimation self = (GtkImageClass.FFI.withPtr false ---> GdkPixbufPixbufAnimationClass.FFI.fromOptPtr false) getAnimation_ self
+    fun getAnimation self = (GtkImageClass.FFI.withPtr false ---> GdkPixbufPixbufAnimationClass.FFI.fromOptPtr false) getAnimation_ self before GtkImageClass.FFI.touchPtr self
     fun getGicon self =
       let
         val gicon
@@ -135,7 +135,7 @@ structure GtkImage :>
                & GInt32.null
             )
       in
-        (gicon, size)
+        (gicon, size) before GtkImageClass.FFI.touchPtr self
       end
     fun getIconName self =
       let
@@ -157,7 +157,7 @@ structure GtkImage :>
                & GInt32.null
             )
       in
-        (iconName, size)
+        (iconName, size) before GtkImageClass.FFI.touchPtr self
       end
     fun getIconSet self =
       let
@@ -179,9 +179,9 @@ structure GtkImage :>
                & GInt32.null
             )
       in
-        (iconSet, size)
+        (iconSet, size) before GtkImageClass.FFI.touchPtr self
       end
-    fun getPixbuf self = (GtkImageClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getPixbuf_ self
+    fun getPixbuf self = (GtkImageClass.FFI.withPtr false ---> GdkPixbufPixbufClass.FFI.fromOptPtr false) getPixbuf_ self before GtkImageClass.FFI.touchPtr self
     fun getPixelSize self = (GtkImageClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getPixelSize_ self
     fun getStock self =
       let
@@ -203,7 +203,7 @@ structure GtkImage :>
                & GInt32.null
             )
       in
-        (stockId, size)
+        (stockId, size) before GtkImageClass.FFI.touchPtr self
       end
     fun getStorageType self = (GtkImageClass.FFI.withPtr false ---> GtkImageType.FFI.fromVal) getStorageType_ self
     fun setFromAnimation self animation = (GtkImageClass.FFI.withPtr false &&&> GdkPixbufPixbufAnimationClass.FFI.withPtr false ---> I) setFromAnimation_ (self & animation)

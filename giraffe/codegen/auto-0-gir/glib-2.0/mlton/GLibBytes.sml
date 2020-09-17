@@ -84,7 +84,7 @@ structure GLibBytes :>
       let
         val size & retVal = (GLibBytesRecord.FFI.withPtr false &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromOptPtr 0) getData_ (self & GSize.null)
       in
-        retVal size
+        retVal size before GLibBytesRecord.FFI.touchPtr self
       end
     fun getSize self = (GLibBytesRecord.FFI.withPtr false ---> GSize.FFI.fromVal) getSize_ self
     fun hash self = (GLibBytesRecord.FFI.withPtr false ---> GUInt.FFI.fromVal) hash_ self

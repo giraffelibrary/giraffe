@@ -32,12 +32,12 @@ structure GtkHeaderBar :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkHeaderBarClass.FFI.fromPtr false) new_ ()
-    fun getCustomTitle self = (GtkHeaderBarClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getCustomTitle_ self
-    fun getDecorationLayout self = (GtkHeaderBarClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDecorationLayout_ self
+    fun getCustomTitle self = (GtkHeaderBarClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getCustomTitle_ self before GtkHeaderBarClass.FFI.touchPtr self
+    fun getDecorationLayout self = (GtkHeaderBarClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDecorationLayout_ self before GtkHeaderBarClass.FFI.touchPtr self
     fun getHasSubtitle self = (GtkHeaderBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasSubtitle_ self
     fun getShowCloseButton self = (GtkHeaderBarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowCloseButton_ self
-    fun getSubtitle self = (GtkHeaderBarClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getSubtitle_ self
-    fun getTitle self = (GtkHeaderBarClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getTitle_ self
+    fun getSubtitle self = (GtkHeaderBarClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getSubtitle_ self before GtkHeaderBarClass.FFI.touchPtr self
+    fun getTitle self = (GtkHeaderBarClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getTitle_ self before GtkHeaderBarClass.FFI.touchPtr self
     fun packEnd self child = (GtkHeaderBarClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) packEnd_ (self & child)
     fun packStart self child = (GtkHeaderBarClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) packStart_ (self & child)
     fun setCustomTitle self titleWidget = (GtkHeaderBarClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withOptPtr false ---> I) setCustomTitle_ (self & titleWidget)

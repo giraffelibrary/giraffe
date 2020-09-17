@@ -163,10 +163,10 @@ structure GtkPaperSize :>
     fun getDefaultLeftMargin self unit = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultLeftMargin_ (self & unit)
     fun getDefaultRightMargin self unit = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultRightMargin_ (self & unit)
     fun getDefaultTopMargin self unit = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getDefaultTopMargin_ (self & unit)
-    fun getDisplayName self = (GtkPaperSizeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
+    fun getDisplayName self = (GtkPaperSizeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self before GtkPaperSizeRecord.FFI.touchPtr self
     fun getHeight self unit = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getHeight_ (self & unit)
-    fun getName self = (GtkPaperSizeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self
-    fun getPpdName self = (GtkPaperSizeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPpdName_ self
+    fun getName self = (GtkPaperSizeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GtkPaperSizeRecord.FFI.touchPtr self
+    fun getPpdName self = (GtkPaperSizeRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getPpdName_ self before GtkPaperSizeRecord.FFI.touchPtr self
     fun getWidth self unit = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getWidth_ (self & unit)
     fun isCustom self = (GtkPaperSizeRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isCustom_ self
     fun isEqual self size2 = (GtkPaperSizeRecord.FFI.withPtr false &&&> GtkPaperSizeRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isEqual_ (self & size2)
@@ -192,7 +192,7 @@ structure GtkPaperSize :>
            & height
            & unit
         )
-    fun toGvariant self = (GtkPaperSizeRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
+    fun toGvariant self = (GtkPaperSizeRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self before GtkPaperSizeRecord.FFI.touchPtr self
     fun toKeyFile self (keyFile, groupName) =
       (
         GtkPaperSizeRecord.FFI.withPtr false

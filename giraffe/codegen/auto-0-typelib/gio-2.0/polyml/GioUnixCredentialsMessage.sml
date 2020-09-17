@@ -19,7 +19,7 @@ structure GioUnixCredentialsMessage :>
     fun new () = (I ---> GioUnixCredentialsMessageClass.FFI.fromPtr true) new_ ()
     fun newWithCredentials credentials = (GioCredentialsClass.FFI.withPtr false ---> GioUnixCredentialsMessageClass.FFI.fromPtr true) newWithCredentials_ credentials
     fun isSupported () = (I ---> GBool.FFI.fromVal) isSupported_ ()
-    fun getCredentials self = (GioUnixCredentialsMessageClass.FFI.withPtr false ---> GioCredentialsClass.FFI.fromPtr false) getCredentials_ self
+    fun getCredentials self = (GioUnixCredentialsMessageClass.FFI.withPtr false ---> GioCredentialsClass.FFI.fromPtr false) getCredentials_ self before GioUnixCredentialsMessageClass.FFI.touchPtr self
     local
       open ValueAccessor
     in

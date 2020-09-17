@@ -100,10 +100,10 @@ structure GioTlsConnection :>
            & peerCert
            & errors
         )
-    fun getCertificate self = (GioTlsConnectionClass.FFI.withPtr false ---> GioTlsCertificateClass.FFI.fromPtr false) getCertificate_ self
-    fun getDatabase self = (GioTlsConnectionClass.FFI.withPtr false ---> GioTlsDatabaseClass.FFI.fromPtr false) getDatabase_ self
-    fun getInteraction self = (GioTlsConnectionClass.FFI.withPtr false ---> GioTlsInteractionClass.FFI.fromPtr false) getInteraction_ self
-    fun getPeerCertificate self = (GioTlsConnectionClass.FFI.withPtr false ---> GioTlsCertificateClass.FFI.fromPtr false) getPeerCertificate_ self
+    fun getCertificate self = (GioTlsConnectionClass.FFI.withPtr false ---> GioTlsCertificateClass.FFI.fromPtr false) getCertificate_ self before GioTlsConnectionClass.FFI.touchPtr self
+    fun getDatabase self = (GioTlsConnectionClass.FFI.withPtr false ---> GioTlsDatabaseClass.FFI.fromPtr false) getDatabase_ self before GioTlsConnectionClass.FFI.touchPtr self
+    fun getInteraction self = (GioTlsConnectionClass.FFI.withPtr false ---> GioTlsInteractionClass.FFI.fromPtr false) getInteraction_ self before GioTlsConnectionClass.FFI.touchPtr self
+    fun getPeerCertificate self = (GioTlsConnectionClass.FFI.withPtr false ---> GioTlsCertificateClass.FFI.fromPtr false) getPeerCertificate_ self before GioTlsConnectionClass.FFI.touchPtr self
     fun getPeerCertificateErrors self = (GioTlsConnectionClass.FFI.withPtr false ---> GioTlsCertificateFlags.FFI.fromVal) getPeerCertificateErrors_ self
     fun getRehandshakeMode self = (GioTlsConnectionClass.FFI.withPtr false ---> GioTlsRehandshakeMode.FFI.fromVal) getRehandshakeMode_ self
     fun getRequireCloseNotify self = (GioTlsConnectionClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRequireCloseNotify_ self

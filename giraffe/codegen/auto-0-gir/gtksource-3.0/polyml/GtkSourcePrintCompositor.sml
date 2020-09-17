@@ -121,7 +121,7 @@ structure GtkSourcePrintCompositor :>
         )
     fun getBodyFontName self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getBodyFontName_ self
     fun getBottomMargin self unit = (GtkSourcePrintCompositorClass.FFI.withPtr false &&&> GtkUnit.FFI.withVal ---> GDouble.FFI.fromVal) getBottomMargin_ (self & unit)
-    fun getBuffer self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self
+    fun getBuffer self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> GtkSourceBufferClass.FFI.fromPtr false) getBuffer_ self before GtkSourcePrintCompositorClass.FFI.touchPtr self
     fun getFooterFontName self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getFooterFontName_ self
     fun getHeaderFontName self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getHeaderFontName_ self
     fun getHighlightSyntax self = (GtkSourcePrintCompositorClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHighlightSyntax_ self

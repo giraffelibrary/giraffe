@@ -65,7 +65,7 @@ structure GdkKeymap :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun getDefault () = (I ---> GdkKeymapClass.FFI.fromPtr false) getDefault_ ()
-    fun getForDisplay display = (GdkDisplayClass.FFI.withPtr false ---> GdkKeymapClass.FFI.fromPtr false) getForDisplay_ display
+    fun getForDisplay display = (GdkDisplayClass.FFI.withPtr false ---> GdkKeymapClass.FFI.fromPtr false) getForDisplay_ display before GdkDisplayClass.FFI.touchPtr display
     fun addVirtualModifiers self state =
       let
         val state & () = (GdkKeymapClass.FFI.withPtr false &&&> GdkModifierType.FFI.withRefVal ---> GdkModifierType.FFI.fromVal && I) addVirtualModifiers_ (self & state)

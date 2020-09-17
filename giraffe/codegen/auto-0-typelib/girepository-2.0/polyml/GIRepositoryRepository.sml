@@ -103,7 +103,7 @@ structure GIRepositoryRepository :>
            & namespace
            & name
         )
-    fun getCPrefix self namespace = (GIRepositoryRepositoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getCPrefix_ (self & namespace)
+    fun getCPrefix self namespace = (GIRepositoryRepositoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getCPrefix_ (self & namespace) before GIRepositoryRepositoryClass.FFI.touchPtr self before Utf8.FFI.touchPtr namespace
     fun getDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) getDependencies_ (self & namespace)
     fun getImmediateDependencies self namespace = (GIRepositoryRepositoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) getImmediateDependencies_ (self & namespace)
     fun getInfo self (namespace, index) =
@@ -121,9 +121,9 @@ structure GIRepositoryRepository :>
         )
     fun getLoadedNamespaces self = (GIRepositoryRepositoryClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr ~1) getLoadedNamespaces_ self
     fun getNInfos self namespace = (GIRepositoryRepositoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GInt32.FFI.fromVal) getNInfos_ (self & namespace)
-    fun getSharedLibrary self namespace = (GIRepositoryRepositoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getSharedLibrary_ (self & namespace)
-    fun getTypelibPath self namespace = (GIRepositoryRepositoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getTypelibPath_ (self & namespace)
-    fun getVersion self namespace = (GIRepositoryRepositoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getVersion_ (self & namespace)
+    fun getSharedLibrary self namespace = (GIRepositoryRepositoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getSharedLibrary_ (self & namespace) before GIRepositoryRepositoryClass.FFI.touchPtr self before Utf8.FFI.touchPtr namespace
+    fun getTypelibPath self namespace = (GIRepositoryRepositoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getTypelibPath_ (self & namespace) before GIRepositoryRepositoryClass.FFI.touchPtr self before Utf8.FFI.touchPtr namespace
+    fun getVersion self namespace = (GIRepositoryRepositoryClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getVersion_ (self & namespace) before GIRepositoryRepositoryClass.FFI.touchPtr self before Utf8.FFI.touchPtr namespace
     fun isRegistered self (namespace, version) =
       (
         GIRepositoryRepositoryClass.FFI.withPtr false
@@ -152,6 +152,8 @@ structure GIRepositoryRepository :>
            & flags
            & []
         )
+       before GIRepositoryRepositoryClass.FFI.touchPtr self
+       before GIRepositoryTypelibRecord.FFI.touchPtr typelib
     fun require
       self
       (
@@ -175,6 +177,9 @@ structure GIRepositoryRepository :>
            & flags
            & []
         )
+       before GIRepositoryRepositoryClass.FFI.touchPtr self
+       before Utf8.FFI.touchPtr namespace
+       before Utf8.FFI.touchOptPtr version
     fun requirePrivate
       self
       (
@@ -201,4 +206,8 @@ structure GIRepositoryRepository :>
            & flags
            & []
         )
+       before GIRepositoryRepositoryClass.FFI.touchPtr self
+       before Utf8.FFI.touchPtr typelibDir
+       before Utf8.FFI.touchPtr namespace
+       before Utf8.FFI.touchOptPtr version
   end

@@ -952,7 +952,7 @@ structure GtkTextBuffer :>
         )
     fun beginUserAction self = (GtkTextBufferClass.FFI.withPtr false ---> I) beginUserAction_ self
     fun copyClipboard self clipboard = (GtkTextBufferClass.FFI.withPtr false &&&> GtkClipboardClass.FFI.withPtr false ---> I) copyClipboard_ (self & clipboard)
-    fun createChildAnchor self iter = (GtkTextBufferClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> GtkTextChildAnchorClass.FFI.fromPtr false) createChildAnchor_ (self & iter)
+    fun createChildAnchor self iter = (GtkTextBufferClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> GtkTextChildAnchorClass.FFI.fromPtr false) createChildAnchor_ (self & iter) before GtkTextBufferClass.FFI.touchPtr self before GtkTextIterRecord.FFI.touchPtr iter
     fun createMark
       self
       (
@@ -974,6 +974,9 @@ structure GtkTextBuffer :>
            & where'
            & leftGravity
         )
+       before GtkTextBufferClass.FFI.touchPtr self
+       before Utf8.FFI.touchOptPtr markName
+       before GtkTextIterRecord.FFI.touchPtr where'
     fun cutClipboard self (clipboard, defaultEditable) =
       (
         GtkTextBufferClass.FFI.withPtr false
@@ -1108,12 +1111,12 @@ structure GtkTextBuffer :>
         (start, end')
       end
     fun getCharCount self = (GtkTextBufferClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getCharCount_ self
-    fun getCopyTargetList self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTargetListRecord.FFI.fromPtr false) getCopyTargetList_ self
+    fun getCopyTargetList self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTargetListRecord.FFI.fromPtr false) getCopyTargetList_ self before GtkTextBufferClass.FFI.touchPtr self
     fun getDeserializeFormats self =
       let
         val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr false &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCPtrArrayN.FFI.fromPtr 1) getDeserializeFormats_ (self & GInt32.null)
       in
-        retVal (LargeInt.toInt nFormats)
+        retVal (LargeInt.toInt nFormats) before GtkTextBufferClass.FFI.touchPtr self
       end
     fun getEndIter self =
       let
@@ -1122,7 +1125,7 @@ structure GtkTextBuffer :>
         iter
       end
     fun getHasSelection self = (GtkTextBufferClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasSelection_ self
-    fun getInsert self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTextMarkClass.FFI.fromPtr false) getInsert_ self
+    fun getInsert self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTextMarkClass.FFI.fromPtr false) getInsert_ self before GtkTextBufferClass.FFI.touchPtr self
     fun getIterAtChildAnchor self anchor =
       let
         val iter & () =
@@ -1236,10 +1239,10 @@ structure GtkTextBuffer :>
         iter
       end
     fun getLineCount self = (GtkTextBufferClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getLineCount_ self
-    fun getMark self name = (GtkTextBufferClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkTextMarkClass.FFI.fromOptPtr false) getMark_ (self & name)
+    fun getMark self name = (GtkTextBufferClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkTextMarkClass.FFI.fromOptPtr false) getMark_ (self & name) before GtkTextBufferClass.FFI.touchPtr self before Utf8.FFI.touchPtr name
     fun getModified self = (GtkTextBufferClass.FFI.withPtr false ---> GBool.FFI.fromVal) getModified_ self
-    fun getPasteTargetList self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTargetListRecord.FFI.fromPtr false) getPasteTargetList_ self
-    fun getSelectionBound self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTextMarkClass.FFI.fromPtr false) getSelectionBound_ self
+    fun getPasteTargetList self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTargetListRecord.FFI.fromPtr false) getPasteTargetList_ self before GtkTextBufferClass.FFI.touchPtr self
+    fun getSelectionBound self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTextMarkClass.FFI.fromPtr false) getSelectionBound_ self before GtkTextBufferClass.FFI.touchPtr self
     fun getSelectionBounds self =
       let
         val start
@@ -1266,7 +1269,7 @@ structure GtkTextBuffer :>
       let
         val nFormats & retVal = (GtkTextBufferClass.FFI.withPtr false &&&> GInt32.FFI.withRefVal ---> GInt32.FFI.fromVal && GdkAtomRecordCPtrArrayN.FFI.fromPtr 1) getSerializeFormats_ (self & GInt32.null)
       in
-        retVal (LargeInt.toInt nFormats)
+        retVal (LargeInt.toInt nFormats) before GtkTextBufferClass.FFI.touchPtr self
       end
     fun getSlice
       self
@@ -1295,7 +1298,7 @@ structure GtkTextBuffer :>
       in
         iter
       end
-    fun getTagTable self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTextTagTableClass.FFI.fromPtr false) getTagTable_ self
+    fun getTagTable self = (GtkTextBufferClass.FFI.withPtr false ---> GtkTextTagTableClass.FFI.fromPtr false) getTagTable_ self before GtkTextBufferClass.FFI.touchPtr self
     fun getText
       self
       (
@@ -1536,8 +1539,8 @@ structure GtkTextBuffer :>
            & defaultEditable
         )
     fun placeCursor self where' = (GtkTextBufferClass.FFI.withPtr false &&&> GtkTextIterRecord.FFI.withPtr false ---> I) placeCursor_ (self & where')
-    fun registerDeserializeTagset self tagsetName = (GtkTextBufferClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GdkAtomRecord.FFI.fromPtr false) registerDeserializeTagset_ (self & tagsetName)
-    fun registerSerializeTagset self tagsetName = (GtkTextBufferClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GdkAtomRecord.FFI.fromPtr false) registerSerializeTagset_ (self & tagsetName)
+    fun registerDeserializeTagset self tagsetName = (GtkTextBufferClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GdkAtomRecord.FFI.fromPtr false) registerDeserializeTagset_ (self & tagsetName) before GtkTextBufferClass.FFI.touchPtr self before Utf8.FFI.touchOptPtr tagsetName
+    fun registerSerializeTagset self tagsetName = (GtkTextBufferClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> GdkAtomRecord.FFI.fromPtr false) registerSerializeTagset_ (self & tagsetName) before GtkTextBufferClass.FFI.touchPtr self before Utf8.FFI.touchOptPtr tagsetName
     fun removeAllTags self (start, end') =
       (
         GtkTextBufferClass.FFI.withPtr false

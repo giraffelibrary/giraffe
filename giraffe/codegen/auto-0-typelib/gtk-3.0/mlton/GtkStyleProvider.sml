@@ -39,7 +39,7 @@ structure GtkStyleProvider :>
     type widget_path_t = GtkWidgetPathRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getIconFactory self path = (GtkStyleProviderClass.FFI.withPtr false &&&> GtkWidgetPathRecord.FFI.withPtr false ---> GtkIconFactoryClass.FFI.fromOptPtr false) getIconFactory_ (self & path)
+    fun getIconFactory self path = (GtkStyleProviderClass.FFI.withPtr false &&&> GtkWidgetPathRecord.FFI.withPtr false ---> GtkIconFactoryClass.FFI.fromOptPtr false) getIconFactory_ (self & path) before GtkStyleProviderClass.FFI.touchPtr self before GtkWidgetPathRecord.FFI.touchPtr path
     fun getStyle self path = (GtkStyleProviderClass.FFI.withPtr false &&&> GtkWidgetPathRecord.FFI.withPtr false ---> GtkStylePropertiesClass.FFI.fromOptPtr true) getStyle_ (self & path)
     fun getStyleProperty
       self

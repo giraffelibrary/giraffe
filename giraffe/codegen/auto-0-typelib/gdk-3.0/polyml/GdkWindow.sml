@@ -568,7 +568,7 @@ structure GdkWindow :>
     fun processAllUpdates () = (I ---> I) processAllUpdates_ ()
     fun setDebugUpdates setting = (GBool.FFI.withVal ---> I) setDebugUpdates_ setting
     fun beep self = (GdkWindowClass.FFI.withPtr false ---> I) beep_ self
-    fun beginDrawFrame self region = (GdkWindowClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withPtr false ---> GdkDrawingContextClass.FFI.fromPtr false) beginDrawFrame_ (self & region)
+    fun beginDrawFrame self region = (GdkWindowClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withPtr false ---> GdkDrawingContextClass.FFI.fromPtr false) beginDrawFrame_ (self & region) before GdkWindowClass.FFI.touchPtr self before CairoRegionRecord.FFI.touchPtr region
     fun beginMoveDrag
       self
       (
@@ -793,17 +793,17 @@ structure GdkWindow :>
     fun fullscreenOnMonitor self monitor = (GdkWindowClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> I) fullscreenOnMonitor_ (self & monitor)
     fun geometryChanged self = (GdkWindowClass.FFI.withPtr false ---> I) geometryChanged_ self
     fun getAcceptFocus self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAcceptFocus_ self
-    fun getBackgroundPattern self = (GdkWindowClass.FFI.withPtr false ---> CairoPatternRecord.FFI.fromOptPtr false) getBackgroundPattern_ self
+    fun getBackgroundPattern self = (GdkWindowClass.FFI.withPtr false ---> CairoPatternRecord.FFI.fromOptPtr false) getBackgroundPattern_ self before GdkWindowClass.FFI.touchPtr self
     fun getClipRegion self = (GdkWindowClass.FFI.withPtr false ---> CairoRegionRecord.FFI.fromPtr true) getClipRegion_ self
     fun getComposited self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getComposited_ self
-    fun getCursor self = (GdkWindowClass.FFI.withPtr false ---> GdkCursorClass.FFI.fromOptPtr false) getCursor_ self
+    fun getCursor self = (GdkWindowClass.FFI.withPtr false ---> GdkCursorClass.FFI.fromOptPtr false) getCursor_ self before GdkWindowClass.FFI.touchPtr self
     fun getDecorations self =
       let
         val decorations & retVal = (GdkWindowClass.FFI.withPtr false &&&> GdkWMDecoration.FFI.withRefVal ---> GdkWMDecoration.FFI.fromVal && GBool.FFI.fromVal) getDecorations_ (self & GdkWMDecoration.flags [])
       in
         if retVal then SOME decorations else NONE
       end
-    fun getDeviceCursor self device = (GdkWindowClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GdkCursorClass.FFI.fromOptPtr false) getDeviceCursor_ (self & device)
+    fun getDeviceCursor self device = (GdkWindowClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GdkCursorClass.FFI.fromOptPtr false) getDeviceCursor_ (self & device) before GdkWindowClass.FFI.touchPtr self before GdkDeviceClass.FFI.touchPtr device
     fun getDeviceEvents self device = (GdkWindowClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GdkEventMask.FFI.fromVal) getDeviceEvents_ (self & device)
     fun getDevicePosition self device =
       let
@@ -837,6 +837,8 @@ structure GdkWindow :>
           y,
           mask
         )
+         before GdkWindowClass.FFI.touchPtr self
+         before GdkDeviceClass.FFI.touchPtr device
       end
     fun getDevicePositionDouble self device =
       let
@@ -870,20 +872,22 @@ structure GdkWindow :>
           y,
           mask
         )
+         before GdkWindowClass.FFI.touchPtr self
+         before GdkDeviceClass.FFI.touchPtr device
       end
-    fun getDisplay self = (GdkWindowClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
+    fun getDisplay self = (GdkWindowClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self before GdkWindowClass.FFI.touchPtr self
     fun getDragProtocol self =
       let
         val target & retVal = (GdkWindowClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withRefOptPtr true ---> GdkWindowClass.FFI.fromPtr true && GdkDragProtocol.FFI.fromVal) getDragProtocol_ (self & NONE)
       in
         (retVal, target)
       end
-    fun getEffectiveParent self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getEffectiveParent_ self
-    fun getEffectiveToplevel self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getEffectiveToplevel_ self
+    fun getEffectiveParent self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getEffectiveParent_ self before GdkWindowClass.FFI.touchPtr self
+    fun getEffectiveToplevel self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getEffectiveToplevel_ self before GdkWindowClass.FFI.touchPtr self
     fun getEventCompression self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEventCompression_ self
     fun getEvents self = (GdkWindowClass.FFI.withPtr false ---> GdkEventMask.FFI.fromVal) getEvents_ self
     fun getFocusOnMap self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFocusOnMap_ self
-    fun getFrameClock self = (GdkWindowClass.FFI.withPtr false ---> GdkFrameClockClass.FFI.fromPtr false) getFrameClock_ self
+    fun getFrameClock self = (GdkWindowClass.FFI.withPtr false ---> GdkFrameClockClass.FFI.fromPtr false) getFrameClock_ self before GdkWindowClass.FFI.touchPtr self
     fun getFrameExtents self =
       let
         val rect & () = (GdkWindowClass.FFI.withPtr false &&&> GdkRectangleRecord.FFI.withNewPtr ---> GdkRectangleRecord.FFI.fromPtr true && I) getFrameExtents_ (self & ())
@@ -926,7 +930,7 @@ structure GdkWindow :>
           height
         )
       end
-    fun getGroup self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getGroup_ self
+    fun getGroup self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getGroup_ self before GdkWindowClass.FFI.touchPtr self
     fun getHeight self = (GdkWindowClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getHeight_ self
     fun getModalHint self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getModalHint_ self
     fun getOrigin self =
@@ -955,7 +959,7 @@ structure GdkWindow :>
           y
         )
       end
-    fun getParent self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getParent_ self
+    fun getParent self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getParent_ self before GdkWindowClass.FFI.touchPtr self
     fun getPassThrough self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPassThrough_ self
     fun getPointer self =
       let
@@ -987,6 +991,7 @@ structure GdkWindow :>
           y,
           mask
         )
+         before GdkWindowClass.FFI.touchPtr self
       end
     fun getPosition self =
       let
@@ -1059,15 +1064,15 @@ structure GdkWindow :>
         (x, y)
       end
     fun getScaleFactor self = (GdkWindowClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getScaleFactor_ self
-    fun getScreen self = (GdkWindowClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self
+    fun getScreen self = (GdkWindowClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self before GdkWindowClass.FFI.touchPtr self
     fun getSourceEvents self source = (GdkWindowClass.FFI.withPtr false &&&> GdkInputSource.FFI.withVal ---> GdkEventMask.FFI.fromVal) getSourceEvents_ (self & source)
     fun getState self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowState.FFI.fromVal) getState_ self
     fun getSupportMultidevice self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSupportMultidevice_ self
-    fun getToplevel self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getToplevel_ self
+    fun getToplevel self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getToplevel_ self before GdkWindowClass.FFI.touchPtr self
     fun getTypeHint self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowTypeHint.FFI.fromVal) getTypeHint_ self
     fun getUpdateArea self = (GdkWindowClass.FFI.withPtr false ---> CairoRegionRecord.FFI.fromPtr true) getUpdateArea_ self
     fun getVisibleRegion self = (GdkWindowClass.FFI.withPtr false ---> CairoRegionRecord.FFI.fromPtr true) getVisibleRegion_ self
-    fun getVisual self = (GdkWindowClass.FFI.withPtr false ---> GdkVisualClass.FFI.fromPtr false) getVisual_ self
+    fun getVisual self = (GdkWindowClass.FFI.withPtr false ---> GdkVisualClass.FFI.fromPtr false) getVisual_ self before GdkWindowClass.FFI.touchPtr self
     fun getWidth self = (GdkWindowClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getWidth_ self
     fun getWindowType self = (GdkWindowClass.FFI.withPtr false ---> GdkWindowType.FFI.fromVal) getWindowType_ self
     fun hasNative self = (GdkWindowClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasNative_ self

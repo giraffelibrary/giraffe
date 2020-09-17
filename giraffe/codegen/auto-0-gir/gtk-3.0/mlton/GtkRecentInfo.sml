@@ -142,15 +142,19 @@ structure GtkRecentInfo :>
                & GLong.null
             )
       in
-        if retVal
-        then
-          SOME
-            (
-              appExec,
-              count,
-              time
-            )
-        else NONE
+        (
+          if retVal
+          then
+            SOME
+              (
+                appExec,
+                count,
+                time
+              )
+          else NONE
+        )
+         before GtkRecentInfoRecord.FFI.touchPtr self
+         before Utf8.FFI.touchPtr appName
       end
     fun getApplications self =
       let
@@ -158,8 +162,8 @@ structure GtkRecentInfo :>
       in
         retVal
       end
-    fun getDescription self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self
-    fun getDisplayName self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self
+    fun getDescription self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDescription_ self before GtkRecentInfoRecord.FFI.touchPtr self
+    fun getDisplayName self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getDisplayName_ self before GtkRecentInfoRecord.FFI.touchPtr self
     fun getGicon self = (GtkRecentInfoRecord.FFI.withPtr false ---> GioIconClass.FFI.fromOptPtr true) getGicon_ self
     fun getGroups self =
       let
@@ -168,11 +172,11 @@ structure GtkRecentInfo :>
         retVal
       end
     fun getIcon self size = (GtkRecentInfoRecord.FFI.withPtr false &&&> GInt.FFI.withVal ---> GdkPixbufPixbufClass.FFI.fromOptPtr true) getIcon_ (self & size)
-    fun getMimeType self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMimeType_ self
+    fun getMimeType self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMimeType_ self before GtkRecentInfoRecord.FFI.touchPtr self
     fun getModified self = (GtkRecentInfoRecord.FFI.withPtr false ---> GLong.FFI.fromVal) getModified_ self
     fun getPrivateHint self = (GtkRecentInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getPrivateHint_ self
     fun getShortName self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getShortName_ self
-    fun getUri self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUri_ self
+    fun getUri self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getUri_ self before GtkRecentInfoRecord.FFI.touchPtr self
     fun getUriDisplay self = (GtkRecentInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getUriDisplay_ self
     fun getVisited self = (GtkRecentInfoRecord.FFI.withPtr false ---> GLong.FFI.fromVal) getVisited_ self
     fun hasApplication self appName = (GtkRecentInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasApplication_ (self & appName)

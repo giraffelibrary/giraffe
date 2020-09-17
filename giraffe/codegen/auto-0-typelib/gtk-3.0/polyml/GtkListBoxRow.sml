@@ -29,7 +29,7 @@ structure GtkListBoxRow :>
     fun new () = (I ---> GtkListBoxRowClass.FFI.fromPtr false) new_ ()
     fun changed self = (GtkListBoxRowClass.FFI.withPtr false ---> I) changed_ self
     fun getActivatable self = (GtkListBoxRowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActivatable_ self
-    fun getHeader self = (GtkListBoxRowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getHeader_ self
+    fun getHeader self = (GtkListBoxRowClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getHeader_ self before GtkListBoxRowClass.FFI.touchPtr self
     fun getIndex self = (GtkListBoxRowClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getIndex_ self
     fun getSelectable self = (GtkListBoxRowClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSelectable_ self
     fun isSelected self = (GtkListBoxRowClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSelected_ self

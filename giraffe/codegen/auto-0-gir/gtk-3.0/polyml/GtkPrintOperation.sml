@@ -72,14 +72,14 @@ structure GtkPrintOperation :>
     fun new () = (I ---> GtkPrintOperationClass.FFI.fromPtr true) new_ ()
     fun cancel self = (GtkPrintOperationClass.FFI.withPtr false ---> I) cancel_ self
     fun drawPageFinish self = (GtkPrintOperationClass.FFI.withPtr false ---> I) drawPageFinish_ self
-    fun getDefaultPageSetup self = (GtkPrintOperationClass.FFI.withPtr false ---> GtkPageSetupClass.FFI.fromPtr false) getDefaultPageSetup_ self
+    fun getDefaultPageSetup self = (GtkPrintOperationClass.FFI.withPtr false ---> GtkPageSetupClass.FFI.fromPtr false) getDefaultPageSetup_ self before GtkPrintOperationClass.FFI.touchPtr self
     fun getEmbedPageSetup self = (GtkPrintOperationClass.FFI.withPtr false ---> GBool.FFI.fromVal) getEmbedPageSetup_ self
     fun getError self = (GtkPrintOperationClass.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> I) getError_ (self & [])
     fun getHasSelection self = (GtkPrintOperationClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasSelection_ self
     fun getNPagesToPrint self = (GtkPrintOperationClass.FFI.withPtr false ---> GInt.FFI.fromVal) getNPagesToPrint_ self
-    fun getPrintSettings self = (GtkPrintOperationClass.FFI.withPtr false ---> GtkPrintSettingsClass.FFI.fromPtr false) getPrintSettings_ self
+    fun getPrintSettings self = (GtkPrintOperationClass.FFI.withPtr false ---> GtkPrintSettingsClass.FFI.fromPtr false) getPrintSettings_ self before GtkPrintOperationClass.FFI.touchPtr self
     fun getStatus self = (GtkPrintOperationClass.FFI.withPtr false ---> GtkPrintStatus.FFI.fromVal) getStatus_ self
-    fun getStatusString self = (GtkPrintOperationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getStatusString_ self
+    fun getStatusString self = (GtkPrintOperationClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getStatusString_ self before GtkPrintOperationClass.FFI.touchPtr self
     fun getSupportSelection self = (GtkPrintOperationClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSupportSelection_ self
     fun isFinished self = (GtkPrintOperationClass.FFI.withPtr false ---> GBool.FFI.fromVal) isFinished_ self
     fun run self (action, parent) =

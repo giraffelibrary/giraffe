@@ -66,12 +66,12 @@ structure GtkClipboard :>
     type 'a text_buffer_class = 'a GtkTextBufferClass.class
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun get selection = (GdkAtomRecord.FFI.withPtr false ---> GtkClipboardClass.FFI.fromPtr false) get_ selection
-    fun getDefault display = (GdkDisplayClass.FFI.withPtr false ---> GtkClipboardClass.FFI.fromPtr false) getDefault_ display
-    fun getForDisplay (display, selection) = (GdkDisplayClass.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> GtkClipboardClass.FFI.fromPtr false) getForDisplay_ (display & selection)
+    fun get selection = (GdkAtomRecord.FFI.withPtr false ---> GtkClipboardClass.FFI.fromPtr false) get_ selection before GdkAtomRecord.FFI.touchPtr selection
+    fun getDefault display = (GdkDisplayClass.FFI.withPtr false ---> GtkClipboardClass.FFI.fromPtr false) getDefault_ display before GdkDisplayClass.FFI.touchPtr display
+    fun getForDisplay (display, selection) = (GdkDisplayClass.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> GtkClipboardClass.FFI.fromPtr false) getForDisplay_ (display & selection) before GdkDisplayClass.FFI.touchPtr display before GdkAtomRecord.FFI.touchPtr selection
     fun clear self = (GtkClipboardClass.FFI.withPtr false ---> I) clear_ self
-    fun getDisplay self = (GtkClipboardClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self
-    fun getOwner self = (GtkClipboardClass.FFI.withPtr false ---> GObjectObjectClass.FFI.fromOptPtr false) getOwner_ self
+    fun getDisplay self = (GtkClipboardClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self before GtkClipboardClass.FFI.touchPtr self
+    fun getOwner self = (GtkClipboardClass.FFI.withPtr false ---> GObjectObjectClass.FFI.fromOptPtr false) getOwner_ self before GtkClipboardClass.FFI.touchPtr self
     fun setCanStore self targets =
       let
         val nTargets =
@@ -133,7 +133,7 @@ structure GtkClipboard :>
                & GUInt64.null
             )
       in
-        (retVal (LargeInt.toInt length), format)
+        (retVal (LargeInt.toInt length), format) before GtkClipboardClass.FFI.touchPtr self before GtkTextBufferClass.FFI.touchPtr buffer
       end
     fun waitForTargets self =
       let
@@ -155,7 +155,7 @@ structure GtkClipboard :>
                & GInt32.null
             )
       in
-        if retVal then SOME (targets (LargeInt.toInt nTargets)) else NONE
+        (if retVal then SOME (targets (LargeInt.toInt nTargets)) else NONE) before GtkClipboardClass.FFI.touchPtr self
       end
     fun waitForText self = (GtkClipboardClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) waitForText_ self
     fun waitForUris self = (GtkClipboardClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromOptPtr ~1) waitForUris_ self

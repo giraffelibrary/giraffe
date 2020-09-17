@@ -50,5 +50,5 @@ structure GioFileAttributeInfoList :>
            & flags
         )
     fun dup self = (GioFileAttributeInfoListRecord.FFI.withPtr false ---> GioFileAttributeInfoListRecord.FFI.fromPtr true) dup_ self
-    fun lookup self name = (GioFileAttributeInfoListRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioFileAttributeInfoRecord.FFI.fromPtr false) lookup_ (self & name)
+    fun lookup self name = (GioFileAttributeInfoListRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioFileAttributeInfoRecord.FFI.fromPtr false) lookup_ (self & name) before GioFileAttributeInfoListRecord.FFI.touchPtr self before Utf8.FFI.touchPtr name
   end

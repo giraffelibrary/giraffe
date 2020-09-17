@@ -192,22 +192,22 @@ structure GtkFileChooser :>
            & []
         )
     fun getAction self = (GtkFileChooserClass.FFI.withPtr false ---> GtkFileChooserAction.FFI.fromVal) getAction_ self
-    fun getChoice self id = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getChoice_ (self & id)
+    fun getChoice self id = (GtkFileChooserClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getChoice_ (self & id) before GtkFileChooserClass.FFI.touchPtr self before Utf8.FFI.touchPtr id
     fun getCreateFolders self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCreateFolders_ self
     fun getCurrentFolder self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getCurrentFolder_ self
     fun getCurrentFolderFile self = (GtkFileChooserClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr true) getCurrentFolderFile_ self
     fun getCurrentFolderUri self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getCurrentFolderUri_ self
     fun getCurrentName self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getCurrentName_ self
     fun getDoOverwriteConfirmation self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDoOverwriteConfirmation_ self
-    fun getExtraWidget self = (GtkFileChooserClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getExtraWidget_ self
+    fun getExtraWidget self = (GtkFileChooserClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getExtraWidget_ self before GtkFileChooserClass.FFI.touchPtr self
     fun getFile self = (GtkFileChooserClass.FFI.withPtr false ---> GioFileClass.FFI.fromPtr true) getFile_ self
     fun getFilename self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getFilename_ self
-    fun getFilter self = (GtkFileChooserClass.FFI.withPtr false ---> GtkFileFilterClass.FFI.fromOptPtr false) getFilter_ self
+    fun getFilter self = (GtkFileChooserClass.FFI.withPtr false ---> GtkFileFilterClass.FFI.fromOptPtr false) getFilter_ self before GtkFileChooserClass.FFI.touchPtr self
     fun getLocalOnly self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getLocalOnly_ self
     fun getPreviewFile self = (GtkFileChooserClass.FFI.withPtr false ---> GioFileClass.FFI.fromOptPtr true) getPreviewFile_ self
     fun getPreviewFilename self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getPreviewFilename_ self
     fun getPreviewUri self = (GtkFileChooserClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getPreviewUri_ self
-    fun getPreviewWidget self = (GtkFileChooserClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getPreviewWidget_ self
+    fun getPreviewWidget self = (GtkFileChooserClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getPreviewWidget_ self before GtkFileChooserClass.FFI.touchPtr self
     fun getPreviewWidgetActive self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getPreviewWidgetActive_ self
     fun getSelectMultiple self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSelectMultiple_ self
     fun getShowHidden self = (GtkFileChooserClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowHidden_ self

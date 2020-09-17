@@ -32,8 +32,8 @@ structure GtkRadioToolButton :>
     fun asActivatable self = (GObjectObjectClass.FFI.withPtr false ---> GtkActivatableClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newFromWidget group = (GtkRadioToolButtonClass.FFI.withOptPtr false ---> GtkRadioToolButtonClass.FFI.fromPtr false) newFromWidget_ group
-    fun newWithStockFromWidget (group, stockId) = (GtkRadioToolButtonClass.FFI.withOptPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkRadioToolButtonClass.FFI.fromPtr false) newWithStockFromWidget_ (group & stockId)
+    fun newFromWidget group = (GtkRadioToolButtonClass.FFI.withOptPtr false ---> GtkRadioToolButtonClass.FFI.fromPtr false) newFromWidget_ group before GtkRadioToolButtonClass.FFI.touchOptPtr group
+    fun newWithStockFromWidget (group, stockId) = (GtkRadioToolButtonClass.FFI.withOptPtr false &&&> Utf8.FFI.withPtr 0 ---> GtkRadioToolButtonClass.FFI.fromPtr false) newWithStockFromWidget_ (group & stockId) before GtkRadioToolButtonClass.FFI.touchOptPtr group before Utf8.FFI.touchPtr stockId
     local
       open ValueAccessor
     in

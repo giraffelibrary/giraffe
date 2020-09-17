@@ -394,7 +394,6 @@ fun addInterfaceMethodStrDecsLowLevel
   repo
   vers
   addInitStrDecs
-  interfaceRootIRef
   interfaceIRef =
   addFunctionStrDecsLowLevel
     (InterfaceInfo.getNMethods, InterfaceInfo.getMethod)
@@ -402,13 +401,13 @@ fun addInterfaceMethodStrDecsLowLevel
     repo
     vers
     addInitStrDecs
-    (SOME (interfaceRootIRef, interfaceIRef))
+    (SOME interfaceIRef)
 
-fun addInterfaceMethodStrDecsHighLevel repo vers interfaceRootIRef interfaceIRef =
+fun addInterfaceMethodStrDecsHighLevel repo vers (interfaceInfo, interfaceIRef) =
   revFoldMapInfosWithExcls
     InterfaceInfo.getNMethods
     InterfaceInfo.getMethod
-    (makeFunctionStrDecHighLevel repo vers (SOME (interfaceRootIRef, interfaceIRef)))
+    (makeFunctionStrDecHighLevel repo vers (SOME (interfaceInfo, interfaceIRef)))
 
 fun addInterfaceSignalStrDecs repo interfaceIRef =
   fn (interfaceInfo, (strDecs, x, excls)) =>
@@ -505,8 +504,6 @@ fun makeInterfaceStr
     val interfaceStrNameId = mkStrNameId interfaceName
 
     val typeIRef = makeTypeIRef interfaceNamespace (SOME interfaceName)
-    val interfaceRootIRef =
-      makeInterfaceRootIRef interfaceNamespace (SOME interfaceName)
 
     val isGObject = interfaceNamespace = "GObject"
 
@@ -524,8 +521,7 @@ fun makeInterfaceStr
       addInterfaceMethodStrDecsHighLevel
         repo
         vers
-        interfaceRootIRef
-        interfaceIRef
+        (interfaceInfo, interfaceIRef)
         (interfaceInfo, acc'2)
     val acc'4 = addGetTypeFunctionStrDecHighLevel getTypeSymbol typeIRef acc'3
     val acc'5 = addInterfaceConstantStrDecs repo vers (interfaceInfo, acc'4)
@@ -585,7 +581,6 @@ fun makeInterfaceStr
             repo
             vers
             (addGetTypeFunctionStrDecLowLevel getTypeSymbol)
-            interfaceRootIRef
             interfaceIRef
             (interfaceInfo, (strDecs'10, excls'6))
 

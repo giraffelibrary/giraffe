@@ -61,9 +61,9 @@ structure GtkLayout :>
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     fun asScrollable self = (GObjectObjectClass.FFI.withPtr false ---> GtkScrollableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkLayoutClass.FFI.fromPtr false) new_ (hadjustment & vadjustment)
-    fun getBinWindow self = (GtkLayoutClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self
-    fun getHadjustment self = (GtkLayoutClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self
+    fun new (hadjustment, vadjustment) = (GtkAdjustmentClass.FFI.withOptPtr false &&&> GtkAdjustmentClass.FFI.withOptPtr false ---> GtkLayoutClass.FFI.fromPtr false) new_ (hadjustment & vadjustment) before GtkAdjustmentClass.FFI.touchOptPtr hadjustment before GtkAdjustmentClass.FFI.touchOptPtr vadjustment
+    fun getBinWindow self = (GtkLayoutClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getBinWindow_ self before GtkLayoutClass.FFI.touchPtr self
+    fun getHadjustment self = (GtkLayoutClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getHadjustment_ self before GtkLayoutClass.FFI.touchPtr self
     fun getSize self =
       let
         val width
@@ -86,7 +86,7 @@ structure GtkLayout :>
       in
         (width, height)
       end
-    fun getVadjustment self = (GtkLayoutClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self
+    fun getVadjustment self = (GtkLayoutClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getVadjustment_ self before GtkLayoutClass.FFI.touchPtr self
     fun move
       self
       (

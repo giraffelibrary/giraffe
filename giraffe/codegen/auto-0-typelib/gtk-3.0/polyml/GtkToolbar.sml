@@ -84,7 +84,7 @@ structure GtkToolbar :>
     fun getIconSize self = (GtkToolbarClass.FFI.withPtr false ---> GtkIconSize.FFI.fromVal) getIconSize_ self
     fun getItemIndex self item = (GtkToolbarClass.FFI.withPtr false &&&> GtkToolItemClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getItemIndex_ (self & item)
     fun getNItems self = (GtkToolbarClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNItems_ self
-    fun getNthItem self n = (GtkToolbarClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkToolItemClass.FFI.fromOptPtr false) getNthItem_ (self & n)
+    fun getNthItem self n = (GtkToolbarClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkToolItemClass.FFI.fromOptPtr false) getNthItem_ (self & n) before GtkToolbarClass.FFI.touchPtr self
     fun getReliefStyle self = (GtkToolbarClass.FFI.withPtr false ---> GtkReliefStyle.FFI.fromVal) getReliefStyle_ self
     fun getShowArrow self = (GtkToolbarClass.FFI.withPtr false ---> GBool.FFI.fromVal) getShowArrow_ self
     fun getStyle self = (GtkToolbarClass.FFI.withPtr false ---> GtkToolbarStyle.FFI.fromVal) getStyle_ self

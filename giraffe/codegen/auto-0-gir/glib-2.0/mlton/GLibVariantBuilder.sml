@@ -17,6 +17,6 @@ structure GLibVariantBuilder :>
     fun new type' = (GLibVariantTypeRecord.FFI.withPtr false ---> GLibVariantBuilderRecord.FFI.fromPtr true) new_ type'
     fun addValue self value = (GLibVariantBuilderRecord.FFI.withPtr false &&&> GLibVariantRecord.FFI.withPtr false ---> I) addValue_ (self & value)
     fun close self = (GLibVariantBuilderRecord.FFI.withPtr false ---> I) close_ self
-    fun end' self = (GLibVariantBuilderRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) end_ self
+    fun end' self = (GLibVariantBuilderRecord.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) end_ self before GLibVariantBuilderRecord.FFI.touchPtr self
     fun open' self type' = (GLibVariantBuilderRecord.FFI.withPtr false &&&> GLibVariantTypeRecord.FFI.withPtr false ---> I) open_ (self & type')
   end

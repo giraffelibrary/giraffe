@@ -57,10 +57,10 @@ structure GtkListBox :>
     fun dragHighlightRow self row = (GtkListBoxClass.FFI.withPtr false &&&> GtkListBoxRowClass.FFI.withPtr false ---> I) dragHighlightRow_ (self & row)
     fun dragUnhighlightRow self = (GtkListBoxClass.FFI.withPtr false ---> I) dragUnhighlightRow_ self
     fun getActivateOnSingleClick self = (GtkListBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
-    fun getAdjustment self = (GtkListBoxClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self
-    fun getRowAtIndex self index = (GtkListBoxClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkListBoxRowClass.FFI.fromOptPtr false) getRowAtIndex_ (self & index)
-    fun getRowAtY self y = (GtkListBoxClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkListBoxRowClass.FFI.fromOptPtr false) getRowAtY_ (self & y)
-    fun getSelectedRow self = (GtkListBoxClass.FFI.withPtr false ---> GtkListBoxRowClass.FFI.fromPtr false) getSelectedRow_ self
+    fun getAdjustment self = (GtkListBoxClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self before GtkListBoxClass.FFI.touchPtr self
+    fun getRowAtIndex self index = (GtkListBoxClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkListBoxRowClass.FFI.fromOptPtr false) getRowAtIndex_ (self & index) before GtkListBoxClass.FFI.touchPtr self
+    fun getRowAtY self y = (GtkListBoxClass.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GtkListBoxRowClass.FFI.fromOptPtr false) getRowAtY_ (self & y) before GtkListBoxClass.FFI.touchPtr self
+    fun getSelectedRow self = (GtkListBoxClass.FFI.withPtr false ---> GtkListBoxRowClass.FFI.fromPtr false) getSelectedRow_ self before GtkListBoxClass.FFI.touchPtr self
     fun getSelectionMode self = (GtkListBoxClass.FFI.withPtr false ---> GtkSelectionMode.FFI.fromVal) getSelectionMode_ self
     fun insert self (child, position) =
       (

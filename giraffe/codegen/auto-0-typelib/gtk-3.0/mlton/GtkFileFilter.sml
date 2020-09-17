@@ -71,8 +71,8 @@ structure GtkFileFilter :>
     fun addPattern self pattern = (GtkFileFilterClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) addPattern_ (self & pattern)
     fun addPixbufFormats self = (GtkFileFilterClass.FFI.withPtr false ---> I) addPixbufFormats_ self
     fun filter self filterInfo = (GtkFileFilterClass.FFI.withPtr false &&&> GtkFileFilterInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) filter_ (self & filterInfo)
-    fun getName self = (GtkFileFilterClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getName_ self
+    fun getName self = (GtkFileFilterClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getName_ self before GtkFileFilterClass.FFI.touchPtr self
     fun getNeeded self = (GtkFileFilterClass.FFI.withPtr false ---> GtkFileFilterFlags.FFI.fromVal) getNeeded_ self
     fun setName self name = (GtkFileFilterClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setName_ (self & name)
-    fun toGvariant self = (GtkFileFilterClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self
+    fun toGvariant self = (GtkFileFilterClass.FFI.withPtr false ---> GLibVariantRecord.FFI.fromPtr false) toGvariant_ self before GtkFileFilterClass.FFI.touchPtr self
   end

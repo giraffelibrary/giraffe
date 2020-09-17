@@ -200,6 +200,10 @@ structure GtkSourceBuffer :>
            & category
            & where'
         )
+       before GtkSourceBufferClass.FFI.touchPtr self
+       before Utf8.FFI.touchOptPtr name
+       before Utf8.FFI.touchPtr category
+       before GtkTextIterRecord.FFI.touchPtr where'
     fun endNotUndoableAction self = (GtkSourceBufferClass.FFI.withPtr false ---> I) endNotUndoableAction_ self
     fun ensureHighlight self (start, end') =
       (
@@ -231,10 +235,10 @@ structure GtkSourceBuffer :>
     fun getHighlightMatchingBrackets self = (GtkSourceBufferClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHighlightMatchingBrackets_ self
     fun getHighlightSyntax self = (GtkSourceBufferClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHighlightSyntax_ self
     fun getImplicitTrailingNewline self = (GtkSourceBufferClass.FFI.withPtr false ---> GBool.FFI.fromVal) getImplicitTrailingNewline_ self
-    fun getLanguage self = (GtkSourceBufferClass.FFI.withPtr false ---> GtkSourceLanguageClass.FFI.fromOptPtr false) getLanguage_ self
+    fun getLanguage self = (GtkSourceBufferClass.FFI.withPtr false ---> GtkSourceLanguageClass.FFI.fromOptPtr false) getLanguage_ self before GtkSourceBufferClass.FFI.touchPtr self
     fun getMaxUndoLevels self = (GtkSourceBufferClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getMaxUndoLevels_ self
-    fun getStyleScheme self = (GtkSourceBufferClass.FFI.withPtr false ---> GtkSourceStyleSchemeClass.FFI.fromOptPtr false) getStyleScheme_ self
-    fun getUndoManager self = (GtkSourceBufferClass.FFI.withPtr false ---> GtkSourceUndoManagerClass.FFI.fromOptPtr false) getUndoManager_ self
+    fun getStyleScheme self = (GtkSourceBufferClass.FFI.withPtr false ---> GtkSourceStyleSchemeClass.FFI.fromOptPtr false) getStyleScheme_ self before GtkSourceBufferClass.FFI.touchPtr self
+    fun getUndoManager self = (GtkSourceBufferClass.FFI.withPtr false ---> GtkSourceUndoManagerClass.FFI.fromOptPtr false) getUndoManager_ self before GtkSourceBufferClass.FFI.touchPtr self
     fun iterBackwardToContextClassToggle self (iter, contextClass) =
       (
         GtkSourceBufferClass.FFI.withPtr false

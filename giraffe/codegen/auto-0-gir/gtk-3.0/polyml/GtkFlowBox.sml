@@ -69,7 +69,7 @@ structure GtkFlowBox :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkFlowBoxClass.FFI.fromPtr false) new_ ()
     fun getActivateOnSingleClick self = (GtkFlowBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getActivateOnSingleClick_ self
-    fun getChildAtIndex self idx = (GtkFlowBoxClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkFlowBoxChildClass.FFI.fromOptPtr false) getChildAtIndex_ (self & idx)
+    fun getChildAtIndex self idx = (GtkFlowBoxClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> GtkFlowBoxChildClass.FFI.fromOptPtr false) getChildAtIndex_ (self & idx) before GtkFlowBoxClass.FFI.touchPtr self
     fun getChildAtPos self (x, y) =
       (
         GtkFlowBoxClass.FFI.withPtr false
@@ -83,6 +83,7 @@ structure GtkFlowBox :>
            & x
            & y
         )
+       before GtkFlowBoxClass.FFI.touchPtr self
     fun getColumnSpacing self = (GtkFlowBoxClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getColumnSpacing_ self
     fun getHomogeneous self = (GtkFlowBoxClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHomogeneous_ self
     fun getMaxChildrenPerLine self = (GtkFlowBoxClass.FFI.withPtr false ---> GUInt.FFI.fromVal) getMaxChildrenPerLine_ self

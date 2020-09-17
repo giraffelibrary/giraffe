@@ -21,7 +21,7 @@ structure GioEmblem :>
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new icon = (GioIconClass.FFI.withPtr false ---> GioEmblemClass.FFI.fromPtr true) new_ icon
     fun newWithOrigin (icon, origin) = (GioIconClass.FFI.withPtr false &&&> GioEmblemOrigin.FFI.withVal ---> GioEmblemClass.FFI.fromPtr true) newWithOrigin_ (icon & origin)
-    fun getIcon self = (GioEmblemClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self
+    fun getIcon self = (GioEmblemClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr false) getIcon_ self before GioEmblemClass.FFI.touchPtr self
     fun getOrigin self = (GioEmblemClass.FFI.withPtr false ---> GioEmblemOrigin.FFI.fromVal) getOrigin_ self
     local
       open ValueAccessor

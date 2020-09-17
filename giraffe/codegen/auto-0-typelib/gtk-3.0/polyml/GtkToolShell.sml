@@ -34,6 +34,6 @@ structure GtkToolShell :>
     fun getStyle self = (GtkToolShellClass.FFI.withPtr false ---> GtkToolbarStyle.FFI.fromVal) getStyle_ self
     fun getTextAlignment self = (GtkToolShellClass.FFI.withPtr false ---> GFloat.FFI.fromVal) getTextAlignment_ self
     fun getTextOrientation self = (GtkToolShellClass.FFI.withPtr false ---> GtkOrientation.FFI.fromVal) getTextOrientation_ self
-    fun getTextSizeGroup self = (GtkToolShellClass.FFI.withPtr false ---> GtkSizeGroupClass.FFI.fromPtr false) getTextSizeGroup_ self
+    fun getTextSizeGroup self = (GtkToolShellClass.FFI.withPtr false ---> GtkSizeGroupClass.FFI.fromPtr false) getTextSizeGroup_ self before GtkToolShellClass.FFI.touchPtr self
     fun rebuildMenu self = (GtkToolShellClass.FFI.withPtr false ---> I) rebuildMenu_ self
   end

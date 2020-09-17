@@ -200,6 +200,7 @@ structure GtkSpinButton :>
            & climbRate
            & digits
         )
+       before GtkAdjustmentClass.FFI.touchOptPtr adjustment
     fun newWithRange
       (
         min,
@@ -239,7 +240,7 @@ structure GtkSpinButton :>
            & climbRate
            & digits
         )
-    fun getAdjustment self = (GtkSpinButtonClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self
+    fun getAdjustment self = (GtkSpinButtonClass.FFI.withPtr false ---> GtkAdjustmentClass.FFI.fromPtr false) getAdjustment_ self before GtkSpinButtonClass.FFI.touchPtr self
     fun getDigits self = (GtkSpinButtonClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getDigits_ self
     fun getIncrements self =
       let

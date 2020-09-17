@@ -54,9 +54,9 @@ structure GtkPaned :>
     fun new orientation = (GtkOrientation.FFI.withVal ---> GtkPanedClass.FFI.fromPtr false) new_ orientation
     fun add1 self child = (GtkPanedClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) add1_ (self & child)
     fun add2 self child = (GtkPanedClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) add2_ (self & child)
-    fun getChild1 self = (GtkPanedClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getChild1_ self
-    fun getChild2 self = (GtkPanedClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getChild2_ self
-    fun getHandleWindow self = (GtkPanedClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getHandleWindow_ self
+    fun getChild1 self = (GtkPanedClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getChild1_ self before GtkPanedClass.FFI.touchPtr self
+    fun getChild2 self = (GtkPanedClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getChild2_ self before GtkPanedClass.FFI.touchPtr self
+    fun getHandleWindow self = (GtkPanedClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getHandleWindow_ self before GtkPanedClass.FFI.touchPtr self
     fun getPosition self = (GtkPanedClass.FFI.withPtr false ---> GInt.FFI.fromVal) getPosition_ self
     fun getWideHandle self = (GtkPanedClass.FFI.withPtr false ---> GBool.FFI.fromVal) getWideHandle_ self
     fun pack1

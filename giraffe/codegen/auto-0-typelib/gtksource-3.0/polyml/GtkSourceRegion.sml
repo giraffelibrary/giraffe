@@ -89,7 +89,7 @@ structure GtkSourceRegion :>
       in
         if retVal then SOME (start, end') else NONE
       end
-    fun getBuffer self = (GtkSourceRegionClass.FFI.withPtr false ---> GtkTextBufferClass.FFI.fromOptPtr false) getBuffer_ self
+    fun getBuffer self = (GtkSourceRegionClass.FFI.withPtr false ---> GtkTextBufferClass.FFI.fromOptPtr false) getBuffer_ self before GtkSourceRegionClass.FFI.touchPtr self
     fun getStartRegionIter self =
       let
         val iter & () = (GtkSourceRegionClass.FFI.withPtr false &&&> GtkSourceRegionIterRecord.FFI.withNewPtr ---> GtkSourceRegionIterRecord.FFI.fromPtr true && I) getStartRegionIter_ (self & ())

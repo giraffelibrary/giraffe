@@ -200,15 +200,15 @@ structure GtkLabel :>
     fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new str = (Utf8.FFI.withOptPtr 0 ---> GtkLabelClass.FFI.fromPtr false) new_ str
-    fun newWithMnemonic str = (Utf8.FFI.withOptPtr 0 ---> GtkLabelClass.FFI.fromPtr false) newWithMnemonic_ str
+    fun new str = (Utf8.FFI.withOptPtr 0 ---> GtkLabelClass.FFI.fromPtr false) new_ str before Utf8.FFI.touchOptPtr str
+    fun newWithMnemonic str = (Utf8.FFI.withOptPtr 0 ---> GtkLabelClass.FFI.fromPtr false) newWithMnemonic_ str before Utf8.FFI.touchOptPtr str
     fun getAngle self = (GtkLabelClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getAngle_ self
-    fun getAttributes self = (GtkLabelClass.FFI.withPtr false ---> PangoAttrListRecord.FFI.fromOptPtr false) getAttributes_ self
-    fun getCurrentUri self = (GtkLabelClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCurrentUri_ self
+    fun getAttributes self = (GtkLabelClass.FFI.withPtr false ---> PangoAttrListRecord.FFI.fromOptPtr false) getAttributes_ self before GtkLabelClass.FFI.touchPtr self
+    fun getCurrentUri self = (GtkLabelClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getCurrentUri_ self before GtkLabelClass.FFI.touchPtr self
     fun getEllipsize self = (GtkLabelClass.FFI.withPtr false ---> PangoEllipsizeMode.FFI.fromVal) getEllipsize_ self
     fun getJustify self = (GtkLabelClass.FFI.withPtr false ---> GtkJustification.FFI.fromVal) getJustify_ self
-    fun getLabel self = (GtkLabelClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLabel_ self
-    fun getLayout self = (GtkLabelClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self
+    fun getLabel self = (GtkLabelClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getLabel_ self before GtkLabelClass.FFI.touchPtr self
+    fun getLayout self = (GtkLabelClass.FFI.withPtr false ---> PangoLayoutClass.FFI.fromPtr false) getLayout_ self before GtkLabelClass.FFI.touchPtr self
     fun getLayoutOffsets self =
       let
         val x
@@ -236,7 +236,7 @@ structure GtkLabel :>
     fun getLines self = (GtkLabelClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getLines_ self
     fun getMaxWidthChars self = (GtkLabelClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getMaxWidthChars_ self
     fun getMnemonicKeyval self = (GtkLabelClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getMnemonicKeyval_ self
-    fun getMnemonicWidget self = (GtkLabelClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getMnemonicWidget_ self
+    fun getMnemonicWidget self = (GtkLabelClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getMnemonicWidget_ self before GtkLabelClass.FFI.touchPtr self
     fun getSelectable self = (GtkLabelClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSelectable_ self
     fun getSelectionBounds self =
       let
@@ -261,7 +261,7 @@ structure GtkLabel :>
         if retVal then SOME (start, end') else NONE
       end
     fun getSingleLineMode self = (GtkLabelClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSingleLineMode_ self
-    fun getText self = (GtkLabelClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getText_ self
+    fun getText self = (GtkLabelClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getText_ self before GtkLabelClass.FFI.touchPtr self
     fun getTrackVisitedLinks self = (GtkLabelClass.FFI.withPtr false ---> GBool.FFI.fromVal) getTrackVisitedLinks_ self
     fun getUseMarkup self = (GtkLabelClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseMarkup_ self
     fun getUseUnderline self = (GtkLabelClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseUnderline_ self

@@ -129,7 +129,7 @@ structure GioVolume :>
     fun getIdentifier self kind = (GioVolumeClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) getIdentifier_ (self & kind)
     fun getMount self = (GioVolumeClass.FFI.withPtr false ---> GioMountClass.FFI.fromPtr true) getMount_ self
     fun getName self = (GioVolumeClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getName_ self
-    fun getSortKey self = (GioVolumeClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSortKey_ self
+    fun getSortKey self = (GioVolumeClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getSortKey_ self before GioVolumeClass.FFI.touchPtr self
     fun getSymbolicIcon self = (GioVolumeClass.FFI.withPtr false ---> GioIconClass.FFI.fromPtr true) getSymbolicIcon_ self
     fun getUuid self = (GioVolumeClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getUuid_ self
     fun mountFinish self result =

@@ -15,7 +15,7 @@ structure GtkActivatable :>
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun doSetRelatedAction self action = (GtkActivatableClass.FFI.withPtr false &&&> GtkActionClass.FFI.withPtr false ---> I) doSetRelatedAction_ (self & action)
-    fun getRelatedAction self = (GtkActivatableClass.FFI.withPtr false ---> GtkActionClass.FFI.fromPtr false) getRelatedAction_ self
+    fun getRelatedAction self = (GtkActivatableClass.FFI.withPtr false ---> GtkActionClass.FFI.fromPtr false) getRelatedAction_ self before GtkActivatableClass.FFI.touchPtr self
     fun getUseActionAppearance self = (GtkActivatableClass.FFI.withPtr false ---> GBool.FFI.fromVal) getUseActionAppearance_ self
     fun setRelatedAction self action = (GtkActivatableClass.FFI.withPtr false &&&> GtkActionClass.FFI.withPtr false ---> I) setRelatedAction_ (self & action)
     fun setUseActionAppearance self useAppearance = (GtkActivatableClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setUseActionAppearance_ (self & useAppearance)

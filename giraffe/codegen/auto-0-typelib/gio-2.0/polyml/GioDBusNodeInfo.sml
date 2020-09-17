@@ -14,5 +14,5 @@ structure GioDBusNodeInfo :>
     type d_bus_interface_info_t = GioDBusInterfaceInfoRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun newForXml xmlData = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GioDBusNodeInfoRecord.FFI.fromPtr true) newForXml_ (xmlData & [])
-    fun lookupInterface self name = (GioDBusNodeInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusInterfaceInfoRecord.FFI.fromPtr false) lookupInterface_ (self & name)
+    fun lookupInterface self name = (GioDBusNodeInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioDBusInterfaceInfoRecord.FFI.fromPtr false) lookupInterface_ (self & name) before GioDBusNodeInfoRecord.FFI.touchPtr self before Utf8.FFI.touchPtr name
   end
