@@ -3219,7 +3219,7 @@ fun makeFunctionStrDecHighLevel
   end
 
 (*
- *     val getType = (I ---> GObjectType.C.fromVal) getType_
+ *     val getType = (I ---> GObjectType.FFI.fromVal) getType_
  *)
 val getTypeStrDecHighLevel =
   StrDecDec (
@@ -4401,7 +4401,7 @@ fun makeFunctionStrDecLowLevelMLton
 
 (*
  *     val getType_ =
- *       _import "<getTypeSymbol>" : unit -> GObjectType.C.val_;
+ *       _import "<getTypeSymbol>" : unit -> GObjectType.FFI.val_;
  *)
 fun getTypeStrDecLowLevelMLton getTypeSymbol =
   StrDecDec (

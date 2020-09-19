@@ -8,8 +8,9 @@ structure GtkTextAttributesRecord :> GTK_TEXT_ATTRIBUTES_RECORD =
     local
       open PolyMLFFI
     in
-      val dup_ = call (getSymbol "gtk_text_attributes_ref") (cPtr --> cPtr)
-      val free_ = call (getSymbol "gtk_text_attributes_unref") (cPtr --> cVoid)
+      val getType_ = call (getSymbol "gtk_text_attributes_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val dup_ = fn x1 => call (getSymbol "g_boxed_copy") (GObjectType.PolyML.cVal &&> cPtr --> cPtr) (getType_ () & x1)
+      val free_ = fn x1 => call (getSymbol "g_boxed_free") (GObjectType.PolyML.cVal &&> cPtr --> cVoid) (getType_ () & x1)
     end
     structure Record =
       BoxedRecord(
@@ -25,7 +26,6 @@ structure GtkTextAttributesRecord :> GTK_TEXT_ATTRIBUTES_RECORD =
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_text_attributes_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr)
       val getOptValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr)
       val setValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)

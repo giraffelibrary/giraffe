@@ -17,6 +17,7 @@ structure GObjectClosureRecord :>
     local
       open PolyMLFFI
     in
+      val getType_ = call (getSymbol "g_closure_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val take_ =
         if GiraffeDebug.isEnabled
         then
@@ -70,7 +71,6 @@ structure GObjectClosureRecord :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_closure_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr)
       val getOptValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr)
       val setValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)

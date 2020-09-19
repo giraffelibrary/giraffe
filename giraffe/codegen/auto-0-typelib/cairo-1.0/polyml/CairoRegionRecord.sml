@@ -8,8 +8,9 @@ structure CairoRegionRecord :> CAIRO_REGION_RECORD =
     local
       open PolyMLFFI
     in
-      val dup_ = call (getSymbol "cairo_region_reference") (cPtr --> cPtr)
-      val free_ = call (getSymbol "cairo_region_destroy") (cPtr --> cVoid)
+      val getType_ = call (getSymbol "cairo_gobject_region_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val dup_ = fn x1 => call (getSymbol "g_boxed_copy") (GObjectType.PolyML.cVal &&> cPtr --> cPtr) (getType_ () & x1)
+      val free_ = fn x1 => call (getSymbol "g_boxed_free") (GObjectType.PolyML.cVal &&> cPtr --> cVoid) (getType_ () & x1)
     end
     structure Record =
       BoxedRecord(
@@ -25,7 +26,6 @@ structure CairoRegionRecord :> CAIRO_REGION_RECORD =
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "cairo_gobject_region_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val getValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr)
       val getOptValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr)
       val setValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)

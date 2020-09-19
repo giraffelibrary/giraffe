@@ -557,7 +557,7 @@ end
  *
  * where
  *
- *   addStrDecs isPtr isPolyML strDecs
+ *   addStrDecs isPtr isBoxed isPolyML strDecs
  *
  * prepends the following to `strDecs` when `info` is a registered GType
  * whose get-type function is <getTypeSymbol>, i.e.
@@ -568,8 +568,8 @@ end
  *     local                                                  |
  *       open PolyMLFFI                                       |
  *     in                                                     |
- *       val getType_ =                                       |
  *                                           -.               |
+ *       val getType_ =                       | not isBoxed   |
  *         call                               | getTypeSymbol |
  *           (getSymbol "<getTypeSymbol>")    |  <> "intern"  |
  *           (cVoid --> GObjectType.PolyML.cVal);             |
@@ -601,9 +601,9 @@ end
  *     end                                                    |
  *                                                           -'
  *                                           -.              -.
- *     val getType_ =                         | getTypeSymbol |
- *       _import "<getTypeSymbol>" :          |  <> "intern"  |
- *         unit -> GObjectType.FFI.val_;      |               |
+ *     val getType_ =                         | not isBoxed   |
+ *       _import "<getTypeSymbol>" :          | getTypeSymbol |
+ *         unit -> GObjectType.FFI.val_;      |  <> "intern"  |
  *                                           -'               |
  *                                                            |
  *     val getValue_ =                                        |
@@ -749,6 +749,10 @@ end
  *         GObject.Type.<containerName>
  *           otherwise
  *
+ *
+ * In the case of a boxed type, `getType_` is already declared for use in the
+ * the defintion of `dup_` and `free_`, so is not needed to define the
+ * accessors functions.
  *)
 local
   (*
@@ -916,6 +920,7 @@ local
     getTypeSymbol
     valueArgs
     isPtr
+    isBoxed
     strDecs =
     let
       val strDecs'1 =
@@ -931,7 +936,7 @@ local
            :: setValueStrDecLowLevelMLton valueArgs NONE
            :: strDecs
     in
-      if getTypeSymbol <> internTypeSymbol
+      if not isBoxed andalso getTypeSymbol <> internTypeSymbol
       then getTypeStrDecLowLevelMLton getTypeSymbol :: strDecs'1
       else strDecs'1
     end
@@ -1003,6 +1008,7 @@ local
     getTypeSymbol
     valueArgs
     isPtr
+    isBoxed
     strDecs =
     let
       val localStrDecs'1 =
@@ -1021,7 +1027,7 @@ local
           ]
 
       val localStrDecs =
-        if getTypeSymbol <> internTypeSymbol
+        if not isBoxed andalso getTypeSymbol <> internTypeSymbol
         then getTypeStrDecLowLevelPolyML getTypeSymbol :: localStrDecs'1
         else localStrDecs'1
     in
@@ -1044,7 +1050,7 @@ in
 
           val valueType = getValueType (containerNamespace, containerName)
 
-          fun addStrDecsLowLevel isPtr isPolyML strDecs =
+          fun addStrDecsLowLevel isPtr isBoxed isPolyML strDecs =
             let
               val tStrDec1 = tStrDec containerName getTypeSymbol
               val strDecs'1 =
@@ -1059,12 +1065,12 @@ in
                 then addStrDecsLowLevelPolyML
                 else addStrDecsLowLevelMLton
               )
-                getTypeSymbol (valueIRef, valueType) isPtr strDecs'2
+                getTypeSymbol (valueIRef, valueType) isPtr isBoxed strDecs'2
             in
               strDecs'3
             end
         in
           (addStrDecsLowLevel, addIRefs, revLocalTypes)
         end
-    | NONE               => (K (K I), I, [])
+    | NONE               => (K (K (K I)), I, [])
 end

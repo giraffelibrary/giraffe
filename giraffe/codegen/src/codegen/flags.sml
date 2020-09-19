@@ -203,7 +203,7 @@ in
               enumIRef
               (enumInfo, (strDecs'3, excls'2))
 
-          val strDecs'5 = addAccessorStrDecs false isPolyML strDecs'4
+          val strDecs'5 = addAccessorStrDecs false false isPolyML strDecs'4
           val strDecs'6 = strDecs'5
           val strDecs'7 = strDecs'6
           val strDecs'8 = [structFlagsStrDec, openFlagsStrDec] @ strDecs'7

@@ -108,139 +108,193 @@ excludedInterfaceTypes := [
 
 
 (**
- * Struct types
+ * Records (struct types)
  *
- * A struct that is a field of an included union is not in the struct list.
+ * A record that is a field of an included union is not included this list.
+ *
+ * A record is classified as one of the following:
+ *
+ *   - value-like
+ *   - reference-only
+ *   - disguised
+ *
+ * A value-like record is one whose size is known and has a copy operation
+ * (that copies from one area of memory to another, as opposed to a duplicate
+ * operation that allocates a new instance).  If any fields are references,
+ * the copy operation is deep and it also has a clear operation.  A value-
+ * like record can be referenced and used like a reference.
+ *
+ * A reference-only record does not have a known size or cannot be copied but
+ * has duplicate and free operations (which increment and decrement,
+ * respectively, the reference count if the record is reference counted).
+ *
+ * An disguised record is one that is just a pointer internally.
+ *
+ * These types of record are specified by the constructors
+ *
+ *   - ValueRecord ...
+ *   - Record ...
+ *   - DisguisedRecord
+ *
+ * The constructor arguments indicate how the required operations are
+ * implemented.
+ *
+ * A value-like record without any fields that are references can be copied
+ * using memcpy but if any fields are references, bespoke copy and clear
+ * functions are required.  These two cases of a value-like record are
+ * specified as
+ *
+ *   - ValueRecord Flat
+ *   - ValueRecord (Deep {copy = "<copy_sym>", clear = "<clear_sym>"})
+ *
+ * A reference-only record that is registered as a boxed type can be
+ * duplicated and freed using g_boxed_copy and g_boxed_free, respectively,
+ * but otherwise bespoke duplicate and free functions are required.  These
+ * two cases of a reference-only record are specified as
+ *
+ *   - Record Boxed
+ *   - Record (NonBoxed {dup = "<dup_sym>", free = "<free_sym>"})
+ *
+ * A disguised record is specified as
+ *
+ *   - DisguisedRecord
+ *
+ *
+ * Notes
+ *
+ *   - A record that is reference counted must be reference-only.
+ *
+ *   - The elements of a value-like record array may be values (packed
+ *     inline) or references but the elements of a reference-only record
+ *     array can only be references.
  *)
 
 structTypes := [
-  (("GLib", "Bytes"),                 Record {dup = "g_bytes_ref", free = "g_bytes_unref"}),
-  (("GLib", "Checksum"),              Record {dup = "g_checksum_copy", free = "g_checksum_free"}),
-  (("GLib", "Date"),                  Record {dup = "gdate_copy", free = "g_date_free"}),
-  (("GLib", "DateTime"),              Record {dup = "g_date_time_ref", free = "g_date_time_unref"}),
-  (("GLib", "DebugKey"),              ValueRecord NONE),
-  (("GLib", "Error"),                 Record {dup = "g_error_copy", free = "g_error_free"}),
-  (("GLib", "IOChannel"),             Record {dup = "g_io_channel_ref", free = "g_io_channel_unref"}),
-  (("GLib", "KeyFile"),               Record {dup = "g_key_file_ref", free = "g_key_file_unref"}),
-  (("GLib", "MainContext"),           Record {dup = "g_main_context_ref", free = "g_main_context_unref"}),
-  (("GLib", "MarkupParseContext"),    Record {dup = "g_markup_parse_context_ref", free = "g_markup_parse_context_unref"}),
-  (("GLib", "MatchInfo"),             Record {dup = "g_match_info_ref", free = "g_match_info_unref"}),
-  (("GLib", "OptionEntry"),           ValueRecord NONE),
-  (("GLib", "OptionGroup"),           Record {dup = "g_option_group_ref", free = "g_option_group_unref"}),
+  (("GLib", "Bytes"),                 Record Boxed),
+  (("GLib", "Checksum"),              Record Boxed),
+  (("GLib", "Date"),                  Record Boxed),
+  (("GLib", "DateTime"),              Record Boxed),
+  (("GLib", "DebugKey"),              ValueRecord Flat),
+  (("GLib", "Error"),                 Record Boxed),
+  (("GLib", "IOChannel"),             Record Boxed),
+  (("GLib", "KeyFile"),               Record Boxed),
+  (("GLib", "MainContext"),           Record Boxed),
+  (("GLib", "MarkupParseContext"),    Record Boxed),
+  (("GLib", "MatchInfo"),             Record Boxed),
+  (("GLib", "OptionEntry"),           ValueRecord Flat),
+  (("GLib", "OptionGroup"),           Record Boxed),
   (("GLib", "PatternSpec"),           DisguisedRecord),
-  (("GLib", "PollFD"),                ValueRecord NONE),
-  (("GLib", "Regex"),                 Record {dup = "g_regex_ref", free = "g_regex_unref"}),
-  (("GLib", "Source"),                Record {dup = "g_source_ref", free = "g_source_unref"}),
-  (("GLib", "String"),                Record {dup = "gstring_copy", free = "gstring_free"}),
+  (("GLib", "PollFD"),                ValueRecord Flat),
+  (("GLib", "Regex"),                 Record Boxed),
+  (("GLib", "Source"),                Record Boxed),
+  (("GLib", "String"),                Record Boxed),
   (("GLib", "TestCase"),              DisguisedRecord),
   (("GLib", "TestSuite"),             DisguisedRecord),
-  (("GLib", "TimeVal"),               ValueRecord NONE),
-  (("GLib", "TimeZone"),              Record {dup = "g_time_zone_ref", free = "g_time_zone_unref"}),
-  (("GLib", "Variant"),               Record {dup = "g_variant_ref_sink", free = "g_variant_unref"}),
-  (("GLib", "VariantBuilder"),        Record {dup = "g_variant_builder_ref", free = "g_variant_builder_unref"}),
-  (("GLib", "VariantDict"),           Record {dup = "g_variant_dict_ref", free = "g_variant_dict_unref"}),
-  (("GLib", "VariantType"),           Record {dup = "g_variant_type_copy", free = "g_variant_type_free"}),
-  (("GObject", "Closure"),            Record {dup = "g_closure_ref_sink", free = "g_closure_unref"}),
-                                      (* g_closure_ref_sink doesn't exist but file replaced by fixed version *)
-  (("GObject", "EnumClass"),          ValueRecord NONE),
-  (("GObject", "EnumValue"),          ValueRecord NONE),
-  (("GObject", "FlagsClass"),         ValueRecord NONE),
-  (("GObject", "FlagsValue"),         ValueRecord NONE),
+  (("GLib", "TimeVal"),               ValueRecord Flat),
+  (("GLib", "TimeZone"),              Record Boxed),
+  (("GLib", "Variant"),               Record (NonBoxed {dup = "g_variant_ref_sink", free = "g_variant_unref"})),
+  (("GLib", "VariantBuilder"),        Record Boxed),
+  (("GLib", "VariantDict"),           Record Boxed),
+  (("GLib", "VariantType"),           Record Boxed),
+  (("GObject", "Closure"),            Record Boxed),  (* fixed source uses 'g_closure_ref' then 'g_closure_sink' for dup *)
+  (("GObject", "EnumClass"),          ValueRecord Flat),
+  (("GObject", "EnumValue"),          ValueRecord Flat),
+  (("GObject", "FlagsClass"),         ValueRecord Flat),
+  (("GObject", "FlagsValue"),         ValueRecord Flat),
   (("GObject",
-             "SignalInvocationHint"), ValueRecord NONE),
-  (("GObject", "SignalQuery"),        ValueRecord NONE),
-  (("GObject", "TypeQuery"),          ValueRecord NONE),
-  (("GObject", "Value"),              ValueRecord (SOME {copy = "giraffe_g_value_copy", clear = "giraffe_g_value_clear"})),
-  (("GObject", "ValueArray"),         Record {dup = "g_value_array_copy", free = "g_value_array_free"}),
-  (("Gio", "DBusAnnotationInfo"),     Record {dup = "g_dbus_annotation_info_ref", free = "g_dbus_annotation_info_unref"}),
-  (("Gio", "DBusArgInfo"),            Record {dup = "g_dbus_arg_info_ref", free = "g_dbus_arg_info_unref"}),
-  (("Gio", "DBusInterfaceInfo"),      Record {dup = "g_dbus_interface_info_ref", free = "g_dbus_interface_info_unref"}),
-  (("Gio", "DBusMethodInfo"),         Record {dup = "g_dbus_method_info_ref", free = "g_dbus_method_info_unref"}),
-  (("Gio", "DBusNodeInfo"),           Record {dup = "g_dbus_node_info_ref", free = "g_dbus_node_info_unref"}),
-  (("Gio", "DBusPropertyInfo"),       Record {dup = "g_dbus_property_info_ref", free = "g_dbus_property_info_unref"}),
-  (("Gio", "DBusSignalInfo"),         Record {dup = "g_dbus_signal_info_ref", free = "g_dbus_signal_info_unref"}),
-  (("Gio", "FileAttributeInfo"),      ValueRecord NONE),
-  (("Gio", "FileAttributeInfoList"),  Record {dup = "g_file_attribute_info_list_dup", free = "g_file_attribute_info_list_unref"}),
-  (("Gio", "FileAttributeMatcher"),   Record {dup = "g_file_attribute_matcher_ref", free = "g_file_attribute_matcher_unref"}),
+             "SignalInvocationHint"), ValueRecord Flat),
+  (("GObject", "SignalQuery"),        ValueRecord Flat),
+  (("GObject", "TypeQuery"),          ValueRecord Flat),
+  (("GObject", "Value"),              ValueRecord (Deep {copy = "giraffe_g_value_copy", clear = "giraffe_g_value_clear"})),
+  (("GObject", "ValueArray"),         Record Boxed),
+  (("Gio", "DBusAnnotationInfo"),     Record Boxed),
+  (("Gio", "DBusArgInfo"),            Record Boxed),
+  (("Gio", "DBusInterfaceInfo"),      Record Boxed),
+  (("Gio", "DBusMethodInfo"),         Record Boxed),
+  (("Gio", "DBusNodeInfo"),           Record Boxed),
+  (("Gio", "DBusPropertyInfo"),       Record Boxed),
+  (("Gio", "DBusSignalInfo"),         Record Boxed),
+  (("Gio", "FileAttributeInfo"),      ValueRecord Flat),
+  (("Gio", "FileAttributeInfoList"),  Record Boxed),
+  (("Gio", "FileAttributeMatcher"),   Record Boxed),
   (("Gio", "IOExtension"),            DisguisedRecord),
   (("Gio", "IOExtensionPoint"),       DisguisedRecord),
   (("Gio", "IOModuleScope"),          DisguisedRecord),
-  (("Gio", "Resource"),               Record {dup = "g_resource_ref", free = "g_resource_unref"}),
+  (("Gio", "Resource"),               Record Boxed),
   (("Gio", "SettingsBackend"),        DisguisedRecord),
-  (("Gio", "SettingsSchema"),         Record {dup = "g_settings_schema_ref", free = "g_settings_schema_unref"}),
-  (("Gio", "SettingsSchemaKey"),      Record {dup = "g_settings_schema_key_ref", free = "g_settings_schema_key_unref"}),
-  (("Gio", "SettingsSchemaSource"),   Record {dup = "g_settings_schema_source_ref", free = "g_settings_schema_source_unref"}),
-  (("Gio", "SrvTarget"),              Record {dup = "g_srv_target_copy", free = "g_srv_target_free"}),
-  (("Gio", "UnixMountEntry"),         Record {dup = "g_unix_mount_copy", free = "g_unix_mount_free"}),
-  (("Gio", "UnixMountPoint"),         Record {dup = "g_unix_mount_point_copy", free = "g_unix_mount_point_free"}),
-  (("Atk", "Range"),                  Record {dup = "atk_range_copy", free = "atk_range_free"}),
-  (("Atk", "Rectangle"),              ValueRecord NONE),
-  (("Atk", "TextRange"),              Record {dup = "atk_text_range_copy", free = "atk_text_range_free"}),
-  (("Atk", "TextRectangle"),          ValueRecord NONE),
+  (("Gio", "SettingsSchema"),         Record Boxed),
+  (("Gio", "SettingsSchemaKey"),      Record Boxed),
+  (("Gio", "SettingsSchemaSource"),   Record Boxed),
+  (("Gio", "SrvTarget"),              Record Boxed),
+  (("Gio", "UnixMountEntry"),         Record (NonBoxed {dup = "g_unix_mount_copy", free = "g_unix_mount_free"})),
+  (("Gio", "UnixMountPoint"),         Record (NonBoxed {dup = "g_unix_mount_point_copy", free = "g_unix_mount_point_free"})),
+  (("Atk", "Range"),                  Record Boxed),
+  (("Atk", "Rectangle"),              ValueRecord Flat),
+  (("Atk", "TextRange"),              Record Boxed),
+  (("Atk", "TextRectangle"),          ValueRecord Flat),
   (("Gdk", "Atom"),                   DisguisedRecord),
-  (("Gdk", "EventSequence"),          Record {dup = "gdk_event_sequence_copy", free = "gdk_event_sequence_free"}),
-  (("Gdk", "Geometry"),               ValueRecord NONE),
-  (("Gdk", "Color"),                  ValueRecord NONE),
-  (("Gdk", "FrameTimings"),           Record {dup = "gdk_frame_timings_ref", free = "gdk_frame_timings_unref"}),
-  (("Gdk", "KeymapKey"),              ValueRecord NONE),
-  (("Gdk", "Point"),                  ValueRecord NONE),
-  (("Gdk", "Rectangle"),              ValueRecord NONE),
-  (("Gdk", "RGBA"),                   ValueRecord NONE),
-  (("Gdk", "WindowAttr"),             Record {dup = "giraffe_gdk_window_attr_dup", free = "giraffe_gdk_window_attr_free"}),
-  (("GdkPixbuf", "Pixdata"),          ValueRecord NONE),
-  (("GdkPixbuf", "PixbufFormat"),     Record {dup = "gdk_pixbuf_format_copy", free = "gdk_pixbuf_format_free"}),
-  (("Gtk", "AccelGroupEntry"),        ValueRecord NONE),
-  (("Gtk", "AccelKey"),               ValueRecord NONE),
-  (("Gtk", "ActionEntry"),            ValueRecord NONE),
-  (("Gtk", "Border"),                 ValueRecord NONE),
-  (("Gtk", "CssSection"),             Record {dup = "gtk_css_section_ref", free = "gtk_css_section_unref"}),
-  (("Gtk", "FileFilterInfo"),         ValueRecord NONE),
-  (("Gtk", "IconInfo"),               Record {dup = "gtk_icon_info_copy", free = "gtk_icon_info_free"}),
-  (("Gtk", "IconSet"),                Record {dup = "gtk_icon_set_ref", free = "gtk_icon_set_unref"}),
-  (("Gtk", "IconSource"),             Record {dup = "gtk_icon_source_copy", free = "gtk_icon_source_free"}),
-  (("Gtk", "PageRange"),              ValueRecord NONE),
-  (("Gtk", "PaperSize"),              Record {dup = "gtk_paper_size_copy", free = "gtk_paper_size_free"}),
-  (("Gtk", "RecentData"),             ValueRecord NONE),
-  (("Gtk", "RecentFilterInfo"),       ValueRecord NONE),
-  (("Gtk", "RecentInfo"),             Record {dup = "gtk_recent_info_ref", free = "gtk_recent_info_unref"}),
-  (("Gtk", "Requisition"),            ValueRecord NONE),
-  (("Gtk", "SelectionData"),          Record {dup = "gtk_selection_data_copy", free = "gtk_selection_data_free"}),
-  (("Gtk", "SettingsValue"),          ValueRecord NONE),
-  (("Gtk", "StockItem"),              ValueRecord NONE),
-  (("Gtk", "SymbolicColor"),          Record {dup = "gtk_symbolic_color_ref", free = "gtk_symbolic_color_unref"}),
-  (("Gtk", "TargetEntry"),            ValueRecord (SOME {copy = "giraffe_gtk_target_entry_copy", clear = "giraffe_gtk_target_entry_clear"})),
-  (("Gtk", "TargetList"),             Record {dup = "gtk_target_list_ref", free = "gtk_target_list_unref"}),
-  (("Gtk", "TextAttributes"),         Record {dup = "gtk_text_attributes_ref", free = "gtk_text_attributes_unref"}),
-  (("Gtk", "TextIter"),               ValueRecord NONE),
-  (("Gtk", "TreeIter"),               ValueRecord NONE),
-  (("Gtk", "TreePath"),               Record {dup = "gtk_tree_path_copy", free = "gtk_tree_path_free"}),
-  (("Gtk", "WidgetPath"),             Record {dup = "gtk_widget_path_ref", free = "gtk_widget_path_unref"}),
-  (("GtkSource", "Encoding"),         Record {dup = "gtk_source_encoding_copy", free = "gtk_source_encoding_free"}),
-  (("GtkSource", "RegionIter"),       ValueRecord NONE),
-  (("cairo", "Context"),              Record {dup = "cairo_reference", free = "cairo_destroy"}),
-  (("cairo", "FontOptions"),          Record {dup = "cairo_font_options_copy", free = "cairo_font_options_destroy"}),
-  (("cairo", "Pattern"),              Record {dup = "cairo_pattern_reference", free = "cairo_pattern_destroy"}),
-  (("cairo", "RectangleInt"),         ValueRecord NONE),
-  (("cairo", "Region"),               Record {dup = "cairo_region_reference", free = "cairo_region_destroy"}),
-  (("cairo", "ScaledFont"),           Record {dup = "cairo_scaled_font_reference", free = "cairo_scaled_font_destroy"}),
-  (("cairo", "Surface"),              Record {dup = "cairo_surface_reference", free = "cairo_surface_destroy"}),
-  (("Pango", "Analysis"),             ValueRecord NONE),
-  (("Pango", "Attribute"),            Record {dup = "pango_attribute_copy", free = "pango_attribute_destroy"}),
-  (("Pango", "AttrList"),             Record {dup = "pango_attr_list_ref", free = "pango_attr_list_unref"}),
-  (("Pango", "Color"),                Record {dup = "pango_color_copy", free = "pango_color_free"}),
-  (("Pango", "FontDescription"),      Record {dup = "pango_font_description_copy", free = "pango_font_description_free"}),
-  (("Pango", "FontMetrics"),          Record {dup = "pango_font_metrics_ref", free = "pango_font_metrics_unref"}),
-  (("Pango", "GlyphItem"),            Record {dup = "pango_glyph_item_copy", free = "pango_glyph_item_free"}),
-  (("Pango", "GlyphString"),          Record {dup = "pango_glyph_string_copy", free = "pango_glyph_string_free"}),
-  (("Pango", "Item"),                 Record {dup = "pango_item_copy", free = "pango_item_free"}),
-  (("Pango", "Language"),             Record {dup = "pango_language_copy", free = "pango_language_free"}),
-  (("Pango", "LayoutIter"),           Record {dup = "pango_layout_iter_copy", free = "pango_layout_iter_free"}),
-  (("Pango", "LayoutLine"),           Record {dup = "pango_layout_line_ref", free = "pango_layout_line_unref"}),
-  (("Pango", "LogAttr"),              ValueRecord NONE),
-  (("Pango", "Matrix"),               Record {dup = "pango_matrix_copy", free = "pango_matrix_free"}),
-  (("Pango", "Rectangle"),            ValueRecord NONE),
-  (("Pango", "TabArray"),             Record {dup = "pango_tab_array_copy", free = "pango_tab_array_free"}),
-  (("Vte", "Regex"),                  Record {dup = "vte_regex_ref", free = "vte_regex_unref"})
+  (("Gdk", "EventSequence"),          Record Boxed),
+  (("Gdk", "Geometry"),               ValueRecord Flat),
+  (("Gdk", "Color"),                  ValueRecord Flat),
+  (("Gdk", "FrameTimings"),           Record Boxed),
+  (("Gdk", "KeymapKey"),              ValueRecord Flat),
+  (("Gdk", "Point"),                  ValueRecord Flat),
+  (("Gdk", "Rectangle"),              ValueRecord Flat),
+  (("Gdk", "RGBA"),                   ValueRecord Flat),
+  (("Gdk", "WindowAttr"),             Record (NonBoxed {dup = "giraffe_gdk_window_attr_dup", free = "giraffe_gdk_window_attr_free"})),
+  (("GdkPixbuf", "Pixdata"),          ValueRecord Flat),
+  (("GdkPixbuf", "PixbufFormat"),     Record Boxed),
+  (("Gtk", "AccelGroupEntry"),        ValueRecord Flat),
+  (("Gtk", "AccelKey"),               ValueRecord Flat),
+  (("Gtk", "ActionEntry"),            ValueRecord Flat),
+  (("Gtk", "Border"),                 ValueRecord Flat),  (* overrides default *)
+  (("Gtk", "CssSection"),             Record Boxed),
+  (("Gtk", "FileFilterInfo"),         ValueRecord Flat),
+  (("Gtk", "IconSet"),                Record Boxed),
+  (("Gtk", "IconSource"),             Record Boxed),
+  (("Gtk", "PageRange"),              ValueRecord Flat),
+  (("Gtk", "PaperSize"),              Record Boxed),
+  (("Gtk", "RecentData"),             ValueRecord Flat),
+  (("Gtk", "RecentFilterInfo"),       ValueRecord Flat),
+  (("Gtk", "RecentInfo"),             Record Boxed),
+  (("Gtk", "Requisition"),            ValueRecord Flat),  (* overrides default *)
+  (("Gtk", "SelectionData"),          Record Boxed),
+  (("Gtk", "SettingsValue"),          ValueRecord Flat),
+  (("Gtk", "StockItem"),              ValueRecord Flat),
+  (("Gtk", "SymbolicColor"),          Record Boxed),
+  (("Gtk", "TargetEntry"),            ValueRecord (Deep {copy = "giraffe_gtk_target_entry_copy", clear = "giraffe_gtk_target_entry_clear"})),
+  (("Gtk", "TargetList"),             Record Boxed),
+  (("Gtk", "TextAttributes"),         Record Boxed),
+  (("Gtk", "TextIter"),               ValueRecord Flat),  (* overrides default *)
+  (("Gtk", "TreeIter"),               ValueRecord Flat),  (* overrides default *)
+  (("Gtk", "TreePath"),               Record Boxed),
+  (("Gtk", "WidgetPath"),             Record Boxed),
+  (("GtkSource", "Encoding"),         Record Boxed),
+  (("GtkSource", "RegionIter"),       ValueRecord Flat),
+  (("cairo", "Context"),              Record Boxed),
+  (("cairo", "FontOptions"),          Record (NonBoxed {dup = "cairo_font_options_copy", free = "cairo_font_options_destroy"})),
+  (("cairo", "Pattern"),              Record Boxed),
+  (("cairo", "RectangleInt"),         ValueRecord Flat),
+  (("cairo", "Region"),               Record Boxed),
+  (("cairo", "ScaledFont"),           Record Boxed),
+  (("cairo", "Surface"),              Record Boxed),
+  (("Pango", "Analysis"),             ValueRecord Flat),
+  (("Pango", "Attribute"),            Record (NonBoxed {dup = "pango_attribute_copy", free = "pango_attribute_destroy"})),
+  (("Pango", "AttrList"),             Record Boxed),
+  (("Pango", "Color"),                Record Boxed),
+  (("Pango", "FontDescription"),      Record Boxed),
+  (("Pango", "FontMetrics"),          Record Boxed),
+  (("Pango", "GlyphItem"),            Record Boxed),
+  (("Pango", "GlyphString"),          Record Boxed),
+  (("Pango", "Item"),                 Record Boxed),
+  (("Pango", "Language"),             Record Boxed),
+  (("Pango", "LayoutIter"),           Record Boxed),
+  (("Pango", "LayoutLine"),           Record Boxed),
+  (("Pango", "LogAttr"),              ValueRecord Flat),
+  (("Pango", "Matrix"),               Record Boxed),
+  (("Pango", "Rectangle"),            ValueRecord Flat),
+  (("Pango", "TabArray"),             Record Boxed),
+  (("Vte", "Regex"),                  Record Boxed)
 ];
 
 

@@ -149,12 +149,17 @@ fun mkTuplePat1 ps1 =
   | _       => PatA (APatParen ps1)
 fun mkTuplePat2 ps2 = PatA (APatParen (cons1 ps2))
 
+val unitAPat = APatConst ConstUnit
+val unitPat = PatA unitAPat
+
 fun mkParenExp e = ExpParen (toList1 [e])
 fun mkTupleExp1 es1 =
   case es1 of
     (e, []) => e
   | _       => ExpParen es1
 fun mkTupleExp2 es2 = ExpParen (cons1 es2)
+
+val unitExp = ExpConst ConstUnit
 
 fun mkRevAppExp (e2, e1) = ExpApp (e1, e2)
 
@@ -270,13 +275,11 @@ fun mkIdValDec (id, exp) : dec =
     if List.exists (fn x => x = id) (!constructorNames)
     then
       let
-        val unitExp = ExpConst ConstUnit
-        val unitPat = APatConst ConstUnit
         val funDec =
           DecFun (
             [],
             toList1 [
-              toList1 [(FunHeadPrefix (NameId id, toList1 [unitPat]), NONE, exp)]
+              toList1 [(FunHeadPrefix (NameId id, toList1 [unitAPat]), NONE, exp)]
             ]
           )
         val funExp = mkIdLNameExp id

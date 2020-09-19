@@ -19,22 +19,30 @@ Context
         struct and references to other data must be cleared before freeing
         the struct itself.  To support this, `funcs` is as follows:
 
-          SOME {copy, clear}
+          Deep {copy, clear}
             The C function `copy` performs a deep copy and the C function
             `clear` removes all references to other data.
 
-          NONE
+          Flat
             In the common case that the struct does not own references to
             other data, memcpy can be used to copy and there is no other
             referenced data to clear.
 
-      Record {dup, free}
+      Record funcs
         The struct can only be used like a reference in C via a pointer, where
-        C functions `dup` and `free` duplicate (or ref) and free (or unref)
-        the struct.
+        the functions to duplicate (or ref) and free (or unref) the struct are
+        determined by `funcs` as follows:
+
+          Boxed
+            The C functions `g_boxed_copy` and `g_boxed_free` are used to
+            duplicate (or ref) and free (or unref) the struct respectively.
+
+          NonBoxed {dup, free}
+            The C functions `dup` and `free` is used to free are used to
+            duplicate (or ref) and free (or unref) the struct respectively.
 
       DisguisedRecord
-        The struct is opaque and is just a pointer in C.
+        The struct is disguised and is just a pointer in C.
 
 
 Placeholders
@@ -112,7 +120,7 @@ structure <StructNamespace><StructName>Record :>
         call                                                         |                     |                     |
           (getSymbol "memcpy")                                       |                     |                     |
           (cPtr &&> cPtr &&> GSize.FFI.cVal --> cVoid)               |                     |                     |
-                                                                     | funcs is NONE       |                     |
+                                                                     | funcs is Flat       |                     |
       val copy_ =                                                    |                     | structType is       |
         fn src & dest =>                                             |                     |  ValueRecord funcs  |
           memcpy_ (dest & src & size_ ())                            |                     |                     | Poly/ML only
@@ -124,23 +132,43 @@ structure <StructNamespace><StructName>Record :>
         call                                                         |                     |                     |
           (getSymbol "<copy>")                                       |                     |                     |
           (cPtr &&> cPtr --> cVoid)                                  | funcs is            |                     |
-                                                                     |  SOME {copy, clear} |                     |
+                                                                     |  Deep {copy, clear} |                     |
       val clear_ =                                                   |                     |                     |
         call                                                         |                     |                     |
           (getSymbol "<clear>")                                      |                     |                     |
           (cPtr --> cVoid)                                           |                     |                     |
                                                                     -'                    -'                     |
-                                                                                          -.                     |
-      val dup_ =                                                                           |                     |
-        call                                                                               |                     |
-          (getSymbol "<dup>")                                                              |                     |
-          (cPtr --> cPtr)                                                                  | structType is       |
-                                                                                           |  Record {dup, free} |
-      val free_ =                                                                          |                     |
-        call                                                                               |                     |
-          (getSymbol "<free>")                                                             |                     |
-          (cPtr --> cVoid)                                                                 |                     |
-                                                                                          -'                     |
+                                                                    -.                    -.                     |
+      val getType_ =                                                 |                     |                     |
+        call                                                         |                     |                     |
+          (getSymbol "<getTypeSymbol>")                              | funcs is Boxed      |                     |
+          (cVoid --> GObjectType.PolyML.cVal);                       |                     |                     |
+                                                                     |                     |                     |
+      val dup_ =                                                     | EITHER              |                     |
+        fn x1 =>                                                     |                     |                     |
+          call                                                       | optGetTypeSymbol is |                     |
+            (getSymbol "g_boxed_copy")                               |  SOME getTypeSymbol |                     |
+            (GObjectType.PolyML.cVal &&> cPtr --> cPtr)              |                     |                     |
+            (getType_ () & x1)                                       | getTypeSymbol       |                     |
+                                                                     |  <> "intern"        |                     |
+      val free_ =                                                    |                     |                     |
+        fn x1 =>                                                     | OR                  |                     |
+          call                                                       |                     |                     |
+            (getSymbol "g_boxed_free")                               | raise Fail          |                     |
+            (GObjectType.PolyML.cVal &&> cPtr --> cVoid)             |                     |                     |
+            (getType_ () & x1)                                       |                     |                     |
+                                                                    -'                     | structType is       |
+                                                                    -.                     |  Record funcs       |
+      val dup_ =                                                     |                     |                     |
+        call                                                         |                     |                     |
+          (getSymbol "<dup>")                                        |                     |                     |
+          (cPtr --> cPtr)                                            | funcs is            |                     |
+                                                                     |  NonBoxed           |                     |
+      val free_ =                                                    |    {dup, free}      |                     |
+        call                                                         |                     |                     |
+          (getSymbol "<free>")                                       |                     |                     |
+          (cPtr --> cVoid)                                           |                     |                     |
+                                                                    -'                    -'                     |
     end                                                                                                          |
                                                                                                                 -'
                                                                                           -.                    -.
@@ -156,8 +184,8 @@ structure <StructNamespace><StructName>Record :>
     val memcpy_ =                                                    |                     |                     |
       fn x1 & x2 & x3 =>                                             |                     |                     |
         (_import "memcpy" : non_opt p * non_opt p * GSize.FFI.val_ -> unit;)               |                     |
-        (x1, x2, x3)                                                 |                     |                     |
-                                                                     | funcs is NONE       | structType is       |
+          (x1, x2, x3)                                               |                     |                     |
+                                                                     | funcs is Flat       | structType is       |
     val copy_ =                                                      |                     |  ValueRecord funcs  |
       fn src & dest =>                                               |                     |                     |
         memcpy_ (dest & src & size_ ())                              |                     |                     | MLton only
@@ -168,16 +196,41 @@ structure <StructNamespace><StructName>Record :>
     val copy_ =                                                      |                     |                     |
       fn x1 & x2 =>                                                  |                     |                     |
         (_import "<copy>" : non_opt p * non_opt p -> unit;)          | funcs is            |                     |
-        (x1, x2)                                                     |  SOME {copy, clear} |                     |
+          (x1, x2)                                                   |  Deep {copy, clear} |                     |
                                                                      |                     |                     |
     val clear_ =                                                     |                     |                     |
       _import "<clear>" : non_opt p -> unit;                         |                     |                     |
                                                                     -'                    -'                     |
-                                                                                          -.                     |
-    val dup_ = _import "<dup>" : non_opt p -> non_opt p;                                   | structType is       |
-                                                                                           |  Record {dup, free} |
-    val free_ = _import "<free>" : non_opt p -> unit;                                      |                     |
-                                                                                          -'                    -'
+                                                                    -.                    -.                     |
+    val getType_ =                                                   |                     |                     |
+      _import "<getTypeSymbol>" :                                    |                     |                     |
+        unit -> GObjectType.FFI.val_;                                |                     |                     |
+                                                                     |                     |                     |
+    val dup_ =                                                       |                     |                     |
+      fn x1 =>                                                       | funcs is Boxed      |                     |
+        (                                                            |                     |                     |
+          fn x1 & x2 =>                                              |                     |                     |
+            (_import "g_boxed_copy" :                                | EITHER              |                     |
+              GObjectType.FFI.val_ * non_opt p -> non_opt p;)        |                     |                     |
+              (x1, x2)                                               | optGetTypeSymbol is |                     |
+        )                                                            |  SOME getTypeSymbol |                     |
+          (getType_ () & x1)                                         |                     |                     |
+                                                                     | getTypeSymbol       |                     |
+    val free_ =                                                      |  <> "intern"        |                     |
+      fn x1 =>                                                       |                     |                     |
+        (                                                            | OR                  |                     |
+          fn x1 & x2 =>                                              |                     |                     |
+            (_import "g_boxed_free" :                                | raise Fail          |                     |
+              GObjectType.FFI.val_ * non_opt p -> non_opt p;)        |                     |                     |
+              (x1, x2)                                               |                     |                     |
+        )                                                            |                     |                     |
+          (getType_ () & x1)                                         |                     |                     |
+                                                                    -'                     | structType is       |
+                                                                    -.                     |  Record funcs       |
+    val dup_ = _import "<dup>" : non_opt p -> non_opt p;             | funcs is            |                     |
+                                                                     |  NonBoxed           |                     |
+    val free_ = _import "<free>" : non_opt p -> unit;                |    {dup, free}      |                     |
+                                                                    -'                    -'                    -'
                                                                                           -.
     structure Record =                                                                     |
       BoxedValueRecord(                                                                    |
@@ -216,7 +269,7 @@ structure <StructNamespace><StructName>Record :>
                                                -.                            |               |
       val getType_ =                            |                            |               |
         call                                    | getTypeSymbol <> "intern"  |               |
-          (getSymbol "<getTypeSymbol>")         |                            | Poly/ML only  |
+          (getSymbol "<getTypeSymbol>")         | structType <> Record Boxed | Poly/ML only  |
           (cVoid --> GObjectType.PolyML.cVal);  |                            |               |
                                                -'                            |               |
                                                                              |               |
@@ -242,8 +295,8 @@ structure <StructNamespace><StructName>Record :>
     end                                                                      |               | optGetTypeSymbol
                                                                             -'               |  is SOME getTypeSymbol
                                                -.                           -.               |
-    val getType_ =                              |                            |               |
-      _import "<getTypeSymbol>" :               | getTypeSymbol <> "intern"  |               |
+    val getType_ =                              | getTypeSymbol <> "intern"  |               |
+      _import "<getTypeSymbol>" :               | structType <> Record Boxed |               |
         unit -> GObjectType.FFI.val_;           |                            |               |
                                                -'                            |               |
                                                                              |               |

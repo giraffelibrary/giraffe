@@ -26,10 +26,21 @@ fun checkInterfaceType interfaceInfo =
 
 
 (* Struct types *)
-	
+
+datatype value_record_funcs =
+  Deep of {copy : string, clear : string}
+| Flat
+
+datatype record_funcs =
+  Boxed
+| NonBoxed of {dup : string, free : string}
+
+val boxedCopySymbol = "g_boxed_copy"
+val boxedFreeSymbol = "g_boxed_free"
+
 datatype struct_type =
-  ValueRecord of {copy : string, clear : string} option
-| Record of {dup : string, free : string}
+  ValueRecord of value_record_funcs
+| Record of record_funcs
 | DisguisedRecord
 
 val structTypes : ((string * string) * struct_type) list ref = ref []

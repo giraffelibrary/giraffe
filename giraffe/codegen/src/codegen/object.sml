@@ -203,7 +203,7 @@ in
 
       fun mkModule isPolyML =
         let
-          val strDecs'1 = addAccessorStrDecs true isPolyML strDecs'0
+          val strDecs'1 = addAccessorStrDecs true false isPolyML strDecs'0
 
           (*
            *                                           -.

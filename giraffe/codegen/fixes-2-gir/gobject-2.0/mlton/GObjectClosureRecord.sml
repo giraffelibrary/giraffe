@@ -13,6 +13,7 @@ structure GObjectClosureRecord :>
     type opt = Pointer.opt
     type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
+    val getType_ = _import "g_closure_get_type" : unit -> GObjectType.FFI.val_;
 
     val take_ =
       if GiraffeDebug.isEnabled
@@ -44,7 +45,6 @@ structure GObjectClosureRecord :>
         val free_ = free_
       )
     open Record
-    val getType_ = _import "g_closure_get_type" : unit -> GObjectType.FFI.val_;
     val getValue_ = _import "g_value_get_boxed" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.non_opt FFI.p;
     val getOptValue_ = _import "g_value_get_boxed" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> FFI.opt FFI.p;
     val setValue_ = fn x1 & x2 => (_import "g_value_set_boxed" : GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p * FFI.non_opt FFI.p -> unit;) (x1, x2)

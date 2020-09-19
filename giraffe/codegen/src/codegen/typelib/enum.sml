@@ -438,7 +438,7 @@ in
               (enumInfo, (strDecs'3, excls'2))
 
           val strDecs'5 = addErrorStrDecs strDecs'4
-          val strDecs'6 = addAccessorStrDecs false isPolyML strDecs'5
+          val strDecs'6 = addAccessorStrDecs false false isPolyML strDecs'5
           val strDecs'7 = StrDecDec (DecOpen (toList1 [enumStrLId])) :: strDecs'6
           val strDecs'8 = structEnumStrDec enumInfo :: strDecs'7
           val strDecs'9 =

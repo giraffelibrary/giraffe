@@ -152,14 +152,49 @@ local
   val defaultClearStrDec =
     StrDecDec (mkIdValDec (clearUId, mkLIdLNameExp [fnStrId, ignoreId]))
 
+  (*
+   *     fn x1 => <funExp> (getType_ () & x1)
+   *)
+  fun callBoxedFunExp funExp =
+    let
+      val xId = "x1"
+      val xPat = mkIdVarPat xId
+      val xExp = mkIdLNameExp xId
+      val getTypeExp = ExpApp (mkIdLNameExp getTypeUId, unitExp)
+      val exp =
+        ExpApp (
+          funExp,
+          mkParenExp (mkAExp (getTypeExp, xExp))
+        )
+    in
+      ExpFn (toList1 [(xPat, exp)])
+    end
+
+  fun boxedTypeForNonRegisteredType (structNamespace, structName) =
+    concat [
+      "record ",
+      structNamespace, ".", structName,
+      " is not a registered type but is configured as a boxed type"
+    ]
+
+  fun boxedTypeForInternalType (structNamespace, structName) =
+    concat [
+      "record ",
+      structNamespace, ".", structName,
+      " is an internal type but is configured as a boxed type"
+    ]
+
   fun addStrDecsLowLevelMLton
-    _
+    structInfo
     structNamespace
     structName
     structType
     strDecs
   =
     let
+      fun nonRegisteredType () = boxedTypeForNonRegisteredType (structNamespace, structName)
+      fun internalType () = boxedTypeForInternalType (structNamespace, structName)
+
       val strDecs' =
         case structType of
           ValueRecord funcs =>
@@ -173,7 +208,7 @@ local
                *)
               callStrDecLowLevelMLton (sizeUId, sizeSymbolId, [], gsizeTy) :: (
                 case funcs of
-                  SOME {copy, clear} =>
+                  Deep {copy, clear} =>
                     (*
                      *     val copy_ =
                      *       fn x1 & x2 =>
@@ -186,7 +221,7 @@ local
                     callStrDecLowLevelMLton (copyUId,  copy,  [cPtrTy, cPtrTy], unitTy) ::
                     callStrDecLowLevelMLton (clearUId, clear, [cPtrTy],         unitTy) ::
                     strDecs
-                | NONE               =>
+                | Flat               =>
                     (*
                      *     val memcpy_ =
                      *       fn x1 & x2 & x3 =>
@@ -206,16 +241,74 @@ local
                     strDecs
               )
             end
-        | Record {dup, free} =>
-            (* 
-             *     val dup_ = _import "<dup>" : non_opt p -> non_opt p;
-             * 
-             *     val free_ = _import "<free>" : non_opt p -> unit;
-             *)
-            callStrDecLowLevelMLton (dupUId,  dup,  [cPtrTy], cPtrTy) ::
-            callStrDecLowLevelMLton (freeUId, free, [cPtrTy], unitTy) ::
-            strDecs
-        | DisguisedRecord =>
+        | Record funcs      => (
+            case (funcs, RegisteredTypeInfo.getTypeInit structInfo) of
+              (Boxed, NONE)               => raise Fail (nonRegisteredType ())
+            | (Boxed, SOME "intern")      => raise Fail (internalType ())
+            | (Boxed, SOME getTypeSymbol) =>
+                (*
+                 *     val getType_ =
+                 *       _import "<getTypeSymbol>" :
+                 *         unit -> GObjectType.FFI.val_;
+                 *
+                 *     val dup_ =
+                 *       fn x1 =>
+                 *         (
+                 *           fn x1 & x2 =>
+                 *             (_import "g_boxed_copy" :
+                 *               GObjectType.FFI.val_ * non_opt p -> non_opt p;)
+                 *               (x1, x2)
+                 *         )
+                 *           (getType_ () & x1)
+                 *
+                 *     val free_ =
+                 *       fn x1 =>
+                 *         (
+                 *           fn x1 & x2 =>
+                 *             (_import "g_boxed_free" :
+                 *               GObjectType.FFI.val_ * non_opt p -> non_opt p;)
+                 *               (x1, x2)
+                 *         )
+                 *           (getType_ () & x1)
+                 *)
+                let
+                  val typeIRef = makeTypeIRef structNamespace NONE
+                  val typeTy = mkLIdTy (prefixInterfaceStrId typeIRef [ffiStrId, valId])
+
+                  val callBoxedCopyExp =
+                    callBoxedFunExp (
+                      mkParenExp (
+                        callMLtonFFIExp
+                          boxedCopySymbol
+                          ([typeTy, cPtrTy], cPtrTy)
+                      )
+                    )
+
+                  val callBoxedFreeExp =
+                    callBoxedFunExp (
+                      mkParenExp (
+                        callMLtonFFIExp
+                          boxedFreeSymbol
+                          ([typeTy, cPtrTy], unitTy)
+                      )
+                    )
+                in
+                  getTypeStrDecLowLevelMLton getTypeSymbol ::
+                  StrDecDec (mkIdValDec (dupUId, callBoxedCopyExp)) ::
+                  StrDecDec (mkIdValDec (freeUId, callBoxedFreeExp)) ::
+                  strDecs
+                end
+            | (NonBoxed {dup, free}, _)   =>
+                (* 
+                 *     val dup_ = _import "<dup>" : non_opt p -> non_opt p;
+                 * 
+                 *     val free_ = _import "<free>" : non_opt p -> unit;
+                 *)
+                callStrDecLowLevelMLton (dupUId,  dup,  [cPtrTy], cPtrTy) ::
+                callStrDecLowLevelMLton (freeUId, free, [cPtrTy], unitTy) ::
+                strDecs
+          )
+        | DisguisedRecord   =>
             raise Fail "disguised record has no low-level FFI"
     in
       strDecs'
@@ -280,13 +373,16 @@ local
     callStrDecLowLevelPolyML (memcpyUId, memcpyId, [cPtrConv, cPtrConv, gsizeConv], cVoidConv)
 
   fun addStrDecsLowLevelPolyML
-    _
+    structInfo
     structNamespace
     structName
     structType
     strDecs
   =
     let
+      fun nonRegisteredType () = boxedTypeForNonRegisteredType (structNamespace, structName)
+      fun internalType () = boxedTypeForInternalType (structNamespace, structName)
+
       val localStrDecs =
         case structType of
           ValueRecord funcs =>
@@ -301,7 +397,7 @@ local
                *)
               callStrDecLowLevelPolyML (sizeUId, sizeSymbolId, [], gsizeConv) :: (
                 case funcs of
-                  SOME {copy, clear} =>
+                  Deep {copy, clear} =>
                     (*
                      *     val copy_ =
                      *       call
@@ -316,7 +412,7 @@ local
                     callStrDecLowLevelPolyML (copyUId,  copy,  [cPtrConv, cPtrConv], cVoidConv) ::
                     callStrDecLowLevelPolyML (clearUId, clear, [cPtrConv],           cVoidConv) ::
                     []
-                | NONE               =>
+                | Flat               =>
                     (*
                      *     val memcpy_ =
                      *       call
@@ -335,23 +431,73 @@ local
                     []
               )
             end
-        | Record {dup, free} =>
-            (*
-             *     val dup_ =
-             *       call
-             *         (getSymbol "<dup>")
-             *         (cPtr --> cPtr)
-             *
-             *     val free_ =
-             *       call
-             *         (getSymbol "<free>")
-             *         (cPtr --> cVoid)
-             *)
-            [
-              callStrDecLowLevelPolyML (dupUId,  dup,  [cPtrConv], cPtrConv),
-              callStrDecLowLevelPolyML (freeUId, free, [cPtrConv], cVoidConv)
-            ]
-        | DisguisedRecord =>
+        | Record funcs      => (
+            case (funcs, RegisteredTypeInfo.getTypeInit structInfo) of
+              (Boxed, NONE)               => raise Fail (nonRegisteredType ())
+            | (Boxed, SOME "intern")      => raise Fail (internalType ())
+            | (Boxed, SOME getTypeSymbol) =>
+                (*
+                 *     val getType_ =
+                 *       call
+                 *         (getSymbol "<getTypeSymbol>")
+                 *         (cVoid --> GObjectType.PolyML.cVal);
+                 *
+                 *     val dup_ =
+                 *       fn x1 =>
+                 *         call
+                 *           (getSymbol "g_boxed_copy")
+                 *           (GObjectType.PolyML.cVal &&> cPtr --> cPtr)
+                 *           (getType_ () & x1)
+                 *
+                 *     val free_ =
+                 *       fn x1 =>
+                 *         call
+                 *           (getSymbol "g_boxed_free")
+                 *           (GObjectType.PolyML.cVal &&> cPtr --> cVoid)
+                 *           (getType_ () & x1)
+                 *)
+                let
+                  val typeIRef = makeTypeIRef structNamespace NONE
+                  val typeConv = makeConv (prefixInterfaceStrId typeIRef [polyMLStrId]) VAL
+
+                  val callBoxedCopyExp =
+                    callBoxedFunExp (
+                      callPolyMLFFIExp
+                        boxedCopySymbol
+                        (mkAARExp (typeConv, cPtrConv), cPtrConv)
+                    )
+
+                  val callBoxedFreeExp =
+                    callBoxedFunExp (
+                      callPolyMLFFIExp
+                        boxedFreeSymbol
+                        (mkAARExp (typeConv, cPtrConv), cVoidConv)
+                    )
+                in
+                  [
+                    getTypeStrDecLowLevelPolyML getTypeSymbol,
+                    StrDecDec (mkIdValDec (dupUId, callBoxedCopyExp)),
+                    StrDecDec (mkIdValDec (freeUId, callBoxedFreeExp))
+                  ]
+                end
+            | (NonBoxed {dup, free}, _)   =>
+                (*
+                 *     val dup_ =
+                 *       call
+                 *         (getSymbol "<dup>")
+                 *         (cPtr --> cPtr)
+                 *
+                 *     val free_ =
+                 *       call
+                 *         (getSymbol "<free>")
+                 *         (cPtr --> cVoid)
+                 *)
+                [
+                  callStrDecLowLevelPolyML (dupUId,  dup,  [cPtrConv], cPtrConv),
+                  callStrDecLowLevelPolyML (freeUId, free, [cPtrConv], cVoidConv)
+                ]
+          )
+        | DisguisedRecord   =>
             raise Fail "disguised record has no low-level FFI"
     in
       cPtrStrDec :: mkPolyMLFFILocalStrDec localStrDecs :: strDecs
@@ -487,7 +633,8 @@ in
 
       fun mkModule isPolyML =
         let
-          val strDecs'1 = addAccessorStrDecs true isPolyML strDecs'0
+          val isBoxed = structType = Record Boxed
+          val strDecs'1 = addAccessorStrDecs true isBoxed isPolyML strDecs'0
           val strDecs'2 = (
             case structType of
               ValueRecord _   => structValueRecordStrDec
