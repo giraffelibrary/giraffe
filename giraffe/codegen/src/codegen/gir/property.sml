@@ -118,7 +118,7 @@ datatype param_info =
 | PIINTERFACE of interface_info
 
 
-fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
+fun getParamInfo repo vers (containerIRef : interfaceref) propertyInfo =
   let
     val ownershipTransfer = PropertyInfo.getOwnershipTransfer propertyInfo
 
@@ -231,7 +231,7 @@ fun getParamInfo _ (containerIRef : interfaceref) propertyInfo =
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
-              val () = checkInterfaceType interfaceInfo
+              val () = checkInterfaceType repo vers interfaceInfo
 
               val interfaceTy = getIRefTy interfaceInfo
 
@@ -328,6 +328,7 @@ fun mkParamTy isOpt ((isReadType, interfaceTyRef), tyVarIdx) =
 
 fun makePropertySpec
   repo
+  vers
   (containerIRef as {namespace = containerNamespace, ...})
   (propertyInfo, (iRefs as (sigIRefs, extIRefs), excls))
   : spec * ((interfaceref list * interfaceref list) * info_excl_hier list) =
@@ -340,7 +341,7 @@ fun makePropertySpec
     val isGObject = containerNamespace = "GObject"
 
     val paramModes = getParamModes propertyInfo
-    val paramInfo = getParamInfo repo containerIRef propertyInfo
+    val paramInfo = getParamInfo repo vers containerIRef propertyInfo
 
     val tyVarIdx'0 = 0
     val (containerTy, tyVarIdx'1) =
@@ -416,6 +417,7 @@ fun makePropertySpec
 
 fun makePropertyStrDec
   repo
+  vers
   (containerIRef : interfaceref)
   (propertyInfo, ((iRefs, structs), excls))
   : strdec * ((interfaceref list * struct1 ListDict.t) * info_excl_hier list) =
@@ -426,7 +428,7 @@ fun makePropertyStrDec
     val propertyNameId = mkPropertyNameId propertyName
 
     val paramModes = getParamModes propertyInfo
-    val paramInfo = getParamInfo repo containerIRef propertyInfo
+    val paramInfo = getParamInfo repo vers containerIRef propertyInfo
 
     val (accExp, iRefs'1) =
       case paramInfo of

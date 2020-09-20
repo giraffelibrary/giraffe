@@ -416,17 +416,17 @@ fun addObjectMethodSpecs repo vers objectIRef =
     ObjectInfo.getMethod
     (makeFunctionSpec repo vers (SOME objectIRef))
 
-fun addObjectSignalSpecs repo objectIRef =
+fun addObjectSignalSpecs repo vers objectIRef =
   revFoldMapInfosWithExcls
     ObjectInfo.getNSignals
     ObjectInfo.getSignal
-    (makeSignalSpec repo objectIRef)
+    (makeSignalSpec repo vers objectIRef)
 
-fun addObjectPropertySpecs repo objectIRef =
+fun addObjectPropertySpecs repo vers objectIRef =
   revFoldMapInfosWithExcls
     ObjectInfo.getNProperties
     ObjectInfo.getProperty
-    (makePropertySpec repo objectIRef)
+    (makePropertySpec repo vers objectIRef)
 
 fun makeObjectSig
   (repo            : 'a RepositoryClass.class)
@@ -459,8 +459,8 @@ fun makeObjectSig
          * (interfaceref list * interfaceref list)
          * info_excl_hier list =
       ([], ([], []), excls'0)
-    val acc'1 = addObjectPropertySpecs repo objectIRef (objectInfo, acc'0)
-    val acc'2 = addObjectSignalSpecs repo objectIRef (objectInfo, acc'1)
+    val acc'1 = addObjectPropertySpecs repo vers objectIRef (objectInfo, acc'0)
+    val acc'2 = addObjectSignalSpecs repo vers objectIRef (objectInfo, acc'1)
     val acc'3 = addObjectMethodSpecs repo vers objectIRef (objectInfo, acc'2)
     val acc'4 = addGetTypeFunctionSpec getTypeSymbol typeIRef acc'3
     val acc'5 = addObjectConstantSpecs repo vers (objectInfo, acc'4)
@@ -549,14 +549,14 @@ fun addObjectMethodStrDecsHighLevel repo vers (objectInfo, objectIRef) =
     ObjectInfo.getMethod
     (makeFunctionStrDecHighLevel repo vers (SOME (objectInfo, objectIRef)))
 
-fun addObjectSignalStrDecs repo objectIRef =
+fun addObjectSignalStrDecs repo vers objectIRef =
   fn (objectInfo, (strDecs, x, excls)) =>
     let
       val (localStrDecs, x', excls') =
         revFoldMapInfosWithExcls
           ObjectInfo.getNSignals
           ObjectInfo.getSignal
-          (makeSignalStrDec repo objectIRef)
+          (makeSignalStrDec repo vers objectIRef)
           (objectInfo, ([], x, excls))
     in
       case localStrDecs of
@@ -582,14 +582,14 @@ fun addObjectSignalStrDecs repo objectIRef =
       | _      => (strDecs, x', excls')
     end
 
-fun addObjectPropertyStrDecs repo objectIRef =
+fun addObjectPropertyStrDecs repo vers objectIRef =
   fn (objectInfo, (strDecs, x, excls)) =>
     let
       val (localStrDecs, x', excls') =
         revFoldMapInfosWithExcls
           ObjectInfo.getNProperties
           ObjectInfo.getProperty
-          (makePropertyStrDec repo objectIRef)
+          (makePropertyStrDec repo vers objectIRef)
           (objectInfo, ([], x, excls))
     in
       case localStrDecs of
@@ -653,8 +653,8 @@ fun makeObjectStr
          * (interfaceref list * struct1 ListDict.t)
          * info_excl_hier list =
       ([], ([], ListDict.empty), excls'0)
-    val acc'1 = addObjectPropertyStrDecs repo objectIRef (objectInfo, acc'0)
-    val acc'2 = addObjectSignalStrDecs repo objectIRef (objectInfo, acc'1)
+    val acc'1 = addObjectPropertyStrDecs repo vers objectIRef (objectInfo, acc'0)
+    val acc'2 = addObjectSignalStrDecs repo vers objectIRef (objectInfo, acc'1)
     val acc'3 =
       addObjectMethodStrDecsHighLevel
         repo

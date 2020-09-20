@@ -369,7 +369,7 @@ fun makeInfo
   case InfoType.getType baseInfo of
     InfoType.OBJECT objectInfo       =>
       let
-        val () = checkInterfaceType objectInfo
+        val () = checkInterfaceType repo vers objectInfo
 
         val (classSigFile, classSigProgram, classSigIRefs, classExtIRefs) =
           makeObjectClassSig repo namespace objectInfo
@@ -442,7 +442,7 @@ fun makeInfo
       end
   | InfoType.INTERFACE interfaceInfo =>
       let
-        val () = checkInterfaceType interfaceInfo
+        val () = checkInterfaceType repo vers interfaceInfo
 
         val (classSigFile, classSigProgram, classSigIRefs, classExtIRefs) =
           makeInterfaceClassSig repo namespace interfaceInfo
@@ -515,7 +515,7 @@ fun makeInfo
       end
   | InfoType.STRUCT structInfo       =>
       let
-        val () = checkInterfaceType structInfo
+        val () = checkInterfaceType repo vers structInfo
 
         val (recordSigFile, recordSigProgram, recordSigIRefs, recordExtIRefs) =
           makeStructRecordSig repo namespace structInfo
@@ -597,7 +597,7 @@ fun makeInfo
         end
       then
         let
-          val () = checkInterfaceType unionInfo
+          val () = checkInterfaceType repo vers unionInfo
 
           val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
             makeUnionStr repo vers namespace unionInfo excls'0
@@ -648,7 +648,7 @@ fun makeInfo
         acc
   | InfoType.FLAGS enumInfo          =>
       let
-        val () = checkInterfaceType enumInfo
+        val () = checkInterfaceType repo vers enumInfo
 
         val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
           makeFlagsStr repo vers namespace enumInfo excls'0
@@ -699,7 +699,7 @@ fun makeInfo
       end
   | InfoType.ENUM enumInfo           =>
       let
-        val () = checkInterfaceType enumInfo
+        val () = checkInterfaceType repo vers enumInfo
 
         val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
           makeEnumStr repo vers namespace enumInfo excls'0
@@ -750,15 +750,15 @@ fun makeInfo
       end
   | InfoType.ALIAS aliasInfo         =>
       let
-        val () = checkInterfaceType aliasInfo
+        val () = checkInterfaceType repo vers aliasInfo
 
         val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
-          makeAliasStr repo namespace aliasInfo excls'0
+          makeAliasStr repo vers namespace aliasInfo excls'0
 
         val strDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) strIRefs
 
         val (sigFile, sigProgram, sigIRefs, extIRefs, excls'2) =
-          makeAliasSig repo namespace aliasInfo excls'1
+          makeAliasSig repo vers namespace aliasInfo excls'1
 
         val sigDeps = map (mkSigFile o toUCU o makeIRefInterfaceOtherStrId) sigIRefs
 

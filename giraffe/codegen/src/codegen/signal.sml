@@ -10,6 +10,7 @@ fun mkSignalNameId signalName =
 
 fun makeSignalSpec
   repo
+  vers
   (containerIRef as {namespace = containerNamespace, name = containerName, ...})
   (signalInfo, (iRefs, excls))
   : spec * ((interfaceref list * interfaceref list) * info_excl_hier list) =
@@ -38,11 +39,11 @@ fun makeSignalSpec
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo true repo signalNamespace (SOME containerName) signalInfo)
+        (getParInfo true repo vers signalNamespace (SOME containerName) signalInfo)
         (signalInfo, [])
 
     val retInfo =
-      getRetInfo true repo signalNamespace (SOME containerName)
+      getRetInfo true repo vers signalNamespace (SOME containerName)
         signalInfo
 
     val parInfos = updateParInfos retInfo parInfos
@@ -325,6 +326,7 @@ end
 
 fun makeSignalStrDec
   repo
+  vers
   ({name = containerName, ...} : interfaceref)
   (signalInfo, ((iRefs, structs), excls))
   : strdec * ((interfaceref list * struct1 ListDict.t) * info_excl_hier list) =
@@ -355,11 +357,11 @@ fun makeSignalStrDec
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo true repo signalNamespace (SOME containerName) signalInfo)
+        (getParInfo true repo vers signalNamespace (SOME containerName) signalInfo)
         (signalInfo, [])
 
     val retInfo =
-      getRetInfo true repo signalNamespace (SOME containerName)
+      getRetInfo true repo vers signalNamespace (SOME containerName)
         signalInfo
 
     val parInfos = updateParInfos retInfo parInfos

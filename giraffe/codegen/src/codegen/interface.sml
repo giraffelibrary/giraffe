@@ -274,17 +274,17 @@ fun addInterfaceMethodSpecs repo vers interfaceIRef =
     InterfaceInfo.getMethod
     (makeFunctionSpec repo vers (SOME interfaceIRef))
 
-fun addInterfaceSignalSpecs repo interfaceIRef =
+fun addInterfaceSignalSpecs repo vers interfaceIRef =
   revFoldMapInfosWithExcls
     InterfaceInfo.getNSignals
     InterfaceInfo.getSignal
-    (makeSignalSpec repo interfaceIRef)
+    (makeSignalSpec repo vers interfaceIRef)
 
-fun addInterfacePropertySpecs repo interfaceIRef =
+fun addInterfacePropertySpecs repo vers interfaceIRef =
   revFoldMapInfosWithExcls
     InterfaceInfo.getNProperties
     InterfaceInfo.getProperty
-    (makePropertySpec repo interfaceIRef)
+    (makePropertySpec repo vers interfaceIRef)
 
 fun makeInterfaceSig
   (repo               : 'a RepositoryClass.class)
@@ -322,9 +322,9 @@ fun makeInterfaceSig
          * info_excl_hier list =
       ([], ([], []), excls'0)
     val acc'1 =
-      addInterfacePropertySpecs repo interfaceIRef (interfaceInfo, acc'0)
+      addInterfacePropertySpecs repo vers interfaceIRef (interfaceInfo, acc'0)
     val acc'2 =
-      addInterfaceSignalSpecs repo interfaceIRef (interfaceInfo, acc'1)
+      addInterfaceSignalSpecs repo vers interfaceIRef (interfaceInfo, acc'1)
     val acc'3 =
       addInterfaceMethodSpecs repo vers interfaceIRef (interfaceInfo, acc'2)
     val acc'4 = addGetTypeFunctionSpec getTypeSymbol typeIRef acc'3
@@ -409,14 +409,14 @@ fun addInterfaceMethodStrDecsHighLevel repo vers (interfaceInfo, interfaceIRef) 
     InterfaceInfo.getMethod
     (makeFunctionStrDecHighLevel repo vers (SOME (interfaceInfo, interfaceIRef)))
 
-fun addInterfaceSignalStrDecs repo interfaceIRef =
+fun addInterfaceSignalStrDecs repo vers interfaceIRef =
   fn (interfaceInfo, (strDecs, x, excls)) =>
     let
       val (localStrDecs, x', excls') =
         revFoldMapInfosWithExcls
           InterfaceInfo.getNSignals
           InterfaceInfo.getSignal
-          (makeSignalStrDec repo interfaceIRef)
+          (makeSignalStrDec repo vers interfaceIRef)
           (interfaceInfo, ([], x, excls))
     in
       case localStrDecs of
@@ -442,14 +442,14 @@ fun addInterfaceSignalStrDecs repo interfaceIRef =
       | _      => (strDecs, x', excls')
     end
 
-fun addInterfacePropertyStrDecs repo interfaceIRef =
+fun addInterfacePropertyStrDecs repo vers interfaceIRef =
   fn (interfaceInfo, (strDecs, x, excls)) =>
     let
       val (localStrDecs, x', excls') =
         revFoldMapInfosWithExcls
           InterfaceInfo.getNProperties
           InterfaceInfo.getProperty
-          (makePropertyStrDec repo interfaceIRef)
+          (makePropertyStrDec repo vers interfaceIRef)
           (interfaceInfo, ([], x, excls))
     in
       case localStrDecs of
@@ -514,9 +514,9 @@ fun makeInterfaceStr
          * info_excl_hier list =
       ([], ([], ListDict.empty), excls'0)
     val acc'1 =
-      addInterfacePropertyStrDecs repo interfaceIRef (interfaceInfo, acc'0)
+      addInterfacePropertyStrDecs repo vers interfaceIRef (interfaceInfo, acc'0)
     val acc'2 =
-      addInterfaceSignalStrDecs repo interfaceIRef (interfaceInfo, acc'1)
+      addInterfaceSignalStrDecs repo vers interfaceIRef (interfaceInfo, acc'1)
     val acc'3 =
       addInterfaceMethodStrDecsHighLevel
         repo

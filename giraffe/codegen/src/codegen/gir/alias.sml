@@ -6,7 +6,8 @@
 (* Signature *)
 
 fun makeAliasSig
-  (_              : 'a RepositoryClass.class)
+  (repo           : 'a RepositoryClass.class)
+  (vers           : Repository.typelibvers_t)
   (aliasNamespace : string)
   (aliasInfo      : 'b AliasInfoClass.class)
   (excls'0        : info_excl_hier list)
@@ -103,7 +104,7 @@ fun makeAliasSig
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
-              val () = checkInterfaceType interfaceInfo
+              val () = checkInterfaceType repo vers interfaceInfo
 
               val sourceTy = getIRefTy interfaceInfo
               val sourceRef =
@@ -173,7 +174,8 @@ fun makeAliasSig
 (* Structure *)
 
 fun makeAliasStr
-  (_              : 'a RepositoryClass.class)
+  (repo           : 'a RepositoryClass.class)
+  (vers           : Repository.typelibvers_t)
   (aliasNamespace : string)
   (aliasInfo      : 'b AliasInfoClass.class)
   (excls'0        : info_excl_hier list)
@@ -260,7 +262,7 @@ fun makeAliasStr
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
-              val () = checkInterfaceType interfaceInfo
+              val () = checkInterfaceType repo vers interfaceInfo
 
               val sourceTy = getIRefTy interfaceInfo
               val sourceRef =

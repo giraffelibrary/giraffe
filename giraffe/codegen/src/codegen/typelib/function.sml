@@ -570,6 +570,7 @@ exception Void
 fun getParInfo
   usePtrDefault
   repo
+  vers
   functionNamespace
   optContainerName
   callableInfo
@@ -910,7 +911,7 @@ fun getParInfo
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
-              val () = checkInterfaceType interfaceInfo
+              val () = checkInterfaceType repo vers interfaceInfo
 
               val interfaceTy = getIRefTy interfaceInfo
 
@@ -1134,6 +1135,7 @@ fun updateParInfos retInfo parInfos =
 fun getRetInfo
   usePtrDefault
   repo
+  vers
   functionNamespace
   optContainerName
   callableInfo =
@@ -1441,7 +1443,7 @@ fun getRetInfo
         | INTERFACE    =>
             let
               val interfaceInfo = getInterface typeInfo
-              val () = checkInterfaceType interfaceInfo
+              val () = checkInterfaceType repo vers interfaceInfo
 
               val interfaceTy = getIRefTy interfaceInfo
 
@@ -1732,11 +1734,11 @@ fun makeFunctionSpec
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo false repo functionNamespace optContainerName functionInfo)
+        (getParInfo false repo vers functionNamespace optContainerName functionInfo)
         (functionInfo, [])
 
     val retInfo =
-      getRetInfo false repo functionNamespace optContainerName
+      getRetInfo false repo vers functionNamespace optContainerName
         functionInfo
 
     val parInfos = updateParInfos retInfo parInfos
@@ -2643,11 +2645,11 @@ fun makeFunctionStrDecHighLevel
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo false repo functionNamespace optContainerName functionInfo)
+        (getParInfo false repo vers functionNamespace optContainerName functionInfo)
         (functionInfo, [])
 
     val retInfo =
-      getRetInfo false repo functionNamespace optContainerName
+      getRetInfo false repo vers functionNamespace optContainerName
         functionInfo
 
     val parInfos = updateParInfos retInfo parInfos
@@ -3358,11 +3360,11 @@ fun makeFunctionStrDecLowLevelPolyML
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo false repo functionNamespace optContainerName functionInfo)
+        (getParInfo false repo vers functionNamespace optContainerName functionInfo)
         (functionInfo, [])
 
     val retInfo =
-      getRetInfo false repo functionNamespace optContainerName
+      getRetInfo false repo vers functionNamespace optContainerName
         functionInfo
 
     val parInfos = updateParInfos retInfo parInfos
@@ -4039,11 +4041,11 @@ fun makeFunctionStrDecLowLevelMLton
       revMapInfos
         CallableInfo.getNArgs
         CallableInfo.getArg
-        (getParInfo false repo functionNamespace optContainerName functionInfo)
+        (getParInfo false repo vers functionNamespace optContainerName functionInfo)
         (functionInfo, [])
 
     val retInfo =
-      getRetInfo false repo functionNamespace optContainerName
+      getRetInfo false repo vers functionNamespace optContainerName
         functionInfo
 
     val parInfos = updateParInfos retInfo parInfos

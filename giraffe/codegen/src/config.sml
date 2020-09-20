@@ -78,32 +78,52 @@ end;
  *)
 
 excludedInterfaceTypes := [
-  ("GLib", "AsciiType"),
-  ("GLib", "Cond"),
-  ("GLib", "Data"),
-  ("GLib", "MemVTable"),
-  ("GLib", "Mutex"),
-  ("GLib", "PollFD"),
-  ("GLib", "Scanner"),
-  ("GLib", "ScannerConfig"),
-  ("GLib", "UnicodeScript"),
-  ("GLib", "UnicodeBreakType"),
-  ("GObject", "CClosure"),
-  ("GObject", "ClosureNotifyData"),
-  ("GObject", "ConstructParam"),
-  ("GObject", "InterfaceInfo"),
-  ("GObject", "ParamSpecTypeInfo"),
-  ("GObject", "ParamSpecPool"),
-  ("GObject", "TypeClass"),
-  ("GObject", "TypeFundamentalInfo"),
-  ("GObject", "TypeInfo"),
-  ("GObject", "TypeInstance"),
-  ("GObject", "TypeInterface"),
-  ("GObject", "TypePluginClass"),
-  ("GObject", "TypeValueTable"),
-  ("GObject", "WeakRef"),
-  ("Gio",  "OutputVector"),
-  ("Pango", "IncludedModule")
+  (
+    [("GLib", "2.0")],
+    [
+      "AsciiType",
+      "Cond",
+      "Data",
+      "MemVTable",
+      "Mutex",
+      "PollFD",
+      "Scanner",
+      "ScannerConfig",
+      "UnicodeScript",
+      "UnicodeBreakType"
+    ]
+  ),
+  (
+    [("GObject", "2.0")],
+    [
+      "CClosure",
+      "ClosureNotifyData",
+      "ConstructParam",
+      "InterfaceInfo",
+      "ParamSpecTypeInfo",
+      "ParamSpecPool",
+      "TypeClass",
+      "TypeFundamentalInfo",
+      "TypeInfo",
+      "TypeInstance",
+      "TypeInterface",
+      "TypePluginClass",
+      "TypeValueTable",
+      "WeakRef"
+    ]
+  ),
+  (
+    [("Gio",  "2.0")],
+    [
+      "OutputVector"
+    ]
+  ),
+  (
+    [("Pango", "1.0")],
+    [
+      "IncludedModule"
+    ]
+  )
 ];
 
 
