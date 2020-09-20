@@ -11,6 +11,8 @@ type 'a nvs_list = (namespace_version list * 'a) list
 (*   - Excluded names *)
 val excludedInterfaceTypes : string list nvs_list ref = ref []
 
+val excludedInterfaceTypeGlobalSuffixes : string list ref = ref []
+
 fun checkInterfaceType repo vers interfaceInfo =
   let
     val name = getName interfaceInfo
@@ -27,6 +29,11 @@ fun checkInterfaceType repo vers interfaceInfo =
       check (fn x => x = name) (!excludedInterfaceTypes)
     then infoExcl "interface type excluded by configuration \
                                                       \(excludedInterfaceTypes)"
+    else if
+      List.exists (fn x => String.isSuffix x name)
+        (!excludedInterfaceTypeGlobalSuffixes)
+    then infoExcl "interface type excluded by configuration \
+                                         \(excludedInterfaceTypeGlobalSuffixes)"
     else ()
   end
 

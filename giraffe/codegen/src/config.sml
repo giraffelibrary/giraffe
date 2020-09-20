@@ -126,6 +126,10 @@ excludedInterfaceTypes := [
   )
 ];
 
+excludedInterfaceTypeGlobalSuffixes := [
+  "Private"
+];
+
 
 (**
  * Records (struct types)
