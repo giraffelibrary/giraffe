@@ -3,12 +3,12 @@
   <item>
     GLib-2.0
     <item>constant ASCII_DTOSTR_BUF_SIZE: constant excluded by configuration (excludedConstantNames)</item>
-    <item>struct Array: struct not included by configuration (structTypes)</item>
+    <item>struct Array: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>flags AsciiType: interface type excluded by configuration (excludedInterfaceTypes)</item>
-    <item>struct AsyncQueue: struct not included by configuration (structTypes)</item>
+    <item>struct AsyncQueue: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>constant BIG_ENDIAN: constant excluded by configuration (excludedConstantNameSuffixes)</item>
-    <item>struct BookmarkFile: struct not included by configuration (structTypes)</item>
-    <item>struct ByteArray: struct not included by configuration (structTypes)</item>
+    <item>struct BookmarkFile: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct ByteArray: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       struct Bytes
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -84,7 +84,7 @@
         <item>arg datetime: pointer C type for VOID not supported</item>
       </item>
     </item>
-    <item>struct Dir: struct not included by configuration (structTypes)</item>
+    <item>struct Dir: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>constant E: constant excluded by configuration (excludedConstantNames)</item>
     <item>
       struct Error
@@ -133,12 +133,12 @@
     <item>constant HAVE_GROWING_STACK: constant excluded by configuration (excludedConstantNames)</item>
     <item>constant HAVE_ISO_VARARGS: constant excluded by configuration (excludedConstantNames)</item>
     <item>constant HOOK_FLAG_USER_SHIFT: constant excluded by configuration (excludedConstantNames)</item>
-    <item>struct HashTable: struct not included by configuration (structTypes)</item>
-    <item>struct HashTableIter: struct not included by configuration (structTypes)</item>
-    <item>struct Hmac: struct not included by configuration (structTypes)</item>
-    <item>struct Hook: struct not included by configuration (structTypes)</item>
-    <item>struct HookList: struct not included by configuration (structTypes)</item>
-    <item>struct IConv: struct not included by configuration (structTypes)</item>
+    <item>struct HashTable: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct HashTableIter: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct Hmac: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct Hook: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (data, next, prev, func, destroy)</item>
+    <item>struct HookList: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (hooks, dummy3, finalize_hook, dummy)</item>
+    <item>struct IConv: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>constant IEEE754_DOUBLE_BIAS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>constant IEEE754_FLOAT_BIAS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>
@@ -220,7 +220,7 @@
       </item>
       <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
     </item>
-    <item>struct IOFuncs: struct not included by configuration (structTypes)</item>
+    <item>struct IOFuncs: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (io_read, io_write, io_seek, io_close, io_create_watch, io_free, io_set_flags, io_get_flags)</item>
     <item>
       struct KeyFile
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -234,8 +234,8 @@
     <item>constant LOG_2_BASE_10: constant excluded by configuration (excludedConstantNames)</item>
     <item>constant LOG_DOMAIN: constant excluded by configuration (excludedConstantNames)</item>
     <item>constant LOG_FATAL_MASK: constant excluded by configuration (excludedConstantNames)</item>
-    <item>struct List: struct not included by configuration (structTypes)</item>
-    <item>struct LogField: struct not included by configuration (structTypes)</item>
+    <item>struct List: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct LogField: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (key, value)</item>
     <item>constant MODULE_SUFFIX: constant excluded by configuration (excludedConstantNames)</item>
     <item>
       struct MainContext
@@ -406,8 +406,22 @@
         </item>
       </item>
     </item>
-    <item>struct MainLoop: struct not included by configuration (structTypes)</item>
-    <item>struct MappedFile: struct not included by configuration (structTypes)</item>
+    <item>
+      struct MainLoop
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+    </item>
+    <item>
+      struct MappedFile
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+    </item>
     <item>
       struct MarkupParseContext
       <item>
@@ -463,7 +477,7 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct MarkupParser: struct not included by configuration (structTypes)</item>
+    <item>struct MarkupParser: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (start_element, end_element, text, passthrough, error)</item>
     <item>
       struct MatchInfo
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -474,10 +488,10 @@
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct MemVTable: interface type excluded by configuration (excludedInterfaceTypes)</item>
-    <item>struct Node: struct not included by configuration (structTypes)</item>
+    <item>struct Node: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (data, next, prev, parent, children)</item>
     <item>constant OPTION_REMAINING: constant excluded by configuration (excludedConstantNames)</item>
-    <item>struct Once: struct not included by configuration (structTypes)</item>
-    <item>struct OptionContext: struct not included by configuration (structTypes)</item>
+    <item>struct Once: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (retval)</item>
+    <item>struct OptionContext: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       struct OptionGroup
       <item>
@@ -540,11 +554,11 @@
     </item>
     <item>struct PollFD: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct Private: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct PtrArray: struct not included by configuration (structTypes)</item>
-    <item>struct Queue: struct not included by configuration (structTypes)</item>
-    <item>struct RWLock: struct not included by configuration (structTypes)</item>
-    <item>struct Rand: struct not included by configuration (structTypes)</item>
-    <item>struct RecMutex: struct not included by configuration (structTypes)</item>
+    <item>struct PtrArray: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct Queue: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (head, tail)</item>
+    <item>struct RWLock: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (p, i)</item>
+    <item>struct Rand: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct RecMutex: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (p, i)</item>
     <item>
       struct Regex
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -562,7 +576,7 @@
     <item>constant SIZEOF_SIZE_T: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>constant SIZEOF_SSIZE_T: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>constant SIZEOF_VOID_P: constant excluded by configuration (excludedConstantNamePrefixes)</item>
-    <item>struct SList: struct not included by configuration (structTypes)</item>
+    <item>struct SList: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>constant SQRT2: constant excluded by configuration (excludedConstantNames)</item>
     <item>constant STR_DELIMITERS: constant excluded by configuration (excludedConstantNames)</item>
     <item>constant SYSDEF_AF_INET: constant excluded by configuration (excludedConstantNamePrefixes)</item>
@@ -573,8 +587,8 @@
     <item>constant SYSDEF_MSG_PEEK: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>struct Scanner: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct ScannerConfig: interface type excluded by configuration (excludedInterfaceTypes)</item>
-    <item>struct Sequence: struct not included by configuration (structTypes)</item>
-    <item>struct SequenceIter: struct not included by configuration (structTypes)</item>
+    <item>struct Sequence: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct SequenceIter: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       struct Source
       <item>function new: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -642,10 +656,10 @@
       <item>function remove_by_funcs_user_data: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function remove_by_user_data: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
-    <item>struct SourceCallbackFuncs: struct not included by configuration (structTypes)</item>
-    <item>struct SourceFuncs: struct not included by configuration (structTypes)</item>
+    <item>struct SourceCallbackFuncs: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (ref, unref, get)</item>
+    <item>struct SourceFuncs: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (prepare, check, dispatch, finalize, closure_callback, closure_marshal)</item>
     <item>struct SourcePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct StatBuf: struct not included by configuration (structTypes)</item>
+    <item>struct StatBuf: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       struct String
       <item>function append: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
@@ -703,12 +717,29 @@
       <item>function truncate: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function up: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
     </item>
-    <item>struct StringChunk: struct not included by configuration (structTypes)</item>
-    <item>struct TestConfig: struct not included by configuration (structTypes)</item>
-    <item>struct TestLogBuffer: struct not included by configuration (structTypes)</item>
-    <item>struct TestLogMsg: struct not included by configuration (structTypes)</item>
-    <item>struct Thread: struct not included by configuration (structTypes)</item>
-    <item>struct ThreadPool: struct not included by configuration (structTypes)</item>
+    <item>struct StringChunk: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct TestLogBuffer: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (data, msgs)</item>
+    <item>struct TestLogMsg: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (strings)</item>
+    <item>
+      struct Thread
+      <item>function join: pointer C type for VOID not supported</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
+      <item>
+        function exit
+        <item>arg retval: pointer C type for VOID not supported</item>
+      </item>
+      <item>function join: pointer C type for VOID not supported</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
+      <item>
+        function exit
+        <item>arg retval: pointer C type for VOID not supported</item>
+      </item>
+    </item>
+    <item>struct ThreadPool: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (func, user_data)</item>
     <item>
       struct TimeZone
       <item>
@@ -730,9 +761,9 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct Timer: struct not included by configuration (structTypes)</item>
-    <item>struct TrashStack: struct not included by configuration (structTypes)</item>
-    <item>struct Tree: struct not included by configuration (structTypes)</item>
+    <item>struct Timer: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct TrashStack: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (next)</item>
+    <item>struct Tree: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>constant USEC_PER_SEC: constant excluded by configuration (excludedConstantNames)</item>
     <item>enum UnicodeBreakType: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>enum UnicodeScript: interface type excluded by configuration (excludedInterfaceTypes)</item>
@@ -1355,7 +1386,7 @@
           type array
           <item>
             type interface
-            <item>struct LogField: struct not included by configuration (structTypes)</item>
+            <item>struct LogField: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (key, value)</item>
           </item>
         </item>
       </item>
@@ -1372,7 +1403,7 @@
           type array
           <item>
             type interface
-            <item>struct LogField: struct not included by configuration (structTypes)</item>
+            <item>struct LogField: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (key, value)</item>
           </item>
         </item>
       </item>
@@ -1816,7 +1847,7 @@
             type array
             <item>
               type interface
-              <item>struct Parameter: struct not included by configuration (structTypes)</item>
+              <item>struct Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
             </item>
           </item>
         </item>
@@ -1869,7 +1900,7 @@
             type array
             <item>
               type interface
-              <item>struct Parameter: struct not included by configuration (structTypes)</item>
+              <item>struct Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
             </item>
           </item>
         </item>
@@ -1916,7 +1947,7 @@
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct ObjectClass: class struct</item>
-    <item>struct ObjectConstructParam: struct not included by configuration (structTypes)</item>
+    <item>struct ObjectConstructParam: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       object ParamSpec
       <item>function get_qdata: pointer C type for VOID not supported</item>
@@ -1937,7 +1968,7 @@
     <item>struct ParamSpecClass: class struct</item>
     <item>struct ParamSpecPool: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct ParamSpecTypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
-    <item>struct Parameter: struct not included by configuration (structTypes)</item>
+    <item>struct Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct TypeClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct TypeFundamentalInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct TypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
@@ -2367,11 +2398,11 @@
   </item>
   <item>
     GModule-2.0
-    <item>struct Module: struct not included by configuration (structTypes)</item>
+    <item>struct Module: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
   </item>
   <item>
     Gio-2.0
-    <item>struct ActionEntry: struct not included by configuration (structTypes)</item>
+    <item>struct ActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name, activate, parameter_type, state, change_state, padding)</item>
     <item>struct ActionGroupInterface: class struct</item>
     <item>struct ActionInterface: class struct</item>
     <item>
@@ -2846,7 +2877,7 @@
       </item>
       <item>function unregister_error: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
-    <item>struct DBusErrorEntry: struct not included by configuration (structTypes)</item>
+    <item>struct DBusErrorEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (dbus_error_name)</item>
     <item>struct DBusInterfaceIface: class struct</item>
     <item>
       struct DBusInterfaceInfo
@@ -2888,7 +2919,7 @@
     </item>
     <item>struct DBusInterfaceSkeletonClass: class struct</item>
     <item>struct DBusInterfaceSkeletonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct DBusInterfaceVTable: struct not included by configuration (structTypes)</item>
+    <item>struct DBusInterfaceVTable: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (method_call, get_property, set_property, padding)</item>
     <item>
       struct DBusMethodInfo
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -3088,7 +3119,7 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct DBusSubtreeVTable: struct not included by configuration (structTypes)</item>
+    <item>struct DBusSubtreeVTable: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (enumerate, introspect, dispatch, padding)</item>
     <item>
       object DataInputStream
       <item>
@@ -3130,7 +3161,7 @@
             type array
             <item>
               type interface
-              <item>struct InputMessage: struct not included by configuration (structTypes)</item>
+              <item>struct InputMessage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (address, vectors, control_messages)</item>
             </item>
           </item>
         </item>
@@ -3143,7 +3174,7 @@
             type array
             <item>
               type interface
-              <item>struct OutputMessage: struct not included by configuration (structTypes)</item>
+              <item>struct OutputMessage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (address, vectors, control_messages)</item>
             </item>
           </item>
         </item>
@@ -3156,7 +3187,7 @@
             type array
             <item>
               type interface
-              <item>struct InputMessage: struct not included by configuration (structTypes)</item>
+              <item>struct InputMessage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (address, vectors, control_messages)</item>
             </item>
           </item>
         </item>
@@ -3169,7 +3200,7 @@
             type array
             <item>
               type interface
-              <item>struct OutputMessage: struct not included by configuration (structTypes)</item>
+              <item>struct OutputMessage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (address, vectors, control_messages)</item>
             </item>
           </item>
         </item>
@@ -3698,7 +3729,7 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct IOSchedulerJob: struct not included by configuration (structTypes)</item>
+    <item>struct IOSchedulerJob: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       object IOStream
       <item>
@@ -3718,7 +3749,7 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
-    <item>struct IOStreamAdapter: struct not included by configuration (structTypes)</item>
+    <item>struct IOStreamAdapter: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct IOStreamClass: class struct</item>
     <item>struct IOStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>
@@ -3768,7 +3799,7 @@
             type array
             <item>
               type interface
-              <item>struct Parameter: struct not included by configuration (structTypes)</item>
+              <item>struct Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
             </item>
           </item>
         </item>
@@ -3781,14 +3812,14 @@
             type array
             <item>
               type interface
-              <item>struct Parameter: struct not included by configuration (structTypes)</item>
+              <item>struct Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
             </item>
           </item>
         </item>
       </item>
     </item>
     <item>struct InitableIface: class struct</item>
-    <item>struct InputMessage: struct not included by configuration (structTypes)</item>
+    <item>struct InputMessage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (address, vectors, control_messages)</item>
     <item>
       object InputStream
       <item>
@@ -3834,7 +3865,7 @@
     </item>
     <item>struct InputStreamClass: class struct</item>
     <item>struct InputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct InputVector: struct not included by configuration (structTypes)</item>
+    <item>struct InputVector: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (buffer)</item>
     <item>struct ListModelInterface: class struct</item>
     <item>
       object ListStore
@@ -4001,7 +4032,7 @@
     </item>
     <item>struct MountOperationClass: class struct</item>
     <item>struct MountOperationPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct NativeSocketAddress: struct not included by configuration (structTypes)</item>
+    <item>struct NativeSocketAddress: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct NativeVolumeMonitorClass: class struct</item>
     <item>struct NetworkAddressClass: class struct</item>
     <item>struct NetworkAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
@@ -4019,7 +4050,7 @@
     <item>struct NetworkMonitorInterface: class struct</item>
     <item>struct NetworkServiceClass: class struct</item>
     <item>struct NetworkServicePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct OutputMessage: struct not included by configuration (structTypes)</item>
+    <item>struct OutputMessage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (address, vectors, control_messages)</item>
     <item>
       object OutputStream
       <item>
@@ -4341,7 +4372,7 @@
             type array
             <item>
               type interface
-              <item>struct InputVector: struct not included by configuration (structTypes)</item>
+              <item>struct InputVector: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (buffer)</item>
             </item>
           </item>
         </item>
@@ -4354,7 +4385,7 @@
             type array
             <item>
               type interface
-              <item>struct InputMessage: struct not included by configuration (structTypes)</item>
+              <item>struct InputMessage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (address, vectors, control_messages)</item>
             </item>
           </item>
         </item>
@@ -4380,7 +4411,7 @@
             type array
             <item>
               type interface
-              <item>struct OutputMessage: struct not included by configuration (structTypes)</item>
+              <item>struct OutputMessage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (address, vectors, control_messages)</item>
             </item>
           </item>
         </item>
@@ -4393,7 +4424,7 @@
             type array
             <item>
               type interface
-              <item>struct InputVector: struct not included by configuration (structTypes)</item>
+              <item>struct InputVector: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (buffer)</item>
             </item>
           </item>
         </item>
@@ -4406,7 +4437,7 @@
             type array
             <item>
               type interface
-              <item>struct InputMessage: struct not included by configuration (structTypes)</item>
+              <item>struct InputMessage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (address, vectors, control_messages)</item>
             </item>
           </item>
         </item>
@@ -4432,7 +4463,7 @@
             type array
             <item>
               type interface
-              <item>struct OutputMessage: struct not included by configuration (structTypes)</item>
+              <item>struct OutputMessage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (address, vectors, control_messages)</item>
             </item>
           </item>
         </item>
@@ -4564,7 +4595,7 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct StaticResource: struct not included by configuration (structTypes)</item>
+    <item>struct StaticResource: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (resource, next, padding)</item>
     <item>
       object Subprocess
       <item>
@@ -5131,7 +5162,7 @@
           type array
           <item>
             type interface
-            <item>struct Parameter: struct not included by configuration (structTypes)</item>
+            <item>struct Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
           </item>
         </item>
       </item>
@@ -5164,8 +5195,30 @@
   </item>
   <item>
     GIRepository-2.0
-    <item>struct AttributeIter: struct not included by configuration (structTypes)</item>
-    <item>struct BaseInfo: struct not included by configuration (structTypes)</item>
+    <item>struct AttributeIter: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>
+      struct BaseInfo
+      <item>
+        function iterate_attributes
+        <item>
+          arg iterator
+          <item>
+            type interface
+            <item>struct AttributeIter: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function iterate_attributes
+        <item>
+          arg iterator
+          <item>
+            type interface
+            <item>struct AttributeIter: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
+        </item>
+      </item>
+    </item>
     <item>
       object Repository
       <item>function error_quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -5189,18 +5242,28 @@
     </item>
     <item>struct RepositoryClass: class struct</item>
     <item>struct RepositoryPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct Typelib: struct not included by configuration (structTypes)</item>
-    <item>struct UnresolvedInfo: struct not included by configuration (structTypes)</item>
+    <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct UnresolvedInfo: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       function callable_info_invoke
       <item>arg function: pointer C type for VOID not supported</item>
+    </item>
+    <item>
+      function callable_info_iterate_return_attributes
+      <item>
+        arg iterator
+        <item>
+          type interface
+          <item>struct AttributeIter: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
     </item>
     <item>function vfunc_info_get_address: pointer C type for VOID not supported</item>
   </item>
   <item>
     Atk-1.0
     <item>struct ActionIface: class struct</item>
-    <item>struct Attribute: struct not included by configuration (structTypes)</item>
+    <item>struct Attribute: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name, value)</item>
     <item>struct ComponentIface: class struct</item>
     <item>
       interface Document
@@ -5253,8 +5316,8 @@
     <item>struct HyperlinkImplIface: class struct</item>
     <item>struct HypertextIface: class struct</item>
     <item>struct ImageIface: class struct</item>
-    <item>struct Implementor: struct not included by configuration (structTypes)</item>
-    <item>struct KeyEventStruct: struct not included by configuration (structTypes)</item>
+    <item>struct Implementor: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct KeyEventStruct: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (string)</item>
     <item>struct MiscClass: class struct</item>
     <item>struct NoOpObjectClass: class struct</item>
     <item>struct NoOpObjectFactoryClass: class struct</item>
@@ -5304,7 +5367,7 @@
     <item>struct ObjectClass: class struct</item>
     <item>struct ObjectFactoryClass: class struct</item>
     <item>struct PlugClass: class struct</item>
-    <item>struct PropertyValues: struct not included by configuration (structTypes)</item>
+    <item>struct PropertyValues: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (property_name, old_value.data, new_value.data)</item>
     <item>
       struct Range
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -5549,14 +5612,14 @@
   </item>
   <item>
     Pango-1.0
-    <item>struct AttrClass: struct not included by configuration (structTypes)</item>
-    <item>struct AttrColor: struct not included by configuration (structTypes)</item>
-    <item>struct AttrFloat: struct not included by configuration (structTypes)</item>
-    <item>struct AttrFontDesc: struct not included by configuration (structTypes)</item>
-    <item>struct AttrFontFeatures: struct not included by configuration (structTypes)</item>
-    <item>struct AttrInt: struct not included by configuration (structTypes)</item>
-    <item>struct AttrIterator: struct not included by configuration (structTypes)</item>
-    <item>struct AttrLanguage: struct not included by configuration (structTypes)</item>
+    <item>struct AttrClass: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (copy, destroy, equal)</item>
+    <item>struct AttrColor: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass)</item>
+    <item>struct AttrFloat: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass)</item>
+    <item>struct AttrFontDesc: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass, desc)</item>
+    <item>struct AttrFontFeatures: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass, features)</item>
+    <item>struct AttrInt: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass)</item>
+    <item>struct AttrIterator: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct AttrLanguage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass, value)</item>
     <item>
       struct AttrList
       <item>
@@ -5572,9 +5635,9 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct AttrShape: struct not included by configuration (structTypes)</item>
-    <item>struct AttrSize: struct not included by configuration (structTypes)</item>
-    <item>struct AttrString: struct not included by configuration (structTypes)</item>
+    <item>struct AttrShape: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass, data, copy_func, destroy_func)</item>
+    <item>struct AttrSize: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass)</item>
+    <item>struct AttrString: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass, value)</item>
     <item>
       struct Attribute
       <item>function destroy: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -5588,11 +5651,11 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct ContextClass: class struct</item>
-    <item>struct Coverage: struct not included by configuration (structTypes)</item>
+    <item>struct Coverage: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct EngineClass: class struct</item>
-    <item>struct EngineInfo: struct not included by configuration (structTypes)</item>
+    <item>struct EngineInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (id, engine_type, render_type, scripts)</item>
     <item>struct EngineLangClass: class struct</item>
-    <item>struct EngineScriptInfo: struct not included by configuration (structTypes)</item>
+    <item>struct EngineScriptInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (langs)</item>
     <item>struct EngineShapeClass: class struct</item>
     <item>
       object Font
@@ -5630,8 +5693,6 @@
     </item>
     <item>struct FontsetClass: class struct</item>
     <item>struct FontsetSimpleClass: class struct</item>
-    <item>struct GlyphGeometry: struct not included by configuration (structTypes)</item>
-    <item>struct GlyphInfo: struct not included by configuration (structTypes)</item>
     <item>
       struct GlyphItem
       <item>
@@ -5661,7 +5722,11 @@
       </item>
       <item>function letter_space: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
-    <item>struct GlyphItemIter: struct not included by configuration (structTypes)</item>
+    <item>
+      struct GlyphItemIter
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+    </item>
     <item>
       struct GlyphString
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -5681,7 +5746,6 @@
         </item>
       </item>
     </item>
-    <item>struct GlyphVisAttr: struct not included by configuration (structTypes)</item>
     <item>struct IncludedModule: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       struct Item
@@ -5720,8 +5784,8 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct Map: struct not included by configuration (structTypes)</item>
-    <item>struct MapEntry: struct not included by configuration (structTypes)</item>
+    <item>struct Map: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct MapEntry: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       struct Matrix
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -5729,8 +5793,8 @@
     </item>
     <item>struct RendererClass: class struct</item>
     <item>struct RendererPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct ScriptForLang: struct not included by configuration (structTypes)</item>
-    <item>struct ScriptIter: struct not included by configuration (structTypes)</item>
+    <item>struct ScriptForLang: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (lang, scripts)</item>
+    <item>struct ScriptIter: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       struct TabArray
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -5804,10 +5868,9 @@
   </item>
   <item>
     cairo-1.0
-    <item>struct Matrix: struct not included by configuration (structTypes)</item>
-    <item>struct FontType: struct not included by configuration (structTypes)</item>
-    <item>struct FontFace: struct not included by configuration (structTypes)</item>
-    <item>struct Path: struct not included by configuration (structTypes)</item>
+    <item>struct Matrix: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct Path: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
   </item>
   <item>
     PangoCairo-1.0
@@ -5956,30 +6019,30 @@
       </item>
     </item>
     <item>struct DrawingContextClass: class struct</item>
-    <item>struct EventAny: struct not included by configuration (structTypes)</item>
-    <item>struct EventButton: struct not included by configuration (structTypes)</item>
-    <item>struct EventConfigure: struct not included by configuration (structTypes)</item>
-    <item>struct EventCrossing: struct not included by configuration (structTypes)</item>
-    <item>struct EventDND: struct not included by configuration (structTypes)</item>
-    <item>struct EventExpose: struct not included by configuration (structTypes)</item>
-    <item>struct EventFocus: struct not included by configuration (structTypes)</item>
-    <item>struct EventGrabBroken: struct not included by configuration (structTypes)</item>
-    <item>struct EventKey: struct not included by configuration (structTypes)</item>
-    <item>struct EventMotion: struct not included by configuration (structTypes)</item>
-    <item>struct EventOwnerChange: struct not included by configuration (structTypes)</item>
-    <item>struct EventPadAxis: struct not included by configuration (structTypes)</item>
-    <item>struct EventPadButton: struct not included by configuration (structTypes)</item>
-    <item>struct EventPadGroupMode: struct not included by configuration (structTypes)</item>
-    <item>struct EventProperty: struct not included by configuration (structTypes)</item>
-    <item>struct EventProximity: struct not included by configuration (structTypes)</item>
-    <item>struct EventScroll: struct not included by configuration (structTypes)</item>
-    <item>struct EventSelection: struct not included by configuration (structTypes)</item>
-    <item>struct EventSetting: struct not included by configuration (structTypes)</item>
-    <item>struct EventTouch: struct not included by configuration (structTypes)</item>
-    <item>struct EventTouchpadPinch: struct not included by configuration (structTypes)</item>
-    <item>struct EventTouchpadSwipe: struct not included by configuration (structTypes)</item>
-    <item>struct EventVisibility: struct not included by configuration (structTypes)</item>
-    <item>struct EventWindowState: struct not included by configuration (structTypes)</item>
+    <item>struct EventAny: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
+    <item>struct EventButton: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, device)</item>
+    <item>struct EventConfigure: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
+    <item>struct EventCrossing: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, subwindow)</item>
+    <item>struct EventDND: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, context)</item>
+    <item>struct EventExpose: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, region)</item>
+    <item>struct EventFocus: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
+    <item>struct EventGrabBroken: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, grab_window)</item>
+    <item>struct EventKey: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, string)</item>
+    <item>struct EventMotion: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, device)</item>
+    <item>struct EventOwnerChange: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, owner, selection)</item>
+    <item>struct EventPadAxis: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
+    <item>struct EventPadButton: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
+    <item>struct EventPadGroupMode: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
+    <item>struct EventProperty: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, atom)</item>
+    <item>struct EventProximity: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, device)</item>
+    <item>struct EventScroll: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, device)</item>
+    <item>struct EventSelection: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, selection, target, property, requestor)</item>
+    <item>struct EventSetting: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, name)</item>
+    <item>struct EventTouch: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, sequence, device)</item>
+    <item>struct EventTouchpadPinch: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
+    <item>struct EventTouchpadSwipe: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
+    <item>struct EventVisibility: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
+    <item>struct EventWindowState: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
     <item>
       object FrameClock
       <item>
@@ -6065,7 +6128,7 @@
         <item>arg prepare_func_data: pointer C type for VOID not supported</item>
       </item>
     </item>
-    <item>struct TimeCoord: struct not included by configuration (structTypes)</item>
+    <item>struct TimeCoord: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (axes)</item>
     <item>
       object Window
       <item>
@@ -6132,7 +6195,7 @@
       </item>
     </item>
     <item>struct WindowClass: class struct</item>
-    <item>struct WindowRedirect: struct not included by configuration (structTypes)</item>
+    <item>struct WindowRedirect: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>function add_option_entries_libgtk_only: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>
       function drag_begin
@@ -6384,10 +6447,10 @@
     <item>struct AssistantPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct BinClass: class struct</item>
     <item>struct BinPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct BindingArg: struct not included by configuration (structTypes)</item>
-    <item>struct BindingEntry: struct not included by configuration (structTypes)</item>
-    <item>struct BindingSet: struct not included by configuration (structTypes)</item>
-    <item>struct BindingSignal: struct not included by configuration (structTypes)</item>
+    <item>struct BindingArg: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct BindingEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (binding_set, set_next, hash_next, signals)</item>
+    <item>struct BindingSet: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (set_name, widget_path_pspecs, widget_class_pspecs, class_branch_pspecs, entries, current)</item>
+    <item>struct BindingSignal: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (next, signal_name, args)</item>
     <item>struct BooleanCellAccessibleClass: class struct</item>
     <item>struct BooleanCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>
@@ -6938,7 +7001,7 @@
         </item>
       </item>
     </item>
-    <item>struct FixedChild: struct not included by configuration (structTypes)</item>
+    <item>struct FixedChild: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (widget)</item>
     <item>struct FixedClass: class struct</item>
     <item>struct FixedPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>
@@ -7117,7 +7180,13 @@
     <item>struct GestureSingleClass: class struct</item>
     <item>struct GestureSwipeClass: class struct</item>
     <item>struct GestureZoomClass: class struct</item>
-    <item>struct Gradient: struct not included by configuration (structTypes)</item>
+    <item>
+      struct Gradient
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+    </item>
     <item>struct GridClass: class struct</item>
     <item>struct GridPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct HBoxClass: class struct</item>
@@ -7133,7 +7202,7 @@
     <item>struct HeaderBarClass: class struct</item>
     <item>struct HeaderBarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct IMContextClass: class struct</item>
-    <item>struct IMContextInfo: struct not included by configuration (structTypes)</item>
+    <item>struct IMContextInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (context_id, context_name, domain, domain_dirname, default_locales)</item>
     <item>struct IMContextSimpleClass: class struct</item>
     <item>struct IMContextSimplePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct IMMulticontextClass: class struct</item>
@@ -7245,7 +7314,7 @@
     <item>struct LabelAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct LabelClass: class struct</item>
     <item>struct LabelPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct LabelSelectionInfo: struct not included by configuration (structTypes)</item>
+    <item>struct LabelSelectionInfo: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct LayoutClass: class struct</item>
     <item>struct LayoutPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct LevelBarAccessibleClass: class struct</item>
@@ -7483,7 +7552,7 @@
     <item>struct OrientableIface: class struct</item>
     <item>struct OverlayClass: class struct</item>
     <item>struct OverlayPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct PadActionEntry: struct not included by configuration (structTypes)</item>
+    <item>struct PadActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (label, action_name)</item>
     <item>
       object PadController
       <item>
@@ -7494,7 +7563,7 @@
             type array
             <item>
               type interface
-              <item>struct PadActionEntry: struct not included by configuration (structTypes)</item>
+              <item>struct PadActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (label, action_name)</item>
             </item>
           </item>
         </item>
@@ -7507,7 +7576,7 @@
             type array
             <item>
               type interface
-              <item>struct PadActionEntry: struct not included by configuration (structTypes)</item>
+              <item>struct PadActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (label, action_name)</item>
             </item>
           </item>
         </item>
@@ -7626,7 +7695,7 @@
       </item>
     </item>
     <item>struct RadioActionClass: class struct</item>
-    <item>struct RadioActionEntry: struct not included by configuration (structTypes)</item>
+    <item>struct RadioActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name, stock_id, label, accelerator, tooltip)</item>
     <item>struct RadioActionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>
       object RadioButton
@@ -7828,8 +7897,8 @@
     <item>struct RangeAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct RangeClass: class struct</item>
     <item>struct RangePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct RcContext: struct not included by configuration (structTypes)</item>
-    <item>struct RcProperty: struct not included by configuration (structTypes)</item>
+    <item>struct RcContext: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct RcProperty: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (origin, value.data)</item>
     <item>struct RcStyleClass: class struct</item>
     <item>struct RecentActionClass: class struct</item>
     <item>struct RecentActionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
@@ -7934,7 +8003,7 @@
     <item>struct RecentManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct RendererCellAccessibleClass: class struct</item>
     <item>struct RendererCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct RequestedSize: struct not included by configuration (structTypes)</item>
+    <item>struct RequestedSize: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (data)</item>
     <item>
       struct Requisition
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -8146,10 +8215,9 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct TableChild: struct not included by configuration (structTypes)</item>
+    <item>struct TableChild: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (widget)</item>
     <item>struct TableClass: class struct</item>
     <item>struct TablePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct TableRowCol: struct not included by configuration (structTypes)</item>
     <item>
       struct TargetEntry
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -8162,10 +8230,9 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct TargetPair: struct not included by configuration (structTypes)</item>
+    <item>struct TargetPair: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (target)</item>
     <item>struct TearoffMenuItemClass: class struct</item>
     <item>struct TearoffMenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct TextAppearance: struct not included by configuration (structTypes)</item>
     <item>
       struct TextAttributes
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -8173,7 +8240,7 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct TextBTree: struct not included by configuration (structTypes)</item>
+    <item>struct TextBTree: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       object TextBuffer
       <item>
@@ -8318,7 +8385,7 @@
     <item>struct TextViewAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct TextViewClass: class struct</item>
     <item>struct TextViewPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct ThemeEngine: struct not included by configuration (structTypes)</item>
+    <item>struct ThemeEngine: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       object ThemingEngine
       <item>
@@ -8345,7 +8412,7 @@
     <item>struct ThemingEngineClass: class struct</item>
     <item>struct ThemingEnginePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct ToggleActionClass: class struct</item>
-    <item>struct ToggleActionEntry: struct not included by configuration (structTypes)</item>
+    <item>struct ToggleActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name, stock_id, label, accelerator, tooltip, callback)</item>
     <item>struct ToggleActionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct ToggleButtonAccessibleClass: class struct</item>
     <item>struct ToggleButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
@@ -8453,7 +8520,11 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct TreeRowReference: struct not included by configuration (structTypes)</item>
+    <item>
+      struct TreeRowReference
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+    </item>
     <item>
       object TreeSelection
       <item>
@@ -8868,7 +8939,7 @@
     <item>struct WindowAccessibleClass: class struct</item>
     <item>struct WindowAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct WindowClass: class struct</item>
-    <item>struct WindowGeometryInfo: struct not included by configuration (structTypes)</item>
+    <item>struct WindowGeometryInfo: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       object WindowGroup
       <item>
@@ -9243,7 +9314,6 @@
   </item>
   <item>
     Vte-2.90
-    <item>struct CharAttributes: struct not included by configuration (structTypes)</item>
     <item>struct PtyClass: class struct</item>
     <item>
       enum PtyError
@@ -9310,7 +9380,6 @@
   </item>
   <item>
     Vte-2.91
-    <item>struct CharAttributes: struct not included by configuration (structTypes)</item>
     <item>struct PtyClass: class struct</item>
     <item>
       enum PtyError

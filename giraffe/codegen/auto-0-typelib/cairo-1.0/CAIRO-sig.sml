@@ -6,6 +6,7 @@ signature CAIRO =
     structure RegionRecord : CAIRO_REGION_RECORD
     structure Content : CAIRO_CONTENT
     structure FontOptionsRecord : CAIRO_FONT_OPTIONS_RECORD
+    structure FontFaceRecord : CAIRO_FONT_FACE_RECORD
     structure ScaledFontRecord : CAIRO_SCALED_FONT_RECORD
     structure RectangleIntRecord : CAIRO_RECTANGLE_INT_RECORD
     structure Context :
@@ -23,6 +24,9 @@ signature CAIRO =
     structure FontOptions :
       CAIRO_FONT_OPTIONS
         where type t = FontOptionsRecord.t
+    structure FontFace :
+      CAIRO_FONT_FACE
+        where type t = FontFaceRecord.t
     structure ScaledFont :
       CAIRO_SCALED_FONT
         where type t = ScaledFontRecord.t

@@ -63,6 +63,10 @@ in
   G_LIB_LOG_WRITER_OUTPUT-sig.sml
   G_LIB_MAIN_CONTEXT_RECORD-sig.sml
   G_LIB_MAIN_CONTEXT-sig.sml
+  G_LIB_MAIN_LOOP_RECORD-sig.sml
+  G_LIB_MAIN_LOOP-sig.sml
+  G_LIB_MAPPED_FILE_RECORD-sig.sml
+  G_LIB_MAPPED_FILE-sig.sml
   G_LIB_MARKUP_COLLECT_TYPE-sig.sml
   G_LIB_MARKUP_ERROR-sig.sml
   G_LIB_MARKUP_PARSE_CONTEXT_RECORD-sig.sml
@@ -97,12 +101,16 @@ in
   G_LIB_STRING-sig.sml
   G_LIB_TEST_CASE_RECORD-sig.sml
   G_LIB_TEST_CASE-sig.sml
+  G_LIB_TEST_CONFIG_RECORD-sig.sml
+  G_LIB_TEST_CONFIG-sig.sml
   G_LIB_TEST_FILE_TYPE-sig.sml
   G_LIB_TEST_LOG_TYPE-sig.sml
   G_LIB_TEST_SUBPROCESS_FLAGS-sig.sml
   G_LIB_TEST_SUITE_RECORD-sig.sml
   G_LIB_TEST_SUITE-sig.sml
   G_LIB_TEST_TRAP_FLAGS-sig.sml
+  G_LIB_THREAD_RECORD-sig.sml
+  G_LIB_THREAD-sig.sml
   G_LIB_THREAD_ERROR-sig.sml
   G_LIB_TIME_TYPE-sig.sml
   G_LIB_TIME_VAL_RECORD-sig.sml
@@ -160,6 +168,8 @@ in
     mlton/GLibLogLevelFlags.sml
     mlton/GLibLogWriterOutput.sml
     mlton/GLibMainContextRecord.sml
+    mlton/GLibMainLoopRecord.sml
+    mlton/GLibMappedFileRecord.sml
     mlton/GLibMarkupCollectType.sml
     mlton/GLibMarkupParseContextRecord.sml
     mlton/GLibMarkupParseFlags.sml
@@ -180,11 +190,13 @@ in
     mlton/GLibSpawnFlags.sml
     mlton/GLibStringRecord.sml
     mlton/GLibTestCaseRecord.sml
+    mlton/GLibTestConfigRecord.sml
     mlton/GLibTestFileType.sml
     mlton/GLibTestLogType.sml
     mlton/GLibTestSubprocessFlags.sml
     mlton/GLibTestSuiteRecord.sml
     mlton/GLibTestTrapFlags.sml
+    mlton/GLibThreadRecord.sml
     mlton/GLibTimeType.sml
     mlton/GLibTimeValRecord.sml
     mlton/GLibTimeZoneRecord.sml
@@ -208,6 +220,8 @@ in
     mlton/GLibErrorRecord.sml
     mlton/GLibKeyFile.sml
     mlton/GLibMainContext.sml
+    mlton/GLibMainLoop.sml
+    mlton/GLibMappedFile.sml
     mlton/GLibMarkupParseContext.sml
     mlton/GLibMatchInfo.sml
     mlton/GLibOptionEntry.sml
@@ -217,7 +231,9 @@ in
     mlton/GLibSource.sml
     mlton/GLibString.sml
     mlton/GLibTestCase.sml
+    mlton/GLibTestConfig.sml
     mlton/GLibTestSuite.sml
+    mlton/GLibThread.sml
     mlton/GLibTimeVal.sml
     mlton/GLibTimeZone.sml
     GLibVariantRecordCPtrArrayN.sml

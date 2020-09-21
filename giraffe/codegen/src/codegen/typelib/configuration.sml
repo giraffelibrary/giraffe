@@ -58,10 +58,113 @@ datatype struct_type =
 
 val structTypes : ((string * string) * struct_type) list ref = ref []
 
-fun getStructType structFullName =
-  case List.find (fn (x, _) => x = structFullName) (!structTypes) of
-    SOME (_, y) => y 
-  | NONE        => infoExcl "struct not included by configuration (structTypes)"
+local
+  fun addTypeCPtrFieldNames revPrefix (typeInfo, acc) =
+    let
+      open TypeTag
+    in
+      case TypeInfo.getTag typeInfo of
+        ERROR        => revPrefix :: acc
+      | GTYPE        => acc
+      | ARRAY        => revPrefix :: acc
+      | GLIST        => revPrefix :: acc
+      | GSLIST       => revPrefix :: acc
+      | GHASH        => revPrefix :: acc
+      | VOID         => revPrefix :: acc  (* only for void * so always a reference *)
+      | BOOLEAN      => acc
+      | INT8         => acc  
+      | UINT8        => acc  
+      | INT16        => acc  
+      | UINT16       => acc  
+      | INT32        => acc  
+      | UINT32       => acc  
+      | INT64        => acc  
+      | UINT64       => acc  
+      | FLOAT        => acc  
+      | DOUBLE       => acc  
+      | FILENAME     => revPrefix :: acc
+      | UTF8         => revPrefix :: acc
+      | UNICHAR      => acc
+      | INTERFACE    =>
+          let
+            val interfaceInfo = getInterface typeInfo
+
+            open InfoType
+            val infoType = getType interfaceInfo
+          in
+            case infoType of
+              FLAGS _           => acc
+            | ENUM _            => acc
+            | STRUCT structInfo =>
+                if TypeInfo.isPointer typeInfo
+                then revPrefix :: acc
+                else addStructCPtrFieldNames revPrefix (structInfo, acc)
+            | _                 => revPrefix :: acc
+          end
+    end
+
+  and addFieldCPtrFieldNames revPrefix (fieldInfo, acc) =
+    addTypeCPtrFieldNames
+      (valOf (BaseInfo.getName fieldInfo) :: revPrefix)
+      (FieldInfo.getType fieldInfo, acc)
+
+  and addStructCPtrFieldNames revPrefix (structInfo, acc) =
+    revFoldInfos
+      StructInfo.getNFields
+      StructInfo.getField
+      (addFieldCPtrFieldNames revPrefix)
+      (structInfo, acc)
+in
+  fun getStructCPtrFieldNames structInfo =
+    let
+      val cPtrNames =
+        addStructCPtrFieldNames [] (StructInfoClass.toBase structInfo, [])
+    in
+      map (String.concatWith "." o rev) cPtrNames
+    end
+end
+
+fun getStructType structInfo =
+  let
+    val name = getName structInfo
+    val namespace = BaseInfo.getNamespace structInfo
+  in
+    case List.find (fn (x, _) => x = (namespace, name)) (!structTypes) of
+      SOME (_, y) => y 
+    | NONE        =>
+        (* A record that is a registered type is a boxed type.  The default
+         * behaviour is to treat such a record as a reference-only record to
+         * use the boxed type allocation functions.  To enable a record that
+         * is a registered type to be treated like a value also, the struct
+         * type must be manually configured.
+         *)
+        case RegisteredTypeInfo.getTypeInit structInfo of
+          SOME _ => Record Boxed
+        | NONE   =>
+            (* A struct can still be copied if it is flat, i.e. none of the
+             * fields are references in C except that, if a struct has no
+             * fields, we assume that the struct has data and is opaque, and
+             * it is not known how to copy the struct.
+             *)
+            if StructInfo.getNFields structInfo = 0
+            then infoExcl "neither duplicate nor copy operation available\
+                            \ because struct type is not registered and has\
+                            \ no fields"
+            else
+              case getStructCPtrFieldNames structInfo of
+                []             => ValueRecord Flat
+              | cPtrFieldNames =>
+                  infoExcl (
+                    concat [
+                      "neither duplicate nor copy operation available\
+                        \ because struct type is not registered and has\
+                        \ fields that are references via a C pointer",
+                      " (",
+                      String.concatWith ", " cPtrFieldNames,
+                      ")"
+                    ]
+                  )
+  end
 
 
 (* Union types *)

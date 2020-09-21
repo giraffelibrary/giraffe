@@ -23,15 +23,6 @@ structure GIRepository : G_I_REPOSITORY =
       val callableInfoGetReturnAttribute_ = call (getSymbol "g_callable_info_get_return_attribute") (GIRepositoryBaseInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val callableInfoGetReturnType_ = call (getSymbol "g_callable_info_get_return_type") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> GIRepositoryBaseInfoRecord.PolyML.cPtr)
       val callableInfoIsMethod_ = call (getSymbol "g_callable_info_is_method") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val callableInfoIterateReturnAttributes_ =
-        call (getSymbol "g_callable_info_iterate_return_attributes")
-          (
-            GIRepositoryBaseInfoRecord.PolyML.cPtr
-             &&> GIRepositoryAttributeIterRecord.PolyML.cPtr
-             &&> Utf8.PolyML.cOutRef
-             &&> Utf8.PolyML.cOutRef
-             --> GBool.PolyML.cVal
-          )
       val callableInfoLoadArg_ =
         call (getSymbol "g_callable_info_load_arg")
           (
@@ -173,9 +164,9 @@ structure GIRepository : G_I_REPOSITORY =
       val vfuncInfoGetOffset_ = call (getSymbol "g_vfunc_info_get_offset") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> GInt32.PolyML.cVal)
       val vfuncInfoGetSignal_ = call (getSymbol "g_vfunc_info_get_signal") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> GIRepositoryBaseInfoRecord.PolyML.cPtr)
     end
-    structure BaseInfoRecord = GIRepositoryBaseInfoRecord
     structure TypelibRecord = GIRepositoryTypelibRecord
     structure ArrayType = GIRepositoryArrayType
+    structure BaseInfoRecord = GIRepositoryBaseInfoRecord
     structure Direction = GIRepositoryDirection
     structure FieldInfoFlags = GIRepositoryFieldInfoFlags
     structure FunctionInfoFlags = GIRepositoryFunctionInfoFlags
@@ -188,6 +179,7 @@ structure GIRepository : G_I_REPOSITORY =
     structure TypeTag = GIRepositoryTypeTag
     structure VFuncInfoFlags = GIRepositoryVFuncInfoFlags
     structure NvokeError = GIRepositoryNvokeError
+    structure BaseInfo = GIRepositoryBaseInfo
     structure Repository = GIRepositoryRepository
     fun argInfoGetClosure info = (GIRepositoryBaseInfoRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) argInfoGetClosure_ info
     fun argInfoGetDestroy info = (GIRepositoryBaseInfoRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) argInfoGetDestroy_ info
@@ -214,32 +206,6 @@ structure GIRepository : G_I_REPOSITORY =
     fun callableInfoGetReturnAttribute (info, name) = (GIRepositoryBaseInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) callableInfoGetReturnAttribute_ (info & name) before GIRepositoryBaseInfoRecord.FFI.touchPtr info before Utf8.FFI.touchPtr name
     fun callableInfoGetReturnType info = (GIRepositoryBaseInfoRecord.FFI.withPtr false ---> GIRepositoryBaseInfoRecord.FFI.fromPtr true) callableInfoGetReturnType_ info
     fun callableInfoIsMethod info = (GIRepositoryBaseInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) callableInfoIsMethod_ info
-    fun callableInfoIterateReturnAttributes (info, iterator) =
-      let
-        val iterator
-         & name
-         & value
-         & retVal =
-          (
-            GIRepositoryBaseInfoRecord.FFI.withPtr false
-             &&&> GIRepositoryAttributeIterRecord.FFI.withDupPtr true
-             &&&> Utf8.FFI.withRefOptPtr 0
-             &&&> Utf8.FFI.withRefOptPtr 0
-             ---> GIRepositoryAttributeIterRecord.FFI.fromPtr true
-                   && Utf8.FFI.fromPtr 0
-                   && Utf8.FFI.fromPtr 0
-                   && GBool.FFI.fromVal
-          )
-            callableInfoIterateReturnAttributes_
-            (
-              info
-               & iterator
-               & NONE
-               & NONE
-            )
-      in
-        (if retVal then SOME (name, value) else NONE, iterator) before GIRepositoryBaseInfoRecord.FFI.touchPtr info before GIRepositoryAttributeIterRecord.FFI.touchPtr iterator
-      end
     fun callableInfoLoadArg (info, n) =
       let
         val arg & () =

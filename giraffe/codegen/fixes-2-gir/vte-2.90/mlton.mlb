@@ -20,6 +20,8 @@ in
   ../glib-2.0/Utf8CPtrArray.mlb
   ../gdk-3.0/GdkColorRecordCArrayN.mlb
   ../gdk-3.0/GdkRgbaRecordCArrayN.mlb
+  VTE_CHAR_ATTRIBUTES_RECORD-sig.sml
+  VTE_CHAR_ATTRIBUTES-sig.sml
   VTE_PTY_CLASS-sig.sml
   VTE_PTY-sig.sml
   VTE_PTY_ERROR-sig.sml
@@ -36,6 +38,7 @@ in
     "allowFFI true"
     "resolveScope topdec"
   in
+    mlton/VteCharAttributesRecord.sml
     mlton/VtePtyClass.sml
     mlton/VtePtyError.sml
     mlton/VtePtyFlags.sml
@@ -45,6 +48,7 @@ in
     mlton/VteTerminalCursorShape.sml
     mlton/VteTerminalEraseBinding.sml
     mlton/VteTerminalWriteFlags.sml
+    mlton/VteCharAttributes.sml
     mlton/VtePty.sml
     mlton/VteTerminal.sml
     mlton/Vte.sml

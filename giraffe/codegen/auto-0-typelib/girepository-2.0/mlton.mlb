@@ -8,8 +8,9 @@ local
   ../glib-2.0/mlton.mlb
 in
   ../glib-2.0/Utf8CPtrArray.mlb
-  G_I_REPOSITORY_BASE_INFO_RECORD-sig.sml
   G_I_REPOSITORY_ARRAY_TYPE-sig.sml
+  G_I_REPOSITORY_BASE_INFO_RECORD-sig.sml
+  G_I_REPOSITORY_BASE_INFO-sig.sml
   G_I_REPOSITORY_DIRECTION-sig.sml
   G_I_REPOSITORY_FIELD_INFO_FLAGS-sig.sml
   G_I_REPOSITORY_FUNCTION_INFO_FLAGS-sig.sml
@@ -28,9 +29,9 @@ in
     "allowFFI true"
     "resolveScope topdec"
   in
-    mlton/GIRepositoryBaseInfoRecord.sml
     mlton/GIRepositoryTypelibRecord.sml
     mlton/GIRepositoryArrayType.sml
+    mlton/GIRepositoryBaseInfoRecord.sml
     mlton/GIRepositoryDirection.sml
     mlton/GIRepositoryFieldInfoFlags.sml
     mlton/GIRepositoryFunctionInfoFlags.sml
@@ -43,6 +44,7 @@ in
     mlton/GIRepositoryTypeTag.sml
     mlton/GIRepositoryVFuncInfoFlags.sml
     mlton/GIRepositoryNvokeError.sml
+    mlton/GIRepositoryBaseInfo.sml
     mlton/GIRepositoryRepository.sml
     mlton/GIRepository.sml
   end

@@ -16,6 +16,8 @@ in
   CAIRO_CONTENT-sig.sml
   CAIRO_FONT_OPTIONS_RECORD-sig.sml
   CAIRO_FONT_OPTIONS-sig.sml
+  CAIRO_FONT_FACE_RECORD-sig.sml
+  CAIRO_FONT_FACE-sig.sml
   CAIRO_SCALED_FONT_RECORD-sig.sml
   CAIRO_SCALED_FONT-sig.sml
   CAIRO_RECTANGLE_INT_RECORD-sig.sml
@@ -31,6 +33,7 @@ in
     mlton/CairoRegionRecord.sml
     mlton/CairoContent.sml
     mlton/CairoFontOptionsRecord.sml
+    mlton/CairoFontFaceRecord.sml
     mlton/CairoScaledFontRecord.sml
     mlton/CairoRectangleIntRecord.sml
     mlton/CairoContext.sml
@@ -38,6 +41,7 @@ in
     mlton/CairoPattern.sml
     mlton/CairoRegion.sml
     mlton/CairoFontOptions.sml
+    mlton/CairoFontFace.sml
     mlton/CairoScaledFont.sml
     mlton/CairoRectangleInt.sml
     mlton/Cairo.sml

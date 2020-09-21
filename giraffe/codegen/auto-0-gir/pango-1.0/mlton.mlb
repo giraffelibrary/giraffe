@@ -52,10 +52,18 @@ in
   PANGO_FONTSET-sig.sml
   PANGO_FONTSET_SIMPLE_CLASS-sig.sml
   PANGO_FONTSET_SIMPLE-sig.sml
+  PANGO_GLYPH_GEOMETRY_RECORD-sig.sml
+  PANGO_GLYPH_GEOMETRY-sig.sml
+  PANGO_GLYPH_INFO_RECORD-sig.sml
+  PANGO_GLYPH_INFO-sig.sml
   PANGO_GLYPH_ITEM_RECORD-sig.sml
   PANGO_GLYPH_ITEM-sig.sml
+  PANGO_GLYPH_ITEM_ITER_RECORD-sig.sml
+  PANGO_GLYPH_ITEM_ITER-sig.sml
   PANGO_GLYPH_STRING_RECORD-sig.sml
   PANGO_GLYPH_STRING-sig.sml
+  PANGO_GLYPH_VIS_ATTR_RECORD-sig.sml
+  PANGO_GLYPH_VIS_ATTR-sig.sml
   PANGO_GRAVITY-sig.sml
   PANGO_GRAVITY_HINT-sig.sml
   PANGO_ITEM_RECORD-sig.sml
@@ -115,8 +123,12 @@ in
     mlton/PangoFontMask.sml
     mlton/PangoFontMetricsRecord.sml
     mlton/PangoFontsetClass.sml
+    mlton/PangoGlyphGeometryRecord.sml
+    mlton/PangoGlyphInfoRecord.sml
     mlton/PangoGlyphItemRecord.sml
+    mlton/PangoGlyphItemIterRecord.sml
     mlton/PangoGlyphStringRecord.sml
+    mlton/PangoGlyphVisAttrRecord.sml
     mlton/PangoGravityHint.sml
     mlton/PangoItemRecord.sml
     mlton/PangoLanguageRecord.sml
@@ -151,8 +163,12 @@ in
     mlton/PangoFontMetrics.sml
     mlton/PangoFontset.sml
     mlton/PangoFontsetSimpleClass.sml
+    mlton/PangoGlyphGeometry.sml
+    mlton/PangoGlyphInfo.sml
     mlton/PangoGlyphItem.sml
+    mlton/PangoGlyphItemIter.sml
     mlton/PangoGlyphString.sml
+    mlton/PangoGlyphVisAttr.sml
     mlton/PangoItem.sml
     PangoLogAttrRecordCArrayN.sml
     mlton/PangoLayoutLine.sml

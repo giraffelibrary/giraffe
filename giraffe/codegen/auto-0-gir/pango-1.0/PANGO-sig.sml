@@ -22,8 +22,12 @@ signature PANGO =
     structure FontMask : PANGO_FONT_MASK
     structure FontMetricsRecord : PANGO_FONT_METRICS_RECORD
     structure FontsetClass : PANGO_FONTSET_CLASS
+    structure GlyphGeometryRecord : PANGO_GLYPH_GEOMETRY_RECORD
+    structure GlyphInfoRecord : PANGO_GLYPH_INFO_RECORD
     structure GlyphItemRecord : PANGO_GLYPH_ITEM_RECORD
+    structure GlyphItemIterRecord : PANGO_GLYPH_ITEM_ITER_RECORD
     structure GlyphStringRecord : PANGO_GLYPH_STRING_RECORD
+    structure GlyphVisAttrRecord : PANGO_GLYPH_VIS_ATTR_RECORD
     structure GravityHint : PANGO_GRAVITY_HINT
     structure ItemRecord : PANGO_ITEM_RECORD
     structure LanguageRecord : PANGO_LANGUAGE_RECORD
@@ -96,15 +100,28 @@ signature PANGO =
     structure FontsetSimpleClass :
       PANGO_FONTSET_SIMPLE_CLASS
         where type 'a fontset_class = 'a FontsetClass.class
+    structure GlyphGeometry :
+      PANGO_GLYPH_GEOMETRY
+        where type t = GlyphGeometryRecord.t
+    structure GlyphInfo :
+      PANGO_GLYPH_INFO
+        where type t = GlyphInfoRecord.t
     structure GlyphItem :
       PANGO_GLYPH_ITEM
         where type t = GlyphItemRecord.t
+    structure GlyphItemIter :
+      PANGO_GLYPH_ITEM_ITER
+        where type t = GlyphItemIterRecord.t
+        where type glyph_item_t = GlyphItemRecord.t
     structure GlyphString :
       PANGO_GLYPH_STRING
         where type t = GlyphStringRecord.t
         where type rectangle_t = RectangleRecord.t
         where type 'a font_class = 'a FontClass.class
         where type analysis_t = AnalysisRecord.t
+    structure GlyphVisAttr :
+      PANGO_GLYPH_VIS_ATTR
+        where type t = GlyphVisAttrRecord.t
     structure Item :
       PANGO_ITEM
         where type t = ItemRecord.t

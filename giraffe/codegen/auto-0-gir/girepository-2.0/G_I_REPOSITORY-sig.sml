@@ -1,8 +1,8 @@
 signature G_I_REPOSITORY =
   sig
-    structure BaseInfoRecord : G_I_REPOSITORY_BASE_INFO_RECORD
     structure TypelibRecord : G_I_REPOSITORY_TYPELIB_RECORD
     structure ArrayType : G_I_REPOSITORY_ARRAY_TYPE
+    structure BaseInfoRecord : G_I_REPOSITORY_BASE_INFO_RECORD
     structure Direction : G_I_REPOSITORY_DIRECTION
     structure FieldInfoFlags : G_I_REPOSITORY_FIELD_INFO_FLAGS
     structure FunctionInfoFlags : G_I_REPOSITORY_FUNCTION_INFO_FLAGS
@@ -32,6 +32,11 @@ signature G_I_REPOSITORY =
     structure UnionInfoRecord : G_I_REPOSITORY_UNION_INFO_RECORD
     structure VFuncInfoRecord : G_I_REPOSITORY_V_FUNC_INFO_RECORD
     structure ValueInfoRecord : G_I_REPOSITORY_VALUE_INFO_RECORD
+    structure BaseInfo :
+      G_I_REPOSITORY_BASE_INFO
+        where type t = BaseInfoRecord.t
+        where type info_type_t = InfoType.t
+        where type typelib_t = TypelibRecord.t
     structure Repository :
       G_I_REPOSITORY_REPOSITORY
         where type 'a class = 'a RepositoryClass.class
@@ -59,7 +64,6 @@ signature G_I_REPOSITORY =
     val callableInfoGetReturnAttribute : CallableInfoRecord.t * string -> string
     val callableInfoGetReturnType : CallableInfoRecord.t -> TypeInfoRecord.t
     val callableInfoIsMethod : CallableInfoRecord.t -> bool
-    val callableInfoIterateReturnAttributes : CallableInfoRecord.t * AttributeIterRecord.t -> (string * string) option * AttributeIterRecord.t
     val callableInfoLoadArg : CallableInfoRecord.t * LargeInt.int -> ArgInfoRecord.t
     val callableInfoLoadReturnType : CallableInfoRecord.t -> TypeInfoRecord.t
     val callableInfoMayReturnNull : CallableInfoRecord.t -> bool

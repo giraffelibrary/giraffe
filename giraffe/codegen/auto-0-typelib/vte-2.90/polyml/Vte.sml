@@ -5,6 +5,7 @@ structure Vte : VTE =
     in
       val getUserShell_ = call (getSymbol "vte_get_user_shell") (cVoid --> Utf8.PolyML.cOutPtr)
     end
+    structure CharAttributesRecord = VteCharAttributesRecord
     structure PtyClass = VtePtyClass
     structure PtyError = VtePtyError
     exception PtyError = VtePtyError
@@ -15,6 +16,7 @@ structure Vte : VTE =
     structure TerminalCursorShape = VteTerminalCursorShape
     structure TerminalEraseBinding = VteTerminalEraseBinding
     structure TerminalWriteFlags = VteTerminalWriteFlags
+    structure CharAttributes = VteCharAttributes
     structure Pty = VtePty
     structure Terminal = VteTerminal
     val SPAWN_NO_PARENT_ENVV = 33554432

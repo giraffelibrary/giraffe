@@ -20,7 +20,7 @@ in
       val structRecordStrId = mkRecordStrId structNamespace structName
       val structRecordSigId = toUCU structRecordStrId
 
-      val structType = getStructType (structNamespace, structName)
+      val structType = getStructType structInfo
 
       val tTy = mkIdTy tId
 
@@ -598,7 +598,7 @@ in
 
       val structRecordStrNameId = mkRecordStrNameId structName
 
-      val structType = getStructType (structNamespace, structName)
+      val structType = getStructType structInfo
 
       (* module *)
       val strDecs'0 = []

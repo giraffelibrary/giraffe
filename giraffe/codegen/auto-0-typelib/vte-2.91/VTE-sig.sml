@@ -1,5 +1,6 @@
 signature VTE =
   sig
+    structure CharAttributesRecord : VTE_CHAR_ATTRIBUTES_RECORD
     structure CursorBlinkMode : VTE_CURSOR_BLINK_MODE
     structure CursorShape : VTE_CURSOR_SHAPE
     structure EraseBinding : VTE_ERASE_BINDING
@@ -12,6 +13,9 @@ signature VTE =
     exception RegexError of RegexError.t
     structure TerminalClass : VTE_TERMINAL_CLASS
     structure WriteFlags : VTE_WRITE_FLAGS
+    structure CharAttributes :
+      VTE_CHAR_ATTRIBUTES
+        where type t = CharAttributesRecord.t
     structure Pty :
       VTE_PTY
         where type 'a class = 'a PtyClass.class

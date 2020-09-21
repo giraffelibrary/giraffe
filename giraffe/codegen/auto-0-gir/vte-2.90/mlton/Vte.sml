@@ -1,6 +1,7 @@
 structure Vte : VTE =
   struct
     val getUserShell_ = _import "vte_get_user_shell" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    structure CharAttributesRecord = VteCharAttributesRecord
     structure PtyClass = VtePtyClass
     structure PtyError = VtePtyError
     exception PtyError = VtePtyError
@@ -11,6 +12,7 @@ structure Vte : VTE =
     structure TerminalCursorShape = VteTerminalCursorShape
     structure TerminalEraseBinding = VteTerminalEraseBinding
     structure TerminalWriteFlags = VteTerminalWriteFlags
+    structure CharAttributes = VteCharAttributes
     structure Pty = VtePty
     structure Terminal = VteTerminal
     val SPAWN_NO_PARENT_ENVV = 33554432

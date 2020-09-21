@@ -31,6 +31,8 @@ signature G_LIB =
     structure LogLevelFlags : G_LIB_LOG_LEVEL_FLAGS
     structure LogWriterOutput : G_LIB_LOG_WRITER_OUTPUT
     structure MainContextRecord : G_LIB_MAIN_CONTEXT_RECORD
+    structure MainLoopRecord : G_LIB_MAIN_LOOP_RECORD
+    structure MappedFileRecord : G_LIB_MAPPED_FILE_RECORD
     structure MarkupCollectType : G_LIB_MARKUP_COLLECT_TYPE
     structure MarkupParseContextRecord : G_LIB_MARKUP_PARSE_CONTEXT_RECORD
     structure MarkupParseFlags : G_LIB_MARKUP_PARSE_FLAGS
@@ -51,11 +53,13 @@ signature G_LIB =
     structure SpawnFlags : G_LIB_SPAWN_FLAGS
     structure StringRecord : G_LIB_STRING_RECORD
     structure TestCaseRecord : G_LIB_TEST_CASE_RECORD
+    structure TestConfigRecord : G_LIB_TEST_CONFIG_RECORD
     structure TestFileType : G_LIB_TEST_FILE_TYPE
     structure TestLogType : G_LIB_TEST_LOG_TYPE
     structure TestSubprocessFlags : G_LIB_TEST_SUBPROCESS_FLAGS
     structure TestSuiteRecord : G_LIB_TEST_SUITE_RECORD
     structure TestTrapFlags : G_LIB_TEST_TRAP_FLAGS
+    structure ThreadRecord : G_LIB_THREAD_RECORD
     structure TimeType : G_LIB_TIME_TYPE
     structure TimeValRecord : G_LIB_TIME_VAL_RECORD
     structure TimeZoneRecord : G_LIB_TIME_ZONE_RECORD
@@ -109,6 +113,14 @@ signature G_LIB =
       G_LIB_MAIN_CONTEXT
         where type t = MainContextRecord.t
         where type source_t = SourceRecord.t
+    structure MainLoop :
+      G_LIB_MAIN_LOOP
+        where type t = MainLoopRecord.t
+        where type main_context_t = MainContextRecord.t
+    structure MappedFile :
+      G_LIB_MAPPED_FILE
+        where type t = MappedFileRecord.t
+        where type bytes_t = BytesRecord.t
     structure MarkupParseContext :
       G_LIB_MARKUP_PARSE_CONTEXT
         where type t = MarkupParseContextRecord.t
@@ -143,10 +155,16 @@ signature G_LIB =
     structure TestCase :
       G_LIB_TEST_CASE
         where type t = TestCaseRecord.t
+    structure TestConfig :
+      G_LIB_TEST_CONFIG
+        where type t = TestConfigRecord.t
     structure TestSuite :
       G_LIB_TEST_SUITE
         where type t = TestSuiteRecord.t
         where type test_case_t = TestCaseRecord.t
+    structure Thread :
+      G_LIB_THREAD
+        where type t = ThreadRecord.t
     structure TimeVal :
       G_LIB_TIME_VAL
         where type t = TimeValRecord.t

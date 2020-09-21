@@ -82,13 +82,20 @@ excludedInterfaceTypes := [
     [("GLib", "2.0")],
     [
       "AsciiType",
+      "Array",
+      "ByteArray",
       "Cond",
       "Data",
+      "HashTable",
+      "HashTableIter",
+      "List",
       "MemVTable",
       "Mutex",
       "PollFD",
+      "PtrArray",
       "Scanner",
       "ScannerConfig",
+      "SList",
       "UnicodeScript",
       "UnicodeBreakType"
     ]
@@ -100,6 +107,8 @@ excludedInterfaceTypes := [
       "ClosureNotifyData",
       "ConstructParam",
       "InterfaceInfo",
+      "ObjectConstructParam",
+      "Parameter",
       "ParamSpecTypeInfo",
       "ParamSpecPool",
       "TypeClass",
@@ -119,9 +128,22 @@ excludedInterfaceTypes := [
     ]
   ),
   (
+    [("GIRepository", "2.0")],
+    [
+      "AttributeIter"
+    ]
+  ),
+  (
     [("Pango", "1.0")],
     [
       "IncludedModule"
+    ]
+  ),
+  (
+    [("Gtk", "3.0")],
+    [
+      "BindingArg"  (* GObject Introspection seems to ignore a struct field   *
+                     * that is a union so would treat this as a value record. *)
     ]
   )
 ];
@@ -182,6 +204,15 @@ excludedInterfaceTypeGlobalSuffixes := [
  * A disguised record is specified as
  *
  *   - DisguisedRecord
+ *
+ *
+ * If a record is not mentioned explicitly, a default value is derived as
+ * follows: it is classified as `Record Boxed` if the record is a registered
+ * type.  Otherwise, it is classified as `ValueRecord Flat` if there is at
+ * least one field and none of the fields are references, i.e. C pointers.
+ * Otherwise, it is excluded because no duplicate or copy operation is known.
+ * Therefore, `DisguisedRecord` is used only when explicitly specified in
+ * the configuration.
  *
  *
  * Notes

@@ -286,6 +286,8 @@ in
   GTK_GESTURE_SWIPE-sig.sml
   GTK_GESTURE_ZOOM_CLASS-sig.sml
   GTK_GESTURE_ZOOM-sig.sml
+  GTK_GRADIENT_RECORD-sig.sml
+  GTK_GRADIENT-sig.sml
   GTK_GRID_CLASS-sig.sml
   GTK_GRID-sig.sml
   GTK_H_BOX_CLASS-sig.sml
@@ -640,6 +642,8 @@ in
   GTK_SYMBOLIC_COLOR-sig.sml
   GTK_TABLE_CLASS-sig.sml
   GTK_TABLE-sig.sml
+  GTK_TABLE_ROW_COL_RECORD-sig.sml
+  GTK_TABLE_ROW_COL-sig.sml
   GTK_TARGET_ENTRY_RECORD-sig.sml
   GTK_TARGET_ENTRY-sig.sml
   GTK_TARGET_FLAGS-sig.sml
@@ -647,6 +651,8 @@ in
   GTK_TARGET_LIST-sig.sml
   GTK_TEAROFF_MENU_ITEM_CLASS-sig.sml
   GTK_TEAROFF_MENU_ITEM-sig.sml
+  GTK_TEXT_APPEARANCE_RECORD-sig.sml
+  GTK_TEXT_APPEARANCE-sig.sml
   GTK_TEXT_ATTRIBUTES_RECORD-sig.sml
   GTK_TEXT_ATTRIBUTES-sig.sml
   GTK_TEXT_BUFFER_CLASS-sig.sml
@@ -717,6 +723,8 @@ in
   GTK_TREE_MODEL_SORT-sig.sml
   GTK_TREE_PATH_RECORD-sig.sml
   GTK_TREE_PATH-sig.sml
+  GTK_TREE_ROW_REFERENCE_RECORD-sig.sml
+  GTK_TREE_ROW_REFERENCE-sig.sml
   GTK_TREE_SELECTION_CLASS-sig.sml
   GTK_TREE_SELECTION-sig.sml
   GTK_TREE_SORTABLE_CLASS-sig.sml
@@ -841,6 +849,7 @@ in
     mlton/GtkFileFilterFlags.sml
     mlton/GtkFileFilterInfoRecord.sml
     mlton/GtkFontChooserClass.sml
+    mlton/GtkGradientRecord.sml
     mlton/GtkIMContextClass.sml
     mlton/GtkIMPreeditStyle.sml
     mlton/GtkIMStatusStyle.sml
@@ -945,9 +954,11 @@ in
     mlton/GtkStylePropertiesClass.sml
     mlton/GtkStyleProviderClass.sml
     mlton/GtkSymbolicColorRecord.sml
+    mlton/GtkTableRowColRecord.sml
     mlton/GtkTargetEntryRecord.sml
     mlton/GtkTargetFlags.sml
     mlton/GtkTargetListRecord.sml
+    mlton/GtkTextAppearanceRecord.sml
     mlton/GtkTextAttributesRecord.sml
     mlton/GtkTextBufferClass.sml
     mlton/GtkTextBufferTargetInfo.sml
@@ -976,6 +987,7 @@ in
     mlton/GtkTreeModelFlags.sml
     mlton/GtkTreeModelSortClass.sml
     mlton/GtkTreePathRecord.sml
+    mlton/GtkTreeRowReferenceRecord.sml
     mlton/GtkTreeSelectionClass.sml
     mlton/GtkTreeSortableClass.sml
     mlton/GtkTreeStoreClass.sml
@@ -1040,6 +1052,7 @@ in
     mlton/GtkFontChooser.sml
     mlton/GtkGLAreaClass.sml
     mlton/GtkGestureClass.sml
+    mlton/GtkGradient.sml
     mlton/GtkHsvClass.sml
     mlton/GtkIMContext.sml
     mlton/GtkIMContextSimpleClass.sml
@@ -1087,7 +1100,9 @@ in
     mlton/GtkStyleProvider.sml
     mlton/GtkSwitchClass.sml
     mlton/GtkSymbolicColor.sml
+    mlton/GtkTableRowCol.sml
     mlton/GtkTargetEntry.sml
+    mlton/GtkTextAppearance.sml
     mlton/GtkTextAttributes.sml
     mlton/GtkTextBuffer.sml
     mlton/GtkTextChildAnchor.sml
@@ -1107,6 +1122,7 @@ in
     mlton/GtkTreeModelFilter.sml
     mlton/GtkTreeModelSort.sml
     mlton/GtkTreePath.sml
+    mlton/GtkTreeRowReference.sml
     mlton/GtkTreeSortable.sml
     mlton/GtkTreeStore.sml
     mlton/GtkTreeViewColumn.sml

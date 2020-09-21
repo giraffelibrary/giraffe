@@ -10,6 +10,7 @@ structure Vte : VTE =
       val getUserShell_ = call (getSymbol "vte_get_user_shell") (cVoid --> Utf8.PolyML.cOutPtr)
       val regexErrorQuark_ = call (getSymbol "vte_regex_error_quark") (cVoid --> GUInt32.PolyML.cVal)
     end
+    structure CharAttributesRecord = VteCharAttributesRecord
     structure CursorBlinkMode = VteCursorBlinkMode
     structure CursorShape = VteCursorShape
     structure EraseBinding = VteEraseBinding
@@ -22,6 +23,7 @@ structure Vte : VTE =
     exception RegexError = VteRegexError
     structure TerminalClass = VteTerminalClass
     structure WriteFlags = VteWriteFlags
+    structure CharAttributes = VteCharAttributes
     structure Pty = VtePty
     structure Regex = VteRegex
     structure RegexRecordCPtrArrayN = VteRegexRecordCPtrArrayN

@@ -23,15 +23,6 @@ structure GIRepository : G_I_REPOSITORY =
       val callableInfoGetReturnAttribute_ = call (getSymbol "g_callable_info_get_return_attribute") (GIRepositoryCallableInfoRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val callableInfoGetReturnType_ = call (getSymbol "g_callable_info_get_return_type") (GIRepositoryCallableInfoRecord.PolyML.cPtr --> GIRepositoryTypeInfoRecord.PolyML.cPtr)
       val callableInfoIsMethod_ = call (getSymbol "g_callable_info_is_method") (GIRepositoryCallableInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
-      val callableInfoIterateReturnAttributes_ =
-        call (getSymbol "g_callable_info_iterate_return_attributes")
-          (
-            GIRepositoryCallableInfoRecord.PolyML.cPtr
-             &&> GIRepositoryAttributeIterRecord.PolyML.cPtr
-             &&> Utf8.PolyML.cOutRef
-             &&> Utf8.PolyML.cOutRef
-             --> GBool.PolyML.cVal
-          )
       val callableInfoLoadArg_ =
         call (getSymbol "g_callable_info_load_arg")
           (
@@ -173,9 +164,9 @@ structure GIRepository : G_I_REPOSITORY =
       val vfuncInfoGetOffset_ = call (getSymbol "g_vfunc_info_get_offset") (GIRepositoryVFuncInfoRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val vfuncInfoGetSignal_ = call (getSymbol "g_vfunc_info_get_signal") (GIRepositoryVFuncInfoRecord.PolyML.cPtr --> GIRepositorySignalInfoRecord.PolyML.cPtr)
     end
-    structure BaseInfoRecord = GIRepositoryBaseInfoRecord
     structure TypelibRecord = GIRepositoryTypelibRecord
     structure ArrayType = GIRepositoryArrayType
+    structure BaseInfoRecord = GIRepositoryBaseInfoRecord
     structure Direction = GIRepositoryDirection
     structure FieldInfoFlags = GIRepositoryFieldInfoFlags
     structure FunctionInfoFlags = GIRepositoryFunctionInfoFlags
@@ -205,6 +196,7 @@ structure GIRepository : G_I_REPOSITORY =
     structure UnionInfoRecord = GIRepositoryUnionInfoRecord
     structure VFuncInfoRecord = GIRepositoryVFuncInfoRecord
     structure ValueInfoRecord = GIRepositoryValueInfoRecord
+    structure BaseInfo = GIRepositoryBaseInfo
     structure Repository = GIRepositoryRepository
     fun argInfoGetClosure info = (GIRepositoryArgInfoRecord.FFI.withPtr false ---> GInt.FFI.fromVal) argInfoGetClosure_ info
     fun argInfoGetDestroy info = (GIRepositoryArgInfoRecord.FFI.withPtr false ---> GInt.FFI.fromVal) argInfoGetDestroy_ info
@@ -231,32 +223,6 @@ structure GIRepository : G_I_REPOSITORY =
     fun callableInfoGetReturnAttribute (info, name) = (GIRepositoryCallableInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) callableInfoGetReturnAttribute_ (info & name) before GIRepositoryCallableInfoRecord.FFI.touchPtr info before Utf8.FFI.touchPtr name
     fun callableInfoGetReturnType info = (GIRepositoryCallableInfoRecord.FFI.withPtr false ---> GIRepositoryTypeInfoRecord.FFI.fromPtr true) callableInfoGetReturnType_ info
     fun callableInfoIsMethod info = (GIRepositoryCallableInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) callableInfoIsMethod_ info
-    fun callableInfoIterateReturnAttributes (info, iterator) =
-      let
-        val iterator
-         & name
-         & value
-         & retVal =
-          (
-            GIRepositoryCallableInfoRecord.FFI.withPtr false
-             &&&> GIRepositoryAttributeIterRecord.FFI.withDupPtr true
-             &&&> Utf8.FFI.withRefOptPtr 0
-             &&&> Utf8.FFI.withRefOptPtr 0
-             ---> GIRepositoryAttributeIterRecord.FFI.fromPtr true
-                   && Utf8.FFI.fromPtr 0
-                   && Utf8.FFI.fromPtr 0
-                   && GBool.FFI.fromVal
-          )
-            callableInfoIterateReturnAttributes_
-            (
-              info
-               & iterator
-               & NONE
-               & NONE
-            )
-      in
-        (if retVal then SOME (name, value) else NONE, iterator) before GIRepositoryCallableInfoRecord.FFI.touchPtr info before GIRepositoryAttributeIterRecord.FFI.touchPtr iterator
-      end
     fun callableInfoLoadArg (info, n) =
       let
         val arg & () =

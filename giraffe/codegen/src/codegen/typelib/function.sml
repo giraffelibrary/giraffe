@@ -395,15 +395,11 @@ val isPtrElem =
         case infoType of
           FLAGS _           => NONE
         | ENUM _            => NONE
-        | STRUCT structInfo =>
-            let
-              val structName = getName structInfo
-              val structNamespace = BaseInfo.getNamespace structInfo
-            in
-              case getStructType (structNamespace, structName) of
-                ValueRecord _ => NONE
-              | _             => SOME false
-            end 
+        | STRUCT structInfo => (
+            case getStructType structInfo of
+              ValueRecord _ => NONE
+            | _             => SOME false
+          )
         | _                 => SOME false
       end
 
@@ -952,21 +948,21 @@ fun getParInfo
                       if usePtrDefault orelse dir = NONE  (* use default for nested type *)
                       then
                         case infoType of
-                          OBJECT _    => true
-                        | INTERFACE _ => true
-                        | STRUCT _    => (
+                          OBJECT _          => true
+                        | INTERFACE _       => true
+                        | STRUCT structInfo => (
                             case dir of
                               SOME _ => true
                             | NONE   => (
-                                case getStructType (interfaceNamespace, interfaceName) of
+                                case getStructType structInfo of
                                   ValueRecord _ => false
                                 | _             => true
                               )
                           )
-                        | UNION _     => true
-                        | FLAGS _     => false
-                        | ENUM _      => false
-                        | _           => infoExcl (unsupportedInterface infoType)
+                        | UNION _           => true
+                        | FLAGS _           => false
+                        | ENUM _            => false
+                        |       _           => infoExcl (unsupportedInterface infoType)
                       else
                         TypeInfo.isPointer typeInfo
 
@@ -1484,21 +1480,21 @@ fun getRetInfo
                       if usePtrDefault orelse dir = NONE  (* use default for nested type *)
                       then
                         case infoType of
-                          OBJECT _    => true
-                        | INTERFACE _ => true
-                        | STRUCT _    => (
+                          OBJECT _          => true
+                        | INTERFACE _       => true
+                        | STRUCT structInfo => (
                             case dir of
                               SOME _ => true
                             | NONE   => (
-                                case getStructType (interfaceNamespace, interfaceName) of
+                                case getStructType structInfo of
                                   ValueRecord _ => false
                                 | _             => true
                               )
                           )
-                        | UNION _     => true
-                        | FLAGS _     => false
-                        | ENUM _      => false
-                        | _           => infoExcl (unsupportedInterface infoType)
+                        | UNION _           => true
+                        | FLAGS _           => false
+                        | ENUM _            => false
+                        | _                 => infoExcl (unsupportedInterface infoType)
                       else
                         TypeInfo.isPointer typeInfo
 

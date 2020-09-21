@@ -71,6 +71,7 @@ signature GTK =
     structure FileFilterFlags : GTK_FILE_FILTER_FLAGS
     structure FileFilterInfoRecord : GTK_FILE_FILTER_INFO_RECORD
     structure FontChooserClass : GTK_FONT_CHOOSER_CLASS
+    structure GradientRecord : GTK_GRADIENT_RECORD
     structure IMContextClass : GTK_I_M_CONTEXT_CLASS
     structure IMPreeditStyle : GTK_I_M_PREEDIT_STYLE
     structure IMStatusStyle : GTK_I_M_STATUS_STYLE
@@ -179,9 +180,11 @@ signature GTK =
     structure StylePropertiesClass : GTK_STYLE_PROPERTIES_CLASS
     structure StyleProviderClass : GTK_STYLE_PROVIDER_CLASS
     structure SymbolicColorRecord : GTK_SYMBOLIC_COLOR_RECORD
+    structure TableRowColRecord : GTK_TABLE_ROW_COL_RECORD
     structure TargetEntryRecord : GTK_TARGET_ENTRY_RECORD
     structure TargetFlags : GTK_TARGET_FLAGS
     structure TargetListRecord : GTK_TARGET_LIST_RECORD
+    structure TextAppearanceRecord : GTK_TEXT_APPEARANCE_RECORD
     structure TextAttributesRecord : GTK_TEXT_ATTRIBUTES_RECORD
     structure TextBufferClass : GTK_TEXT_BUFFER_CLASS
     structure TextBufferTargetInfo : GTK_TEXT_BUFFER_TARGET_INFO
@@ -210,6 +213,7 @@ signature GTK =
     structure TreeModelFlags : GTK_TREE_MODEL_FLAGS
     structure TreeModelSortClass : GTK_TREE_MODEL_SORT_CLASS
     structure TreePathRecord : GTK_TREE_PATH_RECORD
+    structure TreeRowReferenceRecord : GTK_TREE_ROW_REFERENCE_RECORD
     structure TreeSelectionClass : GTK_TREE_SELECTION_CLASS
     structure TreeSortableClass : GTK_TREE_SORTABLE_CLASS
     structure TreeStoreClass : GTK_TREE_STORE_CLASS
@@ -422,6 +426,12 @@ signature GTK =
     structure GestureClass :
       GTK_GESTURE_CLASS
         where type 'a event_controller_class = 'a EventControllerClass.class
+    structure Gradient :
+      GTK_GRADIENT
+        where type t = GradientRecord.t
+        where type symbolic_color_t = SymbolicColorRecord.t
+        where type 'a style_properties_class = 'a StylePropertiesClass.class
+        where type 'a style_context_class = 'a StyleContextClass.class
     structure HsvClass :
       GTK_HSV_CLASS
         where type 'a widget_class = 'a WidgetClass.class
@@ -637,9 +647,15 @@ signature GTK =
       GTK_SYMBOLIC_COLOR
         where type t = SymbolicColorRecord.t
         where type 'a style_properties_class = 'a StylePropertiesClass.class
+    structure TableRowCol :
+      GTK_TABLE_ROW_COL
+        where type t = TableRowColRecord.t
     structure TargetEntry :
       GTK_TARGET_ENTRY
         where type t = TargetEntryRecord.t
+    structure TextAppearance :
+      GTK_TEXT_APPEARANCE
+        where type t = TextAppearanceRecord.t
     structure TextAttributes :
       GTK_TEXT_ATTRIBUTES
         where type t = TextAttributesRecord.t
@@ -742,6 +758,11 @@ signature GTK =
     structure TreePath :
       GTK_TREE_PATH
         where type t = TreePathRecord.t
+    structure TreeRowReference :
+      GTK_TREE_ROW_REFERENCE
+        where type t = TreeRowReferenceRecord.t
+        where type 'a tree_model_class = 'a TreeModelClass.class
+        where type tree_path_t = TreePathRecord.t
     structure TreeSortable :
       GTK_TREE_SORTABLE
         where type 'a class = 'a TreeSortableClass.class

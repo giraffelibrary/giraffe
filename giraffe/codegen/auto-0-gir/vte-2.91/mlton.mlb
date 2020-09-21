@@ -18,6 +18,8 @@ local
 in
   ../glib-2.0/GUInt8CArrayN.mlb
   ../gdk-3.0/GdkRgbaRecordCArrayN.mlb
+  VTE_CHAR_ATTRIBUTES_RECORD-sig.sml
+  VTE_CHAR_ATTRIBUTES-sig.sml
   VTE_CURSOR_BLINK_MODE-sig.sml
   VTE_CURSOR_SHAPE-sig.sml
   VTE_ERASE_BINDING-sig.sml
@@ -36,6 +38,7 @@ in
     "allowFFI true"
     "resolveScope topdec"
   in
+    mlton/VteCharAttributesRecord.sml
     mlton/VteCursorBlinkMode.sml
     mlton/VteCursorShape.sml
     mlton/VteEraseBinding.sml
@@ -46,6 +49,7 @@ in
     mlton/VteRegexError.sml
     mlton/VteTerminalClass.sml
     mlton/VteWriteFlags.sml
+    mlton/VteCharAttributes.sml
     mlton/VtePty.sml
     mlton/VteRegex.sml
     mlton/VteTerminal.sml

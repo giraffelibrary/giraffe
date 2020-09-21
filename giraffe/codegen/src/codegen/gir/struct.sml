@@ -20,7 +20,7 @@ in
       val structRecordStrId = mkRecordStrId structNamespace structName
       val structRecordSigId = toUCU structRecordStrId
 
-      val structType = getStructType (structNamespace, structName)
+      val structType = getStructType structInfo
 
       val tTy = mkIdTy tId
 
@@ -611,7 +611,7 @@ in
 
       val structRecordStrNameId = mkRecordStrNameId structName
 
-      val structType = getStructType (structNamespace, structName)
+      val structType = getStructType structInfo
 
       (* module *)
       val strDecs'0 = []
@@ -949,7 +949,7 @@ fun addStructCInterfaceDecl
     val () = checkDeprecated structInfo
 
     val structName = getName structInfo
-    val structType = getStructType (structNamespace, structName)
+    val structType = getStructType structInfo
   in
     case structType of
       ValueRecord _ =>
