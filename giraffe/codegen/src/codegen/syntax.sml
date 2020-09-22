@@ -361,6 +361,7 @@ val flagsTy : ty = mkIdTy flagsId
 val fId : id = "f"
 val fExp : exp = mkIdLNameExp fId
 val classId : id = "class"
+val unionId : id = "union"
 val recordStrId : id = "Record"
 val valueStrId : id = "Value"
 val pointerStrId : id = "Pointer"

@@ -156,13 +156,12 @@ excludedInterfaceTypeGlobalSuffixes := [
 (**
  * Records (struct types)
  *
- * A record that is a field of an included union is not included this list.
- *
  * A record is classified as one of the following:
  *
  *   - value-like
  *   - reference-only
  *   - disguised
+ *   - the field of a union
  *
  * A value-like record is one whose size is known and has a copy operation
  * (that copies from one area of memory to another, as opposed to a duplicate
@@ -176,14 +175,18 @@ excludedInterfaceTypeGlobalSuffixes := [
  *
  * An disguised record is one that is just a pointer internally.
  *
+ * A union record is the same as the union.
+ *
  * These types of record are specified by the constructors
  *
  *   - ValueRecord ...
  *   - Record ...
  *   - DisguisedRecord
+ *   - UnionRecord ...
  *
- * The constructor arguments indicate how the required operations are
- * implemented.
+ * The arguments of constructors ValueRecord and Record indicate how the
+ * required operations are implemented.  The argument of constructor
+ * UnionRecord indicates the parent union interface and its field.
  *
  * A value-like record without any fields that are references can be copied
  * using memcpy but if any fields are references, bespoke copy and clear
@@ -205,14 +208,18 @@ excludedInterfaceTypeGlobalSuffixes := [
  *
  *   - DisguisedRecord
  *
+ * A union record is specified as
+ *
+ *   - UnionRecord (parentUnionNamespace, parentUnionName, fieldName)
+ *
  *
  * If a record is not mentioned explicitly, a default value is derived as
  * follows: it is classified as `Record Boxed` if the record is a registered
  * type.  Otherwise, it is classified as `ValueRecord Flat` if there is at
  * least one field and none of the fields are references, i.e. C pointers.
  * Otherwise, it is excluded because no duplicate or copy operation is known.
- * Therefore, `DisguisedRecord` is used only when explicitly specified in
- * the configuration.
+ * Therefore, `DisguisedRecord` and `UnionRecord` are used only when
+ * explicitly specified in the configuration.
  *
  *
  * Notes
@@ -288,6 +295,30 @@ structTypes := [
   (("Atk", "TextRange"),              Record Boxed),
   (("Atk", "TextRectangle"),          ValueRecord Flat),
   (("Gdk", "Atom"),                   DisguisedRecord),
+  (("Gdk", "EventAny"),               UnionRecord ("Gdk",  "Event", "any")),
+  (("Gdk", "EventButton"),            UnionRecord ("Gdk",  "Event", "button")),
+  (("Gdk", "EventConfigure"),         UnionRecord ("Gdk",  "Event", "configure")),
+  (("Gdk", "EventCrossing"),          UnionRecord ("Gdk",  "Event", "crossing")),
+  (("Gdk", "EventDND"),               UnionRecord ("Gdk",  "Event", "dnd")),
+  (("Gdk", "EventExpose"),            UnionRecord ("Gdk",  "Event", "expose")),
+  (("Gdk", "EventFocus"),             UnionRecord ("Gdk",  "Event", "focus_change")),
+  (("Gdk", "EventGrabBroken"),        UnionRecord ("Gdk",  "Event", "grab_broken")),
+  (("Gdk", "EventKey"),               UnionRecord ("Gdk",  "Event", "key")),
+  (("Gdk", "EventMotion"),            UnionRecord ("Gdk",  "Event", "motion")),
+  (("Gdk", "EventOwnerChange"),       UnionRecord ("Gdk",  "Event", "owner_change")),
+  (("Gdk", "EventPadAxis"),           UnionRecord ("Gdk",  "Event", "pad_axis")),
+  (("Gdk", "EventPadButton"),         UnionRecord ("Gdk",  "Event", "pad_button")),
+  (("Gdk", "EventPadGroupMode"),      UnionRecord ("Gdk",  "Event", "pad_group_mode")),
+  (("Gdk", "EventProperty"),          UnionRecord ("Gdk",  "Event", "property")),
+  (("Gdk", "EventProximity"),         UnionRecord ("Gdk",  "Event", "proximity")),
+  (("Gdk", "EventScroll"),            UnionRecord ("Gdk",  "Event", "scroll")),
+  (("Gdk", "EventSelection"),         UnionRecord ("Gdk",  "Event", "selection")),
+  (("Gdk", "EventSetting"),           UnionRecord ("Gdk",  "Event", "setting")),
+  (("Gdk", "EventTouchpadPinch"),     UnionRecord ("Gdk",  "Event", "touchpad_pinch")),
+  (("Gdk", "EventTouchpadSwipe"),     UnionRecord ("Gdk",  "Event", "touchpad_swipe")),
+  (("Gdk", "EventTouch"),             UnionRecord ("Gdk",  "Event", "touch")),
+  (("Gdk", "EventVisibility"),        UnionRecord ("Gdk",  "Event", "visibility")),
+  (("Gdk", "EventWindowState"),       UnionRecord ("Gdk",  "Event", "window_state")),
   (("Gdk", "EventSequence"),          Record Boxed),
   (("Gdk", "Geometry"),               ValueRecord Flat),
   (("Gdk", "Color"),                  ValueRecord Flat),

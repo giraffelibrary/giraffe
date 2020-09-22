@@ -1,15 +1,17 @@
 structure GdkEventKeyRecord :>
   GDK_EVENT_KEY_RECORD
     where type 'a event_union = 'a GdkEvent.union
+    where type C.opt = GdkEvent.C.opt
     where type C.non_opt = GdkEvent.C.non_opt
     where type 'a C.p = 'a GdkEvent.C.p
     where type 'a window_class = 'a GdkWindowClass.class
     where type modifier_type_t = GdkModifierType.t =
   struct
     type 'a event_union = 'a GdkEvent.union
-    open GdkEvent
     type key = unit
-    type t = key union
+    type t = key GdkEvent.union
+    structure Record = GdkEvent
+    open Record
     datatype event =
       KEY_PRESS
     | KEY_RELEASE

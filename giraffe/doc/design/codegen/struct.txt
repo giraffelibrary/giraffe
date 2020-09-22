@@ -44,6 +44,10 @@ Context
       DisguisedRecord
         The struct is disguised and is just a pointer in C.
 
+      UnionRecord (parentUnionNamespace, parentUnionName, fieldName)
+        The struct is the field of a union and is internally the same
+        as the union.
+
 
 Placeholders
 
@@ -67,12 +71,23 @@ Conditions
 
 signature <STRUCT_NAMESPACE>_<STRUCT_NAME>_RECORD =
   sig
-                                                               -.
-    include VALUE_RECORD                                        | structType is ValueRecord _
-                                                               -'
-                                                               -.
-    include RECORD                                              | structType is Record _ | DisguisedRecord
-                                                               -'
+                                                                                 -.
+    include VALUE_RECORD                                                          | structType is ValueRecord _
+                                                                                 -'
+                                                                                 -.
+    include RECORD                                                                | structType is Record _ | DisguisedRecord
+                                                                                 -'
+                                                                                 -.
+    type <field_name>                                                             |
+                                      -.                                          |
+    type 'a <parent_union_name>_union  | StructNamespace = ParentUnionNamespace   |
+    include RECORD                     |                                          |
+      where type t = <field_name> <parent_union_name>_union                       | structType is UnionRecord ("<ParentUnionNamespace>", "<ParentUnionName>", "<FieldName>")
+                                      -'                                          |
+                                      -.                                          |
+    include RECORD                     | StructNamespace <> ParentUnionNamespace  |
+      where type t = <field_name> <ParentUnionNamespace><ParentUnionName>.union   |
+                                      -'                                         -'
                                                                -.                -.
     type ('a, 'b) value_accessor_t                              |                 |
     val t : (t, t) value_accessor_t                             | isGObject       |
@@ -92,6 +107,15 @@ structure <StructNamespace><StructName>Record :>
                                                                           -.
     where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t        | isGObject
                                                                           -'
+                                                               -.                                               -.
+    where                                                       |                                                |
+      type 'a <parent_union_name>_union =                       | StructNamespace = ParentUnionNamespace         |
+        'a <ParentUnionNamespace><ParentUnionName>.union        |                                                | structType is
+                                                               -'                                                |  UnionRecord ("<ParentUnionNamespace>", "<ParentUnionName>", "<FieldName>")
+    where type C.opt = <ParentUnionNamespace><ParentUnionName>.C.opt                                             |
+    where type C.non_opt = <ParentUnionNamespace><ParentUnionName>.C.non_opt                                     |
+    where type 'a C.p = 'a <ParentUnionNamespace><ParentUnionName>.C.p =                                         |
+                                                                                                                -'
 =
   struct
                                                                                                                 -.
@@ -99,6 +123,13 @@ structure <StructNamespace><StructName>Record :>
     type opt = Pointer.opt                                                                                       | structType is ValueRecord _ | Record _
     type non_opt = Pointer.non_opt                                                                               |
     type 'a p = 'a Pointer.p                                                                                     |
+                                                                                                                -'
+                                                               -.                                               -.
+    type 'a <parent_union_name>_union =                         | StructNamespace = ParentUnionNamespace         | structType is
+      'a <ParentUnionNamespace><ParentUnionName>.union          |                                                |  UnionRecord ("<ParentUnionNamespace>", "<ParentUnionName>", "<FieldName>")
+                                                               -'                                                |
+    type <field_name> = unit                                                                                     |
+    type t = <field_name> <ParentUnionNamespace><ParentUnionName>.union                                          |
                                                                                                                 -'
                                                                                                                 -.
     val cPtr = Pointer.PolyML.cVal : non_opt p PolyMLFFI.conversion                                              |
@@ -190,7 +221,7 @@ structure <StructNamespace><StructName>Record :>
       fn src & dest =>                                               |                     |                     |
         memcpy_ (dest & src & size_ ())                              |                     |                     | MLton only
                                                                      |                     |                     |
-    val clear_ = Fn.ignore                                           |                     |                     |
+    val clear_ = Fn.ignore                                           |                     |                     | structType is ValueRecord _ | Record _
                                                                     -'                     |                     |
                                                                     -.                     |                     |
     val copy_ =                                                      |                     |                     |
@@ -261,6 +292,9 @@ structure <StructNamespace><StructName>Record :>
         val name = "<StructNamespace>.<StructName>"                                        |
       )                                                                                    |
                                                                                           -'
+                                                                                          -.
+    structure Record = <ParentUnionNamespace><ParentUnionName>                             | structType is
+                                                                                          -'  UnionRecord ("<ParentUnionNamespace>", "<ParentUnionName>", _)
     open Record
                                                                             -.              -.
     local                                                                    |               |

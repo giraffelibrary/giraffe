@@ -76,80 +76,6 @@ signature GDK =
     structure WindowType : GDK_WINDOW_TYPE
     structure WindowTypeHint : GDK_WINDOW_TYPE_HINT
     structure WindowWindowClass : GDK_WINDOW_WINDOW_CLASS
-    structure EventAnyRecord :
-      GDK_EVENT_ANY_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventButtonRecord :
-      GDK_EVENT_BUTTON_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventConfigureRecord :
-      GDK_EVENT_CONFIGURE_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventCrossingRecord :
-      GDK_EVENT_CROSSING_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventDNDRecord :
-      GDK_EVENT_D_N_D_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventExposeRecord :
-      GDK_EVENT_EXPOSE_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventFocusRecord :
-      GDK_EVENT_FOCUS_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventGrabBrokenRecord :
-      GDK_EVENT_GRAB_BROKEN_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventKeyRecord :
-      GDK_EVENT_KEY_RECORD
-        where type 'a event_union = 'a Event.union
-        where type 'a window_class = 'a WindowClass.class
-        where type modifier_type_t = ModifierType.t
-    structure EventMotionRecord :
-      GDK_EVENT_MOTION_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventOwnerChangeRecord :
-      GDK_EVENT_OWNER_CHANGE_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventPadAxisRecord :
-      GDK_EVENT_PAD_AXIS_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventPadButtonRecord :
-      GDK_EVENT_PAD_BUTTON_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventPadGroupModeRecord :
-      GDK_EVENT_PAD_GROUP_MODE_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventPropertyRecord :
-      GDK_EVENT_PROPERTY_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventProximityRecord :
-      GDK_EVENT_PROXIMITY_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventScrollRecord :
-      GDK_EVENT_SCROLL_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventSelectionRecord :
-      GDK_EVENT_SELECTION_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventSettingRecord :
-      GDK_EVENT_SETTING_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventTouchpadPinchRecord :
-      GDK_EVENT_TOUCHPAD_PINCH_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventTouchpadSwipeRecord :
-      GDK_EVENT_TOUCHPAD_SWIPE_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventTouchRecord :
-      GDK_EVENT_TOUCH_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventVisibilityRecord :
-      GDK_EVENT_VISIBILITY_RECORD
-        where type 'a event_union = 'a Event.union
-    structure EventWindowStateRecord :
-      GDK_EVENT_WINDOW_STATE_RECORD
-        where type 'a event_union = 'a Event.union
     structure AppLaunchContext :
       GDK_APP_LAUNCH_CONTEXT
         where type 'a class = 'a AppLaunchContextClass.class
@@ -218,9 +144,81 @@ signature GDK =
       GDK_DRAWING_CONTEXT
         where type 'a class = 'a DrawingContextClass.class
         where type 'a window_class = 'a WindowClass.class
+    structure EventAnyRecord :
+      GDK_EVENT_ANY_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventButtonRecord :
+      GDK_EVENT_BUTTON_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventConfigureRecord :
+      GDK_EVENT_CONFIGURE_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventCrossingRecord :
+      GDK_EVENT_CROSSING_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventDNDRecord :
+      GDK_EVENT_D_N_D_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventExposeRecord :
+      GDK_EVENT_EXPOSE_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventFocusRecord :
+      GDK_EVENT_FOCUS_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventGrabBrokenRecord :
+      GDK_EVENT_GRAB_BROKEN_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventKeyRecord :
+      GDK_EVENT_KEY_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventMotionRecord :
+      GDK_EVENT_MOTION_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventOwnerChangeRecord :
+      GDK_EVENT_OWNER_CHANGE_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventPadAxisRecord :
+      GDK_EVENT_PAD_AXIS_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventPadButtonRecord :
+      GDK_EVENT_PAD_BUTTON_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventPadGroupModeRecord :
+      GDK_EVENT_PAD_GROUP_MODE_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventPropertyRecord :
+      GDK_EVENT_PROPERTY_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventProximityRecord :
+      GDK_EVENT_PROXIMITY_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventScrollRecord :
+      GDK_EVENT_SCROLL_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventSelectionRecord :
+      GDK_EVENT_SELECTION_RECORD
+        where type 'a event_union = 'a Event.union
     structure EventSequence :
       GDK_EVENT_SEQUENCE
         where type t = EventSequenceRecord.t
+    structure EventSettingRecord :
+      GDK_EVENT_SETTING_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventTouchRecord :
+      GDK_EVENT_TOUCH_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventTouchpadPinchRecord :
+      GDK_EVENT_TOUCHPAD_PINCH_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventTouchpadSwipeRecord :
+      GDK_EVENT_TOUCHPAD_SWIPE_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventVisibilityRecord :
+      GDK_EVENT_VISIBILITY_RECORD
+        where type 'a event_union = 'a Event.union
+    structure EventWindowStateRecord :
+      GDK_EVENT_WINDOW_STATE_RECORD
+        where type 'a event_union = 'a Event.union
     structure FrameClock :
       GDK_FRAME_CLOCK
         where type 'a class = 'a FrameClockClass.class
@@ -328,6 +326,78 @@ signature GDK =
         where type 'a screen_class = 'a ScreenClass.class
         where type 'a monitor_class = 'a MonitorClass.class
         where type 'a seat_class = 'a SeatClass.class
+    structure EventAny :
+      GDK_EVENT_ANY
+        where type t = EventAnyRecord.t
+    structure EventButton :
+      GDK_EVENT_BUTTON
+        where type t = EventButtonRecord.t
+    structure EventConfigure :
+      GDK_EVENT_CONFIGURE
+        where type t = EventConfigureRecord.t
+    structure EventCrossing :
+      GDK_EVENT_CROSSING
+        where type t = EventCrossingRecord.t
+    structure EventDND :
+      GDK_EVENT_D_N_D
+        where type t = EventDNDRecord.t
+    structure EventExpose :
+      GDK_EVENT_EXPOSE
+        where type t = EventExposeRecord.t
+    structure EventFocus :
+      GDK_EVENT_FOCUS
+        where type t = EventFocusRecord.t
+    structure EventGrabBroken :
+      GDK_EVENT_GRAB_BROKEN
+        where type t = EventGrabBrokenRecord.t
+    structure EventKey :
+      GDK_EVENT_KEY
+        where type t = EventKeyRecord.t
+    structure EventMotion :
+      GDK_EVENT_MOTION
+        where type t = EventMotionRecord.t
+    structure EventOwnerChange :
+      GDK_EVENT_OWNER_CHANGE
+        where type t = EventOwnerChangeRecord.t
+    structure EventPadAxis :
+      GDK_EVENT_PAD_AXIS
+        where type t = EventPadAxisRecord.t
+    structure EventPadButton :
+      GDK_EVENT_PAD_BUTTON
+        where type t = EventPadButtonRecord.t
+    structure EventPadGroupMode :
+      GDK_EVENT_PAD_GROUP_MODE
+        where type t = EventPadGroupModeRecord.t
+    structure EventProperty :
+      GDK_EVENT_PROPERTY
+        where type t = EventPropertyRecord.t
+    structure EventProximity :
+      GDK_EVENT_PROXIMITY
+        where type t = EventProximityRecord.t
+    structure EventScroll :
+      GDK_EVENT_SCROLL
+        where type t = EventScrollRecord.t
+    structure EventSelection :
+      GDK_EVENT_SELECTION
+        where type t = EventSelectionRecord.t
+    structure EventSetting :
+      GDK_EVENT_SETTING
+        where type t = EventSettingRecord.t
+    structure EventTouch :
+      GDK_EVENT_TOUCH
+        where type t = EventTouchRecord.t
+    structure EventTouchpadPinch :
+      GDK_EVENT_TOUCHPAD_PINCH
+        where type t = EventTouchpadPinchRecord.t
+    structure EventTouchpadSwipe :
+      GDK_EVENT_TOUCHPAD_SWIPE
+        where type t = EventTouchpadSwipeRecord.t
+    structure EventVisibility :
+      GDK_EVENT_VISIBILITY
+        where type t = EventVisibilityRecord.t
+    structure EventWindowState :
+      GDK_EVENT_WINDOW_STATE
+        where type t = EventWindowStateRecord.t
     structure Keymap :
       GDK_KEYMAP
         where type 'a class = 'a KeymapClass.class

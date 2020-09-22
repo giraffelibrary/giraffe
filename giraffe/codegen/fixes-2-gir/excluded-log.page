@@ -5927,30 +5927,6 @@
       </item>
     </item>
     <item>struct DrawingContextClass: class struct</item>
-    <item>struct EventAny: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
-    <item>struct EventButton: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, device)</item>
-    <item>struct EventConfigure: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
-    <item>struct EventCrossing: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, subwindow)</item>
-    <item>struct EventDND: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, context)</item>
-    <item>struct EventExpose: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, region)</item>
-    <item>struct EventFocus: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
-    <item>struct EventGrabBroken: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, grab_window)</item>
-    <item>struct EventKey: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, string)</item>
-    <item>struct EventMotion: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, device)</item>
-    <item>struct EventOwnerChange: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, owner, selection)</item>
-    <item>struct EventPadAxis: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
-    <item>struct EventPadButton: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
-    <item>struct EventPadGroupMode: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
-    <item>struct EventProperty: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, atom)</item>
-    <item>struct EventProximity: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, device)</item>
-    <item>struct EventScroll: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, device)</item>
-    <item>struct EventSelection: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, selection, target, property, requestor)</item>
-    <item>struct EventSetting: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, name)</item>
-    <item>struct EventTouch: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window, sequence, device)</item>
-    <item>struct EventTouchpadPinch: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
-    <item>struct EventTouchpadSwipe: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
-    <item>struct EventVisibility: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
-    <item>struct EventWindowState: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (window)</item>
     <item>
       object FrameClock
       <item>

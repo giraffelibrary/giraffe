@@ -141,14 +141,9 @@ val quarkLocalType = mkLocalType ([], ("GLib", "Quark", "", "t"))
 val pidLocalType = mkLocalType ([], ("GLib", "Pid", "", "t"))
 val ioChannelRecordLocalType = mkLocalType ([], ("GLib", "IOChannel", "Record", "t"))
 val ioConditionLocalType = mkLocalType ([], ("GLib", "IOCondition", "", "t"))
-val pidTypeLocalType = mkLocalType ([], ("GLib", "PidType", "", "t"))
 
 val typeLocalType = mkLocalType ([], ("GObject", "Type", "", "t"))
 val valueRecordLocalType = mkLocalType ([], ("GObject", "Value", "Record", "t"))
-
-val eventLocalType = mkLocalType ([aTyVar], ("Gdk", "Event", "", "union"))
-val windowClassLocalType = mkLocalType ([aTyVar], ("Gdk", "Window", "Class", "class"))
-val modifierTypeLocalType = mkLocalType ([], ("Gdk", "ModifierType", "", "t"))
 
 
 (* Initialize GIRepository *)
@@ -417,107 +412,11 @@ val errorLog'1 = List.foldl insert errorLog'0 [
     (
       [],
       [
-        newSig "GDK_EVENT_ANY_RECORD" [],
-        newSig "GDK_EVENT_BUTTON_RECORD" [],
-        newSig "GDK_EVENT_CONFIGURE_RECORD" [],
-        newSig "GDK_EVENT_CROSSING_RECORD" [],
-        newSig "GDK_EVENT_D_N_D_RECORD" [],
-        newSig "GDK_EVENT_EXPOSE_RECORD" [],
-        newSig "GDK_EVENT_FOCUS_RECORD" [],
-        newSig "GDK_EVENT_GRAB_BROKEN_RECORD" [],
-        newSig "GDK_EVENT_KEY_RECORD" [],
-        newSig "GDK_EVENT_MOTION_RECORD" [],
-        newSig "GDK_EVENT_OWNER_CHANGE_RECORD" [],
-        newSig "GDK_EVENT_PAD_AXIS_RECORD" [],
-        newSig "GDK_EVENT_PAD_BUTTON_RECORD" [],
-        newSig "GDK_EVENT_PAD_GROUP_MODE_RECORD" [],
-        newSig "GDK_EVENT_PROPERTY_RECORD" [],
-        newSig "GDK_EVENT_PROXIMITY_RECORD" [],
-        newSig "GDK_EVENT_SCROLL_RECORD" [],
-        newSig "GDK_EVENT_SELECTION_RECORD" [],
-        newSig "GDK_EVENT_SETTING_RECORD" [],
-        newSig "GDK_EVENT_TOUCHPAD_PINCH_RECORD" [],
-        newSig "GDK_EVENT_TOUCHPAD_SWIPE_RECORD" [],
-        newSig "GDK_EVENT_TOUCH_RECORD" [],
-        newSig "GDK_EVENT_VISIBILITY_RECORD" [],
-        newSig "GDK_EVENT_WINDOW_STATE_RECORD" [],
         newSig "CLASSIFY_EVENT" []
       ],
       let
       in
         [
-          newStr
-            ("Gdk", "EventAnyRecord", "GDK_EVENT_ANY_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventButtonRecord", "GDK_EVENT_BUTTON_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventConfigureRecord", "GDK_EVENT_CONFIGURE_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventCrossingRecord", "GDK_EVENT_CROSSING_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventDNDRecord", "GDK_EVENT_D_N_D_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventExposeRecord", "GDK_EVENT_EXPOSE_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventFocusRecord", "GDK_EVENT_FOCUS_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventGrabBrokenRecord", "GDK_EVENT_GRAB_BROKEN_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventKeyRecord", "GDK_EVENT_KEY_RECORD")
-            [eventLocalType, windowClassLocalType, modifierTypeLocalType],
-          newStr
-            ("Gdk", "EventMotionRecord", "GDK_EVENT_MOTION_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventOwnerChangeRecord", "GDK_EVENT_OWNER_CHANGE_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventPadAxisRecord", "GDK_EVENT_PAD_AXIS_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventPadButtonRecord", "GDK_EVENT_PAD_BUTTON_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventPadGroupModeRecord", "GDK_EVENT_PAD_GROUP_MODE_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventPropertyRecord", "GDK_EVENT_PROPERTY_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventProximityRecord", "GDK_EVENT_PROXIMITY_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventScrollRecord", "GDK_EVENT_SCROLL_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventSelectionRecord", "GDK_EVENT_SELECTION_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventSettingRecord", "GDK_EVENT_SETTING_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventTouchpadPinchRecord", "GDK_EVENT_TOUCHPAD_PINCH_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventTouchpadSwipeRecord", "GDK_EVENT_TOUCHPAD_SWIPE_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventTouchRecord", "GDK_EVENT_TOUCH_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventVisibilityRecord", "GDK_EVENT_VISIBILITY_RECORD")
-            [eventLocalType],
-          newStr
-            ("Gdk", "EventWindowStateRecord", "GDK_EVENT_WINDOW_STATE_RECORD")
-            [eventLocalType],
           extendStrDeps "ClassifyEvent"
             [
               "GdkEventAnyRecord",

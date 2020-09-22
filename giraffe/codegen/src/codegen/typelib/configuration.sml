@@ -55,6 +55,7 @@ datatype struct_type =
   ValueRecord of value_record_funcs
 | Record of record_funcs
 | DisguisedRecord
+| UnionRecord of string * string * string
 
 val structTypes : ((string * string) * struct_type) list ref = ref []
 

@@ -39,8 +39,75 @@ in
             ValueRecord _ => valueStrId ^ recordStrId
           | _             => recordStrId
         )
-      val recordInclSpec = SpecIncl (SigName recordSigId, [])
-      val specs'2 = recordInclSpec :: specs'1
+
+      val specs'2 =
+        case structType of
+          UnionRecord (parentUnionNamespace, parentUnionName, fieldName) =>
+            let
+              val fieldNameTypeId = toLCU fieldName
+
+              val parentUnionScope =
+                if parentUnionNamespace <> structNamespace
+                then GLOBAL
+                else LOCALINTERFACEOTHER
+              val parentUnionTy = UNION
+
+              val parentUnionIRef = {
+                namespace = parentUnionNamespace,
+                name      = parentUnionName,
+                scope     = parentUnionScope,
+                ty        = parentUnionTy,
+                container = NONE
+              }
+
+              (*
+               *     type <field_name>
+               *                                           -.
+               *     type 'a <parent_union_name>_union      | StructNamespace
+               *     include RECORD                         |  = ParentUnionNamespace
+               *       where type t = <field_name> <parent_union_name>_union
+               *                                           -'
+               *                                           -.
+               *     include RECORD                         | StructNamespace
+               *       where                                |  <> ParentUnionNamespace
+               *         type t =                           |
+               *           <field_name> <ParentUnionNamespace><ParentUnionName>.union
+               *                                           -'
+               *)
+              val parentUnionTypeLId = makeInterfaceRefTyLongId parentUnionIRef
+              val recordInclSpec =
+                SpecIncl (
+                  SigName recordSigId,
+                  [
+                    toList1 [
+                      (
+                        tTyLName,
+                        TyRef (
+                          [TyRef ([], toList1 [fieldNameTypeId])],
+                          parentUnionTypeLId
+                        )
+                      )
+                    ]
+                  ]
+                )
+
+              (* parentUnionTypeLId is (_, [])
+               *  <=> parentUnionNamespace = structNamespace *)
+              val specs'2 =
+                case parentUnionTypeLId of
+                  (id, []) => mkTypeSpec (([aTyVar], id), NONE) :: recordInclSpec :: specs'1
+                | _        => recordInclSpec :: specs'1
+              val specs'3 = mkTypeSpec (([], fieldNameTypeId), NONE) :: specs'2
+            in
+              specs'3
+            end
+        | _                                                              =>
+            let
+              val recordInclSpec = SpecIncl (SigName recordSigId, [])
+              val specs'2 = recordInclSpec :: specs'1
+            in
+              specs'2
+            end
 
       val sig1 = mkSigSpec specs'2
       val qSig : qsig = (sig1, [])
@@ -310,6 +377,8 @@ local
           )
         | DisguisedRecord   =>
             raise Fail "disguised record has no low-level FFI"
+        | UnionRecord _     =>
+            raise Fail "union record has no low-level FFI"
     in
       strDecs'
     end
@@ -499,6 +568,8 @@ local
           )
         | DisguisedRecord   =>
             raise Fail "disguised record has no low-level FFI"
+        | UnionRecord _     =>
+            raise Fail "union record has no low-level FFI"
     in
       cPtrStrDec :: mkPolyMLFFILocalStrDec localStrDecs :: strDecs
     end
@@ -589,6 +660,19 @@ local
     end    
 
   (*
+   *     structure Record = <ParentUnionNamespace><ParentUnionName>
+   *)
+  fun structUnionRecordStrDec (parentUnionNamespace, parentUnionName, _) =
+    let
+      val id = String.concat [parentUnionNamespace, parentUnionName]
+    in
+      mkStructStrDec (
+        recordStrId,
+        StructName (toList1 [id])
+      )
+    end
+
+  (*
    *     open Record
    *)
   val openRecordStrDec =
@@ -617,6 +701,98 @@ in
       val strDecs'0 = []
       val iRefs'0 = []
 
+      val (iRefs'1, revParentUnionLocalTypes, parentUnionQuals, parentUnionStrDecs) =
+        case structType of
+          UnionRecord (parentUnionNamespace, parentUnionName, fieldName) =>
+            let
+              val fieldNameTypeId = toLCU fieldName
+              val fieldNameTy = mkIdTy fieldNameTypeId
+
+              val parentUnionScope =
+                if parentUnionNamespace <> structNamespace
+                then GLOBAL
+                else LOCALINTERFACEOTHER
+              val parentUnionTy = UNION
+
+              val parentUnionIRef = {
+                namespace = parentUnionNamespace,
+                name      = parentUnionName,
+                scope     = parentUnionScope,
+                ty        = parentUnionTy,
+                container = NONE
+              }
+
+              val iRefs'1 = parentUnionIRef :: iRefs'0
+
+              val isParentNamespace = parentUnionScope <> GLOBAL
+
+              (*
+               *                                           -.
+               *     where                                  | isParentNamespace
+               *       type 'a <parent_union_name>_union =  |
+               *         'a <ParentUnionNamespace><ParentUnionName>.union
+               *                                           -'
+               *)
+              val revParentUnionLocalTypes =
+                if isParentNamespace
+                then [makeIRefLocalType parentUnionIRef]
+                else []
+
+              (* <ParentUnionNamespace><ParentUnionName> *)
+              val parentUnionStrId = makeIRefInterfaceOtherStrId parentUnionIRef
+
+              (*
+               *     type <field_name> = unit                                                                                     |
+               *     type t = <field_name> <ParentUnionNamespace><ParentUnionName>.union                                          |
+               *)
+              val parentUnionLId =
+                toList1 (
+                  if isParentNamespace
+                  then [parentUnionStrId, unionId]
+                  else prefixInterfaceStrId parentUnionIRef [unionId]
+                )
+              val parentUnionStrDecs =
+                [
+                  StrDecDec (mkTypeDec (([], fieldNameTypeId), unitTy)),
+                  StrDecDec (mkTypeDec (tTyName, TyRef ([fieldNameTy], parentUnionLId)))
+                ]
+
+              (*
+               *     where type C.opt =
+               *       <ParentUnionNamespace><ParentUnionName>.C.opt
+               *     where type C.non_opt =
+               *       <ParentUnionNamespace><ParentUnionName>.C.non_opt
+               *     where type 'a C.p =
+               *       'a <ParentUnionNamespace><ParentUnionName>.C.p
+               *)
+              val cOptQual =
+                toList1 [
+                  (([], cOptLId), TyRef ([], cons1 (parentUnionStrId, cOptLId)))
+                ]
+              val cNonOptQual =
+                toList1 [
+                  (([], cNonOptLId), TyRef ([], cons1 (parentUnionStrId, cNonOptLId)))
+                ]
+              val cPtrQual =
+                toList1 [
+                  (
+                    ([aTyVar], cPtrLId),
+                    TyRef ([aVarTy], cons1 (parentUnionStrId, cPtrLId))
+                  )
+                ]
+
+              val parentUnionQuals : qual list = [cOptQual, cNonOptQual, cPtrQual]
+            in
+              (
+                iRefs'1,
+                revParentUnionLocalTypes,
+                parentUnionQuals,
+                parentUnionStrDecs
+              )
+            end
+        | _                                                              =>
+            (iRefs'0, [], [], [])
+
       val getValueType =
         fn
           ("GLib", "Variant") => "variant"
@@ -625,7 +801,7 @@ in
       val (addAccessorStrDecs, addAccessorIRefs, revAccessorLocalTypes) =
         addAccessorRootStrDecs (structNamespace, structName) getValueType structInfo
 
-      val iRefs'1 = addAccessorIRefs iRefs'0
+      val iRefs'2 = addAccessorIRefs iRefs'1
 
 (*
       val strDecs'1 = structTypeStrDec :: openTypeStrDec :: strDecs'0
@@ -641,11 +817,13 @@ in
             | Record _        => structRecordStrDec
             | DisguisedRecord =>
                 structDisguisedRecordStrDec (structNamespace, structName)
+            | UnionRecord x   => structUnionRecordStrDec x
           ) :: openRecordStrDec :: strDecs'1
 
           val strDecs'3 =
             case structType of
               DisguisedRecord => strDecs'2
+            | UnionRecord _   => parentUnionStrDecs @ strDecs'2
             | _               =>
                 addPointerStrDecs (
                   addStrDecsLowLevel isPolyML
@@ -655,13 +833,27 @@ in
                     structType
                     strDecs'2
                 )
+          val strDecs'4 =
+            revMapAppend makeLocalTypeStrDec (revParentUnionLocalTypes, strDecs'3)
 
-          val struct1 = mkBodyStruct strDecs'3
+          val struct1 = mkBodyStruct strDecs'4
 
           (* sig *)
           val sig1 = SigName structRecordSigId
-          val sigQual'1 = revMap makeLocalTypeStrModuleQual revAccessorLocalTypes
-          val qSig : qsig = (sig1, sigQual'1)
+          val sigQual'1 : qual list = parentUnionQuals
+          (*
+           *                                                 -.
+           *     where type ('a, 'b) value_accessor_t =       | isGObject
+           *       ('a, 'b) ValueAccessor.t                   |
+           *                                                 -'
+           *)
+          val sigQual'2 =
+            revMapAppend makeLocalTypeStrModuleQual
+              (revAccessorLocalTypes, sigQual'1)
+          val sigQual'3 =
+            revMapAppend makeLocalTypeStrModuleQual
+              (revParentUnionLocalTypes, sigQual'2)
+          val qSig : qsig = (sig1, sigQual'3)
 
           (* strdec *)
           val structDec = toList1 [(structRecordStrId, SOME (true, qSig), struct1)]
@@ -679,7 +871,10 @@ in
           (* sig *)
           val sig1 = SigName structRecordSigId
           val sigQual'1 = revMap makeLocalTypeStrSpecQual revAccessorLocalTypes
-          val qSig : qsig = (sig1, sigQual'1)
+          val sigQual'2 =
+            revMapAppend makeLocalTypeStrSpecQual
+              (revParentUnionLocalTypes, sigQual'1)
+          val qSig : qsig = (sig1, sigQual'2)
         in
           (* spec *)
           SpecStruct (toList1 [(structRecordStrNameId, qSig)])
@@ -703,7 +898,7 @@ in
         mkStrFile structRecordStrId,
         (structRecordSpecs, structRecordStrDecs),
         Specific {mlton = programMLton, polyml = programPolyML},
-        iRefs'1
+        iRefs'2
       )
     end
 end
