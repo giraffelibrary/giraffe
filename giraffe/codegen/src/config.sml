@@ -238,59 +238,104 @@ excludedInterfaceTypeGlobalSuffixes := [
  *)
 
 structTypes := [
-  (("GLib", "IConv"),                 DisguisedRecord),
-  (("GLib", "Variant"),               Record (NonBoxed {dup = "g_variant_ref_sink", free = "g_variant_unref"})),
-  (("GObject", "Value"),              ValueRecord (Deep {copy = "giraffe_g_value_copy", clear = "giraffe_g_value_clear"})),
-  (("Gio", "SettingsBackend"),        DisguisedRecord),
-  (("Gio", "UnixMountEntry"),         Record (NonBoxed {dup = "g_unix_mount_copy", free = "g_unix_mount_free"})),
-  (("Gio", "UnixMountPoint"),         Record (NonBoxed {dup = "g_unix_mount_point_copy", free = "g_unix_mount_point_free"})),
-  (("Gdk", "Atom"),                   DisguisedRecord),
-  (("Gdk", "Color"),                  ValueRecord Flat),
-  (("Gdk", "Rectangle"),              ValueRecord Flat),
-  (("Gdk", "EventAny"),               UnionRecord ("Gdk", "Event", "any")),
-  (("Gdk", "EventButton"),            UnionRecord ("Gdk", "Event", "button")),
-  (("Gdk", "EventConfigure"),         UnionRecord ("Gdk", "Event", "configure")),
-  (("Gdk", "EventCrossing"),          UnionRecord ("Gdk", "Event", "crossing")),
-  (("Gdk", "EventDND"),               UnionRecord ("Gdk", "Event", "dnd")),
-  (("Gdk", "EventExpose"),            UnionRecord ("Gdk", "Event", "expose")),
-  (("Gdk", "EventFocus"),             UnionRecord ("Gdk", "Event", "focus_change")),
-  (("Gdk", "EventGrabBroken"),        UnionRecord ("Gdk", "Event", "grab_broken")),
-  (("Gdk", "EventKey"),               UnionRecord ("Gdk", "Event", "key")),
-  (("Gdk", "EventMotion"),            UnionRecord ("Gdk", "Event", "motion")),
-  (("Gdk", "EventOwnerChange"),       UnionRecord ("Gdk", "Event", "owner_change")),
-  (("Gdk", "EventPadAxis"),           UnionRecord ("Gdk", "Event", "pad_axis")),
-  (("Gdk", "EventPadButton"),         UnionRecord ("Gdk", "Event", "pad_button")),
-  (("Gdk", "EventPadGroupMode"),      UnionRecord ("Gdk", "Event", "pad_group_mode")),
-  (("Gdk", "EventProperty"),          UnionRecord ("Gdk", "Event", "property")),
-  (("Gdk", "EventProximity"),         UnionRecord ("Gdk", "Event", "proximity")),
-  (("Gdk", "EventScroll"),            UnionRecord ("Gdk", "Event", "scroll")),
-  (("Gdk", "EventSelection"),         UnionRecord ("Gdk", "Event", "selection")),
-  (("Gdk", "EventSetting"),           UnionRecord ("Gdk", "Event", "setting")),
-  (("Gdk", "EventTouchpadPinch"),     UnionRecord ("Gdk", "Event", "touchpad_pinch")),
-  (("Gdk", "EventTouchpadSwipe"),     UnionRecord ("Gdk", "Event", "touchpad_swipe")),
-  (("Gdk", "EventTouch"),             UnionRecord ("Gdk", "Event", "touch")),
-  (("Gdk", "EventVisibility"),        UnionRecord ("Gdk", "Event", "visibility")),
-  (("Gdk", "EventWindowState"),       UnionRecord ("Gdk", "Event", "window_state")),
-  (("Gdk", "RGBA"),                   ValueRecord Flat),
-  (("Gdk", "WindowAttr"),             Record (NonBoxed {dup = "giraffe_gdk_window_attr_dup", free = "giraffe_gdk_window_attr_free"})),
-  (("Gtk", "Border"),                 ValueRecord Flat),
-  (("Gtk", "Requisition"),            ValueRecord Flat),
-  (("Gtk", "TargetEntry"),            ValueRecord (Deep {copy = "giraffe_gtk_target_entry_copy", clear = "giraffe_gtk_target_entry_clear"})),
-  (("Gtk", "TextIter"),               ValueRecord Flat),  (* boxed 'copy', i.e. duplicate, makes a flat copy *)
-  (("Gtk", "TreeIter"),               ValueRecord Flat),  (* boxed 'copy', i.e. duplicate, makes a flat copy *)
-  (("cairo", "FontOptions"),          Record (NonBoxed {dup = "cairo_font_options_copy", free = "cairo_font_options_destroy"})),
-  (("cairo", "RectangleInt"),         ValueRecord Flat),
-  (("Pango", "Attribute"),            Record (NonBoxed {dup = "pango_attribute_copy", free = "pango_attribute_destroy"})),
-  (("Atk", "Rectangle"),              ValueRecord Flat)
+  (
+    [("GLib", "2.0")],
+    [
+      ("IConv",                  DisguisedRecord),
+      ("Variant",                Record (NonBoxed {dup = "g_variant_ref_sink", free = "g_variant_unref"}))
+    ]
+  ),
+  (
+    [("GObject", "2.0")],
+    [
+      ("Value",                  ValueRecord (Deep {copy = "giraffe_g_value_copy", clear = "giraffe_g_value_clear"}))
+    ]
+  ),
+  (
+    [("Gio", "2.0")],
+    [
+      ("SettingsBackend",        DisguisedRecord),
+      ("UnixMountEntry",         Record (NonBoxed {dup = "g_unix_mount_copy", free = "g_unix_mount_free"})),
+      ("UnixMountPoint",         Record (NonBoxed {dup = "g_unix_mount_point_copy", free = "g_unix_mount_point_free"}))
+    ]
+  ),
+  (
+    [("cairo", "1.0")],
+    [
+      ("FontOptions",            Record (NonBoxed {dup = "cairo_font_options_copy", free = "cairo_font_options_destroy"})),
+      ("RectangleInt",           ValueRecord Flat)
+    ]
+  ),
+  (
+    [("Pango", "1.0")],
+    [
+      ("Attribute",              Record (NonBoxed {dup = "pango_attribute_copy", free = "pango_attribute_destroy"}))
+    ]
+  ),
+  (
+    [("Atk", "1.0")],
+    [
+      ("Rectangle",              ValueRecord Flat)
+    ]
+  ),
+  (
+    [("Gdk", "3.0")],
+    [
+      ("Atom",                   DisguisedRecord),
+      ("Color",                  ValueRecord Flat),
+      ("Rectangle",              ValueRecord Flat),
+      ("RGBA",                   ValueRecord Flat),
+      ("WindowAttr",             Record (NonBoxed {dup = "giraffe_gdk_window_attr_dup", free = "giraffe_gdk_window_attr_free"})),
+      ("EventAny",               UnionRecord ("Gdk", "Event", "any")),
+      ("EventButton",            UnionRecord ("Gdk", "Event", "button")),
+      ("EventConfigure",         UnionRecord ("Gdk", "Event", "configure")),
+      ("EventCrossing",          UnionRecord ("Gdk", "Event", "crossing")),
+      ("EventDND",               UnionRecord ("Gdk", "Event", "dnd")),
+      ("EventExpose",            UnionRecord ("Gdk", "Event", "expose")),
+      ("EventFocus",             UnionRecord ("Gdk", "Event", "focus_change")),
+      ("EventGrabBroken",        UnionRecord ("Gdk", "Event", "grab_broken")),
+      ("EventKey",               UnionRecord ("Gdk", "Event", "key")),
+      ("EventMotion",            UnionRecord ("Gdk", "Event", "motion")),
+      ("EventOwnerChange",       UnionRecord ("Gdk", "Event", "owner_change")),
+      ("EventPadAxis",           UnionRecord ("Gdk", "Event", "pad_axis")),
+      ("EventPadButton",         UnionRecord ("Gdk", "Event", "pad_button")),
+      ("EventPadGroupMode",      UnionRecord ("Gdk", "Event", "pad_group_mode")),
+      ("EventProperty",          UnionRecord ("Gdk", "Event", "property")),
+      ("EventProximity",         UnionRecord ("Gdk", "Event", "proximity")),
+      ("EventScroll",            UnionRecord ("Gdk", "Event", "scroll")),
+      ("EventSelection",         UnionRecord ("Gdk", "Event", "selection")),
+      ("EventSetting",           UnionRecord ("Gdk", "Event", "setting")),
+      ("EventTouchpadPinch",     UnionRecord ("Gdk", "Event", "touchpad_pinch")),
+      ("EventTouchpadSwipe",     UnionRecord ("Gdk", "Event", "touchpad_swipe")),
+      ("EventTouch",             UnionRecord ("Gdk", "Event", "touch")),
+      ("EventVisibility",        UnionRecord ("Gdk", "Event", "visibility")),
+      ("EventWindowState",       UnionRecord ("Gdk", "Event", "window_state"))
+    ]
+  ),
+  (
+    [("Gtk", "3.0")],
+    [
+      ("Border",                 ValueRecord Flat),
+      ("Requisition",            ValueRecord Flat),
+      ("TargetEntry",            ValueRecord (Deep {copy = "giraffe_gtk_target_entry_copy", clear = "giraffe_gtk_target_entry_clear"})),
+      ("TextIter",               ValueRecord Flat),  (* boxed 'copy', i.e. duplicate, makes a flat copy *)
+      ("TreeIter",               ValueRecord Flat)   (* boxed 'copy', i.e. duplicate, makes a flat copy *)
+    ]
+  )
 ];
 
 
 (**
  * Union names to include
+ *
+ * The codegen design for union interface types is under development and
+ * there is only partial codegen support.  As the generated code must be
+ * fixed, code is generated for a union interface type only where explicitly
+ * requested.
  *)
 
-unionNames := [
-  ("Gdk", "Event")
+includedUnionNames := [
+  ([("Gdk", "3.0")], ["Event"])
 ];
 
 

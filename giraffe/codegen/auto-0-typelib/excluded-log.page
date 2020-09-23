@@ -86,6 +86,7 @@
     </item>
     <item>struct DebugKey: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (key)</item>
     <item>struct Dir: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>union DoubleIEEE754: union interface type not included by configuration (includedUnionNames)</item>
     <item>constant E: constant excluded by configuration (excludedConstantNames)</item>
     <item>
       struct Error
@@ -110,6 +111,7 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function matches: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
+    <item>union FloatIEEE754: union interface type not included by configuration (includedUnionNames)</item>
     <item>constant GINT16_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
     <item>constant GINT16_MODIFIER: constant excluded by configuration (excludedConstantNameSuffixes)</item>
     <item>constant GINT32_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
@@ -505,6 +507,7 @@
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct MemVTable: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>union Mutex: union interface type not included by configuration (includedUnionNames)</item>
     <item>struct Node: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (data, next, prev, parent, children)</item>
     <item>constant OPTION_REMAINING: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct Once: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (retval)</item>
@@ -798,6 +801,7 @@
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct Timer: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>union TokenValue: union interface type not included by configuration (includedUnionNames)</item>
     <item>struct TrashStack: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (next)</item>
     <item>struct Tree: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>constant USEC_PER_SEC: constant excluded by configuration (excludedConstantNames)</item>
@@ -2200,6 +2204,7 @@
     <item>struct ParamSpecTypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct SignalQuery: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (signal_name, param_types)</item>
+    <item>union TypeCValue: union interface type not included by configuration (includedUnionNames)</item>
     <item>struct TypeClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct TypeFundamentalInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct TypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
@@ -2426,6 +2431,7 @@
       </item>
     </item>
     <item>struct WeakRef: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>union _Value__data__union: union interface type not included by configuration (includedUnionNames)</item>
     <item>
       function boxed_copy
       <item>arg src_boxed: pointer C type for VOID not supported</item>
@@ -5605,6 +5611,7 @@
   </item>
   <item>
     GIRepository-2.0
+    <item>union Argument: union interface type not included by configuration (includedUnionNames)</item>
     <item>struct AttributeIter: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       struct BaseInfo

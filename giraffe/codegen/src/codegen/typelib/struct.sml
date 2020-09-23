@@ -7,7 +7,8 @@
 local
 in
   fun makeStructRecordSig
-    (_               : 'a RepositoryClass.class)
+    (repo            : 'a RepositoryClass.class)
+    (vers            : Repository.typelibvers_t)
     (structNamespace : string)
     (structInfo      : 'b StructInfoClass.class)
     : id * program * interfaceref list * interfaceref list =
@@ -20,7 +21,7 @@ in
       val structRecordStrId = mkRecordStrId structNamespace structName
       val structRecordSigId = toUCU structRecordStrId
 
-      val structType = getStructType structInfo
+      val structType = getStructType repo vers structInfo
 
       val tTy = mkIdTy tId
 
@@ -666,8 +667,8 @@ local
     StrDecDec (DecOpen (toList1 [toList1 [recordStrId]]))
 in
   fun makeStructRecordStr
-    (_               : 'a RepositoryClass.class)
-    (_               : Repository.typelibvers_t)
+    (repo            : 'a RepositoryClass.class)
+    (vers            : Repository.typelibvers_t)
     (structNamespace : string)
     (structInfo      : 'b StructInfoClass.class)
     : id * (spec list * strdec list) * program * interfaceref list =
@@ -682,7 +683,7 @@ in
 
       val structRecordStrNameId = mkRecordStrNameId structName
 
-      val structType = getStructType structInfo
+      val structType = getStructType repo vers structInfo
 
       (* module *)
       val strDecs'0 = []

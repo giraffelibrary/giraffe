@@ -518,7 +518,7 @@ fun makeInfo
         val () = checkInterfaceType repo vers structInfo
 
         val (recordSigFile, recordSigProgram, recordSigIRefs, recordExtIRefs) =
-          makeStructRecordSig repo namespace structInfo
+          makeStructRecordSig repo vers namespace structInfo
 
         val (
           recordStrFile,
@@ -587,65 +587,55 @@ fun makeInfo
         ((files'3, exts'1, modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'1), excls'2)
       end
   | InfoType.UNION unionInfo         =>
-      if
-        let
-          val unionName = getName unionInfo
-          val unionNamespace = namespace
-          fun isName x = x = (unionNamespace, unionName)
-        in
-          List.exists isName (!unionNames)
-        end
-      then
-        let
-          val () = checkInterfaceType repo vers unionInfo
+      let
+        val () = checkUnionInterfaceType repo vers unionInfo
+        val () = checkInterfaceType repo vers unionInfo
 
-          val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
-            makeUnionStr repo vers namespace unionInfo excls'0
+        val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
+          makeUnionStr repo vers namespace unionInfo excls'0
 
-          val strDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) strIRefs
+        val strDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) strIRefs
 
-          val (sigFile, sigProgram, sigIRefs, extIRefs, excls'2) =
-            makeUnionSig repo vers namespace unionInfo excls'1
+        val (sigFile, sigProgram, sigIRefs, extIRefs, excls'2) =
+          makeUnionSig repo vers namespace unionInfo excls'1
 
-          val sigDeps = map (mkSigFile o toUCU o makeIRefInterfaceOtherStrId) sigIRefs
+        val sigDeps = map (mkSigFile o toUCU o makeIRefInterfaceOtherStrId) sigIRefs
 
-          val isSigPortable = isPortable sigProgram
-          val isStrPortable = isPortable strProgram
+        val isSigPortable = isPortable sigProgram
+        val isStrPortable = isPortable strProgram
 
-          val (files'1, exts'1) =
-            foldR (foldR (insertGlobalContainer namespace)) (
-              [extIRefs],
-              (files'0, exts'0)
-            )
-          val sigs'1 = sigs'0
-          val (files'2, strs'1) =
-            foldR (foldR insertLocalContainer) ([strIRefs], (files'1, strs'0))
+        val (files'1, exts'1) =
+          foldR (foldR (insertGlobalContainer namespace)) (
+            [extIRefs],
+            (files'0, exts'0)
+          )
+        val sigs'1 = sigs'0
+        val (files'2, strs'1) =
+          foldR (foldR insertLocalContainer) ([strIRefs], (files'1, strs'0))
 
-          val sigs'2 =
-            foldR insertSig (
-              [(sigFile, (isSigPortable, sigDeps))],
-              sigs'1
-            )
-          val strs'2 =
-            foldR insertStr (
-              [(strFile, ((isStrPortable, strSpecDec, NONE), strDeps))],
-              strs'1
-            )
-          val files'3 =
-            foldR insertThisNamespaceFile (
-              [
-                (sigFile, sigProgram),
-                (strFile, strProgram)
-              ],
-              files'2
-            )
-          val modules'1 =
-            (sigs'2, strs'2, numProps'0, numSigs'0, useAccessors'0)
-        in
-          ((files'3, exts'1, modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
-        end
-      else
-        acc
+        val sigs'2 =
+          foldR insertSig (
+            [(sigFile, (isSigPortable, sigDeps))],
+            sigs'1
+          )
+        val strs'2 =
+          foldR insertStr (
+            [(strFile, ((isStrPortable, strSpecDec, NONE), strDeps))],
+            strs'1
+          )
+        val files'3 =
+          foldR insertThisNamespaceFile (
+            [
+              (sigFile, sigProgram),
+              (strFile, strProgram)
+            ],
+            files'2
+          )
+        val modules'1 =
+          (sigs'2, strs'2, numProps'0, numSigs'0, useAccessors'0)
+      in
+        ((files'3, exts'1, modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
+      end
   | InfoType.FLAGS enumInfo          =>
       let
         val () = checkInterfaceType repo vers enumInfo

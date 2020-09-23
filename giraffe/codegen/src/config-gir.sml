@@ -3,6 +3,12 @@
  *)
 
 excludedAliasNames := [
-  ("GLib",    SOME "Type"),
-  ("GObject", SOME "SignalCMarshaller")
+  (
+    [("GLib", "2.0")],
+    ["Type"]
+  ),
+  (
+    [("GObject", "2.0")],
+    ["SignalCMarshaller"]
+  )
 ];

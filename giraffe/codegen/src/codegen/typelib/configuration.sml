@@ -2,14 +2,58 @@
  * Configuration
  * -------------------------------------------------------------------------- *)
 
+(* A configuration value whose data relates to particular namespace versions
+ * is written as an instance of the type `'a nvs_map`, e.g.
+ *
+ *     [
+ *       (
+ *         [("GObject", "2.0")],
+ *         ... : 'a
+ *       ),
+ *       (
+ *         [("Vte", "2.90"), ("Vte", "2.91")],
+ *         ... : 'a
+ *       )
+ *     ]
+ *      : 'a nvs_map
+ *)
+
 type namespace_version = string * string
-type 'a nvs_list = (namespace_version list * 'a) list
+type 'a nvs_map = (namespace_version list * 'a) list
+
+
+(* The common instances of `'a nvs_map` are
+ *
+ *   - (string * 'a) list nvs_map
+ *   - string        list nvs_map
+ *
+ * for which functions are provided to look up a string `s` and check
+ * existence of a property `p` as follows, in the namespace version given by
+ * `nv`:
+ *
+ *   nvsLookup (nv, x : 'a)         : ('a * 'b) list nvs_map -> 'b option
+ *   nvsExists (nv, p : 'a -> bool) : 'a        list nvs_map -> bool
+ *)
+
+fun lookup x xys = Option.map #2 (List.find (fn (x', _) => x = x') xys)
+
+fun nvsLookup (nv, x) nvsMap =
+  case List.find (fn (nvs, _) => List.exists (fn nv' => nv = nv') nvs) nvsMap of
+    SOME (_, xys) => lookup x xys
+  | NONE          => NONE
+
+fun nvsExists (nv, p) nvsMap =
+  List.exists (
+    fn (nvs, xs) =>
+      List.exists (fn nv' => nv = nv') nvs andalso List.exists p xs
+  )
+    nvsMap
 
 
 (* Interface types *)
 
 (*   - Excluded names *)
-val excludedInterfaceTypes : string list nvs_list ref = ref []
+val excludedInterfaceTypes : string list nvs_map ref = ref []
 
 val excludedInterfaceTypeGlobalSuffixes : string list ref = ref []
 
@@ -19,14 +63,9 @@ fun checkInterfaceType repo vers interfaceInfo =
     val namespace = BaseInfo.getNamespace interfaceInfo
     val version = Repository.getVersion repo vers namespace
     val nv = (namespace, version)
-    fun check p =
-      List.exists (
-        fn (nvs, xs) =>
-          List.exists (fn x => x = nv) nvs andalso List.exists p xs
-      )
   in
     if
-      check (fn x => x = name) (!excludedInterfaceTypes)
+      nvsExists (nv, fn x => x = name) (!excludedInterfaceTypes)
     then infoExcl "interface type excluded by configuration \
                                                       \(excludedInterfaceTypes)"
     else if
@@ -57,7 +96,7 @@ datatype struct_type =
 | DisguisedRecord
 | UnionRecord of string * string * string
 
-val structTypes : ((string * string) * struct_type) list ref = ref []
+val structTypes : (string * struct_type) list nvs_map ref = ref []
 
 local
   fun addTypeCPtrFieldNames revPrefix (typeInfo, acc) =
@@ -125,14 +164,16 @@ in
     end
 end
 
-fun getStructType structInfo =
+fun getStructType repo vers structInfo =
   let
     val name = getName structInfo
     val namespace = BaseInfo.getNamespace structInfo
+    val version = Repository.getVersion repo vers namespace
+    val nv = (namespace, version)
   in
-    case List.find (fn (x, _) => x = (namespace, name)) (!structTypes) of
-      SOME (_, y) => y 
-    | NONE        =>
+    case nvsLookup (nv, name) (!structTypes) of
+      SOME structType => structType
+    | NONE            =>
         (* A record that is a registered type is a boxed type.  The default
          * behaviour is to treat such a record as a reference-only record to
          * use the boxed type allocation functions.  To enable a record that
@@ -170,15 +211,28 @@ fun getStructType structInfo =
 
 (* Union types *)
 
-val unionNames : (string * string) list ref = ref []
+val includedUnionNames : string list nvs_map ref = ref []
+
+fun checkUnionInterfaceType repo vers unionInfo =
+  let
+    val name = getName unionInfo
+    val namespace = BaseInfo.getNamespace unionInfo
+    val version = Repository.getVersion repo vers namespace
+    val nv = (namespace, version)
+  in
+    if nvsExists (nv, fn x => x = name) (!includedUnionNames)
+    then ()
+    else infoExcl "union interface type not included by configuration \
+                                                          \(includedUnionNames)"
+  end
 
 
 (* Function names *)
 
 (*   - Excluded symbols *)
-val excludedFunctionSymbols : string list nvs_list ref = ref []
-val excludedFunctionSymbolPrefixes : string list nvs_list ref = ref []
-val excludedFunctionSymbolSuffixes : string list nvs_list ref = ref []
+val excludedFunctionSymbols : string list nvs_map ref = ref []
+val excludedFunctionSymbolPrefixes : string list nvs_map ref = ref []
+val excludedFunctionSymbolSuffixes : string list nvs_map ref = ref []
 
 fun checkFunctionSymbol repo vers functionInfo =
   let
@@ -186,23 +240,18 @@ fun checkFunctionSymbol repo vers functionInfo =
     val namespace = BaseInfo.getNamespace functionInfo
     val version = Repository.getVersion repo vers namespace
     val nv = (namespace, version)
-    fun check p =
-      List.exists (
-        fn (nvs, xs) =>
-          List.exists (fn x => x = nv) nvs andalso List.exists p xs
-      )
     fun infoExclFunctionSymbol match =
       infoExcl (concat ["function excluded by configuration (", match, ")"])
   in
-    if check (fn x => x = symbol) (!excludedFunctionSymbols)
+    if nvsExists (nv, fn x => x = symbol) (!excludedFunctionSymbols)
     then infoExclFunctionSymbol "excludedFunctionSymbols"
     else if
-      check (fn x => String.isPrefix x symbol)
+      nvsExists (nv, fn x => String.isPrefix x symbol)
         (!excludedFunctionSymbolPrefixes)
     then
       infoExclFunctionSymbol "excludedFunctionSymbolPrefixes"
     else if
-      check (fn x => String.isSuffix x symbol)
+      nvsExists (nv, fn x => String.isSuffix x symbol)
         (!excludedFunctionSymbolSuffixes)
     then
       infoExclFunctionSymbol "excludedFunctionSymbolSuffixes"
@@ -223,9 +272,9 @@ fun checkFunctionName name =
 (* Constant names *)
 
 (*   - Excluded names *)
-val excludedConstantNames : string list nvs_list ref = ref []
-val excludedConstantNamePrefixes : string list nvs_list ref = ref []
-val excludedConstantNameSuffixes : string list nvs_list ref = ref []
+val excludedConstantNames : string list nvs_map ref = ref []
+val excludedConstantNamePrefixes : string list nvs_map ref = ref []
+val excludedConstantNameSuffixes : string list nvs_map ref = ref []
 
 fun checkConstantName repo vers constantInfo =
   let
@@ -233,23 +282,18 @@ fun checkConstantName repo vers constantInfo =
     val namespace = BaseInfo.getNamespace constantInfo
     val version = Repository.getVersion repo vers namespace
     val nv = (namespace, version)
-    fun check p =
-      List.exists (
-        fn (nvs, xs) =>
-          List.exists (fn x => x = nv) nvs andalso List.exists p xs
-      )
     fun infoExclConstantName match =
       infoExcl (concat ["constant excluded by configuration (", match, ")"])
   in
-    if check (fn x => x = name) (!excludedConstantNames)
+    if nvsExists (nv, fn x => x = name) (!excludedConstantNames)
     then infoExclConstantName "excludedConstantNames"
     else if
-      check (fn x => String.isPrefix x name)
+      nvsExists (nv, fn x => String.isPrefix x name)
         (!excludedConstantNamePrefixes)
     then
       infoExclConstantName "excludedConstantNamePrefixes"
     else if
-      check (fn x => String.isSuffix x name)
+      nvsExists (nv, fn x => String.isSuffix x name)
         (!excludedConstantNameSuffixes)
     then
       infoExclConstantName "excludedConstantNameSuffixes"

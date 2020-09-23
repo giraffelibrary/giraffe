@@ -14,9 +14,9 @@ fun makeAliasSig
   : id * program * interfaceref list * interfaceref list * info_excl_hier list =
   let
     val () = checkDeprecated aliasInfo
+    val () = checkAliasInterfaceType repo vers aliasInfo
 
     val aliasName = getName aliasInfo
-    val () = checkAliasName (aliasNamespace, SOME aliasName)
 
     fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
     fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
@@ -182,9 +182,9 @@ fun makeAliasStr
   : id * (spec list * strdec list) * program * interfaceref list * info_excl_hier list =
   let
     val () = checkDeprecated aliasInfo
+    val () = checkAliasInterfaceType repo vers aliasInfo
 
     val aliasName = getName aliasInfo
-    val () = checkAliasName (aliasNamespace, SOME aliasName)
 
     (* module *)
     fun notExpected s = infoExcl ("type " ^ s ^ " not expected")

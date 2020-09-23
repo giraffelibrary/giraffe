@@ -483,7 +483,7 @@ fun mkArrayLenAppExp length e =
     SOME lenExp => ExpApp (e, lenExp)
   | NONE        => e
 
-val isPtrElem =
+fun isPtrElem repo vers =
   fn
     IGTYPE _                   => NONE
   | ISCALAR _                  => NONE
@@ -497,7 +497,7 @@ val isPtrElem =
           FLAGS _           => NONE
         | ENUM _            => NONE
         | STRUCT structInfo => (
-            case getStructType structInfo of
+            case getStructType repo vers structInfo of
               ValueRecord _ => NONE
             | _             => SOME false
           )
@@ -513,7 +513,7 @@ fun makeCArrayStrId (elemStrId, isPtr, zeroTerminated) =
     if zeroTerminated then "" else nStrId
   ]
 
-fun makeCArrayIRef functionNamespace optContainerName length elem =
+fun makeCArrayIRef repo vers functionNamespace optContainerName length elem =
   let
     val elemRef =
       case elem of
@@ -548,7 +548,7 @@ fun makeCArrayIRef functionNamespace optContainerName length elem =
         INTERFACE iRef => makeIRefNamespaceStrId iRef
       | NAME name      => name
 
-    val isPtr = isPtrElem elem
+    val isPtr = isPtrElem repo vers elem
 
     val zeroTerminated =
       case length of
@@ -964,7 +964,14 @@ fun getParInfo
               val iRef =
                 case optIRef of
                   SOME iRef => updateIRefTy SIMPLE iRef
-                | NONE      => makeCArrayIRef functionNamespace optContainerName length elem
+                | NONE      =>
+                    makeCArrayIRef
+                      repo
+                      vers
+                      functionNamespace
+                      optContainerName
+                      length
+                      elem
 
               val arrayInfo = {
                 isOpt      = isOpt,
@@ -1108,7 +1115,7 @@ fun getParInfo
                     val isStructPtr =
                       case infoType of
                         STRUCT structInfo => (
-                          case getStructType structInfo of
+                          case getStructType repo vers structInfo of
                             ValueRecord _ => false
                           | _             => true
                         )
@@ -1559,7 +1566,14 @@ fun getRetInfo
               val iRef =
                 case optIRef of
                   SOME iRef => updateIRefTy SIMPLE iRef
-                | NONE      => makeCArrayIRef functionNamespace optContainerName length elem
+                | NONE      =>
+                    makeCArrayIRef
+                      repo
+                      vers
+                      functionNamespace
+                      optContainerName
+                      length
+                      elem
 
               val arrayInfo = {
                 isOpt      = isOpt,
@@ -1703,7 +1717,7 @@ fun getRetInfo
                     val isStructPtr =
                       case infoType of
                         STRUCT structInfo => (
-                          case getStructType structInfo of
+                          case getStructType repo vers structInfo of
                             ValueRecord _ => false
                           | _             => true
                         )
