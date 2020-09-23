@@ -3,7 +3,6 @@ signature PANGO =
     structure Glyph : PANGO_GLYPH
     structure GlyphUnit : PANGO_GLYPH_UNIT
     structure Alignment : PANGO_ALIGNMENT
-    structure AnalysisRecord : PANGO_ANALYSIS_RECORD
     structure AttrListRecord : PANGO_ATTR_LIST_RECORD
     structure AttrType : PANGO_ATTR_TYPE
     structure AttributeRecord : PANGO_ATTRIBUTE_RECORD
@@ -48,9 +47,6 @@ signature PANGO =
     structure Weight : PANGO_WEIGHT
     structure WrapMode : PANGO_WRAP_MODE
     structure LayoutRunRecord : PANGO_LAYOUT_RUN_RECORD
-    structure Analysis :
-      PANGO_ANALYSIS
-        where type t = AnalysisRecord.t
     structure AttrList :
       PANGO_ATTR_LIST
         where type t = AttrListRecord.t
@@ -118,7 +114,6 @@ signature PANGO =
         where type t = GlyphStringRecord.t
         where type rectangle_t = RectangleRecord.t
         where type 'a font_class = 'a FontClass.class
-        where type analysis_t = AnalysisRecord.t
     structure GlyphVisAttr :
       PANGO_GLYPH_VIS_ATTR
         where type t = GlyphVisAttrRecord.t
@@ -284,14 +279,6 @@ signature PANGO =
     val parseVariant : string * bool -> Variant.t option
     val parseWeight : string * bool -> Weight.t option
     val quantizeLineGeometry : LargeInt.int * LargeInt.int -> LargeInt.int * LargeInt.int
-    val shapeFull :
-      string
-       * LargeInt.int
-       * string option
-       * LargeInt.int
-       * AnalysisRecord.t
-       * GlyphStringRecord.t
-       -> unit
     val splitFileList : string -> Utf8CPtrArray.t
     val trimString : string -> string
     val unicharDirection : char -> Direction.t

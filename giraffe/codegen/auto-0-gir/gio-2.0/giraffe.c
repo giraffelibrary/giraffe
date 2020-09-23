@@ -1,1 +1,0 @@
-GIRAFFE_DECLARE_VALUE_RECORD(GFileAttributeInfo, gio_file_attribute_info)

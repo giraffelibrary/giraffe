@@ -2,7 +2,6 @@ signature GTK_SETTINGS =
   sig
     type 'a class
     type 'a style_provider_class
-    type settings_value_t
     type i_m_preedit_style_t
     type i_m_status_style_t
     type corner_type_t
@@ -30,10 +29,6 @@ signature GTK_SETTINGS =
        -> string
            * LargeInt.int
            * string
-       -> unit
-    val setPropertyValue :
-      'a class
-       -> string * settings_value_t
        -> unit
     val setStringProperty :
       'a class

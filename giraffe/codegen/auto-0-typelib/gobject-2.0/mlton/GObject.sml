@@ -4,98 +4,6 @@ structure GObject :
     where type 'a signal_t = 'a Signal.t
     where type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) Property.t =
   struct
-    val enumGetValue_ = fn x1 & x2 => (_import "g_enum_get_value" : GObjectEnumClassRecord.FFI.non_opt GObjectEnumClassRecord.FFI.p * GInt32.FFI.val_ -> GObjectEnumValueRecord.FFI.non_opt GObjectEnumValueRecord.FFI.p;) (x1, x2)
-    val enumGetValueByName_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_g_enum_get_value_by_name" :
-              GObjectEnumClassRecord.FFI.non_opt GObjectEnumClassRecord.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               -> GObjectEnumValueRecord.FFI.non_opt GObjectEnumValueRecord.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
-    val enumGetValueByNick_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_g_enum_get_value_by_nick" :
-              GObjectEnumClassRecord.FFI.non_opt GObjectEnumClassRecord.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               -> GObjectEnumValueRecord.FFI.non_opt GObjectEnumValueRecord.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
-    val enumRegisterStatic_ =
-      fn
-        (x1, x2) & x3 =>
-          (
-            _import "mlton_g_enum_register_static" :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GObjectEnumValueRecord.FFI.non_opt GObjectEnumValueRecord.FFI.p
-               -> GObjectType.FFI.val_;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
-    val flagsGetFirstValue_ = fn x1 & x2 => (_import "g_flags_get_first_value" : GObjectFlagsClassRecord.FFI.non_opt GObjectFlagsClassRecord.FFI.p * GUInt32.FFI.val_ -> GObjectFlagsValueRecord.FFI.non_opt GObjectFlagsValueRecord.FFI.p;) (x1, x2)
-    val flagsGetValueByName_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_g_flags_get_value_by_name" :
-              GObjectFlagsClassRecord.FFI.non_opt GObjectFlagsClassRecord.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               -> GObjectFlagsValueRecord.FFI.non_opt GObjectFlagsValueRecord.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
-    val flagsGetValueByNick_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_g_flags_get_value_by_nick" :
-              GObjectFlagsClassRecord.FFI.non_opt GObjectFlagsClassRecord.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               -> GObjectFlagsValueRecord.FFI.non_opt GObjectFlagsValueRecord.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
-    val flagsRegisterStatic_ =
-      fn
-        (x1, x2) & x3 =>
-          (
-            _import "mlton_g_flags_register_static" :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GObjectFlagsValueRecord.FFI.non_opt GObjectFlagsValueRecord.FFI.p
-               -> GObjectType.FFI.val_;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
     val gtypeGetType_ = _import "g_gtype_get_type" : unit -> GObjectType.FFI.val_;
     val paramSpecBoolean_ =
       fn
@@ -875,7 +783,6 @@ structure GObject :
     val typeNextBase_ = fn x1 & x2 => (_import "g_type_next_base" : GObjectType.FFI.val_ * GObjectType.FFI.val_ -> GObjectType.FFI.val_;) (x1, x2)
     val typeParent_ = _import "g_type_parent" : GObjectType.FFI.val_ -> GObjectType.FFI.val_;
     val typeQname_ = _import "g_type_qname" : GObjectType.FFI.val_ -> GUInt32.FFI.val_;
-    val typeQuery_ = fn x1 & x2 => (_import "g_type_query" : GObjectType.FFI.val_ * GObjectTypeQueryRecord.FFI.non_opt GObjectTypeQueryRecord.FFI.p -> unit;) (x1, x2)
     val typeRegisterDynamic_ =
       fn
         x1
@@ -906,28 +813,16 @@ structure GObject :
     type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) Property.t
     structure Type = GObjectType
     structure ConnectFlags = GObjectConnectFlags
-    structure EnumClassRecord = GObjectEnumClassRecord
-    structure EnumValueRecord = GObjectEnumValueRecord
-    structure FlagsClassRecord = GObjectFlagsClassRecord
-    structure FlagsValueRecord = GObjectFlagsValueRecord
     structure ParamFlags = GObjectParamFlags
     structure SignalFlags = GObjectSignalFlags
     structure SignalInvocationHintRecord = GObjectSignalInvocationHintRecord
     structure SignalMatchType = GObjectSignalMatchType
-    structure SignalQueryRecord = GObjectSignalQueryRecord
     structure TypeDebugFlags = GObjectTypeDebugFlags
     structure TypeFlags = GObjectTypeFlags
     structure TypeFundamentalFlags = GObjectTypeFundamentalFlags
-    structure TypeQueryRecord = GObjectTypeQueryRecord
     structure ValueArrayRecord = GObjectValueArrayRecord
     structure BindingFlags = GObjectBindingFlags
-    structure EnumClass = GObjectEnumClass
-    structure EnumValue = GObjectEnumValue
-    structure FlagsClass = GObjectFlagsClass
-    structure FlagsValue = GObjectFlagsValue
     structure SignalInvocationHint = GObjectSignalInvocationHint
-    structure SignalQuery = GObjectSignalQuery
-    structure TypeQuery = GObjectTypeQuery
     structure ValueRecord = GObjectValueRecord
     structure TypeCArrayN = GObjectTypeCArrayN
     structure Value = GObjectValue
@@ -1007,14 +902,6 @@ structure GObject :
     val TYPE_RESERVED_USER_FIRST = 49
     val VALUE_COLLECT_FORMAT_MAX_LENGTH = 8
     val VALUE_NOCOPY_CONTENTS = 134217728
-    fun enumGetValue (enumClass, value) = (GObjectEnumClassRecord.FFI.withPtr false &&&> GInt32.FFI.withVal ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValue_ (enumClass & value) before GObjectEnumClassRecord.FFI.touchPtr enumClass
-    fun enumGetValueByName (enumClass, name) = (GObjectEnumClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByName_ (enumClass & name) before GObjectEnumClassRecord.FFI.touchPtr enumClass before Utf8.FFI.touchPtr name
-    fun enumGetValueByNick (enumClass, nick) = (GObjectEnumClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectEnumValueRecord.FFI.fromPtr false) enumGetValueByNick_ (enumClass & nick) before GObjectEnumClassRecord.FFI.touchPtr enumClass before Utf8.FFI.touchPtr nick
-    fun enumRegisterStatic (name, constStaticValues) = (Utf8.FFI.withPtr 0 &&&> GObjectEnumValueRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal) enumRegisterStatic_ (name & constStaticValues)
-    fun flagsGetFirstValue (flagsClass, value) = (GObjectFlagsClassRecord.FFI.withPtr false &&&> GUInt32.FFI.withVal ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetFirstValue_ (flagsClass & value) before GObjectFlagsClassRecord.FFI.touchPtr flagsClass
-    fun flagsGetValueByName (flagsClass, name) = (GObjectFlagsClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByName_ (flagsClass & name) before GObjectFlagsClassRecord.FFI.touchPtr flagsClass before Utf8.FFI.touchPtr name
-    fun flagsGetValueByNick (flagsClass, nick) = (GObjectFlagsClassRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GObjectFlagsValueRecord.FFI.fromPtr false) flagsGetValueByNick_ (flagsClass & nick) before GObjectFlagsClassRecord.FFI.touchPtr flagsClass before Utf8.FFI.touchPtr nick
-    fun flagsRegisterStatic (name, constStaticValues) = (Utf8.FFI.withPtr 0 &&&> GObjectFlagsValueRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal) flagsRegisterStatic_ (name & constStaticValues)
     fun gtypeGetType () = (I ---> GObjectType.FFI.fromVal) gtypeGetType_ ()
     fun paramSpecBoolean
       (
@@ -1701,12 +1588,6 @@ structure GObject :
     fun typeNextBase (leafType, rootType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal) typeNextBase_ (leafType & rootType)
     fun typeParent type' = (GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal) typeParent_ type'
     fun typeQname type' = (GObjectType.FFI.withVal ---> GUInt32.FFI.fromVal) typeQname_ type'
-    fun typeQuery type' =
-      let
-        val query & () = (GObjectType.FFI.withVal &&&> GObjectTypeQueryRecord.FFI.withNewPtr ---> GObjectTypeQueryRecord.FFI.fromPtr true && I) typeQuery_ (type' & ())
-      in
-        query
-      end
     fun typeRegisterDynamic
       (
         parentType,

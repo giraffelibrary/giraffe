@@ -3,7 +3,6 @@ signature PANGO_GLYPH_STRING =
     type t
     type rectangle_t
     type 'a font_class
-    type analysis_t
     val getType : unit -> GObject.Type.t
     val new : unit -> t
     val copy : t -> t option
@@ -18,23 +17,8 @@ signature PANGO_GLYPH_STRING =
            * 'a font_class
        -> rectangle_t * rectangle_t
     val getWidth : t -> LargeInt.int
-    val indexToX :
-      t
-       -> string
-           * LargeInt.int
-           * analysis_t
-           * LargeInt.int
-           * bool
-       -> LargeInt.int
     val setSize :
       t
        -> LargeInt.int
        -> unit
-    val xToIndex :
-      t
-       -> string
-           * LargeInt.int
-           * analysis_t
-           * LargeInt.int
-       -> LargeInt.int * LargeInt.int
   end

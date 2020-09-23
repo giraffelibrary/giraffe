@@ -278,21 +278,6 @@ structure Gio : GIO =
     val ioErrorFromErrno_ = _import "g_io_error_from_errno" : GInt.FFI.val_ -> GioIOErrorEnum.FFI.val_;
     val ioErrorQuark_ = _import "g_io_error_quark" : unit -> GLibQuark.FFI.val_;
     val ioModulesScanAllInDirectory_ = _import "mlton_g_io_modules_scan_all_in_directory" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
-    val ioModulesScanAllInDirectoryWithScope_ =
-      fn
-        (x1, x2) & x3 =>
-          (
-            _import "mlton_g_io_modules_scan_all_in_directory_with_scope" :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GioIOModuleScopeRecord.FFI.non_opt GioIOModuleScopeRecord.FFI.p
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
     val ioSchedulerCancelAllJobs_ = _import "g_io_scheduler_cancel_all_jobs" : unit -> unit;
     val networkingInit_ = _import "g_networking_init" : unit -> unit;
     val pollableSourceNew_ = _import "g_pollable_source_new" : GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
@@ -577,7 +562,6 @@ structure Gio : GIO =
     structure EmblemOrigin = GioEmblemOrigin
     structure EmblemedIconClass = GioEmblemedIconClass
     structure FileClass = GioFileClass
-    structure FileAttributeInfoRecord = GioFileAttributeInfoRecord
     structure FileAttributeInfoFlags = GioFileAttributeInfoFlags
     structure FileAttributeInfoListRecord = GioFileAttributeInfoListRecord
     structure FileAttributeMatcherRecord = GioFileAttributeMatcherRecord
@@ -599,10 +583,7 @@ structure Gio : GIO =
     structure FilesystemPreviewType = GioFilesystemPreviewType
     structure IOErrorEnum = GioIOErrorEnum
     exception IOErrorEnum = GioIOErrorEnum
-    structure IOExtensionRecord = GioIOExtensionRecord
-    structure IOExtensionPointRecord = GioIOExtensionPointRecord
     structure IOModuleClass = GioIOModuleClass
-    structure IOModuleScopeRecord = GioIOModuleScopeRecord
     structure IOModuleScopeFlags = GioIOModuleScopeFlags
     structure IOStreamClass = GioIOStreamClass
     structure IOStreamSpliceFlags = GioIOStreamSpliceFlags
@@ -756,7 +737,6 @@ structure Gio : GIO =
     structure DtlsServerConnection = GioDtlsServerConnection
     structure Emblem = GioEmblem
     structure EmblemedIcon = GioEmblemedIcon
-    structure FileAttributeInfo = GioFileAttributeInfo
     structure FileAttributeInfoList = GioFileAttributeInfoList
     structure FileAttributeMatcher = GioFileAttributeMatcher
     structure FileDescriptorBased = GioFileDescriptorBased
@@ -770,10 +750,7 @@ structure Gio : GIO =
     structure FilenameCompleter = GioFilenameCompleter
     structure FilterInputStreamClass = GioFilterInputStreamClass
     structure FilterOutputStreamClass = GioFilterOutputStreamClass
-    structure IOExtension = GioIOExtension
-    structure IOExtensionPoint = GioIOExtensionPoint
     structure IOModule = GioIOModule
-    structure IOModuleScope = GioIOModuleScope
     structure IOStream = GioIOStream
     structure Icon = GioIcon
     structure InetAddress = GioInetAddress
@@ -1229,7 +1206,6 @@ structure Gio : GIO =
     fun ioErrorFromErrno errNo = (GInt.FFI.withVal ---> GioIOErrorEnum.FFI.fromVal) ioErrorFromErrno_ errNo
     fun ioErrorQuark () = (I ---> GLibQuark.FFI.fromVal) ioErrorQuark_ ()
     fun ioModulesScanAllInDirectory dirname = (Utf8.FFI.withPtr 0 ---> I) ioModulesScanAllInDirectory_ dirname
-    fun ioModulesScanAllInDirectoryWithScope (dirname, scope) = (Utf8.FFI.withPtr 0 &&&> GioIOModuleScopeRecord.FFI.withPtr false ---> I) ioModulesScanAllInDirectoryWithScope_ (dirname & scope)
     fun ioSchedulerCancelAllJobs () = (I ---> I) ioSchedulerCancelAllJobs_ ()
     fun networkingInit () = (I ---> I) networkingInit_ ()
     fun pollableSourceNew pollableStream = (GObjectObjectClass.FFI.withPtr false ---> GLibSourceRecord.FFI.fromPtr true) pollableSourceNew_ pollableStream

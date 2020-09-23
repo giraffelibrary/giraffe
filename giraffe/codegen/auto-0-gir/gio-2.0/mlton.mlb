@@ -154,8 +154,6 @@ in
   GIO_EMBLEMED_ICON-sig.sml
   GIO_FILE_CLASS-sig.sml
   GIO_FILE-sig.sml
-  GIO_FILE_ATTRIBUTE_INFO_RECORD-sig.sml
-  GIO_FILE_ATTRIBUTE_INFO-sig.sml
   GIO_FILE_ATTRIBUTE_INFO_FLAGS-sig.sml
   GIO_FILE_ATTRIBUTE_INFO_LIST_RECORD-sig.sml
   GIO_FILE_ATTRIBUTE_INFO_LIST-sig.sml
@@ -194,14 +192,8 @@ in
   GIO_FILTER_OUTPUT_STREAM_CLASS-sig.sml
   GIO_FILTER_OUTPUT_STREAM-sig.sml
   GIO_I_O_ERROR_ENUM-sig.sml
-  GIO_I_O_EXTENSION_RECORD-sig.sml
-  GIO_I_O_EXTENSION-sig.sml
-  GIO_I_O_EXTENSION_POINT_RECORD-sig.sml
-  GIO_I_O_EXTENSION_POINT-sig.sml
   GIO_I_O_MODULE_CLASS-sig.sml
   GIO_I_O_MODULE-sig.sml
-  GIO_I_O_MODULE_SCOPE_RECORD-sig.sml
-  GIO_I_O_MODULE_SCOPE-sig.sml
   GIO_I_O_MODULE_SCOPE_FLAGS-sig.sml
   GIO_I_O_STREAM_CLASS-sig.sml
   GIO_I_O_STREAM-sig.sml
@@ -498,7 +490,6 @@ in
     mlton/GioEmblemOrigin.sml
     mlton/GioEmblemedIconClass.sml
     mlton/GioFileClass.sml
-    mlton/GioFileAttributeInfoRecord.sml
     mlton/GioFileAttributeInfoFlags.sml
     mlton/GioFileAttributeInfoListRecord.sml
     mlton/GioFileAttributeMatcherRecord.sml
@@ -519,10 +510,7 @@ in
     mlton/GioFilenameCompleterClass.sml
     mlton/GioFilesystemPreviewType.sml
     mlton/GioIOErrorEnum.sml
-    mlton/GioIOExtensionRecord.sml
-    mlton/GioIOExtensionPointRecord.sml
     mlton/GioIOModuleClass.sml
-    mlton/GioIOModuleScopeRecord.sml
     mlton/GioIOModuleScopeFlags.sml
     mlton/GioIOStreamClass.sml
     mlton/GioIOStreamSpliceFlags.sml
@@ -673,7 +661,6 @@ in
     mlton/GioDtlsServerConnection.sml
     mlton/GioEmblem.sml
     mlton/GioEmblemedIcon.sml
-    mlton/GioFileAttributeInfo.sml
     mlton/GioFileAttributeInfoList.sml
     mlton/GioFileAttributeMatcher.sml
     mlton/GioFileDescriptorBased.sml
@@ -687,10 +674,7 @@ in
     mlton/GioFilenameCompleter.sml
     mlton/GioFilterInputStreamClass.sml
     mlton/GioFilterOutputStreamClass.sml
-    mlton/GioIOExtension.sml
-    mlton/GioIOExtensionPoint.sml
     mlton/GioIOModule.sml
-    mlton/GioIOModuleScope.sml
     mlton/GioIOStream.sml
     mlton/GioIcon.sml
     mlton/GioInetAddress.sml

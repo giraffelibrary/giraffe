@@ -35,8 +35,6 @@ in
   G_LIB_DATE_TIME_RECORD-sig.sml
   G_LIB_DATE_TIME-sig.sml
   G_LIB_DATE_WEEKDAY-sig.sml
-  G_LIB_DEBUG_KEY_RECORD-sig.sml
-  G_LIB_DEBUG_KEY-sig.sml
   G_LIB_ERROR_RECORD-sig.sml
   G_LIB_ERROR-sig.sml
   G_LIB_ERROR_TYPE-sig.sml
@@ -44,6 +42,8 @@ in
   G_LIB_FILE_TEST-sig.sml
   G_LIB_FORMAT_SIZE_FLAGS-sig.sml
   G_LIB_HOOK_FLAG_MASK-sig.sml
+  G_LIB_I_CONV_RECORD-sig.sml
+  G_LIB_I_CONV-sig.sml
   G_LIB_I_O_CHANNEL_RECORD-sig.sml
   G_LIB_I_O_CHANNEL-sig.sml
   G_LIB_I_O_CHANNEL_ERROR-sig.sml
@@ -73,14 +73,10 @@ in
   G_LIB_NORMALIZE_MODE-sig.sml
   G_LIB_ONCE_STATUS-sig.sml
   G_LIB_OPTION_ARG-sig.sml
-  G_LIB_OPTION_ENTRY_RECORD-sig.sml
-  G_LIB_OPTION_ENTRY-sig.sml
   G_LIB_OPTION_ERROR-sig.sml
   G_LIB_OPTION_FLAGS-sig.sml
   G_LIB_OPTION_GROUP_RECORD-sig.sml
   G_LIB_OPTION_GROUP-sig.sml
-  G_LIB_PATTERN_SPEC_RECORD-sig.sml
-  G_LIB_PATTERN_SPEC-sig.sml
   G_LIB_REGEX_RECORD-sig.sml
   G_LIB_REGEX-sig.sml
   G_LIB_REGEX_COMPILE_FLAGS-sig.sml
@@ -95,15 +91,11 @@ in
   G_LIB_SPAWN_FLAGS-sig.sml
   G_LIB_STRING_RECORD-sig.sml
   G_LIB_STRING-sig.sml
-  G_LIB_TEST_CASE_RECORD-sig.sml
-  G_LIB_TEST_CASE-sig.sml
   G_LIB_TEST_CONFIG_RECORD-sig.sml
   G_LIB_TEST_CONFIG-sig.sml
   G_LIB_TEST_FILE_TYPE-sig.sml
   G_LIB_TEST_LOG_TYPE-sig.sml
   G_LIB_TEST_SUBPROCESS_FLAGS-sig.sml
-  G_LIB_TEST_SUITE_RECORD-sig.sml
-  G_LIB_TEST_SUITE-sig.sml
   G_LIB_TEST_TRAP_FLAGS-sig.sml
   G_LIB_THREAD_RECORD-sig.sml
   G_LIB_THREAD-sig.sml
@@ -145,11 +137,11 @@ in
     mlton/GLibDateMonth.sml
     mlton/GLibDateTimeRecord.sml
     mlton/GLibDateWeekday.sml
-    mlton/GLibDebugKeyRecord.sml
     mlton/GLibErrorType.sml
     mlton/GLibFileTest.sml
     mlton/GLibFormatSizeFlags.sml
     mlton/GLibHookFlagMask.sml
+    mlton/GLibIConvRecord.sml
     mlton/GLibIOChannelRecord.sml
     mlton/GLibIOCondition.sml
     mlton/GLibIOError.sml
@@ -169,10 +161,8 @@ in
     mlton/GLibNormalizeMode.sml
     mlton/GLibOnceStatus.sml
     mlton/GLibOptionArg.sml
-    mlton/GLibOptionEntryRecord.sml
     mlton/GLibOptionFlags.sml
     mlton/GLibOptionGroupRecord.sml
-    mlton/GLibPatternSpecRecord.sml
     mlton/GLibRegexRecord.sml
     mlton/GLibRegexCompileFlags.sml
     mlton/GLibRegexMatchFlags.sml
@@ -181,12 +171,10 @@ in
     mlton/GLibSourceRecord.sml
     mlton/GLibSpawnFlags.sml
     mlton/GLibStringRecord.sml
-    mlton/GLibTestCaseRecord.sml
     mlton/GLibTestConfigRecord.sml
     mlton/GLibTestFileType.sml
     mlton/GLibTestLogType.sml
     mlton/GLibTestSubprocessFlags.sml
-    mlton/GLibTestSuiteRecord.sml
     mlton/GLibTestTrapFlags.sml
     mlton/GLibThreadRecord.sml
     mlton/GLibTimeType.sml
@@ -208,23 +196,19 @@ in
     mlton/GLibChecksum.sml
     mlton/GLibDate.sml
     mlton/GLibDateTime.sml
-    mlton/GLibDebugKey.sml
     mlton/GLibErrorRecord.sml
+    mlton/GLibIConv.sml
     mlton/GLibKeyFile.sml
     mlton/GLibMainContext.sml
     mlton/GLibMainLoop.sml
     mlton/GLibMappedFile.sml
     mlton/GLibMarkupParseContext.sml
     mlton/GLibMatchInfo.sml
-    mlton/GLibOptionEntry.sml
     mlton/GLibOptionGroup.sml
-    mlton/GLibPatternSpec.sml
     mlton/GLibRegex.sml
     mlton/GLibSource.sml
     mlton/GLibString.sml
-    mlton/GLibTestCase.sml
     mlton/GLibTestConfig.sml
-    mlton/GLibTestSuite.sml
     mlton/GLibThread.sml
     mlton/GLibTimeVal.sml
     mlton/GLibTimeZone.sml
@@ -232,7 +216,6 @@ in
     mlton/GLibVariantBuilder.sml
     mlton/GLibVariantDict.sml
     GLibVariantTypeRecordCPtrArrayN.sml
-    GLibDebugKeyRecordCArrayN.sml
     mlton/GLibChildWatchFunc.sml
     mlton/GLibBookmarkFileError.sml
     mlton/GLibConvertError.sml

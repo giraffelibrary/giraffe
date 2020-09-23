@@ -1102,20 +1102,28 @@ fun getParInfo
                     (AliasInfo.getType aliasInfo)
               | _ =>
                   let
+                    (* `getStructType` must be called unconditionally for a
+                     * struct to ensure that a parameter whose type is an
+                     * unsupported struct is excluded. *)
+                    val isStructPtr =
+                      case infoType of
+                        STRUCT structInfo => (
+                          case getStructType structInfo of
+                            ValueRecord _ => false
+                          | _             => true
+                        )
+                      | _                 => false
+
                     val isPtr =
                       if usePtrDefault orelse dir = NONE  (* use default for nested type *)
                       then
                         case infoType of
                           OBJECT _          => true
                         | INTERFACE _       => true
-                        | STRUCT structInfo => (
+                        | STRUCT _          => (
                             case dir of
                               SOME _ => true
-                            | NONE   => (
-                                case getStructType structInfo of
-                                  ValueRecord _ => false
-                                | _             => true
-                              )
+                            | NONE   => isStructPtr
                           )
                         | UNION _           => true
                         | FLAGS _           => false
@@ -1689,20 +1697,28 @@ fun getRetInfo
                     (AliasInfo.getType aliasInfo)
               | _ =>
                   let
+                    (* `getStructType` must be called unconditionally for a
+                     * struct to ensure that a return value whose type is an
+                     * unsupported struct is excluded. *)
+                    val isStructPtr =
+                      case infoType of
+                        STRUCT structInfo => (
+                          case getStructType structInfo of
+                            ValueRecord _ => false
+                          | _             => true
+                        )
+                      | _                 => false
+
                     val isPtr =
                       if usePtrDefault orelse dir = NONE  (* use default for nested type *)
                       then
                         case infoType of
                           OBJECT _          => true
                         | INTERFACE _       => true
-                        | STRUCT structInfo => (
+                        | STRUCT _          => (
                             case dir of
                               SOME _ => true
-                            | NONE   => (
-                                case getStructType structInfo of
-                                  ValueRecord _ => false
-                                | _             => true
-                              )
+                            | NONE   => isStructPtr
                           )
                         | UNION _           => true
                         | FLAGS _           => false

@@ -78,7 +78,6 @@ signature GIO =
     structure EmblemOrigin : GIO_EMBLEM_ORIGIN
     structure EmblemedIconClass : GIO_EMBLEMED_ICON_CLASS
     structure FileClass : GIO_FILE_CLASS
-    structure FileAttributeInfoRecord : GIO_FILE_ATTRIBUTE_INFO_RECORD
     structure FileAttributeInfoFlags : GIO_FILE_ATTRIBUTE_INFO_FLAGS
     structure FileAttributeInfoListRecord : GIO_FILE_ATTRIBUTE_INFO_LIST_RECORD
     structure FileAttributeMatcherRecord : GIO_FILE_ATTRIBUTE_MATCHER_RECORD
@@ -100,10 +99,7 @@ signature GIO =
     structure FilesystemPreviewType : GIO_FILESYSTEM_PREVIEW_TYPE
     structure IOErrorEnum : GIO_I_O_ERROR_ENUM
     exception IOErrorEnum of IOErrorEnum.t
-    structure IOExtensionRecord : GIO_I_O_EXTENSION_RECORD
-    structure IOExtensionPointRecord : GIO_I_O_EXTENSION_POINT_RECORD
     structure IOModuleClass : GIO_I_O_MODULE_CLASS
-    structure IOModuleScopeRecord : GIO_I_O_MODULE_SCOPE_RECORD
     structure IOModuleScopeFlags : GIO_I_O_MODULE_SCOPE_FLAGS
     structure IOStreamClass : GIO_I_O_STREAM_CLASS
     structure IOStreamSpliceFlags : GIO_I_O_STREAM_SPLICE_FLAGS
@@ -470,15 +466,11 @@ signature GIO =
         where type 'a class = 'a EmblemedIconClass.class
         where type 'a emblem_class = 'a EmblemClass.class
         where type 'a icon_class = 'a IconClass.class
-    structure FileAttributeInfo :
-      GIO_FILE_ATTRIBUTE_INFO
-        where type t = FileAttributeInfoRecord.t
     structure FileAttributeInfoList :
       GIO_FILE_ATTRIBUTE_INFO_LIST
         where type t = FileAttributeInfoListRecord.t
         where type file_attribute_info_flags_t = FileAttributeInfoFlags.t
         where type file_attribute_type_t = FileAttributeType.t
-        where type file_attribute_info_t = FileAttributeInfoRecord.t
     structure FileAttributeMatcher :
       GIO_FILE_ATTRIBUTE_MATCHER
         where type t = FileAttributeMatcherRecord.t
@@ -529,19 +521,9 @@ signature GIO =
     structure FilterOutputStreamClass :
       GIO_FILTER_OUTPUT_STREAM_CLASS
         where type 'a output_stream_class = 'a OutputStreamClass.class
-    structure IOExtension :
-      GIO_I_O_EXTENSION
-        where type t = IOExtensionRecord.t
-    structure IOExtensionPoint :
-      GIO_I_O_EXTENSION_POINT
-        where type t = IOExtensionPointRecord.t
-        where type i_o_extension_t = IOExtensionRecord.t
     structure IOModule :
       GIO_I_O_MODULE
         where type 'a class = 'a IOModuleClass.class
-    structure IOModuleScope :
-      GIO_I_O_MODULE_SCOPE
-        where type t = IOModuleScopeRecord.t
     structure IOStream :
       GIO_I_O_STREAM
         where type 'a class = 'a IOStreamClass.class
@@ -1367,7 +1349,6 @@ signature GIO =
     val ioErrorFromErrno : LargeInt.int -> IOErrorEnum.t
     val ioErrorQuark : unit -> GLib.Quark.t
     val ioModulesScanAllInDirectory : string -> unit
-    val ioModulesScanAllInDirectoryWithScope : string * IOModuleScopeRecord.t -> unit
     val ioSchedulerCancelAllJobs : unit -> unit
     val networkingInit : unit -> unit
     val pollableSourceNew : 'a GObject.ObjectClass.class -> GLib.SourceRecord.t

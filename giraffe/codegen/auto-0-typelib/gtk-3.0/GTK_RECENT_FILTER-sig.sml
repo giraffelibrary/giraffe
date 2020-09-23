@@ -2,7 +2,6 @@ signature GTK_RECENT_FILTER =
   sig
     type 'a class
     type 'a buildable_class
-    type recent_filter_info_t
     type recent_filter_flags_t
     type t = base class
     val asBuildable : 'a class -> base buildable_class
@@ -29,10 +28,6 @@ signature GTK_RECENT_FILTER =
        -> string
        -> unit
     val addPixbufFormats : 'a class -> unit
-    val filter :
-      'a class
-       -> recent_filter_info_t
-       -> bool
     val getName : 'a class -> string option
     val getNeeded : 'a class -> recent_filter_flags_t
     val setName :

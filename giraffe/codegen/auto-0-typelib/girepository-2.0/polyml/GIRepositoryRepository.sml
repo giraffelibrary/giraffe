@@ -1,9 +1,7 @@
 structure GIRepositoryRepository :>
   G_I_REPOSITORY_REPOSITORY
     where type 'a class = 'a GIRepositoryRepositoryClass.class
-    where type base_info_t = GIRepositoryBaseInfoRecord.t
-    where type typelib_t = GIRepositoryTypelibRecord.t
-    where type repository_load_flags_t = GIRepositoryRepositoryLoadFlags.t =
+    where type base_info_t = GIRepositoryBaseInfoRecord.t =
   struct
     local
       open PolyMLFFI
@@ -47,41 +45,9 @@ structure GIRepositoryRepository :>
              &&> Utf8.PolyML.cInOptPtr
              --> GBool.PolyML.cVal
           )
-      val loadTypelib_ =
-        call (getSymbol "g_irepository_load_typelib")
-          (
-            GIRepositoryRepositoryClass.PolyML.cPtr
-             &&> GIRepositoryTypelibRecord.PolyML.cPtr
-             &&> GIRepositoryRepositoryLoadFlags.PolyML.cVal
-             &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> Utf8.PolyML.cOutPtr
-          )
-      val require_ =
-        call (getSymbol "g_irepository_require")
-          (
-            GIRepositoryRepositoryClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInOptPtr
-             &&> GIRepositoryRepositoryLoadFlags.PolyML.cVal
-             &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GIRepositoryTypelibRecord.PolyML.cPtr
-          )
-      val requirePrivate_ =
-        call (getSymbol "g_irepository_require_private")
-          (
-            GIRepositoryRepositoryClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInOptPtr
-             &&> GIRepositoryRepositoryLoadFlags.PolyML.cVal
-             &&> GLibErrorRecord.PolyML.cOutOptRef
-             --> GIRepositoryTypelibRecord.PolyML.cPtr
-          )
     end
     type 'a class = 'a GIRepositoryRepositoryClass.class
     type base_info_t = GIRepositoryBaseInfoRecord.t
-    type typelib_t = GIRepositoryTypelibRecord.t
-    type repository_load_flags_t = GIRepositoryRepositoryLoadFlags.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun dump arg = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> ignore) dump_ (arg & [])
@@ -137,77 +103,4 @@ structure GIRepositoryRepository :>
            & namespace
            & version
         )
-    fun loadTypelib self (typelib, flags) =
-      (
-        GIRepositoryRepositoryClass.FFI.withPtr false
-         &&&> GIRepositoryTypelibRecord.FFI.withPtr false
-         &&&> GIRepositoryRepositoryLoadFlags.FFI.withVal
-         &&&> GLibErrorRecord.handleError
-         ---> Utf8.FFI.fromPtr 0
-      )
-        loadTypelib_
-        (
-          self
-           & typelib
-           & flags
-           & []
-        )
-       before GIRepositoryRepositoryClass.FFI.touchPtr self
-       before GIRepositoryTypelibRecord.FFI.touchPtr typelib
-    fun require
-      self
-      (
-        namespace,
-        version,
-        flags
-      ) =
-      (
-        GIRepositoryRepositoryClass.FFI.withPtr false
-         &&&> Utf8.FFI.withPtr 0
-         &&&> Utf8.FFI.withOptPtr 0
-         &&&> GIRepositoryRepositoryLoadFlags.FFI.withVal
-         &&&> GLibErrorRecord.handleError
-         ---> GIRepositoryTypelibRecord.FFI.fromPtr false
-      )
-        require_
-        (
-          self
-           & namespace
-           & version
-           & flags
-           & []
-        )
-       before GIRepositoryRepositoryClass.FFI.touchPtr self
-       before Utf8.FFI.touchPtr namespace
-       before Utf8.FFI.touchOptPtr version
-    fun requirePrivate
-      self
-      (
-        typelibDir,
-        namespace,
-        version,
-        flags
-      ) =
-      (
-        GIRepositoryRepositoryClass.FFI.withPtr false
-         &&&> Utf8.FFI.withPtr 0
-         &&&> Utf8.FFI.withPtr 0
-         &&&> Utf8.FFI.withOptPtr 0
-         &&&> GIRepositoryRepositoryLoadFlags.FFI.withVal
-         &&&> GLibErrorRecord.handleError
-         ---> GIRepositoryTypelibRecord.FFI.fromPtr false
-      )
-        requirePrivate_
-        (
-          self
-           & typelibDir
-           & namespace
-           & version
-           & flags
-           & []
-        )
-       before GIRepositoryRepositoryClass.FFI.touchPtr self
-       before Utf8.FFI.touchPtr typelibDir
-       before Utf8.FFI.touchPtr namespace
-       before Utf8.FFI.touchOptPtr version
   end

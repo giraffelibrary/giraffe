@@ -1,31 +1,11 @@
 structure GtkRecentManager :>
   GTK_RECENT_MANAGER
     where type 'a class = 'a GtkRecentManagerClass.class
-    where type recent_data_t = GtkRecentDataRecord.t
     where type recent_info_t = GtkRecentInfoRecord.t =
   struct
     val getType_ = _import "gtk_recent_manager_get_type" : unit -> GObjectType.FFI.val_;
     val new_ = _import "gtk_recent_manager_new" : unit -> GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p;
     val getDefault_ = _import "gtk_recent_manager_get_default" : unit -> GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p;
-    val addFull_ =
-      fn
-        x1
-         & (x2, x3)
-         & x4 =>
-          (
-            _import "mlton_gtk_recent_manager_add_full" :
-              GtkRecentManagerClass.FFI.non_opt GtkRecentManagerClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GtkRecentDataRecord.FFI.non_opt GtkRecentDataRecord.FFI.p
-               -> GBool.FFI.val_;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4
-            )
     val addItem_ =
       fn
         x1 & (x2, x3) =>
@@ -120,25 +100,11 @@ structure GtkRecentManager :>
               x4
             )
     type 'a class = 'a GtkRecentManagerClass.class
-    type recent_data_t = GtkRecentDataRecord.t
     type recent_info_t = GtkRecentInfoRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new () = (I ---> GtkRecentManagerClass.FFI.fromPtr true) new_ ()
     fun getDefault () = (I ---> GtkRecentManagerClass.FFI.fromPtr false) getDefault_ ()
-    fun addFull self (uri, recentData) =
-      (
-        GtkRecentManagerClass.FFI.withPtr false
-         &&&> Utf8.FFI.withPtr 0
-         &&&> GtkRecentDataRecord.FFI.withPtr false
-         ---> GBool.FFI.fromVal
-      )
-        addFull_
-        (
-          self
-           & uri
-           & recentData
-        )
     fun addItem self uri = (GtkRecentManagerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) addItem_ (self & uri)
     fun hasItem self uri = (GtkRecentManagerClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hasItem_ (self & uri)
     fun lookupItem self uri =

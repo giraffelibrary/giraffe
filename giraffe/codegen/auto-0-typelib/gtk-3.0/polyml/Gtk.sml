@@ -830,9 +830,6 @@ structure Gtk : GTK =
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val stockAdd_ = call (getSymbol "gtk_stock_add") (GtkStockItemRecordCArrayN.PolyML.cInPtr &&> GUInt32.PolyML.cVal --> cVoid)
-      val stockAddStatic_ = call (getSymbol "gtk_stock_add_static") (GtkStockItemRecordCArrayN.PolyML.cInPtr &&> GUInt32.PolyML.cVal --> cVoid)
-      val stockLookup_ = call (getSymbol "gtk_stock_lookup") (Utf8.PolyML.cInPtr &&> GtkStockItemRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val targetTableFree_ = call (getSymbol "gtk_target_table_free") (GtkTargetEntryRecordCArrayN.PolyML.cInPtr &&> GInt32.PolyML.cVal --> cVoid)
       val targetTableNewFromList_ = call (getSymbol "gtk_target_table_new_from_list") (GtkTargetListRecord.PolyML.cPtr &&> GInt32.PolyML.cRef --> GtkTargetEntryRecordCArrayN.PolyML.cOutPtr)
       val targetsIncludeImage_ =
@@ -916,12 +913,10 @@ structure Gtk : GTK =
     end
     structure AccelFlags = GtkAccelFlags
     structure AccelGroupClass = GtkAccelGroupClass
-    structure AccelGroupEntryRecord = GtkAccelGroupEntryRecord
     structure AccelKeyRecord = GtkAccelKeyRecord
     structure AccelMapClass = GtkAccelMapClass
     structure AccessibleClass = GtkAccessibleClass
     structure ActionClass = GtkActionClass
-    structure ActionEntryRecord = GtkActionEntryRecord
     structure ActionGroupClass = GtkActionGroupClass
     structure ActionableClass = GtkActionableClass
     structure ActivatableClass = GtkActivatableClass
@@ -983,7 +978,6 @@ structure Gtk : GTK =
     exception FileChooserError = GtkFileChooserError
     structure FileFilterClass = GtkFileFilterClass
     structure FileFilterFlags = GtkFileFilterFlags
-    structure FileFilterInfoRecord = GtkFileFilterInfoRecord
     structure FontChooserClass = GtkFontChooserClass
     structure GradientRecord = GtkGradientRecord
     structure IMContextClass = GtkIMContextClass
@@ -1051,10 +1045,8 @@ structure Gtk : GTK =
     structure RecentChooserClass = GtkRecentChooserClass
     structure RecentChooserError = GtkRecentChooserError
     exception RecentChooserError = GtkRecentChooserError
-    structure RecentDataRecord = GtkRecentDataRecord
     structure RecentFilterClass = GtkRecentFilterClass
     structure RecentFilterFlags = GtkRecentFilterFlags
-    structure RecentFilterInfoRecord = GtkRecentFilterInfoRecord
     structure RecentInfoRecord = GtkRecentInfoRecord
     structure RecentManagerClass = GtkRecentManagerClass
     structure RecentManagerError = GtkRecentManagerError
@@ -1074,7 +1066,6 @@ structure Gtk : GTK =
     structure SelectionMode = GtkSelectionMode
     structure SensitivityType = GtkSensitivityType
     structure SettingsClass = GtkSettingsClass
-    structure SettingsValueRecord = GtkSettingsValueRecord
     structure ShadowType = GtkShadowType
     structure ShortcutType = GtkShortcutType
     structure SizeGroupClass = GtkSizeGroupClass
@@ -1087,7 +1078,6 @@ structure Gtk : GTK =
     structure StateFlags = GtkStateFlags
     structure StateType = GtkStateType
     structure StatusIconClass = GtkStatusIconClass
-    structure StockItemRecord = GtkStockItemRecord
     structure StyleClass = GtkStyleClass
     structure StyleContextClass = GtkStyleContextClass
     structure StyleContextPrintFlags = GtkStyleContextPrintFlags
@@ -1145,13 +1135,11 @@ structure Gtk : GTK =
     structure WindowPosition = GtkWindowPosition
     structure WindowType = GtkWindowType
     structure WrapMode = GtkWrapMode
-    structure AccelGroupEntryRecordCArrayN = GtkAccelGroupEntryRecordCArrayN
-    structure AccelGroupEntry = GtkAccelGroupEntry
+    structure AccelGroup = GtkAccelGroup
     structure AccelKey = GtkAccelKey
     structure AccelMap = GtkAccelMap
     structure Accessible = GtkAccessible
     structure Action = GtkAction
-    structure ActionEntry = GtkActionEntry
     structure ActionGroup = GtkActionGroup
     structure Actionable = GtkActionable
     structure Activatable = GtkActivatable
@@ -1188,7 +1176,6 @@ structure Gtk : GTK =
     structure FileChooser = GtkFileChooser
     structure FileChooserNativeClass = GtkFileChooserNativeClass
     structure FileFilter = GtkFileFilter
-    structure FileFilterInfo = GtkFileFilterInfo
     structure FontChooser = GtkFontChooser
     structure GLAreaClass = GtkGLAreaClass
     structure GestureClass = GtkGestureClass
@@ -1221,19 +1208,15 @@ structure Gtk : GTK =
     structure RcStyle = GtkRcStyle
     structure RecentActionClass = GtkRecentActionClass
     structure RecentChooser = GtkRecentChooser
-    structure RecentData = GtkRecentData
     structure RecentFilter = GtkRecentFilter
-    structure RecentFilterInfo = GtkRecentFilterInfo
     structure RecentInfo = GtkRecentInfo
     structure RecentManager = GtkRecentManager
     structure Requisition = GtkRequisition
     structure Scrollable = GtkScrollable
     structure SelectionData = GtkSelectionData
     structure SeparatorClass = GtkSeparatorClass
-    structure SettingsValue = GtkSettingsValue
     structure SizeGroup = GtkSizeGroup
     structure SpinnerClass = GtkSpinnerClass
-    structure StockItem = GtkStockItem
     structure Style = GtkStyle
     structure StyleContext = GtkStyleContext
     structure StyleProperties = GtkStyleProperties
@@ -1269,9 +1252,7 @@ structure Gtk : GTK =
     structure UIManager = GtkUIManager
     structure WidgetAccessibleClass = GtkWidgetAccessibleClass
     structure WidgetPath = GtkWidgetPath
-    structure StockItemRecordCArrayN = GtkStockItemRecordCArrayN
     structure TargetEntryRecordCArrayN = GtkTargetEntryRecordCArrayN
-    structure AccelGroup = GtkAccelGroup
     structure ArrowClass = GtkArrowClass
     structure ArrowAccessibleClass = GtkArrowAccessibleClass
     structure BinClass = GtkBinClass
@@ -3972,26 +3953,6 @@ structure Gtk : GTK =
            & timestamp
            & []
         )
-    fun stockAdd items =
-      let
-        val nItems = LargeInt.fromInt (GtkStockItemRecordCArrayN.length items)
-        val () = (GtkStockItemRecordCArrayN.FFI.withPtr 0 &&&> GUInt32.FFI.withVal ---> I) stockAdd_ (items & nItems)
-      in
-        ()
-      end
-    fun stockAddStatic items =
-      let
-        val nItems = LargeInt.fromInt (GtkStockItemRecordCArrayN.length items)
-        val () = (GtkStockItemRecordCArrayN.FFI.withPtr 0 &&&> GUInt32.FFI.withVal ---> I) stockAddStatic_ (items & nItems)
-      in
-        ()
-      end
-    fun stockLookup stockId =
-      let
-        val item & retVal = (Utf8.FFI.withPtr 0 &&&> GtkStockItemRecord.FFI.withNewPtr ---> GtkStockItemRecord.FFI.fromPtr true && GBool.FFI.fromVal) stockLookup_ (stockId & ())
-      in
-        if retVal then SOME item else NONE
-      end
     fun targetTableFree targets =
       let
         val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)

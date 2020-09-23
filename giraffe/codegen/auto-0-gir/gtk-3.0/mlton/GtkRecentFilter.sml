@@ -2,7 +2,6 @@ structure GtkRecentFilter :>
   GTK_RECENT_FILTER
     where type 'a class = 'a GtkRecentFilterClass.class
     where type 'a buildable_class = 'a GtkBuildableClass.class
-    where type recent_filter_info_t = GtkRecentFilterInfoRecord.t
     where type recent_filter_flags_t = GtkRecentFilterFlags.t =
   struct
     val getType_ = _import "gtk_recent_filter_get_type" : unit -> GObjectType.FFI.val_;
@@ -69,7 +68,6 @@ structure GtkRecentFilter :>
               x3
             )
     val addPixbufFormats_ = _import "gtk_recent_filter_add_pixbuf_formats" : GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p -> unit;
-    val filter_ = fn x1 & x2 => (_import "gtk_recent_filter_filter" : GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p * GtkRecentFilterInfoRecord.FFI.non_opt GtkRecentFilterInfoRecord.FFI.p -> GBool.FFI.val_;) (x1, x2)
     val getName_ = _import "gtk_recent_filter_get_name" : GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p -> Utf8.FFI.opt Utf8.FFI.out_p;
     val getNeeded_ = _import "gtk_recent_filter_get_needed" : GtkRecentFilterClass.FFI.non_opt GtkRecentFilterClass.FFI.p -> GtkRecentFilterFlags.FFI.val_;
     val setName_ =
@@ -89,7 +87,6 @@ structure GtkRecentFilter :>
             )
     type 'a class = 'a GtkRecentFilterClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class
-    type recent_filter_info_t = GtkRecentFilterInfoRecord.t
     type recent_filter_flags_t = GtkRecentFilterFlags.t
     type t = base class
     fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
@@ -101,7 +98,6 @@ structure GtkRecentFilter :>
     fun addMimeType self mimeType = (GtkRecentFilterClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) addMimeType_ (self & mimeType)
     fun addPattern self pattern = (GtkRecentFilterClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) addPattern_ (self & pattern)
     fun addPixbufFormats self = (GtkRecentFilterClass.FFI.withPtr false ---> I) addPixbufFormats_ self
-    fun filter self filterInfo = (GtkRecentFilterClass.FFI.withPtr false &&&> GtkRecentFilterInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) filter_ (self & filterInfo)
     fun getName self = (GtkRecentFilterClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0) getName_ self before GtkRecentFilterClass.FFI.touchPtr self
     fun getNeeded self = (GtkRecentFilterClass.FFI.withPtr false ---> GtkRecentFilterFlags.FFI.fromVal) getNeeded_ self
     fun setName self name = (GtkRecentFilterClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setName_ (self & name)

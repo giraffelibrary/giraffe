@@ -1,8 +1,7 @@
 structure GIRepositoryBaseInfo :>
   G_I_REPOSITORY_BASE_INFO
     where type t = GIRepositoryBaseInfoRecord.t
-    where type info_type_t = GIRepositoryInfoType.t
-    where type typelib_t = GIRepositoryTypelibRecord.t =
+    where type info_type_t = GIRepositoryInfoType.t =
   struct
     local
       open PolyMLFFI
@@ -14,12 +13,10 @@ structure GIRepositoryBaseInfo :>
       val getName_ = call (getSymbol "g_base_info_get_name") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getNamespace_ = call (getSymbol "g_base_info_get_namespace") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
       val getType_ = call (getSymbol "g_base_info_get_type") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> GIRepositoryInfoType.PolyML.cVal)
-      val getTypelib_ = call (getSymbol "g_base_info_get_typelib") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> GIRepositoryTypelibRecord.PolyML.cPtr)
       val isDeprecated_ = call (getSymbol "g_base_info_is_deprecated") (GIRepositoryBaseInfoRecord.PolyML.cPtr --> GBool.PolyML.cVal)
     end
     type t = GIRepositoryBaseInfoRecord.t
     type info_type_t = GIRepositoryInfoType.t
-    type typelib_t = GIRepositoryTypelibRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun equal self info2 = (GIRepositoryBaseInfoRecord.FFI.withPtr false &&&> GIRepositoryBaseInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) equal_ (self & info2)
     fun getAttribute self name = (GIRepositoryBaseInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getAttribute_ (self & name) before GIRepositoryBaseInfoRecord.FFI.touchPtr self before Utf8.FFI.touchPtr name
@@ -27,6 +24,5 @@ structure GIRepositoryBaseInfo :>
     fun getName self = (GIRepositoryBaseInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GIRepositoryBaseInfoRecord.FFI.touchPtr self
     fun getNamespace self = (GIRepositoryBaseInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getNamespace_ self before GIRepositoryBaseInfoRecord.FFI.touchPtr self
     fun getType self = (GIRepositoryBaseInfoRecord.FFI.withPtr false ---> GIRepositoryInfoType.FFI.fromVal) getType_ self
-    fun getTypelib self = (GIRepositoryBaseInfoRecord.FFI.withPtr false ---> GIRepositoryTypelibRecord.FFI.fromPtr false) getTypelib_ self before GIRepositoryBaseInfoRecord.FFI.touchPtr self
     fun isDeprecated self = (GIRepositoryBaseInfoRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isDeprecated_ self
   end

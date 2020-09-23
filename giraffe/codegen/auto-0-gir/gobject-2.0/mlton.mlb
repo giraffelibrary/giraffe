@@ -18,14 +18,6 @@ in
   G_OBJECT_CLOSURE_RECORD-sig.sml
   G_OBJECT_CLOSURE-sig.sml
   G_OBJECT_CONNECT_FLAGS-sig.sml
-  G_OBJECT_ENUM_CLASS_RECORD-sig.sml
-  G_OBJECT_ENUM_CLASS-sig.sml
-  G_OBJECT_ENUM_VALUE_RECORD-sig.sml
-  G_OBJECT_ENUM_VALUE-sig.sml
-  G_OBJECT_FLAGS_CLASS_RECORD-sig.sml
-  G_OBJECT_FLAGS_CLASS-sig.sml
-  G_OBJECT_FLAGS_VALUE_RECORD-sig.sml
-  G_OBJECT_FLAGS_VALUE-sig.sml
   G_OBJECT_INITIALLY_UNOWNED_CLASS-sig.sml
   G_OBJECT_INITIALLY_UNOWNED-sig.sml
   G_OBJECT_OBJECT_CLASS-sig.sml
@@ -83,8 +75,6 @@ in
   G_OBJECT_SIGNAL_INVOCATION_HINT_RECORD-sig.sml
   G_OBJECT_SIGNAL_INVOCATION_HINT-sig.sml
   G_OBJECT_SIGNAL_MATCH_TYPE-sig.sml
-  G_OBJECT_SIGNAL_QUERY_RECORD-sig.sml
-  G_OBJECT_SIGNAL_QUERY-sig.sml
   G_OBJECT_TYPE_DEBUG_FLAGS-sig.sml
   G_OBJECT_TYPE_FLAGS-sig.sml
   G_OBJECT_TYPE_FUNDAMENTAL_FLAGS-sig.sml
@@ -92,8 +82,6 @@ in
   G_OBJECT_TYPE_MODULE-sig.sml
   G_OBJECT_TYPE_PLUGIN_CLASS-sig.sml
   G_OBJECT_TYPE_PLUGIN-sig.sml
-  G_OBJECT_TYPE_QUERY_RECORD-sig.sml
-  G_OBJECT_TYPE_QUERY-sig.sml
   G_OBJECT_VALUE_RECORD-sig.sml
   G_OBJECT_VALUE-sig.sml
   G_OBJECT_VALUE_ARRAY_RECORD-sig.sml
@@ -106,28 +94,16 @@ in
     mlton/ValueAccessor.sml
     mlton/GObjectType.sml
     mlton/GObjectConnectFlags.sml
-    mlton/GObjectEnumClassRecord.sml
-    mlton/GObjectEnumValueRecord.sml
-    mlton/GObjectFlagsClassRecord.sml
-    mlton/GObjectFlagsValueRecord.sml
     mlton/GObjectParamFlags.sml
     mlton/GObjectSignalFlags.sml
     mlton/GObjectSignalInvocationHintRecord.sml
     mlton/GObjectSignalMatchType.sml
-    mlton/GObjectSignalQueryRecord.sml
     mlton/GObjectTypeDebugFlags.sml
     mlton/GObjectTypeFlags.sml
     mlton/GObjectTypeFundamentalFlags.sml
-    mlton/GObjectTypeQueryRecord.sml
     mlton/GObjectValueArrayRecord.sml
     mlton/GObjectBindingFlags.sml
-    mlton/GObjectEnumClass.sml
-    mlton/GObjectEnumValue.sml
-    mlton/GObjectFlagsClass.sml
-    mlton/GObjectFlagsValue.sml
     mlton/GObjectSignalInvocationHint.sml
-    mlton/GObjectSignalQuery.sml
-    mlton/GObjectTypeQuery.sml
     mlton/GObjectValueRecord.sml
     GObjectTypeCArrayN.sml
     mlton/GObjectValue.sml

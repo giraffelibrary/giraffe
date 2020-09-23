@@ -2,8 +2,6 @@ signature G_I_REPOSITORY_REPOSITORY =
   sig
     type 'a class
     type base_info_t
-    type typelib_t
-    type repository_load_flags_t
     type t = base class
     val getType : unit -> GObject.Type.t
     val dump : string -> unit
@@ -59,21 +57,4 @@ signature G_I_REPOSITORY_REPOSITORY =
       'a class
        -> string * string option
        -> bool
-    val loadTypelib :
-      'a class
-       -> typelib_t * repository_load_flags_t
-       -> string
-    val require :
-      'a class
-       -> string
-           * string option
-           * repository_load_flags_t
-       -> typelib_t
-    val requirePrivate :
-      'a class
-       -> string
-           * string
-           * string option
-           * repository_load_flags_t
-       -> typelib_t
   end

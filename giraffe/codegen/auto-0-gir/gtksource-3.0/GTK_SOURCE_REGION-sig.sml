@@ -1,7 +1,6 @@
 signature GTK_SOURCE_REGION =
   sig
     type 'a class
-    type region_iter_t
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : 'a Gtk.TextBufferClass.class -> base class
@@ -15,7 +14,6 @@ signature GTK_SOURCE_REGION =
        -> unit
     val getBounds : 'a class -> (Gtk.TextIterRecord.t * Gtk.TextIterRecord.t) option
     val getBuffer : 'a class -> base Gtk.TextBufferClass.class option
-    val getStartRegionIter : 'a class -> region_iter_t
     val intersectRegion :
       'a class
        -> 'b class option

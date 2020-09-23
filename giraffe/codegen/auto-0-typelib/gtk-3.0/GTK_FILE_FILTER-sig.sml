@@ -2,7 +2,6 @@ signature GTK_FILE_FILTER =
   sig
     type 'a class
     type 'a buildable_class
-    type file_filter_info_t
     type file_filter_flags_t
     type t = base class
     val asBuildable : 'a class -> base buildable_class
@@ -18,10 +17,6 @@ signature GTK_FILE_FILTER =
        -> string
        -> unit
     val addPixbufFormats : 'a class -> unit
-    val filter :
-      'a class
-       -> file_filter_info_t
-       -> bool
     val getName : 'a class -> string option
     val getNeeded : 'a class -> file_filter_flags_t
     val setName :

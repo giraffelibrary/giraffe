@@ -87,6 +87,7 @@
         <item>arg datetime: pointer C type for VOID not supported</item>
       </item>
     </item>
+    <item>struct DebugKey: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (key)</item>
     <item>struct Dir: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>constant E: constant excluded by configuration (excludedConstantNames)</item>
     <item>
@@ -141,7 +142,11 @@
     <item>struct Hmac: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct Hook: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (data, next, prev, func, destroy)</item>
     <item>struct HookList: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (hooks, dummy3, finalize_hook, dummy)</item>
-    <item>struct IConv: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>
+      struct IConv
+      <item>function : moved to iconv</item>
+      <item>function : moved to iconv</item>
+    </item>
     <item>constant IEEE754_DOUBLE_BIAS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>constant IEEE754_FLOAT_BIAS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
     <item>
@@ -537,6 +542,7 @@
     <item>constant OPTION_REMAINING: constant excluded by configuration (excludedConstantNames)</item>
     <item>struct Once: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (retval)</item>
     <item>struct OptionContext: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct OptionEntry: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       struct OptionGroup
       <item>
@@ -546,6 +552,16 @@
           <item>
             type interface
             <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function add_entries
+        <item>
+          arg entries
+          <item>
+            type interface
+            <item>struct OptionEntry: interface type excluded by configuration (excludedInterfaceTypes)</item>
           </item>
         </item>
       </item>
@@ -569,6 +585,16 @@
           <item>
             type interface
             <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function add_entries
+        <item>
+          arg entries
+          <item>
+            type interface
+            <item>struct OptionEntry: interface type excluded by configuration (excludedInterfaceTypes)</item>
           </item>
         </item>
       </item>
@@ -592,11 +618,7 @@
     <item>constant PI_2: constant excluded by configuration (excludedConstantNames)</item>
     <item>constant PI_4: constant excluded by configuration (excludedConstantNames)</item>
     <item>constant POLLFD_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
-    <item>
-      struct PatternSpec
-      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-    </item>
+    <item>struct PatternSpec: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct PollFD: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct Private: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct PtrArray: interface type excluded by configuration (excludedInterfaceTypes)</item>
@@ -763,8 +785,10 @@
       <item>function up: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
     </item>
     <item>struct StringChunk: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct TestCase: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct TestLogBuffer: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (data, msgs)</item>
     <item>struct TestLogMsg: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (strings)</item>
+    <item>struct TestSuite: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       struct Thread
       <item>function join: pointer C type for VOID not supported</item>
@@ -1387,6 +1411,39 @@
     <item>function once_init_leave: moved to Once.init_leave</item>
     <item>function option_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
     <item>
+      function parse_debug_string
+      <item>
+        arg keys
+        <item>
+          type array
+          <item>
+            type interface
+            <item>struct DebugKey: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (key)</item>
+          </item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function pattern_match
+      <item>
+        arg pspec
+        <item>
+          type interface
+          <item>struct PatternSpec: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function pattern_match_string
+      <item>
+        arg pspec
+        <item>
+          type interface
+          <item>struct PatternSpec: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
+    </item>
+    <item>
       function pointer_bit_lock
       <item>arg address: pointer C type for VOID not supported</item>
     </item>
@@ -1562,6 +1619,16 @@
     <item>
       function test_queue_free
       <item>arg gfree_pointer: pointer C type for VOID not supported</item>
+    </item>
+    <item>
+      function test_run_suite
+      <item>
+        arg suite
+        <item>
+          type interface
+          <item>struct TestSuite: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
     </item>
     <item>function thread_error_quark: moved to Thread.error_quark</item>
     <item>function thread_exit: moved to Thread.exit</item>
@@ -1769,6 +1836,10 @@
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct ClosureNotifyData: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct EnumClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct EnumValue: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct FlagsClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct FlagsValue: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct InitiallyUnownedClass: class struct</item>
     <item>struct InterfaceInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
@@ -1903,6 +1974,7 @@
     <item>struct ParamSpecPool: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct ParamSpecTypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct SignalQuery: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (signal_name, param_types)</item>
     <item>constant TYPE_FLAG_RESERVED_ID_BIT: type INTERFACE not expected</item>
     <item>struct TypeClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct TypeFundamentalInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
@@ -1918,6 +1990,26 @@
           <item>
             type interface
             <item>struct InterfaceInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function register_enum
+        <item>
+          arg const_static_values
+          <item>
+            type interface
+            <item>struct EnumValue: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function register_flags
+        <item>
+          arg const_static_values
+          <item>
+            type interface
+            <item>struct FlagsValue: interface type excluded by configuration (excludedInterfaceTypes)</item>
           </item>
         </item>
       </item>
@@ -1938,6 +2030,26 @@
           <item>
             type interface
             <item>struct InterfaceInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function register_enum
+        <item>
+          arg const_static_values
+          <item>
+            type interface
+            <item>struct EnumValue: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function register_flags
+        <item>
+          arg const_static_values
+          <item>
+            type interface
+            <item>struct FlagsValue: interface type excluded by configuration (excludedInterfaceTypes)</item>
           </item>
         </item>
       </item>
@@ -1997,6 +2109,7 @@
       </item>
     </item>
     <item>struct TypePluginClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>struct TypeQuery: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (type_name)</item>
     <item>struct TypeValueTable: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       struct Value
@@ -2123,20 +2236,100 @@
     <item>
       function enum_complete_type_info
       <item>
-        arg info
+        arg const_values
         <item>
           type interface
-          <item>struct TypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          <item>struct EnumValue: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function enum_get_value
+      <item>
+        arg enum_class
+        <item>
+          type interface
+          <item>struct EnumClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function enum_get_value_by_name
+      <item>
+        arg enum_class
+        <item>
+          type interface
+          <item>struct EnumClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function enum_get_value_by_nick
+      <item>
+        arg enum_class
+        <item>
+          type interface
+          <item>struct EnumClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function enum_register_static
+      <item>
+        arg const_static_values
+        <item>
+          type interface
+          <item>struct EnumValue: interface type excluded by configuration (excludedInterfaceTypes)</item>
         </item>
       </item>
     </item>
     <item>
       function flags_complete_type_info
       <item>
-        arg info
+        arg const_values
         <item>
           type interface
-          <item>struct TypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          <item>struct FlagsValue: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function flags_get_first_value
+      <item>
+        arg flags_class
+        <item>
+          type interface
+          <item>struct FlagsClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function flags_get_value_by_name
+      <item>
+        arg flags_class
+        <item>
+          type interface
+          <item>struct FlagsClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function flags_get_value_by_nick
+      <item>
+        arg flags_class
+        <item>
+          type interface
+          <item>struct FlagsClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function flags_register_static
+      <item>
+        arg const_static_values
+        <item>
+          type interface
+          <item>struct FlagsValue: interface type excluded by configuration (excludedInterfaceTypes)</item>
         </item>
       </item>
     </item>
@@ -2266,6 +2459,16 @@
     <item>function type_interface_prerequisites: moved to TypeInterface.prerequisites</item>
     <item>function type_name_from_class: function excluded by configuration (excludedFunctionSymbols)</item>
     <item>function type_name_from_instance: function excluded by configuration (excludedFunctionSymbols)</item>
+    <item>
+      function type_query
+      <item>
+        arg query
+        <item>
+          type interface
+          <item>struct TypeQuery: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (type_name)</item>
+        </item>
+      </item>
+    </item>
     <item>
       function type_register_fundamental
       <item>
@@ -2722,8 +2925,11 @@
       <item>
         function register_error_domain
         <item>
-          arg quark_volatile
-          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
+          arg entries
+          <item>
+            type interface
+            <item>struct DBusErrorEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (dbus_error_name)</item>
+          </item>
         </item>
       </item>
       <item>
@@ -2764,8 +2970,11 @@
       <item>
         function register_error_domain
         <item>
-          arg quark_volatile
-          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
+          arg entries
+          <item>
+            type interface
+            <item>struct DBusErrorEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (dbus_error_name)</item>
+          </item>
         </item>
       </item>
       <item>
@@ -3448,10 +3657,25 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
+    <item>struct FileAttributeInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name)</item>
     <item>
       struct FileAttributeInfoList
+      <item>
+        function lookup
+        <item>
+          type interface
+          <item>struct FileAttributeInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name)</item>
+        </item>
+      </item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>
+        function lookup
+        <item>
+          type interface
+          <item>struct FileAttributeInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name)</item>
+        </item>
+      </item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
@@ -3572,23 +3796,10 @@
     <item>struct FilenameCompleterClass: class struct</item>
     <item>struct FilterInputStreamClass: class struct</item>
     <item>struct FilterOutputStreamClass: class struct</item>
-    <item>
-      struct IOExtensionPoint
-      <item>
-        function get_extensions
-        <item>type glist: type GLIST not supported</item>
-      </item>
-      <item>
-        function get_extensions
-        <item>type glist: type GLIST not supported</item>
-      </item>
-    </item>
+    <item>struct IOExtension: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>struct IOExtensionPoint: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct IOModuleClass: class struct</item>
-    <item>
-      struct IOModuleScope
-      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-    </item>
+    <item>struct IOModuleScope: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct IOSchedulerJob: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       object IOStream
@@ -4995,7 +5206,23 @@
     </item>
     <item>
       function io_modules_load_all_in_directory_with_scope
-      <item>type glist: type GLIST not supported</item>
+      <item>
+        arg scope
+        <item>
+          type interface
+          <item>struct IOModuleScope: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function io_modules_scan_all_in_directory_with_scope
+      <item>
+        arg scope
+        <item>
+          type interface
+          <item>struct IOModuleScope: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
     </item>
     <item>
       function io_scheduler_push_job
@@ -5033,6 +5260,13 @@
     <item>
       struct BaseInfo
       <item>
+        function get_typelib
+        <item>
+          type interface
+          <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
+      <item>
         function iterate_attributes
         <item>
           arg iterator
@@ -5040,6 +5274,13 @@
             type interface
             <item>struct AttributeIter: interface type excluded by configuration (excludedInterfaceTypes)</item>
           </item>
+        </item>
+      </item>
+      <item>
+        function get_typelib
+        <item>
+          type interface
+          <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
         </item>
       </item>
       <item>
@@ -5064,6 +5305,30 @@
         function enumerate_versions
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>
+        function load_typelib
+        <item>
+          arg typelib
+          <item>
+            type interface
+            <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function require
+        <item>
+          type interface
+          <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
+      <item>
+        function require_private
+        <item>
+          type interface
+          <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
       <item>function error_quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_search_path
@@ -5072,6 +5337,30 @@
       <item>
         function enumerate_versions
         <item>type glist: type GLIST not supported</item>
+      </item>
+      <item>
+        function load_typelib
+        <item>
+          arg typelib
+          <item>
+            type interface
+            <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function require
+        <item>
+          type interface
+          <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
+      <item>
+        function require_private
+        <item>
+          type interface
+          <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
       </item>
     </item>
     <item>struct RepositoryClass: class struct</item>
@@ -5089,6 +5378,16 @@
         <item>
           type interface
           <item>struct AttributeIter: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function info_new
+      <item>
+        arg typelib
+        <item>
+          type interface
+          <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
         </item>
       </item>
     </item>
@@ -5414,6 +5713,16 @@
         <item>arg destroy_fn_data: pointer C type for VOID not supported</item>
       </item>
       <item>
+        function from_pixdata
+        <item>
+          arg pixdata
+          <item>
+            type interface
+            <item>struct Pixdata: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (pixel_data)</item>
+          </item>
+        </item>
+      </item>
+      <item>
         function get_file_info_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
@@ -5449,6 +5758,16 @@
       <item>
         function new_from_data
         <item>arg destroy_fn_data: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function from_pixdata
+        <item>
+          arg pixdata
+          <item>
+            type interface
+            <item>struct Pixdata: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (pixel_data)</item>
+          </item>
+        </item>
       </item>
       <item>
         function get_file_info_async
@@ -5507,10 +5826,12 @@
     </item>
     <item>struct PixbufLoaderClass: class struct</item>
     <item>struct PixbufSimpleAnimClass: class struct</item>
+    <item>struct Pixdata: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (pixel_data)</item>
     <item>function pixbuf_error_quark: moved to PixbufError.quark</item>
   </item>
   <item>
     Pango-1.0
+    <item>struct Analysis: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (shape_engine, lang_engine, font, language, extra_attrs)</item>
     <item>struct AttrClass: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (destroy, equal)</item>
     <item>struct AttrColor: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass)</item>
     <item>struct AttrFloat: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass)</item>
@@ -5639,12 +5960,52 @@
           <item>type array: cannot determine array length</item>
         </item>
       </item>
+      <item>
+        function index_to_x
+        <item>
+          arg analysis
+          <item>
+            type interface
+            <item>struct Analysis: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (shape_engine, lang_engine, font, language, extra_attrs)</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function x_to_index
+        <item>
+          arg analysis
+          <item>
+            type interface
+            <item>struct Analysis: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (shape_engine, lang_engine, font, language, extra_attrs)</item>
+          </item>
+        </item>
+      </item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>
         function get_logical_widths
         <item>
           arg logical_widths
           <item>type array: cannot determine array length</item>
+        </item>
+      </item>
+      <item>
+        function index_to_x
+        <item>
+          arg analysis
+          <item>
+            type interface
+            <item>struct Analysis: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (shape_engine, lang_engine, font, language, extra_attrs)</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function x_to_index
+        <item>
+          arg analysis
+          <item>
+            type interface
+            <item>struct Analysis: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (shape_engine, lang_engine, font, language, extra_attrs)</item>
+          </item>
         </item>
       </item>
     </item>
@@ -5736,11 +6097,23 @@
     <item>function gravity_to_rotation: moved to Gravity.to_rotation</item>
     <item>
       function itemize
-      <item>type glist: type GLIST not supported</item>
+      <item>
+        arg cached_iter
+        <item>
+          type interface
+          <item>struct AttrIterator: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
     </item>
     <item>
       function itemize_with_base_dir
-      <item>type glist: type GLIST not supported</item>
+      <item>
+        arg cached_iter
+        <item>
+          type interface
+          <item>struct AttrIterator: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
     </item>
     <item>function language_from_string: moved to Language.from_string</item>
     <item>function language_get_default: moved to Language.get_default</item>
@@ -5778,6 +6151,16 @@
     <item>function script_for_unichar: moved to Script.for_unichar</item>
     <item>function script_get_sample_language: moved to Script.get_sample_language</item>
     <item>function shape: function excluded by configuration (excludedFunctionSymbols)</item>
+    <item>
+      function shape_full
+      <item>
+        arg analysis
+        <item>
+          type interface
+          <item>struct Analysis: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (shape_engine, lang_engine, font, language, extra_attrs)</item>
+        </item>
+      </item>
+    </item>
     <item>function skip_space: function excluded by configuration (excludedFunctionSymbols)</item>
   </item>
   <item>
@@ -5796,7 +6179,7 @@
           arg fonttype
           <item>
             type interface
-            <item>struct FontType: non-pointer C type for STRUCT type not supported</item>
+            <item>struct FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
           </item>
         </item>
       </item>
@@ -5804,7 +6187,7 @@
         function get_font_type
         <item>
           type interface
-          <item>struct FontType: non-pointer C type for STRUCT type not supported</item>
+          <item>struct FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
         </item>
       </item>
       <item>
@@ -5813,7 +6196,7 @@
           arg fonttype
           <item>
             type interface
-            <item>struct FontType: non-pointer C type for STRUCT type not supported</item>
+            <item>struct FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
           </item>
         </item>
       </item>
@@ -5821,7 +6204,7 @@
         function get_font_type
         <item>
           type interface
-          <item>struct FontType: non-pointer C type for STRUCT type not supported</item>
+          <item>struct FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
         </item>
       </item>
     </item>
@@ -6179,11 +6562,32 @@
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
       <item>
+        function query
+        <item>
+          type array
+          <item>
+            type interface
+            <item>struct AccelGroupEntry: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
+        </item>
+      </item>
+      <item>
         function find
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
+      <item>
+        function query
+        <item>
+          type array
+          <item>
+            type interface
+            <item>struct AccelGroupEntry: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
+        </item>
+      </item>
     </item>
     <item>struct AccelGroupClass: class struct</item>
+    <item>struct AccelGroupEntry: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct AccelGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct AccelLabelClass: class struct</item>
     <item>struct AccelLabelPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
@@ -6249,6 +6653,7 @@
     <item>struct ActionBarClass: class struct</item>
     <item>struct ActionBarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct ActionClass: class struct</item>
+    <item>struct ActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name, stock_id, label, accelerator, tooltip, callback)</item>
     <item>
       object ActionGroup
       <item>
@@ -6887,6 +7292,16 @@
         </item>
       </item>
       <item>
+        function filter
+        <item>
+          arg filter_info
+          <item>
+            type interface
+            <item>struct FileFilterInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (filename, uri, display_name, mime_type)</item>
+          </item>
+        </item>
+      </item>
+      <item>
         function add_custom
         <item>
           arg notify
@@ -6896,7 +7311,18 @@
           </item>
         </item>
       </item>
+      <item>
+        function filter
+        <item>
+          arg filter_info
+          <item>
+            type interface
+            <item>struct FileFilterInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (filename, uri, display_name, mime_type)</item>
+          </item>
+        </item>
+      </item>
     </item>
+    <item>struct FileFilterInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (filename, uri, display_name, mime_type)</item>
     <item>struct FixedChild: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (widget)</item>
     <item>struct FixedClass: class struct</item>
     <item>struct FixedPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
@@ -7849,6 +8275,7 @@
     <item>struct RecentChooserMenuPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct RecentChooserWidgetClass: class struct</item>
     <item>struct RecentChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RecentData: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (display_name, description, mime_type, app_name, app_exec, groups)</item>
     <item>
       object RecentFilter
       <item>
@@ -7862,6 +8289,16 @@
         </item>
       </item>
       <item>
+        function filter
+        <item>
+          arg filter_info
+          <item>
+            type interface
+            <item>struct RecentFilterInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (uri, display_name, mime_type, applications, groups)</item>
+          </item>
+        </item>
+      </item>
+      <item>
         function add_custom
         <item>
           arg data_destroy
@@ -7871,7 +8308,18 @@
           </item>
         </item>
       </item>
+      <item>
+        function filter
+        <item>
+          arg filter_info
+          <item>
+            type interface
+            <item>struct RecentFilterInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (uri, display_name, mime_type, applications, groups)</item>
+          </item>
+        </item>
+      </item>
     </item>
+    <item>struct RecentFilterInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (uri, display_name, mime_type, applications, groups)</item>
     <item>
       struct RecentInfo
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -7882,8 +8330,28 @@
     <item>
       object RecentManager
       <item>
+        function add_full
+        <item>
+          arg recent_data
+          <item>
+            type interface
+            <item>struct RecentData: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (display_name, description, mime_type, app_name, app_exec, groups)</item>
+          </item>
+        </item>
+      </item>
+      <item>
         function get_items
         <item>type glist: type GLIST not supported</item>
+      </item>
+      <item>
+        function add_full
+        <item>
+          arg recent_data
+          <item>
+            type interface
+            <item>struct RecentData: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (display_name, description, mime_type, app_name, app_exec, groups)</item>
+          </item>
+        </item>
       </item>
       <item>
         function get_items
@@ -7949,6 +8417,16 @@
           </item>
         </item>
       </item>
+      <item>
+        function set_property_value
+        <item>
+          arg svalue
+          <item>
+            type interface
+            <item>struct SettingsValue: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (origin, value.data)</item>
+          </item>
+        </item>
+      </item>
       <item>property color-hash: type GHASH not supported</item>
       <item>
         function install_property_parser
@@ -7960,10 +8438,21 @@
           </item>
         </item>
       </item>
+      <item>
+        function set_property_value
+        <item>
+          arg svalue
+          <item>
+            type interface
+            <item>struct SettingsValue: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (origin, value.data)</item>
+          </item>
+        </item>
+      </item>
       <item>property color-hash: type GHASH not supported</item>
     </item>
     <item>struct SettingsClass: class struct</item>
     <item>struct SettingsPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SettingsValue: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (origin, value.data)</item>
     <item>struct ShortcutLabelClass: class struct</item>
     <item>struct ShortcutsGroupClass: class struct</item>
     <item>struct ShortcutsSectionClass: class struct</item>
@@ -8003,11 +8492,7 @@
     <item>struct StatusbarAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct StatusbarClass: class struct</item>
     <item>struct StatusbarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>
-      struct StockItem
-      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-      <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-    </item>
+    <item>struct StockItem: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (stock_id, label, translation_domain)</item>
     <item>struct StyleClass: class struct</item>
     <item>
       object StyleContext
@@ -8901,8 +9386,44 @@
     <item>function recent_chooser_error_quark: moved to RecentChooserError.quark</item>
     <item>function recent_manager_error_quark: moved to RecentManagerError.quark</item>
     <item>
+      function stock_add
+      <item>
+        arg items
+        <item>
+          type array
+          <item>
+            type interface
+            <item>struct StockItem: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (stock_id, label, translation_domain)</item>
+          </item>
+        </item>
+      </item>
+    </item>
+    <item>
+      function stock_add_static
+      <item>
+        arg items
+        <item>
+          type array
+          <item>
+            type interface
+            <item>struct StockItem: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (stock_id, label, translation_domain)</item>
+          </item>
+        </item>
+      </item>
+    </item>
+    <item>
       function stock_list_ids
       <item>type gslist: type GSLIST not supported</item>
+    </item>
+    <item>
+      function stock_lookup
+      <item>
+        arg item
+        <item>
+          type interface
+          <item>struct StockItem: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (stock_id, label, translation_domain)</item>
+        </item>
+      </item>
     </item>
     <item>
       function stock_set_translate_func
@@ -9116,7 +9637,31 @@
     <item>struct MarkPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
     <item>struct PrintCompositorClass: class struct</item>
     <item>struct PrintCompositorPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>
+      object Region
+      <item>
+        function get_start_region_iter
+        <item>
+          arg iter
+          <item>
+            type interface
+            <item>struct RegionIter: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (dummy1, dummy3)</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function get_start_region_iter
+        <item>
+          arg iter
+          <item>
+            type interface
+            <item>struct RegionIter: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (dummy1, dummy3)</item>
+          </item>
+        </item>
+      </item>
+    </item>
     <item>struct RegionClass: class struct</item>
+    <item>struct RegionIter: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (dummy1, dummy3)</item>
     <item>
       object SearchContext
       <item>

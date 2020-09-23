@@ -93,17 +93,6 @@ structure Pango : PANGO =
              --> GBool.PolyML.cVal
           )
       val quantizeLineGeometry_ = call (getSymbol "pango_quantize_line_geometry") (GInt.PolyML.cRef &&> GInt.PolyML.cRef --> cVoid)
-      val shapeFull_ =
-        call (getSymbol "pango_shape_full")
-          (
-            Utf8.PolyML.cInPtr
-             &&> GInt.PolyML.cVal
-             &&> Utf8.PolyML.cInOptPtr
-             &&> GInt.PolyML.cVal
-             &&> PangoAnalysisRecord.PolyML.cPtr
-             &&> PangoGlyphStringRecord.PolyML.cPtr
-             --> cVoid
-          )
       val splitFileList_ = call (getSymbol "pango_split_file_list") (Utf8.PolyML.cInPtr --> Utf8CPtrArray.PolyML.cOutPtr)
       val trimString_ = call (getSymbol "pango_trim_string") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val unicharDirection_ = call (getSymbol "pango_unichar_direction") (GChar.PolyML.cVal --> PangoDirection.PolyML.cVal)
@@ -123,7 +112,6 @@ structure Pango : PANGO =
     structure Glyph = PangoGlyph
     structure GlyphUnit = PangoGlyphUnit
     structure Alignment = PangoAlignment
-    structure AnalysisRecord = PangoAnalysisRecord
     structure AttrListRecord = PangoAttrListRecord
     structure AttrType = PangoAttrType
     structure AttributeRecord = PangoAttributeRecord
@@ -168,7 +156,6 @@ structure Pango : PANGO =
     structure Weight = PangoWeight
     structure WrapMode = PangoWrapMode
     structure LayoutRunRecord = PangoLayoutRunRecord
-    structure Analysis = PangoAnalysis
     structure AttrList = PangoAttrList
     structure Attribute = PangoAttribute
     structure Color = PangoColor
@@ -465,33 +452,6 @@ structure Pango : PANGO =
       in
         (thickness, position)
       end
-    fun shapeFull
-      (
-        itemText,
-        itemLength,
-        paragraphText,
-        paragraphLength,
-        analysis,
-        glyphs
-      ) =
-      (
-        Utf8.FFI.withPtr 0
-         &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr 0
-         &&&> GInt.FFI.withVal
-         &&&> PangoAnalysisRecord.FFI.withPtr false
-         &&&> PangoGlyphStringRecord.FFI.withPtr false
-         ---> I
-      )
-        shapeFull_
-        (
-          itemText
-           & itemLength
-           & paragraphText
-           & paragraphLength
-           & analysis
-           & glyphs
-        )
     fun splitFileList str = (Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) splitFileList_ str
     fun trimString str = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) trimString_ str
     fun unicharDirection ch = (GChar.FFI.withVal ---> PangoDirection.FFI.fromVal) unicharDirection_ ch

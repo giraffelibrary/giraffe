@@ -317,29 +317,11 @@ structure GLib : G_LIB =
           )
       val onErrorQuery_ = call (getSymbol "g_on_error_query") (Utf8.PolyML.cInPtr --> cVoid)
       val onErrorStackTrace_ = call (getSymbol "g_on_error_stack_trace") (Utf8.PolyML.cInPtr --> cVoid)
-      val parseDebugString_ =
-        call (getSymbol "g_parse_debug_string")
-          (
-            Utf8.PolyML.cInOptPtr
-             &&> GLibDebugKeyRecordCArrayN.PolyML.cInPtr
-             &&> GUInt.PolyML.cVal
-             --> GUInt.PolyML.cVal
-          )
       val pathGetBasename_ = call (getSymbol "g_path_get_basename") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val pathGetDirname_ = call (getSymbol "g_path_get_dirname") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutPtr)
       val pathIsAbsolute_ = call (getSymbol "g_path_is_absolute") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val pathSkipRoot_ = call (getSymbol "g_path_skip_root") (Utf8.PolyML.cInPtr --> Utf8.PolyML.cOutOptPtr)
-      val patternMatch_ =
-        call (getSymbol "g_pattern_match")
-          (
-            GLibPatternSpecRecord.PolyML.cPtr
-             &&> GUInt.PolyML.cVal
-             &&> Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cInOptPtr
-             --> GBool.PolyML.cVal
-          )
       val patternMatchSimple_ = call (getSymbol "g_pattern_match_simple") (Utf8.PolyML.cInPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val patternMatchString_ = call (getSymbol "g_pattern_match_string") (GLibPatternSpecRecord.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
       val randomDouble_ = call (getSymbol "g_random_double") (cVoid --> GDouble.PolyML.cVal)
       val randomDoubleRange_ = call (getSymbol "g_random_double_range") (GDouble.PolyML.cVal &&> GDouble.PolyML.cVal --> GDouble.PolyML.cVal)
       val randomInt_ = call (getSymbol "g_random_int") (cVoid --> GUInt32.PolyML.cVal)
@@ -429,7 +411,6 @@ structure GLib : G_LIB =
       val testRandInt_ = call (getSymbol "g_test_rand_int") (cVoid --> GInt32.PolyML.cVal)
       val testRandIntRange_ = call (getSymbol "g_test_rand_int_range") (GInt32.PolyML.cVal &&> GInt32.PolyML.cVal --> GInt32.PolyML.cVal)
       val testRun_ = call (getSymbol "g_test_run") (cVoid --> GInt.PolyML.cVal)
-      val testRunSuite_ = call (getSymbol "g_test_run_suite") (GLibTestSuiteRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val testSetNonfatalAssertions_ = call (getSymbol "g_test_set_nonfatal_assertions") (cVoid --> cVoid)
       val testSkip_ = call (getSymbol "g_test_skip") (Utf8.PolyML.cInOptPtr --> cVoid)
       val testSubprocess_ = call (getSymbol "g_test_subprocess") (cVoid --> GBool.PolyML.cVal)
@@ -532,11 +513,11 @@ structure GLib : G_LIB =
     structure DateMonth = GLibDateMonth
     structure DateTimeRecord = GLibDateTimeRecord
     structure DateWeekday = GLibDateWeekday
-    structure DebugKeyRecord = GLibDebugKeyRecord
     structure ErrorType = GLibErrorType
     structure FileTest = GLibFileTest
     structure FormatSizeFlags = GLibFormatSizeFlags
     structure HookFlagMask = GLibHookFlagMask
+    structure IConvRecord = GLibIConvRecord
     structure IOChannelRecord = GLibIOChannelRecord
     structure IOCondition = GLibIOCondition
     structure IOError = GLibIOError
@@ -556,10 +537,8 @@ structure GLib : G_LIB =
     structure NormalizeMode = GLibNormalizeMode
     structure OnceStatus = GLibOnceStatus
     structure OptionArg = GLibOptionArg
-    structure OptionEntryRecord = GLibOptionEntryRecord
     structure OptionFlags = GLibOptionFlags
     structure OptionGroupRecord = GLibOptionGroupRecord
-    structure PatternSpecRecord = GLibPatternSpecRecord
     structure RegexRecord = GLibRegexRecord
     structure RegexCompileFlags = GLibRegexCompileFlags
     structure RegexMatchFlags = GLibRegexMatchFlags
@@ -568,12 +547,10 @@ structure GLib : G_LIB =
     structure SourceRecord = GLibSourceRecord
     structure SpawnFlags = GLibSpawnFlags
     structure StringRecord = GLibStringRecord
-    structure TestCaseRecord = GLibTestCaseRecord
     structure TestConfigRecord = GLibTestConfigRecord
     structure TestFileType = GLibTestFileType
     structure TestLogType = GLibTestLogType
     structure TestSubprocessFlags = GLibTestSubprocessFlags
-    structure TestSuiteRecord = GLibTestSuiteRecord
     structure TestTrapFlags = GLibTestTrapFlags
     structure ThreadRecord = GLibThreadRecord
     structure TimeType = GLibTimeType
@@ -595,23 +572,19 @@ structure GLib : G_LIB =
     structure Checksum = GLibChecksum
     structure Date = GLibDate
     structure DateTime = GLibDateTime
-    structure DebugKey = GLibDebugKey
     structure ErrorRecord = GLibErrorRecord
+    structure IConv = GLibIConv
     structure KeyFile = GLibKeyFile
     structure MainContext = GLibMainContext
     structure MainLoop = GLibMainLoop
     structure MappedFile = GLibMappedFile
     structure MarkupParseContext = GLibMarkupParseContext
     structure MatchInfo = GLibMatchInfo
-    structure OptionEntry = GLibOptionEntry
     structure OptionGroup = GLibOptionGroup
-    structure PatternSpec = GLibPatternSpec
     structure Regex = GLibRegex
     structure Source = GLibSource
     structure String = GLibString
-    structure TestCase = GLibTestCase
     structure TestConfig = GLibTestConfig
-    structure TestSuite = GLibTestSuite
     structure Thread = GLibThread
     structure TimeVal = GLibTimeVal
     structure TimeZone = GLibTimeZone
@@ -619,7 +592,6 @@ structure GLib : G_LIB =
     structure VariantBuilder = GLibVariantBuilder
     structure VariantDict = GLibVariantDict
     structure VariantTypeRecordCPtrArrayN = GLibVariantTypeRecordCPtrArrayN
-    structure DebugKeyRecordCArrayN = GLibDebugKeyRecordCArrayN
     structure ChildWatchFunc = GLibChildWatchFunc
     structure BookmarkFileError = GLibBookmarkFileError
     exception BookmarkFileError = GLibBookmarkFileError
@@ -1387,52 +1359,11 @@ structure GLib : G_LIB =
         )
     fun onErrorQuery prgName = (Utf8.FFI.withPtr 0 ---> I) onErrorQuery_ prgName
     fun onErrorStackTrace prgName = (Utf8.FFI.withPtr 0 ---> I) onErrorStackTrace_ prgName
-    fun parseDebugString (string, keys) =
-      let
-        val nkeys = LargeInt.fromInt (GLibDebugKeyRecordCArrayN.length keys)
-        val retVal =
-          (
-            Utf8.FFI.withOptPtr 0
-             &&&> GLibDebugKeyRecordCArrayN.FFI.withPtr 0
-             &&&> GUInt.FFI.withVal
-             ---> GUInt.FFI.fromVal
-          )
-            parseDebugString_
-            (
-              string
-               & keys
-               & nkeys
-            )
-      in
-        retVal
-      end
     fun pathGetBasename fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) pathGetBasename_ fileName
     fun pathGetDirname fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) pathGetDirname_ fileName
     fun pathIsAbsolute fileName = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) pathIsAbsolute_ fileName
     fun pathSkipRoot fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) pathSkipRoot_ fileName before Utf8.FFI.touchPtr fileName
-    fun patternMatch
-      (
-        pspec,
-        stringLength,
-        string,
-        stringReversed
-      ) =
-      (
-        GLibPatternSpecRecord.FFI.withPtr false
-         &&&> GUInt.FFI.withVal
-         &&&> Utf8.FFI.withPtr 0
-         &&&> Utf8.FFI.withOptPtr 0
-         ---> GBool.FFI.fromVal
-      )
-        patternMatch_
-        (
-          pspec
-           & stringLength
-           & string
-           & stringReversed
-        )
     fun patternMatchSimple (pattern, string) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) patternMatchSimple_ (pattern & string)
-    fun patternMatchString (pspec, string) = (GLibPatternSpecRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) patternMatchString_ (pspec & string)
     fun randomDouble () = (I ---> GDouble.FFI.fromVal) randomDouble_ ()
     fun randomDoubleRange (begin, end') = (GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal) randomDoubleRange_ (begin & end')
     fun randomInt () = (I ---> GUInt32.FFI.fromVal) randomInt_ ()
@@ -1617,7 +1548,6 @@ structure GLib : G_LIB =
     fun testRandInt () = (I ---> GInt32.FFI.fromVal) testRandInt_ ()
     fun testRandIntRange (begin, end') = (GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) testRandIntRange_ (begin & end')
     fun testRun () = (I ---> GInt.FFI.fromVal) testRun_ ()
-    fun testRunSuite suite = (GLibTestSuiteRecord.FFI.withPtr false ---> GInt.FFI.fromVal) testRunSuite_ suite
     fun testSetNonfatalAssertions () = (I ---> I) testSetNonfatalAssertions_ ()
     fun testSkip msg = (Utf8.FFI.withOptPtr 0 ---> I) testSkip_ msg
     fun testSubprocess () = (I ---> GBool.FFI.fromVal) testSubprocess_ ()

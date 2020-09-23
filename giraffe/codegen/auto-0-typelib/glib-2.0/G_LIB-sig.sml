@@ -12,11 +12,11 @@ signature G_LIB =
     structure DateMonth : G_LIB_DATE_MONTH
     structure DateTimeRecord : G_LIB_DATE_TIME_RECORD
     structure DateWeekday : G_LIB_DATE_WEEKDAY
-    structure DebugKeyRecord : G_LIB_DEBUG_KEY_RECORD
     structure ErrorType : G_LIB_ERROR_TYPE
     structure FileTest : G_LIB_FILE_TEST
     structure FormatSizeFlags : G_LIB_FORMAT_SIZE_FLAGS
     structure HookFlagMask : G_LIB_HOOK_FLAG_MASK
+    structure IConvRecord : G_LIB_I_CONV_RECORD
     structure IOChannelRecord : G_LIB_I_O_CHANNEL_RECORD
     structure IOCondition : G_LIB_I_O_CONDITION
     structure IOError : G_LIB_I_O_ERROR
@@ -36,10 +36,8 @@ signature G_LIB =
     structure NormalizeMode : G_LIB_NORMALIZE_MODE
     structure OnceStatus : G_LIB_ONCE_STATUS
     structure OptionArg : G_LIB_OPTION_ARG
-    structure OptionEntryRecord : G_LIB_OPTION_ENTRY_RECORD
     structure OptionFlags : G_LIB_OPTION_FLAGS
     structure OptionGroupRecord : G_LIB_OPTION_GROUP_RECORD
-    structure PatternSpecRecord : G_LIB_PATTERN_SPEC_RECORD
     structure RegexRecord : G_LIB_REGEX_RECORD
     structure RegexCompileFlags : G_LIB_REGEX_COMPILE_FLAGS
     structure RegexMatchFlags : G_LIB_REGEX_MATCH_FLAGS
@@ -48,12 +46,10 @@ signature G_LIB =
     structure SourceRecord : G_LIB_SOURCE_RECORD
     structure SpawnFlags : G_LIB_SPAWN_FLAGS
     structure StringRecord : G_LIB_STRING_RECORD
-    structure TestCaseRecord : G_LIB_TEST_CASE_RECORD
     structure TestConfigRecord : G_LIB_TEST_CONFIG_RECORD
     structure TestFileType : G_LIB_TEST_FILE_TYPE
     structure TestLogType : G_LIB_TEST_LOG_TYPE
     structure TestSubprocessFlags : G_LIB_TEST_SUBPROCESS_FLAGS
-    structure TestSuiteRecord : G_LIB_TEST_SUITE_RECORD
     structure TestTrapFlags : G_LIB_TEST_TRAP_FLAGS
     structure ThreadRecord : G_LIB_THREAD_RECORD
     structure TimeType : G_LIB_TIME_TYPE
@@ -92,10 +88,10 @@ signature G_LIB =
         where type t = DateTimeRecord.t
         where type time_val_t = TimeValRecord.t
         where type time_zone_t = TimeZoneRecord.t
-    structure DebugKey :
-      G_LIB_DEBUG_KEY
-        where type t = DebugKeyRecord.t
     structure ErrorRecord : G_LIB_ERROR_RECORD
+    structure IConv :
+      G_LIB_I_CONV
+        where type t = IConvRecord.t
     structure KeyFile :
       G_LIB_KEY_FILE
         where type t = KeyFileRecord.t
@@ -120,16 +116,9 @@ signature G_LIB =
       G_LIB_MATCH_INFO
         where type t = MatchInfoRecord.t
         where type regex_t = RegexRecord.t
-    structure OptionEntry :
-      G_LIB_OPTION_ENTRY
-        where type t = OptionEntryRecord.t
     structure OptionGroup :
       G_LIB_OPTION_GROUP
         where type t = OptionGroupRecord.t
-        where type option_entry_t = OptionEntryRecord.t
-    structure PatternSpec :
-      G_LIB_PATTERN_SPEC
-        where type t = PatternSpecRecord.t
     structure Regex :
       G_LIB_REGEX
         where type t = RegexRecord.t
@@ -144,16 +133,9 @@ signature G_LIB =
     structure String :
       G_LIB_STRING
         where type t = StringRecord.t
-    structure TestCase :
-      G_LIB_TEST_CASE
-        where type t = TestCaseRecord.t
     structure TestConfig :
       G_LIB_TEST_CONFIG
         where type t = TestConfigRecord.t
-    structure TestSuite :
-      G_LIB_TEST_SUITE
-        where type t = TestSuiteRecord.t
-        where type test_case_t = TestCaseRecord.t
     structure Thread :
       G_LIB_THREAD
         where type t = ThreadRecord.t
@@ -180,9 +162,6 @@ signature G_LIB =
     structure VariantTypeRecordCPtrArrayN :
       C_ARRAY
         where type elem = VariantTypeRecord.t
-    structure DebugKeyRecordCArrayN :
-      C_ARRAY
-        where type elem = DebugKeyRecord.t
     structure ChildWatchFunc :
       G_LIB_CHILD_WATCH_FUNC
         where type pid_t = Pid.t
@@ -472,16 +451,6 @@ signature G_LIB =
     val getUserRuntimeDir : unit -> string
     val getUserSpecialDir : UserDirectory.t -> string
     val getenv : string -> string
-    val hookDestroy : HookListRecord.t * LargeInt.int -> bool
-    val hookDestroyLink : HookListRecord.t * HookRecord.t -> unit
-    val hookFree : HookListRecord.t * HookRecord.t -> unit
-    val hookInsertBefore :
-      HookListRecord.t
-       * HookRecord.t option
-       * HookRecord.t
-       -> unit
-    val hookPrepend : HookListRecord.t * HookRecord.t -> unit
-    val hookUnref : HookListRecord.t * HookRecord.t -> unit
     val hostnameIsAsciiEncoded : string -> bool
     val hostnameIsIpAddress : string -> bool
     val hostnameIsNonAscii : string -> bool
@@ -528,19 +497,11 @@ signature G_LIB =
        -> LargeInt.int
     val onErrorQuery : string -> unit
     val onErrorStackTrace : string -> unit
-    val parseDebugString : string option * DebugKeyRecordCArrayN.t -> LargeInt.int
     val pathGetBasename : string -> string
     val pathGetDirname : string -> string
     val pathIsAbsolute : string -> bool
     val pathSkipRoot : string -> string option
-    val patternMatch :
-      PatternSpecRecord.t
-       * LargeInt.int
-       * string
-       * string option
-       -> bool
     val patternMatchSimple : string * string -> bool
-    val patternMatchString : PatternSpecRecord.t * string -> bool
     val randomDouble : unit -> real
     val randomDoubleRange : real * real -> real
     val randomInt : unit -> LargeInt.int
@@ -562,15 +523,6 @@ signature G_LIB =
        -> Utf8CPtrArray.t
     val reloadUserSpecialDirsCache : unit -> unit
     val rmdir : string -> LargeInt.int
-    val sequenceMove : SequenceIterRecord.t * SequenceIterRecord.t -> unit
-    val sequenceMoveRange :
-      SequenceIterRecord.t
-       * SequenceIterRecord.t
-       * SequenceIterRecord.t
-       -> unit
-    val sequenceRemove : SequenceIterRecord.t -> unit
-    val sequenceRemoveRange : SequenceIterRecord.t * SequenceIterRecord.t -> unit
-    val sequenceSwap : SequenceIterRecord.t * SequenceIterRecord.t -> unit
     val setApplicationName : string -> unit
     val setPrgname : string -> unit
     val setenv :
@@ -616,7 +568,6 @@ signature G_LIB =
     val testRandInt : unit -> LargeInt.int
     val testRandIntRange : LargeInt.int * LargeInt.int -> LargeInt.int
     val testRun : unit -> LargeInt.int
-    val testRunSuite : TestSuiteRecord.t -> LargeInt.int
     val testSetNonfatalAssertions : unit -> unit
     val testSkip : string option -> unit
     val testSubprocess : unit -> bool
@@ -650,7 +601,6 @@ signature G_LIB =
     val timeValFromIso8601 : string -> TimeValRecord.t option
     val timeoutSourceNew : LargeInt.int -> SourceRecord.t
     val timeoutSourceNewSeconds : LargeInt.int -> SourceRecord.t
-    val trashStackHeight : TrashStackRecord.t -> LargeInt.int
     val unixFdSourceNew : LargeInt.int * IOCondition.t -> SourceRecord.t
     val unixSetFdNonblocking : LargeInt.int * bool -> unit
     val unixSignalSourceNew : LargeInt.int -> SourceRecord.t

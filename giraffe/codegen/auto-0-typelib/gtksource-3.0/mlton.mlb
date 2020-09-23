@@ -76,8 +76,6 @@ in
   GTK_SOURCE_PRINT_COMPOSITOR-sig.sml
   GTK_SOURCE_REGION_CLASS-sig.sml
   GTK_SOURCE_REGION-sig.sml
-  GTK_SOURCE_REGION_ITER_RECORD-sig.sml
-  GTK_SOURCE_REGION_ITER-sig.sml
   GTK_SOURCE_SEARCH_CONTEXT_CLASS-sig.sml
   GTK_SOURCE_SEARCH_CONTEXT-sig.sml
   GTK_SOURCE_SEARCH_SETTINGS_CLASS-sig.sml
@@ -141,7 +139,6 @@ in
     mlton/GtkSourceNewlineType.sml
     mlton/GtkSourcePrintCompositorClass.sml
     mlton/GtkSourceRegionClass.sml
-    mlton/GtkSourceRegionIterRecord.sml
     mlton/GtkSourceSearchContextClass.sml
     mlton/GtkSourceSearchSettingsClass.sml
     mlton/GtkSourceSmartHomeEndType.sml
@@ -179,7 +176,6 @@ in
     mlton/GtkSourceMarkAttributes.sml
     mlton/GtkSourcePrintCompositor.sml
     mlton/GtkSourceRegion.sml
-    mlton/GtkSourceRegionIter.sml
     mlton/GtkSourceSearchContext.sml
     mlton/GtkSourceSearchSettings.sml
     mlton/GtkSourceStyle.sml

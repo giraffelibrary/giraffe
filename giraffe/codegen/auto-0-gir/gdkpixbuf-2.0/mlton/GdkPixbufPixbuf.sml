@@ -1,7 +1,6 @@
 structure GdkPixbufPixbuf :>
   GDK_PIXBUF_PIXBUF
     where type 'a class = 'a GdkPixbufPixbufClass.class
-    where type pixdata_t = GdkPixbufPixdataRecord.t
     where type pixbuf_format_t = GdkPixbufPixbufFormatRecord.t
     where type pixbuf_rotation_t = GdkPixbufPixbufRotation.t
     where type interp_type_t = GdkPixbufInterpType.t
@@ -251,23 +250,6 @@ structure GdkPixbufPixbuf :>
               x3,
               x4,
               x5
-            )
-    val fromPixdata_ =
-      fn
-        x1
-         & x2
-         & x3 =>
-          (
-            _import "gdk_pixbuf_from_pixdata" :
-              GdkPixbufPixdataRecord.FFI.non_opt GdkPixbufPixdataRecord.FFI.p
-               * GBool.FFI.val_
-               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
-               -> GdkPixbufPixbufClass.FFI.non_opt GdkPixbufPixbufClass.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3
             )
     val getFileInfo_ =
       fn
@@ -777,7 +759,6 @@ structure GdkPixbufPixbuf :>
               x5
             )
     type 'a class = 'a GdkPixbufPixbufClass.class
-    type pixdata_t = GdkPixbufPixdataRecord.t
     type pixbuf_format_t = GdkPixbufPixbufFormatRecord.t
     type pixbuf_rotation_t = GdkPixbufPixbufRotation.t
     type interp_type_t = GdkPixbufInterpType.t
@@ -993,19 +974,6 @@ structure GdkPixbufPixbuf :>
            & bitsPerSample
            & width
            & height
-        )
-    fun fromPixdata (pixdata, copyPixels) =
-      (
-        GdkPixbufPixdataRecord.FFI.withPtr false
-         &&&> GBool.FFI.withVal
-         &&&> GLibErrorRecord.handleError
-         ---> GdkPixbufPixbufClass.FFI.fromPtr true
-      )
-        fromPixdata_
-        (
-          pixdata
-           & copyPixels
-           & []
         )
     fun getFileInfo filename =
       let

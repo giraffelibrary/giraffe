@@ -69,26 +69,6 @@ structure GIRepository : G_I_REPOSITORY =
     val functionInfoGetProperty_ = _import "g_function_info_get_property" : GIRepositoryBaseInfoRecord.FFI.non_opt GIRepositoryBaseInfoRecord.FFI.p -> GIRepositoryBaseInfoRecord.FFI.non_opt GIRepositoryBaseInfoRecord.FFI.p;
     val functionInfoGetSymbol_ = _import "g_function_info_get_symbol" : GIRepositoryBaseInfoRecord.FFI.non_opt GIRepositoryBaseInfoRecord.FFI.p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val functionInfoGetVfunc_ = _import "g_function_info_get_vfunc" : GIRepositoryBaseInfoRecord.FFI.non_opt GIRepositoryBaseInfoRecord.FFI.p -> GIRepositoryBaseInfoRecord.FFI.non_opt GIRepositoryBaseInfoRecord.FFI.p;
-    val infoNew_ =
-      fn
-        x1
-         & x2
-         & x3
-         & x4 =>
-          (
-            _import "g_info_new" :
-              GIRepositoryInfoType.FFI.val_
-               * GIRepositoryBaseInfoRecord.FFI.non_opt GIRepositoryBaseInfoRecord.FFI.p
-               * GIRepositoryTypelibRecord.FFI.non_opt GIRepositoryTypelibRecord.FFI.p
-               * GUInt32.FFI.val_
-               -> GIRepositoryBaseInfoRecord.FFI.non_opt GIRepositoryBaseInfoRecord.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4
-            )
     val infoTypeToString_ = _import "g_info_type_to_string" : GIRepositoryInfoType.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val interfaceInfoFindMethod_ =
       fn
@@ -425,27 +405,6 @@ structure GIRepository : G_I_REPOSITORY =
     fun functionInfoGetProperty info = (GIRepositoryBaseInfoRecord.FFI.withPtr false ---> GIRepositoryBaseInfoRecord.FFI.fromPtr true) functionInfoGetProperty_ info
     fun functionInfoGetSymbol info = (GIRepositoryBaseInfoRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) functionInfoGetSymbol_ info before GIRepositoryBaseInfoRecord.FFI.touchPtr info
     fun functionInfoGetVfunc info = (GIRepositoryBaseInfoRecord.FFI.withPtr false ---> GIRepositoryBaseInfoRecord.FFI.fromPtr true) functionInfoGetVfunc_ info
-    fun infoNew
-      (
-        type',
-        container,
-        typelib,
-        offset
-      ) =
-      (
-        GIRepositoryInfoType.FFI.withVal
-         &&&> GIRepositoryBaseInfoRecord.FFI.withPtr false
-         &&&> GIRepositoryTypelibRecord.FFI.withPtr false
-         &&&> GUInt32.FFI.withVal
-         ---> GIRepositoryBaseInfoRecord.FFI.fromPtr true
-      )
-        infoNew_
-        (
-          type'
-           & container
-           & typelib
-           & offset
-        )
     fun infoTypeToString type' = (GIRepositoryInfoType.FFI.withVal ---> Utf8.FFI.fromPtr 0) infoTypeToString_ type'
     fun interfaceInfoFindMethod (info, name) = (GIRepositoryBaseInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GIRepositoryBaseInfoRecord.FFI.fromPtr true) interfaceInfoFindMethod_ (info & name)
     fun interfaceInfoFindSignal (info, name) = (GIRepositoryBaseInfoRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GIRepositoryBaseInfoRecord.FFI.fromPtr true) interfaceInfoFindSignal_ (info & name)

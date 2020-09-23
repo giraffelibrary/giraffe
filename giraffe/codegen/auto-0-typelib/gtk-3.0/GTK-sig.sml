@@ -2,12 +2,10 @@ signature GTK =
   sig
     structure AccelFlags : GTK_ACCEL_FLAGS
     structure AccelGroupClass : GTK_ACCEL_GROUP_CLASS
-    structure AccelGroupEntryRecord : GTK_ACCEL_GROUP_ENTRY_RECORD
     structure AccelKeyRecord : GTK_ACCEL_KEY_RECORD
     structure AccelMapClass : GTK_ACCEL_MAP_CLASS
     structure AccessibleClass : GTK_ACCESSIBLE_CLASS
     structure ActionClass : GTK_ACTION_CLASS
-    structure ActionEntryRecord : GTK_ACTION_ENTRY_RECORD
     structure ActionGroupClass : GTK_ACTION_GROUP_CLASS
     structure ActionableClass : GTK_ACTIONABLE_CLASS
     structure ActivatableClass : GTK_ACTIVATABLE_CLASS
@@ -69,7 +67,6 @@ signature GTK =
     exception FileChooserError of FileChooserError.t
     structure FileFilterClass : GTK_FILE_FILTER_CLASS
     structure FileFilterFlags : GTK_FILE_FILTER_FLAGS
-    structure FileFilterInfoRecord : GTK_FILE_FILTER_INFO_RECORD
     structure FontChooserClass : GTK_FONT_CHOOSER_CLASS
     structure GradientRecord : GTK_GRADIENT_RECORD
     structure IMContextClass : GTK_I_M_CONTEXT_CLASS
@@ -137,10 +134,8 @@ signature GTK =
     structure RecentChooserClass : GTK_RECENT_CHOOSER_CLASS
     structure RecentChooserError : GTK_RECENT_CHOOSER_ERROR
     exception RecentChooserError of RecentChooserError.t
-    structure RecentDataRecord : GTK_RECENT_DATA_RECORD
     structure RecentFilterClass : GTK_RECENT_FILTER_CLASS
     structure RecentFilterFlags : GTK_RECENT_FILTER_FLAGS
-    structure RecentFilterInfoRecord : GTK_RECENT_FILTER_INFO_RECORD
     structure RecentInfoRecord : GTK_RECENT_INFO_RECORD
     structure RecentManagerClass : GTK_RECENT_MANAGER_CLASS
     structure RecentManagerError : GTK_RECENT_MANAGER_ERROR
@@ -160,7 +155,6 @@ signature GTK =
     structure SelectionMode : GTK_SELECTION_MODE
     structure SensitivityType : GTK_SENSITIVITY_TYPE
     structure SettingsClass : GTK_SETTINGS_CLASS
-    structure SettingsValueRecord : GTK_SETTINGS_VALUE_RECORD
     structure ShadowType : GTK_SHADOW_TYPE
     structure ShortcutType : GTK_SHORTCUT_TYPE
     structure SizeGroupClass : GTK_SIZE_GROUP_CLASS
@@ -173,7 +167,6 @@ signature GTK =
     structure StateFlags : GTK_STATE_FLAGS
     structure StateType : GTK_STATE_TYPE
     structure StatusIconClass : GTK_STATUS_ICON_CLASS
-    structure StockItemRecord : GTK_STOCK_ITEM_RECORD
     structure StyleClass : GTK_STYLE_CLASS
     structure StyleContextClass : GTK_STYLE_CONTEXT_CLASS
     structure StyleContextPrintFlags : GTK_STYLE_CONTEXT_PRINT_FLAGS
@@ -231,12 +224,10 @@ signature GTK =
     structure WindowPosition : GTK_WINDOW_POSITION
     structure WindowType : GTK_WINDOW_TYPE
     structure WrapMode : GTK_WRAP_MODE
-    structure AccelGroupEntryRecordCArrayN :
-      C_ARRAY
-        where type elem = AccelGroupEntryRecord.t
-    structure AccelGroupEntry :
-      GTK_ACCEL_GROUP_ENTRY
-        where type t = AccelGroupEntryRecord.t
+    structure AccelGroup :
+      GTK_ACCEL_GROUP
+        where type 'a class = 'a AccelGroupClass.class
+        where type accel_flags_t = AccelFlags.t
     structure AccelKey :
       GTK_ACCEL_KEY
         where type t = AccelKeyRecord.t
@@ -255,9 +246,6 @@ signature GTK =
         where type 'a widget_class = 'a WidgetClass.class
         where type 'a accel_group_class = 'a AccelGroupClass.class
         where type 'a action_group_class = 'a ActionGroupClass.class
-    structure ActionEntry :
-      GTK_ACTION_ENTRY
-        where type t = ActionEntryRecord.t
     structure ActionGroup :
       GTK_ACTION_GROUP
         where type 'a class = 'a ActionGroupClass.class
@@ -412,11 +400,7 @@ signature GTK =
       GTK_FILE_FILTER
         where type 'a class = 'a FileFilterClass.class
         where type 'a buildable_class = 'a BuildableClass.class
-        where type file_filter_info_t = FileFilterInfoRecord.t
         where type file_filter_flags_t = FileFilterFlags.t
-    structure FileFilterInfo :
-      GTK_FILE_FILTER_INFO
-        where type t = FileFilterInfoRecord.t
     structure FontChooser :
       GTK_FONT_CHOOSER
         where type 'a class = 'a FontChooserClass.class
@@ -553,25 +537,17 @@ signature GTK =
         where type 'a recent_filter_class = 'a RecentFilterClass.class
         where type 'a recent_manager_class = 'a RecentManagerClass.class
         where type recent_sort_type_t = RecentSortType.t
-    structure RecentData :
-      GTK_RECENT_DATA
-        where type t = RecentDataRecord.t
     structure RecentFilter :
       GTK_RECENT_FILTER
         where type 'a class = 'a RecentFilterClass.class
         where type 'a buildable_class = 'a BuildableClass.class
-        where type recent_filter_info_t = RecentFilterInfoRecord.t
         where type recent_filter_flags_t = RecentFilterFlags.t
-    structure RecentFilterInfo :
-      GTK_RECENT_FILTER_INFO
-        where type t = RecentFilterInfoRecord.t
     structure RecentInfo :
       GTK_RECENT_INFO
         where type t = RecentInfoRecord.t
     structure RecentManager :
       GTK_RECENT_MANAGER
         where type 'a class = 'a RecentManagerClass.class
-        where type recent_data_t = RecentDataRecord.t
         where type recent_info_t = RecentInfoRecord.t
     structure Requisition :
       GTK_REQUISITION
@@ -589,9 +565,6 @@ signature GTK =
     structure SeparatorClass :
       GTK_SEPARATOR_CLASS
         where type 'a widget_class = 'a WidgetClass.class
-    structure SettingsValue :
-      GTK_SETTINGS_VALUE
-        where type t = SettingsValueRecord.t
     structure SizeGroup :
       GTK_SIZE_GROUP
         where type 'a class = 'a SizeGroupClass.class
@@ -601,9 +574,6 @@ signature GTK =
     structure SpinnerClass :
       GTK_SPINNER_CLASS
         where type 'a widget_class = 'a WidgetClass.class
-    structure StockItem :
-      GTK_STOCK_ITEM
-        where type t = StockItemRecord.t
     structure Style :
       GTK_STYLE
         where type 'a class = 'a StyleClass.class
@@ -806,17 +776,9 @@ signature GTK =
         where type 'a widget_class = 'a WidgetClass.class
         where type region_flags_t = RegionFlags.t
         where type state_flags_t = StateFlags.t
-    structure StockItemRecordCArrayN :
-      C_ARRAY
-        where type elem = StockItemRecord.t
     structure TargetEntryRecordCArrayN :
       C_ARRAY
         where type elem = TargetEntryRecord.t
-    structure AccelGroup :
-      GTK_ACCEL_GROUP
-        where type 'a class = 'a AccelGroupClass.class
-        where type accel_flags_t = AccelFlags.t
-        where type accel_group_entry_record_c_array_n_t = AccelGroupEntryRecordCArrayN.t
     structure ArrowClass :
       GTK_ARROW_CLASS
         where type 'a misc_class = 'a MiscClass.class
@@ -1081,7 +1043,6 @@ signature GTK =
       GTK_SETTINGS
         where type 'a class = 'a SettingsClass.class
         where type 'a style_provider_class = 'a StyleProviderClass.class
-        where type settings_value_t = SettingsValueRecord.t
         where type i_m_preedit_style_t = IMPreeditStyle.t
         where type i_m_status_style_t = IMStatusStyle.t
         where type corner_type_t = CornerType.t
@@ -3512,9 +3473,6 @@ signature GTK =
        * string
        * LargeInt.int
        -> unit
-    val stockAdd : StockItemRecordCArrayN.t -> unit
-    val stockAddStatic : StockItemRecordCArrayN.t -> unit
-    val stockLookup : string -> StockItemRecord.t option
     val targetTableFree : TargetEntryRecordCArrayN.t -> unit
     val targetTableNewFromList : TargetListRecord.t -> TargetEntryRecordCArrayN.t
     val targetsIncludeImage : GdkAtomRecordCPtrArrayN.t * bool -> bool

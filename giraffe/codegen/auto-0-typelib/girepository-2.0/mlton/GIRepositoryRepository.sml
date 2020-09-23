@@ -1,9 +1,7 @@
 structure GIRepositoryRepository :>
   G_I_REPOSITORY_REPOSITORY
     where type 'a class = 'a GIRepositoryRepositoryClass.class
-    where type base_info_t = GIRepositoryBaseInfoRecord.t
-    where type typelib_t = GIRepositoryTypelibRecord.t
-    where type repository_load_flags_t = GIRepositoryRepositoryLoadFlags.t =
+    where type base_info_t = GIRepositoryBaseInfoRecord.t =
   struct
     val getType_ = _import "g_irepository_get_type" : unit -> GObjectType.FFI.val_;
     val dump_ =
@@ -193,89 +191,8 @@ structure GIRepositoryRepository :>
               x4,
               x5
             )
-    val loadTypelib_ =
-      fn
-        x1
-         & x2
-         & x3
-         & x4 =>
-          (
-            _import "g_irepository_load_typelib" :
-              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
-               * GIRepositoryTypelibRecord.FFI.non_opt GIRepositoryTypelibRecord.FFI.p
-               * GIRepositoryRepositoryLoadFlags.FFI.val_
-               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
-               -> Utf8.FFI.non_opt Utf8.FFI.out_p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4
-            )
-    val require_ =
-      fn
-        x1
-         & (x2, x3)
-         & (x4, x5)
-         & x6
-         & x7 =>
-          (
-            _import "mlton_g_irepository_require" :
-              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
-               * GIRepositoryRepositoryLoadFlags.FFI.val_
-               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
-               -> GIRepositoryTypelibRecord.FFI.non_opt GIRepositoryTypelibRecord.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7
-            )
-    val requirePrivate_ =
-      fn
-        x1
-         & (x2, x3)
-         & (x4, x5)
-         & (x6, x7)
-         & x8
-         & x9 =>
-          (
-            _import "mlton_g_irepository_require_private" :
-              GIRepositoryRepositoryClass.FFI.non_opt GIRepositoryRepositoryClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
-               * GIRepositoryRepositoryLoadFlags.FFI.val_
-               * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
-               -> GIRepositoryTypelibRecord.FFI.non_opt GIRepositoryTypelibRecord.FFI.p;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8,
-              x9
-            )
     type 'a class = 'a GIRepositoryRepositoryClass.class
     type base_info_t = GIRepositoryBaseInfoRecord.t
-    type typelib_t = GIRepositoryTypelibRecord.t
-    type repository_load_flags_t = GIRepositoryRepositoryLoadFlags.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun dump arg = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> ignore) dump_ (arg & [])
@@ -331,77 +248,4 @@ structure GIRepositoryRepository :>
            & namespace
            & version
         )
-    fun loadTypelib self (typelib, flags) =
-      (
-        GIRepositoryRepositoryClass.FFI.withPtr false
-         &&&> GIRepositoryTypelibRecord.FFI.withPtr false
-         &&&> GIRepositoryRepositoryLoadFlags.FFI.withVal
-         &&&> GLibErrorRecord.handleError
-         ---> Utf8.FFI.fromPtr 0
-      )
-        loadTypelib_
-        (
-          self
-           & typelib
-           & flags
-           & []
-        )
-       before GIRepositoryRepositoryClass.FFI.touchPtr self
-       before GIRepositoryTypelibRecord.FFI.touchPtr typelib
-    fun require
-      self
-      (
-        namespace,
-        version,
-        flags
-      ) =
-      (
-        GIRepositoryRepositoryClass.FFI.withPtr false
-         &&&> Utf8.FFI.withPtr 0
-         &&&> Utf8.FFI.withOptPtr 0
-         &&&> GIRepositoryRepositoryLoadFlags.FFI.withVal
-         &&&> GLibErrorRecord.handleError
-         ---> GIRepositoryTypelibRecord.FFI.fromPtr false
-      )
-        require_
-        (
-          self
-           & namespace
-           & version
-           & flags
-           & []
-        )
-       before GIRepositoryRepositoryClass.FFI.touchPtr self
-       before Utf8.FFI.touchPtr namespace
-       before Utf8.FFI.touchOptPtr version
-    fun requirePrivate
-      self
-      (
-        typelibDir,
-        namespace,
-        version,
-        flags
-      ) =
-      (
-        GIRepositoryRepositoryClass.FFI.withPtr false
-         &&&> Utf8.FFI.withPtr 0
-         &&&> Utf8.FFI.withPtr 0
-         &&&> Utf8.FFI.withOptPtr 0
-         &&&> GIRepositoryRepositoryLoadFlags.FFI.withVal
-         &&&> GLibErrorRecord.handleError
-         ---> GIRepositoryTypelibRecord.FFI.fromPtr false
-      )
-        requirePrivate_
-        (
-          self
-           & typelibDir
-           & namespace
-           & version
-           & flags
-           & []
-        )
-       before GIRepositoryRepositoryClass.FFI.touchPtr self
-       before Utf8.FFI.touchPtr typelibDir
-       before Utf8.FFI.touchPtr namespace
-       before Utf8.FFI.touchOptPtr version
   end

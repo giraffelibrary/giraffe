@@ -227,36 +227,6 @@ structure Pango : PANGO =
               x4
             )
     val quantizeLineGeometry_ = fn x1 & x2 => (_import "pango_quantize_line_geometry" : GInt.FFI.ref_ * GInt.FFI.ref_ -> unit;) (x1, x2)
-    val shapeFull_ =
-      fn
-        (x1, x2)
-         & x3
-         & (x4, x5)
-         & x6
-         & x7
-         & x8 =>
-          (
-            _import "mlton_pango_shape_full" :
-              Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GInt.FFI.val_
-               * Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
-               * GInt.FFI.val_
-               * PangoAnalysisRecord.FFI.non_opt PangoAnalysisRecord.FFI.p
-               * PangoGlyphStringRecord.FFI.non_opt PangoGlyphStringRecord.FFI.p
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6,
-              x7,
-              x8
-            )
     val splitFileList_ = _import "mlton_pango_split_file_list" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8CPtrArray.FFI.non_opt Utf8CPtrArray.FFI.out_p;
     val trimString_ = _import "mlton_pango_trim_string" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val unicharDirection_ = _import "pango_unichar_direction" : GChar.FFI.val_ -> PangoDirection.FFI.val_;
@@ -284,7 +254,6 @@ structure Pango : PANGO =
     structure Glyph = PangoGlyph
     structure GlyphUnit = PangoGlyphUnit
     structure Alignment = PangoAlignment
-    structure AnalysisRecord = PangoAnalysisRecord
     structure AttrListRecord = PangoAttrListRecord
     structure AttrType = PangoAttrType
     structure AttributeRecord = PangoAttributeRecord
@@ -329,7 +298,6 @@ structure Pango : PANGO =
     structure Weight = PangoWeight
     structure WrapMode = PangoWrapMode
     structure LayoutRunRecord = PangoLayoutRunRecord
-    structure Analysis = PangoAnalysis
     structure AttrList = PangoAttrList
     structure Attribute = PangoAttribute
     structure Color = PangoColor
@@ -626,33 +594,6 @@ structure Pango : PANGO =
       in
         (thickness, position)
       end
-    fun shapeFull
-      (
-        itemText,
-        itemLength,
-        paragraphText,
-        paragraphLength,
-        analysis,
-        glyphs
-      ) =
-      (
-        Utf8.FFI.withPtr 0
-         &&&> GInt.FFI.withVal
-         &&&> Utf8.FFI.withOptPtr 0
-         &&&> GInt.FFI.withVal
-         &&&> PangoAnalysisRecord.FFI.withPtr false
-         &&&> PangoGlyphStringRecord.FFI.withPtr false
-         ---> I
-      )
-        shapeFull_
-        (
-          itemText
-           & itemLength
-           & paragraphText
-           & paragraphLength
-           & analysis
-           & glyphs
-        )
     fun splitFileList str = (Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) splitFileList_ str
     fun trimString str = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) trimString_ str
     fun unicharDirection ch = (GChar.FFI.withVal ---> PangoDirection.FFI.fromVal) unicharDirection_ ch

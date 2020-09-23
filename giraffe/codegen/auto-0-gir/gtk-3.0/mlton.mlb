@@ -35,8 +35,6 @@ in
   GTK_ACCEL_FLAGS-sig.sml
   GTK_ACCEL_GROUP_CLASS-sig.sml
   GTK_ACCEL_GROUP-sig.sml
-  GTK_ACCEL_GROUP_ENTRY_RECORD-sig.sml
-  GTK_ACCEL_GROUP_ENTRY-sig.sml
   GTK_ACCEL_KEY_RECORD-sig.sml
   GTK_ACCEL_KEY-sig.sml
   GTK_ACCEL_LABEL_CLASS-sig.sml
@@ -49,8 +47,6 @@ in
   GTK_ACTION-sig.sml
   GTK_ACTION_BAR_CLASS-sig.sml
   GTK_ACTION_BAR-sig.sml
-  GTK_ACTION_ENTRY_RECORD-sig.sml
-  GTK_ACTION_ENTRY-sig.sml
   GTK_ACTION_GROUP_CLASS-sig.sml
   GTK_ACTION_GROUP-sig.sml
   GTK_ACTIONABLE_CLASS-sig.sml
@@ -239,8 +235,6 @@ in
   GTK_FILE_FILTER_CLASS-sig.sml
   GTK_FILE_FILTER-sig.sml
   GTK_FILE_FILTER_FLAGS-sig.sml
-  GTK_FILE_FILTER_INFO_RECORD-sig.sml
-  GTK_FILE_FILTER_INFO-sig.sml
   GTK_FIXED_CLASS-sig.sml
   GTK_FIXED-sig.sml
   GTK_FLOW_BOX_CLASS-sig.sml
@@ -517,13 +511,9 @@ in
   GTK_RECENT_CHOOSER_MENU-sig.sml
   GTK_RECENT_CHOOSER_WIDGET_CLASS-sig.sml
   GTK_RECENT_CHOOSER_WIDGET-sig.sml
-  GTK_RECENT_DATA_RECORD-sig.sml
-  GTK_RECENT_DATA-sig.sml
   GTK_RECENT_FILTER_CLASS-sig.sml
   GTK_RECENT_FILTER-sig.sml
   GTK_RECENT_FILTER_FLAGS-sig.sml
-  GTK_RECENT_FILTER_INFO_RECORD-sig.sml
-  GTK_RECENT_FILTER_INFO-sig.sml
   GTK_RECENT_INFO_RECORD-sig.sml
   GTK_RECENT_INFO-sig.sml
   GTK_RECENT_MANAGER_CLASS-sig.sml
@@ -576,8 +566,6 @@ in
   GTK_SEPARATOR_TOOL_ITEM-sig.sml
   GTK_SETTINGS_CLASS-sig.sml
   GTK_SETTINGS-sig.sml
-  GTK_SETTINGS_VALUE_RECORD-sig.sml
-  GTK_SETTINGS_VALUE-sig.sml
   GTK_SHADOW_TYPE-sig.sml
   GTK_SHORTCUT_LABEL_CLASS-sig.sml
   GTK_SHORTCUT_LABEL-sig.sml
@@ -624,8 +612,6 @@ in
   GTK_STATUSBAR-sig.sml
   GTK_STATUSBAR_ACCESSIBLE_CLASS-sig.sml
   GTK_STATUSBAR_ACCESSIBLE-sig.sml
-  GTK_STOCK_ITEM_RECORD-sig.sml
-  GTK_STOCK_ITEM-sig.sml
   GTK_STYLE_CLASS-sig.sml
   GTK_STYLE-sig.sml
   GTK_STYLE_CONTEXT_CLASS-sig.sml
@@ -785,12 +771,10 @@ in
     mlton/GtkAllocationRecord.sml
     mlton/GtkAccelFlags.sml
     mlton/GtkAccelGroupClass.sml
-    mlton/GtkAccelGroupEntryRecord.sml
     mlton/GtkAccelKeyRecord.sml
     mlton/GtkAccelMapClass.sml
     mlton/GtkAccessibleClass.sml
     mlton/GtkActionClass.sml
-    mlton/GtkActionEntryRecord.sml
     mlton/GtkActionGroupClass.sml
     mlton/GtkActionableClass.sml
     mlton/GtkActivatableClass.sml
@@ -849,7 +833,6 @@ in
     mlton/GtkFileChooserError.sml
     mlton/GtkFileFilterClass.sml
     mlton/GtkFileFilterFlags.sml
-    mlton/GtkFileFilterInfoRecord.sml
     mlton/GtkFontChooserClass.sml
     mlton/GtkGradientRecord.sml
     mlton/GtkIMContextClass.sml
@@ -914,10 +897,8 @@ in
     mlton/GtkRcTokenType.sml
     mlton/GtkRecentChooserClass.sml
     mlton/GtkRecentChooserError.sml
-    mlton/GtkRecentDataRecord.sml
     mlton/GtkRecentFilterClass.sml
     mlton/GtkRecentFilterFlags.sml
-    mlton/GtkRecentFilterInfoRecord.sml
     mlton/GtkRecentInfoRecord.sml
     mlton/GtkRecentManagerClass.sml
     mlton/GtkRecentManagerError.sml
@@ -936,7 +917,6 @@ in
     mlton/GtkSelectionMode.sml
     mlton/GtkSensitivityType.sml
     mlton/GtkSettingsClass.sml
-    mlton/GtkSettingsValueRecord.sml
     mlton/GtkShadowType.sml
     mlton/GtkShortcutType.sml
     mlton/GtkSizeGroupClass.sml
@@ -949,7 +929,6 @@ in
     mlton/GtkStateFlags.sml
     mlton/GtkStateType.sml
     mlton/GtkStatusIconClass.sml
-    mlton/GtkStockItemRecord.sml
     mlton/GtkStyleClass.sml
     mlton/GtkStyleContextClass.sml
     mlton/GtkStyleContextPrintFlags.sml
@@ -1007,13 +986,11 @@ in
     mlton/GtkWindowPosition.sml
     mlton/GtkWindowType.sml
     mlton/GtkWrapMode.sml
-    GtkAccelGroupEntryRecordCArrayN.sml
-    mlton/GtkAccelGroupEntry.sml
+    mlton/GtkAccelGroup.sml
     mlton/GtkAccelKey.sml
     mlton/GtkAccelMap.sml
     mlton/GtkAccessible.sml
     mlton/GtkAction.sml
-    mlton/GtkActionEntry.sml
     mlton/GtkActionGroup.sml
     mlton/GtkActionable.sml
     mlton/GtkActivatable.sml
@@ -1050,7 +1027,6 @@ in
     mlton/GtkFileChooser.sml
     mlton/GtkFileChooserNativeClass.sml
     mlton/GtkFileFilter.sml
-    mlton/GtkFileFilterInfo.sml
     mlton/GtkFontChooser.sml
     mlton/GtkGLAreaClass.sml
     mlton/GtkGestureClass.sml
@@ -1083,19 +1059,15 @@ in
     mlton/GtkRcStyle.sml
     mlton/GtkRecentActionClass.sml
     mlton/GtkRecentChooser.sml
-    mlton/GtkRecentData.sml
     mlton/GtkRecentFilter.sml
-    mlton/GtkRecentFilterInfo.sml
     mlton/GtkRecentInfo.sml
     mlton/GtkRecentManager.sml
     mlton/GtkRequisition.sml
     mlton/GtkScrollable.sml
     mlton/GtkSelectionData.sml
     mlton/GtkSeparatorClass.sml
-    mlton/GtkSettingsValue.sml
     mlton/GtkSizeGroup.sml
     mlton/GtkSpinnerClass.sml
-    mlton/GtkStockItem.sml
     mlton/GtkStyle.sml
     mlton/GtkStyleContext.sml
     mlton/GtkStyleProperties.sml
@@ -1131,9 +1103,7 @@ in
     mlton/GtkUIManager.sml
     mlton/GtkWidgetAccessibleClass.sml
     mlton/GtkWidgetPath.sml
-    GtkStockItemRecordCArrayN.sml
     GtkTargetEntryRecordCArrayN.sml
-    mlton/GtkAccelGroup.sml
     mlton/GtkArrowClass.sml
     mlton/GtkArrowAccessibleClass.sml
     mlton/GtkBinClass.sml

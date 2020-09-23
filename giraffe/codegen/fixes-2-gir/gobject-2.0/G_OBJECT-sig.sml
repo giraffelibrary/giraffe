@@ -6,19 +6,13 @@ signature G_OBJECT =
     type 'object_class property_init_t
     structure Type : G_OBJECT_TYPE
     structure ConnectFlags : G_OBJECT_CONNECT_FLAGS
-    structure EnumClassRecord : G_OBJECT_ENUM_CLASS_RECORD
-    structure EnumValueRecord : G_OBJECT_ENUM_VALUE_RECORD
-    structure FlagsClassRecord : G_OBJECT_FLAGS_CLASS_RECORD
-    structure FlagsValueRecord : G_OBJECT_FLAGS_VALUE_RECORD
     structure ParamFlags : G_OBJECT_PARAM_FLAGS
     structure SignalFlags : G_OBJECT_SIGNAL_FLAGS
     structure SignalInvocationHintRecord : G_OBJECT_SIGNAL_INVOCATION_HINT_RECORD
     structure SignalMatchType : G_OBJECT_SIGNAL_MATCH_TYPE
-    structure SignalQueryRecord : G_OBJECT_SIGNAL_QUERY_RECORD
     structure TypeDebugFlags : G_OBJECT_TYPE_DEBUG_FLAGS
     structure TypeFlags : G_OBJECT_TYPE_FLAGS
     structure TypeFundamentalFlags : G_OBJECT_TYPE_FUNDAMENTAL_FLAGS
-    structure TypeQueryRecord : G_OBJECT_TYPE_QUERY_RECORD
     structure ValueArrayRecord :
       G_OBJECT_VALUE_ARRAY_RECORD
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
@@ -26,27 +20,9 @@ signature G_OBJECT =
       G_OBJECT_BINDING_FLAGS
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
         where type type_t = Type.t
-    structure EnumClass :
-      G_OBJECT_ENUM_CLASS
-        where type t = EnumClassRecord.t
-    structure EnumValue :
-      G_OBJECT_ENUM_VALUE
-        where type t = EnumValueRecord.t
-    structure FlagsClass :
-      G_OBJECT_FLAGS_CLASS
-        where type t = FlagsClassRecord.t
-    structure FlagsValue :
-      G_OBJECT_FLAGS_VALUE
-        where type t = FlagsValueRecord.t
     structure SignalInvocationHint :
       G_OBJECT_SIGNAL_INVOCATION_HINT
         where type t = SignalInvocationHintRecord.t
-    structure SignalQuery :
-      G_OBJECT_SIGNAL_QUERY
-        where type t = SignalQueryRecord.t
-    structure TypeQuery :
-      G_OBJECT_TYPE_QUERY
-        where type t = TypeQueryRecord.t
     structure ValueRecord :
       G_OBJECT_VALUE_RECORD
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
@@ -269,9 +245,7 @@ signature G_OBJECT =
       G_OBJECT_TYPE_MODULE
         where type 'a class = 'a TypeModuleClass.class
         where type 'a type_plugin_class = 'a TypePluginClass.class
-        where type enum_value_t = EnumValueRecord.t
         where type type_t = Type.t
-        where type flags_value_t = FlagsValueRecord.t
     structure TypePlugin :
       G_OBJECT_TYPE_PLUGIN
         where type 'a class = 'a TypePluginClass.class
@@ -309,14 +283,6 @@ signature G_OBJECT =
     val TYPE_RESERVED_USER_FIRST : LargeInt.int
     val VALUE_COLLECT_FORMAT_MAX_LENGTH : LargeInt.int
     val VALUE_NOCOPY_CONTENTS : LargeInt.int
-    val enumGetValue : EnumClassRecord.t * LargeInt.int -> EnumValueRecord.t
-    val enumGetValueByName : EnumClassRecord.t * string -> EnumValueRecord.t
-    val enumGetValueByNick : EnumClassRecord.t * string -> EnumValueRecord.t
-    val enumRegisterStatic : string * EnumValueRecord.t -> Type.t
-    val flagsGetFirstValue : FlagsClassRecord.t * LargeInt.int -> FlagsValueRecord.t
-    val flagsGetValueByName : FlagsClassRecord.t * string -> FlagsValueRecord.t
-    val flagsGetValueByNick : FlagsClassRecord.t * string -> FlagsValueRecord.t
-    val flagsRegisterStatic : string * FlagsValueRecord.t -> Type.t
     val gtypeGetType : unit -> Type.t
     val paramSpecBoolean :
       string
@@ -527,7 +493,6 @@ signature G_OBJECT =
     val typeNextBase : Type.t * Type.t -> Type.t
     val typeParent : Type.t -> Type.t
     val typeQname : Type.t -> GLib.Quark.t
-    val typeQuery : Type.t -> TypeQueryRecord.t
     val typeRegisterDynamic :
       Type.t
        * string

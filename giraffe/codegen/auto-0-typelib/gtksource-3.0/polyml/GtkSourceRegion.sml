@@ -1,7 +1,6 @@
 structure GtkSourceRegion :>
   GTK_SOURCE_REGION
-    where type 'a class = 'a GtkSourceRegionClass.class
-    where type region_iter_t = GtkSourceRegionIterRecord.t =
+    where type 'a class = 'a GtkSourceRegionClass.class =
   struct
     local
       open PolyMLFFI
@@ -26,7 +25,6 @@ structure GtkSourceRegion :>
              --> GBool.PolyML.cVal
           )
       val getBuffer_ = call (getSymbol "gtk_source_region_get_buffer") (GtkSourceRegionClass.PolyML.cPtr --> GtkTextBufferClass.PolyML.cOptPtr)
-      val getStartRegionIter_ = call (getSymbol "gtk_source_region_get_start_region_iter") (GtkSourceRegionClass.PolyML.cPtr &&> GtkSourceRegionIterRecord.PolyML.cPtr --> cVoid)
       val intersectRegion_ = call (getSymbol "gtk_source_region_intersect_region") (GtkSourceRegionClass.PolyML.cPtr &&> GtkSourceRegionClass.PolyML.cOptPtr --> GtkSourceRegionClass.PolyML.cOptPtr)
       val intersectSubregion_ =
         call (getSymbol "gtk_source_region_intersect_subregion")
@@ -49,7 +47,6 @@ structure GtkSourceRegion :>
       val toString_ = call (getSymbol "gtk_source_region_to_string") (GtkSourceRegionClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
     end
     type 'a class = 'a GtkSourceRegionClass.class
-    type region_iter_t = GtkSourceRegionIterRecord.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     fun new buffer = (GtkTextBufferClass.FFI.withPtr false ---> GtkSourceRegionClass.FFI.fromPtr true) new_ buffer
@@ -90,12 +87,6 @@ structure GtkSourceRegion :>
         if retVal then SOME (start, end') else NONE
       end
     fun getBuffer self = (GtkSourceRegionClass.FFI.withPtr false ---> GtkTextBufferClass.FFI.fromOptPtr false) getBuffer_ self before GtkSourceRegionClass.FFI.touchPtr self
-    fun getStartRegionIter self =
-      let
-        val iter & () = (GtkSourceRegionClass.FFI.withPtr false &&&> GtkSourceRegionIterRecord.FFI.withNewPtr ---> GtkSourceRegionIterRecord.FFI.fromPtr true && I) getStartRegionIter_ (self & ())
-      in
-        iter
-      end
     fun intersectRegion self region2 = (GtkSourceRegionClass.FFI.withPtr false &&&> GtkSourceRegionClass.FFI.withOptPtr false ---> GtkSourceRegionClass.FFI.fromOptPtr true) intersectRegion_ (self & region2)
     fun intersectSubregion self (start, end') =
       (

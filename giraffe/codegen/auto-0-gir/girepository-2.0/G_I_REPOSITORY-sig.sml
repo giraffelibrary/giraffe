@@ -36,14 +36,11 @@ signature G_I_REPOSITORY =
       G_I_REPOSITORY_BASE_INFO
         where type t = BaseInfoRecord.t
         where type info_type_t = InfoType.t
-        where type typelib_t = TypelibRecord.t
     structure Repository :
       G_I_REPOSITORY_REPOSITORY
         where type 'a class = 'a RepositoryClass.class
         where type enum_info_t = EnumInfoRecord.t
         where type base_info_t = BaseInfoRecord.t
-        where type typelib_t = TypelibRecord.t
-        where type repository_load_flags_t = RepositoryLoadFlags.t
     val argInfoGetClosure : ArgInfoRecord.t -> LargeInt.int
     val argInfoGetDestroy : ArgInfoRecord.t -> LargeInt.int
     val argInfoGetDirection : ArgInfoRecord.t -> Direction.t
@@ -83,12 +80,6 @@ signature G_I_REPOSITORY =
     val functionInfoGetProperty : FunctionInfoRecord.t -> PropertyInfoRecord.t
     val functionInfoGetSymbol : FunctionInfoRecord.t -> string
     val functionInfoGetVfunc : FunctionInfoRecord.t -> VFuncInfoRecord.t
-    val infoNew :
-      InfoType.t
-       * BaseInfoRecord.t
-       * TypelibRecord.t
-       * LargeInt.int
-       -> BaseInfoRecord.t
     val infoTypeToString : InfoType.t -> string
     val interfaceInfoFindMethod : InterfaceInfoRecord.t * string -> FunctionInfoRecord.t
     val interfaceInfoFindSignal : InterfaceInfoRecord.t * string -> SignalInfoRecord.t

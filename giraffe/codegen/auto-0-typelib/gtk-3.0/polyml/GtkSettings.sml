@@ -2,7 +2,6 @@ structure GtkSettings :>
   GTK_SETTINGS
     where type 'a class = 'a GtkSettingsClass.class
     where type 'a style_provider_class = 'a GtkStyleProviderClass.class
-    where type settings_value_t = GtkSettingsValueRecord.t
     where type i_m_preedit_style_t = GtkIMPreeditStyle.t
     where type i_m_status_style_t = GtkIMStatusStyle.t
     where type corner_type_t = GtkCornerType.t
@@ -36,14 +35,6 @@ structure GtkSettings :>
              &&> Utf8.PolyML.cInPtr
              --> cVoid
           )
-      val setPropertyValue_ =
-        call (getSymbol "gtk_settings_set_property_value")
-          (
-            GtkSettingsClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> GtkSettingsValueRecord.PolyML.cPtr
-             --> cVoid
-          )
       val setStringProperty_ =
         call (getSymbol "gtk_settings_set_string_property")
           (
@@ -56,7 +47,6 @@ structure GtkSettings :>
     end
     type 'a class = 'a GtkSettingsClass.class
     type 'a style_provider_class = 'a GtkStyleProviderClass.class
-    type settings_value_t = GtkSettingsValueRecord.t
     type i_m_preedit_style_t = GtkIMPreeditStyle.t
     type i_m_status_style_t = GtkIMStatusStyle.t
     type corner_type_t = GtkCornerType.t
@@ -111,19 +101,6 @@ structure GtkSettings :>
            & name
            & vLong
            & origin
-        )
-    fun setPropertyValue self (name, svalue) =
-      (
-        GtkSettingsClass.FFI.withPtr false
-         &&&> Utf8.FFI.withPtr 0
-         &&&> GtkSettingsValueRecord.FFI.withPtr false
-         ---> I
-      )
-        setPropertyValue_
-        (
-          self
-           & name
-           & svalue
         )
     fun setStringProperty
       self

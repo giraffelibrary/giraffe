@@ -677,28 +677,6 @@ structure GLib : G_LIB =
     val getUserRuntimeDir_ = _import "g_get_user_runtime_dir" : unit -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getUserSpecialDir_ = _import "g_get_user_special_dir" : GLibUserDirectory.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val getenv_ = _import "mlton_g_getenv" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
-    val hookDestroy_ = fn x1 & x2 => (_import "g_hook_destroy" : GLibHookListRecord.FFI.non_opt GLibHookListRecord.FFI.p * GUInt64.FFI.val_ -> GBool.FFI.val_;) (x1, x2)
-    val hookDestroyLink_ = fn x1 & x2 => (_import "g_hook_destroy_link" : GLibHookListRecord.FFI.non_opt GLibHookListRecord.FFI.p * GLibHookRecord.FFI.non_opt GLibHookRecord.FFI.p -> unit;) (x1, x2)
-    val hookFree_ = fn x1 & x2 => (_import "g_hook_free" : GLibHookListRecord.FFI.non_opt GLibHookListRecord.FFI.p * GLibHookRecord.FFI.non_opt GLibHookRecord.FFI.p -> unit;) (x1, x2)
-    val hookInsertBefore_ =
-      fn
-        x1
-         & x2
-         & x3 =>
-          (
-            _import "g_hook_insert_before" :
-              GLibHookListRecord.FFI.non_opt GLibHookListRecord.FFI.p
-               * GLibHookRecord.FFI.opt GLibHookRecord.FFI.p
-               * GLibHookRecord.FFI.non_opt GLibHookRecord.FFI.p
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
-    val hookPrepend_ = fn x1 & x2 => (_import "g_hook_prepend" : GLibHookListRecord.FFI.non_opt GLibHookListRecord.FFI.p * GLibHookRecord.FFI.non_opt GLibHookRecord.FFI.p -> unit;) (x1, x2)
-    val hookUnref_ = fn x1 & x2 => (_import "g_hook_unref" : GLibHookListRecord.FFI.non_opt GLibHookListRecord.FFI.p * GLibHookRecord.FFI.non_opt GLibHookRecord.FFI.p -> unit;) (x1, x2)
     val hostnameIsAsciiEncoded_ = _import "mlton_g_hostname_is_ascii_encoded" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
     val hostnameIsIpAddress_ = _import "mlton_g_hostname_is_ip_address" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
     val hostnameIsNonAscii_ = _import "mlton_g_hostname_is_non_ascii" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
@@ -883,55 +861,10 @@ structure GLib : G_LIB =
             )
     val onErrorQuery_ = _import "mlton_g_on_error_query" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val onErrorStackTrace_ = _import "mlton_g_on_error_stack_trace" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
-    val parseDebugString_ =
-      fn
-        (x1, x2)
-         & (x3, x4)
-         & x5 =>
-          (
-            _import "mlton_g_parse_debug_string" :
-              Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
-               * GLibDebugKeyRecordCArrayN.MLton.p1
-               * GLibDebugKeyRecordCArrayN.FFI.non_opt GLibDebugKeyRecordCArrayN.MLton.p2
-               * GUInt32.FFI.val_
-               -> GUInt32.FFI.val_;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5
-            )
     val pathGetBasename_ = _import "mlton_g_path_get_basename" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val pathGetDirname_ = _import "mlton_g_path_get_dirname" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val pathIsAbsolute_ = _import "mlton_g_path_is_absolute" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
     val pathSkipRoot_ = _import "mlton_g_path_skip_root" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> Utf8.FFI.opt Utf8.FFI.out_p;
-    val patternMatch_ =
-      fn
-        x1
-         & x2
-         & (x3, x4)
-         & (x5, x6) =>
-          (
-            _import "mlton_g_pattern_match" :
-              GLibPatternSpecRecord.FFI.non_opt GLibPatternSpecRecord.FFI.p
-               * GUInt32.FFI.val_
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * Utf8.MLton.p1
-               * Utf8.FFI.opt Utf8.MLton.p2
-               -> GBool.FFI.val_;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4,
-              x5,
-              x6
-            )
     val patternMatchSimple_ =
       fn
         (x1, x2) & (x3, x4) =>
@@ -948,21 +881,6 @@ structure GLib : G_LIB =
               x2,
               x3,
               x4
-            )
-    val patternMatchString_ =
-      fn
-        x1 & (x2, x3) =>
-          (
-            _import "mlton_g_pattern_match_string" :
-              GLibPatternSpecRecord.FFI.non_opt GLibPatternSpecRecord.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               -> GBool.FFI.val_;
-          )
-            (
-              x1,
-              x2,
-              x3
             )
     val randomDouble_ = _import "g_random_double" : unit -> GDouble.FFI.val_;
     val randomDoubleRange_ = fn x1 & x2 => (_import "g_random_double_range" : GDouble.FFI.val_ * GDouble.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
@@ -1053,27 +971,6 @@ structure GLib : G_LIB =
             )
     val reloadUserSpecialDirsCache_ = _import "g_reload_user_special_dirs_cache" : unit -> unit;
     val rmdir_ = _import "mlton_g_rmdir" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GInt32.FFI.val_;
-    val sequenceMove_ = fn x1 & x2 => (_import "g_sequence_move" : GLibSequenceIterRecord.FFI.non_opt GLibSequenceIterRecord.FFI.p * GLibSequenceIterRecord.FFI.non_opt GLibSequenceIterRecord.FFI.p -> unit;) (x1, x2)
-    val sequenceMoveRange_ =
-      fn
-        x1
-         & x2
-         & x3 =>
-          (
-            _import "g_sequence_move_range" :
-              GLibSequenceIterRecord.FFI.non_opt GLibSequenceIterRecord.FFI.p
-               * GLibSequenceIterRecord.FFI.non_opt GLibSequenceIterRecord.FFI.p
-               * GLibSequenceIterRecord.FFI.non_opt GLibSequenceIterRecord.FFI.p
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3
-            )
-    val sequenceRemove_ = _import "g_sequence_remove" : GLibSequenceIterRecord.FFI.non_opt GLibSequenceIterRecord.FFI.p -> unit;
-    val sequenceRemoveRange_ = fn x1 & x2 => (_import "g_sequence_remove_range" : GLibSequenceIterRecord.FFI.non_opt GLibSequenceIterRecord.FFI.p * GLibSequenceIterRecord.FFI.non_opt GLibSequenceIterRecord.FFI.p -> unit;) (x1, x2)
-    val sequenceSwap_ = fn x1 & x2 => (_import "g_sequence_swap" : GLibSequenceIterRecord.FFI.non_opt GLibSequenceIterRecord.FFI.p * GLibSequenceIterRecord.FFI.non_opt GLibSequenceIterRecord.FFI.p -> unit;) (x1, x2)
     val setApplicationName_ = _import "mlton_g_set_application_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val setPrgname_ = _import "mlton_g_set_prgname" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> unit;
     val setenv_ =
@@ -1260,7 +1157,6 @@ structure GLib : G_LIB =
     val testRandInt_ = _import "g_test_rand_int" : unit -> GInt32.FFI.val_;
     val testRandIntRange_ = fn x1 & x2 => (_import "g_test_rand_int_range" : GInt32.FFI.val_ * GInt32.FFI.val_ -> GInt32.FFI.val_;) (x1, x2)
     val testRun_ = _import "g_test_run" : unit -> GInt32.FFI.val_;
-    val testRunSuite_ = _import "g_test_run_suite" : GLibTestSuiteRecord.FFI.non_opt GLibTestSuiteRecord.FFI.p -> GInt32.FFI.val_;
     val testSetNonfatalAssertions_ = _import "g_test_set_nonfatal_assertions" : unit -> unit;
     val testSkip_ = _import "mlton_g_test_skip" : Utf8.MLton.p1 * Utf8.FFI.opt Utf8.MLton.p2 -> unit;
     val testSubprocess_ = _import "g_test_subprocess" : unit -> GBool.FFI.val_;
@@ -1348,7 +1244,6 @@ structure GLib : G_LIB =
             )
     val timeoutSourceNew_ = _import "g_timeout_source_new" : GUInt32.FFI.val_ -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
     val timeoutSourceNewSeconds_ = _import "g_timeout_source_new_seconds" : GUInt32.FFI.val_ -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;
-    val trashStackHeight_ = _import "g_trash_stack_height" : GLibTrashStackRecord.FFI.non_opt GLibTrashStackRecord.FFI.p -> GUInt32.FFI.val_;
     val unixFdSourceNew_ = fn x1 & x2 => (_import "g_unix_fd_source_new" : GInt32.FFI.val_ * GLibIOCondition.FFI.val_ -> GLibSourceRecord.FFI.non_opt GLibSourceRecord.FFI.p;) (x1, x2)
     val unixSetFdNonblocking_ =
       fn
@@ -1503,11 +1398,11 @@ structure GLib : G_LIB =
     structure DateMonth = GLibDateMonth
     structure DateTimeRecord = GLibDateTimeRecord
     structure DateWeekday = GLibDateWeekday
-    structure DebugKeyRecord = GLibDebugKeyRecord
     structure ErrorType = GLibErrorType
     structure FileTest = GLibFileTest
     structure FormatSizeFlags = GLibFormatSizeFlags
     structure HookFlagMask = GLibHookFlagMask
+    structure IConvRecord = GLibIConvRecord
     structure IOChannelRecord = GLibIOChannelRecord
     structure IOCondition = GLibIOCondition
     structure IOError = GLibIOError
@@ -1527,10 +1422,8 @@ structure GLib : G_LIB =
     structure NormalizeMode = GLibNormalizeMode
     structure OnceStatus = GLibOnceStatus
     structure OptionArg = GLibOptionArg
-    structure OptionEntryRecord = GLibOptionEntryRecord
     structure OptionFlags = GLibOptionFlags
     structure OptionGroupRecord = GLibOptionGroupRecord
-    structure PatternSpecRecord = GLibPatternSpecRecord
     structure RegexRecord = GLibRegexRecord
     structure RegexCompileFlags = GLibRegexCompileFlags
     structure RegexMatchFlags = GLibRegexMatchFlags
@@ -1539,12 +1432,10 @@ structure GLib : G_LIB =
     structure SourceRecord = GLibSourceRecord
     structure SpawnFlags = GLibSpawnFlags
     structure StringRecord = GLibStringRecord
-    structure TestCaseRecord = GLibTestCaseRecord
     structure TestConfigRecord = GLibTestConfigRecord
     structure TestFileType = GLibTestFileType
     structure TestLogType = GLibTestLogType
     structure TestSubprocessFlags = GLibTestSubprocessFlags
-    structure TestSuiteRecord = GLibTestSuiteRecord
     structure TestTrapFlags = GLibTestTrapFlags
     structure ThreadRecord = GLibThreadRecord
     structure TimeType = GLibTimeType
@@ -1566,23 +1457,19 @@ structure GLib : G_LIB =
     structure Checksum = GLibChecksum
     structure Date = GLibDate
     structure DateTime = GLibDateTime
-    structure DebugKey = GLibDebugKey
     structure ErrorRecord = GLibErrorRecord
+    structure IConv = GLibIConv
     structure KeyFile = GLibKeyFile
     structure MainContext = GLibMainContext
     structure MainLoop = GLibMainLoop
     structure MappedFile = GLibMappedFile
     structure MarkupParseContext = GLibMarkupParseContext
     structure MatchInfo = GLibMatchInfo
-    structure OptionEntry = GLibOptionEntry
     structure OptionGroup = GLibOptionGroup
-    structure PatternSpec = GLibPatternSpec
     structure Regex = GLibRegex
     structure Source = GLibSource
     structure String = GLibString
-    structure TestCase = GLibTestCase
     structure TestConfig = GLibTestConfig
-    structure TestSuite = GLibTestSuite
     structure Thread = GLibThread
     structure TimeVal = GLibTimeVal
     structure TimeZone = GLibTimeZone
@@ -1590,7 +1477,6 @@ structure GLib : G_LIB =
     structure VariantBuilder = GLibVariantBuilder
     structure VariantDict = GLibVariantDict
     structure VariantTypeRecordCPtrArrayN = GLibVariantTypeRecordCPtrArrayN
-    structure DebugKeyRecordCArrayN = GLibDebugKeyRecordCArrayN
     structure ChildWatchFunc = GLibChildWatchFunc
     structure BookmarkFileError = GLibBookmarkFileError
     exception BookmarkFileError = GLibBookmarkFileError
@@ -2225,29 +2111,6 @@ structure GLib : G_LIB =
     fun getUserRuntimeDir () = (I ---> Utf8.FFI.fromPtr 0) getUserRuntimeDir_ ()
     fun getUserSpecialDir directory = (GLibUserDirectory.FFI.withVal ---> Utf8.FFI.fromPtr 0) getUserSpecialDir_ directory
     fun getenv variable = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getenv_ variable before Utf8.FFI.touchPtr variable
-    fun hookDestroy (hookList, hookId) = (GLibHookListRecord.FFI.withPtr false &&&> GUInt64.FFI.withVal ---> GBool.FFI.fromVal) hookDestroy_ (hookList & hookId)
-    fun hookDestroyLink (hookList, hook) = (GLibHookListRecord.FFI.withPtr false &&&> GLibHookRecord.FFI.withPtr false ---> I) hookDestroyLink_ (hookList & hook)
-    fun hookFree (hookList, hook) = (GLibHookListRecord.FFI.withPtr false &&&> GLibHookRecord.FFI.withPtr false ---> I) hookFree_ (hookList & hook)
-    fun hookInsertBefore
-      (
-        hookList,
-        sibling,
-        hook
-      ) =
-      (
-        GLibHookListRecord.FFI.withPtr false
-         &&&> GLibHookRecord.FFI.withOptPtr false
-         &&&> GLibHookRecord.FFI.withPtr false
-         ---> I
-      )
-        hookInsertBefore_
-        (
-          hookList
-           & sibling
-           & hook
-        )
-    fun hookPrepend (hookList, hook) = (GLibHookListRecord.FFI.withPtr false &&&> GLibHookRecord.FFI.withPtr false ---> I) hookPrepend_ (hookList & hook)
-    fun hookUnref (hookList, hook) = (GLibHookListRecord.FFI.withPtr false &&&> GLibHookRecord.FFI.withPtr false ---> I) hookUnref_ (hookList & hook)
     fun hostnameIsAsciiEncoded hostname = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hostnameIsAsciiEncoded_ hostname
     fun hostnameIsIpAddress hostname = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hostnameIsIpAddress_ hostname
     fun hostnameIsNonAscii hostname = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hostnameIsNonAscii_ hostname
@@ -2370,52 +2233,11 @@ structure GLib : G_LIB =
         )
     fun onErrorQuery prgName = (Utf8.FFI.withPtr 0 ---> I) onErrorQuery_ prgName
     fun onErrorStackTrace prgName = (Utf8.FFI.withPtr 0 ---> I) onErrorStackTrace_ prgName
-    fun parseDebugString (string, keys) =
-      let
-        val nkeys = LargeInt.fromInt (GLibDebugKeyRecordCArrayN.length keys)
-        val retVal =
-          (
-            Utf8.FFI.withOptPtr 0
-             &&&> GLibDebugKeyRecordCArrayN.FFI.withPtr 0
-             &&&> GUInt32.FFI.withVal
-             ---> GUInt32.FFI.fromVal
-          )
-            parseDebugString_
-            (
-              string
-               & keys
-               & nkeys
-            )
-      in
-        retVal
-      end
     fun pathGetBasename fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) pathGetBasename_ fileName
     fun pathGetDirname fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) pathGetDirname_ fileName
     fun pathIsAbsolute fileName = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) pathIsAbsolute_ fileName
     fun pathSkipRoot fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) pathSkipRoot_ fileName before Utf8.FFI.touchPtr fileName
-    fun patternMatch
-      (
-        pspec,
-        stringLength,
-        string,
-        stringReversed
-      ) =
-      (
-        GLibPatternSpecRecord.FFI.withPtr false
-         &&&> GUInt32.FFI.withVal
-         &&&> Utf8.FFI.withPtr 0
-         &&&> Utf8.FFI.withOptPtr 0
-         ---> GBool.FFI.fromVal
-      )
-        patternMatch_
-        (
-          pspec
-           & stringLength
-           & string
-           & stringReversed
-        )
     fun patternMatchSimple (pattern, string) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) patternMatchSimple_ (pattern & string)
-    fun patternMatchString (pspec, string) = (GLibPatternSpecRecord.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) patternMatchString_ (pspec & string)
     fun randomDouble () = (I ---> GDouble.FFI.fromVal) randomDouble_ ()
     fun randomDoubleRange (begin, end') = (GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal) randomDoubleRange_ (begin & end')
     fun randomInt () = (I ---> GUInt32.FFI.fromVal) randomInt_ ()
@@ -2484,28 +2306,6 @@ structure GLib : G_LIB =
         )
     fun reloadUserSpecialDirsCache () = (I ---> I) reloadUserSpecialDirsCache_ ()
     fun rmdir filename = (Utf8.FFI.withPtr 0 ---> GInt32.FFI.fromVal) rmdir_ filename
-    fun sequenceMove (src, dest) = (GLibSequenceIterRecord.FFI.withPtr false &&&> GLibSequenceIterRecord.FFI.withPtr false ---> I) sequenceMove_ (src & dest)
-    fun sequenceMoveRange
-      (
-        dest,
-        begin,
-        end'
-      ) =
-      (
-        GLibSequenceIterRecord.FFI.withPtr false
-         &&&> GLibSequenceIterRecord.FFI.withPtr false
-         &&&> GLibSequenceIterRecord.FFI.withPtr false
-         ---> I
-      )
-        sequenceMoveRange_
-        (
-          dest
-           & begin
-           & end'
-        )
-    fun sequenceRemove iter = (GLibSequenceIterRecord.FFI.withPtr false ---> I) sequenceRemove_ iter
-    fun sequenceRemoveRange (begin, end') = (GLibSequenceIterRecord.FFI.withPtr false &&&> GLibSequenceIterRecord.FFI.withPtr false ---> I) sequenceRemoveRange_ (begin & end')
-    fun sequenceSwap (a, b) = (GLibSequenceIterRecord.FFI.withPtr false &&&> GLibSequenceIterRecord.FFI.withPtr false ---> I) sequenceSwap_ (a & b)
     fun setApplicationName applicationName = (Utf8.FFI.withPtr 0 ---> I) setApplicationName_ applicationName
     fun setPrgname prgname = (Utf8.FFI.withPtr 0 ---> I) setPrgname_ prgname
     fun setenv
@@ -2642,7 +2442,6 @@ structure GLib : G_LIB =
     fun testRandInt () = (I ---> GInt32.FFI.fromVal) testRandInt_ ()
     fun testRandIntRange (begin, end') = (GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) testRandIntRange_ (begin & end')
     fun testRun () = (I ---> GInt32.FFI.fromVal) testRun_ ()
-    fun testRunSuite suite = (GLibTestSuiteRecord.FFI.withPtr false ---> GInt32.FFI.fromVal) testRunSuite_ suite
     fun testSetNonfatalAssertions () = (I ---> I) testSetNonfatalAssertions_ ()
     fun testSkip msg = (Utf8.FFI.withOptPtr 0 ---> I) testSkip_ msg
     fun testSubprocess () = (I ---> GBool.FFI.fromVal) testSubprocess_ ()
@@ -2713,7 +2512,6 @@ structure GLib : G_LIB =
       end
     fun timeoutSourceNew interval = (GUInt32.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) timeoutSourceNew_ interval
     fun timeoutSourceNewSeconds interval = (GUInt32.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) timeoutSourceNewSeconds_ interval
-    fun trashStackHeight stackP = (GLibTrashStackRecord.FFI.withPtr false ---> GUInt32.FFI.fromVal) trashStackHeight_ stackP
     fun unixFdSourceNew (fd, condition) = (GInt32.FFI.withVal &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) unixFdSourceNew_ (fd & condition)
     fun unixSetFdNonblocking (fd, nonblock) =
       (

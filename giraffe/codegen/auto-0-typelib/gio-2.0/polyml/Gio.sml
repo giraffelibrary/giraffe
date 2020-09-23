@@ -178,19 +178,7 @@ structure Gio : GIO =
       val iconNewForString_ = call (getSymbol "g_icon_new_for_string") (Utf8.PolyML.cInPtr &&> GLibErrorRecord.PolyML.cOutOptRef --> GioIconClass.PolyML.cPtr)
       val ioErrorFromErrno_ = call (getSymbol "g_io_error_from_errno") (GInt32.PolyML.cVal --> GioIOErrorEnum.PolyML.cVal)
       val ioErrorQuark_ = call (getSymbol "g_io_error_quark") (cVoid --> GUInt32.PolyML.cVal)
-      val ioExtensionPointImplement_ =
-        call (getSymbol "g_io_extension_point_implement")
-          (
-            Utf8.PolyML.cInPtr
-             &&> GObjectType.PolyML.cVal
-             &&> Utf8.PolyML.cInPtr
-             &&> GInt32.PolyML.cVal
-             --> GioIOExtensionRecord.PolyML.cPtr
-          )
-      val ioExtensionPointLookup_ = call (getSymbol "g_io_extension_point_lookup") (Utf8.PolyML.cInPtr --> GioIOExtensionPointRecord.PolyML.cPtr)
-      val ioExtensionPointRegister_ = call (getSymbol "g_io_extension_point_register") (Utf8.PolyML.cInPtr --> GioIOExtensionPointRecord.PolyML.cPtr)
       val ioModulesScanAllInDirectory_ = call (getSymbol "g_io_modules_scan_all_in_directory") (Utf8.PolyML.cInPtr --> cVoid)
-      val ioModulesScanAllInDirectoryWithScope_ = call (getSymbol "g_io_modules_scan_all_in_directory_with_scope") (Utf8.PolyML.cInPtr &&> GioIOModuleScopeRecord.PolyML.cPtr --> cVoid)
       val ioSchedulerCancelAllJobs_ = call (getSymbol "g_io_scheduler_cancel_all_jobs") (cVoid --> cVoid)
       val networkMonitorGetDefault_ = call (getSymbol "g_network_monitor_get_default") (cVoid --> GioNetworkMonitorClass.PolyML.cPtr)
       val networkingInit_ = call (getSymbol "g_networking_init") (cVoid --> cVoid)
@@ -392,7 +380,6 @@ structure Gio : GIO =
     structure EmblemOrigin = GioEmblemOrigin
     structure EmblemedIconClass = GioEmblemedIconClass
     structure FileClass = GioFileClass
-    structure FileAttributeInfoRecord = GioFileAttributeInfoRecord
     structure FileAttributeInfoFlags = GioFileAttributeInfoFlags
     structure FileAttributeInfoListRecord = GioFileAttributeInfoListRecord
     structure FileAttributeMatcherRecord = GioFileAttributeMatcherRecord
@@ -414,10 +401,7 @@ structure Gio : GIO =
     structure FilesystemPreviewType = GioFilesystemPreviewType
     structure IOErrorEnum = GioIOErrorEnum
     exception IOErrorEnum = GioIOErrorEnum
-    structure IOExtensionRecord = GioIOExtensionRecord
-    structure IOExtensionPointRecord = GioIOExtensionPointRecord
     structure IOModuleClass = GioIOModuleClass
-    structure IOModuleScopeRecord = GioIOModuleScopeRecord
     structure IOModuleScopeFlags = GioIOModuleScopeFlags
     structure IOStreamClass = GioIOStreamClass
     structure IOStreamSpliceFlags = GioIOStreamSpliceFlags
@@ -570,7 +554,6 @@ structure Gio : GIO =
     structure DtlsServerConnection = GioDtlsServerConnection
     structure Emblem = GioEmblem
     structure EmblemedIcon = GioEmblemedIcon
-    structure FileAttributeInfo = GioFileAttributeInfo
     structure FileAttributeInfoList = GioFileAttributeInfoList
     structure FileAttributeMatcher = GioFileAttributeMatcher
     structure FileDescriptorBased = GioFileDescriptorBased
@@ -584,10 +567,7 @@ structure Gio : GIO =
     structure FilenameCompleter = GioFilenameCompleter
     structure FilterInputStreamClass = GioFilterInputStreamClass
     structure FilterOutputStreamClass = GioFilterOutputStreamClass
-    structure IOExtension = GioIOExtension
-    structure IOExtensionPoint = GioIOExtensionPoint
     structure IOModule = GioIOModule
-    structure IOModuleScope = GioIOModuleScope
     structure IOStream = GioIOStream
     structure Icon = GioIcon
     structure InetAddress = GioInetAddress
@@ -1159,33 +1139,7 @@ structure Gio : GIO =
     fun iconNewForString str = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> GioIconClass.FFI.fromPtr true) iconNewForString_ (str & [])
     fun ioErrorFromErrno errNo = (GInt32.FFI.withVal ---> GioIOErrorEnum.FFI.fromVal) ioErrorFromErrno_ errNo
     fun ioErrorQuark () = (I ---> GUInt32.FFI.fromVal) ioErrorQuark_ ()
-    fun ioExtensionPointImplement
-      (
-        extensionPointName,
-        type',
-        extensionName,
-        priority
-      ) =
-      (
-        Utf8.FFI.withPtr 0
-         &&&> GObjectType.FFI.withVal
-         &&&> Utf8.FFI.withPtr 0
-         &&&> GInt32.FFI.withVal
-         ---> GioIOExtensionRecord.FFI.fromPtr false
-      )
-        ioExtensionPointImplement_
-        (
-          extensionPointName
-           & type'
-           & extensionName
-           & priority
-        )
-       before Utf8.FFI.touchPtr extensionPointName
-       before Utf8.FFI.touchPtr extensionName
-    fun ioExtensionPointLookup name = (Utf8.FFI.withPtr 0 ---> GioIOExtensionPointRecord.FFI.fromPtr false) ioExtensionPointLookup_ name before Utf8.FFI.touchPtr name
-    fun ioExtensionPointRegister name = (Utf8.FFI.withPtr 0 ---> GioIOExtensionPointRecord.FFI.fromPtr false) ioExtensionPointRegister_ name before Utf8.FFI.touchPtr name
     fun ioModulesScanAllInDirectory dirname = (Utf8.FFI.withPtr 0 ---> I) ioModulesScanAllInDirectory_ dirname
-    fun ioModulesScanAllInDirectoryWithScope (dirname, scope) = (Utf8.FFI.withPtr 0 &&&> GioIOModuleScopeRecord.FFI.withPtr false ---> I) ioModulesScanAllInDirectoryWithScope_ (dirname & scope)
     fun ioSchedulerCancelAllJobs () = (I ---> I) ioSchedulerCancelAllJobs_ ()
     fun networkMonitorGetDefault () = (I ---> GioNetworkMonitorClass.FFI.fromPtr false) networkMonitorGetDefault_ ()
     fun networkingInit () = (I ---> I) networkingInit_ ()

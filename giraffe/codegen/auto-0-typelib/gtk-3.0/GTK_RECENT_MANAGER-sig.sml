@@ -1,16 +1,11 @@
 signature GTK_RECENT_MANAGER =
   sig
     type 'a class
-    type recent_data_t
     type recent_info_t
     type t = base class
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
     val getDefault : unit -> base class
-    val addFull :
-      'a class
-       -> string * recent_data_t
-       -> bool
     val addItem :
       'a class
        -> string

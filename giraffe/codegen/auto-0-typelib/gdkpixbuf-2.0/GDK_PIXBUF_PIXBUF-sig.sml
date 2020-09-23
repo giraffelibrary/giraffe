@@ -1,7 +1,6 @@
 signature GDK_PIXBUF_PIXBUF =
   sig
     type 'a class
-    type pixdata_t
     type pixbuf_format_t
     type pixbuf_rotation_t
     type interp_type_t
@@ -63,7 +62,6 @@ signature GDK_PIXBUF_PIXBUF =
        * LargeInt.int
        * LargeInt.int
        -> LargeInt.int
-    val fromPixdata : pixdata_t * bool -> base class
     val getFileInfo :
       string
        -> pixbuf_format_t option

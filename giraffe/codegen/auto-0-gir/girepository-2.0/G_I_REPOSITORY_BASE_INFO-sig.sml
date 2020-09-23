@@ -2,7 +2,6 @@ signature G_I_REPOSITORY_BASE_INFO =
   sig
     type t
     type info_type_t
-    type typelib_t
     val getType : unit -> GObject.Type.t
     val equal :
       t
@@ -16,6 +15,5 @@ signature G_I_REPOSITORY_BASE_INFO =
     val getName : t -> string
     val getNamespace : t -> string
     val getType : t -> info_type_t
-    val getTypelib : t -> typelib_t
     val isDeprecated : t -> bool
   end

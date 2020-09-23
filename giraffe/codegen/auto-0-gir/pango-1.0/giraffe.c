@@ -1,4 +1,3 @@
-GIRAFFE_DECLARE_VALUE_RECORD(PangoAnalysis, pango_analysis)
 GIRAFFE_DECLARE_VALUE_RECORD(PangoGlyphGeometry, pango_glyph_geometry)
 GIRAFFE_DECLARE_VALUE_RECORD(PangoGlyphInfo, pango_glyph_info)
 GIRAFFE_DECLARE_VALUE_RECORD(PangoGlyphVisAttr, pango_glyph_vis_attr)

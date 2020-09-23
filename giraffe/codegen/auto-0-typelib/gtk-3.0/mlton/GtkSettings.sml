@@ -2,7 +2,6 @@ structure GtkSettings :>
   GTK_SETTINGS
     where type 'a class = 'a GtkSettingsClass.class
     where type 'a style_provider_class = 'a GtkStyleProviderClass.class
-    where type settings_value_t = GtkSettingsValueRecord.t
     where type i_m_preedit_style_t = GtkIMPreeditStyle.t
     where type i_m_status_style_t = GtkIMStatusStyle.t
     where type corner_type_t = GtkCornerType.t
@@ -77,25 +76,6 @@ structure GtkSettings :>
               x5,
               x6
             )
-    val setPropertyValue_ =
-      fn
-        x1
-         & (x2, x3)
-         & x4 =>
-          (
-            _import "mlton_gtk_settings_set_property_value" :
-              GtkSettingsClass.FFI.non_opt GtkSettingsClass.FFI.p
-               * Utf8.MLton.p1
-               * Utf8.FFI.non_opt Utf8.MLton.p2
-               * GtkSettingsValueRecord.FFI.non_opt GtkSettingsValueRecord.FFI.p
-               -> unit;
-          )
-            (
-              x1,
-              x2,
-              x3,
-              x4
-            )
     val setStringProperty_ =
       fn
         x1
@@ -124,7 +104,6 @@ structure GtkSettings :>
             )
     type 'a class = 'a GtkSettingsClass.class
     type 'a style_provider_class = 'a GtkStyleProviderClass.class
-    type settings_value_t = GtkSettingsValueRecord.t
     type i_m_preedit_style_t = GtkIMPreeditStyle.t
     type i_m_status_style_t = GtkIMStatusStyle.t
     type corner_type_t = GtkCornerType.t
@@ -179,19 +158,6 @@ structure GtkSettings :>
            & name
            & vLong
            & origin
-        )
-    fun setPropertyValue self (name, svalue) =
-      (
-        GtkSettingsClass.FFI.withPtr false
-         &&&> Utf8.FFI.withPtr 0
-         &&&> GtkSettingsValueRecord.FFI.withPtr false
-         ---> I
-      )
-        setPropertyValue_
-        (
-          self
-           & name
-           & svalue
         )
     fun setStringProperty
       self

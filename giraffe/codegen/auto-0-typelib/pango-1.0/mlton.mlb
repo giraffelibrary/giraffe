@@ -12,8 +12,6 @@ in
   ../glib-2.0/Utf8CPtrArrayN.mlb
   ../glib-2.0/Utf8CPtrArray.mlb
   PANGO_ALIGNMENT-sig.sml
-  PANGO_ANALYSIS_RECORD-sig.sml
-  PANGO_ANALYSIS-sig.sml
   PANGO_ATTR_LIST_RECORD-sig.sml
   PANGO_ATTR_LIST-sig.sml
   PANGO_ATTR_TYPE-sig.sml
@@ -99,7 +97,6 @@ in
     "resolveScope topdec"
   in
     mlton/PangoAlignment.sml
-    mlton/PangoAnalysisRecord.sml
     mlton/PangoAttrListRecord.sml
     mlton/PangoAttrType.sml
     mlton/PangoAttributeRecord.sml
@@ -143,7 +140,6 @@ in
     mlton/PangoVariant.sml
     mlton/PangoWeight.sml
     mlton/PangoWrapMode.sml
-    mlton/PangoAnalysis.sml
     mlton/PangoAttrList.sml
     mlton/PangoAttribute.sml
     mlton/PangoColor.sml

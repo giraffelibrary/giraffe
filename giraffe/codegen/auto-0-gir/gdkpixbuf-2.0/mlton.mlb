@@ -30,8 +30,6 @@ in
   GDK_PIXBUF_PIXBUF_SIMPLE_ANIM-sig.sml
   GDK_PIXBUF_PIXBUF_SIMPLE_ANIM_ITER_CLASS-sig.sml
   GDK_PIXBUF_PIXBUF_SIMPLE_ANIM_ITER-sig.sml
-  GDK_PIXBUF_PIXDATA_RECORD-sig.sml
-  GDK_PIXBUF_PIXDATA-sig.sml
   GDK_PIXBUF_PIXDATA_DUMP_TYPE-sig.sml
   GDK_PIXBUF_PIXDATA_TYPE-sig.sml
   GDK_PIXBUF-sig.sml
@@ -49,7 +47,6 @@ in
     mlton/GdkPixbufPixbufFormatRecord.sml
     mlton/GdkPixbufPixbufLoaderClass.sml
     mlton/GdkPixbufPixbufRotation.sml
-    mlton/GdkPixbufPixdataRecord.sml
     mlton/GdkPixbufPixdataDumpType.sml
     mlton/GdkPixbufPixdataType.sml
     mlton/GdkPixbufPixbuf.sml
@@ -59,7 +56,6 @@ in
     mlton/GdkPixbufPixbufLoader.sml
     mlton/GdkPixbufPixbufSimpleAnimClass.sml
     mlton/GdkPixbufPixbufSimpleAnimIterClass.sml
-    mlton/GdkPixbufPixdata.sml
     mlton/GdkPixbufPixbufSimpleAnim.sml
     mlton/GdkPixbufPixbufSimpleAnimIter.sml
     mlton/GdkPixbuf.sml

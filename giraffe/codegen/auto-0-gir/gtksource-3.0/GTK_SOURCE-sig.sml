@@ -36,7 +36,6 @@ signature GTK_SOURCE =
     structure NewlineType : GTK_SOURCE_NEWLINE_TYPE
     structure PrintCompositorClass : GTK_SOURCE_PRINT_COMPOSITOR_CLASS
     structure RegionClass : GTK_SOURCE_REGION_CLASS
-    structure RegionIterRecord : GTK_SOURCE_REGION_ITER_RECORD
     structure SearchContextClass : GTK_SOURCE_SEARCH_CONTEXT_CLASS
     structure SearchSettingsClass : GTK_SOURCE_SEARCH_SETTINGS_CLASS
     structure SmartHomeEndType : GTK_SOURCE_SMART_HOME_END_TYPE
@@ -162,10 +161,6 @@ signature GTK_SOURCE =
     structure Region :
       GTK_SOURCE_REGION
         where type 'a class = 'a RegionClass.class
-        where type region_iter_t = RegionIterRecord.t
-    structure RegionIter :
-      GTK_SOURCE_REGION_ITER
-        where type t = RegionIterRecord.t
     structure SearchContext :
       GTK_SOURCE_SEARCH_CONTEXT
         where type 'a class = 'a SearchContextClass.class
