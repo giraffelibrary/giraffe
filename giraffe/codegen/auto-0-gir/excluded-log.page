@@ -1934,7 +1934,7 @@
           arg old_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -1944,7 +1944,7 @@
           arg old_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -1987,7 +1987,7 @@
           arg old_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -1997,7 +1997,7 @@
           arg old_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -2417,7 +2417,7 @@
         arg data_destroy
         <item>
           type interface
-          <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+          <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
         </item>
       </item>
     </item>
@@ -2751,7 +2751,7 @@
           arg data_destroy_func
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -2761,7 +2761,7 @@
           arg pollfd
           <item>
             type interface
-            <item>struct PollFD: interface type excluded by configuration (excludedInterfaceTypes)</item>
+            <item>struct GLib.PollFD: interface type excluded by configuration (excludedInterfaceTypes)</item>
           </item>
         </item>
       </item>
@@ -2771,7 +2771,7 @@
           arg data_destroy_func
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -2781,7 +2781,7 @@
           arg pollfd
           <item>
             type interface
-            <item>struct PollFD: interface type excluded by configuration (excludedInterfaceTypes)</item>
+            <item>struct GLib.PollFD: interface type excluded by configuration (excludedInterfaceTypes)</item>
           </item>
         </item>
       </item>
@@ -2836,7 +2836,7 @@
           arg user_data_free_func
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -2862,7 +2862,7 @@
           arg user_data_free_func
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -2876,7 +2876,7 @@
           arg user_data_free_func
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -2901,7 +2901,7 @@
           arg user_data_free_func
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -2927,7 +2927,7 @@
           arg user_data_free_func
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -2941,7 +2941,7 @@
           arg user_data_free_func
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -3131,7 +3131,7 @@
           arg get_proxy_type_destroy_notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -3141,7 +3141,7 @@
           arg get_proxy_type_destroy_notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -3162,7 +3162,7 @@
           arg get_proxy_type_destroy_notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -3172,7 +3172,7 @@
           arg get_proxy_type_destroy_notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -3930,7 +3930,7 @@
             type array
             <item>
               type interface
-              <item>struct Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              <item>struct GObject.Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
             </item>
           </item>
         </item>
@@ -3943,7 +3943,7 @@
             type array
             <item>
               type interface
-              <item>struct Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              <item>struct GObject.Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
             </item>
           </item>
         </item>
@@ -4038,7 +4038,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -4048,7 +4048,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -4058,7 +4058,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -4068,7 +4068,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -4776,7 +4776,7 @@
           arg destroy_notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -4786,7 +4786,7 @@
           arg destroy_notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -4820,7 +4820,7 @@
           arg result_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -4834,7 +4834,7 @@
           arg task_data_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -4865,7 +4865,7 @@
           arg result_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -4879,7 +4879,7 @@
           arg task_data_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -5050,7 +5050,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -5074,7 +5074,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -5134,7 +5134,7 @@
           arg parse_name_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -5144,7 +5144,7 @@
           arg parse_name_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -5290,7 +5290,7 @@
         arg notify
         <item>
           type interface
-          <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+          <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
         </item>
       </item>
     </item>
@@ -6240,7 +6240,7 @@
           arg fonttype
           <item>
             type interface
-            <item>struct FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+            <item>struct cairo.FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
           </item>
         </item>
       </item>
@@ -6248,7 +6248,7 @@
         function get_font_type
         <item>
           type interface
-          <item>struct FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+          <item>struct cairo.FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
         </item>
       </item>
       <item>
@@ -6257,7 +6257,7 @@
           arg fonttype
           <item>
             type interface
-            <item>struct FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+            <item>struct cairo.FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
           </item>
         </item>
       </item>
@@ -6265,7 +6265,7 @@
         function get_font_type
         <item>
           type interface
-          <item>struct FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+          <item>struct cairo.FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
         </item>
       </item>
     </item>
@@ -6275,7 +6275,7 @@
         arg dnotify
         <item>
           type interface
-          <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+          <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
         </item>
       </item>
     </item>
@@ -6564,7 +6564,7 @@
         arg notify
         <item>
           type interface
-          <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+          <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
         </item>
       </item>
     </item>
@@ -6574,7 +6574,7 @@
         arg notify
         <item>
           type interface
-          <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+          <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
         </item>
       </item>
     </item>
@@ -6584,7 +6584,7 @@
         arg notify
         <item>
           type interface
-          <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+          <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
         </item>
       </item>
     </item>
@@ -6728,7 +6728,7 @@
           arg notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -6742,7 +6742,7 @@
           arg notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -6791,7 +6791,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -6801,7 +6801,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -6853,7 +6853,7 @@
           arg callback_symbol
           <item>
             type interface
-            <item>callback Callback: type CALLBACK INTERFACE not supported</item>
+            <item>callback GObject.Callback: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -6875,7 +6875,7 @@
           arg callback_symbol
           <item>
             type interface
-            <item>callback Callback: type CALLBACK INTERFACE not supported</item>
+            <item>callback GObject.Callback: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -6913,7 +6913,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -6923,7 +6923,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -6996,7 +6996,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7010,7 +7010,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7112,7 +7112,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7122,7 +7122,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7253,7 +7253,7 @@
           arg func_notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7263,7 +7263,7 @@
           arg func_notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7349,7 +7349,7 @@
           arg notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7369,7 +7369,7 @@
           arg notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7396,7 +7396,7 @@
           arg user_data_free_func
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7414,7 +7414,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7424,7 +7424,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7434,7 +7434,7 @@
           arg user_data_free_func
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7452,7 +7452,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7462,7 +7462,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7482,7 +7482,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7492,7 +7492,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7717,7 +7717,7 @@
           arg user_data_free_func
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7735,7 +7735,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7745,7 +7745,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7755,7 +7755,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7765,7 +7765,7 @@
           arg user_data_free_func
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7783,7 +7783,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7793,7 +7793,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7803,7 +7803,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7845,7 +7845,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -7877,7 +7877,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8302,7 +8302,7 @@
           arg data_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8320,7 +8320,7 @@
           arg data_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8346,7 +8346,7 @@
           arg data_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8366,7 +8366,7 @@
           arg data_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8568,7 +8568,7 @@
           arg value
           <item>
             type interface
-            <item>struct Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
+            <item>struct GObject.Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
           </item>
         </item>
       </item>
@@ -8598,7 +8598,7 @@
           arg value
           <item>
             type interface
-            <item>struct Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
+            <item>struct GObject.Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
           </item>
         </item>
       </item>
@@ -8629,7 +8629,7 @@
           arg value
           <item>
             type interface
-            <item>struct Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
+            <item>struct GObject.Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
           </item>
         </item>
       </item>
@@ -8639,7 +8639,7 @@
           arg value
           <item>
             type interface
-            <item>struct Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
+            <item>struct GObject.Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
           </item>
         </item>
       </item>
@@ -8692,7 +8692,7 @@
           arg user_data_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8702,7 +8702,7 @@
           arg user_data_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8712,7 +8712,7 @@
           arg user_data_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8722,7 +8722,7 @@
           arg user_data_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8817,7 +8817,7 @@
           arg value
           <item>
             type interface
-            <item>struct Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
+            <item>struct GObject.Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
           </item>
         </item>
       </item>
@@ -8827,7 +8827,7 @@
           arg value
           <item>
             type interface
-            <item>struct Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
+            <item>struct GObject.Value: ownership transfer EVERYTHING for OUT parameter with non-pointer STRUCT type not supported</item>
           </item>
         </item>
       </item>
@@ -8898,7 +8898,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8908,7 +8908,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8918,7 +8918,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8928,7 +8928,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8964,7 +8964,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8982,7 +8982,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -8997,7 +8997,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9007,7 +9007,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9017,7 +9017,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9027,7 +9027,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9047,7 +9047,7 @@
           arg dnotify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9061,7 +9061,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9071,7 +9071,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9081,7 +9081,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9091,7 +9091,7 @@
           arg search_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9101,7 +9101,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9115,7 +9115,7 @@
           arg dnotify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9129,7 +9129,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9139,7 +9139,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9149,7 +9149,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9159,7 +9159,7 @@
           arg search_destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9169,7 +9169,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9185,7 +9185,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9195,7 +9195,7 @@
           arg destroy
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9241,7 +9241,7 @@
           arg notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9260,7 +9260,7 @@
           arg notify
           <item>
             type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
           </item>
         </item>
       </item>
@@ -9414,7 +9414,7 @@
         arg scanner
         <item>
           type interface
-          <item>struct Scanner: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          <item>struct GLib.Scanner: interface type excluded by configuration (excludedInterfaceTypes)</item>
         </item>
       </item>
     </item>
@@ -9436,7 +9436,7 @@
         arg scanner
         <item>
           type interface
-          <item>struct Scanner: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          <item>struct GLib.Scanner: interface type excluded by configuration (excludedInterfaceTypes)</item>
         </item>
       </item>
     </item>
@@ -9493,7 +9493,7 @@
         arg notify
         <item>
           type interface
-          <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+          <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
         </item>
       </item>
     </item>

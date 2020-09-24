@@ -12,39 +12,66 @@ withtype info_excl_hier = info_id * info_excl
 local
   open InfoType
 
-  fun getName info =
-    case BaseInfo.getName info of
-      SOME name => SOME name
-    | NONE      => SOME "(none)"
+  (* `getName NONE info` returns the name of `info`.
+   *
+   * `getName (SOME parentInfo) info` returns the name of `info` qualified its
+   * namespace if its namespace differs from the namespace of `parentInfo`.
+   *)
+  fun getName optParentInfo info =
+    let
+      val name =
+        case BaseInfo.getName info of
+          SOME name => name
+        | NONE      => "(none)"
+
+      val longName =
+        case optParentInfo of
+          NONE            => [name]
+        | SOME parentInfo =>
+            let
+              val namespace = BaseInfo.getNamespace info
+            in
+              if namespace <> BaseInfo.getNamespace parentInfo
+              then [namespace, name]
+              else [name]
+            end
+    in
+      SOME (String.concatWith "." longName)
+    end
 
   fun getTypeTag typeInfo =
     SOME (TypeTag.toString (TypeInfo.getTag typeInfo))
 
-  fun getId info =
+  fun getId optParentInfo info =
     case getType info of
       INVALID        => ("(invalid)",    NONE)
-    | FUNCTION info  => ("function",     getName info)
-    | CALLBACK info  => ("callback",     getName info)
-    | STRUCT info    => ("struct",       getName info)
-    | BOXED info     => ("boxed",        getName info)
-    | ENUM info      => ("enum",         getName info)
-    | FLAGS info     => ("flags",        getName info)
-    | OBJECT info    => ("object",       getName info)
-    | INTERFACE info => ("interface",    getName info)
-    | ALIAS info     => ("alias",        getName info)  (* GIR only *)
-    | CONSTANT info  => ("constant",     getName info)
+    | FUNCTION info  => ("function",     getName NONE info)
+    | CALLBACK info  => ("callback",     getName optParentInfo info)
+    | STRUCT info    => ("struct",       getName optParentInfo info)
+    | BOXED info     => ("boxed",        getName optParentInfo info)
+    | ENUM info      => ("enum",         getName optParentInfo info)
+    | FLAGS info     => ("flags",        getName optParentInfo info)
+    | OBJECT info    => ("object",       getName optParentInfo info)
+    | INTERFACE info => ("interface",    getName optParentInfo info)
+    | ALIAS info     => ("alias",        getName optParentInfo info)  (* GIR only *)
+    | CONSTANT info  => ("constant",     getName NONE info)
     | INVALID_0      => ("(invalid_0)",  NONE)
-    | UNION info     => ("union",        getName info)
-    | VALUE info     => ("value",        getName info)
-    | SIGNAL info    => ("signals",      getName info)
-    | VFUNC info     => ("vfunc",        getName info)
-    | PROPERTY info  => ("property",     getName info)
-    | FIELD info     => ("field",        getName info)
-    | ARG info       => ("arg",          getName info)
+    | UNION info     => ("union",        getName optParentInfo info)
+    | VALUE info     => ("value",        getName NONE info)
+    | SIGNAL info    => ("signals",      getName NONE info)
+    | VFUNC info     => ("vfunc",        getName NONE info)
+    | PROPERTY info  => ("property",     getName NONE info)
+    | FIELD info     => ("field",        getName NONE info)
+    | ARG info       => ("arg",          getName NONE info)
     | TYPE info      => ("type",         getTypeTag info)
     | UNRESOLVED     => ("(unresolved)", NONE)
 in
-  fun mkInfoExclHier info ie : info_excl_hier = ((getId info), ie)
+  (* In `mkInfoExclHier optParentInfo info ie`, `optParentInfo` should
+   * provide the parent info if its namespace may be different from the
+   * namespace of `info`.
+   *)
+  fun mkInfoExclHier optParentInfo info ie : info_excl_hier =
+    ((getId optParentInfo info), ie)
 end
 
 
@@ -70,7 +97,7 @@ fun revMapInfos (getN : 'a -> LargeInt.int) getNth f (info, xs) =
             end
               handle
                 InfoExcl ie =>
-                  raise InfoExcl (IEGrp [mkInfoExclHier info' ie])
+                  raise InfoExcl (IEGrp [mkInfoExclHier NONE info' ie])
         in
           aux xs' n'
         end
@@ -91,7 +118,7 @@ fun revFoldInfos (getN : 'a -> LargeInt.int) getNth f (info, acc) =
             f (info', acc)
               handle
                 InfoExcl ie =>
-                  raise InfoExcl (IEGrp [mkInfoExclHier info' ie])
+                  raise InfoExcl (IEGrp [mkInfoExclHier NONE info' ie])
         in
           aux acc' n'
         end
@@ -112,7 +139,7 @@ fun foldInfos (getN : 'a -> LargeInt.int) getNth f (info, acc) =
             f (info', acc)
               handle
                 InfoExcl ie =>
-                  raise InfoExcl (IEGrp [mkInfoExclHier info' ie])
+                  raise InfoExcl (IEGrp [mkInfoExclHier NONE info' ie])
           val n' = n + 1
         in
           aux acc' n'
@@ -139,7 +166,7 @@ fun revFoldMapInfos (getN : 'a -> LargeInt.int) getNth f (info, (xs, acc)) =
             end
               handle
                 InfoExcl ie =>
-                  raise InfoExcl (IEGrp [mkInfoExclHier info' ie])
+                  raise InfoExcl (IEGrp [mkInfoExclHier NONE info' ie])
         in
           aux (xs', acc') n'
         end
@@ -163,13 +190,13 @@ fun revMapInfosWithExcls (getN : 'a -> LargeInt.int) getNth f (info, (xs, excls)
               val excls' =
                 case fExcls of
                   []     => excls
-                | _ :: _ => mkInfoExclHier info' (IEGrp fExcls) :: excls
+                | _ :: _ => mkInfoExclHier NONE info' (IEGrp fExcls) :: excls
             in
               (x :: xs, excls')
             end
               handle
                 InfoExcl ie =>
-                  (xs, mkInfoExclHier info' ie :: excls)
+                  (xs, mkInfoExclHier NONE info' ie :: excls)
         in
           aux (xs', excls') n'
         end
@@ -192,13 +219,13 @@ fun revFoldInfosWithExcls (getN : 'a -> LargeInt.int) getNth f (info, (acc, excl
               val excls' =
                 case fExcls of
                   []     => excls
-                | _ :: _ => mkInfoExclHier info' (IEGrp fExcls) :: excls
+                | _ :: _ => mkInfoExclHier NONE info' (IEGrp fExcls) :: excls
             in
               (acc', excls')
             end
               handle
                 InfoExcl ie =>
-                  (acc, mkInfoExclHier info' ie :: excls)
+                  (acc, mkInfoExclHier NONE info' ie :: excls)
         in
           aux (acc', excls') n'
         end
@@ -221,13 +248,13 @@ fun revFoldMapInfosWithExcls (getN : 'a -> LargeInt.int) getNth f (info, (xs, ac
               val excls' =
                 case fExcls of
                   []     => excls
-                | _ :: _ => mkInfoExclHier info' (IEGrp fExcls) :: excls
+                | _ :: _ => mkInfoExclHier NONE info' (IEGrp fExcls) :: excls
             in
               (x :: xs, acc', excls')
             end
               handle
                 InfoExcl ie =>
-                  (xs, acc, mkInfoExclHier info' ie :: excls)
+                  (xs, acc, mkInfoExclHier NONE info' ie :: excls)
         in
           aux (xs', acc', excls') n'
         end

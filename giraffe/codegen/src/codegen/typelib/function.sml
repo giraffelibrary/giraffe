@@ -1017,11 +1017,11 @@ fun getParInfo
             end
               handle
                 InfoExcl ie =>
-                  raise InfoExcl (IEGrp [mkInfoExclHier (getInterface typeInfo) ie])
+                  raise InfoExcl (IEGrp [mkInfoExclHier (SOME typeInfo) (getInterface typeInfo) ie])
       end
         handle
           InfoExcl ie =>
-            raise InfoExcl (IEGrp [mkInfoExclHier typeInfo ie])
+            raise InfoExcl (IEGrp [mkInfoExclHier NONE typeInfo ie])
   in
     PISOME {
       name  = argId,
@@ -1564,11 +1564,11 @@ fun getRetInfo
             end
               handle
                 InfoExcl ie =>
-                  raise InfoExcl (IEGrp [mkInfoExclHier (getInterface typeInfo) ie])
+                  raise InfoExcl (IEGrp [mkInfoExclHier (SOME typeInfo) (getInterface typeInfo) ie])
       end
         handle
           InfoExcl ie =>
-            raise InfoExcl (IEGrp [mkInfoExclHier typeInfo ie])
+            raise InfoExcl (IEGrp [mkInfoExclHier NONE typeInfo ie])
   in
     RISOME {
       info = resolveType () () (SOME (), mayReturnNull, ownershipTransfer) typeInfo
