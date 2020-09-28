@@ -1,1 +1,0 @@
-signature XLIB_CURSOR = C_SCALAR

@@ -1,1 +1,0 @@
-structure GLibDateYear = GUInt16

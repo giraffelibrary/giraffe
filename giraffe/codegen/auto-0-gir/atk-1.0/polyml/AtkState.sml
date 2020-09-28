@@ -1,1 +1,0 @@
-structure AtkState = GUInt64

@@ -1,1 +1,0 @@
-signature G_LIB_TIME_SPAN = C_SCALAR

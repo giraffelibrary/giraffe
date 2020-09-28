@@ -1,1 +1,0 @@
-signature XLIB_DRAWABLE = C_SCALAR

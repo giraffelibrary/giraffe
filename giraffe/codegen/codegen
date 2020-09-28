@@ -298,6 +298,11 @@ fi
 
 if [ -n "${MERGE_GIR}" ]
 then
+  if [ ! -d "${CODEGEN_REL_DIR}/${AUTO_0_GIR}" ]
+  then
+    echo "Creating ${CODEGEN_REL_DIR}/${AUTO_0_GIR}"
+    mkdir "${CODEGEN_REL_DIR}/${AUTO_0_GIR}"
+  fi
   update ${AUTO_0_GIR_OUT_DIR} ${CODEGEN_REL_DIR}/${AUTO_0_GIR}
 fi
 
@@ -306,6 +311,11 @@ fi
 
 if [ -n "${MERGE_TYPELIB}" ]
 then
+  if [ ! -d "${CODEGEN_REL_DIR}/${AUTO_0_TYPELIB}" ]
+  then
+    echo "Creating ${CODEGEN_REL_DIR}/${AUTO_0_TYPELIB}"
+    mkdir "${CODEGEN_REL_DIR}/${AUTO_0_TYPELIB}"
+  fi
   update ${AUTO_0_TYPELIB_OUT_DIR} ${CODEGEN_REL_DIR}/${AUTO_0_TYPELIB}
 fi
 

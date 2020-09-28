@@ -1,1 +1,0 @@
-GIRAFFE_DECLARE_VALUE_RECORD(VteCharAttributes, vte_char_attributes)

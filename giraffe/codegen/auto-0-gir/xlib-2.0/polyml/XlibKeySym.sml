@@ -1,1 +1,0 @@
-structure XlibKeySym = GULong

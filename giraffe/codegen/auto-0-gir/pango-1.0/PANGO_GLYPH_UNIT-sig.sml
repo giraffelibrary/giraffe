@@ -1,1 +1,0 @@
-signature PANGO_GLYPH_UNIT = C_SCALAR

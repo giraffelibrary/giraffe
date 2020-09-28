@@ -1,2 +1,0 @@
-GIRAFFE_DECLARE_VALUE_RECORD(GSignalInvocationHint, g_object_signal_invocation_hint)
-GIRAFFE_DECLARE_VALUE_RECORD(GValue, g_object_value)

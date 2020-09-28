@@ -1,1 +1,0 @@
-structure XlibXid = GULong

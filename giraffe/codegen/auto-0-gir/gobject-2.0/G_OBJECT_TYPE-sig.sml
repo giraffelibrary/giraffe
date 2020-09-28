@@ -1,1 +1,0 @@
-signature G_OBJECT_TYPE = C_SCALAR

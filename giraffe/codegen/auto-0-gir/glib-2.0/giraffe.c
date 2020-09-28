@@ -1,2 +1,0 @@
-GIRAFFE_DECLARE_VALUE_RECORD(GTestConfig, g_lib_test_config)
-GIRAFFE_DECLARE_VALUE_RECORD(GTimeVal, g_lib_time_val)

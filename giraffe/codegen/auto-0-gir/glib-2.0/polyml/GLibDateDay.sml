@@ -1,1 +1,0 @@
-structure GLibDateDay = GUInt8

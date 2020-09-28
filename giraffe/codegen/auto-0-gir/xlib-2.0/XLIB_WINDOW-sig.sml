@@ -1,1 +1,0 @@
-signature XLIB_WINDOW = C_SCALAR

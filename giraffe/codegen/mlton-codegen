@@ -244,6 +244,11 @@ fi
 
 if [ -n "${MERGE_AUTO}" ]
 then
+  if [ ! -d "${CODEGEN_REL_DIR}/${AUTO}" ]
+  then
+    echo "Creating ${CODEGEN_REL_DIR}/${AUTO}"
+    mkdir "${CODEGEN_REL_DIR}/${AUTO}"
+  fi
   update ${AUTO_OUT_DIR} ${CODEGEN_REL_DIR}/${AUTO}
 fi
 

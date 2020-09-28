@@ -1,5 +1,0 @@
-local
-  mlton.mlb
-in
-  structure GtkTargetEntryRecordCArrayN
-end
