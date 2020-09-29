@@ -17,6 +17,8 @@ ifeq ("$(TAR)","")
 $(error cannot find tar program)
 endif
 
+RELEASE_DIR := release
+
 
 .PHONY : default
 
@@ -33,10 +35,10 @@ default : help
 help :
 	@echo
 	@echo "Makefile usage:"
-	@echo "  make -f release.mk build      - generate release files"
-	@echo "  make -f release.mk archive    - create giraffe-$(VERSION).tar.gz"
-	@echo "  make -f release.mk clean      - remove generated files"
-	@echo "  make -f release.mk help       - show these make options"
+	@echo "  make build         - generate release files"
+	@echo "  make archive       - create giraffe-$(VERSION).tar.gz"
+	@echo "  make clean         - remove generated files"
+	@echo "  make help          - show these make options"
 	@echo
 
 
@@ -44,7 +46,7 @@ help :
 ################################################################################
 # Build
 
-IN_FILES := $(wildcard *.in)
+IN_FILES := $(wildcard $(RELEASE_DIR)/*.in)
 OUT_FILES := $(IN_FILES:.in=)
 
 SEDCMD := \
@@ -63,11 +65,10 @@ build : $(OUT_FILES)
 ################################################################################
 # Archive
 
-RELEASE_FILES := \
+RELEASE_FILES := $(addprefix $(RELEASE_DIR)/,\
 	CHANGES \
 	configure \
 	COPYING \
-	doc/layout.txt \
 	INSTALL \
 	LICENCE.RUNTIME \
 	Makefile \
@@ -79,16 +80,16 @@ RELEASE_FILES := \
 	src/general \
 	src/ffi \
 	src/gir \
-	src/*-*
+	src/*-*)
 
-EXCLUDED_RELEASE_FILES := \
+EXCLUDED_RELEASE_FILES := $(addprefix $(RELEASE_DIR)/,\
 	src/polyml/giraffe-girepository* \
-	src/girepository-2.0
+	src/girepository-2.0)
 
 giraffe-$(VERSION).tar.gz : $(OUT_FILES)
 	$(TAR) -czf giraffe-$(VERSION).tar.gz \
 	  --owner=root --group=root \
-	  --transform="s|^.*$$|giraffe-$(VERSION)/&|" \
+	  --transform="s|^$(RELEASE_DIR)|giraffe-$(VERSION)|" \
 	  $(EXCLUDED_RELEASE_FILES:%=--exclude=%) \
 	  $(RELEASE_FILES)
 

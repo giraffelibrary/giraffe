@@ -1,7 +1,7 @@
 Steps to create a source release archive.
 
-The version is specific by VERSION.
-REPODIR should be set to the root directory of the Git repo.
+The version is specified by VERSION.
+REPODIR should be set to the root directory of the Git repo, e.g.
 
   VERSION=A.B.C
   REPODIR=~/SML/Giraffe/devel
@@ -12,17 +12,17 @@ Set up the release directory.
  A. To create a formal release from a Git tag, extract the source code
     with Git.  VERSION is used as the Git tag name.
 
-      RELEASEDIR=/tmp/release/
+      RELEASEDIR=/tmp/release
       mkdir -p ${RELEASEDIR}
       cd ${REPODIR}
-      git archive ${VERSION} giraffe | tar -x -C ${RELEASEDIR}
+      git archive ${VERSION} . | tar -x -C ${RELEASEDIR}
 
     Add external dependencies to the release that provide an XML
     parser and GIR/TYPELIB files indexed by package and GI version.
-    (For details see ${RELEASEDIR}/giraffe/codegen/README.)
+    (For details see ${RELEASEDIR}/README.)
 
-      tar -xJf ~/SML/Giraffe/archive/xml.tar.xz -C ${RELEASEDIR}/giraffe/codegen/src/
-      tar -xJf ~/SML/Giraffe/archive/girepository.tar.xz -C ${RELEASEDIR}/giraffe/codegen/
+      tar -xJf ~/SML/Giraffe/archive/xml.tar.xz -C ${RELEASEDIR}/src
+      tar -xJf ~/SML/Giraffe/archive/girepository.tar.xz -C ${RELEASEDIR}
 
  B. To create an informal release from the current working directory, 
     operate in the working directory.
@@ -32,7 +32,7 @@ Set up the release directory.
 
 Create library code by patching generated code and copy to src/sml:
 
-  cd ${RELEASEDIR}/giraffe/codegen
+  cd ${RELEASEDIR}
   ./codegen gir
   ./codegen update-gir
   ./codegen fixed
@@ -47,6 +47,17 @@ Create library code by patching generated code and copy to src/sml:
 
 Create source release archive:
 
-  cd ${RELEASEDIR}/giraffe
+  cd ${RELEASEDIR}
   export VERSION
-  make -f release.mk archive
+  make archive
+
+
+The source release archive is created in the file
+
+  giraffe-${VERSION}.tar.gz
+
+
+If an informal release is being created in a working directory, clean
+up the files built for the source release:
+
+  make clean

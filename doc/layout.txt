@@ -8,9 +8,6 @@ Source release directory layout
   configure
   Makefile
 
-  doc/                      - documentation
-    layout.txt                - this file
-
   src/                      - source code
     giraffe.c                 - C interface support (common)
 

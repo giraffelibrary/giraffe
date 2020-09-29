@@ -6,7 +6,7 @@ CODEGEN_DIR=$(cd ${CODEGEN_REL_DIR} ; pwd -P)
 AUTO="mlton-auto"
 FIXES="mlton-fixes"
 FIXED="mlton-fixed"
-SRC="../src/mlton"
+RELEASE_SRC="release/src/mlton"
 
 TMP_DIR="/tmp"
 AUTO_OUT_DIR="${TMP_DIR}/${AUTO}"
@@ -211,8 +211,8 @@ Commands
   fixed             fix code [${FIXED_OUT_DIR}]
   update-fixed      update working directory [${CODEGEN_REL_DIR}/${FIXED}]
 
-  update-source     update source directory with fixed code [${CODEGEN_REL_DIR}/${SRC}]
-  remove-source     remove fixed code from source directory [${CODEGEN_REL_DIR}/${SRC}]
+  update-source     update source directory with fixed code [${CODEGEN_REL_DIR}/${RELEASE_SRC}]
+  remove-source     remove fixed code from source directory [${CODEGEN_REL_DIR}/${RELEASE_SRC}]
 
   help              show this help
 
@@ -309,7 +309,7 @@ fi
 
 if [ -n "${MERGE_SOURCE}" ]
 then
-  update "${CODEGEN_REL_DIR}/${FIXED}" "${CODEGEN_REL_DIR}/${SRC}"
+  update "${CODEGEN_REL_DIR}/${FIXED}" "${CODEGEN_REL_DIR}/${RELEASE_SRC}"
 fi
 
 
@@ -321,7 +321,7 @@ then
   INDENT="  "
   DIFF_EXISTS=
   SOURCE_DIR="${CODEGEN_REL_DIR}/${FIXED}"
-  TARGET_DIR="${CODEGEN_REL_DIR}/${SRC}"
+  TARGET_DIR="${CODEGEN_REL_DIR}/${RELEASE_SRC}"
 
   if [ ! -d "${SOURCE_DIR}" ]
   then

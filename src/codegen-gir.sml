@@ -1,45 +1,33 @@
 (*
  * This file requires poly to be run with the following environment:
  *
- *   LD_PRELOAD=libgirepository-1.0.so:libgiraffe-girepository-2.0.so
- *   LD_LIBRARY_PATH=${REPO_DIR}/giraffe/src/polyml:${LD_LIBRARY_PATH}
  *   OUT_DIR=<output directory>
  *   VERSION_DIR=<the "version" directory>
  *   GIVERSION_DIR=<the "giversion" directory>
  *   GIREPOSITORY_DIR=<the "girepository" directory>
- *
- * LD_PRELOAD is required because the Giraffe libraries do not specify
- * library names (for portability).  Therefore the dynamic linking loader
- * must find the library so we must ensure that libraries in which to search
- * for symbols are loaded.  LD_LIBRARY_PATH is required to provide the path
- * for libgiraffe-girepository-2.0.so, specified in LD_PRELOAD.
- *
- * For a specific version of GObject Introspection, the lib directory should
- * be added to LD_LIBRARY_PATH.  For example, for gobject-introspection-1.42,
- * the following directory should
- * be added:
- *
- *   /opt/gobject-introspection/gobject-introspection-1.42.0/lib
  *)
 
 print "Loading SML libraries\n";
 
-(* Load GObject bindings *)
+(* Load XML parser *)
 
-print "  GObject library\n";
+print "  XML parser\n";
+PolyML.Compiler.reportUnreferencedIds := false;
+use "fxlib-polyml.sml";
+
+
+(* Load general-purpose libraries *)
+
+print "  general-purpose libraries\n";
 PolyML.Compiler.reportUnreferencedIds := true;
-use "../../src/polyml.sml";
-use "../../src/general/polyml.sml";
-use "../../src/ffi/polyml.sml";
-use "../../src/gir/polyml.sml";
-use "../../src/glib-2.0/polyml.sml";
-use "../../src/gobject-2.0/polyml.sml";
+use "../release/src/polyml.sml";
+use "../release/src/general/polyml.sml";
 
 
-(* Load TYPELIB-based GIRepository *)
+(* Load GIR-based GIRepository *)
 
-print "  GIRepository library\n";
-use "polyml-typelib.sml";
+print "  codegen\n";
+use "polyml-gir.sml";
 
 val () = constructorNames :=
   [
@@ -59,7 +47,7 @@ val outDir =
   | NONE => raise Fail "Environment variable OUT_DIR not set"
 
 
-(* Calculate GIRepository paths for TYPELIB files *)
+(* Calculate GIRepository paths for GIR files *)
 
 fun firstLine file =
   if OS.FileSys.access (file, [OS.FileSys.A_READ])
@@ -84,11 +72,11 @@ in
       val versionFile = versionDir // namespace // "version"
       val giVersionFile = giversionDir // namespace // "giversion"
 
-      val girPath = "girepository-1.0" // (
+      val girPath = "gir-1.0" // (
         case firstLine giVersionFile of
           SOME giVersion => dropNL giVersion
         | NONE => raise Fail ("Failed to read GI version from " ^ giVersionFile)
-      ) // "x86_64"
+      )
 
       val path =
         girepositoryDir // namespace // (
@@ -158,17 +146,11 @@ val typeLocalType = mkLocalType ([], ("GObject", "Type", "", "t"))
 val valueRecordLocalType = mkLocalType ([], ("GObject", "Value", "Record", "t"))
 
 
-(* Initialize GObject type system *)
-
-val () = print "Initializing GObject type system\n"
-val () = GObject.typeInit ()
-
-
 (* Initialize GIRepository *)
 
 val () = print "Initializing GIRepository\n"
 val repo = Repository.getDefault ()
-val () = List.app Repository.prependSearchPath revPaths
+val () = List.app (Repository.prependSearchPath repo) revPaths
 
 
 (* Explicitly state required namespaces.
@@ -198,6 +180,7 @@ val _ = require repo ("xlib", "2.0", flags)
 val _ = require repo ("Gtk", "3.0", flags)
 val _ = require repo ("GtkSource", "3.0", flags)
 val _ = require repo ("Vte", "2.90", flags)
+val _ = require repo ("Vte", "2.91", flags)
 
 
 (* Rename existing output directory *)
@@ -326,19 +309,15 @@ val errorLog'1 = List.foldl insert errorLog'0 [
     (
       [],
       [
-        newSig "G_LIB_QUARK" [],                     (* TYPELIB only *)
         newSig "G_LIB_PID_TYPE" [],
-        newSig "G_LIB_PID" [],                       (* TYPELIB only *)
         newSig "G_LIB_SOURCE_FUNC" [],
         newSig "G_LIB_CHILD_WATCH_FUNC" [],
         newSig "G_LIB_SPAWN_CHILD_SETUP_FUNC" [],
         newSig "G_LIB_I_O_FUNC" []
       ],
       [
-        newStr ("GLib", "Quark", "G_LIB_QUARK") [],  (* TYPELIB only *)
         newStr ("GLib", "PidType", "G_LIB_PID_TYPE") [],
         extendStrDeps "GLibPid" ["GLibPidType"],
-        newStr ("GLib", "Pid", "G_LIB_PID") [],      (* TYPELIB only *)
         newStr ("GLib", "SourceFunc", "G_LIB_SOURCE_FUNC") [],
         newStr ("GLib", "ChildWatchFunc", "G_LIB_CHILD_WATCH_FUNC")
           [pidLocalType],
@@ -355,7 +334,6 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         newSig "CLOSURE_MARSHAL" [],
         newSig "SIGNAL" [],
         newSig "PROPERTY" [],
-        newSig "G_OBJECT_TYPE" [],                   (* TYPELIB only *)
         newSig "G_OBJECT_VALUE_RECORD" [],
         newSig "G_OBJECT_VALUE" [],
         newSig "VALUE_ACCESSOR" []
@@ -386,10 +364,9 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         extendStrDeps "GObjectObject" ["Signal"],
         extendStrDeps "GObjectBinding" ["Property"],
 
-        (* GObjectType, GObjectValueRecord and GObjectValue are manually
+        (* GObjectValueRecord and GObjectValue are manually
          * generated modules so we must provide spec and strdec values
          * to be inserted into the namespace module. *)
-        newStr ("GObject", "Type", "G_OBJECT_TYPE") [],  (* TYPELIB only *)
         newStr ("GObject", "ValueRecord", "G_OBJECT_VALUE_RECORD")
           [valueAccessorLocalType],
         newStr ("GObject", "Value", "G_OBJECT_VALUE")
@@ -470,13 +447,7 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         ]
       end
     ),
-  (* xlib fails because g_irepository_get_c_prefix returns NULL even though
-   * this namespace has, according to the GIR file, the prefix "X".  This is
-   * academic because this library is used only for aliases which is not
-   * required by the TYPELIB version.
-   *
-   * gen outDir repo ("xlib", "2.0", "") [] ([], [], []),
-   *)
+  gen outDir repo ("xlib", "2.0", "") [] ([], [], []),
   gen outDir repo ("Gtk", "3.0", "GTK") []
     (
       [],
@@ -488,14 +459,9 @@ val errorLog'1 = List.foldl insert errorLog'0 [
       ]
     ),
   gen outDir repo ("GtkSource", "3.0", "GTK_SOURCE") [] ([], [], []),
-  gen outDir repo ("Vte", "2.90", "VTE") [] ([], [], [])
+  gen outDir repo ("Vte", "2.90", "VTE") [] ([], [], []),
+  gen outDir repo ("Vte", "2.91", "VTE") [] ([], [], [])
 ]
 
+val () = writeLogFile outDir errorLog'1
 
-(* Save state *)
-
-val stateFile =
-  OS.Path.joinDirFile {dir = OS.Path.dir outDir, file = "codegen-typelib.state"}
-;
-val () = PolyML.SaveState.saveState stateFile
-;

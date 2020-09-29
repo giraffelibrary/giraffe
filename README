@@ -11,24 +11,24 @@ This document contains the following sections:
 
 1  Directory contents
 
-In the repository, the "codegen" directory contains the following:
+The repository contains the following:
 
   README            - this file
+  release/          - source release files excluding generated code
+  Makefile          - Make file for building source release TAR file
   codegen           - script to perform code generation steps
   mlton-codegen     - script to perform MLton-specific code generation steps
   src/              - code generator source code
   version/          - package version of GIR/TYPELIB files for code generation
   giversion/        - GI version of GIR/TYPELIB files for code generation
-  auto-0-gir/       - code that is generated from GIR files
-  auto-0-typelib/   - code that is generated from TYPELIB files
   fixes-1-gir/      - fixes to generated code to work around incorrect GI data
   fixes-2-gir/      - fixes to generated code to work around limitations
   extra-gir/        - extra code that is not generated
-  mlton-auto/       - MLton-specific code that is generated from GIR files
+  mlton-fixes/      - fixes to generated MLton-specific C code
 
-The following are not included in the repository but must be added to the
-"codegen" directory in a working directory, as described in section 2 below,
-before code generation can be performed:
+The following are not included in the repository but must be added to a
+working directory, as described in section 2 below, before code generation can
+be performed:
 
   src/
     xml/            - XML parser (fxp from Tom 7 sml-lib)
@@ -37,8 +37,17 @@ before code generation can be performed:
 The following are created in the working directory as a result of code
 generation:
 
+  auto-0-gir/       - code that is generated from GIR files
+  auto-0-typelib/   - code that is generated from TYPELIB files
   sml-gir/          - final version of code for source release
-  mlton-fixed/      - final version of MLton-specific code for source release
+  mlton-auto/       - MLton-specific C code that is generated from GIR files
+  mlton-fixed/      - final version of MLton-specific C code for source release
+
+The following are created in the working directory as a result of building
+the source release TAR file:
+
+  giraffe-${VERSION}.tar.gz
+                    - source release TAR file
 
 
 
@@ -106,7 +115,7 @@ For example, we may have the following hierarchy from the GTK+ package:
 
 3  Code generation
 
-Code generation requires Poly/ML 5.6 and common GNU utilities.
+Code generation requires Poly/ML >= 5.6 and common GNU utilities.
 
 
 3.1  Overview
@@ -232,14 +241,14 @@ Stage 4
 
 The SML bindings to the GIRepository C library require SML bindings for the
 GLib and GObject namespaces.  Therefore, before stage 4 is performed, stages 1
-to 3 must be performed and the commands
+to 3 must be performed and, in the source release directory, the commands
   ./configure ...
 and
   make
 run in order to build Giraffe C interface libraries in the working directory.
 
-Then, in the working directory, library code is generated in the directory
-"auto-0-typelib" by the following commands:
+Then library code is generated in the directory "auto-0-typelib" by the
+following commands:
 
   ./codegen typelib
   ./codegen update-typelib
@@ -247,8 +256,8 @@ Then, in the working directory, library code is generated in the directory
 Stage 5
 
 There is no codegen command to perform stage 5.  The script
-"gir2typelib/convert" should be run from a directory containing a copy of the
-code generated from GIR files that is to be converted.
+"gir2typelib/convert" should be run from a directory that is a copy of
+"auto-0-gir", the code generated from GIR files, that is to be converted.
 
 Stage 6
 
