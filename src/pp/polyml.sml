@@ -1,9 +1,9 @@
-use "H_TEXT_TREE.sml";
-use "V_TEXT_TREE.sml";
-use "H_V_TEXT_TREE.sml";
-use "CONCRETE_SYNTAX_TREE.sml";
-use "PRETTY_PRINT.sml";
-use "NAME_FORMAT.sml";
+use "H_TEXT_TREE-sig.sml";
+use "V_TEXT_TREE-sig.sml";
+use "H_V_TEXT_TREE-sig.sml";
+use "CONCRETE_SYNTAX_TREE-sig.sml";
+use "PRETTY_PRINT-sig.sml";
+use "NAME_FORMAT-sig.sml";
 use "HTextTree.sml";
 use "VTextTree.sml";
 use "HVTextTree.sml";

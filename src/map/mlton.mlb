@@ -2,12 +2,12 @@ local
   $(SML_LIB)/basis/basis.mlb
 in
   mlton/alias.sml
-  EQ_KEY.sml
-  ORD_KEY.sml
-  MAP.sml
-  ORD_MAP.sml
-  JoinMap.sml
-  ListMap.sml
+  EQ_KEY-sig.sml
+  ORD_KEY-sig.sml
+  MAP-sig.sml
+  ORD_MAP-sig.sml
+  JoinMap-fun.sml
+  ListMap-fun.sml
   StringEqKey.sml
   ListDict.sml
 end
