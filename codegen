@@ -8,13 +8,13 @@ AUTO_0_GIR="auto-0-gir"
 FIXES_1_GIR="fixes-1-gir"
 FIXES_2_GIR="fixes-2-gir"
 EXTRA_3_GIR="extra-gir"
-SML_GIR="sml-gir"
+FIXED_GIR="fixed-gir"
 RELEASE_SRC="release/src"
 
 TMP_DIR="/tmp"
 AUTO_0_GIR_OUT_DIR="${TMP_DIR}/${AUTO_0_GIR}"
 AUTO_0_TYPELIB_OUT_DIR="${TMP_DIR}/${AUTO_0_TYPELIB}"
-SML_GIR_OUT_DIR="${TMP_DIR}/${SML_GIR}"
+FIXED_GIR_OUT_DIR="${TMP_DIR}/${FIXED_GIR}"
 
 try_merge_tool () {
   SOURCE_DIR="$1"
@@ -225,8 +225,8 @@ Commands
   typelib           generate code from TYPELIB files [${AUTO_0_TYPELIB_OUT_DIR}]
   update-typelib    update working directory [${CODEGEN_REL_DIR}/${AUTO_0_TYPELIB}]
 
-  fixed             fix code (generated from GIR files) [${SML_GIR_OUT_DIR}]
-  update-fixed      update working directory [${CODEGEN_REL_DIR}/${SML_GIR}]
+  fixed             fix code (generated from GIR files) [${FIXED_GIR_OUT_DIR}]
+  update-fixed      update working directory [${CODEGEN_REL_DIR}/${FIXED_GIR}]
 
   update-source     update source directory with fixed code [${CODEGEN_REL_DIR}/${RELEASE_SRC}]
   remove-source     remove fixed code from source directory [${CODEGEN_REL_DIR}/${RELEASE_SRC}]
@@ -324,12 +324,12 @@ fi
 
 if [ -n "${FIXED}" ]
 then
-  if [ -e "${SML_GIR_OUT_DIR}" ]
+  if [ -e "${FIXED_GIR_OUT_DIR}" ]
   then
     LAST=1
     for i in "${TMP_DIR}"/*
     do
-      N=$(echo $i | sed -n -e "s|^${TMP_DIR}/${SML_GIR}\.\([0-9][0-9]*\).*$|\1|p")
+      N=$(echo $i | sed -n -e "s|^${TMP_DIR}/${FIXED_GIR}\.\([0-9][0-9]*\).*$|\1|p")
       if [ -n "${N}" ]
       then
         if [ ${LAST} -lt ${N} ]
@@ -339,36 +339,36 @@ then
       fi
     done
     N=$((${LAST} + 1))
-    NEW_DIR=${SML_GIR_OUT_DIR}.${N}
-    echo "Renaming existing output directory ${SML_GIR_OUT_DIR} to ${NEW_DIR}"
-    if ! mv "${SML_GIR_OUT_DIR}" "${NEW_DIR}"
+    NEW_DIR=${FIXED_GIR_OUT_DIR}.${N}
+    echo "Renaming existing output directory ${FIXED_GIR_OUT_DIR} to ${NEW_DIR}"
+    if ! mv "${FIXED_GIR_OUT_DIR}" "${NEW_DIR}"
     then
-      echo "Failed to rename existing output directory ${SML_GIR_OUT_DIR} to ${NEW_DIR}"
+      echo "Failed to rename existing output directory ${FIXED_GIR_OUT_DIR} to ${NEW_DIR}"
       exit 4
     fi
   fi
 
-  echo "Creating ${SML_GIR_OUT_DIR}"
-  mkdir ${SML_GIR_OUT_DIR}
+  echo "Creating ${FIXED_GIR_OUT_DIR}"
+  mkdir ${FIXED_GIR_OUT_DIR}
 
-  echo "Copying ${AUTO_0_GIR} to ${SML_GIR_OUT_DIR}"
-  cp -a ${CODEGEN_REL_DIR}/${AUTO_0_GIR}/* ${SML_GIR_OUT_DIR}
+  echo "Copying ${AUTO_0_GIR} to ${FIXED_GIR_OUT_DIR}"
+  cp -a ${CODEGEN_REL_DIR}/${AUTO_0_GIR}/* ${FIXED_GIR_OUT_DIR}
 
-  echo "Copying ${FIXES_1_GIR} to ${SML_GIR_OUT_DIR}"
-  cp -a ${CODEGEN_REL_DIR}/${FIXES_1_GIR}/* ${SML_GIR_OUT_DIR}
+  echo "Copying ${FIXES_1_GIR} to ${FIXED_GIR_OUT_DIR}"
+  cp -a ${CODEGEN_REL_DIR}/${FIXES_1_GIR}/* ${FIXED_GIR_OUT_DIR}
 
-  echo "Copying ${FIXES_2_GIR} to ${SML_GIR_OUT_DIR}"
-  cp -a ${CODEGEN_REL_DIR}/${FIXES_2_GIR}/* ${SML_GIR_OUT_DIR}
+  echo "Copying ${FIXES_2_GIR} to ${FIXED_GIR_OUT_DIR}"
+  cp -a ${CODEGEN_REL_DIR}/${FIXES_2_GIR}/* ${FIXED_GIR_OUT_DIR}
 
-  echo "Copying ${EXTRA_3_GIR} to ${SML_GIR_OUT_DIR}"
-  cp -a ${CODEGEN_REL_DIR}/${EXTRA_3_GIR}/* ${SML_GIR_OUT_DIR}
+  echo "Copying ${EXTRA_3_GIR} to ${FIXED_GIR_OUT_DIR}"
+  cp -a ${CODEGEN_REL_DIR}/${EXTRA_3_GIR}/* ${FIXED_GIR_OUT_DIR}
 
-  echo "Copying version files to ${SML_GIR_OUT_DIR}"
+  echo "Copying version files to ${FIXED_GIR_OUT_DIR}"
   for dir in version/*
   do
-    if [ -d "${SML_GIR_OUT_DIR}"/$(basename "${dir}") ]
+    if [ -d "${FIXED_GIR_OUT_DIR}"/$(basename "${dir}") ]
     then
-      cp -a "${dir}" "${SML_GIR_OUT_DIR}"
+      cp -a "${dir}" "${FIXED_GIR_OUT_DIR}"
     fi
   done
 fi
@@ -378,12 +378,12 @@ fi
 
 if [ -n "${MERGE_FIXED}" ]
 then
-  if [ ! -d "${CODEGEN_REL_DIR}/${SML_GIR}" ]
+  if [ ! -d "${CODEGEN_REL_DIR}/${FIXED_GIR}" ]
   then
-    echo "Creating ${CODEGEN_REL_DIR}/${SML_GIR}"
-    mkdir "${CODEGEN_REL_DIR}/${SML_GIR}"
+    echo "Creating ${CODEGEN_REL_DIR}/${FIXED_GIR}"
+    mkdir "${CODEGEN_REL_DIR}/${FIXED_GIR}"
   fi
-  update "${SML_GIR_OUT_DIR}" "${CODEGEN_REL_DIR}/${SML_GIR}"
+  update "${FIXED_GIR_OUT_DIR}" "${CODEGEN_REL_DIR}/${FIXED_GIR}"
 fi
 
 
@@ -391,7 +391,7 @@ fi
 
 if [ -n "${MERGE_SOURCE}" ]
 then
-  update "${CODEGEN_REL_DIR}/${SML_GIR}" "${CODEGEN_REL_DIR}/${RELEASE_SRC}"
+  update "${CODEGEN_REL_DIR}/${FIXED_GIR}" "${CODEGEN_REL_DIR}/${RELEASE_SRC}"
 fi
 
 
@@ -402,7 +402,7 @@ then
   # the following code is a variation on update ()
   INDENT="  "
   DIFF_EXISTS=
-  SOURCE_DIR="${CODEGEN_REL_DIR}/${SML_GIR}"
+  SOURCE_DIR="${CODEGEN_REL_DIR}/${FIXED_GIR}"
   TARGET_DIR="${CODEGEN_REL_DIR}/${RELEASE_SRC}"
 
   if [ ! -d "${SOURCE_DIR}" ]

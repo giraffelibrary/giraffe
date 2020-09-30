@@ -39,7 +39,7 @@ generation:
 
   auto-0-gir/       - code that is generated from GIR files
   auto-0-typelib/   - code that is generated from TYPELIB files
-  sml-gir/          - final version of code for source release
+  fixed-gir/        - final version of code for source release
   mlton-auto/       - MLton-specific C code that is generated from GIR files
   mlton-fixed/      - final version of MLton-specific C code for source release
 
@@ -196,7 +196,7 @@ using the following commands:
 
 Stage 2
 
-Fixed library code is generated in the directory "sml-gir" by applying fixes
+Fixed library code is generated in the directory "fixed-gir" by applying fixes
 to the code in "auto-0-gir" using the commands
 
   ./codegen fixed
@@ -204,12 +204,12 @@ to the code in "auto-0-gir" using the commands
 
 Stage 3
 
-The code in "sml-gir" is copied into the source release directory using the
+The code in "fixed-gir" is copied into the source release directory using the
 command
 
   ./codegen update-source
 
-The code in "sml-gir" is removed from the source release directory using the
+The code in "fixed-gir" is removed from the source release directory using the
 command
 
   ./codegen remove-source
