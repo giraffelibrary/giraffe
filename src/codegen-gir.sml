@@ -4,7 +4,7 @@
  *   OUT_DIR=<output directory>
  *   VERSION_DIR=<the "version" directory>
  *   GIVERSION_DIR=<the "giversion" directory>
- *   GIREPOSITORY_DIR=<the "girepository" directory>
+ *   GIMETADATA_DIR=<the "gimetadata" directory>
  *)
 
 print "Loading SML libraries\n";
@@ -67,22 +67,24 @@ local
   fun isNL c = c = #"\r" orelse c = #"\n"
   val dropNL = Substring.string o Substring.dropr isNL o Substring.full
 in
-  fun mkPath versionDir giversionDir girepositoryDir namespace =
+  fun mkPath versionDir giversionDir gimetadataDir namespace =
     let
       val versionFile = versionDir // namespace // "version"
-      val giVersionFile = giversionDir // namespace // "giversion"
+      val giversionFile = giversionDir // namespace // "giversion"
 
-      val girPath = "gir-1.0" // (
-        case firstLine giVersionFile of
+      val giPath = (
+        case firstLine giversionFile of
           SOME giVersion => dropNL giVersion
-        | NONE => raise Fail ("Failed to read GI version from " ^ giVersionFile)
+        | NONE => raise Fail ("Failed to read GI version from " ^ giversionFile)
       )
+       // "x86_64"
+       // "gir-1.0"
 
       val path =
-        girepositoryDir // namespace // (
+        gimetadataDir // namespace // (
           case firstLine versionFile of
-            SOME version => dropNL version // girPath
-          | NONE => girPath
+            SOME version => dropNL version // giPath
+          | NONE => giPath
         )
     in
       OS.Path.mkCanonical path
@@ -93,19 +95,19 @@ val revPaths =
   case (
     OS.Process.getEnv "VERSION_DIR",
     OS.Process.getEnv "GIVERSION_DIR",
-    OS.Process.getEnv "GIREPOSITORY_DIR"
+    OS.Process.getEnv "GIMETADATA_DIR"
   ) of
     (NONE, _, _) => raise Fail "Environment variable VERSION_DIR not set"
   | (_, NONE, _) => raise Fail "Environment variable GIVERSION_DIR not set"
-  | (_, _, NONE) => raise Fail "Environment variable GIREPOSITORY_DIR not set"
-  | (SOME versionDir, SOME giversionDir, SOME girepositoryDir) =>
+  | (_, _, NONE) => raise Fail "Environment variable GIMETADATA_DIR not set"
+  | (SOME versionDir, SOME giversionDir, SOME gimetadataDir) =>
       let
         val dstrm = OS.FileSys.openDir versionDir;
 
         fun addPath paths =
           case OS.FileSys.readDir dstrm of
             SOME f =>
-              addPath (mkPath versionDir giversionDir girepositoryDir f :: paths)
+              addPath (mkPath versionDir giversionDir gimetadataDir f :: paths)
           | NONE => paths
       in
         addPath [] before OS.FileSys.closeDir dstrm

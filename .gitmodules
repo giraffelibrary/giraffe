@@ -1,3 +1,6 @@
 [submodule "src/fxp"]
 	path = src/fxp
 	url = https://github.com/giraffelibrary/fxp.git
+[submodule "gimetadata"]
+	path = gimetadata
+	url = https://github.com/giraffelibrary/giraffe-gimetadata

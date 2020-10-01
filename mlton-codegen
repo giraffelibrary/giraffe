@@ -234,7 +234,7 @@ then
       OUT_DIR=${AUTO_OUT_DIR} \
       VERSION_DIR=${CODEGEN_DIR}/version \
       GIVERSION_DIR=${CODEGEN_DIR}/giversion \
-      GIREPOSITORY_DIR=${CODEGEN_DIR}/girepository \
+      GIMETADATA_DIR=${CODEGEN_DIR}/gimetadata \
       poly -q --error-exit
   )
 fi

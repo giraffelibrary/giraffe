@@ -19,8 +19,8 @@ The repository contains the following:
   codegen           - script to perform code generation steps
   mlton-codegen     - script to perform MLton-specific code generation steps
   src/              - code generator source code
-  version/          - package version of GIR/TYPELIB files for code generation
-  giversion/        - GI version of GIR/TYPELIB files for code generation
+  version/          - package version of GI metadata files for code generation
+  giversion/        - GI version of GI metadata files for code generation
   fixes-1-gir/      - fixes to generated code to work around incorrect GI data
   fixes-2-gir/      - fixes to generated code to work around limitations
   extra-gir/        - extra code that is not generated
@@ -31,12 +31,7 @@ as described in section 2 below, before code generation can be performed:
 
   src/
     fxp/            - FXP Functional XML parser
-
-The following are not included in the repository but must be added to a
-working directory, as described in section 2 below, before code generation can
-be performed:
-
-  girepository/     - GIR/TYPELIB files indexed by package and GI version
+  gimetadata/       - GI (GObject Introspection) metadata files
 
 The following are created in the working directory as a result of code
 generation:
@@ -47,8 +42,8 @@ generation:
   mlton-auto/       - MLton-specific C code that is generated from GIR files
   mlton-fixed/      - final version of MLton-specific C code for source release
 
-The following are created in the working directory as a result of building
-the source release TAR file:
+The following are created in the working directory as a result of building the
+source release TAR file:
 
   giraffe-${VERSION}.tar.gz
                     - source release TAR file
@@ -71,55 +66,28 @@ directory.  This is done in one of two ways:
 
  B. When cloning, run git clone with the option --recurse-submodules, e.g.
 
-        git clone --recurse-submodules \
-          https://github.com/giraffelibrary/giraffe.git
-
-Before code can be generated, the "codegen" directory requires the following
-external dependencies to be added:
-
- 1. the GIR or TYPELIB files that provide the GObject Introspection data
+      git clone --recurse-submodules \
+        https://github.com/giraffelibrary/giraffe.git
 
 
-2.1  GObject Introspection data
+2.1  GI metadata
 
-Under "codegen", the directory "girepository" provides the GIR and TYPELIB files
-used for code generation.  The files are organized in a tree with the following
-structure:
+The GI metadata repository, included as a submodule, indexes GIR and TYPELIB
+files by package version, GI version and platform.
 
-  girepository/
-    <namespace>-<version>/
-      <pkg-version>/
-        gir-1.0/
-          <gi-version>/
-            <Namespace>-<Version>.gir
-        girepository-1.0/
-          <gi-version>/
-            <platform>/
-              <Namespace>-<Version>.typelib
+For a particular <namespace>-<version>, code generation derives
 
-<pkg-version> is the version of the package that the GIR/TYPELIB file was
-generated for.  Code generation takes the package version from the file
-"version/<namespace>-<version>/version".
+  - the package version from the first line of the file
 
-<gi-version> is the version of GObject Introspection that was used to generate
-the GIR/TYPELIB file.  Code generation takes the GI version from the file
-"giversion/<namespace>-<version>/giversion".
+        version/<namespace>-<version>/version
 
-For example, we may have the following hierarchy from the GTK+ package:
+  - the GI version from the first line file
 
-  girepository/
-    gtk-3.0/
-      3.2.4/
-        gir-1.0/
-          1.30.0/Gtk-3.0.gir
-          1.32.1/Gtk-3.0.gir
-        girepository-1.0/
-          1.30.0/
-            x86_64/Gtk-3.0.typelib
-            i686/Gtk-3.0.typelib
-          1.32.1/x86_64/Gtk-3.0.typelib
-      3.14.6/...
-    gdk-3.0/...
+        giversion/<namespace>-<version>/giversion
+
+The platform is always 'x86_64' but note that the generated SML code should not
+depend on any platform-specific values in GIR files - this would be considered a
+bug - so it should be possible to use any platform whose metadata is available.
 
 
 
@@ -279,7 +247,7 @@ from stage 4 with the converted code from stage 5.
 
 4  Manual code
 
-In the "codegen" directory, the following directories contain hand-written code
+In the working directory, the following directories contain hand-written code
 or generated code that has been fixed by hand:
 
   fixes-1-gir/      - code that is fixed to work around incorrect GI data
