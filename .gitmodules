@@ -1,0 +1,3 @@
+[submodule "src/fxp"]
+	path = src/fxp
+	url = https://github.com/giraffelibrary/fxp.git

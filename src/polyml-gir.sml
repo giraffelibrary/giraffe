@@ -1,3 +1,4 @@
+use "xml/polyml.sml";
 use "general/polyml.sml";
 use "map/polyml.sml";
 use "pp/polyml.sml";

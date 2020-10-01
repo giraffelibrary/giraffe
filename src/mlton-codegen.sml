@@ -13,7 +13,7 @@ print "Loading SML libraries\n";
 
 print "  XML parser\n";
 PolyML.Compiler.reportUnreferencedIds := false;
-use "fxlib-polyml.sml";
+use "polyml-fxp.sml";
 
 
 (* Load general-purpose libraries *)

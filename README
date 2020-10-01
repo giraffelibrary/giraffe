@@ -26,12 +26,16 @@ The repository contains the following:
   extra-gir/        - extra code that is not generated
   mlton-fixes/      - fixes to generated MLton-specific C code
 
+The following are submodules which must be initialized in the working directory,
+as described in section 2 below, before code generation can be performed:
+
+  src/
+    fxp/            - FXP Functional XML parser
+
 The following are not included in the repository but must be added to a
 working directory, as described in section 2 below, before code generation can
 be performed:
 
-  src/
-    xml/            - XML parser (fxp from Tom 7 sml-lib)
   girepository/     - GIR/TYPELIB files indexed by package and GI version
 
 The following are created in the working directory as a result of code
@@ -53,24 +57,30 @@ the source release TAR file:
 
 2  Working directory initialization
 
+The repository contains submodules that need to be initalized in a working
+directory.  This is done in one of two ways:
+
+ A. After cloning the repository, e.g.
+
+      git clone https://github.com/giraffelibrary/giraffe.git
+
+    initialize and update the submodules with the following commands:
+
+      git submodule init
+      git submodule update
+
+ B. When cloning, run git clone with the option --recurse-submodules, e.g.
+
+        git clone --recurse-submodules \
+          https://github.com/giraffelibrary/giraffe.git
+
 Before code can be generated, the "codegen" directory requires the following
 external dependencies to be added:
 
- 1. the XML parser
- 2. the GIR or TYPELIB files that provide the GObject Introspection data
+ 1. the GIR or TYPELIB files that provide the GObject Introspection data
 
 
-2.1  XML parser
-
-Under "codegen/src", the directory "xml" should contain the source code for the
-simplified interface to fxp from Tom 7.  This is available at the following
-locations:
-
-  http://sourceforge.net/p/tom7misc/svn/HEAD/tree/trunk/sml-lib/files/xml/
-  https://github.com/robsimmons/sml-lib/tree/master/files/xml/
-
-
-2.2  GObject Introspection data
+2.1  GObject Introspection data
 
 Under "codegen", the directory "girepository" provides the GIR and TYPELIB files
 used for code generation.  The files are organized in a tree with the following

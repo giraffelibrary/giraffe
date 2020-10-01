@@ -24,6 +24,7 @@
 
 print "Loading SML libraries\n";
 
+
 (* Load GObject bindings *)
 
 print "  GObject library\n";
