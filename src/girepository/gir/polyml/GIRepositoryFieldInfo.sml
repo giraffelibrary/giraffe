@@ -23,6 +23,13 @@ structure GIRepositoryFieldInfo :>
         flags
       end   
 
+    fun getBits info =
+      let
+        val _ & {bits, ...} & _ = (fromBase o fromField) I info
+      in
+        bits
+      end   
+
     fun getType info =
       let
         val _ & {type_, ...} & _ = (fromBase o fromField) I info

@@ -1250,7 +1250,7 @@ and makeField
   con
   baseData (* self reference *)
   typelib
-  ({name, readable, writable, private = _, type_, ...} : field) =
+  ({name, readable, writable, private, bits, type_, ...} : field) =
   let
     val flags'0 = GIRepositoryFieldInfoFlags.flags []
     val flags'1 =
@@ -1262,7 +1262,7 @@ and makeField
       then GIRepositoryFieldInfoFlags.flags [flags'0, GIRepositoryFieldInfoFlags.READABLE]
       else flags'0
 
-    val flags =
+    val flags'2 =
       if
         withDefault false makeValueBool writable
           handle
@@ -1271,10 +1271,26 @@ and makeField
       then GIRepositoryFieldInfoFlags.flags [flags'1, GIRepositoryFieldInfoFlags.WRITABLE]
       else flags'1
 
+    val flags =
+      if
+        withDefault false makeValueBool private
+          handle
+            GIRFail ms =>
+              raise GIRFail (HText.concat ("attribute " :: fmtQuoted "private") :: ms)
+      then GIRepositoryFieldInfoFlags.flags [flags'2, GIRepositoryFieldInfoFlags.PRIVATE]
+      else flags'2
+
+    val bits =
+      withDefault NONE (SOME o makeValueInt) bits
+        handle
+          GIRFail ms =>
+            raise GIRFail (HText.concat ("attribute " :: fmtQuoted "bits") :: ms)
+
     val (_, type_) = lookupTypeBaseData baseData elemDicts typelib type_
     val fieldData : Info.fielddata =
       {
         flags = flags,
+        bits  = bits,
         type_ = type_
       }
   in

@@ -235,6 +235,7 @@ structure GirAbstractSyntaxTree : GIR_ABSTRACT_SYNTAX_TREE =
         readable : string option,
         writable : string option,
         private  : string option,
+        bits     : string option,
         type_    : type_
       }
 

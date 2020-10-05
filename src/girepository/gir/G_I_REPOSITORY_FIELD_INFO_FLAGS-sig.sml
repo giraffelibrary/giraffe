@@ -3,4 +3,5 @@ signature G_I_REPOSITORY_FIELD_INFO_FLAGS =
     include FLAGS
     val READABLE : t
     val WRITABLE : t
+    val PRIVATE : t     (* GIR only *)
   end

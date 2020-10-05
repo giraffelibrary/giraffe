@@ -584,6 +584,7 @@ fun parseField (attrs, ts) : field =
       val readable = getOptAttr attrs "readable"
       val writable = getOptAttr attrs "writable"
       val private = getOptAttr attrs "private"
+      val bits = getOptAttr attrs "bits"
 
       val elemDict = splitElems ts
     in
@@ -593,6 +594,7 @@ fun parseField (attrs, ts) : field =
         readable = readable,
         writable = writable,
         private  = private,
+        bits     = bits,
         type_    = parseType elemDict
       }
     end

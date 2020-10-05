@@ -136,6 +136,7 @@ structure Info =
     and fielddata =
       {
         flags : GIRepositoryFieldInfoFlags.t,
+        bits  : LargeInt.int option,
         type_ : basedata
       }
 
