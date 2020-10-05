@@ -1,6 +1,6 @@
 # Giraffe Library Makefile
 #
-# Copyright (C) 2015-2016 Phil Clayton <phil.clayton@veonix.com>
+# Copyright (C) 2015-2016, 2020 Phil Clayton <phil.clayton@veonix.com>
 #
 # This file is part of the Giraffe Library runtime.  For your rights to use
 # this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -66,7 +66,7 @@ MLTON_CFLAGS := $(CFLAGS) -iquote "src"
 MLTON_OBJ_FILES := $(patsubst %,src/mlton/giraffe-%.o,$(MLTON_LIB_NAMES))
 MLTON_LIB_FILES := $(patsubst %,src/mlton/libgiraffe-%.a,$(MLTON_LIB_NAMES))
 
-$(MLTON_OBJ_FILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/mlton/giraffe-%-mlton.c src/mlton/cvector.h src/mlton/cvectorvector.h
+$(MLTON_OBJ_FILES) : src/mlton/giraffe-%.o : src/mlton/giraffe-%.c src/%/giraffe.c src/mlton/giraffe-%-mlton.c src/mlton/cvector.h src/mlton/cvectorvector.h
 	$(CC) $(MLTON_CFLAGS) -c -I$(MLTON_INCLUDEDIR) -o $@ `pkg-config --cflags $(shell cat src/$*/package)` $<
 
 MLTON_AR_FLAGS := rcs
@@ -90,7 +90,7 @@ POLYML_CFLAGS := $(CFLAGS) -iquote "src"
 POLYML_OBJ_FILES := $(patsubst %,src/polyml/giraffe-%.o,$(POLYML_LIB_NAMES))
 POLYML_LIB_FILES := $(patsubst %,src/polyml/libgiraffe-%.$(LIB),$(POLYML_LIB_NAMES))
 
-$(POLYML_OBJ_FILES) : src/polyml/giraffe-%.o : src/polyml/giraffe-%.c
+$(POLYML_OBJ_FILES) : src/polyml/giraffe-%.o : src/polyml/giraffe-%.c src/%/giraffe.c
 	$(CC) $(POLYML_CFLAGS) -c -o $@ `pkg-config --cflags $(shell cat src/$*/package)` $<
 
 $(POLYML_LIB_FILES) : src/polyml/libgiraffe-%.$(LIB) : src/polyml/giraffe-%.o
