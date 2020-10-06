@@ -14,6 +14,13 @@ structure GIRepositoryAliasInfo :>
     type 'a typeinfo_class = 'a GIRepositoryTypeInfoClass.class
 
 
+    fun getCType info =
+      let
+        val _ & {cType, ...} & _ = (fromBase o fromAlias) I info
+      in
+        cType
+      end
+
     fun getType info =
       let
         val _ & {type_, ...} & _ = (fromBase o fromAlias) I info

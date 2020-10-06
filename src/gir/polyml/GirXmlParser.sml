@@ -625,7 +625,7 @@ fun parseAlias (attrs, ts) : alias =
   in
     let
       val config = getConfig attrs
-      val cType = getOptAttr attrs "c:type"
+      val cType = getAttr attrs "c:type"
 
       val elemDict = splitElems ts
       val type_ = parseType elemDict
@@ -665,7 +665,7 @@ fun parseConstant (attrs, ts) : constant =
     let
       val config = getConfig attrs
       val value = getAttr attrs "value"
-      val cType = getAttr attrs "c:type"
+      val cType = getOptAttr attrs "c:type"
 
       val elemDict = splitElems ts
     in
@@ -776,7 +776,7 @@ fun parseInterface (attrs, ts) : interface =
     let
       val config = getConfig attrs
       val cSymbolPrefix = getAttr attrs "c:symbol-prefix"
-      val cType = getAttr attrs "c:type"
+      val cType = getOptAttr attrs "c:type"
       val typeName = getAttr attrs "glib:type-name"
       val getType = getAttr attrs "glib:get-type"
       val typeStruct = getOptAttr attrs "glib:type-struct"
@@ -836,7 +836,7 @@ fun parseRecord (attrs, ts) : record =
     let
       val config = getConfig attrs
       val cSymbolPrefix = getOptAttr attrs "c:symbol-prefix"
-      val cType = getAttr attrs "c:type"
+      val cType = getOptAttr attrs "c:type"
       val disguised = getOptAttr attrs "disguised"
       val typeName = getOptAttr attrs "glib:type-name"
       val getType = getOptAttr attrs "glib:get-type"

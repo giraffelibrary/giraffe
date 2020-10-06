@@ -16,6 +16,13 @@ structure GIRepositoryConstantInfo :>
     type argument_t = GIRepositoryArgument.t
 
 
+    fun getCType info =
+      let
+        val _ & {cType, ...} & _ = (fromBase o fromConstant) I info
+      in
+        cType
+      end
+
     fun getType info =
       let
         val _ & {type_, ...} & _ = (fromBase o fromConstant) I info

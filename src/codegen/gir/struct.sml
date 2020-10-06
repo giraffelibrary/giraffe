@@ -1134,6 +1134,14 @@ fun makeStructStr
 
 val cDeclareValueRecordId = "GIRAFFE_DECLARE_VALUE_RECORD"
 
+fun noCTypeForValueRecord (structNamespace, structName) =
+  concat [
+    "record ",
+    structNamespace, ".", structName,
+    " is configured as a value record but has no C type, which is needed\
+    \ to determine the size of the C struct"
+  ]
+
 fun addStructCInterfaceDecl
   (repo            : 'a RepositoryClass.class)
   (vers            : Repository.typelibvers_t)
@@ -1150,14 +1158,18 @@ fun addStructCInterfaceDecl
     case structType of
       ValueRecord _ =>
         let
-          val structSize = StructInfo.getCName structInfo
+          val structCType =
+            case RegisteredTypeInfo.getCType structInfo of
+              SOME cType => cType
+            | NONE       =>
+                raise Fail (noCTypeForValueRecord (structNamespace, structName))
           val structVersion = BaseInfo.getVersion structInfo
 
           val decl =
             CMacroCall {
               name = cDeclareValueRecordId,
               args = [
-                structSize,
+                structCType,
                 String.concatWith "_" [toLCU structNamespace, toLCU structName]
               ]
             }

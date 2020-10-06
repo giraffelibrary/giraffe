@@ -243,7 +243,7 @@ signature GIR_ABSTRACT_SYNTAX_TREE =
       {
         name           : string,
         config         : config,
-        cType          : string option,
+        cType          : string,
         type_          : type_
       }
 
@@ -252,7 +252,7 @@ signature GIR_ABSTRACT_SYNTAX_TREE =
         name   : string,
         config : config,
         value  : string,
-        cType  : string,
+        cType  : string option,
         type_  : type_
       }
 
@@ -286,7 +286,7 @@ signature GIR_ABSTRACT_SYNTAX_TREE =
         name          : string,
         config        : config,
         cSymbolPrefix : string,
-        cType         : string,
+        cType         : string option,
         typeName      : string,
         getType       : string,
         typeStruct    : string option,
@@ -303,7 +303,7 @@ signature GIR_ABSTRACT_SYNTAX_TREE =
         name             : string,
         config           : config,
         cSymbolPrefix    : string option,
-        cType            : string,
+        cType            : string option,
         disguised        : string option,
         typeName         : string option,
         getType          : string option,

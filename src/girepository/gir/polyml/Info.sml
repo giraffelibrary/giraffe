@@ -9,6 +9,7 @@ structure Info =
 
     type registeredtypedata =
       {
+        cType    : string option,
         typeName : string option,
         getType  : string option
       }
@@ -77,7 +78,8 @@ structure Info =
           arrayLength         : LargeInt.int option,
           arrayFixedSize      : LargeInt.int option,
           arrayZeroTerminated : bool,
-          arrayType           : GIRepositoryArrayType.t option
+          arrayType           : GIRepositoryArrayType.t option,
+          cType               : string option
         }
 
     withtype typelibdata =
@@ -110,6 +112,7 @@ structure Info =
 
     and aliasdata =
       {
+        cType : string,
         type_ : basedata
       }
 
@@ -143,6 +146,7 @@ structure Info =
     and constantdata =
       {
         value : GIRepositoryArgument.t,
+        cType : string option,
         type_ : basedata
       }
 
@@ -185,7 +189,6 @@ structure Info =
 
     and structdata =
       {
-        cType         : string,
         isGTypeStruct : bool,
         isForeign     : bool,
         method        : basedata list,

@@ -9,6 +9,13 @@ structure GIRepositoryRegisteredTypeInfo :>
     type 'a class = 'a GIRepositoryRegisteredTypeInfoClass.class
 
 
+    fun getCType info =
+      let
+        val _ & {cType, ...} & _ = (fromBase o fromRegisteredType) I info
+      in
+        cType
+      end
+
     fun getTypeName info =
       let
         val _ & {typeName, ...} & _ = (fromBase o fromRegisteredType) I info

@@ -114,4 +114,11 @@ structure GIRepositoryTypeInfo :>
       in
         arrayType
       end
+
+    fun getCType info =
+      let
+        val _ & Info.TYPEDATA {cType, ...} & _ = (fromBase o fromType) I info
+      in
+        cType
+      end
   end

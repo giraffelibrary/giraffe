@@ -584,6 +584,8 @@ and arrayTypeBaseData containerData elemDicts typelib (arrayType, param) =
 
     val params = [#2 (lookupTypeBaseData containerData elemDicts typelib param)]
 
+    val cType = #cType arrayType
+
     val cTypePtrDepth = Option.map getCTypePtrDepth (#cType arrayType)
 
     val arrayLength = 
@@ -628,7 +630,8 @@ and arrayTypeBaseData containerData elemDicts typelib (arrayType, param) =
           arrayLength         = arrayLength,
           arrayFixedSize      = arrayFixedSize,
           arrayZeroTerminated = arrayZeroTerminated,
-          arrayType           = arrayType
+          arrayType           = arrayType,
+          cType               = cType
         }
   in
     makeTypeBaseData containerData typelib NONE typeData
@@ -664,7 +667,8 @@ and namedTypeBaseData containerData elemDicts typelib (namedType, params) =
           arrayLength         = NONE,
           arrayFixedSize      = NONE,
           arrayZeroTerminated = false,
-          arrayType           = NONE
+          arrayType           = NONE,
+          cType               = cType
         }
   in
     makeTypeBaseData containerData typelib NONE typeData
@@ -678,6 +682,8 @@ and callbackTypeBaseData containerData elemDicts typelib callback =
     (* Note that `interface` is not the result of looking up a namespace element *
      * because the callback type is inline.                                      *)
 
+    val cType = #cType callback
+
     val typeData =
       Info.TYPEDATA
         {
@@ -688,7 +694,8 @@ and callbackTypeBaseData containerData elemDicts typelib callback =
           arrayLength         = NONE,
           arrayFixedSize      = NONE,
           arrayZeroTerminated = false,
-          arrayType           = NONE
+          arrayType           = NONE,
+          cType               = cType
         }
   in
     makeTypeBaseData containerData typelib NONE typeData
@@ -1322,11 +1329,12 @@ and makeAlias
   con
   baseData (* self reference *)
   typelib
-  ({name, type_, ...} : alias) =
+  ({name, cType, type_, ...} : alias) =
   let
     val (_, type_) = lookupTypeBaseData baseData elemDicts typelib type_
     val aliasData =
       {
+        cType = cType,
         type_ = type_
       }
   in
@@ -1361,12 +1369,13 @@ and makeConstant
   con
   baseData (* self reference *)
   typelib
-  ({name, value, type_, ...} : constant) =
+  ({name, value, cType, type_, ...} : constant) =
   let
     val ((tag, _), type_) = lookupTypeBaseData baseData elemDicts typelib type_
 
     val constantData : Info.constantdata =
       {
+        cType = cType,
         type_ = type_,
         value = makeValue tag value
       }
@@ -1419,6 +1428,7 @@ and makeClass
   (
     {
       name,
+      cType,
       parent,
       abstract,
       fundamental,
@@ -1491,6 +1501,7 @@ and makeClass
       }
     val registeredTypeData : Info.registeredtypedata =
       {
+        cType    = cType,
         typeName = SOME typeName,
         getType  = SOME getType
       }
@@ -1536,6 +1547,7 @@ and makeInterface
   (
     {
       name,
+      cType,
       typeName,
       getType,
       typeStruct,
@@ -1591,6 +1603,7 @@ and makeInterface
       }
     val registeredTypeData : Info.registeredtypedata =
       {
+        cType    = cType,
         typeName = SOME typeName,
         getType  = SOME getType
       }
@@ -1663,7 +1676,6 @@ and makeRecord
 
     val structData : Info.structdata =
       {
-        cType         = cType,
         isGTypeStruct = isGTypeStruct,
         isForeign     = isForeign,
         method        = method,
@@ -1671,6 +1683,7 @@ and makeRecord
       }
     val registeredTypeData : Info.registeredtypedata =
       {
+        cType    = cType,
         typeName = typeName,
         getType  = getType
       }
@@ -1709,6 +1722,7 @@ and makeUnion
   (
     {
       name,
+      cType,
       typeName,
       getType,
       method,
@@ -1733,6 +1747,7 @@ and makeUnion
       }
     val registeredTypeData : Info.registeredtypedata =
       {
+        cType    = cType,
         typeName = typeName,
         getType  = getType
       }
@@ -1812,6 +1827,7 @@ and makeEnum
     {
       elem,
       name,
+      cType,
       typeName,
       getType,
       errorDomain,
@@ -1840,6 +1856,7 @@ and makeEnum
       }
     val registeredTypeData : Info.registeredtypedata =
       {
+        cType    = SOME cType,
         typeName = typeName,
         getType  = getType
       }
