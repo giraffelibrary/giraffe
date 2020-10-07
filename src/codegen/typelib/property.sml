@@ -134,14 +134,9 @@ fun getParamInfo repo vers (containerIRef : interfaceref) propertyInfo =
         open TypeTag
 
         fun toScalarInfo ty =
-          if
-            TypeInfo.isPointer typeInfo
-          then
-            infoExcl (ptrForScalar scalarToString ty)
-          else
-            {
-              ty = ty
-            }
+          {
+            ty = ty
+          }
       in
         case TypeInfo.getTag typeInfo of
           ERROR        => notExpected "ERROR"

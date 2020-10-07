@@ -124,8 +124,6 @@ fun getParamInfo repo vers (containerIRef : interfaceref) propertyInfo =
 
     val typeInfo = PropertyInfo.getType propertyInfo
 
-    val isRef = false
-
     fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
     fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
     fun noGType s =
@@ -136,16 +134,9 @@ fun getParamInfo repo vers (containerIRef : interfaceref) propertyInfo =
         open TypeTag
 
         fun toScalarInfo ty =
-          if
-            TypeInfo.isPointer typeInfo cxtPtrDepth isRef
-              handle
-                Fail msg => infoExcl msg
-          then
-            infoExcl (ptrForScalar scalarToString ty)
-          else
-            {
-              ty = ty
-            }
+          {
+            ty = ty
+          }
       in
         case TypeInfo.getTag typeInfo of
           ERROR        => notExpected "ERROR"
