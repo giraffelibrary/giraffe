@@ -5376,7 +5376,13 @@
     <item>struct UnresolvedInfo: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       function callable_info_invoke
-      <item>arg function: pointer C type for VOID not supported</item>
+      <item>
+        arg return_value
+        <item>
+          type interface
+          <item>union Argument: union interface type not included by configuration (includedUnionNames)</item>
+        </item>
+      </item>
     </item>
     <item>
       function callable_info_iterate_return_attributes

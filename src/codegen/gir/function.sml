@@ -1119,6 +1119,10 @@ fun getParInfo
                             ValueRecord _ => false
                           | _             => true
                         )
+                      | UNION unionInfo   => (
+                          checkUnionInterfaceType repo vers unionInfo;
+                          false
+                        )
                       | _                 => false
 
                     val isPtr =
@@ -1720,6 +1724,10 @@ fun getRetInfo
                           case getStructType repo vers structInfo of
                             ValueRecord _ => false
                           | _             => true
+                        )
+                      | UNION unionInfo   => (
+                          checkUnionInterfaceType repo vers unionInfo;
+                          false
                         )
                       | _                 => false
 

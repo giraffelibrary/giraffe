@@ -251,6 +251,15 @@ fun getParamInfo repo vers (containerIRef : interfaceref) propertyInfo =
               case infoType of
                 _ =>
                   let
+                    (* `getStructType` must be called unconditionally for a
+                     * struct to ensure that a property whose type is an
+                     * unsupported struct is excluded. *)
+                    val () =
+                      case infoType of
+                        STRUCT structInfo => ignore (getStructType repo vers structInfo)
+                      | UNION unionInfo   => checkUnionInterfaceType repo vers unionInfo
+                      | _                 => ()
+
                     (* There are no introspection annotation to determine
                      * whether a property is an optional value, though almost
                      * all (pointer) values can be null.
