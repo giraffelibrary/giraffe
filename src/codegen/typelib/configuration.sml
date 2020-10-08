@@ -33,19 +33,28 @@ type 'a nvs_map = (namespace_version list * 'a) list
  *
  *   nvsLookup (nv, x : 'a)         : ('a * 'b) list nvs_map -> 'b option
  *   nvsExists (nv, p : 'a -> bool) : 'a        list nvs_map -> bool
+ *
+ * These functions search an instance of `'a nvs_map` in list order and,
+ * for each entry, match an empty `namespace_version list` with any value.
  *)
 
-fun lookup x xys = Option.map #2 (List.find (fn (x', _) => x = x') xys)
+fun findPair x (x', y) = if x = x' then SOME y else NONE
 
 fun nvsLookup (nv, x) nvsMap =
-  case List.find (fn (nvs, _) => List.exists (fn nv' => nv = nv') nvs) nvsMap of
-    SOME (_, xys) => lookup x xys
-  | NONE          => NONE
+  ListExtras.findMap (
+    fn (nvs, xys) =>
+      if nvs = [] orelse List.exists (fn nv' => nv = nv') nvs
+      then ListExtras.findMap (findPair x) xys
+      else NONE
+  )
+    nvsMap
 
 fun nvsExists (nv, p) nvsMap =
   List.exists (
     fn (nvs, xs) =>
-      List.exists (fn nv' => nv = nv') nvs andalso List.exists p xs
+      if nvs = [] orelse List.exists (fn nv' => nv = nv') nvs
+      then List.exists p xs
+      else false
   )
     nvsMap
 
@@ -54,8 +63,8 @@ fun nvsExists (nv, p) nvsMap =
 
 (*   - Excluded names *)
 val excludedInterfaceTypes : string list nvs_map ref = ref []
-
-val excludedInterfaceTypeGlobalSuffixes : string list ref = ref []
+val excludedInterfaceTypePrefixes : string list nvs_map ref = ref []
+val excludedInterfaceTypeSuffixes : string list nvs_map ref = ref []
 
 fun checkInterfaceType repo vers interfaceInfo =
   let
@@ -63,16 +72,21 @@ fun checkInterfaceType repo vers interfaceInfo =
     val namespace = BaseInfo.getNamespace interfaceInfo
     val version = Repository.getVersion repo vers namespace
     val nv = (namespace, version)
+    fun infoExclInterfaceType match =
+      infoExcl (concat ["interface type excluded by configuration (", match, ")"])
   in
-    if
-      nvsExists (nv, fn x => x = name) (!excludedInterfaceTypes)
-    then infoExcl "interface type excluded by configuration \
-                                                      \(excludedInterfaceTypes)"
+    if nvsExists (nv, fn x => x = name) (!excludedInterfaceTypes)
+    then infoExclInterfaceType "excludedInterfaceTypes"
     else if
-      List.exists (fn x => String.isSuffix x name)
-        (!excludedInterfaceTypeGlobalSuffixes)
-    then infoExcl "interface type excluded by configuration \
-                                         \(excludedInterfaceTypeGlobalSuffixes)"
+      nvsExists (nv, fn x => String.isPrefix x name)
+        (!excludedInterfaceTypePrefixes)
+    then
+      infoExclInterfaceType "excludedInterfaceTypePrefixes"
+    else if
+      nvsExists (nv, fn x => String.isSuffix x name)
+        (!excludedInterfaceTypeSuffixes)
+    then
+      infoExclInterfaceType "excludedInterfaceTypeSuffixes"
     else ()
   end
 

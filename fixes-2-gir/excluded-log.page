@@ -623,7 +623,7 @@
     <item>constant POLLFD_FORMAT: constant excluded by configuration (excludedConstantNameSuffixes)</item>
     <item>struct PatternSpec: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct PollFD: interface type excluded by configuration (excludedInterfaceTypes)</item>
-    <item>struct Private: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct Private: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct PtrArray: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct Queue: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (head, tail)</item>
     <item>struct RWLock: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (p, i)</item>
@@ -728,7 +728,7 @@
     </item>
     <item>struct SourceCallbackFuncs: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (ref, unref)</item>
     <item>struct SourceFuncs: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (prepare, check, finalize, closure_callback, closure_marshal)</item>
-    <item>struct SourcePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SourcePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StatBuf: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       struct String
@@ -2630,7 +2630,7 @@
       </item>
     </item>
     <item>struct AppLaunchContextClass: class struct</item>
-    <item>struct AppLaunchContextPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct AppLaunchContextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Application
       <item>function add_main_option_entries: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -2638,8 +2638,8 @@
     </item>
     <item>struct ApplicationClass: class struct</item>
     <item>struct ApplicationCommandLineClass: class struct</item>
-    <item>struct ApplicationCommandLinePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct ApplicationPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ApplicationCommandLinePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct ApplicationPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface AsyncInitable
       <item>
@@ -2686,9 +2686,9 @@
       </item>
     </item>
     <item>struct BufferedInputStreamClass: class struct</item>
-    <item>struct BufferedInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct BufferedInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct BufferedOutputStreamClass: class struct</item>
-    <item>struct BufferedOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct BufferedOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Cancellable
       <item>
@@ -2733,13 +2733,13 @@
       </item>
     </item>
     <item>struct CancellableClass: class struct</item>
-    <item>struct CancellablePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CancellablePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CharsetConverterClass: class struct</item>
     <item>struct ConverterIface: class struct</item>
     <item>struct ConverterInputStreamClass: class struct</item>
-    <item>struct ConverterInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ConverterInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ConverterOutputStreamClass: class struct</item>
-    <item>struct ConverterOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ConverterOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Credentials
       <item>
@@ -3013,7 +3013,7 @@
       </item>
     </item>
     <item>struct DBusInterfaceSkeletonClass: class struct</item>
-    <item>struct DBusInterfaceSkeletonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct DBusInterfaceSkeletonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct DBusInterfaceVTable: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (method_call, get_property, set_property, padding)</item>
     <item>
       struct DBusMethodInfo
@@ -3135,14 +3135,14 @@
       <item>property get-proxy-type-user-data: type VOID not expected</item>
     </item>
     <item>struct DBusObjectManagerClientClass: class struct</item>
-    <item>struct DBusObjectManagerClientPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct DBusObjectManagerClientPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct DBusObjectManagerIface: class struct</item>
     <item>struct DBusObjectManagerServerClass: class struct</item>
-    <item>struct DBusObjectManagerServerPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct DBusObjectManagerServerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct DBusObjectProxyClass: class struct</item>
-    <item>struct DBusObjectProxyPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct DBusObjectProxyPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct DBusObjectSkeletonClass: class struct</item>
-    <item>struct DBusObjectSkeletonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct DBusObjectSkeletonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct DBusPropertyInfo
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -3186,7 +3186,7 @@
       </item>
     </item>
     <item>struct DBusProxyClass: class struct</item>
-    <item>struct DBusProxyPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct DBusProxyPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct DBusSignalInfo
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -3223,9 +3223,9 @@
       </item>
     </item>
     <item>struct DataInputStreamClass: class struct</item>
-    <item>struct DataInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct DataInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct DataOutputStreamClass: class struct</item>
-    <item>struct DataOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct DataOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface DatagramBased
       <item>
@@ -3411,7 +3411,7 @@
       </item>
     </item>
     <item>struct EmblemedIconClass: class struct</item>
-    <item>struct EmblemedIconPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct EmblemedIconPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface File
       <item>
@@ -3721,7 +3721,7 @@
       </item>
     </item>
     <item>struct FileEnumeratorClass: class struct</item>
-    <item>struct FileEnumeratorPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FileEnumeratorPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object FileIOStream
       <item>
@@ -3734,7 +3734,7 @@
       </item>
     </item>
     <item>struct FileIOStreamClass: class struct</item>
-    <item>struct FileIOStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FileIOStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FileIconClass: class struct</item>
     <item>struct FileIface: class struct</item>
     <item>
@@ -3783,9 +3783,9 @@
       </item>
     </item>
     <item>struct FileInputStreamClass: class struct</item>
-    <item>struct FileInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FileInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FileMonitorClass: class struct</item>
-    <item>struct FileMonitorPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FileMonitorPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object FileOutputStream
       <item>
@@ -3798,7 +3798,7 @@
       </item>
     </item>
     <item>struct FileOutputStreamClass: class struct</item>
-    <item>struct FileOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FileOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FilenameCompleterClass: class struct</item>
     <item>struct FilterInputStreamClass: class struct</item>
     <item>struct FilterOutputStreamClass: class struct</item>
@@ -3828,7 +3828,7 @@
     </item>
     <item>struct IOStreamAdapter: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct IOStreamClass: class struct</item>
-    <item>struct IOStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct IOStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface Icon
       <item>
@@ -3862,10 +3862,10 @@
     </item>
     <item>struct InetAddressClass: class struct</item>
     <item>struct InetAddressMaskClass: class struct</item>
-    <item>struct InetAddressMaskPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct InetAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct InetAddressMaskPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct InetAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct InetSocketAddressClass: class struct</item>
-    <item>struct InetSocketAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct InetSocketAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface Initable
       <item>
@@ -3941,7 +3941,7 @@
       </item>
     </item>
     <item>struct InputStreamClass: class struct</item>
-    <item>struct InputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct InputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct InputVector: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (buffer)</item>
     <item>struct ListModelInterface: class struct</item>
     <item>
@@ -4020,7 +4020,7 @@
       </item>
     </item>
     <item>struct MemoryInputStreamClass: class struct</item>
-    <item>struct MemoryInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MemoryInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object MemoryOutputStream
       <item>function get_data: pointer C type for VOID not supported</item>
@@ -4031,13 +4031,13 @@
       <item>property data: type VOID not expected</item>
     </item>
     <item>struct MemoryOutputStreamClass: class struct</item>
-    <item>struct MemoryOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MemoryOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuAttributeIterClass: class struct</item>
-    <item>struct MenuAttributeIterPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MenuAttributeIterPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuLinkIterClass: class struct</item>
-    <item>struct MenuLinkIterPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MenuLinkIterPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuModelClass: class struct</item>
-    <item>struct MenuModelPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MenuModelPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface Mount
       <item>
@@ -4108,11 +4108,11 @@
       </item>
     </item>
     <item>struct MountOperationClass: class struct</item>
-    <item>struct MountOperationPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MountOperationPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct NativeSocketAddress: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct NativeVolumeMonitorClass: class struct</item>
     <item>struct NetworkAddressClass: class struct</item>
-    <item>struct NetworkAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct NetworkAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface NetworkMonitor
       <item>
@@ -4126,7 +4126,7 @@
     </item>
     <item>struct NetworkMonitorInterface: class struct</item>
     <item>struct NetworkServiceClass: class struct</item>
-    <item>struct NetworkServicePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct NetworkServicePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct OutputMessage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (address, vectors, control_messages)</item>
     <item>
       object OutputStream
@@ -4180,7 +4180,7 @@
       </item>
     </item>
     <item>struct OutputStreamClass: class struct</item>
-    <item>struct OutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct OutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct OutputVector: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       object Permission
@@ -4202,7 +4202,7 @@
       </item>
     </item>
     <item>struct PermissionClass: class struct</item>
-    <item>struct PermissionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct PermissionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct PollableInputStreamInterface: class struct</item>
     <item>struct PollableOutputStreamInterface: class struct</item>
     <item>
@@ -4218,8 +4218,8 @@
     </item>
     <item>struct ProxyAddressClass: class struct</item>
     <item>struct ProxyAddressEnumeratorClass: class struct</item>
-    <item>struct ProxyAddressEnumeratorPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct ProxyAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ProxyAddressEnumeratorPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct ProxyAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ProxyInterface: class struct</item>
     <item>
       interface ProxyResolver
@@ -4323,7 +4323,7 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct ResolverPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ResolverPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct Resource
       <item>function _register: moved to resources_register</item>
@@ -4353,7 +4353,7 @@
       </item>
     </item>
     <item>struct SettingsClass: class struct</item>
-    <item>struct SettingsPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SettingsPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct SettingsSchema
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -4387,7 +4387,7 @@
       </item>
     </item>
     <item>struct SimpleActionGroupClass: class struct</item>
-    <item>struct SimpleActionGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SimpleActionGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object SimpleAsyncResult
       <item>
@@ -4442,7 +4442,7 @@
       <item>property ignore-hosts: type ARRAY not supported</item>
     </item>
     <item>struct SimpleProxyResolverClass: class struct</item>
-    <item>struct SimpleProxyResolverPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SimpleProxyResolverPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Socket
       <item>
@@ -4619,7 +4619,7 @@
       </item>
     </item>
     <item>struct SocketClientClass: class struct</item>
-    <item>struct SocketClientPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SocketClientPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SocketConnectableIface: class struct</item>
     <item>
       object SocketConnection
@@ -4633,7 +4633,7 @@
       </item>
     </item>
     <item>struct SocketConnectionClass: class struct</item>
-    <item>struct SocketConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SocketConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object SocketControlMessage
       <item>
@@ -4646,7 +4646,7 @@
       </item>
     </item>
     <item>struct SocketControlMessageClass: class struct</item>
-    <item>struct SocketControlMessagePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SocketControlMessagePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object SocketListener
       <item>
@@ -4667,10 +4667,10 @@
       </item>
     </item>
     <item>struct SocketListenerClass: class struct</item>
-    <item>struct SocketListenerPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct SocketPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SocketListenerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct SocketPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SocketServiceClass: class struct</item>
-    <item>struct SocketServicePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SocketServicePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct SrvTarget
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -4832,9 +4832,9 @@
     </item>
     <item>struct TaskClass: class struct</item>
     <item>struct TcpConnectionClass: class struct</item>
-    <item>struct TcpConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TcpConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TcpWrapperConnectionClass: class struct</item>
-    <item>struct TcpWrapperConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TcpWrapperConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object ThemedIcon
       <item>property names: type ARRAY not supported</item>
@@ -4842,7 +4842,7 @@
     </item>
     <item>struct ThemedIconClass: class struct</item>
     <item>struct ThreadedSocketServiceClass: class struct</item>
-    <item>struct ThreadedSocketServicePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ThreadedSocketServicePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TlsBackendInterface: class struct</item>
     <item>
       object TlsCertificate
@@ -4860,7 +4860,7 @@
       <item>property private-key: type ARRAY not supported</item>
     </item>
     <item>struct TlsCertificateClass: class struct</item>
-    <item>struct TlsCertificatePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TlsCertificatePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface TlsClientConnection
       <item>
@@ -4887,7 +4887,7 @@
       </item>
     </item>
     <item>struct TlsConnectionClass: class struct</item>
-    <item>struct TlsConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TlsConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object TlsDatabase
       <item>
@@ -4946,7 +4946,7 @@
       </item>
     </item>
     <item>struct TlsDatabaseClass: class struct</item>
-    <item>struct TlsDatabasePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TlsDatabasePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       enum TlsError
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -4973,7 +4973,7 @@
       </item>
     </item>
     <item>struct TlsInteractionClass: class struct</item>
-    <item>struct TlsInteractionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TlsInteractionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object TlsPassword
       <item>
@@ -5026,7 +5026,7 @@
       </item>
     </item>
     <item>struct TlsPasswordClass: class struct</item>
-    <item>struct TlsPasswordPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TlsPasswordPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TlsServerConnectionInterface: class struct</item>
     <item>
       object UnixConnection
@@ -5048,15 +5048,15 @@
       </item>
     </item>
     <item>struct UnixConnectionClass: class struct</item>
-    <item>struct UnixConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct UnixConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct UnixCredentialsMessageClass: class struct</item>
-    <item>struct UnixCredentialsMessagePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct UnixCredentialsMessagePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct UnixFDListClass: class struct</item>
-    <item>struct UnixFDListPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct UnixFDListPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct UnixFDMessageClass: class struct</item>
-    <item>struct UnixFDMessagePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct UnixFDMessagePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct UnixInputStreamClass: class struct</item>
-    <item>struct UnixInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct UnixInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct UnixMountMonitorClass: class struct</item>
     <item>
       struct UnixMountPoint
@@ -5064,14 +5064,14 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct UnixOutputStreamClass: class struct</item>
-    <item>struct UnixOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct UnixOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object UnixSocketAddress
       <item>property path-as-array: type ARRAY not supported</item>
       <item>property path-as-array: type ARRAY not supported</item>
     </item>
     <item>struct UnixSocketAddressClass: class struct</item>
-    <item>struct UnixSocketAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct UnixSocketAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Vfs
       <item>
@@ -5371,7 +5371,7 @@
       </item>
     </item>
     <item>struct RepositoryClass: class struct</item>
-    <item>struct RepositoryPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RepositoryPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct UnresolvedInfo: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
@@ -6068,7 +6068,7 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct RendererClass: class struct</item>
-    <item>struct RendererPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RendererPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ScriptForLang: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (lang, scripts)</item>
     <item>struct ScriptIter: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
@@ -6341,7 +6341,7 @@
       </item>
     </item>
     <item>struct FrameClockClass: class struct</item>
-    <item>struct FrameClockPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FrameClockPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct FrameTimings
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -6568,7 +6568,7 @@
       <item>property documenters: type ARRAY not supported</item>
     </item>
     <item>struct AboutDialogClass: class struct</item>
-    <item>struct AboutDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct AboutDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object AccelGroup
       <item>
@@ -6602,9 +6602,9 @@
     </item>
     <item>struct AccelGroupClass: class struct</item>
     <item>struct AccelGroupEntry: interface type excluded by configuration (excludedInterfaceTypes)</item>
-    <item>struct AccelGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct AccelGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct AccelLabelClass: class struct</item>
-    <item>struct AccelLabelPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct AccelLabelPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object AccelMap
       <item>
@@ -6652,7 +6652,7 @@
     </item>
     <item>struct AccelMapClass: class struct</item>
     <item>struct AccessibleClass: class struct</item>
-    <item>struct AccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct AccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Action
       <item>
@@ -6665,7 +6665,7 @@
       </item>
     </item>
     <item>struct ActionBarClass: class struct</item>
-    <item>struct ActionBarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ActionBarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ActionClass: class struct</item>
     <item>struct ActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name, stock_id, label, accelerator, tooltip, callback)</item>
     <item>
@@ -6700,20 +6700,20 @@
       </item>
     </item>
     <item>struct ActionGroupClass: class struct</item>
-    <item>struct ActionGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct ActionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ActionGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct ActionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ActionableInterface: class struct</item>
     <item>struct ActivatableIface: class struct</item>
     <item>struct AdjustmentClass: class struct</item>
-    <item>struct AdjustmentPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct AdjustmentPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct AlignmentClass: class struct</item>
-    <item>struct AlignmentPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct AlignmentPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct AppChooserButtonClass: class struct</item>
-    <item>struct AppChooserButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct AppChooserButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct AppChooserDialogClass: class struct</item>
-    <item>struct AppChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct AppChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct AppChooserWidgetClass: class struct</item>
-    <item>struct AppChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct AppChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Application
       <item>
@@ -6726,15 +6726,15 @@
       </item>
     </item>
     <item>struct ApplicationClass: class struct</item>
-    <item>struct ApplicationPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ApplicationPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ApplicationWindowClass: class struct</item>
-    <item>struct ApplicationWindowPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ApplicationWindowPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ArrowAccessibleClass: class struct</item>
-    <item>struct ArrowAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ArrowAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ArrowClass: class struct</item>
-    <item>struct ArrowPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ArrowPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct AspectFrameClass: class struct</item>
-    <item>struct AspectFramePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct AspectFramePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Assistant
       <item>
@@ -6759,22 +6759,22 @@
       </item>
     </item>
     <item>struct AssistantClass: class struct</item>
-    <item>struct AssistantPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct AssistantPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct BinClass: class struct</item>
-    <item>struct BinPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct BinPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct BindingArg: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct BindingEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (binding_set, set_next, hash_next, signals)</item>
     <item>struct BindingSet: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (set_name, widget_path_pspecs, widget_class_pspecs, class_branch_pspecs, entries, current)</item>
     <item>struct BindingSignal: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (next, signal_name, args)</item>
     <item>struct BooleanCellAccessibleClass: class struct</item>
-    <item>struct BooleanCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct BooleanCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct Border
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct BoxClass: class struct</item>
-    <item>struct BoxPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct BoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface Buildable
       <item>
@@ -6850,13 +6850,13 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct BuilderPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct BuilderPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ButtonAccessibleClass: class struct</item>
-    <item>struct ButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ButtonBoxClass: class struct</item>
-    <item>struct ButtonBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ButtonBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ButtonClass: class struct</item>
-    <item>struct ButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Calendar
       <item>
@@ -6881,7 +6881,7 @@
       </item>
     </item>
     <item>struct CalendarClass: class struct</item>
-    <item>struct CalendarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CalendarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellAccessibleClass: class struct</item>
     <item>
       interface CellAccessibleParent
@@ -6901,7 +6901,7 @@
       </item>
     </item>
     <item>struct CellAccessibleParentIface: class struct</item>
-    <item>struct CellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object CellArea
       <item>
@@ -6930,11 +6930,11 @@
       </item>
     </item>
     <item>struct CellAreaBoxClass: class struct</item>
-    <item>struct CellAreaBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellAreaBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellAreaClass: class struct</item>
     <item>struct CellAreaContextClass: class struct</item>
-    <item>struct CellAreaContextPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct CellAreaPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellAreaContextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct CellAreaPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellEditableIface: class struct</item>
     <item>
       interface CellLayout
@@ -6969,31 +6969,31 @@
     </item>
     <item>struct CellLayoutIface: class struct</item>
     <item>struct CellRendererAccelClass: class struct</item>
-    <item>struct CellRendererAccelPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellRendererAccelPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellRendererClass: class struct</item>
-    <item>struct CellRendererClassPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellRendererClassPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellRendererComboClass: class struct</item>
-    <item>struct CellRendererComboPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellRendererComboPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellRendererPixbufClass: class struct</item>
-    <item>struct CellRendererPixbufPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct CellRendererPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellRendererPixbufPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct CellRendererPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellRendererProgressClass: class struct</item>
-    <item>struct CellRendererProgressPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellRendererProgressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellRendererSpinClass: class struct</item>
-    <item>struct CellRendererSpinPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellRendererSpinPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellRendererSpinnerClass: class struct</item>
-    <item>struct CellRendererSpinnerPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellRendererSpinnerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellRendererTextClass: class struct</item>
-    <item>struct CellRendererTextPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellRendererTextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellRendererToggleClass: class struct</item>
-    <item>struct CellRendererTogglePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellRendererTogglePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellViewClass: class struct</item>
-    <item>struct CellViewPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CellViewPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CheckButtonClass: class struct</item>
     <item>struct CheckMenuItemAccessibleClass: class struct</item>
-    <item>struct CheckMenuItemAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CheckMenuItemAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CheckMenuItemClass: class struct</item>
-    <item>struct CheckMenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CheckMenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Clipboard
       <item>
@@ -7046,16 +7046,16 @@
       </item>
     </item>
     <item>struct ColorButtonClass: class struct</item>
-    <item>struct ColorButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ColorButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ColorChooserDialogClass: class struct</item>
-    <item>struct ColorChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ColorChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ColorChooserInterface: class struct</item>
     <item>struct ColorChooserWidgetClass: class struct</item>
-    <item>struct ColorChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ColorChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ColorSelectionClass: class struct</item>
     <item>struct ColorSelectionDialogClass: class struct</item>
-    <item>struct ColorSelectionDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct ColorSelectionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ColorSelectionDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct ColorSelectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object ComboBox
       <item>
@@ -7080,11 +7080,11 @@
       </item>
     </item>
     <item>struct ComboBoxAccessibleClass: class struct</item>
-    <item>struct ComboBoxAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ComboBoxAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ComboBoxClass: class struct</item>
-    <item>struct ComboBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ComboBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ComboBoxTextClass: class struct</item>
-    <item>struct ComboBoxTextPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ComboBoxTextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Container
       <item>
@@ -7141,7 +7141,7 @@
       </item>
     </item>
     <item>struct ContainerAccessibleClass: class struct</item>
-    <item>struct ContainerAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ContainerAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object ContainerCellAccessible
       <item>
@@ -7154,9 +7154,9 @@
       </item>
     </item>
     <item>struct ContainerCellAccessibleClass: class struct</item>
-    <item>struct ContainerCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ContainerCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ContainerClass: class struct</item>
-    <item>struct ContainerPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ContainerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object CssProvider
       <item>
@@ -7180,7 +7180,7 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct CssProviderPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CssProviderPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct CssSection
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -7189,13 +7189,13 @@
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct DialogClass: class struct</item>
-    <item>struct DialogPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct DialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct DrawingAreaClass: class struct</item>
     <item>struct EditableInterface: class struct</item>
     <item>struct EntryAccessibleClass: class struct</item>
-    <item>struct EntryAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct EntryAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct EntryBufferClass: class struct</item>
-    <item>struct EntryBufferPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct EntryBufferPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct EntryClass: class struct</item>
     <item>
       object EntryCompletion
@@ -7221,15 +7221,15 @@
       </item>
     </item>
     <item>struct EntryCompletionClass: class struct</item>
-    <item>struct EntryCompletionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct EntryPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct EntryCompletionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct EntryPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct EventBoxClass: class struct</item>
-    <item>struct EventBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct EventBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct EventControllerClass: class struct</item>
     <item>struct ExpanderAccessibleClass: class struct</item>
-    <item>struct ExpanderAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ExpanderAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ExpanderClass: class struct</item>
-    <item>struct ExpanderPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ExpanderPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface FileChooser
       <item>
@@ -7282,9 +7282,9 @@
       </item>
     </item>
     <item>struct FileChooserButtonClass: class struct</item>
-    <item>struct FileChooserButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FileChooserButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FileChooserDialogClass: class struct</item>
-    <item>struct FileChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FileChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       enum FileChooserError
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -7292,7 +7292,7 @@
     </item>
     <item>struct FileChooserNativeClass: class struct</item>
     <item>struct FileChooserWidgetClass: class struct</item>
-    <item>struct FileChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FileChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object FileFilter
       <item>
@@ -7339,7 +7339,7 @@
     <item>struct FileFilterInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (filename, uri, display_name, mime_type)</item>
     <item>struct FixedChild: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (widget)</item>
     <item>struct FixedClass: class struct</item>
-    <item>struct FixedPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FixedPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object FlowBox
       <item>
@@ -7420,12 +7420,12 @@
       </item>
     </item>
     <item>struct FlowBoxAccessibleClass: class struct</item>
-    <item>struct FlowBoxAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FlowBoxAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FlowBoxChildAccessibleClass: class struct</item>
     <item>struct FlowBoxChildClass: class struct</item>
     <item>struct FlowBoxClass: class struct</item>
     <item>struct FontButtonClass: class struct</item>
-    <item>struct FontButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FontButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface FontChooser
       <item>
@@ -7450,18 +7450,18 @@
       </item>
     </item>
     <item>struct FontChooserDialogClass: class struct</item>
-    <item>struct FontChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FontChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FontChooserIface: class struct</item>
     <item>struct FontChooserWidgetClass: class struct</item>
-    <item>struct FontChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FontChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FontSelectionClass: class struct</item>
     <item>struct FontSelectionDialogClass: class struct</item>
-    <item>struct FontSelectionDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct FontSelectionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FontSelectionDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct FontSelectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FrameAccessibleClass: class struct</item>
-    <item>struct FrameAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FrameAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FrameClass: class struct</item>
-    <item>struct FramePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FramePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object GLArea
       <item>
@@ -7524,27 +7524,27 @@
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct GridClass: class struct</item>
-    <item>struct GridPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct GridPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct HBoxClass: class struct</item>
     <item>struct HButtonBoxClass: class struct</item>
     <item>struct HPanedClass: class struct</item>
     <item>struct HSVClass: class struct</item>
-    <item>struct HSVPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct HSVPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct HScaleClass: class struct</item>
     <item>struct HScrollbarClass: class struct</item>
     <item>struct HSeparatorClass: class struct</item>
     <item>struct HandleBoxClass: class struct</item>
-    <item>struct HandleBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct HandleBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct HeaderBarClass: class struct</item>
-    <item>struct HeaderBarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct HeaderBarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct IMContextClass: class struct</item>
     <item>struct IMContextInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (context_id, context_name, domain, domain_dirname, default_locales)</item>
     <item>struct IMContextSimpleClass: class struct</item>
-    <item>struct IMContextSimplePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct IMContextSimplePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct IMMulticontextClass: class struct</item>
-    <item>struct IMMulticontextPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct IMMulticontextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct IconFactoryClass: class struct</item>
-    <item>struct IconFactoryPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct IconFactoryPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object IconInfo
       <item>
@@ -7610,7 +7610,7 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct IconThemePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct IconThemePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object IconView
       <item>
@@ -7631,36 +7631,36 @@
       </item>
     </item>
     <item>struct IconViewAccessibleClass: class struct</item>
-    <item>struct IconViewAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct IconViewAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct IconViewClass: class struct</item>
-    <item>struct IconViewPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct IconViewPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ImageAccessibleClass: class struct</item>
-    <item>struct ImageAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ImageAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ImageCellAccessibleClass: class struct</item>
-    <item>struct ImageCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ImageCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ImageClass: class struct</item>
     <item>struct ImageMenuItemClass: class struct</item>
-    <item>struct ImageMenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct ImagePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ImageMenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct ImagePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct InfoBarClass: class struct</item>
-    <item>struct InfoBarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct InfoBarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct InvisibleClass: class struct</item>
-    <item>struct InvisiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct InvisiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LabelAccessibleClass: class struct</item>
-    <item>struct LabelAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct LabelAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LabelClass: class struct</item>
-    <item>struct LabelPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct LabelPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LabelSelectionInfo: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct LayoutClass: class struct</item>
-    <item>struct LayoutPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct LayoutPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LevelBarAccessibleClass: class struct</item>
-    <item>struct LevelBarAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct LevelBarAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LevelBarClass: class struct</item>
-    <item>struct LevelBarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct LevelBarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LinkButtonAccessibleClass: class struct</item>
-    <item>struct LinkButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct LinkButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LinkButtonClass: class struct</item>
-    <item>struct LinkButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct LinkButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object ListBox
       <item>
@@ -7761,16 +7761,16 @@
       </item>
     </item>
     <item>struct ListBoxAccessibleClass: class struct</item>
-    <item>struct ListBoxAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ListBoxAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ListBoxClass: class struct</item>
     <item>struct ListBoxRowAccessibleClass: class struct</item>
     <item>struct ListBoxRowClass: class struct</item>
     <item>struct ListStoreClass: class struct</item>
-    <item>struct ListStorePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ListStorePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LockButtonAccessibleClass: class struct</item>
-    <item>struct LockButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct LockButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LockButtonClass: class struct</item>
-    <item>struct LockButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct LockButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Menu
       <item>
@@ -7839,13 +7839,13 @@
       </item>
     </item>
     <item>struct MenuAccessibleClass: class struct</item>
-    <item>struct MenuAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MenuAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuBarClass: class struct</item>
-    <item>struct MenuBarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MenuBarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuButtonAccessibleClass: class struct</item>
-    <item>struct MenuButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MenuButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuButtonClass: class struct</item>
-    <item>struct MenuButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MenuButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuClass: class struct</item>
     <item>
       object MenuItem
@@ -7859,35 +7859,35 @@
       </item>
     </item>
     <item>struct MenuItemAccessibleClass: class struct</item>
-    <item>struct MenuItemAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MenuItemAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuItemClass: class struct</item>
-    <item>struct MenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct MenuPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct MenuPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuShellAccessibleClass: class struct</item>
-    <item>struct MenuShellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MenuShellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuShellClass: class struct</item>
-    <item>struct MenuShellPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MenuShellPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuToolButtonClass: class struct</item>
-    <item>struct MenuToolButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MenuToolButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MessageDialogClass: class struct</item>
-    <item>struct MessageDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MessageDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MiscClass: class struct</item>
-    <item>struct MiscPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MiscPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MountOperationClass: class struct</item>
-    <item>struct MountOperationPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MountOperationPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct NativeDialogClass: class struct</item>
     <item>struct NotebookAccessibleClass: class struct</item>
-    <item>struct NotebookAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct NotebookAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct NotebookClass: class struct</item>
     <item>struct NotebookPageAccessibleClass: class struct</item>
-    <item>struct NotebookPageAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct NotebookPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct NotebookPageAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct NotebookPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct NumerableIconClass: class struct</item>
-    <item>struct NumerableIconPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct NumerableIconPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct OffscreenWindowClass: class struct</item>
     <item>struct OrientableIface: class struct</item>
     <item>struct OverlayClass: class struct</item>
-    <item>struct OverlayPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct OverlayPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct PadActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (label, action_name)</item>
     <item>
       object PadController
@@ -7920,9 +7920,9 @@
     </item>
     <item>struct PadControllerClass: class struct</item>
     <item>struct PanedAccessibleClass: class struct</item>
-    <item>struct PanedAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct PanedAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct PanedClass: class struct</item>
-    <item>struct PanedPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct PanedPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct PaperSize
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -7977,11 +7977,11 @@
     </item>
     <item>struct PlacesSidebarClass: class struct</item>
     <item>struct PlugClass: class struct</item>
-    <item>struct PlugPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct PlugPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct PopoverAccessibleClass: class struct</item>
     <item>struct PopoverClass: class struct</item>
     <item>struct PopoverMenuClass: class struct</item>
-    <item>struct PopoverPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct PopoverPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       enum PrintError
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -7989,7 +7989,7 @@
     </item>
     <item>struct PrintOperationClass: class struct</item>
     <item>struct PrintOperationPreviewIface: class struct</item>
-    <item>struct PrintOperationPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct PrintOperationPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object PrintSettings
       <item>
@@ -8002,9 +8002,9 @@
       </item>
     </item>
     <item>struct ProgressBarAccessibleClass: class struct</item>
-    <item>struct ProgressBarAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ProgressBarAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ProgressBarClass: class struct</item>
-    <item>struct ProgressBarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ProgressBarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object RadioAction
       <item>
@@ -8032,7 +8032,7 @@
     </item>
     <item>struct RadioActionClass: class struct</item>
     <item>struct RadioActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name, stock_id, label, accelerator, tooltip)</item>
-    <item>struct RadioActionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RadioActionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object RadioButton
       <item>
@@ -8101,9 +8101,9 @@
       </item>
     </item>
     <item>struct RadioButtonAccessibleClass: class struct</item>
-    <item>struct RadioButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RadioButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct RadioButtonClass: class struct</item>
-    <item>struct RadioButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RadioButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object RadioMenuItem
       <item>
@@ -8172,9 +8172,9 @@
       </item>
     </item>
     <item>struct RadioMenuItemAccessibleClass: class struct</item>
-    <item>struct RadioMenuItemAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RadioMenuItemAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct RadioMenuItemClass: class struct</item>
-    <item>struct RadioMenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RadioMenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object RadioToolButton
       <item>
@@ -8230,14 +8230,14 @@
     </item>
     <item>struct RadioToolButtonClass: class struct</item>
     <item>struct RangeAccessibleClass: class struct</item>
-    <item>struct RangeAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RangeAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct RangeClass: class struct</item>
-    <item>struct RangePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RangePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct RcContext: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct RcProperty: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (origin, value.data)</item>
     <item>struct RcStyleClass: class struct</item>
     <item>struct RecentActionClass: class struct</item>
-    <item>struct RecentActionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RecentActionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface RecentChooser
       <item>
@@ -8278,7 +8278,7 @@
       </item>
     </item>
     <item>struct RecentChooserDialogClass: class struct</item>
-    <item>struct RecentChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RecentChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       enum RecentChooserError
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -8286,9 +8286,9 @@
     </item>
     <item>struct RecentChooserIface: class struct</item>
     <item>struct RecentChooserMenuClass: class struct</item>
-    <item>struct RecentChooserMenuPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RecentChooserMenuPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct RecentChooserWidgetClass: class struct</item>
-    <item>struct RecentChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RecentChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct RecentData: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (display_name, description, mime_type, app_name, app_exec, groups)</item>
     <item>
       object RecentFilter
@@ -8378,9 +8378,9 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct RecentManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RecentManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct RendererCellAccessibleClass: class struct</item>
-    <item>struct RendererCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct RendererCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct RequestedSize: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (data)</item>
     <item>
       struct Requisition
@@ -8389,24 +8389,24 @@
     </item>
     <item>struct RevealerClass: class struct</item>
     <item>struct ScaleAccessibleClass: class struct</item>
-    <item>struct ScaleAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ScaleAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object ScaleButton
       <item>property icons: type ARRAY not supported</item>
       <item>property icons: type ARRAY not supported</item>
     </item>
     <item>struct ScaleButtonAccessibleClass: class struct</item>
-    <item>struct ScaleButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ScaleButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ScaleButtonClass: class struct</item>
-    <item>struct ScaleButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ScaleButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ScaleClass: class struct</item>
-    <item>struct ScalePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ScalePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ScrollableInterface: class struct</item>
     <item>struct ScrollbarClass: class struct</item>
     <item>struct ScrolledWindowAccessibleClass: class struct</item>
-    <item>struct ScrolledWindowAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ScrolledWindowAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ScrolledWindowClass: class struct</item>
-    <item>struct ScrolledWindowPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ScrolledWindowPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SearchBarClass: class struct</item>
     <item>struct SearchEntryClass: class struct</item>
     <item>
@@ -8416,9 +8416,9 @@
     </item>
     <item>struct SeparatorClass: class struct</item>
     <item>struct SeparatorMenuItemClass: class struct</item>
-    <item>struct SeparatorPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SeparatorPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SeparatorToolItemClass: class struct</item>
-    <item>struct SeparatorToolItemPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SeparatorToolItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Settings
       <item>
@@ -8465,7 +8465,7 @@
       <item>property color-hash: type GHASH not supported</item>
     </item>
     <item>struct SettingsClass: class struct</item>
-    <item>struct SettingsPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SettingsPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SettingsValue: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (origin, value.data)</item>
     <item>struct ShortcutLabelClass: class struct</item>
     <item>struct ShortcutsGroupClass: class struct</item>
@@ -8484,28 +8484,28 @@
       </item>
     </item>
     <item>struct SizeGroupClass: class struct</item>
-    <item>struct SizeGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SizeGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SocketClass: class struct</item>
-    <item>struct SocketPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SocketPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SpinButtonAccessibleClass: class struct</item>
-    <item>struct SpinButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SpinButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SpinButtonClass: class struct</item>
-    <item>struct SpinButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SpinButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SpinnerAccessibleClass: class struct</item>
-    <item>struct SpinnerAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SpinnerAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SpinnerClass: class struct</item>
-    <item>struct SpinnerPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SpinnerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StackAccessibleClass: class struct</item>
     <item>struct StackClass: class struct</item>
     <item>struct StackSidebarClass: class struct</item>
-    <item>struct StackSidebarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct StackSidebarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StackSwitcherClass: class struct</item>
     <item>struct StatusIconClass: class struct</item>
-    <item>struct StatusIconPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct StatusIconPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StatusbarAccessibleClass: class struct</item>
-    <item>struct StatusbarAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct StatusbarAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StatusbarClass: class struct</item>
-    <item>struct StatusbarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct StatusbarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StockItem: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (stock_id, label, translation_domain)</item>
     <item>struct StyleClass: class struct</item>
     <item>
@@ -8572,7 +8572,7 @@
       </item>
     </item>
     <item>struct StyleContextClass: class struct</item>
-    <item>struct StyleContextPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct StyleContextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object StyleProperties
       <item>
@@ -8597,12 +8597,12 @@
       </item>
     </item>
     <item>struct StylePropertiesClass: class struct</item>
-    <item>struct StylePropertiesPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct StylePropertiesPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StyleProviderIface: class struct</item>
     <item>struct SwitchAccessibleClass: class struct</item>
-    <item>struct SwitchAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SwitchAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SwitchClass: class struct</item>
-    <item>struct SwitchPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SwitchPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct SymbolicColor
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -8612,7 +8612,7 @@
     </item>
     <item>struct TableChild: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (widget)</item>
     <item>struct TableClass: class struct</item>
-    <item>struct TablePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TablePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct TargetEntry
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -8627,7 +8627,7 @@
     </item>
     <item>struct TargetPair: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (target)</item>
     <item>struct TearoffMenuItemClass: class struct</item>
-    <item>struct TearoffMenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TearoffMenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct TextAttributes
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -8680,9 +8680,9 @@
       </item>
     </item>
     <item>struct TextBufferClass: class struct</item>
-    <item>struct TextBufferPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TextBufferPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TextCellAccessibleClass: class struct</item>
-    <item>struct TextCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TextCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object TextChildAnchor
       <item>
@@ -8742,7 +8742,7 @@
     </item>
     <item>struct TextMarkClass: class struct</item>
     <item>struct TextTagClass: class struct</item>
-    <item>struct TextTagPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TextTagPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object TextTagTable
       <item>
@@ -8755,11 +8755,11 @@
       </item>
     </item>
     <item>struct TextTagTableClass: class struct</item>
-    <item>struct TextTagTablePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TextTagTablePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TextViewAccessibleClass: class struct</item>
-    <item>struct TextViewAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TextViewAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TextViewClass: class struct</item>
-    <item>struct TextViewPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TextViewPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ThemeEngine: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
       object ThemingEngine
@@ -8785,27 +8785,27 @@
       </item>
     </item>
     <item>struct ThemingEngineClass: class struct</item>
-    <item>struct ThemingEnginePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ThemingEnginePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ToggleActionClass: class struct</item>
     <item>struct ToggleActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name, stock_id, label, accelerator, tooltip, callback)</item>
-    <item>struct ToggleActionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ToggleActionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ToggleButtonAccessibleClass: class struct</item>
-    <item>struct ToggleButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ToggleButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ToggleButtonClass: class struct</item>
-    <item>struct ToggleButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ToggleButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ToggleToolButtonClass: class struct</item>
-    <item>struct ToggleToolButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ToggleToolButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ToolButtonClass: class struct</item>
-    <item>struct ToolButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ToolButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ToolItemClass: class struct</item>
     <item>struct ToolItemGroupClass: class struct</item>
-    <item>struct ToolItemGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct ToolItemPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ToolItemGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct ToolItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ToolPaletteClass: class struct</item>
-    <item>struct ToolPalettePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ToolPalettePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ToolShellIface: class struct</item>
     <item>struct ToolbarClass: class struct</item>
-    <item>struct ToolbarPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ToolbarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object ToplevelAccessible
       <item>
@@ -8818,7 +8818,7 @@
       </item>
     </item>
     <item>struct ToplevelAccessibleClass: class struct</item>
-    <item>struct ToplevelAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ToplevelAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TreeDragDestIface: class struct</item>
     <item>
       interface TreeDragSource
@@ -8886,10 +8886,10 @@
       </item>
     </item>
     <item>struct TreeModelFilterClass: class struct</item>
-    <item>struct TreeModelFilterPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TreeModelFilterPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TreeModelIface: class struct</item>
     <item>struct TreeModelSortClass: class struct</item>
-    <item>struct TreeModelSortPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TreeModelSortPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct TreePath
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -8940,7 +8940,7 @@
       </item>
     </item>
     <item>struct TreeSelectionClass: class struct</item>
-    <item>struct TreeSelectionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TreeSelectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       interface TreeSortable
       <item>
@@ -8986,7 +8986,7 @@
     </item>
     <item>struct TreeSortableIface: class struct</item>
     <item>struct TreeStoreClass: class struct</item>
-    <item>struct TreeStorePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TreeStorePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object TreeView
       <item>
@@ -9127,7 +9127,7 @@
       </item>
     </item>
     <item>struct TreeViewAccessibleClass: class struct</item>
-    <item>struct TreeViewAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TreeViewAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TreeViewClass: class struct</item>
     <item>
       object TreeViewColumn
@@ -9153,8 +9153,8 @@
       </item>
     </item>
     <item>struct TreeViewColumnClass: class struct</item>
-    <item>struct TreeViewColumnPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct TreeViewPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TreeViewColumnPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct TreeViewPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object UIManager
       <item>
@@ -9175,7 +9175,7 @@
       </item>
     </item>
     <item>struct UIManagerClass: class struct</item>
-    <item>struct UIManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct UIManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct VBoxClass: class struct</item>
     <item>struct VButtonBoxClass: class struct</item>
     <item>struct VPanedClass: class struct</item>
@@ -9183,7 +9183,7 @@
     <item>struct VScrollbarClass: class struct</item>
     <item>struct VSeparatorClass: class struct</item>
     <item>struct ViewportClass: class struct</item>
-    <item>struct ViewportPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ViewportPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct VolumeButtonClass: class struct</item>
     <item>
       object Widget
@@ -9227,9 +9227,9 @@
       </item>
     </item>
     <item>struct WidgetAccessibleClass: class struct</item>
-    <item>struct WidgetAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct WidgetAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct WidgetClass: class struct</item>
-    <item>struct WidgetClassPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct WidgetClassPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct WidgetPath
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -9255,7 +9255,7 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct WidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct WidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Window
       <item>
@@ -9312,7 +9312,7 @@
       </item>
     </item>
     <item>struct WindowAccessibleClass: class struct</item>
-    <item>struct WindowAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct WindowAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct WindowClass: class struct</item>
     <item>struct WindowGeometryInfo: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
@@ -9327,8 +9327,8 @@
       </item>
     </item>
     <item>struct WindowGroupClass: class struct</item>
-    <item>struct WindowGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct WindowPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct WindowGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct WindowPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       function accel_groups_from_object
       <item>type gslist: type GSLIST not supported</item>
@@ -9475,7 +9475,7 @@
       </item>
     </item>
     <item>struct BufferClass: class struct</item>
-    <item>struct BufferPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct BufferPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Completion
       <item>
@@ -9520,21 +9520,21 @@
       </item>
     </item>
     <item>struct CompletionContextClass: class struct</item>
-    <item>struct CompletionContextPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CompletionContextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       enum CompletionError
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct CompletionInfoClass: class struct</item>
-    <item>struct CompletionInfoPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CompletionInfoPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CompletionItemClass: class struct</item>
-    <item>struct CompletionItemPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct CompletionPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CompletionItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct CompletionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CompletionProposalIface: class struct</item>
     <item>struct CompletionProviderIface: class struct</item>
     <item>struct CompletionWordsClass: class struct</item>
-    <item>struct CompletionWordsPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct CompletionWordsPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct Encoding
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -9588,8 +9588,8 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct FileLoaderPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct FilePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FileLoaderPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct FilePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object FileSaver
       <item>
@@ -9607,7 +9607,7 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
-    <item>struct FileSaverPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct FileSaverPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Gutter
       <item>
@@ -9626,13 +9626,13 @@
       </item>
     </item>
     <item>struct GutterClass: class struct</item>
-    <item>struct GutterPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct GutterPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct GutterRendererClass: class struct</item>
     <item>struct GutterRendererPixbufClass: class struct</item>
-    <item>struct GutterRendererPixbufPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct GutterRendererPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct GutterRendererPixbufPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct GutterRendererPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct GutterRendererTextClass: class struct</item>
-    <item>struct GutterRendererTextPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct GutterRendererTextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LanguageClass: class struct</item>
     <item>
       object LanguageManager
@@ -9642,15 +9642,15 @@
       <item>property search-path: type ARRAY not supported</item>
     </item>
     <item>struct LanguageManagerClass: class struct</item>
-    <item>struct LanguageManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct LanguagePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct LanguageManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct LanguagePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MapClass: class struct</item>
     <item>struct MarkAttributesClass: class struct</item>
-    <item>struct MarkAttributesPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MarkAttributesPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MarkClass: class struct</item>
-    <item>struct MarkPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct MarkPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct PrintCompositorClass: class struct</item>
-    <item>struct PrintCompositorPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct PrintCompositorPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object Region
       <item>
@@ -9706,9 +9706,9 @@
       <item>property regex-error: type VOID not expected</item>
     </item>
     <item>struct SearchContextClass: class struct</item>
-    <item>struct SearchContextPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SearchContextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SearchSettingsClass: class struct</item>
-    <item>struct SearchSettingsPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct SearchSettingsPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StyleClass: class struct</item>
     <item>struct StyleSchemeChooserButtonClass: class struct</item>
     <item>struct StyleSchemeChooserInterface: class struct</item>
@@ -9722,8 +9722,8 @@
       <item>property search-path: type ARRAY not supported</item>
     </item>
     <item>struct StyleSchemeManagerClass: class struct</item>
-    <item>struct StyleSchemeManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct StyleSchemePrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct StyleSchemeManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct StyleSchemePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TagClass: class struct</item>
     <item>struct UndoManagerIface: class struct</item>
     <item>
@@ -9744,7 +9744,7 @@
       </item>
     </item>
     <item>struct ViewClass: class struct</item>
-    <item>struct ViewPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct ViewPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>function completion_error_quark: moved to CompletionError.quark</item>
     <item>function encoding_get_all: moved to Encoding.get_all</item>
     <item>function encoding_get_current: moved to Encoding.get_current</item>
@@ -9808,8 +9808,8 @@
       </item>
     </item>
     <item>struct TerminalClass: class struct</item>
-    <item>struct TerminalClassPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
-    <item>struct TerminalPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TerminalClassPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>struct TerminalPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>function pty_error_quark: moved to PtyError.quark</item>
   </item>
   <item>
@@ -9906,7 +9906,7 @@
       </item>
     </item>
     <item>struct TerminalClass: class struct</item>
-    <item>struct TerminalClassPrivate: interface type excluded by configuration (excludedInterfaceTypeGlobalSuffixes)</item>
+    <item>struct TerminalClassPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>function pty_error_quark: moved to PtyError.quark</item>
     <item>function regex_error_quark: moved to RegexError.quark</item>
   </item>

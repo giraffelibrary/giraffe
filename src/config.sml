@@ -154,8 +154,16 @@ excludedInterfaceTypes := [
   )
 ];
 
-excludedInterfaceTypeGlobalSuffixes := [
-  "Private"
+excludedInterfaceTypePrefixes := [
+];
+
+excludedInterfaceTypeSuffixes := [
+  (
+    [],  (* global *)
+    [
+      "Private"
+    ]
+  )
 ];
 
 
