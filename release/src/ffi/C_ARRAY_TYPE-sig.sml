@@ -5,7 +5,7 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
+signature C_ARRAY_TYPE (* includes C_POINTER_TYPE *) =
   sig
     type t
     type elem
@@ -19,6 +19,9 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
     type opt = Pointer.opt
     type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
+
+    type 'a from_p
+
     type e
 
     structure ElemType :
@@ -49,7 +52,11 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
      * reference-counted, duplicating increments the reference count and
      * freeing decrements the reference count and deallocates memory iff
      * the count reaches zero.
-     *
+     *)
+    val dup  : int -> (non_opt p -> non_opt p) from_p
+    val free : int -> (non_opt p -> unit) from_p
+
+    (**
      * Following `set p (i, e)` or `setElem p (i, elem)`, `ElemType.free ~1`
      * must be applied to the element at index `i` of `p` once it is no
      * longer required.  (This could be achieved by applying `free ~1` to
@@ -58,9 +65,6 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
      * Note that `getElem p` is equivalent to `ElemType.fromC o get p` but is
      * included for uniformity.
      *)
-    type 'a from_p
-    val dup  : int -> (non_opt p -> non_opt p) from_p
-    val free : int -> (non_opt p -> unit) from_p
     val len     : (non_opt p -> int) from_p
     val get     : (non_opt p -> int -> e)    from_p
     val getElem : (non_opt p -> int -> elem) from_p
@@ -89,7 +93,7 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE when 'a from_p = 'a *) =
      * any exist.  For data that is reference-counted, copying increments
      * the reference count.
      *
-     * `free ~1` must be applied to the pointer returned by `toC` once
+     * `free ~1` must be applied to the pointer returned by `toC t` once
      * it is not required.
      *)
     val toC : (t -> non_opt p) from_p

@@ -14,6 +14,8 @@ signature C_POINTER_TYPE =
     type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
 
+    type 'a from_p
+
     (**
      * `dup d p` and `free d p` duplicate and free, respectively, the
      * data referenced by the C pointer `p` where `d` indicates the depth
@@ -25,8 +27,8 @@ signature C_POINTER_TYPE =
      * freeing decrements the reference count and deallocates memory iff
      * the count reaches zero.
      *)
-    val dup  : int -> non_opt p -> non_opt p
-    val free : int -> non_opt p -> unit
+    val dup  : int -> (non_opt p -> non_opt p) from_p
+    val free : int -> (non_opt p -> unit) from_p
 
     (**
      * Conversion to and from the C representation is provided by `toC`
@@ -38,6 +40,6 @@ signature C_POINTER_TYPE =
      * `free ~1` must be applied to the pointer returned by `toC t` once
      * it is not required.
      *)
-    val toC : t -> non_opt p
-    val fromC : non_opt p -> t
+    val toC : (t -> non_opt p) from_p
+    val fromC : (non_opt p -> t) from_p
   end

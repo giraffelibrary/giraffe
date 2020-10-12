@@ -42,6 +42,8 @@ structure GdkEvent :> GDK_EVENT =
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
+        type 'a from_p = 'a
+
         structure PointerType =
           struct
             structure Pointer = Pointer
@@ -50,6 +52,8 @@ structure GdkEvent :> GDK_EVENT =
             type 'a p = 'a Pointer.p
 
             type t = non_opt p Finalizable.t
+
+            type 'a from_p = 'a from_p
 
             fun dup d = if d <> 0 then dup_ else Fn.id
 

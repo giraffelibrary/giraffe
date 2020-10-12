@@ -15,6 +15,8 @@ functor PointerRecord(val name : string) :> RECORD =
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
+        type 'a from_p = 'a
+
         structure PointerType =
           struct
             structure Pointer = Pointer
@@ -23,6 +25,8 @@ functor PointerRecord(val name : string) :> RECORD =
             type 'a p = 'a Pointer.p
 
             type t = non_opt p
+
+            type 'a from_p = 'a from_p
 
             fun dup _ = Fn.id
 

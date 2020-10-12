@@ -142,7 +142,7 @@ datatype interfacescope =
 
 datatype containertype =
   ARRAYREF of {
-    isPtr          : bool option,  (* NONE: non-pointer; SOME isArray: pointers *)
+    isPtr          : bool,
     zeroTerminated : bool,
     elemRef        : elemref
   }

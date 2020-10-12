@@ -145,6 +145,17 @@ signature C_ARRAY =
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
+
+        type 'a from_p
+
+        structure PointerType :
+          C_POINTER_TYPE
+            where type t = sequence
+            where type opt = opt
+            where type non_opt = non_opt
+            where type 'a p = 'a p
+            where type 'a from_p = 'a from_p
+
         type e
 
         structure ArrayType :
@@ -155,6 +166,7 @@ signature C_ARRAY =
             where type opt = opt
             where type non_opt = non_opt
             where type 'a p = 'a p
+            where type 'a from_p = 'a from_p
       end
 
     (**

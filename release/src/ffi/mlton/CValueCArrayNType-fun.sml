@@ -21,11 +21,13 @@ functor CValueCArrayNType(
     type elem = ElemSequence.elem
     type t = ElemSequence.t
 
-    type 'a from_p = int -> 'a
     structure Pointer = CTypedPointer(CElemType)
     type opt = Pointer.opt
     type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
+
+    type 'a from_p = int -> 'a
+
     type e = Pointer.e
 
     structure ElemType =

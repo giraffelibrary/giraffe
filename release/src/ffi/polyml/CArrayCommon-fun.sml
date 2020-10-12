@@ -12,13 +12,15 @@ functor CArrayCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) =
 
     structure C =
       struct
-        type e = CArrayType.e
         structure Pointer = CArrayType.Pointer
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
+        type 'a from_p = 'a CArrayType.from_p
+        type e = CArrayType.e
 
+        structure PointerType = CArrayType
         structure ArrayType = CArrayType
       end
 

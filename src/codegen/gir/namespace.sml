@@ -13,7 +13,7 @@ fun mkArrayStrModules (elemStrId, isPtr, zeroTerminated) =
     )
     val funcTypeId =
       let
-        val prefixId = case isPtr of SOME _ => cPointerStrId | _ => cValueStrId
+        val prefixId = case isPtr of true => cPointerStrId | false => cValueStrId
       in
         prefixId ^ funcId ^ typeStrId
       end
@@ -24,13 +24,9 @@ fun mkArrayStrModules (elemStrId, isPtr, zeroTerminated) =
       StructInst (
         funcTypeId,
         case isPtr of
-          SOME isArray =>
+          true  =>
             let
-              val elemStruct =
-                if isArray
-                then mkNameStruct [elemStrId, cStrId, arrayTypeStrId]
-                else mkNameStruct [elemStrId, cStrId, pointerTypeStrId]
-
+              val elemStruct = mkNameStruct [elemStrId, cStrId, pointerTypeStrId]
               val sequenceStruct = mkNameStruct ["VectorSequence"]
             in
               mkStrDecsFunArg [
@@ -38,7 +34,7 @@ fun mkArrayStrModules (elemStrId, isPtr, zeroTerminated) =
                 mkStructStrDec ("Sequence", sequenceStruct)
               ]
             end
-        | NONE         =>
+        | false =>
             let
               val elemStruct = mkNameStruct [elemStrId, cStrId, valueTypeStrId]
               val elemSequenceStruct =

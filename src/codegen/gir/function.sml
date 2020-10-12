@@ -485,30 +485,30 @@ fun mkArrayLenAppExp length e =
 
 fun isPtrElem repo vers =
   fn
-    IGTYPE _                   => NONE
-  | ISCALAR _                  => NONE
-  | IUTF8 _                    => SOME true
-  | IARRAY _                   => SOME true
+    IGTYPE _                   => false
+  | ISCALAR _                  => false
+  | IUTF8 _                    => true
+  | IARRAY _                   => true
   | IINTERFACE {infoType, ...} =>
       let
         open InfoType
       in
         case infoType of
-          FLAGS _           => NONE
-        | ENUM _            => NONE
+          FLAGS _           => false
+        | ENUM _            => false
         | STRUCT structInfo => (
             case getStructType repo vers structInfo of
-              ValueRecord _ => NONE
-            | _             => SOME false
+              ValueRecord _ => false
+            | _             => true
           )
-        | _                 => SOME false
+        | _                 => true
       end
 
 fun makeCArrayStrId (elemStrId, isPtr, zeroTerminated) =
   concat [
     elemStrId,
     cStrId,
-    case isPtr of SOME _ => ptrStrId | NONE => "",
+    if isPtr then ptrStrId else "",
     arrayStrId,
     if zeroTerminated then "" else nStrId
   ]

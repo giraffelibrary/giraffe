@@ -6,7 +6,7 @@
  *)
 
 functor CPointerCArrayType(
-  structure CElemType : C_POINTER_TYPE
+  structure CElemType : C_POINTER_TYPE where type 'a from_p = 'a
   structure Sequence : SEQUENCE
 ) :>
   C_ARRAY_TYPE
@@ -31,11 +31,13 @@ functor CPointerCArrayType(
     type elem = ElemSequence.elem
     type t = ElemSequence.t
 
-    type 'a from_p = 'a
     structure Pointer = CTypedPointer(CElemType.Pointer.OptValueType)
     type opt = Pointer.opt
     type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
+
+    type 'a from_p = 'a
+
     type e = CElemType.non_opt CElemType.p
 
     structure ElemType =

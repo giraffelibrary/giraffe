@@ -19,12 +19,15 @@ signature UNION =
         type 'a p = 'a Pointer.p
         type ('a, 'b) r = ('a, 'b) Pointer.r
 
+        type 'a from_p = 'a
+
         structure PointerType :
           C_POINTER_TYPE
             where type t = t
             where type opt = opt
             where type non_opt = non_opt
             where type 'a p = 'a p
+            where type 'a from_p = 'a from_p
       end
 
     structure FFI :

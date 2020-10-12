@@ -24,12 +24,15 @@ signature VALUE_RECORD =
             where type t = t
             where type v = v
 
+        type 'a from_p = 'a
+
         structure PointerType :
           C_POINTER_TYPE
             where type t = t
             where type opt = opt
             where type non_opt = non_opt
             where type 'a p = 'a p
+            where type 'a from_p = 'a from_p
       end
 
     structure FFI :
