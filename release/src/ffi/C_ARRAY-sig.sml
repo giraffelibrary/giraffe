@@ -167,6 +167,10 @@ signature C_ARRAY =
             where type non_opt = non_opt
             where type 'a p = 'a p
             where type 'a from_p = 'a from_p
+
+        val takePtr : non_opt p -> t from_p
+        val giveDupPtr : (non_opt p -> 'a) from_p -> t -> 'a
+        val touchPtr : t -> unit
       end
 
     (**
@@ -186,25 +190,14 @@ signature C_ARRAY =
         val touchPtr    : t        -> unit
         val touchOptPtr : t option -> unit
 
-        (**
-         * Return values
-         *
-         * The type `'a out_p` is the FFI type for a pointer to a C array
-         * returned by a C function, either as the return value or 'exported'
-         * from a reference parameter.  `opt out_p` and `non_opt out_p`
-         * represent an optional and non-optional pointer, respectively.
-         *)
-        type 'a out_p = 'a C.p
-
-        (* The pointer returned by a function may not, on its own, be enough
+        (* A pointer returned from a function may not, on its own, be enough
          * to read the array, in particular, the C array may not contain any
          * information about its size.  For example, a C string may not be
          * null-terminated.
          *
-         * The type `'a from_p` is the function type that returns the array
-         * representation 'a from the pointer type `'b out_p`.  For example,
-         * an implementation that requires the size of the array would
-         * define
+         * The type `'a from_p` captures any addiional arguments needed to
+         * read an array from a pointer.  For example, an implementation that
+         * requires the size of the array would define
          *
          *   'a from_p = int -> 'a
          *
@@ -215,6 +208,16 @@ signature C_ARRAY =
          *
          *)
         type 'a from_p = 'a C.ArrayType.from_p
+
+        (**
+         * Return values
+         *
+         * The type `'a out_p` is the FFI type for a pointer to a C array
+         * returned by a C function, either as the return value or 'exported'
+         * from a reference parameter.  `opt out_p` and `non_opt out_p`
+         * represent an optional and non-optional pointer, respectively.
+         *)
+        type 'a out_p = 'a C.p
 
         (* An array returned by or exported from a C function is wrapped
          * according to:

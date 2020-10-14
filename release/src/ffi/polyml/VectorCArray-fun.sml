@@ -37,7 +37,19 @@ functor VectorCArray(CArray : C_ARRAY where type 'a C.ArrayType.from_p = 'a) :>
     val fromSequence = Fn.id
     val toSequence = Fn.id
 
-    structure C = CArray.C
+    structure C =
+      struct
+        open CArray.C
+
+        val takePtr = CArray.FFI.copyPtr ArrayType.ElemSequence.tabulate ~1
+        fun giveDupPtr f t =
+          let
+            fun check f p = f p handle e => (PointerType.free ~1 p; raise e)
+          in
+            check f (PointerType.toC t)
+          end
+        val touchPtr = ignore
+      end
 
     structure FFI =
       struct

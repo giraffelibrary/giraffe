@@ -80,6 +80,35 @@ functor ConstCArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
 
     type t = array
 
+    structure C =
+      struct
+        open C
+
+        fun takePtr p =
+          let
+            val a = Finalizable.new p
+            val () = Finalizable.addFinalizer (a, PointerType.free ~1)
+          in
+            CArray a
+          end
+
+        fun giveDupPtr f =
+          let
+            fun check f p = f p handle e => (PointerType.free ~1 p; raise e)
+          in
+            fn
+              CArray a =>
+                Finalizable.withValue (a, check f o PointerType.dup ~1)
+            | SMLValue v =>
+                Finalizable.withValue (v, check f o ArrayType.CVector.toPointer)
+          end
+
+        val touchPtr =
+          fn
+            CArray a => Finalizable.touch a
+          | _        => ()
+      end
+
     fun toSMLValue cvector =
       let
         val v = Finalizable.new cvector
@@ -98,10 +127,7 @@ functor ConstCArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
          * `0 <= i andalso i < n` *)
 
 
-        val touchPtr =
-          fn
-            CArray a => Finalizable.touch a
-          | _        => ()
+        val touchPtr = C.touchPtr
 
         fun touchOptPtr t = Option.app touchPtr t
 
@@ -113,19 +139,12 @@ functor ConstCArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
         type 'a out_p = 'a OutPointer.p
 
         local
-          fun wrap d p =
-            let
-              val a = Finalizable.new p
-            in
-              Finalizable.addFinalizer (a, free d);
-              CArray a
-            end
         in
           fun fromPtr d =
             if d < 0
             then
               (* If `d < 0`, we own everything so just wrap it. *)
-              wrap ~1
+              C.takePtr
             else
               (* If `d = 0`, we own nothing so a full copy is required.
                *
@@ -142,7 +161,7 @@ functor ConstCArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
               fn p =>
                 (
                   toSMLValue (CVector.fromPointer p)
-                    handle CVector.NoSMLValue => wrap ~1 (dup ~1 p)
+                    handle CVector.NoSMLValue => C.takePtr (dup ~1 p)
                 )
                  before free d p
         end

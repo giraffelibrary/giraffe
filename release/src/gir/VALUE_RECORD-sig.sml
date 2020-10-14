@@ -15,7 +15,6 @@ signature VALUE_RECORD =
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
-        type ('a, 'b) r = ('a, 'b) Pointer.r
 
         type v = non_opt p
 
@@ -33,6 +32,11 @@ signature VALUE_RECORD =
             where type non_opt = non_opt
             where type 'a p = 'a p
             where type 'a from_p = 'a from_p
+
+        val takePtr : non_opt p -> t
+        val withPtr : (non_opt p -> 'a) -> t -> 'a
+        val giveDupPtr : (non_opt p -> 'a) -> t -> 'a
+        val touchPtr : t -> unit
       end
 
     structure FFI :
@@ -40,7 +44,7 @@ signature VALUE_RECORD =
         type opt = C.opt
         type non_opt = C.non_opt
         type 'a p = 'a C.p
-        type ('a, 'b) r = ('a, 'b) C.r
+        type ('a, 'b) r
 
         val withPtr    : bool -> (non_opt p -> 'a) -> t        -> 'a
         val withOptPtr : bool -> (opt     p -> 'a) -> t option -> 'a

@@ -35,6 +35,32 @@ functor CArrayNCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a
 
     type t = array * int
 
+    structure C =
+      struct
+        open C
+
+        fun takePtr p n =
+          let
+            val a = Finalizable.new p
+            val () = Finalizable.addFinalizer (a, PointerType.free ~1 n)
+          in
+            (CArray (a, n), n)
+          end
+
+        fun giveDupPtr f =
+          let
+            fun check f n p = f n p handle e => (PointerType.free ~1 n p; raise e)
+          in
+            fn
+              (CArray (a, _), n) =>
+                Finalizable.withValue (a, check f n o PointerType.dup ~1 n)
+          end
+
+        val touchPtr =
+          fn
+            (CArray (a, _), _) => Finalizable.touch a
+      end
+
     structure FFI =
       struct
         open C.ArrayType
@@ -45,9 +71,7 @@ functor CArrayNCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a
          * `0 <= i andalso i < n` *)
 
 
-        val touchPtr =
-          fn
-            (CArray (a, _), _) => Finalizable.touch a
+        val touchPtr = C.touchPtr
 
         fun touchOptPtr t = Option.app touchPtr t
 
@@ -58,38 +82,28 @@ functor CArrayNCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a
         structure OutPointer = Pointer
         type 'a out_p = 'a OutPointer.p
 
-        local
-          fun wrap d p n =
-            let
-              val a = Finalizable.new p
-            in
-              Finalizable.addFinalizer (a, free d n);
-              (CArray (a, n), n)
-            end
-        in
-          fun fromPtr d =
-            if d < 0
-            then
-              (* If `d < 0`, we own everything so just wrap it. *)
-              wrap ~1
-            else
-              (* If `d = 0`, we own nothing so a full copy is required.
-               *
-               * If `d > 0`, we own `d` initial levels but need ownership of
-               * the deeper levels.  The implementation here is potentially
-               * inefficient in this case because it makes a full copy and
-               * frees the initial levels that we owned.  This is especially
-               * inefficient if the unowned elements are reference counted
-               * because the initial level could have been used.
-               * If this leads to a performance issue, consideration
-               * could be given to improving this case by copying the
-               * deeper levels and updating the initial levels that
-               * we own. *)
-              fn p =>
-              fn n =>
-                wrap ~1 (dup ~1 n p) n
-                 before free d n p
-        end
+        fun fromPtr d =
+          if d < 0
+          then
+            (* If `d < 0`, we own everything so just take it. *)
+            C.takePtr
+          else
+            (* If `d = 0`, we own nothing so a full copy is required.
+             *
+             * If `d > 0`, we own `d` initial levels but need ownership of
+             * the deeper levels.  The implementation here is potentially
+             * inefficient in this case because it makes a full copy and
+             * frees the initial levels that we owned.  This is especially
+             * inefficient if the unowned elements are reference counted
+             * because the initial level could have been used.
+             * If this leads to a performance issue, consideration
+             * could be given to improving this case by copying the
+             * deeper levels and updating the initial levels that
+             * we own. *)
+            fn p =>
+            fn n =>
+              C.takePtr (dup ~1 n p) n
+               before free d n p
 
         fun copyPtr tabulate d p n =
           tabulate (len n p, getElem n p) before free d n p

@@ -7,13 +7,19 @@
 
 functor PointerRecord(val name : string) :> RECORD =
   struct
+    structure Pointer = CPointer(GMemory)
+    type opt = Pointer.opt
+    type non_opt = Pointer.non_opt
+    type 'a p = 'a Pointer.p
+
+    type t = non_opt p
+
     structure C =
       struct
-        structure Pointer = CPointer(GMemory)
+        structure Pointer = Pointer
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
-        type ('a, 'b) r = ('a, 'b) Pointer.r
 
         type 'a from_p = 'a
 
@@ -32,13 +38,19 @@ functor PointerRecord(val name : string) :> RECORD =
 
             fun free _ = ignore
 
-            val toC = Fn.id  (* FFI.withPtr (dup ~1) *)
+            val toC = Fn.id  (* giveDupPtr Fn.id t *)
 
-            val fromC = Fn.id  (* FFI.fromPtr false *)
+            val fromC = Fn.id  (* takePtr (dup_ p) *)
           end
-      end
 
-    type t = C.non_opt C.p
+        fun takePtr p = p
+
+        fun withPtr f p = f p
+
+        fun giveDupPtr f p = f p
+
+        val touchPtr = ignore
+      end
 
     structure FFI =
       struct

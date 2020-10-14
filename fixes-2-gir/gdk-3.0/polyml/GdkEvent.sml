@@ -34,13 +34,16 @@ structure GdkEvent :> GDK_EVENT =
           (cPtr --> cVoid)
     end
 
+    type 'a union = non_opt p Finalizable.t
+    type t = base union
+    fun toBase obj = obj
+
     structure C =
       struct
         structure Pointer = Pointer
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
-        type ('a, 'b) r = ('a, 'b) Pointer.r
 
         type 'a from_p = 'a
 
@@ -59,22 +62,37 @@ structure GdkEvent :> GDK_EVENT =
 
             fun free d = if d <> 0 then free_ else ignore
 
-            fun toC p = (* FFI.withPtr false (dup ~1) p *)
-              Finalizable.withValue (p, Pointer.withVal dup_)
+            fun toC t = (* giveDupPtr I t *)
+              Finalizable.withValue (t, Pointer.withVal dup_)
 
-            fun fromC p = (* FFI.fromPtr false p *)
+            fun fromC p = (* takePtr (dup_ p) *)
               let
-                val object = Finalizable.new (dup_ p)
+                val t = Finalizable.new (dup_ p)
+                val () = Finalizable.addFinalizer (t, free_)
               in
-                Finalizable.addFinalizer (object, free_);
-                object
+                t
               end
           end
-      end
 
-    type 'a union = non_opt p Finalizable.t
-    type t = base union
-    fun toBase obj = obj
+        fun takePtr p =
+          let
+            val t = Finalizable.new p
+            val () = Finalizable.addFinalizer (t, free_)
+          in
+            t
+          end
+
+        fun withPtr f t = Finalizable.withValue (t, f)
+
+        fun giveDupPtr f =
+          let
+            fun check f p = f p handle e => (free_ p; raise e)
+          in
+            fn t => Finalizable.withValue (t, check f o dup_)
+          end
+
+        val touchPtr = Finalizable.touch
+      end
 
     structure FFI =
       struct
@@ -152,15 +170,15 @@ structure GdkEvent :> GDK_EVENT =
 
         fun fromPtr transfer ptr =
           let
-            val object =
+            val t =
               Finalizable.new (
                 if transfer
                 then ptr  (* take the existing reference *)
                 else dup_ ptr
               )
+            val () = Finalizable.addFinalizer (t, free_)
           in
-            Finalizable.addFinalizer (object, free_);
-            object
+            t
           end
 
         fun fromOptPtr transfer optptr =

@@ -35,13 +35,14 @@ functor BoxedValueRecord(
       end
     val take_ = Fn.ignore
 
+    type t = non_opt p Finalizable.t
+
     structure C =
       struct
         structure Pointer = Pointer
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
-        type ('a, 'b) r = ('a, 'b) Pointer.r
 
         type v = non_opt p
 
@@ -96,15 +97,15 @@ functor BoxedValueRecord(
 
             fun free d = if d <> 0 then free_ else ignore
 
-            fun toC p = (* FFI.withPtr (dup ~1) p *)
-              Finalizable.withValue (p, Pointer.withVal dup_)
+            fun toC t = (* giveDupPtr Fn.id t *)
+              Finalizable.withValue (t, Pointer.withVal dup_)
 
-            fun fromC p = (* FFI.fromPtr false p *)
+            fun fromC p = (* takePtr (dup_ p) *)
               let
-                val object = Finalizable.new (dup_ p)
+                val t = Finalizable.new (dup_ p)
+                val () = Finalizable.addFinalizer (t, fn ptr => (clear_ ptr; free_ ptr));
               in
-                Finalizable.addFinalizer (object, fn ptr => (clear_ ptr; free_ ptr));
-                object
+                t
               end
 
             structure CVector =
@@ -118,9 +119,26 @@ functor BoxedValueRecord(
                 val toVal = fromC
               end
           end
-      end
 
-    type t = C.non_opt C.p Finalizable.t
+        fun takePtr p =
+          let
+            val t = Finalizable.new p
+            val () = Finalizable.addFinalizer (t, free_)
+          in
+            t
+          end
+
+        fun withPtr f t = Finalizable.withValue (t, f)
+
+        fun giveDupPtr f =
+          let
+            fun check f p = f p handle e => (free_ p; raise e)
+          in
+            fn t => Finalizable.withValue (t, check f o dup_)
+          end
+
+        val touchPtr = Finalizable.touch
+      end
 
     structure FFI =
       struct
@@ -236,15 +254,15 @@ functor BoxedValueRecord(
 
         fun fromPtr transfer ptr =
           let
-            val object =
+            val t =
               Finalizable.new (
                 if transfer
                 then (take_ ptr; ptr)  (* take the existing reference *)
                 else dup_ ptr
               )
+            val () = Finalizable.addFinalizer (t, fn ptr => (clear_ ptr; free_ ptr))
           in
-            Finalizable.addFinalizer (object, fn ptr => (clear_ ptr; free_ ptr));
-            object
+            t
           end
 
         fun fromOptPtr transfer optptr =

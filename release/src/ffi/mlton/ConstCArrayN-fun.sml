@@ -81,6 +81,35 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
 
     type t = array * int
 
+    structure C =
+      struct
+        open C
+
+        fun takePtr p n =
+          let
+            val a = Finalizable.new p
+            val () = Finalizable.addFinalizer (a, PointerType.free ~1 n)
+          in
+            (CArray (a, n), n)
+          end
+
+        fun giveDupPtr f =
+          let
+            fun check f n p = f n p handle e => (PointerType.free ~1 n p; raise e)
+          in
+            fn
+              (CArray (a, _), n) =>
+                Finalizable.withValue (a, check f n o PointerType.dup ~1 n)
+            | (SMLValue v, n) =>
+                Finalizable.withValue (v, check f n o ArrayType.CVector.toPointer n)
+          end
+
+        val touchPtr =
+          fn
+            (CArray (a, _), _) => Finalizable.touch a
+          | _                  => ()
+      end
+
     fun toSMLValue cvector =
       let
         val v = Finalizable.new cvector
@@ -99,10 +128,7 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
          * `0 <= i andalso i < n` *)
 
 
-        val touchPtr =
-          fn
-            (CArray (a, _), _) => Finalizable.touch a
-          | _                  => ()
+        val touchPtr = C.touchPtr
 
         fun touchOptPtr t = Option.app touchPtr t
 
@@ -114,19 +140,12 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
         type 'a out_p = 'a OutPointer.p
 
         local
-          fun wrap d p n =
-            let
-              val a = Finalizable.new p
-            in
-              Finalizable.addFinalizer (a, free d n);
-              (CArray (a, n), n)
-            end
         in
           fun fromPtr d =
             if d < 0
             then
               (* If `d < 0`, we own everything so just wrap it. *)
-              wrap ~1
+              C.takePtr
             else
               (* If `d = 0`, we own nothing so a full copy is required.
                *
@@ -144,7 +163,7 @@ functor ConstCArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a)
               fn n =>
                 (
                   toSMLValue (CVector.fromPointer n p)
-                    handle CVector.NoSMLValue => wrap ~1 (dup ~1 n p) n
+                    handle CVector.NoSMLValue => C.takePtr (dup ~1 n p) n
                 )
                  before free d n p
         end
