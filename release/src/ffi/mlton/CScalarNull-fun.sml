@@ -10,7 +10,9 @@ functor CScalarNull(
   val null : CValueType.t
 ) :>
   C_SCALAR_NULL
-    where type t = CValueType.t =
+    where type C.ValueType.t = CValueType.t
+    where type C.ValueType.v = CValueType.v
+    where type C.ValueType.p = CValueType.p =
   struct
     type t = CValueType.t
     val null = null

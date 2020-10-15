@@ -1,20 +1,12 @@
+(* Copyright (C) 2016, 2020 Phil Clayton <phil.clayton@veonix.com>
+ *
+ * This file is part of the Giraffe Library runtime.  For your rights to use
+ * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
+ * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
+ *)
+
 signature ENUM =
   sig
-    eqtype t
-    structure C :
-      sig
-        structure ValueType : C_VALUE_EQ_TYPE where type t = t
-      end
-
-    val null : t
+    include C_SCALAR_EQ
     exception Value of GInt.t
-
-    structure FFI :
-      sig
-        type val_ (* = C.ValueType.v *)
-        type ref_
-        val withVal : (val_ -> 'a) -> t -> 'a
-        val withRefVal : (ref_ -> 'a) -> t -> (val_, 'a) pair
-        val fromVal : val_ -> t
-      end
   end

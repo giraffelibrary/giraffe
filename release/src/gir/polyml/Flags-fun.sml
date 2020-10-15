@@ -25,6 +25,8 @@ functor Flags(
 
     structure C =
       struct
+        type v = GUInt32Type.v
+
         structure ValueType =
           struct
             open GUInt32Type
