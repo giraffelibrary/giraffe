@@ -77,7 +77,7 @@ functor BoxedValueRecord(
             fun get p = p
             fun set (p, v) = copy_ (v & p)
 
-            structure Memory = Pointer.ValueType.Memory
+            structure Memory = Pointer.Memory
           end
 
         type 'a from_p = 'a

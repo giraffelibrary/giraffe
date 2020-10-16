@@ -106,21 +106,16 @@ signature C_POINTER =
 
     (**
      * C value types based on a pointer
-     *
-     * The type `p` is exposed to support construction of other C value types
-     * based on a pointer.
      *)
     structure ValueType :
       C_VALUE_EQ_TYPE
         where type t = non_opt p
         where type v = non_opt p
-        where type p = non_opt p
 
     structure OptValueType :
       C_VALUE_EQ_NULL_TYPE
         where type t = opt p
         where type v = opt p
-        where type p = non_opt p
 
     (**
      * Support for constructing a high-level FFI based on a pointer
