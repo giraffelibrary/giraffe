@@ -300,6 +300,51 @@ fun checkFunctionName name =
   else ()
 
 
+(* Field names *)
+
+(*   - Included names *)
+val includedClassFieldNames   : string list nvs_map ref = ref []
+
+(*   - Excluded names *)
+val excludedFieldNames        : string list nvs_map ref = ref []
+val excludedFieldNamePrefixes : string list nvs_map ref = ref []
+val excludedFieldNameSuffixes : string list nvs_map ref = ref []
+
+fun checkFieldName repo vers containerInfo fieldInfo =
+  let
+    val name = getName fieldInfo
+    val namespace = BaseInfo.getNamespace fieldInfo
+    val version = Repository.getVersion repo vers namespace
+    val nv = (namespace, version)
+    fun infoExclFieldNameNotIncl match =
+      infoExcl (concat ["field not included by configuration (", match, ")"])
+    fun infoExclFieldNameExcl match =
+      infoExcl (concat ["field excluded by configuration (", match, ")"])
+  in
+    if
+      case InfoType.getType containerInfo of
+        InfoType.OBJECT _ => true
+      | _                 => false
+    then
+      if not (nvsExists (nv, fn x => x = name) (!includedClassFieldNames))
+      then infoExclFieldNameNotIncl "includedClassFieldNames"
+      else ()
+    else if nvsExists (nv, fn x => x = name) (!excludedFieldNames)
+    then infoExclFieldNameExcl "excludedFieldNames"
+    else if
+      nvsExists (nv, fn x => String.isPrefix x name)
+        (!excludedFieldNamePrefixes)
+    then
+      infoExclFieldNameExcl "excludedFieldNamePrefixes"
+    else if
+      nvsExists (nv, fn x => String.isSuffix x name)
+        (!excludedFieldNameSuffixes)
+    then
+      infoExclFieldNameExcl "excludedFieldNameSuffixes"
+    else ()
+  end
+
+
 (* Constant names *)
 
 (*   - Excluded names *)

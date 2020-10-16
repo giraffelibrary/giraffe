@@ -174,7 +174,7 @@ fun revFoldMapInfos (getN : 'a -> LargeInt.int) getNth f (info, (xs, acc)) =
   end
 
 
-fun revMapInfosWithExcls (getN : 'a -> LargeInt.int) getNth f (info, (xs, excls)) =
+fun revMapInfosWithExcls cons (getN : 'a -> LargeInt.int) getNth f (info, (xs, excls)) =
   let
     fun aux (xs, excls) n =
       if n <= 0
@@ -191,11 +191,11 @@ fun revMapInfosWithExcls (getN : 'a -> LargeInt.int) getNth f (info, (xs, excls)
                   []     => excls
                 | _ :: _ => mkInfoExclHier NONE info' (IEGrp fExcls) :: excls
             in
-              (x :: xs, excls')
+              (cons (SOME x, xs), excls')
             end
               handle
                 InfoExcl ie =>
-                  (xs, mkInfoExclHier NONE info' ie :: excls)
+                  (cons (NONE, xs), mkInfoExclHier NONE info' ie :: excls)
         in
           aux (xs', excls') n'
         end
@@ -232,7 +232,7 @@ fun revFoldInfosWithExcls (getN : 'a -> LargeInt.int) getNth f (info, (acc, excl
     aux (acc, excls) (getN info)
   end
 
-fun revFoldMapInfosWithExcls (getN : 'a -> LargeInt.int) getNth f (info, (xs, acc, excls)) =
+fun revFoldMapInfosWithExcls cons (getN : 'a -> LargeInt.int) getNth f (info, (xs, acc, excls)) =
   let
     fun aux (xs, acc, excls) n =
       if n <= 0
@@ -249,17 +249,19 @@ fun revFoldMapInfosWithExcls (getN : 'a -> LargeInt.int) getNth f (info, (xs, ac
                   []     => excls
                 | _ :: _ => mkInfoExclHier NONE info' (IEGrp fExcls) :: excls
             in
-              (x :: xs, acc', excls')
+              (cons (SOME x, xs), acc', excls')
             end
               handle
                 InfoExcl ie =>
-                  (xs, acc, mkInfoExclHier NONE info' ie :: excls)
+                  (cons (NONE, xs), acc, mkInfoExclHier NONE info' ie :: excls)
         in
           aux (xs', acc', excls') n'
         end
   in
     aux (xs, acc, excls) (getN info)
   end
+
+fun optCons x = Option.fold (op ::) x
 
 
 

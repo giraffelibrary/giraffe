@@ -138,18 +138,6 @@ local
      :: StrDecDec (mkTypeDec (ptrTyName aTyVar, prefixPtrTy [pointerStrId] aVarTy))
      :: strDecs
 
-  fun mkSymbolId structNamespace structName =
-    let
-      val prefix =
-        String.concatWith "_" [
-          giraffeId,
-          toLCU structNamespace,
-          toLCU structName
-        ]
-    in
-      fn name => prefix ^ "_" ^ name
-    end
-
   val cPtrTy = makeLowLevelTy false [] (PTR {optDir = NONE, isOpt = false})
   val gsizeTy = makeLowLevelTy false ["GSize", ffiStrId] VAL
 
@@ -907,8 +895,12 @@ end
 
 (* Struct signature *)
 
+fun addStructFieldSpecs structIRef (fieldInfos, acc) =
+  revFold (Option.fold (addFieldAccessorSpec structIRef)) (fieldInfos, acc)
+
 fun addStructMethodSpecs repo vers structIRef =
   revFoldMapInfosWithExcls
+    optCons
     StructInfo.getNMethods
     StructInfo.getMethod
     (makeFunctionSpec repo vers (SOME structIRef))
@@ -918,6 +910,7 @@ fun makeStructSig
   (vers            : Repository.typelibvers_t)
   (structNamespace : string)
   (structInfo      : 'b StructInfoClass.class)
+  (fieldInfos      : field_info option list)
   (excls'0         : info_excl_hier list)
   : id * program * interfaceref list * interfaceref list * info_excl_hier list =
   let
@@ -951,10 +944,11 @@ fun makeStructSig
       ([], ([], []), excls'0)
     val acc'1 = addStructMethodSpecs repo vers structIRef (structInfo, acc'0)
     val acc'2 = addStructGetTypeFunctionSpec typeIRef acc'1
-    val (specs'2, (sigIRefs'2, extIRefs'2), excls'2) = acc'2
+    val acc'3 = addStructFieldSpecs structIRef (fieldInfos, acc'2)
+    val (specs'1, (sigIRefs'1, extIRefs'1), excls'1) = acc'3
 
-    val sigIRefs =
-      structIRef :: sigIRefs'2  (* `structIRef` for record structure dependence *)
+    val sigIRefs'2 =
+      structIRef :: sigIRefs'1  (* `structIRef` for record structure dependence *)
 
     (*
      *     type t
@@ -965,36 +959,81 @@ fun makeStructSig
      *
      *     type <varlist[N]> <local_name[N]>
      *)
-    val specs'3 = revMapAppend makeIRefLocalTypeSpec (rev sigIRefs, specs'2)
+    val specs'2 = revMapAppend makeIRefLocalTypeSpec (rev sigIRefs'2, specs'1)
 
-    val sig1 = mkSigSpec specs'3
+    val sig1 = mkSigSpec specs'2
     val qSig : qsig = (sig1, [])
     val sigDec = toList1 [(structSigId, qSig)]
     val program = [ModuleDecSig sigDec]
     val sigIRefs = []
   in
-    (mkSigFile structSigId, Portable program, sigIRefs, extIRefs'2, excls'2)
+    (mkSigFile structSigId, Portable program, sigIRefs, extIRefs'1, excls'1)
   end
 
 
 (* Struct structure *)
+
+fun addStructFieldOffsetFunctionStrDecs isPolyML structIRef (fieldInfos, acc) =
+  revFold (Option.fold (addFieldOffsetFunctionStrDec isPolyML structIRef))
+    (fieldInfos, acc)
+
+fun addFieldStructureDeps (fieldInfo as {id, info, ...}) =
+  (
+    id,
+    (
+      fieldInfo,
+      case info of
+        IARRAY {lengths = (ArrayLengthParam (lenId, _), _), ...} => [lenId]
+      | _                                                        => []
+    )
+  )
+
+fun addStructFieldStructureStrDecs structIRef (fieldInfos, acc) =
+  let
+    fun reportMissingOrCyclicFieldDependencies m =
+      let
+        val () = reportUnsortable m
+      in
+        raise Fail (
+          concat [
+            "fields of ",
+            #namespace structIRef, ".", #name structIRef,
+            " have missing or cyclic dependencies"
+          ]
+        )
+      end
+
+    val revSortedFieldInfos =
+      revSortMap reportMissingOrCyclicFieldDependencies (#1 o #2)
+        (List.mapPartial (Option.map addFieldStructureDeps) fieldInfos)
+  in
+    fold (addFieldStructureStrDec structIRef)
+      (revSortedFieldInfos, acc)
+  end
+
+fun addStructFieldAccessorStrDecs (fieldInfos, acc) =
+  revFold (Option.fold addFieldAccessorStrDec) (fieldInfos, acc)
 
 fun addStructMethodStrDecsLowLevel
   isPolyML
   repo
   vers
   addInitStrDecs
-  structIRef =
+  structIRef
+  fieldInfos =
   addFunctionStrDecsLowLevel
     (StructInfo.getNMethods, StructInfo.getMethod)
     isPolyML
     repo
     vers
     addInitStrDecs
+    (addStructFieldOffsetFunctionStrDecs isPolyML structIRef)
     (SOME structIRef)
+    fieldInfos
 
 fun addStructMethodStrDecsHighLevel repo vers (structInfo, structIRef) =
   revFoldMapInfosWithExcls
+    optCons
     StructInfo.getNMethods
     StructInfo.getMethod
     (makeFunctionStrDecHighLevel repo vers (SOME (structInfo, structIRef)))
@@ -1004,6 +1043,7 @@ fun makeStructStr
   (vers            : Repository.typelibvers_t)
   (structNamespace : string)
   (structInfo      : 'b StructInfoClass.class)
+  (fieldInfos      : field_info option list)
   (excls'0         : info_excl_hier list)
   : id * (spec list * strdec list) * program * interfaceref list * info_excl_hier list =
   let
@@ -1050,7 +1090,9 @@ fun makeStructStr
         (structInfo, structIRef)
         (structInfo, acc'0)
     val acc'2 = addStructGetTypeFunctionStrDecHighLevel typeIRef acc'1
-    val (strDecs'2, (iRefs'2, structDeps'2), excls'2) = acc'2
+    val acc'3 = addStructFieldAccessorStrDecs (fieldInfos, acc'2)
+    val acc'4 = addStructFieldStructureStrDecs structIRef (fieldInfos, acc'3)
+    val (strDecs'2, (iRefs'2, structDeps'2), excls'2) = acc'4
 
     val strIRefs =
       structIRef :: iRefs'2  (* `structIRef` for record structure dependence *)
@@ -1078,6 +1120,7 @@ fun makeStructStr
             vers
             addStructGetTypeFunctionStrDecLowLevel
             structIRef
+            fieldInfos
             (structInfo, (strDecs'3, excls'2))
 
         val strDecs'5 =
@@ -1130,7 +1173,7 @@ fun makeStructStr
   end
 
 
-(* Struct C Interface - GIR only *)
+(* C Interface - GIR only *)
 
 val cDeclareValueRecordId = "GIRAFFE_DECLARE_VALUE_RECORD"
 
@@ -1147,38 +1190,54 @@ fun addStructCInterfaceDecl
   (vers            : Repository.typelibvers_t)
   (structNamespace : string)
   (structInfo      : 'b StructInfoClass.class)
+  (fieldInfos      : field_info option list)
   (cInterfaceDecls : c_interface_decl list)
   : c_interface_decl list =
   let
     val () = checkDeprecated structInfo
 
-    val structName = getName structInfo
-    val structType = getStructType repo vers structInfo
-  in
-    case structType of
-      ValueRecord _ =>
-        let
-          val structCType =
-            case RegisteredTypeInfo.getCType structInfo of
-              SOME cType => cType
-            | NONE       =>
-                raise Fail (noCTypeForValueRecord (structNamespace, structName))
-          val structVersion = BaseInfo.getVersion structInfo
+    val optStructCType = RegisteredTypeInfo.getCType structInfo
 
-          val decl =
-            CMacroCall {
-              name = cDeclareValueRecordId,
-              args = [
-                structCType,
-                String.concatWith "_" [toLCU structNamespace, toLCU structName]
-              ]
-            }
-          val structCVersionDecl =
-            case structVersion of
-              SOME version => CCheckVersion {decl = decl, version = version}
-            | NONE         => decl
-        in
-          structCVersionDecl :: cInterfaceDecls
-        end
-    | _             => cInterfaceDecls
+    val structName = getName structInfo
+
+    val structType = getStructType repo vers structInfo
+
+    val cInterfaceDecls'1 =
+      revFold
+        (Option.fold (addFieldCInterfaceDecl structNamespace structName))
+        (fieldInfos, cInterfaceDecls)
+
+    val cInterfaceDecls'2 =
+      case structType of
+        ValueRecord _ =>
+          let
+            val structCName =
+              case optStructCType of
+                SOME cType => cType
+              | NONE       =>
+                  raise Fail (noCTypeForValueRecord (structNamespace, structName))
+            val structVersion = BaseInfo.getVersion structInfo
+
+            (*
+             * GIRAFFE_DECLARE_VALUE_RECORD(<StructCName>,
+             *                              <struct_namespace>_<struct_name>)
+             *)
+            val decl =
+              CMacroCall {
+                name = cDeclareValueRecordId,
+                args = [
+                  structCName,
+                  String.concatWith "_" [toLCU structNamespace, toLCU structName]
+                ]
+              }
+            val structCVersionDecl =
+              case structVersion of
+                SOME version => CCheckVersion {decl = decl, version = version}
+              | NONE         => decl
+          in
+            structCVersionDecl :: cInterfaceDecls'1
+          end
+      | _             => cInterfaceDecls'1
+  in
+    cInterfaceDecls'2
   end

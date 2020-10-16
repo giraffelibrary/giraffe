@@ -367,6 +367,20 @@ fun makeInfo
       let
         val () = checkInterfaceType repo vers objectInfo
 
+        val (fieldInfos'1, excls'1) =
+          revMapInfosWithExcls
+            (op ::)
+            ObjectInfo.getNFields
+            ObjectInfo.getField
+            (
+              getFieldInfo repo vers
+                ObjectInfo.getField
+                namespace
+                objectInfo
+            )
+            (objectInfo, ([], excls'0))
+        val fieldInfos = updateFieldInfos fieldInfos'1
+
         val (classSigFile, classSigProgram, classSigIRefs, classExtIRefs) =
           makeObjectClassSig repo namespace objectInfo
 
@@ -378,14 +392,14 @@ fun makeInfo
         ) =
           makeObjectClassStr repo namespace objectInfo
 
-        val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
-          makeObjectStr repo vers namespace objectInfo excls'0
+        val (strFile, strSpecDec, strProgram, strIRefs, excls'2) =
+          makeObjectStr repo vers namespace objectInfo fieldInfos excls'1
 
         val classStrDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) classStrIRefs
         val strDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) strIRefs
 
-        val (sigFile, sigProgram, sigIRefs, extIRefs, excls'2) =
-          makeObjectSig repo vers namespace objectInfo excls'1
+        val (sigFile, sigProgram, sigIRefs, extIRefs, excls'3) =
+          makeObjectSig repo vers namespace objectInfo fieldInfos excls'2
 
         val classSigDeps = map (mkSigFile o toUCU o makeIRefInterfaceOtherStrId) classSigIRefs
         val sigDeps = map (mkSigFile o toUCU o makeIRefInterfaceOtherStrId) sigIRefs
@@ -433,8 +447,11 @@ fun makeInfo
         val useAccessors'1 = true
         val modules'1 =
           (sigs'2, strs'2, numProps'1, numSigs'1, useAccessors'1)
+
+        val cInterfaceDecls'1 =
+          cInterfaceDecls'0
       in
-        ((files'3, exts'1, modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
+        ((files'3, exts'1, modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'1), excls'3)
       end
   | InfoType.INTERFACE interfaceInfo =>
       let
@@ -513,6 +530,20 @@ fun makeInfo
       let
         val () = checkInterfaceType repo vers structInfo
 
+        val (fieldInfos'1, excls'1) =
+          revMapInfosWithExcls
+            (op ::)
+            StructInfo.getNFields
+            StructInfo.getField
+            (
+              getFieldInfo repo vers
+                StructInfo.getField
+                namespace
+                structInfo
+            )
+            (structInfo, ([], excls'0))
+        val fieldInfos = updateFieldInfos fieldInfos'1
+
         val (recordSigFile, recordSigProgram, recordSigIRefs, recordExtIRefs) =
           makeStructRecordSig repo vers namespace structInfo
 
@@ -524,14 +555,14 @@ fun makeInfo
         ) =
           makeStructRecordStr repo vers namespace structInfo
 
-        val (strFile, strSpecDec, strProgram, strIRefs, excls'1) =
-          makeStructStr repo vers namespace structInfo excls'0
+        val (strFile, strSpecDec, strProgram, strIRefs, excls'2) =
+          makeStructStr repo vers namespace structInfo fieldInfos excls'1
 
         val recordStrDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) recordStrIRefs
         val strDeps = map (mkStrFile o makeIRefInterfaceOtherStrId) strIRefs
 
-        val (sigFile, sigProgram, sigIRefs, extIRefs, excls'2) =
-          makeStructSig repo vers namespace structInfo excls'1
+        val (sigFile, sigProgram, sigIRefs, extIRefs, excls'3) =
+          makeStructSig repo vers namespace structInfo fieldInfos excls'2
 
         val recordSigDeps = map (mkSigFile o toUCU o makeIRefInterfaceOtherStrId) recordSigIRefs
         val sigDeps = map (mkSigFile o toUCU o makeIRefInterfaceOtherStrId) sigIRefs
@@ -580,7 +611,7 @@ fun makeInfo
         val cInterfaceDecls'1 =
           cInterfaceDecls'0
       in
-        ((files'3, exts'1, modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'1), excls'2)
+        ((files'3, exts'1, modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'1), excls'3)
       end
   | InfoType.UNION unionInfo         =>
       let

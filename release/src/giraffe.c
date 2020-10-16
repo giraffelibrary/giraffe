@@ -15,3 +15,10 @@ giraffe_##type_name##_size (void) \
 { \
   return sizeof (TypeName); \
 }
+
+#define GIRAFFE_DECLARE_FIELD(TypeName, type_name, field_name) \
+gsize \
+giraffe_##type_name##_##field_name##_offset (void) \
+{ \
+  return offsetof(TypeName, field_name); \
+}

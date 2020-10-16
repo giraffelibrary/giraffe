@@ -263,6 +263,7 @@ end
 
 fun addInterfaceConstantSpecs repo vers x =
   revFoldMapInfosWithExcls
+    optCons
     InterfaceInfo.getNConstants
     InterfaceInfo.getConstant
     (makeConstantSpec repo vers)
@@ -270,18 +271,21 @@ fun addInterfaceConstantSpecs repo vers x =
 
 fun addInterfaceMethodSpecs repo vers interfaceIRef =
   revFoldMapInfosWithExcls
+    optCons
     InterfaceInfo.getNMethods
     InterfaceInfo.getMethod
     (makeFunctionSpec repo vers (SOME interfaceIRef))
 
 fun addInterfaceSignalSpecs repo vers interfaceIRef =
   revFoldMapInfosWithExcls
+    optCons
     InterfaceInfo.getNSignals
     InterfaceInfo.getSignal
     (makeSignalSpec repo vers interfaceIRef)
 
 fun addInterfacePropertySpecs repo vers interfaceIRef =
   revFoldMapInfosWithExcls
+    optCons
     InterfaceInfo.getNProperties
     InterfaceInfo.getProperty
     (makePropertySpec repo vers interfaceIRef)
@@ -384,6 +388,7 @@ fun makeInterfaceSig
 
 fun addInterfaceConstantStrDecs repo vers x =
   revFoldMapInfosWithExcls
+    optCons
     InterfaceInfo.getNConstants
     InterfaceInfo.getConstant
     (makeConstantStrDec repo vers)
@@ -401,10 +406,13 @@ fun addInterfaceMethodStrDecsLowLevel
     repo
     vers
     addInitStrDecs
+    #2
     (SOME interfaceIRef)
+    []
 
 fun addInterfaceMethodStrDecsHighLevel repo vers (interfaceInfo, interfaceIRef) =
   revFoldMapInfosWithExcls
+    optCons
     InterfaceInfo.getNMethods
     InterfaceInfo.getMethod
     (makeFunctionStrDecHighLevel repo vers (SOME (interfaceInfo, interfaceIRef)))
@@ -414,6 +422,7 @@ fun addInterfaceSignalStrDecs repo vers interfaceIRef =
     let
       val (localStrDecs, x', excls') =
         revFoldMapInfosWithExcls
+          optCons
           InterfaceInfo.getNSignals
           InterfaceInfo.getSignal
           (makeSignalStrDec repo vers interfaceIRef)
@@ -447,6 +456,7 @@ fun addInterfacePropertyStrDecs repo vers interfaceIRef =
     let
       val (localStrDecs, x', excls') =
         revFoldMapInfosWithExcls
+          optCons
           InterfaceInfo.getNProperties
           InterfaceInfo.getProperty
           (makePropertyStrDec repo vers interfaceIRef)

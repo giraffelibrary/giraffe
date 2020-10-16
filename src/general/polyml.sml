@@ -1,3 +1,5 @@
+use "OPTION-sig.sml";
 use "INT_INF_MATH-sig.sml";
 use "IntInfMath.sml";
-use "ListExtras";
+use "Option.sml";
+use "ListExtras.sml";

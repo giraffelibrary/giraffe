@@ -23,6 +23,7 @@ signature G_OBJECT =
     structure SignalInvocationHint :
       G_OBJECT_SIGNAL_INVOCATION_HINT
         where type t = SignalInvocationHintRecord.t
+        where type signal_flags_t = SignalFlags.t
     structure ValueRecord :
       G_OBJECT_VALUE_RECORD
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t

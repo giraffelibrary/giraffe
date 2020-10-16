@@ -3280,6 +3280,18 @@ datatype low_level_spec =
 | PTR of {optDir : dir option, isOpt : bool}
 | REF of {isInOut : bool, isOpt : bool} option
 
+fun mkSymbolId containerNamespace containerName =
+  let
+    val prefix =
+      String.concatWith "_" [
+        giraffeId,
+        toLCU containerNamespace,
+        toLCU containerName
+      ]
+  in
+    fn name => prefix ^ "_" ^ name
+  end
+
 
 
 (* Low-level - Poly/ML *)
@@ -4464,26 +4476,41 @@ fun addFunctionStrDecsLowLevel
   repo
   vers
   addInitStrDecs
-  optContainerIRef =
+  addFieldOffsetFunctionStrDecs
+  optContainerIRef
+  fieldInfos =
   if isPolyML
   then
     fn (containerInfo, (strDecs, excls)) =>
       let
-        val acc'1 =
+        val acc'0 = ([], excls)
+        val acc'1 = addFieldOffsetFunctionStrDecs (fieldInfos, acc'0)
+        val acc'2 =
           revMapInfosWithExcls
+            optCons
             getNMethods
             getMethod
             (makeFunctionStrDecLowLevelPolyML repo vers optContainerIRef)
-            (containerInfo, ([], excls))
-        val (localStrDecs'2, excls'2) = addInitStrDecs isPolyML acc'1
+            (containerInfo, acc'1)
+        val acc'3 = addInitStrDecs isPolyML acc'2
+        val (localStrDecs, excls') = acc'3
       in
-        case localStrDecs'2 of
-          _ :: _ => (mkPolyMLFFILocalStrDec localStrDecs'2 :: strDecs, excls'2)
-        | _      => (strDecs, excls'2)
+        case localStrDecs of
+          _ :: _ => (mkPolyMLFFILocalStrDec localStrDecs :: strDecs, excls')
+        | []     => (strDecs, excls')
       end
   else
-    addInitStrDecs isPolyML o
-      revMapInfosWithExcls
-        getNMethods
-        getMethod
-        (makeFunctionStrDecLowLevelMLton repo vers optContainerIRef)
+    fn (containerInfo, acc'0) =>
+      let
+        val acc'1 = addFieldOffsetFunctionStrDecs (fieldInfos, acc'0)
+        val acc'2 = 
+          revMapInfosWithExcls
+            optCons
+            getNMethods
+            getMethod
+            (makeFunctionStrDecLowLevelMLton repo vers optContainerIRef)
+            (containerInfo, acc'1)
+        val acc'3 = addInitStrDecs isPolyML acc'2
+      in
+        acc'3
+      end

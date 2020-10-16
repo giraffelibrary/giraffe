@@ -1,6 +1,10 @@
 structure ListExtras =
   struct
 
+    fun fold f (xs, e) = foldl f e xs
+    fun revFold f (xs, e) = foldl f e (rev xs)
+
+
     fun revMapAppendWith g f (xs, a) = foldl (fn (x, a) => g (f x, a)) a xs
     fun revMapAppend f = revMapAppendWith (op ::) f
     fun revMap f xs = revMapAppend f (xs, [])
@@ -121,5 +125,83 @@ structure ListExtras =
         | x :: [] => [x]
         | x :: xs => aux [x] xs
       end
+
+
+    (* `revSort unsortable m` returns a reordering of `m` such that each element
+     * occurs after its dependencies in `rev m`, i.e. the reordering in reverse
+     * satisfies the partial order in `m`.  Each element in `m` has the form
+     * `(key, (data, deps))` where `deps` are the keys that `key` depends on.
+     *
+     * If no total order exists that satisfies the partial order, then the
+     * function `unsortable` is applied to `m` where `m` is a list of the elements
+     * whose dependencies could not be satisfied, where each  element has the form
+     * `(remainingDeps, (key, (data, originalDeps)))`.  `unsortable` could report
+     * the error and continue with only those elements that could be sorted or
+     * raise an exception.  The function `reportUnsortable` is a general function
+     * to print unsortable elements.
+     *)
+
+    fun reportUnsortable m =
+      let
+        fun quote s = ["\"", String.toString s, "\""]
+        fun fmt (deps, (id, _)) = (
+          app (app print) [quote id, [" ("]];
+          app (app print) (sepWith [", "] (map quote deps));
+          print ")\n"
+        )
+      in
+        app fmt m
+      end
+
+    fun listRemoveFirst ys xs = foldl removeFirst xs ys
+
+    infix **
+    fun (f ** g) (x, y) = (f x, g y)
+
+    fun getNext unsortable (m : (string list * (string * ('a * string list))) list) =
+      let
+        val (next, m'1) =
+          partitionRevMap
+            (fn ([], x) => SOME x | _ => NONE, I)
+            m
+
+        val ids = map #1 next
+        val m'2 = revMap (listRemoveFirst ids ** I) m'1
+        val () =
+          case next of
+            _ :: _ => ()
+          | []     => unsortable m
+      in
+        (next, m'2)
+      end
+
+    fun revSortMapAppendWith
+      (unsortable : (string list * (string * ('a * string list))) list -> unit)
+      (g : 'c * 'd -> 'd)
+      (f : string * ('a * string list) -> 'c)
+      (m : (string * ('a * string list)) list, acc : 'd)
+      : 'd =
+      let
+        fun step (m, acc) =
+          case m of
+            _ :: _ =>
+              let
+                val (next, m') = getNext unsortable m
+              in
+                case next of
+                  _ :: _ => step (m', revMapAppendWith g f (next, acc))
+                | []     => acc
+              end
+          | []     => acc
+        fun init (x as (_, (_, deps))) = (deps, x)
+      in
+        step (revMap init m, acc)
+      end
+
+    fun revSortMapAppend unsortable f = revSortMapAppendWith unsortable (op ::) f
+
+    fun revSortMap unsortable f m = revSortMapAppend unsortable f (m, [])
+
+    fun revSort unsortable m = revSortMap unsortable Fn.id m
 
   end

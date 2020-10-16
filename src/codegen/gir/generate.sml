@@ -31,75 +31,15 @@ fun loadNamespace repo (namespace, version) =
   end
 
 
-
-(* `revSort m` reorders `m` such that each element occurs after
- * its dependencies.  In other words, to satisfy the partial order in `m`.
- *
- *
- * The result is in reverse order.
- *)
-
-fun listRemoveFirst ys xs = foldl removeFirst xs ys
-
-infix **
-fun (f ** g) (x, y) = (f x, g y)
-
-
-fun getNext (m : (string list * (string * ('a * string list))) list) =
+fun reportMissingOrCyclicDependencies m =
   let
-    val (next, m'1) =
-      partitionRevMap
-        (fn ([], x) => SOME x | _ => NONE, I)
-        m
-
-    val ids = map #1 next
-    val m'2 = revMap (listRemoveFirst ids ** I) m'1
+    val () =
+      print "**** Excluding from basis for missing\
+                   \ or cyclic dependencies ****\n"
+    val () = reportUnsortable m
   in
-    case next of
-      _ :: _ => ()
-    | []     =>
-        let
-          fun quote s = ["\"", String.toString s, "\""]
-          fun fmt (deps, (id, _)) = (
-            app (app print) [quote id, [" ("]];
-            app (app print) (sepWith [", "] (map quote deps));
-            print ")\n"
-          )
-        in
-          print "**** Excluding from basis for missing\
-                       \ or cyclic dependencies ****\n";
-          app fmt m
-        end;
-    (next, m'2)
-  end
-
-fun revSortMapAppendWith
-    (g : 'c * 'd -> 'd)
-    (f : string * ('a * string list) -> 'c)
-    (m : (string * ('a * string list)) list, acc : 'd)
-  : 'd =
-  let
-    fun step (m, acc) =
-      case m of
-        _ :: _ =>
-          let
-            val (next, m') = getNext m
-          in
-            case next of
-              _ :: _ => step (m', revMapAppendWith g f (next, acc))
-            | []     => acc
-          end
-      | []     => acc
-    fun init (x as (_, (_, deps))) = (deps, x)
-  in
-    step (revMap init m, acc)
-  end
-
-fun revSortMapAppend f = revSortMapAppendWith (op ::) f
-
-fun revSortMap f m = revSortMapAppend f (m, [])
-
-fun revSort m = revSortMap Fn.id m
+    ()
+  end;
 
 
 fun mkBasisFile optInitNamespace target =
@@ -803,7 +743,7 @@ fun generateFull
         revStrSpecs'2   : spec list list,
         revStrStrDecs'2 : strdec list list
       ) =
-        revSortMapAppendWith cons3
+        revSortMapAppendWith reportMissingOrCyclicDependencies cons3
           (
             fn (file, ((isPortable, (specs, strDecs), optContainer), _)) =>
               ((file, isPortable, optContainer), specs, strDecs)
@@ -829,7 +769,7 @@ fun generateFull
 
       (* Step 3 *)
       val revSigFiles'2 : (string * bool) list =
-        revSortMap
+        revSortMap reportMissingOrCyclicDependencies
           (fn (file, (isPortable, _)) => (file, isPortable))
           (ListDict.toList (insertSigs (extraSigs, sigs'1)))
 
@@ -857,7 +797,7 @@ fun generateFull
             then []
             else [""]
         in
- 	  revSortMapAppend
+ 	  revSortMapAppend reportMissingOrCyclicDependencies
             (fn (file, ((), fileDeps)) => (dir, file, fileDeps, namespaceDeps))
             (ListDict.toList exts, revExtFiles)
         end
@@ -960,7 +900,7 @@ fun generateInit
         revStrSpecs'2   : spec list list,
         revStrStrDecs'2 : strdec list list
       ) =
-        revSortMapAppendWith cons3
+        revSortMapAppendWith reportMissingOrCyclicDependencies cons3
           (
             fn (file, ((isPortable, (specs, strDecs), optContainer), _)) =>
               ((file, isPortable, optContainer), specs, strDecs)
@@ -986,7 +926,7 @@ fun generateInit
 
       (* Step 3 *)
       val revSigFiles'2 : (string * bool) list =
-        revSortMap
+        revSortMap reportMissingOrCyclicDependencies
           (fn (file, (isPortable, _)) => (file, isPortable))
           (ListDict.toList (insertSigs (extraSigs, sigs'1)))
 

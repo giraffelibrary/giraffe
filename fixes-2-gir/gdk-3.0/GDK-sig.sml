@@ -237,6 +237,7 @@ signature GDK =
     structure Geometry :
       GDK_GEOMETRY
         where type t = GeometryRecord.t
+        where type gravity_t = Gravity.t
     structure KeymapKeyRecordCArrayN :
       C_ARRAY
         where type elem = KeymapKeyRecord.t
@@ -311,6 +312,11 @@ signature GDK =
     structure WindowAttr :
       GDK_WINDOW_ATTR
         where type t = WindowAttrRecord.t
+        where type window_window_class_t = WindowWindowClass.t
+        where type 'a visual_class = 'a VisualClass.class
+        where type window_type_t = WindowType.t
+        where type 'a cursor_class = 'a CursorClass.class
+        where type window_type_hint_t = WindowTypeHint.t
     structure VisualTypeCArrayN :
       C_ARRAY
         where type elem = VisualType.t
@@ -331,75 +337,152 @@ signature GDK =
     structure EventAny :
       GDK_EVENT_ANY
         where type t = EventAnyRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
     structure EventButton :
       GDK_EVENT_BUTTON
         where type t = EventButtonRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type modifier_type_t = ModifierType.t
+        where type 'a device_class = 'a DeviceClass.class
     structure EventConfigure :
       GDK_EVENT_CONFIGURE
         where type t = EventConfigureRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
     structure EventCrossing :
       GDK_EVENT_CROSSING
         where type t = EventCrossingRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type crossing_mode_t = CrossingMode.t
+        where type notify_type_t = NotifyType.t
+        where type modifier_type_t = ModifierType.t
     structure EventDND :
       GDK_EVENT_D_N_D
         where type t = EventDNDRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type 'a drag_context_class = 'a DragContextClass.class
     structure EventExpose :
       GDK_EVENT_EXPOSE
         where type t = EventExposeRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type rectangle_t = RectangleRecord.t
     structure EventFocus :
       GDK_EVENT_FOCUS
         where type t = EventFocusRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
     structure EventGrabBroken :
       GDK_EVENT_GRAB_BROKEN
         where type t = EventGrabBrokenRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
     structure EventKey :
       GDK_EVENT_KEY
         where type t = EventKeyRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type modifier_type_t = ModifierType.t
     structure EventMotion :
       GDK_EVENT_MOTION
         where type t = EventMotionRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type modifier_type_t = ModifierType.t
+        where type 'a device_class = 'a DeviceClass.class
     structure EventOwnerChange :
       GDK_EVENT_OWNER_CHANGE
         where type t = EventOwnerChangeRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type owner_change_t = OwnerChange.t
+        where type atom_t = AtomRecord.t
     structure EventPadAxis :
       GDK_EVENT_PAD_AXIS
         where type t = EventPadAxisRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
     structure EventPadButton :
       GDK_EVENT_PAD_BUTTON
         where type t = EventPadButtonRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
     structure EventPadGroupMode :
       GDK_EVENT_PAD_GROUP_MODE
         where type t = EventPadGroupModeRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
     structure EventProperty :
       GDK_EVENT_PROPERTY
         where type t = EventPropertyRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type atom_t = AtomRecord.t
+        where type property_state_t = PropertyState.t
     structure EventProximity :
       GDK_EVENT_PROXIMITY
         where type t = EventProximityRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type 'a device_class = 'a DeviceClass.class
     structure EventScroll :
       GDK_EVENT_SCROLL
         where type t = EventScrollRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type modifier_type_t = ModifierType.t
+        where type scroll_direction_t = ScrollDirection.t
+        where type 'a device_class = 'a DeviceClass.class
     structure EventSelection :
       GDK_EVENT_SELECTION
         where type t = EventSelectionRecord.t
+        where type event_type_t = EventType.t
+        where type atom_t = AtomRecord.t
+        where type 'a window_class = 'a WindowClass.class
     structure EventSetting :
       GDK_EVENT_SETTING
         where type t = EventSettingRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type setting_action_t = SettingAction.t
     structure EventTouch :
       GDK_EVENT_TOUCH
         where type t = EventTouchRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type modifier_type_t = ModifierType.t
+        where type event_sequence_t = EventSequenceRecord.t
+        where type 'a device_class = 'a DeviceClass.class
     structure EventTouchpadPinch :
       GDK_EVENT_TOUCHPAD_PINCH
         where type t = EventTouchpadPinchRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type touchpad_gesture_phase_t = TouchpadGesturePhase.t
+        where type modifier_type_t = ModifierType.t
     structure EventTouchpadSwipe :
       GDK_EVENT_TOUCHPAD_SWIPE
         where type t = EventTouchpadSwipeRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type touchpad_gesture_phase_t = TouchpadGesturePhase.t
+        where type modifier_type_t = ModifierType.t
     structure EventVisibility :
       GDK_EVENT_VISIBILITY
         where type t = EventVisibilityRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type visibility_state_t = VisibilityState.t
     structure EventWindowState :
       GDK_EVENT_WINDOW_STATE
         where type t = EventWindowStateRecord.t
+        where type event_type_t = EventType.t
+        where type 'a window_class = 'a WindowClass.class
+        where type window_state_t = WindowState.t
     structure Keymap :
       GDK_KEYMAP
         where type 'a class = 'a KeymapClass.class

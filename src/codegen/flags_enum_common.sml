@@ -49,6 +49,7 @@ fun makeFlagsEnumValueNameListExp enumInfo =
 
 fun addFlagsEnumMethodSpecs repo vers enumIRef =
   revFoldMapInfosWithExcls
+    optCons
     EnumInfo.getNMethods
     EnumInfo.getMethod
     (makeFunctionSpec repo vers (SOME enumIRef))
@@ -65,10 +66,13 @@ fun addFlagsEnumMethodStrDecsLowLevel
     repo
     vers
     addInitStrDecs
+    #2
     (SOME enumIRef)
+    []
 
 fun addFlagsEnumMethodStrDecsHighLevel repo vers (enumInfo, enumIRef) =
   revFoldMapInfosWithExcls
+    optCons
     EnumInfo.getNMethods
     EnumInfo.getMethod
     (makeFunctionStrDecHighLevel repo vers (SOME (enumInfo, enumIRef)))

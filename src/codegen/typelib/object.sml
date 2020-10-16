@@ -397,14 +397,19 @@ end
 
 (* Object signature *)
 
+fun addObjectFieldSpecs objectIRef (fieldInfos, acc) =
+  revFold (Option.fold (addFieldAccessorSpec objectIRef)) (fieldInfos, acc)
+
 fun addObjectInterfaceConvSpecs repo objectIRef =
   revFoldMapInfosWithExcls
+    optCons
     ObjectInfo.getNInterfaces
     ObjectInfo.getInterface
     (makeInterfaceConvSpec repo objectIRef)
 
 fun addObjectConstantSpecs repo vers x =
   revFoldMapInfosWithExcls
+    optCons
     ObjectInfo.getNConstants
     ObjectInfo.getConstant
     (makeConstantSpec repo vers)
@@ -412,18 +417,21 @@ fun addObjectConstantSpecs repo vers x =
 
 fun addObjectMethodSpecs repo vers objectIRef =
   revFoldMapInfosWithExcls
+    optCons
     ObjectInfo.getNMethods
     ObjectInfo.getMethod
     (makeFunctionSpec repo vers (SOME objectIRef))
 
 fun addObjectSignalSpecs repo vers objectIRef =
   revFoldMapInfosWithExcls
+    optCons
     ObjectInfo.getNSignals
     ObjectInfo.getSignal
     (makeSignalSpec repo vers objectIRef)
 
 fun addObjectPropertySpecs repo vers objectIRef =
   revFoldMapInfosWithExcls
+    optCons
     ObjectInfo.getNProperties
     ObjectInfo.getProperty
     (makePropertySpec repo vers objectIRef)
@@ -433,6 +441,7 @@ fun makeObjectSig
   (vers            : Repository.typelibvers_t)
   (objectNamespace : string)
   (objectInfo      : 'b ObjectInfoClass.class)
+  (fieldInfos      : field_info option list)
   (excls'0         : info_excl_hier list)
   : id * program * interfaceref list * interfaceref list * info_excl_hier list =
   let
@@ -465,16 +474,17 @@ fun makeObjectSig
     val acc'4 = addGetTypeFunctionSpec getTypeSymbol typeIRef acc'3
     val acc'5 = addObjectConstantSpecs repo vers (objectInfo, acc'4)
     val acc'6 = addObjectInterfaceConvSpecs repo objectIRef (objectInfo, acc'5)
-    val (specs'6, (localIRefs'6, extIRefs'6), excls'6) = acc'6
+    val acc'7 = addObjectFieldSpecs objectIRef (fieldInfos, acc'6)
+    val (specs'1, (localIRefs'1, extIRefs'1), excls'1) = acc'7
 
-    val localIRefs =
-      objectIRef :: localIRefs'6  (* `objectIRef` for class structure dependence *)
+    val localIRefs'2 =
+      objectIRef :: localIRefs'1  (* `objectIRef` for class structure dependence *)
 
     (*
      *     type t = base class
      *)
     val tTySpec = mkTypeSpec (tTyName, SOME (classTy baseTy))
-    val specs'7 = tTySpec :: specs'6
+    val specs'2 = tTySpec :: specs'1
 
     (*
      *                                                     -.
@@ -483,7 +493,7 @@ fun makeObjectSig
      *                                                     -'  and numProps > 0
      *)
     val numProps = ObjectInfo.getNProperties objectInfo
-    val specs'8 = addPropertySpecs objectNamespace numProps specs'7
+    val specs'3 = addPropertySpecs objectNamespace numProps specs'2
 
     (*
      *                                       -.
@@ -491,7 +501,7 @@ fun makeObjectSig
      *                                       -'
      *)
     val numSigs = ObjectInfo.getNSignals objectInfo
-    val specs'9 = addSignalSpecs objectNamespace numSigs specs'8
+    val specs'4 = addSignalSpecs objectNamespace numSigs specs'3
 
     (*
      *     type 'a class
@@ -502,28 +512,36 @@ fun makeObjectSig
      *
      *     type <varlist[N]> <type_name[N]>_<t>
      *)
-    val specs'10 = revMapAppend makeIRefLocalTypeSpec (rev localIRefs, specs'9)
+    val specs'5 = revMapAppend makeIRefLocalTypeSpec (rev localIRefs'2, specs'4)
 
-    val sig1 = mkSigSpec specs'10
+    val sig1 = mkSigSpec specs'5
     val qSig : qsig = (sig1, [])
     val sigDec = toList1 [(objectSigId, qSig)]
     val program = [ModuleDecSig sigDec]
     val sigIRefs = []
   in
-    (mkSigFile objectSigId, Portable program, sigIRefs, extIRefs'6, excls'6)
+    (mkSigFile objectSigId, Portable program, sigIRefs, extIRefs'1, excls'1)
   end
 
 
 (* Object structure *)
 
+fun addObjectFieldStructureStrDecs objectIRef (fieldInfos, acc) =
+  revFold (Option.fold (addFieldStructureStrDec objectIRef)) (fieldInfos, acc)
+
+fun addObjectFieldAccessorStrDecs (fieldInfos, acc) =
+  revFold (Option.fold addFieldAccessorStrDec) (fieldInfos, acc)
+
 fun addObjectInterfaceConvStrDecs repo rootObjectIRef objectIRef =
   revFoldMapInfosWithExcls
+    optCons
     ObjectInfo.getNInterfaces
     ObjectInfo.getInterface
     (makeInterfaceConvStrDec repo rootObjectIRef objectIRef)
 
 fun addObjectConstantStrDecs repo vers x =
   revFoldMapInfosWithExcls
+    optCons
     ObjectInfo.getNConstants
     ObjectInfo.getConstant
     (makeConstantStrDec repo vers)
@@ -534,17 +552,21 @@ fun addObjectMethodStrDecsLowLevel
   repo
   vers
   addInitStrDecs
-  objectIRef =
+  objectIRef
+  fieldInfos =
   addFunctionStrDecsLowLevel
     (ObjectInfo.getNMethods, ObjectInfo.getMethod)
     isPolyML
     repo
     vers
     addInitStrDecs
+    #2
     (SOME objectIRef)
+    fieldInfos
 
 fun addObjectMethodStrDecsHighLevel repo vers (objectInfo, objectIRef) =
   revFoldMapInfosWithExcls
+    optCons
     ObjectInfo.getNMethods
     ObjectInfo.getMethod
     (makeFunctionStrDecHighLevel repo vers (SOME (objectInfo, objectIRef)))
@@ -554,6 +576,7 @@ fun addObjectSignalStrDecs repo vers objectIRef =
     let
       val (localStrDecs, x', excls') =
         revFoldMapInfosWithExcls
+          optCons
           ObjectInfo.getNSignals
           ObjectInfo.getSignal
           (makeSignalStrDec repo vers objectIRef)
@@ -587,6 +610,7 @@ fun addObjectPropertyStrDecs repo vers objectIRef =
     let
       val (localStrDecs, x', excls') =
         revFoldMapInfosWithExcls
+          optCons
           ObjectInfo.getNProperties
           ObjectInfo.getProperty
           (makePropertyStrDec repo vers objectIRef)
@@ -619,6 +643,7 @@ fun makeObjectStr
   (vers            : Repository.typelibvers_t)
   (objectNamespace : string)
   (objectInfo      : 'b ObjectInfoClass.class)
+  (fieldInfos      : field_info option list)
   (excls'0         : info_excl_hier list)
   : id * (spec list * strdec list) * program * interfaceref list * info_excl_hier list =
   let
@@ -669,7 +694,9 @@ fun makeObjectStr
         rootObjectIRef
         objectIRef
         (objectInfo, acc'5)
-    val (strDecs'6, (iRefs'6, structDeps'6), excls'6) = acc'6
+    val acc'7 = addObjectFieldAccessorStrDecs (fieldInfos, acc'6)
+    val acc'8 = addObjectFieldStructureStrDecs objectIRef (fieldInfos, acc'7)
+    val (strDecs'6, (iRefs'6, structDeps'6), excls'6) = acc'8
 
     val strIRefs =
       objectIRef :: iRefs'6  (* `objectIRef` for class structure dependence *)
@@ -724,6 +751,7 @@ fun makeObjectStr
             vers
             (addGetTypeFunctionStrDecLowLevel getTypeSymbol)
             objectIRef
+            fieldInfos
             (objectInfo, (strDecs'10, excls'6))
 
         val strDecs'12 =

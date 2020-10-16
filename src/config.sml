@@ -145,11 +145,25 @@ excludedInterfaceTypes := [
     ]
   ),
   (
+    [("PangoCairo", "1.0")],
+    [
+      "FcFontMap"  (* In Pango 1.40.9, the header for PangoCairoFcFontMap is not visible *)
+    ]
+  ),
+  (
     [("Gtk", "3.0")],
     [
       "AccelGroupEntry",
-      "BindingArg"  (* GObject Introspection seems to ignore a struct field   *
-                     * that is a union so would treat this as a value record. *)
+
+      (* GObject Introspection seems to ignore a struct field
+       * that is a union so would treat GtkBindingArg as a value record. *)
+      "BindingArg",
+
+      (* In GTK 3.22, gtk/a11y/gtkstackaccessible.h is not included 
+       * by gtk/gtk-a11y.h and does not allow itself to be included
+       * directly so field offsets for GtkStackAccessible result in
+       * references to GtkStackAccessible which are undefined. *)
+      "StackAccessible"
     ]
   )
 ];
@@ -344,6 +358,30 @@ structTypes := [
 
 includedUnionNames := [
   ([("Gdk", "3.0")], ["Event"])
+];
+
+
+(**
+ * Field names to exclude
+ *)
+
+includedClassFieldNames := [
+];
+
+excludedFieldNames := [
+  (
+    [],
+    [
+      "parent_instance",  (* also avoids issues with incomplete structs in Pango *)
+      "priv"
+    ]
+  )
+];
+
+excludedFieldNamePrefixes := [
+];
+
+excludedFieldNameSuffixes := [
 ];
 
 

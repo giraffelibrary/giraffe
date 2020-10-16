@@ -1,0 +1,726 @@
+=Field=
+
+Context
+
+  repo
+    the repository in use
+
+  ContainerInfo
+    repository interface for the container (StructInfo or ObjectInfo)
+
+  containerInfo
+    info of the (struct or object) container of the field
+
+  fieldInfo
+    info for the <i>th field of containerInfo, as follows:
+
+      StructInfo.getField structInfo i
+        if infoType is STRUCT structInfo
+
+      ObjectInfo.getField objectInfo i
+        if infoType is OBJECT objectInfo
+
+    where
+
+      infoType = InfoType.getType containerInfo
+
+
+Placeholders
+
+  FieldName = getName fieldInfo
+
+  ContainerName = BaseInfo.getName containerInfo
+
+  ContainerNamespace = BaseInfo.getNamespace containerInfo
+
+
+Conditions
+
+  isReadable =
+    FieldInfoFlags.anySet
+      (FieldInfo.getFlags fieldInfo, FieldInfoFlags.READABLE)
+
+  isWritable = 
+    FieldInfoFlags.anySet
+      (FieldInfo.getFlags fieldInfo, FieldInfoFlags.WRITABLE)
+    and the <i>th field is not an array length field, i.e.
+    there does not exists j, otherFieldInfo and typeInfo such that 
+      j <> i
+      otherFieldInfo = ContainerInfo.getField containerInfo j
+      typeInfo = FieldInfo.getType otherFieldInfo
+      i = GIRepository.TypeInfo.getArrayLength typeInfo
+
+Note that an array length field can be written only when
+writing the corresponding array.
+
+
+==Specification==
+
+FieldSpec has the form:
+
+
+  val <fieldName> :
+    {
+      get : <selfType> -> <fieldType(true)>,
+      set : <fieldType(false)> -> <selfType> -> unit,
+    }
+
+    if isReadable and isWritable
+
+
+  val <fieldName> :
+    {
+      get : <selfType> -> <fieldType(true)>
+    }
+
+    if isReadable and not isWritable
+
+
+  val <fieldName> :
+    {
+      set : <fieldType(false)> -> <selfType> -> unit,
+    }
+
+    if not isReadable and isWritable
+
+
+  <raise Error "field neither readable nor writable">
+
+    if not isReadable and not isWritable
+
+
+where
+
+
+  selfType
+    is the SML type representing the object, interface, record or union
+    that contains the field and has the following form:
+
+      infoType = InfoType.getType containerInfo
+      isClass = infoType is OBJECT _ | INTERFACE _
+      isRecord = infoType is STRUCT _
+      isUnion = infoType is UNION _
+      isOther = not (isClass or isRecord or isUnion)
+
+        <var> class
+          if isClass
+
+        t
+          if isRecord
+
+        <raise Error "union not supported">
+          if isUnion
+
+        <raise Error "field expected only for object, interface, struct or union">
+          if isOther
+
+      where
+
+        var is a type variable that is unique in the enclosing type
+
+
+  fieldType(isReadType)
+    is the SML type representing the type of the field value
+    translated as follows:
+
+      typeInfo = FieldInfo.getType fieldInfo
+      isPointer = TypeInfo.isPointer typeInfo
+
+        isPointer       isNullableArray  | fieldType(isReadType)
+      ===================================+===================
+        false           _                | <type(isReadType)>
+      -----------------------------------+-------------------
+        true            true             | <type(isReadType)>
+      -----------------------------------+-------------------
+        true            false            | <type(isReadType)>
+      -----------------------------------+-------------------
+
+        A value (non-pointer) type is always non-optional.
+        A pointer type is optional except when the null value
+        is already used to represent some (non-optional) value.
+        An array whose size is zero may be allocated by a call
+        to g_malloc requesting zero bytes which may return a
+        null pointer.  (This is fine because the pointer is
+        never dereferenced as there are no array elements.)
+        Therefore an array that may have size zero is already
+        nullable.  Consequently, a pointer to such a nullable
+        array does not represent an optional value.
+
+    where
+
+      tag = TypeInfo.getTag typeInfo
+      isZeroTerminated = GIRepository.TypeInfo.isZeroTerminated typeInfo
+      arrayLengthParamIdx = GIRepository.TypeInfo.getArrayLength typeInfo
+      arraySize = GIRepository.TypeInfo.getArrayFixedSize typeInfo
+
+        tag             isZeroTerminated    arrayLengthParamIdx     arraySize      | isNullableArray
+      =============================================================================+=========================
+        ARRAY           _                   _                       0              | true
+      -----------------------------------------------------------------------------+-------------------------
+        ARRAY           _                   _                       <n>, n > 0     | false
+      -----------------------------------------------------------------------------+-------------------------
+        ARRAY           false               <i>, i <> ~1            ~1             | true
+      -----------------------------------------------------------------------------+-------------------------
+        ARRAY           true                <i>, i <> ~1            ~1             | false
+      -----------------------------------------------------------------------------+-------------------------
+        ARRAY           false               ~1                      ~1             | <raise Error "cannot determine array length">
+      -----------------------------------------------------------------------------+-------------------------
+        ARRAY           true                ~1                      ~1             | false
+      -----------------------------------------------------------------------------+-------------------------
+        _               _                   _                       _              | false
+      -----------------------------------------------------------------------------+-------------------------
+
+
+  type(isReadType)
+    is defined as according to the type tag as follows:
+
+      typeInfo = FieldInfo.getType fieldInfo
+      tag = TypeInfo.getTag typeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        GTYPE     --->    <raise Error "not supported">
+        FILENAME  --->    string
+        ARRAY     --->    <ArrayStructId(typeInfo, SOME isReadType)>.t
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    unit
+        BOOLEAN   --->    bool
+        CHAR      --->    char
+        UCHAR     --->    char
+        INT       --->    LargeInt.int
+        UINT      --->    LargeInt.int
+        SHORT     --->    LargeInt.int
+        USHORT    --->    LargeInt.int
+        LONG      --->    LargeInt.int
+        ULONG     --->    LargeInt.int
+        INT8      --->    LargeInt.int
+        UINT8     --->    Word8.word
+        INT16     --->    LargeInt.int
+        UINT16    --->    LargeInt.int
+        INT32     --->    LargeInt.int
+        UINT32    --->    LargeInt.int
+        INT64     --->    LargeInt.int
+        UINT64    --->    LargeInt.int
+        FLOAT     --->    real
+        DOUBLE    --->    real
+        SSIZE     --->    LargeInt.int
+        SIZE      --->    LargeInt.int
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
+        UNICHAR   --->    char
+        UTF8      --->    string
+        INTERFACE --->
+
+          interfaceTypeInfo = TypeInfo.getInterface typeInfo
+
+          InterfaceName = BaseInfo.getName interfaceTypeInfo
+          InterfaceNamespace = BaseInfo.getNamespace interfaceTypeInfo
+          InterfaceCPrefix = getCPrefix repo <InterfaceNamespace>
+
+          infoType = InfoType.getType interfaceTypeInfo
+          isClass = infoType is OBJECT _ | INTERFACE _
+          isRecord = infoType is STRUCT _
+          isUnion = infoType is UNION _
+          isOther = not (isClass or isRecord or isUnion)
+
+          isSelf = InterfaceName = ContainerName
+          isGlobal = InterfaceNamespace <> FunctionNamespace
+
+            <var> <InterfaceNamespace>.<InterfaceName>Class.class
+              if isGlobal and isClass
+
+            <InterfaceNamespace>.<InterfaceName>Record.t
+              if isGlobal and isRecord
+
+            <var> <InterfaceNamespace>.<InterfaceName>.union
+              if isGlobal and isUnion
+
+            <InterfaceNamespace>.<InterfaceName>.t
+              if isGlobal and isOther
+
+
+            <var> <interface_name>_class
+              if not isGlobal and not isSelf and isClass
+
+            <interface_name>_t
+              if not isGlobal and not isSelf and isRecord
+
+            <var> <interface_name>_union
+              if not isGlobal and not isSelf and isUnion
+
+            <interface_name>_t
+              if not isGlobal and not isSelf and isOther
+
+
+            <var> class
+              if not isGlobal and isSelf and isClass
+
+            t
+              if not isGlobal and isSelf and isRecord
+
+            <var> union
+              if not isGlobal and isSelf and isUnion
+
+            t
+              if not isGlobal and isSelf and isOther
+
+          where
+
+            var is
+
+              a fresh type variable
+                if not isReadType
+
+              base
+                if isReadType
+
+
+==Declaration==
+
+FieldAccessor has the form:
+
+
+  val <fieldName> =
+    {
+      get = fn x => <FieldName>Field.get x,
+      set = fn x => <FieldName>Field.set <toBase('x')>
+    }
+
+    if isReadable and isWritable
+
+
+  val <fieldName> =
+    {
+      get = fn x => <FieldName>Field.get x
+    }
+
+    if isReadable and not isWritable
+
+
+  val <fieldName> =
+    {
+      set = fn x => <FieldName>Field.set <toBase('x')>
+    }
+
+    if not isReadable and isWritable
+
+
+  <raise Error "field neither readable nor writable">
+
+    if not isReadable and not isWritable
+
+
+where
+
+
+  toBase(x)
+    is defined as according to the type tag as follows:
+
+      typeInfo = FieldInfo.getType fieldInfo
+      isPointer = TypeInfo.isPointer typeInfo
+      tag = TypeInfo.getTag typeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        GTYPE     --->    <raise Error "not supported">
+        FILENAME  --->    x
+        ARRAY     --->    x
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    x
+        BOOLEAN   --->    x
+        CHAR      --->    x
+        UCHAR     --->    x
+        INT       --->    x 
+        UINT      --->    x
+        SHORT     --->    x
+        USHORT    --->    x
+        LONG      --->    x
+        ULONG     --->    x
+        INT8      --->    x
+        UINT8     --->    x
+        INT16     --->    x 
+        UINT16    --->    x
+        INT32     --->    x
+        UINT32    --->    x
+        INT64     --->    x
+        UINT64    --->    x
+        FLOAT     --->    x
+        DOUBLE    --->    x
+        SSIZE     --->    x 
+        SIZE      --->    x
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
+        UNICHAR   --->    x
+        UTF8      --->    x
+        INTERFACE --->
+
+          interfaceTypeInfo = TypeInfo.getInterface typeInfo
+
+          InterfaceName = BaseInfo.getName interfaceTypeInfo
+          InterfaceNamespace = BaseInfo.getNamespace interfaceTypeInfo
+          InterfaceCPrefix = getCPrefix repo <InterfaceNamespace>
+
+          infoType = InfoType.getType interfaceTypeInfo
+          isClass = infoType is OBJECT _ | INTERFACE _
+
+          isGlobal = InterfaceNamespace <> FunctionNamespace
+
+            (Option.map <InterfaceNamespace>.<InterfaceName>Class.toBase <x>)
+              if isPointer and isGlobal and isClass
+
+            (Option.map <InterfaceNamespace><InterfaceName>Class.toBase <x>)
+              if isPointer and not isGlobal and isClass
+
+            (<InterfaceNamespace>.<InterfaceName>Class.toBase <x>)
+              if not isPointer and isGlobal and isClass
+
+            (<InterfaceNamespace><InterfaceName>Class.toBase <x>)
+              if not isPointer and not isGlobal and isClass
+
+            <x>
+              otherwise
+
+
+Note that the expression on the right hand side of a FieldAccecssor value binding must be non-expansive.  Therefore it is not possible to introduce functions to simplify the expressions or eta-reduce the expressions.
+
+
+FieldStructure has the form:
+
+
+  structure <FieldName>Field =
+    FieldN(
+      structure Container = <ContainerStructId>
+      structure FieldType = <FieldTypeStruct>
+      val offset = (I ---> GSize.FFI.fromVal) <fieldName'Offset>_
+      structure NField = <FieldStructure[F[f]]>
+      val toInt = <convertToInt>
+      val fromInt = <convertFromInt>
+    )
+
+    if the field is an array whose length is provided by another field, i.e.
+    there exists typeInfo, f such that 
+
+      typeInfo = FieldInfo.getType fieldInfo
+      <F[f]> = GIRepository.TypeInfo.getArrayLength typeInfo
+
+    where
+
+      convertToInt and convertFromInt are defined as follows:
+
+          lenFieldInfo = ContainerInfo.getField containerInfo f
+          lenTypeInfo = FieldInfo.getType lenFieldInfo
+
+          scalarType(lenTypeInfo) | convertToInt        convertFromInt
+        ==========================+=========================================
+          int                     | Fn.id               Fn.id
+        --------------------------+-----------------------------------------
+          LargeInt.int            | LargeInt.toInt      LargeInt.fromInt
+        --------------------------+-----------------------------------------
+          Word8.word              | Word8.toInt         Word8.fromInt
+        --------------------------+-----------------------------------------
+
+
+  structure <FieldName>Field =
+    Field(
+      structure Container = <ContainerStructId>
+      structure FieldType = <FieldTypeStruct>
+      val offset = (I ---> GSize.FFI.fromVal) <fieldName'Offset>_
+    )
+
+    otherwise
+
+
+where
+
+
+  fieldName'Offset is <field_name>_'_offset
+    (Note that <fieldName'Offset> denotes the LCC formatting of "field_name_'_offset".)
+
+
+  ContainerStructId
+    is as follows:
+
+      <ContainerNamespace><ContainerName>Class
+        if infoType is OBJECT _
+
+      <ContainerNamespace><ContainerName>Record
+        if infoType is STRUCT _
+
+
+  FieldTypeStruct
+    is defined as follows:
+
+      typeInfo = FieldInfo.getType fieldInfo
+      isPointer = TypeInfo.isPointer typeInfo
+
+        isPointer        | FieldTypeStruct
+      ===================+===================
+        false            | <Opt>ValueFieldType(<FieldStructId>)
+      -------------------+-------------------
+        true             | <Opt>Pointer<N>FieldType(<FieldStructId>)
+      -------------------+-------------------
+
+        Note that a value type is always non-optional so
+        the following field type structures are
+        never generated:
+
+          OptValueFieldType(<FieldStructId>)
+
+    where
+
+      Opt
+        is defined as follows:
+
+          typeInfo = FieldInfo.getType fieldInfo
+          isPointer = TypeInfo.isPointer typeInfo
+
+            isPointer       isNullableArray  | Opt
+          ===================================+===================
+            false           _                | <empty>
+          -----------------------------------+-------------------
+            true            true             | <empty>
+          -----------------------------------+-------------------
+            true            false            | Opt
+          -----------------------------------+-------------------
+
+            A value (non-pointer) type is always non-optional.
+            A pointer type is optional except when the null value
+            is already used to represent some (non-optional) value.
+            An array whose size is zero may be allocated by a call
+            to g_malloc requesting zero bytes which may return a
+            null pointer.  (This is fine because the pointer is
+            never dereferenced as there are no array elements.)
+            Therefore an array that may have size zero is already
+            nullable.  Consequently, a pointer to such a nullable
+            array does not represent an optional value.
+
+        where
+
+          tag = TypeInfo.getTag typeInfo
+          isZeroTerminated = GIRepository.TypeInfo.isZeroTerminated typeInfo
+          arrayLengthParamIdx = GIRepository.TypeInfo.getArrayLength typeInfo
+          arraySize = GIRepository.TypeInfo.getArrayFixedSize typeInfo
+
+            tag             isZeroTerminated    arrayLengthParamIdx     arraySize      | isNullableArray
+          =============================================================================+=========================
+            ARRAY           _                   _                       0              | true
+          -----------------------------------------------------------------------------+-------------------------
+            ARRAY           _                   _                       <n>, n > 0     | false
+          -----------------------------------------------------------------------------+-------------------------
+            ARRAY           false               <i>, i <> ~1            ~1             | true
+          -----------------------------------------------------------------------------+-------------------------
+            ARRAY           true                <i>, i <> ~1            ~1             | false
+          -----------------------------------------------------------------------------+-------------------------
+            ARRAY           false               ~1                      ~1             | <raise Error "cannot determine array length">
+          -----------------------------------------------------------------------------+-------------------------
+            ARRAY           true                ~1                      ~1             | false
+          -----------------------------------------------------------------------------+-------------------------
+            _               _                   _                       _              | false
+          -----------------------------------------------------------------------------+-------------------------
+
+      N
+        is defined as follows:
+
+          tag = TypeInfo.getTag typeInfo
+          isZeroTerminated = GIRepository.TypeInfo.isZeroTerminated typeInfo
+          arrayLengthParamIdx = GIRepository.TypeInfo.getArrayLength typeInfo
+          arraySize = GIRepository.TypeInfo.getArrayFixedSize typeInfo
+
+            tag             isZeroTerminated    arrayLengthParamIdx     arraySize      | N
+          =============================================================================+=========================
+            ARRAY           _                   _                       <n>, n <> ~1   | <empty>
+          -----------------------------------------------------------------------------+-------------------------
+            ARRAY           _                   <i>, i <> ~1            ~1             | N
+          -----------------------------------------------------------------------------+-------------------------
+            ARRAY           false               ~1                      ~1             | <raise Error "cannot determine array length">
+          -----------------------------------------------------------------------------+-------------------------
+            ARRAY           true                ~1                      ~1             | <empty>
+          -----------------------------------------------------------------------------+-------------------------
+            _               _                   _                       _              | <empty>
+          -----------------------------------------------------------------------------+-------------------------
+
+      FieldStructId
+        is defined as according to the type tag as follows:
+
+          tag = TypeInfo.getTag typeInfo
+
+          Conversion from tag is as follows:
+
+            ERROR     --->    <raise Error "not expected">
+            FILENAME  --->    Utf8
+            ARRAY     --->    <ArrayStructId(typeInfo, SOME isReadType)>
+            GLIST     --->    <raise Error "not expected">
+            GSLIST    --->    <raise Error "not expected">
+            GHASH     --->    <raise Error "not expected">
+            VOID      --->    <raise Error "not expected">
+            BOOLEAN   --->    GBool
+            CHAR      --->    GChar
+            UCHAR     --->    GUChar
+            INT       --->    GInt
+            UINT      --->    GUInt
+            SHORT     --->    GShort
+            USHORT    --->    GUShort
+            LONG      --->    GLong
+            ULONG     --->    GULong
+            INT8      --->    GInt8
+            UINT8     --->    GUInt8
+            INT16     --->    GInt16
+            UINT16    --->    GUInt16
+            INT32     --->    GInt32
+            UINT32    --->    GUInt32
+            INT64     --->    GInt64
+            UINT64    --->    GUInt64
+            FLOAT     --->    GFloat
+            DOUBLE    --->    GDouble
+            SSIZE     --->    GSSize
+            SIZE      --->    GSize
+            OFFSET    --->    <raise Error "not supported">
+            INTPTR    --->    <raise Error "not supported">
+            UINTPTR   --->    <raise Error "not supported">
+            UTF8      --->    Utf8
+            UNICHAR   --->    GChar
+            INTERFACE --->    <InterfaceElemStructId>
+
+        where
+
+          InterfaceElemStructId is as follows:
+
+            interfaceTypeInfo = GIRepository.TypeInfo.getInterface elemTypeInfo
+
+            InterfaceName = GIRepository.BaseInfo.getName interfaceTypeInfo
+            InterfaceNamespace = GIRepository.BaseInfo.getNamespace interfaceTypeInfo
+            InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+
+            infoType = GIRepository.InfoType.getType interfaceTypeInfo
+            isClass = infoType is OBJECT _ | INTERFACE _
+            isRecord = infoType is STRUCT _
+            isUnion = infoType is UNION _
+            isEnum = infoType is ENUM _
+            isFlags = infoType is FLAGS _
+            isOther = not (isClass or isRecord or isUnion or isEnum or isFlags)
+
+            isGlobal = InterfaceNamespace <> FunctionNamespace
+            isNamespace = SOME ContainerName = NONE  (* always false *)
+            isSelf = InterfaceName = ContainerName
+
+
+            <InterfaceNamespace><InterfaceName>Class
+              if isGlobal and isClass
+
+            <InterfaceNamespace><InterfaceName>Record
+              if isGlobal and isRecord
+
+            <InterfaceNamespace><InterfaceName>
+              if isGlobal and isUnion
+
+            <InterfaceNamespace><InterfaceName>
+              if isGlobal and isEnum
+
+            <InterfaceNamespace><InterfaceName>
+              if isGlobal and isFlags
+
+            <InterfaceNamespace><InterfaceName>
+              if isGlobal and isOther
+
+
+            <InterfaceNamespace><InterfaceName>Class        (* unreachable becacuse a field is always in a container *)
+              if not isGlobal and isNamespace and isClass   (* false because isNamespace = false *)
+
+            <InterfaceNamespace><InterfaceName>Record       (* unreachable becacuse a field is always in a container *)
+              if not isGlobal and isNamespace and isRecord  (* false because isNamespace = false *)
+
+            <InterfaceNamespace><InterfaceName>             (* unreachable becacuse a field is always in a container *)
+              if not isGlobal and isNamespace and isUnion   (* false because isNamespace = false *)
+
+            <InterfaceNamespace><InterfaceName>             (* unreachable becacuse a field is always in a container *)
+              if not isGlobal and isNamespace and isEnum    (* false because isNamespace = false *)
+
+            <InterfaceNamespace><InterfaceName>             (* unreachable becacuse a field is always in a container *)
+              if not isGlobal and isNamespace and isFlags   (* false because isNamespace = false *)
+
+            <InterfaceNamespace><InterfaceName>             (* unreachable becacuse a field is always in a container *)
+              if not isGlobal and isNamespace and isOther   (* false because isNamespace = false *)
+
+
+            <InterfaceNamespace><InterfaceName>Class
+              if not isGlobal and not isNamespace and not isSelf and isClass
+
+            <InterfaceNamespace><InterfaceName>Record
+              if not isGlobal and not isNamespace and not isSelf and isRecord
+
+            <InterfaceNamespace><InterfaceName>
+              if not isGlobal and not isNamespace and not isSelf and isUnion
+
+            <InterfaceNamespace><InterfaceName>
+              if not isGlobal and not isNamespace and not isSelf and isEnum
+
+            <InterfaceNamespace><InterfaceName>
+              if not isGlobal and not isNamespace and not isSelf and isFlags
+
+            <InterfaceNamespace><InterfaceName>
+              if not isGlobal and not isNamespace and not isSelf and isOther
+
+
+            <InterfaceNamespace><InterfaceName>Class
+              if not isGlobal and not isNamespace and isSelf and isClass
+
+            <InterfaceNamespace><InterfaceName>Record
+              if not isGlobal and not isNamespace and isSelf and isRecord
+
+            <>                                                             (* unreachable because only a class and a record have a field *)
+              if not isGlobal and not isNamespace and isSelf and isUnion   (* false because isSelf ==> not isUnion *)
+
+            <>                                                             (* unreachable because only a class and a record have a field *)
+              if not isGlobal and not isNamespace and isSelf and isEnum    (* false because isSelf ==> not isEnum *)
+
+            <>                                                             (* unreachable because only a class and a record have a field *)
+              if not isGlobal and not isNamespace and isSelf and isFlags   (* false because isSelf ==> not isFlags *)
+
+            <>                                                             (* unreachable because only a class and a record have a field *)
+              if not isGlobal and not isNamespace and isSelf and isOther   (* false because isSelf ==> not isOther *)
+
+
+
+===Poly/ML===
+
+LowLevelFieldOffsetFunction has the form:
+
+
+  val <fieldName>'Offset_ =
+    call
+      (getSymbol "giraffe_<container_namespace>_<container_name>_<field_name>_offset")
+      (cVoid --> GSize.PolyML.cVal)
+
+
+where
+
+
+  fieldName'Offset is <field_name>_'_offset
+    (Note that <fieldName'Offset> denotes the LCC formatting of "field_name_'_offset".)
+
+
+
+===MLton===
+
+LowLevelFieldOffsetFunction has the form:
+
+
+  val <fieldName>'Offset_ =
+    _import "giraffe_<container_namespace>_<container_name>_<field_name>_offset"
+      : unit -> GSize.FFI.val_;
+
+
+where
+
+
+  fieldName'Offset is <field_name>_'_offset
+    (Note that <fieldName'Offset> denotes the LCC formatting of "field_name_'_offset".)
+

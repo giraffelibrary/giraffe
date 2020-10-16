@@ -17,6 +17,8 @@ in
   UNION-sig.sml
   RECORD-sig.sml
   VALUE_RECORD-sig.sml
+  FIELD_TYPE-sig.sml
+  FIELD-sig.sml
   TABLE-sig.sml
   CLOSURE-sig.sml
   CALLBACK-sig.sml
@@ -28,6 +30,13 @@ in
     mlton/PointerRecord-fun.sml
     mlton/BoxedRecord-fun.sml
     mlton/BoxedValueRecord-fun.sml
+    Field-fun.sml
+    FieldN-fun.sml
+    ValueFieldType-fun.sml
+    PointerFieldType-fun.sml
+    PointerNFieldType-fun.sml
+    OptValueFieldType-fun.sml
+    OptPointerFieldType-fun.sml
     mlton/Flags-fun.sml
     mlton/Enum-fun.sml
     WordTable-fun.sml

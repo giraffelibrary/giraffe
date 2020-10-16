@@ -184,6 +184,7 @@ signature G_LIB =
     structure Error :
       G_LIB_ERROR
         where type t = ErrorRecord.t
+        where type quark_t = Quark.t
     exception Error of exn * Error.t
     structure FileError :
       G_LIB_FILE_ERROR

@@ -302,11 +302,16 @@ val iId : id = "I"
 val iExp : exp = mkIdLNameExp iId
 val idId : id = "id"
 val fnStrId : id = "Fn"
+val fnIdExp : exp = mkLIdLNameExp [fnStrId, idId]
 
 val falseId : id = "false"
 val falseExp = mkIdLNameExp falseId
 
+val mapId : id = "map"
+
 val flagsStrId = "Flags"
+
+val optionStrId : id = "Option"
 
 val pairId : id = "pair"
 fun pairTy (ty1, ty2) : ty = TyRef ([ty1, ty2], toList1 [pairId])
@@ -382,6 +387,7 @@ val bVarTy : ty = TyVar bTyVar
 val ptrId : id = "p"
 val ptrLId : lid = toList1 [ptrId]
 val optId : id = "opt"
+val optStrId : id = "Opt"
 val nonOptId : id = "non_opt"
 val cOptLId : lid = toList1 ["C", optId]
 val cNonOptLId : lid = toList1 ["C", nonOptId]
@@ -460,6 +466,14 @@ val voidId : id = "void"
 val retVoidId : id = "ret_void"
 val voidExp : exp = mkIdLNameExp voidId
 val retVoidExp : exp = mkIdLNameExp retVoidId
+
+val fieldStrId : id = "Field"
+val fieldTypeStrId : id = "FieldType"
+val containerStrId : id = "Container"
+val valueFieldTypeStrId : id = "ValueFieldType"
+val pointerFieldTypeStrId : id = "PointerFieldType"
+val pointerNFieldTypeStrId : id = "PointerNFieldType"
+val offsetId : id = "offset"
 
 val propertyId : id = "property"
 val propertyStrId : id = "Property"

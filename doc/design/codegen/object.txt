@@ -209,6 +209,15 @@ signature <OBJECT_NAMESPACE>_<OBJECT_NAME> =
     type t = base class
 
 
+    (* Fields *)
+
+    <FieldSpec[1]>
+
+    ...
+
+    <FieldSpec[F]>
+
+
     (* Interfaces *)
 
     <InterfaceConvSpec[1]>
@@ -317,22 +326,34 @@ structure <ObjectNamespace><ObjectName> :>
         call                                                                 |
           (getSymbol "<getTypeSymbol>")                                      |
           (cVoid --> GObjectType.PolyML.cVal);                               |
-                                                                             | Poly/ML only
-      <LowLevelFunction[1]>                                                  |
                                                                              |
+      <LowLevelFunction[1]>                                                  |
+                                                                             | Poly/ML only
       ...                                                                    |
                                                                              |
       <LowLevelFunction[M]>                                                  |
+                                                                             |
+      <LowLevelFieldOffsetFunction[1]>                                       |
+                                                                             |
+      ...                                                                    |
+                                                                             |
+      <LowLevelFieldOffsetFunction[F]>                                       |
     end                                                                      |
                                                                             -'
                                                                             -.
     val getType_ = _import "<getTypeSymbol>" : unit -> GObjectType.C.val_;   |
                                                                              |
     <LowLevelFunction[1]>                                                    |
-                                                                             | MLton only
+                                                                             |
     ...                                                                      |
                                                                              |
-    <LowLevelFunction[M]>                                                    |
+    <LowLevelFunction[M]>                                                    | MLton only
+                                                                             |
+    <LowLevelFieldOffsetFunction[1]>                                         |
+                                                                             |
+    ...                                                                      |
+                                                                             |
+    <LowLevelFieldOffsetFunction[F]>                                         |
                                                                             -'
 
     (* Local Types *)
@@ -355,6 +376,21 @@ structure <ObjectNamespace><ObjectName> :>
     (* Type Abbreviations *)
 
     type t = base class
+
+
+    (* Fields *)
+
+    <FieldStructure[1]>
+
+    ...
+
+    <FieldStructure[F]>
+
+    <FieldAccessor[1]>
+
+    ...
+
+    <FieldAccessor[F]>
 
 
     (* Interfaces *)

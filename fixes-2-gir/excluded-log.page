@@ -55,6 +55,12 @@
         function to_struct_tm
         <item>arg tm: pointer C type for VOID not supported</item>
       </item>
+      <item>field julian_days: bitfield not supported</item>
+      <item>field julian: bitfield not supported</item>
+      <item>field dmy: bitfield not supported</item>
+      <item>field day: bitfield not supported</item>
+      <item>field month: bitfield not supported</item>
+      <item>field year: bitfield not supported</item>
     </item>
     <item>
       struct DateTime
@@ -229,6 +235,26 @@
         </item>
       </item>
       <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
+      <item>field ref_count: private</item>
+      <item>field funcs: private</item>
+      <item>field encoding: private</item>
+      <item>field read_cd: private</item>
+      <item>field write_cd: private</item>
+      <item>field line_term: private</item>
+      <item>field line_term_len: private</item>
+      <item>field buf_size: private</item>
+      <item>field read_buf: private</item>
+      <item>field encoded_read_buf: private</item>
+      <item>field write_buf: private</item>
+      <item>field partial_write_buf: private</item>
+      <item>field use_buffer: bitfield not supported</item>
+      <item>field do_encode: bitfield not supported</item>
+      <item>field close_on_unref: bitfield not supported</item>
+      <item>field is_readable: bitfield not supported</item>
+      <item>field is_writeable: bitfield not supported</item>
+      <item>field is_seekable: bitfield not supported</item>
+      <item>field reserved1: private</item>
+      <item>field reserved2: private</item>
     </item>
     <item>struct IOFuncs: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (io_read, io_write, io_seek, io_close, io_create_watch, io_free, io_set_flags, io_get_flags)</item>
     <item>
@@ -725,6 +751,19 @@
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function remove_by_funcs_user_data: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function remove_by_user_data: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>field callback_data: private</item>
+      <item>field callback_funcs: private</item>
+      <item>field source_funcs: private</item>
+      <item>field ref_count: private</item>
+      <item>field context: private</item>
+      <item>field priority: private</item>
+      <item>field flags: private</item>
+      <item>field source_id: private</item>
+      <item>field poll_fds: private</item>
+      <item>field prev: private</item>
+      <item>field next: private</item>
+      <item>field name: private</item>
+      <item>field priv: field excluded by configuration (excludedFieldNames)</item>
     </item>
     <item>struct SourceCallbackFuncs: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (ref, unref)</item>
     <item>struct SourceFuncs: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (prepare, check, finalize, closure_callback, closure_marshal)</item>
@@ -1838,12 +1877,31 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>field ref_count: bitfield not supported</item>
+      <item>field meta_marshal_nouse: bitfield not supported</item>
+      <item>field n_guards: bitfield not supported</item>
+      <item>field n_fnotifiers: bitfield not supported</item>
+      <item>field n_inotifiers: bitfield not supported</item>
+      <item>field in_inotify: bitfield not supported</item>
+      <item>field floating: bitfield not supported</item>
+      <item>field derivative_flag: bitfield not supported</item>
+      <item>field in_marshal: bitfield not supported</item>
+      <item>field is_invalid: bitfield not supported</item>
+      <item>field marshal: type CALLBACK INTERFACE not supported</item>
+      <item>field data: private</item>
+      <item>field notifiers: private</item>
     </item>
     <item>struct ClosureNotifyData: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct EnumClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct EnumValue: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct FlagsClass: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct FlagsValue: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>
+      object InitiallyUnowned
+      <item>field g_type_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field ref_count: field not included by configuration (includedClassFieldNames)</item>
+      <item>field qdata: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct InitiallyUnownedClass: class struct</item>
     <item>struct InterfaceInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
@@ -1954,6 +2012,9 @@
       <item>function steal_data: pointer C type for VOID not supported</item>
       <item>function steal_qdata: pointer C type for VOID not supported</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>field g_type_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field ref_count: field not included by configuration (includedClassFieldNames)</item>
+      <item>field qdata: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ObjectClass: class struct</item>
     <item>struct ObjectConstructParam: interface type excluded by configuration (excludedInterfaceTypes)</item>
@@ -1973,10 +2034,163 @@
       </item>
       <item>function sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function steal_qdata: pointer C type for VOID not supported</item>
+      <item>field g_type_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field name: field not included by configuration (includedClassFieldNames)</item>
+      <item>field flags: field not included by configuration (includedClassFieldNames)</item>
+      <item>field value_type: field not included by configuration (includedClassFieldNames)</item>
+      <item>field owner_type: field not included by configuration (includedClassFieldNames)</item>
+      <item>field _nick: field not included by configuration (includedClassFieldNames)</item>
+      <item>field _blurb: field not included by configuration (includedClassFieldNames)</item>
+      <item>field qdata: field not included by configuration (includedClassFieldNames)</item>
+      <item>field ref_count: field not included by configuration (includedClassFieldNames)</item>
+      <item>field param_id: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecBoolean
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecBoxed
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecChar
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field minimum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field maximum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ParamSpecClass: class struct</item>
+    <item>
+      object ParamSpecDouble
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field minimum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field maximum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+      <item>field epsilon: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecEnum
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field enum_class: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecFlags
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field flags_class: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecFloat
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field minimum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field maximum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+      <item>field epsilon: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecGType
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field is_a_type: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecInt
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field minimum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field maximum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecInt64
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field minimum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field maximum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecLong
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field minimum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field maximum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecObject
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecOverride
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field overridden: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecParam
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecPointer
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ParamSpecPool: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>
+      object ParamSpecString
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+      <item>field cset_first: field not included by configuration (includedClassFieldNames)</item>
+      <item>field cset_nth: field not included by configuration (includedClassFieldNames)</item>
+      <item>field substitutor: field not included by configuration (includedClassFieldNames)</item>
+      <item>field null_fold_if_empty: field not included by configuration (includedClassFieldNames)</item>
+      <item>field ensure_non_null: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ParamSpecTypeInfo: interface type excluded by configuration (excludedInterfaceTypes)</item>
+    <item>
+      object ParamSpecUChar
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field minimum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field maximum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecUInt
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field minimum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field maximum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecUInt64
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field minimum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field maximum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecULong
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field minimum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field maximum: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecUnichar
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecValueArray
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field element_spec: field not included by configuration (includedClassFieldNames)</item>
+      <item>field fixed_n_elements: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ParamSpecVariant
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field type: field not included by configuration (includedClassFieldNames)</item>
+      <item>field default_value: field not included by configuration (includedClassFieldNames)</item>
+      <item>field padding: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct Parameter: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct SignalQuery: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (signal_name, param_types)</item>
     <item>constant TYPE_FLAG_RESERVED_ID_BIT: type INTERFACE not expected</item>
@@ -2068,6 +2282,11 @@
           </item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field use_count: field not included by configuration (includedClassFieldNames)</item>
+      <item>field type_infos: field not included by configuration (includedClassFieldNames)</item>
+      <item>field interface_infos: field not included by configuration (includedClassFieldNames)</item>
+      <item>field name: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TypeModuleClass: class struct</item>
     <item>
@@ -2192,6 +2411,8 @@
         function take_boxed
         <item>arg v_boxed: pointer C type for VOID not supported</item>
       </item>
+      <item>field g_type: private</item>
+      <item>field data: union interface type not included by configuration (includedUnionNames)</item>
     </item>
     <item>
       struct ValueArray
@@ -2205,6 +2426,7 @@
         function sort
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field n_prealloced: private</item>
     </item>
     <item>struct WeakRef: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>union _Value__data__union: union interface type not included by configuration (includedUnionNames)</item>
@@ -2628,6 +2850,8 @@
           <item>type glist: type GLIST not supported</item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct AppLaunchContextClass: class struct</item>
     <item>struct AppLaunchContextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -2635,8 +2859,15 @@
       object Application
       <item>function add_main_option_entries: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function add_main_option_entries: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ApplicationClass: class struct</item>
+    <item>
+      object ApplicationCommandLine
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ApplicationCommandLineClass: class struct</item>
     <item>struct ApplicationCommandLinePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ApplicationPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -2684,9 +2915,16 @@
         function fill_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct BufferedInputStreamClass: class struct</item>
     <item>struct BufferedInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object BufferedOutputStream
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct BufferedOutputStreamClass: class struct</item>
     <item>struct BufferedOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -2731,13 +2969,25 @@
           </item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct CancellableClass: class struct</item>
     <item>struct CancellablePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CharsetConverterClass: class struct</item>
     <item>struct ConverterIface: class struct</item>
+    <item>
+      object ConverterInputStream
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ConverterInputStreamClass: class struct</item>
     <item>struct ConverterInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ConverterOutputStream
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ConverterOutputStreamClass: class struct</item>
     <item>struct ConverterOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -3011,6 +3261,8 @@
         function get_connections
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct DBusInterfaceSkeletonClass: class struct</item>
     <item>struct DBusInterfaceSkeletonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -3133,14 +3385,31 @@
       <item>property get-proxy-type-destroy-notify: type VOID not expected</item>
       <item>property get-proxy-type-func: type VOID not expected</item>
       <item>property get-proxy-type-user-data: type VOID not expected</item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct DBusObjectManagerClientClass: class struct</item>
     <item>struct DBusObjectManagerClientPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct DBusObjectManagerIface: class struct</item>
+    <item>
+      object DBusObjectManagerServer
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct DBusObjectManagerServerClass: class struct</item>
     <item>struct DBusObjectManagerServerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object DBusObjectProxy
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct DBusObjectProxyClass: class struct</item>
     <item>struct DBusObjectProxyPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object DBusObjectSkeleton
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct DBusObjectSkeletonClass: class struct</item>
     <item>struct DBusObjectSkeletonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -3184,6 +3453,8 @@
         function call_with_unix_fd_list
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct DBusProxyClass: class struct</item>
     <item>struct DBusProxyPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -3221,9 +3492,16 @@
         function read_upto_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct DataInputStreamClass: class struct</item>
     <item>struct DataInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object DataOutputStream
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct DataOutputStreamClass: class struct</item>
     <item>struct DataOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -3409,6 +3687,8 @@
         function get_emblems
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct EmblemedIconClass: class struct</item>
     <item>struct EmblemedIconPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -3684,6 +3964,7 @@
       </item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>field infos: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name)</item>
     </item>
     <item>
       struct FileAttributeMatcher
@@ -3719,6 +4000,8 @@
         function next_files_finish
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct FileEnumeratorClass: class struct</item>
     <item>struct FileEnumeratorPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -3732,6 +4015,8 @@
         function query_info_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct FileIOStreamClass: class struct</item>
     <item>struct FileIOStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -3781,9 +4066,16 @@
         function query_info_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct FileInputStreamClass: class struct</item>
     <item>struct FileInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object FileMonitor
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FileMonitorClass: class struct</item>
     <item>struct FileMonitorPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -3796,11 +4088,23 @@
         function query_info_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct FileOutputStreamClass: class struct</item>
     <item>struct FileOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FilenameCompleterClass: class struct</item>
+    <item>
+      object FilterInputStream
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field base_stream: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FilterInputStreamClass: class struct</item>
+    <item>
+      object FilterOutputStream
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field base_stream: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FilterOutputStreamClass: class struct</item>
     <item>struct IOExtension: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct IOExtensionPoint: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
@@ -3825,6 +4129,8 @@
         function splice_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct IOStreamAdapter: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct IOStreamClass: class struct</item>
@@ -3859,11 +4165,23 @@
         </item>
       </item>
       <item>property bytes: type VOID not expected</item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct InetAddressClass: class struct</item>
+    <item>
+      object InetAddressMask
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct InetAddressMaskClass: class struct</item>
     <item>struct InetAddressMaskPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct InetAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object InetSocketAddress
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct InetSocketAddressClass: class struct</item>
     <item>struct InetSocketAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -3939,6 +4257,8 @@
         function skip_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct InputStreamClass: class struct</item>
     <item>struct InputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4018,6 +4338,8 @@
           </item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct MemoryInputStreamClass: class struct</item>
     <item>struct MemoryInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4029,13 +4351,30 @@
       <item>function get_data: pointer C type for VOID not supported</item>
       <item>function steal_data: pointer C type for VOID not supported</item>
       <item>property data: type VOID not expected</item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct MemoryOutputStreamClass: class struct</item>
     <item>struct MemoryOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object MenuAttributeIter
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MenuAttributeIterClass: class struct</item>
     <item>struct MenuAttributeIterPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object MenuLinkIter
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MenuLinkIterClass: class struct</item>
     <item>struct MenuLinkIterPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object MenuModel
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MenuModelClass: class struct</item>
     <item>struct MenuModelPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -4106,11 +4445,22 @@
           <item>type array: array type GArray not supported</item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct MountOperationClass: class struct</item>
     <item>struct MountOperationPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct NativeSocketAddress: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>
+      object NativeVolumeMonitor
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct NativeVolumeMonitorClass: class struct</item>
+    <item>
+      object NetworkAddress
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct NetworkAddressClass: class struct</item>
     <item>struct NetworkAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -4125,6 +4475,11 @@
       </item>
     </item>
     <item>struct NetworkMonitorInterface: class struct</item>
+    <item>
+      object NetworkService
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct NetworkServiceClass: class struct</item>
     <item>struct NetworkServicePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct OutputMessage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (address, vectors, control_messages)</item>
@@ -4178,6 +4533,8 @@
         function write_bytes_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct OutputStreamClass: class struct</item>
     <item>struct OutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4200,6 +4557,8 @@
         function release_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct PermissionClass: class struct</item>
     <item>struct PermissionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4216,7 +4575,17 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
+    <item>
+      object ProxyAddress
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ProxyAddressClass: class struct</item>
+    <item>
+      object ProxyAddressEnumerator
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ProxyAddressEnumeratorClass: class struct</item>
     <item>struct ProxyAddressEnumeratorPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ProxyAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4316,6 +4685,8 @@
         function lookup_service_finish
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ResolverClass: class struct</item>
     <item>
@@ -4351,6 +4722,8 @@
         function get_mapped
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct SettingsClass: class struct</item>
     <item>struct SettingsPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4385,6 +4758,8 @@
         function add_entries
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct SimpleActionGroupClass: class struct</item>
     <item>struct SimpleActionGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4440,6 +4815,8 @@
       object SimpleProxyResolver
       <item>property ignore-hosts: type ARRAY not supported</item>
       <item>property ignore-hosts: type ARRAY not supported</item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct SimpleProxyResolverClass: class struct</item>
     <item>struct SimpleProxyResolverPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4549,6 +4926,8 @@
           </item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>
       object SocketAddress
@@ -4568,6 +4947,7 @@
         function to_native
         <item>arg dest: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct SocketAddressClass: class struct</item>
     <item>
@@ -4580,6 +4960,7 @@
         function next_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct SocketAddressEnumeratorClass: class struct</item>
     <item>struct SocketClass: class struct</item>
@@ -4617,6 +4998,8 @@
         function connect_to_uri_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct SocketClientClass: class struct</item>
     <item>struct SocketClientPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4631,6 +5014,8 @@
         function connect_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct SocketConnectionClass: class struct</item>
     <item>struct SocketConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4644,6 +5029,8 @@
         function serialize
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct SocketControlMessageClass: class struct</item>
     <item>struct SocketControlMessagePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4665,10 +5052,17 @@
         function accept_socket_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct SocketListenerClass: class struct</item>
     <item>struct SocketListenerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SocketPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object SocketService
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct SocketServiceClass: class struct</item>
     <item>struct SocketServicePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -4831,8 +5225,18 @@
       </item>
     </item>
     <item>struct TaskClass: class struct</item>
+    <item>
+      object TcpConnection
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct TcpConnectionClass: class struct</item>
     <item>struct TcpConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object TcpWrapperConnection
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct TcpWrapperConnectionClass: class struct</item>
     <item>struct TcpWrapperConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -4841,6 +5245,11 @@
       <item>property names: type ARRAY not supported</item>
     </item>
     <item>struct ThemedIconClass: class struct</item>
+    <item>
+      object ThreadedSocketService
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ThreadedSocketServiceClass: class struct</item>
     <item>struct ThreadedSocketServicePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TlsBackendInterface: class struct</item>
@@ -4858,6 +5267,8 @@
       </item>
       <item>property certificate: type ARRAY not supported</item>
       <item>property private-key: type ARRAY not supported</item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TlsCertificateClass: class struct</item>
     <item>struct TlsCertificatePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4885,6 +5296,8 @@
         function handshake_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TlsConnectionClass: class struct</item>
     <item>struct TlsConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4944,6 +5357,8 @@
         function verify_chain_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TlsDatabaseClass: class struct</item>
     <item>struct TlsDatabasePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -4971,6 +5386,8 @@
         function request_certificate_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TlsInteractionClass: class struct</item>
     <item>struct TlsInteractionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -5024,6 +5441,8 @@
           </item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TlsPasswordClass: class struct</item>
     <item>struct TlsPasswordPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -5046,15 +5465,37 @@
         function send_credentials_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct UnixConnectionClass: class struct</item>
     <item>struct UnixConnectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object UnixCredentialsMessage
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct UnixCredentialsMessageClass: class struct</item>
     <item>struct UnixCredentialsMessagePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object UnixFDList
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct UnixFDListClass: class struct</item>
     <item>struct UnixFDListPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object UnixFDMessage
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct UnixFDMessageClass: class struct</item>
     <item>struct UnixFDMessagePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object UnixInputStream
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct UnixInputStreamClass: class struct</item>
     <item>struct UnixInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct UnixMountMonitorClass: class struct</item>
@@ -5063,12 +5504,19 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
+    <item>
+      object UnixOutputStream
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct UnixOutputStreamClass: class struct</item>
     <item>struct UnixOutputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object UnixSocketAddress
       <item>property path-as-array: type ARRAY not supported</item>
       <item>property path-as-array: type ARRAY not supported</item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct UnixSocketAddressClass: class struct</item>
     <item>struct UnixSocketAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -5094,6 +5542,7 @@
           </item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct VfsClass: class struct</item>
     <item>
@@ -5150,6 +5599,8 @@
         function get_volumes
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct VolumeMonitorClass: class struct</item>
     <item>struct ZlibCompressorClass: class struct</item>
@@ -5300,6 +5751,14 @@
           </item>
         </item>
       </item>
+      <item>field dummy1: private</item>
+      <item>field dummy2: private</item>
+      <item>field dummy3: private</item>
+      <item>field dummy4: private</item>
+      <item>field dummy5: private</item>
+      <item>field dummy6: private</item>
+      <item>field dummy7: private</item>
+      <item>field padding: private</item>
     </item>
     <item>
       object Repository
@@ -5369,6 +5828,8 @@
           <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct RepositoryClass: class struct</item>
     <item>struct RepositoryPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -5482,15 +5943,35 @@
       </item>
     </item>
     <item>struct EditableTextIface: class struct</item>
+    <item>
+      object GObjectAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct GObjectAccessibleClass: class struct</item>
+    <item>
+      object Hyperlink
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct HyperlinkClass: class struct</item>
     <item>struct HyperlinkImplIface: class struct</item>
     <item>struct HypertextIface: class struct</item>
     <item>struct ImageIface: class struct</item>
     <item>struct Implementor: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct KeyEventStruct: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (string)</item>
+    <item>
+      object Misc
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MiscClass: class struct</item>
+    <item>
+      object NoOpObject
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct NoOpObjectClass: class struct</item>
+    <item>
+      object NoOpObjectFactory
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct NoOpObjectFactoryClass: class struct</item>
     <item>
       object Object
@@ -5546,15 +6027,36 @@
         signals property-change
         <item>arg arg1: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field description: field not included by configuration (includedClassFieldNames)</item>
+      <item>field name: field not included by configuration (includedClassFieldNames)</item>
+      <item>field accessible_parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field role: field not included by configuration (includedClassFieldNames)</item>
+      <item>field relation_set: field not included by configuration (includedClassFieldNames)</item>
+      <item>field layer: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ObjectClass: class struct</item>
+    <item>
+      object ObjectFactory
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ObjectFactoryClass: class struct</item>
+    <item>
+      object Plug
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct PlugClass: class struct</item>
     <item>struct PropertyValues: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (property_name, old_value.data, new_value.data)</item>
     <item>
       struct Range
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+    </item>
+    <item>
+      object Registry
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field factory_type_registry: field not included by configuration (includedClassFieldNames)</item>
+      <item>field factory_singleton_cache: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct RegistryClass: class struct</item>
     <item>
@@ -5567,11 +6069,28 @@
         function get_target
         <item>type array: array type GPtrArray not supported</item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field target: field not included by configuration (includedClassFieldNames)</item>
+      <item>field relationship: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct RelationClass: class struct</item>
+    <item>
+      object RelationSet
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field relations: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct RelationSetClass: class struct</item>
     <item>struct SelectionIface: class struct</item>
+    <item>
+      object Socket
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field embedded_plug_id: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct SocketClass: class struct</item>
+    <item>
+      object StateSet
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct StateSetClass: class struct</item>
     <item>struct StreamableContentIface: class struct</item>
     <item>
@@ -5684,6 +6203,10 @@
       </item>
     </item>
     <item>struct TextIface: class struct</item>
+    <item>
+      object Util
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct UtilClass: class struct</item>
     <item>
       interface Value
@@ -5837,6 +6360,11 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
+    <item>
+      object PixbufLoader
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct PixbufLoaderClass: class struct</item>
     <item>struct PixbufSimpleAnimClass: class struct</item>
     <item>struct Pixdata: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (pixel_data)</item>
@@ -5877,6 +6405,7 @@
       <item>function init: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function destroy: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function init: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>field klass: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (destroy, equal)</item>
     </item>
     <item>
       struct Color
@@ -5885,10 +6414,22 @@
     </item>
     <item>struct ContextClass: class struct</item>
     <item>struct Coverage: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>
+      object Engine
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct EngineClass: class struct</item>
     <item>struct EngineInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (id, engine_type, render_type, scripts)</item>
+    <item>
+      object EngineLang
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct EngineLangClass: class struct</item>
     <item>struct EngineScriptInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (langs)</item>
+    <item>
+      object EngineShape
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct EngineShapeClass: class struct</item>
     <item>
       object Font
@@ -5896,6 +6437,7 @@
       <item>function find_shaper: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function descriptions_free: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function find_shaper: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct FontClass: class struct</item>
     <item>
@@ -5903,8 +6445,20 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
+    <item>
+      object FontFace
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FontFaceClass: class struct</item>
+    <item>
+      object FontFamily
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FontFamilyClass: class struct</item>
+    <item>
+      object FontMap
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FontMapClass: class struct</item>
     <item>
       struct FontMetrics
@@ -5912,6 +6466,15 @@
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>field ref_count: private</item>
+      <item>field ascent: private</item>
+      <item>field descent: private</item>
+      <item>field approximate_char_width: private</item>
+      <item>field approximate_digit_width: private</item>
+      <item>field underline_position: private</item>
+      <item>field underline_thickness: private</item>
+      <item>field strikethrough_position: private</item>
+      <item>field strikethrough_thickness: private</item>
     </item>
     <item>
       object Fontset
@@ -5923,6 +6486,7 @@
         function foreach
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct FontsetClass: class struct</item>
     <item>struct FontsetSimpleClass: class struct</item>
@@ -6021,12 +6585,19 @@
           </item>
         </item>
       </item>
+      <item>field log_clusters: pointer C type for scalar (INT) not supported</item>
+      <item>field space: private</item>
+    </item>
+    <item>
+      struct GlyphVisAttr
+      <item>field is_cluster_start: bitfield not supported</item>
     </item>
     <item>struct IncludedModule: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       struct Item
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>field analysis: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (shape_engine, lang_engine, font, language, extra_attrs)</item>
     </item>
     <item>
       object Layout
@@ -6059,6 +6630,25 @@
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>field runs: type GSLIST not supported</item>
+      <item>field is_paragraph_start: bitfield not supported</item>
+      <item>field resolved_dir: bitfield not supported</item>
+    </item>
+    <item>
+      struct LogAttr
+      <item>field is_line_break: bitfield not supported</item>
+      <item>field is_mandatory_break: bitfield not supported</item>
+      <item>field is_char_break: bitfield not supported</item>
+      <item>field is_white: bitfield not supported</item>
+      <item>field is_cursor_position: bitfield not supported</item>
+      <item>field is_word_start: bitfield not supported</item>
+      <item>field is_word_end: bitfield not supported</item>
+      <item>field is_sentence_boundary: bitfield not supported</item>
+      <item>field is_sentence_start: bitfield not supported</item>
+      <item>field is_sentence_end: bitfield not supported</item>
+      <item>field backspace_deletes_character: bitfield not supported</item>
+      <item>field is_expandable_space: bitfield not supported</item>
+      <item>field is_word_boundary: bitfield not supported</item>
     </item>
     <item>struct Map: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct MapEntry: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
@@ -6066,6 +6656,15 @@
       struct Matrix
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+    </item>
+    <item>
+      object Renderer
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field underline: field not included by configuration (includedClassFieldNames)</item>
+      <item>field strikethrough: field not included by configuration (includedClassFieldNames)</item>
+      <item>field active_count: field not included by configuration (includedClassFieldNames)</item>
+      <item>field matrix: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct RendererClass: class struct</item>
     <item>struct RendererPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -6184,6 +6783,7 @@
   </item>
   <item>
     PangoCairo-1.0
+    <item>object FcFontMap: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>
       interface FontMap
       <item>
@@ -6324,6 +6924,26 @@
     </item>
     <item>struct DrawingContextClass: class struct</item>
     <item>
+      struct EventButton
+      <item>field axes: pointer C type for scalar (DOUBLE) not supported</item>
+    </item>
+    <item>
+      struct EventKey
+      <item>field is_modifier: bitfield not supported</item>
+    </item>
+    <item>
+      struct EventMotion
+      <item>field axes: pointer C type for scalar (DOUBLE) not supported</item>
+    </item>
+    <item>
+      struct EventScroll
+      <item>field is_stop: bitfield not supported</item>
+    </item>
+    <item>
+      struct EventTouch
+      <item>field axes: pointer C type for scalar (DOUBLE) not supported</item>
+    </item>
+    <item>
       object FrameClock
       <item>
         function get_refresh_info
@@ -6407,6 +7027,7 @@
         function grab
         <item>arg prepare_func_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TimeCoord: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (axes)</item>
     <item>
@@ -6566,6 +7187,8 @@
       <item>property artists: type ARRAY not supported</item>
       <item>property authors: type ARRAY not supported</item>
       <item>property documenters: type ARRAY not supported</item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct AboutDialogClass: class struct</item>
     <item>struct AboutDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -6599,10 +7222,21 @@
           </item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct AccelGroupClass: class struct</item>
     <item>struct AccelGroupEntry: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct AccelGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      struct AccelKey
+      <item>field accel_flags: bitfield not supported</item>
+    </item>
+    <item>
+      object AccelLabel
+      <item>field label: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct AccelLabelClass: class struct</item>
     <item>struct AccelLabelPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -6651,6 +7285,11 @@
       <item>function load_scanner: function excluded by configuration (excludedFunctionSymbols)</item>
     </item>
     <item>struct AccelMapClass: class struct</item>
+    <item>
+      object Accessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct AccessibleClass: class struct</item>
     <item>struct AccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -6663,6 +7302,12 @@
         function get_proxies
         <item>type gslist: type GSLIST not supported</item>
       </item>
+      <item>field object: field not included by configuration (includedClassFieldNames)</item>
+      <item>field private_data: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ActionBar
+      <item>field bin: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ActionBarClass: class struct</item>
     <item>struct ActionBarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -6698,20 +7343,47 @@
           </item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ActionGroupClass: class struct</item>
     <item>struct ActionGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ActionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ActionableInterface: class struct</item>
     <item>struct ActivatableIface: class struct</item>
+    <item>
+      object Adjustment
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct AdjustmentClass: class struct</item>
     <item>struct AdjustmentPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Alignment
+      <item>field bin: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct AlignmentClass: class struct</item>
     <item>struct AlignmentPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object AppChooserButton
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct AppChooserButtonClass: class struct</item>
     <item>struct AppChooserButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object AppChooserDialog
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct AppChooserDialogClass: class struct</item>
     <item>struct AppChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object AppChooserWidget
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct AppChooserWidgetClass: class struct</item>
     <item>struct AppChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -6724,15 +7396,37 @@
         function get_windows
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ApplicationClass: class struct</item>
     <item>struct ApplicationPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ApplicationWindow
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ApplicationWindowClass: class struct</item>
     <item>struct ApplicationWindowPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Arrow
+      <item>field misc: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ArrowAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ArrowAccessibleClass: class struct</item>
     <item>struct ArrowAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ArrowClass: class struct</item>
     <item>struct ArrowPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object AspectFrame
+      <item>field frame: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct AspectFrameClass: class struct</item>
     <item>struct AspectFramePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -6757,21 +7451,38 @@
           </item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct AssistantClass: class struct</item>
     <item>struct AssistantPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Bin
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct BinClass: class struct</item>
     <item>struct BinPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct BindingArg: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct BindingEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (binding_set, set_next, hash_next, signals)</item>
     <item>struct BindingSet: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (set_name, widget_path_pspecs, widget_class_pspecs, class_branch_pspecs, entries, current)</item>
     <item>struct BindingSignal: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (next, signal_name, args)</item>
+    <item>
+      object BooleanCellAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct BooleanCellAccessibleClass: class struct</item>
     <item>struct BooleanCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       struct Border
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+    </item>
+    <item>
+      object Box
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct BoxClass: class struct</item>
     <item>struct BoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -6843,6 +7554,8 @@
         function get_objects
         <item>type gslist: type GSLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct BuilderClass: class struct</item>
     <item>
@@ -6851,8 +7564,23 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct BuilderPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Button
+      <item>field bin: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ButtonAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ButtonAccessibleClass: class struct</item>
     <item>struct ButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ButtonBox
+      <item>field box: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ButtonBoxClass: class struct</item>
     <item>struct ButtonBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ButtonClass: class struct</item>
@@ -6879,9 +7607,16 @@
           </item>
         </item>
       </item>
+      <item>field widget: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct CalendarClass: class struct</item>
     <item>struct CalendarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object CellAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CellAccessibleClass: class struct</item>
     <item>
       interface CellAccessibleParent
@@ -6928,10 +7663,22 @@
         function get_focus_siblings
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object CellAreaBox
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct CellAreaBoxClass: class struct</item>
     <item>struct CellAreaBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellAreaClass: class struct</item>
+    <item>
+      object CellAreaContext
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CellAreaContextClass: class struct</item>
     <item>struct CellAreaContextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellAreaPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -6968,28 +7715,92 @@
       </item>
     </item>
     <item>struct CellLayoutIface: class struct</item>
+    <item>
+      object CellRenderer
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object CellRendererAccel
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CellRendererAccelClass: class struct</item>
     <item>struct CellRendererAccelPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellRendererClass: class struct</item>
     <item>struct CellRendererClassPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object CellRendererCombo
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CellRendererComboClass: class struct</item>
     <item>struct CellRendererComboPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object CellRendererPixbuf
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CellRendererPixbufClass: class struct</item>
     <item>struct CellRendererPixbufPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CellRendererPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object CellRendererProgress
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CellRendererProgressClass: class struct</item>
     <item>struct CellRendererProgressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object CellRendererSpin
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CellRendererSpinClass: class struct</item>
     <item>struct CellRendererSpinPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object CellRendererSpinner
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CellRendererSpinnerClass: class struct</item>
     <item>struct CellRendererSpinnerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object CellRendererText
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CellRendererTextClass: class struct</item>
     <item>struct CellRendererTextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object CellRendererToggle
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CellRendererToggleClass: class struct</item>
     <item>struct CellRendererTogglePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object CellView
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CellViewClass: class struct</item>
     <item>struct CellViewPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object CheckButton
+      <item>field toggle_button: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CheckButtonClass: class struct</item>
+    <item>
+      object CheckMenuItem
+      <item>field menu_item: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object CheckMenuItemAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CheckMenuItemAccessibleClass: class struct</item>
     <item>struct CheckMenuItemAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CheckMenuItemClass: class struct</item>
@@ -7045,14 +7856,39 @@
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
     </item>
+    <item>
+      object ColorButton
+      <item>field button: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ColorButtonClass: class struct</item>
     <item>struct ColorButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ColorChooserDialog
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ColorChooserDialogClass: class struct</item>
     <item>struct ColorChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ColorChooserInterface: class struct</item>
+    <item>
+      object ColorChooserWidget
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ColorChooserWidgetClass: class struct</item>
     <item>struct ColorChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ColorSelection
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field private_data: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ColorSelectionClass: class struct</item>
+    <item>
+      object ColorSelectionDialog
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ColorSelectionDialogClass: class struct</item>
     <item>struct ColorSelectionDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ColorSelectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -7078,11 +7914,23 @@
           </item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ComboBoxAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ComboBoxAccessibleClass: class struct</item>
     <item>struct ComboBoxAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ComboBoxClass: class struct</item>
     <item>struct ComboBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ComboBoxText
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ComboBoxTextClass: class struct</item>
     <item>struct ComboBoxTextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -7139,6 +7987,13 @@
           <item>type glist: type GLIST not supported</item>
         </item>
       </item>
+      <item>field widget: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ContainerAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ContainerAccessibleClass: class struct</item>
     <item>struct ContainerAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -7152,6 +8007,8 @@
         function get_children
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ContainerCellAccessibleClass: class struct</item>
     <item>struct ContainerCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -7173,6 +8030,8 @@
           <item>type error: type ERROR not expected</item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct CssProviderClass: class struct</item>
     <item>
@@ -7188,12 +8047,37 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
+    <item>
+      object Dialog
+      <item>field window: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct DialogClass: class struct</item>
     <item>struct DialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object DrawingArea
+      <item>field widget: field not included by configuration (includedClassFieldNames)</item>
+      <item>field dummy: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct DrawingAreaClass: class struct</item>
     <item>struct EditableInterface: class struct</item>
+    <item>
+      object Entry
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object EntryAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct EntryAccessibleClass: class struct</item>
     <item>struct EntryAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object EntryBuffer
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct EntryBufferClass: class struct</item>
     <item>struct EntryBufferPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct EntryClass: class struct</item>
@@ -7219,13 +8103,30 @@
           </item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct EntryCompletionClass: class struct</item>
     <item>struct EntryCompletionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct EntryPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object EventBox
+      <item>field bin: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct EventBoxClass: class struct</item>
     <item>struct EventBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct EventControllerClass: class struct</item>
+    <item>
+      object Expander
+      <item>field bin: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ExpanderAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ExpanderAccessibleClass: class struct</item>
     <item>struct ExpanderAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ExpanderClass: class struct</item>
@@ -7281,8 +8182,18 @@
         <item>type gslist: type GSLIST not supported</item>
       </item>
     </item>
+    <item>
+      object FileChooserButton
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FileChooserButtonClass: class struct</item>
     <item>struct FileChooserButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object FileChooserDialog
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FileChooserDialogClass: class struct</item>
     <item>struct FileChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -7291,6 +8202,11 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct FileChooserNativeClass: class struct</item>
+    <item>
+      object FileChooserWidget
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FileChooserWidgetClass: class struct</item>
     <item>struct FileChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -7337,6 +8253,11 @@
       </item>
     </item>
     <item>struct FileFilterInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (filename, uri, display_name, mime_type)</item>
+    <item>
+      object Fixed
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FixedChild: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (widget)</item>
     <item>struct FixedClass: class struct</item>
     <item>struct FixedPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -7418,12 +8339,31 @@
           </item>
         </item>
       </item>
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object FlowBoxAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct FlowBoxAccessibleClass: class struct</item>
     <item>struct FlowBoxAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object FlowBoxChild
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object FlowBoxChildAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FlowBoxChildAccessibleClass: class struct</item>
     <item>struct FlowBoxChildClass: class struct</item>
     <item>struct FlowBoxClass: class struct</item>
+    <item>
+      object FontButton
+      <item>field button: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FontButtonClass: class struct</item>
     <item>struct FontButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -7449,15 +8389,45 @@
         </item>
       </item>
     </item>
+    <item>
+      object FontChooserDialog
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FontChooserDialogClass: class struct</item>
     <item>struct FontChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FontChooserIface: class struct</item>
+    <item>
+      object FontChooserWidget
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FontChooserWidgetClass: class struct</item>
     <item>struct FontChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object FontSelection
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FontSelectionClass: class struct</item>
+    <item>
+      object FontSelectionDialog
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FontSelectionDialogClass: class struct</item>
     <item>struct FontSelectionDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FontSelectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Frame
+      <item>field bin: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object FrameAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct FrameAccessibleClass: class struct</item>
     <item>struct FrameAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct FrameClass: class struct</item>
@@ -7486,6 +8456,7 @@
           <item>type error: type ERROR not expected</item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct GLAreaClass: class struct</item>
     <item>
@@ -7523,26 +8494,88 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
+    <item>
+      object Grid
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct GridClass: class struct</item>
     <item>struct GridPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object HBox
+      <item>field box: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct HBoxClass: class struct</item>
+    <item>
+      object HButtonBox
+      <item>field button_box: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct HButtonBoxClass: class struct</item>
+    <item>
+      object HPaned
+      <item>field paned: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct HPanedClass: class struct</item>
+    <item>
+      object HSV
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct HSVClass: class struct</item>
     <item>struct HSVPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object HScale
+      <item>field scale: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct HScaleClass: class struct</item>
+    <item>
+      object HScrollbar
+      <item>field scrollbar: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct HScrollbarClass: class struct</item>
+    <item>
+      object HSeparator
+      <item>field separator: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct HSeparatorClass: class struct</item>
+    <item>
+      object HandleBox
+      <item>field bin: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct HandleBoxClass: class struct</item>
     <item>struct HandleBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object HeaderBar
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct HeaderBarClass: class struct</item>
     <item>struct HeaderBarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object IMContext
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct IMContextClass: class struct</item>
     <item>struct IMContextInfo: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (context_id, context_name, domain, domain_dirname, default_locales)</item>
+    <item>
+      object IMContextSimple
+      <item>field object: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct IMContextSimpleClass: class struct</item>
     <item>struct IMContextSimplePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object IMMulticontext
+      <item>field object: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct IMMulticontextClass: class struct</item>
     <item>struct IMMulticontextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object IconFactory
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct IconFactoryClass: class struct</item>
     <item>struct IconFactoryPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -7603,6 +8636,8 @@
         function list_icons
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct IconThemeClass: class struct</item>
     <item>
@@ -7629,34 +8664,106 @@
         function selected_foreach
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object IconViewAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct IconViewAccessibleClass: class struct</item>
     <item>struct IconViewAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct IconViewClass: class struct</item>
     <item>struct IconViewPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Image
+      <item>field misc: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ImageAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ImageAccessibleClass: class struct</item>
     <item>struct ImageAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ImageCellAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ImageCellAccessibleClass: class struct</item>
     <item>struct ImageCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ImageClass: class struct</item>
+    <item>
+      object ImageMenuItem
+      <item>field menu_item: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ImageMenuItemClass: class struct</item>
     <item>struct ImageMenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ImagePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object InfoBar
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct InfoBarClass: class struct</item>
     <item>struct InfoBarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Invisible
+      <item>field widget: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct InvisibleClass: class struct</item>
     <item>struct InvisiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Label
+      <item>field misc: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object LabelAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct LabelAccessibleClass: class struct</item>
     <item>struct LabelAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LabelClass: class struct</item>
     <item>struct LabelPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LabelSelectionInfo: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+    <item>
+      object Layout
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct LayoutClass: class struct</item>
     <item>struct LayoutPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object LevelBar
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object LevelBarAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct LevelBarAccessibleClass: class struct</item>
     <item>struct LevelBarAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LevelBarClass: class struct</item>
     <item>struct LevelBarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object LinkButton
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object LinkButtonAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct LinkButtonAccessibleClass: class struct</item>
     <item>struct LinkButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LinkButtonClass: class struct</item>
@@ -7759,14 +8866,43 @@
           </item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ListBoxAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ListBoxAccessibleClass: class struct</item>
     <item>struct ListBoxAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ListBoxClass: class struct</item>
+    <item>
+      object ListBoxRow
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ListBoxRowAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ListBoxRowAccessibleClass: class struct</item>
     <item>struct ListBoxRowClass: class struct</item>
+    <item>
+      object ListStore
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ListStoreClass: class struct</item>
     <item>struct ListStorePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object LockButton
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object LockButtonAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct LockButtonAccessibleClass: class struct</item>
     <item>struct LockButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LockButtonClass: class struct</item>
@@ -7837,11 +8973,33 @@
         signals popped-up
         <item>arg final_rect: pointer C type for VOID not supported</item>
       </item>
+      <item>field menu_shell: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object MenuAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct MenuAccessibleClass: class struct</item>
     <item>struct MenuAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object MenuBar
+      <item>field menu_shell: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MenuBarClass: class struct</item>
     <item>struct MenuBarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object MenuButton
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object MenuButtonAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MenuButtonAccessibleClass: class struct</item>
     <item>struct MenuButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuButtonClass: class struct</item>
@@ -7857,35 +9015,105 @@
         signals toggle-size-request
         <item>arg object: pointer C type for VOID not supported</item>
       </item>
+      <item>field bin: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object MenuItemAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct MenuItemAccessibleClass: class struct</item>
     <item>struct MenuItemAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuItemClass: class struct</item>
     <item>struct MenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object MenuShell
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object MenuShellAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MenuShellAccessibleClass: class struct</item>
     <item>struct MenuShellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MenuShellClass: class struct</item>
     <item>struct MenuShellPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object MenuToolButton
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MenuToolButtonClass: class struct</item>
     <item>struct MenuToolButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object MessageDialog
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MessageDialogClass: class struct</item>
     <item>struct MessageDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Misc
+      <item>field widget: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MiscClass: class struct</item>
     <item>struct MiscPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object MountOperation
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MountOperationClass: class struct</item>
     <item>struct MountOperationPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object NativeDialog
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct NativeDialogClass: class struct</item>
+    <item>
+      object Notebook
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object NotebookAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct NotebookAccessibleClass: class struct</item>
     <item>struct NotebookAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct NotebookClass: class struct</item>
+    <item>
+      object NotebookPageAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct NotebookPageAccessibleClass: class struct</item>
     <item>struct NotebookPageAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct NotebookPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object NumerableIcon
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct NumerableIconClass: class struct</item>
     <item>struct NumerableIconPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object OffscreenWindow
+      <item>field parent_object: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct OffscreenWindowClass: class struct</item>
     <item>struct OrientableIface: class struct</item>
+    <item>
+      object Overlay
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct OverlayClass: class struct</item>
     <item>struct OverlayPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct PadActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (label, action_name)</item>
@@ -7919,6 +9147,16 @@
       </item>
     </item>
     <item>struct PadControllerClass: class struct</item>
+    <item>
+      object Paned
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object PanedAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct PanedAccessibleClass: class struct</item>
     <item>struct PanedAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct PanedClass: class struct</item>
@@ -7976,8 +9214,22 @@
       </item>
     </item>
     <item>struct PlacesSidebarClass: class struct</item>
+    <item>
+      object Plug
+      <item>field window: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct PlugClass: class struct</item>
     <item>struct PlugPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Popover
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object PopoverAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct PopoverAccessibleClass: class struct</item>
     <item>struct PopoverClass: class struct</item>
     <item>struct PopoverMenuClass: class struct</item>
@@ -7986,6 +9238,11 @@
       enum PrintError
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+    </item>
+    <item>
+      object PrintOperation
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct PrintOperationClass: class struct</item>
     <item>struct PrintOperationPreviewIface: class struct</item>
@@ -8000,6 +9257,16 @@
         function foreach
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+    </item>
+    <item>
+      object ProgressBar
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ProgressBarAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ProgressBarAccessibleClass: class struct</item>
     <item>struct ProgressBarAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -8029,6 +9296,8 @@
           <item>type gslist: type GSLIST not supported</item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field private_data: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct RadioActionClass: class struct</item>
     <item>struct RadioActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name, stock_id, label, accelerator, tooltip)</item>
@@ -8099,6 +9368,13 @@
           <item>type gslist: type GSLIST not supported</item>
         </item>
       </item>
+      <item>field check_button: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object RadioButtonAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct RadioButtonAccessibleClass: class struct</item>
     <item>struct RadioButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -8170,6 +9446,13 @@
           <item>type gslist: type GSLIST not supported</item>
         </item>
       </item>
+      <item>field check_menu_item: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object RadioMenuItemAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct RadioMenuItemAccessibleClass: class struct</item>
     <item>struct RadioMenuItemAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -8227,15 +9510,49 @@
           <item>type gslist: type GSLIST not supported</item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct RadioToolButtonClass: class struct</item>
+    <item>
+      object Range
+      <item>field widget: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object RangeAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct RangeAccessibleClass: class struct</item>
     <item>struct RangeAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct RangeClass: class struct</item>
     <item>struct RangePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct RcContext: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>struct RcProperty: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (origin, value.data)</item>
+    <item>
+      object RcStyle
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field name: field not included by configuration (includedClassFieldNames)</item>
+      <item>field bg_pixmap_name: field not included by configuration (includedClassFieldNames)</item>
+      <item>field font_desc: field not included by configuration (includedClassFieldNames)</item>
+      <item>field color_flags: field not included by configuration (includedClassFieldNames)</item>
+      <item>field fg: field not included by configuration (includedClassFieldNames)</item>
+      <item>field bg: field not included by configuration (includedClassFieldNames)</item>
+      <item>field text: field not included by configuration (includedClassFieldNames)</item>
+      <item>field base: field not included by configuration (includedClassFieldNames)</item>
+      <item>field xthickness: field not included by configuration (includedClassFieldNames)</item>
+      <item>field ythickness: field not included by configuration (includedClassFieldNames)</item>
+      <item>field rc_properties: field not included by configuration (includedClassFieldNames)</item>
+      <item>field rc_style_lists: field not included by configuration (includedClassFieldNames)</item>
+      <item>field icon_factories: field not included by configuration (includedClassFieldNames)</item>
+      <item>field engine_specified: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct RcStyleClass: class struct</item>
+    <item>
+      object RecentAction
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct RecentActionClass: class struct</item>
     <item>struct RecentActionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -8277,6 +9594,11 @@
         </item>
       </item>
     </item>
+    <item>
+      object RecentChooserDialog
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct RecentChooserDialogClass: class struct</item>
     <item>struct RecentChooserDialogPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -8285,8 +9607,18 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct RecentChooserIface: class struct</item>
+    <item>
+      object RecentChooserMenu
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct RecentChooserMenuClass: class struct</item>
     <item>struct RecentChooserMenuPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object RecentChooserWidget
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct RecentChooserWidgetClass: class struct</item>
     <item>struct RecentChooserWidgetPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct RecentData: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (display_name, description, mime_type, app_name, app_exec, groups)</item>
@@ -8371,6 +9703,8 @@
         function get_items
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct RecentManagerClass: class struct</item>
     <item>
@@ -8379,6 +9713,11 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct RecentManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object RendererCellAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct RendererCellAccessibleClass: class struct</item>
     <item>struct RendererCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct RequestedSize: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (data)</item>
@@ -8387,13 +9726,34 @@
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
+    <item>
+      object Revealer
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct RevealerClass: class struct</item>
+    <item>
+      object Scale
+      <item>field range: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ScaleAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ScaleAccessibleClass: class struct</item>
     <item>struct ScaleAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
       object ScaleButton
       <item>property icons: type ARRAY not supported</item>
       <item>property icons: type ARRAY not supported</item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ScaleButtonAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ScaleButtonAccessibleClass: class struct</item>
     <item>struct ScaleButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -8402,21 +9762,57 @@
     <item>struct ScaleClass: class struct</item>
     <item>struct ScalePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ScrollableInterface: class struct</item>
+    <item>
+      object Scrollbar
+      <item>field range: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ScrollbarClass: class struct</item>
+    <item>
+      object ScrolledWindow
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ScrolledWindowAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ScrolledWindowAccessibleClass: class struct</item>
     <item>struct ScrolledWindowAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ScrolledWindowClass: class struct</item>
     <item>struct ScrolledWindowPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object SearchBar
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct SearchBarClass: class struct</item>
+    <item>
+      object SearchEntry
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct SearchEntryClass: class struct</item>
     <item>
       struct SelectionData
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
+    <item>
+      object Separator
+      <item>field widget: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct SeparatorClass: class struct</item>
+    <item>
+      object SeparatorMenuItem
+      <item>field menu_item: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct SeparatorMenuItemClass: class struct</item>
     <item>struct SeparatorPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object SeparatorToolItem
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct SeparatorToolItemClass: class struct</item>
     <item>struct SeparatorToolItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -8463,6 +9859,8 @@
         </item>
       </item>
       <item>property color-hash: type GHASH not supported</item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct SettingsClass: class struct</item>
     <item>struct SettingsPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -8471,6 +9869,10 @@
     <item>struct ShortcutsGroupClass: class struct</item>
     <item>struct ShortcutsSectionClass: class struct</item>
     <item>struct ShortcutsShortcutClass: class struct</item>
+    <item>
+      object ShortcutsWindow
+      <item>field window: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ShortcutsWindowClass: class struct</item>
     <item>
       object SizeGroup
@@ -8482,31 +9884,111 @@
         function get_widgets
         <item>type gslist: type GSLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct SizeGroupClass: class struct</item>
     <item>struct SizeGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Socket
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct SocketClass: class struct</item>
     <item>struct SocketPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object SpinButton
+      <item>field entry: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object SpinButtonAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct SpinButtonAccessibleClass: class struct</item>
     <item>struct SpinButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SpinButtonClass: class struct</item>
     <item>struct SpinButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Spinner
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object SpinnerAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct SpinnerAccessibleClass: class struct</item>
     <item>struct SpinnerAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SpinnerClass: class struct</item>
     <item>struct SpinnerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Stack
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>object StackAccessible: interface type excluded by configuration (excludedInterfaceTypes)</item>
     <item>struct StackAccessibleClass: class struct</item>
     <item>struct StackClass: class struct</item>
+    <item>
+      object StackSidebar
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct StackSidebarClass: class struct</item>
     <item>struct StackSidebarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object StackSwitcher
+      <item>field widget: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct StackSwitcherClass: class struct</item>
+    <item>
+      object StatusIcon
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct StatusIconClass: class struct</item>
     <item>struct StatusIconPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Statusbar
+      <item>field parent_widget: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object StatusbarAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct StatusbarAccessibleClass: class struct</item>
     <item>struct StatusbarAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StatusbarClass: class struct</item>
     <item>struct StatusbarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StockItem: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (stock_id, label, translation_domain)</item>
+    <item>
+      object Style
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field fg: field not included by configuration (includedClassFieldNames)</item>
+      <item>field bg: field not included by configuration (includedClassFieldNames)</item>
+      <item>field light: field not included by configuration (includedClassFieldNames)</item>
+      <item>field dark: field not included by configuration (includedClassFieldNames)</item>
+      <item>field mid: field not included by configuration (includedClassFieldNames)</item>
+      <item>field text: field not included by configuration (includedClassFieldNames)</item>
+      <item>field base: field not included by configuration (includedClassFieldNames)</item>
+      <item>field text_aa: field not included by configuration (includedClassFieldNames)</item>
+      <item>field black: field not included by configuration (includedClassFieldNames)</item>
+      <item>field white: field not included by configuration (includedClassFieldNames)</item>
+      <item>field font_desc: field not included by configuration (includedClassFieldNames)</item>
+      <item>field xthickness: field not included by configuration (includedClassFieldNames)</item>
+      <item>field ythickness: field not included by configuration (includedClassFieldNames)</item>
+      <item>field background: field not included by configuration (includedClassFieldNames)</item>
+      <item>field attach_count: field not included by configuration (includedClassFieldNames)</item>
+      <item>field visual: field not included by configuration (includedClassFieldNames)</item>
+      <item>field private_font_desc: field not included by configuration (includedClassFieldNames)</item>
+      <item>field rc_style: field not included by configuration (includedClassFieldNames)</item>
+      <item>field styles: field not included by configuration (includedClassFieldNames)</item>
+      <item>field property_cache: field not included by configuration (includedClassFieldNames)</item>
+      <item>field icon_factories: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct StyleClass: class struct</item>
     <item>
       object StyleContext
@@ -8570,6 +10052,8 @@
         function push_animatable_region
         <item>arg region_id: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_object: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct StyleContextClass: class struct</item>
     <item>struct StyleContextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -8595,10 +10079,22 @@
           </item>
         </item>
       </item>
+      <item>field parent_object: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct StylePropertiesClass: class struct</item>
     <item>struct StylePropertiesPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StyleProviderIface: class struct</item>
+    <item>
+      object Switch
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object SwitchAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct SwitchAccessibleClass: class struct</item>
     <item>struct SwitchAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct SwitchClass: class struct</item>
@@ -8610,9 +10106,22 @@
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
+    <item>
+      object Table
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct TableChild: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (widget)</item>
     <item>struct TableClass: class struct</item>
     <item>struct TablePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      struct TableRowCol
+      <item>field need_expand: bitfield not supported</item>
+      <item>field need_shrink: bitfield not supported</item>
+      <item>field expand: bitfield not supported</item>
+      <item>field shrink: bitfield not supported</item>
+      <item>field empty: bitfield not supported</item>
+    </item>
     <item>
       struct TargetEntry
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -8626,14 +10135,34 @@
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
     <item>struct TargetPair: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (target)</item>
+    <item>
+      object TearoffMenuItem
+      <item>field menu_item: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct TearoffMenuItemClass: class struct</item>
     <item>struct TearoffMenuItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      struct TextAppearance
+      <item>field underline: bitfield not supported</item>
+      <item>field strikethrough: bitfield not supported</item>
+      <item>field draw_bg: bitfield not supported</item>
+      <item>field inside_selection: bitfield not supported</item>
+      <item>field is_text: bitfield not supported</item>
+    </item>
     <item>
       struct TextAttributes
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>field refcount: private</item>
+      <item>field pg_bg_color: private</item>
+      <item>field invisible: bitfield not supported</item>
+      <item>field bg_full_height: bitfield not supported</item>
+      <item>field editable: bitfield not supported</item>
+      <item>field no_fallback: bitfield not supported</item>
+      <item>field pg_bg_rgba: private</item>
     </item>
     <item>struct TextBTree: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     <item>
@@ -8678,9 +10207,16 @@
           </item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TextBufferClass: class struct</item>
     <item>struct TextBufferPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object TextCellAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct TextCellAccessibleClass: class struct</item>
     <item>struct TextCellAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -8693,6 +10229,8 @@
         function get_widgets
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field segment: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TextChildAnchorClass: class struct</item>
     <item>
@@ -8739,8 +10277,32 @@
         function get_toggled_tags
         <item>type gslist: type GSLIST not supported</item>
       </item>
+      <item>field dummy1: private</item>
+      <item>field dummy2: private</item>
+      <item>field dummy3: private</item>
+      <item>field dummy4: private</item>
+      <item>field dummy5: private</item>
+      <item>field dummy6: private</item>
+      <item>field dummy7: private</item>
+      <item>field dummy8: private</item>
+      <item>field dummy9: private</item>
+      <item>field dummy10: private</item>
+      <item>field dummy11: private</item>
+      <item>field dummy12: private</item>
+      <item>field dummy13: private</item>
+      <item>field dummy14: private</item>
+    </item>
+    <item>
+      object TextMark
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field segment: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TextMarkClass: class struct</item>
+    <item>
+      object TextTag
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct TextTagClass: class struct</item>
     <item>struct TextTagPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -8753,9 +10315,21 @@
         function foreach
         <item>arg data: pointer C type for VOID not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TextTagTableClass: class struct</item>
     <item>struct TextTagTablePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object TextView
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object TextViewAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct TextViewAccessibleClass: class struct</item>
     <item>struct TextViewAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TextViewClass: class struct</item>
@@ -8783,27 +10357,74 @@
           </item>
         </item>
       </item>
+      <item>field parent_object: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ThemingEngineClass: class struct</item>
     <item>struct ThemingEnginePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ToggleAction
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field private_data: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ToggleActionClass: class struct</item>
     <item>struct ToggleActionEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (name, stock_id, label, accelerator, tooltip, callback)</item>
     <item>struct ToggleActionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ToggleButton
+      <item>field button: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object ToggleButtonAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ToggleButtonAccessibleClass: class struct</item>
     <item>struct ToggleButtonAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ToggleButtonClass: class struct</item>
     <item>struct ToggleButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ToggleToolButton
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ToggleToolButtonClass: class struct</item>
     <item>struct ToggleToolButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ToolButton
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ToolButtonClass: class struct</item>
     <item>struct ToolButtonPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ToolItem
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ToolItemClass: class struct</item>
+    <item>
+      object ToolItemGroup
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ToolItemGroupClass: class struct</item>
     <item>struct ToolItemGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ToolItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object ToolPalette
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ToolPaletteClass: class struct</item>
     <item>struct ToolPalettePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct ToolShellIface: class struct</item>
+    <item>
+      object Toolbar
+      <item>field container: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ToolbarClass: class struct</item>
     <item>struct ToolbarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -8816,6 +10437,8 @@
         function get_children
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ToplevelAccessibleClass: class struct</item>
     <item>struct ToplevelAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -8830,6 +10453,9 @@
       struct TreeIter
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      <item>field user_data: type VOID not expected</item>
+      <item>field user_data2: type VOID not expected</item>
+      <item>field user_data3: type VOID not expected</item>
     </item>
     <item>
       interface TreeModel
@@ -8884,10 +10510,17 @@
           </item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TreeModelFilterClass: class struct</item>
     <item>struct TreeModelFilterPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct TreeModelIface: class struct</item>
+    <item>
+      object TreeModelSort
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct TreeModelSortClass: class struct</item>
     <item>struct TreeModelSortPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -8938,6 +10571,8 @@
           </item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TreeSelectionClass: class struct</item>
     <item>struct TreeSelectionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -8985,6 +10620,11 @@
       </item>
     </item>
     <item>struct TreeSortableIface: class struct</item>
+    <item>
+      object TreeStore
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct TreeStoreClass: class struct</item>
     <item>struct TreeStorePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -9125,6 +10765,13 @@
           </item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object TreeViewAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TreeViewAccessibleClass: class struct</item>
     <item>struct TreeViewAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -9151,6 +10798,8 @@
           </item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TreeViewColumnClass: class struct</item>
     <item>struct TreeViewColumnPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -9173,17 +10822,52 @@
         function get_toplevels
         <item>type gslist: type GSLIST not supported</item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field private_data: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct UIManagerClass: class struct</item>
     <item>struct UIManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object VBox
+      <item>field box: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct VBoxClass: class struct</item>
+    <item>
+      object VButtonBox
+      <item>field button_box: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct VButtonBoxClass: class struct</item>
+    <item>
+      object VPaned
+      <item>field paned: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct VPanedClass: class struct</item>
+    <item>
+      object VScale
+      <item>field scale: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct VScaleClass: class struct</item>
+    <item>
+      object VScrollbar
+      <item>field scrollbar: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct VScrollbarClass: class struct</item>
+    <item>
+      object VSeparator
+      <item>field separator: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct VSeparatorClass: class struct</item>
+    <item>
+      object Viewport
+      <item>field bin: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct ViewportClass: class struct</item>
     <item>struct ViewportPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object VolumeButton
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct VolumeButtonClass: class struct</item>
     <item>
       object Widget
@@ -9225,6 +10909,13 @@
         function list_mnemonic_labels
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object WidgetAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct WidgetAccessibleClass: class struct</item>
     <item>struct WidgetAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -9310,6 +11001,13 @@
           <item>type glist: type GLIST not supported</item>
         </item>
       </item>
+      <item>field bin: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object WindowAccessible
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct WindowAccessibleClass: class struct</item>
     <item>struct WindowAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -9325,6 +11023,8 @@
         function list_windows
         <item>type glist: type GLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct WindowGroupClass: class struct</item>
     <item>struct WindowGroupPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -9473,6 +11173,8 @@
         function get_source_marks_at_line
         <item>type gslist: type GSLIST not supported</item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct BufferClass: class struct</item>
     <item>struct BufferPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -9500,6 +11202,8 @@
           <item>type glist: type GLIST not supported</item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct CompletionClass: class struct</item>
     <item>
@@ -9518,6 +11222,8 @@
           <item>type glist: type GLIST not supported</item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct CompletionContextClass: class struct</item>
     <item>struct CompletionContextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -9526,13 +11232,28 @@
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
       <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
     </item>
+    <item>
+      object CompletionInfo
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CompletionInfoClass: class struct</item>
     <item>struct CompletionInfoPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object CompletionItem
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CompletionItemClass: class struct</item>
     <item>struct CompletionItemPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CompletionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct CompletionProposalIface: class struct</item>
     <item>struct CompletionProviderIface: class struct</item>
+    <item>
+      object CompletionWords
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct CompletionWordsClass: class struct</item>
     <item>struct CompletionWordsPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -9555,6 +11276,11 @@
         function get_default_candidates
         <item>type gslist: type GSLIST not supported</item>
       </item>
+    </item>
+    <item>
+      object File
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct FileClass: class struct</item>
     <item>
@@ -9581,6 +11307,8 @@
           <item>type gslist: type GSLIST not supported</item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct FileLoaderClass: class struct</item>
     <item>
@@ -9600,6 +11328,8 @@
         function save_async
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
+      <item>field object: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct FileSaverClass: class struct</item>
     <item>
@@ -9624,15 +11354,37 @@
           <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct GutterClass: class struct</item>
     <item>struct GutterPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object GutterRenderer
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct GutterRendererClass: class struct</item>
+    <item>
+      object GutterRendererPixbuf
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct GutterRendererPixbufClass: class struct</item>
     <item>struct GutterRendererPixbufPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct GutterRendererPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object GutterRendererText
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct GutterRendererTextClass: class struct</item>
     <item>struct GutterRendererTextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Language
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct LanguageClass: class struct</item>
     <item>
       object LanguageManager
@@ -9640,15 +11392,36 @@
       <item>property search-path: type ARRAY not supported</item>
       <item>property language-ids: type ARRAY not supported</item>
       <item>property search-path: type ARRAY not supported</item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct LanguageManagerClass: class struct</item>
     <item>struct LanguageManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct LanguagePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Map
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MapClass: class struct</item>
+    <item>
+      object Mark
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object MarkAttributes
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct MarkAttributesClass: class struct</item>
     <item>struct MarkAttributesPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct MarkClass: class struct</item>
     <item>struct MarkPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object PrintCompositor
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct PrintCompositorClass: class struct</item>
     <item>struct PrintCompositorPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>
@@ -9673,6 +11446,7 @@
           </item>
         </item>
       </item>
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct RegionClass: class struct</item>
     <item>struct RegionIter: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (dummy1, dummy3)</item>
@@ -9704,14 +11478,34 @@
         <item>type error: type ERROR not expected</item>
       </item>
       <item>property regex-error: type VOID not expected</item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct SearchContextClass: class struct</item>
     <item>struct SearchContextPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object SearchSettings
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct SearchSettingsClass: class struct</item>
     <item>struct SearchSettingsPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StyleClass: class struct</item>
+    <item>
+      object StyleScheme
+      <item>field base: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+    </item>
+    <item>
+      object StyleSchemeChooserButton
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct StyleSchemeChooserButtonClass: class struct</item>
     <item>struct StyleSchemeChooserInterface: class struct</item>
+    <item>
+      object StyleSchemeChooserWidget
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct StyleSchemeChooserWidgetClass: class struct</item>
     <item>struct StyleSchemeClass: class struct</item>
     <item>
@@ -9720,10 +11514,16 @@
       <item>property search-path: type ARRAY not supported</item>
       <item>property scheme-ids: type ARRAY not supported</item>
       <item>property search-path: type ARRAY not supported</item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct StyleSchemeManagerClass: class struct</item>
     <item>struct StyleSchemeManagerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
     <item>struct StyleSchemePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+    <item>
+      object Tag
+      <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+    </item>
     <item>struct TagClass: class struct</item>
     <item>struct UndoManagerIface: class struct</item>
     <item>
@@ -9742,6 +11542,8 @@
           <item>type gint: pointer C type for scalar (INT) not supported</item>
         </item>
       </item>
+      <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field priv: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct ViewClass: class struct</item>
     <item>struct ViewPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -9756,6 +11558,15 @@
   </item>
   <item>
     Vte-2.90
+    <item>
+      struct CharAttributes
+      <item>field row: private</item>
+      <item>field column: private</item>
+      <item>field fore: private</item>
+      <item>field back: private</item>
+      <item>field underline: bitfield not supported</item>
+      <item>field strikethrough: bitfield not supported</item>
+    </item>
     <item>struct PtyClass: class struct</item>
     <item>
       enum PtyError
@@ -9806,6 +11617,17 @@
           <item>type array: array type GArray not supported</item>
         </item>
       </item>
+      <item>field widget: field not included by configuration (includedClassFieldNames)</item>
+      <item>field adjustment: field not included by configuration (includedClassFieldNames)</item>
+      <item>field char_width: field not included by configuration (includedClassFieldNames)</item>
+      <item>field char_height: field not included by configuration (includedClassFieldNames)</item>
+      <item>field char_ascent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field char_descent: field not included by configuration (includedClassFieldNames)</item>
+      <item>field row_count: field not included by configuration (includedClassFieldNames)</item>
+      <item>field column_count: field not included by configuration (includedClassFieldNames)</item>
+      <item>field window_title: field not included by configuration (includedClassFieldNames)</item>
+      <item>field icon_title: field not included by configuration (includedClassFieldNames)</item>
+      <item>field pvt: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TerminalClass: class struct</item>
     <item>struct TerminalClassPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -9814,6 +11636,15 @@
   </item>
   <item>
     Vte-2.91
+    <item>
+      struct CharAttributes
+      <item>field row: private</item>
+      <item>field column: private</item>
+      <item>field fore: private</item>
+      <item>field back: private</item>
+      <item>field underline: bitfield not supported</item>
+      <item>field strikethrough: bitfield not supported</item>
+    </item>
     <item>struct PtyClass: class struct</item>
     <item>
       enum PtyError
@@ -9904,6 +11735,8 @@
           <item>type array: array type GArray not supported</item>
         </item>
       </item>
+      <item>field widget: field not included by configuration (includedClassFieldNames)</item>
+      <item>field _unused_padding: field not included by configuration (includedClassFieldNames)</item>
     </item>
     <item>struct TerminalClass: class struct</item>
     <item>struct TerminalClassPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>

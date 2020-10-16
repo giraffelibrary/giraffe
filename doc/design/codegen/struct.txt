@@ -407,6 +407,15 @@ signature <STRUCT_NAMESPACE>_<STRUCT_NAME> =
     type <varlist[N]> <local_name[N]>
 
 
+    (* Fields *)
+
+    <FieldSpec[1]>
+
+    ...
+
+    <FieldSpec[F]>
+
+
     (* Functions *)
                                                           -.                           -. 
     val getType : unit -> <type>                           | getTypeSymbol <> "intern"  | optGetTypeSymbol is SOME getTypeSymbol
@@ -464,8 +473,8 @@ structure <StructNamespace><StructName> :>
 =
   struct
     (* Low-Level Functions *)
-
-    local                                                                                               -.
+                                                                                                        -.
+    local                                                                                                |
       open PolyMLFFI                                                                                     |
     in                                                                                                   |
                                                -.                           -.                           |
@@ -473,26 +482,39 @@ structure <StructNamespace><StructName> :>
         call                                    | getTypeSymbol <> "intern"  | optGetTypeSymbol          |
           (getSymbol "<getTypeSymbol>")         |                            |  is SOME getTypeSymbol    |
           (cVoid --> GObjectType.PolyML.cVal);  |                            |                           |
-                                               -'                           -'                           | Poly/ML only
+                                               -'                           -'                           |
                                                                                                          |
-      <LowLevelFunction[1]>                                                                              |
+      <LowLevelFunction[1]>                                                                              | Poly/ML only
                                                                                                          |
       ...                                                                                                |
                                                                                                          |
       <LowLevelFunction[M]>                                                                              |
-    end                                                                                                 -'
-
+                                                                                                         |
+      <LowLevelFieldOffsetFunction[1]>                                                                   |
+                                                                                                         |
+      ...                                                                                                |
+                                                                                                         |
+      <LowLevelFieldOffsetFunction[F]>                                                                   |
+    end                                                                                                  |
+                                                                                                        -'
                                                -.                           -.                          -.
     val getType_ =                              |                            | optGetTypeSymbol          |
       _import "<getTypeSymbol>" :               | getTypeSymbol <> "intern"  |  is SOME getTypeSymbol    |
         unit -> GObjectType.C.val_;             |                            |                           |
                                                -'                           -'                           |
-                                                                                                         | MLton only
+                                                                                                         |
     <LowLevelFunction[1]>                                                                                |
+                                                                                                         |
+    ...                                                                                                  | MLton only
+                                                                                                         |
+    <LowLevelFunction[M]>                                                                                |
+                                                                                                         |
+    <LowLevelFieldOffsetFunction[1]>                                                                     |
                                                                                                          |
     ...                                                                                                  |
                                                                                                          |
-    <LowLevelFunction[M]>                                                                               -'
+    <LowLevelFieldOffsetFunction[F]>                                                                     |
+                                                                                                        -'
 
 
     (* Local Types *)
@@ -504,6 +526,21 @@ structure <StructNamespace><StructName> :>
     ...
 
     type <varlist[N]> <local_name[N]> = <varlist[N]> <StructNamespace[N]><TypeName[N]>.<t[N]>
+
+
+    (* Fields *)
+
+    <FieldStructure[1]>
+
+    ...
+
+    <FieldStructure[F]>
+
+    <FieldAccessor[1]>
+
+    ...
+
+    <FieldAccessor[F]>
 
 
     (* High-Level Functions *)
