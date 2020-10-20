@@ -10,9 +10,4 @@ signature GDK_EVENT_PROXIMITY_RECORD =
     | PROXIMITY_OUT
     val t : (t, t) ValueAccessor.t
     val tOpt : (t option, t option) ValueAccessor.t
-(*
-    val window : t -> base Window.t
-    val sendEvent : t -> bool
-    val time : t -> LargeInt.int
-*)
   end

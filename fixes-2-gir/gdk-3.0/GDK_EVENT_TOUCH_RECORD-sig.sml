@@ -12,8 +12,4 @@ signature GDK_EVENT_TOUCH_RECORD =
     | TOUCH_CANCEL
     val t : (t, t) ValueAccessor.t
     val tOpt : (t option, t option) ValueAccessor.t
-(*
-    val window : t -> base Window.t
-    val sendEvent : t -> bool
-*)
   end

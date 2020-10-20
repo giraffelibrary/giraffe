@@ -9,8 +9,4 @@ signature GDK_EVENT_WINDOW_STATE_RECORD =
       WINDOW_STATE
     val t : (t, t) ValueAccessor.t
     val tOpt : (t option, t option) ValueAccessor.t
-(*
-    val window : t -> base Window.t
-    val sendEvent : t -> bool
-*)
   end

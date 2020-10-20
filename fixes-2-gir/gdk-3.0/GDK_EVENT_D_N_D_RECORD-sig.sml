@@ -14,9 +14,4 @@ signature GDK_EVENT_D_N_D_RECORD =
     | DROP_FINISHED
     val t : (t, t) ValueAccessor.t
     val tOpt : (t option, t option) ValueAccessor.t
-(*
-    val window : t -> base Window.t
-    val sendEvent : t -> bool
-    val time : t -> LargeInt.int
-*)
   end

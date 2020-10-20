@@ -12,11 +12,4 @@ signature GDK_EVENT_BUTTON_RECORD =
     | BUTTON_RELEASE
     val t : (t, t) ValueAccessor.t
     val tOpt : (t option, t option) ValueAccessor.t
-(*
-    val window : t -> base Window.t
-    val sendEvent : t -> bool
-    val time : t -> LargeInt.int
-    val x : t -> real
-    val y : t -> real
-*)
   end
