@@ -22,7 +22,7 @@ structure VteTerminal :>
             _import "mlton_vte_terminal_feed" :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.opt GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GSSize.FFI.val_
                -> unit;
           )
@@ -60,7 +60,7 @@ structure VteTerminal :>
             _import "mlton_vte_terminal_feed_child_binary" :
               VteTerminalClass.FFI.non_opt VteTerminalClass.FFI.p
                * GUInt8CArrayN.MLton.p1
-               * GUInt8CArrayN.FFI.opt GUInt8CArrayN.MLton.p2
+               * GUInt8CArrayN.FFI.non_opt GUInt8CArrayN.MLton.p2
                * GSize.FFI.val_
                -> unit;
           )
@@ -359,7 +359,7 @@ structure VteTerminal :>
                * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p
                * GdkRgbaRecord.FFI.opt GdkRgbaRecord.FFI.p
                * GdkRgbaRecordCArrayN.MLton.p1
-               * GdkRgbaRecordCArrayN.FFI.opt GdkRgbaRecordCArrayN.MLton.p2
+               * GdkRgbaRecordCArrayN.FFI.non_opt GdkRgbaRecordCArrayN.MLton.p2
                * GSize.FFI.val_
                -> unit;
           )
@@ -516,14 +516,11 @@ structure VteTerminal :>
     fun copyPrimary self = (VteTerminalClass.FFI.withPtr false ---> I) copyPrimary_ self
     fun feed self data =
       let
-        val length =
-          case data of
-            SOME data => GUInt8CArrayN.length data
-          | NONE => GSSize.null
+        val length = GUInt8CArrayN.length data
         val () =
           (
             VteTerminalClass.FFI.withPtr false
-             &&&> GUInt8CArrayN.FFI.withOptPtr 0
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSSize.FFI.withVal
              ---> I
           )
@@ -551,14 +548,11 @@ structure VteTerminal :>
         )
     fun feedChildBinary self data =
       let
-        val length =
-          case data of
-            SOME data => GUInt8CArrayN.length data
-          | NONE => GSize.null
+        val length = GUInt8CArrayN.length data
         val () =
           (
             VteTerminalClass.FFI.withPtr false
-             &&&> GUInt8CArrayN.FFI.withOptPtr 0
+             &&&> GUInt8CArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
              ---> I
           )
@@ -822,16 +816,13 @@ structure VteTerminal :>
         palette
       ) =
       let
-        val paletteSize =
-          case palette of
-            SOME palette => GdkRgbaRecordCArrayN.length palette
-          | NONE => GSize.null
+        val paletteSize = GdkRgbaRecordCArrayN.length palette
         val () =
           (
             VteTerminalClass.FFI.withPtr false
              &&&> GdkRgbaRecord.FFI.withOptPtr false
              &&&> GdkRgbaRecord.FFI.withOptPtr false
-             &&&> GdkRgbaRecordCArrayN.FFI.withOptPtr 0
+             &&&> GdkRgbaRecordCArrayN.FFI.withPtr 0
              &&&> GSize.FFI.withVal
              ---> I
           )

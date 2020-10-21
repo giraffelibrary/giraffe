@@ -127,7 +127,7 @@ structure GtkWidget :>
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkDestDefaults.PolyML.cVal
-             &&> GtkTargetEntryRecordCArrayN.PolyML.cInOptPtr
+             &&> GtkTargetEntryRecordCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GdkDragAction.PolyML.cVal
              --> cVoid
@@ -163,7 +163,7 @@ structure GtkWidget :>
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkModifierType.PolyML.cVal
-             &&> GtkTargetEntryRecordCArrayN.PolyML.cInOptPtr
+             &&> GtkTargetEntryRecordCArrayN.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              &&> GdkDragAction.PolyML.cVal
              --> cVoid
@@ -873,15 +873,12 @@ structure GtkWidget :>
         actions
       ) =
       let
-        val nTargets =
-          case targets of
-            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
-          | NONE => GInt.null
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkWidgetClass.FFI.withPtr false
              &&&> GtkDestDefaults.FFI.withVal
-             &&&> GtkTargetEntryRecordCArrayN.FFI.withOptPtr 0
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I
@@ -955,15 +952,12 @@ structure GtkWidget :>
         actions
       ) =
       let
-        val nTargets =
-          case targets of
-            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
-          | NONE => GInt.null
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkWidgetClass.FFI.withPtr false
              &&&> GdkModifierType.FFI.withVal
-             &&&> GtkTargetEntryRecordCArrayN.FFI.withOptPtr 0
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I

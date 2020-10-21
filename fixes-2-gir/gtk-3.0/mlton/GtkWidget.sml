@@ -252,7 +252,7 @@ structure GtkWidget :>
               GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GtkDestDefaults.FFI.val_
                * GtkTargetEntryRecordCArrayN.MLton.p1
-               * GtkTargetEntryRecordCArrayN.FFI.opt GtkTargetEntryRecordCArrayN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.FFI.non_opt GtkTargetEntryRecordCArrayN.MLton.p2
                * GInt.FFI.val_
                * GdkDragAction.FFI.val_
                -> unit;
@@ -325,7 +325,7 @@ structure GtkWidget :>
               GtkWidgetClass.FFI.non_opt GtkWidgetClass.FFI.p
                * GdkModifierType.FFI.val_
                * GtkTargetEntryRecordCArrayN.MLton.p1
-               * GtkTargetEntryRecordCArrayN.FFI.opt GtkTargetEntryRecordCArrayN.MLton.p2
+               * GtkTargetEntryRecordCArrayN.FFI.non_opt GtkTargetEntryRecordCArrayN.MLton.p2
                * GInt.FFI.val_
                * GdkDragAction.FFI.val_
                -> unit;
@@ -1492,15 +1492,12 @@ structure GtkWidget :>
         actions
       ) =
       let
-        val nTargets =
-          case targets of
-            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
-          | NONE => GInt.null
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkWidgetClass.FFI.withPtr false
              &&&> GtkDestDefaults.FFI.withVal
-             &&&> GtkTargetEntryRecordCArrayN.FFI.withOptPtr 0
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I
@@ -1574,15 +1571,12 @@ structure GtkWidget :>
         actions
       ) =
       let
-        val nTargets =
-          case targets of
-            SOME targets => LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
-          | NONE => GInt.null
+        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
         val () =
           (
             GtkWidgetClass.FFI.withPtr false
              &&&> GdkModifierType.FFI.withVal
-             &&&> GtkTargetEntryRecordCArrayN.FFI.withOptPtr 0
+             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr 0
              &&&> GInt.FFI.withVal
              &&&> GdkDragAction.FFI.withVal
              ---> I

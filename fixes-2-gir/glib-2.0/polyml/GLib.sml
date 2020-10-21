@@ -169,7 +169,7 @@ structure GLib : G_LIB =
         call (getSymbol "g_filename_from_uri")
           (
             Utf8.PolyML.cInPtr
-             &&> Utf8.PolyML.cOutRef
+             &&> Utf8.PolyML.cOutOptRef
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> Utf8.PolyML.cOutPtr
           )
@@ -1086,7 +1086,7 @@ structure GLib : G_LIB =
             Utf8.FFI.withPtr 0
              &&&> Utf8.FFI.withRefOptPtr 0
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr ~1 && Utf8.FFI.fromPtr ~1
+             ---> Utf8.FFI.fromOptPtr ~1 && Utf8.FFI.fromPtr ~1
           )
             filenameFromUri_
             (

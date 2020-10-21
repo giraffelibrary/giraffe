@@ -97,22 +97,10 @@ structure GIRepository :
           end
             handle Option => fn _ => false
 
-        (* Currently, `ArgInfo.mayBeNull` is valid only for 'in' parameters.
-         * For 'out'/'inout' parameters, it indicates whether the C parameter
-         * is optional, not whether the imported/exported value is optionally
-         * null, i.e. what we would expect from `isOptional`.  Therefore we
-         * return false for 'out'/'inout' parameters that have not been
-         * overridden.
-         *)
-        fun mayBeNull1 argInfo =
-          case ArgInfo.getDirection argInfo of
-            Direction.IN => ArgInfo.mayBeNull argInfo
-          | _            => false
-
         fun mayBeNull argInfo =
           case List.find (isArg argInfo) (!Override.argInfoMayBeNull) of
             SOME (_, y) => y
-          | NONE        => mayBeNull1 argInfo
+          | NONE        => ArgInfo.mayBeNull argInfo
 
         fun getDirection argInfo =
           case List.find (isArg argInfo) (!Override.argInfoDirection) of

@@ -408,7 +408,7 @@ signature G_LIB =
     val environUnsetenv : Utf8CPtrArray.t option * string -> Utf8CPtrArray.t
     val filenameDisplayBasename : string -> string
     val filenameDisplayName : string -> string
-    val filenameFromUri : string -> string * string
+    val filenameFromUri : string -> string * string option
     val filenameFromUtf8 : string * int -> GUInt8CArrayN.t * int
     val filenameToUri : string * string option -> string
     val filenameToUtf8 :

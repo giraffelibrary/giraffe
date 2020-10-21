@@ -124,7 +124,7 @@ signature GTK_WIDGET =
     val dragDestSet :
       'a class
        -> dest_defaults_t
-           * target_entry_record_c_array_n_t option
+           * target_entry_record_c_array_n_t
            * Gdk.DragAction.t
        -> unit
     val dragDestSetProxy :
@@ -156,7 +156,7 @@ signature GTK_WIDGET =
     val dragSourceSet :
       'a class
        -> Gdk.ModifierType.t
-           * target_entry_record_c_array_n_t option
+           * target_entry_record_c_array_n_t
            * Gdk.DragAction.t
        -> unit
     val dragSourceSetIconGicon :

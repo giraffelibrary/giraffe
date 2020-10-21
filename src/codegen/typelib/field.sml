@@ -217,7 +217,12 @@ fun getFieldInfo
 
               val elemMayBeNull = false
 
-              val elem = resolveType () () elemMayBeNull elemTypeInfo
+              val elem =
+                resolveType
+                  ()
+                  ()
+                  elemMayBeNull
+                  elemTypeInfo
 
               val iRef =
                 case () of

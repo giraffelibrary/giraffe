@@ -859,7 +859,7 @@ fun getParInfo
     fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
     fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
 
-    fun resolveType optIRef cxtPtrDepth (dir, isOpt, ownXfer) typeInfo =
+    fun resolveType optIRef cxtPtrDepth (dir, mayBeNull, ownXfer) typeInfo =
       let
         open TypeTag
 
@@ -914,8 +914,6 @@ fun getParInfo
                     handle
                       Fail msg => infoExcl msg
 
-              val xferOwn = xferOwnArray dir isPtr ownXfer arrayMsg
- 
               val lengths =
                 case TypeInfo.getArrayFixedSize typeInfo of
                   ~1 =>
@@ -949,7 +947,27 @@ fun getParInfo
                 | n  => toList1 [ArrayLengthFixed n]
               val length = hd1 lengths
 
-              val ownXfer' =
+              (* An array may be empty, i.e. require zero bytes, if it has
+               * a fixed size of zero or it has no null terminator and its
+               * size is stored in a separate field. *)
+              val arrayMayBeEmpty =
+                case op :: lengths of
+                  [ArrayLengthFixed 0] => true
+                | [ArrayLengthParam _] => true
+                | _                    => false
+
+              (* An array that may be empty, i.e. require zero bytes, may be
+               * a null pointer because malloc can return null if zero bytes
+               * are requested, so such an array cannot be optional using
+               * null to represent no array.  Therefore the array is optional
+               * if it is a pointer that may be null and the array cannot be
+               * empty and the field is not configured to be non-optional. *)
+              val isOpt =
+                isPtr andalso mayBeNull andalso not arrayMayBeEmpty
+
+              val xferOwn = xferOwnArray dir isPtr ownXfer arrayMsg
+ 
+              val elemOwnXfer =
                 case ownXfer of
                   CONTAINER => NOTHING
                 | _         => ownXfer
@@ -959,7 +977,12 @@ fun getParInfo
                   SOME typeInfo => typeInfo
                 | NONE          => infoExcl noTypeParamForArray
 
-              val elem = resolveType NONE NONE (NONE, false, ownXfer') elemTypeInfo
+              val elem =
+                resolveType
+                  NONE
+                  NONE
+                  (NONE, false, elemOwnXfer)
+                  elemTypeInfo
 
               val iRef =
                 case optIRef of
@@ -1025,6 +1048,9 @@ fun getParInfo
                     handle
                       Fail msg => infoExcl msg
 
+              val isOpt =
+                isPtr andalso mayBeNull
+
               val xferOwn = xferOwnUtf8Filename dir isPtr ownXfer filenameMsg
  
               val utf8Info = {
@@ -1048,6 +1074,9 @@ fun getParInfo
                   TypeInfo.isPointer typeInfo cxtPtrDepth isRef
                     handle
                       Fail msg => infoExcl msg
+
+              val isOpt =
+                isPtr andalso mayBeNull
 
               val xferOwn = xferOwnUtf8Filename dir isPtr ownXfer utf8Msg
  
@@ -1105,7 +1134,7 @@ fun getParInfo
                   resolveType
                     (SOME iRef)
                     (TypeInfo.addPtrDepth typeInfo cxtPtrDepth)
-                    (dir, isOpt, ownXfer)
+                    (dir, mayBeNull, ownXfer)
                     (AliasInfo.getType aliasInfo)
               | _ =>
                   let
@@ -1144,6 +1173,9 @@ fun getParInfo
                         TypeInfo.isPointer typeInfo cxtPtrDepth isRef
                           handle
                             Fail msg => infoExcl msg
+
+                    val isOpt =
+                      isPtr andalso mayBeNull
 
                     val (xferOwn, rootIRef) =
                       case infoType of
@@ -1186,13 +1218,19 @@ fun getParInfo
         handle
           InfoExcl ie =>
             raise InfoExcl (IEGrp [mkInfoExclHier NONE typeInfo ie])
+
+    val info =
+      resolveType
+        NONE
+        NONE
+        (SOME argDir, mayBeNull, ownershipTransfer)
+        typeInfo
   in
     PISOME {
       name  = argId,
       dir   = argDir,
       array = NONE,  (* updated by `updateParInfos` *)
-      info  =
-        resolveType NONE NONE (SOME argDir, mayBeNull, ownershipTransfer) typeInfo
+      info  = info
     }
   end
     handle Void => PIVOID
@@ -1469,7 +1507,7 @@ fun getRetInfo
     fun notExpected s = infoExcl ("type " ^ s ^ " not expected")
     fun notSupported s = infoExcl ("type " ^ s ^ " not supported")
 
-    fun resolveType optIRef cxtPtrDepth (dir, isOpt, ownXfer) typeInfo =
+    fun resolveType optIRef cxtPtrDepth (dir, mayBeNull, ownXfer) typeInfo =
       let
         open TypeTag
 
@@ -1524,8 +1562,6 @@ fun getRetInfo
                     handle
                       Fail msg => infoExcl msg
 
-              val xferOwn = xferOwnArray dir isPtr ownXfer arrayMsg 
-
               val lengths =
                 case TypeInfo.getArrayFixedSize typeInfo of
                   ~1 =>
@@ -1555,7 +1591,27 @@ fun getRetInfo
                 | n  => toList1 [ArrayLengthFixed n]
               val length = hd1 lengths
 
-              val ownXfer' =
+              (* An array may be empty, i.e. require zero bytes, if it has
+               * a fixed size of zero or it has no null terminator and its
+               * size is stored in a separate field. *)
+              val arrayMayBeEmpty =
+                case op :: lengths of
+                  [ArrayLengthFixed 0] => true
+                | [ArrayLengthParam _] => true
+                | _                    => false
+
+              (* An array that may be empty, i.e. require zero bytes, may be
+               * a null pointer because malloc can return null if zero bytes
+               * are requested, so such an array cannot be optional using
+               * null to represent no array.  Therefore the array is optional
+               * if it is a pointer that may be null and the array cannot be
+               * empty and the field is not configured to be non-optional. *)
+              val isOpt =
+                isPtr andalso mayBeNull andalso not arrayMayBeEmpty
+
+              val xferOwn = xferOwnArray dir isPtr ownXfer arrayMsg 
+
+              val elemOwnXfer =
                 case ownXfer of
                   CONTAINER => NOTHING
                 | _         => ownXfer
@@ -1565,7 +1621,12 @@ fun getRetInfo
                   SOME typeInfo => typeInfo
                 | NONE          => infoExcl noTypeParamForArray
 
-              val elem = resolveType NONE NONE (NONE, false, ownXfer') elemTypeInfo
+              val elem =
+                resolveType
+                  NONE
+                  NONE
+                  (NONE, false, elemOwnXfer)
+                  elemTypeInfo
 
               val iRef =
                 case optIRef of
@@ -1631,6 +1692,9 @@ fun getRetInfo
                     handle
                       Fail msg => infoExcl msg
 
+              val isOpt =
+                isPtr andalso mayBeNull
+
               val xferOwn = xferOwnUtf8Filename dir isPtr ownXfer filenameMsg 
 
               val utf8Info = {
@@ -1654,6 +1718,9 @@ fun getRetInfo
                   TypeInfo.isPointer typeInfo cxtPtrDepth isRef
                     handle
                       Fail msg => infoExcl msg
+
+              val isOpt =
+                isPtr andalso mayBeNull
 
               val xferOwn = xferOwnUtf8Filename dir isPtr ownXfer utf8Msg 
 
@@ -1711,7 +1778,7 @@ fun getRetInfo
                   resolveType
                     (SOME iRef)
                     (TypeInfo.addPtrDepth typeInfo cxtPtrDepth)
-                    (dir, isOpt, ownXfer)
+                    (dir, mayBeNull, ownXfer)
                     (AliasInfo.getType aliasInfo)
               | _ =>
                   let
@@ -1750,6 +1817,9 @@ fun getRetInfo
                         TypeInfo.isPointer typeInfo cxtPtrDepth isRef
                           handle
                             Fail msg => infoExcl msg
+
+                    val isOpt =
+                      isPtr andalso mayBeNull
 
                     val (xferOwn, rootIRef) =
                       case infoType of
@@ -1792,9 +1862,16 @@ fun getRetInfo
         handle
           InfoExcl ie =>
             raise InfoExcl (IEGrp [mkInfoExclHier NONE typeInfo ie])
+
+    val info =
+      resolveType
+        NONE
+        NONE
+        (SOME (), mayReturnNull, ownershipTransfer)
+        typeInfo
   in
     RISOME {
-      info = resolveType NONE NONE (SOME (), mayReturnNull, ownershipTransfer) typeInfo
+      info = info
     }
   end
     handle Void => RIVOID

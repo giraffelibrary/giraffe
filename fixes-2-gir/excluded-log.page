@@ -1090,21 +1090,21 @@
       function base64_decode_step
       <item>
         arg out
-        <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        <item>type array: cannot determine array length</item>
       </item>
     </item>
     <item>
       function base64_encode_close
       <item>
         arg out
-        <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        <item>type array: cannot determine array length</item>
       </item>
     </item>
     <item>
       function base64_encode_step
       <item>
         arg out
-        <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        <item>type array: cannot determine array length</item>
       </item>
     </item>
     <item>function basename: function excluded by configuration (excludedFunctionSymbols)</item>

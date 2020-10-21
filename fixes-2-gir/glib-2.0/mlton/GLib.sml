@@ -524,7 +524,7 @@ structure GLib : G_LIB =
               Utf8.MLton.p1
                * Utf8.FFI.non_opt Utf8.MLton.p2
                * Utf8.MLton.r1
-               * (Utf8.FFI.opt, Utf8.FFI.non_opt) Utf8.MLton.r2
+               * (Utf8.FFI.opt, Utf8.FFI.opt) Utf8.MLton.r2
                * (GLibErrorRecord.FFI.opt, GLibErrorRecord.FFI.opt) GLibErrorRecord.FFI.r
                -> Utf8.FFI.non_opt Utf8.FFI.out_p;
           )
@@ -1910,7 +1910,7 @@ structure GLib : G_LIB =
             Utf8.FFI.withPtr 0
              &&&> Utf8.FFI.withRefOptPtr 0
              &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr ~1 && Utf8.FFI.fromPtr ~1
+             ---> Utf8.FFI.fromOptPtr ~1 && Utf8.FFI.fromPtr ~1
           )
             filenameFromUri_
             (
