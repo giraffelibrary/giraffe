@@ -203,9 +203,10 @@ fun getFieldInfo
                * are requested, so such an array cannot be optional using
                * null to represent no array.  Therefore the array is optional
                * if it is a pointer that may be null and the array cannot be
-               * empty. *)
+               * empty and the field is not configured to be non-optional. *)
               val isOpt =
                 isPtr andalso mayBeNull andalso not arrayMayBeEmpty
+                 andalso not (isNonOptPointerField repo vers containerName fieldInfo)
 
               val xferOwn = false
 
@@ -262,6 +263,7 @@ fun getFieldInfo
 
               val isOpt =
                 isPtr andalso mayBeNull
+                 andalso not (isNonOptPointerField repo vers containerName fieldInfo)
 
               val xferOwn = false
 
@@ -280,6 +282,7 @@ fun getFieldInfo
 
               val isOpt =
                 isPtr andalso mayBeNull
+                 andalso not (isNonOptPointerField repo vers containerName fieldInfo)
 
               val xferOwn = false
 
@@ -343,6 +346,7 @@ fun getFieldInfo
 
                     val isOpt =
                       isPtr andalso mayBeNull
+                       andalso not (isNonOptPointerField repo vers containerName fieldInfo)
 
                     val (xferOwn, rootIRef) =
                       case infoType of

@@ -283,7 +283,7 @@ fun checkFunctionName name =
   else ()
 
 
-(* Field names *)
+(* Fields *)
 
 (*   - Included names *)
 val includedClassFieldNames   : string list nvs_map ref = ref []
@@ -325,6 +325,20 @@ fun checkFieldName repo vers containerInfo fieldInfo =
     then
       infoExclFieldNameExcl "excludedFieldNameSuffixes"
     else ()
+  end
+
+(*   - Non-optional pointer fields *)
+val nonOptionalPointerFields  : (string * string) list nvs_map ref = ref []
+
+fun isNonOptPointerField repo vers containerName fieldInfo =
+  let
+    val fieldName = getName fieldInfo
+    val namespace = BaseInfo.getNamespace fieldInfo
+    val version = Repository.getVersion repo vers namespace
+    val nv = (namespace, version)
+  in
+    nvsExists (nv, fn x => x = (containerName, fieldName))
+      (!nonOptionalPointerFields)
   end
 
 

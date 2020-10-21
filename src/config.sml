@@ -362,7 +362,7 @@ includedUnionNames := [
 
 
 (**
- * Field names to exclude
+ * Fields
  *)
 
 includedClassFieldNames := [
@@ -382,6 +382,15 @@ excludedFieldNamePrefixes := [
 ];
 
 excludedFieldNameSuffixes := [
+];
+
+nonOptionalPointerFields := [
+  (
+    [("GLib", "2.0")],
+    [
+      ("Error", "message")
+    ]
+  )
 ];
 
 
