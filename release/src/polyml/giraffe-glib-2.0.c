@@ -28,24 +28,3 @@ giraffe_g_log (const gchar *log_domain,
          format,
          NULL);
 }
-
-
-/* GError */
-
-GQuark
-giraffe_get_g_error_domain (GError *error)
-{
-  return error->domain;
-}
-
-gint
-giraffe_get_g_error_code (GError *error)
-{
-  return error->code;
-}
-
-gchar *
-giraffe_get_g_error_message (GError *error)
-{
-  return error->message;
-}

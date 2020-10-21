@@ -5,9 +5,7 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
-structure GLibErrorRecord :>
-  G_LIB_ERROR_RECORD
-    where type quark_t = GLibQuark.t =
+structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
   struct
     structure Pointer = CPointer(GMemory)
     type opt = Pointer.opt
@@ -46,24 +44,36 @@ structure GLibErrorRecord :>
           setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
         }
 
-    val getDomain_ = _import "giraffe_get_g_error_domain" : non_opt p -> GLibQuark.FFI.val_;
-    val getCode_ = _import "giraffe_get_g_error_code" : non_opt p -> GInt.FFI.val_;
-    val getMessage_ = _import "giraffe_get_g_error_message" : non_opt p -> Utf8.FFI.non_opt Utf8.FFI.out_p;
+    val domain'Offset_ = _import "giraffe_g_lib_error_domain_offset" : unit -> GSize.FFI.val_;
+    val code'Offset_ = _import "giraffe_g_lib_error_code_offset" : unit -> GSize.FFI.val_;
 
-    type quark_t = GLibQuark.t
+    val domain'Offset = (I ---> GSize.FFI.fromVal) domain'Offset_
+    val code'Offset = (I ---> GSize.FFI.fromVal) code'Offset_
 
-    val domain =
-      {
-        get = fn self => (FFI.withPtr false ---> GLibQuark.FFI.fromVal) getDomain_ self
-      }
-    val code =
-      {
-        get = fn self => (FFI.withPtr false ---> GInt.FFI.fromVal) getCode_ self
-      }
-    val message =
-      {
-        get = fn self => (FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getMessage_ self
-      }
+    fun getDomain_ (p : C.non_opt C.p) : GLibQuark.FFI.val_ =
+      let
+        val offsetSysWord = SysWord.fromInt (domain'Offset ())
+        val p =
+          GLibQuark.C.ValueType.Memory.Pointer.fromSysWord (
+            C.Pointer.Memory.Pointer.toSysWord p + offsetSysWord
+          )
+      in
+        GLibQuark.C.ValueType.get p
+      end
+
+    fun getCode_ (p : C.non_opt C.p) : GInt.FFI.val_ =
+      let
+        val offsetSysWord = SysWord.fromInt (code'Offset ())
+        val p =
+          GInt.C.ValueType.Memory.Pointer.fromSysWord (
+            C.Pointer.Memory.Pointer.toSysWord p + offsetSysWord
+          )
+      in
+        GInt.C.ValueType.get p
+      end
+
+    fun getDomain self = (FFI.withPtr false ---> GLibQuark.FFI.fromVal) getDomain_ self before FFI.touchPtr self
+    fun getCode self = (FFI.withPtr false ---> GInt.FFI.fromVal) getCode_ self before FFI.touchPtr self
 
     exception Error of exn * t
 
@@ -88,7 +98,7 @@ structure GLibErrorRecord :>
       let
         fun domainHandler err =
           let
-            val errQuark = #get domain err
+            val errQuark = getDomain err
           in
             if errQuark = GLibQuark.fromString domainName
             then
@@ -98,7 +108,7 @@ structure GLibErrorRecord :>
                     let
                       val msg = concat [
                         "internal error in error handler: unknown error code ",
-                        LargeInt.toString (#get code err), " in error domain \"",
+                        LargeInt.toString (getCode err), " in error domain \"",
                         GLibQuark.toString errQuark, "\"\n"
                       ]
                     in

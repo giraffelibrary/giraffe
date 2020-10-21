@@ -11,11 +11,6 @@ signature G_LIB_ERROR_RECORD =
     val t : (t, t) ValueAccessor.t
     val tOpt : (t option, t option) ValueAccessor.t
 
-    type quark_t
-    val domain : {get : t -> quark_t}
-    val code : {get : t -> LargeInt.int}
-    val message : {get : t -> string}
-
     (**
      * The exception Error is raised for any GLib (or derived library)
      * function that reports an error.  In `Error (dom, err)`

@@ -40,24 +40,3 @@ mlton_g_log (SML_CVECTOR_VAL(gchar, log_domain),
                  log_level,
                  GET_SML_CVECTOR_VAL(gchar, format));
 }
-
-
-/* GError */
-
-GQuark
-giraffe_get_g_error_domain (GError *error)
-{
-  return error->domain;
-}
-
-gint
-giraffe_get_g_error_code (GError *error)
-{
-  return error->code;
-}
-
-gchar *
-giraffe_get_g_error_message (GError *error)
-{
-  return error->message;
-}
