@@ -21,7 +21,7 @@ The repository contains the following:
   src/              - code generator source code
   version/          - package version of GI metadata files for code generation
   giversion/        - GI version of GI metadata files for code generation
-  fixes-gir/        - fixes to generated code to work around limitations
+  fixes-gir/        - fixes to generated code
   extra-gir/        - extra code that is not generated
   mlton-fixes/      - fixes to generated MLton-specific C code
 
@@ -35,8 +35,8 @@ as described in section 2 below, before code generation can be performed:
 The following are created in the working directory as a result of code
 generation:
 
-  auto-0-gir/       - code that is generated from GIR files
-  auto-0-typelib/   - code that is generated from TYPELIB files
+  auto-gir/         - code that is generated from GIR files
+  auto-typelib/     - code that is generated from TYPELIB files
   fixed-gir/        - final version of code for source release
   mlton-auto/       - MLton-specific C code that is generated from GIR files
   mlton-fixed/      - final version of MLton-specific C code for source release
@@ -165,7 +165,7 @@ specific data, such data is not (or should not be) used.
 
 Stage 1
 
-In a working directory, library code is generated in the directory "auto-0-gir"
+In a working directory, library code is generated in the directory "auto-gir"
 using the following commands:
 
   ./codegen gir
@@ -174,7 +174,7 @@ using the following commands:
 Stage 2
 
 Fixed library code is generated in the directory "fixed-gir" by applying fixes
-to the code in "auto-0-gir" using the commands
+to the code in "auto-gir" using the commands
 
   ./codegen fixed
   ./codegen update-fixed
@@ -224,7 +224,7 @@ and
   make
 run in order to build Giraffe C interface libraries in the working directory.
 
-Then library code is generated in the directory "auto-0-typelib" by the
+Then library code is generated in the directory "auto-typelib" by the
 following commands:
 
   ./codegen typelib
@@ -234,12 +234,12 @@ Stage 5
 
 There is no codegen command to perform stage 5.  The script
 "gir2typelib/convert" should be run from a directory that is a copy of
-"auto-0-gir", the code generated from GIR files, that is to be converted.
+"auto-gir", the code generated from GIR files, that is to be converted.
 
 Stage 6
 
 There is no codegen command to perform stage 6.  This should be performed
-manually using the Diff program (or equivalent) to compare "auto-0-typelib"
+manually using the Diff program (or equivalent) to compare "auto-typelib"
 from stage 4 with the converted code from stage 5.
 
 

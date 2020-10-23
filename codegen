@@ -3,16 +3,16 @@
 CODEGEN_REL_DIR=$(dirname $0)
 CODEGEN_DIR=$(cd ${CODEGEN_REL_DIR} ; pwd -P)
 
-AUTO_0_TYPELIB="auto-0-typelib"
-AUTO_0_GIR="auto-0-gir"
+AUTO_TYPELIB="auto-typelib"
+AUTO_GIR="auto-gir"
 FIXES_GIR="fixes-gir"
 EXTRA_GIR="extra-gir"
 FIXED_GIR="fixed-gir"
 RELEASE_SRC="release/src"
 
 TMP_DIR="/tmp"
-AUTO_0_GIR_OUT_DIR="${TMP_DIR}/${AUTO_0_GIR}"
-AUTO_0_TYPELIB_OUT_DIR="${TMP_DIR}/${AUTO_0_TYPELIB}"
+AUTO_GIR_OUT_DIR="${TMP_DIR}/${AUTO_GIR}"
+AUTO_TYPELIB_OUT_DIR="${TMP_DIR}/${AUTO_TYPELIB}"
 FIXED_GIR_OUT_DIR="${TMP_DIR}/${FIXED_GIR}"
 
 try_merge_tool () {
@@ -218,11 +218,11 @@ then
 Usage: $0 COMMAND
 
 Commands
-  gir               generate code from GIR files [${AUTO_0_GIR_OUT_DIR}]
-  update-gir        update working directory [${CODEGEN_REL_DIR}/${AUTO_0_GIR}]
+  gir               generate code from GIR files [${AUTO_GIR_OUT_DIR}]
+  update-gir        update working directory [${CODEGEN_REL_DIR}/${AUTO_GIR}]
 
-  typelib           generate code from TYPELIB files [${AUTO_0_TYPELIB_OUT_DIR}]
-  update-typelib    update working directory [${CODEGEN_REL_DIR}/${AUTO_0_TYPELIB}]
+  typelib           generate code from TYPELIB files [${AUTO_TYPELIB_OUT_DIR}]
+  update-typelib    update working directory [${CODEGEN_REL_DIR}/${AUTO_TYPELIB}]
 
   fixed             fix code (generated from GIR files) [${FIXED_GIR_OUT_DIR}]
   update-fixed      update working directory [${CODEGEN_REL_DIR}/${FIXED_GIR}]
@@ -247,7 +247,7 @@ then
   (
     cd src &&
     cat codegen-gir.sml | \
-      OUT_DIR=${AUTO_0_GIR_OUT_DIR} \
+      OUT_DIR=${AUTO_GIR_OUT_DIR} \
       VERSION_DIR=${CODEGEN_DIR}/version \
       GIVERSION_DIR=${CODEGEN_DIR}/giversion \
       GIMETADATA_DIR=${CODEGEN_DIR}/gimetadata \
@@ -274,7 +274,7 @@ then
         cat codegen-typelib-${n}.sml | \
           DYLD_FORCE_FLAT_NAMESPACE=1 \
           DYLD_INSERT_LIBRARIES="${CODEGEN_DIR}/${RELEASE_SRC}/polyml/libgiraffe-girepository-2.0.dylib" \
-          OUT_DIR="${AUTO_0_TYPELIB_OUT_DIR}" \
+          OUT_DIR="${AUTO_TYPELIB_OUT_DIR}" \
           VERSION_DIR="${CODEGEN_DIR}/version" \
           GIVERSION_DIR="${CODEGEN_DIR}/giversion" \
           GIMETADATA_DIR="${CODEGEN_DIR}/gimetadata" \
@@ -282,7 +282,7 @@ then
       else
         cat codegen-typelib-${n}.sml | \
           LD_PRELOAD="${CODEGEN_DIR}/${RELEASE_SRC}/polyml/libgiraffe-girepository-2.0.so" \
-          OUT_DIR="${AUTO_0_TYPELIB_OUT_DIR}" \
+          OUT_DIR="${AUTO_TYPELIB_OUT_DIR}" \
           VERSION_DIR="${CODEGEN_DIR}/version" \
           GIVERSION_DIR="${CODEGEN_DIR}/giversion" \
           GIMETADATA_DIR="${CODEGEN_DIR}/gimetadata" \
@@ -297,12 +297,12 @@ fi
 
 if [ -n "${MERGE_GIR}" ]
 then
-  if [ ! -d "${CODEGEN_REL_DIR}/${AUTO_0_GIR}" ]
+  if [ ! -d "${CODEGEN_REL_DIR}/${AUTO_GIR}" ]
   then
-    echo "Creating ${CODEGEN_REL_DIR}/${AUTO_0_GIR}"
-    mkdir "${CODEGEN_REL_DIR}/${AUTO_0_GIR}"
+    echo "Creating ${CODEGEN_REL_DIR}/${AUTO_GIR}"
+    mkdir "${CODEGEN_REL_DIR}/${AUTO_GIR}"
   fi
-  update ${AUTO_0_GIR_OUT_DIR} ${CODEGEN_REL_DIR}/${AUTO_0_GIR}
+  update ${AUTO_GIR_OUT_DIR} ${CODEGEN_REL_DIR}/${AUTO_GIR}
 fi
 
 
@@ -310,12 +310,12 @@ fi
 
 if [ -n "${MERGE_TYPELIB}" ]
 then
-  if [ ! -d "${CODEGEN_REL_DIR}/${AUTO_0_TYPELIB}" ]
+  if [ ! -d "${CODEGEN_REL_DIR}/${AUTO_TYPELIB}" ]
   then
-    echo "Creating ${CODEGEN_REL_DIR}/${AUTO_0_TYPELIB}"
-    mkdir "${CODEGEN_REL_DIR}/${AUTO_0_TYPELIB}"
+    echo "Creating ${CODEGEN_REL_DIR}/${AUTO_TYPELIB}"
+    mkdir "${CODEGEN_REL_DIR}/${AUTO_TYPELIB}"
   fi
-  update ${AUTO_0_TYPELIB_OUT_DIR} ${CODEGEN_REL_DIR}/${AUTO_0_TYPELIB}
+  update ${AUTO_TYPELIB_OUT_DIR} ${CODEGEN_REL_DIR}/${AUTO_TYPELIB}
 fi
 
 
@@ -350,8 +350,8 @@ then
   echo "Creating ${FIXED_GIR_OUT_DIR}"
   mkdir ${FIXED_GIR_OUT_DIR}
 
-  echo "Copying ${AUTO_0_GIR} to ${FIXED_GIR_OUT_DIR}"
-  cp -a ${CODEGEN_REL_DIR}/${AUTO_0_GIR}/* ${FIXED_GIR_OUT_DIR}
+  echo "Copying ${AUTO_GIR} to ${FIXED_GIR_OUT_DIR}"
+  cp -a ${CODEGEN_REL_DIR}/${AUTO_GIR}/* ${FIXED_GIR_OUT_DIR}
 
   echo "Copying ${FIXES_GIR} to ${FIXED_GIR_OUT_DIR}"
   cp -a ${CODEGEN_REL_DIR}/${FIXES_GIR}/* ${FIXED_GIR_OUT_DIR}
