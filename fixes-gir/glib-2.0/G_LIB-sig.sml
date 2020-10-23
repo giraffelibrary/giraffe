@@ -155,7 +155,7 @@ signature G_LIB =
         where type t = TimeZoneRecord.t
         where type time_type_t = TimeType.t
     structure VariantRecordCPtrArrayN :
-      C_ARRAY
+      C_ARRAY_N
         where type elem = VariantRecord.t
     structure VariantBuilder :
       G_LIB_VARIANT_BUILDER
@@ -168,7 +168,7 @@ signature G_LIB =
         where type variant_t = VariantRecord.t
         where type variant_type_t = VariantTypeRecord.t
     structure VariantTypeRecordCPtrArrayN :
-      C_ARRAY
+      C_ARRAY_N
         where type elem = VariantTypeRecord.t
     structure ChildWatchFunc :
       G_LIB_CHILD_WATCH_FUNC

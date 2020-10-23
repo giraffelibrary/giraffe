@@ -31,7 +31,7 @@ signature G_OBJECT =
       C_ARRAY
         where type elem = ValueRecord.t
     structure TypeCArrayN :
-      C_ARRAY
+      C_ARRAY_N
         where type elem = Type.t
     structure Value :
       G_OBJECT_VALUE

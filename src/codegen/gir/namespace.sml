@@ -8,9 +8,7 @@ fun mkArrayStrModules (elemStrId, isPtr, zeroTerminated) =
   let
     val elemArrayStrId = makeCArrayStrId (elemStrId, isPtr, zeroTerminated)
 
-    val funcId = String.concat (
-      cStrId :: arrayStrId :: (if zeroTerminated then [] else [nStrId])
-    )
+    val funcId = if zeroTerminated then cArrayStrId else cArrayNStrId
     val funcTypeId =
       let
         val prefixId = case isPtr of true => cPointerStrId | false => cValueStrId
@@ -241,7 +239,12 @@ fun insertLocalContainer
             val strFile = mkStrFile (makeIRefInterfaceOtherStrId iRef)
             val {namespace, name, ...} = iRef
             val strId = mkStrId namespace name
-            val sigId = toUCU (cStrId ^ arrayStrId)
+            val sigId =
+              toUCU (
+                case containerTy of
+                  ARRAYREF {zeroTerminated, ...} =>
+                    if zeroTerminated then cArrayStrId else cArrayNStrId
+              )
             val strNameId = mkStrNameId name
 
             (* module *)
