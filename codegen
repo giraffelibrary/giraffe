@@ -5,9 +5,8 @@ CODEGEN_DIR=$(cd ${CODEGEN_REL_DIR} ; pwd -P)
 
 AUTO_0_TYPELIB="auto-0-typelib"
 AUTO_0_GIR="auto-0-gir"
-FIXES_1_GIR="fixes-1-gir"
-FIXES_2_GIR="fixes-2-gir"
-EXTRA_3_GIR="extra-gir"
+FIXES_GIR="fixes-gir"
+EXTRA_GIR="extra-gir"
 FIXED_GIR="fixed-gir"
 RELEASE_SRC="release/src"
 
@@ -354,14 +353,11 @@ then
   echo "Copying ${AUTO_0_GIR} to ${FIXED_GIR_OUT_DIR}"
   cp -a ${CODEGEN_REL_DIR}/${AUTO_0_GIR}/* ${FIXED_GIR_OUT_DIR}
 
-  echo "Copying ${FIXES_1_GIR} to ${FIXED_GIR_OUT_DIR}"
-  cp -a ${CODEGEN_REL_DIR}/${FIXES_1_GIR}/* ${FIXED_GIR_OUT_DIR}
+  echo "Copying ${FIXES_GIR} to ${FIXED_GIR_OUT_DIR}"
+  cp -a ${CODEGEN_REL_DIR}/${FIXES_GIR}/* ${FIXED_GIR_OUT_DIR}
 
-  echo "Copying ${FIXES_2_GIR} to ${FIXED_GIR_OUT_DIR}"
-  cp -a ${CODEGEN_REL_DIR}/${FIXES_2_GIR}/* ${FIXED_GIR_OUT_DIR}
-
-  echo "Copying ${EXTRA_3_GIR} to ${FIXED_GIR_OUT_DIR}"
-  cp -a ${CODEGEN_REL_DIR}/${EXTRA_3_GIR}/* ${FIXED_GIR_OUT_DIR}
+  echo "Copying ${EXTRA_GIR} to ${FIXED_GIR_OUT_DIR}"
+  cp -a ${CODEGEN_REL_DIR}/${EXTRA_GIR}/* ${FIXED_GIR_OUT_DIR}
 
   echo "Copying version files to ${FIXED_GIR_OUT_DIR}"
   for dir in version/*

@@ -1,4 +1,4 @@
-This directory contains the Giraffe code generator and supporting files.
+This repository contains the Giraffe code generator and supporting files.
 
 This document contains the following sections:
 
@@ -21,8 +21,7 @@ The repository contains the following:
   src/              - code generator source code
   version/          - package version of GI metadata files for code generation
   giversion/        - GI version of GI metadata files for code generation
-  fixes-1-gir/      - fixes to generated code to work around incorrect GI data
-  fixes-2-gir/      - fixes to generated code to work around limitations
+  fixes-gir/        - fixes to generated code to work around limitations
   extra-gir/        - extra code that is not generated
   mlton-fixes/      - fixes to generated MLton-specific C code
 
@@ -250,30 +249,28 @@ from stage 4 with the converted code from stage 5.
 In the working directory, the following directories contain hand-written code
 or generated code that has been fixed by hand:
 
-  fixes-1-gir/      - code that is fixed to work around incorrect GI data
-  fixes-2-gir/      - code that is fixed to work around Giraffe limitations
+  fixes-gir/        - code that is fixed to work around Giraffe limitations
   extra-gir/        - code that is not generated
 
-"fixes-1-gir" should no longer be used.  Instead, "src/overrides.sml" should be
-updated to override the incorrect GIR data.  At present, not all data can be
-overridden so "src/GIRepository.sml" may need to be modified to introduce a new
-override.
+Fixes to generated code are a maintenance burden because any changes in the
+generated code must be merged manually.  Therefore fixes to the generated code
+should be avoided if possible.  In particular, the GIRepository overrides in
+"src/config.sml" should be updated to override incorrect GIR data if possible.
+At present, not all data can be overridden so "src/GIRepository.sml" may need
+to be modified to introduce a new override.
 
-"fixes-2-gir" is used for various reasons.  At present, the main reasons are to:
+"fixes-gir" is used for various reasons.  At present, the main reasons are to:
   - provide modules for a root class of a hierarchy (generated as empty files);
-  - provide modules for record types (generated as empty files);
   - provide modules for callback types (not generated);
   - introduce abstractions in fundamental GObject modules such as GObject.Type
      and GObject.Closure;
   - provide modules for GDK event record types that capture event hierarchy
      indicated by the GdkEvent union type;
-  - add Gtk.init and any other function that uses array types;
-  - ignore parts of namespaces, e.g. Gio.
 
 "extra-gir" provides source code that is not generated.  At present, this
 includes:
   - special GObject modules: Signal, Property and ClosureMarshal;
-  - a module to classify, i.e. downcast, a GdkEvent record;
+  - a module to classify, i.e. downcast, a GdkEvent record: ClassifyEvent;
   - other modules that introduce abstractions.
 
 
