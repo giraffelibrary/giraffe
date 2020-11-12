@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2016, 2019 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016, 2019-2020 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -6,21 +6,76 @@
  *)
 
 (**
- * Modify the behaviour of `use` in the top level environment so that when
- * used in a file it interprets a relative path relative to the directory
- * containing the file.
+ * Modify the behaviour of `use` in the top level environment as follows:
+ *
+ *  1. Environment variable expansion
+ *
+ *     In the `file` argument, occurrences of '$(<var>)' where <var> does not
+ *     contain a ')' character are replaced by the contents of the environment
+ *     variable '<var>' if defined and otherwise by the empty string.  A '$'
+ *     character in a file name must be escaped as '$$'.  An error occurs in
+ *     the following cases:
+ *       - '$' is not followed by a '(' or '$'
+ *       - after '$(', '(' occurs before the next ')'
+ *       - after '$(', there is no subsequent ')'
+ *
+ *  2. Relative paths
+ *
+ *     If `use file` is evaluated in a file, then a relative path in `file`
+ *     is relative to the directory containing the file.  Otherwise, if
+ *     `use file` is not evaluated in a file, then a relative path in `file`
+ *     is relative to the current working directory.
  *)
 
-fun use file =
-  PolyML.use (
-    if OS.Path.isRelative file
-    then
-      case PolyML.getUseFileName () of
-        SOME name => OS.Path.concat (OS.Path.dir name, file)
-      | NONE      => file
-    else
-      file
-  )
+local
+  fun expand (file : string) : string =
+    let
+      datatype state = Normal | Escape | Name
+
+      val dollarSlice = Substring.full "$"
+      fun slice (i, j) = CharVectorSlice.slice (file, i, SOME (j - i))
+      fun readChar (j, c, acc as (i, state, slices)) =
+        case (state, c) of
+          (Normal, #"$") => (j + 1, Escape, slice (i, j) :: slices)
+        | (Normal, _)    => acc
+        | (Escape, #"(") => (j + 1, Name, slices)
+        | (Escape, #"$") => (j + 1, Normal, dollarSlice :: slices)
+        | (Escape, c)    => raise Fail (concat ["found '", str c, "' following '$'"])
+        | (Name,   #")") => (
+            j + 1,
+            Normal,
+            Substring.full (
+              case OS.Process.getEnv (Substring.string (slice (i, j))) of
+                SOME s => s
+              | NONE   => ""
+            ) :: slices
+          )
+        | (Name,   #"(") => raise Fail "found '(' in variable name"
+        | (Name,   _)    => acc
+    in
+      case CharVector.foldli readChar (0, Normal, []) file of
+        (0, Normal, [])     => file
+      | (i, Normal, slices) => Substring.concat (rev (slice (i, size file) :: slices))
+      | _                   => raise Fail "incomplete"
+    end
+      handle
+        Fail msg => raise Fail (concat ["invalid escape (", msg, ")"])
+in
+  fun use file =
+    let
+      val expandedFile = expand file
+    in
+      PolyML.use (
+        if OS.Path.isRelative expandedFile
+        then
+          case PolyML.getUseFileName () of
+            SOME name => OS.Path.concat (OS.Path.dir name, expandedFile)
+          | NONE      => expandedFile
+        else
+          expandedFile
+      )
+    end
+end
 
 
 (**
