@@ -1,102 +1,170 @@
+1.0.0-alpha.9 (2020-11-15)
+
+  - Updated representation of properties, which changes the way properties
+     are accessed as follows:
+        `#get <a>Prop`  --->  `Property.get <a>Prop`
+        `#set <a>Prop`  --->  `Property.set <a>Prop`
+        `#new <a>Prop`  --->  `Property.init <a>Prop`
+  - Added bind functions to the module `Property` that provide a type-safe
+     interface for binding properties.
+  - Added support for accessing fields of a record.
+  - Added support for constructing value-like records: for a value-like record
+     <R> with no private fields, a function `<R>.new` is generated if no
+     function of the same name already exists.
+  - SML type for a non-string C array type made abstract as follows:
+      - For each C array type, where the SML type of the C element type is
+         `<Elem>.t`, the following modules are declared if referenced:
+            `structure <Elem>CArray     : C_ARRAY`
+            `structure <Elem>CArrayN    : C_ARRAY_N`
+            `structure <Elem>CPtrArray  : C_ARRAY`
+            `structure <Elem>CPtrArrayN : C_ARRAY_N`
+      - The abstract SML type is `<Elem>C[Ptr]Array[N].t` and represents a
+         C array as follows:
+
+            C array                                   size
+                                      zero terminated      separate parameter
+
+                      packed inline   <Elem>CArray.t       <Elem>CArrayN.t
+            elements
+                      referenced by   <Elem>CPtrArray.t    <Elem>CPtrArrayN.t
+                      a pointer
+
+     (The change in array representation avoids performance issues with large
+     arrays by allowing the internal representation to be a C array allocated
+     on the C heap that is not necessarily converted to/from an SML value.)
+  - SML type for C integer types `gsize` and `gssize` changed from
+     `LargeInt.int` to `int`.
+  - Added a function that returns the instance type to root classes:
+      - `GObject.ObjectClass.instanceType`
+      - `GObject.ParamSpecClass.instanceType`
+  - Removed bespoke version of `GLib.childWatchSourceNew` that was added
+     manually.
+  - Fixed introspection metadata for the following functions, which now return
+     an optional value:
+      - `Gio.InetAddress.newFromString`
+      - `Gio.InetSocketAddress.newFromString`
+  - Fixed introspection metadata for the following functions, which now return
+     a new buffer:
+      - `GLib.IOChannel.readChars`
+      - `Gio.InputStream.read`
+  - Added module Giraffe with functions `exit` and `error`.
+  - Updated top-level function `use` to support references to environment
+     variables using the notation `$(<var>)` for the value of `<var>`.
+  - Updated code generation to use nullable attribute of 'out' and 'inout'
+     arguments to determine whether an optional type is used.  With the
+     exception of arrays with a size parameter or fixed size zero (which may be
+     null when empty), an optional type is used iff nullable is specified.
+  - Poly/ML-specific changes:
+      - A callback no longer leaks memory.  (A closure, which cannot be freed,
+         is now allocated for each callback type only, not for each callback
+         instance, following the approach already used for MLton.)
+  - Fixed an unlikely but theoretically possible issue where memory for a
+     function argument could be freed immediately on returning from the function
+     call (because the last use of the memory was for the function argument) but
+     some of the memory is referenced in the value passed back from an 'out' or
+     'inout' argument and needs to be copied after returning from the call.
+
+
 1.0.0-alpha.8 (2018-10-17)
 
-    Removed restriction on Poly/ML 5.7 that required C function argument/return
-     values with a C integer type to be in the range of Int.int which, in
-     practice, required Int to be the same as IntInf.
-    Generated C wrapper functions for use with MLton so all functions supported.
-    Generated C functions to determine the size of value-like record types.
-    Updated library versions:
-        GLib-2.0            2.50.3
-        GObject-2.0         2.50.3
-        Gio-2.0             2.50.3
-        GModule-2.0         2.50.3
-        GIRepository-2.0    1.50.0
-        Atk-1.0             2.22.0
-        Pango-1.0           1.40.9
-        PangoCairo-1.0      1.40.9
-        GdkPixbuf-2.0       2.36.9
-        Gdk-3.0             3.22.17
-        Gtk-3.0             3.22.17
-        GtkSource-3.0       3.22.2
-        Vte-2.90            0.36.5
-        Vte-2.91            0.46.3
-    Included deprecated functions in generated code.
-    GLib namespace is loaded before GObject namespace.
-    Added GObject.Object.new.
-    Fixed property operators to respect construct-only mode.
-    Supported case-insensitive file systems.
-    Fixed use of dynamic loader with Poly/ML under Darwin.
+  - Removed restriction on Poly/ML 5.7 that required C function argument/return
+     values with a C integer type to be in the range of `Int.int` which, in
+     practice, required `Int` to be the same as `IntInf`.
+  - Generated C wrapper functions for use with MLton so all functions supported.
+  - Generated C functions to determine the size of value-like records.
+  - Updated library versions:
+        GLib 2.0            2.50.3
+        GIRepository 2.0    1.50.0
+        Atk 1.0             2.22.0
+        Pango 1.0           1.40.9
+        GdkPixbuf 2.0       2.36.9
+        GTK+ 3.0            3.22.17
+        GtkSourceView 3.0   3.22.2
+        Vte 2.90            0.36.5
+        Vte 2.91            0.46.3
+  - Included deprecated functions in generated code.
+  - GLib namespace is loaded before GObject namespace.
+  - Added `GObject.Object.new`.
+  - Fixed property operators to respect construct-only mode.
+  - Supported case-insensitive file systems.
+  - Fixed use of dynamic loader with Poly/ML under Darwin.
 
 
 1.0.0-alpha.7 (2017-10-18)
 
-    Poly/ML 5.6 required.
-    Poly/ML 5.7 supported.
-    Poly/ML-specific changes:
+  - Poly/ML 5.6 required.
+  - Poly/ML 5.7 supported.
+  - Poly/ML-specific changes:
       - Introduced finalizers based on weak references.
       - Used the new FFI (provided by the structure Foreign).
-    MLton-specific changes:
+  - MLton-specific changes:
       - Added required MLton annotations to Giraffe library MLB files.
-    Added support for C array types.
-    Updated support for object types.  For a class C, object types are changed
+  - Added support for C array types.
+  - Updated support for object types.  For a class C, object types are changed
      as follows:
-        'a <C>Class.t   --->  'a <C>Class.class
-        <none>          --->     <C>Class.t  (new local type)
-        'a <C>.class_t  --->  'a <C>.class
-           <C>.t        <-->     <C>.t  (no change)
-    Added support for structure types.  (Previously, a limited number of record
+        `'a <C>Class.t `  --->  `'a <C>Class.class`
+        <none>            --->  `   <C>Class.t    `  (new local type)
+        `'a <C>.class_t`  --->  `'a <C>.class     `
+        `   <C>.t      `  <-->  `   <C>.t         `  (no change)
+  - Added support for structure types.  (Previously, a limited number of record
      modules were created manually.)  For a record R, structure type
-     <R>.record_t has been removed.
-    Added remaining parts of namespaces that can be supported.
-    Changed type names in the module Signal:
-        Signal.signal     --->  Signal.t
-        Signal.signal_id  --->  Signal.id
-    Generated codegen log in 'excluded-log.page'.
-    Used non-option type for 'out' parameters conditional on error and ignored
+     `<R>.record_t` has been removed.
+  - Added remaining parts of namespaces that can be supported.
+  - Changed type names in the module Signal:
+        `Signal.signal`     --->  `Signal.t`
+        `Signal.signal_id`  --->  `Signal.id`
+  - Generated codegen log in file 'excluded-log.page'.
+  - Used non-option type for 'out' parameters conditional on error and ignored
      boolean return value if it indicates an error.
 
 
 1.0.0-alpha.6 (2015-09-16)
 
-    Added type abbreviation for object and structure types:
-      - for class C, object type C.t = base C.class_t
-      - for record R, structure type R.t = R.record_t
-    Changed naming convention for types and constructors to use underscores
+  - Added type abbreviation for object and structure types:
+      - for class C, object type `C.t` is equivalent to `base C.class_t`
+      - for record R, structure type `R.t` is equivalent to `R.record_t`
+  - Changed naming convention for types and constructors to use underscores
      between words in line with the Basis Library convention.
-    Changed Gdk button event names in line with GTK+ as follows:
-      - TWOBUTTONPRESS   changed to DOUBLE_BUTTON_PRESS
-      - THREEBUTTONPRESS changed to TRIPLE_BUTTON_PRESS
-    Removed experimental type-safe interface to style properties.  Style
-     properties must be accessed via GObject.Value which is not type-safe.
+  - Changed Gdk button event names in line with GTK+ as follows:
+      - `TWOBUTTONPRESS`   changed to `DOUBLE_BUTTON_PRESS`
+      - `THREEBUTTONPRESS` changed to `TRIPLE_BUTTON_PRESS`
+  - Removed experimental type-safe interface to style properties.  Style
+     properties must be accessed via `GObject.Value` which is not type-safe.
 
 
 1.0.0-alpha.5 (2015-05-29)
 
-    Added support for Darwin (Mac OS X).
-    Poly/ML 5.5.2 required.
-    Improved installation:
+  - Added support for Darwin (Mac OS X).
+  - Poly/ML 5.5.2 required.
+  - Improved installation:
       - scripts compatible with Dash and Bash 3
       - further configure options and checks
-      - corrections to Makefile
-    config.mk file installed to provide configuration to applications.
-    Archive (A) files built for MLton C libraries instead of object (O) files.
-    Fixed bugs in C libraries and turned on C compiler warnings.
-    Changed runtime licence to LGPL v2.1.
+      - corrections to file 'Makefile'
+  - config.mk file installed to provide configuration to applications.
+  - Archive (A) files built for MLton C libraries instead of object (O) files.
+  - Fixed bugs in C libraries and turned on C compiler warnings.
+  - Changed runtime licence to LGPL v2.1.
 
 
 1.0.0-alpha.4 (2015-02-08)
 
-    Added support for multiple versions of a library.
-    Added library vte-2.91.
-    Restructured source code directories.
-    Introduced configure script for installation.
+  - Added support for multiple versions of a library.
+  - Added library vte-2.91.
+  - Restructured source code directories.
+  - Introduced configure script for installation.
 
 
 1.0.0-alpha.3 (2014-12-19)
 
-    SML generated from GIR files:
+  - SML generated from GIR files:
       - no longer platform-specific
       - alias types included
-    Added support for Pango and GtkSourceView libraries.
-    Pid.t moved to GLib.Pid.t
-    FFI module for basic types restructured.
+  - Added support for Pango and GtkSourceView libraries.
+  - `Pid.t` moved to `GLib.Pid.t`
+  - FFI module for basic types restructured.
+
+
+1.0.0-alpha.2 (2012-10-29)
+
+
+1.0.0-alpha.1 (2012-10-12)
