@@ -1066,6 +1066,21 @@ local
   end
 
   local
+    val startTag =
+      "<section xmlns:ui=\"http://projectmallard.org/ui/1.0/\" ui:expanded=\"false\">"
+    val endTag = "</section>"
+  in
+    fun makeSection v = V.seq [V.str startTag, indent v, V.str endTag]
+  end
+
+  local
+    val startTag = "<title>"
+    val endTag = "</title>"
+  in
+    fun makeTitle h = H.concat [startTag, h, endTag]
+  end
+
+  local
     val startTag = "<item>"
     val endTag = "</item>"
   in
@@ -1097,12 +1112,23 @@ local
     end
 
   fun fmtLogVersion namespace (version, excls) =
-    makeVItem (
-      V.seq [
-        V.str (mkNamespaceDep (namespace, version)),
-        V.seq (map fmtInfoExclHier excls)
-      ]
-    )
+    let
+      val namespaceDep = mkNamespaceDep (namespace, version)
+    in
+      makeSection (
+        V.seq [
+          V.line (makeTitle namespaceDep),
+          makeTree (
+            makeVItem (
+              V.seq [
+                V.str namespaceDep,
+                V.seq (map fmtInfoExclHier excls)
+              ]
+            )
+          )
+        ]
+      )
+    end
 
   fun fmtLogNamespace (namespace, versionDict) =
     V.seq (revMap (fmtLogVersion namespace) (ListDict.toList versionDict))
@@ -1117,7 +1143,7 @@ in
       val text =
         V.seq [
           V.str pageStartTag,
-          makeTree (V.seq (revMap fmtLogNamespace (ListDict.toList excludedLog))),
+          V.seq (revMap fmtLogNamespace (ListDict.toList excludedLog)),
           V.str pageEndTag
         ]
     in
