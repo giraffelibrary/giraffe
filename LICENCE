@@ -1,0 +1,18 @@
+There are two licences:
+
+ 1. Giraffe Library (Run-Time) Licence
+
+    This applies to files in the directory 'release', both static files and
+    files created there as a result of code generation.  These files form the
+    library release.
+
+    See 'release/LICENCE.RUNTIME'.
+
+ 2. Giraffe Code Generator Licence
+
+    This applies to files in this repository EXCEPT those in
+      - the directory 'release' (see item 1 above)
+      - the directory 'src/xml' (see ...)
+      - directories for Git submodules, as listed in the file '.gitmodules'
+
+    See 'LICENCE.CODEGEN'.

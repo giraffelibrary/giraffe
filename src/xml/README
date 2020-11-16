@@ -1,0 +1,15 @@
+This directory contains modified versions of three files from Tom 7's sml-lib
+(from fork https://github.com/robsimmons/sml-lib/tree/1c83e5fde3/) as follows:
+    XML.sml         based on  files/xml/xml.sml
+    XML-sig.sml     based on  files/xml/xml-sig.sml
+    EncodeUTF8.sml  based on  files/xml/Unicode/Encode/encodeUtf8.sml
+
+Tom 7's sml-lib contains the following notices:
+  - README-tom7
+  - COPYING-tom7
+
+Tom 7's sml-lib is itself a modification of 'fxp - The Functional XML Parser'
+(see fork https://github.com/giraffelibrary/fxp) so the following fxp notices
+are included:
+  - README-fxp
+  - COPYRIGHT-fxp
