@@ -31,6 +31,8 @@ as described in section 2 below, before code generation can be performed:
   src/
     fxp/            - FXP Functional XML parser
   gimetadata/       - GI (GObject Introspection) metadata files
+  doc/
+    examples/       - Giraffe Library Examples
 
 The following are created in the working directory as a result of code
 generation:
