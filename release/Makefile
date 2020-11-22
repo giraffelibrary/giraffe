@@ -57,7 +57,7 @@ help :
 # Building
 #
 
-CFLAGS := -DGIRAFFE_DEBUG -fPIC -ggdb -std=c99 -Wall -Wno-deprecated-declarations -Werror -O2
+CFLAGS := -DGIRAFFE_DEBUG -DGLIB_DISABLE_DEPRECATION_WARNINGS -fPIC -ggdb -std=c99 -Wall -Wno-deprecated-declarations -Werror -O2
 
 
 #   - MLton
