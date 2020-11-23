@@ -3,7 +3,7 @@
 # Giraffe Library configure script
 # This script generates config.mk that is included by Makefile.
 #
-# Copyright (C) 2015 Phil Clayton <phil.clayton@veonix.com>
+# Copyright (C) 2015, 2020 Phil Clayton <phil.clayton@veonix.com>
 #
 # This file is part of the Giraffe Library runtime.  For your rights to use
 # this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -246,6 +246,24 @@ echo "== Checking SML compilers =="
 
 # MLton
 
+find_mlton_includedir ()
+{
+  MLTON_PREFIX="$1"
+  if [ -d "${MLTON_PREFIX}/lib/include" ]
+  then
+    MLTON_INCLUDEDIR="${MLTON_PREFIX}/lib/include"
+  elif [ -d "${MLTON_PREFIX}/lib/mlton/include" ]
+  then
+    MLTON_INCLUDEDIR="${MLTON_PREFIX}/lib/mlton/include"
+  elif [ -d "${MLTON_PREFIX}/lib64/include" ]
+  then
+    MLTON_INCLUDEDIR="${MLTON_PREFIX}/lib64/include"
+  elif [ -d "${MLTON_PREFIX}/lib64/mlton/include" ]
+  then
+    MLTON_INCLUDEDIR="${MLTON_PREFIX}/lib64/mlton/include"
+  fi
+}
+
 if test "X${WITH_MLTON}" != "XN"  # check for MLton if not excluded
 then
   printf "Checking MLton... "
@@ -260,13 +278,7 @@ then
     MLTON_BINDIR="${MLTON_BINDIR:-${MLTON_PREFIX%/}/bin}"
     if [ -n "${MLTON_PREFIX}" ] && [ -z "${MLTON_INCLUDEDIR}" ]
     then
-      MLTON_LIBDIR="${MLTON_PREFIX%/}/lib"
-      if [ -d "${MLTON_LIBDIR}/include" ]
-      then
-        MLTON_INCLUDEDIR="${MLTON_LIBDIR}/include"
-      else
-        MLTON_INCLUDEDIR="${MLTON_LIBDIR}/mlton/include"
-      fi
+      find_mlton_includedir "${MLTON_PREFIX%/}"
     fi
 
     if [ -z "${MLTON_BINDIR}" ]
@@ -295,12 +307,12 @@ then
       HAVE_MLTON="1"
       MLTON_BINDIR=`dirname "${MLTON}" 2> /dev/null`
       MLTON_PREFIX=`dirname "${MLTON_BINDIR}" 2> /dev/null`
-      MLTON_LIBDIR=${MLTON_PREFIX}/lib
-      if [ -d "${MLTON_LIBDIR}/include" ]
+      find_mlton_includedir "${MLTON_PREFIX}"
+
+      if [ -z "${MLTON_INCLUDEDIR}" ]
       then
-        MLTON_INCLUDEDIR=${MLTON_LIBDIR}/include
-      else
-        MLTON_INCLUDEDIR=${MLTON_LIBDIR}/mlton/include
+        echo "error: MLton include directory not determined (either include or prefix directory must be specified)"
+        exit 1
       fi
 
       echo "  bin directory:     ${MLTON_BINDIR}"
