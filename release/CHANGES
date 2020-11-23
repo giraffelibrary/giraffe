@@ -1,3 +1,9 @@
+1.0.0-alpha.10 (2020-11-23)
+
+  - Fixed build for GLib >= 2.62.0.
+  - Updated configure script to check for MLton include directory under lib64.
+
+
 1.0.0-alpha.9 (2020-11-15)
 
   - Updated representation of properties, which changes the way properties
