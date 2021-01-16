@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2015-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2015-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -291,10 +291,6 @@ structure ValueAccessor :>
             getValue = (I ---> Utf8.FFI.fromOptPtr 0) get_string_opt_,
             setValue = (I &&&> Utf8.FFI.withOptPtr 0 ---> I) set_string_opt_
           }
-
-        (* temporary *)
-        val int32 = int
-        val uint32 = uint
       end
   end
 open ValueAccessor.Types
