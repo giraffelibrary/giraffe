@@ -1007,7 +1007,7 @@ fun makeStructSig
 (* Struct structure *)
 
 (*
- *     fun init
+ *     fun new
  *       {
  *         <fieldId[1]>,
  *         ...
@@ -1015,12 +1015,13 @@ fun makeStructSig
  *       } =
  *       let
  *         fun init_ p =
- *           (
- *             <FieldName[1]>Field.C.set <fieldId[1]> p;
+ *           let
+ *             val () = <FieldName[1]>Field.C.set <fieldId[1]> p
  *             ...
- *             <FieldName[F]>Field.C.set <fieldId[F]> p;
+ *             val () = <FieldName[F]>Field.C.set <fieldId[F]> p
+ *           in
  *             ()
- *           )
+ *           end
  *         val retVal & () =
  *           (
  *             <StructNamespace><StructName>Record.FFI.withNewPtr
@@ -1039,15 +1040,20 @@ fun newStrDecHighLevel structIRef (fieldInfos : field_info list) =
     val initUId = initId ^ "_"
     val initUDec =
       let
-        fun consFieldSetExp ({name, id, ...}, es) =
-          foldL ExpApp (
-            mkLIdLNameExp [toUCC name ^ fieldStrId, cStrId, setId],
-            [mkIdLNameExp id, mkIdLNameExp ptrId]
-          )
-           :: es
-        val exps = foldR consFieldSetExp (fieldInfos, [unitExp])
+        fun makeFieldSetDec {name, id, ...} =
+          let
+            val exp =
+              foldL ExpApp (
+                mkLIdLNameExp [toUCC name ^ fieldStrId, cStrId, setId],
+                [mkIdLNameExp id, mkIdLNameExp ptrId]
+              )
+          in
+            DecVal (toList1 [([], false, unitPat, exp)])
+          end
+        val fieldSetDecs = map makeFieldSetDec fieldInfos
+        val exp = ExpLet (mkDecs fieldSetDecs, toList1 [unitExp])
       in
-        mkIdFunDec (initUId, toList1 [mkIdVarAPat ptrId], ExpSeq (toList2 exps))
+        mkIdFunDec (initUId, toList1 [mkIdVarAPat ptrId], exp)
       end
 
     val retValDec =

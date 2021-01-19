@@ -565,12 +565,13 @@ structure <StructNamespace><StructName> :>
       } =                                                                               |
       let                                                                               |
         fun init_ p =                                                                   |
-          (                                                                             |
-            <FieldName[1]>Field.C.set <fieldId[1]> p;                                   |
+          let                                                                           |
+            val () = <FieldName[1]>Field.C.set <fieldId[1]> p                           |
             ...                                                                         |
-            <FieldName[F]>Field.C.set <fieldId[F]> p;                                   | structType is ValueRecord _
+            val () = <FieldName[F]>Field.C.set <fieldId[F]> p                           |
+          in                                                                            | structType is ValueRecord _
             ()                                                                          |
-          )                                                                             |
+          end                                                                           |
         val retVal & () =                                                               |
           (                                                                             |
             <StructNamespace><StructName>Record.FFI.withNewPtr                          |
