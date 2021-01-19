@@ -51,13 +51,14 @@ fun makeAliasSig
             container = NONE
           }
 
+    val utf8SigId = toUCU utf8StrId
     fun utf8SigIRef optSourceRef =
       case optSourceRef of
         SOME sourceRef => makeSourceSigIRef sourceRef
       | NONE           =>
           {
             namespace = "",
-            name      = "UTF8",
+            name      = utf8SigId,
             scope     = GLOBAL,
             ty        = SIMPLE,
             container = NONE
@@ -218,7 +219,7 @@ fun makeAliasStr
     fun utf8StrIds optSourceRef =
       case optSourceRef of
         SOME sourceRef => makeSourceRefStr sourceRef
-      | NONE           => (("Utf8", []), SIMPLE, [])
+      | NONE           => ((utf8StrId, []), SIMPLE, [])
 
     fun resolveType optSourceRef typeInfo =
       let
