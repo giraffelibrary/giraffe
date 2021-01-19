@@ -135,7 +135,20 @@ fun makeAliasSig
               case infoType of
                 ALIAS aliasInfo
                   => resolveType (SOME sourceRef) (AliasInfo.getType aliasInfo)
-              | _ => makeSourceSigIRef sourceRef
+              | _ =>
+                  let
+                    val () =
+                      case infoType of
+                        OBJECT _          => ()
+                      | INTERFACE _       => ()
+                      | STRUCT _          => ()
+                      | UNION _           => ()
+                      | FLAGS _           => ()
+                      | ENUM _            => ()
+                      | _                 => infoExcl (unsupportedInterface infoType)
+                  in
+                    makeSourceSigIRef sourceRef
+                  end
             end
       end
 
@@ -293,7 +306,20 @@ fun makeAliasStr
               case infoType of
                 ALIAS aliasInfo
                   => resolveType (SOME sourceRef) (AliasInfo.getType aliasInfo)
-              | _ => makeSourceRefStr sourceRef
+              | _ =>
+                  let
+                    val () =
+                      case infoType of
+                        OBJECT _          => ()
+                      | INTERFACE _       => ()
+                      | STRUCT _          => ()
+                      | UNION _           => ()
+                      | FLAGS _           => ()
+                      | ENUM _            => ()
+                      | _                 => infoExcl (unsupportedInterface infoType)
+                  in
+                    makeSourceRefStr sourceRef
+                  end
             end
       end
 
