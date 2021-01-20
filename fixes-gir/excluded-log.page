@@ -1518,8 +1518,6 @@
         </item>
       </item>
       <item>function quark_from_static_string: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>function quark_from_string: function excluded by configuration (excludedFunctionSymbols)</item>
-      <item>function quark_to_string: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function quark_try_string: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function realloc

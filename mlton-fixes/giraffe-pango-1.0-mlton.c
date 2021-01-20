@@ -36,14 +36,6 @@ mlton_pango_coverage_to_bytes (PangoCoverage* coverage,
 }
 
 void
-mlton_pango_font_descriptions_free (SML_CVECTOR_VAL(PangoFontDescription*, descs),
-                                    int n_descs)
-{
-  pango_font_descriptions_free (GET_SML_CVECTOR_VAL(PangoFontDescription*, descs),
-                                n_descs);
-}
-
-void
 mlton_pango_font_description_set_family (PangoFontDescription* desc,
                                          SML_CVECTOR_VAL(const char, family))
 {
@@ -118,20 +110,6 @@ mlton_pango_glyph_item_get_logical_widths (PangoGlyphItem* glyph_item,
   pango_glyph_item_get_logical_widths (glyph_item,
                                        GET_SML_CVECTOR_VAL(const char, text),
                                        GET_SML_CVECTOR_VAL(int, logical_widths));
-}
-#endif
-
-#if PANGO_CHECK_VERSION(1, 6, 0)
-void
-mlton_pango_glyph_item_letter_space (PangoGlyphItem* glyph_item,
-                                     SML_CVECTOR_VAL(const char, text),
-                                     SML_CVECTOR_VAL(PangoLogAttr, log_attrs),
-                                     int letter_spacing)
-{
-  pango_glyph_item_letter_space (glyph_item,
-                                 GET_SML_CVECTOR_VAL(const char, text),
-                                 GET_SML_CVECTOR_VAL(PangoLogAttr, log_attrs),
-                                 letter_spacing);
 }
 #endif
 
@@ -333,20 +311,6 @@ mlton_pango_tab_array_get_tabs (PangoTabArray* tab_array,
                             GET_SML_CVECTOR_REF(gint, locations));
 }
 
-void
-mlton_pango_break (SML_CVECTOR_VAL(const gchar, text),
-                   int length,
-                   PangoAnalysis* analysis,
-                   SML_CVECTOR_VAL(PangoLogAttr, attrs),
-                   int attrs_len)
-{
-  pango_break (GET_SML_CVECTOR_VAL(const gchar, text),
-               length,
-               analysis,
-               GET_SML_CVECTOR_VAL(PangoLogAttr, attrs),
-               attrs_len);
-}
-
 #ifdef PANGO_ENABLE_BACKEND
 char*
 mlton_pango_config_key_get (SML_CVECTOR_VAL(const char, key))
@@ -358,22 +322,6 @@ char*
 mlton_pango_config_key_get_system (SML_CVECTOR_VAL(const char, key))
 {
   return pango_config_key_get_system (GET_SML_CVECTOR_VAL(const char, key));
-}
-#endif
-
-#ifdef PANGO_ENABLE_ENGINE
-void
-mlton_pango_default_break (SML_CVECTOR_VAL(const gchar, text),
-                           int length,
-                           PangoAnalysis* analysis,
-                           PangoLogAttr* attrs,
-                           int attrs_len)
-{
-  pango_default_break (GET_SML_CVECTOR_VAL(const gchar, text),
-                       length,
-                       analysis,
-                       attrs,
-                       attrs_len);
 }
 #endif
 
@@ -397,22 +345,6 @@ mlton_pango_find_paragraph_boundary (SML_CVECTOR_VAL(const gchar, text),
                                  length,
                                  paragraph_delimiter_index,
                                  next_paragraph_start);
-}
-
-void
-mlton_pango_get_log_attrs (SML_CVECTOR_VAL(const char, text),
-                           int length,
-                           int level,
-                           PangoLanguage* language,
-                           SML_CVECTOR_VAL(PangoLogAttr, log_attrs),
-                           int attrs_len)
-{
-  pango_get_log_attrs (GET_SML_CVECTOR_VAL(const char, text),
-                       length,
-                       level,
-                       language,
-                       GET_SML_CVECTOR_VAL(PangoLogAttr, log_attrs),
-                       attrs_len);
 }
 
 GList*
@@ -565,42 +497,6 @@ mlton_pango_parse_weight (SML_CVECTOR_VAL(const char, str),
                              warn);
 }
 
-gboolean
-mlton_pango_scan_int (SML_CVECTOR_REF(const char, pos),
-                      int* out)
-{
-  return pango_scan_int (GET_SML_CVECTOR_REF(const char, pos),
-                         out);
-}
-
-gboolean
-mlton_pango_scan_string (SML_CVECTOR_REF(const char, pos),
-                         GString* out)
-{
-  return pango_scan_string (GET_SML_CVECTOR_REF(const char, pos),
-                            out);
-}
-
-gboolean
-mlton_pango_scan_word (SML_CVECTOR_REF(const char, pos),
-                       GString* out)
-{
-  return pango_scan_word (GET_SML_CVECTOR_REF(const char, pos),
-                          out);
-}
-
-void
-mlton_pango_shape (SML_CVECTOR_VAL(const gchar, text),
-                   gint length,
-                   const PangoAnalysis* analysis,
-                   PangoGlyphString* glyphs)
-{
-  pango_shape (GET_SML_CVECTOR_VAL(const gchar, text),
-               length,
-               analysis,
-               glyphs);
-}
-
 #if PANGO_CHECK_VERSION(1, 32, 0)
 void
 mlton_pango_shape_full (SML_CVECTOR_VAL(const gchar, item_text),
@@ -618,12 +514,6 @@ mlton_pango_shape_full (SML_CVECTOR_VAL(const gchar, item_text),
                     glyphs);
 }
 #endif
-
-gboolean
-mlton_pango_skip_space (SML_CVECTOR_REF(const char, pos))
-{
-  return pango_skip_space (GET_SML_CVECTOR_REF(const char, pos));
-}
 
 char**
 mlton_pango_split_file_list (SML_CVECTOR_VAL(const char, str))

@@ -429,8 +429,6 @@ excludedFunctionSymbols := [
       "g_mem_set_vtable",
       "g_mem_profile",
       "g_quark_from_static_string",
-      "g_quark_from_string",
-      "g_quark_to_string",
       "g_quark_try_string",
       "g_regex_escape_string",  (* GIR data broken: says param 0 is utf8 array *)
       "g_return_if_fail_warning",

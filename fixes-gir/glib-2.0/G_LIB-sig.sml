@@ -503,6 +503,8 @@ signature G_LIB =
     val pathIsAbsolute : string -> bool
     val pathSkipRoot : string -> string option
     val patternMatchSimple : string * string -> bool
+    val quarkFromString : string option -> Quark.t
+    val quarkToString : Quark.t -> string
     val randomDouble : unit -> real
     val randomDoubleRange : real * real -> real
     val randomInt : unit -> LargeInt.int

@@ -902,6 +902,8 @@ structure GLib : G_LIB =
               x3,
               x4
             )
+    val quarkFromString_ = _import "mlton_g_quark_from_string" : Utf8.MLton.p1 * Utf8.FFI.opt Utf8.MLton.p2 -> GLibQuark.FFI.val_;
+    val quarkToString_ = _import "g_quark_to_string" : GLibQuark.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;
     val randomDouble_ = _import "g_random_double" : unit -> GDouble.FFI.val_;
     val randomDoubleRange_ = fn x1 & x2 => (_import "g_random_double_range" : GDouble.FFI.val_ * GDouble.FFI.val_ -> GDouble.FFI.val_;) (x1, x2)
     val randomInt_ = _import "g_random_int" : unit -> GUInt32.FFI.val_;
@@ -2188,6 +2190,8 @@ structure GLib : G_LIB =
     fun pathIsAbsolute fileName = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) pathIsAbsolute_ fileName
     fun pathSkipRoot fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) pathSkipRoot_ fileName before Utf8.FFI.touchPtr fileName
     fun patternMatchSimple (pattern, string) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) patternMatchSimple_ (pattern & string)
+    fun quarkFromString string = (Utf8.FFI.withOptPtr 0 ---> GLibQuark.FFI.fromVal) quarkFromString_ string
+    fun quarkToString quark = (GLibQuark.FFI.withVal ---> Utf8.FFI.fromPtr 0) quarkToString_ quark
     fun randomDouble () = (I ---> GDouble.FFI.fromVal) randomDouble_ ()
     fun randomDoubleRange (begin, end') = (GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal) randomDoubleRange_ (begin & end')
     fun randomInt () = (I ---> GUInt32.FFI.fromVal) randomInt_ ()

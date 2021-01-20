@@ -201,6 +201,47 @@ fun revFoldInfosWithExcls getInfoId f (xs, (acc, excls)) =
   end
 
 
+fun checkInterfaceType (nv : namespace_version) name =
+  let
+    fun infoExclInterfaceType match =
+      infoExcl (concat ["interface type excluded by configuration (", match, ")"])
+  in
+    if nvsExists (nv, fn x => x = name) (!excludedInterfaceTypes)
+    then infoExclInterfaceType "excludedInterfaceTypes"
+    else if
+      nvsExists (nv, fn x => String.isPrefix x name)
+        (!excludedInterfaceTypePrefixes)
+    then
+      infoExclInterfaceType "excludedInterfaceTypePrefixes"
+    else if
+      nvsExists (nv, fn x => String.isSuffix x name)
+        (!excludedInterfaceTypeSuffixes)
+    then
+      infoExclInterfaceType "excludedInterfaceTypeSuffixes"
+    else ()
+  end
+
+fun checkFunctionSymbol (nv : namespace_version) symbol =
+  let
+    fun infoExclFunctionSymbol match =
+      infoExcl (concat ["function excluded by configuration (", match, ")"])
+  in
+    if nvsExists (nv, fn x => x = symbol) (!excludedFunctionSymbols)
+    then infoExclFunctionSymbol "excludedFunctionSymbols"
+    else if
+      nvsExists (nv, fn x => String.isPrefix x symbol)
+        (!excludedFunctionSymbolPrefixes)
+    then
+      infoExclFunctionSymbol "excludedFunctionSymbolPrefixes"
+    else if
+      nvsExists (nv, fn x => String.isSuffix x symbol)
+        (!excludedFunctionSymbolSuffixes)
+    then
+      infoExclFunctionSymbol "excludedFunctionSymbolSuffixes"
+    else ()
+  end
+
+
 (* Utilities *)
 
 fun repeat (n : int) (f : 'a -> 'a option) (x : 'a) : 'a option =
@@ -361,11 +402,14 @@ fun getFunctionElemName functionElem =
   | FEMETHOD      => "method"
 
 fun addCFunction
+  (nv : namespace_version)
   (
     {config, callable, cIdentifier, shadowedBy, movedTo, throws, ...} : function,
     (cFunctions, excls)
   ) =
   let
+    val () = checkFunctionSymbol nv cIdentifier
+
     open ListExtras
 
     val {returnValue, parameters = {instance, others}} = callable
@@ -435,33 +479,53 @@ fun addCFunction
 
 fun getFunctionInfoId {elem, name, ...} = (getFunctionElemName elem, SOME name)
 
-fun addClassMethods ({method, ...} : class) (cFunctions, excls) =
-  revFoldInfosWithExcls getFunctionInfoId addCFunction (method, (cFunctions, excls))
+fun addClassMethods nv ({name, method, ...} : class) (cFunctions, excls) =
+  let
+    val () = checkInterfaceType nv name
+  in
+    revFoldInfosWithExcls getFunctionInfoId (addCFunction nv) (method, (cFunctions, excls))
+  end
 
-fun addInterfaceMethods ({method, ...} : interface) (cFunctions, excls) =
-  revFoldInfosWithExcls getFunctionInfoId addCFunction (method, (cFunctions, excls))
+fun addInterfaceMethods nv ({name, method, ...} : interface) (cFunctions, excls) =
+  let
+    val () = checkInterfaceType nv name
+  in
+    revFoldInfosWithExcls getFunctionInfoId (addCFunction nv) (method, (cFunctions, excls))
+  end
 
-fun addRecordMethods ({method, ...} : record) (cFunctions, excls) =
-  revFoldInfosWithExcls getFunctionInfoId addCFunction (method, (cFunctions, excls))
+fun addRecordMethods nv ({name, method, ...} : record) (cFunctions, excls) =
+  let
+    val () = checkInterfaceType nv name
+  in
+    revFoldInfosWithExcls getFunctionInfoId (addCFunction nv) (method, (cFunctions, excls))
+  end
 
-fun addUnionMethods ({method, ...} : union) (cFunctions, excls) =
-  revFoldInfosWithExcls getFunctionInfoId addCFunction (method, (cFunctions, excls))
+fun addUnionMethods nv ({name, method, ...} : union) (cFunctions, excls) =
+  let
+    val () = checkInterfaceType nv name
+  in
+    revFoldInfosWithExcls getFunctionInfoId (addCFunction nv) (method, (cFunctions, excls))
+  end
 
-fun addEnumMethods ({method, ...} : enum) (cFunctions, excls) =
-  revFoldInfosWithExcls getFunctionInfoId addCFunction (method, (cFunctions, excls))
+fun addEnumMethods nv ({name, method, ...} : enum) (cFunctions, excls) =
+  let
+    val () = checkInterfaceType nv name
+  in
+    revFoldInfosWithExcls getFunctionInfoId (addCFunction nv) (method, (cFunctions, excls))
+  end
 
-fun addNamespaceElem ({elem, ...}, (cFunctions, excls)) =
+fun addNamespaceElem nv ({elem, ...}, (cFunctions, excls)) =
   case elem of
     ALIAS _             => (cFunctions, excls)
-  | CLASS class         => addClassMethods class (cFunctions, excls)
-  | INTERFACE interface => addInterfaceMethods interface (cFunctions, excls)
-  | RECORD record       => addRecordMethods record (cFunctions, excls)
-  | UNION union         => addUnionMethods union (cFunctions, excls)
-  | BITFIELD enum       => addEnumMethods enum (cFunctions, excls)
-  | ENUMERATION enum    => addEnumMethods enum (cFunctions, excls)
+  | CLASS class         => addClassMethods nv class (cFunctions, excls)
+  | INTERFACE interface => addInterfaceMethods nv interface (cFunctions, excls)
+  | RECORD record       => addRecordMethods nv record (cFunctions, excls)
+  | UNION union         => addUnionMethods nv union (cFunctions, excls)
+  | BITFIELD enum       => addEnumMethods nv enum (cFunctions, excls)
+  | ENUMERATION enum    => addEnumMethods nv enum (cFunctions, excls)
   | CALLBACK _          => (cFunctions, excls)
   | CONSTANT _          => (cFunctions, excls)
-  | FUNCTION function   => addCFunction (function, (cFunctions, excls))
+  | FUNCTION function   => addCFunction nv (function, (cFunctions, excls))
 
 fun getNamespaceElemInfoId {elem, ...} =
   case elem of
@@ -484,15 +548,16 @@ fun mkNamespaceFile namespaceDep = String.map Char.toLower namespaceDep
 
 fun generate outDir path (namespace_, version, cppPrefix) =
   let
-    val {namespace, ...} = GirReader.readRepo path (namespace_, version)
+    val nv = (namespace_, version)
+    val {namespace, ...} = GirReader.readRepo path nv
     val {elems, ...} = namespace
     val (revCFunctions, excls) =
       revFoldInfosWithExcls
         getNamespaceElemInfoId
-        addNamespaceElem
+        (addNamespaceElem nv)
         (elems, ([], []))
 
-    val lib = mkNamespaceFile (mkNamespaceDep (namespace_, version))
+    val lib = mkNamespaceFile (mkNamespaceDep nv)
     val file = String.concat ["giraffe-", lib, "-mlton.c"]
 
     open HVTextTree

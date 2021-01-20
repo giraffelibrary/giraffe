@@ -551,16 +551,6 @@ mlton_gtk_assistant_set_page_title (GtkAssistant* assistant,
 }
 #endif
 
-#if GTK_CHECK_VERSION(3, 0, 0)
-GTokenType
-mlton_gtk_binding_entry_add_signal_from_string (GtkBindingSet* binding_set,
-                                                SML_CVECTOR_VAL(const gchar, signal_desc))
-{
-  return gtk_binding_entry_add_signal_from_string (binding_set,
-                                                   GET_SML_CVECTOR_VAL(const gchar, signal_desc));
-}
-#endif
-
 void
 mlton_gtk_binding_entry_add_signall (GtkBindingSet* binding_set,
                                      guint keyval,
@@ -585,12 +575,6 @@ mlton_gtk_binding_set_add_path (GtkBindingSet* binding_set,
                             path_type,
                             GET_SML_CVECTOR_VAL(const gchar, path_pattern),
                             priority);
-}
-
-GtkBindingSet*
-mlton_gtk_binding_set_find (SML_CVECTOR_VAL(const gchar, set_name))
-{
-  return gtk_binding_set_find (GET_SML_CVECTOR_VAL(const gchar, set_name));
 }
 
 #if GTK_CHECK_VERSION(2, 12, 0)
@@ -648,24 +632,6 @@ mlton_gtk_buildable_custom_tag_end (GtkBuildable* buildable,
                                 child,
                                 GET_SML_CVECTOR_VAL(const gchar, tagname),
                                 data);
-}
-#endif
-
-#if GTK_CHECK_VERSION(2, 12, 0)
-gboolean
-mlton_gtk_buildable_custom_tag_start (GtkBuildable* buildable,
-                                      GtkBuilder* builder,
-                                      GObject* child,
-                                      SML_CVECTOR_VAL(const gchar, tagname),
-                                      GMarkupParser* parser,
-                                      gpointer* data)
-{
-  return gtk_buildable_custom_tag_start (buildable,
-                                         builder,
-                                         child,
-                                         GET_SML_CVECTOR_VAL(const gchar, tagname),
-                                         parser,
-                                         data);
 }
 #endif
 
@@ -5644,24 +5610,6 @@ mlton_gtk_init_check (int* argc,
   return gtk_init_check (argc,
                          GET_SML_CVECTORVECTOR_REF(char, argv));
 }
-
-#if GTK_CHECK_VERSION(2, 6, 0)
-gboolean
-mlton_gtk_init_with_args (gint* argc,
-                          SML_CVECTORVECTOR_REF(gchar, argv),
-                          SML_CVECTOR_VAL(const gchar, parameter_string),
-                          SML_CVECTOR_VAL(GOptionEntry, entries),
-                          SML_CVECTOR_VAL(const gchar, translation_domain),
-                          GError** error)
-{
-  return gtk_init_with_args (argc,
-                             GET_SML_CVECTORVECTOR_REF(gchar, argv),
-                             GET_SML_CVECTOR_VAL(const gchar, parameter_string),
-                             GET_SML_CVECTOR_VAL(GOptionEntry, entries),
-                             GET_SML_CVECTOR_VAL(const gchar, translation_domain),
-                             error);
-}
-#endif
 
 void
 mlton_gtk_paint_arrow (GtkStyle* style,

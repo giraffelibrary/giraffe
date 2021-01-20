@@ -411,16 +411,6 @@ mlton_g_application_add_main_option (GApplication* application,
 }
 #endif
 
-#if GLIB_CHECK_VERSION(2, 40, 0)
-void
-mlton_g_application_add_main_option_entries (GApplication* application,
-                                             SML_CVECTOR_VAL(GOptionEntry, entries))
-{
-  g_application_add_main_option_entries (application,
-                                         GET_SML_CVECTOR_VAL(GOptionEntry, entries));
-}
-#endif
-
 #if GLIB_CHECK_VERSION(2, 44, 0)
 void
 mlton_g_application_bind_busy_property (GApplication* application,
@@ -932,18 +922,6 @@ mlton_g_dbus_error_new_for_dbus_error (SML_CVECTOR_VAL(const gchar, dbus_error_n
 #endif
 
 #if GLIB_CHECK_VERSION(2, 26, 0)
-gboolean
-mlton_g_dbus_error_register_error (GQuark error_domain,
-                                   gint error_code,
-                                   SML_CVECTOR_VAL(const gchar, dbus_error_name))
-{
-  return g_dbus_error_register_error (error_domain,
-                                      error_code,
-                                      GET_SML_CVECTOR_VAL(const gchar, dbus_error_name));
-}
-#endif
-
-#if GLIB_CHECK_VERSION(2, 26, 0)
 void
 mlton_g_dbus_error_register_error_domain (SML_CVECTOR_VAL(const gchar, error_domain_quark_name),
                                           volatile gsize* quark_volatile,
@@ -954,18 +932,6 @@ mlton_g_dbus_error_register_error_domain (SML_CVECTOR_VAL(const gchar, error_dom
                                       quark_volatile,
                                       entries,
                                       num_entries);
-}
-#endif
-
-#if GLIB_CHECK_VERSION(2, 26, 0)
-gboolean
-mlton_g_dbus_error_unregister_error (GQuark error_domain,
-                                     gint error_code,
-                                     SML_CVECTOR_VAL(const gchar, dbus_error_name))
-{
-  return g_dbus_error_unregister_error (error_domain,
-                                        error_code,
-                                        GET_SML_CVECTOR_VAL(const gchar, dbus_error_name));
 }
 #endif
 
