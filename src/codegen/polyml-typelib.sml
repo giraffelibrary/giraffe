@@ -1,8 +1,8 @@
 use "utilities.sml";
+use "typelib/configuration.sml";
 use "typelib/girepository.sml";
 use "syntax.sml";
 use "interface_ref.sml";
-use "typelib/configuration.sml";
 use "typelib/function.sml";
 use "signal.sml";
 use "typelib/property.sml";
