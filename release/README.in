@@ -60,20 +60,21 @@ At least one of the following Standard ML compilers is required:
 The following libraries are supported, where the interface is based on the
 indicated version:
 
-  GLib-2.0              2.50.3
-  GObject-2.0           2.50.3
-  Gio-2.0               2.50.3
-  GModule-2.0           2.50.3
-  GIRepository-2.0      1.50.0
-  Atk-1.0               2.22.0
-  Pango-1.0             1.40.9
-  PangoCairo-1.0        1.40.9
-  GdkPixbuf-2.0         2.36.9
-  Gdk-3.0               3.22.17
-  Gtk-3.0               3.22.17
-  GtkSource-3.0         3.22.2
+  GLib-2.0              2.66.4
+  GObject-2.0           2.66.4
+  Gio-2.0               2.66.4
+  GModule-2.0           2.66.4
+  Atk-1.0               2.36.0
+  cairo-1.0             1.14.0
+  HarfBuzz-0.0          2.7.2
+  Pango-1.0             1.48.0
+  PangoCairo-1.0        1.48.0
+  GdkPixbuf-2.0         2.40.0
+  Gdk-3.0               3.24.24
+  Gtk-3.0               3.24.24
+  GtkSource-3.0         3.24.11
   Vte-2.90              0.36.5
-  Vte-2.91              0.46.3
+  Vte-2.91              0.62.1
 
 Later versions are expected to work but newer features are not supported.
 Earlier versions may still work, depending on the actual dependencies.

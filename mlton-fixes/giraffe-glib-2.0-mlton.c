@@ -39,6 +39,18 @@ mlton_g_bookmark_file_get_added (GBookmarkFile* bookmark,
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 66, 0)
+GDateTime*
+mlton_g_bookmark_file_get_added_date_time (GBookmarkFile* bookmark,
+                                           SML_CVECTOR_VAL(const char, uri),
+                                           GError** error)
+{
+  return g_bookmark_file_get_added_date_time (bookmark,
+                                              GET_SML_CVECTOR_VAL(const char, uri),
+                                              error);
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 12, 0)
 gboolean
 mlton_g_bookmark_file_get_app_info (GBookmarkFile* bookmark,
@@ -56,6 +68,26 @@ mlton_g_bookmark_file_get_app_info (GBookmarkFile* bookmark,
                                        count,
                                        stamp,
                                        error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+gboolean
+mlton_g_bookmark_file_get_application_info (GBookmarkFile* bookmark,
+                                            SML_CVECTOR_VAL(const char, uri),
+                                            SML_CVECTOR_VAL(const char, name),
+                                            SML_CVECTOR_REF(char, exec),
+                                            unsigned int* count,
+                                            GDateTime** stamp,
+                                            GError** error)
+{
+  return g_bookmark_file_get_application_info (bookmark,
+                                               GET_SML_CVECTOR_VAL(const char, uri),
+                                               GET_SML_CVECTOR_VAL(const char, name),
+                                               GET_SML_CVECTOR_REF(char, exec),
+                                               count,
+                                               stamp,
+                                               error);
 }
 #endif
 
@@ -151,6 +183,18 @@ mlton_g_bookmark_file_get_modified (GBookmarkFile* bookmark,
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 66, 0)
+GDateTime*
+mlton_g_bookmark_file_get_modified_date_time (GBookmarkFile* bookmark,
+                                              SML_CVECTOR_VAL(const char, uri),
+                                              GError** error)
+{
+  return g_bookmark_file_get_modified_date_time (bookmark,
+                                                 GET_SML_CVECTOR_VAL(const char, uri),
+                                                 error);
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 12, 0)
 gchar*
 mlton_g_bookmark_file_get_title (GBookmarkFile* bookmark,
@@ -172,6 +216,18 @@ mlton_g_bookmark_file_get_visited (GBookmarkFile* bookmark,
   return g_bookmark_file_get_visited (bookmark,
                                       GET_SML_CVECTOR_VAL(const gchar, uri),
                                       error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+GDateTime*
+mlton_g_bookmark_file_get_visited_date_time (GBookmarkFile* bookmark,
+                                             SML_CVECTOR_VAL(const char, uri),
+                                             GError** error)
+{
+  return g_bookmark_file_get_visited_date_time (bookmark,
+                                                GET_SML_CVECTOR_VAL(const char, uri),
+                                                error);
 }
 #endif
 
@@ -319,6 +375,18 @@ mlton_g_bookmark_file_set_added (GBookmarkFile* bookmark,
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 66, 0)
+void
+mlton_g_bookmark_file_set_added_date_time (GBookmarkFile* bookmark,
+                                           SML_CVECTOR_VAL(const char, uri),
+                                           GDateTime* added)
+{
+  g_bookmark_file_set_added_date_time (bookmark,
+                                       GET_SML_CVECTOR_VAL(const char, uri),
+                                       added);
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 12, 0)
 gboolean
 mlton_g_bookmark_file_set_app_info (GBookmarkFile* bookmark,
@@ -336,6 +404,26 @@ mlton_g_bookmark_file_set_app_info (GBookmarkFile* bookmark,
                                        count,
                                        stamp,
                                        error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+gboolean
+mlton_g_bookmark_file_set_application_info (GBookmarkFile* bookmark,
+                                            SML_CVECTOR_VAL(const char, uri),
+                                            SML_CVECTOR_VAL(const char, name),
+                                            SML_CVECTOR_VAL(const char, exec),
+                                            int count,
+                                            GDateTime* stamp,
+                                            GError** error)
+{
+  return g_bookmark_file_set_application_info (bookmark,
+                                               GET_SML_CVECTOR_VAL(const char, uri),
+                                               GET_SML_CVECTOR_VAL(const char, name),
+                                               GET_SML_CVECTOR_VAL(const char, exec),
+                                               count,
+                                               stamp,
+                                               error);
 }
 #endif
 
@@ -415,6 +503,18 @@ mlton_g_bookmark_file_set_modified (GBookmarkFile* bookmark,
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 66, 0)
+void
+mlton_g_bookmark_file_set_modified_date_time (GBookmarkFile* bookmark,
+                                              SML_CVECTOR_VAL(const char, uri),
+                                              GDateTime* modified)
+{
+  g_bookmark_file_set_modified_date_time (bookmark,
+                                          GET_SML_CVECTOR_VAL(const char, uri),
+                                          modified);
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 12, 0)
 void
 mlton_g_bookmark_file_set_title (GBookmarkFile* bookmark,
@@ -436,6 +536,18 @@ mlton_g_bookmark_file_set_visited (GBookmarkFile* bookmark,
   g_bookmark_file_set_visited (bookmark,
                                GET_SML_CVECTOR_VAL(const gchar, uri),
                                visited);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+void
+mlton_g_bookmark_file_set_visited_date_time (GBookmarkFile* bookmark,
+                                             SML_CVECTOR_VAL(const char, uri),
+                                             GDateTime* visited)
+{
+  g_bookmark_file_set_visited_date_time (bookmark,
+                                         GET_SML_CVECTOR_VAL(const char, uri),
+                                         visited);
 }
 #endif
 
@@ -483,6 +595,16 @@ mlton_g_date_strftime (SML_CVECTOR_VAL(gchar, s),
                           date);
 }
 
+#if GLIB_CHECK_VERSION(2, 56, 0)
+GDateTime*
+mlton_g_date_time_new_from_iso8601 (SML_CVECTOR_VAL(const gchar, text),
+                                    GTimeZone* default_tz)
+{
+  return g_date_time_new_from_iso8601 (GET_SML_CVECTOR_VAL(const gchar, text),
+                                       default_tz);
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 26, 0)
 gchar*
 mlton_g_date_time_format (GDateTime* datetime,
@@ -512,6 +634,18 @@ mlton_g_error_new_literal (GQuark domain,
                               code,
                               GET_SML_CVECTOR_VAL(const gchar, message));
 }
+
+#if GLIB_CHECK_VERSION(2, 30, 0)
+void
+mlton_g_hmac_get_digest (GHmac* hmac,
+                         SML_CVECTOR_VAL(guint8, buffer),
+                         gsize* digest_len)
+{
+  g_hmac_get_digest (hmac,
+                     GET_SML_CVECTOR_VAL(guint8, buffer),
+                     digest_len);
+}
+#endif
 
 #if GLIB_CHECK_VERSION(2, 30, 0)
 void
@@ -545,6 +679,20 @@ mlton_g_io_channel_read (GIOChannel* channel,
                             GET_SML_CVECTOR_VAL(gchar, buf),
                             count,
                             bytes_read);
+}
+
+GIOStatus
+mlton_g_io_channel_read_chars (GIOChannel* channel,
+                               SML_CVECTOR_VAL(gchar, buf),
+                               gsize count,
+                               gsize* bytes_read,
+                               GError** error)
+{
+  return g_io_channel_read_chars (channel,
+                                  GET_SML_CVECTOR_VAL(gchar, buf),
+                                  count,
+                                  bytes_read,
+                                  error);
 }
 
 GIOStatus
@@ -748,6 +896,20 @@ mlton_g_key_file_get_keys (GKeyFile* key_file,
                               GET_SML_CVECTOR_VAL(const gchar, group_name),
                               length,
                               error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 56, 0)
+gchar*
+mlton_g_key_file_get_locale_for_key (GKeyFile* key_file,
+                                     SML_CVECTOR_VAL(const gchar, group_name),
+                                     SML_CVECTOR_VAL(const gchar, key),
+                                     SML_CVECTOR_VAL(const gchar, locale))
+{
+  return g_key_file_get_locale_for_key (key_file,
+                                        GET_SML_CVECTOR_VAL(const gchar, group_name),
+                                        GET_SML_CVECTOR_VAL(const gchar, key),
+                                        GET_SML_CVECTOR_VAL(const gchar, locale));
 }
 #endif
 
@@ -984,6 +1146,22 @@ mlton_g_key_file_set_boolean (GKeyFile* key_file,
 #endif
 
 #if GLIB_CHECK_VERSION(2, 6, 0)
+void
+mlton_g_key_file_set_boolean_list (GKeyFile* key_file,
+                                   SML_CVECTOR_VAL(const gchar, group_name),
+                                   SML_CVECTOR_VAL(const gchar, key),
+                                   SML_CVECTOR_VAL(gboolean, list),
+                                   gsize length)
+{
+  g_key_file_set_boolean_list (key_file,
+                               GET_SML_CVECTOR_VAL(const gchar, group_name),
+                               GET_SML_CVECTOR_VAL(const gchar, key),
+                               GET_SML_CVECTOR_VAL(gboolean, list),
+                               length);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 6, 0)
 gboolean
 mlton_g_key_file_set_comment (GKeyFile* key_file,
                               SML_CVECTOR_VAL(const gchar, group_name),
@@ -1010,6 +1188,22 @@ mlton_g_key_file_set_double (GKeyFile* key_file,
                          GET_SML_CVECTOR_VAL(const gchar, group_name),
                          GET_SML_CVECTOR_VAL(const gchar, key),
                          value);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 12, 0)
+void
+mlton_g_key_file_set_double_list (GKeyFile* key_file,
+                                  SML_CVECTOR_VAL(const gchar, group_name),
+                                  SML_CVECTOR_VAL(const gchar, key),
+                                  SML_CVECTOR_VAL(gdouble, list),
+                                  gsize length)
+{
+  g_key_file_set_double_list (key_file,
+                              GET_SML_CVECTOR_VAL(const gchar, group_name),
+                              GET_SML_CVECTOR_VAL(const gchar, key),
+                              GET_SML_CVECTOR_VAL(gdouble, list),
+                              length);
 }
 #endif
 
@@ -1043,6 +1237,22 @@ mlton_g_key_file_set_integer (GKeyFile* key_file,
 
 #if GLIB_CHECK_VERSION(2, 6, 0)
 void
+mlton_g_key_file_set_integer_list (GKeyFile* key_file,
+                                   SML_CVECTOR_VAL(const gchar, group_name),
+                                   SML_CVECTOR_VAL(const gchar, key),
+                                   SML_CVECTOR_VAL(gint, list),
+                                   gsize length)
+{
+  g_key_file_set_integer_list (key_file,
+                               GET_SML_CVECTOR_VAL(const gchar, group_name),
+                               GET_SML_CVECTOR_VAL(const gchar, key),
+                               GET_SML_CVECTOR_VAL(gint, list),
+                               length);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 6, 0)
+void
 mlton_g_key_file_set_locale_string (GKeyFile* key_file,
                                     SML_CVECTOR_VAL(const gchar, group_name),
                                     SML_CVECTOR_VAL(const gchar, key),
@@ -1059,6 +1269,24 @@ mlton_g_key_file_set_locale_string (GKeyFile* key_file,
 
 #if GLIB_CHECK_VERSION(2, 6, 0)
 void
+mlton_g_key_file_set_locale_string_list (GKeyFile* key_file,
+                                         SML_CVECTOR_VAL(const gchar, group_name),
+                                         SML_CVECTOR_VAL(const gchar, key),
+                                         SML_CVECTOR_VAL(const gchar, locale),
+                                         SML_CVECTORVECTOR_VAL(const gchar, list),
+                                         gsize length)
+{
+  g_key_file_set_locale_string_list (key_file,
+                                     GET_SML_CVECTOR_VAL(const gchar, group_name),
+                                     GET_SML_CVECTOR_VAL(const gchar, key),
+                                     GET_SML_CVECTOR_VAL(const gchar, locale),
+                                     GET_SML_CVECTORVECTOR_VAL(const gchar, list),
+                                     length);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 6, 0)
+void
 mlton_g_key_file_set_string (GKeyFile* key_file,
                              SML_CVECTOR_VAL(const gchar, group_name),
                              SML_CVECTOR_VAL(const gchar, key),
@@ -1068,6 +1296,22 @@ mlton_g_key_file_set_string (GKeyFile* key_file,
                          GET_SML_CVECTOR_VAL(const gchar, group_name),
                          GET_SML_CVECTOR_VAL(const gchar, key),
                          GET_SML_CVECTOR_VAL(const gchar, string));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 6, 0)
+void
+mlton_g_key_file_set_string_list (GKeyFile* key_file,
+                                  SML_CVECTOR_VAL(const gchar, group_name),
+                                  SML_CVECTOR_VAL(const gchar, key),
+                                  SML_CVECTORVECTOR_VAL(const gchar, list),
+                                  gsize length)
+{
+  g_key_file_set_string_list (key_file,
+                              GET_SML_CVECTOR_VAL(const gchar, group_name),
+                              GET_SML_CVECTOR_VAL(const gchar, key),
+                              GET_SML_CVECTORVECTOR_VAL(const gchar, list),
+                              length);
 }
 #endif
 
@@ -1099,7 +1343,7 @@ mlton_g_key_file_set_value (GKeyFile* key_file,
 }
 #endif
 
-gint
+gboolean
 mlton_g_main_context_check (GMainContext* context,
                             gint max_priority,
                             SML_CVECTOR_VAL(GPollFD, fds),
@@ -1107,6 +1351,20 @@ mlton_g_main_context_check (GMainContext* context,
 {
   return g_main_context_check (context,
                                max_priority,
+                               GET_SML_CVECTOR_VAL(GPollFD, fds),
+                               n_fds);
+}
+
+gint
+mlton_g_main_context_query (GMainContext* context,
+                            gint max_priority,
+                            gint* timeout_,
+                            SML_CVECTOR_VAL(GPollFD, fds),
+                            gint n_fds)
+{
+  return g_main_context_query (context,
+                               max_priority,
+                               timeout_,
                                GET_SML_CVECTOR_VAL(GPollFD, fds),
                                n_fds);
 }
@@ -1257,6 +1515,16 @@ mlton_g_option_group_new (SML_CVECTOR_VAL(const gchar, name),
 
 #if GLIB_CHECK_VERSION(2, 6, 0)
 void
+mlton_g_option_group_add_entries (GOptionGroup* group,
+                                  SML_CVECTOR_VAL(const GOptionEntry, entries))
+{
+  g_option_group_add_entries (group,
+                              GET_SML_CVECTOR_VAL(const GOptionEntry, entries));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 6, 0)
+void
 mlton_g_option_group_set_translation_domain (GOptionGroup* group,
                                              SML_CVECTOR_VAL(const gchar, domain))
 {
@@ -1399,6 +1667,32 @@ mlton_g_source_set_name_by_id (guint tag,
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 32, 0)
+GThread*
+mlton_g_thread_new (SML_CVECTOR_VAL(const gchar, name),
+                    GThreadFunc func,
+                    gpointer data)
+{
+  return g_thread_new (GET_SML_CVECTOR_VAL(const gchar, name),
+                       func,
+                       data);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 32, 0)
+GThread*
+mlton_g_thread_try_new (SML_CVECTOR_VAL(const gchar, name),
+                        GThreadFunc func,
+                        gpointer data,
+                        GError** error)
+{
+  return g_thread_try_new (GET_SML_CVECTOR_VAL(const gchar, name),
+                           func,
+                           data,
+                           error);
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 12, 0)
 gboolean
 mlton_g_time_val_from_iso8601 (SML_CVECTOR_VAL(const gchar, iso_date),
@@ -1414,6 +1708,358 @@ GTimeZone*
 mlton_g_time_zone_new (SML_CVECTOR_VAL(const gchar, identifier))
 {
   return g_time_zone_new (GET_SML_CVECTOR_VAL(const gchar, identifier));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+GUri*
+mlton_g_uri_parse_relative (GUri* base_uri,
+                            SML_CVECTOR_VAL(const gchar, uri_ref),
+                            GUriFlags flags,
+                            GError** error)
+{
+  return g_uri_parse_relative (base_uri,
+                               GET_SML_CVECTOR_VAL(const gchar, uri_ref),
+                               flags,
+                               error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+GUri*
+mlton_g_uri_build (GUriFlags flags,
+                   SML_CVECTOR_VAL(const gchar, scheme),
+                   SML_CVECTOR_VAL(const gchar, userinfo),
+                   SML_CVECTOR_VAL(const gchar, host),
+                   gint port,
+                   SML_CVECTOR_VAL(const gchar, path),
+                   SML_CVECTOR_VAL(const gchar, query),
+                   SML_CVECTOR_VAL(const gchar, fragment))
+{
+  return g_uri_build (flags,
+                      GET_SML_CVECTOR_VAL(const gchar, scheme),
+                      GET_SML_CVECTOR_VAL(const gchar, userinfo),
+                      GET_SML_CVECTOR_VAL(const gchar, host),
+                      port,
+                      GET_SML_CVECTOR_VAL(const gchar, path),
+                      GET_SML_CVECTOR_VAL(const gchar, query),
+                      GET_SML_CVECTOR_VAL(const gchar, fragment));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+GUri*
+mlton_g_uri_build_with_user (GUriFlags flags,
+                             SML_CVECTOR_VAL(const gchar, scheme),
+                             SML_CVECTOR_VAL(const gchar, user),
+                             SML_CVECTOR_VAL(const gchar, password),
+                             SML_CVECTOR_VAL(const gchar, auth_params),
+                             SML_CVECTOR_VAL(const gchar, host),
+                             gint port,
+                             SML_CVECTOR_VAL(const gchar, path),
+                             SML_CVECTOR_VAL(const gchar, query),
+                             SML_CVECTOR_VAL(const gchar, fragment))
+{
+  return g_uri_build_with_user (flags,
+                                GET_SML_CVECTOR_VAL(const gchar, scheme),
+                                GET_SML_CVECTOR_VAL(const gchar, user),
+                                GET_SML_CVECTOR_VAL(const gchar, password),
+                                GET_SML_CVECTOR_VAL(const gchar, auth_params),
+                                GET_SML_CVECTOR_VAL(const gchar, host),
+                                port,
+                                GET_SML_CVECTOR_VAL(const gchar, path),
+                                GET_SML_CVECTOR_VAL(const gchar, query),
+                                GET_SML_CVECTOR_VAL(const gchar, fragment));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+char*
+mlton_g_uri_escape_bytes (SML_CVECTOR_VAL(const guint8, unescaped),
+                          gsize length,
+                          SML_CVECTOR_VAL(const char, reserved_chars_allowed))
+{
+  return g_uri_escape_bytes (GET_SML_CVECTOR_VAL(const guint8, unescaped),
+                             length,
+                             GET_SML_CVECTOR_VAL(const char, reserved_chars_allowed));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 16, 0)
+char*
+mlton_g_uri_escape_string (SML_CVECTOR_VAL(const char, unescaped),
+                           SML_CVECTOR_VAL(const char, reserved_chars_allowed),
+                           gboolean allow_utf8)
+{
+  return g_uri_escape_string (GET_SML_CVECTOR_VAL(const char, unescaped),
+                              GET_SML_CVECTOR_VAL(const char, reserved_chars_allowed),
+                              allow_utf8);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+gboolean
+mlton_g_uri_is_valid (SML_CVECTOR_VAL(const gchar, uri_string),
+                      GUriFlags flags,
+                      GError** error)
+{
+  return g_uri_is_valid (GET_SML_CVECTOR_VAL(const gchar, uri_string),
+                         flags,
+                         error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+gchar*
+mlton_g_uri_join (GUriFlags flags,
+                  SML_CVECTOR_VAL(const gchar, scheme),
+                  SML_CVECTOR_VAL(const gchar, userinfo),
+                  SML_CVECTOR_VAL(const gchar, host),
+                  gint port,
+                  SML_CVECTOR_VAL(const gchar, path),
+                  SML_CVECTOR_VAL(const gchar, query),
+                  SML_CVECTOR_VAL(const gchar, fragment))
+{
+  return g_uri_join (flags,
+                     GET_SML_CVECTOR_VAL(const gchar, scheme),
+                     GET_SML_CVECTOR_VAL(const gchar, userinfo),
+                     GET_SML_CVECTOR_VAL(const gchar, host),
+                     port,
+                     GET_SML_CVECTOR_VAL(const gchar, path),
+                     GET_SML_CVECTOR_VAL(const gchar, query),
+                     GET_SML_CVECTOR_VAL(const gchar, fragment));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+gchar*
+mlton_g_uri_join_with_user (GUriFlags flags,
+                            SML_CVECTOR_VAL(const gchar, scheme),
+                            SML_CVECTOR_VAL(const gchar, user),
+                            SML_CVECTOR_VAL(const gchar, password),
+                            SML_CVECTOR_VAL(const gchar, auth_params),
+                            SML_CVECTOR_VAL(const gchar, host),
+                            gint port,
+                            SML_CVECTOR_VAL(const gchar, path),
+                            SML_CVECTOR_VAL(const gchar, query),
+                            SML_CVECTOR_VAL(const gchar, fragment))
+{
+  return g_uri_join_with_user (flags,
+                               GET_SML_CVECTOR_VAL(const gchar, scheme),
+                               GET_SML_CVECTOR_VAL(const gchar, user),
+                               GET_SML_CVECTOR_VAL(const gchar, password),
+                               GET_SML_CVECTOR_VAL(const gchar, auth_params),
+                               GET_SML_CVECTOR_VAL(const gchar, host),
+                               port,
+                               GET_SML_CVECTOR_VAL(const gchar, path),
+                               GET_SML_CVECTOR_VAL(const gchar, query),
+                               GET_SML_CVECTOR_VAL(const gchar, fragment));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 6, 0)
+gchar**
+mlton_g_uri_list_extract_uris (SML_CVECTOR_VAL(const gchar, uri_list))
+{
+  return g_uri_list_extract_uris (GET_SML_CVECTOR_VAL(const gchar, uri_list));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+GUri*
+mlton_g_uri_parse (SML_CVECTOR_VAL(const gchar, uri_string),
+                   GUriFlags flags,
+                   GError** error)
+{
+  return g_uri_parse (GET_SML_CVECTOR_VAL(const gchar, uri_string),
+                      flags,
+                      error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+GHashTable*
+mlton_g_uri_parse_params (SML_CVECTOR_VAL(const gchar, params),
+                          gssize length,
+                          SML_CVECTOR_VAL(const gchar, separators),
+                          GUriParamsFlags flags,
+                          GError** error)
+{
+  return g_uri_parse_params (GET_SML_CVECTOR_VAL(const gchar, params),
+                             length,
+                             GET_SML_CVECTOR_VAL(const gchar, separators),
+                             flags,
+                             error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 16, 0)
+char*
+mlton_g_uri_parse_scheme (SML_CVECTOR_VAL(const char, uri))
+{
+  return g_uri_parse_scheme (GET_SML_CVECTOR_VAL(const char, uri));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+const char*
+mlton_g_uri_peek_scheme (SML_CVECTOR_VAL(const char, uri))
+{
+  return g_uri_peek_scheme (GET_SML_CVECTOR_VAL(const char, uri));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+gchar*
+mlton_g_uri_resolve_relative (SML_CVECTOR_VAL(const gchar, base_uri_string),
+                              SML_CVECTOR_VAL(const gchar, uri_ref),
+                              GUriFlags flags,
+                              GError** error)
+{
+  return g_uri_resolve_relative (GET_SML_CVECTOR_VAL(const gchar, base_uri_string),
+                                 GET_SML_CVECTOR_VAL(const gchar, uri_ref),
+                                 flags,
+                                 error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+gboolean
+mlton_g_uri_split (SML_CVECTOR_VAL(const gchar, uri_ref),
+                   GUriFlags flags,
+                   SML_CVECTOR_REF(gchar, scheme),
+                   SML_CVECTOR_REF(gchar, userinfo),
+                   SML_CVECTOR_REF(gchar, host),
+                   gint* port,
+                   SML_CVECTOR_REF(gchar, path),
+                   SML_CVECTOR_REF(gchar, query),
+                   SML_CVECTOR_REF(gchar, fragment),
+                   GError** error)
+{
+  return g_uri_split (GET_SML_CVECTOR_VAL(const gchar, uri_ref),
+                      flags,
+                      GET_SML_CVECTOR_REF(gchar, scheme),
+                      GET_SML_CVECTOR_REF(gchar, userinfo),
+                      GET_SML_CVECTOR_REF(gchar, host),
+                      port,
+                      GET_SML_CVECTOR_REF(gchar, path),
+                      GET_SML_CVECTOR_REF(gchar, query),
+                      GET_SML_CVECTOR_REF(gchar, fragment),
+                      error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+gboolean
+mlton_g_uri_split_network (SML_CVECTOR_VAL(const gchar, uri_string),
+                           GUriFlags flags,
+                           SML_CVECTOR_REF(gchar, scheme),
+                           SML_CVECTOR_REF(gchar, host),
+                           gint* port,
+                           GError** error)
+{
+  return g_uri_split_network (GET_SML_CVECTOR_VAL(const gchar, uri_string),
+                              flags,
+                              GET_SML_CVECTOR_REF(gchar, scheme),
+                              GET_SML_CVECTOR_REF(gchar, host),
+                              port,
+                              error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+gboolean
+mlton_g_uri_split_with_user (SML_CVECTOR_VAL(const gchar, uri_ref),
+                             GUriFlags flags,
+                             SML_CVECTOR_REF(gchar, scheme),
+                             SML_CVECTOR_REF(gchar, user),
+                             SML_CVECTOR_REF(gchar, password),
+                             SML_CVECTOR_REF(gchar, auth_params),
+                             SML_CVECTOR_REF(gchar, host),
+                             gint* port,
+                             SML_CVECTOR_REF(gchar, path),
+                             SML_CVECTOR_REF(gchar, query),
+                             SML_CVECTOR_REF(gchar, fragment),
+                             GError** error)
+{
+  return g_uri_split_with_user (GET_SML_CVECTOR_VAL(const gchar, uri_ref),
+                                flags,
+                                GET_SML_CVECTOR_REF(gchar, scheme),
+                                GET_SML_CVECTOR_REF(gchar, user),
+                                GET_SML_CVECTOR_REF(gchar, password),
+                                GET_SML_CVECTOR_REF(gchar, auth_params),
+                                GET_SML_CVECTOR_REF(gchar, host),
+                                port,
+                                GET_SML_CVECTOR_REF(gchar, path),
+                                GET_SML_CVECTOR_REF(gchar, query),
+                                GET_SML_CVECTOR_REF(gchar, fragment),
+                                error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+GBytes*
+mlton_g_uri_unescape_bytes (SML_CVECTOR_VAL(const char, escaped_string),
+                            gssize length,
+                            SML_CVECTOR_VAL(const char, illegal_characters),
+                            GError** error)
+{
+  return g_uri_unescape_bytes (GET_SML_CVECTOR_VAL(const char, escaped_string),
+                               length,
+                               GET_SML_CVECTOR_VAL(const char, illegal_characters),
+                               error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 16, 0)
+char*
+mlton_g_uri_unescape_segment (SML_CVECTOR_VAL(const char, escaped_string),
+                              SML_CVECTOR_VAL(const char, escaped_string_end),
+                              SML_CVECTOR_VAL(const char, illegal_characters))
+{
+  return g_uri_unescape_segment (GET_SML_CVECTOR_VAL(const char, escaped_string),
+                                 GET_SML_CVECTOR_VAL(const char, escaped_string_end),
+                                 GET_SML_CVECTOR_VAL(const char, illegal_characters));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 16, 0)
+char*
+mlton_g_uri_unescape_string (SML_CVECTOR_VAL(const char, escaped_string),
+                             SML_CVECTOR_VAL(const char, illegal_characters))
+{
+  return g_uri_unescape_string (GET_SML_CVECTOR_VAL(const char, escaped_string),
+                                GET_SML_CVECTOR_VAL(const char, illegal_characters));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+void
+mlton_g_uri_params_iter_init (GUriParamsIter* iter,
+                              SML_CVECTOR_VAL(const gchar, params),
+                              gssize length,
+                              SML_CVECTOR_VAL(const gchar, separators),
+                              GUriParamsFlags flags)
+{
+  g_uri_params_iter_init (iter,
+                          GET_SML_CVECTOR_VAL(const gchar, params),
+                          length,
+                          GET_SML_CVECTOR_VAL(const gchar, separators),
+                          flags);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+gboolean
+mlton_g_uri_params_iter_next (GUriParamsIter* iter,
+                              SML_CVECTOR_REF(gchar, attribute),
+                              SML_CVECTOR_REF(gchar, value),
+                              GError** error)
+{
+  return g_uri_params_iter_next (iter,
+                                 GET_SML_CVECTOR_REF(gchar, attribute),
+                                 GET_SML_CVECTOR_REF(gchar, value),
+                                 error);
 }
 #endif
 
@@ -1755,6 +2401,16 @@ mlton_g_build_pathv (SML_CVECTOR_VAL(const gchar, separator),
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 58, 0)
+gchar*
+mlton_g_canonicalize_filename (SML_CVECTOR_VAL(const gchar, filename),
+                               SML_CVECTOR_VAL(const gchar, relative_to))
+{
+  return g_canonicalize_filename (GET_SML_CVECTOR_VAL(const gchar, filename),
+                                  GET_SML_CVECTOR_VAL(const gchar, relative_to));
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 8, 0)
 int
 mlton_g_chdir (SML_CVECTOR_VAL(gchar, path))
@@ -1855,22 +2511,6 @@ mlton_g_convert_with_fallback (SML_CVECTOR_VAL(const gchar, str),
                                   bytes_read,
                                   bytes_written,
                                   error);
-}
-
-gchar*
-mlton_g_convert_with_iconv (SML_CVECTOR_VAL(const gchar, str),
-                            gssize len,
-                            GIConv converter,
-                            gsize* bytes_read,
-                            gsize* bytes_written,
-                            GError** error)
-{
-  return g_convert_with_iconv (GET_SML_CVECTOR_VAL(const gchar, str),
-                               len,
-                               converter,
-                               bytes_read,
-                               bytes_written,
-                               error);
 }
 
 gpointer
@@ -1975,6 +2615,24 @@ mlton_g_environ_unsetenv (SML_CVECTORVECTOR_VAL(gchar, envp),
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 66, 0)
+gboolean
+mlton_g_file_set_contents_full (SML_CVECTOR_VAL(const gchar, filename),
+                                SML_CVECTOR_VAL(const gchar, contents),
+                                gssize length,
+                                GFileSetContentsFlags flags,
+                                int mode,
+                                GError** error)
+{
+  return g_file_set_contents_full (GET_SML_CVECTOR_VAL(const gchar, filename),
+                                   GET_SML_CVECTOR_VAL(const gchar, contents),
+                                   length,
+                                   flags,
+                                   mode,
+                                   error);
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 6, 0)
 gchar*
 mlton_g_filename_display_basename (SML_CVECTOR_VAL(gchar, filename))
@@ -2045,11 +2703,35 @@ mlton_g_find_program_in_path (SML_CVECTOR_VAL(gchar, program))
   return g_find_program_in_path (GET_SML_CVECTOR_VAL(gchar, program));
 }
 
+#if GLIB_CHECK_VERSION(2, 62, 0)
+gboolean
+mlton_g_get_console_charset (SML_CVECTOR_REF(const char, charset))
+{
+  return g_get_console_charset (GET_SML_CVECTOR_REF(const char, charset));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 58, 0)
+const gchar* const*
+mlton_g_get_language_names_with_category (SML_CVECTOR_VAL(const gchar, category_name))
+{
+  return g_get_language_names_with_category (GET_SML_CVECTOR_VAL(const gchar, category_name));
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 28, 0)
 gchar**
 mlton_g_get_locale_variants (SML_CVECTOR_VAL(const gchar, locale))
 {
   return g_get_locale_variants (GET_SML_CVECTOR_VAL(const gchar, locale));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 64, 0)
+gchar*
+mlton_g_get_os_info (SML_CVECTOR_VAL(const gchar, key_name))
+{
+  return g_get_os_info (GET_SML_CVECTOR_VAL(const gchar, key_name));
 }
 #endif
 
@@ -2098,20 +2780,6 @@ mlton_g_hostname_to_unicode (SML_CVECTOR_VAL(const gchar, hostname))
   return g_hostname_to_unicode (GET_SML_CVECTOR_VAL(const gchar, hostname));
 }
 #endif
-
-gsize
-mlton_g_iconv (GIConv converter,
-               SML_CVECTOR_VAL(gchar*, inbuf),
-               gsize* inbytes_left,
-               SML_CVECTOR_VAL(gchar*, outbuf),
-               gsize* outbytes_left)
-{
-  return g_iconv (converter,
-                  GET_SML_CVECTOR_VAL(gchar*, inbuf),
-                  inbytes_left,
-                  GET_SML_CVECTOR_VAL(gchar*, outbuf),
-                  outbytes_left);
-}
 
 gchar*
 mlton_g_locale_from_utf8 (SML_CVECTOR_VAL(const gchar, utf8string),
@@ -2283,42 +2951,6 @@ mlton_g_mkdir_with_parents (SML_CVECTOR_VAL(gchar, pathname),
 }
 #endif
 
-#if GLIB_CHECK_VERSION(2, 30, 0)
-gchar*
-mlton_g_mkdtemp (SML_CVECTOR_VAL(gchar, tmpl))
-{
-  return g_mkdtemp (GET_SML_CVECTOR_VAL(gchar, tmpl));
-}
-#endif
-
-#if GLIB_CHECK_VERSION(2, 30, 0)
-gchar*
-mlton_g_mkdtemp_full (SML_CVECTOR_VAL(gchar, tmpl),
-                      gint mode)
-{
-  return g_mkdtemp_full (GET_SML_CVECTOR_VAL(gchar, tmpl),
-                         mode);
-}
-#endif
-
-gint
-mlton_g_mkstemp (SML_CVECTOR_VAL(gchar, tmpl))
-{
-  return g_mkstemp (GET_SML_CVECTOR_VAL(gchar, tmpl));
-}
-
-#if GLIB_CHECK_VERSION(2, 22, 0)
-gint
-mlton_g_mkstemp_full (SML_CVECTOR_VAL(gchar, tmpl),
-                      gint flags,
-                      gint mode)
-{
-  return g_mkstemp_full (GET_SML_CVECTOR_VAL(gchar, tmpl),
-                         flags,
-                         mode);
-}
-#endif
-
 void
 mlton_g_on_error_query (SML_CVECTOR_VAL(const gchar, prg_name))
 {
@@ -2398,6 +3030,56 @@ mlton_g_quark_from_string (SML_CVECTOR_VAL(const gchar, string))
 {
   return g_quark_from_string (GET_SML_CVECTOR_VAL(const gchar, string));
 }
+
+#if GLIB_CHECK_VERSION(2, 58, 0)
+char*
+mlton_g_ref_string_acquire (SML_CVECTOR_VAL(char, str))
+{
+  return g_ref_string_acquire (GET_SML_CVECTOR_VAL(char, str));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 58, 0)
+gsize
+mlton_g_ref_string_length (SML_CVECTOR_VAL(char, str))
+{
+  return g_ref_string_length (GET_SML_CVECTOR_VAL(char, str));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 58, 0)
+char*
+mlton_g_ref_string_new (SML_CVECTOR_VAL(const char, str))
+{
+  return g_ref_string_new (GET_SML_CVECTOR_VAL(const char, str));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 58, 0)
+char*
+mlton_g_ref_string_new_intern (SML_CVECTOR_VAL(const char, str))
+{
+  return g_ref_string_new_intern (GET_SML_CVECTOR_VAL(const char, str));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 58, 0)
+char*
+mlton_g_ref_string_new_len (SML_CVECTOR_VAL(const char, str),
+                            gssize len)
+{
+  return g_ref_string_new_len (GET_SML_CVECTOR_VAL(const char, str),
+                               len);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 58, 0)
+void
+mlton_g_ref_string_release (SML_CVECTOR_VAL(char, str))
+{
+  g_ref_string_release (GET_SML_CVECTOR_VAL(char, str));
+}
+#endif
 
 #if GLIB_CHECK_VERSION(2, 6, 0)
 int
@@ -2492,6 +3174,34 @@ mlton_g_spawn_async (SML_CVECTOR_VAL(gchar, working_directory),
                         child_pid,
                         error);
 }
+
+#if GLIB_CHECK_VERSION(2, 58, 0)
+gboolean
+mlton_g_spawn_async_with_fds (SML_CVECTOR_VAL(const gchar, working_directory),
+                              SML_CVECTORVECTOR_VAL(gchar, argv),
+                              SML_CVECTORVECTOR_VAL(gchar, envp),
+                              GSpawnFlags flags,
+                              GSpawnChildSetupFunc child_setup,
+                              gpointer user_data,
+                              GPid* child_pid,
+                              gint stdin_fd,
+                              gint stdout_fd,
+                              gint stderr_fd,
+                              GError** error)
+{
+  return g_spawn_async_with_fds (GET_SML_CVECTOR_VAL(const gchar, working_directory),
+                                 GET_SML_CVECTORVECTOR_VAL(gchar, argv),
+                                 GET_SML_CVECTORVECTOR_VAL(gchar, envp),
+                                 flags,
+                                 child_setup,
+                                 user_data,
+                                 child_pid,
+                                 stdin_fd,
+                                 stdout_fd,
+                                 stderr_fd,
+                                 error);
+}
+#endif
 
 gboolean
 mlton_g_spawn_async_with_pipes (SML_CVECTOR_VAL(gchar, working_directory),
@@ -2657,6 +3367,14 @@ mlton_g_test_skip (SML_CVECTOR_VAL(const gchar, msg))
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 62, 0)
+void
+mlton_g_test_summary (SML_CVECTOR_VAL(const char, summary))
+{
+  g_test_summary (GET_SML_CVECTOR_VAL(const char, summary));
+}
+#endif
+
 void
 mlton_g_test_trap_assertions (SML_CVECTOR_VAL(const char, domain),
                               SML_CVECTOR_VAL(const char, file),
@@ -2701,52 +3419,10 @@ mlton_g_unsetenv (SML_CVECTOR_VAL(const gchar, variable))
 }
 #endif
 
-#if GLIB_CHECK_VERSION(2, 16, 0)
-char*
-mlton_g_uri_escape_string (SML_CVECTOR_VAL(const char, unescaped),
-                           SML_CVECTOR_VAL(const char, reserved_chars_allowed),
-                           gboolean allow_utf8)
+#if GLIB_CHECK_VERSION(2, 52, 0)
+gboolean
+mlton_g_uuid_string_is_valid (SML_CVECTOR_VAL(const gchar, str))
 {
-  return g_uri_escape_string (GET_SML_CVECTOR_VAL(const char, unescaped),
-                              GET_SML_CVECTOR_VAL(const char, reserved_chars_allowed),
-                              allow_utf8);
-}
-#endif
-
-#if GLIB_CHECK_VERSION(2, 6, 0)
-gchar**
-mlton_g_uri_list_extract_uris (SML_CVECTOR_VAL(const gchar, uri_list))
-{
-  return g_uri_list_extract_uris (GET_SML_CVECTOR_VAL(const gchar, uri_list));
-}
-#endif
-
-#if GLIB_CHECK_VERSION(2, 16, 0)
-char*
-mlton_g_uri_parse_scheme (SML_CVECTOR_VAL(const char, uri))
-{
-  return g_uri_parse_scheme (GET_SML_CVECTOR_VAL(const char, uri));
-}
-#endif
-
-#if GLIB_CHECK_VERSION(2, 16, 0)
-char*
-mlton_g_uri_unescape_segment (SML_CVECTOR_VAL(const char, escaped_string),
-                              SML_CVECTOR_VAL(const char, escaped_string_end),
-                              SML_CVECTOR_VAL(const char, illegal_characters))
-{
-  return g_uri_unescape_segment (GET_SML_CVECTOR_VAL(const char, escaped_string),
-                                 GET_SML_CVECTOR_VAL(const char, escaped_string_end),
-                                 GET_SML_CVECTOR_VAL(const char, illegal_characters));
-}
-#endif
-
-#if GLIB_CHECK_VERSION(2, 16, 0)
-char*
-mlton_g_uri_unescape_string (SML_CVECTOR_VAL(const char, escaped_string),
-                             SML_CVECTOR_VAL(const char, illegal_characters))
-{
-  return g_uri_unescape_string (GET_SML_CVECTOR_VAL(const char, escaped_string),
-                                GET_SML_CVECTOR_VAL(const char, illegal_characters));
+  return g_uuid_string_is_valid (GET_SML_CVECTOR_VAL(const gchar, str));
 }
 #endif

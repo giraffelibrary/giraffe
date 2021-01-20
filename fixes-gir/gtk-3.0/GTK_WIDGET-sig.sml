@@ -255,7 +255,7 @@ signature GTK_WIDGET =
     val getOpacity : 'a class -> real
     val getPangoContext : 'a class -> base Pango.ContextClass.class
     val getParent : 'a class -> base class option
-    val getParentWindow : 'a class -> base Gdk.WindowClass.class
+    val getParentWindow : 'a class -> base Gdk.WindowClass.class option
     val getPath : 'a class -> widget_path_t
     val getPointer : 'a class -> LargeInt.int * LargeInt.int
     val getPreferredHeight : 'a class -> LargeInt.int * LargeInt.int

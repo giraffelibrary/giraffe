@@ -9,6 +9,7 @@ local
   ../gobject-2.0/mlton.mlb
   ../gio-2.0/mlton.mlb
   ../gdkpixbuf-2.0/mlton.mlb
+  ../harfbuzz-0.0/mlton.mlb
   ../cairo-1.0/mlton.mlb
   ../pango-1.0/mlton.mlb
   ../gdk-3.0/mlton.mlb

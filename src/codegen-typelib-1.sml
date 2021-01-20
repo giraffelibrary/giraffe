@@ -192,9 +192,11 @@ val _ = require repo ("Gio", "2.0", flags)
 val _ = require repo ("Atk", "1.0", flags)
 val _ = require repo ("GdkPixbuf", "2.0", flags)
 val _ = require repo ("cairo", "1.0", flags)
+val _ = require repo ("HarfBuzz", "0.0", flags)
 val _ = require repo ("Pango", "1.0", flags)
 val _ = require repo ("fontconfig", "2.0", flags)
 val _ = require repo ("freetype2", "2.0", flags)
+val _ = require repo ("PangoFc", "1.0", flags)
 val _ = require repo ("PangoFT2", "1.0", flags)
 val _ = require repo ("Gdk", "3.0", flags)
 val _ = require repo ("xlib", "2.0", flags)
@@ -431,6 +433,7 @@ val errorLog'1 = List.foldl insert errorLog'0 [
     ),
   gen outDir repo ("Atk", "1.0", "ATK") [] ([], [], []),
   gen outDir repo ("GdkPixbuf", "2.0", "GDK_PIXBUF") [] ([], [], []),
+  gen outDir repo ("HarfBuzz", "0.0", "HB") [] ([], [], []),
   gen outDir repo ("Pango", "1.0", "PANGO") [] ([], [], []),
   gen outDir repo ("cairo", "1.0", "") [] ([("GObject", "2.0")], [], []),
   gen outDir repo ("PangoCairo", "1.0", "PANGO") [] ([], [], []),

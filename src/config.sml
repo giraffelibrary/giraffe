@@ -201,7 +201,6 @@ structTypes := [
   (
     [("Gio", "2.0")],
     [
-      ("SettingsBackend",        DisguisedRecord),
       ("UnixMountEntry",         Record (NonBoxed {dup = "g_unix_mount_copy", free = "g_unix_mount_free"})),
       ("UnixMountPoint",         Record (NonBoxed {dup = "g_unix_mount_point_copy", free = "g_unix_mount_point_free"}))
     ]
@@ -211,6 +210,13 @@ structTypes := [
     [
       ("FontOptions",            Record (NonBoxed {dup = "cairo_font_options_copy", free = "cairo_font_options_destroy"})),
       ("RectangleInt",           ValueRecord Flat)
+    ]
+  ),
+  (
+    [("HarfBuzz", "0.0")],
+    [
+      ("feature_t",              ValueRecord Flat),
+      ("segment_properties_t",   ValueRecord Flat)
     ]
   ),
   (
@@ -441,6 +447,9 @@ excludedFunctionSymbols := [
       "g_source_remove_by_user_data",
       "g_spaced_primes_closest",
       "g_stpcpy",
+      "g_unix_get_passwd_entry",  (* GIR data broken: c:type for return value is missing "struct" keyword.
+                                     Not needed as the Basis Library provides `Posix.SysDB.getpwnam`. *)
+      "g_variant_type_string_get_depth_",
       "glib_dummy_decl"
     ]
   ),
@@ -494,9 +503,22 @@ excludedFunctionSymbols := [
        * the struct.  g_application_add_main_option should be used instead. *)
       "g_application_add_main_option_entries",
       "g_dbus_error_register_error",
-      "g_dbus_error_unregister_error",
-      "g_settings_backend_changed_tree",
-      "g_settings_backend_flatten_tree"
+      "g_dbus_error_unregister_error"
+    ]
+  ),
+  (
+    [("HarfBuzz", "0.0")],
+    [
+      "hb_ot_color_glyph_get_layers",
+      "hb_ot_layout_feature_get_characters",
+      "hb_ot_layout_get_glyphs_in_class",
+      "hb_ot_layout_lookup_collect_glyphs",
+      "hb_ot_layout_lookup_get_glyph_alternates",
+      "hb_ot_layout_lookup_substitute_closure",
+      "hb_ot_layout_lookups_substitute_closure",
+      "hb_ot_math_get_glyph_assembly",
+      "hb_ot_math_get_glyph_variants",
+      "hb_ot_meta_get_entry_tags"
     ]
   ),
   (

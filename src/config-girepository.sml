@@ -35,16 +35,14 @@ in
     (("Gio", SOME "DBusInterfaceInfo", "generate_xml", "string_builder"), IN),
     (("Gio", SOME "DBusNodeInfo", "generate_xml", "string_builder"), IN),
 
-    (* https://gitlab.gnome.org/GNOME/glib/-/issues/1258 *)
-    (("Gio", SOME "InputStream", "read", "buffer"), OUT),
-    (("Gio", SOME "InputStream", "read_async", "buffer"), OUT),
-    (("Gio", SOME "InputStream", "read_all", "buffer"), OUT),
-    (("Gio", SOME "InputStream", "read_all_async", "buffer"), OUT),
-
-    (* https://gitlab.gnome.org/GNOME/glib/-/issues/2176 *)
-    (("Gio", SOME "Socket", "receive", "buffer"), OUT),
-    (("Gio", SOME "Socket", "receive_from", "buffer"), OUT),
-    (("Gio", SOME "Socket", "receive_with_blocking", "buffer"), OUT),
+    (* https://gitlab.gnome.org/GNOME/gobject-introspection/-/issues/321 *)
+    (("Gio", SOME "InputStream", "read",           "count"), IN),
+    (("Gio", SOME "InputStream", "read_async",     "count"), IN),
+    (("Gio", SOME "InputStream", "read_all",       "count"), IN),
+    (("Gio", SOME "InputStream", "read_all_async", "count"), IN),
+    (("Gio", SOME "Socket", "receive",               "size"), IN),
+    (("Gio", SOME "Socket", "receive_from",          "size"), IN),
+    (("Gio", SOME "Socket", "receive_with_blocking", "size"), IN),
 
     (* bug 770421 *)
     (("Gtk", SOME "TextIter", "get_attributes", "values"), IN)
@@ -52,16 +50,6 @@ in
 end;
 
 GIRepository.Override.argInfoCallerAllocates := [
-  (* https://gitlab.gnome.org/GNOME/glib/-/issues/1258 *)
-  (("Gio", SOME "InputStream", "read", "buffer"), true),
-  (("Gio", SOME "InputStream", "read_async", "buffer"), true),
-  (("Gio", SOME "InputStream", "read_all", "buffer"), true),
-  (("Gio", SOME "InputStream", "read_all_async", "buffer"), true),
-
-  (* https://gitlab.gnome.org/GNOME/glib/-/issues/2176 *)
-  (("Gio", SOME "Socket", "receive", "buffer"), true),
-  (("Gio", SOME "Socket", "receive_from", "buffer"), true),
-  (("Gio", SOME "Socket", "receive_with_blocking", "buffer"), true)
 ];
 
 let

@@ -27,12 +27,12 @@ signature G_OBJECT =
     structure ValueRecord :
       G_OBJECT_VALUE_RECORD
         where type ('a, 'b) value_accessor_t = ('a, 'b) value_accessor_t
-    structure ValueRecordCArrayN :
-      C_ARRAY
-        where type elem = ValueRecord.t
     structure TypeCArrayN :
       C_ARRAY_N
         where type elem = Type.t
+    structure ValueRecordCArrayN :
+      C_ARRAY_N
+        where type elem = ValueRecord.t
     structure Value :
       G_OBJECT_VALUE
         where type t = ValueRecord.t
@@ -264,6 +264,7 @@ signature G_OBJECT =
         where type type_t = Type.t
         where type 'a binding_class = 'a BindingClass.class
         where type binding_flags_t = BindingFlags.t
+        where type value_record_c_array_n_t = ValueRecordCArrayN.t
         where type value_t = ValueRecord.t
         where type closure_t = ClosureRecord.t
         where type 'a param_spec_class = 'a ParamSpecClass.class
@@ -282,8 +283,10 @@ signature G_OBJECT =
     val TYPE_RESERVED_GLIB_FIRST : LargeInt.int
     val TYPE_RESERVED_GLIB_LAST : LargeInt.int
     val TYPE_RESERVED_USER_FIRST : LargeInt.int
-    val VALUE_COLLECT_FORMAT_MAX_LENGTH : LargeInt.int
+    val VALUE_INTERNED_STRING : LargeInt.int
     val VALUE_NOCOPY_CONTENTS : LargeInt.int
+    val enumToString : Type.t * LargeInt.int -> string
+    val flagsToString : Type.t * LargeInt.int -> string
     val gtypeGetType : unit -> Type.t
     val paramSpecBoolean :
       string
@@ -455,6 +458,7 @@ signature G_OBJECT =
        * ParamFlags.t
        -> base ParamSpecClass.class
     val pointerTypeRegisterStatic : string -> Type.t
+    val signalIsValidName : string -> bool
     val signalListIds : Type.t -> GUIntCArrayN.t
     val signalLookup : string * Type.t -> LargeInt.int
     val signalOverrideClassClosure :

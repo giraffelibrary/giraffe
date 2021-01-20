@@ -232,7 +232,7 @@ structure GtkWidget :>
       val getOpacity_ = call (getSymbol "gtk_widget_get_opacity") (GtkWidgetClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getPangoContext_ = call (getSymbol "gtk_widget_get_pango_context") (GtkWidgetClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
       val getParent_ = call (getSymbol "gtk_widget_get_parent") (GtkWidgetClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
-      val getParentWindow_ = call (getSymbol "gtk_widget_get_parent_window") (GtkWidgetClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getParentWindow_ = call (getSymbol "gtk_widget_get_parent_window") (GtkWidgetClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
       val getPath_ = call (getSymbol "gtk_widget_get_path") (GtkWidgetClass.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
       val getPointer_ =
         call (getSymbol "gtk_widget_get_pointer")
@@ -1066,7 +1066,7 @@ structure GtkWidget :>
     fun getOpacity self = (GtkWidgetClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getOpacity_ self
     fun getPangoContext self = (GtkWidgetClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr false) getPangoContext_ self before GtkWidgetClass.FFI.touchPtr self
     fun getParent self = (GtkWidgetClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getParent_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getParentWindow self = (GtkWidgetClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getParentWindow_ self before GtkWidgetClass.FFI.touchPtr self
+    fun getParentWindow self = (GtkWidgetClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getParentWindow_ self before GtkWidgetClass.FFI.touchPtr self
     fun getPath self = (GtkWidgetClass.FFI.withPtr false ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self before GtkWidgetClass.FFI.touchPtr self
     fun getPointer self =
       let

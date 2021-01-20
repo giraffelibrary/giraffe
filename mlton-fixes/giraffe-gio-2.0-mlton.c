@@ -265,24 +265,24 @@ mlton_g_app_info_get_recommended_for_type (SML_CVECTOR_VAL(const gchar, content_
 
 gboolean
 mlton_g_app_info_launch_default_for_uri (SML_CVECTOR_VAL(const char, uri),
-                                         GAppLaunchContext* launch_context,
+                                         GAppLaunchContext* context,
                                          GError** error)
 {
   return g_app_info_launch_default_for_uri (GET_SML_CVECTOR_VAL(const char, uri),
-                                            launch_context,
+                                            context,
                                             error);
 }
 
 #if GLIB_CHECK_VERSION(2, 50, 0)
 void
 mlton_g_app_info_launch_default_for_uri_async (SML_CVECTOR_VAL(const char, uri),
-                                               GAppLaunchContext* launch_context,
+                                               GAppLaunchContext* context,
                                                GCancellable* cancellable,
                                                GAsyncReadyCallback callback,
                                                gpointer user_data)
 {
   g_app_info_launch_default_for_uri_async (GET_SML_CVECTOR_VAL(const char, uri),
-                                           launch_context,
+                                           context,
                                            cancellable,
                                            callback,
                                            user_data);
@@ -468,6 +468,36 @@ mlton_g_application_set_application_id (GApplication* application,
 {
   g_application_set_application_id (application,
                                     GET_SML_CVECTOR_VAL(const gchar, application_id));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 56, 0)
+void
+mlton_g_application_set_option_context_description (GApplication* application,
+                                                    SML_CVECTOR_VAL(const gchar, description))
+{
+  g_application_set_option_context_description (application,
+                                                GET_SML_CVECTOR_VAL(const gchar, description));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 56, 0)
+void
+mlton_g_application_set_option_context_parameter_string (GApplication* application,
+                                                         SML_CVECTOR_VAL(const gchar, parameter_string))
+{
+  g_application_set_option_context_parameter_string (application,
+                                                     GET_SML_CVECTOR_VAL(const gchar, parameter_string));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 56, 0)
+void
+mlton_g_application_set_option_context_summary (GApplication* application,
+                                                SML_CVECTOR_VAL(const gchar, summary))
+{
+  g_application_set_option_context_summary (application,
+                                            GET_SML_CVECTOR_VAL(const gchar, summary));
 }
 #endif
 
@@ -925,12 +955,12 @@ mlton_g_dbus_error_new_for_dbus_error (SML_CVECTOR_VAL(const gchar, dbus_error_n
 void
 mlton_g_dbus_error_register_error_domain (SML_CVECTOR_VAL(const gchar, error_domain_quark_name),
                                           volatile gsize* quark_volatile,
-                                          const GDBusErrorEntry* entries,
+                                          SML_CVECTOR_VAL(const GDBusErrorEntry, entries),
                                           guint num_entries)
 {
   g_dbus_error_register_error_domain (GET_SML_CVECTOR_VAL(const gchar, error_domain_quark_name),
                                       quark_volatile,
-                                      entries,
+                                      GET_SML_CVECTOR_VAL(const GDBusErrorEntry, entries),
                                       num_entries);
 }
 #endif
@@ -1755,6 +1785,16 @@ mlton_g_desktop_app_info_get_boolean (GDesktopAppInfo* info,
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 56, 0)
+char*
+mlton_g_desktop_app_info_get_locale_string (GDesktopAppInfo* info,
+                                            SML_CVECTOR_VAL(const char, key))
+{
+  return g_desktop_app_info_get_locale_string (info,
+                                               GET_SML_CVECTOR_VAL(const char, key));
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 30, 0)
 gboolean
 mlton_g_desktop_app_info_get_show_in (GDesktopAppInfo* info,
@@ -1772,6 +1812,18 @@ mlton_g_desktop_app_info_get_string (GDesktopAppInfo* info,
 {
   return g_desktop_app_info_get_string (info,
                                         GET_SML_CVECTOR_VAL(const char, key));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 60, 0)
+gchar**
+mlton_g_desktop_app_info_get_string_list (GDesktopAppInfo* info,
+                                          SML_CVECTOR_VAL(const char, key),
+                                          gsize* length)
+{
+  return g_desktop_app_info_get_string_list (info,
+                                             GET_SML_CVECTOR_VAL(const char, key),
+                                             length);
 }
 #endif
 
@@ -1812,6 +1864,16 @@ mlton_g_drive_get_identifier (GDrive* drive,
   return g_drive_get_identifier (drive,
                                  GET_SML_CVECTOR_VAL(const char, kind));
 }
+
+#if GLIB_CHECK_VERSION(2, 60, 0)
+void
+mlton_g_dtls_connection_set_advertised_protocols (GDtlsConnection* conn,
+                                                  SML_CVECTORVECTOR_VAL(const gchar, protocols))
+{
+  g_dtls_connection_set_advertised_protocols (conn,
+                                              GET_SML_CVECTORVECTOR_VAL(const gchar, protocols));
+}
+#endif
 
 GFile*
 mlton_g_file_new_for_commandline_arg (SML_CVECTOR_VAL(const char, arg))
@@ -1916,6 +1978,34 @@ mlton_g_file_has_uri_scheme (GFile* file,
   return g_file_has_uri_scheme (file,
                                 GET_SML_CVECTOR_VAL(const char, uri_scheme));
 }
+
+#if GLIB_CHECK_VERSION(2, 56, 0)
+GBytes*
+mlton_g_file_load_bytes (GFile* file,
+                         GCancellable* cancellable,
+                         SML_CVECTOR_REF(gchar, etag_out),
+                         GError** error)
+{
+  return g_file_load_bytes (file,
+                            cancellable,
+                            GET_SML_CVECTOR_REF(gchar, etag_out),
+                            error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 56, 0)
+GBytes*
+mlton_g_file_load_bytes_finish (GFile* file,
+                                GAsyncResult* result,
+                                SML_CVECTOR_REF(gchar, etag_out),
+                                GError** error)
+{
+  return g_file_load_bytes_finish (file,
+                                   result,
+                                   GET_SML_CVECTOR_REF(gchar, etag_out),
+                                   error);
+}
+#endif
 
 gboolean
 mlton_g_file_load_contents (GFile* file,
@@ -3535,6 +3625,82 @@ mlton_g_output_stream_write_async (GOutputStream* stream,
                                user_data);
 }
 
+#if GLIB_CHECK_VERSION(2, 60, 0)
+gboolean
+mlton_g_output_stream_writev (GOutputStream* stream,
+                              SML_CVECTOR_VAL(const GOutputVector, vectors),
+                              gsize n_vectors,
+                              gsize* bytes_written,
+                              GCancellable* cancellable,
+                              GError** error)
+{
+  return g_output_stream_writev (stream,
+                                 GET_SML_CVECTOR_VAL(const GOutputVector, vectors),
+                                 n_vectors,
+                                 bytes_written,
+                                 cancellable,
+                                 error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 60, 0)
+gboolean
+mlton_g_output_stream_writev_all (GOutputStream* stream,
+                                  SML_CVECTOR_VAL(GOutputVector, vectors),
+                                  gsize n_vectors,
+                                  gsize* bytes_written,
+                                  GCancellable* cancellable,
+                                  GError** error)
+{
+  return g_output_stream_writev_all (stream,
+                                     GET_SML_CVECTOR_VAL(GOutputVector, vectors),
+                                     n_vectors,
+                                     bytes_written,
+                                     cancellable,
+                                     error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 60, 0)
+void
+mlton_g_output_stream_writev_all_async (GOutputStream* stream,
+                                        SML_CVECTOR_VAL(GOutputVector, vectors),
+                                        gsize n_vectors,
+                                        int io_priority,
+                                        GCancellable* cancellable,
+                                        GAsyncReadyCallback callback,
+                                        gpointer user_data)
+{
+  g_output_stream_writev_all_async (stream,
+                                    GET_SML_CVECTOR_VAL(GOutputVector, vectors),
+                                    n_vectors,
+                                    io_priority,
+                                    cancellable,
+                                    callback,
+                                    user_data);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 60, 0)
+void
+mlton_g_output_stream_writev_async (GOutputStream* stream,
+                                    SML_CVECTOR_VAL(const GOutputVector, vectors),
+                                    gsize n_vectors,
+                                    int io_priority,
+                                    GCancellable* cancellable,
+                                    GAsyncReadyCallback callback,
+                                    gpointer user_data)
+{
+  g_output_stream_writev_async (stream,
+                                GET_SML_CVECTOR_VAL(const GOutputVector, vectors),
+                                n_vectors,
+                                io_priority,
+                                cancellable,
+                                callback,
+                                user_data);
+}
+#endif
+
 gssize
 mlton_g_pollable_input_stream_read_nonblocking (GPollableInputStream* stream,
                                                 SML_CVECTOR_VAL(void, buffer),
@@ -3562,6 +3728,24 @@ mlton_g_pollable_output_stream_write_nonblocking (GPollableOutputStream* stream,
                                                      cancellable,
                                                      error);
 }
+
+#if GLIB_CHECK_VERSION(2, 60, 0)
+GPollableReturn
+mlton_g_pollable_output_stream_writev_nonblocking (GPollableOutputStream* stream,
+                                                   SML_CVECTOR_VAL(const GOutputVector, vectors),
+                                                   gsize n_vectors,
+                                                   gsize* bytes_written,
+                                                   GCancellable* cancellable,
+                                                   GError** error)
+{
+  return g_pollable_output_stream_writev_nonblocking (stream,
+                                                      GET_SML_CVECTOR_VAL(const GOutputVector, vectors),
+                                                      n_vectors,
+                                                      bytes_written,
+                                                      cancellable,
+                                                      error);
+}
+#endif
 
 #if GLIB_CHECK_VERSION(2, 38, 0)
 GPropertyAction*
@@ -3688,6 +3872,40 @@ mlton_g_resolver_lookup_by_name_async (GResolver* resolver,
                                    cancellable,
                                    callback,
                                    user_data);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 60, 0)
+GList*
+mlton_g_resolver_lookup_by_name_with_flags (GResolver* resolver,
+                                            SML_CVECTOR_VAL(const gchar, hostname),
+                                            GResolverNameLookupFlags flags,
+                                            GCancellable* cancellable,
+                                            GError** error)
+{
+  return g_resolver_lookup_by_name_with_flags (resolver,
+                                               GET_SML_CVECTOR_VAL(const gchar, hostname),
+                                               flags,
+                                               cancellable,
+                                               error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 60, 0)
+void
+mlton_g_resolver_lookup_by_name_with_flags_async (GResolver* resolver,
+                                                  SML_CVECTOR_VAL(const gchar, hostname),
+                                                  GResolverNameLookupFlags flags,
+                                                  GCancellable* cancellable,
+                                                  GAsyncReadyCallback callback,
+                                                  gpointer user_data)
+{
+  g_resolver_lookup_by_name_with_flags_async (resolver,
+                                              GET_SML_CVECTOR_VAL(const gchar, hostname),
+                                              flags,
+                                              cancellable,
+                                              callback,
+                                              user_data);
 }
 #endif
 
@@ -4257,6 +4475,78 @@ mlton_g_settings_set_value (GSettings* settings,
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 26, 0)
+void
+mlton_g_settings_backend_flatten_tree (GTree* tree,
+                                       SML_CVECTOR_REF(gchar, path),
+                                       SML_CVECTORVECTOR_REF(const gchar, keys),
+                                       SML_CVECTOR_REF(GVariant*, values))
+{
+  g_settings_backend_flatten_tree (tree,
+                                   GET_SML_CVECTOR_REF(gchar, path),
+                                   GET_SML_CVECTORVECTOR_REF(const gchar, keys),
+                                   GET_SML_CVECTOR_REF(GVariant*, values));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 26, 0)
+void
+mlton_g_settings_backend_changed (GSettingsBackend* backend,
+                                  SML_CVECTOR_VAL(const gchar, key),
+                                  gpointer origin_tag)
+{
+  g_settings_backend_changed (backend,
+                              GET_SML_CVECTOR_VAL(const gchar, key),
+                              origin_tag);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 26, 0)
+void
+mlton_g_settings_backend_keys_changed (GSettingsBackend* backend,
+                                       SML_CVECTOR_VAL(const gchar, path),
+                                       SML_CVECTORVECTOR_VAL(const gchar, items),
+                                       gpointer origin_tag)
+{
+  g_settings_backend_keys_changed (backend,
+                                   GET_SML_CVECTOR_VAL(const gchar, path),
+                                   GET_SML_CVECTORVECTOR_VAL(const gchar, items),
+                                   origin_tag);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 26, 0)
+void
+mlton_g_settings_backend_path_changed (GSettingsBackend* backend,
+                                       SML_CVECTOR_VAL(const gchar, path),
+                                       gpointer origin_tag)
+{
+  g_settings_backend_path_changed (backend,
+                                   GET_SML_CVECTOR_VAL(const gchar, path),
+                                   origin_tag);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 26, 0)
+void
+mlton_g_settings_backend_path_writable_changed (GSettingsBackend* backend,
+                                                SML_CVECTOR_VAL(const gchar, path))
+{
+  g_settings_backend_path_writable_changed (backend,
+                                            GET_SML_CVECTOR_VAL(const gchar, path));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 26, 0)
+void
+mlton_g_settings_backend_writable_changed (GSettingsBackend* backend,
+                                           SML_CVECTOR_VAL(const gchar, key))
+{
+  g_settings_backend_writable_changed (backend,
+                                       GET_SML_CVECTOR_VAL(const gchar, key));
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 40, 0)
 GSettingsSchemaKey*
 mlton_g_settings_schema_get_key (GSettingsSchema* schema,
@@ -4431,6 +4721,22 @@ mlton_g_socket_join_multicast_group (GSocket* socket,
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 56, 0)
+gboolean
+mlton_g_socket_join_multicast_group_ssm (GSocket* socket,
+                                         GInetAddress* group,
+                                         GInetAddress* source_specific,
+                                         SML_CVECTOR_VAL(const gchar, iface),
+                                         GError** error)
+{
+  return g_socket_join_multicast_group_ssm (socket,
+                                            group,
+                                            source_specific,
+                                            GET_SML_CVECTOR_VAL(const gchar, iface),
+                                            error);
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 32, 0)
 gboolean
 mlton_g_socket_leave_multicast_group (GSocket* socket,
@@ -4444,6 +4750,22 @@ mlton_g_socket_leave_multicast_group (GSocket* socket,
                                          source_specific,
                                          GET_SML_CVECTOR_VAL(const gchar, iface),
                                          error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 56, 0)
+gboolean
+mlton_g_socket_leave_multicast_group_ssm (GSocket* socket,
+                                          GInetAddress* group,
+                                          GInetAddress* source_specific,
+                                          SML_CVECTOR_VAL(const gchar, iface),
+                                          GError** error)
+{
+  return g_socket_leave_multicast_group_ssm (socket,
+                                             group,
+                                             source_specific,
+                                             GET_SML_CVECTOR_VAL(const gchar, iface),
+                                             error);
 }
 #endif
 
@@ -4578,6 +4900,34 @@ mlton_g_socket_send_message (GSocket* socket,
                                 flags,
                                 cancellable,
                                 error);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 60, 0)
+GPollableReturn
+mlton_g_socket_send_message_with_timeout (GSocket* socket,
+                                          GSocketAddress* address,
+                                          SML_CVECTOR_VAL(const GOutputVector, vectors),
+                                          gint num_vectors,
+                                          SML_CVECTOR_VAL(GSocketControlMessage*, messages),
+                                          gint num_messages,
+                                          gint flags,
+                                          gint64 timeout_us,
+                                          gsize* bytes_written,
+                                          GCancellable* cancellable,
+                                          GError** error)
+{
+  return g_socket_send_message_with_timeout (socket,
+                                             address,
+                                             GET_SML_CVECTOR_VAL(const GOutputVector, vectors),
+                                             num_vectors,
+                                             GET_SML_CVECTOR_VAL(GSocketControlMessage*, messages),
+                                             num_messages,
+                                             flags,
+                                             timeout_us,
+                                             bytes_written,
+                                             cancellable,
+                                             error);
 }
 #endif
 
@@ -4909,6 +5259,16 @@ mlton_g_subprocess_launcher_unsetenv (GSubprocessLauncher* self,
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 60, 0)
+void
+mlton_g_task_set_name (GTask* task,
+                       SML_CVECTOR_VAL(const gchar, name))
+{
+  g_task_set_name (task,
+                   GET_SML_CVECTOR_VAL(const gchar, name));
+}
+#endif
+
 void
 mlton_g_test_dbus_add_service_dir (GTestDBus* self,
                                    SML_CVECTOR_VAL(const gchar, path))
@@ -4999,6 +5359,16 @@ mlton_g_tls_certificate_list_new_from_file (SML_CVECTOR_VAL(gchar, file),
 }
 #endif
 
+#if GLIB_CHECK_VERSION(2, 60, 0)
+void
+mlton_g_tls_connection_set_advertised_protocols (GTlsConnection* conn,
+                                                 SML_CVECTORVECTOR_VAL(const gchar, protocols))
+{
+  g_tls_connection_set_advertised_protocols (conn,
+                                             GET_SML_CVECTORVECTOR_VAL(const gchar, protocols));
+}
+#endif
+
 #if GLIB_CHECK_VERSION(2, 30, 0)
 GTlsCertificate*
 mlton_g_tls_database_lookup_certificate_for_handle (GTlsDatabase* self,
@@ -5029,44 +5399,6 @@ mlton_g_tls_database_lookup_certificate_for_handle_async (GTlsDatabase* self,
 {
   g_tls_database_lookup_certificate_for_handle_async (self,
                                                       GET_SML_CVECTOR_VAL(const gchar, handle),
-                                                      interaction,
-                                                      flags,
-                                                      cancellable,
-                                                      callback,
-                                                      user_data);
-}
-#endif
-
-#if GLIB_CHECK_VERSION(2, 30, 0)
-GList*
-mlton_g_tls_database_lookup_certificates_issued_by (GTlsDatabase* self,
-                                                    SML_CVECTOR_VAL(GByteArray, issuer_raw_dn),
-                                                    GTlsInteraction* interaction,
-                                                    GTlsDatabaseLookupFlags flags,
-                                                    GCancellable* cancellable,
-                                                    GError** error)
-{
-  return g_tls_database_lookup_certificates_issued_by (self,
-                                                       GET_SML_CVECTOR_VAL(GByteArray, issuer_raw_dn),
-                                                       interaction,
-                                                       flags,
-                                                       cancellable,
-                                                       error);
-}
-#endif
-
-#if GLIB_CHECK_VERSION(2, 30, 0)
-void
-mlton_g_tls_database_lookup_certificates_issued_by_async (GTlsDatabase* self,
-                                                          SML_CVECTOR_VAL(GByteArray, issuer_raw_dn),
-                                                          GTlsInteraction* interaction,
-                                                          GTlsDatabaseLookupFlags flags,
-                                                          GCancellable* cancellable,
-                                                          GAsyncReadyCallback callback,
-                                                          gpointer user_data)
-{
-  g_tls_database_lookup_certificates_issued_by_async (self,
-                                                      GET_SML_CVECTOR_VAL(GByteArray, issuer_raw_dn),
                                                       interaction,
                                                       flags,
                                                       cancellable,
@@ -5151,6 +5483,32 @@ mlton_g_tls_password_set_description (GTlsPassword* password,
 
 #if GLIB_CHECK_VERSION(2, 30, 0)
 void
+mlton_g_tls_password_set_value (GTlsPassword* password,
+                                SML_CVECTOR_VAL(const guchar, value),
+                                gssize length)
+{
+  g_tls_password_set_value (password,
+                            GET_SML_CVECTOR_VAL(const guchar, value),
+                            length);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 30, 0)
+void
+mlton_g_tls_password_set_value_full (GTlsPassword* password,
+                                     SML_CVECTOR_VAL(guchar, value),
+                                     gssize length,
+                                     GDestroyNotify destroy)
+{
+  g_tls_password_set_value_full (password,
+                                 GET_SML_CVECTOR_VAL(guchar, value),
+                                 length,
+                                 destroy);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 30, 0)
+void
 mlton_g_tls_password_set_warning (GTlsPassword* password,
                                   SML_CVECTOR_VAL(const gchar, warning))
 {
@@ -5166,6 +5524,16 @@ mlton_g_unix_fd_list_new_from_array (SML_CVECTOR_VAL(gint, fds),
 {
   return g_unix_fd_list_new_from_array (GET_SML_CVECTOR_VAL(gint, fds),
                                         n_fds);
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 66, 0)
+GUnixMountPoint*
+mlton_g_unix_mount_point_at (SML_CVECTOR_VAL(const char, mount_path),
+                             guint64* time_read)
+{
+  return g_unix_mount_point_at (GET_SML_CVECTOR_VAL(const char, mount_path),
+                                time_read);
 }
 #endif
 
@@ -5419,11 +5787,29 @@ mlton_g_content_type_is_a (SML_CVECTOR_VAL(const gchar, type),
                               GET_SML_CVECTOR_VAL(const gchar, supertype));
 }
 
+#if GLIB_CHECK_VERSION(2, 52, 0)
+gboolean
+mlton_g_content_type_is_mime_type (SML_CVECTOR_VAL(const gchar, type),
+                                   SML_CVECTOR_VAL(const gchar, mime_type))
+{
+  return g_content_type_is_mime_type (GET_SML_CVECTOR_VAL(const gchar, type),
+                                      GET_SML_CVECTOR_VAL(const gchar, mime_type));
+}
+#endif
+
 gboolean
 mlton_g_content_type_is_unknown (SML_CVECTOR_VAL(const gchar, type))
 {
   return g_content_type_is_unknown (GET_SML_CVECTOR_VAL(const gchar, type));
 }
+
+#if GLIB_CHECK_VERSION(2, 60, 0)
+void
+mlton_g_content_type_set_mime_dirs (SML_CVECTORVECTOR_VAL(const gchar, dirs))
+{
+  g_content_type_set_mime_dirs (GET_SML_CVECTORVECTOR_VAL(const gchar, dirs));
+}
+#endif
 
 #if GLIB_CHECK_VERSION(2, 36, 0)
 gchar*
@@ -5565,6 +5951,16 @@ mlton_g_io_modules_scan_all_in_directory_with_scope (SML_CVECTOR_VAL(gchar, dirn
 }
 #endif
 
+GSettingsBackend*
+mlton_g_keyfile_settings_backend_new (SML_CVECTOR_VAL(const gchar, filename),
+                                      SML_CVECTOR_VAL(const gchar, root_path),
+                                      SML_CVECTOR_VAL(const gchar, root_group))
+{
+  return g_keyfile_settings_backend_new (GET_SML_CVECTOR_VAL(const gchar, filename),
+                                         GET_SML_CVECTOR_VAL(const gchar, root_path),
+                                         GET_SML_CVECTOR_VAL(const gchar, root_group));
+}
+
 #if GLIB_CHECK_VERSION(2, 34, 0)
 gssize
 mlton_g_pollable_stream_read (GInputStream* stream,
@@ -5678,3 +6074,37 @@ mlton_g_unix_is_mount_path_system_internal (SML_CVECTOR_VAL(char, mount_path))
 {
   return g_unix_is_mount_path_system_internal (GET_SML_CVECTOR_VAL(char, mount_path));
 }
+
+#if GLIB_CHECK_VERSION(2, 56, 0)
+gboolean
+mlton_g_unix_is_system_device_path (SML_CVECTOR_VAL(const char, device_path))
+{
+  return g_unix_is_system_device_path (GET_SML_CVECTOR_VAL(const char, device_path));
+}
+#endif
+
+#if GLIB_CHECK_VERSION(2, 56, 0)
+gboolean
+mlton_g_unix_is_system_fs_type (SML_CVECTOR_VAL(const char, fs_type))
+{
+  return g_unix_is_system_fs_type (GET_SML_CVECTOR_VAL(const char, fs_type));
+}
+#endif
+
+GUnixMountEntry*
+mlton_g_unix_mount_at (SML_CVECTOR_VAL(const char, mount_path),
+                       guint64* time_read)
+{
+  return g_unix_mount_at (GET_SML_CVECTOR_VAL(const char, mount_path),
+                          time_read);
+}
+
+#if GLIB_CHECK_VERSION(2, 52, 0)
+GUnixMountEntry*
+mlton_g_unix_mount_for (SML_CVECTOR_VAL(const char, file_path),
+                        guint64* time_read)
+{
+  return g_unix_mount_for (GET_SML_CVECTOR_VAL(const char, file_path),
+                           time_read);
+}
+#endif

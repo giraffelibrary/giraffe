@@ -4,6 +4,7 @@ structure GObjectObject :>
     where type type_t = GObjectType.t
     where type 'a binding_class = 'a GObjectBindingClass.class
     where type binding_flags_t = GObjectBindingFlags.t
+    where type value_record_c_array_n_t = GObjectValueRecordCArrayN.t
     where type value_t = GObjectValueRecord.t
     where type closure_t = GObjectClosureRecord.t
     where type 'a param_spec_class = 'a GObjectParamSpecClass.class
@@ -116,6 +117,30 @@ structure GObjectObject :>
               x3,
               x4
             )
+    val getv_ =
+      fn
+        x1
+         & x2
+         & (x3, x4)
+         & (x5, x6) =>
+          (
+            _import "mlton_g_object_getv" :
+              GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
+               * GUInt.FFI.val_
+               * Utf8CPtrArrayN.MLton.p1
+               * Utf8CPtrArrayN.FFI.non_opt Utf8CPtrArrayN.MLton.p2
+               * GObjectValueRecordCArrayN.MLton.p1
+               * GObjectValueRecordCArrayN.FFI.non_opt GObjectValueRecordCArrayN.MLton.p2
+               -> unit;
+          )
+            (
+              x1,
+              x2,
+              x3,
+              x4,
+              x5,
+              x6
+            )
     val notify_ =
       fn
         x1 & (x2, x3) =>
@@ -158,6 +183,7 @@ structure GObjectObject :>
     type type_t = GObjectType.t
     type 'a binding_class = 'a GObjectBindingClass.class
     type binding_flags_t = GObjectBindingFlags.t
+    type value_record_c_array_n_t = GObjectValueRecordCArrayN.t
     type value_t = GObjectValueRecord.t
     type closure_t = GObjectClosureRecord.t
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
@@ -283,6 +309,27 @@ structure GObjectObject :>
            & propertyName
            & value
         )
+    fun getv self (names, values) =
+      let
+        val nProperties = LargeInt.fromInt (GObjectValueRecordCArrayN.length values)
+        val () =
+          (
+            GObjectObjectClass.FFI.withPtr false
+             &&&> GUInt.FFI.withVal
+             &&&> Utf8CPtrArrayN.FFI.withPtr 0
+             &&&> GObjectValueRecordCArrayN.FFI.withPtr 0
+             ---> I
+          )
+            getv_
+            (
+              self
+               & nProperties
+               & names
+               & values
+            )
+      in
+        ()
+      end
     fun notify self propertyName = (GObjectObjectClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) notify_ (self & propertyName)
     fun notifyByPspec self pspec = (GObjectObjectClass.FFI.withPtr false &&&> GObjectParamSpecClass.FFI.withPtr false ---> I) notifyByPspec_ (self & pspec)
     fun runDispose self = (GObjectObjectClass.FFI.withPtr false ---> I) runDispose_ self

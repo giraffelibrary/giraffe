@@ -4,8 +4,11 @@
   <tree style="lines">
     <item>
       GLib-2.0
+      <item>alias MainContextPusher: type VOID not expected</item>
       <item>alias MutexLocker: type VOID not expected</item>
-      <item>alias Strv: type VOID not expected</item>
+      <item>alias RWLockReaderLocker: type VOID not expected</item>
+      <item>alias RWLockWriterLocker: type VOID not expected</item>
+      <item>alias RecMutexLocker: type VOID not expected</item>
       <item>alias Type: alias excluded by configuration (excludedAliasNames)</item>
       <item>constant ASCII_DTOSTR_BUF_SIZE: constant excluded by configuration (excludedConstantNames)</item>
       <item>struct Array: interface type excluded by configuration (excludedInterfaceTypes)</item>
@@ -152,11 +155,6 @@
       <item>struct Hmac: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
       <item>struct Hook: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (data, next, prev, func, destroy)</item>
       <item>struct HookList: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (hooks, dummy3, finalize_hook, dummy)</item>
-      <item>
-        struct IConv
-        <item>function : moved to iconv</item>
-        <item>function : moved to iconv</item>
-      </item>
       <item>constant IEEE754_DOUBLE_BIAS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
       <item>constant IEEE754_FLOAT_BIAS: constant excluded by configuration (excludedConstantNamePrefixes)</item>
       <item>
@@ -240,8 +238,6 @@
         <item>field ref_count: private</item>
         <item>field funcs: private</item>
         <item>field encoding: private</item>
-        <item>field read_cd: private</item>
-        <item>field write_cd: private</item>
         <item>field line_term: private</item>
         <item>field line_term_len: private</item>
         <item>field buf_size: private</item>
@@ -261,50 +257,8 @@
       <item>struct IOFuncs: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (io_read, io_write, io_seek, io_close, io_create_watch, io_free, io_set_flags, io_get_flags)</item>
       <item>
         struct KeyFile
-        <item>
-          function set_boolean_list
-          <item>
-            arg list
-            <item>type array: non-pointer C type for ARRAY type not supported</item>
-          </item>
-        </item>
-        <item>
-          function set_double_list
-          <item>
-            arg list
-            <item>type array: non-pointer C type for ARRAY type not supported</item>
-          </item>
-        </item>
-        <item>
-          function set_integer_list
-          <item>
-            arg list
-            <item>type array: non-pointer C type for ARRAY type not supported</item>
-          </item>
-        </item>
         <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
         <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
-        <item>
-          function set_boolean_list
-          <item>
-            arg list
-            <item>type array: non-pointer C type for ARRAY type not supported</item>
-          </item>
-        </item>
-        <item>
-          function set_double_list
-          <item>
-            arg list
-            <item>type array: non-pointer C type for ARRAY type not supported</item>
-          </item>
-        </item>
-        <item>
-          function set_integer_list
-          <item>
-            arg list
-            <item>type array: non-pointer C type for ARRAY type not supported</item>
-          </item>
-        </item>
         <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
         <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
       </item>
@@ -358,13 +312,6 @@
               type interface
               <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
             </item>
-          </item>
-        </item>
-        <item>
-          function prepare
-          <item>
-            arg priority
-            <item>type gint: pointer C type for scalar (INT) not supported</item>
           </item>
         </item>
         <item>
@@ -441,13 +388,6 @@
               type interface
               <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
             </item>
-          </item>
-        </item>
-        <item>
-          function prepare
-          <item>
-            arg priority
-            <item>type gint: pointer C type for scalar (INT) not supported</item>
           </item>
         </item>
         <item>
@@ -515,13 +455,6 @@
           </item>
         </item>
         <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-        <item>
-          function get_position
-          <item>
-            arg char_number
-            <item>type gint: pointer C type for scalar (INT) not supported</item>
-          </item>
-        </item>
         <item>function get_user_data: pointer C type for VOID not supported</item>
         <item>function pop: pointer C type for VOID not supported</item>
         <item>
@@ -541,13 +474,6 @@
           </item>
         </item>
         <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
-        <item>
-          function get_position
-          <item>
-            arg char_number
-            <item>type gint: pointer C type for scalar (INT) not supported</item>
-          </item>
-        </item>
         <item>function get_user_data: pointer C type for VOID not supported</item>
         <item>function pop: pointer C type for VOID not supported</item>
         <item>
@@ -591,8 +517,11 @@
           <item>
             arg entries
             <item>
-              type interface
-              <item>struct OptionEntry: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              type array
+              <item>
+                type interface
+                <item>struct OptionEntry: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              </item>
             </item>
           </item>
         </item>
@@ -624,8 +553,11 @@
           <item>
             arg entries
             <item>
-              type interface
-              <item>struct OptionEntry: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              type array
+              <item>
+                type interface
+                <item>struct OptionEntry: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              </item>
             </item>
           </item>
         </item>
@@ -835,6 +767,14 @@
       <item>struct TestSuite: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
       <item>
         struct Thread
+        <item>
+          function new
+          <item>arg data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function try_new
+          <item>arg data: pointer C type for VOID not supported</item>
+        </item>
         <item>function join: pointer C type for VOID not supported</item>
         <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
         <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -842,6 +782,14 @@
         <item>
           function exit
           <item>arg retval: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function new
+          <item>arg data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function try_new
+          <item>arg data: pointer C type for VOID not supported</item>
         </item>
         <item>function join: pointer C type for VOID not supported</item>
         <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -881,6 +829,20 @@
       <item>constant USEC_PER_SEC: constant excluded by configuration (excludedConstantNames)</item>
       <item>enum UnicodeBreakType: interface type excluded by configuration (excludedInterfaceTypes)</item>
       <item>enum UnicodeScript: interface type excluded by configuration (excludedInterfaceTypes)</item>
+      <item>
+        struct Uri
+        <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
+        <item>
+          function parse_params
+          <item>type ghash: type GHASH not supported</item>
+        </item>
+        <item>function error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
+        <item>
+          function parse_params
+          <item>type ghash: type GHASH not supported</item>
+        </item>
+      </item>
+      <item>struct UriParamsIter: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (dummy1, dummy2, dummy3)</item>
       <item>constant VA_COPY_AS_ARRAY: constant excluded by configuration (excludedConstantNames)</item>
       <item>
         struct Variant
@@ -952,7 +914,9 @@
       <item>
         struct VariantType
         <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+        <item>function string_get_depth_: function excluded by configuration (excludedFunctionSymbols)</item>
         <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+        <item>function string_get_depth_: function excluded by configuration (excludedFunctionSymbols)</item>
       </item>
       <item>constant WIN32_MSG_HANDLE: constant excluded by configuration (excludedConstantNames)</item>
       <item>function access: function excluded by configuration (excludedFunctionSymbols)</item>
@@ -961,6 +925,8 @@
       <item>function ascii_formatd: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function ascii_strcasecmp: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function ascii_strdown: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
+      <item>function ascii_string_to_signed: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
+      <item>function ascii_string_to_unsigned: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function ascii_strncasecmp: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function ascii_strtod: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function ascii_strtoll: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
@@ -1085,15 +1051,64 @@
         <item>arg atomic: pointer C type for VOID not supported</item>
       </item>
       <item>
-        function base64_decode_inplace
-        <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
+        function atomic_rc_box_acquire
+        <item>arg mem_block: pointer C type for VOID not supported</item>
+      </item>
+      <item>function atomic_rc_box_alloc: pointer C type for VOID not supported</item>
+      <item>function atomic_rc_box_alloc0: pointer C type for VOID not supported</item>
+      <item>
+        function atomic_rc_box_dup
+        <item>arg mem_block: pointer C type for VOID not supported</item>
       </item>
       <item>
-        function base64_decode_step
+        function atomic_rc_box_get_size
+        <item>arg mem_block: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function atomic_rc_box_release
+        <item>arg mem_block: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function atomic_rc_box_release_full
         <item>
-          arg out
-          <item>type array: cannot determine array length</item>
+          arg clear_func
+          <item>
+            type interface
+            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+          </item>
         </item>
+      </item>
+      <item>
+        function atomic_ref_count_compare
+        <item>
+          arg arc
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function atomic_ref_count_dec
+        <item>
+          arg arc
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function atomic_ref_count_inc
+        <item>
+          arg arc
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function atomic_ref_count_init
+        <item>
+          arg arc
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function base64_decode_inplace
+        <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
       </item>
       <item>
         function base64_encode_close
@@ -1139,33 +1154,14 @@
       <item>function byte_array_free_to_bytes: moved to ByteArray.free_to_bytes</item>
       <item>function byte_array_new: moved to ByteArray.new</item>
       <item>function byte_array_new_take: moved to ByteArray.new_take</item>
+      <item>function byte_array_steal: moved to ByteArray.steal</item>
       <item>function byte_array_unref: moved to ByteArray.unref</item>
       <item>function checksum_type_get_length: moved to Checksum.type_get_length</item>
       <item>function clear_error: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function convert_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
       <item>
-        function convert_with_fallback
-        <item>
-          arg bytes_written
-          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
-        </item>
-      </item>
-      <item>
-        function convert_with_iconv
-        <item>
-          arg bytes_written
-          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
-        </item>
-      </item>
-      <item>
-        function datalist_clear
-        <item>
-          arg datalist
-          <item>
-            type interface
-            <item>struct Data: interface type excluded by configuration (excludedInterfaceTypes)</item>
-          </item>
-        </item>
+        function datalist_foreach
+        <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>
         function datalist_get_data
@@ -1189,46 +1185,6 @@
       </item>
       <item>
         function datalist_id_get_data
-        <item>
-          arg datalist
-          <item>
-            type interface
-            <item>struct Data: interface type excluded by configuration (excludedInterfaceTypes)</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function datalist_id_remove_no_notify
-        <item>
-          arg datalist
-          <item>
-            type interface
-            <item>struct Data: interface type excluded by configuration (excludedInterfaceTypes)</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function datalist_id_replace_data
-        <item>
-          arg old_destroy
-          <item>
-            type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function datalist_id_set_data_full
-        <item>
-          arg destroy_func
-          <item>
-            type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function datalist_init
         <item>
           arg datalist
           <item>
@@ -1262,22 +1218,12 @@
         <item>arg dataset_location: pointer C type for VOID not supported</item>
       </item>
       <item>
+        function dataset_foreach
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
+      <item>
         function dataset_id_get_data
         <item>arg dataset_location: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function dataset_id_remove_no_notify
-        <item>arg dataset_location: pointer C type for VOID not supported</item>
-      </item>
-      <item>
-        function dataset_id_set_data_full
-        <item>
-          arg destroy_func
-          <item>
-            type interface
-            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
-          </item>
-        </item>
       </item>
       <item>function date_get_days_in_month: moved to Date.get_days_in_month</item>
       <item>function date_get_monday_weeks_in_year: moved to Date.get_monday_weeks_in_year</item>
@@ -1332,6 +1278,7 @@
       <item>function hash_table_size: moved to HashTable.size</item>
       <item>function hash_table_steal: moved to HashTable.steal</item>
       <item>function hash_table_steal_all: moved to HashTable.steal_all</item>
+      <item>function hash_table_steal_extended: moved to HashTable.steal_extended</item>
       <item>function hash_table_unref: moved to HashTable.unref</item>
       <item>function hook_destroy: moved to Hook.destroy</item>
       <item>function hook_destroy_link: moved to Hook.destroy_link</item>
@@ -1339,13 +1286,6 @@
       <item>function hook_insert_before: moved to Hook.insert_before</item>
       <item>function hook_prepend: moved to Hook.prepend</item>
       <item>function hook_unref: moved to Hook.unref</item>
-      <item>
-        function iconv
-        <item>
-          arg outbytes_left
-          <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
-        </item>
-      </item>
       <item>
         function idle_remove_by_data
         <item>arg data: pointer C type for VOID not supported</item>
@@ -1452,6 +1392,7 @@
         function nullify_pointer
         <item>arg nullify_location: pointer C type for VOID not supported</item>
       </item>
+      <item>function number_parser_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
       <item>function once_init_enter: moved to Once.init_enter</item>
       <item>function once_init_leave: moved to Once.init_leave</item>
       <item>function option_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
@@ -1520,12 +1461,68 @@
       <item>function quark_from_static_string: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>function quark_try_string: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
+        function rc_box_acquire
+        <item>arg mem_block: pointer C type for VOID not supported</item>
+      </item>
+      <item>function rc_box_alloc: pointer C type for VOID not supported</item>
+      <item>function rc_box_alloc0: pointer C type for VOID not supported</item>
+      <item>
+        function rc_box_dup
+        <item>arg mem_block: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function rc_box_get_size
+        <item>arg mem_block: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function rc_box_release
+        <item>arg mem_block: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function rc_box_release_full
+        <item>
+          arg clear_func
+          <item>
+            type interface
+            <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
         function realloc
         <item>arg mem: pointer C type for VOID not supported</item>
       </item>
       <item>
         function realloc_n
         <item>arg mem: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function ref_count_compare
+        <item>
+          arg rc
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function ref_count_dec
+        <item>
+          arg rc
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function ref_count_inc
+        <item>
+          arg rc
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function ref_count_init
+        <item>
+          arg rc
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
       </item>
       <item>function regex_check_replacement: moved to Regex.check_replacement</item>
       <item>function regex_error_quark: moved to Regex.error_quark</item>
@@ -1534,8 +1531,10 @@
       <item>function regex_match_simple: moved to Regex.match_simple</item>
       <item>function regex_split_simple: moved to Regex.split_simple</item>
       <item>function sequence_get: moved to Sequence.get</item>
+      <item>function sequence_insert_before: moved to Sequence.insert_before</item>
       <item>function sequence_move: moved to Sequence.move</item>
       <item>function sequence_move_range: moved to Sequence.move_range</item>
+      <item>function sequence_range_get_midpoint: moved to Sequence.range_get_midpoint</item>
       <item>function sequence_remove: moved to Sequence.remove</item>
       <item>function sequence_remove_range: moved to Sequence.remove_range</item>
       <item>function sequence_set: moved to Sequence.set</item>
@@ -1576,6 +1575,10 @@
       <item>function spaced_primes_closest: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function spawn_async
+        <item>arg user_data: pointer C type for VOID not supported</item>
+      </item>
+      <item>
+        function spawn_async_with_fds
         <item>arg user_data: pointer C type for VOID not supported</item>
       </item>
       <item>function spawn_error_quark: function excluded by configuration (excludedFunctionSymbolSuffixes)</item>
@@ -1623,6 +1626,7 @@
       <item>function strtod: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function strup: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function strv_contains: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
+      <item>function strv_equal: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function strv_get_type: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function strv_length: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>
@@ -1788,6 +1792,7 @@
           </item>
         </item>
       </item>
+      <item>function unix_get_passwd_entry: function excluded by configuration (excludedFunctionSymbols)</item>
       <item>
         function unix_open_pipe
         <item>
@@ -1805,6 +1810,26 @@
           </item>
         </item>
       </item>
+      <item>function uri_build: moved to Uri.build</item>
+      <item>function uri_build_with_user: moved to Uri.build_with_user</item>
+      <item>function uri_error_quark: moved to Uri.error_quark</item>
+      <item>function uri_escape_bytes: moved to Uri.escape_bytes</item>
+      <item>function uri_escape_string: moved to Uri.escape_string</item>
+      <item>function uri_is_valid: moved to Uri.is_valid</item>
+      <item>function uri_join: moved to Uri.join</item>
+      <item>function uri_join_with_user: moved to Uri.join_with_user</item>
+      <item>function uri_list_extract_uris: moved to Uri.list_extract_uris</item>
+      <item>function uri_parse: moved to Uri.parse</item>
+      <item>function uri_parse_params: moved to Uri.parse_params</item>
+      <item>function uri_parse_scheme: moved to Uri.parse_scheme</item>
+      <item>function uri_peek_scheme: moved to Uri.peek_scheme</item>
+      <item>function uri_resolve_relative: moved to Uri.resolve_relative</item>
+      <item>function uri_split: moved to Uri.split</item>
+      <item>function uri_split_network: moved to Uri.split_network</item>
+      <item>function uri_split_with_user: moved to Uri.split_with_user</item>
+      <item>function uri_unescape_bytes: moved to Uri.unescape_bytes</item>
+      <item>function uri_unescape_segment: moved to Uri.unescape_segment</item>
+      <item>function uri_unescape_string: moved to Uri.unescape_string</item>
       <item>
         function utf16_to_ucs4
         <item>
@@ -1827,6 +1852,7 @@
       <item>function utf8_find_prev_char: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function utf8_get_char: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function utf8_get_char_validated: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
+      <item>function utf8_make_valid: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function utf8_normalize: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function utf8_offset_to_pointer: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function utf8_pointer_to_offset: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
@@ -1843,6 +1869,7 @@
       <item>function utf8_to_ucs4_fast: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function utf8_to_utf16: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function utf8_validate: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
+      <item>function utf8_validate_len: function excluded by configuration (excludedFunctionSymbolPrefixes)</item>
       <item>function variant_is_object_path: moved to Variant.is_object_path</item>
       <item>function variant_is_signature: moved to Variant.is_signature</item>
       <item>function variant_parse: moved to Variant.parse</item>
@@ -1850,6 +1877,7 @@
       <item>function variant_parse_error_quark: moved to Variant.parse_error_quark</item>
       <item>function variant_parser_get_error_quark: moved to Variant.parser_get_error_quark</item>
       <item>function variant_type_checked_: moved to VariantType.checked_</item>
+      <item>function variant_type_string_get_depth_: moved to VariantType.string_get_depth_</item>
       <item>function variant_type_string_is_valid: moved to VariantType.string_is_valid</item>
       <item>function variant_type_string_scan: moved to VariantType.string_scan</item>
     </item>
@@ -1912,7 +1940,7 @@
       <item>
         object Object
         <item>
-          function new
+          function newv
           <item>
             arg parameters
             <item>
@@ -1937,26 +1965,6 @@
         <item>function is_floating: function excluded by configuration (excludedFunctionSymbols)</item>
         <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
         <item>function ref_sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
-        <item>
-          function replace_data
-          <item>
-            arg old_destroy
-            <item>
-              type interface
-              <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
-            </item>
-          </item>
-        </item>
-        <item>
-          function replace_qdata
-          <item>
-            arg old_destroy
-            <item>
-              type interface
-              <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
-            </item>
-          </item>
-        </item>
         <item>
           function set_data
           <item>arg data: pointer C type for VOID not supported</item>
@@ -1965,7 +1973,7 @@
         <item>function steal_qdata: pointer C type for VOID not supported</item>
         <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
         <item>
-          function new
+          function newv
           <item>
             arg parameters
             <item>
@@ -1990,26 +1998,6 @@
         <item>function is_floating: function excluded by configuration (excludedFunctionSymbols)</item>
         <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
         <item>function ref_sink: non-user function excluded by configuration (nonUserFunctionNames)</item>
-        <item>
-          function replace_data
-          <item>
-            arg old_destroy
-            <item>
-              type interface
-              <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
-            </item>
-          </item>
-        </item>
-        <item>
-          function replace_qdata
-          <item>
-            arg old_destroy
-            <item>
-              type interface
-              <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
-            </item>
-          </item>
-        </item>
         <item>
           function set_data
           <item>arg data: pointer C type for VOID not supported</item>
@@ -2417,16 +2405,14 @@
           <item>arg v_boxed: pointer C type for VOID not supported</item>
         </item>
         <item>field g_type: private</item>
-        <item>field data: union interface type not included by configuration (includedUnionNames)</item>
+        <item>field data: isPointer cannot be used for an alias type</item>
       </item>
       <item>
         struct ValueArray
-        <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
         <item>
           function sort
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
-        <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
         <item>
           function sort
           <item>arg user_data: pointer C type for VOID not supported</item>
@@ -2466,6 +2452,13 @@
       <item>function cclosure_marshal_VOID__VARIANT: moved to CClosure.marshal_VOID__VARIANT</item>
       <item>function cclosure_marshal_VOID__VOID: moved to CClosure.marshal_VOID__VOID</item>
       <item>function cclosure_marshal_generic: moved to CClosure.marshal_generic</item>
+      <item>
+        function clear_signal_handler
+        <item>
+          arg handler_id_ptr
+          <item>type gulong: pointer C type for scalar (ULONG) not supported</item>
+        </item>
+      </item>
       <item>
         function enum_complete_type_info
         <item>
@@ -2800,6 +2793,10 @@
           </item>
         </item>
         <item>
+          function launch_uris_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
           function get_all
           <item>type glist: type GLIST not supported</item>
         </item>
@@ -2832,6 +2829,10 @@
             arg uris
             <item>type glist: type GLIST not supported</item>
           </item>
+        </item>
+        <item>
+          function launch_uris_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
       </item>
       <item>struct AppInfoIface: class struct</item>
@@ -3198,8 +3199,11 @@
           <item>
             arg entries
             <item>
-              type interface
-              <item>struct DBusErrorEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (dbus_error_name)</item>
+              type array
+              <item>
+                type interface
+                <item>struct DBusErrorEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (dbus_error_name)</item>
+              </item>
             </item>
           </item>
         </item>
@@ -3243,8 +3247,11 @@
           <item>
             arg entries
             <item>
-              type interface
-              <item>struct DBusErrorEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (dbus_error_name)</item>
+              type array
+              <item>
+                type interface
+                <item>struct DBusErrorEntry: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (dbus_error_name)</item>
+              </item>
             </item>
           </item>
         </item>
@@ -3586,11 +3593,19 @@
           <item>arg pid_callback_data: pointer C type for VOID not supported</item>
         </item>
         <item>
+          function launch_uris_as_manager_with_fds
+          <item>arg pid_callback_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
           function get_implementations
           <item>type glist: type GLIST not supported</item>
         </item>
         <item>
           function launch_uris_as_manager
+          <item>arg pid_callback_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function launch_uris_as_manager_with_fds
           <item>arg pid_callback_data: pointer C type for VOID not supported</item>
         </item>
       </item>
@@ -3669,6 +3684,13 @@
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
         <item>
+          function get_channel_binding_data
+          <item>
+            arg data
+            <item>type array: array type GByteArray not supported</item>
+          </item>
+        </item>
+        <item>
           function handshake_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
@@ -3676,11 +3698,19 @@
           function shutdown_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
+        <item>property advertised-protocols: type ARRAY not supported</item>
         <item>
           function close_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
         <item>
+          function get_channel_binding_data
+          <item>
+            arg data
+            <item>type array: array type GByteArray not supported</item>
+          </item>
+        </item>
+        <item>
           function handshake_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
@@ -3688,6 +3718,7 @@
           function shutdown_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
+        <item>property advertised-protocols: type ARRAY not supported</item>
       </item>
       <item>struct DtlsConnectionInterface: class struct</item>
       <item>struct DtlsServerConnectionInterface: class struct</item>
@@ -3718,6 +3749,10 @@
           <item>arg progress_callback_data: pointer C type for VOID not supported</item>
         </item>
         <item>
+          function copy_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
           function create_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
@@ -3746,6 +3781,10 @@
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
         <item>
+          function load_bytes_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
           function load_contents_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
@@ -3771,6 +3810,10 @@
         </item>
         <item>
           function poll_mountable
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function query_default_handler_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
         <item>
@@ -3842,6 +3885,10 @@
           <item>arg progress_callback_data: pointer C type for VOID not supported</item>
         </item>
         <item>
+          function copy_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
           function create_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
@@ -3870,6 +3917,10 @@
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
         <item>
+          function load_bytes_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
           function load_contents_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
@@ -3895,6 +3946,10 @@
         </item>
         <item>
           function poll_mountable
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function query_default_handler_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
         <item>
@@ -4048,26 +4103,12 @@
           <item>arg value_p: pointer C type for VOID not supported</item>
         </item>
         <item>
-          function set_attribute_stringv
-          <item>
-            arg attr_value
-            <item>type array: cannot determine array length</item>
-          </item>
-        </item>
-        <item>
           function get_attribute_data
           <item>arg value_pp: pointer C type for VOID not supported</item>
         </item>
         <item>
           function set_attribute
           <item>arg value_p: pointer C type for VOID not supported</item>
-        </item>
-        <item>
-          function set_attribute_stringv
-          <item>
-            arg attr_value
-            <item>type array: cannot determine array length</item>
-          </item>
         </item>
       </item>
       <item>struct FileInfoClass: class struct</item>
@@ -4282,12 +4323,32 @@
       <item>
         object ListStore
         <item>
+          function find_with_equal_func
+          <item>
+            arg equal_func
+            <item>
+              type interface
+              <item>callback GLib.EqualFunc: type CALLBACK INTERFACE not supported</item>
+            </item>
+          </item>
+        </item>
+        <item>
           function insert_sorted
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
         <item>
           function sort
           <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function find_with_equal_func
+          <item>
+            arg equal_func
+            <item>
+              type interface
+              <item>callback GLib.EqualFunc: type CALLBACK INTERFACE not supported</item>
+            </item>
+          </item>
         </item>
         <item>
           function insert_sorted
@@ -4358,6 +4419,7 @@
       </item>
       <item>struct MemoryInputStreamClass: class struct</item>
       <item>struct MemoryInputStreamPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+      <item>struct MemoryMonitorInterface: class struct</item>
       <item>
         object MemoryOutputStream
         <item>function get_data: pointer C type for VOID not supported</item>
@@ -4465,7 +4527,21 @@
       </item>
       <item>struct MountOperationClass: class struct</item>
       <item>struct MountOperationPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
-      <item>struct NativeSocketAddress: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+      <item>
+        object NativeSocketAddress
+        <item>
+          function new
+          <item>arg native: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function new
+          <item>arg native: pointer C type for VOID not supported</item>
+        </item>
+        <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+        <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+      </item>
+      <item>struct NativeSocketAddressClass: class struct</item>
+      <item>struct NativeSocketAddressPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>
         object NativeVolumeMonitor
         <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
@@ -4525,6 +4601,40 @@
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
         <item>
+          function writev
+          <item>
+            arg vectors
+            <item>
+              type array
+              <item>
+                type interface
+                <item>struct OutputVector: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              </item>
+            </item>
+          </item>
+        </item>
+        <item>
+          function writev_all
+          <item>
+            arg vectors
+            <item>
+              type array
+              <item>
+                type interface
+                <item>struct OutputVector: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              </item>
+            </item>
+          </item>
+        </item>
+        <item>
+          function writev_all_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function writev_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
           function close_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
@@ -4546,6 +4656,40 @@
         </item>
         <item>
           function write_bytes_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function writev
+          <item>
+            arg vectors
+            <item>
+              type array
+              <item>
+                type interface
+                <item>struct OutputVector: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              </item>
+            </item>
+          </item>
+        </item>
+        <item>
+          function writev_all
+          <item>
+            arg vectors
+            <item>
+              type array
+              <item>
+                type interface
+                <item>struct OutputVector: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              </item>
+            </item>
+          </item>
+        </item>
+        <item>
+          function writev_all_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function writev_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
         <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
@@ -4578,6 +4722,35 @@
       <item>struct PermissionClass: class struct</item>
       <item>struct PermissionPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>struct PollableInputStreamInterface: class struct</item>
+      <item>
+        interface PollableOutputStream
+        <item>
+          function writev_nonblocking
+          <item>
+            arg vectors
+            <item>
+              type array
+              <item>
+                type interface
+                <item>struct OutputVector: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              </item>
+            </item>
+          </item>
+        </item>
+        <item>
+          function writev_nonblocking
+          <item>
+            arg vectors
+            <item>
+              type array
+              <item>
+                type interface
+                <item>struct OutputVector: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              </item>
+            </item>
+          </item>
+        </item>
+      </item>
       <item>struct PollableOutputStreamInterface: class struct</item>
       <item>
         interface Proxy
@@ -4637,6 +4810,18 @@
           <item>type glist: type GLIST not supported</item>
         </item>
         <item>
+          function lookup_by_name_with_flags
+          <item>type glist: type GLIST not supported</item>
+        </item>
+        <item>
+          function lookup_by_name_with_flags_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function lookup_by_name_with_flags_finish
+          <item>type glist: type GLIST not supported</item>
+        </item>
+        <item>
           function lookup_records
           <item>type glist: type GLIST not supported</item>
         </item>
@@ -4674,6 +4859,18 @@
         </item>
         <item>
           function lookup_by_name_finish
+          <item>type glist: type GLIST not supported</item>
+        </item>
+        <item>
+          function lookup_by_name_with_flags
+          <item>type glist: type GLIST not supported</item>
+        </item>
+        <item>
+          function lookup_by_name_with_flags_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function lookup_by_name_with_flags_finish
           <item>type glist: type GLIST not supported</item>
         </item>
         <item>
@@ -4740,6 +4937,65 @@
         <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
         <item>field priv: field not included by configuration (includedClassFieldNames)</item>
       </item>
+      <item>
+        object SettingsBackend
+        <item>
+          function flatten_tree
+          <item>
+            arg tree
+            <item>
+              type interface
+              <item>struct GLib.Tree: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+            </item>
+          </item>
+        </item>
+        <item>
+          function changed
+          <item>arg origin_tag: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function changed_tree
+          <item>arg origin_tag: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function keys_changed
+          <item>arg origin_tag: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function path_changed
+          <item>arg origin_tag: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function flatten_tree
+          <item>
+            arg tree
+            <item>
+              type interface
+              <item>struct GLib.Tree: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+            </item>
+          </item>
+        </item>
+        <item>
+          function changed
+          <item>arg origin_tag: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function changed_tree
+          <item>arg origin_tag: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function keys_changed
+          <item>arg origin_tag: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function path_changed
+          <item>arg origin_tag: pointer C type for VOID not supported</item>
+        </item>
+        <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
+        <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+      </item>
+      <item>struct SettingsBackendClass: class struct</item>
+      <item>struct SettingsBackendPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>struct SettingsClass: class struct</item>
       <item>struct SettingsPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>
@@ -4877,6 +5133,19 @@
           </item>
         </item>
         <item>
+          function send_message_with_timeout
+          <item>
+            arg vectors
+            <item>
+              type array
+              <item>
+                type interface
+                <item>struct OutputVector: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              </item>
+            </item>
+          </item>
+        </item>
+        <item>
           function send_messages
           <item>
             arg messages
@@ -4917,6 +5186,19 @@
         </item>
         <item>
           function send_message
+          <item>
+            arg vectors
+            <item>
+              type array
+              <item>
+                type interface
+                <item>struct OutputVector: interface type excluded by configuration (excludedInterfaceTypes)</item>
+              </item>
+            </item>
+          </item>
+        </item>
+        <item>
+          function send_message_with_timeout
           <item>
             arg vectors
             <item>
@@ -5124,29 +5406,6 @@
         <item>property argv: type ARRAY not supported</item>
       </item>
       <item>
-        object SubprocessLauncher
-        <item>
-          function set_child_setup
-          <item>
-            arg destroy_notify
-            <item>
-              type interface
-              <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
-            </item>
-          </item>
-        </item>
-        <item>
-          function set_child_setup
-          <item>
-            arg destroy_notify
-            <item>
-              type interface
-              <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
-            </item>
-          </item>
-        </item>
-      </item>
-      <item>
         object Task
         <item>
           function new
@@ -5176,6 +5435,26 @@
             <item>
               type interface
               <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            </item>
+          </item>
+        </item>
+        <item>
+          function run_in_thread
+          <item>
+            arg task_func
+            <item>
+              type interface
+              <item>callback TaskThreadFunc: type CALLBACK INTERFACE not supported</item>
+            </item>
+          </item>
+        </item>
+        <item>
+          function run_in_thread_sync
+          <item>
+            arg task_func
+            <item>
+              type interface
+              <item>callback TaskThreadFunc: type CALLBACK INTERFACE not supported</item>
             </item>
           </item>
         </item>
@@ -5221,6 +5500,26 @@
             <item>
               type interface
               <item>callback GLib.DestroyNotify: type CALLBACK INTERFACE not supported</item>
+            </item>
+          </item>
+        </item>
+        <item>
+          function run_in_thread
+          <item>
+            arg task_func
+            <item>
+              type interface
+              <item>callback TaskThreadFunc: type CALLBACK INTERFACE not supported</item>
+            </item>
+          </item>
+        </item>
+        <item>
+          function run_in_thread_sync
+          <item>
+            arg task_func
+            <item>
+              type interface
+              <item>callback TaskThreadFunc: type CALLBACK INTERFACE not supported</item>
             </item>
           </item>
         </item>
@@ -5288,6 +5587,11 @@
       <item>struct TlsCertificateClass: class struct</item>
       <item>struct TlsCertificatePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>
+        enum TlsChannelBindingError
+        <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+        <item>function quark: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      </item>
+      <item>
         interface TlsClientConnection
         <item>
           function get_accepted_cas
@@ -5304,13 +5608,29 @@
       <item>
         object TlsConnection
         <item>
-          function handshake_async
-          <item>arg user_data: pointer C type for VOID not supported</item>
+          function get_channel_binding_data
+          <item>
+            arg data
+            <item>type array: array type GByteArray not supported</item>
+          </item>
         </item>
         <item>
           function handshake_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
+        <item>property advertised-protocols: type ARRAY not supported</item>
+        <item>
+          function get_channel_binding_data
+          <item>
+            arg data
+            <item>type array: array type GByteArray not supported</item>
+          </item>
+        </item>
+        <item>
+          function handshake_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>property advertised-protocols: type ARRAY not supported</item>
         <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
         <item>field priv: field not included by configuration (includedClassFieldNames)</item>
       </item>
@@ -5416,13 +5736,6 @@
           </item>
         </item>
         <item>
-          function set_value
-          <item>
-            arg value
-            <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
-          </item>
-        </item>
-        <item>
           function set_value_full
           <item>
             arg destroy
@@ -5437,13 +5750,6 @@
           <item>
             arg length
             <item>type gsize: pointer C type for scalar (SIZE) not supported</item>
-          </item>
-        </item>
-        <item>
-          function set_value
-          <item>
-            arg value
-            <item>type guint8: pointer C type for scalar (UINT8) not supported</item>
           </item>
         </item>
         <item>
@@ -5706,6 +6012,7 @@
           </item>
         </item>
       </item>
+      <item>function memory_monitor_dup_default: moved to MemoryMonitor.dup_default</item>
       <item>function network_monitor_get_default: moved to NetworkMonitor.get_default</item>
       <item>function proxy_get_default_for_protocol: moved to Proxy.get_default_for_protocol</item>
       <item>function proxy_resolver_get_default: moved to ProxyResolver.get_default</item>
@@ -5721,10 +6028,20 @@
         </item>
       </item>
       <item>function tls_backend_get_default: moved to TlsBackend.get_default</item>
+      <item>function tls_channel_binding_error_quark: moved to TlsChannelBindingError.quark</item>
       <item>function tls_client_connection_new: moved to TlsClientConnection.new</item>
       <item>function tls_error_quark: moved to TlsError.quark</item>
       <item>function tls_file_database_new: moved to TlsFileDatabase.new</item>
       <item>function tls_server_connection_new: moved to TlsServerConnection.new</item>
+      <item>function unix_mount_point_at: moved to UnixMountPoint.at</item>
+      <item>
+        function unix_mount_points_get
+        <item>type glist: type GLIST not supported</item>
+      </item>
+      <item>
+        function unix_mounts_get
+        <item>type glist: type GLIST not supported</item>
+      </item>
     </item>
   </tree>
 </section>
@@ -5876,12 +6193,36 @@
         </item>
       </item>
       <item>
+        function cclosure_marshal_generic
+        <item>arg marshal_data: pointer C type for VOID not supported</item>
+      </item>
+      <item>
         function info_new
         <item>
           arg typelib
           <item>
             type interface
             <item>struct Typelib: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function type_info_argument_from_hash_pointer
+        <item>
+          arg arg
+          <item>
+            type interface
+            <item>union Argument: union interface type not included by configuration (includedUnionNames)</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function type_info_hash_pointer_from_argument
+        <item>
+          arg arg
+          <item>
+            type interface
+            <item>union Argument: union interface type not included by configuration (includedUnionNames)</item>
           </item>
         </item>
       </item>
@@ -6015,16 +6356,14 @@
           <item>arg data: pointer C type for VOID not supported</item>
         </item>
         <item>
-          signals active-descendant-changed
-          <item>arg arg1: pointer C type for VOID not supported</item>
-        </item>
-        <item>
-          signals children-changed
-          <item>arg arg2: pointer C type for VOID not supported</item>
-        </item>
-        <item>
           signals property-change
-          <item>arg arg1: pointer C type for VOID not supported</item>
+          <item>
+            arg arg1
+            <item>
+              type interface
+              <item>struct PropertyValues: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (property_name, old_value.data, new_value.data)</item>
+            </item>
+          </item>
         </item>
         <item>
           function get_attributes
@@ -6041,16 +6380,14 @@
           <item>arg data: pointer C type for VOID not supported</item>
         </item>
         <item>
-          signals active-descendant-changed
-          <item>arg arg1: pointer C type for VOID not supported</item>
-        </item>
-        <item>
-          signals children-changed
-          <item>arg arg2: pointer C type for VOID not supported</item>
-        </item>
-        <item>
           signals property-change
-          <item>arg arg1: pointer C type for VOID not supported</item>
+          <item>
+            arg arg1
+            <item>
+              type interface
+              <item>struct PropertyValues: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (property_name, old_value.data, new_value.data)</item>
+            </item>
+          </item>
         </item>
         <item>field parent: field not included by configuration (includedClassFieldNames)</item>
         <item>field description: field not included by configuration (includedClassFieldNames)</item>
@@ -6279,16 +6616,6 @@
           <item>arg destroy_fn_data: pointer C type for VOID not supported</item>
         </item>
         <item>
-          function from_pixdata
-          <item>
-            arg pixdata
-            <item>
-              type interface
-              <item>struct Pixdata: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (pixel_data)</item>
-            </item>
-          </item>
-        </item>
-        <item>
           function get_file_info_async
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
@@ -6324,16 +6651,6 @@
         <item>
           function new_from_data
           <item>arg destroy_fn_data: pointer C type for VOID not supported</item>
-        </item>
-        <item>
-          function from_pixdata
-          <item>
-            arg pixdata
-            <item>
-              type interface
-              <item>struct Pixdata: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (pixel_data)</item>
-            </item>
-          </item>
         </item>
         <item>
           function get_file_info_async
@@ -6397,8 +6714,850 @@
       </item>
       <item>struct PixbufLoaderClass: class struct</item>
       <item>struct PixbufSimpleAnimClass: class struct</item>
-      <item>struct Pixdata: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (pixel_data)</item>
       <item>function pixbuf_error_quark: moved to PixbufError.quark</item>
+    </item>
+  </tree>
+</section>
+<section xmlns:ui="http://projectmallard.org/ui/1.0/" ui:expanded="false">
+  <title>HarfBuzz-0.0</title>
+  <tree style="lines">
+    <item>
+      HarfBuzz-0.0
+      <item>alias font_get_font_h_extents_func_t: type CALLBACK INTERFACE not supported</item>
+      <item>alias font_get_font_v_extents_func_t: type CALLBACK INTERFACE not supported</item>
+      <item>alias font_get_glyph_h_advance_func_t: type CALLBACK INTERFACE not supported</item>
+      <item>alias font_get_glyph_h_advances_func_t: type CALLBACK INTERFACE not supported</item>
+      <item>alias font_get_glyph_h_kerning_func_t: type CALLBACK INTERFACE not supported</item>
+      <item>alias font_get_glyph_h_origin_func_t: type CALLBACK INTERFACE not supported</item>
+      <item>alias font_get_glyph_v_advance_func_t: type CALLBACK INTERFACE not supported</item>
+      <item>alias font_get_glyph_v_advances_func_t: type CALLBACK INTERFACE not supported</item>
+      <item>alias font_get_glyph_v_kerning_func_t: type CALLBACK INTERFACE not supported</item>
+      <item>alias font_get_glyph_v_origin_func_t: type CALLBACK INTERFACE not supported</item>
+      <item>constant LANGUAGE_INVALID: type INTERFACE not expected</item>
+      <item>constant MAP_VALUE_INVALID: type INTERFACE not expected</item>
+      <item>constant SET_VALUE_INVALID: type INTERFACE not expected</item>
+      <item>
+        function buffer_get_language
+        <item>
+          type interface
+          <item>struct language_t: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
+      <item>
+        function buffer_serialize_glyphs
+        <item>
+          arg buf_size
+          <item>type guint: non-pointer C type for reference</item>
+        </item>
+      </item>
+      <item>
+        function buffer_set_language
+        <item>
+          arg language
+          <item>
+            type interface
+            <item>struct language_t: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function buffer_set_message_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function face_create_for_tables
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function face_get_table_tags
+        <item>
+          arg table_tags
+          <item>
+            type interface
+            <item>
+              alias tag_t
+              <item>type guint32: pointer C type for scalar (UINT32) not supported</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>
+        struct feature_t
+        <item>function _string: moved to feature_to_string</item>
+        <item>function _string: moved to feature_to_string</item>
+      </item>
+      <item>
+        function feature_to_string
+        <item>
+          arg size
+          <item>type guint: non-pointer C type for reference</item>
+        </item>
+      </item>
+      <item>
+        struct font_extents_t
+        <item>field reserved9: private</item>
+        <item>field reserved8: private</item>
+        <item>field reserved7: private</item>
+        <item>field reserved6: private</item>
+        <item>field reserved5: private</item>
+        <item>field reserved4: private</item>
+        <item>field reserved3: private</item>
+        <item>field reserved2: private</item>
+        <item>field reserved1: private</item>
+      </item>
+      <item>
+        function font_funcs_set_font_h_extents_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_font_v_extents_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_contour_point_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_extents_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_from_name_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_h_advance_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_h_advances_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_h_kerning_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_h_origin_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_name_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_v_advance_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_v_advances_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_v_kerning_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_glyph_v_origin_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_nominal_glyph_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_nominal_glyphs_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_funcs_set_variation_glyph_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_get_glyph_advances_for_direction
+        <item>
+          arg first_advance
+          <item>
+            type interface
+            <item>
+              alias position_t
+              <item>type gint32: pointer C type for scalar (INT32) not supported</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_get_glyph_h_advances
+        <item>
+          arg first_advance
+          <item>
+            type interface
+            <item>
+              alias position_t
+              <item>type gint32: pointer C type for scalar (INT32) not supported</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_get_glyph_v_advances
+        <item>
+          arg first_advance
+          <item>
+            type interface
+            <item>
+              alias position_t
+              <item>type gint32: pointer C type for scalar (INT32) not supported</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_get_nominal_glyphs
+        <item>
+          arg first_glyph
+          <item>
+            type interface
+            <item>
+              alias codepoint_t
+              <item>type guint32: pointer C type for scalar (UINT32) not supported</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_get_var_coords_normalized
+        <item>
+          arg length
+          <item>type guint: pointer C type for scalar (UINT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function font_set_funcs
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_set_funcs_data
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function font_set_var_coords_design
+        <item>
+          arg coords
+          <item>type gfloat: pointer C type for scalar (FLOAT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function font_set_var_coords_normalized
+        <item>
+          arg coords
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function glib_script_from_script
+        <item>
+          type interface
+          <item>enum GLib.UnicodeScript: interface type excluded by configuration (excludedInterfaceTypes)</item>
+        </item>
+      </item>
+      <item>
+        function glib_script_to_script
+        <item>
+          arg script
+          <item>
+            type interface
+            <item>enum GLib.UnicodeScript: interface type excluded by configuration (excludedInterfaceTypes)</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        struct glyph_info_t
+        <item>field mask: private</item>
+        <item>field var1: private</item>
+        <item>field var2: private</item>
+      </item>
+      <item>
+        struct glyph_position_t
+        <item>field var: private</item>
+      </item>
+      <item>
+        function language_from_string
+        <item>
+          type interface
+          <item>struct language_t: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
+      <item>
+        function language_get_default
+        <item>
+          type interface
+          <item>struct language_t: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
+      <item>struct language_t: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+      <item>
+        function language_to_string
+        <item>
+          arg language
+          <item>
+            type interface
+            <item>struct language_t: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+          </item>
+        </item>
+      </item>
+      <item>function ot_color_glyph_get_layers: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>
+        function ot_color_palette_get_colors
+        <item>
+          arg colors
+          <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_collect_features
+        <item>
+          arg features
+          <item>
+            type interface
+            <item>
+              alias tag_t
+              <item>type guint32: pointer C type for scalar (UINT32) not supported</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_collect_lookups
+        <item>
+          arg features
+          <item>
+            type interface
+            <item>
+              alias tag_t
+              <item>type guint32: pointer C type for scalar (UINT32) not supported</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>function ot_layout_feature_get_characters: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>
+        function ot_layout_feature_get_lookups
+        <item>
+          arg lookup_indexes
+          <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_feature_with_variations_get_lookups
+        <item>
+          arg lookup_indexes
+          <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_get_attach_points
+        <item>
+          arg point_array
+          <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>function ot_layout_get_glyphs_in_class: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>
+        function ot_layout_get_ligature_carets
+        <item>
+          arg caret_array
+          <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_language_get_feature_indexes
+        <item>
+          arg feature_indexes
+          <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_language_get_feature_tags
+        <item>
+          arg feature_tags
+          <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>function ot_layout_lookup_collect_glyphs: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>function ot_layout_lookup_get_glyph_alternates: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>function ot_layout_lookup_substitute_closure: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>
+        function ot_layout_lookup_would_substitute
+        <item>
+          arg glyphs
+          <item>
+            type interface
+            <item>
+              alias codepoint_t
+              <item>type guint32: pointer C type for scalar (UINT32) not supported</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>function ot_layout_lookups_substitute_closure: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>
+        function ot_layout_script_find_language
+        <item>
+          arg language_index
+          <item>type guint: pointer C type for scalar (UINT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_script_get_language_tags
+        <item>
+          arg language_tags
+          <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_script_select_language
+        <item>
+          arg language_tags
+          <item>
+            type interface
+            <item>
+              alias tag_t
+              <item>type guint32: pointer C type for scalar (UINT32) not supported</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_table_choose_script
+        <item>
+          arg script_tags
+          <item>
+            type interface
+            <item>
+              alias tag_t
+              <item>type guint32: pointer C type for scalar (UINT32) not supported</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_table_find_feature_variations
+        <item>
+          arg coords
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_table_get_feature_tags
+        <item>
+          arg feature_tags
+          <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_table_get_script_tags
+        <item>
+          arg script_tags
+          <item>type array: ownership transfer EVERYTHING for OUT parameter with non-pointer ARRAY type not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_layout_table_select_script
+        <item>
+          arg script_tags
+          <item>
+            type interface
+            <item>
+              alias tag_t
+              <item>type guint32: pointer C type for scalar (UINT32) not supported</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>function ot_math_get_glyph_assembly: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>function ot_math_get_glyph_variants: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>function ot_meta_get_entry_tags: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>struct ot_name_entry_t: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (var, language)</item>
+      <item>
+        function ot_name_get_utf16
+        <item>
+          arg language
+          <item>
+            type interface
+            <item>struct language_t: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function ot_name_get_utf32
+        <item>
+          arg language
+          <item>
+            type interface
+            <item>struct language_t: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function ot_name_get_utf8
+        <item>
+          arg language
+          <item>
+            type interface
+            <item>struct language_t: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function ot_name_list_names
+        <item>
+          type array
+          <item>
+            type interface
+            <item>struct ot_name_entry_t: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (var, language)</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function ot_tag_from_language
+        <item>
+          arg language
+          <item>
+            type interface
+            <item>struct language_t: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function ot_tag_to_language
+        <item>
+          type interface
+          <item>struct language_t: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        </item>
+      </item>
+      <item>
+        function ot_tags_from_script
+        <item>
+          arg script_tag_2
+          <item>
+            type interface
+            <item>
+              alias tag_t
+              <item>type guint32: pointer C type for scalar (UINT32) not supported</item>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function ot_tags_from_script_and_language
+        <item>
+          arg language_count
+          <item>type guint: pointer C type for scalar (UINT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_tags_to_script_and_language
+        <item>
+          arg language
+          <item>
+            type interface
+            <item>struct language_t: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        struct ot_var_axis_info_t
+        <item>field reserved: private</item>
+      </item>
+      <item>
+        function ot_var_find_axis
+        <item>
+          arg axis_index
+          <item>type guint: pointer C type for scalar (UINT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_var_get_axes
+        <item>
+          arg axes_count
+          <item>type guint: pointer C type for scalar (UINT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_var_get_axis_infos
+        <item>
+          arg axes_count
+          <item>type guint: pointer C type for scalar (UINT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_var_named_instance_get_design_coords
+        <item>
+          arg coords
+          <item>type gfloat: pointer C type for scalar (FLOAT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_var_normalize_coords
+        <item>
+          arg normalized_coords
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function ot_var_normalize_variations
+        <item>
+          arg coords
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        struct segment_properties_t
+        <item>field language: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+        <item>field reserved1: private</item>
+        <item>field reserved2: private</item>
+      </item>
+      <item>
+        function shape_plan_create2
+        <item>
+          arg coords
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function shape_plan_create_cached2
+        <item>
+          arg coords
+          <item>type gint: pointer C type for scalar (INT) not supported</item>
+        </item>
+      </item>
+      <item>
+        function unicode_funcs_set_combining_class_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function unicode_funcs_set_compose_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function unicode_funcs_set_decompose_compatibility_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function unicode_funcs_set_decompose_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function unicode_funcs_set_eastasian_width_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function unicode_funcs_set_general_category_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function unicode_funcs_set_mirroring_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        function unicode_funcs_set_script_func
+        <item>
+          arg destroy
+          <item>
+            type interface
+            <item>callback destroy_func_t: type CALLBACK INTERFACE not supported</item>
+          </item>
+        </item>
+      </item>
+      <item>
+        struct user_data_key_t
+        <item>field unused: private</item>
+      </item>
+      <item>union var_int_t: union interface type not included by configuration (includedUnionNames)</item>
+      <item>
+        struct variation_t
+        <item>function _string: moved to variation_to_string</item>
+        <item>function _string: moved to variation_to_string</item>
+      </item>
     </item>
   </tree>
 </section>
@@ -6408,13 +7567,37 @@
     <item>
       Pango-1.0
       <item>struct Analysis: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (shape_engine, lang_engine, font, language, extra_attrs)</item>
-      <item>struct AttrClass: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (destroy, equal)</item>
+      <item>struct AttrClass: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (copy, destroy, equal)</item>
       <item>struct AttrColor: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass)</item>
       <item>struct AttrFloat: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass)</item>
       <item>struct AttrFontDesc: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass, desc)</item>
       <item>struct AttrFontFeatures: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass, features)</item>
       <item>struct AttrInt: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass)</item>
-      <item>struct AttrIterator: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+      <item>
+        struct AttrIterator
+        <item>
+          function get_attrs
+          <item>type gslist: type GSLIST not supported</item>
+        </item>
+        <item>
+          function get_font
+          <item>
+            arg extra_attrs
+            <item>type gslist: type GSLIST not supported</item>
+          </item>
+        </item>
+        <item>
+          function get_attrs
+          <item>type gslist: type GSLIST not supported</item>
+        </item>
+        <item>
+          function get_font
+          <item>
+            arg extra_attrs
+            <item>type gslist: type GSLIST not supported</item>
+          </item>
+        </item>
+      </item>
       <item>struct AttrLanguage: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (attr.klass, value)</item>
       <item>
         struct AttrList
@@ -6422,11 +7605,19 @@
           function filter
           <item>arg data: pointer C type for VOID not supported</item>
         </item>
+        <item>
+          function get_attributes
+          <item>type gslist: type GSLIST not supported</item>
+        </item>
         <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
         <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
         <item>
           function filter
           <item>arg data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function get_attributes
+          <item>type gslist: type GSLIST not supported</item>
         </item>
         <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
         <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -6440,7 +7631,7 @@
         <item>function init: function excluded by configuration (excludedFunctionSymbols)</item>
         <item>function destroy: function excluded by configuration (excludedFunctionSymbols)</item>
         <item>function init: function excluded by configuration (excludedFunctionSymbols)</item>
-        <item>field klass: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (destroy, equal)</item>
+        <item>field klass: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (copy, destroy, equal)</item>
       </item>
       <item>
         struct Color
@@ -6448,7 +7639,13 @@
         <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
       </item>
       <item>struct ContextClass: class struct</item>
-      <item>struct Coverage: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+      <item>
+        object Coverage
+        <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+        <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+        <item>function ref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+        <item>function unref: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      </item>
       <item>
         object Engine
         <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
@@ -6470,8 +7667,22 @@
         object Font
         <item>function descriptions_free: function excluded by configuration (excludedFunctionSymbols)</item>
         <item>function find_shaper: function excluded by configuration (excludedFunctionSymbols)</item>
+        <item>
+          function get_features
+          <item>
+            arg len
+            <item>type guint: non-pointer C type for reference</item>
+          </item>
+        </item>
         <item>function descriptions_free: function excluded by configuration (excludedFunctionSymbols)</item>
         <item>function find_shaper: function excluded by configuration (excludedFunctionSymbols)</item>
+        <item>
+          function get_features
+          <item>
+            arg len
+            <item>type guint: non-pointer C type for reference</item>
+          </item>
+        </item>
         <item>field parent_instance: field not included by configuration (includedClassFieldNames)</item>
       </item>
       <item>struct FontClass: class struct</item>
@@ -6504,6 +7715,7 @@
         <item>field ref_count: private</item>
         <item>field ascent: private</item>
         <item>field descent: private</item>
+        <item>field height: private</item>
         <item>field approximate_char_width: private</item>
         <item>field approximate_digit_width: private</item>
         <item>field underline_position: private</item>
@@ -6703,8 +7915,11 @@
       </item>
       <item>struct RendererClass: class struct</item>
       <item>struct RendererPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
-      <item>struct ScriptForLang: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (lang, scripts)</item>
-      <item>struct ScriptIter: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
+      <item>
+        struct ScriptIter
+        <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+        <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
+      </item>
       <item>
         struct TabArray
         <item>function free: non-user function excluded by configuration (nonUserFunctionNames)</item>
@@ -6724,6 +7939,13 @@
           </item>
         </item>
       </item>
+      <item>function attr_font_desc_new: moved to AttrFontDesc.new</item>
+      <item>function attr_font_features_new: moved to AttrFontFeatures.new</item>
+      <item>function attr_language_new: moved to AttrLanguage.new</item>
+      <item>function attr_shape_new: moved to AttrShape.new</item>
+      <item>function attr_shape_new_with_data: moved to AttrShape.new_with_data</item>
+      <item>function attr_size_new: moved to AttrSize.new</item>
+      <item>function attr_size_new_absolute: moved to AttrSize.new_absolute</item>
       <item>function attr_type_get_name: moved to AttrType.get_name</item>
       <item>function attr_type_register: moved to AttrType.register</item>
       <item>function bidi_type_for_unichar: moved to BidiType.for_unichar</item>
@@ -6744,26 +7966,15 @@
       <item>function gravity_to_rotation: moved to Gravity.to_rotation</item>
       <item>
         function itemize
-        <item>
-          arg cached_iter
-          <item>
-            type interface
-            <item>struct AttrIterator: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
-          </item>
-        </item>
+        <item>type glist: type GLIST not supported</item>
       </item>
       <item>
         function itemize_with_base_dir
-        <item>
-          arg cached_iter
-          <item>
-            type interface
-            <item>struct AttrIterator: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
-          </item>
-        </item>
+        <item>type glist: type GLIST not supported</item>
       </item>
       <item>function language_from_string: moved to Language.from_string</item>
       <item>function language_get_default: moved to Language.get_default</item>
+      <item>function language_get_preferred: moved to Language.get_preferred</item>
       <item>
         function log2vis_get_embedding_levels
         <item>
@@ -6771,16 +7982,6 @@
           <item>
             type interface
             <item>enum Direction: pointer C type for ENUM type not supported</item>
-          </item>
-        </item>
-      </item>
-      <item>
-        function module_register
-        <item>
-          arg module
-          <item>
-            type interface
-            <item>struct IncludedModule: interface type excluded by configuration (excludedInterfaceTypes)</item>
           </item>
         </item>
       </item>
@@ -6808,7 +8009,27 @@
           </item>
         </item>
       </item>
+      <item>
+        function shape_with_flags
+        <item>
+          arg analysis
+          <item>
+            type interface
+            <item>struct Analysis: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (shape_engine, lang_engine, font, language, extra_attrs)</item>
+          </item>
+        </item>
+      </item>
       <item>function skip_space: function excluded by configuration (excludedFunctionSymbols)</item>
+      <item>
+        function tailor_break
+        <item>
+          arg analysis
+          <item>
+            type interface
+            <item>struct Analysis: neither duplicate nor copy operation available because struct type is not registered and has fields that are references via a C pointer (shape_engine, lang_engine, font, language, extra_attrs)</item>
+          </item>
+        </item>
+      </item>
     </item>
   </tree>
 </section>
@@ -6818,7 +8039,6 @@
     <item>
       cairo-1.0
       <item>struct Matrix: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
-      <item>struct FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
       <item>struct Path: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
     </item>
   </tree>
@@ -6828,44 +8048,6 @@
   <tree style="lines">
     <item>
       PangoCairo-1.0
-      <item>object FcFontMap: interface type excluded by configuration (excludedInterfaceTypes)</item>
-      <item>
-        interface FontMap
-        <item>
-          function new_for_font_type
-          <item>
-            arg fonttype
-            <item>
-              type interface
-              <item>struct cairo.FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
-            </item>
-          </item>
-        </item>
-        <item>
-          function get_font_type
-          <item>
-            type interface
-            <item>struct cairo.FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
-          </item>
-        </item>
-        <item>
-          function new_for_font_type
-          <item>
-            arg fonttype
-            <item>
-              type interface
-              <item>struct cairo.FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
-            </item>
-          </item>
-        </item>
-        <item>
-          function get_font_type
-          <item>
-            type interface
-            <item>struct cairo.FontType: neither duplicate nor copy operation available because struct type is not registered and has no fields</item>
-          </item>
-        </item>
-      </item>
       <item>
         function context_set_shape_renderer
         <item>
@@ -6992,23 +8174,6 @@
       <item>
         struct EventTouch
         <item>field axes: pointer C type for scalar (DOUBLE) not supported</item>
-      </item>
-      <item>
-        object FrameClock
-        <item>
-          function get_refresh_info
-          <item>
-            arg presentation_time_return
-            <item>type gint64: pointer C type for scalar (INT64) not supported</item>
-          </item>
-        </item>
-        <item>
-          function get_refresh_info
-          <item>
-            arg presentation_time_return
-            <item>type gint64: pointer C type for scalar (INT64) not supported</item>
-          </item>
-        </item>
       </item>
       <item>struct FrameClockClass: class struct</item>
       <item>struct FrameClockPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
@@ -7238,7 +8403,6 @@
   <tree style="lines">
     <item>
       Gtk-3.0
-      <item>alias Stock: type VOID not expected</item>
       <item>
         object AboutDialog
         <item>property artists: type ARRAY not supported</item>
@@ -7681,18 +8845,20 @@
       <item>
         interface CellAccessibleParent
         <item>
-          function get_cell_extents
-          <item>
-            arg height
-            <item>type gint: pointer C type for scalar (INT) not supported</item>
-          </item>
+          function get_column_header_cells
+          <item>type array: array type GPtrArray not supported</item>
         </item>
         <item>
-          function get_cell_extents
-          <item>
-            arg height
-            <item>type gint: pointer C type for scalar (INT) not supported</item>
-          </item>
+          function get_row_header_cells
+          <item>type array: array type GPtrArray not supported</item>
+        </item>
+        <item>
+          function get_column_header_cells
+          <item>type array: array type GPtrArray not supported</item>
+        </item>
+        <item>
+          function get_row_header_cells
+          <item>type array: array type GPtrArray not supported</item>
         </item>
       </item>
       <item>struct CellAccessibleParentIface: class struct</item>
@@ -8177,6 +9343,9 @@
       <item>struct EventBoxClass: class struct</item>
       <item>struct EventBoxPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>struct EventControllerClass: class struct</item>
+      <item>struct EventControllerKeyClass: class struct</item>
+      <item>struct EventControllerMotionClass: class struct</item>
+      <item>struct EventControllerScrollClass: class struct</item>
       <item>
         object Expander
         <item>field bin: field not included by configuration (includedClassFieldNames)</item>
@@ -8545,6 +9714,24 @@
       <item>struct GesturePanClass: class struct</item>
       <item>struct GestureRotateClass: class struct</item>
       <item>struct GestureSingleClass: class struct</item>
+      <item>
+        object GestureStylus
+        <item>
+          function get_axes
+          <item>
+            arg values
+            <item>type array: cannot determine array length</item>
+          </item>
+        </item>
+        <item>
+          function get_axes
+          <item>
+            arg values
+            <item>type array: cannot determine array length</item>
+          </item>
+        </item>
+      </item>
+      <item>struct GestureStylusClass: class struct</item>
       <item>struct GestureSwipeClass: class struct</item>
       <item>struct GestureZoomClass: class struct</item>
       <item>
@@ -8609,6 +9796,12 @@
         object HeaderBar
         <item>field container: field not included by configuration (includedClassFieldNames)</item>
       </item>
+      <item>
+        object HeaderBarAccessible
+        <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+      </item>
+      <item>struct HeaderBarAccessibleClass: class struct</item>
+      <item>struct HeaderBarAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>struct HeaderBarClass: class struct</item>
       <item>struct HeaderBarPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>
@@ -9279,6 +10472,13 @@
         <item>field window: field not included by configuration (includedClassFieldNames)</item>
         <item>field priv: field not included by configuration (includedClassFieldNames)</item>
       </item>
+      <item>
+        object PlugAccessible
+        <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+        <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+      </item>
+      <item>struct PlugAccessibleClass: class struct</item>
+      <item>struct PlugAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>struct PlugClass: class struct</item>
       <item>struct PlugPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>
@@ -9954,6 +11154,13 @@
         <item>field container: field not included by configuration (includedClassFieldNames)</item>
         <item>field priv: field not included by configuration (includedClassFieldNames)</item>
       </item>
+      <item>
+        object SocketAccessible
+        <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+        <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+      </item>
+      <item>struct SocketAccessibleClass: class struct</item>
+      <item>struct SocketAccessiblePrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>struct SocketClass: class struct</item>
       <item>struct SocketPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>
@@ -11555,6 +12762,13 @@
       </item>
       <item>struct SearchSettingsClass: class struct</item>
       <item>struct SearchSettingsPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
+      <item>
+        object SpaceDrawer
+        <item>field parent: field not included by configuration (includedClassFieldNames)</item>
+        <item>field priv: field not included by configuration (includedClassFieldNames)</item>
+      </item>
+      <item>struct SpaceDrawerClass: class struct</item>
+      <item>struct SpaceDrawerPrivate: interface type excluded by configuration (excludedInterfaceTypeSuffixes)</item>
       <item>struct StyleClass: class struct</item>
       <item>
         object StyleScheme
@@ -11719,6 +12933,26 @@
         <item>field back: private</item>
         <item>field underline: bitfield not supported</item>
         <item>field strikethrough: bitfield not supported</item>
+        <item>field columns: bitfield not supported</item>
+      </item>
+      <item>
+        object Pty
+        <item>
+          function spawn_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function spawn_with_fds_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function spawn_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function spawn_with_fds_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
       </item>
       <item>struct PtyClass: class struct</item>
       <item>
@@ -11748,13 +12982,6 @@
           </item>
         </item>
         <item>
-          function event_check_regex_simple
-          <item>
-            arg n_regexes
-            <item>type gsize: non-pointer C type for reference</item>
-          </item>
-        </item>
-        <item>
           function get_text
           <item>
             arg attributes
@@ -11774,6 +13001,14 @@
             arg attributes
             <item>type array: array type GArray not supported</item>
           </item>
+        </item>
+        <item>
+          function spawn_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function spawn_with_fds_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
         <item>
           function event_check_gregex_simple
@@ -11783,13 +13018,6 @@
           </item>
         </item>
         <item>
-          function event_check_regex_simple
-          <item>
-            arg n_regexes
-            <item>type gsize: non-pointer C type for reference</item>
-          </item>
-        </item>
-        <item>
           function get_text
           <item>
             arg attributes
@@ -11809,6 +13037,14 @@
             arg attributes
             <item>type array: array type GArray not supported</item>
           </item>
+        </item>
+        <item>
+          function spawn_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
+        </item>
+        <item>
+          function spawn_with_fds_async
+          <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
         <item>field widget: field not included by configuration (includedClassFieldNames)</item>
         <item>field _unused_padding: field not included by configuration (includedClassFieldNames)</item>

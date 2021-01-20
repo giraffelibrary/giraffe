@@ -4,6 +4,7 @@ signature G_OBJECT_OBJECT =
     type type_t
     type 'a binding_class
     type binding_flags_t
+    type value_record_c_array_n_t
     type value_t
     type closure_t
     type 'a param_spec_class
@@ -33,6 +34,10 @@ signature G_OBJECT_OBJECT =
     val getProperty :
       'a class
        -> string * value_t
+       -> unit
+    val getv :
+      'a class
+       -> Utf8CPtrArrayN.t * value_record_c_array_n_t
        -> unit
     val notify :
       'a class

@@ -5,6 +5,8 @@ structure GObject :
     where type ('object_class, 'get, 'set, 'init) property_t = ('object_class, 'get, 'set, 'init) Property.t
     where type 'object_class property_init_t = 'object_class Property.init_t =
   struct
+    val enumToString_ = fn x1 & x2 => (_import "g_enum_to_string" : GObjectType.FFI.val_ * GInt.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
+    val flagsToString_ = fn x1 & x2 => (_import "g_flags_to_string" : GObjectType.FFI.val_ * GUInt.FFI.val_ -> Utf8.FFI.non_opt Utf8.FFI.out_p;) (x1, x2)
     val gtypeGetType_ = _import "g_gtype_get_type" : unit -> GObjectType.FFI.val_;
     val paramSpecBoolean_ =
       fn
@@ -684,6 +686,7 @@ structure GObject :
               x9
             )
     val pointerTypeRegisterStatic_ = _import "mlton_g_pointer_type_register_static" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GObjectType.FFI.val_;
+    val signalIsValidName_ = _import "mlton_g_signal_is_valid_name" : Utf8.MLton.p1 * Utf8.FFI.non_opt Utf8.MLton.p2 -> GBool.FFI.val_;
     val signalListIds_ = fn x1 & x2 => (_import "g_signal_list_ids" : GObjectType.FFI.val_ * GUInt.FFI.ref_ -> GUIntCArrayN.FFI.non_opt GUIntCArrayN.FFI.out_p;) (x1, x2)
     val signalLookup_ =
       fn
@@ -821,8 +824,8 @@ structure GObject :
     structure BindingFlags = GObjectBindingFlags
     structure SignalInvocationHint = GObjectSignalInvocationHint
     structure ValueRecord = GObjectValueRecord
-    structure ValueRecordCArrayN = GObjectValueRecordCArrayN
     structure TypeCArrayN = GObjectTypeCArrayN
+    structure ValueRecordCArrayN = GObjectValueRecordCArrayN
     structure Value = GObjectValue
     structure ValueArray = GObjectValueArray
     structure ClosureRecord = GObjectClosureRecord
@@ -886,7 +889,7 @@ structure GObject :
     structure Binding = GObjectBinding
     structure Object = GObjectObject
     val PARAM_MASK = 255
-    val PARAM_STATIC_STRINGS = 0
+    val PARAM_STATIC_STRINGS = 224
     val PARAM_USER_SHIFT = 8
     val SIGNAL_FLAGS_MASK = 511
     val SIGNAL_MATCH_MASK = 63
@@ -897,8 +900,10 @@ structure GObject :
     val TYPE_RESERVED_GLIB_FIRST = 22
     val TYPE_RESERVED_GLIB_LAST = 31
     val TYPE_RESERVED_USER_FIRST = 49
-    val VALUE_COLLECT_FORMAT_MAX_LENGTH = 8
+    val VALUE_INTERNED_STRING = 268435456
     val VALUE_NOCOPY_CONTENTS = 134217728
+    fun enumToString (gEnumType, value) = (GObjectType.FFI.withVal &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr ~1) enumToString_ (gEnumType & value)
+    fun flagsToString (flagsType, value) = (GObjectType.FFI.withVal &&&> GUInt.FFI.withVal ---> Utf8.FFI.fromPtr ~1) flagsToString_ (flagsType & value)
     fun gtypeGetType () = (I ---> GObjectType.FFI.fromVal) gtypeGetType_ ()
     fun paramSpecBoolean
       (
@@ -1471,6 +1476,7 @@ structure GObject :
            & flags
         )
     fun pointerTypeRegisterStatic name = (Utf8.FFI.withPtr 0 ---> GObjectType.FFI.fromVal) pointerTypeRegisterStatic_ name
+    fun signalIsValidName name = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) signalIsValidName_ name
     fun signalListIds itype =
       let
         val nIds & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUIntCArrayN.FFI.fromPtr ~1) signalListIds_ (itype & GUInt.null)
@@ -1527,7 +1533,7 @@ structure GObject :
       in
         if retVal then SOME (signalIdP, detailP) else NONE
       end
-    fun signalTypeCclosureNew (itype, structOffset) = (GObjectType.FFI.withVal &&&> GUInt.FFI.withVal ---> GObjectClosureRecord.FFI.fromPtr true) signalTypeCclosureNew_ (itype & structOffset)
+    fun signalTypeCclosureNew (itype, structOffset) = (GObjectType.FFI.withVal &&&> GUInt.FFI.withVal ---> GObjectClosureRecord.FFI.fromPtr false) signalTypeCclosureNew_ (itype & structOffset)
     fun typeAddClassPrivate (classType, privateSize) = (GObjectType.FFI.withVal &&&> GSize.FFI.withVal ---> I) typeAddClassPrivate_ (classType & privateSize)
     fun typeAddInstancePrivate (classType, privateSize) = (GObjectType.FFI.withVal &&&> GSize.FFI.withVal ---> GInt.FFI.fromVal) typeAddInstancePrivate_ (classType & privateSize)
     fun typeAddInterfaceDynamic

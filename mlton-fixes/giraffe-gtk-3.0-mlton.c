@@ -1883,6 +1883,16 @@ mlton_gtk_font_chooser_set_font (GtkFontChooser* fontchooser,
 }
 #endif
 
+#if GTK_CHECK_VERSION(3, 24, 0)
+void
+mlton_gtk_font_chooser_set_language (GtkFontChooser* fontchooser,
+                                     SML_CVECTOR_VAL(const char, language))
+{
+  gtk_font_chooser_set_language (fontchooser,
+                                 GET_SML_CVECTOR_VAL(const char, language));
+}
+#endif
+
 #if GTK_CHECK_VERSION(3, 2, 0)
 void
 mlton_gtk_font_chooser_set_preview_text (GtkFontChooser* fontchooser,
@@ -1954,6 +1964,18 @@ mlton_gtk_frame_set_label (GtkFrame* frame,
   gtk_frame_set_label (frame,
                        GET_SML_CVECTOR_VAL(const gchar, label));
 }
+
+#if GTK_CHECK_VERSION(3, 24, 0)
+gboolean
+mlton_gtk_gesture_stylus_get_axes (GtkGestureStylus* gesture,
+                                   SML_CVECTOR_VAL(GdkAxisUse, axes),
+                                   SML_CVECTOR_REF(gdouble, values))
+{
+  return gtk_gesture_stylus_get_axes (gesture,
+                                      GET_SML_CVECTOR_VAL(GdkAxisUse, axes),
+                                      GET_SML_CVECTOR_REF(gdouble, values));
+}
+#endif
 
 #if GTK_CHECK_VERSION(3, 12, 0)
 void
@@ -2173,6 +2195,36 @@ mlton_gtk_icon_theme_append_search_path (GtkIconTheme* icon_theme,
 }
 #endif
 
+#if GTK_CHECK_VERSION(2, 12, 0)
+GtkIconInfo*
+mlton_gtk_icon_theme_choose_icon (GtkIconTheme* icon_theme,
+                                  SML_CVECTORVECTOR_VAL(const gchar, icon_names),
+                                  gint size,
+                                  GtkIconLookupFlags flags)
+{
+  return gtk_icon_theme_choose_icon (icon_theme,
+                                     GET_SML_CVECTORVECTOR_VAL(const gchar, icon_names),
+                                     size,
+                                     flags);
+}
+#endif
+
+#if GTK_CHECK_VERSION(3, 10, 0)
+GtkIconInfo*
+mlton_gtk_icon_theme_choose_icon_for_scale (GtkIconTheme* icon_theme,
+                                            SML_CVECTORVECTOR_VAL(const gchar, icon_names),
+                                            gint size,
+                                            gint scale,
+                                            GtkIconLookupFlags flags)
+{
+  return gtk_icon_theme_choose_icon_for_scale (icon_theme,
+                                               GET_SML_CVECTORVECTOR_VAL(const gchar, icon_names),
+                                               size,
+                                               scale,
+                                               flags);
+}
+#endif
+
 #if GTK_CHECK_VERSION(2, 6, 0)
 gint*
 mlton_gtk_icon_theme_get_icon_sizes (GtkIconTheme* icon_theme,
@@ -2180,6 +2232,18 @@ mlton_gtk_icon_theme_get_icon_sizes (GtkIconTheme* icon_theme,
 {
   return gtk_icon_theme_get_icon_sizes (icon_theme,
                                         GET_SML_CVECTOR_VAL(const gchar, icon_name));
+}
+#endif
+
+#if GTK_CHECK_VERSION(2, 4, 0)
+void
+mlton_gtk_icon_theme_get_search_path (GtkIconTheme* icon_theme,
+                                      SML_CVECTORVECTOR_REF(gchar, path),
+                                      gint* n_elements)
+{
+  gtk_icon_theme_get_search_path (icon_theme,
+                                  GET_SML_CVECTORVECTOR_REF(gchar, path),
+                                  n_elements);
 }
 #endif
 
@@ -2304,6 +2368,18 @@ mlton_gtk_icon_theme_set_custom_theme (GtkIconTheme* icon_theme,
 {
   gtk_icon_theme_set_custom_theme (icon_theme,
                                    GET_SML_CVECTOR_VAL(const gchar, theme_name));
+}
+#endif
+
+#if GTK_CHECK_VERSION(2, 4, 0)
+void
+mlton_gtk_icon_theme_set_search_path (GtkIconTheme* icon_theme,
+                                      SML_CVECTORVECTOR_VAL(const gchar, path),
+                                      gint n_elements)
+{
+  gtk_icon_theme_set_search_path (icon_theme,
+                                  GET_SML_CVECTORVECTOR_VAL(const gchar, path),
+                                  n_elements);
 }
 #endif
 
@@ -3850,6 +3926,16 @@ mlton_gtk_shortcut_label_set_disabled_text (GtkShortcutLabel* self,
 {
   gtk_shortcut_label_set_disabled_text (self,
                                         GET_SML_CVECTOR_VAL(const gchar, disabled_text));
+}
+#endif
+
+#if GTK_CHECK_VERSION(3, 24, 24)
+void
+mlton_gtk_socket_accessible_embed (GtkSocketAccessible* socket,
+                                   SML_CVECTOR_VAL(gchar, path))
+{
+  gtk_socket_accessible_embed (socket,
+                               GET_SML_CVECTOR_VAL(gchar, path));
 }
 #endif
 

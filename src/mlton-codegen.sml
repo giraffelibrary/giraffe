@@ -211,6 +211,7 @@ val errorLog'1 = List.foldl insert errorLog'0 [
   gen outDir path ("Gio", "2.0", "GLIB"),
   gen outDir path ("Atk", "1.0", "ATK"),
   gen outDir path ("cairo", "1.0", ""),
+  gen outDir path ("HarfBuzz", "0.0", "HB"),
   gen outDir path ("PangoCairo", "1.0", "PANGO"),
   gen outDir path ("Pango", "1.0", "PANGO"),
   gen outDir path ("GdkPixbuf", "2.0", "GDK_PIXBUF"),

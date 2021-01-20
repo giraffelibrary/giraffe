@@ -6,6 +6,8 @@ signature G_LIB =
     structure DateDay : G_LIB_DATE_DAY
     structure DateYear : G_LIB_DATE_YEAR
     structure Quark : G_LIB_QUARK
+    structure RefString : G_LIB_REF_STRING
+    structure Strv : G_LIB_STRV
     structure Time : G_LIB_TIME
     structure TimeSpan : G_LIB_TIME_SPAN
     structure BytesRecord : G_LIB_BYTES_RECORD
@@ -17,10 +19,10 @@ signature G_LIB =
     structure DateTimeRecord : G_LIB_DATE_TIME_RECORD
     structure DateWeekday : G_LIB_DATE_WEEKDAY
     structure ErrorType : G_LIB_ERROR_TYPE
+    structure FileSetContentsFlags : G_LIB_FILE_SET_CONTENTS_FLAGS
     structure FileTest : G_LIB_FILE_TEST
     structure FormatSizeFlags : G_LIB_FORMAT_SIZE_FLAGS
     structure HookFlagMask : G_LIB_HOOK_FLAG_MASK
-    structure IConvRecord : G_LIB_I_CONV_RECORD
     structure IOChannelRecord : G_LIB_I_O_CHANNEL_RECORD
     structure IOCondition : G_LIB_I_O_CONDITION
     structure IOError : G_LIB_I_O_ERROR
@@ -53,6 +55,7 @@ signature G_LIB =
     structure TestConfigRecord : G_LIB_TEST_CONFIG_RECORD
     structure TestFileType : G_LIB_TEST_FILE_TYPE
     structure TestLogType : G_LIB_TEST_LOG_TYPE
+    structure TestResult : G_LIB_TEST_RESULT
     structure TestSubprocessFlags : G_LIB_TEST_SUBPROCESS_FLAGS
     structure TestTrapFlags : G_LIB_TEST_TRAP_FLAGS
     structure ThreadRecord : G_LIB_THREAD_RECORD
@@ -63,6 +66,10 @@ signature G_LIB =
     structure TraverseFlags : G_LIB_TRAVERSE_FLAGS
     structure TraverseType : G_LIB_TRAVERSE_TYPE
     structure UnicodeType : G_LIB_UNICODE_TYPE
+    structure UriRecord : G_LIB_URI_RECORD
+    structure UriFlags : G_LIB_URI_FLAGS
+    structure UriHideFlags : G_LIB_URI_HIDE_FLAGS
+    structure UriParamsFlags : G_LIB_URI_PARAMS_FLAGS
     structure UserDirectory : G_LIB_USER_DIRECTORY
     structure VariantRecord : G_LIB_VARIANT_RECORD
     structure VariantBuilderRecord : G_LIB_VARIANT_BUILDER_RECORD
@@ -97,9 +104,6 @@ signature G_LIB =
         where type time_val_t = TimeValRecord.t
         where type time_zone_t = TimeZoneRecord.t
     structure ErrorRecord : G_LIB_ERROR_RECORD
-    structure IConv :
-      G_LIB_I_CONV
-        where type t = IConvRecord.t
     structure KeyFile :
       G_LIB_KEY_FILE
         where type t = KeyFileRecord.t
@@ -154,6 +158,12 @@ signature G_LIB =
       G_LIB_TIME_ZONE
         where type t = TimeZoneRecord.t
         where type time_type_t = TimeType.t
+    structure Uri :
+      G_LIB_URI
+        where type t = UriRecord.t
+        where type uri_hide_flags_t = UriHideFlags.t
+        where type uri_flags_t = UriFlags.t
+        where type bytes_t = BytesRecord.t
     structure VariantRecordCPtrArrayN :
       C_ARRAY_N
         where type elem = VariantRecord.t
@@ -202,6 +212,10 @@ signature G_LIB =
       G_LIB_MARKUP_ERROR
         where type error_handler = ErrorRecord.handler
     exception MarkupError of MarkupError.t
+    structure NumberParserError :
+      G_LIB_NUMBER_PARSER_ERROR
+        where type error_handler = ErrorRecord.handler
+    exception NumberParserError of NumberParserError.t
     structure OptionError :
       G_LIB_OPTION_ERROR
         where type error_handler = ErrorRecord.handler
@@ -222,6 +236,10 @@ signature G_LIB =
       G_LIB_THREAD_ERROR
         where type error_handler = ErrorRecord.handler
     exception ThreadError of ThreadError.t
+    structure UriError :
+      G_LIB_URI_ERROR
+        where type error_handler = ErrorRecord.handler
+    exception UriError of UriError.t
     structure Variant :
       G_LIB_VARIANT
         where type t = VariantRecord.t
@@ -295,6 +313,7 @@ signature G_LIB =
     val PRIORITY_LOW : LargeInt.int
     val SOURCE_CONTINUE : bool
     val SOURCE_REMOVE : bool
+    val TEST_OPTION_ISOLATE_DIRS : string
     val TIME_SPAN_DAY : LargeInt.int
     val TIME_SPAN_HOUR : LargeInt.int
     val TIME_SPAN_MILLISECOND : LargeInt.int
@@ -332,6 +351,7 @@ signature G_LIB =
     val base64Encode : GUInt8CArrayN.t -> string
     val buildFilenamev : Utf8CPtrArray.t -> string
     val buildPathv : string * Utf8CPtrArray.t -> string
+    val canonicalizeFilename : string * string option -> string
     val chdir : string -> LargeInt.int
     val checkVersion :
       LargeInt.int
@@ -369,13 +389,16 @@ signature G_LIB =
        * int
        -> string
     val convert :
-      string
-       * int
+      GUInt8CArrayN.t
        * string
        * string
-       -> string
-           * int
-           * int
+       -> GUInt8CArrayN.t * int
+    val convertWithFallback :
+      GUInt8CArrayN.t
+       * string
+       * string
+       * string
+       -> GUInt8CArrayN.t * int
     val dcgettext :
       string option
        * string
@@ -406,32 +429,45 @@ signature G_LIB =
        * bool
        -> Utf8CPtrArray.t
     val environUnsetenv : Utf8CPtrArray.t option * string -> Utf8CPtrArray.t
+    val fileSetContentsFull :
+      string
+       * GUInt8CArrayN.t
+       * FileSetContentsFlags.t
+       * LargeInt.int
+       -> unit
     val filenameDisplayBasename : string -> string
     val filenameDisplayName : string -> string
     val filenameFromUri : string -> string * string option
-    val filenameFromUtf8 : string * int -> GUInt8CArrayN.t * int
+    val filenameFromUtf8 :
+      string * int
+       -> string
+           * int
+           * int
     val filenameToUri : string * string option -> string
     val filenameToUtf8 :
       string * int
        -> string
            * int
            * int
-    val findProgramInPath : string -> string
+    val findProgramInPath : string -> string option
     val formatSize : LargeInt.int -> string
     val formatSizeForDisplay : LargeInt.int -> string
     val formatSizeFull : LargeInt.int * FormatSizeFlags.t -> string
-    val getApplicationName : unit -> string
+    val getApplicationName : unit -> string option
     val getCodeset : unit -> string
+    val getConsoleCharset : unit -> string option
     val getCurrentDir : unit -> string
     val getCurrentTime : TimeValRecord.t -> unit
     val getEnviron : unit -> Utf8CPtrArray.t
     val getHomeDir : unit -> string
     val getHostName : unit -> string
     val getLanguageNames : unit -> Utf8CPtrArray.t
+    val getLanguageNamesWithCategory : string -> Utf8CPtrArray.t
     val getLocaleVariants : string -> Utf8CPtrArray.t
     val getMonotonicTime : unit -> LargeInt.int
     val getNumProcessors : unit -> LargeInt.int
-    val getPrgname : unit -> string
+    val getOsInfo : string -> string option
+    val getPrgname : unit -> string option
     val getRealName : unit -> string
     val getRealTime : unit -> LargeInt.int
     val getSystemConfigDirs : unit -> Utf8CPtrArray.t
@@ -459,13 +495,9 @@ signature G_LIB =
        -> LargeInt.int
     val ioCreateWatch : IOChannelRecord.t * IOCondition.t -> SourceRecord.t
     val listenv : unit -> Utf8CPtrArray.t
-    val localeFromUtf8 :
-      string * int
-       -> string
-           * int
-           * int
+    val localeFromUtf8 : string * int -> GUInt8CArrayN.t * int
     val localeToUtf8 :
-      string * int
+      GUInt8CArrayN.t
        -> string
            * int
            * int
@@ -488,14 +520,6 @@ signature G_LIB =
     val mainDepth : unit -> LargeInt.int
     val markupEscapeText : string * int -> string
     val mkdirWithParents : string * LargeInt.int -> LargeInt.int
-    val mkdtemp : string -> string option
-    val mkdtempFull : string * LargeInt.int -> string option
-    val mkstemp : string -> LargeInt.int
-    val mkstempFull :
-      string
-       * LargeInt.int
-       * LargeInt.int
-       -> LargeInt.int
     val onErrorQuery : string -> unit
     val onErrorStackTrace : string -> unit
     val pathGetBasename : string -> string
@@ -510,6 +534,12 @@ signature G_LIB =
     val randomInt : unit -> LargeInt.int
     val randomIntRange : LargeInt.int * LargeInt.int -> LargeInt.int
     val randomSetSeed : LargeInt.int -> unit
+    val refStringAcquire : string -> string
+    val refStringLength : string -> int
+    val refStringNew : string -> string
+    val refStringNewIntern : string -> string
+    val refStringNewLen : string * int -> string
+    val refStringRelease : string -> unit
     val reloadUserSpecialDirsCache : unit -> unit
     val rmdir : string -> LargeInt.int
     val setApplicationName : string -> unit
@@ -568,6 +598,7 @@ signature G_LIB =
     val testSetNonfatalAssertions : unit -> unit
     val testSkip : string option -> unit
     val testSubprocess : unit -> bool
+    val testSummary : string -> unit
     val testTimerElapsed : unit -> real
     val testTimerLast : unit -> real
     val testTimerStart : unit -> unit
@@ -604,19 +635,8 @@ signature G_LIB =
     val unixSignalSourceNew : LargeInt.int -> SourceRecord.t
     val unlink : string -> LargeInt.int
     val unsetenv : string -> unit
-    val uriEscapeString :
-      string
-       * string option
-       * bool
-       -> string
-    val uriListExtractUris : string -> Utf8CPtrArray.t
-    val uriParseScheme : string -> string
-    val uriUnescapeSegment :
-      string option
-       * string option
-       * string option
-       -> string
-    val uriUnescapeString : string * string option -> string
     val usleep : LargeInt.int -> unit
+    val uuidStringIsValid : string -> bool
+    val uuidStringRandom : unit -> string
     val variantGetGtype : unit -> GObject.Type.t
   end

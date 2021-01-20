@@ -1,6 +1,8 @@
 signature VTE_TERMINAL =
   sig
     type 'a class
+    type format_t
+    type regex_record_c_ptr_array_n_t
     type pty_flags_t
     type regex_t
     type write_flags_t
@@ -8,6 +10,7 @@ signature VTE_TERMINAL =
     type cursor_shape_t
     type erase_binding_t
     type 'a pty_class
+    type text_blink_mode_t
     type t = base class
     val asImplementorIface : 'a class -> base Atk.ImplementorIfaceClass.class
     val asBuildable : 'a class -> base Gtk.BuildableClass.class
@@ -15,31 +18,51 @@ signature VTE_TERMINAL =
     val getType : unit -> GObject.Type.t
     val new : unit -> base class
     val copyClipboard : 'a class -> unit
+    val copyClipboardFormat :
+      'a class
+       -> format_t
+       -> unit
     val copyPrimary : 'a class -> unit
+    val eventCheckRegexSimple :
+      'a class
+       -> 'b Gdk.Event.union
+           * regex_record_c_ptr_array_n_t
+           * LargeInt.int
+       -> Utf8CPtrArrayN.t
     val feed :
       'a class
        -> GUInt8CArrayN.t
        -> unit
     val feedChild :
       'a class
-       -> string option * int
+       -> GUInt8CArrayN.t
        -> unit
     val feedChildBinary :
       'a class
        -> GUInt8CArrayN.t
        -> unit
     val getAllowBold : 'a class -> bool
+    val getAllowHyperlink : 'a class -> bool
     val getAudibleBell : 'a class -> bool
+    val getBoldIsBright : 'a class -> bool
+    val getCellHeightScale : 'a class -> real
+    val getCellWidthScale : 'a class -> real
     val getCharHeight : 'a class -> LargeInt.int
     val getCharWidth : 'a class -> LargeInt.int
     val getCjkAmbiguousWidth : 'a class -> LargeInt.int
+    val getColorBackgroundForDraw : 'a class -> Gdk.RgbaRecord.t
     val getColumnCount : 'a class -> LargeInt.int
-    val getCurrentDirectoryUri : 'a class -> string
-    val getCurrentFileUri : 'a class -> string
+    val getCurrentContainerName : 'a class -> string option
+    val getCurrentContainerRuntime : 'a class -> string option
+    val getCurrentDirectoryUri : 'a class -> string option
+    val getCurrentFileUri : 'a class -> string option
     val getCursorBlinkMode : 'a class -> cursor_blink_mode_t
     val getCursorPosition : 'a class -> LargeInt.int * LargeInt.int
     val getCursorShape : 'a class -> cursor_shape_t
-    val getEncoding : 'a class -> string
+    val getEnableBidi : 'a class -> bool
+    val getEnableShaping : 'a class -> bool
+    val getEnableSixel : 'a class -> bool
+    val getEncoding : 'a class -> string option
     val getFont : 'a class -> Pango.FontDescriptionRecord.t
     val getFontScale : 'a class -> real
     val getGeometryHints :
@@ -47,14 +70,22 @@ signature VTE_TERMINAL =
        -> LargeInt.int * LargeInt.int
        -> Gdk.GeometryRecord.t
     val getHasSelection : 'a class -> bool
-    val getIconTitle : 'a class -> string
+    val getIconTitle : 'a class -> string option
     val getInputEnabled : 'a class -> bool
     val getMouseAutohide : 'a class -> bool
     val getPty : 'a class -> base pty_class
     val getRewrapOnResize : 'a class -> bool
     val getRowCount : 'a class -> LargeInt.int
-    val getWindowTitle : 'a class -> string
-    val getWordCharExceptions : 'a class -> string
+    val getScrollOnKeystroke : 'a class -> bool
+    val getScrollOnOutput : 'a class -> bool
+    val getScrollbackLines : 'a class -> LargeInt.int
+    val getTextBlinkMode : 'a class -> text_blink_mode_t
+    val getWindowTitle : 'a class -> string option
+    val getWordCharExceptions : 'a class -> string option
+    val hyperlinkCheckEvent :
+      'a class
+       -> 'b Gdk.Event.union
+       -> string option
     val matchAddGregex :
       'a class
        -> GLib.RegexRecord.t * GLib.RegexMatchFlags.t
@@ -66,11 +97,11 @@ signature VTE_TERMINAL =
     val matchCheck :
       'a class
        -> LargeInt.int * LargeInt.int
-       -> string * LargeInt.int
+       -> string option * LargeInt.int
     val matchCheckEvent :
       'a class
        -> 'b Gdk.Event.union
-       -> string * LargeInt.int
+       -> string option * LargeInt.int
     val matchRemove :
       'a class
        -> LargeInt.int
@@ -120,6 +151,10 @@ signature VTE_TERMINAL =
       'a class
        -> bool
        -> unit
+    val setAllowHyperlink :
+      'a class
+       -> bool
+       -> unit
     val setAudibleBell :
       'a class
        -> bool
@@ -128,9 +163,25 @@ signature VTE_TERMINAL =
       'a class
        -> erase_binding_t
        -> unit
+    val setBoldIsBright :
+      'a class
+       -> bool
+       -> unit
+    val setCellHeightScale :
+      'a class
+       -> real
+       -> unit
+    val setCellWidthScale :
+      'a class
+       -> real
+       -> unit
     val setCjkAmbiguousWidth :
       'a class
        -> LargeInt.int
+       -> unit
+    val setClearBackground :
+      'a class
+       -> bool
        -> unit
     val setColorBackground :
       'a class
@@ -178,6 +229,18 @@ signature VTE_TERMINAL =
     val setDeleteBinding :
       'a class
        -> erase_binding_t
+       -> unit
+    val setEnableBidi :
+      'a class
+       -> bool
+       -> unit
+    val setEnableShaping :
+      'a class
+       -> bool
+       -> unit
+    val setEnableSixel :
+      'a class
+       -> bool
        -> unit
     val setEncoding :
       'a class
@@ -231,6 +294,10 @@ signature VTE_TERMINAL =
       'a class
        -> LargeInt.int * LargeInt.int
        -> unit
+    val setTextBlinkMode :
+      'a class
+       -> text_blink_mode_t
+       -> unit
     val setWordCharExceptions :
       'a class
        -> string
@@ -269,6 +336,7 @@ signature VTE_TERMINAL =
     val deiconifyWindowSig : (unit -> unit) -> 'a class Signal.t
     val encodingChangedSig : (unit -> unit) -> 'a class Signal.t
     val eofSig : (unit -> unit) -> 'a class Signal.t
+    val hyperlinkHoverUriChangedSig : (string * Gdk.RectangleRecord.t -> unit) -> 'a class Signal.t
     val iconTitleChangedSig : (unit -> unit) -> 'a class Signal.t
     val iconifyWindowSig : (unit -> unit) -> 'a class Signal.t
     val increaseFontSizeSig : (unit -> unit) -> 'a class Signal.t
@@ -282,23 +350,35 @@ signature VTE_TERMINAL =
     val resizeWindowSig : (LargeInt.int * LargeInt.int -> unit) -> 'a class Signal.t
     val restoreWindowSig : (unit -> unit) -> 'a class Signal.t
     val selectionChangedSig : (unit -> unit) -> 'a class Signal.t
+    val shellPrecmdSig : (unit -> unit) -> 'a class Signal.t
+    val shellPreexecSig : (unit -> unit) -> 'a class Signal.t
     val textDeletedSig : (unit -> unit) -> 'a class Signal.t
     val textInsertedSig : (unit -> unit) -> 'a class Signal.t
     val textModifiedSig : (unit -> unit) -> 'a class Signal.t
     val textScrolledSig : (LargeInt.int -> unit) -> 'a class Signal.t
     val windowTitleChangedSig : (unit -> unit) -> 'a class Signal.t
     val allowBoldProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val allowHyperlinkProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
     val audibleBellProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
     val backspaceBindingProp : ('a class, unit -> erase_binding_t, erase_binding_t -> unit, erase_binding_t -> unit) Property.t
+    val boldIsBrightProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val cellHeightScaleProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val cellWidthScaleProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
     val cjkAmbiguousWidthProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val currentContainerNameProp : ('a class, unit -> string option, unit, unit) Property.t
+    val currentContainerRuntimeProp : ('a class, unit -> string option, unit, unit) Property.t
     val currentDirectoryUriProp : ('a class, unit -> string option, unit, unit) Property.t
     val currentFileUriProp : ('a class, unit -> string option, unit, unit) Property.t
     val cursorBlinkModeProp : ('a class, unit -> cursor_blink_mode_t, cursor_blink_mode_t -> unit, cursor_blink_mode_t -> unit) Property.t
     val cursorShapeProp : ('a class, unit -> cursor_shape_t, cursor_shape_t -> unit, cursor_shape_t -> unit) Property.t
     val deleteBindingProp : ('a class, unit -> erase_binding_t, erase_binding_t -> unit, erase_binding_t -> unit) Property.t
+    val enableBidiProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val enableShapingProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
+    val enableSixelProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
     val encodingProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
     val fontDescProp : ('a class, unit -> Pango.FontDescriptionRecord.t option, Pango.FontDescriptionRecord.t option -> unit, Pango.FontDescriptionRecord.t option -> unit) Property.t
     val fontScaleProp : ('a class, unit -> real, real -> unit, real -> unit) Property.t
+    val hyperlinkHoverUriProp : ('a class, unit -> string option, unit, unit) Property.t
     val iconTitleProp : ('a class, unit -> string option, unit, unit) Property.t
     val inputEnabledProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
     val pointerAutohideProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
@@ -308,6 +388,7 @@ signature VTE_TERMINAL =
     val scrollOnOutputProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
     val scrollSpeedProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
     val scrollbackLinesProp : ('a class, unit -> LargeInt.int, LargeInt.int -> unit, LargeInt.int -> unit) Property.t
+    val textBlinkModeProp : ('a class, unit -> text_blink_mode_t, text_blink_mode_t -> unit, text_blink_mode_t -> unit) Property.t
     val windowTitleProp : ('a class, unit -> string option, unit, unit) Property.t
     val wordCharExceptionsProp : ('a class, unit -> string option, unit, unit) Property.t
   end
