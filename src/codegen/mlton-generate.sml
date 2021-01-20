@@ -306,18 +306,21 @@ fun getCType (type_ : type_) : c_type =
   | TYPECALLBACK {name, cType, ...}   => getGenCType ("callback", SOME name) cType
   | TYPEVARARGS                       => infoExcl "varargs not supported"
 
-val rec getArrayDepth =
+val rec getCArrayDepth =
   fn
-    TYPEARRAY (_, type_)                         => 1 + getArrayDepth type_
-  | TYPENAMED ({name = SOME "utf8", ...}, _)     => 1
-  | TYPENAMED ({name = SOME "filename", ...}, _) => 1
-  | _                                            => 0
+    TYPEARRAY ({name = SOME "GLib.Array", ...},     _)     => 0
+  | TYPEARRAY ({name = SOME "GLib.ByteArray", ...}, _)     => 0
+  | TYPEARRAY ({name = SOME "GLib.PtrArray", ...},  _)     => 0
+  | TYPEARRAY (_,                                   type_) => 1 + getCArrayDepth type_
+  | TYPENAMED ({name = SOME "utf8", ...}, _)               => 1
+  | TYPENAMED ({name = SOME "filename", ...}, _)           => 1
+  | _                                                      => 0
 
 fun getCElemType indirectionLevel : c_type -> c_type option =
   Option.map Substring.string o repeat indirectionLevel dropStarR o Substring.full
 
-fun addArrayDepth (parameter as {name, type_, ...}) =
-  (parameter, getArrayDepth type_)
+fun addCArrayDepth (parameter as {name, type_, ...}) =
+  (parameter, getCArrayDepth type_)
     handle
       InfoExcl ie =>
         raise InfoExcl (IEGrp [(("parameter", name), ie)])
@@ -354,8 +357,7 @@ fun getCParameter
               case callerAllocates of
                 NONE     => 1
               | SOME "0" => 1
-              | SOME "1" =>
-                  infoExcl ("C array caller-allocates out parameter not supported")
+              | SOME "1" => 0
               | SOME s   =>
                   infoExcl ("attribute \"callerAllocates\" has invalid value \""
                                                      ^ String.toString s ^ "\"")
@@ -414,7 +416,7 @@ fun addCFunction
 
     val {returnValue, parameters = {instance, others}} = callable
     val parameters = case instance of SOME p => p :: others | _ => others
-    val revParametersWithArrayDepth = revMap addArrayDepth parameters
+    val revParametersWithArrayDepth = revMap addCArrayDepth parameters
 
     val () =
       case #introspectable config of
