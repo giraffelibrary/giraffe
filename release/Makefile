@@ -159,6 +159,11 @@ install-sml :
 	  install -c -p -m 644 src/$${dir}/mlton/*.sml "$(LIBDIR)/sml/$${dir}/mlton" ; \
 	  install -c -p -m 644 src/$${dir}/polyml/*.sml "$(LIBDIR)/sml/$${dir}/polyml" ; \
 	done
+	for dir in $(EXCLUDED_LIB_NAMES) ; \
+	do \
+	  install -d "$(LIBDIR)/sml/$${dir}" ; \
+	  install -c -p -m 644 /dev/null "$(LIBDIR)/sml/$${dir}/mlton.mlb" ; \
+	done
 	for dir in $(SML_LIB_NAMES) ; \
 	do \
 	  install -c -p -m 644 src/$${dir}/package "$(LIBDIR)/sml/$${dir}" ; \

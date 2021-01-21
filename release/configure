@@ -546,6 +546,7 @@ ALL_LIB_NAMES=`empty`
 SML_LIB_NAMES=`empty`
 POLYML_LIB_NAMES=`empty`
 MLTON_LIB_NAMES=`empty`
+EXCLUDED_LIB_NAMES=`empty`
 
 for DIR in src/*-[0-9]*
 do
@@ -616,6 +617,7 @@ do
     else
       echo "NOT FOUND"
       ALL_LIB_NAMES=`echo "${ALL_LIB_NAMES}" | prepend "${NAME}=NOT AVAILABLE"`
+      EXCLUDED_LIB_NAMES=`echo "${EXCLUDED_LIB_NAMES}" | prepend "${NAME}="`
     fi
   else
     # always include if no package dependency
@@ -692,6 +694,7 @@ write_line () { echo "$@" >> "${OUTFILE}" ; }
 
 write_line "PREFIX := ${PREFIX}"
 write_line "SML_LIB_NAMES :=" `echo "${SML_LIB_NAMES}" | keys | sort`
+write_line "EXCLUDED_LIB_NAMES :=" `echo "${EXCLUDED_LIB_NAMES}" | keys | sort`
 write_line "MLTON_VERSION = ${MLTON_VERSION}"
 if [ -n "${HAVE_MLTON}" ]
 then
