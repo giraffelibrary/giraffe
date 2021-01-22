@@ -1,4 +1,4 @@
-(* Copyright (C) 2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2020-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -10,8 +10,8 @@ structure CMemory : C_MEMORY =
     structure Pointer =
       struct
         open MLton.Pointer
-        fun toSysWord p = SysWord.fromLarge (Word.toLarge (diff (p, null)))
-        fun fromSysWord w = add (null, Word.fromLarge (SysWord.toLarge w))
+        fun toSysWord p = SysWord.fromLargeInt (C_Ptrdiff.toLarge (C_Pointer.diff (p, null)))
+        fun fromSysWord w = C_Pointer.add (null, C_Ptrdiff.fromLarge (SysWord.toLargeIntX w))
         val size = sizeofPointer
       end
 
