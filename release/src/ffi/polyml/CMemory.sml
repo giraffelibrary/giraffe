@@ -1,4 +1,4 @@
-(* Copyright (C) 2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2020-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -8,15 +8,26 @@
 structure CMemory : C_MEMORY =
   struct
     open PolyMLFFI
-    open Memory
 
+    structure Pointer =
+      struct
+        open Memory.Pointer
+        val toPointer = Fn.id
+        val fromPointer = Fn.id
+      end
+
+    val getPointer = Memory.getPointer
+    val setPointer = Memory.setPointer
+
+    val malloc = Memory.malloc
     fun malloc0 n =
       let
-        val p = malloc n
-        val () = init (p, 0w0, n)
+        val p = Memory.malloc n
+        val () = Memory.init (p, 0w0, n)
       in
         p
       end
+    val free = Memory.free
 
     structure PolyML =
       struct

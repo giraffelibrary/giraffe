@@ -33,10 +33,13 @@ functor Field(
 
     fun addOffset (p : Container.C.non_opt Container.C.p) : FieldType.p =
       let
-        val offsetSysWord = SysWord.fromInt (offset ())
+        val offsetWord = Word.fromInt (offset ())
       in
-        FieldType.Memory.Pointer.fromSysWord (
-          Container.C.Pointer.Memory.Pointer.toSysWord p + offsetSysWord
+        FieldType.Memory.Pointer.fromPointer (
+          CMemory.Pointer.add (
+            Container.C.Pointer.Memory.Pointer.toPointer p,
+            offsetWord
+          )
         )
       end
 

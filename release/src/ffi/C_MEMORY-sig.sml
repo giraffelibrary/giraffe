@@ -1,4 +1,4 @@
-(* Copyright (C) 2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2020-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -10,10 +10,13 @@ signature C_MEMORY =
     structure Pointer :
       sig
         eqtype t
-        val size : word
+        val null : t
+
         val toSysWord : t -> SysWord.word
         val fromSysWord : SysWord.word -> t
-        val null : t
+
+        val toPointer : t -> CMemory.Pointer.t
+        val fromPointer : CMemory.Pointer.t -> t
 
         (**
          * `add (p, w)` returns a pointer `w` bytes after `p`.
@@ -24,6 +27,11 @@ signature C_MEMORY =
          *)
         val add : t * word -> t
         val sub : t * word -> t
+
+        (**
+         * `size` is the size of a pointer in bytes.
+         *)
+        val size : word
       end
 
     val getPointer : Pointer.t * int -> Pointer.t

@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -65,10 +65,13 @@ structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
 
     fun getDomain_ (p : C.non_opt C.p) : GLibQuark.FFI.val_ =
       let
-        val offsetSysWord = SysWord.fromInt (domain'Offset ())
+        val offsetWord = Word.fromInt (domain'Offset ())
         val p =
-          GLibQuark.C.ValueType.Memory.Pointer.fromSysWord (
-            C.Pointer.Memory.Pointer.toSysWord p + offsetSysWord
+          GLibQuark.C.ValueType.Memory.Pointer.fromPointer (
+            CMemory.Pointer.add (
+              C.Pointer.Memory.Pointer.toPointer p,
+              offsetWord
+            )
           )
       in
         GLibQuark.C.ValueType.get p
@@ -76,10 +79,13 @@ structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
 
     fun getCode_ (p : C.non_opt C.p) : GInt.FFI.val_ =
       let
-        val offsetSysWord = SysWord.fromInt (code'Offset ())
+        val offsetWord = Word.fromInt (code'Offset ())
         val p =
-          GInt.C.ValueType.Memory.Pointer.fromSysWord (
-            C.Pointer.Memory.Pointer.toSysWord p + offsetSysWord
+          GInt.C.ValueType.Memory.Pointer.fromPointer (
+            CMemory.Pointer.add (
+              C.Pointer.Memory.Pointer.toPointer p,
+              offsetWord
+            )
           )
       in
         GInt.C.ValueType.get p

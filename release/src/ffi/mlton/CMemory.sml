@@ -12,6 +12,8 @@ structure CMemory : C_MEMORY =
         open MLton.Pointer
         fun toSysWord p = SysWord.fromLargeInt (C_Ptrdiff.toLarge (C_Pointer.diff (p, null)))
         fun fromSysWord w = C_Pointer.add (null, C_Ptrdiff.fromLarge (SysWord.toLargeIntX w))
+        val toPointer = Fn.id
+        val fromPointer = Fn.id
         val size = sizeofPointer
       end
 

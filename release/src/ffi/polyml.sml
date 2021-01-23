@@ -14,6 +14,7 @@ use (
 use "polyml/PolyMLFFI.sml";
 use "HighLevelFFI.sml";
 use "FINALIZABLE-sig.sml";
+use "polyml/CMemory_0.sml";
 use "C_MEMORY-sig.sml";
 use "polyml/C_MEMORY-sig.sml";
 use "C_VALUE-sig.sml";
