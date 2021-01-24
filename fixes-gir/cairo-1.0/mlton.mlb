@@ -6,6 +6,7 @@ local
   $(GIRAFFE_SML_LIB)/gir/mlton.mlb
   ../gobject-2.0/mlton.mlb
 in
+  ../glib-2.0/GDoubleCArrayN.mlb
   CAIRO_CONTEXT_RECORD-sig.sml
   CAIRO_CONTEXT-sig.sml
   CAIRO_DEVICE_RECORD-sig.sml

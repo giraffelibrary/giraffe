@@ -15,3 +15,4 @@
 
 #include "giraffe.c"
 #include "cairo-1.0/giraffe.c"
+#include "giraffe-cairo-1.0-mlton.c"

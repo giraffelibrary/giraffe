@@ -411,7 +411,38 @@ val errorLog'1 = List.foldl insert errorLog'0 [
   gen outDir repo ("GdkPixbuf", "2.0", "GDK_PIXBUF") [] ([], [], []),
   gen outDir repo ("HarfBuzz", "0.0", "HB") [] ([], [], []),
   gen outDir repo ("Pango", "1.0", "PANGO") [] ([], [], []),
-  gen outDir repo ("cairo", "1.0", "") [] ([("GObject", "2.0")], [], []),
+  gen outDir repo ("cairo", "1.0", "") []
+    (
+      [("GObject", "2.0")],
+      [
+        newSig "CAIRO_ANTIALIAS" [],
+        newSig "CAIRO_FILL_RULE" [],
+        newSig "CAIRO_LINE_CAP" [],
+        newSig "CAIRO_LINE_JOIN" [],
+        newSig "CAIRO_OPERATOR" [],
+        newSig "CAIRO_STATUS" []
+      ],
+      [
+        newStr ("Cairo", "Antialias", "CAIRO_ANTIALIAS") [],
+        newStr ("Cairo", "FillRule", "CAIRO_FILL_RULE") [],
+        newStr ("Cairo", "LineCap", "CAIRO_LINE_CAP") [],
+        newStr ("Cairo", "LineJoin", "CAIRO_LINE_JOIN") [],
+        newStr ("Cairo", "Operator", "CAIRO_OPERATOR") [],
+        newStr ("Cairo", "Status", "CAIRO_STATUS") [],
+        extendStrDeps "CairoContext"
+          [
+            "CairoAntialias",
+            "CairoFillRule",
+            "CairoLineCap",
+            "CairoLineJoin",
+            "CairoOperator",
+            "CairoStatus",
+            "CairoContent",
+            "CairoPatternRecord",
+            "CairoSurfaceRecord"
+          ]
+      ]
+    ),
   gen outDir repo ("PangoCairo", "1.0", "PANGO") [] ([], [], []),
   gen outDir repo ("Gdk", "3.0", "GDK") []
     (
