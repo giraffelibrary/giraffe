@@ -1,0 +1,113 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="ug-index">
+<info>
+  <title type="link">User Guide</title>
+  <title type="sort">2</title>
+  <link type="guide" xref="index#guides"/>
+  <desc>Developing applications using Giraffe Library</desc>
+</info>
+<title>Giraffe Library User Guide</title>
+<p>
+  This guide describes the SML interface to GObject-based libraries provided by Giraffe Library
+  and explains how to create SML applications using this interface.
+</p>
+<p>
+  An understanding of SML and concepts relating to functional programming is assumed
+  as such topics are outside the scope of this guide.
+  Also, this guide does not generally attempt to explain the APIs
+  provided by any GObject-based libraries
+  but does (or will) demonstrate common patterns of use, especially for GTK.
+</p>
+
+<section id="getting-started" style="2column">
+  <title>Getting Started</title>
+  <p>
+    To simply try out some example applications built with Giraffe Library,
+    see the <link xref="eg-index"/>.
+  </p>
+  <p>
+    Various introductions are available for GObject-based libraries, especially GTK.
+    For GTK 3, the reference manual provides an introduction in the section
+    <link href="https://developer.gnome.org/gtk3/stable/gtk-getting-started.html">Getting Started with GTK+</link>
+    and the <link xref="eg-index"/> provides SML versions of the C source code examples
+    in the section <link xref="eg-gtk3-reference-manual"/>.
+    Tutorials and examples written for other languages are a valuable source of information.
+    These can be understood in terms of SML by referring to the section <link xref="#sml-interface"/>, below,
+    especially for languages other than C that also use GObject Introspection.
+  </p>
+  <p>
+    Note that the API for an introspectable GObject-based library is typically written in C.
+    In principle,
+    an API could be written in any language that can compile to the same ABI as C
+    (e.g. Vala, Rust, Go)
+    as long as a GIR file is available that describes the introspected API.
+    However, it is unlikely that languages other than C will
+    be used to write an introspectable API because
+    <link href="https://gi.readthedocs.io/en/latest/index.html">GObject Introspection</link>,
+    which is used to generate GIR metadata files, supports only C source code.
+  </p>
+  <p>
+    The easiest way to start developing your own application
+    is to modify an example from the <link xref="eg-index"/>
+    as these provide their own build files for all supported compilers.
+  </p>
+</section>
+
+<section id="library-overview" style="2column">
+  <title>Library Overview</title>
+  <p>
+    This section describes which parts of which libraries are provided by Giraffe Library.
+  </p>
+</section>
+
+<section id="sml-interface" style="2column">
+  <title>SML Interface</title>
+  <p>
+    The SML interface is organized as a collection of modules
+    whose signatures provide a full specification of the interface.
+    In most cases, this specification should be easy to follow
+    but there are some exceptions, for example the encoding of classes
+    in the SML type system (which has no notion of classes).
+    These subsections describe the general representation
+    of introspected entities in SML.
+    The quick reference provides a lightweight description
+    as a reminder.
+  </p>
+  <p>
+    Although Giraffe Library does not yet provide a documented API in SML,
+    the representation of introspected entities described here
+    allows existing documentation
+    to be understood in terms of SML.
+  </p>
+  <p>
+    All supported compilers implement the same signatures
+    allowing portable application code.
+  </p>
+</section>
+
+<section id="programming" style="2column">
+  <title>Programming</title>
+  <p>
+    This section shows how to use the SML interface provided by Giraffe Library
+    in common scenarios.
+  </p>
+  <note style="warning">
+    <p>
+      This section is still a work in progress.
+      More topics will be added in future!
+    </p>
+  </note>
+</section>
+
+<section id="using-compilers" style="2column">
+  <title>Using Compilers</title>
+  <p>
+    Although the Definition of SML precisely defines the language,
+    there is no standardized way to present SML source code to a compiler
+    and there is considerable variation between compilers.
+    This section shows how to use the supported compilers to build an application.
+  </p>
+</section>
+
+</page>

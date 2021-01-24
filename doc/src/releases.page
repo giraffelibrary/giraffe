@@ -1,0 +1,392 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="releases">
+<info>
+  <title type="link">Releases</title>
+</info>
+<title>Giraffe Library Releases</title>
+<p>
+  To install the latest library release, see the <link xref="quick-setup"/> instructions.
+  For more detailed instructions, see the <link xref="sg-index"/>.
+  For previous releases, see the <file>README</file> and <file>INSTALL</file> files
+  provided with the release.
+</p>
+
+<section id="1.0.0-alpha.10">
+<title>1.0.0-alpha.10 (2020-11-23)</title>
+<p>Release packages:</p>
+<list style="compact">
+<item><p><link href="releases/1.0.0-alpha.10/giraffe-1.0.0-alpha.10.tar.gz">giraffe-1.0.0-alpha.10.tar.gz</link></p></item>
+</list>
+<p>Changes since release 1.0.0-alpha.9:</p>
+<list style="compact">
+<item><p>Fixed build for GLib &gt;= 2.62.0.</p></item>
+<item><p>Updated <file>configure</file> script to check for MLton include directory under <file>lib64</file>.</p></item>
+</list>
+</section>
+
+<section id="1.0.0-alpha.9">
+<title>1.0.0-alpha.9 (2020-11-15)</title>
+<p>Release packages:</p>
+<list style="compact">
+<item><p><link href="releases/1.0.0-alpha.9/giraffe-1.0.0-alpha.9.tar.gz">giraffe-1.0.0-alpha.9.tar.gz</link></p></item>
+</list>
+<p>Changes since release 1.0.0-alpha.8:</p>
+<list style="compact">
+<item>
+  <p>
+    Updated representation of properties, which changes the way properties are accessed as follows:
+  </p>
+  <table>
+  <tr><td><p><code>#get <var>a</var>Prop</code></p></td><td><p>&#8594;</p></td><td><p><code>Property.get <var>a</var>Prop</code></p></td></tr>
+  <tr><td><p><code>#set <var>a</var>Prop</code></p></td><td><p>&#8594;</p></td><td><p><code>Property.set <var>a</var>Prop</code></p></td></tr>
+  <tr><td><p><code>#new <var>a</var>Prop</code></p></td><td><p>&#8594;</p></td><td><p><code>Property.init <var>a</var>Prop</code></p></td></tr>
+  </table>
+</item>
+<item><p>Added bind functions to the module <code>Property</code> that provide a type-safe interface for binding properties.</p></item>
+<item><p>Added support for accessing fields of a record.</p></item>
+<item>
+  <p>
+    Added support for constructing value-like records:
+    for a value-like record <var>R</var> with no private fields,
+    a function <code><var>R</var>.new</code> is generated
+    if no function of the same name already exists.
+  </p>
+</item>
+<item>
+  <p>
+    SML type for a non-string C array type made abstract as follows:
+  </p>
+  <list>
+  <item>
+    <p>
+      For each C array type,
+      where the SML type of the C element type is <code><var>Elem</var>.t</code>,
+      the following modules are declared if referenced:
+    </p>
+    <table>
+    <tr><td><p><code>structure <var>Elem</var>CArray : C_ARRAY</code></p></td></tr>
+    <tr><td><p><code>structure <var>Elem</var>CArrayN : C_ARRAY_N</code></p></td></tr>
+    <tr><td><p><code>structure <var>Elem</var>CPtrArray : C_ARRAY</code></p></td></tr>
+    <tr><td><p><code>structure <var>Elem</var>CPtrArrayN : C_ARRAY_N</code></p></td></tr>
+    </table>
+  </item>
+  <item>
+    <p>
+      The abstract SML type is <code><var>Elem</var>C</code>[<code>Ptr</code>]<code>Array</code>[<code>N</code>]<code>.t</code>
+      and represents a C array as follows:
+    </p>
+    <table rules="rowgroups colgroups">
+    <colgroup><col/><col/></colgroup>
+    <colgroup><col/><col/></colgroup>
+    <tbody>
+    <tr><td rowspan="2" colspan="2"><p>C array</p></td>                            <td colspan="2"><p>size</p></td></tr>
+    <tr>                                                                           <td><p>zero terminated</p></td><td><p>separate parameter</p></td></tr>
+    </tbody>
+    <tbody>
+    <tr><td rowspan="2"><p>elements</p></td><td><p>packed inline</p></td>          <td><p><code><var>Elem</var>CArray.t</code></p></td>   <td><p><code><var>Elem</var>CArrayN.t</code></p></td></tr>
+    <tr>                                    <td><p>referenced by a pointer</p></td><td><p><code><var>Elem</var>CPtrArray.t</code></p></td><td><p><code><var>Elem</var>CPtrArrayN.t</code></p></td></tr>
+    </tbody>
+    </table>
+  </item>
+  </list>
+  <p>
+    (The change in array representation avoids performance issues with large
+    arrays by allowing the internal representation to be a C array allocated
+    on the C heap that is not necessarily converted to/from an SML value.)
+  </p>
+</item>
+<item><p>SML type for C integer types <code>gsize</code> and <code>gssize</code> changed from <code>LargeInt.int</code> to <code>int</code>.</p></item>
+<item>
+  <p>
+    Added a function that returns the instance type to root classes:
+  </p>
+  <list>
+  <item><p><code>GObject.ObjectClass.instanceType</code></p></item>
+  <item><p><code>GObject.ParamSpecClass.instanceType</code></p></item>
+  </list>
+</item>
+<item><p>Removed bespoke version of <code>GLib.childWatchSourceNew</code> that was added manually.</p></item>
+<item>
+  <p>
+    Fixed introspection metadata for the following functions, which now return an optional value:
+  </p>
+  <list>
+  <item><p><code>Gio.InetAddress.newFromString</code></p></item>
+  <item><p><code>Gio.InetSocketAddress.newFromString</code></p></item>
+  </list>
+</item>
+<item>
+  <p>
+    Fixed introspection metadata for the following functions, which now return a new buffer:
+  </p>
+  <list>
+  <item><p><code>GLib.IOChannel.readChars</code></p></item>
+  <item><p><code>Gio.InputStream.read</code></p></item>
+  </list>
+</item>
+<item><p>Added module Giraffe with functions <code>exit</code> and <code>error</code>.</p></item>
+<item>
+  <p>
+    Updated top-level function <code>use</code> to support references to environment variables
+    using the notation <code>$(<var>var</var>)</code> for the value of <code><var>var</var></code>.
+  </p>
+</item>
+<item>
+  <p>
+    Updated code generation to use nullable attribute of 'out' and 'inout' arguments
+    to determine whether an optional type is used.
+    With the exception of arrays with a size parameter or fixed size zero
+    (which may be null when empty),
+    an optional type is used iff nullable is specified.
+  </p>
+</item>
+<item>
+  <p>Poly/ML-specific changes:</p>
+  <list>
+  <item>
+    <p>
+      A callback no longer leaks memory.
+      (A closure, which cannot be freed, is now allocated for each callback type only,
+      not for each callback instance, following the approach already used for MLton.)
+    </p>
+  </item>
+  </list>
+</item>
+<item>
+  <p>
+    Fixed an unlikely but theoretically possible issue where
+    memory for a function argument could be freed immediately on returning from the function call
+    (because the last use of the memory was for the function argument)
+    but some of the memory is referenced in the value passed back from an 'out' or 'inout' argument
+    and needs to be copied after returning from the call.
+  </p>
+</item>
+</list>
+</section>
+
+<section id="1.0.0-alpha.8">
+<title>1.0.0-alpha.8 (2018-10-17)</title>
+<p>Release packages:</p>
+<list style="compact">
+<item><p><link href="releases/1.0.0-alpha.8/giraffe-1.0.0-alpha.8.tar.gz">giraffe-1.0.0-alpha.8.tar.gz</link></p></item>
+</list>
+<p>Changes since release 1.0.0-alpha.7:</p>
+<list style="compact">
+<item>
+  <p>
+    Removed restriction on Poly/ML 5.7 that required C function argument/return
+     values with a C integer type to be in the range of <code>Int.int</code> which, in
+     practice, required <code>Int</code> to be the same as <code>IntInf</code>.
+  </p>
+</item>
+<item><p>Generated C wrapper functions for use with MLton so all functions supported.</p></item>
+<item><p>Generated C functions to determine the size of value-like records.</p></item>
+<item>
+  <p>
+    Updated library versions:
+  </p>
+  <table>
+  <tr><td><p>GLib 2.0</p></td>         <td><p>2.50.3</p></td></tr>
+  <tr><td><p>GIRepository 2.0</p></td> <td><p>1.50.0</p></td></tr>
+  <tr><td><p>Atk 1.0</p></td>          <td><p>2.22.0</p></td></tr>
+  <tr><td><p>Pango 1.0</p></td>        <td><p>1.40.9</p></td></tr>
+  <tr><td><p>GdkPixbuf 2.0</p></td>    <td><p>2.36.9</p></td></tr>
+  <tr><td><p>GTK+ 3.0</p></td>         <td><p>3.22.1</p></td></tr>
+  <tr><td><p>GtkSourceView 3.0</p></td><td><p>3.22.2</p></td></tr>
+  <tr><td><p>Vte 2.90</p></td>         <td><p>0.36.5</p></td></tr>
+  <tr><td><p>Vte 2.91</p></td>         <td><p>0.46.3</p></td></tr>
+  </table>
+</item>
+<item><p>Included deprecated functions in generated code.</p></item>
+<item><p>GLib namespace is loaded before GObject namespace.</p></item>
+<item><p>Added <code>GObject.Object.new</code>.</p></item>
+<item><p>Fixed property operators to respect construct-only mode.</p></item>
+<item><p>Supported case-insensitive file systems.</p></item>
+<item><p>Fixed use of dynamic loader with Poly/ML under Darwin.</p></item>
+</list>
+</section>
+
+<section id="1.0.0-alpha.7">
+<title>1.0.0-alpha.7 (2017-10-18)</title>
+<p>Release packages:</p>
+<list style="compact">
+<item><p><link href="releases/1.0.0-alpha.7/giraffe-1.0.0-alpha.7.tar.gz">giraffe-1.0.0-alpha.7.tar.gz</link></p></item>
+</list>
+<p>Changes since release 1.0.0-alpha.6:</p>
+<list style="compact">
+<item><p>Poly/ML 5.6 required.</p></item>
+<item><p>Poly/ML 5.7 supported.</p></item>
+<item>
+  <p>Poly/ML-specific changes:</p>
+  <list style="compact">
+  <item><p>Introduced finalizers based on weak references.</p></item>
+  <item><p>Used the new FFI (provided by the structure Foreign).</p></item>
+  </list>
+</item>
+<item>
+  <p>MLton-specific changes:</p>
+  <list style="compact">
+  <item><p>Added required MLton annotations to Giraffe library MLB files.</p></item>
+  </list>
+</item>
+<item><p>Added support for C array types.</p></item>
+<item>
+  <p>
+    Updated support for object types.
+    For a class <var>C</var>, object types are changed as follows:
+  </p>
+  <table>
+  <tr><td><p><code>'a <var>C</var>Class.t</code></p></td> <td><p>&#8594;</p></td><td><p><code>'a <var>C</var>Class.class</code></p></td></tr>
+  <tr><td><p><var>none</var></p></td>                     <td><p>&#8594;</p></td><td><p><code><var>C</var>Class.t</code></p></td><td><p>(new local type)</p></td></tr>
+  <tr><td><p><code>'a <var>C</var>.class_t</code></p></td><td><p>&#8594;</p></td><td><p><code>'a <var>C</var>.class</code></p></td></tr>
+  <tr><td><p><code><var>C</var>.t</code></p></td>         <td><p>&#8596;</p></td><td><p><code><var>C</var>.t</code></p></td><td><p>(no change)</p></td></tr>
+  </table>
+</item>
+<item>
+  <p>
+    Added support for structure types.  (Previously, a limited number of record
+     modules were created manually.)  For a record <var>R</var>, structure type
+     <code><var>R</var>.record_t</code> has been removed.
+  </p>
+</item>
+<item><p>Added remaining parts of namespaces that can be supported.</p></item>
+<item>
+  <p>
+    Changed type names in the module Signal:
+  </p>
+  <table>
+  <tr><td><p><code>Signal.signal</code></p></td><td><p>&#8594;</p></td><td><p><code>Signal.t</code></p></td></tr>
+  <tr><td><p><code>Signal.signal_id</code></p></td><td><p>&#8594;</p></td><td><p><code>Signal.id</code></p></td></tr>
+  </table>
+</item>
+<item><p>Generated codegen log in <file>excluded-log.page</file>.</p></item>
+<item><p>
+    Used non-option type for 'out' parameters conditional on error
+     and ignored boolean return value if it indicates an error.
+</p></item>
+</list>
+</section>
+
+<section id="1.0.0-alpha.6">
+<title>1.0.0-alpha.6 (2015-09-16)</title>
+<p>Release packages:</p>
+<list style="compact">
+<item><p><link href="releases/1.0.0-alpha.6/giraffe-1.0.0-alpha.6.tar.gz">giraffe-1.0.0-alpha.6.tar.gz</link></p></item>
+</list>
+<p>Changes since release 1.0.0-alpha.5:</p>
+<list style="compact">
+<item>
+  <p>
+    Added type abbreviation for object and structure types:
+  </p>
+  <list style="compact">
+  <item><p>for class <var>C</var>, object type <code><var>C</var>.t</code> is equivalent to <code>base <var>C</var>.class_t</code></p></item>
+  <item><p>for record <var>R</var>, structure type <code><var>R</var>.t</code> is equivalent to <code><var>R</var>.record_t</code></p></item>
+  </list>
+</item>
+<item>
+  <p>
+    Changed naming convention for types and constructors to use underscores
+     between words in line with the Basis Library convention.
+  </p>
+</item>
+<item>
+  <p>Changed Gdk button event names in line with GTK+ as follows:</p>
+  <list style="compact">
+  <item><p><code>TWOBUTTONPRESS</code> changed to <code>DOUBLE_BUTTON_PRESS</code></p></item>
+  <item><p><code>THREEBUTTONPRESS</code> changed to <code>TRIPLE_BUTTON_PRESS</code></p></item>
+  </list>
+</item>
+<item>
+  <p>
+    Removed experimental type-safe interface to style properties.  Style
+     properties must be accessed via <code>GObject.Value</code> which is not type-safe.
+  </p>
+</item>
+</list>
+</section>
+
+<section id="1.0.0-alpha.5">
+<title>1.0.0-alpha.5 (2015-05-29)</title>
+<p>Release packages:</p>
+<list style="compact">
+<item><p><link href="releases/1.0.0-alpha.5/giraffe-1.0.0-alpha.5.tar.gz">giraffe-1.0.0-alpha.5.tar.gz</link></p></item>
+</list>
+<p>Changes since release 1.0.0-alpha.4:</p>
+<list style="compact">
+<item><p>Added support for Darwin (Mac OS X).</p></item>
+<item><p>Poly/ML 5.5.2 required.</p></item>
+<item>
+  <p>
+    Improved installation:
+  </p>
+  <list style="compact">
+  <item><p>scripts compatible with Dash and Bash 3</p></item>
+  <item><p>further configure options and checks</p></item>
+  <item><p>corrections to <file>Makefile</file></p></item>
+  </list>
+</item>
+<item><p><file>config.mk</file> file installed to provide configuration to applications.</p></item>
+<item><p>Archive (A) files built for MLton C libraries instead of object (O) files.</p></item>
+<item><p>Fixed bugs in C libraries and turned on C compiler warnings.</p></item>
+<item><p>Changed runtime licence to LGPL v2.1.</p></item>
+</list>
+</section>
+
+<section id="1.0.0-alpha.4">
+<title>1.0.0-alpha.4 (2015-02-08)</title>
+<p>Release packages:</p>
+<list style="compact">
+<item><p><link href="releases/1.0.0-alpha.4/giraffe-1.0.0-alpha.4.tar.gz">giraffe-1.0.0-alpha.4.tar.gz</link></p></item>
+</list>
+<p>Changes since release 1.0.0-alpha.3:</p>
+<list style="compact">
+<item><p>Added support for multiple versions of a library.</p></item>
+<item><p>Added library vte-2.91.</p></item>
+<item><p>Restructured source code directories.</p></item>
+<item><p>Introduced configure script for installation.</p></item>
+</list>
+</section>
+
+<section id="1.0.0-alpha.3">
+<title>1.0.0-alpha.3 (2014-12-19)</title>
+<p>Release packages:</p>
+<list style="compact">
+<item><p><link href="releases/1.0.0-alpha.3/giraffe-1.0.0-alpha.3.tar.gz">giraffe-1.0.0-alpha.3.tar.gz</link></p></item>
+</list>
+<p>Changes since release 1.0.0-alpha.2:</p>
+<list style="compact">
+<item>
+  <p>
+    SML generated from GIR files:
+  </p>
+  <list style="compact">
+    <item><p>no longer platform-specific</p></item>
+    <item><p>alias types included</p></item>
+  </list>
+</item>
+<item><p>Added support for Pango and GtkSourceView libraries.</p></item>
+<item><p><code>Pid.t</code> moved to <code>GLib.Pid.t</code></p></item>
+<item><p>FFI module for basic types restructured.</p></item>
+</list>
+</section>
+
+<section id="1.0.0-alpha.2">
+<title>1.0.0-alpha.2 (2012-10-29)</title>
+<p>Release packages:</p>
+<list style="compact">
+<item><p><link href="releases/1.0.0-alpha.2/giraffe-1.0.0-alpha.2-i386.tar.gz">giraffe-1.0.0-alpha.2-i386.tar.gz</link></p></item>
+<item><p><link href="releases/1.0.0-alpha.2/giraffe-1.0.0-alpha.2.tar.gz">giraffe-1.0.0-alpha.2.tar.gz</link></p></item>
+</list>
+</section>
+
+<section id="1.0.0-alpha.1">
+<title>1.0.0-alpha.1 (2012-10-12)</title>
+<p>Release packages:</p>
+<list style="compact">
+<item><p><link href="releases/1.0.0-alpha.1/giraffe-1.0.0-alpha.1.tar.gz">giraffe-1.0.0-alpha.1.tar.gz</link></p></item>
+</list>
+</section>
+
+</page>

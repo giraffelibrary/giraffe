@@ -1,0 +1,194 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-signals">
+<info>
+  <title type="sort">0600</title>
+  <link type="guide" xref="ug-index#sml-interface"/>
+</info>
+<title>Signals</title>
+<p>
+A signal is defined by a class or interface
+and is emitted by an object (instance) when a particular event occurs.
+A function is called on emission of a signal by connecting to the signal
+and specifying the function as the handler.
+</p>
+<p>
+The special structure <code><link xref="ug-special-structures#signal">Signal</link></code>
+provides support for working with signals in a type safe way.
+</p>
+
+<section>
+<title>Referring to signals</title>
+<p>
+A signal name is string of ASCII letters and digits with words separated by a hyphen (or underscore)
+where the first word starts with a letter.
+For a signal “<var>some</var>-<var>signal</var>-<var>name</var>”
+of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
+the hierarchical SML name is
+<code><var>Namespace</var>.<var>Type</var>.<var>someSignalName</var>Sig</code>.
+</p>
+<example>
+<p>
+For example, the signal “insert-at-cursor”
+of the class <code>Gtk.TextView</code> is
+<code>Gtk.TextView.insertAtCursorSig</code>
+</p>
+</example>
+<p>
+In order to provide a type-safe interface for using signals,
+each signal has an SML specification constraining the instance type that emits
+the signal and the type of the handler function.
+</p>
+<p>
+The specification of <code><var>Namespace</var>.<var>Type</var>.<var>someSignalName</var>Sig</code>
+in the signature <code><var>NAMESPACE</var>_<var>TYPE</var></code>
+has the form:
+</p>
+<code>
+val <var>some</var><var>Signal</var><var>Name</var>Sig : <var>handlerType</var> -> <var>instanceType</var> Signal.t
+</code>
+<p>
+where
+</p>
+<terms>
+<item>
+  <title><code><var>instanceType</var></code></title>
+  <p>is <code>'a class</code> which represents the class or interface on which the signal is emitted or any subclass of the class;</p>
+</item>
+<item>
+  <title><code><var>handlerType</var></code></title>
+  <p>is the type of the handler function.</p>
+</item>
+</terms>
+<example>
+<p>
+For example, the specification of <code>Gtk.TextView.insertAtCursorSig</code> is
+</p>
+<code>
+val insertAtCursorSig : (string -> unit) -> 'a class Signal.t
+</code>
+</example>
+<p>
+As the example above shows, <code><var>handlerType</var></code> does not have an argument
+for the instance that emits the signal.
+</p>
+</section>
+
+<section>
+<title>Handling signals</title>
+
+<note style="tip">
+<p>
+At present, there is support only for handling the emission of a signal from an instance of a class or interface.
+There is no support for
+</p>
+<list style="compact">
+<item><p>handling a signal on all instances of a class or interface, i.e. overriding the class closure</p></item>
+<item><p>emission hooks</p></item>
+</list>
+</note>
+
+<section>
+<title>Connecting signal handlers</title>
+<p>
+A handler function is connected to a signal of an object (instance)
+using <code>Signal.connect</code> or <code>Signal.connectAfter</code>.
+For a signal “<var>a</var>”
+of a class <code><var>ClassNamespace</var>.<var>Class</var></code>,
+the handler function <code><var>f</var></code>
+is connected to the signal on an object <code><var>obj</var></code> by
+</p>
+<code>
+Signal.connect <var>obj</var> <var>ClassNamespace</var>.<var>Class</var>.<var>a</var>Sig <var>f</var>
+</code>
+<p>
+For a signal “<var>a</var>”
+of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
+implemented by the class <code><var>ClassNamespace</var>.<var>Class</var></code>,
+the handler function <code><var>f</var></code>
+is connected to the signal on the object <code><var>obj</var></code> by
+</p>
+<code>
+Signal.connect (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>) <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig <var>f</var>
+</code>
+<p>
+The function returns a handler id to allow the signal connection to be modified or checked subsequently.
+</p>
+<example>
+<p>
+For example, to handle emission of the signal “insert-at-cursor”
+from the object <code>textView</code>
+using the function <code>onInsert</code>, connect to the signal as follows:
+</p>
+<code>
+val handlerId = Signal.connect textView Gtk.TextView.insertAtCursorSig onInsert
+</code>
+<p>
+<code>handlerId</code> can be used to modify this signal connection subsequently.
+</p>
+</example>
+<p>
+It is not unusual for the handler function <code><var>f</var></code> to need to refer to the object that emitted the signal, <code><var>obj</var></code>, but <code><var>handlerType</var></code> does not have an argument to pass <code><var>obj</var></code> to the handler <code><var>f</var></code>.
+This is easily achieved by defining <code><var>f</var></code> to take the emitting object as the first argument and supplying the argument when connecting the handler as follows:
+</p>
+<code>
+Signal.connect <var>obj</var> <var>Namespace</var>.<var>Type</var>.<var>a</var>Sig (<var>f</var> <var>obj</var>)
+</code>
+<p>
+Type checking ensures that when a handler is connected to a signal of an object,
+</p>
+<list style="compact">
+<item><p>the handler function has the correct type for the signal;</p></item>
+<item><p>the signal is valid for the object.</p></item>
+</list>
+
+</section>
+
+<section>
+<title>Disconnecting signal handlers</title>
+<p>
+A signal handler is disconnected using <code>Signal.disconnect</code>.
+The signal to disconnect is identified by the object that emits the signal and
+the handler id returned when it was connected.
+</p>
+<example>
+<p>
+For example, a signal handler on <code>textView</code> identified by <code>handlerId</code>
+is disconnected as follows:
+</p>
+<code>
+Signal.disconnect textView handlerId
+</code>
+</example>
+</section>
+
+<section>
+<title>Testing whether signal handlers are still connected</title>
+<p>
+<code>Signal.isConnected</code> tests whether a signal is connected.
+The signal is identified by the object that emits the signal and
+the handler id returned when it was connected.
+</p>
+<example>
+<p>
+For example, a signal handler on <code>textView</code> identified by <code>handlerId</code>
+is tested as follows:
+</p>
+<code>
+Signal.isConnected textView handlerId
+</code>
+</example>
+</section>
+
+</section>
+
+<section>
+<title>Emitting signals</title>
+<note style="tip">
+<p>
+At present, there is no support for emitting signals.
+</p>
+</note>
+</section>
+
+</page>

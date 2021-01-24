@@ -1,0 +1,252 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="sg-installation">
+<info>
+  <title type="sort">2</title>
+  <link type="guide" xref="sg-index"/>
+  <desc>Downloading and installing Giraffe Library</desc>
+</info>
+<title>Installation</title>
+
+<section>
+<title>Download</title>
+<p>
+For the current release, see the <link xref="index">home page</link>.
+For earlier releases, see the <link xref="releases">release page</link>.
+Generally, the library package for version <var>VERSION</var> can be downloaded from
+</p>
+<quote>
+<p>
+<file>http://giraffelibrary.org/releases/<var>VERSION</var>/giraffe-<var>VERSION</var>.tar.gz</file>
+</p>
+</quote>
+</section>
+
+<section>
+<title>Installation steps</title>
+<steps>
+
+<item>
+<p>
+Unpack the release archive for version <var>VERSION</var> with the command
+</p>
+<quote>
+<screen>
+<cmd>tar -xzf giraffe-<var>VERSION</var>.tar.gz</cmd>
+</screen>
+</quote>
+</item>
+
+<item>
+<p>
+Change directory to the source directory with the command
+</p>
+<quote>
+<screen>
+<cmd>cd giraffe/</cmd>
+</screen>
+</quote>
+</item>
+
+<item>
+<p>
+Enter the command
+</p>
+<quote>
+<screen>
+<cmd>./configure</cmd>
+</screen>
+</quote>
+<p>
+to install to <sys>GIRAFFEHOME</sys>, if set, otherwise <file>/opt/giraffe</file>.
+Alternatively, enter the command
+</p>
+<quote>
+<screen>
+<cmd>./configure --prefix <var>installdir</var></cmd>
+</screen>
+</quote>
+<p>
+to install to <var>installdir</var>.
+For further options, enter the command
+</p>
+<quote>
+<screen>
+<cmd>./configure --help</cmd>
+</screen>
+</quote>
+<p>
+If <cmd>configure</cmd> finds SML compilers that should be ignored,
+the following options can be specified as required:
+</p>
+<list style="compact" type="none">
+  <item><p><cmd>--without-mlton</cmd></p></item>
+  <item><p><cmd>--without-polyml</cmd></p></item>
+</list>
+<p>
+If <cmd>configure</cmd> does not find the required SML compilers or
+libraries, refer to the section <link xref="#modifying_the_configuration"/> below.
+</p>
+</item>
+
+<item>
+<p>
+Build using the command
+</p>
+<quote>
+<screen>
+<cmd>make</cmd>
+</screen>
+</quote>
+</item>
+
+<item>
+<p>
+Install using the command
+</p>
+<quote>
+<screen>
+<cmd>make install</cmd>
+</screen>
+</quote>
+<p>
+This command requires permissions to write to the installation directory set in step 3.
+</p>
+</item>
+
+<item>
+<p>
+Clean up using the command
+</p>
+<quote>
+<screen>
+<cmd>make distclean</cmd>
+</screen>
+</quote>
+</item>
+
+</steps>
+</section>
+
+<section id="modifying_the_configuration">
+<title>Modifying the configuration</title>
+<p>
+<cmd>configure</cmd> uses the <sys>PATH</sys> environment variable and
+<cmd>pkg-config</cmd> utility to find dependencies if not specified by command line options.
+<cmd>configure</cmd> searches for:
+</p>
+<list>
+  <item>
+    <p>MLton</p>
+    <list type="numbered" style="compact">
+      <item><p>using directories from command line options and, if not specified,</p></item>
+      <item><p>by searching for <cmd>mlton</cmd> in a directory in <sys>PATH</sys></p></item>
+    </list>
+  </item>
+  <item>
+    <p>Poly/ML</p>
+    <list type="numbered" style="compact">
+      <item><p>using directories from command line options and, if not specified,</p></item>
+      <item><p>using <cmd>pkg-config</cmd> and, failing that,</p></item>
+      <item><p>by searching for <cmd>poly</cmd> in a directory in <sys>PATH</sys></p></item>
+    </list>
+  </item>
+  <item>
+    <p>supported libraries using <cmd>pkg-config</cmd></p>
+  </item>
+</list>
+<p>
+If any required dependencies are not found but are installed on your system,
+the configuration can be modified by one of the following methods to ensure that
+the above checks find them:
+</p>
+<list>
+  <item><p><link xref="#specifying_directories"/></p></item>
+  <item><p><link xref="#changing_path"/></p></item>
+  <item><p><link xref="#changing_pkg_config_path"/></p></item>
+</list>
+
+<section id="specifying_directories">
+<title>Specifying directories using command line options</title>
+<p>
+The installation directory prefix of SML compilers can be specified by
+the following configure options:
+</p>
+<list style="compact" type="none">
+  <item><p><cmd>--mlton-prefix <var>dir</var></cmd></p></item>
+  <item><p><cmd>--polyml-prefix <var>dir</var></cmd></p></item>
+</list>
+<p>
+The sub-directories can be overridden using the following options for
+non-standard installations:
+</p>
+<list style="compact" type="none">
+  <item><p><cmd>--mlton-bindir <var>dir</var></cmd></p></item>
+  <item><p><cmd>--mlton-includedir <var>dir</var></cmd></p></item>
+  <item><p><cmd>--polyml-bindir <var>dir</var></cmd></p></item>
+  <item><p><cmd>--polyml-libdir <var>dir</var></cmd></p></item>
+</list>
+</section>
+
+<section id="changing_path">
+<title>Changing <sys>PATH</sys></title>
+<p>
+<sys>PATH</sys> can be updated to include the directory containing the required program.
+For example, to specify Poly/ML installed to <file>/opt/polyml/polyml-5.6</file>,
+then <sys>PATH</sys> would be updated as follows:
+</p>
+<quote>
+<screen><cmd>PATH=/opt/polyml/polyml-5.6/bin:${PATH}</cmd></screen>
+</quote>
+</section>
+
+<section id="changing_pkg_config_path">
+<title>Changing <sys>PKG_CONFIG_PATH</sys></title>
+<p>
+<sys>PKG_CONFIG_PATH</sys> can be updated to include the directory containing the required
+PC file.  For example, to specify Poly/ML installed to <file>/opt/polyml/polyml-5.6</file>,
+<sys>PKG_CONFIG_PATH</sys> would be updated as follows:
+</p>
+<quote>
+<screen><cmd>PKG_CONFIG_PATH=/opt/polyml/polyml-5.6/lib/pkgconfig:${PKG_CONFIG_PATH}</cmd></screen>
+</quote>
+</section>
+
+</section>
+
+<section id="additional-configuration">
+<title>Additional configuration</title>
+
+<section>
+<title>OS X using Macports</title>
+<p>
+When running a GTK application, the following message may appear:
+</p>
+<quote>
+<p>
+Dynamic session lookup supported but failed: launchd did not provide a
+socket path, verify that org.freedesktop.dbus-session.plist is loaded!
+</p>
+</quote>
+<p>
+This error occurs because D-Bus is not running.  Enter the following command to
+start the session D-Bus:
+</p>
+<quote>
+<screen><cmd>launchctl load -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist</cmd></screen>
+</quote>
+<p>
+The session D-Bus will start automatically after subsequent logins.
+To stop the session D-Bus, enter the command:
+</p>
+<quote>
+<screen><cmd>launchctl unload -w /Library/LaunchAgents/org.freedesktop.dbus-session.plist</cmd></screen>
+</quote>
+<p>
+Source: <link href="https://trac.macports.org/ticket/44498#comment:6"/>
+</p>
+</section>
+
+</section>
+
+</page>

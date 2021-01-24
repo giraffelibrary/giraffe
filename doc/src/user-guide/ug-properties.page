@@ -1,0 +1,240 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-properties">
+<info>
+  <title type="sort">0700</title>
+  <link type="guide" xref="ug-index#sml-interface"/>
+</info>
+<title>Properties</title>
+<p>
+A property is a named parameter of a class or interface
+whose attributes determine its type and modes of use (readable, writable, construct-only).
+</p>
+<p>
+The special structure <code><link xref="ug-special-structures#property">Property</link></code>
+provides support for working with properties in a type safe way.
+The the type <code>Property.init_t</code> is used to specify initial properties
+for use with <code>GObject.Object.new</code> as described by <link xref="#object-construction"/> below.
+</p>
+
+<section>
+<title>Referring to properties</title>
+<p>
+A property name is string of ASCII letters and digits with words separated by a hyphen (or underscore)
+where the first word starts with a letter.
+For a property “<var>some</var>-<var>property</var>-<var>name</var>”
+of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
+the hierarchical SML name is
+<code><var>Namespace</var>.<var>Type</var>.<var>somePropertyName</var>Prop</code>.
+</p>
+<example>
+<p>
+For example, the property “always-show-image”
+of the class <code>Gtk.Button</code> is
+<code>Gtk.Button.alwaysShowImageProp</code>
+</p>
+</example>
+<p>
+In order to provide a type-safe and mode-safe interface for using properties,
+each property has an SML specification constraining the instance type that provides
+the property, the type of the property and
+access to the property.
+</p>
+<p>
+The specification of <code><var>Namespace</var>.<var>Type</var>.<var>somePropertyName</var>Prop</code>
+in the signature <code><var>NAMESPACE</var>_<var>TYPE</var></code>
+has the form:
+</p>
+<code>
+val <var>some</var><var>Property</var><var>Name</var>Prop : (<var>instanceType</var>, <var>getType</var>, <var>setType</var>, <var>initType</var>) Property.t
+</code>
+<p>
+where
+</p>
+<terms>
+<item>
+  <title><code><var>instanceType</var></code></title>
+  <p>is <code>'a class</code> which represents the class or interface that provides the property or any subclass of the class;</p>
+</item>
+<item>
+  <title><code><var>getType</var></code></title>
+  <p>is <code>unit -> <var>readType</var></code> if the property is readable and, otherwise, is <code>unit</code>;</p>
+</item>
+<item>
+  <title><code><var>setType</var></code></title>
+  <p>is <code><var>writeType</var> -> unit</code> if the property is writable and not contruct-only and, otherwise, is <code>unit</code>;</p>
+</item>
+<item>
+  <title><code><var>initType</var></code></title>
+  <p>is <code><var>writeType</var> -> unit</code> if the property is writable and, otherwise, is <code>unit</code>;</p>
+</item>
+</terms>
+<p>
+where
+</p>
+<terms>
+<item>
+  <title><code><var>readType</var></code></title>
+  <p>is the type of the value read from the property;</p>
+</item>
+<item>
+  <title><code><var>writeType</var></code></title>
+  <p>is the type of the value written to the property.</p>
+</item>
+</terms>
+<p>
+The term <em>construct-only</em> means that the property is writable only at the time of object construction.
+</p>
+<example>
+<p>
+For example, in the signature <code>GTK_WINDOW</code>,
+the specification of the readable and writable property <code>Gtk.Window.transientForProp</code> is
+</p>
+<code>
+val transientForProp : ('a class, unit -> base class option, 'b class option -> unit, 'b class option -> unit) Property.t
+</code>
+<p>
+and the specification of the readable, writable and construct-only property <code>Gtk.Window.typeProp</code> is
+</p>
+<code>
+val typeProp : ('a class, unit -> window_type_t, unit, window_type_t -> unit) Property.t
+</code>
+<p>
+and the specification of the write-only property <code>Gtk.Window.startupIdProp</code> is
+</p>
+<code>
+val startupIdProp : ('a class, unit, string option -> unit, string option -> unit) Property.t
+</code>
+<p>
+and the specification of the read-only property <code>Gtk.Window.hasToplevelFocusProp</code> is
+</p>
+<code>
+val hasToplevelFocusProp : ('a class, unit -> bool, unit, unit) Property.t
+</code>
+</example>
+</section>
+
+<section>
+<title>Accessing properties</title>
+
+<section>
+<title>Reading</title>
+<p>
+For a property “<var>a</var>”
+of a class <code><var>ClassNamespace</var>.<var>Class</var></code>,
+the value of the property in an object <code><var>obj</var></code>
+is given by
+</p>
+<code>
+Property.get <var>ClassNamespace</var>.<var>Class</var>.<var>a</var>Prop <var>obj</var>
+</code>
+<p>
+For a property “<var>a</var>”
+of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
+implemented by the class <code><var>ClassNamespace</var>.<var>Class</var></code>,
+the value of the property in the object <code><var>obj</var></code>
+is given by either converting <code><var>obj</var></code>:
+</p>
+<code>
+Property.get <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Prop (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>)
+</code>
+<p>or converting the property:</p>
+<code>
+Property.get (Property.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Prop) <var>obj</var>
+</code>
+<p>
+The above expressions do not type check if any of the following are satisfied:
+</p>
+<list style="compact">
+<item><p><var>obj</var> is not an instance of the class <code><var>ClassNamespace</var>.<var>Class</var></code>;</p></item>
+<item><p>the property is not readable.</p></item>
+</list>
+</section>
+<section>
+<title>Writing</title>
+<p>
+For a property “<var>a</var>”
+of a class <code><var>ClassNamespace</var>.<var>Class</var></code>,
+the value of the property in an object <code><var>obj</var></code>
+is set to <code><var>x</var></code> by
+</p>
+<code>
+Property.set <var>ClassNamespace</var>.<var>Class</var>.<var>a</var>Prop <var>x</var> <var>obj</var>
+</code>
+<p>
+For a property “<var>a</var>”
+of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
+implemented by the class <code><var>ClassNamespace</var>.<var>Class</var></code>,
+the value of the property in the object <code><var>obj</var></code>
+is set to <code><var>x</var></code> by either converting <code><var>obj</var></code>:
+</p>
+<code>
+Property.set <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Prop <var>x</var> (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>)
+</code>
+<p>or converting the property:</p>
+<code>
+Property.set (Property.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Prop) <var>x</var> <var>obj</var>
+</code>
+<p>
+The above expressions do not type check if any of the following are satisfied:
+</p>
+<list style="compact">
+<item><p><var>obj</var> is not an instance of the class <code><var>ClassNamespace</var>.<var>Class</var></code>;</p></item>
+<item><p>the property is not writable;</p></item>
+<item><p>the property is construct-only;</p></item>
+<item><p>the type of <code><var>x</var></code> is not an instance of the type of the property.</p></item>
+</list>
+</section>
+</section>
+
+<section id="object-construction">
+<title>Initializing properties on object construction</title>
+<p>
+Using <code>GObject.Object.new</code>,
+the value of a property “<var>a</var>”
+of a class <code><var>ClassNamespace</var>.<var>Class</var></code>
+is initialized to <code><var>x</var></code>
+on construction of an instance of a class <var>C</var> as follows:
+</p>
+<code>
+val <var>obj</var> =
+  GObject.Object.new
+    (
+      <var>C</var>Class.t,
+      [
+        …,
+        Property.init <var>ClassNamespace</var>.<var>Class</var>.<var>a</var>Prop <var>x</var>,
+        …
+      ]
+    )
+</code>
+<p>
+The value of a property “<var>a</var>”
+of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
+implemented by a class <code><var>ClassNamespace</var>.<var>Class</var></code>
+is initialized to <code><var>x</var></code>
+on construction of an instance of a class <var>C</var> as follows:
+</p>
+<code>
+val <var>obj</var> =
+  GObject.Object.new
+    (
+      <var>C</var>Class.t,
+      [
+        …,
+        Property.init (Property.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Prop) <var>x</var>,
+        …
+      ]
+    )
+</code>
+<p>
+The above expressions do not type check if any of the following are satisfied:
+</p>
+<list style="compact">
+<item><p><var>C</var> is neither equal to nor a subclass of <code><var>ClassNamespace</var>.<var>Class</var></code>;</p></item>
+<item><p>the property “<var>a</var>” is not writable;</p></item>
+<item><p>the type of <code><var>x</var></code> is not an instance of the type of the property.</p></item>
+</list>
+</section>
+
+</page>

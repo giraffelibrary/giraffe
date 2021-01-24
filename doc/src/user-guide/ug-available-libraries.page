@@ -1,0 +1,71 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-available-libraries">
+<info>
+  <title type="sort">1</title>
+  <link type="guide" xref="ug-index#library-overview"/>
+</info>
+<title>Available Libraries</title>
+
+<p>
+The following libraries are available,
+where the interface is based on the indicated version:
+</p>
+<table rules="rowgroups">
+  <thead>
+    <tr><td><p>Library</p></td>          <td><p>Namespace</p></td>        <td><p>Version</p></td>            </tr>
+  </thead>
+  <tbody>
+    <tr><td rowspan="4"><p>GLib</p></td> <td><p>GLib-2.0</p></td>         <td rowspan="4"><p>2.66.4</p></td> </tr>
+    <tr>                                 <td><p>GObject-2.0</p></td>                                         </tr>
+    <tr>                                 <td><p>Gio-2.0</p></td>                                             </tr>
+    <tr>                                 <td><p>GModule-2.0</p></td>                                         </tr>
+  </tbody>
+  <tbody>
+    <tr><td><p>Atk</p></td>              <td><p>Atk-1.0</p></td>          <td><p>2.36.0</p></td>             </tr>
+  </tbody>
+  <tbody>
+    <tr><td><p>cairo</p></td>            <td><p>cairo-1.0</p></td>        <td><p>1.14.0</p></td>             </tr>
+  </tbody>
+  <tbody>
+    <tr><td><p>HarfBuzz</p></td>         <td><p>HarfBuzz-0.0</p></td>     <td><p>2.7.2</p></td>              </tr>
+  </tbody>
+  <tbody>
+    <tr><td rowspan="2"><p>Pango</p></td><td><p>Pango-1.0</p></td>        <td rowspan="2"><p>1.48.0</p></td> </tr>
+    <tr>                                 <td><p>PangoCairo-1.0</p></td>                                      </tr>
+  </tbody>
+  <tbody>
+    <tr><td><p>GdkPixbuf</p></td>        <td><p>GdkPixbuf-2.0</p></td>    <td><p>2.40.0</p></td>             </tr>
+  </tbody>
+  <tbody>
+    <tr><td rowspan="2"><p>GTK</p></td>  <td><p>Gdk-3.0</p></td>          <td rowspan="2"><p>3.24.24</p></td></tr>
+    <tr>                                 <td><p>Gtk-3.0</p></td>                                             </tr>
+  </tbody>
+  <tbody>
+    <tr><td><p>GtkSourceView</p></td>    <td><p>GtkSource-3.0</p></td>    <td><p>3.24.11</p></td>            </tr>
+  </tbody>
+  <tbody>
+    <tr><td rowspan="2"><p>VTE</p></td> <td><p>Vte-2.90</p></td>          <td><p>0.36.5</p></td>             </tr>
+    <tr>                                <td><p>Vte-2.91</p></td>          <td><p>0.62.1</p></td>             </tr>
+  </tbody>
+</table>
+<note type="tip">
+<p>
+Giraffe Library can be installed on a system with older versions of libraries than those above
+and an application can still be built provided that it uses only the API available in the older versions.
+</p>
+</note>
+<p>
+Parts of these libraries are excluded for reasons described under <link xref="ug-library-coverage"/>.
+A full list of exclusions in the generated code is given under <link xref="ug-excluded-log"/>.
+</p>
+<p>
+The Cairo graphics library is not based on GObject and
+does not provide GObject Introspection metadata from which to generate bindings to functions.
+A mininal interface to Cairo is generated from metadata supplied with GObject Introspection
+that provides types but not functions.
+This generated interface is extended with hand-written SML bindings for a subset of Cairo functions
+as described under <link xref="ug-excluded-log"/>.
+</p>
+
+</page>

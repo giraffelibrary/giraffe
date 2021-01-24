@@ -5,82 +5,77 @@
       |\ _|
       |\`-'       Version @GIRAFFE_VERSION@
       |/|
-      |\|         Standard ML bindings for GObject-based libraries
-      |/|         http://www.giraffelibrary.org/
+      |\|         SML interface to libraries using GObject Introspection
+      |/|         http://giraffelibrary.org/
       |\|
 
 
 This README file covers the following topics:
 
-  1. Overview
-  2. System Requirements
-  3. Installation
-  4. Contact and support
+  1  Overview
+  2  System Requirements
+  3  Installation
+  4  Contact and support
 
 
-Full documentation is available in the User Guide at
+Full documentation is available at
 
-  http://www.giraffelibrary.org/doc/
+  http://giraffelibrary.org/
 
 
          ---------------          1.  Overview          ---------------
 
-Giraffe Library is a Standard ML library that provides an interface to various
-GObject-based libraries, such as GTK+.  The interface introduces some
-abstraction of the libraries to provide expected features of Standard ML such
-as:
+Giraffe Library is an SML interface to libraries using GObject Introspection,
+such as GLib and GTK.  The interface introduces some abstraction of the
+libraries to provide expected features of SML such as:
 
   - automatic memory management (garbage collection)
-  - type-safety
+  - static type safety
   - no uninitialized values
   - portable source code
 
-For the most part, Giraffe Library is generated automatically from the GIR data
-of the libraries.  At present, interfaces to parts of the following libraries
-(and their dependencies) are available:
+Currently, an interface to a predefined set of libraries is provided.  The
+interface for these libraries was generated offline using the Giraffe code
+generator which can be used to generate interfaces to other libraries.  This
+release provides an interface to parts of the following libraries, where the
+interface is based on the indicated version:
 
-  - GTK+
-  - Pango
-  - GtkSourceView
-  - VTE (Virtual Terminal Emulator)
+  - GLib 2.0              2.66.4
+  - Atk 1.0               2.36.0
+  - cairo 1.0             1.14.0
+  - HarfBuzz 0.0          2.7.2
+  - Pango 1.0             1.48.0
+  - GdkPixbuf 2.0         2.40.0
+  - GTK 3.0               3.24.24
+  - GtkSourceView 3.0     3.24.11
+  - VTE 2.90              0.36.5  (VTE is a Virtual Terminal Emulator)
+  - VTE 2.91              0.62.1
+
+Later versions are expected to work but newer features are not available.
+Earlier versions may still work, depending on the actual dependencies of an
+application using Giraffe Library.
+
+The interface has various omissions due to limitations.  Most limitations are
+due to missing support in the Giraffe code generator, which is under
+development.  Despite this, the library should be sufficient to create useful
+non-trivial applications.
+
+Giraffe Library has been tested on various combinations of
+
+  - Fedora and Ubuntu GNU/Linux and Mac OS X systems
+  - i686 and x86_64 platforms
 
 
          ---------------    2.  System Requirements     ---------------
 
-Giraffe Library has been tested on various combinations of
-  - Fedora and Ubuntu GNU/Linux and Mac OS X systems
-  - i686 and x86_64 platforms
-In principle, any system that satisfies the following requirements should work.
+At least one of the following SML compilers is required:
 
-At least one of the following Standard ML compilers is required:
-
-  MLton    >= 20130715
-  Poly/ML  >= 5.6
-
-The following libraries are supported, where the interface is based on the
-indicated version:
-
-  GLib-2.0              2.66.4
-  GObject-2.0           2.66.4
-  Gio-2.0               2.66.4
-  GModule-2.0           2.66.4
-  Atk-1.0               2.36.0
-  cairo-1.0             1.14.0
-  HarfBuzz-0.0          2.7.2
-  Pango-1.0             1.48.0
-  PangoCairo-1.0        1.48.0
-  GdkPixbuf-2.0         2.40.0
-  Gdk-3.0               3.24.24
-  Gtk-3.0               3.24.24
-  GtkSource-3.0         3.24.11
-  Vte-2.90              0.36.5
-  Vte-2.91              0.62.1
-
-Later versions are expected to work but newer features are not supported.
-Earlier versions may still work, depending on the actual dependencies.
+    MLton    >= 20130715
+    Poly/ML  >= 5.6
 
 Other standard tools are required:
-  - An ANSI C compiler, such as GCC.
+
+  - An ANSI C compiler, such as GCC, and a linker.
   - Common GNU utilities, such as Bash, Make, Grep and Sed.
   - The pkg-config utility.
 

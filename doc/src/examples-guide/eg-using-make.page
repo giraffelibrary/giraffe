@@ -1,0 +1,206 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="eg-using-make">
+<info>
+  <link type="guide" xref="eg-index"/>
+  <desc>Building examples with Make</desc>
+</info>
+<title>Using Make</title>
+<p>
+All examples use a common <file>Makefile</file> so are built using the same Make commands.
+(Example-specific values are defined in a file called <file>app.mk</file>, which is included by <file>Makefile</file>.)
+</p>
+
+<section>
+<title>Building</title>
+<p>
+The example called <var>name</var> can be built according to the following steps:
+</p>
+
+<steps>
+
+<item>
+<p>
+Unpack the archive with the command
+</p>
+<quote>
+<screen>
+<cmd>tar -xzf <var>name</var>.tar.gz</cmd>
+</screen>
+</quote>
+</item>
+
+<item>
+<p>
+Change directory to the example directory with the command
+</p>
+<quote>
+<screen>
+<cmd>cd <var>name</var>/</cmd>
+</screen>
+</quote>
+</item>
+
+<item>
+<p>
+Ensure that the environment variable <sys>GIRAFFEHOME</sys> is the Giraffe Library installation directory and is exported.
+</p>
+<example>
+<p>
+For example, if using Bash, to print its currently exported value, enter the command
+</p>
+<quote>
+<screen>
+<cmd>sh -c 'echo ${GIRAFFEHOME}'</cmd>
+</screen>
+</quote>
+<p>
+If necessary, to set its value and export it, enter the commands
+</p>
+<quote>
+<screen>
+<cmd>GIRAFFEHOME=<var>installdir</var></cmd>
+<cmd>export GIRAFFEHOME</cmd>
+</screen>
+</quote>
+<p>
+where <var>installdir</var> is the Giraffe Library installation directory.
+</p>
+</example>
+</item>
+
+<item>
+<p>
+To see the build options, enter the command
+</p>
+<quote>
+<screen>
+<cmd>make</cmd>
+</screen>
+</quote>
+<p>
+This will fail if <sys>GIRAFFEHOME</sys> is not correctly set as described in the previous step.
+</p>
+</item>
+
+<item>
+<p>
+To build an executable, enter the command
+</p>
+<quote>
+<screen>
+<cmd>make <var>compiler</var></cmd>
+</screen>
+</quote>
+<p>
+where <var>compiler</var> is one of the supported compilers reported in the previous step.
+</p>
+<example>
+<p>
+For example
+</p>
+<quote>
+<screen>
+<cmd>make polyml</cmd>
+<cmd>make mlton</cmd>
+</screen>
+</quote>
+<p>
+Multiple targets can be specified, for example
+</p>
+<quote>
+<screen>
+<cmd>make polyml mlton</cmd>
+</screen>
+</quote>
+</example>
+<p>
+The resulting executable is called <file><var>name</var>-<var>compiler</var></file>.
+</p>
+</item>
+
+</steps>
+
+</section>
+
+<section>
+<title>Running</title>
+
+<p>
+To run an executable for the example called <var>name</var>, enter the command
+</p>
+<quote>
+<screen>
+<cmd>./<var>name</var>-<var>compiler</var></cmd>
+</screen>
+</quote>
+<p>
+where <var>compiler</var> is one of the compilers that the example was built with.
+</p>
+<example>
+<p>
+For example
+</p>
+<quote>
+<screen>
+<cmd>./<var>name</var>-polyml</cmd>
+</screen>	
+<screen>
+<cmd>./<var>name</var>-mlton</cmd>
+</screen>	
+</quote>
+</example>
+<note style="tip">
+<p>
+To test an application based on <code>Gio.Application</code> with different compilers,
+all running instances of the program should be closed before running
+the program built with a different compiler.
+</p>
+<p>
+Unless the <code>Gio.Application</code> object has been been told to ignore uniqueness,
+it will check for a running instance with the same application identifier
+when a program is started.
+If there is already a running instance of the application,
+a signal is sent to the existing instance and the program will terminate.
+As MLton and Poly/ML applications are built from the same source,
+both executables use the same application identifier.
+Consequently, running e.g. <file><var>name</var>-polyml</file>
+while <file><var>name</var>-mlton</file> is already running would
+exercise very little of the code in <file><var>name</var>-polyml</file>
+because the new instance would be created by <file><var>name</var>-mlton</file>.
+</p>
+</note>
+</section>
+
+<section>
+<title>Cleaning</title>
+
+<p>
+To remove all files built for an example, enter the command
+</p>
+<quote>
+<screen>
+<cmd>make distclean</cmd>
+</screen>
+</quote>
+<p>
+To remove intermediate files but not the executables, enter the command
+</p>
+<quote>
+<screen>
+<cmd>make clean</cmd>
+</screen>
+</quote>
+<p>
+The following variants of the above commands remove only those files built where the compiler was <var>compiler</var>:
+</p>
+<quote>
+<screen>
+<cmd>make clean-<var>compiler</var></cmd>
+<cmd>make distclean-<var>compiler</var></cmd>
+</screen>
+</quote>
+
+</section>
+
+</page>

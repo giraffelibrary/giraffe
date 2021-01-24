@@ -1,0 +1,110 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-library-coverage">
+<info>
+  <title type="sort">2</title>
+  <link type="guide" xref="ug-index#library-overview"/>
+</info>
+<title>Library Coverage</title>
+
+<p>
+Of the entities provided by a library, many are not intended for introspection,
+that is to say they are not intended for use from languages other than C,
+and are therefore excluded from the SML interface.
+Such entities are annotated with <code>(skip)</code> in the gtk-doc comment in the source code
+and with ‘[skip]’ in the reference manual.
+</p>
+<p>
+An SML interface does not usually include all library entities intended for introspection.
+In most cases, entities are excluded because
+they are not wanted in the SML interface and this is not a limitation.
+For example, the following should not be in the SML interface, and are excluded:
+</p>
+<list style="compact">
+<item><p>constants whose values are platform-dependent;</p></item>
+<item><p>functions below the level of abstraction in the SML interface, such as functions relating to memory management;</p></item>
+<item><p>private fields of structs.</p></item>
+</list>
+<p>
+However, some entites are excluded due to:
+</p>
+<list style="compact">
+<item><p>constraints relating to use of SML and</p></item>
+<item><p>missing support in the Giraffe code generator, which is still under development.</p></item>
+</list>
+<p>
+These limitations are described in the sections below.
+</p>
+
+<section>
+<title>SML Limitations</title>
+<p>
+This section describes limitations are that inherent in using SML.
+</p>
+<section>
+<title>Variadic functions</title>
+<p>
+A variadic function (and function that has an argument of type <code>va_list</code>)
+cannot be supported because there is no SML type for such a function.
+This is not a significant limitation in practice because
+the difficulties binding to such functions from many languages are recognised
+and alternative non-variadic functions are usually available.
+Some variadic functions are annotated with <code>(skip)</code> to indicate that they
+are not intended for introspection.
+</p>
+</section>
+</section>
+
+<section id="giraffe-limitations">
+<title>Giraffe Limitations</title>
+<p>
+This section describes limitations due to missing support in the Giraffe code generator.
+</p>
+<section>
+<title>Types</title>
+<p>
+Currently the code generator does not yet support the following GObject types:
+</p>
+<list style="compact">
+<item><p>array types GLib.Array, GLib.ByteArray and GLib.PtrArray (note that ordinary C arrays are supported)</p></item>
+<item><p>list types GLib.List and GLib.SList</p></item>
+<item><p>hash table type GLib.HashTable</p></item>
+<item><p>callback types except GLib.SourceFunc, GLib.IOFunc, GLib.ChildWatchFunc and GLib.SpawnChildSetupFunc</p></item>
+<item><p>union types except Gdk.Event</p></item>
+</list>
+<p>
+Any type, alias, function, property or signal that depends on an unsupported type is unsupported
+and is excluded from the SML interface.
+Support for the above types is expected to be added in future.
+</p>
+<p>
+There is no support for creating new GObject types from SML.
+For example, it is not possible to use SML to create a derived class or an interface.
+Also, there is no support for overriding a virtual function.
+To date, such support has not been required in Giraffe Library.
+</p>
+</section>
+
+<section>
+<title>Signals</title>
+<p>
+There is support for handling the emission of a signal from an object (instance) but there is no support for:
+</p>
+<list style="compact">
+<item><p>handling a signal on all instances of an object (or interface) type, i.e. overriding the class closure</p></item>
+<item><p>emission hooks</p></item>
+</list>
+<p>
+When connecting to a signal, there is no support for specifying the detail argument.
+</p>
+<p>
+There is no support for (programmatically) emitting a signal.
+</p>
+<p>
+Support for the above operations is expected to be added in future.
+</p>
+</section>
+
+</section>
+
+</page>

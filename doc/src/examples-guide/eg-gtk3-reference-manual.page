@@ -1,0 +1,43 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="eg-gtk3-reference-manual">
+<info>
+  <title type="link">Reference Manual Examples</title>
+  <link type="guide" xref="eg-index#gtk3"/>
+  <desc>Examples from the GTK 3 Reference Manual</desc>
+</info>
+<title>GTK 3 Reference Manual Examples</title>
+<p>
+This section provides SML versions of the C code examples
+in the section <link href="https://developer.gnome.org/gtk3/stable/gtk-getting-started.html">Getting Started with GTK+</link>.
+</p>
+
+<section id="basics" style="2column">
+<title>Basics</title>
+<p>
+Examples from the section <link href="https://developer.gnome.org/gtk3/stable/gtk-getting-started.html#id-1.2.3.5">Basics</link>.
+</p>
+</section>
+
+<section id="packing" style="2column">
+<title>Packing</title>
+<p>
+Examples from the section <link href="https://developer.gnome.org/gtk3/stable/ch01s02.html">Packing</link>.
+</p>
+</section>
+
+<section id="building-user-interfaces" style="2column">
+<title>Building User Interfaces</title>
+<p>
+Examples from the section <link href="https://developer.gnome.org/gtk3/stable/ch01s03.html">Building user interfaces</link>.
+</p>
+</section>
+
+<section id="custom-drawing" style="2column">
+<title>Custom Drawing</title>
+<p>
+Examples from the section <link href="https://developer.gnome.org/gtk3/stable/ch01s05.html">Custom Drawing</link>.
+</p>
+</section>
+
+</page>

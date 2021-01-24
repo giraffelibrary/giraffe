@@ -1,0 +1,731 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-quick-reference">
+<info>
+  <title type="sort">9000</title>
+  <link type="guide" xref="ug-index#sml-interface"/>
+</info>
+<title>Quick Reference</title>
+<p>
+This section provides a brief summary of the SML interface.
+</p>
+
+<section id="library-structure">
+<title>Library Structure</title>
+<p>
+See the section <link xref="ug-library-structure"/> for a more detailed description.
+</p>
+<p>
+Each namespace has a structure and a signature that specifies its contents.
+</p>
+<code>
+structure <var>Namespace</var> : <var>NAMESPACE</var>
+</code>
+<p>
+A namespace signature specifies named types, constants and functions.
+</p>
+<code>
+signature <var>NAMESPACE</var> =
+  sig
+    <em>(* named types *)</em>
+    structure <var>Type1</var> : <var>NAMESPACE</var>_<var>TYPE_1</var>
+    structure <var>Type2</var> : <var>NAMESPACE</var>_<var>TYPE_2</var>
+    …
+
+    <em>(* <link xref="#constants">constants</link> *)</em>
+    val <var>CONSTANT_1</var> : …
+    val <var>CONSTANT_2</var> : …
+    …
+
+    <em>(* <link xref="#non-method-functions">non-method functions</link> *)</em>
+    val <var>function1</var> : …
+    val <var>function2</var> : …
+    …
+  end
+</code>
+<p>
+Therefore, for each named type <var>Type</var> in a namespace <var>Namespace</var>,
+there is a structure <code><var>Namespace</var>.<var>Type</var></code>
+whose contents are specified by the signature <code><var>NAMESPACE</var>_<var>TYPE</var></code>.
+</p>
+<code>
+signature <var>NAMESPACE</var>_<var>TYPE</var> =
+  sig
+    <em>(* local types *)</em>
+    type <var>local_type_1</var>_t  (* = <var>Namespace</var>.<var>LocalType1</var>.t *)
+    type <var>local_type_2</var>_t  (* = <var>Namespace</var>.<var>LocalType2</var>.t *)
+    …
+
+    <em>(* type *)</em>
+    …
+    type t
+
+    <em>(* <link xref="#implemented-interfaces">implemented interfaces</link> - class and interface only *)</em>
+    val as<var>Iface1</var> : …
+    val as<var>Iface2</var> : …
+    …
+
+    <em>(* <link xref="#constants">constants</link> - class and interface only *)</em>
+    val <var>CONSTANT_1</var> : …
+    val <var>CONSTANT_2</var> : …
+    …
+
+    <em>(* <link xref="#method-functions">method functions</link> - class and interface only *)</em>
+    val <var>method1</var> : …
+    val <var>method2</var> : …
+    …
+
+    <em>(* <link xref="#non-method-functions">non-method functions</link> - any named type except callback *)</em>
+    val <var>function1</var> : …
+    val <var>function2</var> : …
+    …
+
+    <em>(* <link xref="#fields">fields</link> - class, record and union only *)</em>
+    val <var>field1</var> : …
+    val <var>field2</var> : …
+    …
+
+    <em>(* <link xref="#signals">signals</link> - class and interface only *)</em>
+    val <var>signal1</var>Sig : …
+    val <var>signal2</var>Sig : …
+    …
+
+    <em>(* <link xref="#properties">properties</link> - class and interface only *)</em>
+    val <var>property1</var>Prop : …
+    val <var>property2</var>Prop : …
+    …
+  end
+</code>
+</section>
+
+<section id="types">
+<title>Types</title>
+
+<section id="basic-types">
+<title>Basic types</title>
+<p>
+See the section <link xref="ug-types#basic-types"/> for a more detailed description.
+</p>
+<p>
+For each basic type, the following table shows the Giraffe Library type and equivalent Basis Library type:
+</p>
+<table frame="bottom" rules="rowgroups cols">
+  <thead>
+    <tr>
+      <td><p>Basic type</p></td>
+      <td><p>SML Giraffe Library type</p></td>
+      <td><p>SML Basis Library type</p></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><p>gboolean</p></td>
+      <td><p><code>GBoolean.t</code></p></td>
+      <td><p><code>bool</code></p></td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td><p>gchar</p></td>
+      <td><p><code>GChar.t</code></p></td>
+      <td><p><code>char</code></p></td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td><p>guchar</p></td>
+      <td rowspan="2" style="vertical-align: middle"><p><code>GUInt8.t</code></p></td>
+      <td rowspan="2" style="vertical-align: middle"><p><code>Word8.word</code></p></td>
+    </tr>
+    <tr>
+      <td><p>guint8</p></td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td><p>gshort</p></td>
+      <td><p><code>GShort.t</code></p></td>
+      <td rowspan="13" style="vertical-align: middle"><p><code>LargeInt.int</code></p></td>
+    </tr>
+    <tr>
+      <td><p>gushort</p></td>
+      <td><p><code>GUShort.t</code></p></td>
+    </tr>
+    <tr>
+      <td><p>gint</p></td>
+      <td><p><code>GInt.t</code></p></td>
+    </tr>
+    <tr>
+      <td><p>guint</p></td>
+      <td><p><code>GUInt.t</code></p></td>
+    </tr>
+    <tr>
+      <td><p>glong</p></td>
+      <td><p><code>GLong.t</code></p></td>
+    </tr>
+    <tr>
+      <td><p>gulong</p></td>
+      <td><p><code>GULong.t</code></p></td>
+    </tr>
+    <tr>
+      <td><p>gint8</p></td>
+      <td><p><code>GInt8.t</code></p></td>
+    </tr>
+    <tr>
+      <td><p>gint16</p></td>
+      <td><p><code>GInt16.t</code></p></td>
+    </tr>
+    <tr>
+      <td><p>guint16</p></td>
+      <td><p><code>GUInt16.t</code></p></td>
+    </tr>
+    <tr>
+      <td><p>gint32</p></td>
+      <td><p><code>GInt32.t</code></p></td>
+    </tr>
+    <tr>
+      <td><p>guint32</p></td>
+      <td><p><code>GUInt32.t</code></p></td>
+    </tr>
+    <tr>
+      <td><p>gint64</p></td>
+      <td><p><code>GInt64.t</code></p></td>
+    </tr>
+    <tr>
+      <td><p>guint64</p></td>
+      <td><p><code>GUInt64.t</code></p></td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td><p>gssize</p></td>
+      <td><p><code>GSSize.t</code></p></td>
+      <td rowspan="2"><p><code>int</code></p></td>
+    </tr>
+    <tr>
+      <td><p>gsize</p></td>
+      <td><p><code>GSize.t</code></p></td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td><p>gfloat</p></td>
+      <td><p><code>GFloat.t</code></p></td>
+      <td rowspan="2"><p><code>real</code></p></td>
+    </tr>
+    <tr>
+      <td><p>gdouble</p></td>
+      <td><p><code>GDouble.t</code></p></td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td><p>gint file descriptor</p></td>
+      <td><p><code>GFileDesc.t</code></p></td>
+      <td><p><code>Posix.ProcEnv.file_desc</code></p></td>
+    </tr>
+  </tbody>
+</table>
+</section>
+
+<section id="utf8-filename-types">
+<title>UTF-8 and file name types</title>
+<p>
+See the section <link xref="ug-types#utf8-filename-types"/> for a more detailed description.
+</p>
+<p>
+The SML type of UTF-8 text or a file name is <code>Utf8.t</code>.
+This type is not abstract but is equivalent to the Basis Library type <code>string</code>.
+</p>
+</section>
+
+<section id="c-array-types">
+<title>C array types</title>
+<p>
+See the section <link xref="ug-types#c-array-types"/> for a more detailed description.
+</p>
+<p>
+The SML type of a C array whose element type has SML type <code><var>Elem</var>.t</code> is as follows:
+</p>
+<table rules="rowgroups colgroups">
+<colgroup><col/><col/></colgroup>
+<colgroup><col/><col/></colgroup>
+<tbody>
+<tr><td rowspan="2" colspan="2"><p>C array</p></td>                            <td colspan="2"><p>size</p></td></tr>
+<tr>                                                                           <td><p>zero terminated</p></td><td><p>separate parameter</p></td></tr>
+</tbody>
+<tbody>
+<tr><td rowspan="2"><p>elements</p></td><td><p>packed inline</p></td>          <td><p><code><var>Elem</var>CArray.t</code></p></td>   <td><p><code><var>Elem</var>CArrayN.t</code></p></td></tr>
+<tr>                                    <td><p>referenced by a pointer</p></td><td><p><code><var>Elem</var>CPtrArray.t</code></p></td><td><p><code><var>Elem</var>CPtrArrayN.t</code></p></td></tr>
+</tbody>
+</table>
+<p>
+The SML types are abstract and an instance is always mutable.
+</p>
+<p>
+If <code><var>Elem</var></code> is the structure for a named type <var>Type</var> in namespace <var>Namespace</var>,
+then <code><var>Elem</var></code> has the form <code><var>Namespace</var><var>Type</var></code>.
+Furthermore, if the array whose elements are the named type <var>Type</var> is used in the namespace <var>Namespace</var>,
+as opposed to another namespace,
+then there equivalent types local to <code><var>Namespace</var></code>
+where <code><var>Elem</var></code> has the form <code><var>Namespace</var>.<var>Type</var></code>.
+</p>
+</section>
+
+<section id="named-types">
+<title>Named types</title>
+<p>
+See the sections <link xref="ug-types#enum-types"/>, <link xref="ug-types#flags-types"/>, <link xref="ug-types#class-types"/>, <link xref="ug-types#interface-types"/>, <link xref="ug-types#record-types"/> and <link xref="ug-types#union-types"/> for a more detailed description.
+</p>
+<p>
+For a named type <var>Type</var> in a namespace <var>Namespace</var>,
+the SML type is <code><var>Namespace</var>.<var>Type</var>.t</code>.
+If <var>Type</var> is a class,
+this is equivalent to
+<code>base <var>Namespace</var>.<var>Type</var>.class</code>,
+which is the SML type for <var>Type</var> but not a subclass of <var>Type</var>.
+The SML type for <var>Type</var> or any subclass of <var>Type</var>
+is <code>'<var>a</var> <var>Namespace</var>.<var>Type</var>.class</code>.
+</p>
+<p>
+An instance of a enumeration or flags type is immutable.
+An instance of any other named type is mutable (although a library may treat instances of certain named types, e.g. a record, as immutable).
+</p>
+<p>
+See the section <link xref="ug-types#class-encoding"/> for details of how SML types encode a class hierarchy.
+</p>
+</section>
+
+<section id="implemented-interfaces">
+<title>Implemented interfaces</title>
+<p>
+See the section <link xref="ug-types#implemented-interfaces"/> for a more detailed description.
+</p>
+<p>
+For a class or interface <var>Type</var> in a namespace <var>Namespace</var>
+that implements an interface <var>Iface</var> in a namespace <var>IfaceNamespace</var>,
+the SML type <code><var>Namespace</var>.<var>Type</var>.t</code> is not an instance of <code><var>IfaceNamespace</var>.<var>Iface</var>.t</code> and
+explicit conversion to <code><var>IfaceNamespace</var>.<var>Iface</var>.t</code> is required.
+</p>
+<p>
+If <var>Type</var> is a class, conversion to <var>Iface</var> is provided by the function
+</p>
+<code>
+<var>Namespace</var>.<var>Type</var>.as<var>Iface</var> : 'a <var>Namespace</var>.<var>Type</var>.class <![CDATA[->]]> <var>IfaceNamespace</var>.<var>Iface</var>.t
+</code>
+<p>
+If <var>Type</var> is an interface, conversion to <var>Iface</var> is provided by the function
+</p>
+<code>
+<var>Namespace</var>.<var>Type</var>.as<var>Iface</var> : <var>Namespace</var>.<var>Type</var>.t <![CDATA[->]]> <var>IfaceNamespace</var>.<var>Iface</var>.t
+</code>
+</section>
+</section>
+
+<section id="constants">
+<title>Constants</title>
+<p>
+See the section <link xref="ug-constants"/> for a more detailed description.
+</p>
+<p>
+For a constant <code><var>SOME</var>_<var>CONSTANT</var>_<var>NAME</var></code>
+defined in a namespace <code><var>Namespace</var></code>,
+the SML interface provides
+</p>
+<code>
+<var>Namespace</var>.<var>SOME</var>_<var>CONSTANT</var>_<var>NAME</var> : <var>valueType</var>
+</code>
+<p>
+For a constant <code><var>SOME</var>_<var>CONSTANT</var>_<var>NAME</var></code>
+defined in a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
+the SML interface provides
+</p>
+<code>
+<var>Namespace</var>.<var>Type</var>.<var>SOME</var>_<var>CONSTANT</var>_<var>NAME</var> : <var>valueType</var>
+</code>
+</section>
+
+<section id="functions">
+<title>Functions</title>
+<p>
+See the section <link xref="ug-functions"/> for a more detailed description.
+</p>
+
+<section id="non-method-functions">
+<title>Non-method functions</title>
+<p>
+For a function <code><var>someFunctionName</var></code>
+defined in a namespace <code><var>Namespace</var></code>,
+the SML interface provides
+</p>
+<code>
+<var>Namespace</var>.<var>someFunctionName</var> : <var>inTypes</var> <![CDATA[->]]> <var>retOutTypes</var>
+</code>
+<p>
+For non-method a function <code><var>someFunctionName</var></code>
+defined in a named type <code><var>Namespace</var>.<var>Type</var></code>,
+the SML interface provides
+</p>
+<code>
+<var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> : <var>inTypes</var> <![CDATA[->]]> <var>retOutTypes</var>
+</code>
+<p>
+<code><var>inTypes</var></code> contains the types of the &#x2018;in&#x2019; and &#x2018;inout&#x2019; arguments.
+<code><var>retOutTypes</var></code> contains the return type followed by the types of the &#x2018;out&#x2019; and &#x2018;inout&#x2019; arguments (except as described below).
+<code><var>inTypes</var></code> and <code><var>retOutTypes</var></code> use a tuple type if they contain more than one type.
+</p>
+<p>
+When calling the SML function for a non-method:
+</p>
+<list>
+<item><p>the argument provides the values of the &#x2018;in&#x2019; arguments and the before values of the &#x2018;inout&#x2019; arguments;</p></item>
+<item><p>the result provides the return value and the values of the &#x2018;out&#x2019; arguments and the final values of the &#x2018;inout&#x2019; arguments.</p></item>
+</list>
+<code>
+val (<var>ret</var>, <var>y1</var>, <var>y2</var>, …) = <var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> (<var>x1</var>, <var>x2</var>, …)
+</code>
+<!--
+<example>
+<p>
+For example, a non-method function <code><var>f1</var></code> could be called as follows:
+</p>
+<code>
+val (<var>ret</var>, <var>inout2'</var>, <var>out3</var>, <var>inout5'</var>, <var>out6</var>) = <var>f1</var> (<var>in1</var>, <var>inout2</var>, <var>in4</var>, <var>inout5</var>)
+</code>
+</example>
+-->
+<p>
+If the return type is void or the return type is gboolean and there is an error &#x2018;out&#x2019; argument, <code><var>retOutTypes</var></code> does not include the return type.
+</p>
+<code>
+val (<var>y1</var>, <var>y2</var>, …) = <var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> (<var>x1</var>, <var>x2</var>, …)
+</code>
+<!--
+<example>
+<p>
+For example, a non-method function <code><var>f2</var></code> whose return type is void
+could be called as follows:
+</p>
+<code>
+val (<var>inout2'</var>, <var>out3</var>, <var>inout5'</var>, <var>out6</var>) = <var>f2</var> (<var>in1</var>, <var>inout2</var>, <var>in4</var>, <var>inout5</var>)
+</code>
+</example>
+-->
+<p>
+If <code><var>inTypes</var></code> contains fewer than two types, it cannot be a tuple type,
+in which case it is either just the single type or it is <code>unit</code>.
+</p>
+<code>
+val … = <var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> <var>x1</var>
+</code>
+<code>
+val … = <var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> ()
+</code>
+<p>
+Similarly, if <code><var>retOutTypes</var></code> contains fewer than two types,
+it is either just the single type or it is <code>unit</code>.
+</p>
+<code>
+val <var>y1</var> = <var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> …
+</code>
+<code>
+val () = <var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> …
+</code>
+<!--
+<example>
+<p>
+For example, a non-method function <code><var>f3</var></code> that has no arguments and a non-void return type
+could be called as follows:
+</p>
+<code>
+val <var>ret</var> = <var>f3</var> ()
+</code>
+<p>
+and a non-method function <code><var>f4</var></code> with one &#x2018;in&#x2019; argument and return type void
+could be called as follows:
+</p>
+<code>
+val () = <var>f4</var> in1
+</code>
+</example>
+-->
+<p>
+If the return type is gboolean and there are &#x2018;out&#x2019; arguments and none is an error &#x2018;out&#x2019; argument,
+the &#x2018;out&#x2019; arguments are treated as conditional on the return value.
+In this case, <code><var>retOutTypes</var></code> does not include the return type and groups the types for the &#x2018;out&#x2019; arguments
+in an optional type whose value is not <code>NONE</code> if and only if the return value is not false.
+</p>
+<code>
+let
+  val (<var>y1</var>, <var>y2</var>, …, condOuts) = <var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> (<var>x1</var>, <var>x2</var>, …)
+in
+  case condOuts of
+    SOME (<var>z1</var>, <var>z2</var>) => …
+  | NONE => …
+end
+</code>
+<!--
+<example>
+<p>
+For example, a non-method function <code><var>f5</var></code> that has &#x2018;out&#x2019; arguments and whose return type is gboolean
+could be called as follows:
+</p>
+<code>
+let
+  val (<var>inout2'</var>, <var>inout5'</var>, condOuts) = <var>f5</var> (<var>in1</var>, <var>inout2</var>, <var>in4</var>, <var>inout5</var>)
+in
+  case condOuts of
+    SOME (<var>out3</var>, <var>out6</var>) => …
+  | NONE => …
+end
+</code>
+<p>
+However, a non-method function <code><var>f6</var></code> that has no &#x2018;out&#x2019; arguments and whose return type is gboolean
+could be called as follows:
+</p>
+<code>
+val (<var>ret</var>, <var>inout2'</var>, <var>inout4'</var>) = <var>f6</var> (<var>in1</var>, <var>inout2</var>, <var>in3</var>, <var>inout4</var>)
+</code>
+</example>
+-->
+</section>
+
+<section id="method-functions">
+<title>Method functions</title>
+<p>
+For a method function <code><var>someFunctionName</var></code>
+defined in a class <code><var>Namespace</var>.<var>Type</var></code>,
+the SML interface provides
+</p>
+<code>
+<var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> : 'a <var>Namespace</var>.<var>Type</var>.<var>class</var> <![CDATA[->]]> <var>inTypes</var> <![CDATA[->]]> <var>retOutTypes</var>
+</code>
+<p>
+For a method function <code><var>someFunctionName</var></code>
+defined in an interface <code><var>Namespace</var>.<var>Type</var></code>,
+the SML interface provides
+</p>
+<code>
+<var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> : <var>Namespace</var>.<var>Type</var>.t <![CDATA[->]]> <var>inTypes</var> <![CDATA[->]]> <var>retOutTypes</var>
+</code>
+<p>
+When calling the SML function for a method, the first curried argument is the instance object.
+The result of applying the SML function to the instance object
+is a function that is called as described above for a non-method function.
+</p>
+<code>
+<var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> <var>obj</var> : <var>inTypes</var> <![CDATA[->]]> <var>outTypes</var>
+</code>
+<!--
+<example>
+<p>
+For example, a method function <code><var>m1</var></code> could be called as follows:
+</p>
+<code>
+val (<var>ret</var>, <var>inout2'</var>, <var>out3</var>) = <var>m1</var> <var>obj</var> (<var>in1</var>, <var>inout2</var>)
+</code>
+<p>
+and a method function <code><var>m2</var></code> that has no &#x2018;out&#x2019; or &#x2018;inout&#x2019; arguments and whose return type is void
+could be called on multiple arguments with the same instance object as follows:
+</p>
+<code>
+val () = List.app (<var>m2</var> <var>obj</var>) [<var>aIn1</var>, <var>bIn1</var>, …]
+</code>
+</example>
+-->
+<p>
+If <code><var>Namespace</var>.<var>Type</var></code> is an interface, not a class,
+but the SML type of <code><var>obj</var></code>
+is an instance of a class <code><var>ClassNamespace</var>.<var>Class</var></code> that implements the interface,
+<code><var>obj</var></code> must be explicitly converted,
+as described above in the section <link xref="#implemented-interfaces"/>,
+to have an SML type that is an instance of the interface.
+</p>
+<code>
+<var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> (<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>obj</var>) : <var>inTypes</var> <![CDATA[->]]> <var>outTypes</var>
+</code>
+</section>
+
+<section>
+<title>Errors</title>
+<p>
+If a function can raise an error, the corresponding SML function can raise the exception
+</p>
+<quote><p><code>GLib.Error (<var>e</var> : exn, <var>error</var> : GLib.Error.t)</code></p></quote>
+<code>
+let
+  val (<var>ret</var>, <var>y1</var>, <var>y2</var>, …) = <var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> (<var>x1</var>, <var>x2</var>, …)
+in
+  …
+end
+  handle
+    GLib.Error (_, error) => …
+</code>
+<p>
+If a function can raise an error and the return type is gboolean,
+<code><var>retOutTypes</var></code> does not include the return type.
+</p>
+<code>
+let
+  val (<var>y1</var>, <var>y2</var>, …) = <var>Namespace</var>.<var>Type</var>.<var>someFunctionName</var> (<var>x1</var>, <var>x2</var>, …)
+in
+  …
+end
+  handle
+    GLib.Error (_, error) => …
+</code>
+</section>
+</section>
+
+<section id="fields">
+<title>Fields</title>
+<p>
+See the section <link xref="ug-fields"/> for a more detailed description.
+</p>
+<p>
+For a readable field <code><var>someFieldName</var></code>
+of a record <code><var>Namespace</var>.<var>Record</var></code>,
+the SML interface provides
+</p>
+<code>
+<var>Namespace</var>.<var>Record</var>.<var>someFieldName</var> : {get : <var>Namespace</var>.<var>Record</var>.t -> <var>readType</var>, ...}
+</code>
+<p>
+and the value read from the field of a struct <code><var>s</var> : <var>Namespace</var>.<var>Record</var>.t</code> is
+</p>
+<code>
+#get <var>Namespace</var>.<var>Record</var>.<var>someFieldName</var> <var>s</var> : <var>readType</var>
+</code>
+<p>
+For a writable field <code><var>someFieldName</var></code>
+of a record <code><var>Namespace</var>.<var>Record</var></code>,
+the SML interface provides
+</p>
+<code>
+<var>Namespace</var>.<var>Record</var>.<var>someFieldName</var> : {set : <var>writeType</var> -> <var>Namespace</var>.<var>Record</var>.t -> unit, ...}
+</code>
+<p>
+and the value <code><var>x</var> : <var>writeType</var></code> is written to the field of a struct <code><var>s</var> : <var>Namespace</var>.<var>Record</var>.t</code> by
+</p>
+<code>
+#set <var>Namespace</var>.<var>Record</var>.<var>someFieldName</var> <var>x</var> <var>s</var> : unit
+</code>
+</section>
+
+<section id="signals">
+<title>Signals</title>
+<p>
+See the section <link xref="ug-signals"/> for a more detailed description.
+</p>
+<p>
+For a signal “<var>some</var>-<var>signal</var>-<var>name</var>”
+of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
+the SML interface provides
+</p>
+<code>
+<var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig : <var>handlerType</var> -> 'a <var>Namespace</var>.<var>Type</var>.class Signal.t
+</code>
+<p>
+The handler function <code><var>f</var></code> is connected to the signal on an object <code><var>obj</var></code> by
+</p>
+<code>
+Signal.connect <var>obj</var> <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig <var>f</var> : Signal.id
+</code>
+<p>
+If <code><var>Namespace</var>.<var>Type</var></code> is an interface, not a class,
+but the SML type of <code><var>obj</var></code>
+is an instance of a class <code><var>ClassNamespace</var>.<var>Class</var></code> that implements the interface,
+<code><var>obj</var></code> must be explicitly converted,
+as described above in the section <link xref="#implemented-interfaces"/>,
+to have an SML type that is an instance of the interface.
+</p>
+<code>
+Signal.connect (<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>obj</var>) <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig <var>f</var> : Signal.id
+</code>
+</section>
+
+<section id="properties">
+<title>Properties</title>
+<p>
+See the section <link xref="ug-properties"/> for a more detailed description.
+</p>
+<p>
+For a property “<var>some</var>-<var>property</var>-<var>name</var>”
+of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
+the SML interface provides
+</p>
+<code>
+<var>Namespace</var>.<var>Type</var>.<var>some</var><var>Property</var><var>Name</var>Prop : ('a <var>Namespace</var>.<var>Type</var>.class, <var>getType</var>, <var>setType</var>, <var>initType</var>) Property.t
+</code>
+
+<section>
+<title>Accessors</title>
+<p>
+If the property is readable, <code><var>getType</var></code> is <code>unit -> <var>readType</var></code> and the value read from the property of an object <code><var>obj</var></code> is
+</p>
+<code>
+Property.get <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Property</var><var>Name</var>Prop <var>obj</var> : <var>readType</var>
+</code>
+<p>
+Otherwise, if the property is not readable, <code><var>getType</var></code> is <code>unit</code> and the above expression does not type check.
+</p>
+<p>
+If the property is writable after construction, i.e. writable and not construct-only, <code><var>setType</var></code> is <code><var>writeType</var> -> unit</code> and the value <code><var>x</var> : <var>writeType</var></code> is written to the property of an object <code><var>obj</var></code> by
+</p>
+<code>
+Property.set <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Property</var><var>Name</var>Prop <var>x</var> <var>obj</var> : unit
+</code>
+<p>
+Otherwise, if the property is not writable after construction, <code><var>setType</var></code> is <code>unit</code> and the above expression does not type check.
+</p>
+<p>
+If <code><var>Namespace</var>.<var>Type</var></code> is an interface, not a class,
+but the SML type of <code><var>obj</var></code>
+is an instance of a class <code><var>ClassNamespace</var>.<var>Class</var></code>,
+the SML types must be explicitly aligned
+as described above in the section <link xref="#implemented-interfaces"/>.
+In this case, it is necessary to convert either
+</p>
+<list>
+<item>
+  <p>the SML type of <code><var>obj</var></code> by</p>
+  <code>
+<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>obj</var>
+</code>
+</item>
+<item>
+  <p>the SML type of <code><var>Namespace</var>.<var>Type</var>.<var>some</var><var>Property</var><var>Name</var>Prop</code> by</p>
+  <code>
+Property.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Property</var><var>Name</var>Prop
+</code>
+</item>
+</list>
+</section>
+
+<section>
+<title>Initialization on object construction</title>
+<p>
+If the property is writable, <code><var>initType</var></code> is <code><var>writeType</var> -> unit</code> and the value <code><var>x</var> : <var>writeType</var></code> is used to initialize the property on construction of an object of class <var>C</var> by
+</p>
+<code>
+val <var>obj</var> = GObject.Object.new (<var>C</var>Class.t, […, Property.init <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Property</var><var>Name</var>Prop <var>x</var>, …])
+</code>
+<p>
+Otherwise, if the property is not writable, <code><var>initType</var></code> is <code>unit</code> and the above expression does not type check.
+</p>
+<p>
+If <code><var>Namespace</var>.<var>Type</var></code> is an interface, not a class,
+but the SML type <code><var>C</var>.t</code> 
+is equal to or a subclass of a class <code><var>ClassNamespace</var>.<var>Class</var></code>,
+the SML types must be explicitly aligned
+as described above in the section <link xref="#implemented-interfaces"/>.
+In this case, it is necessary to convert
+the type of <code><var>Namespace</var>.<var>Type</var>.<var>some</var><var>Property</var><var>Name</var>Prop</code> by
+</p>
+<code>
+Property.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Property</var><var>Name</var>Prop
+</code>
+</section>
+</section>
+
+</page>

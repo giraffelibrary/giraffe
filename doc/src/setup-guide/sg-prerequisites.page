@@ -1,0 +1,203 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="sg-prerequisites">
+<info>
+  <title type="sort">1</title>
+  <link type="guide" xref="sg-index"/>
+  <desc>Providing dependencies prior to installation</desc>
+</info>
+<title>Prerequisites</title>
+
+<p>
+Most of the dependencies can be easily installed via a package management system.
+Example commands are given to show how this can be done on
+Fedora, Ubuntu and macOS (using MacPorts and Brew).
+Further information about packages available via these package management
+systems can be found as follows:
+</p>
+<quote>
+<terms>
+  <item>
+    <title>Fedora</title>
+    <p><link href="https://src.fedoraproject.org/projects/rpms/*"/></p>
+  </item>
+  <item>
+    <title>Ubuntu</title>
+    <p><link href="http://packages.ubuntu.com/"/></p>
+  </item>
+  <item>
+    <title>macOS using MacPorts</title>
+    <p><link href="https://www.macports.org/ports.php"/></p>
+  </item>
+  <item>
+    <title>macOS using Brew</title>
+    <p><link href="https://brew.sh/"/></p>
+  </item>
+</terms>
+</quote>
+<p>
+Package management systems typically offer limited control over which version of a package is used.
+To install a specific version, it may be necessary to build from source.
+</p>
+
+<section>
+<title>SML compilers</title>
+<p>
+Giraffe Library supports both MLton and Poly/ML compilers.
+It is not necessary to install both compilers to use Giraffe Library.
+At least one of the following versions is required:
+</p>
+<table>
+  <tr><td><p>MLton</p></td>  <td><p>&#x2265;</p></td><td><p>20130715</p></td></tr>
+  <tr><td><p>Poly/ML</p></td><td><p>&#x2265;</p></td><td><p>5.6</p></td></tr>
+</table>
+<p>
+The package management commands to install the supported SML compilers
+on Fedora, Ubuntu and macOS (using MacPorts and Brew) are shown below.
+The commands can be adjusted as required.
+</p>
+<quote>
+<terms>
+  <item>
+    <title>Fedora</title>
+    <screen><cmd>sudo dnf install mlton   # Fedora 20 or later for required version</cmd>
+<cmd>sudo dnf install polyml  # Fedora 24 or later for required version</cmd></screen>
+  </item>
+  <item>
+    <title>Ubuntu</title>
+    <screen><cmd>sudo apt-get install mlton   # Ubuntu 18.04 (Bionic) or later for required version</cmd>
+<cmd>sudo apt-get install polyml  # Ubuntu 16.04 (Xenial) or later for required version</cmd></screen>
+  </item>
+  <item>
+    <title>macOS using MacPorts</title>
+    <screen><cmd>sudo port install polyml</cmd></screen>
+    <p>
+      Note that MLton is not available from MacPorts.
+    </p>
+  </item>
+  <item>
+    <title>macOS using Brew</title>
+    <screen><cmd>brew install mlton</cmd>
+<cmd>brew install polyml</cmd></screen>
+  </item>
+</terms>
+</quote>
+<p>
+If the required versions cannot be provided via the package management system,
+the SML compilers can be build from source.
+For instructions on installing MLton from source, see
+</p>
+<quote>
+<p><link href="http://mlton.org/"/></p>
+<p><link href="http://mlton.org/Installation"/></p>
+</quote>
+<p>
+For instructions on installing Poly/ML from source, see
+</p>
+<quote>
+<p><link href="http://www.polyml.org/download.html"/></p>
+</quote>
+</section>
+
+<section>
+<title>Standard tools</title>
+<p>
+Standard tools commonly found on Unix-like systems are required:
+</p>
+<list style="compact">
+<item><p>An ANSI C compiler, such as GCC, and a linker are required to build minimal C libraries that support the SML interface to GObect-based libraries.</p></item>
+<item><p>Common GNU utilities are required, including Bash, Make, Grep and Sed</p></item>
+<item><p>The pkg-config utility is required for the purpose of finding library dependencies for compiling and linking.</p></item>
+</list>
+<p>
+The package management commands to install the standard tools
+on Fedora, Ubuntu and macOS (using MacPorts and Brew) are shown below.
+The commands can be adjusted as required.
+</p>
+<quote>
+<terms>
+  <item>
+    <title>Fedora</title>
+    <screen><cmd>sudo dnf install gcc binutils bash make coreutils grep sed pkgconfig</cmd></screen>
+  </item>
+  <item>
+    <title>Ubuntu</title>
+    <screen><cmd>sudo apt-get install gcc binutils bash make coreutils grep sed pkg-config</cmd></screen>
+  </item>
+  <item>
+    <title>macOS using MacPorts</title>
+    <screen><cmd>sudo port install binutils bash gmake coreutils grep gsed pkgconfig</cmd></screen>
+    <p>
+      Note that a compiler and linker provided by Xcode can be used.
+    </p>
+  </item>
+  <item>
+    <title>macOS using Brew</title>
+    <screen><cmd>brew install binutils bash make coreutils grep gnu-sed pkg-config</cmd></screen>
+    <p>
+      Note that a compiler and linker provided by Xcode can be used.
+    </p>
+  </item>
+</terms>
+</quote>
+</section>
+
+<section>
+<title>Libraries</title>
+<p>
+Giraffe Library provides SML bindings to libraries where the interface is
+based on the version indicated in
+the list of <link xref="ug-available-libraries">available libraries</link>.
+Later versions of these libraries are expected to work but newer features are not available.
+Earlier versions of these libraries may still work, depending on the actual dependencies
+of an application using Giraffe Library.
+It is not necessary for all available libraries to be present:
+Giraffe Library will not install bindings to libraries that it cannot find using pkg-config.
+</p>
+<p>
+In order to use a library, its C header files are required.  Therefore, when
+using a package management system, the 'devel' or 'dev' package is typically also
+required.  (This does not apply to MacPorts and Brew.)
+</p>
+<p>
+The package management commands to install all available libraries with their source header files
+on Fedora, Ubuntu and macOS (using MacPorts and Brew) are shown below.
+The commands can be adjusted as required.
+</p>
+<quote>
+<terms>
+  <item>
+    <title>Fedora</title>
+      <screen><cmd>sudo dnf install gtk3-devel gtksourceview3-devel</cmd>
+<cmd>sudo dnf install vte3-devel    # Fedora 29 or earlier</cmd>
+<cmd>sudo dnf install vte291-devel  # Fedora 21 or later</cmd></screen>
+  </item>
+  <item>
+    <title>Ubuntu</title>
+    <screen><cmd>sudo apt-get install libgtk-3-dev \
+                     libgtksourceview-3.0-dev</cmd>
+<cmd>sudo apt-get install libvte-2.90-dev  # Ubuntu 14.04 (Trusty) only</cmd>
+<cmd>sudo apt-get install libvte-2.91-dev  # Ubuntu 15.04 (Vivid) or later</cmd></screen>
+  </item>
+  <item>
+    <title>macOS using MacPorts</title>
+    <screen><cmd>sudo port install gtk3 gtksourceview3 vte</cmd></screen>
+    <p>
+      Note that some of these ports have x11 and quartz variants available.
+    </p>
+  </item>
+  <item>
+    <title>macOS using Brew</title>
+    <screen><cmd>brew install gtk+3 gtksourceview3 vte3</cmd></screen>
+  </item>
+</terms>
+</quote>
+<p>
+If the required versions cannot be provided via the package management system,
+the libraries can be build from source.
+To do this, a build environment such as <link href="https://wiki.gnome.org/HowDoI/Jhbuild">JHBuild</link>
+or <link href="https://wiki.gnome.org/Newcomers/BuildSystemComponent">BuildStream</link> is recommended.
+</p>
+</section>
+
+</page>

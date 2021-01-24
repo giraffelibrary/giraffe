@@ -1,0 +1,22 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="sg-test">
+<info>
+  <title type="sort">3</title>
+  <link type="guide" xref="sg-index" group="#last"/>
+  <desc>Testing the installation by building an example application</desc>
+</info>
+<title>Test</title>
+
+<p>
+The Giraffe Library installation can be tested by building an example application.
+Several examples are available in the <link xref="eg-index"/>.
+If the installation does not have all available libraries, an example will need to be chosen whose library dependencies are installed.
+</p>
+<p>
+The simplest GTK example is the
+<link xref="eg-gtk3-hello-world">GTK 3 Hello World example</link>
+which requires only GTK 3 (and dependencies) to be installed.
+</p>
+
+</page>

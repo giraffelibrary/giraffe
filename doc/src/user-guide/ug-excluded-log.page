@@ -1,0 +1,26 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-excluded-log">
+<info>
+  <title type="sort">3</title>
+  <link type="guide" xref="ug-index#library-overview"/>
+</info>
+<title>Excluded Log</title>
+<p>
+For each namespace, the following sections provide a log of every introspected entity
+that is excluded from the SML interface and the reason for exclusion.
+</p>
+<p>
+For the cairo-1.0 namespace,
+the excluded information below relates only to
+the mininal metadata supplied with GObject Introspection
+that provides types but not functions.
+Currently, the hand-written SML interface to Cairo provides
+most functions that operate on a cairo context
+described by <link href="https://www.cairographics.org/manual/cairo-cairo-t.html">cairo_t</link>
+and <link href="https://www.cairographics.org/manual/cairo-Paths.html">Paths</link>.
+</p>
+<include href="../../../release/src/excluded-log.page"
+  xpointer="xmlns(mal=http://projectmallard.org/1.0/)xpointer(/mal:page/mal:section)"
+  xmlns="http://www.w3.org/2001/XInclude"/>
+</page>

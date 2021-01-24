@@ -1,0 +1,82 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="index">
+<title class="root">Giraffe Library</title>
+<p>
+  Giraffe Library is an <link href="https://smlfamily.github.io/">SML</link> interface to libraries
+  that support <link href="https://gi.readthedocs.io/en/latest/">GObject Introspection</link>,
+  such as <link href="https://gitlab.gnome.org/GNOME/glib/">GLib</link>
+  and <link href="https://gitlab.gnome.org/GNOME/gtk/">GTK</link>.
+  The interface introduces some abstraction to provide expected features of SML such as:
+</p>
+<list style="compact">
+<item><p>automatic memory management (using garbage collection)</p></item>
+<item><p>static type safety</p></item>
+<item><p>portable source code</p></item>
+<item><p>no uninitialized values</p></item>
+</list>
+<p>
+  See the <link xref="ug-available-libraries"/> section in the User Guide for a list of supported libraries.
+</p>
+<p>
+  Notably, Giraffe Library brings the GTK 3 stack to SML,
+  to enable applications with GUIs to be written entirely in SML.
+  For applications without GUIs, Giraffe Library still provides useful features,
+  as the <link xref="eg-index#glib"/> show.
+</p>
+<p>
+  There exist many other useful libraries that support GObject Introspection
+  and an interface to those is easily generated using
+  the <link href="https://github.com/giraffelibrary/giraffe/">Giraffe code generator</link>.
+  To request an interface to another library, please
+  <link href="https://github.com/giraffelibrary/giraffe/issues/">raise an issue</link>.
+</p>
+<p>
+  Giraffe Library depends on the FFI (Foreign Function Interface) of an SML compiler.
+  The following SML compilers are supported:
+</p>
+<list style="compact">
+<item><p><link href="http://mlton.org/">MLton</link></p></item>
+<item><p><link href="https://www.polyml.org/">Poly/ML</link></p></item>
+</list>
+
+<section id="download">
+  <title>Download</title>
+  <p>
+    The latest library release is
+    <link href="releases/1.0.0-alpha.10/giraffe-1.0.0-alpha.10.tar.gz">giraffe-1.0.0-alpha.10.tar.gz</link>.
+  </p>
+  <p>
+    See the <link xref="quick-setup"/> page for brief installation instructions.
+    For more detailed instructions, see the <link xref="sg-index"/> or,
+    if that is unavailable,
+    the <file>README</file> and <file>INSTALL</file> files provided with the release.
+  </p>
+  <p>
+    For earlier releases and the changes history, see the <link xref="releases"/> page.
+  </p>
+</section>
+
+<section id="guides">
+  <title>Documentation</title>
+</section>
+
+<section id="licence">
+<title>Licence</title>
+<p>
+The library release is published under the <link xref="licence-runtime"/>.
+This licence is sufficently permissive to allow Giraffe Library to be used in closed-source appliactions.
+The Giraffe code generator, which is not required by applications that use Giraffe Library,
+is published under the <link xref="licence-codegen"/>.
+</p>
+</section>
+
+<section id="contact">
+  <title>Contact and support</title>
+  <p>
+    Please send any queries to the
+    <link href="http://giraffelibrary.org/mailman/listinfo/giraffe-user_giraffelibrary.org">Giraffe User mailing list</link>.
+  </p>
+</section>
+
+</page>

@@ -1,0 +1,72 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="quick-setup">
+<info>
+  <title type="link">Quick Setup</title>
+</info>
+<title>Giraffe Library Quick Setup</title>
+
+<section>
+<title>System Requirements</title>
+<p>
+  At least one of the following SML compilers is required:
+</p>
+<table>
+  <tr><td><p>MLton</p></td>  <td><p>&#x2265;</p></td><td><p>20130715</p></td></tr>
+  <tr><td><p>Poly/ML</p></td><td><p>&#x2265;</p></td><td><p>5.6</p></td></tr>
+</table>
+<p>
+  Standard tools are required as follows:
+</p>
+<list style="compact">
+<item><p>An ANSI C compiler, such as GCC, and a linker.</p></item>
+<item><p>Common utilities, such as Bash, Make, Grep and Sed.</p></item>
+<item><p>The <cmd>pkg-config</cmd> utility.</p></item>
+</list>
+<p>
+  See the section <link xref="sg-prerequisites"/> in the Setup Guide
+  for information on installing these dependencies.
+</p>
+<p>
+  Giraffe Library has been tested on various combinations of:
+</p>
+<list style="compact">
+<item><p>Fedora and Ubuntu GNU/Linux and Mac OS X systems</p></item>
+<item><p>i686 and x86_64 platforms</p></item>
+</list>
+</section>
+
+<section>
+<title>Installation</title>
+<p>
+  To install a library release, extract the archive, change to the source directory and enter the following commands:
+</p>
+<quote>
+<screen>
+<cmd>./configure</cmd>
+<cmd>make</cmd>
+<cmd>make install</cmd>
+</screen>
+</quote>
+<p>
+  An installation directory can be specified as follows, to override the default:
+</p>
+<quote>
+<screen>
+./configure --prefix <var>installdir</var>
+</screen>
+</quote>
+<p>
+  For other configuration options, enter the following command:
+</p>
+<quote>
+<screen>
+./configure --help
+</screen>
+</quote>
+<p>
+  See the section <link xref="sg-installation"/> in the Setup Guide
+  for further details on installation and modifying the configuration.
+</p>
+</section>
+</page>

@@ -1,0 +1,415 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-building-polyml">
+<info>
+  <link type="guide" xref="ug-index#using-compilers"/>
+</info>
+<title>Building with Poly/ML</title>
+<p>
+This section describes how to build a stand-alone executable using Poly/ML.
+</p>
+<p>
+Although Poly/ML provides the <cmd>polyc</cmd> utility to simplify creation of a stand-alone executable,
+this utility is not suitable for building applications based on Giraffe Library,
+neither for compilation nor for linking for the following reasons:
+</p>
+<list type="numbered">
+<item>
+  <p>
+    During development, incremental compilation is desirable to
+    avoid loading library dependencies for the entire GTK 3 stack on every compilation.
+    <cmd>polyc</cmd> does not support incremental compilation so its use
+    would substantially increase compilation times.
+  </p>
+</item>
+<item>
+  <p>
+    <cmd>polyc</cmd> does not allow the caller to specify additional linker flags
+    so it cannot be used for the linking stage.
+  </p>
+</item>
+</list>
+<p>
+Therefore, this section describes building without use of <cmd>polyc</cmd>.
+</p>
+
+<section>
+<title>Source files</title>
+<p>
+We assume that the main program for the application is
+a function <code><var>main</var> : unit -> unit</code>,
+as described in the section <link xref="ug-main-program"/>,
+and that this is defined in a source file <file><var>app</var>.sml</file>.
+</p>
+<p>
+For Poly/ML, the main program must be exported to an object file <file><var>name</var>.o</file>.
+It is recommended that a separate source file does this, as follows,
+to keep <file><var>app</var>.sml</file> portable:
+</p>
+<listing>
+<title><file>polyml-export.sml</file></title>
+<code>
+val () = PolyML.export (<var>name</var>, <var>main</var>)
+</code>
+</listing>
+<p>
+These SML source files and their dependencies must be loaded in a Poly/ML session.
+The rest of this section describes SML declarations that achieve this.
+</p>
+<p>
+To avoid hard-coding the location of the Giraffe Library installation in MLB files,
+the environment variable
+<code>GIRAFFE_SML_LIB</code>
+is used as a placeholder for the directory <file><var>installdir</var>/lib/sml</file>
+where <file><var>installdir</var></file> is the Giraffe Library installation directory.
+</p>
+<p>
+The dependencies provided by Giraffe Library require
+the file <file>${GIRAFFE_SML_LIB}/polyml.sml</file> to be loaded first:
+</p>
+<code>
+val () =
+  case OS.Process.getEnv "GIRAFFE_SML_LIB" of
+    SOME dir => PolyML.use (OS.Path.joinDirFile {dir = dir, file = "polyml.sml"})
+  | NONE     => raise Fail "GIRAFFE_SML_LIB not set"
+</code>
+<p>
+This defines a top-level function <code>use</code> that supports relative paths in recursive use and environment variable expansion:
+</p>
+<list style="compact">
+<item>
+  <p>
+    if <code>use <var>file</var></code> occurs in a file in a directory <file><var>dir</var></file>
+    and <code><var>file</var></code> is a relative path,
+    <file><var>file</var></file> is treated relative to <file><var>dir</var></file>;
+  </p>
+</item>
+<item>
+  <p>
+    in <code>use <var>file</var></code>, occurrences of <code>$(<var>VAR</var>)</code> in <code><var>file</var></code>
+    are expanded to the value of the environment variable <code><var>VAR</var></code> if defined and
+    to the empty string if not defined.
+  </p>
+</item>
+</list>
+<p>
+This <code>use</code> function is more convenient that <code>PolyML.use</code>
+so is used in the subsequent SML declarations to load dependencies.
+</p>
+<p>
+The library dependencies always include
+</p>
+<code>
+val () = use "$(GIRAFFE_SML_LIB)/general/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/ffi/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/gir/polyml.sml"
+</code>
+<p>
+and include
+</p>
+<code>
+val () = use "$(GIRAFFE_SML_LIB)/<var>namespace</var>-<var>version</var>/polyml.sml"
+</code>
+<p>
+for each namespace <var>Namespace</var>-<var>Version</var>
+whose structure <code><var>Namespace</var></code> is referenced in the SML source
+<em>or in another library dependency</em>.
+</p>
+<example>
+<p>
+For example, if the SML source references the structure <code>Gio</code>
+to use the Gio-2.0 namespace,
+then the dependencies also include GLib and GObject which are referenced from Gio:
+</p>
+<code>
+val () = use "$(GIRAFFE_SML_LIB)/glib-2.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/gobject-2.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/gio-2.0/polyml.sml"
+</code>
+</example>
+<note type="tip">
+<p>
+The directory name <file><var>namespace</var>-<var>version</var></file> is
+<var>Namespace</var>-<var>Version</var> in lowercase
+but this is not necessarily the same as the pkg-config name,
+which is provided by the contents of the file <file><var>namespace</var>-<var>version</var>/package</file>.
+</p>
+<example>
+<p>
+For example, for the namespace Gtk-3.0, the directory name is <file>gtk-3.0</file>
+but the pkg-config name is <file>gtk+-3.0</file>.
+</p>
+</example>
+</note>
+<p>
+Therefore, an SML file that loads the library dependencies and application source could have the following form:
+</p>
+<listing>
+<title><file>polyml.sml</file></title>
+<code>
+val () = use "$(GIRAFFE_SML_LIB)/general/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/ffi/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/gir/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/<var>namespace1</var>-<var>version1</var>/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/<var>namespace2</var>-<var>version2</var>/polyml.sml"
+…
+val () = use "<var>app</var>.sml"
+</code>
+</listing>
+<p>
+An overall script to load all files and export an object file could have the following form:
+</p>
+<listing>
+<title><file>load-polyml.sml</file></title>
+<code>
+val () =
+  case OS.Process.getEnv "GIRAFFE_SML_LIB" of
+    SOME dir => use (OS.Path.joinDirFile {dir = dir, file = "polyml.sml"})
+  | NONE     => raise Fail "GIRAFFE_SML_LIB not set"
+val () = use "polyml.sml"
+val () = use "polyml-export.sml"
+</code>
+</listing>
+<p>
+In practice,
+a build system would save the state of the session after loading the library dependencies
+so that these do not have to be recompiled each time the application is compiled.
+(This is done by the Make files supplied with the <link xref="eg-index">Giraffe Library Examples</link>.)
+</p>
+</section>
+
+<section>
+<title>Build commands</title>
+<p>
+Separate commands are required for compilation and for linking:
+</p>
+<list>
+<item><p><cmd>poly</cmd> is used to compile SML code and generate an object file.</p></item>
+<item><p><cmd>gcc</cmd> is used to link the object file with its library dependencies to create a stand-alone executable.</p></item>
+</list>
+<p>
+At a minimum, the <cmd>poly</cmd> command must do the following
+to compile the SML source files described in the previous section:
+</p>
+<list>
+<item><p>Set the environment variable <code>GIRAFFE_SML_LIB</code>.</p></item>
+<item><p>Specify the SML file <file>load-polyml.sml</file>.</p></item>
+</list>
+<p>
+This is achieved by the following command:
+</p>
+<quote>
+<screen>
+<cmd>GIRAFFE_SML_LIB=<var>installdir</var>/lib/sml \
+ poly --script load-polyml.sml</cmd>
+</screen>
+</quote>
+<p>
+where <code><var>installdir</var></code> is the Giraffe Library installation directory.
+</p>
+<p>
+The <cmd>poly</cmd> command could usefully
+set the environment variable <code>GIRAFFE_DEBUG</code> to a non-empty value for diagnostic output.
+This is achieved by the following command:
+</p>
+<quote>
+<screen>
+<cmd>GIRAFFE_SML_LIB=<var>installdir</var>/lib/sml \
+ GIRAFFE_DEBUG=1 \
+ poly --script load-polyml.sml</cmd>
+</screen>
+</quote>
+<p>
+At a minimum, the <cmd>gcc</cmd> command must do the following
+to link the object file and generate an exectuable:
+</p>
+<list>
+<item><p>(Darwin only) Specify that a position-independent executable is <em>not</em> generated.</p></item>
+<item><p>Set the run path for dynamically loaded shared object files provided by Poly/ML and Giraffe Library.</p></item>
+<item><p>Specify the executable file name to generate.</p></item>
+<item><p>Specify the object file to link.</p></item>
+<item><p>Specify the libraries required for linking and their paths.</p></item>
+</list>
+<p>
+This is achieved by the following command:
+</p>
+<list>
+<item>
+  <p>
+    Under Linux:
+  </p>
+  <quote>
+  <screen><cmd>gcc \
+ -Wl,-rpath,<var>polymldir</var>/lib \
+ -Wl,-rpath,<var>installdir</var>/lib/polyml \
+ -o <var>name</var> \
+ <var>name</var>.o \
+ $(PKG_CONFIG_PATH=<var>polymldir</var>/lib/pkgconfig:${PKG_CONFIG_PATH} pkg-config --libs polyml \
+                $(cat <var>installdir</var>/lib/sml/<var>namespace1</var>-<var>version1</var>/package) \
+                $(cat <var>installdir</var>/lib/sml/<var>namespace2</var>-<var>version2</var>/package) \
+                …) \
+ -L<var>installdir</var>/lib/polyml \
+ -lgiraffe-<var>namespace1</var>-<var>version1</var> \
+ -lgiraffe-<var>namespace2</var>-<var>version2</var> \
+ …
+</cmd></screen>
+  </quote>
+</item>
+<item>
+  <p>
+    Under Darwin, the same as for Linux except that the <cmd>ld</cmd> flag <cmd>-no_pie</cmd> is also specified:
+  </p>
+  <quote>
+  <screen><cmd>gcc \
+ -Wl,-no_pie \
+ -Wl,-rpath,<var>polymldir</var>/lib \
+ -Wl,-rpath,<var>installdir</var>/lib/polyml \
+ -o <var>name</var> \
+ <var>name</var>.o \
+ $(PKG_CONFIG_PATH=<var>polymldir</var>/lib/pkgconfig:${PKG_CONFIG_PATH} pkg-config --libs polyml \
+                $(cat <var>installdir</var>/lib/sml/<var>namespace1</var>-<var>version1</var>/package) \
+                $(cat <var>installdir</var>/lib/sml/<var>namespace2</var>-<var>version2</var>/package) \
+                …) \
+ -L<var>installdir</var>/lib/polyml \
+ -lgiraffe-<var>namespace1</var>-<var>version1</var> \
+ -lgiraffe-<var>namespace2</var>-<var>version2</var> \
+ …
+</cmd></screen>
+  </quote>
+</item>
+</list>
+<p>
+  For the library dependencies,
+  it is not actually necessary to specify all of the namespaces
+  that the SML code loads into a Poly/ML session,
+  as shown in <file>polyml.sml</file> above.
+  In particular, there is no need to mention <file><var>namespace</var>-<var>version</var></file>
+  if the structure <code><var>Namespace</var></code> is referenced in a library dependency
+  but <em>not</em> in the application's SML source
+  because the <cmd>pkg-config</cmd> utility determines dependencies.
+</p>
+<p>
+The <cmd>gcc</cmd> command could usefully include debugging information, e.g. using the <cmd>-ggdb</cmd> option.
+</p>
+<example>
+<p>
+For example,
+to build the <link xref="eg-gtk3-hello-world"/> example,
+the following files could be used:
+</p>
+<listing>
+<title><file>polyml-export.sml</file></title>
+<code>
+val () = PolyML.export ("example-1-polyml.o", main)
+</code>
+</listing>
+<listing>
+<title><file>polyml.sml</file></title>
+<code>
+val () = use "$(GIRAFFE_SML_LIB)/general/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/ffi/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/gir/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/glib-2.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/gobject-2.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/gio-2.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/gmodule-2.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/cairo-1.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/pango-1.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/pangocairo-1.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/gdkpixbuf-2.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/atk-1.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/gdk-3.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/xlib-2.0/polyml.sml"
+val () = use "$(GIRAFFE_SML_LIB)/gtk-3.0/polyml.sml"
+val () = use "example-1.sml"
+</code>
+</listing>
+<listing>
+<title><file>load-polyml.sml</file></title>
+<code>
+val () =
+  case OS.Process.getEnv "GIRAFFE_SML_LIB" of
+    SOME dir => use (OS.Path.joinDirFile {dir = dir, file = "polyml.sml"})
+  | NONE     => raise Fail "GIRAFFE_SML_LIB not set"
+val () = use "polyml.sml"
+val () = use "polyml-export.sml"
+</code>
+</listing>
+<p>
+and,
+given environment variables for the installation directories as follows:
+</p>
+<quote>
+<screen>
+<cmd>GIRAFFEHOME=<var>installdir</var>
+POLYMLHOME=<var>polymldir</var>
+</cmd>
+</screen>
+</quote>
+<p>
+the following commands could be used.
+</p>
+<list type="numbered">
+<item>
+  <p>
+    To compile:
+  </p>
+  <quote>
+  <screen><cmd>GIRAFFE_SML_LIB=${GIRAFFEHOME}/lib/sml GIRAFFE_DEBUG=1 poly --script load-polyml.sml</cmd></screen>
+  </quote>
+</item>
+<item>
+  <p>
+    To link:
+  </p>
+  <list>
+  <item>
+    <p>
+      Under Linux:
+    </p>
+    <quote>
+    <screen><cmd>gcc \
+ -ggdb \
+ -Wl,-rpath,${POLYMLHOME}/lib \
+ -Wl,-rpath,${GIRAFFEHOME}/lib/polyml \
+ -o example-1-polyml \
+ example-1-polyml.o \
+ $(PKG_CONFIG_PATH=${POLYMLHOME}/lib/pkgconfig:${PKG_CONFIG_PATH} pkg-config --libs polyml \
+                $(cat ${GIRAFFEHOME}/lib/sml/gobject-2.0/package) \
+                $(cat ${GIRAFFEHOME}/lib/sml/gio-2.0/package) \
+                $(cat ${GIRAFFEHOME}/lib/sml/gtk-3.0/package)) \
+ -L${GIRAFFEHOME}/lib/polyml \
+ -lgiraffe-gobject-2.0 \
+ -lgiraffe-gio-2.0 \
+ -lgiraffe-gtk-3.0</cmd></screen>
+    </quote>
+  </item>
+  <item>
+    <p>
+      Under Darwin, the same as for Linux except that the <cmd>ld</cmd> flag <cmd>-no_pie</cmd> is also specified:
+    </p>
+    <quote>
+    <screen><cmd>gcc \
+ -ggdb \
+ -Wl,-no_pie \
+ -Wl,-rpath,${POLYMLHOME}/lib \
+ -Wl,-rpath,${GIRAFFEHOME}/lib/polyml \
+ -o example-1-polyml \
+ example-1-polyml.o \
+ $(PKG_CONFIG_PATH=${POLYMLHOME}/lib/pkgconfig:${PKG_CONFIG_PATH} pkg-config --libs polyml \
+                $(cat ${GIRAFFEHOME}/lib/sml/gobject-2.0/package) \
+                $(cat ${GIRAFFEHOME}/lib/sml/gio-2.0/package) \
+                $(cat ${GIRAFFEHOME}/lib/sml/gtk-3.0/package)) \
+ -L${GIRAFFEHOME}/lib/polyml \
+ -lgiraffe-gobject-2.0 \
+ -lgiraffe-gio-2.0 \
+ -lgiraffe-gtk-3.0</cmd></screen>
+    </quote>
+  </item>
+  </list>
+</item>
+</list>
+</example>
+</section>
+
+</page>

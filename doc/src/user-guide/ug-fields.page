@@ -1,0 +1,160 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-fields">
+<info>
+  <title type="sort">0500</title>
+  <link type="guide" xref="ug-index#sml-interface"/>
+</info>
+<title>Fields</title>
+<p>
+A field is a named mutable data item of a record, union or class
+whose attributes determine its type, modes of use (readable, writable) and visibility (private or not).
+</p>
+<p>
+There is no support for accessing an arbitrary field of a union because it would not be type-safe to do so.
+Instead, a union is classified according to its discriminator to get the field in use.
+For example, see the special structure <code><link xref="ug-special-structures#classify-event">ClassifyEvent</link></code>
+which provides the function <code>classify</code>.
+</p>
+<p>
+There is no support for accessing a field of a class.
+Although technically possible, there is currently no requirement to do so.
+</p>
+
+<section>
+<title>Referring to fields</title>
+<p>
+A field name is an identifier in the local scope of a record.
+For a field <code><var>someFieldName</var></code>
+of a record <code><var>Namespace</var>.<var>Record</var></code>,
+the hierarchical SML name is
+<code><var>Namespace</var>.<var>Record</var>.<var>someFieldName</var></code>.
+</p>
+<example>
+<p>
+For example, the field <code>leftMargin</code>
+for the record <code>Gtk.TextAttributes</code> is
+<code>Gtk.TextAttributes.leftMargin</code>.
+</p>
+</example>
+<p>
+In order to provide a type-safe and mode-safe interface for using fields,
+each field has an SML specification that constrains the record,
+the type of the field data and access to the field.
+</p>
+<p>
+The specification of <code><var>Namespace</var>.<var>Record</var>.<var>someFieldName</var></code>
+in the signature <code><var>NAMESPACE</var>_<var>RECORD</var></code>
+has the form:
+</p>
+<list>
+<item>
+  <code>
+val <var>someFieldName</var> :
+  {
+    get : t -> <var>readType</var>,
+    set : <var>writeType</var> -> t -> unit
+  }
+</code>
+  <p>
+    if the field is readable and writable;
+  </p>
+</item>
+<item>
+  <code>
+val <var>someFieldName</var> : {get : t -> <var>readType</var>}
+</code>
+  <p>
+    if the field is readable and not writable;
+  </p>
+</item>
+<item>
+  <code>
+val <var>someFieldName</var> : {set : <var>writeType</var> -> t -> unit}
+</code>
+  <p>
+    if the field is writable and not readable;
+  </p>
+</item>
+</list>
+<p>
+where
+</p>
+<terms>
+<item>
+  <title><code><var>readType</var></code></title>
+  <p>is the type of the value read from the field</p>
+</item>
+<item>
+  <title><code><var>writeType</var></code></title>
+  <p>is the type of the value written to the field</p>
+</item>
+</terms>
+<example>
+<p>
+For example, the specification of the readable and writable field <code>Gtk.TextAttributes.leftMargin</code> is
+</p>
+<code>
+val leftMargin :
+  {
+    get : t -> LargeInt.int,
+    set : LargeInt.int -> t -> unit
+  }
+</code>
+</example>
+<p>
+<code><var>readType</var></code> and <code><var>writeType</var></code> are not necessarily the same.
+They differ when the field data has an object type because
+<code><var>writeType</var></code> allows an object of any subclass of the object type
+but <code><var>readType</var></code> does not.
+</p>
+<example>
+<p>
+For example, the specification of <code>Gdk.WindowAttr.cursor</code> is
+</p>
+<code>
+val cursor :
+  {
+    get : t -> base cursor_class option,
+    set : 'a cursor_class option -> t -> unit
+  }
+</code>
+</example>
+</section>
+
+<section>
+<title>Accessing fields</title>
+<p>
+The value of a field <code><var>Namespace</var>.<var>Record</var>.<var>field</var></code>
+in a struct <code><var>s</var></code> is given by
+</p>
+<code>
+#get <var>Namespace</var>.<var>Record</var>.<var>field</var> <var>s</var>
+</code>
+<p>
+The above expression does not type check if any of the following are satisfied:
+</p>
+<list style="compact">
+<item><p><var>s</var> is not an instance of the record <code><var>Namespace</var>.<var>Record</var></code>;</p></item>
+<item><p>the field is not readable (so the <code>get</code> accessor is not present).</p></item>
+</list>
+<p>
+The value of a field <code><var>Namespace</var>.<var>Record</var>.<var>field</var></code>
+is set to <code><var>x</var></code>
+in a struct <code><var>s</var></code> by
+</p>
+<code>
+#set <var>Namespace</var>.<var>Record</var>.<var>field</var> <var>x</var> <var>s</var>
+</code>
+<p>
+The above expression does not type check if any of the following are satisfied:
+</p>
+<list style="compact">
+<item><p><var>s</var> is not an instance of the record <code><var>Namespace</var>.<var>Record</var></code>;</p></item>
+<item><p>the field is not writable (so the <code>set</code> accessor is not present);</p></item>
+<item><p>the type of <var>x</var> is not an instance of the type of the field data.</p></item>
+</list>
+
+</section>
+
+</page>

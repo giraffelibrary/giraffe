@@ -1,0 +1,41 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="eg-index"
+      style="2column">
+<info>
+  <title type="link">Examples Guide</title>
+  <title type="sort">3</title>
+  <link type="guide" xref="index#guides"/>
+  <desc>Example applications using Giraffe Library</desc>
+</info>
+<title>Giraffe Library Examples Guide</title>
+<p>
+  Each example can be built with both MLton and Poly/ML unless indicated.
+</p>
+
+<section id="glib" style="2column">
+  <title>GLib Examples</title>
+  <p>
+    Although bindings to GLib typically add little to the
+    existing capabilities of a language,
+    GLib does provide some use features that the SML Basis Library does not,
+    as shown in these examples.
+  </p>
+</section>
+
+<section id="gtk3" style="2column">
+  <title>GTK 3 Examples</title>
+  <p>
+    A range of examples that demonstrate use of the GTK 3 API.
+  </p>
+</section>
+
+<section id="vte" style="2column">
+  <title>VTE (Virtual Terminal Emulator) Examples</title>
+  <p>
+    These examples demonstrate use of the VTE widget, which can be used
+    to provide a terminal within an application.
+  </p>
+</section>
+
+</page>

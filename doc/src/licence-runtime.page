@@ -1,0 +1,15 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="licence-runtime">
+<title>Giraffe Library (Run-Time) Licence</title>
+<note style="tip">
+<p>
+The Giraffe Library (Run-Time) Licence applies to source code that
+is provided in a library <link xref="releases">release package</link>,
+<file>giraffe-<var>VERSION</var>.tar.gz</file>,
+for any version <var>VERSION</var>.
+</p>
+</note>
+<code>
+<include parse="text" href="../../release/LICENCE.RUNTIME" xmlns="http://www.w3.org/2001/XInclude"/></code>
+</page>

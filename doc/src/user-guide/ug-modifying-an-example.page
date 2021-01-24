@@ -1,0 +1,193 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-modifying-an-example">
+<info>
+  <link type="guide" xref="ug-index#getting-started"/>
+</info>
+<title>Modifying an Example</title>
+<p>
+This section describes how to update the build files when modifying an example from the <link xref="eg-index"/>.
+</p>
+<p>
+The build files provided with an example have the following properties:
+</p>
+<list>
+<item><p>Building is managed <link xref="eg-using-make">using Make</link>.</p></item>
+<item><p>A target is provided for all supported compilers.</p></item>
+<item>
+  <p>
+    For Poly/ML, compilation is incremental in two stages:
+    the library dependencies are loaded in the first stage and
+    the application source code is loaded in the second stage.
+    The library dependencies are not reloaded
+    if only the application source code changes
+    which substantially reduces build times.
+  </p>
+</item>
+</list>
+<p>
+In addition to the SML source code,
+an example contains the following build files
+that may need to be updated:
+</p>
+<list type="none" style="compact">
+<item><p><file>mlton.mlb</file></p></item>
+<item><p><file>mlton-main.sml</file></p></item>
+<item><p><file>polyml-libs.sml</file></p></item>
+<item><p><file>polyml-app.sml</file></p></item>
+<item><p><file>app.mk</file></p></item>
+</list>
+<p>
+and the following files for building with Make that do <em>not</em> need to be changed:
+</p>
+<list type="none" style="compact">
+<item><p><file>Makefile</file></p></item>
+<item><p><file>make-polyml-app.sml</file></p></item>
+<item><p><file>make-polyml-libs.sml</file></p></item>
+</list>
+<p>
+Note that <file>mlton-main.sml</file> should not be changed
+because <file>Makefile</file> expects the main function to be called <code>main</code> for Poly/ML.
+</p>
+
+<section>
+<title>Changing the application name</title>
+<note style="tip">
+<p>
+Before changing the application name, <cmd>make distclean</cmd> should be performed.
+</p>
+</note>
+<p>
+The application executable name is defined in <file>app.mk</file> by the Make variables
+</p>
+<list style="compact">
+<item><p><code>TARGET_MLTON</code> for MLton and</p></item>
+<item><p><code>TARGET_POLYML</code> for Poly/ML</p></item>
+</list>
+<p>
+These variables should be updated to the desired application names.
+To retain the MLton and Poly/ML application names of the form
+<code><var>NAME</var>-mlton</code> and <code><var>NAME</var>-polyml</code>, respectively,
+only the variable <code>NAME</code> needs to be updated in <file>app.mk</file>.
+</p>
+</section>
+	
+<section>
+<title>Changing application source files</title>
+<p>
+After adding, removing or renaming an application source file,
+the application source file names should be updated in:
+</p>
+<list style="compact">
+<item><p><file>mlton.mlb</file> for MLton</p></item>
+<item><p><file>polyml-app.sml</file> for Poly/ML</p></item>
+</list>
+<p>
+The source file dependencies are defined in <file>app.mk</file> by the Make variables
+</p>
+<list style="compact">
+<item><p><code>SRC_MLTON</code> for MLton and</p></item>
+<item><p><code>SRC_POLYML</code> for Poly/ML</p></item>
+</list>
+<p>
+These are derived automatically so do not need to be updated.
+</p>
+</section>
+
+<section>
+<title>Changing library dependencies</title>
+<p>
+If the application source code introduces or removes
+dependence on an SML structure <code><var>Namespace</var></code>
+for a namespace <var>Namespace</var>-<var>Version</var>,
+the library dependency (with the indicated form)
+should be added or removed, respectively, in:
+</p>
+<list style="compact">
+<item>
+  <p>
+    <file>app.mk</file>, in the Make variable <code>LIB_NAMES</code>
+    (<code><var>namespace</var>-<var>version</var></code>)
+  </p>
+</item>
+<item>
+  <p>
+    <file>mlton.mlb</file> for MLton
+    (<code>$(GIRAFFE_SML_LIB)/<var>namespace</var>-<var>version</var>/mlton.mlb</code>)
+  </p>
+</item>
+<item>
+  <p>
+    <file>polyml-libs.sml</file> for Poly/ML
+    (<code>$(GIRAFFE_SML_LIB)/<var>namespace</var>-<var>version</var>/polyml.sml</code>)
+  </p>
+</item>
+</list>
+<p>
+The file <file>polyml-libs.sml</file>
+also includes library dependencies of the library dependencies,
+i.e. the transitive closure of the library dependencies.
+Therefore, after adding a dependency, it may be necessary to add other dependencies and,
+after removing a dependency, it may be possible to remove other dependencies.
+</p>
+<p>
+Note that the variable <code>LIB_NAMES</code> in <file>app.mk</file>
+should include <code><var>namespace</var>-<var>version</var></code>
+if and only if the file <file>mlton.mlb</file> includes
+<code>$(GIRAFFE_SML_LIB)/<var>namespace</var>-<var>version</var>/mlton.mlb</code>.
+</p>
+</section>
+
+
+
+
+<terms>
+<item>
+  <title><file>mlton.mlb</file></title>
+  <p>
+    An MLB file that defines
+    the namespace dependencies provided by Giraffe Library and
+    application SML source files
+    to load with MLton.
+  </p>
+</item>
+<item>
+  <title><file>mlton-main.sml</file></title>
+  <p>
+    An single-line SML file that evaluates the main function for MLton.
+    Note that this file is not generated by <file>Makefile</file>
+    because it is referenced by <file>mlton.mlb</file>.
+  </p>
+  <p>
+    This file should not be changed
+    (because <file>Makefile</file> expects the main function to be called <code>main</code> for Poly/ML).
+  </p>
+</item>
+<item>
+  <title><file>polyml-libs.sml</file></title>
+  <p>An SML script that loads the namespace dependencies provided by Giraffe Library into a Poly/ML session.</p>
+</item>
+<item>
+  <title><file>polyml-app.sml</file></title>
+  <p>An SML script that loads the application SML source files into a Poly/ML session.</p>
+</item>
+<item>
+  <title><file>app.mk</file></title>
+  <p>
+    Application-specific values used by <file>Makefile</file>.
+  </p>
+</item>
+<item>
+  <title><file>Makefile</file></title>
+  <title><file>make-polyml-app.sml</file></title>
+  <title><file>make-polyml-libs.sml</file></title>
+  <p>
+    Files to support building using Make.
+  </p>
+  <p>
+    These do not need to be changed.
+  </p>
+</item>
+</terms>
+
+</page>

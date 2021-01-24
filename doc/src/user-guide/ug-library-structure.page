@@ -1,0 +1,324 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-library-structure">
+<info>
+  <title type="sort">0100</title>
+  <link type="guide" xref="ug-index#sml-interface"/>
+</info>
+<title>Library Structure</title>
+<p>
+The SML interface is organized using SML modules.
+The structure and content is inherited from the GObject Introspection (GI) metadata
+from which Giraffe Library is automatically generated,
+so would be similar to other GI-based libraries.
+The main exception to this are those areas relating to the GObject foundations
+&#8212; in particular, the structures
+<link xref="ug-special-structures#g-object-type">GObjectType</link>,
+<link xref="ug-special-structures#g-object-value">GObjectValue</link>,
+<link xref="ug-special-structures#g-object-closure">GObjectClosure</link> &#8212;
+which are specific to Giraffe Library.
+These structures rarely need to be referenced by applications because
+the <link xref="ug-special-structures">special structures</link> provide higher-level type safe interfaces,
+in particular, for working with signals and properties.
+</p>
+
+<section>
+<title>Libraries</title>
+<p>
+For each <em>library</em>, introspection provides one or more <em>namespaces</em>.
+</p>
+<example>
+<p>
+For example,
+</p>
+<list style="compact">
+<item><p>the library GLib provides the namespaces GLib, GObject, Gio, GModule;</p></item>
+<item><p>the library Pango provides the namespace Pango;</p></item>
+<item><p>the library GTK provides the namespaces Gdk and Gtk;</p></item>
+</list>
+</example>
+<p>
+For each namespace <var>Namespace</var>,
+there is a signature <code><var>NAMESPACE</var></code>
+and a structure <code><var>Namespace</var></code> that implements the signature:
+</p>
+<code>
+structure <var>Namespace</var> : <var>NAMESPACE</var>
+</code>
+<example>
+<p>
+For example:
+</p>
+<code>
+structure GLib : G_LIB
+structure GObject : G_OBJECT
+structure Gio : GIO
+structure GModule : G_MODULE
+
+structure Pango : PANGO
+
+structure Gdk : GDK
+structure Gtk : GTK
+</code>
+</example>
+</section>
+
+<section>
+<title>Namespaces</title>
+<p>
+A namespace may define the following entities:
+</p>
+<list style="compact">
+<item>
+  <p>
+    named type (class, interface, record, union, enum, flags, callback or alias)
+  </p>
+</item>
+<item><p>constant &#8212; see section <link xref="ug-constants"/></p></item>
+<item><p>function &#8212; see section <link xref="ug-functions"/></p></item>
+</list>
+<p>
+The signature <code><var>NAMESPACE</var></code>
+contains a specification for each entity.
+The specification for a function and a constant is described in the sections referenced above.
+</p>
+<example>
+<p>
+For example:
+</p>
+<code>
+signature GTK =
+  sig
+    <em>(* named types *)</em>
+    …
+    structure Button : GTK_BUTTON
+    structure Window : GTK_WINDOW
+    structure WindowGroup : GTK_WINDOW_GROUP
+    structure WindowType : GTK_WINDOW_TYPE
+    …
+
+    <em>(* constants *)</em>
+    val MAJOR_VERSION : LargeInt.int
+    val MICRO_VERSION : LargeInt.int
+    val MINOR_VERSION : LargeInt.int
+    val STOCK_CANCEL : string
+    …
+
+    <em>(* functions *)</em>
+    val init : string list -> string list
+    val main : unit -> unit
+    …
+  end
+</code>
+</example>
+<p>
+For each named type <var>Type</var> in <var>Namespace</var>,
+the signature <code><var>NAMESPACE</var></code> contains
+a specification of a structure <code><var>Type</var></code>
+where a separate signature <code><var>NAMESPACE</var>_<var>TYPE</var></code> specifies the SML interface:
+</p>
+<code>
+signature <var>NAMESPACE</var> =
+  sig
+    …
+    structure <var>Type</var> : <var>NAMESPACE</var>_<var>TYPE</var>
+    …
+  end
+</code>
+<p>
+Therefore, the SML interface of <code><var>Namespace</var>.<var>Type</var></code>
+is specified by <code><var>NAMESPACE</var>_<var>TYPE</var></code>.
+</p>
+<example>
+<p>
+For example <code>GTK_WINDOW</code> specifies the SML interface for <code>Window</code>:
+</p>
+<code>
+    structure Window : GTK_WINDOW
+</code>
+<p>
+Therefore, the SML interface of <code>Gtk.Window</code>
+is specified by <code>GTK_WINDOW</code>.
+</p>
+</example>
+<p>
+A named type may depend on other named types.
+Consequently, the signature for a named type typically refers to the SML type of other named types.
+A named type in another namespace can be referenced, e.g. <code>Gdk.Rectangle.t</code>,
+but a named type in the same namespace does not yet have a structure that implements it.
+Therefore local SML types are introduced in the signature that are linked in the namespace signature.
+This is not shown in the simplified example above.
+</p>
+<example>
+<p>
+For example, in the namespace <code>Gtk</code>,
+the class <code>Window</code> refers to the enum <code>WindowType</code>.
+Therefore the signature <code>GTK_WINDOW</code> needs to refer to <code>WindowType.t</code>
+but instead uses a local type <code>window_type_t</code>
+that is linked by the structure specification for <code>Window</code> as follows:
+</p>
+<code>
+    structure Window :
+      GTK_WINDOW
+        where type 'a buildable_class = 'a Buildable.class
+        where type 'a window_group_class = 'a WindowGroup.class
+        where type 'a accel_group_class = 'a AccelGroup.class
+        where type 'a application_class = 'a Application.class
+        where type 'a widget_class = 'a Widget.class
+        where type window_type_t = WindowType.t
+        where type window_position_t = WindowPosition.t
+</code>
+</example>
+<p>
+Not only can a named type depend on another named type,
+two named types can be mutually dependent.
+In this case, there is no possible ordering of the structure specifications that
+satisfies the depencies.
+</p>
+<example>
+<p>
+For example, in the namespace <code>Gtk</code>,
+the class <code>Window</code> and class <code>WindowGroup</code>
+depend on each other's named type.
+The structure specification for <code>WindowGroup</code> would
+be as follows:
+</p>
+<code>
+    structure WindowGroup :
+      GTK_WINDOW_GROUP
+        where type 'a widget_class = 'a Widget.class
+        where type 'a window_class = 'a Window.class
+</code>
+<p>
+This depends on the structure specification of <code>Window</code>
+but the structure specification of <code>Window</code> depends on this.
+</p>
+</example>
+<p>
+A cyclic dependency between structure specifications is avoided by introducing
+a separate structure that defines the SML type and no other part of the interface.
+</p>
+<example>
+<p>
+For example, for the class <code>Window</code> and class <code>WindowGroup</code>,
+the SML types are introduced by the structures <code>WindowClass</code> and <code>WindowGroupClass</code>, respectively.
+This avoids a cyclic dependency between the structure specifcations
+of <code>Window</code> and <code>WindowGroup</code>:
+</p>
+<code>
+    structure WindowGroupClass : GTK_WINDOW_GROUP_CLASS
+    …
+    structure WindowClass :
+      GTK_WINDOW_CLASS
+        where type 'a bin_class = 'a BinClass.class
+    …
+    structure Window :
+      GTK_WINDOW
+        where type 'a class = 'a WindowClass.class
+        where type 'a buildable_class = 'a BuildableClass.class
+        where type 'a window_group_class = 'a WindowGroupClass.class
+        where type 'a accel_group_class = 'a AccelGroupClass.class
+        where type 'a application_class = 'a ApplicationClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+        where type window_type_t = WindowType.t
+        where type window_position_t = WindowPosition.t
+    …
+    structure WindowGroup :
+      GTK_WINDOW_GROUP
+        where type 'a class = 'a WindowGroupClass.class
+        where type 'a widget_class = 'a WidgetClass.class
+        where type 'a window_class = 'a WindowClass.class
+</code>
+</example>
+</section>
+
+<section>
+<title>Named types</title>
+<p>
+A named type may define the following entities:
+</p>
+<list style="compact">
+<item><p>implemented interface (class and interface only) &#8212; see section <link xref="ug-types#implemented-interfaces"/></p></item>
+<item><p>constant (class and interface only) &#8212; see section <link xref="ug-constants"/></p></item>
+<item>
+  <p>
+    callable function (any named type except callback) &#8212; see section <link xref="ug-functions"/> &#8212; which may be a
+  </p>
+  <list>
+  <item><p>method (class and interface only)</p></item>
+  <item><p>constructor (class and interface only)</p></item>
+  <item><p>function</p></item>
+  </list>
+</item>
+<item><p>virtual method (class and interface only) &#8212; unsupported, see section <link xref="ug-library-coverage#giraffe-limitations"/></p></item>
+<item><p>field (class, record and union only) &#8212; see section <link xref="ug-fields"/></p></item>
+<item><p>signal (class and interface only) &#8212; see section <link xref="ug-signals"/></p></item>
+<item><p>property (class and interface only) &#8212; see section <link xref="ug-properties"/></p></item>
+<item><p>member (enum and flags only)</p></item>
+</list>
+<p>
+The signature <code><var>NAMESPACE</var>_<var>TYPE</var></code> for the named type
+always specifies a type <code>t</code> as described in the section <link xref="ug-types"/>
+and contains a specification for each entity as described in the sections referenced above.
+</p>
+<example>
+<p>
+For example:
+</p>
+<code>
+signature GTK_BUTTON =
+  sig
+    <em>(* local types *)</em>
+    type 'a actionable_class
+    type 'a activatable_class
+    type 'a widget_class
+    type position_type_t
+    …
+
+    <em>(* type *)</em>
+    type 'a class
+    type t = base class
+
+    <em>(* implemented interfaces *)</em>
+    val asActionable : 'a class -> base actionable_class
+    val asActivatable : 'a class -> base activatable_class
+
+    <em>(* constructors *)</em>
+    val new : unit -> base class
+    val newFromStock : string -> base class
+    …
+
+    <em>(* methods *)</em>
+    val getLabel : 'a class -> string
+    val setLabel : 'a class -> string -> unit
+    …
+
+    <em>(* signals *)</em>
+    val clickedSig : (unit -> unit) -> 'a class Signal.t
+    …
+
+    <em>(* properties *)</em>
+    val labelProp : ('a class, unit -> string option, string option -> unit, string option -> unit) Property.t
+    …
+  end
+</code>
+</example>
+<p>
+A callback has none of the entities listed above.
+Therefore, the signature for the callback specifies only the type <code>t</code>.
+</p>
+<p>
+An alias is a named type defined in terms of another (named or unnamed) type.
+The signature for the alias is defined to be equal to the signature for the other type.
+</p>
+<example>
+<p>
+For example:
+</p>
+<code>
+signature GTK_ALLOCATION_RECORD = GDK_RECTANGLE_RECORD
+</code>
+</example>
+</section>
+
+</page>

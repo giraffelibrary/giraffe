@@ -1,0 +1,7 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="licence-codegen">
+<title>Giraffe Code Generator Licence</title>
+<code>
+<include parse="text" href="../../LICENCE.CODEGEN" xmlns="http://www.w3.org/2001/XInclude"/></code>
+</page>

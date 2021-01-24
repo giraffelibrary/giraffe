@@ -1,0 +1,153 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-main-program">
+<info>
+  <link type="guide" xref="ug-index#programming"/>
+</info>
+<title>Main Program</title>
+<p>
+The following portability considerations affect the form of the main program:
+</p>
+<list>
+<item>
+<p>
+To build an executable with Poly/ML,
+a single function of type <code>unit -> unit</code> is required
+for the main program.
+</p>
+</item>
+<item>
+<p>
+In the event of an unhandled exception at the top-level,
+an executable built with some compilers may not report it nor exit with a non-zero status,
+so it is recommended that the main program explicitly does this
+to aid diagnostics.
+</p>
+</item>
+</list>
+<p>
+With this in mind, a portable main program may have the following form:
+</p>
+<code>
+fun main () =
+  let
+    …
+  in
+    Giraffe.exit <var>status</var>
+  end
+    handle e => Giraffe.error 1 ["Uncaught exception\n", exnMessage e, "\n"]
+</code>
+<p>
+For convenience, functions from
+the special structure <code><link xref="ug-special-structures#giraffe">Giraffe</link></code>
+are used to exit the application.
+</p>
+<p>
+To build an executable from the main program,
+see the sections on building with <link xref="ug-building-mlton">MLton</link> and <link xref="ug-building-polyml">Poly/ML</link>.
+</p>
+<p>
+The main program typically performs some initial set up and then runs an event loop.
+There is more than one way to do this for a GTK application,
+as shown in the following sections.
+</p>
+<p>
+A non-GTK program may use GLib without running an event loop.
+Such a program simply needs to initialize the GObject dynamic type system
+using <code>GObject.typeInit</code>
+if the version of GLib is older than 2.36.
+This function is deprecated and has no effect since GLib 2.36.
+</p>
+<code>
+fun main () =
+  let
+    val () = GObject.typeInit ()  (* in case GLib &lt; 2.36 *)
+    …
+  in
+    Giraffe.exit <var>status</var>
+  end
+    handle e => Giraffe.error 1 ["Uncaught exception\n", exnMessage e, "\n"]
+</code>
+
+<section>
+<title>Using the class <code>Gtk.Application</code></title>
+<p>
+For a GTK application,
+the class <code><link href="https://developer.gnome.org/gtk3/stable/GtkApplication.html">Gtk.Application</link></code>,
+based on <code><link href="https://developer.gnome.org/gio/stable/GApplication.html">Gio.Application</link></code>,
+provides many useful features.
+Using this class, a main program could have the following form:
+</p>
+<code>
+fun main () =
+  let
+    val app = Gtk.Application.new (SOME <var>appId</var>, Gio.ApplicationFlags.flags […])
+    …
+
+    val args = Utf8CPtrArrayN.fromList (CommandLine.name () :: CommandLine.arguments ())
+    val status = Gio.Application.run app args
+  in
+    Giraffe.exit status
+  end
+    handle e => Giraffe.error 1 ["Uncaught exception\n", exnMessage e, "\n"]
+</code>
+<p>
+It is common to set up GTK objects in the handler for the “activate” signal
+as follows:
+</p>
+<code>
+fun activate app () =
+  let
+    …  (* set up *)
+  in
+    ()
+  end
+
+fun main () =
+  let
+    val app = Gtk.Application.new (SOME <var>appId</var>, Gio.ApplicationFlags.flags [])
+    val _ = Signal.connect app Gio.Application.activateSig (activate app)
+
+    val args = Utf8CPtrArrayN.fromList (CommandLine.name () :: CommandLine.arguments ())
+    val status = Gio.Application.run app args
+  in
+    Giraffe.exit status
+  end
+    handle e => Giraffe.error 1 ["Uncaught exception\n", exnMessage e, "\n"]
+</code>
+</section>
+
+<section>
+<title>Using <code>Gtk.init</code> and <code>Gtk.main</code></title>
+<p>
+The class <code><link href="https://developer.gnome.org/gtk3/stable/GtkApplication.html">Gtk.Application</link></code>
+was not available in GTK 2 and
+applications were required to use <code>Gtk.init</code> and <code>Gtk.main</code> to initialize GTK and run an event loop.
+This approach is still possible with GTK 3.
+Using this approach, a main program could have the following form:
+</p>
+<code>
+fun main () =
+  let
+    val args = Utf8CPtrArrayN.fromList (CommandLine.name () :: CommandLine.arguments ())
+    val … = Gtk.init args
+
+    …  (* set up *)
+
+    val () = Gtk.main ()
+  in
+    Giraffe.exit 0
+  end
+    handle e => Giraffe.error 1 ["Uncaught exception\n", exnMessage e, "\n"]
+</code>
+<p>
+<code>Gtk.init</code> initializes GTK and parses command line options.
+The function should be passed the command line (program name and arguments) and returns any arguments not consumed by GTK.
+</p>
+<p>
+<code>Gtk.main</code> enters the GTK main loop.
+The main loop runs until <code>Gtk.mainQuit</code> is called (from a signal handler) whereupon <code>Gtk.main</code> returns.
+</p>
+</section>
+
+</page>

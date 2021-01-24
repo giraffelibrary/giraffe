@@ -1,0 +1,312 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="ug-building-mlton">
+<info>
+  <link type="guide" xref="ug-index#using-compilers"/>
+</info>
+<title>Building with MLton</title>
+<p>
+This section describes how to build a stand-alone executable using MLton.
+</p>
+
+<section>
+<title>Source files</title>
+<p>
+We assume that the main program for the application is
+a function <code><var>main</var> : unit -> unit</code>,
+as described in the section <link xref="ug-main-program"/>,
+and that this is defined in a source file <file><var>app</var>.sml</file>.
+</p>
+<p>
+For MLton, the main program must be evaluated in SML.
+It is recommended that a separate source file does this, as follows,
+to keep <file><var>app</var>.sml</file> portable:
+</p>
+<listing>
+<title><file>mlton-main.sml</file></title>
+<code>
+val () = <var>main</var> ()
+</code>
+</listing>
+<p>
+An MLB file is required that includes these SML source files and their dependencies.
+The rest of this section describes the form of such an MLB file.
+</p>
+<p>
+To avoid hard-coding the location of the Giraffe Library installation in MLB files,
+the MLB path variable
+<code>GIRAFFE_SML_LIB</code>
+is used as a placeholder for the directory <file><var>installdir</var>/lib/sml</file>
+where <file><var>installdir</var></file> is the Giraffe Library installation directory.
+</p>
+<p>
+The dependencies always include
+</p>
+<code>
+$(SML_LIB)/basis/basis.mlb
+$(SML_LIB)/basis/mlton.mlb
+</code>
+<p>
+and include
+</p>
+<code>
+$(GIRAFFE_SML_LIB)/<var>namespace</var>-<var>version</var>/mlton.mlb
+</code>
+<p>
+for each namespace <var>Namespace</var>-<var>Version</var>
+whose structure <code><var>Namespace</var></code> is referenced in the SML source.
+</p>
+<example>
+<p>
+For example, if the SML source references the structure <code>Gio</code>
+to use the Gio-2.0 namespace,
+then the MLB file should include
+</p>
+<code>
+$(GIRAFFE_SML_LIB)/gio-2.0/mlton.mlb
+</code>
+</example>
+<note type="tip">
+<p>
+The directory name <file><var>namespace</var>-<var>version</var></file> is
+<var>Namespace</var>-<var>Version</var> in lowercase
+but this is not necessarily the same as the pkg-config name,
+which is provided by the contents of the file <file><var>namespace</var>-<var>version</var>/package</file>.
+</p>
+<example>
+<p>
+For example, for the namespace Gtk-3.0, the directory name is <file>gtk-3.0</file>
+but the pkg-config name is <file>gtk+-3.0</file>.
+</p>
+</example>
+</note>
+<p>
+There is no need to include the MLB file for a namespace that is not
+referenced by the SML source,
+even if it is a dependency of a referenced namespace,
+because the MLB file for a namespace includes its own dependencies.
+</p>
+<p>
+The overall form of an MLB file for the application could be follows:
+</p>
+<listing>
+<title><file>mlton.mlb</file></title>
+<code>
+local
+  $(SML_LIB)/basis/basis.mlb
+  $(SML_LIB)/basis/mlton.mlb
+  $(GIRAFFE_SML_LIB)/<var>namespace1</var>-<var>version1</var>/mlton.mlb
+  $(GIRAFFE_SML_LIB)/<var>namespace2</var>-<var>version2</var>/mlton.mlb
+  …
+in
+  …
+  <var>app</var>.sml
+  mlton-main.sml
+end
+</code>
+</listing>
+</section>
+
+<section>
+<title>Build commands</title>
+<p>
+At a minimum, the <cmd>mlton</cmd> command must do the following
+to compile the MLB file <file>mlton.mlb</file>:
+</p>
+<list>
+<item><p>Set the MLB path variable <code>GIRAFFE_SML_LIB</code>.</p></item>
+<item><p>Specify the libraries required for linking and their paths.</p></item>
+<item><p>Specify the MLB file <file>mlton.mlb</file>.</p></item>
+</list>
+<p>
+This is achieved by the following command:
+</p>
+<quote>
+<screen>
+<cmd>mlton \
+ -mlb-path-var "GIRAFFE_SML_LIB <var>installdir</var>/lib/sml" \
+ -link-opt "$(pkg-config --libs \
+                $(cat <var>installdir</var>/lib/sml/<var>namespace1</var>-<var>version1</var>/package) \
+                $(cat <var>installdir</var>/lib/sml/<var>namespace2</var>-<var>version2</var>/package) \
+                …) \
+            -L<var>installdir</var>/lib/mlton \
+            -lgiraffe-<var>namespace1</var>-<var>version1</var> \
+            -lgiraffe-<var>namespace2</var>-<var>version2</var> \
+            …" \
+ mlton.mlb</cmd>
+</screen>
+</quote>
+<p>
+where
+</p>
+<list type="none">
+<item><p><code><var>installdir</var></code> is the Giraffe Library installation directory;</p></item>
+<item>
+  <p>
+    <code><var>namespace1</var>-<var>version1</var></code>, <code><var>namespace2</var>-<var>version2</var></code>, …
+    are the namespace directories whose MLB files are included in <file>mlton.mlb</file>.
+  </p>
+</item>
+</list>
+<p>
+The <cmd>mlton</cmd> command could usefully do the following:
+</p>
+<list>
+<item><p>Specify the name of the output executable file.</p></item>
+<item><p>Set the constant <code>GiraffeDebug.isEnabled</code> for diagnostic output.</p></item>
+<item>
+  <p>
+    Set the constant <code>Exn.keepHistory</code> to keep exception history for diagnostic output.
+    (Giraffe Library will print the history of an unhandled exception that occurs in a callback to SML.)
+  </p>
+</item>
+<item><p>Set C compiler options, e.g. debugging information, optimization level.</p></item>
+</list>
+<p>
+This is achieved by the following command:
+</p>
+<quote>
+<screen>
+<cmd>mlton \
+ -mlb-path-var "GIRAFFE_SML_LIB <var>installdir</var>/lib/sml" \
+ -output <var>name</var> \
+ -const "GiraffeDebug.isEnabled <var>debugEnabled</var>" \
+ -const "Exn.keepHistory true" \
+ -cc-opt "-ggdb -std=c99 -O2" \
+ -link-opt "$(pkg-config --libs \
+                $(cat <var>installdir</var>/lib/sml/<var>namespace1</var>-<var>version1</var>/package) \
+                $(cat <var>installdir</var>/lib/sml/<var>namespace2</var>-<var>version2</var>/package) \
+                …) \
+            -L<var>installdir</var>/lib/mlton \
+            -lgiraffe-<var>namespace1</var>-<var>version1</var> \
+            -lgiraffe-<var>namespace2</var>-<var>version2</var> \
+            …" \
+ mlton.mlb</cmd>
+</screen>
+</quote>
+<p>
+where
+</p>
+<list type="none">
+<item><p><code><var>name</var></code> is the application executable name;</p></item>
+<item><p><code><var>debugEnabled</var></code> is <code>true</code> to include debugging diagnostics and <code>false</code> otherwise.</p></item>
+</list>
+<example>
+<p>
+For example,
+to build the <link xref="eg-gtk3-hello-world"/> example,
+the following MLB file could be used:
+</p>
+<listing>
+<title><file>mlton.mlb</file></title>
+<code>
+local
+  $(SML_LIB)/basis/basis.mlb
+  $(SML_LIB)/basis/mlton.mlb
+  $(GIRAFFE_SML_LIB)/general/mlton.mlb
+  $(GIRAFFE_SML_LIB)/gobject-2.0/mlton.mlb
+  $(GIRAFFE_SML_LIB)/gio-2.0/mlton.mlb
+  $(GIRAFFE_SML_LIB)/gtk-3.0/mlton.mlb
+in
+  example-1.sml
+  mlton-main.sml
+end
+</code>
+</listing>
+<p>
+and,
+given an environment variable for the installation directory as follows:
+</p>
+<quote>
+<screen>
+<cmd>GIRAFFEHOME=<var>installdir</var>
+</cmd>
+</screen>
+</quote>
+<p>
+the following <cmd>mlton</cmd> command could be used:
+</p>
+<quote>
+<screen>
+<cmd>mlton \
+ -mlb-path-var "GIRAFFE_SML_LIB ${GIRAFFEHOME}/lib/sml" \
+ -output example-1-mlton \
+ -const "GiraffeDebug.isEnabled true" \
+ -const "Exn.keepHistory true" \
+ -cc-opt "-ggdb -std=c99 -O2" \
+ -link-opt "$(pkg-config --libs \
+                $(cat ${GIRAFFEHOME}/lib/sml/gobject-2.0/package) \
+                $(cat ${GIRAFFEHOME}/lib/sml/gio-2.0/package) \
+                $(cat ${GIRAFFEHOME}/lib/sml/gtk-3.0/package)) \
+            -L${GIRAFFEHOME}/lib/mlton \
+            -lgiraffe-gobject-2.0 \
+            -lgiraffe-gio-2.0 \
+            -lgiraffe-gtk-3.0" \
+ mlton.mlb
+</cmd>
+</screen>
+</quote>
+</example>
+</section>
+
+<section>
+<title>Issues</title>
+
+<section>
+<title>Compilation time</title>
+<p>
+As MLton is a whole-program optimizing compiler,
+it is not possible to perform incremental compilaton.
+Consequently, all dependencies must be compiled every time.
+The GTK 3 stack without any application code is not quick to compile:
+with an Intel Core i5-7200U CPU at 2.50GHz it takes just over 40 seconds.
+With such a long compilation iteration time, this slows down development.
+</p>
+<p>
+For portable applications,
+it is recommended that Poly/ML is used to check changes initially,
+with MLton builds left running in the background.
+</p>
+</section>
+
+<section>
+<title>Compilation memory usage</title>
+<p>
+When compiling SML code provided by Giraffe Library,
+garbage collection does not appear to be triggered until MLton
+uses all memory available to it.
+(During compilation, memory usage appears to saturate at the limit of available memory.)
+With other applications running, this can often result in virtual memory usage
+that leads to performance and usability issues on Linux systems,
+in particular, the user interface may be completely unresponsive for several minutes.
+</p>
+<p>
+MLton does not need all the memory that it uses so
+it is recommended that the <cmd>mlton</cmd> command is run with soft memory limits applied.
+A limit of 2G appears to suffice.
+</p>
+<p>
+Under Bash, a command <var>cmd</var> is run in an environment with a memory limit of <var>n</var> bytes
+by the command
+</p>
+<quote>
+<screen>
+<cmd>(ulimit -Sv <var>n</var> ; <var>cmd</var>)</cmd>
+</screen>
+</quote>
+<example>
+<p>
+For example, when running a <cmd>make</cmd> command that builds with MLton,
+memory usage can be limited to 2G by the command
+</p>
+<quote>
+<screen>
+<cmd>(ulimit -Sv $((2*1024*1024)) ; make mlton)</cmd>
+</screen>
+</quote>
+</example>
+</section>
+
+</section>
+
+</page>

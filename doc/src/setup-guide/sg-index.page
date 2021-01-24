@@ -1,0 +1,16 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide"
+      id="sg-index">
+<info>
+  <title type="link">Setup Guide</title>
+  <title type="sort">1</title>
+  <link type="guide" xref="index#guides"/>
+  <desc>Preparation for using Giraffe Library</desc>
+</info>
+<title>Giraffe Library Setup Guide</title>
+<p>
+This short guide explains how to set up a system to use Giraffe Library.
+A basic level of familiarity with system administration is assumed.
+</p>
+
+</page>
