@@ -1899,6 +1899,8 @@ fun initBaseData typelib =
   | CALLBACK callback       => initCallbackBaseData typelib callback
   | CONSTANT constant       => initConstantBaseData typelib constant
   | FUNCTION function       => initFunctionBaseData typelib function
+  | FUNCTIONMACRO _         => NONE
+  | DOCSECTION _            => NONE
 
 fun initNamespaceElem typelib =
   let
@@ -2006,6 +2008,8 @@ fun updateBaseData elemDicts {elem, data} = (
   | CALLBACK callback => updateCallbackBaseData elemDicts Info.CALLBACK callback
   | CONSTANT constant => updateConstantBaseData elemDicts Info.CONSTANT constant
   | FUNCTION function => updateFunctionBaseData elemDicts Info.FUNCTION function
+  | FUNCTIONMACRO _   => K ()
+  | DOCSECTION _      => K ()
 ) data
 
 fun updateNamespaceElem elemDicts =

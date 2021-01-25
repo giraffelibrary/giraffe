@@ -8,6 +8,19 @@ structure GirAbstractSyntaxTree : GIR_ABSTRACT_SYNTAX_TREE =
         deprecatedVersion : string option
       }
 
+    type docsection =
+      {
+        name   : string,
+        config : config
+      }
+
+    type function_macro =
+      {
+        name        : string,
+        config      : config,
+        cIdentifier : string
+      }
+
     type named_type =
       {
         name  : string option,
@@ -363,6 +376,8 @@ structure GirAbstractSyntaxTree : GIR_ABSTRACT_SYNTAX_TREE =
     | CALLBACK of callback
     | CONSTANT of constant
     | FUNCTION of function
+    | FUNCTIONMACRO of function_macro
+    | DOCSECTION of docsection
 
 
     type 'a namespace =

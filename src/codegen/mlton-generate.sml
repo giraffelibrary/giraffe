@@ -528,6 +528,8 @@ fun addNamespaceElem nv ({elem, ...}, (cFunctions, excls)) =
   | CALLBACK _          => (cFunctions, excls)
   | CONSTANT _          => (cFunctions, excls)
   | FUNCTION function   => addCFunction nv (function, (cFunctions, excls))
+  | FUNCTIONMACRO _     => (cFunctions, excls)
+  | DOCSECTION _        => (cFunctions, excls)
 
 fun getNamespaceElemInfoId {elem, ...} =
   case elem of
@@ -541,6 +543,10 @@ fun getNamespaceElemInfoId {elem, ...} =
   | CALLBACK {name, ...}    => ("callback",    SOME name)
   | CONSTANT {name, ...}    => ("constant",    SOME name)
   | FUNCTION function       => getFunctionInfoId function
+  | FUNCTIONMACRO {name, ...}
+                            => ("function-macro",
+                                               SOME name)
+  | DOCSECTION {name, ...}  => ("docsection",  SOME name)
 
 
 fun mkNamespaceDep (namespace, version) =

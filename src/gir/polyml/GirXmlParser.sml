@@ -124,6 +124,74 @@ fun getConfig attrs : config =
 
 
 (* --------------------------------------------------------------------------
+ * element "docsection"
+ * -------------------------------------------------------------------------- *)
+
+fun parseDocsection (attrs, _) : docsection =
+  let
+    val elemName = "docsection"
+    val name =
+      getAttr attrs "name"
+        handle XMLFail ms =>
+          raise XMLFail (
+            HText.concat ["element \"", elemName, "\""]
+             :: ms
+          )
+  in
+    let
+      val config = getConfig attrs
+    in
+      {
+        name   = name,
+        config = config
+      }
+    end
+      handle XMLFail ms =>
+        raise XMLFail (
+          HText.concat [
+            "element \"", elemName, "\" with name attribute \"", name, "\""
+          ]
+           :: ms
+        )
+  end
+
+
+(* --------------------------------------------------------------------------
+ * element "function-macro"
+ * -------------------------------------------------------------------------- *)
+
+fun parseFunctionMacro (attrs, _) : function_macro =
+  let
+    val elemName = "constant"
+    val name =
+      getAttr attrs "name"
+        handle XMLFail ms =>
+          raise XMLFail (
+            HText.concat ["element \"", elemName, "\""]
+             :: ms
+          )
+  in
+    let
+      val config = getConfig attrs
+      val cIdentifier = getAttr attrs "c:identifier"
+    in
+      {
+        name        = name,
+        config      = config,
+        cIdentifier = cIdentifier
+      }
+    end
+      handle XMLFail ms =>
+        raise XMLFail (
+          HText.concat [
+            "element \"", elemName, "\" with name attribute \"", name, "\""
+          ]
+           :: ms
+        )
+  end
+
+
+(* --------------------------------------------------------------------------
  * elements "type", "array", "callback" and "varargs"
  * -------------------------------------------------------------------------- *)
 
@@ -1063,6 +1131,16 @@ fun parseNamespaceElem (x as (tagName, (tagAttrs, ts))) =
     | "function"    =>
         {
           elem     = FUNCTION (parseFunctionCommon FEFUNCTION x),
+          data     = ()
+        }
+    | "docsection"  =>
+        {
+          elem     = DOCSECTION (parseDocsection (tagAttrs, ts)),
+          data     = ()
+        }
+    | "function-macro"  =>
+        {
+          elem     = FUNCTIONMACRO (parseFunctionMacro (tagAttrs, ts)),
           data     = ()
         }
     | _             =>
