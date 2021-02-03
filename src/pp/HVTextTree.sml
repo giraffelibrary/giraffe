@@ -1,5 +1,12 @@
-structure HVTextTree : H_V_TEXT_TREE =
+structure HVTextTree :>
+    H_V_TEXT_TREE
+      where type version = Variant.version
+      where type frame = Variant.frame
+      where type 'a variant = 'a Variant.t =
   struct
+    type version = Variant.version
+    type frame = Variant.frame
+    type 'a variant = 'a Variant.t
 
     local
       fun seqWith (empty, seq) sep f ts =
@@ -31,10 +38,13 @@ structure HVTextTree : H_V_TEXT_TREE =
     end
 
 
+    type h = H.t
+    type v = V.t
 
     datatype t =
       H of H.t
     | V of V.t
+
 
     val toH = fn H h => SOME h | V _ => NONE
     val toV = fn H h => V.line h | V v => v
@@ -45,27 +55,10 @@ structure HVTextTree : H_V_TEXT_TREE =
     | VList of V.t list
 
     fun fromList (ts : t list) : tlist =
-      HList (map (valOf o toH) ts) handle Option => VList (map toV ts)
+      HList (List.map (valOf o toH) ts) handle Option => VList (List.map toV ts)
 
-
-    fun vIndentWith1 (prefixFirst, prefixRest) v : V.t =
-      case V.Iter.getLine (V.Iter.fromText v) of
-        SOME (head, rest) =>
-          if V.Iter.isEmpty rest
-          then
-            (* `v` is single line *)
-            V.line (H.seq [prefixFirst, head])
-          else
-            (* `v` is multi-line *)
-            V.seq [
-              V.line (H.seq [prefixFirst, head]),
-              V.indentWith prefixRest true (V.Iter.toText rest)
-            ]
-      | NONE              => V.empty
-
-    fun indentWith1 (prefixes as (prefixFirst, _)) t : t =
+    fun indentWith1 (prefixes as (prefixFirst, _)) nonEmptyOnly t : t =
       case t of
-        H h => H (H.seq [prefixFirst, h])
-      | V v => V (vIndentWith1 prefixes v)
-
+        H h => H (H.indentWith prefixFirst nonEmptyOnly h)
+      | V v => V (V.indentWith1 prefixes nonEmptyOnly v)
   end

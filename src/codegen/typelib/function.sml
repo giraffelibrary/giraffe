@@ -1082,7 +1082,7 @@ fun getParInfo
 
 fun arrayLenIncompatibleDir (arrayParDir, arrayParInfo, lenDir, lenName) =
   let
-    open HTextTree
+    open HVTextTree.H
 
     val dirToString =
       fn
@@ -1090,7 +1090,7 @@ fun arrayLenIncompatibleDir (arrayParDir, arrayParInfo, lenDir, lenName) =
       | OUT _ => "OUT"
       | INOUT => "INOUT"
   in
-    (String.concat o toStrings) (
+    (String.concat o strings NONE) (
       seq [
         case arrayParDir of
           SOME arrayDir => concat [
@@ -3739,7 +3739,9 @@ val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy, boolTy], unitTy);
 val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy]], unitTy);
 val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy], boolTy], unitTy);
 
-HVTextTree.V.app (fn () => print "\n", print) (HVTextTree.toV (PrettyPrint.fmtExp (HTextTree.str "") exp));
+val v = HVTextTree.toV (PrettyPrint.fmtExp (HVTextTree.H.str "") exp);
+HVTextTree.V.versions v;
+HVTextTree.V.app NONE (fn () => print "\n", print) v;
 *)
 
 

@@ -3,9 +3,7 @@ local
 in
   mlton/alias.sml
   EQ_KEY-sig.sml
-  ORD_KEY-sig.sml
   MAP-sig.sml
-  ORD_MAP-sig.sml
   JoinMap-fun.sml
   ListMap-fun.sml
   StringEqKey.sml

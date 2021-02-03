@@ -1,9 +1,15 @@
+use "VERSION-sig.sml";
+use "VARIANT-sig.sml";
 use "H_TEXT_TREE-sig.sml";
 use "V_TEXT_TREE-sig.sml";
 use "H_V_TEXT_TREE-sig.sml";
 use "CONCRETE_SYNTAX_TREE-sig.sml";
 use "PRETTY_PRINT-sig.sml";
 use "NAME_FORMAT-sig.sml";
+use "StringVersion.sml";
+use "NoVariant.sml";
+use "ListVariant-fun.sml";
+use "Variant.sml";
 use "HTextTree.sml";
 use "VTextTree.sml";
 use "HVTextTree.sml";

@@ -25,6 +25,8 @@ type c_function =
 
 (* C function wrapper pretty printing *)
 
+fun fmtHVar fmtX = HVTextTree.H.var1 o Variant.map (fn _ => false) fmtX
+
 fun fmtSeq (separator, terminator) fmtX xs =
   let
     val rec aux =
@@ -41,7 +43,7 @@ val mltonPrefix = "mlton_"
 fun fmtCFunction
   (cppPrefix : string)
   ({name, since, returnType, parameters} : c_function)
-: VTextTree.t =
+: HVTextTree.V.t =
   let
     open HVTextTree
 
@@ -109,26 +111,26 @@ fun fmtCFunction
     fun fmtFunDecl (name, params) =
       let
         val start = H.seq [H.str mltonPrefix, H.str name, H.sp 1, H.str "("]
-        val indent = H.sp (H.size start)
+        val indent = fmtHVar H.sp (H.size start)
         val formals =
           case params of
             [] => H (H.str ")")
           | _  => V (V.concat (fmtSeq (H.str ",", H.str ")") fmtFormalParam params))
       in
-        indentWith1 (start, indent) formals
+        indentWith1 (start, indent) true formals
       end
 
     fun fmtFunCall (name, returnType, params) =
       let
         val return = if returnType = "void" then H.empty else H.seq [H.str "return", H.sp 1]
         val start = H.seq [return, H.str name, H.sp 1, H.str "("]
-        val indent = H.sp (H.size start)
+        val indent = fmtHVar H.sp (H.size start)
         val actuals =
           case params of
             []  => H (H.str ");")
           | _   => V (V.concat (fmtSeq (H.str ",", H.str ");") fmtActualParam params))
       in
-        indentWith1 (start, indent) actuals
+        indentWith1 (start, indent) true actuals
       end
 
     val funDecl = fmtFunDecl (name, parameters)
@@ -265,6 +267,11 @@ fun dropStarR (ss'0 : substring) : substring option =
 
 fun writeFile (dir, file) v =
   let
+    val optVer =
+      case HVTextTree.V.versions v of
+        [] => NONE
+      | _  => raise Fail "non-default variants not expected"
+
     val dirFile = OS.Path.concat (dir, file)
 
     val ostream = TextIO.openAppend dirFile
@@ -273,7 +280,7 @@ fun writeFile (dir, file) v =
       fn s => TextIO.output (ostream, s)
     )
   in
-    HVTextTree.V.app writer v
+    HVTextTree.V.app optVer writer v
       handle
         e => (TextIO.closeOut ostream; raise e);
     TextIO.closeOut ostream

@@ -416,8 +416,7 @@ fun getFieldInfo
  *)
 fun arrayLenIncompatibleAccessors (arrayFieldInfo, lenAccessors, lenName) =
   let
-    open HVTextTree
-    open H
+    open HVTextTree.H
 
     val {
       name      = arrayName,
@@ -425,7 +424,7 @@ fun arrayLenIncompatibleAccessors (arrayFieldInfo, lenAccessors, lenName) =
       ...
     } : field_info = arrayFieldInfo
   in
-    (String.concat o toStrings) (
+    (String.concat o strings NONE) (
       seq [
         concat [
           "array field ", arrayName,

@@ -1,7 +1,16 @@
-structure VTextTree :> V_TEXT_TREE where type h = HTextTree.t =
+structure VTextTree :>
+    V_TEXT_TREE
+      where type h = HTextTree.t
+      where type version = Variant.version
+      where type frame = Variant.frame
+      where type 'a variant = 'a Variant.t =
   struct
 
     type h = HTextTree.t
+
+    type version = Variant.version
+    type frame = Variant.frame
+    type 'a variant = 'a Variant.t
 
     (* `Empty` represents no lines.
      * `Space n` represents `n` empty lines.
@@ -11,6 +20,7 @@ structure VTextTree :> V_TEXT_TREE where type h = HTextTree.t =
     | Space  of int
     | Line   of h
     | Seq    of t list
+    | Var    of t variant
 
 
     (*
@@ -20,71 +30,12 @@ structure VTextTree :> V_TEXT_TREE where type h = HTextTree.t =
     val sp    = Space
     val line  = Line
     val seq   = Seq
+    val var   = Var
+
     val seq1 = fn [t] => t | ts => seq ts
-
+    val var1 = fn v => case Variant.values v of ([], t) => t | _ => var v
     val str = line o HTextTree.str
-    val concat = seq o map line
-
-    (*
-     * Iteration
-     *)
-    structure Iter =
-      struct
-        type state = t list list
-
-        (* fromText *)
-        fun fromText t = [[t]]
-
-        (* toText *)
-        val rec toText =
-          fn
-            []                => empty
-          | ts1 :: []         => seq1 ts1
-          | ts1 :: ts2 :: tss => toText ((seq1 ts1 :: ts2) :: tss)
-
-        (* getLine *)
-        val rec getLine : t list list -> (h * t list list) option =
-          fn
-            []                 => NONE
-          | [] :: tss'         => getLine tss'
-          | (t :: ts') :: tss' =>
-              case t of
-                Empty   => getLine (ts' :: tss')
-              | Space 0 => getLine (ts' :: tss')
-              | Space n => SOME (HTextTree.empty, (Space (n - 1) :: ts') :: tss')
-              | Line l  => SOME (l, ts' :: tss')
-              | Seq ts  => getLine (ts :: ts' :: tss')
-
-        (* isEmpty *)
-        val rec isEmpty =
-          fn
-            []                 => true
-          | [] :: tss'         => isEmpty tss'
-          | (t :: ts') :: tss' =>
-              case t of
-                Empty   => isEmpty (ts' :: tss')
-              | Space 0 => isEmpty (ts' :: tss')
-              | Space _ => false
-              | Line _  => false
-              | Seq ts  => isEmpty (ts :: ts' :: tss')
-
-        (* isMulti *)
-        local
-          fun check haveOne =
-            fn
-              []                 => false
-            | [] :: tss'         => check haveOne tss'
-            | (t :: ts') :: tss' =>
-                case t of
-                  Empty   => check haveOne (ts' :: tss')
-                | Space 0 => check haveOne (ts' :: tss')
-                | Space _ => haveOne orelse check true (ts' :: tss')
-                | Line _  => haveOne orelse check true (ts' :: tss')
-                | Seq ts  => check haveOne (ts :: ts' :: tss')
-        in
-          val isMulti = check false
-        end
-      end
+    val concat = seq o List.map line
 
 
     (*
@@ -92,86 +43,200 @@ structure VTextTree :> V_TEXT_TREE where type h = HTextTree.t =
      *)
 
     (* isEmpty *)
-    val isEmpty = Iter.isEmpty o Iter.fromText
-
-    (* isMulti *)
-    val isMulti = Iter.isMulti o Iter.fromText
+    val isEmpty =
+      let
+        fun isEmpty1 frame =
+          fn
+            Empty    => Variant.default true
+          | Space 0  => Variant.default true
+          | Space _  => Variant.default false
+          | Line _   => Variant.default false
+          | Seq ts   => Variant.List.all frame isEmpty1 ts
+          | Var v    => Variant.map1 (op =) frame isEmpty1 v
+      in
+        isEmpty1 Variant.unboundedFrame
+      end
 
 
     (*
      * Operations
      *)
 
-    (* size *)
-    fun size t =
+    (* helper functions *)
+    fun map
+      (tSame : t * t -> bool)
+      {
+        space : int -> t,
+        line  : h   -> t
+      }
+    =
       let
-        fun addSize (t, a) =
+        fun map1 t =
           case t of
-            Empty   => a
-          | Space n => a + n
-          | Line _  => a + 1
-          | Seq ts  => foldl addSize a ts
+            Empty    => t
+          | Space 0  => t
+          | Space n  => space n
+          | Line h   => line h
+          | Seq ts   => Seq (List.map map1 ts)
+          | Var v    => Var (Variant.map tSame map1 v)
       in
-        addSize (t, 0)
+        map1
       end
+
+    fun fold
+      (accSame : 'a * 'a -> bool)
+      {
+        space : int * 'a -> 'a,
+        line  : h   * 'a -> 'a
+      }
+    =
+      let
+        fun fold1 frame (t, accVar : 'a variant) =
+          case t of
+            Empty    => accVar
+          | Space n  => Variant.fold accSame space (n, accVar)
+          | Line h   => Variant.fold accSame line (h, accVar)
+          | Seq ts   => List.foldl (fold1 frame) accVar ts
+          | Var v    => Variant.fold1 accSame frame fold1 (v, accVar)
+      in
+        fold1 Variant.unboundedFrame
+      end
+
+    fun mapFst f (a, b) = (f a, b)
+
+    fun foldmap
+      (
+        tSame   : t * t -> bool,
+        accSame : 'a * 'a -> bool
+      )
+      {
+        space : int * 'a -> t * 'a,
+        line  : h   * 'a -> t * 'a
+      }
+    =
+      let
+        fun foldmap1 frame (t, accVar : 'a variant) =
+          case t of
+            Empty    => (t, accVar)
+          | Space 0  => (t, accVar)
+          | Space n  => mapFst var1 (Variant.foldmap (accSame, tSame) space (n, accVar))
+          | Line h   => mapFst var1 (Variant.foldmap (accSame, tSame) line (h, accVar))
+          | Seq ts   => mapFst seq1 (ListExtras.foldmapl (foldmap1 frame) (ts, accVar))
+          | Var v    => mapFst var1 (Variant.foldmap1 (accSame, tSame) frame foldmap2 (v, accVar))
+
+        and foldmap2 frame = mapFst Variant.default o foldmap1 frame
+      in
+        foldmap1 Variant.unboundedFrame
+      end
+
+    (* size *)
+    val addSize =
+      fold
+        (op =)
+        {
+          space  = op +,
+          line   = fn (_, n) => n + 1
+        }
+
+    fun size t = addSize (t, Variant.default 0)
 
     (* indentWith *)
-    fun indentWith p nonEmptyOnly =
+    fun indentWith hPrefix nonEmptyOnly =
       let
-        val rec indent =
-          fn
-            Empty    => Empty    (* no lines to indent *)
-          | Space 0  => Space 0  (* no lines to indent *)
-          | Space n  =>
-              if nonEmptyOnly
-              then Space n
-              else Seq (List.tabulate (n, fn _ => Line p))
-          | Line h   =>
-              Line (
-                if HTextTree.isEmpty h andalso nonEmptyOnly
-                then h
-                else HTextTree.seq [p, h]
-              )
-          | Seq ts   => Seq (map indent ts)
+        fun indentSpace n =
+          if nonEmptyOnly
+          then Space n
+          else Seq (List.tabulate (n, fn _ => Line hPrefix))
+
+        fun indentLine hLine =
+          Line (HTextTree.indentWith hPrefix nonEmptyOnly hLine)
+
+        fun indent t =
+          map
+            (fn _ => false)
+            {
+              space = indentSpace,
+              line  = indentLine
+            }
+            t
       in
-        if HTextTree.isEmpty p then I else indent
+        indent
       end
 
-    (* flattenWith *)
-    fun flattenWith nl t =
+    (* indentWith1 *)
+    fun indentWith1 (hPrefixFirst, hPrefixRest) nonEmptyOnly =
       let
-        fun aux acc tss =
-          case Iter.getLine tss of
-            NONE           => acc
-          | SOME (h, tss') => aux (HTextTree.seq [acc, nl, h]) tss'
+        fun indentSpace (n, isFirst) =
+          if nonEmptyOnly
+          then (Space n, isFirst andalso n = 0)
+          else
+            if n > 0
+            then (Seq (Line hPrefixFirst :: List.tabulate (n - 1, fn _ => Line hPrefixRest)), false)
+            else (Empty, isFirst)
 
-        val tss = [[t]]
+        fun indentLine (hLine, isFirst) =
+          (
+            Line (HTextTree.indentWith (if not isFirst then hPrefixRest else hPrefixFirst) nonEmptyOnly hLine)
+          , false
+          )
+
+        fun indent t =
+          let
+            val (t', _) =
+              foldmap
+                (fn _ => false, fn _ => false)
+                {
+                  space = indentSpace,
+                  line  = indentLine
+                }
+                (t, Variant.default true)
+          in
+            t'
+          end
       in
-        case Iter.getLine tss of
-          NONE           => HTextTree.empty
-        | SOME (h, tss') => aux h tss'
+        indent
       end
+
+    (* versions
+     *
+     * In order to determine the versions that affect the result, a variant
+     * is build whose value has type `unit`.  Under any form of equality,
+     * two values with type `unit` will be equal, so the 'same' function
+     * must return `false` to ensure that the unit variant is not collapsed
+     * to a single default value. *)
+    fun addVersions frame (t, accVar : unit variant) =
+      case t of
+        Empty    => accVar
+      | Space _  => accVar
+      | Line l   => HTextTree.addVersions frame (l, accVar)
+      | Seq ts   => List.foldl (addVersions frame) accVar ts
+      | Var v    => Variant.fold1 (fn _ => false) frame addVersions (v, accVar)
+
+    fun versions t =
+      Variant.versions (addVersions Variant.unboundedFrame (t, Variant.default ()))
 
     (* app *)
     local
       fun repeat f n = if 0 < n then (f (); repeat f (n - 1)) else ()
     in
-      fun app (nl, f) =
+      fun app optVer (nl, f) =
         fn
           Empty    => ()
         | Space n  => repeat nl n
-        | Line l   => (HTextTree.app f l; nl ())
-        | Seq ts   => List.app (app (nl, f)) ts
+        | Line l   => (HTextTree.app optVer f l; nl ())
+        | Seq ts   => List.app (app optVer (nl, f)) ts
+        | Var v    => app optVer (nl, f) (Variant.value optVer v)
     end
 
-    (* toStrings *)
-    fun toStrings1 (t, acc) =
+    (* strings *)
+    fun addStrings optVer (t, acc) =
       case t of
         Empty    => acc
       | Space n  => List.tabulate (n, fn _ => []) @ acc
-      | Line l   => HTextTree.toStrings l :: acc
-      | Seq ts   => foldr toStrings1 acc ts
+      | Line l   => HTextTree.strings optVer l :: acc
+      | Seq ts   => foldr (addStrings optVer) acc ts
+      | Var v    => addStrings optVer (Variant.value optVer v, acc)
 
-    and toStrings t = toStrings1 (t, [])
+    and strings optVer t = addStrings optVer (t, [])
 
   end

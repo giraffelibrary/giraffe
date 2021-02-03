@@ -1,6 +1,6 @@
 # Giraffe Library Makefile
 #
-# Copyright (C) 2015-2016, 2020 Phil Clayton <phil.clayton@veonix.com>
+# Copyright (C) 2015-2016, 2020-2021 Phil Clayton <phil.clayton@veonix.com>
 #
 # This file is part of the Giraffe Library runtime.  For your rights to use
 # this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -40,12 +40,12 @@ endif
 # Make options
 #
 
-default : mlton polyml
+default : sml mlton polyml
 
 help :
 	@echo
 	@echo "Makefile usage:"
-	@echo "  make               - build libraries for compilers"
+	@echo "  make               - build libraries for compilers and variant SML"
 	@echo "  make install       - install to $(PREFIX)"
 	@echo "  make clean         - remove intermediate files"
 	@echo "  make distclean     - remove all generated files"
@@ -108,6 +108,56 @@ polyml : $(POLYML_LIB_FILES)
 else
 polyml :
 endif
+
+
+#   - SML: for SML files that have variants, create the SML file by linking to
+#           the required variant
+
+# `$(call find-ceil,X,XS)` expands to the ceiling of X in the totally ordered
+# set represented by XS or the empty string if X is greater than every element
+# in XS.  The ceiling of X in S means the least element in S that is greater
+# than or equal to X.  Here, the ordering is whatever Make's sort function does.
+# More formally `$(call find-ceil,X,XS)` expands to `$(word N,$(sort XS)) such
+# that `$(word <N-1>,XS)` < X <= `$(word N,XS)` where < and <= are determined
+# by Make's sort function: A <= B means `$(sort A,B)` = A and A < B means
+# A <= B and A is not the same as B.
+#
+find-ceil = $(patsubst $(1):%,%,$(filter $(1):%,$(join $(addsuffix :,$(sort $(1) $(2))),$(sort $(2)))))
+
+
+ifdef MLTON_VERSION
+
+# Use sort just to remove duplicates.
+#
+MLTON_VARIANT_SRC_FILES := $(sort $(basename $(wildcard src/*/mlton*.mlb.* src/*/mlton/*.sml.*)))
+
+# The symbolic link depends on MLTON_VERSION, not a file, so timestamps can't
+# be used to determine whether the link needs to be recreated, so the rules
+# to create the symbolic links are always run.
+#
+.PHONY : $(MLTON_VARIANT_SRC_FILES)
+
+# The available variants are the suffixes of the target.  'find-ceil' is used to
+# determine the suffix to link to: it gives the first variant greater than or
+# equal to MLTON_VERSION.  One of the targets will always be 'default' and we
+# rely on the property of Make's sort function that numbers come before letters
+# so 'default' is always the last variant when sorted.  As MLton version is
+# never a value ordered after 'default', the result of 'find-ceil' is never
+# empty.  Note that the leading '.' is not removed from the suffixes, so a
+# leading '.' is added to MLTON_VERSION and all arguments to 'find-ceil'  are
+# are prefixed by '.' and, therefore, so is its result.
+#
+$(MLTON_VARIANT_SRC_FILES) :
+	ln -sf $(notdir $@)$(call find-ceil,.$(MLTON_VERSION),$(suffix $(wildcard $@.*))) $@
+
+else
+MLTON_VARIANT_SRC_FILES :=
+endif
+
+
+.PHONY : sml
+
+sml : $(MLTON_VARIANT_SRC_FILES)
 
 
 
@@ -183,6 +233,7 @@ install : install-mlton install-polyml install-sml
 .PHONY : clean distclean
 
 clean :
+	rm -f $(MLTON_VARIANT_SRC_FILES)
 	rm -f $(MLTON_OBJ_FILES)
 	rm -f $(POLYML_OBJ_FILES)
 

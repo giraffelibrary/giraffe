@@ -3,47 +3,34 @@ signature V_TEXT_TREE =
     type t
     type h
 
+    type version
+    type frame
+    type 'a variant
+
     (* Constructors
      *)
     val empty : t
     val sp    : int -> t
     val line  : h -> t
     val seq   : t list -> t
+    val var   : t variant -> t
 
     val seq1  : t list -> t
+    val var1  : t variant -> t
     val str    : string -> t
     val concat : h list -> t
 
     (* Predicates
      *)
-    val isEmpty : t -> bool
-    val isMulti : t -> bool
+    val isEmpty : t -> bool variant
 
     (* Operations
      *)
-    val size : t -> int
+    val size : t -> int variant
     val indentWith : h -> bool -> t -> t
-    val flattenWith : h -> t -> h
-    val app : (unit -> unit) * (string -> unit) -> t -> unit
-    val toStrings : t -> string list list
-
-    (* Iteration
-     *
-     * The structure Iter provides functions to iterate over the
-     * lines of vertical text.  The iteration state is represented
-     * by the type `t list list`.  Additional functions are included
-     * to work with the iteration state.
-     *)
-    structure Iter :
-      sig
-        type state = t list list
-
-        val fromText : t -> state  (* fun fromText t = [[t]] *)
-        val toText : state -> t
-
-        val getLine : state -> (h * state) option
-
-        val isEmpty : state -> bool
-        val isMulti : state -> bool
-      end
+    val indentWith1 : h * h -> bool -> t -> t
+    val addVersions : frame -> t * unit variant -> unit variant
+    val versions : t -> version list
+    val app : version option -> (unit -> unit) * (string -> unit) -> t -> unit
+    val strings : version option -> t -> string list list
   end

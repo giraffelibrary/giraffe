@@ -136,7 +136,7 @@ fun mkInitNamespaceDepBasDec initNamespace = mkBasisFile (SOME initNamespace) ML
  * (Only these two cases are used for external container modules.)
  *)
 
-fun fmtExtBasisMLton initNamespaceDeps (_, file, fileDeps, namespaceDeps) : VTextTree.t =
+fun fmtExtBasisMLton initNamespaceDeps (_, file, fileDeps, namespaceDeps) : HVTextTree.V.t =
   let
     val initNamespaceDepBasDecs = map mkInitNamespaceDepBasDec initNamespaceDeps
     val namespaceDepBasDecs = revMap mkNamespaceDepBasDec namespaceDeps
@@ -186,7 +186,7 @@ fun fmtExtBasisMLton initNamespaceDeps (_, file, fileDeps, namespaceDeps) : VTex
  * could cause a problem in MLB files that include this MLB file.
  *)
 
-fun fmtStrBasisMLton _ (_, _, strId) : VTextTree.t =
+fun fmtStrBasisMLton _ (_, _, strId) : HVTextTree.V.t =
   let
     open HVTextTree
     val indent = V.indentWith (H.str "  ") true
@@ -209,7 +209,7 @@ fun fmtNamespaceBasisMLton
   namespaceDeps
   initNamespaceDeps
   (revExts, revSigs, revStrs)
-: VTextTree.t =
+: HVTextTree.V.t =
   let
     val initNamespaceDepBasDecs = map mkInitNamespaceDepBasDec initNamespaceDeps
 
@@ -272,7 +272,7 @@ local
     mkUseFileTopLevelDec (mkBasisFile (SOME initNamespace) PolyML)
 in
   fun fmtNamespaceBasisPolyML initNamespaceDeps (revExts, revSigs, revStrs)
-    : VTextTree.t =
+    : HVTextTree.V.t =
     let
       val topLevelDecs'1 = revMap mkStrUseDec revStrs
       val topLevelDecs'2 = revMapAppend mkSigUseDec (revSigs, topLevelDecs'1)
@@ -291,8 +291,16 @@ datatype write_mode =
   KEEP_EXISTING
 | APPEND
 
-fun writeFile mode (dir, file) v =
+fun writeFileVariant mode (dir, base) v optOptVer =
   let
+    (* `optVer` is the variant to write, `ext` is the file extension. *)
+    val (optVer, ext) =
+      case optOptVer of
+        NONE            => (NONE,     NONE)
+      | SOME NONE       => (NONE,     SOME "default")
+      | SOME (SOME ver) => (SOME ver, SOME (Variant.Version.toString ver))
+
+    val file = OS.Path.joinBaseExt {base = base, ext = ext}
     val dirFile = OS.Path.concat (dir, file)
     val exists = OS.FileSys.access (dirFile, [])
   in
@@ -306,11 +314,24 @@ fun writeFile mode (dir, file) v =
           fn s => TextIO.output (ostream, s)
         )
       in
-        HVTextTree.V.app writer v
+        HVTextTree.V.app optVer writer v
           handle
             e => (TextIO.closeOut ostream; raise e);
         TextIO.closeOut ostream
       end
+  end
+
+fun writeFile mode (dir, file) v =
+  let
+    val vers = HVTextTree.V.versions v  (* non-default variant versions *)
+    val optOptVers =
+      case vers of
+        [] => [NONE]                     (* write one non-variant file *)
+      | _  => map SOME (NONE :: map SOME vers)  (* write variant files *)
+
+    val () = app (writeFileVariant mode (dir, file) v) optOptVers
+  in
+    ()
   end
 
 

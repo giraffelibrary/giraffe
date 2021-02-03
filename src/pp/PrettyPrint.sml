@@ -35,8 +35,8 @@
 
 structure PrettyPrint :>
   PRETTY_PRINT
-    where type h = HVTextTree.H.t
-    where type v = HVTextTree.V.t
+    where type h = HVTextTree.h
+    where type v = HVTextTree.v
     where type t = HVTextTree.t =
   struct
     structure CST = ConcreteSyntaxTree
@@ -170,7 +170,7 @@ structure PrettyPrint :>
       val bar = H.seq [H.str s, H.sp (n - size s)]
     in
       fun indentClause isFirst fmtX hLast =
-        toV o indentWith1 (if isFirst then sp else bar, sp) o fmtX hLast
+        toV o indentWith1 (if isFirst then sp else bar, sp) true o fmtX hLast
     end
 
     fun fmtClauses sym (fmtX, fmtY) hLast (xy1, xys) : v =
@@ -208,8 +208,8 @@ structure PrettyPrint :>
       let
         val n = 2
         val head = H.seq [sp1, H.str sym, sp1]
-        val rest = H.sp (H.size head)
-        fun fmtRest hLast = indentWith1 (head, rest) o fmtX hLast
+        val rest = H.var1 (Variant.map (fn _ => false) H.sp (H.size head))
+        fun fmtRest hLast = indentWith1 (head, rest) true o fmtX hLast
       in
         case
           fromList (fmtX H.empty x1 :: fmtSeq (H.empty, hLast) fmtRest (x2 :: xs))
@@ -381,7 +381,7 @@ structure PrettyPrint :>
       | TyFun (tyA, tyB)  => fmtInfixList "->" fmtTy hLast (tyA, unfoldTyFun tyB)
       | TyRec labelTys    => fmtRecord fmtTyRecField hLast labelTys
       | TyParen ty        =>
-          indentWith1 (H.str "(", sp1) (fmtTy (H.seq [H.str ")", hLast]) ty)
+          indentWith1 (H.str "(", sp1) true (fmtTy (H.seq [H.str ")", hLast]) ty)
 
     fun fmtXEqTy kw fmtX = fmtKwXSymY (kw, "=") (fmtX, fmtTy)
 
@@ -510,7 +510,7 @@ structure PrettyPrint :>
       | SOME ty =>
           join (sp1, indent) (
             fmtFunHead H.empty funHead,
-            indentWith1 (H.seq [H.str ":", sp1], H.sp 2) (fmtTy hLast ty)
+            indentWith1 (H.seq [H.str ":", sp1], H.sp 2) true (fmtTy hLast ty)
           )
 
 
@@ -624,7 +624,7 @@ structure PrettyPrint :>
       in
         toV (
           join (sp1, indent) (
-            indentWith1 (h1, H.empty) (fmtPat h2 pat),
+            indentWith1 (h1, H.empty) true (fmtPat h2 pat),
             fmtExp hLast exp
           )
         )
@@ -700,7 +700,7 @@ structure PrettyPrint :>
         case funBinds of
           []     =>
             toV (
-              indentWith1 (H.seq [h, sp1], H.empty) (
+              indentWith1 (H.seq [h, sp1], H.empty) true (
                 fmtClause "=" (fmtFunHeadOptTy, fmtExp) hLast x
               )
             )
