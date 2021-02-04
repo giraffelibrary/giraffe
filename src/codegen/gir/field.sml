@@ -735,7 +735,7 @@ fun addFieldOffsetFunctionStrDec
          *     : unit -> GSize.FFI.val_;
          *)
         callMLtonFFIExp
-          functionSymbolStr
+          (functionSymbolStr, [])
           ([], mkLIdTy [gSizeStrId, ffiStrId, valId])
   in
     (

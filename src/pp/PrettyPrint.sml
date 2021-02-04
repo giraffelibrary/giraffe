@@ -744,7 +744,8 @@ structure PrettyPrint :>
       | ExpWhile                     => raise Fail "ExpWhile"
       | ExpCase (exp, mat)           => fmtCaseExp hLast (exp, mat)
       | ExpFn mat                    => fmtFnExp hLast mat
-      | ExpMLtonImport (sym, ty)     => fmtMLtonImportExp hLast (sym, ty)
+      | ExpMLtonImport (sym, ids, ty)
+                                     => fmtMLtonImportExp hLast (sym, ids, ty)
 
     and fmtExps hLast exps : v =
       V.seq (fmtSeq (H.str ";", hLast) (fn hLast => toV o fmtExp hLast) exps)
@@ -824,9 +825,18 @@ structure PrettyPrint :>
     and fmtFnExp hLast mat =
       join (sp1, I) (H (H.str "fn"), fmtMatch hLast mat)
 
-    and fmtMLtonImportExp hLast (sym, ty) =
+    and fmtMLtonImportExp hLast (sym, ids, ty) =
       join (sp1, indent) (
-        H (H.seq [H.str "_import", sp1, fmtConst (ConstString sym), sp1, H.str ":"]),
+        H (
+          H.seq [
+            H.str "_import",
+            sp1,
+            fmtConst (ConstString sym),
+            sp1,
+            H.seq (fmtSeq (sp1, sp1) (fmtHLast fmtId) ids),
+            H.str ":"
+          ]
+        ),
         fmtTy (H.seq [H.str ";", hLast]) ty
       )
 

@@ -141,33 +141,39 @@ local
   val cPtrTy = makeLowLevelTy false [] (PTR {optDir = NONE, isOpt = false})
   val gsizeTy = makeLowLevelTy false ["GSize", ffiStrId] VAL
 
-  (* `callStrDecLowLevelMLton (name, symbol, parTys, retTy)` constructs
+  (* `callStrDecLowLevelMLton (name, symbol, attrIds, parTys, retTy)` constructs
    * a MLton low-level function call expression as follows:
    *
    *     val <name> =
    *       fn x1 & ... & x<N> =>
-   *         (_import "<symbol>" : <parTys[1]> * ... * <parTys[N]> -> <retTy>;)
+   *         (_import "<symbol>" <attrs> : <parTys[1]> * ... * <parTys[N]> -> <retTy>;)
    *         (x1, ..., x<N>)
    *
    *       if N > 1
    *
    *     val <name> =
-   *       _import "<symbol>" : <parTys[1]> -> <retTy>;
+   *       _import "<symbol>" <attrs> : <parTys[1]> -> <retTy>;
    *
    *       if N = 1
    *
    *     val <name> =
-   *       _import "<symbol>" : unit -> <retTy>;
+   *       _import "<symbol>" <attrs> : unit -> <retTy>;
    *
    *       if N = 0
    *
    *   where
    *
    *     N = length parTys
+   *
+   *
+   *     A = length attrIds
+   *
+   *
+   *     attrs = <attrIds[1]> ... <attrIds[A]>
    *)
-  fun callStrDecLowLevelMLton (name, symbol, parTys, retTy) =
+  fun callStrDecLowLevelMLton (name, symbol, attrIds, parTys, retTy) =
     StrDecDec (
-      mkIdValDec (name, callMLtonFFIExp symbol (parTys, retTy))
+      mkIdValDec (name, callMLtonFFIExp (symbol, attrIds) (parTys, retTy))
     )
 
   (*
@@ -178,7 +184,7 @@ local
    *         (x1, x2, x3)
    *)
   val memcpyStrDecMLton =
-    callStrDecLowLevelMLton (memcpyUId, memcpyId, [cPtrTy, cPtrTy, gsizeTy], unitTy)
+    callStrDecLowLevelMLton (memcpyUId, memcpyId, [], [cPtrTy, cPtrTy, gsizeTy], unitTy)
 
   (*
    *     val copy_ =
@@ -262,7 +268,7 @@ local
                *       _import "giraffe_<struct_namespace>_<struct_name>_size"
                *         : unit -> GSize.FFI.val_;
                *)
-              callStrDecLowLevelMLton (sizeUId, sizeSymbolId, [], gsizeTy) :: (
+              callStrDecLowLevelMLton (sizeUId, sizeSymbolId, [], [], gsizeTy) :: (
                 case funcs of
                   Deep {copy, clear} =>
                     (*
@@ -274,8 +280,8 @@ local
                      *     val clear_ =
                      *       _import "<clear>" : non_opt p -> unit;
                      *) 
-                    callStrDecLowLevelMLton (copyUId,  copy,  [cPtrTy, cPtrTy], unitTy) ::
-                    callStrDecLowLevelMLton (clearUId, clear, [cPtrTy],         unitTy) ::
+                    callStrDecLowLevelMLton (copyUId,  copy,  [], [cPtrTy, cPtrTy], unitTy) ::
+                    callStrDecLowLevelMLton (clearUId, clear, [], [cPtrTy],         unitTy) ::
                     strDecs
                 | Flat               =>
                     (*
@@ -335,7 +341,7 @@ local
                     callBoxedFunExp (
                       mkParenExp (
                         callMLtonFFIExp
-                          boxedCopySymbol
+                          (boxedCopySymbol, [])
                           ([typeTy, cPtrTy], cPtrTy)
                       )
                     )
@@ -344,7 +350,7 @@ local
                     callBoxedFunExp (
                       mkParenExp (
                         callMLtonFFIExp
-                          boxedFreeSymbol
+                          (boxedFreeSymbol, [])
                           ([typeTy, cPtrTy], unitTy)
                       )
                     )
@@ -360,8 +366,8 @@ local
                  * 
                  *     val free_ = _import "<free>" : non_opt p -> unit;
                  *)
-                callStrDecLowLevelMLton (dupUId,  dup,  [cPtrTy], cPtrTy) ::
-                callStrDecLowLevelMLton (freeUId, free, [cPtrTy], unitTy) ::
+                callStrDecLowLevelMLton (dupUId,  dup,  [], [cPtrTy], cPtrTy) ::
+                callStrDecLowLevelMLton (freeUId, free, [], [cPtrTy], unitTy) ::
                 strDecs
           )
         | DisguisedRecord   =>

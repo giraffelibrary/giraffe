@@ -183,11 +183,13 @@ structure ConcreteSyntaxTree : CONCRETE_SYNTAX_TREE =
     | ExpWhile  (* not yet supported *)
     | ExpCase of exp * match         (* case *)
     | ExpFn of match                 (* anonymous function *)
-    | ExpMLtonImport of string * ty  (* MLton FFI import *)
+    | ExpMLtonImport of mltonimport  (* MLton FFI import *)
 
     and logop =
       LogOpAndAlso
     | LogOpOrElse
+
+    withtype mltonimport = string * id list * ty
 
 
 
@@ -195,7 +197,7 @@ structure ConcreteSyntaxTree : CONCRETE_SYNTAX_TREE =
 
     (* `match` represents MATCH. *)
 
-    withtype match = (pat * exp) list1
+    and match = (pat * exp) list1
 
 
 

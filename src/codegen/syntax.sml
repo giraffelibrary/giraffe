@@ -170,20 +170,25 @@ val unitExp = ExpConst ConstUnit
 
 fun mkRevAppExp (e2, e1) = ExpApp (e1, e2)
 
-(* `mkMLtonImportExp functionSymbol (parTys, retTy)` constructs a MLton
- * low-level function call expression as follows where N = `length parTys`:
+(* `mkMLtonImportExp (functionSymbol, attrIds) (parTys, retTy)` constructs a
+ * MLton low-level function call expression, where M = `length attrs` and
+ * N = `length parTys`, as follows:
  *
- *   _import "<getTypeSymbol>" : <parTy[1]> * ... * <parTy[N]> -> <retTy>;
+ *   _import "<getTypeSymbol>" <attrs[1]> ... <attrs[M]> : <ty>;
+ *
+ * where ty is
+ *
+ *   <parTy[1]> * ... * <parTy[N]> -> <retTy>
  *
  *     if N >= 1
  *
  *
- *   _import "<getTypeSymbol>" : unit -> <retTy>;
+ *   unit -> <retTy>
  *
  *     if N = 0
  *)
-fun mkMLtonImportExp functionSymbol (parTys, retTy) =
-  ExpMLtonImport (functionSymbol, TyFun (mkProdTy0 parTys, retTy))
+fun mkMLtonImportExp (functionSymbol, attrIds) (parTys, retTy) =
+  ExpMLtonImport (functionSymbol, attrIds, TyFun (mkProdTy0 parTys, retTy))
 
 fun mkTypeSpec (id, optTy) = SpecType (false, toList1 [(id, optTy)])
 fun mkEqTypeSpec (id, optTy) = SpecType (true, toList1 [(id, optTy)])

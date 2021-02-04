@@ -3565,18 +3565,18 @@ fun getTypeStrDecLowLevelPolyML getTypeSymbol =
 
 (* Low-level - MLton *)
 
-(* `callMLtonFFIExp functionSymbol (parProdTys, retTy)` constructs a MLton
- * low-level function call expression as follows:
+(* `callMLtonFFIExp (functionSymbol, attrIds) (parProdTys, retTy)`
+ * constructs a MLton low-level function call expression as follows:
  *
  *
  *   fn <xProd[1]> & ... & <xProd[N]> =>
- *     (_import "<symbol>" : <parTy[1]> * ... * <parTy[M]> -> <retTy>;)
+ *     (_import "<symbol>" <attrs> : <parTy[1]> * ... * <parTy[M]> -> <retTy>;)
  *     (x<1>, ..., x<M>)
  *
  *     if N > 1
  *
  *
- *   _import "<symbol>" : <parTy[1]> * ... * <parTy[M]> -> <retTy>;
+ *   _import "<symbol>" <attrs> : <parTy[1]> * ... * <parTy[M]> -> <retTy>;
  *
  *     if N = 1
  *
@@ -3590,6 +3590,12 @@ fun getTypeStrDecLowLevelPolyML getTypeSymbol =
  *
  *
  *   N = length parProdTys
+ *
+ *
+ *   A = length attrIds
+ *
+ *
+ *   attrs = <attrIds[1]> ... <attrIds[A]>
  *
  *
  *   xProd[n]
@@ -3677,7 +3683,7 @@ local
       (acc', tuplePat :: revTuplePats, existsProdTy')
     end
 in
-  fun callMLtonFFIExp functionSymbol (parProdTys, retTy) =
+  fun callMLtonFFIExp (functionSymbol, attrIds) (parProdTys, retTy) =
     let
       val ((revExps, revTys, _), revTuplePats, existsProdTy) =
         foldl addProdTy (([], [], 1), [], false) parProdTys;
@@ -3699,24 +3705,39 @@ in
             val pat = foldl1 mkAPat revTuplePats1
             val exp =
               ExpApp (
-                mkParenExp (mkMLtonImportExp symbol (parTys, retTy)),
+                mkParenExp (mkMLtonImportExp (symbol, attrIds) (parTys, retTy)),
                 tupleExp
               )
           in
             ExpFn (toList1 [(pat, exp)])
           end
       | (_,           parTys, _)                                    =>
-          mkMLtonImportExp symbol (parTys, retTy)
+          mkMLtonImportExp (symbol, attrIds) (parTys, retTy)
 
     end
 end
 
 (*
-val exp = callMLtonFFIExp "testfun" ([], unitTy);
-val exp = callMLtonFFIExp "testfun" ([unitTy], unitTy);
-val exp = callMLtonFFIExp "testfun" ([boolTy, boolTy], unitTy);
-val exp = callMLtonFFIExp "testfun" ([mkProdTy0 [boolTy, boolTy]], unitTy);
-val exp = callMLtonFFIExp "testfun" ([mkProdTy0 [boolTy, boolTy], boolTy], unitTy);
+val attrIds = [];
+val exp = callMLtonFFIExp ("testfun", attrIds) ([], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([unitTy], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy, boolTy], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy]], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy], boolTy], unitTy);
+
+val attrIds = ["reentrant"];
+val exp = callMLtonFFIExp ("testfun", attrIds) ([], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([unitTy], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy, boolTy], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy]], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy], boolTy], unitTy);
+
+val attrIds = ["cdecl", "reentrant"];
+val exp = callMLtonFFIExp ("testfun", attrIds) ([], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([unitTy], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([boolTy, boolTy], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy]], unitTy);
+val exp = callMLtonFFIExp ("testfun", attrIds) ([mkProdTy0 [boolTy, boolTy], boolTy], unitTy);
 
 HVTextTree.V.app (fn () => print "\n", print) (HVTextTree.toV (PrettyPrint.fmtExp (HTextTree.str "") exp));
 *)
@@ -4206,7 +4227,7 @@ fun makeFunctionStrDecLowLevelMLton
     val parTypes = rev revParTypes'3
 
     (* Construct the function body *)
-    val functionExp = callMLtonFFIExp functionSymbolStr (parTypes, retType)
+    val functionExp = callMLtonFFIExp (functionSymbolStr, []) (parTypes, retType)
   in
     (
       StrDecDec (mkIdValDec (functionNameId, functionExp)),
@@ -4223,7 +4244,7 @@ fun getTypeStrDecLowLevelMLton getTypeSymbol =
   StrDecDec (
     mkIdValDec (
       getTypeUId,
-      callMLtonFFIExp getTypeSymbol ([], mkLIdTy ["GObjectType", ffiStrId, valId])
+      callMLtonFFIExp (getTypeSymbol, []) ([], mkLIdTy ["GObjectType", ffiStrId, valId])
     )
   )
 

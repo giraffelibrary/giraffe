@@ -873,7 +873,7 @@ local
       StrDecDec (
         mkIdValDec (
           case ptrOpt of SOME true => getOptValueUId | _ => getValueUId,
-          callMLtonFFIExp ("g_value_get_" ^ valueType) (
+          callMLtonFFIExp ("g_value_get_" ^ valueType, []) (
             [
               makeLowLevelTy false
                 (prefixInterfaceStrId valueIRef [ffiStrId])
@@ -903,7 +903,7 @@ local
       StrDecDec (
         mkIdValDec (
           case ptrOpt of SOME true => setOptValueUId | _ => setValueUId,
-          callMLtonFFIExp ("g_value_set_" ^ valueType) (
+          callMLtonFFIExp ("g_value_set_" ^ valueType, []) (
             [
               makeLowLevelTy false
                 (prefixInterfaceStrId valueIRef [ffiStrId])
