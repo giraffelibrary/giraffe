@@ -1,1 +1,1 @@
-structure Variant = NoVariant
+structure Variant = ListVariant(StringVersion)
