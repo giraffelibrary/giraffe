@@ -1,9 +1,11 @@
 (*
- * Structure is identical to signature.
+ * The structure body is identical to the signature body, except
+ * that the type `'a variant` is constrained.
  *)
 
 structure ConcreteSyntaxTree : CONCRETE_SYNTAX_TREE =
   struct
+    type 'a variant = 'a Variant.t
 
     type 'a list1 = 'a * 'a list
 
@@ -189,7 +191,7 @@ structure ConcreteSyntaxTree : CONCRETE_SYNTAX_TREE =
       LogOpAndAlso
     | LogOpOrElse
 
-    withtype mltonimport = string * id list * ty
+    withtype mltonimport = string * id option variant list * ty
 
 
 

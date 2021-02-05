@@ -171,24 +171,50 @@ val unitExp = ExpConst ConstUnit
 fun mkRevAppExp (e2, e1) = ExpApp (e1, e2)
 
 (* `mkMLtonImportExp (functionSymbol, attrIds) (parTys, retTy)` constructs a
- * MLton low-level function call expression, where M = `length attrs` and
- * N = `length parTys`, as follows:
+ * MLton low-level function call expression as follows:
  *
- *   _import "<getTypeSymbol>" <attrs[1]> ... <attrs[M]> : <ty>;
+ *   _import "<functionSymbol>" <attrs[1]> ... <attrs[M]> : <ty>;
  *
- * where ty is
+ * where
  *
- *   <parTy[1]> * ... * <parTy[N]> -> <retTy>
- *
- *     if N >= 1
+ *   M is `length attrIds`
  *
  *
- *   unit -> <retTy>
+ *   attrs[i], 0 < i <= M, is a variant that includes attrIds[i] only for
+ *     releases in which it is available - see comments below for details
  *
- *     if N = 0
+ *
+ *   N is `length parTys`
+ *
+ *
+ *   ty is
+ *
+ *     <parTy[1]> * ... * <parTy[N]> -> <retTy>
+ *
+ *       if N >= 1
+ *
+ *
+ *     unit -> <retTy>
+ *
+ *       if N = 0
  *)
 fun mkMLtonImportExp (functionSymbol, attrIds) (parTys, retTy) =
-  ExpMLtonImport (functionSymbol, attrIds, TyFun (mkProdTy0 parTys, retTy))
+  let
+    fun attrVariant attrId =
+      case attrId of
+
+        (* the following attributes are available only in releases after 20130517 *)
+        "impure"           => Variant.variant ([("20130715", NONE)], SOME attrId)
+      | "pure"             => Variant.variant ([("20130715", NONE)], SOME attrId)
+      | "reentrant"        => Variant.variant ([("20130715", NONE)], SOME attrId)
+
+        (* other attributes are available in all supported releases *)
+      | _                  => Variant.default (SOME attrId)
+
+    val attrs = map attrVariant attrIds
+  in
+    ExpMLtonImport (functionSymbol, attrs, TyFun (mkProdTy0 parTys, retTy))
+  end
 
 fun mkTypeSpec (id, optTy) = SpecType (false, toList1 [(id, optTy)])
 fun mkEqTypeSpec (id, optTy) = SpecType (true, toList1 [(id, optTy)])

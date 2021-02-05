@@ -33,11 +33,7 @@
  *   DecNonfix
  *)
 
-structure PrettyPrint :>
-  PRETTY_PRINT
-    where type h = HVTextTree.h
-    where type v = HVTextTree.v
-    where type t = HVTextTree.t =
+structure PrettyPrint : PRETTY_PRINT =
   struct
     structure CST = ConcreteSyntaxTree
 
@@ -55,6 +51,13 @@ structure PrettyPrint :>
     val indent = V.indentWith (H.sp 2) true
 
     fun fmtHLast fmtX hLast x = H.seq [fmtX x, hLast]
+
+    fun fmtOpt fmtX =
+      fn
+        SOME x => fmtX x
+      | NONE   => H.empty
+
+    fun fmtHVar fmtX = H.var o Variant.map (fn _ => false) fmtX
 
 
     fun vJoin indent (v1, v2) : v = V.seq [v1, indent v2]
@@ -208,7 +211,7 @@ structure PrettyPrint :>
       let
         val n = 2
         val head = H.seq [sp1, H.str sym, sp1]
-        val rest = H.var1 (Variant.map (fn _ => false) H.sp (H.size head))
+        val rest = fmtHVar H.sp (H.size head)
         fun fmtRest hLast = indentWith1 (head, rest) true o fmtX hLast
       in
         case
@@ -744,8 +747,8 @@ structure PrettyPrint :>
       | ExpWhile                     => raise Fail "ExpWhile"
       | ExpCase (exp, mat)           => fmtCaseExp hLast (exp, mat)
       | ExpFn mat                    => fmtFnExp hLast mat
-      | ExpMLtonImport (sym, ids, ty)
-                                     => fmtMLtonImportExp hLast (sym, ids, ty)
+      | ExpMLtonImport (sym, attrs, ty)
+                                     => fmtMLtonImportExp hLast (sym, attrs, ty)
 
     and fmtExps hLast exps : v =
       V.seq (fmtSeq (H.str ";", hLast) (fn hLast => toV o fmtExp hLast) exps)
@@ -825,15 +828,15 @@ structure PrettyPrint :>
     and fmtFnExp hLast mat =
       join (sp1, I) (H (H.str "fn"), fmtMatch hLast mat)
 
-    and fmtMLtonImportExp hLast (sym, ids, ty) =
+    and fmtMLtonImportExp hLast (sym, attrs, ty) =
       join (sp1, indent) (
         H (
           H.seq [
             H.str "_import",
             sp1,
             fmtConst (ConstString sym),
+            H.seq (map (H.indentWith sp1 true o fmtHVar (fmtOpt fmtId)) attrs),
             sp1,
-            H.seq (fmtSeq (sp1, sp1) (fmtHLast fmtId) ids),
             H.str ":"
           ]
         ),
