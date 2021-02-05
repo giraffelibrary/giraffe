@@ -137,3 +137,9 @@ val newFlagsEnumValueNames : (string * string) list ref = ref []
 
 (*   - Excluded names *)
 val excludedAliasNames : string list nvs_map ref = ref []
+
+
+(* MLton-specific *)
+
+(*   - Import attributes *)
+val mltonImportAttributes : (string * string list) list nvs_map ref = ref []

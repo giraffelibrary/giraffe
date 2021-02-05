@@ -641,3 +641,23 @@ newFlagsEnumValueNames := [
   ("2button_press", "double_button_press"),
   ("3button_press", "triple_button_press")
 ];
+
+
+(**
+ * MLton-specific
+ *)
+
+mltonImportAttributes := [
+  (
+    [("Gio", "2.0")],
+    [
+      ("g_application_run", ["reentrant"])
+    ]
+  ),
+  (
+    [("Gtk", "3.0")],
+    [
+      ("gtk_main", ["reentrant"])
+    ]
+  )
+];

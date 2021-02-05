@@ -131,3 +131,9 @@ val excludedConstantNameSuffixes : string list nvs_map ref = ref []
 
 (*   - Transformed names *)
 val newFlagsEnumValueNames : (string * string) list ref = ref []
+
+
+(* MLton-specific *)
+
+(*   - Import attributes *)
+val mltonImportAttributes : (string * string list) list nvs_map ref = ref []

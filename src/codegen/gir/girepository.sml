@@ -636,3 +636,18 @@ fun checkAliasInterfaceType repo vers aliasInfo =
     then infoExcl "alias excluded by configuration (excludedAliasNames)"
     else ()
   end
+
+
+(* MLton-specific *)
+
+fun getMLtonImportAttributes repo vers functionInfo =
+  let
+    val symbol = FunctionInfo.getSymbol functionInfo
+    val namespace = BaseInfo.getNamespace functionInfo
+    val version = Repository.getVersion repo vers namespace
+    val nv = (namespace, version)
+  in
+    case nvsLookup (nv, symbol) (!mltonImportAttributes) of
+      SOME attrIds => attrIds
+    | NONE         => []
+  end

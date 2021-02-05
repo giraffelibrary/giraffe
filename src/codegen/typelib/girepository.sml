@@ -603,3 +603,18 @@ fun fixFlagsEnumValueName name =
   case List.find (fn (x, _) => x = name) (!newFlagsEnumValueNames) of
     SOME (_, name') => name'
   | NONE            => name
+
+
+(* MLton-specific *)
+
+fun getMLtonImportAttributes repo vers functionInfo =
+  let
+    val symbol = FunctionInfo.getSymbol functionInfo
+    val namespace = BaseInfo.getNamespace functionInfo
+    val version = Repository.getVersion repo vers namespace
+    val nv = (namespace, version)
+  in
+    case nvsLookup (nv, symbol) (!mltonImportAttributes) of
+      SOME attrIds => attrIds
+    | NONE         => []
+  end

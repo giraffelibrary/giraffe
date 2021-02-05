@@ -4172,6 +4172,7 @@ fun makeFunctionStrDecLowLevelMLton
     val parInfos = updateParInfos retInfo parInfos
 
     val functionSymbolStr = FunctionInfo.getSymbol functionInfo
+    val functionImportAttrs = getMLtonImportAttributes repo vers functionInfo
 
     (* For a method function, add an initial argument for the interface
      * that contains this function. *)
@@ -4229,7 +4230,7 @@ fun makeFunctionStrDecLowLevelMLton
     val parTypes = rev revParTypes'3
 
     (* Construct the function body *)
-    val functionExp = callMLtonFFIExp (functionSymbolStr, []) (parTypes, retType)
+    val functionExp = callMLtonFFIExp (functionSymbolStr, functionImportAttrs) (parTypes, retType)
   in
     (
       StrDecDec (mkIdValDec (functionNameId, functionExp)),
