@@ -211,7 +211,7 @@ structure <StructNamespace><StructName>Record :>
                                                                                           -.                    -.
                                                                     -.                     |                     |
     val size_ =                                                      |                     |                     |
-      _import "giraffe_<struct_namespace>_<struct_name>_size"        | using GIR           |                     |
+      _import "giraffe_<struct_namespace>_<struct_name>_size" pure   | using GIR           |                     |
         : unit -> GSize.FFI.val_;                                    |                     |                     |
                                                                     -'                     |                     |
                                                                     -.                     |                     |

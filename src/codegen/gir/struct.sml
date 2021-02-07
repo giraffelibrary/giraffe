@@ -278,10 +278,10 @@ local
             in
               (*
                *     val size_ =
-               *       _import "giraffe_<struct_namespace>_<struct_name>_size"
+               *       _import "giraffe_<struct_namespace>_<struct_name>_size" pure
                *         : unit -> GSize.FFI.val_;
                *)
-              callStrDecLowLevelMLton (sizeUId, sizeSymbolId, [], [], gsizeTy) :: (
+              callStrDecLowLevelMLton (sizeUId, sizeSymbolId, ["pure"], [], gsizeTy) :: (
                 case funcs of
                   Deep {copy, clear} =>
                     (*

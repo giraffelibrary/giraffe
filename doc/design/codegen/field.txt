@@ -723,7 +723,7 @@ LowLevelFieldOffsetFunction has the form:
 
 
   val <fieldName>'Offset_ =
-    _import "giraffe_<container_namespace>_<container_name>_<field_name>_offset"
+    _import "giraffe_<container_namespace>_<container_name>_<field_name>_offset" pure
       : unit -> GSize.FFI.val_;
 
 

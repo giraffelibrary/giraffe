@@ -730,11 +730,11 @@ fun addFieldOffsetFunctionStrDec
       else
         (* Construct the function body with the form:
          *
-         *   _import "giraffe_<container_namespace>_<container_name>_<field_name>_offset"
+         *   _import "giraffe_<container_namespace>_<container_name>_<field_name>_offset" pure
          *     : unit -> GSize.FFI.val_;
          *)
         callMLtonFFIExp
-          (functionSymbolStr, [])
+          (functionSymbolStr, ["pure"])
           ([], mkLIdTy [gSizeStrId, ffiStrId, valId])
   in
     (
