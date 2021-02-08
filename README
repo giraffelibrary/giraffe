@@ -53,7 +53,7 @@ source release TAR file:
 
 2  Working directory initialization
 
-The repository contains submodules that need to be initalized in a working
+The repository contains submodules that need to be initialized in a working
 directory.  This is done in one of two ways:
 
  A. After cloning the repository, e.g.
@@ -188,8 +188,8 @@ command
 
   ./codegen update-source
 
-The code in "fixed-gir" is removed from the source release directory using the
-command
+Once no longer required, the code in "fixed-gir" is removed from the source
+release directory using the command
 
   ./codegen remove-source
 
@@ -220,11 +220,14 @@ Stage 4
 
 The SML bindings to the GIRepository C library require SML bindings for the
 GLib and GObject namespaces.  Therefore, before stage 4 is performed, stages 1
-to 3 must be performed and, in the source release directory, the commands
-  ./configure ...
-and
+to 3 must be performed and the commands
+  cd release/
+  ./configure --without-mlton ...
   make
-run in order to build Giraffe C interface libraries in the working directory.
+  cd ..
+run in order to build Giraffe C interface libraries for Poly/ML in the source
+release directory.  'configure' may require extra options, marked '...' if it
+does not find the required version of Poly/ML.
 
 Then library code is generated in the directory "auto-typelib" by the
 following commands:
@@ -322,7 +325,7 @@ The following diagram shows the data dependencies of these stages:
       `------------'
 
 
-3.2  Commands
+5.2  Commands
 
 The mlton-codegen script is used to invoke code generation stages 1, 2 and 3
 described above.
@@ -347,8 +350,8 @@ Stage 1
 In a working directory, library code is generated in the directory "mlton-auto"
 by the following commands:
 
-  ./mlton-codegen gir
-  ./mlton-codegen update-gir
+  ./mlton-codegen auto
+  ./mlton-codegen update-auto
 
 Stage 2
 
@@ -365,7 +368,7 @@ command
 
   ./mlton-codegen update-source
 
-The code in "mlton-fixed" is removed from the source release directory by the
-command
+Once no longer required, the code in "mlton-fixed" is removed from the source
+release directory by the command
 
   ./mlton-codegen remove-source
