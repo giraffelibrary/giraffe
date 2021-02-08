@@ -99,7 +99,7 @@ the handler function <code><var>f</var></code>
 is connected to the signal on an object <code><var>obj</var></code> by
 </p>
 <code>
-Signal.connect <var>obj</var> <var>ClassNamespace</var>.<var>Class</var>.<var>a</var>Sig <var>f</var>
+Signal.connect <var>obj</var> (<var>ClassNamespace</var>.<var>Class</var>.<var>a</var>Sig, <var>f</var>)
 </code>
 <p>
 For a signal “<var>a</var>”
@@ -109,7 +109,7 @@ the handler function <code><var>f</var></code>
 is connected to the signal on the object <code><var>obj</var></code> by
 </p>
 <code>
-Signal.connect (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>) <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig <var>f</var>
+Signal.connect (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>) (<var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig, <var>f</var>)
 </code>
 <p>
 The function returns a handler id to allow the signal connection to be modified or checked subsequently.
@@ -121,7 +121,7 @@ from the object <code>textView</code>
 using the function <code>onInsert</code>, connect to the signal as follows:
 </p>
 <code>
-val handlerId = Signal.connect textView Gtk.TextView.insertAtCursorSig onInsert
+val handlerId = Signal.connect textView (Gtk.TextView.insertAtCursorSig, onInsert)
 </code>
 <p>
 <code>handlerId</code> can be used to modify this signal connection subsequently.
@@ -132,7 +132,7 @@ It is not unusual for the handler function <code><var>f</var></code> to need to 
 This is easily achieved by defining <code><var>f</var></code> to take the emitting object as the first argument and supplying the argument when connecting the handler as follows:
 </p>
 <code>
-Signal.connect <var>obj</var> <var>Namespace</var>.<var>Type</var>.<var>a</var>Sig (<var>f</var> <var>obj</var>)
+Signal.connect <var>obj</var> (<var>Namespace</var>.<var>Type</var>.<var>a</var>Sig, <var>f</var> <var>obj</var>)
 </code>
 <p>
 Type checking ensures that when a handler is connected to a signal of an object,
