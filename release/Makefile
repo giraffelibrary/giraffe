@@ -62,6 +62,9 @@ CFLAGS := -DGIRAFFE_DEBUG -DGLIB_DISABLE_DEPRECATION_WARNINGS -fPIC -ggdb -std=c
 
 #   - MLton
 
+.PHONY : mlton
+
+ifdef MLTON_VERSION
 MLTON_CFLAGS := $(CFLAGS) -iquote "src"
 MLTON_OBJ_FILES := $(patsubst %,src/mlton/giraffe-%.o,$(MLTON_LIB_NAMES))
 MLTON_LIB_FILES := $(patsubst %,src/mlton/libgiraffe-%.a,$(MLTON_LIB_NAMES))
@@ -74,10 +77,6 @@ MLTON_AR_FLAGS := rcs
 $(MLTON_LIB_FILES) : src/mlton/lib%.a : src/mlton/%.o
 	$(AR) $(MLTON_AR_FLAGS) $@ $<
 
-
-.PHONY : mlton
-
-ifdef MLTON_VERSION
 mlton : $(MLTON_LIB_FILES)
 else
 mlton :
@@ -86,6 +85,9 @@ endif
 
 #   - Poly/ML
 
+.PHONY : polyml
+
+ifdef POLYML_VERSION
 POLYML_CFLAGS := $(CFLAGS) -iquote "src"
 POLYML_OBJ_FILES := $(patsubst %,src/polyml/giraffe-%.o,$(POLYML_LIB_NAMES))
 POLYML_LIB_FILES := $(patsubst %,src/polyml/libgiraffe-%.$(LIB),$(POLYML_LIB_NAMES))
@@ -100,10 +102,6 @@ else
 	$(CC) -shared -Wl,-soname,libgiraffe-$*.$(LIB) -o $@ $< `pkg-config --libs $(shell cat src/$*/package)`
 endif
 
-
-.PHONY : polyml
-
-ifdef POLYML_VERSION
 polyml : $(POLYML_LIB_FILES)
 else
 polyml :
@@ -126,7 +124,6 @@ find-ceil = $(patsubst $(1):%,%,$(filter $(1):%,$(join $(addsuffix :,$(sort $(1)
 
 
 ifdef MLTON_VERSION
-
 # Use sort just to remove duplicates.
 #
 MLTON_VARIANT_SRC_FILES := $(sort $(basename $(wildcard src/*/mlton*.mlb.* src/*/mlton/*.sml.*)))
@@ -150,14 +147,15 @@ MLTON_VARIANT_SRC_FILES := $(sort $(basename $(wildcard src/*/mlton*.mlb.* src/*
 $(MLTON_VARIANT_SRC_FILES) :
 	ln -sf $(notdir $@)$(call find-ceil,.$(MLTON_VERSION),$(suffix $(wildcard $@.*))) $@
 
+sml-mlton : $(MLTON_VARIANT_SRC_FILES)
 else
-MLTON_VARIANT_SRC_FILES :=
+sml-mlton :
 endif
 
 
 .PHONY : sml
 
-sml : $(MLTON_VARIANT_SRC_FILES)
+sml : sml-mlton
 
 
 
@@ -200,26 +198,59 @@ install-sml :
 	install -c -p -m 644 config.mk "$(PREFIX)"
 	install -d "$(LIBDIR)"
 	install -d "$(LIBDIR)/sml"
+ifdef POLYML_VERSION
 	install -c -p -m 644 src/polyml.sml "$(LIBDIR)/sml"
+endif
 	for dir in general ffi gir $(SML_LIB_NAMES) ; \
 	do \
 	  install -d "$(LIBDIR)/sml/$${dir}" ; \
-	  install -c -p -m 644 src/$${dir}/*.sml src/$${dir}/*.mlb "$(LIBDIR)/sml/$${dir}" ; \
-	  install -d "$(LIBDIR)/sml/$${dir}/mlton" "$(LIBDIR)/sml/$${dir}/polyml" ; \
+	  install -c -p -m 644 $$( \
+	    for file in src/$${dir}/*.sml src/$${dir}/*.mlb ; \
+	    do \
+	      case $${file} in \
+	        (src/$${dir}/mlton*|src/$${dir}/polyml*) ;; \
+	        (*) \
+	          if [ -e $${file} ] ; \
+	          then \
+	            echo $${file} ; \
+	          fi ;; \
+	      esac ; \
+	    done \
+	) "$(LIBDIR)/sml/$${dir}" ; \
+	done
+ifdef MLTON_VERSION
+	for dir in general ffi gir $(SML_LIB_NAMES) ; \
+	do \
+	  install -c -p -m 644 src/$${dir}/mlton*.mlb "$(LIBDIR)/sml/$${dir}" ; \
+	  install -d "$(LIBDIR)/sml/$${dir}/mlton" ; \
 	  install -c -p -m 644 src/$${dir}/mlton/*.sml "$(LIBDIR)/sml/$${dir}/mlton" ; \
+	done
+endif
+ifdef POLYML_VERSION
+	for dir in general ffi gir $(SML_LIB_NAMES) ; \
+	do \
+	  install -c -p -m 644 src/$${dir}/polyml*.sml "$(LIBDIR)/sml/$${dir}" ; \
+	  install -d "$(LIBDIR)/sml/$${dir}/polyml" ; \
 	  install -c -p -m 644 src/$${dir}/polyml/*.sml "$(LIBDIR)/sml/$${dir}/polyml" ; \
 	done
+endif
 	for dir in $(EXCLUDED_LIB_NAMES) ; \
 	do \
 	  install -d "$(LIBDIR)/sml/$${dir}" ; \
+	done
+ifdef MLTON_VERSION
+	for dir in $(EXCLUDED_LIB_NAMES) ; \
+	do \
 	  install -c -p -m 644 /dev/null "$(LIBDIR)/sml/$${dir}/mlton.mlb" ; \
 	done
+endif
 	for dir in $(SML_LIB_NAMES) ; \
 	do \
 	  install -c -p -m 644 src/$${dir}/package "$(LIBDIR)/sml/$${dir}" ; \
-	  [ -e src/$${dir}/version ] \
-	   && install -c -p -m 644 src/$${dir}/version "$(LIBDIR)/sml/$${dir}" \
-	   || true ; \
+	  if [ -e src/$${dir}/version ] ; \
+	  then \
+	    install -c -p -m 644 src/$${dir}/version "$(LIBDIR)/sml/$${dir}" ; \
+	  fi ; \
 	done
 
 install : install-mlton install-polyml install-sml
@@ -230,14 +261,42 @@ install : install-mlton install-polyml install-sml
 # Cleaning
 #
 
+.PHONY : clean-mlton clean-polyml clean-sml
+
+clean-mlton :
+ifdef MLTON_VERSION
+	rm -f $(MLTON_OBJ_FILES)
+endif
+
+clean-polyml :
+ifdef POLYML_VERSION
+	rm -f $(POLYML_OBJ_FILES)
+endif
+
+clean-sml :
+ifdef MLTON_VERSION
+	rm -f $(MLTON_VARIANT_SRC_FILES)
+endif
+
+
+.PHONY : distclean-mlton distclean-polyml distclean-sml
+
+distclean-mlton : clean-mlton
+ifdef MLTON_VERSION
+	rm -f $(MLTON_LIB_FILES)
+endif
+
+distclean-polyml : clean-polyml
+ifdef POLYML_VERSION
+	rm -f $(POLYML_LIB_FILES)
+endif
+
+distclean-sml : clean-sml
+
+
 .PHONY : clean distclean
 
-clean :
-	rm -f $(MLTON_VARIANT_SRC_FILES)
-	rm -f $(MLTON_OBJ_FILES)
-	rm -f $(POLYML_OBJ_FILES)
+clean : clean-mlton clean-polyml clean-sml
 
-distclean : clean
-	rm -f $(MLTON_LIB_FILES)
-	rm -f $(POLYML_LIB_FILES)
+distclean : distclean-mlton distclean-polyml distclean-sml
 	rm -f config.mk
