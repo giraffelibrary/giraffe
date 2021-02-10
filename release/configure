@@ -547,6 +547,7 @@ SML_LIB_NAMES=`empty`
 POLYML_LIB_NAMES=`empty`
 MLTON_LIB_NAMES=`empty`
 EXCLUDED_LIB_NAMES=`empty`
+HAVE_OLDER_LIBS=
 
 for DIR in src/*-[0-9]*
 do
@@ -575,7 +576,7 @@ do
     if pkg-config --exists "${PKGNAME}"
     then
       MODVERSION=`pkg-config --modversion "${PKGNAME}"`
-      printf "found version ${MODVERSION}"
+      echo "found version ${MODVERSION}"
 
       USE_LIB=
       if [ -n "${VERSION}" ]
@@ -583,17 +584,14 @@ do
         # check installed version is new enough
         if pkg-config --atleast-version="${VERSION}" "${PKGNAME}"
         then
-          echo " >= ${VERSION}"
-          ALL_LIB_NAMES=`echo "${ALL_LIB_NAMES}" | prepend "${NAME}=${MODVERSION}"`
-          USE_LIB=Y
+          REL=">="
         else
-          echo " < ${VERSION} (GIRAFFE VERSION)"
-
-          # for now, use old version but warn that build may fail
-          ALL_LIB_NAMES=`echo "${ALL_LIB_NAMES}" \
-                    | prepend "${NAME}=${MODVERSION} < ${VERSION} (GIRAFFE VERSION), BUILD MAY FAIL"`
-          USE_LIB=Y
+          REL="<"
+          HAVE_OLDER_LIBS="1"
         fi
+        ALL_LIB_VERSION=`printf "%-16s%-8s%s" ${MODVERSION} ${REL} ${VERSION}`
+        ALL_LIB_NAMES=`echo "${ALL_LIB_NAMES}" | prepend "${NAME}=${ALL_LIB_VERSION}"`
+        USE_LIB=Y
       else
         # no version check, just use it
         echo
@@ -668,13 +666,30 @@ then
   printf "    %-24s%s\n" "Poly/ML" "${POLYML_VERSION_TEXT}"
 fi
 echo
-echo "  Libraries               Using package version"
+echo "  Libraries               Using version           Giraffe Library API version"
 echo "${ALL_LIB_NAMES}" | keys | sort |
   while read NAME
   do
     VERSION=`echo "${ALL_LIB_NAMES}" | lookup "${NAME}"`
     printf "    %-24s%s\n" "${NAME}" "${VERSION}"
   done
+if test -n "${HAVE_OLDER_LIBS}"
+then
+  echo
+  cat << EOF
+Note
+
+  Some libraries are older than the version on which the Giraffe Library API
+  is based and may be missing parts of the API.  Even so, Giraffe Library can
+  be installed and used to build applications that depend only on parts of the
+  API provided by the older libraries.  An application that depends on parts
+  of the API missing from the older libraries will still compile but will fail
+  to link.
+
+  If these libraries are subsequently updated, there is no need to re-install
+  Giraffe Library.
+EOF
+fi
 echo
 
 
