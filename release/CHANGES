@@ -1,3 +1,28 @@
+1.0.0-alpha.11 (2021-02-10)
+
+  - Changed functions `[Child]Signal.connect[After]` to take signal and handler
+     arguments as a pair, e.g. `Signal.connect <obj> (<aSig>, <handlerFun>)`.
+  - Renamed signature `UTF8` to `UTF_8`.
+  - MLton 20180207 supported, retaining support for MLton 20130715 by applying
+     the following changes to versions after 20130715:
+      - Specified import attribute `reentrant` as required to avoid seg. faults.
+      - Added `valrecConstr ignore` annotation to MLB files to avoid warnings.
+  - Updated library versions:
+        GLib 2.0            2.66.4
+        GIRepository 2.0    1.66.1
+        Atk 1.0             2.36.0
+        Pango 1.0           1.48.0
+        GdkPixbuf 2.0       2.40.0
+        GTK 3.0             3.24.24
+        GtkSourceView 3.0   3.24.11
+        Vte 2.91            0.62.1
+  - Added `Cairo.Context` functions except functions involving the C types
+     `cairo_rectangle_list_t` and `cairo_path_t`.
+  - Fixed `Giraffe.exit` to release ownership of C objects and memory on exit.
+  - Improved installation:
+      - Source files installed for only requested compilers.
+
+
 1.0.0-alpha.10 (2020-11-23)
 
   - Fixed build for GLib >= 2.62.0.

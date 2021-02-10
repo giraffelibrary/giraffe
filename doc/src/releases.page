@@ -12,6 +12,68 @@
   provided with the release.
 </p>
 
+<section id="1.0.0-alpha.11">
+<title>1.0.0-alpha.11 (2021-02-10)</title>
+<p>Release packages:</p>
+<list style="compact">
+<item><p><link href="releases/1.0.0-alpha.11/giraffe-1.0.0-alpha.11.tar.gz">giraffe-1.0.0-alpha.11.tar.gz</link></p></item>
+</list>
+<p>Changes since release 1.0.0-alpha.10:</p>
+<list style="compact">
+<item>
+  <p>
+    Changed functions
+    [<code>Child</code>]<code>Signal.connect</code>[<code>After</code>]
+    to take signal and handler arguments as a pair,
+    e.g. <code>Signal.connect <var>obj</var> (<var>aSig</var>, <var>handlerFun</var>)</code>.
+  </p>
+</item>
+<item><p>Renamed signature <code>UTF8</code> to <code>UTF_8</code></p></item>
+<item>
+  <p>
+    MLton 20180207 supported,
+    retaining support for MLton 20130715 by applying
+    the following changes to versions after 20130715:
+  </p>
+  <list>
+  <item><p>Specified import attribute <code>reentrant</code> as required to avoid seg. faults.</p></item>
+  <item><p>Added <code>valrecConstr ignore</code> annotation to MLB files to avoid warnings.</p></item>
+  </list>
+</item>
+<item>
+  <p>
+    Updated library versions:
+  </p>
+  <table>
+  <tr><td><p>GLib 2.0</p></td>         <td><p>2.66.4</p></td></tr>
+  <tr><td><p>GIRepository 2.0</p></td> <td><p>1.66.1</p></td></tr>
+  <tr><td><p>Atk 1.0</p></td>          <td><p>2.36.0</p></td></tr>
+  <tr><td><p>Pango 1.0</p></td>        <td><p>1.48.0</p></td></tr>
+  <tr><td><p>GdkPixbuf 2.0</p></td>    <td><p>2.40.0</p></td></tr>
+  <tr><td><p>GTK 3.0</p></td>          <td><p>3.24.24</p></td></tr>
+  <tr><td><p>GtkSourceView 3.0</p></td><td><p>3.24.11</p></td></tr>
+  <tr><td><p>Vte 2.91</p></td>         <td><p>0.62.1</p></td></tr>
+  </table>
+</item>
+<item>
+  <p>
+    Added <code>Cairo.Context</code> functions
+    except functions involving the C types
+    <code>cairo_rectangle_list_t</code> and <code>cairo_path_t</code>.
+  </p>
+</item>
+<item><p>Fixed <code>Giraffe.exit</code> to release ownership of C objects and memory on exit.</p></item>
+<item>
+  <p>
+    Improved installation:
+  </p>
+  <list>
+  <item><p>Source files installed for only requested compilers.</p></item>
+  </list>
+</item>
+</list>
+</section>
+
 <section id="1.0.0-alpha.10">
 <title>1.0.0-alpha.10 (2020-11-23)</title>
 <p>Release packages:</p>
