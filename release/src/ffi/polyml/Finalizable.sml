@@ -85,7 +85,7 @@ structure Finalizable :> FINALIZABLE =
 
     fun run f = f () handle e => reportExn e
 
-    fun doGCAndFinalize () =
+    fun gcAndFinalize () =
       let
         fun loop ps =
           let
@@ -130,7 +130,7 @@ structure Finalizable :> FINALIZABLE =
 
       fun startUp () = (
         Thread.Thread.fork (threadFn, []);
-        OS.Process.atExit doGCAndFinalize
+        OS.Process.atExit gcAndFinalize
       )
     in
         val () = PolyML.onEntry startUp; (* For future sessions *)
