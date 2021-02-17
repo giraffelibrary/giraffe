@@ -1,4 +1,4 @@
-(* Copyright (C) 2015-2016, 2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2015-2016, 2018, 2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -59,7 +59,7 @@ structure Finalizable :> FINALIZABLE =
     end
 
 
-    fun add (p, ps) = ((), p :: ps)
+    fun add (ps', ps) = ((), ps' @ ps)
 
     fun clean ((), ps) =
       foldl
@@ -89,6 +89,8 @@ structure Finalizable :> FINALIZABLE =
       let
         fun loop ps =
           let
+            val ps = updatePendingList swap [] @ ps
+
             val () = PolyML.fullGC ()  (* PolyML.fullGC is synchronous *)
             val (runNowFns, ps') = clean ((), ps)
           in
@@ -106,9 +108,15 @@ structure Finalizable :> FINALIZABLE =
          * start running finalizers too. *)
         val ps = updatePendingList swap []
         val ps' = loop ps
+
+        (* Put back remaining pending items in `ps'`.  Swap first to add the
+         * global pending list, which is likely to contain very few items if
+         * any, onto the front of `ps'`. *)
+        val () = updatePendingList (add o swap) ps'
+
+        val () = setAttributes attrs
       in
-        ignore (updatePendingList swap ps');
-        setAttributes attrs
+        ()
       end
 
     local
@@ -148,7 +156,7 @@ structure Finalizable :> FINALIZABLE =
         )
         val pending = {isAlive = isAlive, runFinalizers = runFinalizers}
 
-        val () = updatePendingList add pending
+        val () = updatePendingList add [pending]
       in
         t
       end
