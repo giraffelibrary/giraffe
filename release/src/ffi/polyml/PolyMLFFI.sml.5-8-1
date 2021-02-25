@@ -107,11 +107,14 @@ structure PolyMLFFI : POLYML_F_F_I =
     (* `alignUp` copied from Foreign.sml *)
     fun alignUp (s, align) = Word.andb (s + align - 0w1, ~ align)
 
-    fun getArgOffsets argTypes =
+    fun getArgOffsets (argTypes, optRetType) =
       let
         val init = {
           revArgOffsets = [],
-          memSize       = 0w0
+          memSize       =
+            case optRetType of
+              SOME retType => #size retType
+            | NONE         => 0w0
         }
         fun next (argType, {revArgOffsets, memSize}) =
           let
@@ -124,10 +127,10 @@ structure PolyMLFFI : POLYML_F_F_I =
           end
         val {revArgOffsets, memSize} = List.foldl next init argTypes
       in
-        {argOffsets = rev revArgOffsets, argsMemSize = memSize}
+        {argOffsets = rev revArgOffsets, memSize = memSize}
       end
 
-    fun isTypeVoid cType = #typeForm cType = #typeForm LowLevel.cTypeVoid
+    fun isTypeVoid cType = #ffiType cType () = #ffiType LowLevel.cTypeVoid ()
     fun checkArgType argType =
       if isTypeVoid argType
       then raise Foreign "argument has type void"
@@ -135,33 +138,27 @@ structure PolyMLFFI : POLYML_F_F_I =
 
     structure LowLevel =
       struct
-        type ctype = LowLevel.cType
+        type ctype = LowLevel.ctype
 
         fun cFunctionWithAbi abi argTypes retType =
           let
             val () = List.app checkArgType argTypes
-            val {argOffsets, ...} = getArgOffsets argTypes
-            val argOffsetTable = Vector.fromList argOffsets
-            val ++ = Memory.++
-            infix ++
             val makeCallback = LowLevel.cFunctionWithAbi abi argTypes retType
             fun getArgAddr (args, ret) = (
-              fn i => args ++ Vector.sub (argOffsetTable, i),
+              fn i => Memory.getAddress (args, Word.fromInt i),
               ret
             )
           in
             fn f => makeCallback (f o getArgAddr)
           end
 
-        val cFunction = cFunctionWithAbi Foreign.LowLevel.abiDefault
+        val cFunction = cFunctionWithAbi LibFFI.abiDefault
 
         fun callWithAbi abi fnAddr argTypes retType =
           let
             val () = List.app checkArgType argTypes
             val callFunc = LowLevel.callwithAbi abi argTypes retType fnAddr
-            val {argOffsets, argsMemSize} = getArgOffsets argTypes
-            val retOffset = alignUp (argsMemSize, #align retType)
-            val memSize = retOffset + #size retType
+            val {argOffsets, memSize} = getArgOffsets (argTypes, SOME retType)
           in
             fn argStores =>
             fn retLoad =>
@@ -169,14 +166,13 @@ structure PolyMLFFI : POLYML_F_F_I =
                 open Memory
                 infix ++
                 val rMem = malloc memSize
-                val retAddr = rMem ++ retOffset
                 val argAddrs = List.map (fn offset => rMem ++ offset) argOffsets
                 val argFrees = ListPair.mapEq (fn (f, x) => f x) (argStores, argAddrs)
                 fun freeAll () = (List.app (fn f => f ()) argFrees; free rMem)
               in
                 let
-                  val () = callFunc (rMem, retAddr)
-                  val ret = retLoad retAddr
+                  val () = callFunc (argAddrs, rMem)
+                  val ret = retLoad rMem
                   val () = freeAll ()
                 in
                   ret
@@ -185,7 +181,7 @@ structure PolyMLFFI : POLYML_F_F_I =
               end
           end
 
-        fun call fnAddr = callWithAbi Foreign.LowLevel.abiDefault fnAddr
+        fun call fnAddr = callWithAbi LibFFI.abiDefault fnAddr
       end
 
 
@@ -282,7 +278,7 @@ structure PolyMLFFI : POLYML_F_F_I =
     fun cStruct func =
       let
         val {argTypes, argsStore, argsLoad, ...} = func
-        val {argOffsets, ...} = getArgOffsets argTypes
+        val {argOffsets, ...} = getArgOffsets (argTypes, NONE)
         val argOffsetTable = Vector.fromList argOffsets
         val ++ = Memory.++
         infix ++
@@ -307,11 +303,11 @@ structure PolyMLFFI : POLYML_F_F_I =
     (* Type `'a closure` copied from Foreign.sml because it is abstract
      * in Foreign, so we can't create our own values.  Therefore function
      * `cFunction` is also copied. *)
-    type 'a closure = Memory.voidStar
+    type 'a closure = unit -> Memory.voidStar
     local
       fun load _ = raise Foreign "Cannot return a closure"
       fun store closure addr =
-        (Memory.setAddress (addr, 0w0, closure); fn () => RunCall.touch closure)
+        (Memory.setAddress (addr, 0w0, closure ()); fn () => ())
     in
       val cFunction : ('a -> 'b) closure conversion =
         makeConversion {
@@ -327,12 +323,12 @@ structure PolyMLFFI : POLYML_F_F_I =
         val makeCallback = LowLevel.cFunctionWithAbi abi argTypes retType
         fun callback f (args, ret) = (retStore o f o argsLoad) args ret
       in
-        fn f => makeCallback (callback f)
+        fn f => Memory.memoise (fn () => makeCallback (callback f)) ()
       end
 
-    fun closure func = closureWithAbi Foreign.LowLevel.abiDefault func
+    fun closure func = closureWithAbi LibFFI.abiDefault func
 
-    val nullClosure = Memory.Pointer.null
+    fun nullClosure () = Memory.Pointer.null
 
 
     fun callWithAbi abi fnAddr func =
@@ -343,5 +339,5 @@ structure PolyMLFFI : POLYML_F_F_I =
         fn args => callFunc (argsStore args) retLoad
       end
 
-    fun call fnAddr = callWithAbi Foreign.LowLevel.abiDefault fnAddr
+    fun call fnAddr = callWithAbi LibFFI.abiDefault fnAddr
   end
