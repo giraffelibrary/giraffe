@@ -225,7 +225,7 @@ to link the object file and generate an exectuable:
 </p>
 <list>
 <item><p>(Darwin only) Specify that a position-independent executable is <em>not</em> generated.</p></item>
-<item><p>Set the run path for dynamically loaded shared object files provided by Poly/ML and Giraffe Library.</p></item>
+<item><p>Set the run path for dynamically linked/loaded shared object files provided by Poly/ML and Giraffe Library.</p></item>
 <item><p>Specify the executable file name to generate.</p></item>
 <item><p>Specify the object file to link.</p></item>
 <item><p>Specify the libraries required for linking and their paths.</p></item>

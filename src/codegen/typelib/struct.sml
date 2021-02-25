@@ -215,21 +215,34 @@ local
     StrDecDec (mkIdValDec (clearUId, mkLIdLNameExp [fnStrId, ignoreId]))
 
   (*
-   *     fn x1 => <funExp> (getType_ () & x1)
+   * `<funExp>` is declared outside the function to ensure that it can be
+   * evaluated at compile time.  This is needed for Poly/ML where `<funExp>`
+   * may evaluate `PolyMLFFI.externalFunctionSymbol`, which must be evauated
+   * at compile time.
+   *
+   *     let
+   *       val boxedFun_ = <funExp>
+   *     in
+   *       fn x1 => boxedFun_ (getType_ () & x1)
+   *     end
    *)
   fun callBoxedFunExp funExp =
     let
+      val boxedFunUId : id = "boxedFun_"
+      val boxedFunDec = mkIdValDec (boxedFunUId, funExp)
+      val boxedFunExp = mkIdLNameExp boxedFunUId
       val xId = "x1"
       val xPat = mkIdVarPat xId
       val xExp = mkIdLNameExp xId
       val getTypeExp = ExpApp (mkIdLNameExp getTypeUId, unitExp)
       val exp =
         ExpApp (
-          funExp,
+          boxedFunExp,
           mkParenExp (mkAExp (getTypeExp, xExp))
         )
+      val fnExp = ExpFn (toList1 [(xPat, exp)])
     in
-      ExpFn (toList1 [(xPat, exp)])
+      ExpLet (mkDecs [boxedFunDec], toList1 [fnExp])
     end
 
   fun boxedTypeForNonRegisteredType (structNamespace, structName) =
@@ -314,24 +327,26 @@ local
                  *         unit -> GObjectType.FFI.val_;
                  *
                  *     val dup_ =
-                 *       fn x1 =>
-                 *         (
+                 *       let
+                 *         val boxedFun_ =
                  *           fn x1 & x2 =>
                  *             (_import "g_boxed_copy" :
                  *               GObjectType.FFI.val_ * non_opt p -> non_opt p;)
                  *               (x1, x2)
-                 *         )
-                 *           (getType_ () & x1)
+                 *       in
+                 *         fn x1 => boxedFun_ (getType_ () & x1)
+                 *       end
                  *
                  *     val free_ =
-                 *       fn x1 =>
-                 *         (
+                 *       let
+                 *         val boxedFun_ =
                  *           fn x1 & x2 =>
                  *             (_import "g_boxed_free" :
                  *               GObjectType.FFI.val_ * non_opt p -> non_opt p;)
                  *               (x1, x2)
-                 *         )
-                 *           (getType_ () & x1)
+                 *       in
+                 *         fn x1 => boxedFun_ (getType_ () & x1)
+                 *       end
                  *)
                 let
                   val typeIRef = makeTypeIRef structNamespace NONE
@@ -339,20 +354,16 @@ local
 
                   val callBoxedCopyExp =
                     callBoxedFunExp (
-                      mkParenExp (
-                        callMLtonFFIExp
-                          (boxedCopySymbol, [])
-                          ([typeTy, cPtrTy], cPtrTy)
-                      )
+                      callMLtonFFIExp
+                        (boxedCopySymbol, [])
+                        ([typeTy, cPtrTy], cPtrTy)
                     )
 
                   val callBoxedFreeExp =
                     callBoxedFunExp (
-                      mkParenExp (
-                        callMLtonFFIExp
-                          (boxedFreeSymbol, [])
-                          ([typeTy, cPtrTy], unitTy)
-                      )
+                      callMLtonFFIExp
+                        (boxedFreeSymbol, [])
+                        ([typeTy, cPtrTy], unitTy)
                     )
                 in
                   getTypeStrDecLowLevelMLton getTypeSymbol ::
@@ -506,18 +517,24 @@ local
                  *         (cVoid --> GObjectType.PolyML.cVal);
                  *
                  *     val dup_ =
-                 *       fn x1 =>
-                 *         call
-                 *           (getSymbol "g_boxed_copy")
-                 *           (GObjectType.PolyML.cVal &&> cPtr --> cPtr)
-                 *           (getType_ () & x1)
+                 *       let
+                 *         val boxedFun_ =
+                 *           call
+                 *             (getSymbol "g_boxed_copy")
+                 *             (GObjectType.PolyML.cVal &&> cPtr --> cPtr)
+                 *       in
+                 *         fn x1 => boxedFun_ (getType_ () & x1)
+                 *       end
                  *
                  *     val free_ =
-                 *       fn x1 =>
-                 *         call
-                 *           (getSymbol "g_boxed_free")
-                 *           (GObjectType.PolyML.cVal &&> cPtr --> cVoid)
-                 *           (getType_ () & x1)
+                 *       let
+                 *         val boxedFun_ =
+                 *           call
+                 *             (getSymbol "g_boxed_free")
+                 *             (GObjectType.PolyML.cVal &&> cPtr --> cVoid)
+                 *       in
+                 *         fn x1 => boxedFun_ (getType_ () & x1)
+                 *       end
                  *)
                 let
                   val typeIRef = makeTypeIRef structNamespace NONE

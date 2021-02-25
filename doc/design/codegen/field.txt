@@ -696,11 +696,20 @@ LowLevelFieldOffsetFunction has the form:
 
   val <fieldName>'Offset_ =
     call
-      (getSymbol "giraffe_<container_namespace>_<container_name>_<field_name>_offset")
+      (<getFunctionSymbol> "giraffe_<container_namespace>_<container_name>_<field_name>_offset")
       (cVoid --> GSize.PolyML.cVal)
 
 
 where
+
+
+  getFunctionSymbol
+    is
+      externalFunctionSymbol
+        if generating from a GIR file
+
+      getSymbol
+        if generating from a TYPELIB file
 
 
   fieldName'Offset is <field_name>_'_offset

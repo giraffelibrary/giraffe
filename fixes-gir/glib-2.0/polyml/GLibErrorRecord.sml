@@ -15,9 +15,19 @@ structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_error_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val dup_ = fn x1 => call (getSymbol "g_boxed_copy") (GObjectType.PolyML.cVal &&> cPtr --> cPtr) (getType_ () & x1)
-      val free_ = fn x1 => call (getSymbol "g_boxed_free") (GObjectType.PolyML.cVal &&> cPtr --> cVoid) (getType_ () & x1)
+      val getType_ = call (externalFunctionSymbol "g_error_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val dup_ =
+        let
+          val boxedFun_ = call (externalFunctionSymbol "g_boxed_copy") (GObjectType.PolyML.cVal &&> cPtr --> cPtr)
+        in
+          fn x1 => boxedFun_ (getType_ () & x1)
+        end
+      val free_ =
+        let
+          val boxedFun_ = call (externalFunctionSymbol "g_boxed_free") (GObjectType.PolyML.cVal &&> cPtr --> cVoid)
+        in
+          fn x1 => boxedFun_ (getType_ () & x1)
+        end
     end
     structure Record =
       BoxedRecord(
@@ -33,10 +43,10 @@ structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
     local
       open PolyMLFFI
     in
-      val getValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr)
-      val getOptValue_ = call (getSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr)
-      val setValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)
-      val setOptValue_ = call (getSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid)
+      val getValue_ = call (externalFunctionSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr)
+      val getOptValue_ = call (externalFunctionSymbol "g_value_get_boxed") (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr)
+      val setValue_ = call (externalFunctionSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)
+      val setOptValue_ = call (externalFunctionSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid)
     end
     val t =
       ValueAccessor.C.createAccessor
@@ -56,8 +66,8 @@ structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
     local
       open PolyMLFFI
     in
-      val domain'Offset_ = call (getSymbol "giraffe_g_lib_error_domain_offset") (cVoid --> GSize.PolyML.cVal)
-      val code'Offset_ = call (getSymbol "giraffe_g_lib_error_code_offset") (cVoid --> GSize.PolyML.cVal)
+      val domain'Offset_ = call (externalFunctionSymbol "giraffe_g_lib_error_domain_offset") (cVoid --> GSize.PolyML.cVal)
+      val code'Offset_ = call (externalFunctionSymbol "giraffe_g_lib_error_code_offset") (cVoid --> GSize.PolyML.cVal)
     end
 
     val domain'Offset = (I ---> GSize.FFI.fromVal) domain'Offset_

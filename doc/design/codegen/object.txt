@@ -95,28 +95,28 @@ structure <ObjectNamespace><ObjectName>Class :>
                                                -.                            |               |
       val getType_ =                            |                            |               |
         call                                    | getTypeSymbol <> "intern"  |               |
-          (getSymbol "<getTypeSymbol>")         |                            | Poly/ML only  |
+          (<getFunctionSymbol> "<getTypeSymbol>")                            | Poly/ML only  |
           (cVoid --> GObjectType.PolyML.cVal);  |                            |               |
                                                -'                            |               |
                                                                              |               |
       val getValue_ =                                                        |               |
         call                                                                 |               |
-          (getSymbol "g_value_get_<valueType>")                              |               |
+          (<getFunctionSymbol> "g_value_get_<valueType>")                    |               |
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);                  |               |
                                                                              |               |
       val getOptValue_ =                                                     |               |
         call                                                                 |               |
-          (getSymbol "g_value_get_<valueType>")                              |               |
+          (<getFunctionSymbol> "g_value_get_<valueType>")                    |               |
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);               |               |
                                                                              |               |
       val setValue_ =                                                        |               |
         call                                                                 |               |
-          (getSymbol "g_value_set_<valueType>")                              |               |
+          (<getFunctionSymbol> "g_value_set_<valueType>")                    |               |
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid);        |               |
                                                                              |               |
       val setOptValue_ =                                                     |               |
         call                                                                 |               |
-          (getSymbol "g_value_set_<valueType>")                              |               |
+          (<getFunctionSymbol> "g_value_set_<valueType>")                    |               |
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);     |               |
     end                                                                      |               | optGetTypeSymbol
                                                                             -'               |  is SOME getTypeSymbol
@@ -172,6 +172,15 @@ structure <ObjectNamespace><ObjectName>Class :>
 
 
 where
+
+
+  getFunctionSymbol
+    is
+      externalFunctionSymbol
+        if generating from a GIR file
+
+      getSymbol
+        if generating from a TYPELIB file
 
 
   valueType
@@ -324,7 +333,7 @@ structure <ObjectNamespace><ObjectName> :>
     in                                                                       |
       val getType_ =                                                         |
         call                                                                 |
-          (getSymbol "<getTypeSymbol>")                                      |
+          (<getFunctionSymbol> "<getTypeSymbol>")                            |
           (cVoid --> GObjectType.PolyML.cVal);                               |
                                                                              |
       <LowLevelFunction[1]>                                                  |
@@ -446,6 +455,15 @@ structure <ObjectNamespace><ObjectName> :>
 
 
 where
+
+
+  getFunctionSymbol
+    is
+      externalFunctionSymbol
+        if generating from a GIR file
+
+      getSymbol
+        if generating from a TYPELIB file
 
 
   localName[n], typeName[n], t[n], varlist[n] are the same as for the signature;

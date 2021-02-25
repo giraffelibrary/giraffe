@@ -12,8 +12,18 @@ structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
     type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p
     val getType_ = _import "g_error_get_type" : unit -> GObjectType.FFI.val_;
-    val dup_ = fn x1 => (fn x1 & x2 => (_import "g_boxed_copy" : GObjectType.FFI.val_ * non_opt p -> non_opt p;) (x1, x2)) (getType_ () & x1)
-    val free_ = fn x1 => (fn x1 & x2 => (_import "g_boxed_free" : GObjectType.FFI.val_ * non_opt p -> unit;) (x1, x2)) (getType_ () & x1)
+    val dup_ =
+      let
+        val boxedFun_ = fn x1 & x2 => (_import "g_boxed_copy" : GObjectType.FFI.val_ * non_opt p -> non_opt p;) (x1, x2)
+      in
+        fn x1 => boxedFun_ (getType_ () & x1)
+      end
+    val free_ =
+      let
+        val boxedFun_ = fn x1 & x2 => (_import "g_boxed_free" : GObjectType.FFI.val_ * non_opt p -> unit;) (x1, x2)
+      in
+        fn x1 => boxedFun_ (getType_ () & x1)
+      end
     structure Record =
       BoxedRecord(
         structure Pointer = Pointer

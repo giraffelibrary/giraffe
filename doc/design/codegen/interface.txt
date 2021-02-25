@@ -168,7 +168,7 @@ structure <InterfaceNamespace><InterfaceName> :>
     in                                                                       |
       val getType_ =                                                         |
         call                                                                 |
-          (getSymbol "<getTypeSymbol>")                                      |
+          (<getFunctionSymbol> "<getTypeSymbol>")                            |
           (cVoid --> GObjectType.PolyML.cVal);                               |
                                                                              | Poly/ML only
       <LowLevelFunction[1]>                                                  |
@@ -254,6 +254,15 @@ structure <InterfaceNamespace><InterfaceName> :>
 
 
 where
+
+
+  getFunctionSymbol
+    is
+      externalFunctionSymbol
+        if generating from a GIR file
+
+      getSymbol
+        if generating from a TYPELIB file
 
 
   localName[n], typeName[n], t[n], varlist[n] are the same as for the signature;

@@ -17,8 +17,8 @@ structure Signal :>
       open PolyMLFFI
     in
       val signalConnectClosure_ =
-        PolyMLFFI.call
-          (PolyMLFFI.getSymbol "g_signal_connect_closure")
+        call
+          (externalFunctionSymbol "g_signal_connect_closure")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -28,8 +28,8 @@ structure Signal :>
           );
 
       val signalHandlerDisconnect_ =
-        PolyMLFFI.call
-          (PolyMLFFI.getSymbol "g_signal_handler_disconnect")
+        call
+          (externalFunctionSymbol "g_signal_handler_disconnect")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> GULong.PolyML.cVal
@@ -37,8 +37,8 @@ structure Signal :>
           );
 
       val signalHandlerIsConnected_ =
-        PolyMLFFI.call
-          (PolyMLFFI.getSymbol "g_signal_handler_is_connected")
+        call
+          (externalFunctionSymbol "g_signal_handler_is_connected")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> GULong.PolyML.cVal

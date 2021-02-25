@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,11 +11,11 @@ structure GObjectValueRecord : G_OBJECT_VALUE_RECORD =
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_value_get_type") (cVoid --> GObject.Type.PolyML.cVal)
-      val getValue_ = call (getSymbol "g_value_get_boxed") (GObject.ValueRecord.PolyML.cPtr --> PolyML.cPtr)
-      val getOptValue_ = call (getSymbol "g_value_get_boxed") (GObject.ValueRecord.PolyML.cPtr --> PolyML.cOptPtr)
-      val setValue_ = call (getSymbol "g_value_set_boxed") (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)
-      val setOptValue_ = call (getSymbol "g_value_set_boxed") (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid)
+      val getType_ = call (externalFunctionSymbol "g_value_get_type") (cVoid --> GObject.Type.PolyML.cVal)
+      val getValue_ = call (externalFunctionSymbol "g_value_get_boxed") (GObject.ValueRecord.PolyML.cPtr --> PolyML.cPtr)
+      val getOptValue_ = call (externalFunctionSymbol "g_value_get_boxed") (GObject.ValueRecord.PolyML.cPtr --> PolyML.cOptPtr)
+      val setValue_ = call (externalFunctionSymbol "g_value_set_boxed") (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)
+      val setOptValue_ = call (externalFunctionSymbol "g_value_set_boxed") (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid)
     end
     type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     val t =

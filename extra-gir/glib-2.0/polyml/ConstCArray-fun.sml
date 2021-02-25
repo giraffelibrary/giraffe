@@ -1,4 +1,4 @@
-(* Copyright (C) 2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2020-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -24,12 +24,12 @@ functor ConstCArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
     in
       val getValue_ =
         call
-          (getSymbol "g_value_get_pointer")
+          (externalFunctionSymbol "g_value_get_pointer")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOutPtr);
 
       val getOptValue_ =
         call
-          (getSymbol "g_value_get_pointer")
+          (externalFunctionSymbol "g_value_get_pointer")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOutOptPtr);
     end
 

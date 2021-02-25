@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -16,21 +16,27 @@ structure GObjectObjectClass :>
     type 'a p = 'a Pointer.p
     type ('a, 'b) r = ('a, 'b) Pointer.r
 
-    val () =
-      if GiraffeDebug.isEnabled
-      then
-        let
-          val (_, setDebugClosure) =
-            _symbol "giraffe_debug_closure" external :
-              (unit -> bool) * (bool -> unit);
-          val (_, setDebugRefCount) =
-            _symbol "giraffe_debug_ref_count" external :
-              (unit -> bool) * (bool -> unit);
-        in
-          setDebugClosure (GiraffeDebug.getClosure ());
-          setDebugRefCount (GiraffeDebug.getRefCount ())
-        end
-      else ()
+    local
+      val (_, setDebugClosure) =
+        _symbol "giraffe_debug_closure" external :
+          (unit -> bool) * (bool -> unit);
+      val (_, setDebugRefCount) =
+        _symbol "giraffe_debug_ref_count" external :
+          (unit -> bool) * (bool -> unit);
+
+      fun initDebugFlags () =
+        if GiraffeDebug.isEnabled
+        then
+          let
+            val () = setDebugClosure (GiraffeDebug.getClosure ());
+            val () = setDebugRefCount (GiraffeDebug.getRefCount ())
+          in
+            ()
+          end
+        else ()
+    in
+      val () = initDebugFlags ()
+    end
 
     val isFloating_ = _import "g_object_is_floating" : non_opt p -> GBool.FFI.val_;
 

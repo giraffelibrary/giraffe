@@ -3096,7 +3096,7 @@ datatype low_level_spec =
  * a Poly/ML low-level function call expression as follows:
  *
  *   call
- *     (getSymbol "<functionSymbol>")
+ *     (getSymbol "<functionSymbol>")    (* TYPELIB only *)
  *     (<parConvs> --> <retConv>)
  *)
 fun callPolyMLFFIExp functionSymbol (parConvs, retConv) =
@@ -3105,7 +3105,7 @@ fun callPolyMLFFIExp functionSymbol (parConvs, retConv) =
       mkIdLNameExp callId,
       mkParenExp (
         ExpApp (
-          mkIdLNameExp getSymbolId,
+          mkIdLNameExp getSymbolId,    (* TYPELIB only *)
           ExpConst (ConstString functionSymbol)
         )
       )
@@ -3529,7 +3529,7 @@ fun makeFunctionStrDecLowLevelPolyML
     (* Construct the function body with the form:
      *
      *   call
-     *     (getSymbol "<function_symbol>")
+     *     (getSymbol "<function_symbol>")    (* TYPELIB only *)
      *     (<parConvs> --> <retConv>)
      *)
     val functionExp =
@@ -3546,7 +3546,7 @@ fun makeFunctionStrDecLowLevelPolyML
 (*
  *     val getType_ =
  *       call
- *         (getSymbol "<getTypeSymbol>")
+ *         (getSymbol "<getTypeSymbol>")    (* TYPELIB only *)
  *         (cVoid --> GObjectType.PolyML.cVal);
  *)
 fun getTypeStrDecLowLevelPolyML getTypeSymbol =

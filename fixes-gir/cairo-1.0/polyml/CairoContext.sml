@@ -21,27 +21,27 @@ structure CairoContext :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "cairo_gobject_context_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val create_ = call (getSymbol "cairo_create") (CairoSurfaceRecord.PolyML.cPtr --> CairoContextRecord.PolyML.cPtr)
-      val status_ = call (getSymbol "cairo_status") (CairoContextRecord.PolyML.cPtr --> CairoStatus.PolyML.cVal)
-      val save_ = call (getSymbol "cairo_save") (CairoContextRecord.PolyML.cPtr --> cVoid)
-      val restore_ = call (getSymbol "cairo_restore") (CairoContextRecord.PolyML.cPtr --> cVoid)
-      val getTarget_ = call (getSymbol "cairo_get_target") (CairoContextRecord.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
-      val pushGroup_ = call (getSymbol "cairo_push_group") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val getType_ = call (externalFunctionSymbol "cairo_gobject_context_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val create_ = call (externalFunctionSymbol "cairo_create") (CairoSurfaceRecord.PolyML.cPtr --> CairoContextRecord.PolyML.cPtr)
+      val status_ = call (externalFunctionSymbol "cairo_status") (CairoContextRecord.PolyML.cPtr --> CairoStatus.PolyML.cVal)
+      val save_ = call (externalFunctionSymbol "cairo_save") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val restore_ = call (externalFunctionSymbol "cairo_restore") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val getTarget_ = call (externalFunctionSymbol "cairo_get_target") (CairoContextRecord.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
+      val pushGroup_ = call (externalFunctionSymbol "cairo_push_group") (CairoContextRecord.PolyML.cPtr --> cVoid)
       val pushGroupWithContent_ =
         call
-          (getSymbol "cairo_push_group_with_content")
+          (externalFunctionSymbol "cairo_push_group_with_content")
           (
             CairoContextRecord.PolyML.cPtr
              &&> CairoContent.PolyML.cVal
              --> cVoid
           )
-      val popGroup_ = call (getSymbol "cairo_pop_group") (CairoContextRecord.PolyML.cPtr --> CairoPatternRecord.PolyML.cPtr)
-      val popGroupToSource_ = call (getSymbol "cairo_pop_group_to_source") (CairoContextRecord.PolyML.cPtr --> cVoid)
-      val getGroupTarget_ = call (getSymbol "cairo_get_group_target") (CairoContextRecord.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
+      val popGroup_ = call (externalFunctionSymbol "cairo_pop_group") (CairoContextRecord.PolyML.cPtr --> CairoPatternRecord.PolyML.cPtr)
+      val popGroupToSource_ = call (externalFunctionSymbol "cairo_pop_group_to_source") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val getGroupTarget_ = call (externalFunctionSymbol "cairo_get_group_target") (CairoContextRecord.PolyML.cPtr --> CairoSurfaceRecord.PolyML.cPtr)
       val setSourceRgb_ =
         call
-          (getSymbol "cairo_set_source_rgb")
+          (externalFunctionSymbol "cairo_set_source_rgb")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -51,7 +51,7 @@ structure CairoContext :>
           )
       val setSourceRgba_ =
         call
-          (getSymbol "cairo_set_source_rgba")
+          (externalFunctionSymbol "cairo_set_source_rgba")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -60,10 +60,10 @@ structure CairoContext :>
              &&> GDouble.PolyML.cVal
              --> cVoid
           )
-      val setSource_ = call (getSymbol "cairo_set_source") (CairoContextRecord.PolyML.cPtr &&> CairoPatternRecord.PolyML.cPtr --> cVoid)
+      val setSource_ = call (externalFunctionSymbol "cairo_set_source") (CairoContextRecord.PolyML.cPtr &&> CairoPatternRecord.PolyML.cPtr --> cVoid)
       val setSourceSurface_ =
         call
-          (getSymbol "cairo_set_source_surface")
+          (externalFunctionSymbol "cairo_set_source_surface")
           (
             CairoContextRecord.PolyML.cPtr
              &&> CairoSurfaceRecord.PolyML.cPtr
@@ -71,12 +71,12 @@ structure CairoContext :>
              &&> GDouble.PolyML.cVal
              --> cVoid
           )
-      val getSource_ = call (getSymbol "cairo_get_source") (CairoContextRecord.PolyML.cPtr --> CairoPatternRecord.PolyML.cPtr)
-      val setAntialias_ = call (getSymbol "cairo_set_antialias") (CairoContextRecord.PolyML.cPtr &&> CairoAntialias.PolyML.cVal --> cVoid)
-      val getAntialias_ = call (getSymbol "cairo_get_antialias") (CairoContextRecord.PolyML.cPtr --> CairoAntialias.PolyML.cVal)
+      val getSource_ = call (externalFunctionSymbol "cairo_get_source") (CairoContextRecord.PolyML.cPtr --> CairoPatternRecord.PolyML.cPtr)
+      val setAntialias_ = call (externalFunctionSymbol "cairo_set_antialias") (CairoContextRecord.PolyML.cPtr &&> CairoAntialias.PolyML.cVal --> cVoid)
+      val getAntialias_ = call (externalFunctionSymbol "cairo_get_antialias") (CairoContextRecord.PolyML.cPtr --> CairoAntialias.PolyML.cVal)
       val setDash_ =
         call
-          (getSymbol "cairo_set_dash")
+          (externalFunctionSymbol "cairo_set_dash")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDoubleCArrayN.PolyML.cInPtr
@@ -84,35 +84,35 @@ structure CairoContext :>
              &&> GDouble.PolyML.cVal
              --> cVoid
           )
-      val getDashCount_ = call (getSymbol "cairo_get_dash_count") (CairoContextRecord.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getDashCount_ = call (externalFunctionSymbol "cairo_get_dash_count") (CairoContextRecord.PolyML.cPtr --> GInt.PolyML.cVal)
       val getDash_ =
         call
-          (getSymbol "cairo_get_dash")
+          (externalFunctionSymbol "cairo_get_dash")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDoubleCArrayN.PolyML.cInPtr
              &&> GDouble.PolyML.cRef
              --> cVoid
           )
-      val setFillRule_ = call (getSymbol "cairo_set_fill_rule") (CairoContextRecord.PolyML.cPtr &&> CairoFillRule.PolyML.cVal --> cVoid)
-      val getFillRule_ = call (getSymbol "cairo_get_fill_rule") (CairoContextRecord.PolyML.cPtr --> CairoFillRule.PolyML.cVal)
-      val setLineCap_ = call (getSymbol "cairo_set_line_cap") (CairoContextRecord.PolyML.cPtr &&> CairoLineCap.PolyML.cVal --> cVoid)
-      val getLineCap_ = call (getSymbol "cairo_get_line_cap") (CairoContextRecord.PolyML.cPtr --> CairoLineCap.PolyML.cVal)
-      val setLineJoin_ = call (getSymbol "cairo_set_line_join") (CairoContextRecord.PolyML.cPtr &&> CairoLineJoin.PolyML.cVal --> cVoid)
-      val getLineJoin_ = call (getSymbol "cairo_get_line_join") (CairoContextRecord.PolyML.cPtr --> CairoLineJoin.PolyML.cVal)
-      val setLineWidth_ = call (getSymbol "cairo_set_line_width") (CairoContextRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
-      val getLineWidth_ = call (getSymbol "cairo_get_line_width") (CairoContextRecord.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val setMiterLimit_ = call (getSymbol "cairo_set_miter_limit") (CairoContextRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
-      val getMiterLimit_ = call (getSymbol "cairo_get_miter_limit") (CairoContextRecord.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val setOperator_ = call (getSymbol "cairo_set_operator") (CairoContextRecord.PolyML.cPtr &&> CairoOperator.PolyML.cVal --> cVoid)
-      val getOperator_ = call (getSymbol "cairo_get_operator") (CairoContextRecord.PolyML.cPtr --> CairoOperator.PolyML.cVal)
-      val setTolerance_ = call (getSymbol "cairo_set_tolerance") (CairoContextRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
-      val getTolerance_ = call (getSymbol "cairo_get_tolerance") (CairoContextRecord.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val clip_ = call (getSymbol "cairo_clip") (CairoContextRecord.PolyML.cPtr --> cVoid)
-      val clipPreserve_ = call (getSymbol "cairo_clip_preserve") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val setFillRule_ = call (externalFunctionSymbol "cairo_set_fill_rule") (CairoContextRecord.PolyML.cPtr &&> CairoFillRule.PolyML.cVal --> cVoid)
+      val getFillRule_ = call (externalFunctionSymbol "cairo_get_fill_rule") (CairoContextRecord.PolyML.cPtr --> CairoFillRule.PolyML.cVal)
+      val setLineCap_ = call (externalFunctionSymbol "cairo_set_line_cap") (CairoContextRecord.PolyML.cPtr &&> CairoLineCap.PolyML.cVal --> cVoid)
+      val getLineCap_ = call (externalFunctionSymbol "cairo_get_line_cap") (CairoContextRecord.PolyML.cPtr --> CairoLineCap.PolyML.cVal)
+      val setLineJoin_ = call (externalFunctionSymbol "cairo_set_line_join") (CairoContextRecord.PolyML.cPtr &&> CairoLineJoin.PolyML.cVal --> cVoid)
+      val getLineJoin_ = call (externalFunctionSymbol "cairo_get_line_join") (CairoContextRecord.PolyML.cPtr --> CairoLineJoin.PolyML.cVal)
+      val setLineWidth_ = call (externalFunctionSymbol "cairo_set_line_width") (CairoContextRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val getLineWidth_ = call (externalFunctionSymbol "cairo_get_line_width") (CairoContextRecord.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val setMiterLimit_ = call (externalFunctionSymbol "cairo_set_miter_limit") (CairoContextRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val getMiterLimit_ = call (externalFunctionSymbol "cairo_get_miter_limit") (CairoContextRecord.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val setOperator_ = call (externalFunctionSymbol "cairo_set_operator") (CairoContextRecord.PolyML.cPtr &&> CairoOperator.PolyML.cVal --> cVoid)
+      val getOperator_ = call (externalFunctionSymbol "cairo_get_operator") (CairoContextRecord.PolyML.cPtr --> CairoOperator.PolyML.cVal)
+      val setTolerance_ = call (externalFunctionSymbol "cairo_set_tolerance") (CairoContextRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val getTolerance_ = call (externalFunctionSymbol "cairo_get_tolerance") (CairoContextRecord.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val clip_ = call (externalFunctionSymbol "cairo_clip") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val clipPreserve_ = call (externalFunctionSymbol "cairo_clip_preserve") (CairoContextRecord.PolyML.cPtr --> cVoid)
       val clipExtents_ =
         call
-          (getSymbol "cairo_clip_extents")
+          (externalFunctionSymbol "cairo_clip_extents")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cRef
@@ -123,19 +123,19 @@ structure CairoContext :>
           )
       val inClip_ =
         call
-          (getSymbol "cairo_in_clip")
+          (externalFunctionSymbol "cairo_in_clip")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val resetClip_ = call (getSymbol "cairo_reset_clip") (CairoContextRecord.PolyML.cPtr --> cVoid)
-      val fill_ = call (getSymbol "cairo_fill") (CairoContextRecord.PolyML.cPtr --> cVoid)
-      val fillPreserve_ = call (getSymbol "cairo_fill_preserve") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val resetClip_ = call (externalFunctionSymbol "cairo_reset_clip") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val fill_ = call (externalFunctionSymbol "cairo_fill") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val fillPreserve_ = call (externalFunctionSymbol "cairo_fill_preserve") (CairoContextRecord.PolyML.cPtr --> cVoid)
       val fillExtents_ =
         call
-          (getSymbol "cairo_fill_extents")
+          (externalFunctionSymbol "cairo_fill_extents")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cRef
@@ -146,17 +146,17 @@ structure CairoContext :>
           )
       val inFill_ =
         call
-          (getSymbol "cairo_in_fill")
+          (externalFunctionSymbol "cairo_in_fill")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val mask_ = call (getSymbol "cairo_mask") (CairoContextRecord.PolyML.cPtr &&> CairoPatternRecord.PolyML.cPtr --> cVoid)
+      val mask_ = call (externalFunctionSymbol "cairo_mask") (CairoContextRecord.PolyML.cPtr &&> CairoPatternRecord.PolyML.cPtr --> cVoid)
       val maskSurface_ =
         call
-          (getSymbol "cairo_mask_surface")
+          (externalFunctionSymbol "cairo_mask_surface")
           (
             CairoContextRecord.PolyML.cPtr
              &&> CairoSurfaceRecord.PolyML.cPtr
@@ -164,13 +164,13 @@ structure CairoContext :>
              &&> GDouble.PolyML.cVal
              --> cVoid
           )
-      val paint_ = call (getSymbol "cairo_paint") (CairoContextRecord.PolyML.cPtr --> cVoid)
-      val paintWithAlpha_ = call (getSymbol "cairo_paint_with_alpha") (CairoContextRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
-      val stroke_ = call (getSymbol "cairo_stroke") (CairoContextRecord.PolyML.cPtr --> cVoid)
-      val strokePreserve_ = call (getSymbol "cairo_stroke_preserve") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val paint_ = call (externalFunctionSymbol "cairo_paint") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val paintWithAlpha_ = call (externalFunctionSymbol "cairo_paint_with_alpha") (CairoContextRecord.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val stroke_ = call (externalFunctionSymbol "cairo_stroke") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val strokePreserve_ = call (externalFunctionSymbol "cairo_stroke_preserve") (CairoContextRecord.PolyML.cPtr --> cVoid)
       val strokeExtents_ =
         call
-          (getSymbol "cairo_stroke_extents")
+          (externalFunctionSymbol "cairo_stroke_extents")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cRef
@@ -181,31 +181,31 @@ structure CairoContext :>
           )
       val inStroke_ =
         call
-          (getSymbol "cairo_in_stroke")
+          (externalFunctionSymbol "cairo_in_stroke")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
              &&> GDouble.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val copyPage_ = call (getSymbol "cairo_copy_page") (CairoContextRecord.PolyML.cPtr --> cVoid)
-      val showPage_ = call (getSymbol "cairo_show_page") (CairoContextRecord.PolyML.cPtr --> cVoid)
-      val hasCurrentPoint_ = call (getSymbol "cairo_has_current_point") (CairoContextRecord.PolyML.cPtr --> GBool.PolyML.cVal)
+      val copyPage_ = call (externalFunctionSymbol "cairo_copy_page") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val showPage_ = call (externalFunctionSymbol "cairo_show_page") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val hasCurrentPoint_ = call (externalFunctionSymbol "cairo_has_current_point") (CairoContextRecord.PolyML.cPtr --> GBool.PolyML.cVal)
       val getCurrentPoint_ =
         call
-          (getSymbol "cairo_get_current_point")
+          (externalFunctionSymbol "cairo_get_current_point")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cRef
              &&> GDouble.PolyML.cRef
              --> cVoid
           )
-      val newPath_ = call (getSymbol "cairo_new_path") (CairoContextRecord.PolyML.cPtr --> cVoid)
-      val newSubPath_ = call (getSymbol "cairo_new_sub_path") (CairoContextRecord.PolyML.cPtr --> cVoid)
-      val closePath_ = call (getSymbol "cairo_close_path") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val newPath_ = call (externalFunctionSymbol "cairo_new_path") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val newSubPath_ = call (externalFunctionSymbol "cairo_new_sub_path") (CairoContextRecord.PolyML.cPtr --> cVoid)
+      val closePath_ = call (externalFunctionSymbol "cairo_close_path") (CairoContextRecord.PolyML.cPtr --> cVoid)
       val arc_ =
         call
-          (getSymbol "cairo_arc")
+          (externalFunctionSymbol "cairo_arc")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -217,7 +217,7 @@ structure CairoContext :>
           )
       val arcNegative_ =
         call
-          (getSymbol "cairo_arc_negative")
+          (externalFunctionSymbol "cairo_arc_negative")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -229,7 +229,7 @@ structure CairoContext :>
           )
       val curveTo_ =
         call
-          (getSymbol "cairo_curve_to")
+          (externalFunctionSymbol "cairo_curve_to")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -242,7 +242,7 @@ structure CairoContext :>
           )
       val lineTo_ =
         call
-          (getSymbol "cairo_line_to")
+          (externalFunctionSymbol "cairo_line_to")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -251,7 +251,7 @@ structure CairoContext :>
           )
       val moveTo_ =
         call
-          (getSymbol "cairo_move_to")
+          (externalFunctionSymbol "cairo_move_to")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -260,7 +260,7 @@ structure CairoContext :>
           )
       val rectangle_ =
         call
-          (getSymbol "cairo_rectangle")
+          (externalFunctionSymbol "cairo_rectangle")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -271,7 +271,7 @@ structure CairoContext :>
           )
       val relCurveTo_ =
         call
-          (getSymbol "cairo_rel_curve_to")
+          (externalFunctionSymbol "cairo_rel_curve_to")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -284,7 +284,7 @@ structure CairoContext :>
           )
       val relLineTo_ =
         call
-          (getSymbol "cairo_rel_line_to")
+          (externalFunctionSymbol "cairo_rel_line_to")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -293,7 +293,7 @@ structure CairoContext :>
           )
       val relMoveTo_ =
         call
-          (getSymbol "cairo_rel_move_to")
+          (externalFunctionSymbol "cairo_rel_move_to")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cVal
@@ -302,7 +302,7 @@ structure CairoContext :>
           )
       val pathExtents_ =
         call
-          (getSymbol "cairo_path_extents")
+          (externalFunctionSymbol "cairo_path_extents")
           (
             CairoContextRecord.PolyML.cPtr
              &&> GDouble.PolyML.cRef

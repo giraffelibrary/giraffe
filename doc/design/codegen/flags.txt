@@ -152,17 +152,17 @@ structure <EnumNamespace><EnumName> :>
     in                                                                       |               |
       val getType_ =                                                         |               |
         call                                                                 |               |
-          (getSymbol "<getTypeSymbol>")                                      | Poly/ML only  |
+          (<getFunctionSymbol> "<getTypeSymbol>")                            | Poly/ML only  |
           (cVoid --> GObjectType.PolyML.cVal);                               |               |
                                                                              |               |
       val getValue_ =                                                        |               |
         call                                                                 |               |
-          (getSymbol "g_value_get_flags")                                    |               |
+          (<getFunctionSymbol> "g_value_get_flags")                          |               |
           (GObjectValueRecord.PolyML.PTR --> PolyML.cVal);                   |               |
                                                                              |               |
       val setValue_ =                                                        |               |
         call                                                                 |               |
-          (getSymbol "g_value_set_flags")                                    |               |
+          (<getFunctionSymbol> "g_value_set_flags")                          |               |
           (GObjectValueRecord.PolyML.PTR &&> PolyML.cVal --> cVoid);         |               |
     end                                                                      |               | optGetTypeSymbol
                                                                             -'               |  is SOME getTypeSymbol
@@ -228,6 +228,15 @@ structure <EnumNamespace><EnumName> :>
 
 
 where
+
+
+  getFunctionSymbol
+    is
+      externalFunctionSymbol
+        if generating from a GIR file
+
+      getSymbol
+        if generating from a TYPELIB file
 
 
   localName[n], typeName[n], t[n], varlist[n] are the same as for the signature;

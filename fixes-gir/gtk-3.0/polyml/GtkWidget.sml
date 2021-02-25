@@ -32,15 +32,15 @@ structure GtkWidget :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "gtk_widget_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val getDefaultDirection_ = call (getSymbol "gtk_widget_get_default_direction") (cVoid --> GtkTextDirection.PolyML.cVal)
-      val getDefaultStyle_ = call (getSymbol "gtk_widget_get_default_style") (cVoid --> GtkStyleClass.PolyML.cPtr)
-      val popCompositeChild_ = call (getSymbol "gtk_widget_pop_composite_child") (cVoid --> cVoid)
-      val pushCompositeChild_ = call (getSymbol "gtk_widget_push_composite_child") (cVoid --> cVoid)
-      val setDefaultDirection_ = call (getSymbol "gtk_widget_set_default_direction") (GtkTextDirection.PolyML.cVal --> cVoid)
-      val activate_ = call (getSymbol "gtk_widget_activate") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getType_ = call (externalFunctionSymbol "gtk_widget_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val getDefaultDirection_ = call (externalFunctionSymbol "gtk_widget_get_default_direction") (cVoid --> GtkTextDirection.PolyML.cVal)
+      val getDefaultStyle_ = call (externalFunctionSymbol "gtk_widget_get_default_style") (cVoid --> GtkStyleClass.PolyML.cPtr)
+      val popCompositeChild_ = call (externalFunctionSymbol "gtk_widget_pop_composite_child") (cVoid --> cVoid)
+      val pushCompositeChild_ = call (externalFunctionSymbol "gtk_widget_push_composite_child") (cVoid --> cVoid)
+      val setDefaultDirection_ = call (externalFunctionSymbol "gtk_widget_set_default_direction") (GtkTextDirection.PolyML.cVal --> cVoid)
+      val activate_ = call (externalFunctionSymbol "gtk_widget_activate") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val addAccelerator_ =
-        call (getSymbol "gtk_widget_add_accelerator")
+        call (externalFunctionSymbol "gtk_widget_add_accelerator")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -51,20 +51,20 @@ structure GtkWidget :>
              --> cVoid
           )
       val addDeviceEvents_ =
-        call (getSymbol "gtk_widget_add_device_events")
+        call (externalFunctionSymbol "gtk_widget_add_device_events")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkDeviceClass.PolyML.cPtr
              &&> GdkEventMask.PolyML.cVal
              --> cVoid
           )
-      val addEvents_ = call (getSymbol "gtk_widget_add_events") (GtkWidgetClass.PolyML.cPtr &&> GdkEventMask.PolyML.cVal --> cVoid)
-      val addMnemonicLabel_ = call (getSymbol "gtk_widget_add_mnemonic_label") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val canActivateAccel_ = call (getSymbol "gtk_widget_can_activate_accel") (GtkWidgetClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> GBool.PolyML.cVal)
-      val childFocus_ = call (getSymbol "gtk_widget_child_focus") (GtkWidgetClass.PolyML.cPtr &&> GtkDirectionType.PolyML.cVal --> GBool.PolyML.cVal)
-      val childNotify_ = call (getSymbol "gtk_widget_child_notify") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val addEvents_ = call (externalFunctionSymbol "gtk_widget_add_events") (GtkWidgetClass.PolyML.cPtr &&> GdkEventMask.PolyML.cVal --> cVoid)
+      val addMnemonicLabel_ = call (externalFunctionSymbol "gtk_widget_add_mnemonic_label") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val canActivateAccel_ = call (externalFunctionSymbol "gtk_widget_can_activate_accel") (GtkWidgetClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val childFocus_ = call (externalFunctionSymbol "gtk_widget_child_focus") (GtkWidgetClass.PolyML.cPtr &&> GtkDirectionType.PolyML.cVal --> GBool.PolyML.cVal)
+      val childNotify_ = call (externalFunctionSymbol "gtk_widget_child_notify") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val classPath_ =
-        call (getSymbol "gtk_widget_class_path")
+        call (externalFunctionSymbol "gtk_widget_class_path")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GUInt.PolyML.cRef
@@ -72,13 +72,13 @@ structure GtkWidget :>
              &&> Utf8.PolyML.cOutRef
              --> cVoid
           )
-      val computeExpand_ = call (getSymbol "gtk_widget_compute_expand") (GtkWidgetClass.PolyML.cPtr &&> GtkOrientation.PolyML.cVal --> GBool.PolyML.cVal)
-      val createPangoContext_ = call (getSymbol "gtk_widget_create_pango_context") (GtkWidgetClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
-      val createPangoLayout_ = call (getSymbol "gtk_widget_create_pango_layout") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PangoLayoutClass.PolyML.cPtr)
-      val destroy_ = call (getSymbol "gtk_widget_destroy") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val deviceIsShadowed_ = call (getSymbol "gtk_widget_device_is_shadowed") (GtkWidgetClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val computeExpand_ = call (externalFunctionSymbol "gtk_widget_compute_expand") (GtkWidgetClass.PolyML.cPtr &&> GtkOrientation.PolyML.cVal --> GBool.PolyML.cVal)
+      val createPangoContext_ = call (externalFunctionSymbol "gtk_widget_create_pango_context") (GtkWidgetClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
+      val createPangoLayout_ = call (externalFunctionSymbol "gtk_widget_create_pango_layout") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> PangoLayoutClass.PolyML.cPtr)
+      val destroy_ = call (externalFunctionSymbol "gtk_widget_destroy") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val deviceIsShadowed_ = call (externalFunctionSymbol "gtk_widget_device_is_shadowed") (GtkWidgetClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val dragBegin_ =
-        call (getSymbol "gtk_drag_begin")
+        call (externalFunctionSymbol "gtk_drag_begin")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkTargetListRecord.PolyML.cPtr
@@ -88,7 +88,7 @@ structure GtkWidget :>
              --> GdkDragContextClass.PolyML.cPtr
           )
       val dragBeginWithCoordinates_ =
-        call (getSymbol "gtk_drag_begin_with_coordinates")
+        call (externalFunctionSymbol "gtk_drag_begin_with_coordinates")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkTargetListRecord.PolyML.cPtr
@@ -100,7 +100,7 @@ structure GtkWidget :>
              --> GdkDragContextClass.PolyML.cPtr
           )
       val dragCheckThreshold_ =
-        call (getSymbol "gtk_drag_check_threshold")
+        call (externalFunctionSymbol "gtk_drag_check_threshold")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -109,21 +109,21 @@ structure GtkWidget :>
              &&> GInt.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val dragDestAddImageTargets_ = call (getSymbol "gtk_drag_dest_add_image_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val dragDestAddTextTargets_ = call (getSymbol "gtk_drag_dest_add_text_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val dragDestAddUriTargets_ = call (getSymbol "gtk_drag_dest_add_uri_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val dragDestAddImageTargets_ = call (externalFunctionSymbol "gtk_drag_dest_add_image_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val dragDestAddTextTargets_ = call (externalFunctionSymbol "gtk_drag_dest_add_text_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val dragDestAddUriTargets_ = call (externalFunctionSymbol "gtk_drag_dest_add_uri_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val dragDestFindTarget_ =
-        call (getSymbol "gtk_drag_dest_find_target")
+        call (externalFunctionSymbol "gtk_drag_dest_find_target")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkDragContextClass.PolyML.cPtr
              &&> GtkTargetListRecord.PolyML.cOptPtr
              --> GdkAtomRecord.PolyML.cPtr
           )
-      val dragDestGetTargetList_ = call (getSymbol "gtk_drag_dest_get_target_list") (GtkWidgetClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cOptPtr)
-      val dragDestGetTrackMotion_ = call (getSymbol "gtk_drag_dest_get_track_motion") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val dragDestGetTargetList_ = call (externalFunctionSymbol "gtk_drag_dest_get_target_list") (GtkWidgetClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cOptPtr)
+      val dragDestGetTrackMotion_ = call (externalFunctionSymbol "gtk_drag_dest_get_track_motion") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val dragDestSet_ =
-        call (getSymbol "gtk_drag_dest_set")
+        call (externalFunctionSymbol "gtk_drag_dest_set")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkDestDefaults.PolyML.cVal
@@ -133,7 +133,7 @@ structure GtkWidget :>
              --> cVoid
           )
       val dragDestSetProxy_ =
-        call (getSymbol "gtk_drag_dest_set_proxy")
+        call (externalFunctionSymbol "gtk_drag_dest_set_proxy")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkWindowClass.PolyML.cPtr
@@ -141,11 +141,11 @@ structure GtkWidget :>
              &&> GBool.PolyML.cVal
              --> cVoid
           )
-      val dragDestSetTargetList_ = call (getSymbol "gtk_drag_dest_set_target_list") (GtkWidgetClass.PolyML.cPtr &&> GtkTargetListRecord.PolyML.cOptPtr --> cVoid)
-      val dragDestSetTrackMotion_ = call (getSymbol "gtk_drag_dest_set_track_motion") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val dragDestUnset_ = call (getSymbol "gtk_drag_dest_unset") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val dragDestSetTargetList_ = call (externalFunctionSymbol "gtk_drag_dest_set_target_list") (GtkWidgetClass.PolyML.cPtr &&> GtkTargetListRecord.PolyML.cOptPtr --> cVoid)
+      val dragDestSetTrackMotion_ = call (externalFunctionSymbol "gtk_drag_dest_set_track_motion") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val dragDestUnset_ = call (externalFunctionSymbol "gtk_drag_dest_unset") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val dragGetData_ =
-        call (getSymbol "gtk_drag_get_data")
+        call (externalFunctionSymbol "gtk_drag_get_data")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkDragContextClass.PolyML.cPtr
@@ -153,13 +153,13 @@ structure GtkWidget :>
              &&> GUInt32.PolyML.cVal
              --> cVoid
           )
-      val dragHighlight_ = call (getSymbol "gtk_drag_highlight") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val dragSourceAddImageTargets_ = call (getSymbol "gtk_drag_source_add_image_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val dragSourceAddTextTargets_ = call (getSymbol "gtk_drag_source_add_text_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val dragSourceAddUriTargets_ = call (getSymbol "gtk_drag_source_add_uri_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val dragSourceGetTargetList_ = call (getSymbol "gtk_drag_source_get_target_list") (GtkWidgetClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cOptPtr)
+      val dragHighlight_ = call (externalFunctionSymbol "gtk_drag_highlight") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val dragSourceAddImageTargets_ = call (externalFunctionSymbol "gtk_drag_source_add_image_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val dragSourceAddTextTargets_ = call (externalFunctionSymbol "gtk_drag_source_add_text_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val dragSourceAddUriTargets_ = call (externalFunctionSymbol "gtk_drag_source_add_uri_targets") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val dragSourceGetTargetList_ = call (externalFunctionSymbol "gtk_drag_source_get_target_list") (GtkWidgetClass.PolyML.cPtr --> GtkTargetListRecord.PolyML.cOptPtr)
       val dragSourceSet_ =
-        call (getSymbol "gtk_drag_source_set")
+        call (externalFunctionSymbol "gtk_drag_source_set")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkModifierType.PolyML.cVal
@@ -168,74 +168,74 @@ structure GtkWidget :>
              &&> GdkDragAction.PolyML.cVal
              --> cVoid
           )
-      val dragSourceSetIconGicon_ = call (getSymbol "gtk_drag_source_set_icon_gicon") (GtkWidgetClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> cVoid)
-      val dragSourceSetIconName_ = call (getSymbol "gtk_drag_source_set_icon_name") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
-      val dragSourceSetIconPixbuf_ = call (getSymbol "gtk_drag_source_set_icon_pixbuf") (GtkWidgetClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> cVoid)
-      val dragSourceSetIconStock_ = call (getSymbol "gtk_drag_source_set_icon_stock") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
-      val dragSourceSetTargetList_ = call (getSymbol "gtk_drag_source_set_target_list") (GtkWidgetClass.PolyML.cPtr &&> GtkTargetListRecord.PolyML.cOptPtr --> cVoid)
-      val dragSourceUnset_ = call (getSymbol "gtk_drag_source_unset") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val dragUnhighlight_ = call (getSymbol "gtk_drag_unhighlight") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val draw_ = call (getSymbol "gtk_widget_draw") (GtkWidgetClass.PolyML.cPtr &&> CairoContextRecord.PolyML.cPtr --> cVoid)
-      val ensureStyle_ = call (getSymbol "gtk_widget_ensure_style") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val errorBell_ = call (getSymbol "gtk_widget_error_bell") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val event_ = call (getSymbol "gtk_widget_event") (GtkWidgetClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> GBool.PolyML.cVal)
-      val freezeChildNotify_ = call (getSymbol "gtk_widget_freeze_child_notify") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val getAccessible_ = call (getSymbol "gtk_widget_get_accessible") (GtkWidgetClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
-      val getActionGroup_ = call (getSymbol "gtk_widget_get_action_group") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioActionGroupClass.PolyML.cOptPtr)
-      val getAllocatedBaseline_ = call (getSymbol "gtk_widget_get_allocated_baseline") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getAllocatedHeight_ = call (getSymbol "gtk_widget_get_allocated_height") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val dragSourceSetIconGicon_ = call (externalFunctionSymbol "gtk_drag_source_set_icon_gicon") (GtkWidgetClass.PolyML.cPtr &&> GioIconClass.PolyML.cPtr --> cVoid)
+      val dragSourceSetIconName_ = call (externalFunctionSymbol "gtk_drag_source_set_icon_name") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val dragSourceSetIconPixbuf_ = call (externalFunctionSymbol "gtk_drag_source_set_icon_pixbuf") (GtkWidgetClass.PolyML.cPtr &&> GdkPixbufPixbufClass.PolyML.cPtr --> cVoid)
+      val dragSourceSetIconStock_ = call (externalFunctionSymbol "gtk_drag_source_set_icon_stock") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val dragSourceSetTargetList_ = call (externalFunctionSymbol "gtk_drag_source_set_target_list") (GtkWidgetClass.PolyML.cPtr &&> GtkTargetListRecord.PolyML.cOptPtr --> cVoid)
+      val dragSourceUnset_ = call (externalFunctionSymbol "gtk_drag_source_unset") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val dragUnhighlight_ = call (externalFunctionSymbol "gtk_drag_unhighlight") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val draw_ = call (externalFunctionSymbol "gtk_widget_draw") (GtkWidgetClass.PolyML.cPtr &&> CairoContextRecord.PolyML.cPtr --> cVoid)
+      val ensureStyle_ = call (externalFunctionSymbol "gtk_widget_ensure_style") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val errorBell_ = call (externalFunctionSymbol "gtk_widget_error_bell") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val event_ = call (externalFunctionSymbol "gtk_widget_event") (GtkWidgetClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> GBool.PolyML.cVal)
+      val freezeChildNotify_ = call (externalFunctionSymbol "gtk_widget_freeze_child_notify") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val getAccessible_ = call (externalFunctionSymbol "gtk_widget_get_accessible") (GtkWidgetClass.PolyML.cPtr --> AtkObjectClass.PolyML.cPtr)
+      val getActionGroup_ = call (externalFunctionSymbol "gtk_widget_get_action_group") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> GioActionGroupClass.PolyML.cOptPtr)
+      val getAllocatedBaseline_ = call (externalFunctionSymbol "gtk_widget_get_allocated_baseline") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getAllocatedHeight_ = call (externalFunctionSymbol "gtk_widget_get_allocated_height") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
       val getAllocatedSize_ =
-        call (getSymbol "gtk_widget_get_allocated_size")
+        call (externalFunctionSymbol "gtk_widget_get_allocated_size")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkAllocationRecord.PolyML.cPtr
              &&> GInt.PolyML.cRef
              --> cVoid
           )
-      val getAllocatedWidth_ = call (getSymbol "gtk_widget_get_allocated_width") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getAllocation_ = call (getSymbol "gtk_widget_get_allocation") (GtkWidgetClass.PolyML.cPtr &&> GtkAllocationRecord.PolyML.cPtr --> cVoid)
-      val getAncestor_ = call (getSymbol "gtk_widget_get_ancestor") (GtkWidgetClass.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GtkWidgetClass.PolyML.cOptPtr)
-      val getAppPaintable_ = call (getSymbol "gtk_widget_get_app_paintable") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getCanDefault_ = call (getSymbol "gtk_widget_get_can_default") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getCanFocus_ = call (getSymbol "gtk_widget_get_can_focus") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getChildRequisition_ = call (getSymbol "gtk_widget_get_child_requisition") (GtkWidgetClass.PolyML.cPtr &&> GtkRequisitionRecord.PolyML.cPtr --> cVoid)
-      val getChildVisible_ = call (getSymbol "gtk_widget_get_child_visible") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getClip_ = call (getSymbol "gtk_widget_get_clip") (GtkWidgetClass.PolyML.cPtr &&> GtkAllocationRecord.PolyML.cPtr --> cVoid)
-      val getClipboard_ = call (getSymbol "gtk_widget_get_clipboard") (GtkWidgetClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GtkClipboardClass.PolyML.cPtr)
-      val getCompositeName_ = call (getSymbol "gtk_widget_get_composite_name") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getDeviceEnabled_ = call (getSymbol "gtk_widget_get_device_enabled") (GtkWidgetClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getDeviceEvents_ = call (getSymbol "gtk_widget_get_device_events") (GtkWidgetClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GdkEventMask.PolyML.cVal)
-      val getDirection_ = call (getSymbol "gtk_widget_get_direction") (GtkWidgetClass.PolyML.cPtr --> GtkTextDirection.PolyML.cVal)
-      val getDisplay_ = call (getSymbol "gtk_widget_get_display") (GtkWidgetClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
-      val getDoubleBuffered_ = call (getSymbol "gtk_widget_get_double_buffered") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getEvents_ = call (getSymbol "gtk_widget_get_events") (GtkWidgetClass.PolyML.cPtr --> GdkEventMask.PolyML.cVal)
-      val getFocusOnClick_ = call (getSymbol "gtk_widget_get_focus_on_click") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getFontMap_ = call (getSymbol "gtk_widget_get_font_map") (GtkWidgetClass.PolyML.cPtr --> PangoFontMapClass.PolyML.cOptPtr)
-      val getFontOptions_ = call (getSymbol "gtk_widget_get_font_options") (GtkWidgetClass.PolyML.cPtr --> CairoFontOptionsRecord.PolyML.cOptPtr)
-      val getFrameClock_ = call (getSymbol "gtk_widget_get_frame_clock") (GtkWidgetClass.PolyML.cPtr --> GdkFrameClockClass.PolyML.cOptPtr)
-      val getHalign_ = call (getSymbol "gtk_widget_get_halign") (GtkWidgetClass.PolyML.cPtr --> GtkAlign.PolyML.cVal)
-      val getHasTooltip_ = call (getSymbol "gtk_widget_get_has_tooltip") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getHasWindow_ = call (getSymbol "gtk_widget_get_has_window") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getHexpand_ = call (getSymbol "gtk_widget_get_hexpand") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getHexpandSet_ = call (getSymbol "gtk_widget_get_hexpand_set") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getMapped_ = call (getSymbol "gtk_widget_get_mapped") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getMarginBottom_ = call (getSymbol "gtk_widget_get_margin_bottom") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getMarginEnd_ = call (getSymbol "gtk_widget_get_margin_end") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getMarginLeft_ = call (getSymbol "gtk_widget_get_margin_left") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getMarginRight_ = call (getSymbol "gtk_widget_get_margin_right") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getMarginStart_ = call (getSymbol "gtk_widget_get_margin_start") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getMarginTop_ = call (getSymbol "gtk_widget_get_margin_top") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getModifierMask_ = call (getSymbol "gtk_widget_get_modifier_mask") (GtkWidgetClass.PolyML.cPtr &&> GdkModifierIntent.PolyML.cVal --> GdkModifierType.PolyML.cVal)
-      val getModifierStyle_ = call (getSymbol "gtk_widget_get_modifier_style") (GtkWidgetClass.PolyML.cPtr --> GtkRcStyleClass.PolyML.cPtr)
-      val getName_ = call (getSymbol "gtk_widget_get_name") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
-      val getNoShowAll_ = call (getSymbol "gtk_widget_get_no_show_all") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getOpacity_ = call (getSymbol "gtk_widget_get_opacity") (GtkWidgetClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getPangoContext_ = call (getSymbol "gtk_widget_get_pango_context") (GtkWidgetClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
-      val getParent_ = call (getSymbol "gtk_widget_get_parent") (GtkWidgetClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
-      val getParentWindow_ = call (getSymbol "gtk_widget_get_parent_window") (GtkWidgetClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
-      val getPath_ = call (getSymbol "gtk_widget_get_path") (GtkWidgetClass.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
+      val getAllocatedWidth_ = call (externalFunctionSymbol "gtk_widget_get_allocated_width") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getAllocation_ = call (externalFunctionSymbol "gtk_widget_get_allocation") (GtkWidgetClass.PolyML.cPtr &&> GtkAllocationRecord.PolyML.cPtr --> cVoid)
+      val getAncestor_ = call (externalFunctionSymbol "gtk_widget_get_ancestor") (GtkWidgetClass.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GtkWidgetClass.PolyML.cOptPtr)
+      val getAppPaintable_ = call (externalFunctionSymbol "gtk_widget_get_app_paintable") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getCanDefault_ = call (externalFunctionSymbol "gtk_widget_get_can_default") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getCanFocus_ = call (externalFunctionSymbol "gtk_widget_get_can_focus") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getChildRequisition_ = call (externalFunctionSymbol "gtk_widget_get_child_requisition") (GtkWidgetClass.PolyML.cPtr &&> GtkRequisitionRecord.PolyML.cPtr --> cVoid)
+      val getChildVisible_ = call (externalFunctionSymbol "gtk_widget_get_child_visible") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getClip_ = call (externalFunctionSymbol "gtk_widget_get_clip") (GtkWidgetClass.PolyML.cPtr &&> GtkAllocationRecord.PolyML.cPtr --> cVoid)
+      val getClipboard_ = call (externalFunctionSymbol "gtk_widget_get_clipboard") (GtkWidgetClass.PolyML.cPtr &&> GdkAtomRecord.PolyML.cPtr --> GtkClipboardClass.PolyML.cPtr)
+      val getCompositeName_ = call (externalFunctionSymbol "gtk_widget_get_composite_name") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getDeviceEnabled_ = call (externalFunctionSymbol "gtk_widget_get_device_enabled") (GtkWidgetClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getDeviceEvents_ = call (externalFunctionSymbol "gtk_widget_get_device_events") (GtkWidgetClass.PolyML.cPtr &&> GdkDeviceClass.PolyML.cPtr --> GdkEventMask.PolyML.cVal)
+      val getDirection_ = call (externalFunctionSymbol "gtk_widget_get_direction") (GtkWidgetClass.PolyML.cPtr --> GtkTextDirection.PolyML.cVal)
+      val getDisplay_ = call (externalFunctionSymbol "gtk_widget_get_display") (GtkWidgetClass.PolyML.cPtr --> GdkDisplayClass.PolyML.cPtr)
+      val getDoubleBuffered_ = call (externalFunctionSymbol "gtk_widget_get_double_buffered") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getEvents_ = call (externalFunctionSymbol "gtk_widget_get_events") (GtkWidgetClass.PolyML.cPtr --> GdkEventMask.PolyML.cVal)
+      val getFocusOnClick_ = call (externalFunctionSymbol "gtk_widget_get_focus_on_click") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getFontMap_ = call (externalFunctionSymbol "gtk_widget_get_font_map") (GtkWidgetClass.PolyML.cPtr --> PangoFontMapClass.PolyML.cOptPtr)
+      val getFontOptions_ = call (externalFunctionSymbol "gtk_widget_get_font_options") (GtkWidgetClass.PolyML.cPtr --> CairoFontOptionsRecord.PolyML.cOptPtr)
+      val getFrameClock_ = call (externalFunctionSymbol "gtk_widget_get_frame_clock") (GtkWidgetClass.PolyML.cPtr --> GdkFrameClockClass.PolyML.cOptPtr)
+      val getHalign_ = call (externalFunctionSymbol "gtk_widget_get_halign") (GtkWidgetClass.PolyML.cPtr --> GtkAlign.PolyML.cVal)
+      val getHasTooltip_ = call (externalFunctionSymbol "gtk_widget_get_has_tooltip") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getHasWindow_ = call (externalFunctionSymbol "gtk_widget_get_has_window") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getHexpand_ = call (externalFunctionSymbol "gtk_widget_get_hexpand") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getHexpandSet_ = call (externalFunctionSymbol "gtk_widget_get_hexpand_set") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getMapped_ = call (externalFunctionSymbol "gtk_widget_get_mapped") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getMarginBottom_ = call (externalFunctionSymbol "gtk_widget_get_margin_bottom") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getMarginEnd_ = call (externalFunctionSymbol "gtk_widget_get_margin_end") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getMarginLeft_ = call (externalFunctionSymbol "gtk_widget_get_margin_left") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getMarginRight_ = call (externalFunctionSymbol "gtk_widget_get_margin_right") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getMarginStart_ = call (externalFunctionSymbol "gtk_widget_get_margin_start") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getMarginTop_ = call (externalFunctionSymbol "gtk_widget_get_margin_top") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getModifierMask_ = call (externalFunctionSymbol "gtk_widget_get_modifier_mask") (GtkWidgetClass.PolyML.cPtr &&> GdkModifierIntent.PolyML.cVal --> GdkModifierType.PolyML.cVal)
+      val getModifierStyle_ = call (externalFunctionSymbol "gtk_widget_get_modifier_style") (GtkWidgetClass.PolyML.cPtr --> GtkRcStyleClass.PolyML.cPtr)
+      val getName_ = call (externalFunctionSymbol "gtk_widget_get_name") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutPtr)
+      val getNoShowAll_ = call (externalFunctionSymbol "gtk_widget_get_no_show_all") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getOpacity_ = call (externalFunctionSymbol "gtk_widget_get_opacity") (GtkWidgetClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getPangoContext_ = call (externalFunctionSymbol "gtk_widget_get_pango_context") (GtkWidgetClass.PolyML.cPtr --> PangoContextClass.PolyML.cPtr)
+      val getParent_ = call (externalFunctionSymbol "gtk_widget_get_parent") (GtkWidgetClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cOptPtr)
+      val getParentWindow_ = call (externalFunctionSymbol "gtk_widget_get_parent_window") (GtkWidgetClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
+      val getPath_ = call (externalFunctionSymbol "gtk_widget_get_path") (GtkWidgetClass.PolyML.cPtr --> GtkWidgetPathRecord.PolyML.cPtr)
       val getPointer_ =
-        call (getSymbol "gtk_widget_get_pointer")
+        call (externalFunctionSymbol "gtk_widget_get_pointer")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cRef
@@ -243,7 +243,7 @@ structure GtkWidget :>
              --> cVoid
           )
       val getPreferredHeight_ =
-        call (getSymbol "gtk_widget_get_preferred_height")
+        call (externalFunctionSymbol "gtk_widget_get_preferred_height")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cRef
@@ -251,7 +251,7 @@ structure GtkWidget :>
              --> cVoid
           )
       val getPreferredHeightAndBaselineForWidth_ =
-        call (getSymbol "gtk_widget_get_preferred_height_and_baseline_for_width")
+        call (externalFunctionSymbol "gtk_widget_get_preferred_height_and_baseline_for_width")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -262,7 +262,7 @@ structure GtkWidget :>
              --> cVoid
           )
       val getPreferredHeightForWidth_ =
-        call (getSymbol "gtk_widget_get_preferred_height_for_width")
+        call (externalFunctionSymbol "gtk_widget_get_preferred_height_for_width")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -271,7 +271,7 @@ structure GtkWidget :>
              --> cVoid
           )
       val getPreferredSize_ =
-        call (getSymbol "gtk_widget_get_preferred_size")
+        call (externalFunctionSymbol "gtk_widget_get_preferred_size")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkRequisitionRecord.PolyML.cPtr
@@ -279,7 +279,7 @@ structure GtkWidget :>
              --> cVoid
           )
       val getPreferredWidth_ =
-        call (getSymbol "gtk_widget_get_preferred_width")
+        call (externalFunctionSymbol "gtk_widget_get_preferred_width")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cRef
@@ -287,7 +287,7 @@ structure GtkWidget :>
              --> cVoid
           )
       val getPreferredWidthForHeight_ =
-        call (getSymbol "gtk_widget_get_preferred_width_for_height")
+        call (externalFunctionSymbol "gtk_widget_get_preferred_width_for_height")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -295,64 +295,64 @@ structure GtkWidget :>
              &&> GInt.PolyML.cRef
              --> cVoid
           )
-      val getRealized_ = call (getSymbol "gtk_widget_get_realized") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getReceivesDefault_ = call (getSymbol "gtk_widget_get_receives_default") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getRequestMode_ = call (getSymbol "gtk_widget_get_request_mode") (GtkWidgetClass.PolyML.cPtr --> GtkSizeRequestMode.PolyML.cVal)
-      val getRequisition_ = call (getSymbol "gtk_widget_get_requisition") (GtkWidgetClass.PolyML.cPtr &&> GtkRequisitionRecord.PolyML.cPtr --> cVoid)
-      val getRootWindow_ = call (getSymbol "gtk_widget_get_root_window") (GtkWidgetClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
-      val getScaleFactor_ = call (getSymbol "gtk_widget_get_scale_factor") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getScreen_ = call (getSymbol "gtk_widget_get_screen") (GtkWidgetClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
-      val getSensitive_ = call (getSymbol "gtk_widget_get_sensitive") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getSettings_ = call (getSymbol "gtk_widget_get_settings") (GtkWidgetClass.PolyML.cPtr --> GtkSettingsClass.PolyML.cPtr)
+      val getRealized_ = call (externalFunctionSymbol "gtk_widget_get_realized") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getReceivesDefault_ = call (externalFunctionSymbol "gtk_widget_get_receives_default") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getRequestMode_ = call (externalFunctionSymbol "gtk_widget_get_request_mode") (GtkWidgetClass.PolyML.cPtr --> GtkSizeRequestMode.PolyML.cVal)
+      val getRequisition_ = call (externalFunctionSymbol "gtk_widget_get_requisition") (GtkWidgetClass.PolyML.cPtr &&> GtkRequisitionRecord.PolyML.cPtr --> cVoid)
+      val getRootWindow_ = call (externalFunctionSymbol "gtk_widget_get_root_window") (GtkWidgetClass.PolyML.cPtr --> GdkWindowClass.PolyML.cPtr)
+      val getScaleFactor_ = call (externalFunctionSymbol "gtk_widget_get_scale_factor") (GtkWidgetClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getScreen_ = call (externalFunctionSymbol "gtk_widget_get_screen") (GtkWidgetClass.PolyML.cPtr --> GdkScreenClass.PolyML.cPtr)
+      val getSensitive_ = call (externalFunctionSymbol "gtk_widget_get_sensitive") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getSettings_ = call (externalFunctionSymbol "gtk_widget_get_settings") (GtkWidgetClass.PolyML.cPtr --> GtkSettingsClass.PolyML.cPtr)
       val getSizeRequest_ =
-        call (getSymbol "gtk_widget_get_size_request")
+        call (externalFunctionSymbol "gtk_widget_get_size_request")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cRef
              &&> GInt.PolyML.cRef
              --> cVoid
           )
-      val getState_ = call (getSymbol "gtk_widget_get_state") (GtkWidgetClass.PolyML.cPtr --> GtkStateType.PolyML.cVal)
-      val getStateFlags_ = call (getSymbol "gtk_widget_get_state_flags") (GtkWidgetClass.PolyML.cPtr --> GtkStateFlags.PolyML.cVal)
-      val getStyle_ = call (getSymbol "gtk_widget_get_style") (GtkWidgetClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
-      val getStyleContext_ = call (getSymbol "gtk_widget_get_style_context") (GtkWidgetClass.PolyML.cPtr --> GtkStyleContextClass.PolyML.cPtr)
-      val getSupportMultidevice_ = call (getSymbol "gtk_widget_get_support_multidevice") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getState_ = call (externalFunctionSymbol "gtk_widget_get_state") (GtkWidgetClass.PolyML.cPtr --> GtkStateType.PolyML.cVal)
+      val getStateFlags_ = call (externalFunctionSymbol "gtk_widget_get_state_flags") (GtkWidgetClass.PolyML.cPtr --> GtkStateFlags.PolyML.cVal)
+      val getStyle_ = call (externalFunctionSymbol "gtk_widget_get_style") (GtkWidgetClass.PolyML.cPtr --> GtkStyleClass.PolyML.cPtr)
+      val getStyleContext_ = call (externalFunctionSymbol "gtk_widget_get_style_context") (GtkWidgetClass.PolyML.cPtr --> GtkStyleContextClass.PolyML.cPtr)
+      val getSupportMultidevice_ = call (externalFunctionSymbol "gtk_widget_get_support_multidevice") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val getTemplateChild_ =
-        call (getSymbol "gtk_widget_get_template_child")
+        call (externalFunctionSymbol "gtk_widget_get_template_child")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GObjectType.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
              --> GObjectObjectClass.PolyML.cPtr
           )
-      val getTooltipMarkup_ = call (getSymbol "gtk_widget_get_tooltip_markup") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val getTooltipText_ = call (getSymbol "gtk_widget_get_tooltip_text") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val getTooltipWindow_ = call (getSymbol "gtk_widget_get_tooltip_window") (GtkWidgetClass.PolyML.cPtr --> GtkWindowClass.PolyML.cPtr)
-      val getToplevel_ = call (getSymbol "gtk_widget_get_toplevel") (GtkWidgetClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
-      val getValign_ = call (getSymbol "gtk_widget_get_valign") (GtkWidgetClass.PolyML.cPtr --> GtkAlign.PolyML.cVal)
-      val getValignWithBaseline_ = call (getSymbol "gtk_widget_get_valign_with_baseline") (GtkWidgetClass.PolyML.cPtr --> GtkAlign.PolyML.cVal)
-      val getVexpand_ = call (getSymbol "gtk_widget_get_vexpand") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getVexpandSet_ = call (getSymbol "gtk_widget_get_vexpand_set") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getVisible_ = call (getSymbol "gtk_widget_get_visible") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getVisual_ = call (getSymbol "gtk_widget_get_visual") (GtkWidgetClass.PolyML.cPtr --> GdkVisualClass.PolyML.cPtr)
-      val getWindow_ = call (getSymbol "gtk_widget_get_window") (GtkWidgetClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
-      val grabAdd_ = call (getSymbol "gtk_grab_add") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val grabDefault_ = call (getSymbol "gtk_widget_grab_default") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val grabFocus_ = call (getSymbol "gtk_widget_grab_focus") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val grabRemove_ = call (getSymbol "gtk_grab_remove") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val hasDefault_ = call (getSymbol "gtk_widget_has_default") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val hasFocus_ = call (getSymbol "gtk_widget_has_focus") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val hasGrab_ = call (getSymbol "gtk_widget_has_grab") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val hasRcStyle_ = call (getSymbol "gtk_widget_has_rc_style") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val hasScreen_ = call (getSymbol "gtk_widget_has_screen") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val hasVisibleFocus_ = call (getSymbol "gtk_widget_has_visible_focus") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val hide_ = call (getSymbol "gtk_widget_hide") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val hideOnDelete_ = call (getSymbol "gtk_widget_hide_on_delete") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val inDestruction_ = call (getSymbol "gtk_widget_in_destruction") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val initTemplate_ = call (getSymbol "gtk_widget_init_template") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val inputShapeCombineRegion_ = call (getSymbol "gtk_widget_input_shape_combine_region") (GtkWidgetClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cOptPtr --> cVoid)
+      val getTooltipMarkup_ = call (externalFunctionSymbol "gtk_widget_get_tooltip_markup") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getTooltipText_ = call (externalFunctionSymbol "gtk_widget_get_tooltip_text") (GtkWidgetClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getTooltipWindow_ = call (externalFunctionSymbol "gtk_widget_get_tooltip_window") (GtkWidgetClass.PolyML.cPtr --> GtkWindowClass.PolyML.cPtr)
+      val getToplevel_ = call (externalFunctionSymbol "gtk_widget_get_toplevel") (GtkWidgetClass.PolyML.cPtr --> GtkWidgetClass.PolyML.cPtr)
+      val getValign_ = call (externalFunctionSymbol "gtk_widget_get_valign") (GtkWidgetClass.PolyML.cPtr --> GtkAlign.PolyML.cVal)
+      val getValignWithBaseline_ = call (externalFunctionSymbol "gtk_widget_get_valign_with_baseline") (GtkWidgetClass.PolyML.cPtr --> GtkAlign.PolyML.cVal)
+      val getVexpand_ = call (externalFunctionSymbol "gtk_widget_get_vexpand") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getVexpandSet_ = call (externalFunctionSymbol "gtk_widget_get_vexpand_set") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getVisible_ = call (externalFunctionSymbol "gtk_widget_get_visible") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getVisual_ = call (externalFunctionSymbol "gtk_widget_get_visual") (GtkWidgetClass.PolyML.cPtr --> GdkVisualClass.PolyML.cPtr)
+      val getWindow_ = call (externalFunctionSymbol "gtk_widget_get_window") (GtkWidgetClass.PolyML.cPtr --> GdkWindowClass.PolyML.cOptPtr)
+      val grabAdd_ = call (externalFunctionSymbol "gtk_grab_add") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val grabDefault_ = call (externalFunctionSymbol "gtk_widget_grab_default") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val grabFocus_ = call (externalFunctionSymbol "gtk_widget_grab_focus") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val grabRemove_ = call (externalFunctionSymbol "gtk_grab_remove") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val hasDefault_ = call (externalFunctionSymbol "gtk_widget_has_default") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val hasFocus_ = call (externalFunctionSymbol "gtk_widget_has_focus") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val hasGrab_ = call (externalFunctionSymbol "gtk_widget_has_grab") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val hasRcStyle_ = call (externalFunctionSymbol "gtk_widget_has_rc_style") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val hasScreen_ = call (externalFunctionSymbol "gtk_widget_has_screen") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val hasVisibleFocus_ = call (externalFunctionSymbol "gtk_widget_has_visible_focus") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val hide_ = call (externalFunctionSymbol "gtk_widget_hide") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val hideOnDelete_ = call (externalFunctionSymbol "gtk_widget_hide_on_delete") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val inDestruction_ = call (externalFunctionSymbol "gtk_widget_in_destruction") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val initTemplate_ = call (externalFunctionSymbol "gtk_widget_init_template") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val inputShapeCombineRegion_ = call (externalFunctionSymbol "gtk_widget_input_shape_combine_region") (GtkWidgetClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cOptPtr --> cVoid)
       val insertActionGroup_ =
-        call (getSymbol "gtk_widget_insert_action_group")
+        call (externalFunctionSymbol "gtk_widget_insert_action_group")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -360,26 +360,26 @@ structure GtkWidget :>
              --> cVoid
           )
       val intersect_ =
-        call (getSymbol "gtk_widget_intersect")
+        call (externalFunctionSymbol "gtk_widget_intersect")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
              &&> GdkRectangleRecord.PolyML.cPtr
              --> GBool.PolyML.cVal
           )
-      val isAncestor_ = call (getSymbol "gtk_widget_is_ancestor") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isComposited_ = call (getSymbol "gtk_widget_is_composited") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isDrawable_ = call (getSymbol "gtk_widget_is_drawable") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isFocus_ = call (getSymbol "gtk_widget_is_focus") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isSensitive_ = call (getSymbol "gtk_widget_is_sensitive") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isToplevel_ = call (getSymbol "gtk_widget_is_toplevel") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val isVisible_ = call (getSymbol "gtk_widget_is_visible") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val keynavFailed_ = call (getSymbol "gtk_widget_keynav_failed") (GtkWidgetClass.PolyML.cPtr &&> GtkDirectionType.PolyML.cVal --> GBool.PolyML.cVal)
-      val listActionPrefixes_ = call (getSymbol "gtk_widget_list_action_prefixes") (GtkWidgetClass.PolyML.cPtr --> Utf8CPtrArray.PolyML.cOutPtr)
-      val map_ = call (getSymbol "gtk_widget_map") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val mnemonicActivate_ = call (getSymbol "gtk_widget_mnemonic_activate") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> GBool.PolyML.cVal)
+      val isAncestor_ = call (externalFunctionSymbol "gtk_widget_is_ancestor") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isComposited_ = call (externalFunctionSymbol "gtk_widget_is_composited") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isDrawable_ = call (externalFunctionSymbol "gtk_widget_is_drawable") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isFocus_ = call (externalFunctionSymbol "gtk_widget_is_focus") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isSensitive_ = call (externalFunctionSymbol "gtk_widget_is_sensitive") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isToplevel_ = call (externalFunctionSymbol "gtk_widget_is_toplevel") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val isVisible_ = call (externalFunctionSymbol "gtk_widget_is_visible") (GtkWidgetClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val keynavFailed_ = call (externalFunctionSymbol "gtk_widget_keynav_failed") (GtkWidgetClass.PolyML.cPtr &&> GtkDirectionType.PolyML.cVal --> GBool.PolyML.cVal)
+      val listActionPrefixes_ = call (externalFunctionSymbol "gtk_widget_list_action_prefixes") (GtkWidgetClass.PolyML.cPtr --> Utf8CPtrArray.PolyML.cOutPtr)
+      val map_ = call (externalFunctionSymbol "gtk_widget_map") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val mnemonicActivate_ = call (externalFunctionSymbol "gtk_widget_mnemonic_activate") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> GBool.PolyML.cVal)
       val modifyBase_ =
-        call (getSymbol "gtk_widget_modify_base")
+        call (externalFunctionSymbol "gtk_widget_modify_base")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkStateType.PolyML.cVal
@@ -387,7 +387,7 @@ structure GtkWidget :>
              --> cVoid
           )
       val modifyBg_ =
-        call (getSymbol "gtk_widget_modify_bg")
+        call (externalFunctionSymbol "gtk_widget_modify_bg")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkStateType.PolyML.cVal
@@ -395,7 +395,7 @@ structure GtkWidget :>
              --> cVoid
           )
       val modifyCursor_ =
-        call (getSymbol "gtk_widget_modify_cursor")
+        call (externalFunctionSymbol "gtk_widget_modify_cursor")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkColorRecord.PolyML.cOptPtr
@@ -403,17 +403,17 @@ structure GtkWidget :>
              --> cVoid
           )
       val modifyFg_ =
-        call (getSymbol "gtk_widget_modify_fg")
+        call (externalFunctionSymbol "gtk_widget_modify_fg")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkStateType.PolyML.cVal
              &&> GdkColorRecord.PolyML.cOptPtr
              --> cVoid
           )
-      val modifyFont_ = call (getSymbol "gtk_widget_modify_font") (GtkWidgetClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> cVoid)
-      val modifyStyle_ = call (getSymbol "gtk_widget_modify_style") (GtkWidgetClass.PolyML.cPtr &&> GtkRcStyleClass.PolyML.cPtr --> cVoid)
+      val modifyFont_ = call (externalFunctionSymbol "gtk_widget_modify_font") (GtkWidgetClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> cVoid)
+      val modifyStyle_ = call (externalFunctionSymbol "gtk_widget_modify_style") (GtkWidgetClass.PolyML.cPtr &&> GtkRcStyleClass.PolyML.cPtr --> cVoid)
       val modifyText_ =
-        call (getSymbol "gtk_widget_modify_text")
+        call (externalFunctionSymbol "gtk_widget_modify_text")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkStateType.PolyML.cVal
@@ -421,7 +421,7 @@ structure GtkWidget :>
              --> cVoid
           )
       val overrideBackgroundColor_ =
-        call (getSymbol "gtk_widget_override_background_color")
+        call (externalFunctionSymbol "gtk_widget_override_background_color")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
@@ -429,7 +429,7 @@ structure GtkWidget :>
              --> cVoid
           )
       val overrideColor_ =
-        call (getSymbol "gtk_widget_override_color")
+        call (externalFunctionSymbol "gtk_widget_override_color")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
@@ -437,16 +437,16 @@ structure GtkWidget :>
              --> cVoid
           )
       val overrideCursor_ =
-        call (getSymbol "gtk_widget_override_cursor")
+        call (externalFunctionSymbol "gtk_widget_override_cursor")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkRgbaRecord.PolyML.cOptPtr
              &&> GdkRgbaRecord.PolyML.cOptPtr
              --> cVoid
           )
-      val overrideFont_ = call (getSymbol "gtk_widget_override_font") (GtkWidgetClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> cVoid)
+      val overrideFont_ = call (externalFunctionSymbol "gtk_widget_override_font") (GtkWidgetClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> cVoid)
       val overrideSymbolicColor_ =
-        call (getSymbol "gtk_widget_override_symbolic_color")
+        call (externalFunctionSymbol "gtk_widget_override_symbolic_color")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -454,7 +454,7 @@ structure GtkWidget :>
              --> cVoid
           )
       val path_ =
-        call (getSymbol "gtk_widget_path")
+        call (externalFunctionSymbol "gtk_widget_path")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GUInt.PolyML.cRef
@@ -462,11 +462,11 @@ structure GtkWidget :>
              &&> Utf8.PolyML.cOutRef
              --> cVoid
           )
-      val queueAllocate_ = call (getSymbol "gtk_widget_queue_allocate") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val queueComputeExpand_ = call (getSymbol "gtk_widget_queue_compute_expand") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val queueDraw_ = call (getSymbol "gtk_widget_queue_draw") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val queueAllocate_ = call (externalFunctionSymbol "gtk_widget_queue_allocate") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val queueComputeExpand_ = call (externalFunctionSymbol "gtk_widget_queue_compute_expand") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val queueDraw_ = call (externalFunctionSymbol "gtk_widget_queue_draw") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val queueDrawArea_ =
-        call (getSymbol "gtk_widget_queue_draw_area")
+        call (externalFunctionSymbol "gtk_widget_queue_draw_area")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -475,14 +475,14 @@ structure GtkWidget :>
              &&> GInt.PolyML.cVal
              --> cVoid
           )
-      val queueDrawRegion_ = call (getSymbol "gtk_widget_queue_draw_region") (GtkWidgetClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cPtr --> cVoid)
-      val queueResize_ = call (getSymbol "gtk_widget_queue_resize") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val queueResizeNoRedraw_ = call (getSymbol "gtk_widget_queue_resize_no_redraw") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val realize_ = call (getSymbol "gtk_widget_realize") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val regionIntersect_ = call (getSymbol "gtk_widget_region_intersect") (GtkWidgetClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
-      val registerWindow_ = call (getSymbol "gtk_widget_register_window") (GtkWidgetClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
+      val queueDrawRegion_ = call (externalFunctionSymbol "gtk_widget_queue_draw_region") (GtkWidgetClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cPtr --> cVoid)
+      val queueResize_ = call (externalFunctionSymbol "gtk_widget_queue_resize") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val queueResizeNoRedraw_ = call (externalFunctionSymbol "gtk_widget_queue_resize_no_redraw") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val realize_ = call (externalFunctionSymbol "gtk_widget_realize") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val regionIntersect_ = call (externalFunctionSymbol "gtk_widget_region_intersect") (GtkWidgetClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cPtr --> CairoRegionRecord.PolyML.cPtr)
+      val registerWindow_ = call (externalFunctionSymbol "gtk_widget_register_window") (GtkWidgetClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
       val removeAccelerator_ =
-        call (getSymbol "gtk_widget_remove_accelerator")
+        call (externalFunctionSymbol "gtk_widget_remove_accelerator")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkAccelGroupClass.PolyML.cPtr
@@ -490,10 +490,10 @@ structure GtkWidget :>
              &&> GdkModifierType.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val removeMnemonicLabel_ = call (getSymbol "gtk_widget_remove_mnemonic_label") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val removeTickCallback_ = call (getSymbol "gtk_widget_remove_tick_callback") (GtkWidgetClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
+      val removeMnemonicLabel_ = call (externalFunctionSymbol "gtk_widget_remove_mnemonic_label") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val removeTickCallback_ = call (externalFunctionSymbol "gtk_widget_remove_tick_callback") (GtkWidgetClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
       val renderIcon_ =
-        call (getSymbol "gtk_widget_render_icon")
+        call (externalFunctionSymbol "gtk_widget_render_icon")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -502,35 +502,35 @@ structure GtkWidget :>
              --> GdkPixbufPixbufClass.PolyML.cOptPtr
           )
       val renderIconPixbuf_ =
-        call (getSymbol "gtk_widget_render_icon_pixbuf")
+        call (externalFunctionSymbol "gtk_widget_render_icon_pixbuf")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GInt.PolyML.cVal
              --> GdkPixbufPixbufClass.PolyML.cOptPtr
           )
-      val reparent_ = call (getSymbol "gtk_widget_reparent") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val resetRcStyles_ = call (getSymbol "gtk_widget_reset_rc_styles") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val resetStyle_ = call (getSymbol "gtk_widget_reset_style") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val sendExpose_ = call (getSymbol "gtk_widget_send_expose") (GtkWidgetClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> GInt.PolyML.cVal)
-      val sendFocusChange_ = call (getSymbol "gtk_widget_send_focus_change") (GtkWidgetClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> GBool.PolyML.cVal)
+      val reparent_ = call (externalFunctionSymbol "gtk_widget_reparent") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val resetRcStyles_ = call (externalFunctionSymbol "gtk_widget_reset_rc_styles") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val resetStyle_ = call (externalFunctionSymbol "gtk_widget_reset_style") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val sendExpose_ = call (externalFunctionSymbol "gtk_widget_send_expose") (GtkWidgetClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> GInt.PolyML.cVal)
+      val sendFocusChange_ = call (externalFunctionSymbol "gtk_widget_send_focus_change") (GtkWidgetClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> GBool.PolyML.cVal)
       val setAccelPath_ =
-        call (getSymbol "gtk_widget_set_accel_path")
+        call (externalFunctionSymbol "gtk_widget_set_accel_path")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GtkAccelGroupClass.PolyML.cOptPtr
              --> cVoid
           )
-      val setAllocation_ = call (getSymbol "gtk_widget_set_allocation") (GtkWidgetClass.PolyML.cPtr &&> GtkAllocationRecord.PolyML.cPtr --> cVoid)
-      val setAppPaintable_ = call (getSymbol "gtk_widget_set_app_paintable") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setCanDefault_ = call (getSymbol "gtk_widget_set_can_default") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setCanFocus_ = call (getSymbol "gtk_widget_set_can_focus") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setChildVisible_ = call (getSymbol "gtk_widget_set_child_visible") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setClip_ = call (getSymbol "gtk_widget_set_clip") (GtkWidgetClass.PolyML.cPtr &&> GtkAllocationRecord.PolyML.cPtr --> cVoid)
-      val setCompositeName_ = call (getSymbol "gtk_widget_set_composite_name") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setAllocation_ = call (externalFunctionSymbol "gtk_widget_set_allocation") (GtkWidgetClass.PolyML.cPtr &&> GtkAllocationRecord.PolyML.cPtr --> cVoid)
+      val setAppPaintable_ = call (externalFunctionSymbol "gtk_widget_set_app_paintable") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setCanDefault_ = call (externalFunctionSymbol "gtk_widget_set_can_default") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setCanFocus_ = call (externalFunctionSymbol "gtk_widget_set_can_focus") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setChildVisible_ = call (externalFunctionSymbol "gtk_widget_set_child_visible") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setClip_ = call (externalFunctionSymbol "gtk_widget_set_clip") (GtkWidgetClass.PolyML.cPtr &&> GtkAllocationRecord.PolyML.cPtr --> cVoid)
+      val setCompositeName_ = call (externalFunctionSymbol "gtk_widget_set_composite_name") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val setDeviceEnabled_ =
-        call (getSymbol "gtk_widget_set_device_enabled")
+        call (externalFunctionSymbol "gtk_widget_set_device_enabled")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkDeviceClass.PolyML.cPtr
@@ -538,94 +538,94 @@ structure GtkWidget :>
              --> cVoid
           )
       val setDeviceEvents_ =
-        call (getSymbol "gtk_widget_set_device_events")
+        call (externalFunctionSymbol "gtk_widget_set_device_events")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GdkDeviceClass.PolyML.cPtr
              &&> GdkEventMask.PolyML.cVal
              --> cVoid
           )
-      val setDirection_ = call (getSymbol "gtk_widget_set_direction") (GtkWidgetClass.PolyML.cPtr &&> GtkTextDirection.PolyML.cVal --> cVoid)
-      val setDoubleBuffered_ = call (getSymbol "gtk_widget_set_double_buffered") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setEvents_ = call (getSymbol "gtk_widget_set_events") (GtkWidgetClass.PolyML.cPtr &&> GdkEventMask.PolyML.cVal --> cVoid)
-      val setFocusOnClick_ = call (getSymbol "gtk_widget_set_focus_on_click") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setFontMap_ = call (getSymbol "gtk_widget_set_font_map") (GtkWidgetClass.PolyML.cPtr &&> PangoFontMapClass.PolyML.cOptPtr --> cVoid)
-      val setFontOptions_ = call (getSymbol "gtk_widget_set_font_options") (GtkWidgetClass.PolyML.cPtr &&> CairoFontOptionsRecord.PolyML.cOptPtr --> cVoid)
-      val setHalign_ = call (getSymbol "gtk_widget_set_halign") (GtkWidgetClass.PolyML.cPtr &&> GtkAlign.PolyML.cVal --> cVoid)
-      val setHasTooltip_ = call (getSymbol "gtk_widget_set_has_tooltip") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setHasWindow_ = call (getSymbol "gtk_widget_set_has_window") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setHexpand_ = call (getSymbol "gtk_widget_set_hexpand") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setHexpandSet_ = call (getSymbol "gtk_widget_set_hexpand_set") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setMapped_ = call (getSymbol "gtk_widget_set_mapped") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setMarginBottom_ = call (getSymbol "gtk_widget_set_margin_bottom") (GtkWidgetClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
-      val setMarginEnd_ = call (getSymbol "gtk_widget_set_margin_end") (GtkWidgetClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
-      val setMarginLeft_ = call (getSymbol "gtk_widget_set_margin_left") (GtkWidgetClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
-      val setMarginRight_ = call (getSymbol "gtk_widget_set_margin_right") (GtkWidgetClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
-      val setMarginStart_ = call (getSymbol "gtk_widget_set_margin_start") (GtkWidgetClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
-      val setMarginTop_ = call (getSymbol "gtk_widget_set_margin_top") (GtkWidgetClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
-      val setName_ = call (getSymbol "gtk_widget_set_name") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
-      val setNoShowAll_ = call (getSymbol "gtk_widget_set_no_show_all") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setOpacity_ = call (getSymbol "gtk_widget_set_opacity") (GtkWidgetClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
-      val setParent_ = call (getSymbol "gtk_widget_set_parent") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val setParentWindow_ = call (getSymbol "gtk_widget_set_parent_window") (GtkWidgetClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
-      val setRealized_ = call (getSymbol "gtk_widget_set_realized") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setReceivesDefault_ = call (getSymbol "gtk_widget_set_receives_default") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setRedrawOnAllocate_ = call (getSymbol "gtk_widget_set_redraw_on_allocate") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setSensitive_ = call (getSymbol "gtk_widget_set_sensitive") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setDirection_ = call (externalFunctionSymbol "gtk_widget_set_direction") (GtkWidgetClass.PolyML.cPtr &&> GtkTextDirection.PolyML.cVal --> cVoid)
+      val setDoubleBuffered_ = call (externalFunctionSymbol "gtk_widget_set_double_buffered") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setEvents_ = call (externalFunctionSymbol "gtk_widget_set_events") (GtkWidgetClass.PolyML.cPtr &&> GdkEventMask.PolyML.cVal --> cVoid)
+      val setFocusOnClick_ = call (externalFunctionSymbol "gtk_widget_set_focus_on_click") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setFontMap_ = call (externalFunctionSymbol "gtk_widget_set_font_map") (GtkWidgetClass.PolyML.cPtr &&> PangoFontMapClass.PolyML.cOptPtr --> cVoid)
+      val setFontOptions_ = call (externalFunctionSymbol "gtk_widget_set_font_options") (GtkWidgetClass.PolyML.cPtr &&> CairoFontOptionsRecord.PolyML.cOptPtr --> cVoid)
+      val setHalign_ = call (externalFunctionSymbol "gtk_widget_set_halign") (GtkWidgetClass.PolyML.cPtr &&> GtkAlign.PolyML.cVal --> cVoid)
+      val setHasTooltip_ = call (externalFunctionSymbol "gtk_widget_set_has_tooltip") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setHasWindow_ = call (externalFunctionSymbol "gtk_widget_set_has_window") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setHexpand_ = call (externalFunctionSymbol "gtk_widget_set_hexpand") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setHexpandSet_ = call (externalFunctionSymbol "gtk_widget_set_hexpand_set") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setMapped_ = call (externalFunctionSymbol "gtk_widget_set_mapped") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setMarginBottom_ = call (externalFunctionSymbol "gtk_widget_set_margin_bottom") (GtkWidgetClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setMarginEnd_ = call (externalFunctionSymbol "gtk_widget_set_margin_end") (GtkWidgetClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setMarginLeft_ = call (externalFunctionSymbol "gtk_widget_set_margin_left") (GtkWidgetClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setMarginRight_ = call (externalFunctionSymbol "gtk_widget_set_margin_right") (GtkWidgetClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setMarginStart_ = call (externalFunctionSymbol "gtk_widget_set_margin_start") (GtkWidgetClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setMarginTop_ = call (externalFunctionSymbol "gtk_widget_set_margin_top") (GtkWidgetClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setName_ = call (externalFunctionSymbol "gtk_widget_set_name") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setNoShowAll_ = call (externalFunctionSymbol "gtk_widget_set_no_show_all") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setOpacity_ = call (externalFunctionSymbol "gtk_widget_set_opacity") (GtkWidgetClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setParent_ = call (externalFunctionSymbol "gtk_widget_set_parent") (GtkWidgetClass.PolyML.cPtr &&> GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val setParentWindow_ = call (externalFunctionSymbol "gtk_widget_set_parent_window") (GtkWidgetClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
+      val setRealized_ = call (externalFunctionSymbol "gtk_widget_set_realized") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setReceivesDefault_ = call (externalFunctionSymbol "gtk_widget_set_receives_default") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setRedrawOnAllocate_ = call (externalFunctionSymbol "gtk_widget_set_redraw_on_allocate") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setSensitive_ = call (externalFunctionSymbol "gtk_widget_set_sensitive") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setSizeRequest_ =
-        call (getSymbol "gtk_widget_set_size_request")
+        call (externalFunctionSymbol "gtk_widget_set_size_request")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GInt.PolyML.cVal
              --> cVoid
           )
-      val setState_ = call (getSymbol "gtk_widget_set_state") (GtkWidgetClass.PolyML.cPtr &&> GtkStateType.PolyML.cVal --> cVoid)
+      val setState_ = call (externalFunctionSymbol "gtk_widget_set_state") (GtkWidgetClass.PolyML.cPtr &&> GtkStateType.PolyML.cVal --> cVoid)
       val setStateFlags_ =
-        call (getSymbol "gtk_widget_set_state_flags")
+        call (externalFunctionSymbol "gtk_widget_set_state_flags")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkStateFlags.PolyML.cVal
              &&> GBool.PolyML.cVal
              --> cVoid
           )
-      val setStyle_ = call (getSymbol "gtk_widget_set_style") (GtkWidgetClass.PolyML.cPtr &&> GtkStyleClass.PolyML.cOptPtr --> cVoid)
-      val setSupportMultidevice_ = call (getSymbol "gtk_widget_set_support_multidevice") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setTooltipMarkup_ = call (getSymbol "gtk_widget_set_tooltip_markup") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
-      val setTooltipText_ = call (getSymbol "gtk_widget_set_tooltip_text") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
-      val setTooltipWindow_ = call (getSymbol "gtk_widget_set_tooltip_window") (GtkWidgetClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cOptPtr --> cVoid)
-      val setValign_ = call (getSymbol "gtk_widget_set_valign") (GtkWidgetClass.PolyML.cPtr &&> GtkAlign.PolyML.cVal --> cVoid)
-      val setVexpand_ = call (getSymbol "gtk_widget_set_vexpand") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setVexpandSet_ = call (getSymbol "gtk_widget_set_vexpand_set") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setVisible_ = call (getSymbol "gtk_widget_set_visible") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setVisual_ = call (getSymbol "gtk_widget_set_visual") (GtkWidgetClass.PolyML.cPtr &&> GdkVisualClass.PolyML.cOptPtr --> cVoid)
-      val setWindow_ = call (getSymbol "gtk_widget_set_window") (GtkWidgetClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
-      val shapeCombineRegion_ = call (getSymbol "gtk_widget_shape_combine_region") (GtkWidgetClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cOptPtr --> cVoid)
-      val show_ = call (getSymbol "gtk_widget_show") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val showAll_ = call (getSymbol "gtk_widget_show_all") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val showNow_ = call (getSymbol "gtk_widget_show_now") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val sizeAllocate_ = call (getSymbol "gtk_widget_size_allocate") (GtkWidgetClass.PolyML.cPtr &&> GtkAllocationRecord.PolyML.cPtr --> cVoid)
+      val setStyle_ = call (externalFunctionSymbol "gtk_widget_set_style") (GtkWidgetClass.PolyML.cPtr &&> GtkStyleClass.PolyML.cOptPtr --> cVoid)
+      val setSupportMultidevice_ = call (externalFunctionSymbol "gtk_widget_set_support_multidevice") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setTooltipMarkup_ = call (externalFunctionSymbol "gtk_widget_set_tooltip_markup") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
+      val setTooltipText_ = call (externalFunctionSymbol "gtk_widget_set_tooltip_text") (GtkWidgetClass.PolyML.cPtr &&> Utf8.PolyML.cInOptPtr --> cVoid)
+      val setTooltipWindow_ = call (externalFunctionSymbol "gtk_widget_set_tooltip_window") (GtkWidgetClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cOptPtr --> cVoid)
+      val setValign_ = call (externalFunctionSymbol "gtk_widget_set_valign") (GtkWidgetClass.PolyML.cPtr &&> GtkAlign.PolyML.cVal --> cVoid)
+      val setVexpand_ = call (externalFunctionSymbol "gtk_widget_set_vexpand") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setVexpandSet_ = call (externalFunctionSymbol "gtk_widget_set_vexpand_set") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setVisible_ = call (externalFunctionSymbol "gtk_widget_set_visible") (GtkWidgetClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setVisual_ = call (externalFunctionSymbol "gtk_widget_set_visual") (GtkWidgetClass.PolyML.cPtr &&> GdkVisualClass.PolyML.cOptPtr --> cVoid)
+      val setWindow_ = call (externalFunctionSymbol "gtk_widget_set_window") (GtkWidgetClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
+      val shapeCombineRegion_ = call (externalFunctionSymbol "gtk_widget_shape_combine_region") (GtkWidgetClass.PolyML.cPtr &&> CairoRegionRecord.PolyML.cOptPtr --> cVoid)
+      val show_ = call (externalFunctionSymbol "gtk_widget_show") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val showAll_ = call (externalFunctionSymbol "gtk_widget_show_all") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val showNow_ = call (externalFunctionSymbol "gtk_widget_show_now") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val sizeAllocate_ = call (externalFunctionSymbol "gtk_widget_size_allocate") (GtkWidgetClass.PolyML.cPtr &&> GtkAllocationRecord.PolyML.cPtr --> cVoid)
       val sizeAllocateWithBaseline_ =
-        call (getSymbol "gtk_widget_size_allocate_with_baseline")
+        call (externalFunctionSymbol "gtk_widget_size_allocate_with_baseline")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkAllocationRecord.PolyML.cPtr
              &&> GInt.PolyML.cVal
              --> cVoid
           )
-      val sizeRequest_ = call (getSymbol "gtk_widget_size_request") (GtkWidgetClass.PolyML.cPtr &&> GtkRequisitionRecord.PolyML.cPtr --> cVoid)
-      val styleAttach_ = call (getSymbol "gtk_widget_style_attach") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val sizeRequest_ = call (externalFunctionSymbol "gtk_widget_size_request") (GtkWidgetClass.PolyML.cPtr &&> GtkRequisitionRecord.PolyML.cPtr --> cVoid)
+      val styleAttach_ = call (externalFunctionSymbol "gtk_widget_style_attach") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val styleGetProperty_ =
-        call (getSymbol "gtk_widget_style_get_property")
+        call (externalFunctionSymbol "gtk_widget_style_get_property")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectValueRecord.PolyML.cPtr
              --> cVoid
           )
-      val thawChildNotify_ = call (getSymbol "gtk_widget_thaw_child_notify") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val thawChildNotify_ = call (externalFunctionSymbol "gtk_widget_thaw_child_notify") (GtkWidgetClass.PolyML.cPtr --> cVoid)
       val translateCoordinates_ =
-        call (getSymbol "gtk_widget_translate_coordinates")
+        call (externalFunctionSymbol "gtk_widget_translate_coordinates")
           (
             GtkWidgetClass.PolyML.cPtr
              &&> GtkWidgetClass.PolyML.cPtr
@@ -635,12 +635,12 @@ structure GtkWidget :>
              &&> GInt.PolyML.cRef
              --> GBool.PolyML.cVal
           )
-      val triggerTooltipQuery_ = call (getSymbol "gtk_widget_trigger_tooltip_query") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val unmap_ = call (getSymbol "gtk_widget_unmap") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val unparent_ = call (getSymbol "gtk_widget_unparent") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val unrealize_ = call (getSymbol "gtk_widget_unrealize") (GtkWidgetClass.PolyML.cPtr --> cVoid)
-      val unregisterWindow_ = call (getSymbol "gtk_widget_unregister_window") (GtkWidgetClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
-      val unsetStateFlags_ = call (getSymbol "gtk_widget_unset_state_flags") (GtkWidgetClass.PolyML.cPtr &&> GtkStateFlags.PolyML.cVal --> cVoid)
+      val triggerTooltipQuery_ = call (externalFunctionSymbol "gtk_widget_trigger_tooltip_query") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val unmap_ = call (externalFunctionSymbol "gtk_widget_unmap") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val unparent_ = call (externalFunctionSymbol "gtk_widget_unparent") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val unrealize_ = call (externalFunctionSymbol "gtk_widget_unrealize") (GtkWidgetClass.PolyML.cPtr --> cVoid)
+      val unregisterWindow_ = call (externalFunctionSymbol "gtk_widget_unregister_window") (GtkWidgetClass.PolyML.cPtr &&> GdkWindowClass.PolyML.cPtr --> cVoid)
+      val unsetStateFlags_ = call (externalFunctionSymbol "gtk_widget_unset_state_flags") (GtkWidgetClass.PolyML.cPtr &&> GtkStateFlags.PolyML.cVal --> cVoid)
     end
     type 'a class = 'a GtkWidgetClass.class
     type 'a buildable_class = 'a GtkBuildableClass.class

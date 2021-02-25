@@ -19,7 +19,7 @@ Placeholders
 
   FunctionName = GIRepository.BaseInfo.getName functionInfo
 
-  FunctionSymbol = GIRepository.FunctionInfo.getSymbol functionInfo
+  function_symbol = GIRepository.FunctionInfo.getSymbol functionInfo
 
   FunctionNamespace = GIRepository.BaseInfo.getNamespace functionInfo
 
@@ -2453,7 +2453,7 @@ For J non-VOID parameters, LowLevelFunction has the form:
 
   val <functionName>_ =
     call
-      (getSymbol "<function_symbol>")
+      (<getFunctionSymbol> "<function_symbol>")
       (<selfConv>
         &&> <paramConv[1]>
         &&> ...
@@ -2466,7 +2466,7 @@ For J non-VOID parameters, LowLevelFunction has the form:
 
   val <functionName>_ =
     call
-      (getSymbol "<function_symbol>")
+      (<getFunctionSymbol> "<function_symbol>")
       (<paramConv[1]>
         &&> ...
         &&> <paramConv[J]>
@@ -2478,7 +2478,7 @@ For J non-VOID parameters, LowLevelFunction has the form:
 
   val <functionName>_ =
     call
-      (getSymbol "<function_symbol>")
+      (<getFunctionSymbol> "<function_symbol>")
       (<selfConv> [&&> <paramConvErr>] --> <retConv>);
 
     if J = 0 and anySet (FunctionFlags, IS_METHOD)
@@ -2486,7 +2486,7 @@ For J non-VOID parameters, LowLevelFunction has the form:
 
   val <functionName>_ =
     call
-      (getSymbol "<function_symbol>")
+      (<getFunctionSymbol> "<function_symbol>")
       (<paramConvErr> --> <retConv>);
 
     if J = 0 and not anySet (FunctionFlags, IS_METHOD)
@@ -2495,7 +2495,7 @@ For J non-VOID parameters, LowLevelFunction has the form:
 
   val <functionName>_ =
     call
-      (getSymbol "<function_symbol>")
+      (<getFunctionSymbol> "<function_symbol>")
       (cVoid --> <retConv>);
 
     if J = 0 and not anySet (FunctionFlags, IS_METHOD)
@@ -2512,6 +2512,15 @@ where
 
       <empty>
         otherwise
+
+
+  getFunctionSymbol
+    is
+      externalFunctionSymbol
+        if generating from a GIR file
+
+      getSymbol
+        if generating from a TYPELIB file
 
 
   selfConv

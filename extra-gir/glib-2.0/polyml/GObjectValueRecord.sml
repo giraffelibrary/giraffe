@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -15,9 +15,9 @@ structure GObjectValueRecord :> G_OBJECT_VALUE_RECORD =
     local
       open PolyMLFFI
     in
-      val size_ = call (getSymbol "giraffe_g_object_value_size") (cVoid --> GSize.PolyML.cVal)
-      val copy_ = call (getSymbol "giraffe_g_value_copy") (cPtr &&> cPtr --> cVoid)
-      val clear_ = call (getSymbol "giraffe_g_value_clear") (cPtr --> cVoid)
+      val size_ = call (externalFunctionSymbol "giraffe_g_object_value_size") (cVoid --> GSize.PolyML.cVal)
+      val copy_ = call (externalFunctionSymbol "giraffe_g_value_copy") (cPtr &&> cPtr --> cVoid)
+      val clear_ = call (externalFunctionSymbol "giraffe_g_value_clear") (cPtr --> cVoid)
     end
     structure Record =
       BoxedValueRecord(

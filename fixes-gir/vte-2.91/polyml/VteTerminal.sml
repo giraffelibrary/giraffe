@@ -15,13 +15,13 @@ structure VteTerminal :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "vte_terminal_get_type") (cVoid --> GObjectType.PolyML.cVal)
-      val new_ = call (getSymbol "vte_terminal_new") (cVoid --> VteTerminalClass.PolyML.cPtr)
-      val copyClipboard_ = call (getSymbol "vte_terminal_copy_clipboard") (VteTerminalClass.PolyML.cPtr --> cVoid)
-      val copyClipboardFormat_ = call (getSymbol "vte_terminal_copy_clipboard_format") (VteTerminalClass.PolyML.cPtr &&> VteFormat.PolyML.cVal --> cVoid)
-      val copyPrimary_ = call (getSymbol "vte_terminal_copy_primary") (VteTerminalClass.PolyML.cPtr --> cVoid)
+      val getType_ = call (externalFunctionSymbol "vte_terminal_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val new_ = call (externalFunctionSymbol "vte_terminal_new") (cVoid --> VteTerminalClass.PolyML.cPtr)
+      val copyClipboard_ = call (externalFunctionSymbol "vte_terminal_copy_clipboard") (VteTerminalClass.PolyML.cPtr --> cVoid)
+      val copyClipboardFormat_ = call (externalFunctionSymbol "vte_terminal_copy_clipboard_format") (VteTerminalClass.PolyML.cPtr &&> VteFormat.PolyML.cVal --> cVoid)
+      val copyPrimary_ = call (externalFunctionSymbol "vte_terminal_copy_primary") (VteTerminalClass.PolyML.cPtr --> cVoid)
       val eventCheckRegexSimple_ =
-        call (getSymbol "vte_terminal_event_check_regex_array")
+        call (externalFunctionSymbol "vte_terminal_event_check_regex_array")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
@@ -32,7 +32,7 @@ structure VteTerminal :>
              --> Utf8CPtrArrayN.PolyML.cOutPtr
           )
       val feed_ =
-        call (getSymbol "vte_terminal_feed")
+        call (externalFunctionSymbol "vte_terminal_feed")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GUInt8CArrayN.PolyML.cInPtr
@@ -40,7 +40,7 @@ structure VteTerminal :>
              --> cVoid
           )
       val feedChild_ =
-        call (getSymbol "vte_terminal_feed_child")
+        call (externalFunctionSymbol "vte_terminal_feed_child")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GUInt8CArrayN.PolyML.cInPtr
@@ -48,46 +48,46 @@ structure VteTerminal :>
              --> cVoid
           )
       val feedChildBinary_ =
-        call (getSymbol "vte_terminal_feed_child_binary")
+        call (externalFunctionSymbol "vte_terminal_feed_child_binary")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GUInt8CArrayN.PolyML.cInPtr
              &&> GSize.PolyML.cVal
              --> cVoid
           )
-      val getAllowBold_ = call (getSymbol "vte_terminal_get_allow_bold") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getAllowHyperlink_ = call (getSymbol "vte_terminal_get_allow_hyperlink") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getAudibleBell_ = call (getSymbol "vte_terminal_get_audible_bell") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getBoldIsBright_ = call (getSymbol "vte_terminal_get_bold_is_bright") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getCellHeightScale_ = call (getSymbol "vte_terminal_get_cell_height_scale") (VteTerminalClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getCellWidthScale_ = call (getSymbol "vte_terminal_get_cell_width_scale") (VteTerminalClass.PolyML.cPtr --> GDouble.PolyML.cVal)
-      val getCharHeight_ = call (getSymbol "vte_terminal_get_char_height") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
-      val getCharWidth_ = call (getSymbol "vte_terminal_get_char_width") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
-      val getCjkAmbiguousWidth_ = call (getSymbol "vte_terminal_get_cjk_ambiguous_width") (VteTerminalClass.PolyML.cPtr --> GInt.PolyML.cVal)
-      val getColorBackgroundForDraw_ = call (getSymbol "vte_terminal_get_color_background_for_draw") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
-      val getColumnCount_ = call (getSymbol "vte_terminal_get_column_count") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
-      val getCurrentContainerName_ = call (getSymbol "vte_terminal_get_current_container_name") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val getCurrentContainerRuntime_ = call (getSymbol "vte_terminal_get_current_container_runtime") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val getCurrentDirectoryUri_ = call (getSymbol "vte_terminal_get_current_directory_uri") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val getCurrentFileUri_ = call (getSymbol "vte_terminal_get_current_file_uri") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val getCursorBlinkMode_ = call (getSymbol "vte_terminal_get_cursor_blink_mode") (VteTerminalClass.PolyML.cPtr --> VteCursorBlinkMode.PolyML.cVal)
+      val getAllowBold_ = call (externalFunctionSymbol "vte_terminal_get_allow_bold") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getAllowHyperlink_ = call (externalFunctionSymbol "vte_terminal_get_allow_hyperlink") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getAudibleBell_ = call (externalFunctionSymbol "vte_terminal_get_audible_bell") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getBoldIsBright_ = call (externalFunctionSymbol "vte_terminal_get_bold_is_bright") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getCellHeightScale_ = call (externalFunctionSymbol "vte_terminal_get_cell_height_scale") (VteTerminalClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getCellWidthScale_ = call (externalFunctionSymbol "vte_terminal_get_cell_width_scale") (VteTerminalClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getCharHeight_ = call (externalFunctionSymbol "vte_terminal_get_char_height") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
+      val getCharWidth_ = call (externalFunctionSymbol "vte_terminal_get_char_width") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
+      val getCjkAmbiguousWidth_ = call (externalFunctionSymbol "vte_terminal_get_cjk_ambiguous_width") (VteTerminalClass.PolyML.cPtr --> GInt.PolyML.cVal)
+      val getColorBackgroundForDraw_ = call (externalFunctionSymbol "vte_terminal_get_color_background_for_draw") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
+      val getColumnCount_ = call (externalFunctionSymbol "vte_terminal_get_column_count") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
+      val getCurrentContainerName_ = call (externalFunctionSymbol "vte_terminal_get_current_container_name") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getCurrentContainerRuntime_ = call (externalFunctionSymbol "vte_terminal_get_current_container_runtime") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getCurrentDirectoryUri_ = call (externalFunctionSymbol "vte_terminal_get_current_directory_uri") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getCurrentFileUri_ = call (externalFunctionSymbol "vte_terminal_get_current_file_uri") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getCursorBlinkMode_ = call (externalFunctionSymbol "vte_terminal_get_cursor_blink_mode") (VteTerminalClass.PolyML.cPtr --> VteCursorBlinkMode.PolyML.cVal)
       val getCursorPosition_ =
-        call (getSymbol "vte_terminal_get_cursor_position")
+        call (externalFunctionSymbol "vte_terminal_get_cursor_position")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GLong.PolyML.cRef
              &&> GLong.PolyML.cRef
              --> cVoid
           )
-      val getCursorShape_ = call (getSymbol "vte_terminal_get_cursor_shape") (VteTerminalClass.PolyML.cPtr --> VteCursorShape.PolyML.cVal)
-      val getEnableBidi_ = call (getSymbol "vte_terminal_get_enable_bidi") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getEnableShaping_ = call (getSymbol "vte_terminal_get_enable_shaping") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getEnableSixel_ = call (getSymbol "vte_terminal_get_enable_sixel") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getEncoding_ = call (getSymbol "vte_terminal_get_encoding") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val getFont_ = call (getSymbol "vte_terminal_get_font") (VteTerminalClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
-      val getFontScale_ = call (getSymbol "vte_terminal_get_font_scale") (VteTerminalClass.PolyML.cPtr --> GDouble.PolyML.cVal)
+      val getCursorShape_ = call (externalFunctionSymbol "vte_terminal_get_cursor_shape") (VteTerminalClass.PolyML.cPtr --> VteCursorShape.PolyML.cVal)
+      val getEnableBidi_ = call (externalFunctionSymbol "vte_terminal_get_enable_bidi") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getEnableShaping_ = call (externalFunctionSymbol "vte_terminal_get_enable_shaping") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getEnableSixel_ = call (externalFunctionSymbol "vte_terminal_get_enable_sixel") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getEncoding_ = call (externalFunctionSymbol "vte_terminal_get_encoding") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getFont_ = call (externalFunctionSymbol "vte_terminal_get_font") (VteTerminalClass.PolyML.cPtr --> PangoFontDescriptionRecord.PolyML.cPtr)
+      val getFontScale_ = call (externalFunctionSymbol "vte_terminal_get_font_scale") (VteTerminalClass.PolyML.cPtr --> GDouble.PolyML.cVal)
       val getGeometryHints_ =
-        call (getSymbol "vte_terminal_get_geometry_hints")
+        call (externalFunctionSymbol "vte_terminal_get_geometry_hints")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GdkGeometryRecord.PolyML.cPtr
@@ -95,22 +95,22 @@ structure VteTerminal :>
              &&> GInt.PolyML.cVal
              --> cVoid
           )
-      val getHasSelection_ = call (getSymbol "vte_terminal_get_has_selection") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getIconTitle_ = call (getSymbol "vte_terminal_get_icon_title") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val getInputEnabled_ = call (getSymbol "vte_terminal_get_input_enabled") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getMouseAutohide_ = call (getSymbol "vte_terminal_get_mouse_autohide") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getPty_ = call (getSymbol "vte_terminal_get_pty") (VteTerminalClass.PolyML.cPtr --> VtePtyClass.PolyML.cPtr)
-      val getRewrapOnResize_ = call (getSymbol "vte_terminal_get_rewrap_on_resize") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getRowCount_ = call (getSymbol "vte_terminal_get_row_count") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
-      val getScrollOnKeystroke_ = call (getSymbol "vte_terminal_get_scroll_on_keystroke") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getScrollOnOutput_ = call (getSymbol "vte_terminal_get_scroll_on_output") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val getScrollbackLines_ = call (getSymbol "vte_terminal_get_scrollback_lines") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
-      val getTextBlinkMode_ = call (getSymbol "vte_terminal_get_text_blink_mode") (VteTerminalClass.PolyML.cPtr --> VteTextBlinkMode.PolyML.cVal)
-      val getWindowTitle_ = call (getSymbol "vte_terminal_get_window_title") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val getWordCharExceptions_ = call (getSymbol "vte_terminal_get_word_char_exceptions") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
-      val hyperlinkCheckEvent_ = call (getSymbol "vte_terminal_hyperlink_check_event") (VteTerminalClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getHasSelection_ = call (externalFunctionSymbol "vte_terminal_get_has_selection") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getIconTitle_ = call (externalFunctionSymbol "vte_terminal_get_icon_title") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getInputEnabled_ = call (externalFunctionSymbol "vte_terminal_get_input_enabled") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getMouseAutohide_ = call (externalFunctionSymbol "vte_terminal_get_mouse_autohide") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getPty_ = call (externalFunctionSymbol "vte_terminal_get_pty") (VteTerminalClass.PolyML.cPtr --> VtePtyClass.PolyML.cPtr)
+      val getRewrapOnResize_ = call (externalFunctionSymbol "vte_terminal_get_rewrap_on_resize") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getRowCount_ = call (externalFunctionSymbol "vte_terminal_get_row_count") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
+      val getScrollOnKeystroke_ = call (externalFunctionSymbol "vte_terminal_get_scroll_on_keystroke") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getScrollOnOutput_ = call (externalFunctionSymbol "vte_terminal_get_scroll_on_output") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val getScrollbackLines_ = call (externalFunctionSymbol "vte_terminal_get_scrollback_lines") (VteTerminalClass.PolyML.cPtr --> GLong.PolyML.cVal)
+      val getTextBlinkMode_ = call (externalFunctionSymbol "vte_terminal_get_text_blink_mode") (VteTerminalClass.PolyML.cPtr --> VteTextBlinkMode.PolyML.cVal)
+      val getWindowTitle_ = call (externalFunctionSymbol "vte_terminal_get_window_title") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val getWordCharExceptions_ = call (externalFunctionSymbol "vte_terminal_get_word_char_exceptions") (VteTerminalClass.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
+      val hyperlinkCheckEvent_ = call (externalFunctionSymbol "vte_terminal_hyperlink_check_event") (VteTerminalClass.PolyML.cPtr &&> GdkEvent.PolyML.cPtr --> Utf8.PolyML.cOutOptPtr)
       val matchAddGregex_ =
-        call (getSymbol "vte_terminal_match_add_gregex")
+        call (externalFunctionSymbol "vte_terminal_match_add_gregex")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GLibRegexRecord.PolyML.cPtr
@@ -118,7 +118,7 @@ structure VteTerminal :>
              --> GInt.PolyML.cVal
           )
       val matchAddRegex_ =
-        call (getSymbol "vte_terminal_match_add_regex")
+        call (externalFunctionSymbol "vte_terminal_match_add_regex")
           (
             VteTerminalClass.PolyML.cPtr
              &&> VteRegexRecord.PolyML.cPtr
@@ -126,7 +126,7 @@ structure VteTerminal :>
              --> GInt.PolyML.cVal
           )
       val matchCheck_ =
-        call (getSymbol "vte_terminal_match_check")
+        call (externalFunctionSymbol "vte_terminal_match_check")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GLong.PolyML.cVal
@@ -135,17 +135,17 @@ structure VteTerminal :>
              --> Utf8.PolyML.cOutOptPtr
           )
       val matchCheckEvent_ =
-        call (getSymbol "vte_terminal_match_check_event")
+        call (externalFunctionSymbol "vte_terminal_match_check_event")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GdkEvent.PolyML.cPtr
              &&> GInt.PolyML.cRef
              --> Utf8.PolyML.cOutOptPtr
           )
-      val matchRemove_ = call (getSymbol "vte_terminal_match_remove") (VteTerminalClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
-      val matchRemoveAll_ = call (getSymbol "vte_terminal_match_remove_all") (VteTerminalClass.PolyML.cPtr --> cVoid)
+      val matchRemove_ = call (externalFunctionSymbol "vte_terminal_match_remove") (VteTerminalClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val matchRemoveAll_ = call (externalFunctionSymbol "vte_terminal_match_remove_all") (VteTerminalClass.PolyML.cPtr --> cVoid)
       val matchSetCursor_ =
-        call (getSymbol "vte_terminal_match_set_cursor")
+        call (externalFunctionSymbol "vte_terminal_match_set_cursor")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -153,7 +153,7 @@ structure VteTerminal :>
              --> cVoid
           )
       val matchSetCursorName_ =
-        call (getSymbol "vte_terminal_match_set_cursor_name")
+        call (externalFunctionSymbol "vte_terminal_match_set_cursor_name")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
@@ -161,17 +161,17 @@ structure VteTerminal :>
              --> cVoid
           )
       val matchSetCursorType_ =
-        call (getSymbol "vte_terminal_match_set_cursor_type")
+        call (externalFunctionSymbol "vte_terminal_match_set_cursor_type")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GInt.PolyML.cVal
              &&> GdkCursorType.PolyML.cVal
              --> cVoid
           )
-      val pasteClipboard_ = call (getSymbol "vte_terminal_paste_clipboard") (VteTerminalClass.PolyML.cPtr --> cVoid)
-      val pastePrimary_ = call (getSymbol "vte_terminal_paste_primary") (VteTerminalClass.PolyML.cPtr --> cVoid)
+      val pasteClipboard_ = call (externalFunctionSymbol "vte_terminal_paste_clipboard") (VteTerminalClass.PolyML.cPtr --> cVoid)
+      val pastePrimary_ = call (externalFunctionSymbol "vte_terminal_paste_primary") (VteTerminalClass.PolyML.cPtr --> cVoid)
       val ptyNewSync_ =
-        call (getSymbol "vte_terminal_pty_new_sync")
+        call (externalFunctionSymbol "vte_terminal_pty_new_sync")
           (
             VteTerminalClass.PolyML.cPtr
              &&> VtePtyFlags.PolyML.cVal
@@ -180,20 +180,20 @@ structure VteTerminal :>
              --> VtePtyClass.PolyML.cPtr
           )
       val reset_ =
-        call (getSymbol "vte_terminal_reset")
+        call (externalFunctionSymbol "vte_terminal_reset")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GBool.PolyML.cVal
              &&> GBool.PolyML.cVal
              --> cVoid
           )
-      val searchFindNext_ = call (getSymbol "vte_terminal_search_find_next") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val searchFindPrevious_ = call (getSymbol "vte_terminal_search_find_previous") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
-      val searchGetGregex_ = call (getSymbol "vte_terminal_search_get_gregex") (VteTerminalClass.PolyML.cPtr --> GLibRegexRecord.PolyML.cPtr)
-      val searchGetRegex_ = call (getSymbol "vte_terminal_search_get_regex") (VteTerminalClass.PolyML.cPtr --> VteRegexRecord.PolyML.cPtr)
-      val searchGetWrapAround_ = call (getSymbol "vte_terminal_search_get_wrap_around") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val searchFindNext_ = call (externalFunctionSymbol "vte_terminal_search_find_next") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val searchFindPrevious_ = call (externalFunctionSymbol "vte_terminal_search_find_previous") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
+      val searchGetGregex_ = call (externalFunctionSymbol "vte_terminal_search_get_gregex") (VteTerminalClass.PolyML.cPtr --> GLibRegexRecord.PolyML.cPtr)
+      val searchGetRegex_ = call (externalFunctionSymbol "vte_terminal_search_get_regex") (VteTerminalClass.PolyML.cPtr --> VteRegexRecord.PolyML.cPtr)
+      val searchGetWrapAround_ = call (externalFunctionSymbol "vte_terminal_search_get_wrap_around") (VteTerminalClass.PolyML.cPtr --> GBool.PolyML.cVal)
       val searchSetGregex_ =
-        call (getSymbol "vte_terminal_search_set_gregex")
+        call (externalFunctionSymbol "vte_terminal_search_set_gregex")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GLibRegexRecord.PolyML.cOptPtr
@@ -201,33 +201,33 @@ structure VteTerminal :>
              --> cVoid
           )
       val searchSetRegex_ =
-        call (getSymbol "vte_terminal_search_set_regex")
+        call (externalFunctionSymbol "vte_terminal_search_set_regex")
           (
             VteTerminalClass.PolyML.cPtr
              &&> VteRegexRecord.PolyML.cOptPtr
              &&> GUInt32.PolyML.cVal
              --> cVoid
           )
-      val searchSetWrapAround_ = call (getSymbol "vte_terminal_search_set_wrap_around") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val selectAll_ = call (getSymbol "vte_terminal_select_all") (VteTerminalClass.PolyML.cPtr --> cVoid)
-      val setAllowBold_ = call (getSymbol "vte_terminal_set_allow_bold") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setAllowHyperlink_ = call (getSymbol "vte_terminal_set_allow_hyperlink") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setAudibleBell_ = call (getSymbol "vte_terminal_set_audible_bell") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setBackspaceBinding_ = call (getSymbol "vte_terminal_set_backspace_binding") (VteTerminalClass.PolyML.cPtr &&> VteEraseBinding.PolyML.cVal --> cVoid)
-      val setBoldIsBright_ = call (getSymbol "vte_terminal_set_bold_is_bright") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setCellHeightScale_ = call (getSymbol "vte_terminal_set_cell_height_scale") (VteTerminalClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
-      val setCellWidthScale_ = call (getSymbol "vte_terminal_set_cell_width_scale") (VteTerminalClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
-      val setCjkAmbiguousWidth_ = call (getSymbol "vte_terminal_set_cjk_ambiguous_width") (VteTerminalClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
-      val setClearBackground_ = call (getSymbol "vte_terminal_set_clear_background") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setColorBackground_ = call (getSymbol "vte_terminal_set_color_background") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
-      val setColorBold_ = call (getSymbol "vte_terminal_set_color_bold") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
-      val setColorCursor_ = call (getSymbol "vte_terminal_set_color_cursor") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
-      val setColorCursorForeground_ = call (getSymbol "vte_terminal_set_color_cursor_foreground") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
-      val setColorForeground_ = call (getSymbol "vte_terminal_set_color_foreground") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
-      val setColorHighlight_ = call (getSymbol "vte_terminal_set_color_highlight") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
-      val setColorHighlightForeground_ = call (getSymbol "vte_terminal_set_color_highlight_foreground") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
+      val searchSetWrapAround_ = call (externalFunctionSymbol "vte_terminal_search_set_wrap_around") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val selectAll_ = call (externalFunctionSymbol "vte_terminal_select_all") (VteTerminalClass.PolyML.cPtr --> cVoid)
+      val setAllowBold_ = call (externalFunctionSymbol "vte_terminal_set_allow_bold") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setAllowHyperlink_ = call (externalFunctionSymbol "vte_terminal_set_allow_hyperlink") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setAudibleBell_ = call (externalFunctionSymbol "vte_terminal_set_audible_bell") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setBackspaceBinding_ = call (externalFunctionSymbol "vte_terminal_set_backspace_binding") (VteTerminalClass.PolyML.cPtr &&> VteEraseBinding.PolyML.cVal --> cVoid)
+      val setBoldIsBright_ = call (externalFunctionSymbol "vte_terminal_set_bold_is_bright") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setCellHeightScale_ = call (externalFunctionSymbol "vte_terminal_set_cell_height_scale") (VteTerminalClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setCellWidthScale_ = call (externalFunctionSymbol "vte_terminal_set_cell_width_scale") (VteTerminalClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setCjkAmbiguousWidth_ = call (externalFunctionSymbol "vte_terminal_set_cjk_ambiguous_width") (VteTerminalClass.PolyML.cPtr &&> GInt.PolyML.cVal --> cVoid)
+      val setClearBackground_ = call (externalFunctionSymbol "vte_terminal_set_clear_background") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setColorBackground_ = call (externalFunctionSymbol "vte_terminal_set_color_background") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
+      val setColorBold_ = call (externalFunctionSymbol "vte_terminal_set_color_bold") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
+      val setColorCursor_ = call (externalFunctionSymbol "vte_terminal_set_color_cursor") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
+      val setColorCursorForeground_ = call (externalFunctionSymbol "vte_terminal_set_color_cursor_foreground") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
+      val setColorForeground_ = call (externalFunctionSymbol "vte_terminal_set_color_foreground") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cPtr --> cVoid)
+      val setColorHighlight_ = call (externalFunctionSymbol "vte_terminal_set_color_highlight") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
+      val setColorHighlightForeground_ = call (externalFunctionSymbol "vte_terminal_set_color_highlight_foreground") (VteTerminalClass.PolyML.cPtr &&> GdkRgbaRecord.PolyML.cOptPtr --> cVoid)
       val setColors_ =
-        call (getSymbol "vte_terminal_set_colors")
+        call (externalFunctionSymbol "vte_terminal_set_colors")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GdkRgbaRecord.PolyML.cOptPtr
@@ -236,44 +236,44 @@ structure VteTerminal :>
              &&> GSize.PolyML.cVal
              --> cVoid
           )
-      val setCursorBlinkMode_ = call (getSymbol "vte_terminal_set_cursor_blink_mode") (VteTerminalClass.PolyML.cPtr &&> VteCursorBlinkMode.PolyML.cVal --> cVoid)
-      val setCursorShape_ = call (getSymbol "vte_terminal_set_cursor_shape") (VteTerminalClass.PolyML.cPtr &&> VteCursorShape.PolyML.cVal --> cVoid)
-      val setDefaultColors_ = call (getSymbol "vte_terminal_set_default_colors") (VteTerminalClass.PolyML.cPtr --> cVoid)
-      val setDeleteBinding_ = call (getSymbol "vte_terminal_set_delete_binding") (VteTerminalClass.PolyML.cPtr &&> VteEraseBinding.PolyML.cVal --> cVoid)
-      val setEnableBidi_ = call (getSymbol "vte_terminal_set_enable_bidi") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setEnableShaping_ = call (getSymbol "vte_terminal_set_enable_shaping") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setEnableSixel_ = call (getSymbol "vte_terminal_set_enable_sixel") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setCursorBlinkMode_ = call (externalFunctionSymbol "vte_terminal_set_cursor_blink_mode") (VteTerminalClass.PolyML.cPtr &&> VteCursorBlinkMode.PolyML.cVal --> cVoid)
+      val setCursorShape_ = call (externalFunctionSymbol "vte_terminal_set_cursor_shape") (VteTerminalClass.PolyML.cPtr &&> VteCursorShape.PolyML.cVal --> cVoid)
+      val setDefaultColors_ = call (externalFunctionSymbol "vte_terminal_set_default_colors") (VteTerminalClass.PolyML.cPtr --> cVoid)
+      val setDeleteBinding_ = call (externalFunctionSymbol "vte_terminal_set_delete_binding") (VteTerminalClass.PolyML.cPtr &&> VteEraseBinding.PolyML.cVal --> cVoid)
+      val setEnableBidi_ = call (externalFunctionSymbol "vte_terminal_set_enable_bidi") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setEnableShaping_ = call (externalFunctionSymbol "vte_terminal_set_enable_shaping") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setEnableSixel_ = call (externalFunctionSymbol "vte_terminal_set_enable_sixel") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
       val setEncoding_ =
-        call (getSymbol "vte_terminal_set_encoding")
+        call (externalFunctionSymbol "vte_terminal_set_encoding")
           (
             VteTerminalClass.PolyML.cPtr
              &&> Utf8.PolyML.cInOptPtr
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val setFont_ = call (getSymbol "vte_terminal_set_font") (VteTerminalClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> cVoid)
-      val setFontScale_ = call (getSymbol "vte_terminal_set_font_scale") (VteTerminalClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
-      val setGeometryHintsForWindow_ = call (getSymbol "vte_terminal_set_geometry_hints_for_window") (VteTerminalClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> cVoid)
-      val setInputEnabled_ = call (getSymbol "vte_terminal_set_input_enabled") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setMouseAutohide_ = call (getSymbol "vte_terminal_set_mouse_autohide") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setPty_ = call (getSymbol "vte_terminal_set_pty") (VteTerminalClass.PolyML.cPtr &&> VtePtyClass.PolyML.cOptPtr --> cVoid)
-      val setRewrapOnResize_ = call (getSymbol "vte_terminal_set_rewrap_on_resize") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setScrollOnKeystroke_ = call (getSymbol "vte_terminal_set_scroll_on_keystroke") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setScrollOnOutput_ = call (getSymbol "vte_terminal_set_scroll_on_output") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
-      val setScrollSpeed_ = call (getSymbol "vte_terminal_set_scroll_speed") (VteTerminalClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
-      val setScrollbackLines_ = call (getSymbol "vte_terminal_set_scrollback_lines") (VteTerminalClass.PolyML.cPtr &&> GLong.PolyML.cVal --> cVoid)
+      val setFont_ = call (externalFunctionSymbol "vte_terminal_set_font") (VteTerminalClass.PolyML.cPtr &&> PangoFontDescriptionRecord.PolyML.cOptPtr --> cVoid)
+      val setFontScale_ = call (externalFunctionSymbol "vte_terminal_set_font_scale") (VteTerminalClass.PolyML.cPtr &&> GDouble.PolyML.cVal --> cVoid)
+      val setGeometryHintsForWindow_ = call (externalFunctionSymbol "vte_terminal_set_geometry_hints_for_window") (VteTerminalClass.PolyML.cPtr &&> GtkWindowClass.PolyML.cPtr --> cVoid)
+      val setInputEnabled_ = call (externalFunctionSymbol "vte_terminal_set_input_enabled") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setMouseAutohide_ = call (externalFunctionSymbol "vte_terminal_set_mouse_autohide") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setPty_ = call (externalFunctionSymbol "vte_terminal_set_pty") (VteTerminalClass.PolyML.cPtr &&> VtePtyClass.PolyML.cOptPtr --> cVoid)
+      val setRewrapOnResize_ = call (externalFunctionSymbol "vte_terminal_set_rewrap_on_resize") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setScrollOnKeystroke_ = call (externalFunctionSymbol "vte_terminal_set_scroll_on_keystroke") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setScrollOnOutput_ = call (externalFunctionSymbol "vte_terminal_set_scroll_on_output") (VteTerminalClass.PolyML.cPtr &&> GBool.PolyML.cVal --> cVoid)
+      val setScrollSpeed_ = call (externalFunctionSymbol "vte_terminal_set_scroll_speed") (VteTerminalClass.PolyML.cPtr &&> GUInt.PolyML.cVal --> cVoid)
+      val setScrollbackLines_ = call (externalFunctionSymbol "vte_terminal_set_scrollback_lines") (VteTerminalClass.PolyML.cPtr &&> GLong.PolyML.cVal --> cVoid)
       val setSize_ =
-        call (getSymbol "vte_terminal_set_size")
+        call (externalFunctionSymbol "vte_terminal_set_size")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GLong.PolyML.cVal
              &&> GLong.PolyML.cVal
              --> cVoid
           )
-      val setTextBlinkMode_ = call (getSymbol "vte_terminal_set_text_blink_mode") (VteTerminalClass.PolyML.cPtr &&> VteTextBlinkMode.PolyML.cVal --> cVoid)
-      val setWordCharExceptions_ = call (getSymbol "vte_terminal_set_word_char_exceptions") (VteTerminalClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val setTextBlinkMode_ = call (externalFunctionSymbol "vte_terminal_set_text_blink_mode") (VteTerminalClass.PolyML.cPtr &&> VteTextBlinkMode.PolyML.cVal --> cVoid)
+      val setWordCharExceptions_ = call (externalFunctionSymbol "vte_terminal_set_word_char_exceptions") (VteTerminalClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
       val spawnSync_ =
-        call (getSymbol "vte_terminal_spawn_sync")
+        call (externalFunctionSymbol "vte_terminal_spawn_sync")
           (
             VteTerminalClass.PolyML.cPtr
              &&> VtePtyFlags.PolyML.cVal
@@ -288,10 +288,10 @@ structure VteTerminal :>
              &&> GLibErrorRecord.PolyML.cOutOptRef
              --> GBool.PolyML.cVal
           )
-      val unselectAll_ = call (getSymbol "vte_terminal_unselect_all") (VteTerminalClass.PolyML.cPtr --> cVoid)
-      val watchChild_ = call (getSymbol "vte_terminal_watch_child") (VteTerminalClass.PolyML.cPtr &&> GLibPid.PolyML.cVal --> cVoid)
+      val unselectAll_ = call (externalFunctionSymbol "vte_terminal_unselect_all") (VteTerminalClass.PolyML.cPtr --> cVoid)
+      val watchChild_ = call (externalFunctionSymbol "vte_terminal_watch_child") (VteTerminalClass.PolyML.cPtr &&> GLibPid.PolyML.cVal --> cVoid)
       val writeContentsSync_ =
-        call (getSymbol "vte_terminal_write_contents_sync")
+        call (externalFunctionSymbol "vte_terminal_write_contents_sync")
           (
             VteTerminalClass.PolyML.cPtr
              &&> GioOutputStreamClass.PolyML.cPtr

@@ -560,6 +560,7 @@ fun mkCStructStrDec strDecs : strdec =
 val polyMLFFIStrId : id = "PolyMLFFI"
 val callId : id = "call"
 val getSymbolId : id = "getSymbol"
+val externalFunctionSymbolId : id = "externalFunctionSymbol"
 
 val polyMLStrId : id = "PolyML"
 val cValId : id = "cVal"

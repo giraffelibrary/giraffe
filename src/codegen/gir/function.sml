@@ -3364,7 +3364,7 @@ fun mkSymbolId containerNamespace containerName =
  * a Poly/ML low-level function call expression as follows:
  *
  *   call
- *     (getSymbol "<functionSymbol>")
+ *     (externalFunctionSymbol "<functionSymbol>")    (* GIR only *)
  *     (<parConvs> --> <retConv>)
  *)
 fun callPolyMLFFIExp functionSymbol (parConvs, retConv) =
@@ -3373,7 +3373,7 @@ fun callPolyMLFFIExp functionSymbol (parConvs, retConv) =
       mkIdLNameExp callId,
       mkParenExp (
         ExpApp (
-          mkIdLNameExp getSymbolId,
+          mkIdLNameExp externalFunctionSymbolId,    (* GIR only *)
           ExpConst (ConstString functionSymbol)
         )
       )
@@ -3811,7 +3811,7 @@ fun makeFunctionStrDecLowLevelPolyML
     (* Construct the function body with the form:
      *
      *   call
-     *     (getSymbol "<function_symbol>")
+     *     (externalFunctionSymbol "<function_symbol>")    (* GIR only *)
      *     (<parConvs> --> <retConv>)
      *)
     val functionExp =
@@ -3828,7 +3828,7 @@ fun makeFunctionStrDecLowLevelPolyML
 (*
  *     val getType_ =
  *       call
- *         (getSymbol "<getTypeSymbol>")
+ *         (externalFunctionSymbol "<getTypeSymbol>")    (* GIR only *)
  *         (cVoid --> GObjectType.PolyML.cVal);
  *)
 fun getTypeStrDecLowLevelPolyML getTypeSymbol =

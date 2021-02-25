@@ -15,9 +15,9 @@ structure GObjectObject :>
     local
       open PolyMLFFI
     in
-      val getType_ = call (getSymbol "g_object_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val getType_ = call (externalFunctionSymbol "g_object_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val new_ =
-        call (getSymbol "giraffe_g_object_new_with_properties")
+        call (externalFunctionSymbol "giraffe_g_object_new_with_properties")
           (
             GObjectType.PolyML.cVal
              &&> GUInt.PolyML.cVal
@@ -26,7 +26,7 @@ structure GObjectObject :>
              --> GObjectObjectClass.PolyML.cPtr
           )
       val bindProperty_ =
-        call (getSymbol "g_object_bind_property")
+        call (externalFunctionSymbol "g_object_bind_property")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -36,7 +36,7 @@ structure GObjectObject :>
              --> GObjectBindingClass.PolyML.cPtr
           )
       val bindPropertyFull_ =
-        call (getSymbol "g_object_bind_property_with_closures")
+        call (externalFunctionSymbol "g_object_bind_property_with_closures")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -47,9 +47,9 @@ structure GObjectObject :>
              &&> GObjectClosureRecord.PolyML.cPtr
              --> GObjectBindingClass.PolyML.cPtr
           )
-      val freezeNotify_ = call (getSymbol "g_object_freeze_notify") (GObjectObjectClass.PolyML.cPtr --> cVoid)
+      val freezeNotify_ = call (externalFunctionSymbol "g_object_freeze_notify") (GObjectObjectClass.PolyML.cPtr --> cVoid)
       val getProperty_ =
-        call (getSymbol "g_object_get_property")
+        call (externalFunctionSymbol "g_object_get_property")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
@@ -57,7 +57,7 @@ structure GObjectObject :>
              --> cVoid
           )
       val getv_ =
-        call (getSymbol "g_object_getv")
+        call (externalFunctionSymbol "g_object_getv")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> GUInt.PolyML.cVal
@@ -65,19 +65,19 @@ structure GObjectObject :>
              &&> GObjectValueRecordCArrayN.PolyML.cInPtr
              --> cVoid
           )
-      val notify_ = call (getSymbol "g_object_notify") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
-      val notifyByPspec_ = call (getSymbol "g_object_notify_by_pspec") (GObjectObjectClass.PolyML.cPtr &&> GObjectParamSpecClass.PolyML.cPtr --> cVoid)
-      val runDispose_ = call (getSymbol "g_object_run_dispose") (GObjectObjectClass.PolyML.cPtr --> cVoid)
+      val notify_ = call (externalFunctionSymbol "g_object_notify") (GObjectObjectClass.PolyML.cPtr &&> Utf8.PolyML.cInPtr --> cVoid)
+      val notifyByPspec_ = call (externalFunctionSymbol "g_object_notify_by_pspec") (GObjectObjectClass.PolyML.cPtr &&> GObjectParamSpecClass.PolyML.cPtr --> cVoid)
+      val runDispose_ = call (externalFunctionSymbol "g_object_run_dispose") (GObjectObjectClass.PolyML.cPtr --> cVoid)
       val setProperty_ =
-        call (getSymbol "g_object_set_property")
+        call (externalFunctionSymbol "g_object_set_property")
           (
             GObjectObjectClass.PolyML.cPtr
              &&> Utf8.PolyML.cInPtr
              &&> GObjectValueRecord.PolyML.cPtr
              --> cVoid
           )
-      val thawNotify_ = call (getSymbol "g_object_thaw_notify") (GObjectObjectClass.PolyML.cPtr --> cVoid)
-      val watchClosure_ = call (getSymbol "g_object_watch_closure") (GObjectObjectClass.PolyML.cPtr &&> GObjectClosureRecord.PolyML.cPtr --> cVoid)
+      val thawNotify_ = call (externalFunctionSymbol "g_object_thaw_notify") (GObjectObjectClass.PolyML.cPtr --> cVoid)
+      val watchClosure_ = call (externalFunctionSymbol "g_object_watch_closure") (GObjectObjectClass.PolyML.cPtr &&> GObjectClosureRecord.PolyML.cPtr --> cVoid)
     end
     type 'a class = 'a GObjectObjectClass.class
     type type_t = GObjectType.t

@@ -8,11 +8,11 @@ structure GObject :
     local
       open PolyMLFFI
     in
-      val enumToString_ = call (getSymbol "g_enum_to_string") (GObjectType.PolyML.cVal &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val flagsToString_ = call (getSymbol "g_flags_to_string") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val gtypeGetType_ = call (getSymbol "g_gtype_get_type") (cVoid --> GObjectType.PolyML.cVal)
+      val enumToString_ = call (externalFunctionSymbol "g_enum_to_string") (GObjectType.PolyML.cVal &&> GInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val flagsToString_ = call (externalFunctionSymbol "g_flags_to_string") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val gtypeGetType_ = call (externalFunctionSymbol "g_gtype_get_type") (cVoid --> GObjectType.PolyML.cVal)
       val paramSpecBoolean_ =
-        call (getSymbol "g_param_spec_boolean")
+        call (externalFunctionSymbol "g_param_spec_boolean")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -22,7 +22,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecBoxed_ =
-        call (getSymbol "g_param_spec_boxed")
+        call (externalFunctionSymbol "g_param_spec_boxed")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -32,7 +32,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecChar_ =
-        call (getSymbol "g_param_spec_char")
+        call (externalFunctionSymbol "g_param_spec_char")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -44,7 +44,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecDouble_ =
-        call (getSymbol "g_param_spec_double")
+        call (externalFunctionSymbol "g_param_spec_double")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -56,7 +56,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecEnum_ =
-        call (getSymbol "g_param_spec_enum")
+        call (externalFunctionSymbol "g_param_spec_enum")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -67,7 +67,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecFlags_ =
-        call (getSymbol "g_param_spec_flags")
+        call (externalFunctionSymbol "g_param_spec_flags")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -78,7 +78,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecFloat_ =
-        call (getSymbol "g_param_spec_float")
+        call (externalFunctionSymbol "g_param_spec_float")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -90,7 +90,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecGtype_ =
-        call (getSymbol "g_param_spec_gtype")
+        call (externalFunctionSymbol "g_param_spec_gtype")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -100,7 +100,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecInt_ =
-        call (getSymbol "g_param_spec_int")
+        call (externalFunctionSymbol "g_param_spec_int")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -112,7 +112,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecInt64_ =
-        call (getSymbol "g_param_spec_int64")
+        call (externalFunctionSymbol "g_param_spec_int64")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -124,7 +124,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecLong_ =
-        call (getSymbol "g_param_spec_long")
+        call (externalFunctionSymbol "g_param_spec_long")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -136,7 +136,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecObject_ =
-        call (getSymbol "g_param_spec_object")
+        call (externalFunctionSymbol "g_param_spec_object")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -146,7 +146,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecParam_ =
-        call (getSymbol "g_param_spec_param")
+        call (externalFunctionSymbol "g_param_spec_param")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -156,7 +156,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecPointer_ =
-        call (getSymbol "g_param_spec_pointer")
+        call (externalFunctionSymbol "g_param_spec_pointer")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -165,7 +165,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecString_ =
-        call (getSymbol "g_param_spec_string")
+        call (externalFunctionSymbol "g_param_spec_string")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -175,7 +175,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecUchar_ =
-        call (getSymbol "g_param_spec_uchar")
+        call (externalFunctionSymbol "g_param_spec_uchar")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -187,7 +187,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecUint_ =
-        call (getSymbol "g_param_spec_uint")
+        call (externalFunctionSymbol "g_param_spec_uint")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -199,7 +199,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecUint64_ =
-        call (getSymbol "g_param_spec_uint64")
+        call (externalFunctionSymbol "g_param_spec_uint64")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -211,7 +211,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecUlong_ =
-        call (getSymbol "g_param_spec_ulong")
+        call (externalFunctionSymbol "g_param_spec_ulong")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -223,7 +223,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecUnichar_ =
-        call (getSymbol "g_param_spec_unichar")
+        call (externalFunctionSymbol "g_param_spec_unichar")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -233,7 +233,7 @@ structure GObject :
              --> GObjectParamSpecClass.PolyML.cPtr
           )
       val paramSpecVariant_ =
-        call (getSymbol "g_param_spec_variant")
+        call (externalFunctionSymbol "g_param_spec_variant")
           (
             Utf8.PolyML.cInPtr
              &&> Utf8.PolyML.cInPtr
@@ -243,12 +243,12 @@ structure GObject :
              &&> GObjectParamFlags.PolyML.cVal
              --> GObjectParamSpecClass.PolyML.cPtr
           )
-      val pointerTypeRegisterStatic_ = call (getSymbol "g_pointer_type_register_static") (Utf8.PolyML.cInPtr --> GObjectType.PolyML.cVal)
-      val signalIsValidName_ = call (getSymbol "g_signal_is_valid_name") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
-      val signalListIds_ = call (getSymbol "g_signal_list_ids") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GUIntCArrayN.PolyML.cOutPtr)
-      val signalLookup_ = call (getSymbol "g_signal_lookup") (Utf8.PolyML.cInPtr &&> GObjectType.PolyML.cVal --> GUInt.PolyML.cVal)
+      val pointerTypeRegisterStatic_ = call (externalFunctionSymbol "g_pointer_type_register_static") (Utf8.PolyML.cInPtr --> GObjectType.PolyML.cVal)
+      val signalIsValidName_ = call (externalFunctionSymbol "g_signal_is_valid_name") (Utf8.PolyML.cInPtr --> GBool.PolyML.cVal)
+      val signalListIds_ = call (externalFunctionSymbol "g_signal_list_ids") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GUIntCArrayN.PolyML.cOutPtr)
+      val signalLookup_ = call (externalFunctionSymbol "g_signal_lookup") (Utf8.PolyML.cInPtr &&> GObjectType.PolyML.cVal --> GUInt.PolyML.cVal)
       val signalOverrideClassClosure_ =
-        call (getSymbol "g_signal_override_class_closure")
+        call (externalFunctionSymbol "g_signal_override_class_closure")
           (
             GUInt.PolyML.cVal
              &&> GObjectType.PolyML.cVal
@@ -256,7 +256,7 @@ structure GObject :
              --> cVoid
           )
       val signalParseName_ =
-        call (getSymbol "g_signal_parse_name")
+        call (externalFunctionSymbol "g_signal_parse_name")
           (
             Utf8.PolyML.cInPtr
              &&> GObjectType.PolyML.cVal
@@ -265,38 +265,38 @@ structure GObject :
              &&> GBool.PolyML.cVal
              --> GBool.PolyML.cVal
           )
-      val signalTypeCclosureNew_ = call (getSymbol "g_signal_type_cclosure_new") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cVal --> GObjectClosureRecord.PolyML.cPtr)
-      val typeAddClassPrivate_ = call (getSymbol "g_type_add_class_private") (GObjectType.PolyML.cVal &&> GSize.PolyML.cVal --> cVoid)
-      val typeAddInstancePrivate_ = call (getSymbol "g_type_add_instance_private") (GObjectType.PolyML.cVal &&> GSize.PolyML.cVal --> GInt.PolyML.cVal)
+      val signalTypeCclosureNew_ = call (externalFunctionSymbol "g_signal_type_cclosure_new") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cVal --> GObjectClosureRecord.PolyML.cPtr)
+      val typeAddClassPrivate_ = call (externalFunctionSymbol "g_type_add_class_private") (GObjectType.PolyML.cVal &&> GSize.PolyML.cVal --> cVoid)
+      val typeAddInstancePrivate_ = call (externalFunctionSymbol "g_type_add_instance_private") (GObjectType.PolyML.cVal &&> GSize.PolyML.cVal --> GInt.PolyML.cVal)
       val typeAddInterfaceDynamic_ =
-        call (getSymbol "g_type_add_interface_dynamic")
+        call (externalFunctionSymbol "g_type_add_interface_dynamic")
           (
             GObjectType.PolyML.cVal
              &&> GObjectType.PolyML.cVal
              &&> GObjectTypePluginClass.PolyML.cPtr
              --> cVoid
           )
-      val typeCheckIsValueType_ = call (getSymbol "g_type_check_is_value_type") (GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
-      val typeCheckValueHolds_ = call (getSymbol "g_type_check_value_holds") (GObjectValueRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
-      val typeChildren_ = call (getSymbol "g_type_children") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GObjectTypeCArrayN.PolyML.cOutPtr)
-      val typeDepth_ = call (getSymbol "g_type_depth") (GObjectType.PolyML.cVal --> GUInt.PolyML.cVal)
-      val typeEnsure_ = call (getSymbol "g_type_ensure") (GObjectType.PolyML.cVal --> cVoid)
-      val typeFromName_ = call (getSymbol "g_type_from_name") (Utf8.PolyML.cInPtr --> GObjectType.PolyML.cVal)
-      val typeFundamental_ = call (getSymbol "g_type_fundamental") (GObjectType.PolyML.cVal --> GObjectType.PolyML.cVal)
-      val typeFundamentalNext_ = call (getSymbol "g_type_fundamental_next") (cVoid --> GObjectType.PolyML.cVal)
-      val typeGetInstanceCount_ = call (getSymbol "g_type_get_instance_count") (GObjectType.PolyML.cVal --> GInt.PolyML.cVal)
-      val typeGetPlugin_ = call (getSymbol "g_type_get_plugin") (GObjectType.PolyML.cVal --> GObjectTypePluginClass.PolyML.cPtr)
-      val typeGetTypeRegistrationSerial_ = call (getSymbol "g_type_get_type_registration_serial") (cVoid --> GUInt.PolyML.cVal)
-      val typeInit_ = call (getSymbol "g_type_init") (cVoid --> cVoid)
-      val typeInitWithDebugFlags_ = call (getSymbol "g_type_init_with_debug_flags") (GObjectTypeDebugFlags.PolyML.cVal --> cVoid)
-      val typeInterfaces_ = call (getSymbol "g_type_interfaces") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GObjectTypeCArrayN.PolyML.cOutPtr)
-      val typeIsA_ = call (getSymbol "g_type_is_a") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
-      val typeName_ = call (getSymbol "g_type_name") (GObjectType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
-      val typeNextBase_ = call (getSymbol "g_type_next_base") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GObjectType.PolyML.cVal)
-      val typeParent_ = call (getSymbol "g_type_parent") (GObjectType.PolyML.cVal --> GObjectType.PolyML.cVal)
-      val typeQname_ = call (getSymbol "g_type_qname") (GObjectType.PolyML.cVal --> GLibQuark.PolyML.cVal)
+      val typeCheckIsValueType_ = call (externalFunctionSymbol "g_type_check_is_value_type") (GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
+      val typeCheckValueHolds_ = call (externalFunctionSymbol "g_type_check_value_holds") (GObjectValueRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
+      val typeChildren_ = call (externalFunctionSymbol "g_type_children") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GObjectTypeCArrayN.PolyML.cOutPtr)
+      val typeDepth_ = call (externalFunctionSymbol "g_type_depth") (GObjectType.PolyML.cVal --> GUInt.PolyML.cVal)
+      val typeEnsure_ = call (externalFunctionSymbol "g_type_ensure") (GObjectType.PolyML.cVal --> cVoid)
+      val typeFromName_ = call (externalFunctionSymbol "g_type_from_name") (Utf8.PolyML.cInPtr --> GObjectType.PolyML.cVal)
+      val typeFundamental_ = call (externalFunctionSymbol "g_type_fundamental") (GObjectType.PolyML.cVal --> GObjectType.PolyML.cVal)
+      val typeFundamentalNext_ = call (externalFunctionSymbol "g_type_fundamental_next") (cVoid --> GObjectType.PolyML.cVal)
+      val typeGetInstanceCount_ = call (externalFunctionSymbol "g_type_get_instance_count") (GObjectType.PolyML.cVal --> GInt.PolyML.cVal)
+      val typeGetPlugin_ = call (externalFunctionSymbol "g_type_get_plugin") (GObjectType.PolyML.cVal --> GObjectTypePluginClass.PolyML.cPtr)
+      val typeGetTypeRegistrationSerial_ = call (externalFunctionSymbol "g_type_get_type_registration_serial") (cVoid --> GUInt.PolyML.cVal)
+      val typeInit_ = call (externalFunctionSymbol "g_type_init") (cVoid --> cVoid)
+      val typeInitWithDebugFlags_ = call (externalFunctionSymbol "g_type_init_with_debug_flags") (GObjectTypeDebugFlags.PolyML.cVal --> cVoid)
+      val typeInterfaces_ = call (externalFunctionSymbol "g_type_interfaces") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cRef --> GObjectTypeCArrayN.PolyML.cOutPtr)
+      val typeIsA_ = call (externalFunctionSymbol "g_type_is_a") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GBool.PolyML.cVal)
+      val typeName_ = call (externalFunctionSymbol "g_type_name") (GObjectType.PolyML.cVal --> Utf8.PolyML.cOutPtr)
+      val typeNextBase_ = call (externalFunctionSymbol "g_type_next_base") (GObjectType.PolyML.cVal &&> GObjectType.PolyML.cVal --> GObjectType.PolyML.cVal)
+      val typeParent_ = call (externalFunctionSymbol "g_type_parent") (GObjectType.PolyML.cVal --> GObjectType.PolyML.cVal)
+      val typeQname_ = call (externalFunctionSymbol "g_type_qname") (GObjectType.PolyML.cVal --> GLibQuark.PolyML.cVal)
       val typeRegisterDynamic_ =
-        call (getSymbol "g_type_register_dynamic")
+        call (externalFunctionSymbol "g_type_register_dynamic")
           (
             GObjectType.PolyML.cVal
              &&> Utf8.PolyML.cInPtr
@@ -304,7 +304,7 @@ structure GObject :
              &&> GObjectTypeFlags.PolyML.cVal
              --> GObjectType.PolyML.cVal
           )
-      val typeTestFlags_ = call (getSymbol "g_type_test_flags") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cVal --> GBool.PolyML.cVal)
+      val typeTestFlags_ = call (externalFunctionSymbol "g_type_test_flags") (GObjectType.PolyML.cVal &&> GUInt.PolyML.cVal --> GBool.PolyML.cVal)
     end
     type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
     type 'a signal_t = 'a Signal.t

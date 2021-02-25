@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -15,252 +15,252 @@ structure GObjectType :> G_OBJECT_TYPE =
     in
       val isValueType_ =
         call
-          (getSymbol "giraffe_g_type_is_value_type")
+          (externalFunctionSymbol "giraffe_g_type_is_value_type")
           (PolyML.cVal --> GBool.PolyML.cVal);
 
       val isA_ =
         call
-          (getSymbol "g_type_is_a")
+          (externalFunctionSymbol "g_type_is_a")
           (PolyML.cVal &&> PolyML.cVal --> GBool.PolyML.cVal);
 
       val name_ =
         call
-          (getSymbol "giraffe_g_type_name")
+          (externalFunctionSymbol "giraffe_g_type_name")
           (PolyML.cVal --> Utf8.PolyML.cOutPtr);
 
       val fromName_ =
         call
-          (getSymbol "g_type_from_name")
+          (externalFunctionSymbol "g_type_from_name")
           (Utf8.PolyML.cInPtr --> PolyML.cVal);
 
       val invalid_ =
         call
-          (getSymbol "giraffe_g_invalid_get_type")
+          (externalFunctionSymbol "giraffe_g_invalid_get_type")
           (cVoid --> PolyML.cVal);
 
       val none_ =
         call
-          (getSymbol "giraffe_g_none_get_type")
+          (externalFunctionSymbol "giraffe_g_none_get_type")
           (cVoid --> PolyML.cVal);
 
       val interface_ =
         call
-          (getSymbol "giraffe_g_interface_get_type")
+          (externalFunctionSymbol "giraffe_g_interface_get_type")
           (cVoid --> PolyML.cVal);
 
       val char_ =
         call
-          (getSymbol "giraffe_g_char_get_type")
+          (externalFunctionSymbol "giraffe_g_char_get_type")
           (cVoid --> PolyML.cVal);
 
       val uchar_ =
         call
-          (getSymbol "giraffe_g_uchar_get_type")
+          (externalFunctionSymbol "giraffe_g_uchar_get_type")
           (cVoid --> PolyML.cVal);
 
       val boolean_ =
         call
-          (getSymbol "giraffe_g_boolean_get_type")
+          (externalFunctionSymbol "giraffe_g_boolean_get_type")
           (cVoid --> PolyML.cVal);
 
       val int_ =
         call
-          (getSymbol "giraffe_g_int_get_type")
+          (externalFunctionSymbol "giraffe_g_int_get_type")
           (cVoid --> PolyML.cVal);
 
       val uint_ =
         call
-          (getSymbol "giraffe_g_uint_get_type")
+          (externalFunctionSymbol "giraffe_g_uint_get_type")
           (cVoid --> PolyML.cVal);
 
       val long_ =
         call
-          (getSymbol "giraffe_g_long_get_type")
+          (externalFunctionSymbol "giraffe_g_long_get_type")
           (cVoid --> PolyML.cVal);
 
       val ulong_ =
         call
-          (getSymbol "giraffe_g_ulong_get_type")
+          (externalFunctionSymbol "giraffe_g_ulong_get_type")
           (cVoid --> PolyML.cVal);
 
       val int64_ =
         call
-          (getSymbol "giraffe_g_int64_get_type")
+          (externalFunctionSymbol "giraffe_g_int64_get_type")
           (cVoid --> PolyML.cVal);
 
       val uint64_ =
         call
-          (getSymbol "giraffe_g_uint64_get_type")
+          (externalFunctionSymbol "giraffe_g_uint64_get_type")
           (cVoid --> PolyML.cVal);
 
       val enum_ =
         call
-          (getSymbol "giraffe_g_enum_get_type")
+          (externalFunctionSymbol "giraffe_g_enum_get_type")
           (cVoid --> PolyML.cVal);
 
       val flags_ =
         call
-          (getSymbol "giraffe_g_flags_get_type")
+          (externalFunctionSymbol "giraffe_g_flags_get_type")
           (cVoid --> PolyML.cVal);
 
       val float_ =
         call
-          (getSymbol "giraffe_g_float_get_type")
+          (externalFunctionSymbol "giraffe_g_float_get_type")
           (cVoid --> PolyML.cVal);
 
       val double_ =
         call
-          (getSymbol "giraffe_g_double_get_type")
+          (externalFunctionSymbol "giraffe_g_double_get_type")
           (cVoid --> PolyML.cVal);
 
       val string_ =
         call
-          (getSymbol "giraffe_g_string_get_type")
+          (externalFunctionSymbol "giraffe_g_string_get_type")
           (cVoid --> PolyML.cVal);
 
       val pointer_ =
         call
-          (getSymbol "giraffe_g_pointer_get_type")
+          (externalFunctionSymbol "giraffe_g_pointer_get_type")
           (cVoid --> PolyML.cVal);
 
       val boxed_ =
         call
-          (getSymbol "giraffe_g_boxed_get_type")
+          (externalFunctionSymbol "giraffe_g_boxed_get_type")
           (cVoid --> PolyML.cVal);
 
       val param_ =
         call
-          (getSymbol "giraffe_g_param_get_type")
+          (externalFunctionSymbol "giraffe_g_param_get_type")
           (cVoid --> PolyML.cVal);
 
       val object_ =
         call
-          (getSymbol "giraffe_g_object_get_type")
+          (externalFunctionSymbol "giraffe_g_object_get_type")
           (cVoid --> PolyML.cVal);
 
       val gtype_ =
         call
-          (getSymbol "g_gtype_get_type")
+          (externalFunctionSymbol "g_gtype_get_type")
           (cVoid --> PolyML.cVal);
 
       val variant_ =
         call
-          (getSymbol "giraffe_g_variant_get_type")
+          (externalFunctionSymbol "giraffe_g_variant_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramChar_ =
         call
-          (getSymbol "giraffe_g_param_char_get_type")
+          (externalFunctionSymbol "giraffe_g_param_char_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramUChar_ =
         call
-          (getSymbol "giraffe_g_param_uchar_get_type")
+          (externalFunctionSymbol "giraffe_g_param_uchar_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramBoolean_ =
         call
-          (getSymbol "giraffe_g_param_boolean_get_type")
+          (externalFunctionSymbol "giraffe_g_param_boolean_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramInt_ =
         call
-          (getSymbol "giraffe_g_param_int_get_type")
+          (externalFunctionSymbol "giraffe_g_param_int_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramUInt_ =
         call
-          (getSymbol "giraffe_g_param_uint_get_type")
+          (externalFunctionSymbol "giraffe_g_param_uint_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramLong_ =
         call
-          (getSymbol "giraffe_g_param_long_get_type")
+          (externalFunctionSymbol "giraffe_g_param_long_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramULong_ =
         call
-          (getSymbol "giraffe_g_param_ulong_get_type")
+          (externalFunctionSymbol "giraffe_g_param_ulong_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramInt64_ =
         call
-          (getSymbol "giraffe_g_param_int64_get_type")
+          (externalFunctionSymbol "giraffe_g_param_int64_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramUInt64_ =
         call
-          (getSymbol "giraffe_g_param_uint64_get_type")
+          (externalFunctionSymbol "giraffe_g_param_uint64_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramUnichar_ =
         call
-          (getSymbol "giraffe_g_param_unichar_get_type")
+          (externalFunctionSymbol "giraffe_g_param_unichar_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramEnum_ =
         call
-          (getSymbol "giraffe_g_param_enum_get_type")
+          (externalFunctionSymbol "giraffe_g_param_enum_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramFlags_ =
         call
-          (getSymbol "giraffe_g_param_flags_get_type")
+          (externalFunctionSymbol "giraffe_g_param_flags_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramFloat_ =
         call
-          (getSymbol "giraffe_g_param_float_get_type")
+          (externalFunctionSymbol "giraffe_g_param_float_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramDouble_ =
         call
-          (getSymbol "giraffe_g_param_double_get_type")
+          (externalFunctionSymbol "giraffe_g_param_double_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramString_ =
         call
-          (getSymbol "giraffe_g_param_string_get_type")
+          (externalFunctionSymbol "giraffe_g_param_string_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramParam_ =
         call
-          (getSymbol "giraffe_g_param_param_get_type")
+          (externalFunctionSymbol "giraffe_g_param_param_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramBoxed_ =
         call
-          (getSymbol "giraffe_g_param_boxed_get_type")
+          (externalFunctionSymbol "giraffe_g_param_boxed_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramPointer_ =
         call
-          (getSymbol "giraffe_g_param_pointer_get_type")
+          (externalFunctionSymbol "giraffe_g_param_pointer_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramValueArray_ =
         call
-          (getSymbol "giraffe_g_param_value_array_get_type")
+          (externalFunctionSymbol "giraffe_g_param_value_array_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramObject_ =
         call
-          (getSymbol "giraffe_g_param_object_get_type")
+          (externalFunctionSymbol "giraffe_g_param_object_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramOverride_ =
         call
-          (getSymbol "giraffe_g_param_override_get_type")
+          (externalFunctionSymbol "giraffe_g_param_override_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramGType_ =
         call
-          (getSymbol "giraffe_g_param_gtype_get_type")
+          (externalFunctionSymbol "giraffe_g_param_gtype_get_type")
           (cVoid --> PolyML.cVal);
 
       val paramVariant_ =
         call
-          (getSymbol "giraffe_g_param_variant_get_type")
+          (externalFunctionSymbol "giraffe_g_param_variant_get_type")
           (cVoid --> PolyML.cVal);
     end
 

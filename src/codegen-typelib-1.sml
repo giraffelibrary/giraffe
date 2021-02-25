@@ -32,6 +32,28 @@ PolyML.Compiler.reportUnreferencedIds := true;
 use "../release/src/polyml.sml";
 use "../release/src/general/polyml.sml";
 use "../release/src/ffi/polyml.sml";
+
+(* GLib and GObject namespaces expect dynamic linking to resolve symbol names
+ * but no dynamic linking occurs when these namespaces are loaded and used in
+ * the same session.  For now, the dynamic linking functions in the structure
+ * PolyMLFFI are overridden to use dynamic loading.
+ *
+ * If code generation from TYPELIB files is supported properly in future,
+ * where the SML interface is generated, loaded and evaluated within a single
+ * session, then there would need to be variants of fixes-gir and extra-gir
+ * that use `getSymbolFromLib` instead of `external[Data|Function]Symbol`.
+ * However, there is no obvious need for this 'in-session' use of libraries
+ * and it could only be used by compilers with a REPL.  For now, code
+ * generation from TYPELIB files is performed only to check code generation
+ * from GIR files.
+ *)
+structure PolyMLFFI =
+  struct
+    open PolyMLFFI
+    val externalFunctionSymbol = getSymbol
+    val externalDataSymbol = getSymbol
+  end
+;
 use "../release/src/gir/polyml.sml";
 use "../release/src/glib-2.0/polyml.sml";
 use "../release/src/gobject-2.0/polyml.sml";

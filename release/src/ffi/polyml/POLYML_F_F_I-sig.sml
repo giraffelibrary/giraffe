@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -45,11 +45,36 @@ signature POLYML_F_F_I =
 
     type library
     type symbol
+
+    val symbolAsAddress : symbol -> Memory.Pointer.t
+
+    (* Dynamic loading functions
+     *
+     * `getSymbol` is equivalent to `getSymbolFromLib (loadExecutable ())`
+     * and is provided for convenience.  `getSymbolFromLib lib name` is
+     * equivalent to `Foreign.getSymbol lib name`.  Other functions are the
+     * same as their namesakes in Foreign.
+     *)
     val loadLibrary : string -> library
     val loadExecutable : unit -> library
     val getSymbol : string -> symbol
     val getSymbolFromLib : library -> string -> symbol
-    val symbolAsAddress : symbol -> Memory.Pointer.t
+
+    (* Dynamic linking functions
+     *
+     * For dynamic linking, these functions _must_ be evaluated at compile
+     * time.
+     *
+     * For Poly/ML >= 5.8, `externalFunctionSymbol` and `externalDataSymbol`
+     * are the same as their namesakes in the Poly/ML structure Foreign: each
+     * raises an exception if the symbol argument was not resolved by linking
+     * (because, for example, evaluation occurs at run time).
+     *
+     * For Poly/ML < 5.8, these functions fall back on dynamic loading and
+     * are equivalent to `getSymbol` above.
+     *)
+    val externalFunctionSymbol : string -> symbol
+    val externalDataSymbol : string -> symbol
 
     structure LowLevel :
       sig

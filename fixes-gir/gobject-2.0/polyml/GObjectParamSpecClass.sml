@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2015-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2015-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -30,12 +30,12 @@ structure GObjectParamSpecClass :>
 
       val dup_ =
         call
-          (getSymbol "g_param_spec_ref_sink")
+          (externalFunctionSymbol "g_param_spec_ref_sink")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (getSymbol "g_param_spec_unref")
+          (externalFunctionSymbol "g_param_spec_unref")
           (cPtr --> cVoid)
     end
 
@@ -211,27 +211,27 @@ structure GObjectParamSpecClass :>
     in
       val getValue_ =
         call
-          (getSymbol "g_value_get_param")
+          (externalFunctionSymbol "g_value_get_param")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);
 
       val getOptValue_ =
         call
-          (getSymbol "g_value_get_param")
+          (externalFunctionSymbol "g_value_get_param")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
-          (getSymbol "g_value_set_param")
+          (externalFunctionSymbol "g_value_set_param")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid);
 
       val setOptValue_ =
         call
-          (getSymbol "g_value_set_param")
+          (externalFunctionSymbol "g_value_set_param")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);
 
       val instanceType_ =
         call
-          (getSymbol "giraffe_g_param_spec_type")
+          (externalFunctionSymbol "giraffe_g_param_spec_type")
           (cPtr --> GObjectType.PolyML.cVal)
     end
 

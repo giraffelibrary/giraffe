@@ -16,12 +16,12 @@ structure ValueAccessor :>
     in
       val init_ =
         call
-          (getSymbol "g_value_init")
+          (externalFunctionSymbol "g_value_init")
           (GObjectValueRecord.PolyML.cPtr &&> GObjectType.PolyML.cVal --> GObjectValueRecord.PolyML.cPtr);
 
       val isValue_ =
         call
-          (getSymbol "giraffe_g_is_value")
+          (externalFunctionSymbol "giraffe_g_is_value")
           (GObjectValueRecord.PolyML.cPtr --> GBool.PolyML.cVal);
     end
 
@@ -85,62 +85,62 @@ structure ValueAccessor :>
 
           val get_boolean_ =
             call
-              (getSymbol "g_value_get_boolean")
+              (externalFunctionSymbol "g_value_get_boolean")
               (GET GBool.PolyML.cVal);
 
           val get_int_ =
             call
-              (getSymbol "g_value_get_int")
+              (externalFunctionSymbol "g_value_get_int")
               (GET GInt.PolyML.cVal);
 
           val get_uint_ =
             call
-              (getSymbol "g_value_get_uint")
+              (externalFunctionSymbol "g_value_get_uint")
               (GET GUInt.PolyML.cVal);
 
           val get_long_ =
             call
-              (getSymbol "g_value_get_long")
+              (externalFunctionSymbol "g_value_get_long")
               (GET GLong.PolyML.cVal);
 
           val get_ulong_ =
             call
-              (getSymbol "g_value_get_ulong")
+              (externalFunctionSymbol "g_value_get_ulong")
               (GET GULong.PolyML.cVal);
 
           val get_int64_ =
             call
-              (getSymbol "g_value_get_int64")
+              (externalFunctionSymbol "g_value_get_int64")
               (GET GInt64.PolyML.cVal);
 
           val get_uint64_ =
             call
-              (getSymbol "g_value_get_uint64")
+              (externalFunctionSymbol "g_value_get_uint64")
               (GET GUInt64.PolyML.cVal);
 
           val get_float_ =
             call
-              (getSymbol "g_value_get_float")
+              (externalFunctionSymbol "g_value_get_float")
               (GET GFloat.PolyML.cVal);
 
           val get_double_ =
             call
-              (getSymbol "g_value_get_double")
+              (externalFunctionSymbol "g_value_get_double")
               (GET GDouble.PolyML.cVal);
 
           val get_char_ =
             call
-              (getSymbol "g_value_get_char")
+              (externalFunctionSymbol "g_value_get_char")
               (GET GChar.PolyML.cVal);
 
           val get_string_ =
             call
-              (getSymbol "g_value_get_string")
+              (externalFunctionSymbol "g_value_get_string")
               (GET Utf8.PolyML.cOutPtr);
 
           val get_string_opt_ =
             call
-              (getSymbol "g_value_get_string")
+              (externalFunctionSymbol "g_value_get_string")
               (GET Utf8.PolyML.cOutOptPtr);
 
 
@@ -148,62 +148,62 @@ structure ValueAccessor :>
 
           val set_boolean_ =
             call
-              (getSymbol "g_value_set_boolean")
+              (externalFunctionSymbol "g_value_set_boolean")
               (SET GBool.PolyML.cVal);
 
           val set_int_ =
             call
-              (getSymbol "g_value_set_int")
+              (externalFunctionSymbol "g_value_set_int")
               (SET GInt.PolyML.cVal);
 
           val set_uint_ =
             call
-              (getSymbol "g_value_set_uint")
+              (externalFunctionSymbol "g_value_set_uint")
               (SET GUInt.PolyML.cVal);
 
           val set_long_ =
             call
-              (getSymbol "g_value_set_long")
+              (externalFunctionSymbol "g_value_set_long")
               (SET GLong.PolyML.cVal);
 
           val set_ulong_ =
             call
-              (getSymbol "g_value_set_ulong")
+              (externalFunctionSymbol "g_value_set_ulong")
               (SET GULong.PolyML.cVal);
 
           val set_int64_ =
             call
-              (getSymbol "g_value_set_int64")
+              (externalFunctionSymbol "g_value_set_int64")
               (SET GInt64.PolyML.cVal);
 
           val set_uint64_ =
             call
-              (getSymbol "g_value_set_uint64")
+              (externalFunctionSymbol "g_value_set_uint64")
               (SET GUInt64.PolyML.cVal);
 
           val set_float_ =
             call
-              (getSymbol "g_value_set_float")
+              (externalFunctionSymbol "g_value_set_float")
               (SET GFloat.PolyML.cVal);
 
           val set_double_ =
             call
-              (getSymbol "g_value_set_double")
+              (externalFunctionSymbol "g_value_set_double")
               (SET GDouble.PolyML.cVal);
 
           val set_char_ =
             call
-              (getSymbol "g_value_set_char")
+              (externalFunctionSymbol "g_value_set_char")
               (SET GChar.PolyML.cVal);
 
           val set_string_ =
             call
-              (getSymbol "g_value_set_string")
+              (externalFunctionSymbol "g_value_set_string")
               (SET Utf8.PolyML.cInPtr);
 
           val set_string_opt_ =
             call
-              (getSymbol "g_value_set_string")
+              (externalFunctionSymbol "g_value_set_string")
               (SET Utf8.PolyML.cInOptPtr);
         end
   

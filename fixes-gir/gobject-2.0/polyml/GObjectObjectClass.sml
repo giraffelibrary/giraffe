@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -23,36 +23,42 @@ structure GObjectObjectClass :>
     val cInOutRef = Pointer.PolyML.cInRef : (non_opt, non_opt) r PolyMLFFI.conversion
     val cInOutOptRef = Pointer.PolyML.cOptOutRef : (opt, opt) r PolyMLFFI.conversion
 
-    fun initDebugFlags () =
-      if GiraffeDebug.isEnabled
-      then
-        let
-          open PolyMLFFI
-          val debugClosureSym = getSymbol "giraffe_debug_closure"
-          val debugRefCountSym = getSymbol "giraffe_debug_ref_count"
-          fun set sym conv x =
-            ignore (#store (breakConversion conv) x (symbolAsAddress sym))
-          fun setBool sym x = GBool.FFI.withVal (set sym GBool.PolyML.cVal) x
-        in
-          setBool debugClosureSym (GiraffeDebug.getClosure ());
-          setBool debugRefCountSym (GiraffeDebug.getRefCount ())
-        end
-      else ()
-    val () = PolyML.onEntry initDebugFlags
+    local
+      open PolyMLFFI
+      val debugClosureSym = externalDataSymbol "giraffe_debug_closure"
+      val debugRefCountSym = externalDataSymbol "giraffe_debug_ref_count"
+      fun set sym conv x =
+        ignore (#store (breakConversion conv) x (symbolAsAddress sym))
+      fun setDebugClosure x = GBool.FFI.withVal (set debugClosureSym GBool.PolyML.cVal) x
+      fun setDebugRefCount x = GBool.FFI.withVal (set debugRefCountSym GBool.PolyML.cVal) x
+
+      fun initDebugFlags () =
+        if GiraffeDebug.isEnabled
+        then
+          let
+            val () = setDebugClosure (GiraffeDebug.getClosure ());
+            val () = setDebugRefCount (GiraffeDebug.getRefCount ())
+          in
+            ()
+          end
+        else ()
+    in
+      val () = PolyML.onEntry initDebugFlags
+    end
 
     local
       open PolyMLFFI
     in
       val isFloating_ =
         call
-          (getSymbol "g_object_is_floating")
+          (externalFunctionSymbol "g_object_is_floating")
           (cPtr --> GBool.PolyML.cVal)
 
       val take_ =
         if GiraffeDebug.isEnabled
         then
           call
-            (getSymbol "giraffe_debug_object_take")
+            (externalFunctionSymbol "giraffe_debug_object_take")
             (cPtr --> cVoid)
         else
           ignore
@@ -61,22 +67,22 @@ structure GObjectObjectClass :>
         if GiraffeDebug.isEnabled
         then 
           call
-            (getSymbol "giraffe_debug_g_object_ref_sink")
+            (externalFunctionSymbol "giraffe_debug_g_object_ref_sink")
             (cPtr --> cPtr)
         else
           call
-            (getSymbol "g_object_ref_sink")
+            (externalFunctionSymbol "g_object_ref_sink")
             (cPtr --> cPtr)
 
       val free_ =
         if GiraffeDebug.isEnabled
         then
           call
-            (getSymbol "giraffe_debug_g_object_unref")
+            (externalFunctionSymbol "giraffe_debug_g_object_unref")
             (cPtr --> cVoid)
         else
           call
-            (getSymbol "g_object_unref")
+            (externalFunctionSymbol "g_object_unref")
             (cPtr --> cVoid)
     end
 
@@ -255,32 +261,32 @@ structure GObjectObjectClass :>
     in
       val getType_ =
         call
-          (getSymbol "g_object_get_type")
+          (externalFunctionSymbol "g_object_get_type")
           (cVoid --> GObjectType.PolyML.cVal);
 
       val getValue_ =
         call
-          (getSymbol "g_value_get_object")
+          (externalFunctionSymbol "g_value_get_object")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cPtr);
 
       val getOptValue_ =
         call
-          (getSymbol "g_value_get_object")
+          (externalFunctionSymbol "g_value_get_object")
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
-          (getSymbol "g_value_set_object")
+          (externalFunctionSymbol "g_value_set_object")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid);
 
       val setOptValue_ =
         call
-          (getSymbol "g_value_set_object")
+          (externalFunctionSymbol "g_value_set_object")
           (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);
 
       val instanceType_ =
         call
-          (getSymbol "giraffe_g_object_type")
+          (externalFunctionSymbol "giraffe_g_object_type")
           (cPtr --> GObjectType.PolyML.cVal)
     end
 

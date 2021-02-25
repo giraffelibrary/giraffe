@@ -1,4 +1,4 @@
-(* Copyright (C) 2013-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -25,12 +25,12 @@ structure GdkEvent :> GDK_EVENT =
     in
       val dup_ =
         call
-          (getSymbol "gdk_event_copy")
+          (externalFunctionSymbol "gdk_event_copy")
           (cPtr --> cPtr)
 
       val free_ =
         call
-          (getSymbol "gdk_event_free")
+          (externalFunctionSymbol "gdk_event_free")
           (cPtr --> cVoid)
     end
 
@@ -204,27 +204,27 @@ structure GdkEvent :> GDK_EVENT =
     in
       val getType_ =
         call
-          (getSymbol "gdk_event_get_type")
+          (externalFunctionSymbol "gdk_event_get_type")
           (cVoid --> GObject.Type.PolyML.cVal);
 
       val getValue_ =
         call
-          (getSymbol "g_value_get_boxed")
+          (externalFunctionSymbol "g_value_get_boxed")
           (GObject.ValueRecord.PolyML.cPtr --> PolyML.cPtr);
 
       val getOptValue_ =
         call
-          (getSymbol "g_value_get_boxed")
+          (externalFunctionSymbol "g_value_get_boxed")
           (GObject.ValueRecord.PolyML.cPtr --> PolyML.cOptPtr);
 
       val setValue_ =
         call
-          (getSymbol "g_value_set_boxed")
+          (externalFunctionSymbol "g_value_set_boxed")
           (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid);
 
       val setOptValue_ =
         call
-          (getSymbol "g_value_set_boxed")
+          (externalFunctionSymbol "g_value_set_boxed")
           (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid);
     end
 
