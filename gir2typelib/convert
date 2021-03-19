@@ -1,11 +1,11 @@
 #! /bin/sh
 
-file=$0
-dir=`dirname ${file}`
+file="$0"
+dir=$(dirname "${file}")
 
 for f in */*/*.sml */*.sml
 do
-  tmp=`mktemp`
-  cat ${f} | sed -f ${dir}/conv.sed > ${tmp}
-  mv ${tmp} ${f}
+  tmp=$(mktemp)
+  sed -f "${dir}/conv.sed" < "${f}" > "${tmp}"
+  mv "${tmp}" "${f}"
 done

@@ -1,7 +1,7 @@
 #! /bin/sh
 
-CODEGEN_REL_DIR=$(dirname $0)
-CODEGEN_DIR=$(cd ${CODEGEN_REL_DIR} ; pwd -P)
+CODEGEN_REL_DIR=$(dirname "$0")
+CODEGEN_DIR=$(cd "${CODEGEN_REL_DIR}" || exit ; pwd -P)
 
 AUTO="mlton-auto"
 FIXES="mlton-fixes"
@@ -28,14 +28,14 @@ try_merge_tool () {
     else
       while true
       do
-        echo -n "Run merge tool? [y/N] "
-        read ANSWER
-        if [ "x${ANSWER}" = "xy" -o "x${ANSWER}" = "xY" ]
+        printf "Run merge tool? [y/N] "
+        read -r ANSWER
+        if [ "x${ANSWER}" = "xy" ] || [ "x${ANSWER}" = "xY" ]
         then
           echo "Running ${MERGE} ${SOURCE_DIR} ${TARGET_DIR}"
           "${MERGE}" "${SOURCE_DIR}" "${TARGET_DIR}"
           break
-        elif [ "x${ANSWER}" = "xn" -o "x${ANSWER}" = "xN" -o "x${ANSWER}" = "x" ]
+        elif [ "x${ANSWER}" = "xn" ] || [ "x${ANSWER}" = "xN" ] || [ "x${ANSWER}" = "x" ]
         then
           break
         fi
@@ -86,6 +86,7 @@ update () {
 
   FMT="  %-${SOURCE_NAME_LEN_MAX}s  %-12s  %-${TARGET_NAME_LEN_MAX}s"
 
+  # shellcheck disable=SC2059
   printf "${FMT}\n" "${SOURCE_DIR}/" "------->" "${TARGET_DIR}/"
 
   MATCHES=$(find "${SOURCE_DIR}" -maxdepth 1 -name 'giraffe-*-mlton.*' -print -quit)
@@ -100,14 +101,17 @@ update () {
       then
         if diff -rq "${TARGET}" "${SOURCE}" > /dev/null
         then
+          # shellcheck disable=SC2059
           printf "${FMT}\n" "${INDENT}${NAME}" "same as" "${INDENT}${NAME}"
         else
+          # shellcheck disable=SC2059
           printf "${FMT}  %-22s\n" "${INDENT}${NAME}" "differs from" "${INDENT}${NAME}" "(manual update required)"
           DIFF_EXISTS=1
         fi
       else
         if cp -an "${SOURCE}" "${TARGET}"
         then
+          # shellcheck disable=SC2059
           printf "${FMT}\n" "${INDENT}${NAME}" "copied to" "${INDENT}${NAME}"
         else
           echo "error: failed to copy ${SOURCE} to ${TARGET}"
@@ -126,6 +130,7 @@ update () {
 
       if [ ! -e "${SOURCE}" ]
       then
+        # shellcheck disable=SC2059
         printf "${FMT}  %-22s\n" "${INDENT}<>" "differs from" "${INDENT}${NAME}" "(manual delete required)"
         DIFF_EXISTS=1
       fi
@@ -230,12 +235,12 @@ if [ -n "${GENERATE_AUTO}" ]
 then
   (
     cd src &&
-    cat mlton-codegen.sml | \
-      OUT_DIR=${AUTO_OUT_DIR} \
-      VERSION_DIR=${CODEGEN_DIR}/version \
-      GIVERSION_DIR=${CODEGEN_DIR}/giversion \
-      GIMETADATA_DIR=${CODEGEN_DIR}/gimetadata \
-      poly -q --error-exit
+    OUT_DIR="${AUTO_OUT_DIR}" \
+    VERSION_DIR="${CODEGEN_DIR}/version" \
+    GIVERSION_DIR="${CODEGEN_DIR}/giversion" \
+    GIMETADATA_DIR="${CODEGEN_DIR}/gimetadata" \
+    poly -q --error-exit \
+     < "mlton-codegen.sml"
   )
 fi
 
@@ -249,7 +254,7 @@ then
     echo "Creating ${CODEGEN_REL_DIR}/${AUTO}"
     mkdir "${CODEGEN_REL_DIR}/${AUTO}"
   fi
-  update ${AUTO_OUT_DIR} ${CODEGEN_REL_DIR}/${AUTO}
+  update "${AUTO_OUT_DIR}" "${CODEGEN_REL_DIR}/${AUTO}"
 fi
 
 
@@ -262,17 +267,17 @@ then
     LAST=1
     for i in "${TMP_DIR}"/*
     do
-      N=$(echo $i | sed -n -e "s|^${TMP_DIR}/${FIXED}\.\([0-9][0-9]*\).*$|\1|p")
+      N=$(echo "$i" | sed -n -e "s|^${TMP_DIR}/${FIXED}\.\([0-9][0-9]*\).*$|\1|p")
       if [ -n "${N}" ]
       then
-        if [ ${LAST} -lt ${N} ]
+        if [ ${LAST} -lt "${N}" ]
         then
-          LAST=${N}
+          LAST="${N}"
         fi
       fi
     done
-    N=$((${LAST} + 1))
-    NEW_DIR=${FIXED_OUT_DIR}.${N}
+    N=$((LAST + 1))
+    NEW_DIR="${FIXED_OUT_DIR}.${N}"
     echo "Renaming existing output directory ${FIXED_OUT_DIR} to ${NEW_DIR}"
     if ! mv "${FIXED_OUT_DIR}" "${NEW_DIR}"
     then
@@ -282,13 +287,13 @@ then
   fi
 
   echo "Creating ${FIXED_OUT_DIR}"
-  mkdir ${FIXED_OUT_DIR}
+  mkdir "${FIXED_OUT_DIR}"
 
   echo "Copying ${AUTO} to ${FIXED_OUT_DIR}"
-  cp -a ${CODEGEN_REL_DIR}/${AUTO}/* ${FIXED_OUT_DIR}
+  cp -a "${CODEGEN_REL_DIR}/${AUTO}"/* "${FIXED_OUT_DIR}"
 
   echo "Copying ${FIXES} to ${FIXED_OUT_DIR}"
-  cp -a ${CODEGEN_REL_DIR}/${FIXES}/* ${FIXED_OUT_DIR}
+  cp -a "${CODEGEN_REL_DIR}/${FIXES}"/* "${FIXED_OUT_DIR}"
 fi
 
 
@@ -362,11 +367,12 @@ then
   MATCHES=$(find "${TARGET_DIR}" -maxdepth 1 -name 'giraffe-*-mlton.*' -print -quit)
   if [ -n "${MATCHES}" ]
   then
+    # shellcheck disable=SC2059
     printf "${FMT}\n" "${TARGET_DIR}/" "" "${SOURCE_DIR}/"
 
     for TARGET in "${TARGET_DIR}"/giraffe-*-mlton.*
     do
-      NAME=$(basename ${TARGET})
+      NAME=$(basename "${TARGET}")
       SOURCE="${SOURCE_DIR}/${NAME}"
 
       if [ -e "${SOURCE}" ]
@@ -374,12 +380,15 @@ then
         if diff -rq "${TARGET}" "${SOURCE}" > /dev/null
         then
           rm -r "${TARGET}"
+          # shellcheck disable=SC2059
           printf "${FMT}\n" "${INDENT}${NAME}" "deleted, same as" "${INDENT}${NAME}"
         else
+          # shellcheck disable=SC2059
           printf "${FMT}\n" "${INDENT}${NAME}" "not deleted, differs from" "${INDENT}${NAME}"
           DIFF_EXISTS=1
         fi
       else
+        # shellcheck disable=SC2059
         printf "${FMT} %-14s\n" "${INDENT}${NAME}" "not deleted" "${INDENT}${NAME}" "does not exist"
       fi
     done

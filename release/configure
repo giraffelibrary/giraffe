@@ -3,7 +3,7 @@
 # Giraffe Library configure script
 # This script generates config.mk that is included by Makefile.
 #
-# Copyright (C) 2015, 2020 Phil Clayton <phil.clayton@veonix.com>
+# Copyright (C) 2015, 2020-2021 Phil Clayton <phil.clayton@veonix.com>
 #
 # This file is part of the Giraffe Library runtime.  For your rights to use
 # this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -34,7 +34,7 @@ prepend ()
 {
   # $1 has the format <key>=<value> where <key> does not contain '='
 
-  printf "$1\n" ; cat -
+  printf "%s\n" "$1" ; cat -
 }
 
 lookup ()
@@ -297,7 +297,7 @@ then
 
   else
     # check in PATH
-    MLTON=`which mlton 2> /dev/null`
+    MLTON=$(which mlton 2> /dev/null)
 
     if [ -n "${MLTON}" ]
     then
@@ -305,8 +305,8 @@ then
       echo "found using PATH"
 
       HAVE_MLTON="1"
-      MLTON_BINDIR=`dirname "${MLTON}" 2> /dev/null`
-      MLTON_PREFIX=`dirname "${MLTON_BINDIR}" 2> /dev/null`
+      MLTON_BINDIR=$(dirname "${MLTON}" 2> /dev/null)
+      MLTON_PREFIX=$(dirname "${MLTON_BINDIR}" 2> /dev/null)
       find_mlton_includedir "${MLTON_PREFIX}"
 
       if [ -z "${MLTON_INCLUDEDIR}" ]
@@ -352,9 +352,9 @@ then
   fi
 
   printf "  version:           "
-  if MLTON_VERSION=`${MLTON_MLTON} | cut -d " " -f2`
+  if MLTON_VERSION=$(${MLTON_MLTON} | cut -d " " -f2)
   then
-    printf "${MLTON_VERSION}"
+    printf "%s" "${MLTON_VERSION}"
   else
     echo
     echo "error: failed to run ${MLTON_MLTON}"
@@ -421,20 +421,20 @@ then
   # check with pkg-config
   elif pkg-config --exists polyml
   then
-    POLYML_VERSION_EXPECTED=`pkg-config --modversion polyml`
+    POLYML_VERSION_EXPECTED=$(pkg-config --modversion polyml)
     echo "found version ${POLYML_VERSION_EXPECTED} using pkg-config"
 
     HAVE_POLYML="1"
-    POLYML_BINDIR=`pkg-config --variable=bindir polyml`
-    POLYML_LIBDIR=`pkg-config --variable=libdir polyml`
-    POLYML_INCLUDEDIR=`pkg-config --variable=includedir polyml`  # not used
+    POLYML_BINDIR=$(pkg-config --variable=bindir polyml)
+    POLYML_LIBDIR=$(pkg-config --variable=libdir polyml)
+    POLYML_INCLUDEDIR=$(pkg-config --variable=includedir polyml)  # not used
 
     echo "  bin directory:     ${POLYML_BINDIR}"
     echo "  lib directory:     ${POLYML_LIBDIR}"
 
   else
     # check in PATH
-    WHICH_POLY=`which poly 2> /dev/null`
+    WHICH_POLY=$(which poly 2> /dev/null)
 
     if [ -n "${WHICH_POLY}" ]
     then
@@ -442,8 +442,8 @@ then
       echo "found using PATH"
 
       HAVE_POLYML="1"
-      POLYML_BINDIR=`dirname "${WHICH_POLY}" 2> /dev/null`
-      POLYML_PREFIX=`dirname "${POLYML_BINDIR}" 2> /dev/null`
+      POLYML_BINDIR=$(dirname "${WHICH_POLY}" 2> /dev/null)
+      POLYML_PREFIX=$(dirname "${POLYML_BINDIR}" 2> /dev/null)
       POLYML_LIBDIR="${POLYML_PREFIX}/lib"
 
       echo "  bin directory:     ${POLYML_BINDIR}"
@@ -485,9 +485,9 @@ then
   fi
 
   printf "  version:           "
-  if POLYML_VERSION=`${POLYML_POLY} -v | cut -d " " -f2`
+  if POLYML_VERSION=$(${POLYML_POLY} -v | cut -d " " -f2)
   then
-    printf "${POLYML_VERSION}"
+    printf "%s" "${POLYML_VERSION}"
   else
     echo
     echo "error: failed to run ${POLYML_POLY}"
@@ -504,18 +504,18 @@ then
     fi
   fi
 
-  A1=`echo "${POLYML_VERSION}." | cut -d "." -f 1`
-  AS=`echo "${POLYML_VERSION}." | cut -d "." -f 2-`
-  B1=`echo "${MIN_POLYML_VERSION}." | cut -d "." -f 1`
-  BS=`echo "${MIN_POLYML_VERSION}." | cut -d "." -f 2-`
+  A1=$(echo "${POLYML_VERSION}." | cut -d "." -f 1)
+  AS=$(echo "${POLYML_VERSION}." | cut -d "." -f 2-)
+  B1=$(echo "${MIN_POLYML_VERSION}." | cut -d "." -f 1)
+  BS=$(echo "${MIN_POLYML_VERSION}." | cut -d "." -f 2-)
   while [ -n "${A1}" ] && [ "${A1}" -eq "${B1}" ]
   do
-    A1=`echo "${AS}" | cut -d "." -f 1`
-    AS=`echo "${AS}" | cut -d "." -f 2-`
-    B1=`echo "${BS}" | cut -d "." -f 1`
-    BS=`echo "${BS}" | cut -d "." -f 2-`
+    A1=$(echo "${AS}" | cut -d "." -f 1)
+    AS=$(echo "${AS}" | cut -d "." -f 2-)
+    B1=$(echo "${BS}" | cut -d "." -f 1)
+    BS=$(echo "${BS}" | cut -d "." -f 2-)
   done
-  if [ -n "${B1}" ] && [ 0 -lt "${B1}" ] && ([ -z "${A1}" ] || [ "${A1}" -lt "${B1}" ])
+  if [ -n "${B1}" ] && [ 0 -lt "${B1}" ] && { [ -z "${A1}" ] || [ "${A1}" -lt "${B1}" ] ; }
   then
     echo " < ${MIN_POLYML_VERSION} (REQUIRED VERSION)"
     echo "error: Poly/ML version ${MIN_POLYML_VERSION} or later is required"
@@ -542,18 +542,18 @@ fi
 echo
 echo "== Checking libraries =="
 
-ALL_LIB_NAMES=`empty`
-SML_LIB_NAMES=`empty`
-POLYML_LIB_NAMES=`empty`
-MLTON_LIB_NAMES=`empty`
-EXCLUDED_LIB_NAMES=`empty`
+ALL_LIB_NAMES=$(empty)
+SML_LIB_NAMES=$(empty)
+POLYML_LIB_NAMES=$(empty)
+MLTON_LIB_NAMES=$(empty)
+EXCLUDED_LIB_NAMES=$(empty)
 HAVE_OLDER_LIBS=
 
 for DIR in src/*-[0-9]*
 do
   if [ -f "${DIR}/package" ]
   then
-    PKGNAME=`head -n 1 "${DIR}/package"`
+    PKGNAME=$(head -n 1 "${DIR}/package")
   else
     PKGNAME=
     echo
@@ -562,20 +562,20 @@ do
 
   if [ -f "${DIR}/version" ]
   then
-    VERSION=`cat "${DIR}/version"`
+    VERSION=$(cat "${DIR}/version")
   else
     VERSION=
   fi
 
-  NAME=`basename ${DIR}`
+  NAME=$(basename "${DIR}")
 
   if [ -n "${PKGNAME}" ]
   then
-    printf "Checking ${NAME}... "
+    printf "Checking %s... " "${NAME}"
 
     if pkg-config --exists "${PKGNAME}"
     then
-      MODVERSION=`pkg-config --modversion "${PKGNAME}"`
+      MODVERSION=$(pkg-config --modversion "${PKGNAME}")
       echo "found version ${MODVERSION}"
 
       USE_LIB=
@@ -589,37 +589,37 @@ do
           REL="<"
           HAVE_OLDER_LIBS="1"
         fi
-        ALL_LIB_VERSION=`printf "%-16s%-8s%s" ${MODVERSION} ${REL} ${VERSION}`
-        ALL_LIB_NAMES=`echo "${ALL_LIB_NAMES}" | prepend "${NAME}=${ALL_LIB_VERSION}"`
+        ALL_LIB_VERSION=$(printf "%-16s%-8s%s" "${MODVERSION}" "${REL}" "${VERSION}")
+        ALL_LIB_NAMES=$(echo "${ALL_LIB_NAMES}" | prepend "${NAME}=${ALL_LIB_VERSION}")
         USE_LIB=Y
       else
         # no version check, just use it
         echo
-        ALL_LIB_NAMES=`echo "${ALL_LIB_NAMES}" | prepend "${NAME}=${MODVERSION}"`
+        ALL_LIB_NAMES=$(echo "${ALL_LIB_NAMES}" | prepend "${NAME}=${MODVERSION}")
         USE_LIB=Y
       fi
 
       if [ -n "${USE_LIB}" ]
       then
-        SML_LIB_NAMES=`echo "${SML_LIB_NAMES}" | prepend "${NAME}=${MODVERSION}"`
+        SML_LIB_NAMES=$(echo "${SML_LIB_NAMES}" | prepend "${NAME}=${MODVERSION}")
 
         if [ -n "${HAVE_MLTON}" ] && [ -f "src/mlton/giraffe-${NAME}.c" ]
         then
-          MLTON_LIB_NAMES=`echo "${MLTON_LIB_NAMES}" | prepend "${NAME}="`
+          MLTON_LIB_NAMES=$(echo "${MLTON_LIB_NAMES}" | prepend "${NAME}=")
         fi
         if [ -n "${HAVE_POLYML}" ] && [ -f "src/polyml/giraffe-${NAME}.c" ]
         then
-          POLYML_LIB_NAMES=`echo "${POLYML_LIB_NAMES}" | prepend "${NAME}="`
+          POLYML_LIB_NAMES=$(echo "${POLYML_LIB_NAMES}" | prepend "${NAME}=")
         fi
       fi
     else
       echo "NOT FOUND"
-      ALL_LIB_NAMES=`echo "${ALL_LIB_NAMES}" | prepend "${NAME}=NOT AVAILABLE"`
-      EXCLUDED_LIB_NAMES=`echo "${EXCLUDED_LIB_NAMES}" | prepend "${NAME}="`
+      ALL_LIB_NAMES=$(echo "${ALL_LIB_NAMES}" | prepend "${NAME}=NOT AVAILABLE")
+      EXCLUDED_LIB_NAMES=$(echo "${EXCLUDED_LIB_NAMES}" | prepend "${NAME}=")
     fi
   else
     # always include if no package dependency
-    SML_LIB_NAMES=`echo "${SML_LIB_NAMES}" | prepend "${NAME}=0"`
+    SML_LIB_NAMES=$(echo "${SML_LIB_NAMES}" | prepend "${NAME}=0")
   fi
 done
 
@@ -668,9 +668,9 @@ fi
 echo
 echo "  Libraries               Using version           Giraffe Library API version"
 echo "${ALL_LIB_NAMES}" | keys | sort |
-  while read NAME
+  while read -r NAME
   do
-    VERSION=`echo "${ALL_LIB_NAMES}" | lookup "${NAME}"`
+    VERSION=$(echo "${ALL_LIB_NAMES}" | lookup "${NAME}")
     printf "    %-24s%s\n" "${NAME}" "${VERSION}"
   done
 if test -n "${HAVE_OLDER_LIBS}"
@@ -699,31 +699,39 @@ echo
 OUTFILE="config.mk"
 
 # Try to clear ${OUTFILE}
-if ! ( > "${OUTFILE}") 2> /dev/null
+if ! (true > "${OUTFILE}") 2> /dev/null
 then
   echo "cannot write to ${OUTFILE}"
   exit 1
 fi
 
-write_line () { echo "$@" >> "${OUTFILE}" ; }
+print_names () {
+  while read -r NAME
+  do
+    printf " %s" "${NAME}"
+  done
+  printf "\n"
+}
 
-write_line "PREFIX := ${PREFIX}"
-write_line "SML_LIB_NAMES :=" `echo "${SML_LIB_NAMES}" | keys | sort`
-write_line "EXCLUDED_LIB_NAMES :=" `echo "${EXCLUDED_LIB_NAMES}" | keys | sort`
-write_line "MLTON_VERSION = ${MLTON_VERSION}"
-if [ -n "${HAVE_MLTON}" ]
-then
-  write_line "MLTON_LIB_NAMES :=" `echo "${MLTON_LIB_NAMES}" | keys | sort`
-  write_line "MLTON_MLTON := ${MLTON_MLTON}"
-  write_line "MLTON_BINDIR := ${MLTON_BINDIR}"
-  write_line "MLTON_INCLUDEDIR := ${MLTON_INCLUDEDIR}"
-fi
-write_line "POLYML_VERSION := ${POLYML_VERSION}"
-if [ -n "${HAVE_POLYML}" ]
-then
-  write_line "POLYML_LIB_NAMES :=" `echo "${POLYML_LIB_NAMES}" | keys | sort`
-  write_line "POLYML_POLY := ${POLYML_POLY}"
-  write_line "POLYML_POLYC := ${POLYML_POLYC}"
-  write_line "POLYML_BINDIR := ${POLYML_BINDIR}"
-  write_line "POLYML_LIBDIR := ${POLYML_LIBDIR}"
-fi
+{
+  printf "PREFIX := %s\n" "${PREFIX}"
+  printf "SML_LIB_NAMES :=" ; echo "${SML_LIB_NAMES}" | keys | sort | print_names
+  printf "EXCLUDED_LIB_NAMES :=" ; echo "${EXCLUDED_LIB_NAMES}" | keys | sort | print_names
+  printf "MLTON_VERSION := %s\n" "${MLTON_VERSION}"
+  if [ -n "${HAVE_MLTON}" ]
+  then
+    printf "MLTON_LIB_NAMES :=" ; echo "${MLTON_LIB_NAMES}" | keys | sort | print_names
+    printf "MLTON_MLTON := %s\n" "${MLTON_MLTON}"
+    printf "MLTON_BINDIR := %s\n" "${MLTON_BINDIR}"
+    printf "MLTON_INCLUDEDIR := %s\n" "${MLTON_INCLUDEDIR}"
+  fi
+  printf "POLYML_VERSION := %s\n" "${POLYML_VERSION}"
+  if [ -n "${HAVE_POLYML}" ]
+  then
+    printf "POLYML_LIB_NAMES :=" ; echo "${POLYML_LIB_NAMES}" | keys | sort | print_names
+    printf "POLYML_POLY := %s\n" "${POLYML_POLY}"
+    printf "POLYML_POLYC := %s\n" "${POLYML_POLYC}"
+    printf "POLYML_BINDIR := %s\n" "${POLYML_BINDIR}"
+    printf "POLYML_LIBDIR := %s\n" "${POLYML_LIBDIR}"
+  fi
+} >> "${OUTFILE}"

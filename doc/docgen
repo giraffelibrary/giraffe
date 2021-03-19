@@ -1,6 +1,6 @@
 #! /bin/sh
 
-DOCGEN_REL_DIR=$(dirname $0)
+DOCGEN_REL_DIR=$(dirname "$0")
 if [ "${DOCGEN_REL_DIR}" = "." ]
 then
   DOCGEN_REL_DIR_PREFIX=
@@ -8,8 +8,6 @@ else
   DOCGEN_REL_DIR_PREFIX="${DOCGEN_REL_DIR}/"
 fi
 
-SETUP_GUIDE=setup-guide
-USER_GUIDE=user-guide
 CSS=C.css
 
 RELEASES_DIR=releases
@@ -37,14 +35,14 @@ try_merge_tool () {
     else
       while true
       do
-        echo -n "Run merge tool? [y/N] "
-        read ANSWER
-        if [ "x${ANSWER}" = "xy" -o "x${ANSWER}" = "xY" ]
+        printf "Run merge tool? [y/N] "
+        read -r ANSWER
+        if [ "x${ANSWER}" = "xy" ] || [ "x${ANSWER}" = "xY" ]
         then
           echo "Running ${MERGE} ${SOURCE_DIR} ${TARGET_DIR}"
           "${MERGE}" "${SOURCE_DIR}" "${TARGET_DIR}"
           break
-        elif [ "x${ANSWER}" = "xn" -o "x${ANSWER}" = "xN" -o "x${ANSWER}" = "x" ]
+        elif [ "x${ANSWER}" = "xn" ] || [ "x${ANSWER}" = "xN" ] || [ "x${ANSWER}" = "x" ]
         then
           break
         fi
@@ -95,6 +93,7 @@ update () {
 
   FMT="  %-${SOURCE_NAME_LEN_MAX}s  %-12s  %-${TARGET_NAME_LEN_MAX}s"
 
+  # shellcheck disable=SC2059
   printf "${FMT}\n" "${SOURCE_DIR}/" "------->" "${TARGET_DIR}/"
 
   MATCHES=$(find "${SOURCE_DIR}" -maxdepth 1 -name '*.*' -print -quit)
@@ -109,14 +108,17 @@ update () {
       then
         if diff -rq "${TARGET}" "${SOURCE}" > /dev/null
         then
+          # shellcheck disable=SC2059
           printf "${FMT}\n" "${INDENT}${NAME}" "same as" "${INDENT}${NAME}"
         else
+          # shellcheck disable=SC2059
           printf "${FMT}  %-22s\n" "${INDENT}${NAME}" "differs from" "${INDENT}${NAME}" "(manual update required)"
           DIFF_EXISTS=1
         fi
       else
         if cp -an "${SOURCE}" "${TARGET}"
         then
+          # shellcheck disable=SC2059
           printf "${FMT}\n" "${INDENT}${NAME}" "copied to" "${INDENT}${NAME}"
         else
           echo "error: failed to copy ${SOURCE} to ${TARGET}"
@@ -149,7 +151,7 @@ update () {
   fi
 }
 
-YELP_BUILD=`which yelp-build 2> /dev/null`
+YELP_BUILD=$(which yelp-build 2> /dev/null)
 if [ -z "$YELP_BUILD" ]
 then
   echo "error: yelp-build not found in the path"
@@ -215,7 +217,7 @@ else
 fi
 
 # If no error so far, check for unused arguments.
-if [ "${SHOW_HELP:-0}" == "0" -a $# != 0 ]
+if [ "${SHOW_HELP:-0}" = "0" ] && [ $# != 0 ]
 then
   echo "error: too many arguments"
   SHOW_HELP=3
@@ -259,7 +261,7 @@ then
   if [ -e "${DOCGEN_REL_DIR}/${RELEASES_DIR}" ]
   then
     # ${DOCGEN_REL_DIR}/${RELEASES_DIR} already exists and...
-    if [ "${RELEASES}" -ef "${DOCGEN_REL_DIR}/${RELEASES_DIR}" ]
+    if [ "${RELEASES}" -ef "${DOCGEN_REL_DIR}/${RELEASES_DIR}" ]  # both Bash and Dash support -ef
     then
       # ...${DOCGEN_REL_DIR}/${RELEASES_DIR} is the same as ${RELEASES}: nothing to do.
       echo "Nothing to do: file '${DOCGEN_REL_DIR_PREFIX}${RELEASES_DIR}' is the same as directory '${RELEASES}'"
@@ -270,7 +272,7 @@ then
     fi
   else
     # ${DOCGEN_REL_DIR}/${RELEASES_DIR} does not already exist: create it.
-    REL_RELEASES=`realpath --relative-to="${DOCGEN_REL_DIR}" "${RELEASES}"`
+    REL_RELEASES=$(realpath --relative-to="${DOCGEN_REL_DIR}" "${RELEASES}")
     echo "Creating symboling link '${DOCGEN_REL_DIR_PREFIX}${RELEASES_DIR}' to '${REL_RELEASES}'"
     ln -s -T "${REL_RELEASES}" "${DOCGEN_REL_DIR}/${RELEASES_DIR}"
   fi
@@ -304,7 +306,7 @@ if [ -n "${SITE}" ]
 then
   # Check that ${DOCGEN_REL_DIR}/${RELEASES_DIR} contains a directory for every tag.
   MISSING_TAG=
-  for TAG in `git tag -l`
+  for TAG in $(git tag -l)
   do
     if [ ! -d "${DOCGEN_REL_DIR}/${RELEASES_DIR}/${TAG}" ]
     then
@@ -336,7 +338,7 @@ then
       esac
     done
     # Rename existing output directory using suffix <N+1>.
-    NEW_DIR="${OUT_SITE_DIR}.$[N+1]"
+    NEW_DIR="${OUT_SITE_DIR}.$((N+1))"
     echo "Renaming existing output directory '${OUT_SITE_DIR}' to '${NEW_DIR}'"
     if ! mv "${OUT_SITE_DIR}" "${NEW_DIR}"
     then
@@ -377,7 +379,12 @@ then
 
     echo "Copying files to examples output directory '${OUT_SITE_DIR}/${EXAMPLES_DIR}'"
     (
-      cd "${DOCGEN_REL_DIR}/${EXAMPLES_DIR}"
+      if ! cd "${DOCGEN_REL_DIR}/${EXAMPLES_DIR}"
+      then
+        echo "error: cannot access directory '${DOCGEN_REL_DIR_PREFIX}${EXAMPLES_DIR}'"
+        exit 25
+      fi
+
       for EG_DIR in *
       do
         if [ -d "${EG_DIR}" ]
@@ -386,7 +393,7 @@ then
           # In the TAR file, set the timestamp of every file to the timestamp of the
           # most recent commit that affected any of the files.  If there is no such
           # commit, use a timestamp of @0, i.e. the epoch.
-          MTIME=`git log --max-count=1 --pretty=format:%at HEAD -- "${EG_DIR}"`
+          MTIME=$(git log --max-count=1 --pretty=format:%at HEAD -- "${EG_DIR}")
           tar --create \
               --dereference \
               --sort=name \
