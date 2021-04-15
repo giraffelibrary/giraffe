@@ -449,13 +449,19 @@ fun makePropertyStrDec
 
     val nameExp = ExpConst (ConstString propertyName)
 
+    (* `mkConstFn e` returns
+     *
+     *     fn _ => <e>
+     *)
+    fun mkConstFn e = ExpFn (toList1 [(PatA APatU, e)])
+
     val propertyExp =
       ExpRec [
         (nameId,  nameExp),
         (gtypeId, mkParamGtypeExp accExp),
-        (getId,   mkParamModeExp accExp (#get  paramModes)),
-        (setId,   mkParamModeExp accExp (#set  paramModes)),
-        (initId,  mkParamModeExp accExp (#init paramModes))
+        (getId,   mkConstFn (mkParamModeExp accExp (#get  paramModes))),
+        (setId,   mkConstFn (mkParamModeExp accExp (#set  paramModes))),
+        (initId,             mkParamModeExp accExp (#init paramModes))
       ]
   in
     (

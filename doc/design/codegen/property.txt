@@ -238,8 +238,8 @@ PropertyDec has the form:
     {
       name  = "<property-name>",
       gtype = fn () => C.gtype <PropertyAccessor> (),
-      get   = fn x => fn () => C.get <PropertyAccessor> x,
-      set   = fn x => C.set <PropertyAccessor> x,
+      get   = fn _ => fn x => fn () => C.get <PropertyAccessor> x,
+      set   = fn _ => fn x => C.set <PropertyAccessor> x,
       init  = fn x => C.set <PropertyAccessor> x
     }
 
@@ -250,8 +250,8 @@ PropertyDec has the form:
     {
       name  = "<property-name>",
       gtype = fn () => C.gtype <PropertyAccessor> (),
-      get   = fn x => fn () => C.get <PropertyAccessor> x,
-      set   = ignore,
+      get   = fn _ => fn x => fn () => C.get <PropertyAccessor> x,
+      set   = fn _ => ignore,
       init  = fn x => C.set <PropertyAccessor> x
     }
 
@@ -262,8 +262,8 @@ PropertyDec has the form:
     {
       name  = "<property-name>",
       gtype = fn () => C.gtype <PropertyAccessor> (),
-      get   = fn x => fn () => C.get <PropertyAccessor> x,
-      set   = ignore,
+      get   = fn _ => fn x => fn () => C.get <PropertyAccessor> x,
+      set   = fn _ => ignore,
       init  = ignore
     }
 
@@ -274,8 +274,8 @@ PropertyDec has the form:
     {
       name  = "<property-name>",
       gtype = fn () => C.gtype <PropertyAccessor> (),
-      get   = ignore,
-      set   = fn x => C.set <PropertyAccessor> x,
+      get   = fn _ => ignore,
+      set   = fn _ => fn x => C.set <PropertyAccessor> x,
       init  = fn x => C.set <PropertyAccessor> x
     }
 
@@ -286,8 +286,8 @@ PropertyDec has the form:
     {
       name  = "<property-name>",
       gtype = fn () => C.gtype <PropertyAccessor> (),
-      get   = ignore,
-      set   = ignore,
+      get   = fn _ => ignore,
+      set   = fn _ => ignore,
       init  = fn x => C.set <PropertyAccessor> x
     }
 

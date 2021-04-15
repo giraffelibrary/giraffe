@@ -2634,312 +2634,312 @@ structure GtkWidget :>
         {
           name = "app-paintable",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val canDefaultProp =
         {
           name = "can-default",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val canFocusProp =
         {
           name = "can-focus",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val compositeChildProp =
         {
           name = "composite-child",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = ignore,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => ignore,
           init = ignore
         }
       val doubleBufferedProp =
         {
           name = "double-buffered",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val eventsProp =
         {
           name = "events",
           gtype = fn () => C.gtype GdkEventMask.t (),
-          get = fn x => fn () => C.get GdkEventMask.t x,
-          set = fn x => C.set GdkEventMask.t x,
+          get = fn _ => fn x => fn () => C.get GdkEventMask.t x,
+          set = fn _ => fn x => C.set GdkEventMask.t x,
           init = fn x => C.set GdkEventMask.t x
         }
       val expandProp =
         {
           name = "expand",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val focusOnClickProp =
         {
           name = "focus-on-click",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val halignProp =
         {
           name = "halign",
           gtype = fn () => C.gtype GtkAlign.t (),
-          get = fn x => fn () => C.get GtkAlign.t x,
-          set = fn x => C.set GtkAlign.t x,
+          get = fn _ => fn x => fn () => C.get GtkAlign.t x,
+          set = fn _ => fn x => C.set GtkAlign.t x,
           init = fn x => C.set GtkAlign.t x
         }
       val hasDefaultProp =
         {
           name = "has-default",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val hasFocusProp =
         {
           name = "has-focus",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val hasTooltipProp =
         {
           name = "has-tooltip",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val heightRequestProp =
         {
           name = "height-request",
           gtype = fn () => C.gtype int (),
-          get = fn x => fn () => C.get int x,
-          set = fn x => C.set int x,
+          get = fn _ => fn x => fn () => C.get int x,
+          set = fn _ => fn x => C.set int x,
           init = fn x => C.set int x
         }
       val hexpandProp =
         {
           name = "hexpand",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val hexpandSetProp =
         {
           name = "hexpand-set",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val isFocusProp =
         {
           name = "is-focus",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val marginProp =
         {
           name = "margin",
           gtype = fn () => C.gtype int (),
-          get = fn x => fn () => C.get int x,
-          set = fn x => C.set int x,
+          get = fn _ => fn x => fn () => C.get int x,
+          set = fn _ => fn x => C.set int x,
           init = fn x => C.set int x
         }
       val marginBottomProp =
         {
           name = "margin-bottom",
           gtype = fn () => C.gtype int (),
-          get = fn x => fn () => C.get int x,
-          set = fn x => C.set int x,
+          get = fn _ => fn x => fn () => C.get int x,
+          set = fn _ => fn x => C.set int x,
           init = fn x => C.set int x
         }
       val marginEndProp =
         {
           name = "margin-end",
           gtype = fn () => C.gtype int (),
-          get = fn x => fn () => C.get int x,
-          set = fn x => C.set int x,
+          get = fn _ => fn x => fn () => C.get int x,
+          set = fn _ => fn x => C.set int x,
           init = fn x => C.set int x
         }
       val marginLeftProp =
         {
           name = "margin-left",
           gtype = fn () => C.gtype int (),
-          get = fn x => fn () => C.get int x,
-          set = fn x => C.set int x,
+          get = fn _ => fn x => fn () => C.get int x,
+          set = fn _ => fn x => C.set int x,
           init = fn x => C.set int x
         }
       val marginRightProp =
         {
           name = "margin-right",
           gtype = fn () => C.gtype int (),
-          get = fn x => fn () => C.get int x,
-          set = fn x => C.set int x,
+          get = fn _ => fn x => fn () => C.get int x,
+          set = fn _ => fn x => C.set int x,
           init = fn x => C.set int x
         }
       val marginStartProp =
         {
           name = "margin-start",
           gtype = fn () => C.gtype int (),
-          get = fn x => fn () => C.get int x,
-          set = fn x => C.set int x,
+          get = fn _ => fn x => fn () => C.get int x,
+          set = fn _ => fn x => C.set int x,
           init = fn x => C.set int x
         }
       val marginTopProp =
         {
           name = "margin-top",
           gtype = fn () => C.gtype int (),
-          get = fn x => fn () => C.get int x,
-          set = fn x => C.set int x,
+          get = fn _ => fn x => fn () => C.get int x,
+          set = fn _ => fn x => C.set int x,
           init = fn x => C.set int x
         }
       val nameProp =
         {
           name = "name",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn x => fn () => C.get stringOpt x,
-          set = fn x => C.set stringOpt x,
+          get = fn _ => fn x => fn () => C.get stringOpt x,
+          set = fn _ => fn x => C.set stringOpt x,
           init = fn x => C.set stringOpt x
         }
       val noShowAllProp =
         {
           name = "no-show-all",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val opacityProp =
         {
           name = "opacity",
           gtype = fn () => C.gtype double (),
-          get = fn x => fn () => C.get double x,
-          set = fn x => C.set double x,
+          get = fn _ => fn x => fn () => C.get double x,
+          set = fn _ => fn x => C.set double x,
           init = fn x => C.set double x
         }
       val parentProp =
         {
           name = "parent",
           gtype = fn () => C.gtype GtkContainerClass.tOpt (),
-          get = fn x => fn () => C.get GtkContainerClass.tOpt x,
-          set = fn x => C.set GtkContainerClass.tOpt x,
+          get = fn _ => fn x => fn () => C.get GtkContainerClass.tOpt x,
+          set = fn _ => fn x => C.set GtkContainerClass.tOpt x,
           init = fn x => C.set GtkContainerClass.tOpt x
         }
       val receivesDefaultProp =
         {
           name = "receives-default",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val scaleFactorProp =
         {
           name = "scale-factor",
           gtype = fn () => C.gtype int (),
-          get = fn x => fn () => C.get int x,
-          set = ignore,
+          get = fn _ => fn x => fn () => C.get int x,
+          set = fn _ => ignore,
           init = ignore
         }
       val sensitiveProp =
         {
           name = "sensitive",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val styleProp =
         {
           name = "style",
           gtype = fn () => C.gtype GtkStyleClass.tOpt (),
-          get = fn x => fn () => C.get GtkStyleClass.tOpt x,
-          set = fn x => C.set GtkStyleClass.tOpt x,
+          get = fn _ => fn x => fn () => C.get GtkStyleClass.tOpt x,
+          set = fn _ => fn x => C.set GtkStyleClass.tOpt x,
           init = fn x => C.set GtkStyleClass.tOpt x
         }
       val tooltipMarkupProp =
         {
           name = "tooltip-markup",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn x => fn () => C.get stringOpt x,
-          set = fn x => C.set stringOpt x,
+          get = fn _ => fn x => fn () => C.get stringOpt x,
+          set = fn _ => fn x => C.set stringOpt x,
           init = fn x => C.set stringOpt x
         }
       val tooltipTextProp =
         {
           name = "tooltip-text",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn x => fn () => C.get stringOpt x,
-          set = fn x => C.set stringOpt x,
+          get = fn _ => fn x => fn () => C.get stringOpt x,
+          set = fn _ => fn x => C.set stringOpt x,
           init = fn x => C.set stringOpt x
         }
       val valignProp =
         {
           name = "valign",
           gtype = fn () => C.gtype GtkAlign.t (),
-          get = fn x => fn () => C.get GtkAlign.t x,
-          set = fn x => C.set GtkAlign.t x,
+          get = fn _ => fn x => fn () => C.get GtkAlign.t x,
+          set = fn _ => fn x => C.set GtkAlign.t x,
           init = fn x => C.set GtkAlign.t x
         }
       val vexpandProp =
         {
           name = "vexpand",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val vexpandSetProp =
         {
           name = "vexpand-set",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val visibleProp =
         {
           name = "visible",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val widthRequestProp =
         {
           name = "width-request",
           gtype = fn () => C.gtype int (),
-          get = fn x => fn () => C.get int x,
-          set = fn x => C.set int x,
+          get = fn _ => fn x => fn () => C.get int x,
+          set = fn _ => fn x => C.set int x,
           init = fn x => C.set int x
         }
       val windowProp =
         {
           name = "window",
           gtype = fn () => C.gtype GdkWindowClass.tOpt (),
-          get = fn x => fn () => C.get GdkWindowClass.tOpt x,
-          set = ignore,
+          get = fn _ => fn x => fn () => C.get GdkWindowClass.tOpt x,
+          set = fn _ => ignore,
           init = ignore
         }
     end

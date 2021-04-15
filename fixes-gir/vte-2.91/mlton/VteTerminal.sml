@@ -1112,272 +1112,272 @@ structure VteTerminal :>
         {
           name = "allow-bold",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val allowHyperlinkProp =
         {
           name = "allow-hyperlink",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val audibleBellProp =
         {
           name = "audible-bell",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val backspaceBindingProp =
         {
           name = "backspace-binding",
           gtype = fn () => C.gtype VteEraseBinding.t (),
-          get = fn x => fn () => C.get VteEraseBinding.t x,
-          set = fn x => C.set VteEraseBinding.t x,
+          get = fn _ => fn x => fn () => C.get VteEraseBinding.t x,
+          set = fn _ => fn x => C.set VteEraseBinding.t x,
           init = fn x => C.set VteEraseBinding.t x
         }
       val boldIsBrightProp =
         {
           name = "bold-is-bright",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val cellHeightScaleProp =
         {
           name = "cell-height-scale",
           gtype = fn () => C.gtype double (),
-          get = fn x => fn () => C.get double x,
-          set = fn x => C.set double x,
+          get = fn _ => fn x => fn () => C.get double x,
+          set = fn _ => fn x => C.set double x,
           init = fn x => C.set double x
         }
       val cellWidthScaleProp =
         {
           name = "cell-width-scale",
           gtype = fn () => C.gtype double (),
-          get = fn x => fn () => C.get double x,
-          set = fn x => C.set double x,
+          get = fn _ => fn x => fn () => C.get double x,
+          set = fn _ => fn x => C.set double x,
           init = fn x => C.set double x
         }
       val cjkAmbiguousWidthProp =
         {
           name = "cjk-ambiguous-width",
           gtype = fn () => C.gtype int (),
-          get = fn x => fn () => C.get int x,
-          set = fn x => C.set int x,
+          get = fn _ => fn x => fn () => C.get int x,
+          set = fn _ => fn x => C.set int x,
           init = fn x => C.set int x
         }
       val currentContainerNameProp =
         {
           name = "current-container-name",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn x => fn () => C.get stringOpt x,
-          set = ignore,
+          get = fn _ => fn x => fn () => C.get stringOpt x,
+          set = fn _ => ignore,
           init = ignore
         }
       val currentContainerRuntimeProp =
         {
           name = "current-container-runtime",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn x => fn () => C.get stringOpt x,
-          set = ignore,
+          get = fn _ => fn x => fn () => C.get stringOpt x,
+          set = fn _ => ignore,
           init = ignore
         }
       val currentDirectoryUriProp =
         {
           name = "current-directory-uri",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn x => fn () => C.get stringOpt x,
-          set = ignore,
+          get = fn _ => fn x => fn () => C.get stringOpt x,
+          set = fn _ => ignore,
           init = ignore
         }
       val currentFileUriProp =
         {
           name = "current-file-uri",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn x => fn () => C.get stringOpt x,
-          set = ignore,
+          get = fn _ => fn x => fn () => C.get stringOpt x,
+          set = fn _ => ignore,
           init = ignore
         }
       val cursorBlinkModeProp =
         {
           name = "cursor-blink-mode",
           gtype = fn () => C.gtype VteCursorBlinkMode.t (),
-          get = fn x => fn () => C.get VteCursorBlinkMode.t x,
-          set = fn x => C.set VteCursorBlinkMode.t x,
+          get = fn _ => fn x => fn () => C.get VteCursorBlinkMode.t x,
+          set = fn _ => fn x => C.set VteCursorBlinkMode.t x,
           init = fn x => C.set VteCursorBlinkMode.t x
         }
       val cursorShapeProp =
         {
           name = "cursor-shape",
           gtype = fn () => C.gtype VteCursorShape.t (),
-          get = fn x => fn () => C.get VteCursorShape.t x,
-          set = fn x => C.set VteCursorShape.t x,
+          get = fn _ => fn x => fn () => C.get VteCursorShape.t x,
+          set = fn _ => fn x => C.set VteCursorShape.t x,
           init = fn x => C.set VteCursorShape.t x
         }
       val deleteBindingProp =
         {
           name = "delete-binding",
           gtype = fn () => C.gtype VteEraseBinding.t (),
-          get = fn x => fn () => C.get VteEraseBinding.t x,
-          set = fn x => C.set VteEraseBinding.t x,
+          get = fn _ => fn x => fn () => C.get VteEraseBinding.t x,
+          set = fn _ => fn x => C.set VteEraseBinding.t x,
           init = fn x => C.set VteEraseBinding.t x
         }
       val enableBidiProp =
         {
           name = "enable-bidi",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val enableShapingProp =
         {
           name = "enable-shaping",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val enableSixelProp =
         {
           name = "enable-sixel",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val encodingProp =
         {
           name = "encoding",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn x => fn () => C.get stringOpt x,
-          set = fn x => C.set stringOpt x,
+          get = fn _ => fn x => fn () => C.get stringOpt x,
+          set = fn _ => fn x => C.set stringOpt x,
           init = fn x => C.set stringOpt x
         }
       val fontDescProp =
         {
           name = "font-desc",
           gtype = fn () => C.gtype PangoFontDescriptionRecord.tOpt (),
-          get = fn x => fn () => C.get PangoFontDescriptionRecord.tOpt x,
-          set = fn x => C.set PangoFontDescriptionRecord.tOpt x,
+          get = fn _ => fn x => fn () => C.get PangoFontDescriptionRecord.tOpt x,
+          set = fn _ => fn x => C.set PangoFontDescriptionRecord.tOpt x,
           init = fn x => C.set PangoFontDescriptionRecord.tOpt x
         }
       val fontScaleProp =
         {
           name = "font-scale",
           gtype = fn () => C.gtype double (),
-          get = fn x => fn () => C.get double x,
-          set = fn x => C.set double x,
+          get = fn _ => fn x => fn () => C.get double x,
+          set = fn _ => fn x => C.set double x,
           init = fn x => C.set double x
         }
       val hyperlinkHoverUriProp =
         {
           name = "hyperlink-hover-uri",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn x => fn () => C.get stringOpt x,
-          set = ignore,
+          get = fn _ => fn x => fn () => C.get stringOpt x,
+          set = fn _ => ignore,
           init = ignore
         }
       val iconTitleProp =
         {
           name = "icon-title",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn x => fn () => C.get stringOpt x,
-          set = ignore,
+          get = fn _ => fn x => fn () => C.get stringOpt x,
+          set = fn _ => ignore,
           init = ignore
         }
       val inputEnabledProp =
         {
           name = "input-enabled",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val pointerAutohideProp =
         {
           name = "pointer-autohide",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val ptyProp =
         {
           name = "pty",
           gtype = fn () => C.gtype VtePtyClass.tOpt (),
-          get = fn x => fn () => C.get VtePtyClass.tOpt x,
-          set = fn x => C.set VtePtyClass.tOpt x,
+          get = fn _ => fn x => fn () => C.get VtePtyClass.tOpt x,
+          set = fn _ => fn x => C.set VtePtyClass.tOpt x,
           init = fn x => C.set VtePtyClass.tOpt x
         }
       val rewrapOnResizeProp =
         {
           name = "rewrap-on-resize",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val scrollOnKeystrokeProp =
         {
           name = "scroll-on-keystroke",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val scrollOnOutputProp =
         {
           name = "scroll-on-output",
           gtype = fn () => C.gtype boolean (),
-          get = fn x => fn () => C.get boolean x,
-          set = fn x => C.set boolean x,
+          get = fn _ => fn x => fn () => C.get boolean x,
+          set = fn _ => fn x => C.set boolean x,
           init = fn x => C.set boolean x
         }
       val scrollSpeedProp =
         {
           name = "scroll-speed",
           gtype = fn () => C.gtype uint (),
-          get = fn x => fn () => C.get uint x,
-          set = fn x => C.set uint x,
+          get = fn _ => fn x => fn () => C.get uint x,
+          set = fn _ => fn x => C.set uint x,
           init = fn x => C.set uint x
         }
       val scrollbackLinesProp =
         {
           name = "scrollback-lines",
           gtype = fn () => C.gtype uint (),
-          get = fn x => fn () => C.get uint x,
-          set = fn x => C.set uint x,
+          get = fn _ => fn x => fn () => C.get uint x,
+          set = fn _ => fn x => C.set uint x,
           init = fn x => C.set uint x
         }
       val textBlinkModeProp =
         {
           name = "text-blink-mode",
           gtype = fn () => C.gtype VteTextBlinkMode.t (),
-          get = fn x => fn () => C.get VteTextBlinkMode.t x,
-          set = fn x => C.set VteTextBlinkMode.t x,
+          get = fn _ => fn x => fn () => C.get VteTextBlinkMode.t x,
+          set = fn _ => fn x => C.set VteTextBlinkMode.t x,
           init = fn x => C.set VteTextBlinkMode.t x
         }
       val windowTitleProp =
         {
           name = "window-title",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn x => fn () => C.get stringOpt x,
-          set = ignore,
+          get = fn _ => fn x => fn () => C.get stringOpt x,
+          set = fn _ => ignore,
           init = ignore
         }
       val wordCharExceptionsProp =
         {
           name = "word-char-exceptions",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn x => fn () => C.get stringOpt x,
-          set = ignore,
+          get = fn _ => fn x => fn () => C.get stringOpt x,
+          set = fn _ => ignore,
           init = ignore
         }
     end

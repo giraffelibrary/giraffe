@@ -93,13 +93,14 @@ structure Property :>
     type ('object_class, 'get, 'set, 'init) t =
       {
         name  : string,
-        gtype : unit -> type_t,  (* function due to value restriction *)
-        get   : GObjectValueRecord.C.v -> 'get,
-        set   : GObjectValueRecord.C.v -> 'set,
-        init  : GObjectValueRecord.C.v -> 'init
+        gtype : unit -> type_t,
+        get   : 'object_class -> GObjectValueRecord.C.v -> 'get,
+        set   : 'object_class -> GObjectValueRecord.C.v -> 'set,
+        init  :                  GObjectValueRecord.C.v -> 'init
       }
 
-    fun conv _ = Fn.id
+    fun conv f {name, gtype, get, set, init} =
+      {name = name, gtype = gtype, get = get o f, set = set o f, init = init}
 
     fun get {name, gtype, get, ...} object =
       let
@@ -107,14 +108,14 @@ structure Property :>
         val () = GObjectValue.init value (gtype ())
         val () = getProperty object (name, value)
       in
-        (GObjectValueRecord.FFI.withPtr false ---> I) get value ()
+        (GObjectValueRecord.FFI.withPtr false ---> I) (get object) value ()
       end
 
     fun set {name, gtype, set, ...} x object =
       let
         val value = GObjectValue.new ()
         val () = GObjectValue.init value (gtype ())
-        val () = (GObjectValueRecord.FFI.withPtr false ---> I) set value x
+        val () = (GObjectValueRecord.FFI.withPtr false ---> I) (set object) value x
         val () = setProperty object (name, value)
       in
         ()        
@@ -310,13 +311,13 @@ structure Property :>
             let
               val from =
                 (GObjectValueRecord.FFI.withPtr false ---> I)
-                  (#get sourceProperty)
+                  (#get sourceProperty source)
                   fromValue
                   ()
               val to = convertToFun from
               val () =
                 (GObjectValueRecord.FFI.withPtr false ---> I)
-                  (#set targetProperty)
+                  (#set targetProperty target)
                   toValue
                   to
             in
@@ -367,13 +368,13 @@ structure Property :>
             let
               val from =
                 (GObjectValueRecord.FFI.withPtr false ---> I)
-                  (#get sourceProperty)
+                  (#get sourceProperty source)
                   fromValue
                   ()
               val to = convertToFun from
               val () =
                 (GObjectValueRecord.FFI.withPtr false ---> I)
-                  (#set targetProperty)
+                  (#set targetProperty target)
                   toValue
                   to
             in
@@ -384,13 +385,13 @@ structure Property :>
             let
               val from =
                 (GObjectValueRecord.FFI.withPtr false ---> I)
-                  (#get targetProperty)
+                  (#get targetProperty target)
                   fromValue
                   ()
               val to = convertFromFun from
               val () =
                 (GObjectValueRecord.FFI.withPtr false ---> I)
-                  (#set sourceProperty)
+                  (#set sourceProperty source)
                   toValue
                   to
             in
