@@ -36,26 +36,27 @@ structure GIRepositoryFunctionInfo :>
     type functioninfoflags_t = GIRepositoryFunctionInfoFlags.t
 
 
-    val getSymbol =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
-          getSymbol_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0
+    in
+      fun getSymbol info = call getSymbol_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getFlags =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryFunctionInfoFlags.FFI.fromVal)
-        getFlags_
-        info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryFunctionInfoFlags.FFI.fromVal
+    in
+      fun getFlags info = call getFlags_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getProperty =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryPropertyInfoClass.FFI.fromOptPtr true)
-          getProperty_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryPropertyInfoClass.FFI.fromOptPtr true
+    in
+      fun getProperty info = call getProperty_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getVfunc =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryVFuncInfoClass.FFI.fromOptPtr true)
-          getVfunc_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryVFuncInfoClass.FFI.fromOptPtr true
+    in
+      fun getVfunc info = call getVfunc_ (GIRepositoryBaseInfoClass.toBase info)
+    end
   end

@@ -97,7 +97,7 @@ structure GIRepositoryInfoType :>
         fn info =>
           GIRepositoryBaseInfoClass.FFI.withPtr false
             (fn ptr => Vector.sub (table, LargeInt.toInt (GInt32.FFI.fromVal (getType_ ptr))) ptr)
-            info
+            (GIRepositoryBaseInfoClass.toBase info)
             handle
               Subscript => INVALID
     end

@@ -40,5 +40,9 @@ structure GObjectClosure :>
            & marshallerFunc
            & ()
         )
-    fun invalidate self = (GObjectClosureRecord.FFI.withPtr false ---> I) invalidate_ self
+    local
+      val call = GObjectClosureRecord.FFI.withPtr false ---> I
+    in
+      fun invalidate self = call invalidate_ self
+    end
   end

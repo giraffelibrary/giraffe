@@ -149,7 +149,7 @@ structure GIRepositoryArgument :>
             ptr & retVal
           end
 
-        fun fromPtr tag ptr =
+        fun fromPtr ptr tag =
           (
             case tag of
               GIRepositoryTypeTag.BOOLEAN  => BOOLEAN (GBool.FFI.fromVal (from_boolean_ ptr))

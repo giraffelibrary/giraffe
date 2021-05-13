@@ -297,6 +297,100 @@ on a length parameter so the flag is optional and is NONE for a nested array.
         otherwise
 
 
+  convertToBase(x, typeInfo, ContainerNamespace, mayBeNull, needsParens)
+    is defined as according to the type tag as follows:
+
+      tag = TypeInfo.getTag typeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <raise Error "not expected">
+        GTYPE     --->    <raise Error "not supported">
+        FILENAME  --->    x
+        ARRAY     --->    x
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Error "not expected">
+        BOOLEAN   --->    x
+        CHAR      --->    x
+        UCHAR     --->    x
+        INT       --->    x
+        UINT      --->    x
+        SHORT     --->    x
+        USHORT    --->    x
+        LONG      --->    x
+        ULONG     --->    x
+        INT8      --->    x
+        UINT8     --->    x
+        INT16     --->    x
+        UINT16    --->    x
+        INT32     --->    x
+        UINT32    --->    x
+        INT64     --->    x
+        UINT64    --->    x
+        FLOAT     --->    x
+        DOUBLE    --->    x
+        SSIZE     --->    x
+        SIZE      --->    x
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
+        UNICHAR   --->    x
+        UTF8      --->    x
+        INTERFACE --->
+
+          <convertInterfaceToBase(x, typeInfo, ContainerNamespace, mayBeNull)>
+            if not needsParens
+
+          (<convertInterfaceToBase(x, typeInfo, ContainerNamespace, mayBeNull)>)
+            if needsParens
+
+
+  convertInterfaceToBase(x, typeInfo, ContainerNamespace, mayBeNull)
+    is defined according as follows:
+
+      interfaceTypeInfo = TypeInfo.getInterface typeInfo
+
+        Note that the GIR type tag of typeInfo must be INTERFACE.
+
+      InterfaceName = BaseInfo.getName interfaceTypeInfo
+      InterfaceNamespace = BaseInfo.getNamespace interfaceTypeInfo
+
+      infoType = InfoType.getType interfaceTypeInfo
+      isClass = infoType is OBJECT _ | INTERFACE _
+      isUnion = infoType is UNION _
+
+      isGlobal = InterfaceNamespace <> ContainerNamespace
+
+        Option.map <InterfaceNamespace>.<InterfaceName>Class.toBase <x>
+          if mayBeNull and isGlobal and isClass
+
+        Option.map <InterfaceNamespace>.<InterfaceName>.toBase <x>
+          if mayBeNull and isGlobal and isUnion
+
+        Option.map <InterfaceNamespace><InterfaceName>Class.toBase <x>
+          if mayBeNull and not isGlobal and isClass
+
+        Option.map <InterfaceNamespace><InterfaceName>.toBase <x>
+          if mayBeNull and not isGlobal and isUnion
+
+        <InterfaceNamespace>.<InterfaceName>Class.toBase <x>
+          if not mayBeNull and isGlobal and isClass
+
+        <InterfaceNamespace>.<InterfaceName>.toBase <x>
+          if not mayBeNull and isGlobal and isUnion
+
+        <InterfaceNamespace><InterfaceName>Class.toBase <x>
+          if not mayBeNull and not isGlobal and isClass
+
+        <InterfaceNamespace><InterfaceName>.toBase <x>
+          if not mayBeNull and not isGlobal and isUnion
+
+        <x>
+          otherwise
+
+
 
 ==Specification==
 
@@ -656,130 +750,165 @@ this is simplified to
   <e>
 
 
-  fun <functionName> self (<inParamName[1]>, ..., <inParamName[L]>) =
-    let
-      val <lenParamName[1]> = <lenParamExp[1]>
-      ...
-      val <lenParamName[M]> = <lenParamExp[M]>
+  local
+    val call =
+      <withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
+       ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>
+  in
+    fun <functionName> self (<inParamName[1]>, ..., <inParamName[L]>) =
+      let
+        val <lenParamName[1]> = <lenParamExp[1]>
+        ...
+        val <lenParamName[M]> = <lenParamExp[M]>
 
-      val <outParamNamePat[1]> & ... & <outParamNamePat[N]> & <retValPat> =
-        (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
-          ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
-          <functionName>_
-          (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
-    in
-      <retExp>
-                               -.
-       before <touchFunSelf>    |
-       before <touchFun[1]>     | if copyFromPtr
-       ...                      |
-       before <touchFun[L]>     |
-                               -'
-    end
+        val <outParamNamePat[1]> & ... & <outParamNamePat[N]> & <retValPat> =
+          call
+            <functionName>_
+            (<argValSelf> & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+      in
+        <retExp>
+                                 -.
+         before <touchFunSelf>    |
+         before <touchFun[1]>     | if copyFromPtr
+         ...                      |
+         before <touchFun[L]>     |
+                                 -'
+      end
+  end
 
-    if N + M > 0 and L > 0 and anySet (FunctionFlags, IS_METHOD)
-
-
-  fun <functionName> self =
-    let
-      val <lenParamName[1]> = <lenParamExp[1]>
-      ...
-      val <lenParamName[M]> = <lenParamExp[M]>
-
-      val <outParamNamePat[1]> & ... & <outParamNamePat[N]> & <retValPat> =
-        (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
-          ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
-          <functionName>_
-          (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
-    in
-      <retExp>
-                               -.
-       before <touchFunSelf>    | if copyFromPtr
-                               -'
-    end
-
-    if N + M > 0 and L = 0 and anySet (FunctionFlags, IS_METHOD)
+      if N + M > 0 and L > 0 and anySet (FunctionFlags, IS_METHOD)
 
 
-  fun <functionName> (<inParamName[1]>, ..., <inParamName[L]>) =
-    let
-      val <lenParamName[1]> = <lenParamExp[1]>
-      ...
-      val <lenParamName[M]> = <lenParamExp[M]>
+  local
+    val call =
+      <withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
+       ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>
+  in
+    fun <functionName> self =
+      let
+        val <lenParamName[1]> = <lenParamExp[1]>
+        ...
+        val <lenParamName[M]> = <lenParamExp[M]>
 
-      val <outParamNamePat[1]> & ... & <outParamNamePat[N]> & <retValPat> =
-        (<withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
-          ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
-          <functionName>_
-          (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
-    in
-      <retExp>
-                               -.
-       before <touchFun[1]>     |
-       ...                      | if copyFromPtr
-       before <touchFun[L]>     |
-                               -'
-    end
+        val <outParamNamePat[1]> & ... & <outParamNamePat[N]> & <retValPat> =
+          call
+            <functionName>_
+            (<argValSelf> & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+      in
+        <retExp>
+                                 -.
+         before <touchFunSelf>    | if copyFromPtr
+                                 -'
+      end
+  end
 
-    if N + M > 0 and not anySet (FunctionFlags, IS_METHOD)
-
-
-  fun <functionName> self (<inParamName[1]>, ..., <inParamName[L]>) =
-    (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>)
-      <functionName>_
-      (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
-                               -.
-     before <touchFunSelf>      |
-     before <touchFun[1]>       | if copyFromPtr
-     ...                        |
-     before <touchFun[L]>       |
-                               -'
-
-    if N + M = 0 and L > 0 and anySet (FunctionFlags, IS_METHOD)
+      if N + M > 0 and L = 0 and anySet (FunctionFlags, IS_METHOD)
 
 
-  fun <functionName> self =
-    (<withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>)
-      <functionName>_
-      (self & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
-                               -.
-     before <touchFunSelf>      | if copyFromPtr
-                               -'
+  local
+    val call =
+      <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
+       ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>
+  in
+    fun <functionName> (<inParamName[1]>, ..., <inParamName[L]>) =
+      let
+        val <lenParamName[1]> = <lenParamExp[1]>
+        ...
+        val <lenParamName[M]> = <lenParamExp[M]>
 
-    if N + M = 0 and L = 0 and anySet (FunctionFlags, IS_METHOD)
+        val <outParamNamePat[1]> & ... & <outParamNamePat[N]> & <retValPat> =
+          call
+            <functionName>_
+            (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+      in
+        <retExp>
+                                 -.
+         before <touchFun[1]>     |
+         ...                      | if copyFromPtr
+         before <touchFun[L]>     |
+                                 -'
+      end
+  end
 
-
-  fun <functionName> (<inParamName[1]>, ..., <inParamName[L]>) =
-    (<withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>)
-      <functionName>_
-      (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
-                               -.
-     before <touchFun[1]>       |
-     ...                        | if copyFromPtr
-     before <touchFun[L]>       |
-                               -'
-
-    if N + M = 0 and not anySet (FunctionFlags, IS_METHOD)
-
-
-  fun <functionName> () =
-    (<withFunErr> ---> <retFromFun>)
-      <functionName>_
-      <argValErr>
-
-    if N + M = 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
-                       and anySet (FunctionFlags, THROWS)
-      (note N = 0 and L = 0 and M = 0 iff J = 0)
+      if N + M > 0 and not anySet (FunctionFlags, IS_METHOD)
 
 
-  fun <functionName> () =
-    (I ---> <retFromFun>)
-      <functionName>_
-      ()
+  local
+    val call = <withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>
+  in
+    fun <functionName> self (<inParamName[1]>, ..., <inParamName[L]>) =
+      call
+        <functionName>_
+        (<argValSelf> & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+                                 -.
+       before <touchFunSelf>      |
+       before <touchFun[1]>       | if copyFromPtr
+       ...                        |
+       before <touchFun[L]>       |
+                                 -'
+  end
 
-    if N + M = 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
-                       and not anySet (FunctionFlags, THROWS)
-      (note N = 0 and L = 0 and M = 0 iff J = 0)
+      if N + M = 0 and L > 0 and anySet (FunctionFlags, IS_METHOD)
+
+
+  local
+    val call = <withFunSelf> &&&> <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>
+  in
+    fun <functionName> self =
+      call
+        <functionName>_
+        (<argValSelf> & <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+                                 -.
+       before <touchFunSelf>      | if copyFromPtr
+                                 -'
+  end
+
+      if N + M = 0 and L = 0 and anySet (FunctionFlags, IS_METHOD)
+
+
+  local
+    val call = <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>] ---> <retFromFun>
+  in
+    fun <functionName> (<inParamName[1]>, ..., <inParamName[L]>) =
+      call
+        <functionName>_
+        (<argVal[1]> & ... & <argVal[J]> [& <argValErr>])
+                                 -.
+       before <touchFun[1]>       |
+       ...                        | if copyFromPtr
+       before <touchFun[L]>       |
+                                 -'
+  end
+
+      if N + M = 0 and not anySet (FunctionFlags, IS_METHOD)
+
+
+  local
+    val call = <withFunErr> ---> <retFromFun>
+  in
+    fun <functionName> () =
+      call
+        <functionName>_
+        <argValErr>
+  end
+
+      if N + M = 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
+                         and anySet (FunctionFlags, THROWS)
+        (note N = 0 and L = 0 and M = 0 iff J = 0)
+
+
+  local
+    val call = I ---> <retFromFun>
+  in
+    fun <functionName> () =
+      call
+        <functionName>_
+        ()
+  end
+
+      if N + M = 0 and L = 0 and not anySet (FunctionFlags, IS_METHOD)
+                         and not anySet (FunctionFlags, THROWS)
+        (note N = 0 and L = 0 and M = 0 iff J = 0)
 
 
 where
@@ -2147,6 +2276,17 @@ where
         otherwise.
 
 
+  argValSelf
+    is defined as follows:
+
+      <convertInterfaceToBase('self', typeInfo, FunctionNamespace, false)>
+
+    where typeInfo is the type of the enclosing entity
+    (which is the type of the instance parameter)
+    whose GIR type tag must be INTERFACE: no
+    other type tag is an entity that has functions.
+
+
   argValErr
     is [<errorDomain[1]>, ..., <errorDomain[E]>]
 
@@ -2155,6 +2295,7 @@ where
     is defined according to the GIR type tag of the type of the
     <j>th argument of the function as follows:
 
+      mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
       argTypeInfo = GIRepository.ArgInfo.getType argInfo
       tag = GIRepository.TypeInfo.get_tag argTypeInfo
 
@@ -2197,7 +2338,7 @@ where
         UINTPTR   --->    <raise Error "not supported">
         UTF8      --->    <name>
         UNICHAR   --->    <name>
-        INTERFACE --->    <name>
+        INTERFACE --->    <convertInterfaceToBase(name, argTypeInfo, FunctionNamespace, mayBeNull)>
 
       otherwise (direction is OUT):
 

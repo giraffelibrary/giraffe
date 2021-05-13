@@ -92,84 +92,79 @@ structure GObjectObject :>
     type 'a signal_t = 'a Signal.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new (class, parameters) =
-      let
-        val objectType = ValueAccessor.gtype class
-        val n = List.length parameters
-        val nProperties = LargeInt.fromInt n
-        val names =
-          Utf8CPtrArrayN.tabulate
-            (n, Property.initName o ListSequence.get parameters)
-        val values =
-          (* Using `GObjectValueRecordCArrayN.tabulate` would create a
-           * temporary GObjectValue for each element so we use a lower level
-           * implementation that initializes each array element directly. *)
-          let
-            open GObjectValueRecordCArrayN
-            fun initValue _ p (i, param) =
-              Property.initValue param (C.ArrayType.get n p i)
-          in
-            FFI.fromPtr ~1 (
-              C.ArrayType.init initValue (n, ListSequence.get parameters)
-            ) n
-          end
-        val retVal =
-          (
-            GObjectType.FFI.withVal
-             &&&> GUInt.FFI.withVal
-             &&&> Utf8CPtrArrayN.FFI.withPtr 0
-             &&&> GObjectValueRecordCArrayN.FFI.withPtr 0
-             ---> GObjectObjectClass.FFI.fromPtr true
-          )
-            new_
-            (
-              objectType
-               & nProperties
-               & names
-               & values
-            )
-      in
-        GObjectObjectClass.toDerived class retVal
-      end
-    fun bindProperty
-      self
-      (
-        sourceProperty,
-        target,
-        targetProperty,
-        flags
-      ) =
-      (
+    local
+      val call =
+        GObjectType.FFI.withVal
+         &&&> GUInt.FFI.withVal
+         &&&> Utf8CPtrArrayN.FFI.withPtr 0
+         &&&> GObjectValueRecordCArrayN.FFI.withPtr 0
+         ---> GObjectObjectClass.FFI.fromPtr true
+    in
+      fun new (class, parameters) =
+        let
+          val objectType = ValueAccessor.gtype class
+          val n = List.length parameters
+          val nProperties = LargeInt.fromInt n
+          val names =
+            Utf8CPtrArrayN.tabulate
+              (n, Property.initName o ListSequence.get parameters)
+          val values =
+            (* Using `GObjectValueRecordCArrayN.tabulate` would create a
+             * temporary GObjectValue for each element so we use a lower level
+             * implementation that initializes each array element directly. *)
+            let
+              open GObjectValueRecordCArrayN
+              fun initValue _ p (i, param) =
+                Property.initValue param (C.ArrayType.get n p i)
+            in
+              FFI.fromPtr ~1 (
+                C.ArrayType.init initValue (n, ListSequence.get parameters)
+              ) n
+            end
+          val retVal =
+            call new_
+              (
+                objectType
+                 & nProperties
+                 & names
+                 & values
+              )
+        in
+          GObjectObjectClass.toDerived class retVal
+        end
+    end
+    local
+      val call =
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectBindingFlags.FFI.withVal
          ---> GObjectBindingClass.FFI.fromPtr false
-      )
-        bindProperty_
+    in
+      fun bindProperty
+        self
         (
-          self
-           & sourceProperty
-           & target
-           & targetProperty
-           & flags
-        )
-       before GObjectObjectClass.FFI.touchPtr self
-       before Utf8.FFI.touchPtr sourceProperty
-       before GObjectObjectClass.FFI.touchPtr target
-       before Utf8.FFI.touchPtr targetProperty
-    fun bindPropertyFull
-      self
-      (
-        sourceProperty,
-        target,
-        targetProperty,
-        flags,
-        transformTo,
-        transformFrom
-      ) =
-      (
+          sourceProperty,
+          target,
+          targetProperty,
+          flags
+        ) =
+        call bindProperty_
+          (
+            GObjectObjectClass.toBase self
+             & sourceProperty
+             & GObjectObjectClass.toBase target
+             & targetProperty
+             & flags
+          )
+         before GObjectObjectClass.FFI.touchPtr self
+         before Utf8.FFI.touchPtr sourceProperty
+         before GObjectObjectClass.FFI.touchPtr target
+         before Utf8.FFI.touchPtr targetProperty
+    end
+    local
+      val call =
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectObjectClass.FFI.withPtr false
@@ -178,76 +173,117 @@ structure GObjectObject :>
          &&&> GObjectClosureRecord.FFI.withPtr false
          &&&> GObjectClosureRecord.FFI.withPtr false
          ---> GObjectBindingClass.FFI.fromPtr false
-      )
-        bindPropertyFull_
+    in
+      fun bindPropertyFull
+        self
         (
-          self
-           & sourceProperty
-           & target
-           & targetProperty
-           & flags
-           & transformTo
-           & transformFrom
-        )
-       before GObjectObjectClass.FFI.touchPtr self
-       before Utf8.FFI.touchPtr sourceProperty
-       before GObjectObjectClass.FFI.touchPtr target
-       before Utf8.FFI.touchPtr targetProperty
-       before GObjectClosureRecord.FFI.touchPtr transformTo
-       before GObjectClosureRecord.FFI.touchPtr transformFrom
-    fun freezeNotify self = (GObjectObjectClass.FFI.withPtr false ---> I) freezeNotify_ self
-    fun getProperty self (propertyName, value) =
-      (
-        GObjectObjectClass.FFI.withPtr false
-         &&&> Utf8.FFI.withPtr 0
-         &&&> GObjectValueRecord.FFI.withPtr false
-         ---> I
-      )
-        getProperty_
-        (
-          self
-           & propertyName
-           & value
-        )
-    fun getv self (names, values) =
-      let
-        val nProperties = LargeInt.fromInt (GObjectValueRecordCArrayN.length values)
-        val () =
+          sourceProperty,
+          target,
+          targetProperty,
+          flags,
+          transformTo,
+          transformFrom
+        ) =
+        call bindPropertyFull_
           (
-            GObjectObjectClass.FFI.withPtr false
-             &&&> GUInt.FFI.withVal
-             &&&> Utf8CPtrArrayN.FFI.withPtr 0
-             &&&> GObjectValueRecordCArrayN.FFI.withPtr 0
-             ---> I
+            GObjectObjectClass.toBase self
+             & sourceProperty
+             & GObjectObjectClass.toBase target
+             & targetProperty
+             & flags
+             & transformTo
+             & transformFrom
           )
-            getv_
-            (
-              self
-               & nProperties
-               & names
-               & values
-            )
-      in
-        ()
-      end
-    fun notify self propertyName = (GObjectObjectClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) notify_ (self & propertyName)
-    fun notifyByPspec self pspec = (GObjectObjectClass.FFI.withPtr false &&&> GObjectParamSpecClass.FFI.withPtr false ---> I) notifyByPspec_ (self & pspec)
-    fun runDispose self = (GObjectObjectClass.FFI.withPtr false ---> I) runDispose_ self
-    fun setProperty self (propertyName, value) =
-      (
+         before GObjectObjectClass.FFI.touchPtr self
+         before Utf8.FFI.touchPtr sourceProperty
+         before GObjectObjectClass.FFI.touchPtr target
+         before Utf8.FFI.touchPtr targetProperty
+         before GObjectClosureRecord.FFI.touchPtr transformTo
+         before GObjectClosureRecord.FFI.touchPtr transformFrom
+    end
+    local
+      val call = GObjectObjectClass.FFI.withPtr false ---> I
+    in
+      fun freezeNotify self = call freezeNotify_ (GObjectObjectClass.toBase self)
+    end
+    local
+      val call =
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectValueRecord.FFI.withPtr false
          ---> I
-      )
-        setProperty_
-        (
-          self
-           & propertyName
-           & value
-        )
-    fun thawNotify self = (GObjectObjectClass.FFI.withPtr false ---> I) thawNotify_ self
-    fun watchClosure self closure = (GObjectObjectClass.FFI.withPtr false &&&> GObjectClosureRecord.FFI.withPtr false ---> I) watchClosure_ (self & closure)
+    in
+      fun getProperty self (propertyName, value) =
+        call getProperty_
+          (
+            GObjectObjectClass.toBase self
+             & propertyName
+             & value
+          )
+    end
+    local
+      val call =
+        GObjectObjectClass.FFI.withPtr false
+         &&&> GUInt.FFI.withVal
+         &&&> Utf8CPtrArrayN.FFI.withPtr 0
+         &&&> GObjectValueRecordCArrayN.FFI.withPtr 0
+         ---> I
+    in
+      fun getv self (names, values) =
+        let
+          val nProperties = LargeInt.fromInt (GObjectValueRecordCArrayN.length values)
+          val () =
+            call getv_
+              (
+                GObjectObjectClass.toBase self
+                 & nProperties
+                 & names
+                 & values
+              )
+        in
+          ()
+        end
+    end
+    local
+      val call = GObjectObjectClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I
+    in
+      fun notify self propertyName = call notify_ (GObjectObjectClass.toBase self & propertyName)
+    end
+    local
+      val call = GObjectObjectClass.FFI.withPtr false &&&> GObjectParamSpecClass.FFI.withPtr false ---> I
+    in
+      fun notifyByPspec self pspec = call notifyByPspec_ (GObjectObjectClass.toBase self & GObjectParamSpecClass.toBase pspec)
+    end
+    local
+      val call = GObjectObjectClass.FFI.withPtr false ---> I
+    in
+      fun runDispose self = call runDispose_ (GObjectObjectClass.toBase self)
+    end
+    local
+      val call =
+        GObjectObjectClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GObjectValueRecord.FFI.withPtr false
+         ---> I
+    in
+      fun setProperty self (propertyName, value) =
+        call setProperty_
+          (
+            GObjectObjectClass.toBase self
+             & propertyName
+             & value
+          )
+    end
+    local
+      val call = GObjectObjectClass.FFI.withPtr false ---> I
+    in
+      fun thawNotify self = call thawNotify_ (GObjectObjectClass.toBase self)
+    end
+    local
+      val call = GObjectObjectClass.FFI.withPtr false &&&> GObjectClosureRecord.FFI.withPtr false ---> I
+    in
+      fun watchClosure self closure = call watchClosure_ (GObjectObjectClass.toBase self & closure)
+    end
     local
       open ClosureMarshal Signal
     in

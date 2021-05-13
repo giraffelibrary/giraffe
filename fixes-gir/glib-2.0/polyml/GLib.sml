@@ -701,66 +701,60 @@ structure GLib : G_LIB =
     val URI_RESERVED_CHARS_GENERIC_DELIMITERS = ":/?#[]@"
     val URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS = "!$&'()*+,;="
     val VERSION_MIN_REQUIRED = 2
-    fun assertWarning
-      (
-        logDomain,
-        file,
-        line,
-        prettyFunction,
-        expression
-      ) =
-      (
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          ---> I
-      )
-        assertWarning_
+    in
+      fun assertWarning
         (
-          logDomain
-           & file
-           & line
-           & prettyFunction
-           & expression
-        )
-    fun assertionMessage
-      (
-        domain,
-        file,
-        line,
-        func,
-        message
-      ) =
-      (
+          logDomain,
+          file,
+          line,
+          prettyFunction,
+          expression
+        ) =
+        call assertWarning_
+          (
+            logDomain
+             & file
+             & line
+             & prettyFunction
+             & expression
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          ---> I
-      )
-        assertionMessage_
+    in
+      fun assertionMessage
         (
-          domain
-           & file
-           & line
-           & func
-           & message
-        )
-    fun assertionMessageCmpstr
-      (
-        domain,
-        file,
-        line,
-        func,
-        expr,
-        arg1,
-        cmp,
-        arg2
-      ) =
-      (
+          domain,
+          file,
+          line,
+          func,
+          message
+        ) =
+        call assertionMessage_
+          (
+            domain
+             & file
+             & line
+             & func
+             & message
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
@@ -770,553 +764,809 @@ structure GLib : G_LIB =
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          ---> I
-      )
-        assertionMessageCmpstr_
+    in
+      fun assertionMessageCmpstr
         (
-          domain
-           & file
-           & line
-           & func
-           & expr
-           & arg1
-           & cmp
-           & arg2
-        )
-    fun base64Decode text =
-      let
-        val outLen & retVal = (Utf8.FFI.withPtr 0 &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr ~1) base64Decode_ (text & GSize.null)
-      in
-        retVal outLen
-      end
-    fun base64Encode data =
-      let
-        val len = GUInt8CArrayN.length data
-        val retVal = (GUInt8CArrayN.FFI.withPtr 0 &&&> GSize.FFI.withVal ---> Utf8.FFI.fromPtr ~1) base64Encode_ (data & len)
-      in
-        retVal
-      end
-    fun buildFilenamev args = (Utf8CPtrArray.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) buildFilenamev_ args
-    fun buildPathv (separator, args) = (Utf8.FFI.withPtr 0 &&&> Utf8CPtrArray.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) buildPathv_ (separator & args)
-    fun canonicalizeFilename (filename, relativeTo) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withOptPtr 0 ---> Utf8.FFI.fromPtr ~1) canonicalizeFilename_ (filename & relativeTo)
-    fun chdir path = (Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal) chdir_ path
-    fun checkVersion
-      (
-        requiredMajor,
-        requiredMinor,
-        requiredMicro
-      ) =
-      (
+          domain,
+          file,
+          line,
+          func,
+          expr,
+          arg1,
+          cmp,
+          arg2
+        ) =
+        call assertionMessageCmpstr_
+          (
+            domain
+             & file
+             & line
+             & func
+             & expr
+             & arg1
+             & cmp
+             & arg2
+          )
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 &&&> GSize.FFI.withRefVal ---> GSize.FFI.fromVal && GUInt8CArrayN.FFI.fromPtr ~1
+    in
+      fun base64Decode text =
+        let
+          val outLen & retVal = call base64Decode_ (text & GSize.null)
+        in
+          retVal outLen
+        end
+    end
+    local
+      val call = GUInt8CArrayN.FFI.withPtr 0 &&&> GSize.FFI.withVal ---> Utf8.FFI.fromPtr ~1
+    in
+      fun base64Encode data =
+        let
+          val len = GUInt8CArrayN.length data
+          val retVal = call base64Encode_ (data & len)
+        in
+          retVal
+        end
+    end
+    local
+      val call = Utf8CPtrArray.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun buildFilenamev args = call buildFilenamev_ args
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 &&&> Utf8CPtrArray.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun buildPathv (separator, args) = call buildPathv_ (separator & args)
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withOptPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun canonicalizeFilename (filename, relativeTo) = call canonicalizeFilename_ (filename & relativeTo)
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal
+    in
+      fun chdir path = call chdir_ path
+    end
+    local
+      val call =
         GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
          &&&> GUInt.FFI.withVal
          ---> Utf8.FFI.fromPtr 0
-      )
-        checkVersion_
+    in
+      fun checkVersion
         (
-          requiredMajor
-           & requiredMinor
-           & requiredMicro
-        )
-    fun childWatchAdd (priority, pid, function) =
-      (
+          requiredMajor,
+          requiredMinor,
+          requiredMicro
+        ) =
+        call checkVersion_
+          (
+            requiredMajor
+             & requiredMinor
+             & requiredMicro
+          )
+    end
+    local
+      val call =
         GInt.FFI.withVal
          &&&> GLibPid.FFI.withVal
          &&&> GLibChildWatchFunc.FFI.withDispatchPtr false
          &&&> GLibChildWatchFunc.FFI.withPtr false
          &&&> GLibChildWatchFunc.FFI.withDestroyNotifyPtr
          ---> GUInt.FFI.fromVal
-      )
-        childWatchAdd_
-        (
-          priority
-           & pid
-           & ()
-           & function
-           & ()
-        )
-    fun childWatchSourceNew pid = (GLibPid.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) childWatchSourceNew_ pid
-    fun close fd = (GFileDesc.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) close_ (fd & [])
-    fun computeChecksumForBytes (checksumType, data) = (GLibChecksumType.FFI.withVal &&&> GLibBytesRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) computeChecksumForBytes_ (checksumType & data)
-    fun computeChecksumForData (checksumType, data) =
-      let
-        val length = GUInt8CArrayN.length data
-        val retVal =
+    in
+      fun childWatchAdd (priority, pid, function) =
+        call childWatchAdd_
           (
-            GLibChecksumType.FFI.withVal
-             &&&> GUInt8CArrayN.FFI.withPtr 0
-             &&&> GSize.FFI.withVal
-             ---> Utf8.FFI.fromPtr ~1
+            priority
+             & pid
+             & ()
+             & function
+             & ()
           )
-            computeChecksumForData_
-            (
-              checksumType
-               & data
-               & length
-            )
-      in
-        retVal
-      end
-    fun computeChecksumForString
-      (
-        checksumType,
-        str,
-        length
-      ) =
-      (
+    end
+    local
+      val call = GLibPid.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true
+    in
+      fun childWatchSourceNew pid = call childWatchSourceNew_ pid
+    end
+    local
+      val call = GFileDesc.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore
+    in
+      fun close fd = call close_ (fd & [])
+    end
+    local
+      val call = GLibChecksumType.FFI.withVal &&&> GLibBytesRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1
+    in
+      fun computeChecksumForBytes (checksumType, data) = call computeChecksumForBytes_ (checksumType & data)
+    end
+    local
+      val call =
+        GLibChecksumType.FFI.withVal
+         &&&> GUInt8CArrayN.FFI.withPtr 0
+         &&&> GSize.FFI.withVal
+         ---> Utf8.FFI.fromPtr ~1
+    in
+      fun computeChecksumForData (checksumType, data) =
+        let
+          val length = GUInt8CArrayN.length data
+          val retVal =
+            call computeChecksumForData_
+              (
+                checksumType
+                 & data
+                 & length
+              )
+        in
+          retVal
+        end
+    end
+    local
+      val call =
         GLibChecksumType.FFI.withVal
          &&&> Utf8.FFI.withPtr 0
          &&&> GSSize.FFI.withVal
          ---> Utf8.FFI.fromPtr ~1
-      )
-        computeChecksumForString_
+    in
+      fun computeChecksumForString
         (
-          checksumType
-           & str
-           & length
-        )
-    fun computeHmacForBytes
-      (
-        digestType,
-        key,
-        data
-      ) =
-      (
+          checksumType,
+          str,
+          length
+        ) =
+        call computeChecksumForString_
+          (
+            checksumType
+             & str
+             & length
+          )
+    end
+    local
+      val call =
         GLibChecksumType.FFI.withVal
          &&&> GLibBytesRecord.FFI.withPtr false
          &&&> GLibBytesRecord.FFI.withPtr false
          ---> Utf8.FFI.fromPtr ~1
-      )
-        computeHmacForBytes_
+    in
+      fun computeHmacForBytes
         (
-          digestType
-           & key
-           & data
-        )
-    fun computeHmacForData
-      (
-        digestType,
-        key,
-        data
-      ) =
-      let
-        val keyLen = GUInt8CArrayN.length key
-        val length = GUInt8CArrayN.length data
-        val retVal =
+          digestType,
+          key,
+          data
+        ) =
+        call computeHmacForBytes_
           (
-            GLibChecksumType.FFI.withVal
-             &&&> GUInt8CArrayN.FFI.withPtr 0
-             &&&> GSize.FFI.withVal
-             &&&> GUInt8CArrayN.FFI.withPtr 0
-             &&&> GSize.FFI.withVal
-             ---> Utf8.FFI.fromPtr ~1
+            digestType
+             & key
+             & data
           )
-            computeHmacForData_
-            (
-              digestType
-               & key
-               & keyLen
-               & data
-               & length
-            )
-      in
-        retVal
-      end
-    fun computeHmacForString
-      (
-        digestType,
-        key,
-        str,
-        length
-      ) =
-      let
-        val keyLen = GUInt8CArrayN.length key
-        val retVal =
-          (
-            GLibChecksumType.FFI.withVal
-             &&&> GUInt8CArrayN.FFI.withPtr 0
-             &&&> GSize.FFI.withVal
-             &&&> Utf8.FFI.withPtr 0
-             &&&> GSSize.FFI.withVal
-             ---> Utf8.FFI.fromPtr ~1
-          )
-            computeHmacForString_
-            (
-              digestType
-               & key
-               & keyLen
-               & str
-               & length
-            )
-      in
-        retVal
-      end
-    fun convert
-      (
-        str,
-        toCodeset,
-        fromCodeset
-      ) =
-      let
-        val len = GUInt8CArrayN.length str
-        val bytesRead
-         & bytesWritten
-         & retVal =
-          (
-            GUInt8CArrayN.FFI.withPtr 0
-             &&&> GSSize.FFI.withVal
-             &&&> Utf8.FFI.withPtr 0
-             &&&> Utf8.FFI.withPtr 0
-             &&&> GSize.FFI.withRefVal
-             &&&> GSize.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal
-                   && GSize.FFI.fromVal
-                   && GUInt8CArrayN.FFI.fromPtr ~1
-          )
-            convert_
-            (
-              str
-               & len
-               & toCodeset
-               & fromCodeset
-               & GSize.null
-               & GSize.null
-               & []
-            )
-      in
-        (retVal bytesWritten, bytesRead)
-      end
-    fun convertWithFallback
-      (
-        str,
-        toCodeset,
-        fromCodeset,
-        fallback
-      ) =
-      let
-        val len = GUInt8CArrayN.length str
-        val bytesRead
-         & bytesWritten
-         & retVal =
-          (
-            GUInt8CArrayN.FFI.withPtr 0
-             &&&> GSSize.FFI.withVal
-             &&&> Utf8.FFI.withPtr 0
-             &&&> Utf8.FFI.withPtr 0
-             &&&> Utf8.FFI.withPtr 0
-             &&&> GSize.FFI.withRefVal
-             &&&> GSize.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal
-                   && GSize.FFI.fromVal
-                   && GUInt8CArrayN.FFI.fromPtr ~1
-          )
-            convertWithFallback_
-            (
-              str
-               & len
-               & toCodeset
-               & fromCodeset
-               & fallback
-               & GSize.null
-               & GSize.null
-               & []
-            )
-      in
-        (retVal bytesWritten, bytesRead)
-      end
-    fun dcgettext
-      (
-        domain,
-        msgid,
-        category
-      ) =
-      (
+    end
+    local
+      val call =
+        GLibChecksumType.FFI.withVal
+         &&&> GUInt8CArrayN.FFI.withPtr 0
+         &&&> GSize.FFI.withVal
+         &&&> GUInt8CArrayN.FFI.withPtr 0
+         &&&> GSize.FFI.withVal
+         ---> Utf8.FFI.fromPtr ~1
+    in
+      fun computeHmacForData
+        (
+          digestType,
+          key,
+          data
+        ) =
+        let
+          val keyLen = GUInt8CArrayN.length key
+          val length = GUInt8CArrayN.length data
+          val retVal =
+            call computeHmacForData_
+              (
+                digestType
+                 & key
+                 & keyLen
+                 & data
+                 & length
+              )
+        in
+          retVal
+        end
+    end
+    local
+      val call =
+        GLibChecksumType.FFI.withVal
+         &&&> GUInt8CArrayN.FFI.withPtr 0
+         &&&> GSize.FFI.withVal
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GSSize.FFI.withVal
+         ---> Utf8.FFI.fromPtr ~1
+    in
+      fun computeHmacForString
+        (
+          digestType,
+          key,
+          str,
+          length
+        ) =
+        let
+          val keyLen = GUInt8CArrayN.length key
+          val retVal =
+            call computeHmacForString_
+              (
+                digestType
+                 & key
+                 & keyLen
+                 & str
+                 & length
+              )
+        in
+          retVal
+        end
+    end
+    local
+      val call =
+        GUInt8CArrayN.FFI.withPtr 0
+         &&&> GSSize.FFI.withVal
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GSize.FFI.withRefVal
+         &&&> GSize.FFI.withRefVal
+         &&&> GLibErrorRecord.handleError
+         ---> GSize.FFI.fromVal
+               && GSize.FFI.fromVal
+               && GUInt8CArrayN.FFI.fromPtr ~1
+    in
+      fun convert
+        (
+          str,
+          toCodeset,
+          fromCodeset
+        ) =
+        let
+          val len = GUInt8CArrayN.length str
+          val bytesRead
+           & bytesWritten
+           & retVal =
+            call convert_
+              (
+                str
+                 & len
+                 & toCodeset
+                 & fromCodeset
+                 & GSize.null
+                 & GSize.null
+                 & []
+              )
+        in
+          (retVal bytesWritten, bytesRead)
+        end
+    end
+    local
+      val call =
+        GUInt8CArrayN.FFI.withPtr 0
+         &&&> GSSize.FFI.withVal
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withPtr 0
+         &&&> GSize.FFI.withRefVal
+         &&&> GSize.FFI.withRefVal
+         &&&> GLibErrorRecord.handleError
+         ---> GSize.FFI.fromVal
+               && GSize.FFI.fromVal
+               && GUInt8CArrayN.FFI.fromPtr ~1
+    in
+      fun convertWithFallback
+        (
+          str,
+          toCodeset,
+          fromCodeset,
+          fallback
+        ) =
+        let
+          val len = GUInt8CArrayN.length str
+          val bytesRead
+           & bytesWritten
+           & retVal =
+            call convertWithFallback_
+              (
+                str
+                 & len
+                 & toCodeset
+                 & fromCodeset
+                 & fallback
+                 & GSize.null
+                 & GSize.null
+                 & []
+              )
+        in
+          (retVal bytesWritten, bytesRead)
+        end
+    end
+    local
+      val call =
         Utf8.FFI.withOptPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          ---> Utf8.FFI.fromPtr 0
-      )
-        dcgettext_
+    in
+      fun dcgettext
         (
-          domain
-           & msgid
-           & category
-        )
-       before Utf8.FFI.touchOptPtr domain
-       before Utf8.FFI.touchPtr msgid
-    fun dgettext (domain, msgid) = (Utf8.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) dgettext_ (domain & msgid) before Utf8.FFI.touchOptPtr domain before Utf8.FFI.touchPtr msgid
-    fun dngettext
-      (
-        domain,
-        msgid,
-        msgidPlural,
-        n
-      ) =
-      (
+          domain,
+          msgid,
+          category
+        ) =
+        call dcgettext_
+          (
+            domain
+             & msgid
+             & category
+          )
+         before Utf8.FFI.touchOptPtr domain
+         before Utf8.FFI.touchPtr msgid
+    end
+    local
+      val call = Utf8.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0
+    in
+      fun dgettext (domain, msgid) = call dgettext_ (domain & msgid) before Utf8.FFI.touchOptPtr domain before Utf8.FFI.touchPtr msgid
+    end
+    local
+      val call =
         Utf8.FFI.withOptPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GULong.FFI.withVal
          ---> Utf8.FFI.fromPtr 0
-      )
-        dngettext_
+    in
+      fun dngettext
         (
-          domain
-           & msgid
-           & msgidPlural
-           & n
-        )
-       before Utf8.FFI.touchOptPtr domain
-       before Utf8.FFI.touchPtr msgid
-       before Utf8.FFI.touchPtr msgidPlural
-    fun dpgettext
-      (
-        domain,
-        msgctxtid,
-        msgidoffset
-      ) =
-      (
+          domain,
+          msgid,
+          msgidPlural,
+          n
+        ) =
+        call dngettext_
+          (
+            domain
+             & msgid
+             & msgidPlural
+             & n
+          )
+         before Utf8.FFI.touchOptPtr domain
+         before Utf8.FFI.touchPtr msgid
+         before Utf8.FFI.touchPtr msgidPlural
+    end
+    local
+      val call =
         Utf8.FFI.withOptPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GSize.FFI.withVal
          ---> Utf8.FFI.fromPtr 0
-      )
-        dpgettext_
+    in
+      fun dpgettext
         (
-          domain
-           & msgctxtid
-           & msgidoffset
-        )
-       before Utf8.FFI.touchOptPtr domain
-       before Utf8.FFI.touchPtr msgctxtid
-    fun dpgettext2
-      (
-        domain,
-        context,
-        msgid
-      ) =
-      (
+          domain,
+          msgctxtid,
+          msgidoffset
+        ) =
+        call dpgettext_
+          (
+            domain
+             & msgctxtid
+             & msgidoffset
+          )
+         before Utf8.FFI.touchOptPtr domain
+         before Utf8.FFI.touchPtr msgctxtid
+    end
+    local
+      val call =
         Utf8.FFI.withOptPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          ---> Utf8.FFI.fromPtr 0
-      )
-        dpgettext2_
+    in
+      fun dpgettext2
         (
-          domain
-           & context
-           & msgid
-        )
-       before Utf8.FFI.touchOptPtr domain
-       before Utf8.FFI.touchPtr context
-       before Utf8.FFI.touchPtr msgid
-    fun environGetenv (envp, variable) = (Utf8CPtrArray.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) environGetenv_ (envp & variable) before Utf8CPtrArray.FFI.touchOptPtr envp before Utf8.FFI.touchPtr variable
-    fun environSetenv
-      (
-        envp,
-        variable,
-        value,
-        overwrite
-      ) =
-      (
+          domain,
+          context,
+          msgid
+        ) =
+        call dpgettext2_
+          (
+            domain
+             & context
+             & msgid
+          )
+         before Utf8.FFI.touchOptPtr domain
+         before Utf8.FFI.touchPtr context
+         before Utf8.FFI.touchPtr msgid
+    end
+    local
+      val call = Utf8CPtrArray.FFI.withOptPtr 0 &&&> Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0
+    in
+      fun environGetenv (envp, variable) = call environGetenv_ (envp & variable) before Utf8CPtrArray.FFI.touchOptPtr envp before Utf8.FFI.touchPtr variable
+    end
+    local
+      val call =
         Utf8CPtrArray.FFI.withOptPtr ~1
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GBool.FFI.withVal
          ---> Utf8CPtrArray.FFI.fromPtr ~1
-      )
-        environSetenv_
+    in
+      fun environSetenv
         (
-          envp
-           & variable
-           & value
-           & overwrite
-        )
-    fun environUnsetenv (envp, variable) = (Utf8CPtrArray.FFI.withOptPtr ~1 &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) environUnsetenv_ (envp & variable)
-    fun fileSetContentsFull
-      (
-        filename,
-        contents,
-        flags,
-        mode
-      ) =
-      let
-        val length = GUInt8CArrayN.length contents
-        val () =
+          envp,
+          variable,
+          value,
+          overwrite
+        ) =
+        call environSetenv_
           (
-            Utf8.FFI.withPtr 0
-             &&&> GUInt8CArrayN.FFI.withPtr 0
-             &&&> GSSize.FFI.withVal
-             &&&> GLibFileSetContentsFlags.FFI.withVal
-             &&&> GInt.FFI.withVal
-             &&&> GLibErrorRecord.handleError
-             ---> ignore
+            envp
+             & variable
+             & value
+             & overwrite
           )
-            fileSetContentsFull_
-            (
-              filename
-               & contents
-               & length
-               & flags
-               & mode
-               & []
-            )
-      in
-        ()
-      end
-    fun filenameDisplayBasename filename = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) filenameDisplayBasename_ filename
-    fun filenameDisplayName filename = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) filenameDisplayName_ filename
-    fun filenameFromUri uri =
-      let
-        val hostname & retVal =
-          (
-            Utf8.FFI.withPtr 0
-             &&&> Utf8.FFI.withRefOptPtr 0
-             &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromOptPtr ~1 && Utf8.FFI.fromPtr ~1
-          )
-            filenameFromUri_
-            (
-              uri
-               & NONE
-               & []
-            )
-      in
-        (retVal, hostname)
-      end
-    fun filenameFromUtf8 (utf8string, len) =
-      let
-        val bytesRead
-         & bytesWritten
-         & retVal =
-          (
-            Utf8.FFI.withPtr 0
-             &&&> GSSize.FFI.withVal
-             &&&> GSize.FFI.withRefVal
-             &&&> GSize.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal
-                   && GSize.FFI.fromVal
-                   && Utf8.FFI.fromPtr ~1
-          )
-            filenameFromUtf8_
-            (
-              utf8string
-               & len
-               & GSize.null
-               & GSize.null
-               & []
-            )
-      in
+    end
+    local
+      val call = Utf8CPtrArray.FFI.withOptPtr ~1 &&&> Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1
+    in
+      fun environUnsetenv (envp, variable) = call environUnsetenv_ (envp & variable)
+    end
+    local
+      val call =
+        Utf8.FFI.withPtr 0
+         &&&> GUInt8CArrayN.FFI.withPtr 0
+         &&&> GSSize.FFI.withVal
+         &&&> GLibFileSetContentsFlags.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GLibErrorRecord.handleError
+         ---> ignore
+    in
+      fun fileSetContentsFull
         (
-          retVal,
-          bytesRead,
-          bytesWritten
-        )
-      end
-    fun filenameToUri (filename, hostname) =
-      (
+          filename,
+          contents,
+          flags,
+          mode
+        ) =
+        let
+          val length = GUInt8CArrayN.length contents
+          val () =
+            call fileSetContentsFull_
+              (
+                filename
+                 & contents
+                 & length
+                 & flags
+                 & mode
+                 & []
+              )
+        in
+          ()
+        end
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun filenameDisplayBasename filename = call filenameDisplayBasename_ filename
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun filenameDisplayName filename = call filenameDisplayName_ filename
+    end
+    local
+      val call =
+        Utf8.FFI.withPtr 0
+         &&&> Utf8.FFI.withRefOptPtr 0
+         &&&> GLibErrorRecord.handleError
+         ---> Utf8.FFI.fromOptPtr ~1 && Utf8.FFI.fromPtr ~1
+    in
+      fun filenameFromUri uri =
+        let
+          val hostname & retVal =
+            call filenameFromUri_
+              (
+                uri
+                 & NONE
+                 & []
+              )
+        in
+          (retVal, hostname)
+        end
+    end
+    local
+      val call =
+        Utf8.FFI.withPtr 0
+         &&&> GSSize.FFI.withVal
+         &&&> GSize.FFI.withRefVal
+         &&&> GSize.FFI.withRefVal
+         &&&> GLibErrorRecord.handleError
+         ---> GSize.FFI.fromVal
+               && GSize.FFI.fromVal
+               && Utf8.FFI.fromPtr ~1
+    in
+      fun filenameFromUtf8 (utf8string, len) =
+        let
+          val bytesRead
+           & bytesWritten
+           & retVal =
+            call filenameFromUtf8_
+              (
+                utf8string
+                 & len
+                 & GSize.null
+                 & GSize.null
+                 & []
+              )
+        in
+          (
+            retVal,
+            bytesRead,
+            bytesWritten
+          )
+        end
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withOptPtr 0
          &&&> GLibErrorRecord.handleError
          ---> Utf8.FFI.fromPtr ~1
-      )
-        filenameToUri_
-        (
-          filename
-           & hostname
-           & []
-        )
-    fun filenameToUtf8 (opsysstring, len) =
-      let
-        val bytesRead
-         & bytesWritten
-         & retVal =
+    in
+      fun filenameToUri (filename, hostname) =
+        call filenameToUri_
           (
-            Utf8.FFI.withPtr 0
-             &&&> GSSize.FFI.withVal
-             &&&> GSize.FFI.withRefVal
-             &&&> GSize.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal
-                   && GSize.FFI.fromVal
-                   && Utf8.FFI.fromPtr ~1
+            filename
+             & hostname
+             & []
           )
-            filenameToUtf8_
-            (
-              opsysstring
-               & len
-               & GSize.null
-               & GSize.null
-               & []
-            )
-      in
-        (
-          retVal,
-          bytesRead,
-          bytesWritten
-        )
-      end
-    fun findProgramInPath program = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr ~1) findProgramInPath_ program
-    fun formatSize size = (GUInt64.FFI.withVal ---> Utf8.FFI.fromPtr ~1) formatSize_ size
-    fun formatSizeForDisplay size = (GInt64.FFI.withVal ---> Utf8.FFI.fromPtr ~1) formatSizeForDisplay_ size
-    fun formatSizeFull (size, flags) = (GUInt64.FFI.withVal &&&> GLibFormatSizeFlags.FFI.withVal ---> Utf8.FFI.fromPtr ~1) formatSizeFull_ (size & flags)
-    fun getApplicationName () = (I ---> Utf8.FFI.fromOptPtr 0) getApplicationName_ ()
-    fun getCodeset () = (I ---> Utf8.FFI.fromPtr ~1) getCodeset_ ()
-    fun getConsoleCharset () =
-      let
-        val charset & retVal = (Utf8.FFI.withRefOptPtr 0 ---> Utf8.FFI.fromPtr 0 && GBool.FFI.fromVal) getConsoleCharset_ NONE
-      in
-        (if retVal then SOME charset else NONE)
-      end
-    fun getCurrentDir () = (I ---> Utf8.FFI.fromPtr ~1) getCurrentDir_ ()
-    fun getCurrentTime result = (GLibTimeValRecord.FFI.withPtr false ---> I) getCurrentTime_ result
-    fun getEnviron () = (I ---> Utf8CPtrArray.FFI.fromPtr ~1) getEnviron_ ()
-    fun getHomeDir () = (I ---> Utf8.FFI.fromPtr 0) getHomeDir_ ()
-    fun getHostName () = (I ---> Utf8.FFI.fromPtr 0) getHostName_ ()
-    fun getLanguageNames () = (I ---> Utf8CPtrArray.FFI.fromPtr 0) getLanguageNames_ ()
-    fun getLanguageNamesWithCategory categoryName = (Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr 0) getLanguageNamesWithCategory_ categoryName before Utf8.FFI.touchPtr categoryName
-    fun getLocaleVariants locale = (Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1) getLocaleVariants_ locale
-    fun getMonotonicTime () = (I ---> GInt64.FFI.fromVal) getMonotonicTime_ ()
-    fun getNumProcessors () = (I ---> GUInt.FFI.fromVal) getNumProcessors_ ()
-    fun getOsInfo keyName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr ~1) getOsInfo_ keyName
-    fun getPrgname () = (I ---> Utf8.FFI.fromOptPtr 0) getPrgname_ ()
-    fun getRealName () = (I ---> Utf8.FFI.fromPtr 0) getRealName_ ()
-    fun getRealTime () = (I ---> GInt64.FFI.fromVal) getRealTime_ ()
-    fun getSystemConfigDirs () = (I ---> Utf8CPtrArray.FFI.fromPtr 0) getSystemConfigDirs_ ()
-    fun getSystemDataDirs () = (I ---> Utf8CPtrArray.FFI.fromPtr 0) getSystemDataDirs_ ()
-    fun getTmpDir () = (I ---> Utf8.FFI.fromPtr 0) getTmpDir_ ()
-    fun getUserCacheDir () = (I ---> Utf8.FFI.fromPtr 0) getUserCacheDir_ ()
-    fun getUserConfigDir () = (I ---> Utf8.FFI.fromPtr 0) getUserConfigDir_ ()
-    fun getUserDataDir () = (I ---> Utf8.FFI.fromPtr 0) getUserDataDir_ ()
-    fun getUserName () = (I ---> Utf8.FFI.fromPtr 0) getUserName_ ()
-    fun getUserRuntimeDir () = (I ---> Utf8.FFI.fromPtr 0) getUserRuntimeDir_ ()
-    fun getUserSpecialDir directory = (GLibUserDirectory.FFI.withVal ---> Utf8.FFI.fromPtr 0) getUserSpecialDir_ directory
-    fun getenv variable = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0) getenv_ variable before Utf8.FFI.touchPtr variable
-    fun hostnameIsAsciiEncoded hostname = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hostnameIsAsciiEncoded_ hostname
-    fun hostnameIsIpAddress hostname = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hostnameIsIpAddress_ hostname
-    fun hostnameIsNonAscii hostname = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) hostnameIsNonAscii_ hostname
-    fun hostnameToAscii hostname = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) hostnameToAscii_ hostname
-    fun hostnameToUnicode hostname = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) hostnameToUnicode_ hostname
-    fun idleSourceNew () = (I ---> GLibSourceRecord.FFI.fromPtr true) idleSourceNew_ ()
-    fun idleAdd (priority, function) =
-      (
+    end
+    local
+      val call =
+        Utf8.FFI.withPtr 0
+         &&&> GSSize.FFI.withVal
+         &&&> GSize.FFI.withRefVal
+         &&&> GSize.FFI.withRefVal
+         &&&> GLibErrorRecord.handleError
+         ---> GSize.FFI.fromVal
+               && GSize.FFI.fromVal
+               && Utf8.FFI.fromPtr ~1
+    in
+      fun filenameToUtf8 (opsysstring, len) =
+        let
+          val bytesRead
+           & bytesWritten
+           & retVal =
+            call filenameToUtf8_
+              (
+                opsysstring
+                 & len
+                 & GSize.null
+                 & GSize.null
+                 & []
+              )
+        in
+          (
+            retVal,
+            bytesRead,
+            bytesWritten
+          )
+        end
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr ~1
+    in
+      fun findProgramInPath program = call findProgramInPath_ program
+    end
+    local
+      val call = GUInt64.FFI.withVal ---> Utf8.FFI.fromPtr ~1
+    in
+      fun formatSize size = call formatSize_ size
+    end
+    local
+      val call = GInt64.FFI.withVal ---> Utf8.FFI.fromPtr ~1
+    in
+      fun formatSizeForDisplay size = call formatSizeForDisplay_ size
+    end
+    local
+      val call = GUInt64.FFI.withVal &&&> GLibFormatSizeFlags.FFI.withVal ---> Utf8.FFI.fromPtr ~1
+    in
+      fun formatSizeFull (size, flags) = call formatSizeFull_ (size & flags)
+    end
+    local
+      val call = I ---> Utf8.FFI.fromOptPtr 0
+    in
+      fun getApplicationName () = call getApplicationName_ ()
+    end
+    local
+      val call = I ---> Utf8.FFI.fromPtr ~1
+    in
+      fun getCodeset () = call getCodeset_ ()
+    end
+    local
+      val call = Utf8.FFI.withRefOptPtr 0 ---> Utf8.FFI.fromPtr 0 && GBool.FFI.fromVal
+    in
+      fun getConsoleCharset () =
+        let
+          val charset & retVal = call getConsoleCharset_ NONE
+        in
+          (if retVal then SOME charset else NONE)
+        end
+    end
+    local
+      val call = I ---> Utf8.FFI.fromPtr ~1
+    in
+      fun getCurrentDir () = call getCurrentDir_ ()
+    end
+    local
+      val call = GLibTimeValRecord.FFI.withPtr false ---> I
+    in
+      fun getCurrentTime result = call getCurrentTime_ result
+    end
+    local
+      val call = I ---> Utf8CPtrArray.FFI.fromPtr ~1
+    in
+      fun getEnviron () = call getEnviron_ ()
+    end
+    local
+      val call = I ---> Utf8.FFI.fromPtr 0
+    in
+      fun getHomeDir () = call getHomeDir_ ()
+    end
+    local
+      val call = I ---> Utf8.FFI.fromPtr 0
+    in
+      fun getHostName () = call getHostName_ ()
+    end
+    local
+      val call = I ---> Utf8CPtrArray.FFI.fromPtr 0
+    in
+      fun getLanguageNames () = call getLanguageNames_ ()
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr 0
+    in
+      fun getLanguageNamesWithCategory categoryName = call getLanguageNamesWithCategory_ categoryName before Utf8.FFI.touchPtr categoryName
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8CPtrArray.FFI.fromPtr ~1
+    in
+      fun getLocaleVariants locale = call getLocaleVariants_ locale
+    end
+    local
+      val call = I ---> GInt64.FFI.fromVal
+    in
+      fun getMonotonicTime () = call getMonotonicTime_ ()
+    end
+    local
+      val call = I ---> GUInt.FFI.fromVal
+    in
+      fun getNumProcessors () = call getNumProcessors_ ()
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr ~1
+    in
+      fun getOsInfo keyName = call getOsInfo_ keyName
+    end
+    local
+      val call = I ---> Utf8.FFI.fromOptPtr 0
+    in
+      fun getPrgname () = call getPrgname_ ()
+    end
+    local
+      val call = I ---> Utf8.FFI.fromPtr 0
+    in
+      fun getRealName () = call getRealName_ ()
+    end
+    local
+      val call = I ---> GInt64.FFI.fromVal
+    in
+      fun getRealTime () = call getRealTime_ ()
+    end
+    local
+      val call = I ---> Utf8CPtrArray.FFI.fromPtr 0
+    in
+      fun getSystemConfigDirs () = call getSystemConfigDirs_ ()
+    end
+    local
+      val call = I ---> Utf8CPtrArray.FFI.fromPtr 0
+    in
+      fun getSystemDataDirs () = call getSystemDataDirs_ ()
+    end
+    local
+      val call = I ---> Utf8.FFI.fromPtr 0
+    in
+      fun getTmpDir () = call getTmpDir_ ()
+    end
+    local
+      val call = I ---> Utf8.FFI.fromPtr 0
+    in
+      fun getUserCacheDir () = call getUserCacheDir_ ()
+    end
+    local
+      val call = I ---> Utf8.FFI.fromPtr 0
+    in
+      fun getUserConfigDir () = call getUserConfigDir_ ()
+    end
+    local
+      val call = I ---> Utf8.FFI.fromPtr 0
+    in
+      fun getUserDataDir () = call getUserDataDir_ ()
+    end
+    local
+      val call = I ---> Utf8.FFI.fromPtr 0
+    in
+      fun getUserName () = call getUserName_ ()
+    end
+    local
+      val call = I ---> Utf8.FFI.fromPtr 0
+    in
+      fun getUserRuntimeDir () = call getUserRuntimeDir_ ()
+    end
+    local
+      val call = GLibUserDirectory.FFI.withVal ---> Utf8.FFI.fromPtr 0
+    in
+      fun getUserSpecialDir directory = call getUserSpecialDir_ directory
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr 0
+    in
+      fun getenv variable = call getenv_ variable before Utf8.FFI.touchPtr variable
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal
+    in
+      fun hostnameIsAsciiEncoded hostname = call hostnameIsAsciiEncoded_ hostname
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal
+    in
+      fun hostnameIsIpAddress hostname = call hostnameIsIpAddress_ hostname
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal
+    in
+      fun hostnameIsNonAscii hostname = call hostnameIsNonAscii_ hostname
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun hostnameToAscii hostname = call hostnameToAscii_ hostname
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun hostnameToUnicode hostname = call hostnameToUnicode_ hostname
+    end
+    local
+      val call = I ---> GLibSourceRecord.FFI.fromPtr true
+    in
+      fun idleSourceNew () = call idleSourceNew_ ()
+    end
+    local
+      val call =
         GInt.FFI.withVal
          &&&> GLibSourceFunc.FFI.withDispatchPtr false
          &&&> GLibSourceFunc.FFI.withPtr false
          &&&> GLibSourceFunc.FFI.withDestroyNotifyPtr
          ---> GUInt.FFI.fromVal
-      )
-        idleAdd_
-        (
-          priority
-           & ()
-           & function
-           & ()
-        )
-    fun ioAddWatch (channel, priority, condition, func) =
-      (
+    in
+      fun idleAdd (priority, function) =
+        call idleAdd_
+          (
+            priority
+             & ()
+             & function
+             & ()
+          )
+    end
+    local
+      val call =
         GLibIOChannelRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GLibIOCondition.FFI.withVal
@@ -1324,331 +1574,589 @@ structure GLib : G_LIB =
          &&&> GLibIOFunc.FFI.withPtr false
          &&&> GLibIOFunc.FFI.withDestroyNotifyPtr
          ---> GUInt.FFI.fromVal
-      )
-        ioAddWatch_
-        (
-          channel
-           & priority
-           & condition
-           & ()
-           & func
-           & ()
-        )
-    fun ioCreateWatch (channel, condition) = (GLibIOChannelRecord.FFI.withPtr false &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) ioCreateWatch_ (channel & condition)
-    fun listenv () = (I ---> Utf8CPtrArray.FFI.fromPtr ~1) listenv_ ()
-    fun localeFromUtf8 (utf8string, len) =
-      let
-        val bytesRead
-         & bytesWritten
-         & retVal =
+    in
+      fun ioAddWatch (channel, priority, condition, func) =
+        call ioAddWatch_
           (
-            Utf8.FFI.withPtr 0
-             &&&> GSSize.FFI.withVal
-             &&&> GSize.FFI.withRefVal
-             &&&> GSize.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal
-                   && GSize.FFI.fromVal
-                   && GUInt8CArrayN.FFI.fromPtr ~1
+            channel
+             & priority
+             & condition
+             & ()
+             & func
+             & ()
           )
-            localeFromUtf8_
-            (
-              utf8string
-               & len
-               & GSize.null
-               & GSize.null
-               & []
-            )
-      in
-        (retVal bytesWritten, bytesRead)
-      end
-    fun localeToUtf8 opsysstring =
-      let
-        val len = GUInt8CArrayN.length opsysstring
-        val bytesRead
-         & bytesWritten
-         & retVal =
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true
+    in
+      fun ioCreateWatch (channel, condition) = call ioCreateWatch_ (channel & condition)
+    end
+    local
+      val call = I ---> Utf8CPtrArray.FFI.fromPtr ~1
+    in
+      fun listenv () = call listenv_ ()
+    end
+    local
+      val call =
+        Utf8.FFI.withPtr 0
+         &&&> GSSize.FFI.withVal
+         &&&> GSize.FFI.withRefVal
+         &&&> GSize.FFI.withRefVal
+         &&&> GLibErrorRecord.handleError
+         ---> GSize.FFI.fromVal
+               && GSize.FFI.fromVal
+               && GUInt8CArrayN.FFI.fromPtr ~1
+    in
+      fun localeFromUtf8 (utf8string, len) =
+        let
+          val bytesRead
+           & bytesWritten
+           & retVal =
+            call localeFromUtf8_
+              (
+                utf8string
+                 & len
+                 & GSize.null
+                 & GSize.null
+                 & []
+              )
+        in
+          (retVal bytesWritten, bytesRead)
+        end
+    end
+    local
+      val call =
+        GUInt8CArrayN.FFI.withPtr 0
+         &&&> GSSize.FFI.withVal
+         &&&> GSize.FFI.withRefVal
+         &&&> GSize.FFI.withRefVal
+         &&&> GLibErrorRecord.handleError
+         ---> GSize.FFI.fromVal
+               && GSize.FFI.fromVal
+               && Utf8.FFI.fromPtr ~1
+    in
+      fun localeToUtf8 opsysstring =
+        let
+          val len = GUInt8CArrayN.length opsysstring
+          val bytesRead
+           & bytesWritten
+           & retVal =
+            call localeToUtf8_
+              (
+                opsysstring
+                 & len
+                 & GSize.null
+                 & GSize.null
+                 & []
+              )
+        in
           (
-            GUInt8CArrayN.FFI.withPtr 0
-             &&&> GSSize.FFI.withVal
-             &&&> GSize.FFI.withRefVal
-             &&&> GSize.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> GSize.FFI.fromVal
-                   && GSize.FFI.fromVal
-                   && Utf8.FFI.fromPtr ~1
+            retVal,
+            bytesRead,
+            bytesWritten
           )
-            localeToUtf8_
-            (
-              opsysstring
-               & len
-               & GSize.null
-               & GSize.null
-               & []
-            )
-      in
-        (
-          retVal,
-          bytesRead,
-          bytesWritten
-        )
-      end
-    fun log (logDomain, logLevel, format) =
-      (
+        end
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> GLibLogLevelFlags.FFI.withVal
          &&&> Utf8.FFI.withPtr 0
          ---> I
-      )
-        log_
-        (
-          logDomain
-           & logLevel
-           & format
-        )
-    fun logRemoveHandler (logDomain, handlerId) = (Utf8.FFI.withPtr 0 &&&> GUInt.FFI.withVal ---> I) logRemoveHandler_ (logDomain & handlerId)
-    fun logSetAlwaysFatal fatalMask = (GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetAlwaysFatal_ fatalMask
-    fun logSetFatalMask (logDomain, fatalMask) = (Utf8.FFI.withPtr 0 &&&> GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal) logSetFatalMask_ (logDomain & fatalMask)
-    fun logVariant
-      (
-        logDomain,
-        logLevel,
-        fields
-      ) =
-      (
+    in
+      fun log (logDomain, logLevel, format) =
+        call log_
+          (
+            logDomain
+             & logLevel
+             & format
+          )
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 &&&> GUInt.FFI.withVal ---> I
+    in
+      fun logRemoveHandler (logDomain, handlerId) = call logRemoveHandler_ (logDomain & handlerId)
+    end
+    local
+      val call = GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal
+    in
+      fun logSetAlwaysFatal fatalMask = call logSetAlwaysFatal_ fatalMask
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 &&&> GLibLogLevelFlags.FFI.withVal ---> GLibLogLevelFlags.FFI.fromVal
+    in
+      fun logSetFatalMask (logDomain, fatalMask) = call logSetFatalMask_ (logDomain & fatalMask)
+    end
+    local
+      val call =
         Utf8.FFI.withOptPtr 0
          &&&> GLibLogLevelFlags.FFI.withVal
          &&&> GLibVariantRecord.FFI.withPtr false
          ---> I
-      )
-        logVariant_
+    in
+      fun logVariant
         (
-          logDomain
-           & logLevel
-           & fields
-        )
-    fun logWriterIsJournald outputFd = (GInt.FFI.withVal ---> GBool.FFI.fromVal) logWriterIsJournald_ outputFd
-    fun logWriterSupportsColor outputFd = (GInt.FFI.withVal ---> GBool.FFI.fromVal) logWriterSupportsColor_ outputFd
-    fun mainCurrentSource () = (I ---> GLibSourceRecord.FFI.fromPtr false) mainCurrentSource_ ()
-    fun mainDepth () = (I ---> GInt.FFI.fromVal) mainDepth_ ()
-    fun markupEscapeText (text, length) = (Utf8.FFI.withPtr 0 &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr ~1) markupEscapeText_ (text & length)
-    fun mkdirWithParents (pathname, mode) = (Utf8.FFI.withPtr 0 &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal) mkdirWithParents_ (pathname & mode)
-    fun onErrorQuery prgName = (Utf8.FFI.withPtr 0 ---> I) onErrorQuery_ prgName
-    fun onErrorStackTrace prgName = (Utf8.FFI.withPtr 0 ---> I) onErrorStackTrace_ prgName
-    fun pathGetBasename fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) pathGetBasename_ fileName
-    fun pathGetDirname fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) pathGetDirname_ fileName
-    fun pathIsAbsolute fileName = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) pathIsAbsolute_ fileName
-    fun pathSkipRoot fileName = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0) pathSkipRoot_ fileName before Utf8.FFI.touchPtr fileName
-    fun patternMatchSimple (pattern, string) = (Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) patternMatchSimple_ (pattern & string)
-    fun quarkFromString string = (Utf8.FFI.withOptPtr 0 ---> GLibQuark.FFI.fromVal) quarkFromString_ string
-    fun quarkToString quark = (GLibQuark.FFI.withVal ---> Utf8.FFI.fromPtr 0) quarkToString_ quark
-    fun randomDouble () = (I ---> GDouble.FFI.fromVal) randomDouble_ ()
-    fun randomDoubleRange (begin, end') = (GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal) randomDoubleRange_ (begin & end')
-    fun randomInt () = (I ---> GUInt32.FFI.fromVal) randomInt_ ()
-    fun randomIntRange (begin, end') = (GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) randomIntRange_ (begin & end')
-    fun randomSetSeed seed = (GUInt32.FFI.withVal ---> I) randomSetSeed_ seed
-    fun refStringAcquire str = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) refStringAcquire_ str
-    fun refStringLength str = (Utf8.FFI.withPtr 0 ---> GSize.FFI.fromVal) refStringLength_ str
-    fun refStringNew str = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) refStringNew_ str
-    fun refStringNewIntern str = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) refStringNewIntern_ str
-    fun refStringNewLen (str, len) = (Utf8.FFI.withPtr 0 &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr ~1) refStringNewLen_ (str & len)
-    fun refStringRelease str = (Utf8.FFI.withPtr 0 ---> I) refStringRelease_ str
-    fun reloadUserSpecialDirsCache () = (I ---> I) reloadUserSpecialDirsCache_ ()
-    fun rmdir filename = (Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal) rmdir_ filename
-    fun setApplicationName applicationName = (Utf8.FFI.withPtr 0 ---> I) setApplicationName_ applicationName
-    fun setPrgname prgname = (Utf8.FFI.withPtr 0 ---> I) setPrgname_ prgname
-    fun setenv
-      (
-        variable,
-        value,
-        overwrite
-      ) =
-      (
+          logDomain,
+          logLevel,
+          fields
+        ) =
+        call logVariant_
+          (
+            logDomain
+             & logLevel
+             & fields
+          )
+    end
+    local
+      val call = GInt.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun logWriterIsJournald outputFd = call logWriterIsJournald_ outputFd
+    end
+    local
+      val call = GInt.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun logWriterSupportsColor outputFd = call logWriterSupportsColor_ outputFd
+    end
+    local
+      val call = I ---> GLibSourceRecord.FFI.fromPtr false
+    in
+      fun mainCurrentSource () = call mainCurrentSource_ ()
+    end
+    local
+      val call = I ---> GInt.FFI.fromVal
+    in
+      fun mainDepth () = call mainDepth_ ()
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr ~1
+    in
+      fun markupEscapeText (text, length) = call markupEscapeText_ (text & length)
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 &&&> GInt.FFI.withVal ---> GInt.FFI.fromVal
+    in
+      fun mkdirWithParents (pathname, mode) = call mkdirWithParents_ (pathname & mode)
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> I
+    in
+      fun onErrorQuery prgName = call onErrorQuery_ prgName
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> I
+    in
+      fun onErrorStackTrace prgName = call onErrorStackTrace_ prgName
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun pathGetBasename fileName = call pathGetBasename_ fileName
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun pathGetDirname fileName = call pathGetDirname_ fileName
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal
+    in
+      fun pathIsAbsolute fileName = call pathIsAbsolute_ fileName
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromOptPtr 0
+    in
+      fun pathSkipRoot fileName = call pathSkipRoot_ fileName before Utf8.FFI.touchPtr fileName
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 &&&> Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal
+    in
+      fun patternMatchSimple (pattern, string) = call patternMatchSimple_ (pattern & string)
+    end
+    local
+      val call = Utf8.FFI.withOptPtr 0 ---> GLibQuark.FFI.fromVal
+    in
+      fun quarkFromString string = call quarkFromString_ string
+    end
+    local
+      val call = GLibQuark.FFI.withVal ---> Utf8.FFI.fromPtr 0
+    in
+      fun quarkToString quark = call quarkToString_ quark
+    end
+    local
+      val call = I ---> GDouble.FFI.fromVal
+    in
+      fun randomDouble () = call randomDouble_ ()
+    end
+    local
+      val call = GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal
+    in
+      fun randomDoubleRange (begin, end') = call randomDoubleRange_ (begin & end')
+    end
+    local
+      val call = I ---> GUInt32.FFI.fromVal
+    in
+      fun randomInt () = call randomInt_ ()
+    end
+    local
+      val call = GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal
+    in
+      fun randomIntRange (begin, end') = call randomIntRange_ (begin & end')
+    end
+    local
+      val call = GUInt32.FFI.withVal ---> I
+    in
+      fun randomSetSeed seed = call randomSetSeed_ seed
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun refStringAcquire str = call refStringAcquire_ str
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> GSize.FFI.fromVal
+    in
+      fun refStringLength str = call refStringLength_ str
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun refStringNew str = call refStringNew_ str
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun refStringNewIntern str = call refStringNewIntern_ str
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 &&&> GSSize.FFI.withVal ---> Utf8.FFI.fromPtr ~1
+    in
+      fun refStringNewLen (str, len) = call refStringNewLen_ (str & len)
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> I
+    in
+      fun refStringRelease str = call refStringRelease_ str
+    end
+    local
+      val call = I ---> I
+    in
+      fun reloadUserSpecialDirsCache () = call reloadUserSpecialDirsCache_ ()
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal
+    in
+      fun rmdir filename = call rmdir_ filename
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> I
+    in
+      fun setApplicationName applicationName = call setApplicationName_ applicationName
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> I
+    in
+      fun setPrgname prgname = call setPrgname_ prgname
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GBool.FFI.withVal
          ---> GBool.FFI.fromVal
-      )
-        setenv_
+    in
+      fun setenv
         (
-          variable
-           & value
-           & overwrite
-        )
-    fun shellParseArgv commandLine =
-      let
-        val _
-         & argvp
-         & () =
+          variable,
+          value,
+          overwrite
+        ) =
+        call setenv_
           (
-            Utf8.FFI.withPtr 0
-             &&&> GInt.FFI.withRefVal
-             &&&> Utf8CPtrArray.FFI.withRefOptPtr 0
-             &&&> GLibErrorRecord.handleError
-             ---> GInt.FFI.fromVal
-                   && Utf8CPtrArray.FFI.fromPtr ~1
-                   && ignore
+            variable
+             & value
+             & overwrite
           )
-            shellParseArgv_
-            (
-              commandLine
-               & GInt.null
-               & NONE
-               & [GLibShellError.handler]
-            )
-      in
-        argvp
-      end
-    fun shellQuote unquotedString = (Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1) shellQuote_ unquotedString
-    fun shellUnquote quotedString = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr ~1) shellUnquote_ (quotedString & [])
-    fun sliceGetConfig ckey = (GLibSliceConfig.FFI.withVal ---> GInt64.FFI.fromVal) sliceGetConfig_ ckey
-    fun sliceSetConfig (ckey, value) = (GLibSliceConfig.FFI.withVal &&&> GInt64.FFI.withVal ---> I) sliceSetConfig_ (ckey & value)
-    fun spawnAsyncWithPipes (workingDirectory, argv, envp, flags, childSetup) =
-      let
-        val
-          childPid
-           & standardInput
-           & standardOutput
-           & standardError
+    end
+    local
+      val call =
+        Utf8.FFI.withPtr 0
+         &&&> GInt.FFI.withRefVal
+         &&&> Utf8CPtrArray.FFI.withRefOptPtr 0
+         &&&> GLibErrorRecord.handleError
+         ---> GInt.FFI.fromVal
+               && Utf8CPtrArray.FFI.fromPtr ~1
+               && ignore
+    in
+      fun shellParseArgv commandLine =
+        let
+          val _
+           & argvp
            & () =
+            call shellParseArgv_
+              (
+                commandLine
+                 & GInt.null
+                 & NONE
+                 & [GLibShellError.handler]
+              )
+        in
+          argvp
+        end
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> Utf8.FFI.fromPtr ~1
+    in
+      fun shellQuote unquotedString = call shellQuote_ unquotedString
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> Utf8.FFI.fromPtr ~1
+    in
+      fun shellUnquote quotedString = call shellUnquote_ (quotedString & [])
+    end
+    local
+      val call = GLibSliceConfig.FFI.withVal ---> GInt64.FFI.fromVal
+    in
+      fun sliceGetConfig ckey = call sliceGetConfig_ ckey
+    end
+    local
+      val call = GLibSliceConfig.FFI.withVal &&&> GInt64.FFI.withVal ---> I
+    in
+      fun sliceSetConfig (ckey, value) = call sliceSetConfig_ (ckey & value)
+    end
+    local
+      val call =
+        Utf8.FFI.withOptPtr 0
+         &&&> Utf8CPtrArray.FFI.withPtr 0
+         &&&> Utf8CPtrArray.FFI.withOptPtr 0
+         &&&> GLibSpawnFlags.FFI.withVal
+         &&&> GLibSpawnChildSetupFunc.FFI.withOptDispatchPtr true
+         &&&> GLibSpawnChildSetupFunc.FFI.withOptPtr false
+         &&&> GLibPid.FFI.withRefVal
+         &&&> GFileDesc.FFI.withRefVal
+         &&&> GFileDesc.FFI.withRefVal
+         &&&> GFileDesc.FFI.withRefVal
+         &&&> GLibErrorRecord.handleError
+         ---> GLibPid.FFI.fromVal
+               && GFileDesc.FFI.fromVal
+               && GFileDesc.FFI.fromVal
+               && GFileDesc.FFI.fromVal
+               && ignore
+    in
+      fun spawnAsyncWithPipes (workingDirectory, argv, envp, flags, childSetup) =
+        let
+          val
+            childPid
+             & standardInput
+             & standardOutput
+             & standardError
+             & () =
+            call spawnAsyncWithPipes_
+              (
+                workingDirectory
+                 & argv
+                 & envp
+                 & flags
+                 & isSome childSetup
+                 & childSetup
+                 & GLibPid.null
+                 & GFileDesc.null
+                 & GFileDesc.null
+                 & GFileDesc.null
+                 & [GLibSpawnError.handler]
+              )
+        in
+          (childPid, standardInput, standardOutput, standardError)
+        end
+    end
+    local
+      val call = GInt.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore
+    in
+      fun spawnCheckExitStatus exitStatus = call spawnCheckExitStatus_ (exitStatus & [])
+    end
+    local
+      val call = GLibPid.FFI.withVal ---> I
+    in
+      fun spawnClosePid pid = call spawnClosePid_ pid
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> ignore
+    in
+      fun spawnCommandLineAsync commandLine = call spawnCommandLineAsync_ (commandLine & [])
+    end
+    local
+      val call =
+        Utf8.FFI.withPtr 0
+         &&&> GUInt8CArray.FFI.withRefOptPtr 0
+         &&&> GUInt8CArray.FFI.withRefOptPtr 0
+         &&&> GInt.FFI.withRefVal
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt8CArray.FFI.fromPtr ~1
+               && GUInt8CArray.FFI.fromPtr ~1
+               && GInt.FFI.fromVal
+               && ignore
+    in
+      fun spawnCommandLineSync commandLine =
+        let
+          val standardOutput
+           & standardError
+           & exitStatus
+           & () =
+            call spawnCommandLineSync_
+              (
+                commandLine
+                 & NONE
+                 & NONE
+                 & GInt.null
+                 & []
+              )
+        in
           (
-            Utf8.FFI.withOptPtr 0
-             &&&> Utf8CPtrArray.FFI.withPtr 0
-             &&&> Utf8CPtrArray.FFI.withOptPtr 0
-             &&&> GLibSpawnFlags.FFI.withVal
-             &&&> GLibSpawnChildSetupFunc.FFI.withOptDispatchPtr true
-             &&&> GLibSpawnChildSetupFunc.FFI.withOptPtr false
-             &&&> GLibPid.FFI.withRefVal
-             &&&> GFileDesc.FFI.withRefVal
-             &&&> GFileDesc.FFI.withRefVal
-             &&&> GFileDesc.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> GLibPid.FFI.fromVal
-                   && GFileDesc.FFI.fromVal
-                   && GFileDesc.FFI.fromVal
-                   && GFileDesc.FFI.fromVal
-                   && ignore
+            standardOutput,
+            standardError,
+            exitStatus
           )
-            spawnAsyncWithPipes_
-            (
-              workingDirectory
-               & argv
-               & envp
-               & flags
-               & isSome childSetup
-               & childSetup
-               & GLibPid.null
-               & GFileDesc.null
-               & GFileDesc.null
-               & GFileDesc.null
-               & [GLibSpawnError.handler]
-            )
-      in
-        (childPid, standardInput, standardOutput, standardError)
-      end
-    fun spawnCheckExitStatus exitStatus = (GInt.FFI.withVal &&&> GLibErrorRecord.handleError ---> ignore) spawnCheckExitStatus_ (exitStatus & [])
-    fun spawnClosePid pid = (GLibPid.FFI.withVal ---> I) spawnClosePid_ pid
-    fun spawnCommandLineAsync commandLine = (Utf8.FFI.withPtr 0 &&&> GLibErrorRecord.handleError ---> ignore) spawnCommandLineAsync_ (commandLine & [])
-    fun spawnCommandLineSync commandLine =
-      let
-        val standardOutput
-         & standardError
-         & exitStatus
-         & () =
-          (
-            Utf8.FFI.withPtr 0
-             &&&> GUInt8CArray.FFI.withRefOptPtr 0
-             &&&> GUInt8CArray.FFI.withRefOptPtr 0
-             &&&> GInt.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> GUInt8CArray.FFI.fromPtr ~1
-                   && GUInt8CArray.FFI.fromPtr ~1
-                   && GInt.FFI.fromVal
-                   && ignore
-          )
-            spawnCommandLineSync_
-            (
-              commandLine
-               & NONE
-               & NONE
-               & GInt.null
-               & []
-            )
-      in
-        (
-          standardOutput,
-          standardError,
-          exitStatus
-        )
-      end
-    fun testAssertExpectedMessagesInternal
-      (
-        domain,
-        file,
-        line,
-        func
-      ) =
-      (
+        end
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> Utf8.FFI.withPtr 0
          ---> I
-      )
-        testAssertExpectedMessagesInternal_
+    in
+      fun testAssertExpectedMessagesInternal
         (
-          domain
-           & file
-           & line
-           & func
-        )
-    fun testBug bugUriSnippet = (Utf8.FFI.withPtr 0 ---> I) testBug_ bugUriSnippet
-    fun testBugBase uriPattern = (Utf8.FFI.withPtr 0 ---> I) testBugBase_ uriPattern
-    fun testExpectMessage
-      (
-        logDomain,
-        logLevel,
-        pattern
-      ) =
-      (
+          domain,
+          file,
+          line,
+          func
+        ) =
+        call testAssertExpectedMessagesInternal_
+          (
+            domain
+             & file
+             & line
+             & func
+          )
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> I
+    in
+      fun testBug bugUriSnippet = call testBug_ bugUriSnippet
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> I
+    in
+      fun testBugBase uriPattern = call testBugBase_ uriPattern
+    end
+    local
+      val call =
         Utf8.FFI.withOptPtr 0
          &&&> GLibLogLevelFlags.FFI.withVal
          &&&> Utf8.FFI.withPtr 0
          ---> I
-      )
-        testExpectMessage_
+    in
+      fun testExpectMessage
         (
-          logDomain
-           & logLevel
-           & pattern
-        )
-    fun testFail () = (I ---> I) testFail_ ()
-    fun testFailed () = (I ---> GBool.FFI.fromVal) testFailed_ ()
-    fun testGetDir fileType = (GLibTestFileType.FFI.withVal ---> Utf8.FFI.fromPtr 0) testGetDir_ fileType
-    fun testIncomplete msg = (Utf8.FFI.withOptPtr 0 ---> I) testIncomplete_ msg
-    fun testLogTypeName logType = (GLibTestLogType.FFI.withVal ---> Utf8.FFI.fromPtr 0) testLogTypeName_ logType
-    fun testRandDouble () = (I ---> GDouble.FFI.fromVal) testRandDouble_ ()
-    fun testRandDoubleRange (rangeStart, rangeEnd) = (GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal) testRandDoubleRange_ (rangeStart & rangeEnd)
-    fun testRandInt () = (I ---> GInt32.FFI.fromVal) testRandInt_ ()
-    fun testRandIntRange (begin, end') = (GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal) testRandIntRange_ (begin & end')
-    fun testRun () = (I ---> GInt.FFI.fromVal) testRun_ ()
-    fun testSetNonfatalAssertions () = (I ---> I) testSetNonfatalAssertions_ ()
-    fun testSkip msg = (Utf8.FFI.withOptPtr 0 ---> I) testSkip_ msg
-    fun testSubprocess () = (I ---> GBool.FFI.fromVal) testSubprocess_ ()
-    fun testSummary summary = (Utf8.FFI.withPtr 0 ---> I) testSummary_ summary
-    fun testTimerElapsed () = (I ---> GDouble.FFI.fromVal) testTimerElapsed_ ()
-    fun testTimerLast () = (I ---> GDouble.FFI.fromVal) testTimerLast_ ()
-    fun testTimerStart () = (I ---> I) testTimerStart_ ()
-    fun testTrapAssertions
-      (
-        domain,
-        file,
-        line,
-        func,
-        assertionFlags,
-        pattern
-      ) =
-      (
+          logDomain,
+          logLevel,
+          pattern
+        ) =
+        call testExpectMessage_
+          (
+            logDomain
+             & logLevel
+             & pattern
+          )
+    end
+    local
+      val call = I ---> I
+    in
+      fun testFail () = call testFail_ ()
+    end
+    local
+      val call = I ---> GBool.FFI.fromVal
+    in
+      fun testFailed () = call testFailed_ ()
+    end
+    local
+      val call = GLibTestFileType.FFI.withVal ---> Utf8.FFI.fromPtr 0
+    in
+      fun testGetDir fileType = call testGetDir_ fileType
+    end
+    local
+      val call = Utf8.FFI.withOptPtr 0 ---> I
+    in
+      fun testIncomplete msg = call testIncomplete_ msg
+    end
+    local
+      val call = GLibTestLogType.FFI.withVal ---> Utf8.FFI.fromPtr 0
+    in
+      fun testLogTypeName logType = call testLogTypeName_ logType
+    end
+    local
+      val call = I ---> GDouble.FFI.fromVal
+    in
+      fun testRandDouble () = call testRandDouble_ ()
+    end
+    local
+      val call = GDouble.FFI.withVal &&&> GDouble.FFI.withVal ---> GDouble.FFI.fromVal
+    in
+      fun testRandDoubleRange (rangeStart, rangeEnd) = call testRandDoubleRange_ (rangeStart & rangeEnd)
+    end
+    local
+      val call = I ---> GInt32.FFI.fromVal
+    in
+      fun testRandInt () = call testRandInt_ ()
+    end
+    local
+      val call = GInt32.FFI.withVal &&&> GInt32.FFI.withVal ---> GInt32.FFI.fromVal
+    in
+      fun testRandIntRange (begin, end') = call testRandIntRange_ (begin & end')
+    end
+    local
+      val call = I ---> GInt.FFI.fromVal
+    in
+      fun testRun () = call testRun_ ()
+    end
+    local
+      val call = I ---> I
+    in
+      fun testSetNonfatalAssertions () = call testSetNonfatalAssertions_ ()
+    end
+    local
+      val call = Utf8.FFI.withOptPtr 0 ---> I
+    in
+      fun testSkip msg = call testSkip_ msg
+    end
+    local
+      val call = I ---> GBool.FFI.fromVal
+    in
+      fun testSubprocess () = call testSubprocess_ ()
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> I
+    in
+      fun testSummary summary = call testSummary_ summary
+    end
+    local
+      val call = I ---> GDouble.FFI.fromVal
+    in
+      fun testTimerElapsed () = call testTimerElapsed_ ()
+    end
+    local
+      val call = I ---> GDouble.FFI.fromVal
+    in
+      fun testTimerLast () = call testTimerLast_ ()
+    end
+    local
+      val call = I ---> I
+    in
+      fun testTimerStart () = call testTimerStart_ ()
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
@@ -1656,92 +2164,162 @@ structure GLib : G_LIB =
          &&&> GUInt64.FFI.withVal
          &&&> Utf8.FFI.withPtr 0
          ---> I
-      )
-        testTrapAssertions_
+    in
+      fun testTrapAssertions
         (
-          domain
-           & file
-           & line
-           & func
-           & assertionFlags
-           & pattern
-        )
-    fun testTrapFork (usecTimeout, testTrapFlags) = (GUInt64.FFI.withVal &&&> GLibTestTrapFlags.FFI.withVal ---> GBool.FFI.fromVal) testTrapFork_ (usecTimeout & testTrapFlags)
-    fun testTrapHasPassed () = (I ---> GBool.FFI.fromVal) testTrapHasPassed_ ()
-    fun testTrapReachedTimeout () = (I ---> GBool.FFI.fromVal) testTrapReachedTimeout_ ()
-    fun testTrapSubprocess
-      (
-        testPath,
-        usecTimeout,
-        testFlags
-      ) =
-      (
+          domain,
+          file,
+          line,
+          func,
+          assertionFlags,
+          pattern
+        ) =
+        call testTrapAssertions_
+          (
+            domain
+             & file
+             & line
+             & func
+             & assertionFlags
+             & pattern
+          )
+    end
+    local
+      val call = GUInt64.FFI.withVal &&&> GLibTestTrapFlags.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun testTrapFork (usecTimeout, testTrapFlags) = call testTrapFork_ (usecTimeout & testTrapFlags)
+    end
+    local
+      val call = I ---> GBool.FFI.fromVal
+    in
+      fun testTrapHasPassed () = call testTrapHasPassed_ ()
+    end
+    local
+      val call = I ---> GBool.FFI.fromVal
+    in
+      fun testTrapReachedTimeout () = call testTrapReachedTimeout_ ()
+    end
+    local
+      val call =
         Utf8.FFI.withOptPtr 0
          &&&> GUInt64.FFI.withVal
          &&&> GLibTestSubprocessFlags.FFI.withVal
          ---> I
-      )
-        testTrapSubprocess_
+    in
+      fun testTrapSubprocess
         (
-          testPath
-           & usecTimeout
-           & testFlags
-        )
-    fun timeoutAdd (priority, interval, function) =
-      (
+          testPath,
+          usecTimeout,
+          testFlags
+        ) =
+        call testTrapSubprocess_
+          (
+            testPath
+             & usecTimeout
+             & testFlags
+          )
+    end
+    local
+      val call =
         GInt.FFI.withVal
          &&&> GUInt.FFI.withVal
          &&&> GLibSourceFunc.FFI.withDispatchPtr false
          &&&> GLibSourceFunc.FFI.withPtr false
          &&&> GLibSourceFunc.FFI.withDestroyNotifyPtr
          ---> GUInt.FFI.fromVal
-      )
-        timeoutAdd_
-        (
-          priority
-           & interval
-           & ()
-           & function
-           & ()
-        )
-    fun timeoutAddSeconds (priority, interval, function) =
-      (
+    in
+      fun timeoutAdd (priority, interval, function) =
+        call timeoutAdd_
+          (
+            priority
+             & interval
+             & ()
+             & function
+             & ()
+          )
+    end
+    local
+      val call =
         GInt.FFI.withVal
          &&&> GUInt.FFI.withVal
          &&&> GLibSourceFunc.FFI.withDispatchPtr false
          &&&> GLibSourceFunc.FFI.withPtr false
          &&&> GLibSourceFunc.FFI.withDestroyNotifyPtr
          ---> GUInt.FFI.fromVal
-      )
-        timeoutAddSeconds_
-        (
-          priority
-           & interval
-           & ()
-           & function
-           & ()
-        )
-    fun timeoutSourceNew interval = (GUInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) timeoutSourceNew_ interval
-    fun timeoutSourceNewSeconds interval = (GUInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) timeoutSourceNewSeconds_ interval
-    fun unixFdSourceNew (fd, condition) = (GInt.FFI.withVal &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) unixFdSourceNew_ (fd & condition)
-    fun unixSetFdNonblocking (fd, nonblock) =
-      (
+    in
+      fun timeoutAddSeconds (priority, interval, function) =
+        call timeoutAddSeconds_
+          (
+            priority
+             & interval
+             & ()
+             & function
+             & ()
+          )
+    end
+    local
+      val call = GUInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true
+    in
+      fun timeoutSourceNew interval = call timeoutSourceNew_ interval
+    end
+    local
+      val call = GUInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true
+    in
+      fun timeoutSourceNewSeconds interval = call timeoutSourceNewSeconds_ interval
+    end
+    local
+      val call = GInt.FFI.withVal &&&> GLibIOCondition.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true
+    in
+      fun unixFdSourceNew (fd, condition) = call unixFdSourceNew_ (fd & condition)
+    end
+    local
+      val call =
         GInt.FFI.withVal
          &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> ignore
-      )
-        unixSetFdNonblocking_
-        (
-          fd
-           & nonblock
-           & []
-        )
-    fun unixSignalSourceNew signum = (GInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true) unixSignalSourceNew_ signum
-    fun unlink filename = (Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal) unlink_ filename
-    fun unsetenv variable = (Utf8.FFI.withPtr 0 ---> I) unsetenv_ variable
-    fun usleep microseconds = (GULong.FFI.withVal ---> I) usleep_ microseconds
-    fun uuidStringIsValid str = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) uuidStringIsValid_ str
-    fun uuidStringRandom () = (I ---> Utf8.FFI.fromPtr ~1) uuidStringRandom_ ()
-    fun variantGetGtype () = (I ---> GObjectType.FFI.fromVal) variantGetGtype_ ()
+    in
+      fun unixSetFdNonblocking (fd, nonblock) =
+        call unixSetFdNonblocking_
+          (
+            fd
+             & nonblock
+             & []
+          )
+    end
+    local
+      val call = GInt.FFI.withVal ---> GLibSourceRecord.FFI.fromPtr true
+    in
+      fun unixSignalSourceNew signum = call unixSignalSourceNew_ signum
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> GInt.FFI.fromVal
+    in
+      fun unlink filename = call unlink_ filename
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> I
+    in
+      fun unsetenv variable = call unsetenv_ variable
+    end
+    local
+      val call = GULong.FFI.withVal ---> I
+    in
+      fun usleep microseconds = call usleep_ microseconds
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal
+    in
+      fun uuidStringIsValid str = call uuidStringIsValid_ str
+    end
+    local
+      val call = I ---> Utf8.FFI.fromPtr ~1
+    in
+      fun uuidStringRandom () = call uuidStringRandom_ ()
+    end
+    local
+      val call = I ---> GObjectType.FFI.fromVal
+    in
+      fun variantGetGtype () = call variantGetGtype_ ()
+    end
   end

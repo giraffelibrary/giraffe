@@ -671,25 +671,49 @@ structure GtkWidget :>
     type 'a style_class = 'a GtkStyleClass.class
     type align_t = GtkAlign.t
     type t = base class
-    fun asImplementorIface self = (GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false) I self
-    fun asBuildable self = (GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false) I self
+    local
+      val call = GObjectObjectClass.FFI.withPtr false ---> AtkImplementorIfaceClass.FFI.fromPtr false
+    in
+      fun asImplementorIface self = call I (GObjectObjectClass.toBase self)
+    end
+    local
+      val call = GObjectObjectClass.FFI.withPtr false ---> GtkBuildableClass.FFI.fromPtr false
+    in
+      fun asBuildable self = call I (GObjectObjectClass.toBase self)
+    end
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun getDefaultDirection () = (I ---> GtkTextDirection.FFI.fromVal) getDefaultDirection_ ()
-    fun getDefaultStyle () = (I ---> GtkStyleClass.FFI.fromPtr false) getDefaultStyle_ ()
-    fun popCompositeChild () = (I ---> I) popCompositeChild_ ()
-    fun pushCompositeChild () = (I ---> I) pushCompositeChild_ ()
-    fun setDefaultDirection dir = (GtkTextDirection.FFI.withVal ---> I) setDefaultDirection_ dir
-    fun activate self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) activate_ self
-    fun addAccelerator
-      self
-      (
-        accelSignal,
-        accelGroup,
-        accelKey,
-        accelMods,
-        accelFlags
-      ) =
-      (
+    local
+      val call = I ---> GtkTextDirection.FFI.fromVal
+    in
+      fun getDefaultDirection () = call getDefaultDirection_ ()
+    end
+    local
+      val call = I ---> GtkStyleClass.FFI.fromPtr false
+    in
+      fun getDefaultStyle () = call getDefaultStyle_ ()
+    end
+    local
+      val call = I ---> I
+    in
+      fun popCompositeChild () = call popCompositeChild_ ()
+    end
+    local
+      val call = I ---> I
+    in
+      fun pushCompositeChild () = call pushCompositeChild_ ()
+    end
+    local
+      val call = GtkTextDirection.FFI.withVal ---> I
+    in
+      fun setDefaultDirection dir = call setDefaultDirection_ dir
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun activate self = call activate_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GtkAccelGroupClass.FFI.withPtr false
@@ -697,107 +721,154 @@ structure GtkWidget :>
          &&&> GdkModifierType.FFI.withVal
          &&&> GtkAccelFlags.FFI.withVal
          ---> I
-      )
-        addAccelerator_
+    in
+      fun addAccelerator
+        self
         (
-          self
-           & accelSignal
-           & accelGroup
-           & accelKey
-           & accelMods
-           & accelFlags
-        )
-    fun addDeviceEvents self (device, events) =
-      (
+          accelSignal,
+          accelGroup,
+          accelKey,
+          accelMods,
+          accelFlags
+        ) =
+        call addAccelerator_
+          (
+            GtkWidgetClass.toBase self
+             & accelSignal
+             & GtkAccelGroupClass.toBase accelGroup
+             & accelKey
+             & accelMods
+             & accelFlags
+          )
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GdkDeviceClass.FFI.withPtr false
          &&&> GdkEventMask.FFI.withVal
          ---> I
-      )
-        addDeviceEvents_
-        (
-          self
-           & device
-           & events
-        )
-    fun addEvents self events = (GtkWidgetClass.FFI.withPtr false &&&> GdkEventMask.FFI.withVal ---> I) addEvents_ (self & events)
-    fun addMnemonicLabel self label = (GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) addMnemonicLabel_ (self & label)
-    fun canActivateAccel self signalId = (GtkWidgetClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GBool.FFI.fromVal) canActivateAccel_ (self & signalId)
-    fun childFocus self direction = (GtkWidgetClass.FFI.withPtr false &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal) childFocus_ (self & direction)
-    fun childNotify self childProperty = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) childNotify_ (self & childProperty)
-    fun classPath self =
-      let
-        val pathLength
-         & path
-         & pathReversed
-         & () =
+    in
+      fun addDeviceEvents self (device, events) =
+        call addDeviceEvents_
           (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GUInt.FFI.withRefVal
-             &&&> Utf8.FFI.withRefOptPtr 0
-             &&&> Utf8.FFI.withRefOptPtr 0
-             ---> GUInt.FFI.fromVal
-                   && Utf8.FFI.fromPtr ~1
-                   && Utf8.FFI.fromPtr ~1
-                   && I
+            GtkWidgetClass.toBase self
+             & GdkDeviceClass.toBase device
+             & events
           )
-            classPath_
-            (
-              self
-               & GUInt.null
-               & NONE
-               & NONE
-            )
-      in
-        (
-          pathLength,
-          path,
-          pathReversed
-        )
-      end
-    fun computeExpand self orientation = (GtkWidgetClass.FFI.withPtr false &&&> GtkOrientation.FFI.withVal ---> GBool.FFI.fromVal) computeExpand_ (self & orientation)
-    fun createPangoContext self = (GtkWidgetClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr true) createPangoContext_ self
-    fun createPangoLayout self text = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> PangoLayoutClass.FFI.fromPtr true) createPangoLayout_ (self & text)
-    fun destroy self = (GtkWidgetClass.FFI.withPtr false ---> I) destroy_ self
-    fun deviceIsShadowed self device = (GtkWidgetClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GBool.FFI.fromVal) deviceIsShadowed_ (self & device)
-    fun dragBegin
-      self
-      (
-        targets,
-        actions,
-        button,
-        event
-      ) =
-      (
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkEventMask.FFI.withVal ---> I
+    in
+      fun addEvents self events = call addEvents_ (GtkWidgetClass.toBase self & events)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun addMnemonicLabel self label = call addMnemonicLabel_ (GtkWidgetClass.toBase self & GtkWidgetClass.toBase label)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun canActivateAccel self signalId = call canActivateAccel_ (GtkWidgetClass.toBase self & signalId)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun childFocus self direction = call childFocus_ (GtkWidgetClass.toBase self & direction)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I
+    in
+      fun childNotify self childProperty = call childNotify_ (GtkWidgetClass.toBase self & childProperty)
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GUInt.FFI.withRefVal
+         &&&> Utf8.FFI.withRefOptPtr 0
+         &&&> Utf8.FFI.withRefOptPtr 0
+         ---> GUInt.FFI.fromVal
+               && Utf8.FFI.fromPtr ~1
+               && Utf8.FFI.fromPtr ~1
+               && I
+    in
+      fun classPath self =
+        let
+          val pathLength
+           & path
+           & pathReversed
+           & () =
+            call classPath_
+              (
+                GtkWidgetClass.toBase self
+                 & GUInt.null
+                 & NONE
+                 & NONE
+              )
+        in
+          (
+            pathLength,
+            path,
+            pathReversed
+          )
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkOrientation.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun computeExpand self orientation = call computeExpand_ (GtkWidgetClass.toBase self & orientation)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr true
+    in
+      fun createPangoContext self = call createPangoContext_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> PangoLayoutClass.FFI.fromPtr true
+    in
+      fun createPangoLayout self text = call createPangoLayout_ (GtkWidgetClass.toBase self & text)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun destroy self = call destroy_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun deviceIsShadowed self device = call deviceIsShadowed_ (GtkWidgetClass.toBase self & GdkDeviceClass.toBase device)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GtkTargetListRecord.FFI.withPtr false
          &&&> GdkDragAction.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GdkEvent.FFI.withOptPtr false
          ---> GdkDragContextClass.FFI.fromPtr false
-      )
-        dragBegin_
+    in
+      fun dragBegin
+        self
         (
-          self
-           & targets
-           & actions
-           & button
-           & event
-        )
-       before GtkWidgetClass.FFI.touchPtr self
-       before GtkTargetListRecord.FFI.touchPtr targets
-       before GdkEvent.FFI.touchOptPtr event
-    fun dragBeginWithCoordinates
-      self
-      (
-        targets,
-        actions,
-        button,
-        event,
-        x,
-        y
-      ) =
-      (
+          targets,
+          actions,
+          button,
+          event
+        ) =
+        call dragBegin_
+          (
+            GtkWidgetClass.toBase self
+             & targets
+             & actions
+             & button
+             & Option.map GdkEvent.toBase event
+          )
+         before GtkWidgetClass.FFI.touchPtr self
+         before GtkTargetListRecord.FFI.touchPtr targets
+         before GdkEvent.FFI.touchOptPtr event
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GtkTargetListRecord.FFI.withPtr false
          &&&> GdkDragAction.FFI.withVal
@@ -806,1000 +877,1895 @@ structure GtkWidget :>
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> GdkDragContextClass.FFI.fromPtr false
-      )
-        dragBeginWithCoordinates_
+    in
+      fun dragBeginWithCoordinates
+        self
         (
-          self
-           & targets
-           & actions
-           & button
-           & event
-           & x
-           & y
-        )
-       before GtkWidgetClass.FFI.touchPtr self
-       before GtkTargetListRecord.FFI.touchPtr targets
-       before GdkEvent.FFI.touchOptPtr event
-    fun dragCheckThreshold
-      self
-      (
-        startX,
-        startY,
-        currentX,
-        currentY
-      ) =
-      (
+          targets,
+          actions,
+          button,
+          event,
+          x,
+          y
+        ) =
+        call dragBeginWithCoordinates_
+          (
+            GtkWidgetClass.toBase self
+             & targets
+             & actions
+             & button
+             & Option.map GdkEvent.toBase event
+             & x
+             & y
+          )
+         before GtkWidgetClass.FFI.touchPtr self
+         before GtkTargetListRecord.FFI.touchPtr targets
+         before GdkEvent.FFI.touchOptPtr event
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> GBool.FFI.fromVal
-      )
-        dragCheckThreshold_
+    in
+      fun dragCheckThreshold
+        self
         (
-          self
-           & startX
-           & startY
-           & currentX
-           & currentY
-        )
-    fun dragDestAddImageTargets self = (GtkWidgetClass.FFI.withPtr false ---> I) dragDestAddImageTargets_ self
-    fun dragDestAddTextTargets self = (GtkWidgetClass.FFI.withPtr false ---> I) dragDestAddTextTargets_ self
-    fun dragDestAddUriTargets self = (GtkWidgetClass.FFI.withPtr false ---> I) dragDestAddUriTargets_ self
-    fun dragDestFindTarget self (context, targetList) =
-      (
+          startX,
+          startY,
+          currentX,
+          currentY
+        ) =
+        call dragCheckThreshold_
+          (
+            GtkWidgetClass.toBase self
+             & startX
+             & startY
+             & currentX
+             & currentY
+          )
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun dragDestAddImageTargets self = call dragDestAddImageTargets_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun dragDestAddTextTargets self = call dragDestAddTextTargets_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun dragDestAddUriTargets self = call dragDestAddUriTargets_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GdkDragContextClass.FFI.withPtr false
          &&&> GtkTargetListRecord.FFI.withOptPtr false
          ---> GdkAtomRecord.FFI.fromPtr false
-      )
-        dragDestFindTarget_
-        (
-          self
-           & context
-           & targetList
-        )
-       before GtkWidgetClass.FFI.touchPtr self
-       before GdkDragContextClass.FFI.touchPtr context
-       before GtkTargetListRecord.FFI.touchOptPtr targetList
-    fun dragDestGetTargetList self = (GtkWidgetClass.FFI.withPtr false ---> GtkTargetListRecord.FFI.fromOptPtr false) dragDestGetTargetList_ self before GtkWidgetClass.FFI.touchPtr self
-    fun dragDestGetTrackMotion self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) dragDestGetTrackMotion_ self
-    fun dragDestSet
-      self
-      (
-        flags,
-        targets,
-        actions
-      ) =
-      let
-        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
-        val () =
+    in
+      fun dragDestFindTarget self (context, targetList) =
+        call dragDestFindTarget_
           (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GtkDestDefaults.FFI.withVal
-             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr 0
-             &&&> GInt.FFI.withVal
-             &&&> GdkDragAction.FFI.withVal
-             ---> I
+            GtkWidgetClass.toBase self
+             & GdkDragContextClass.toBase context
+             & targetList
           )
-            dragDestSet_
-            (
-              self
-               & flags
-               & targets
-               & nTargets
-               & actions
-            )
-      in
-        ()
-      end
-    fun dragDestSetProxy
-      self
-      (
-        proxyWindow,
-        protocol,
-        useCoordinates
-      ) =
-      (
+         before GtkWidgetClass.FFI.touchPtr self
+         before GdkDragContextClass.FFI.touchPtr context
+         before GtkTargetListRecord.FFI.touchOptPtr targetList
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkTargetListRecord.FFI.fromOptPtr false
+    in
+      fun dragDestGetTargetList self = call dragDestGetTargetList_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun dragDestGetTrackMotion self = call dragDestGetTrackMotion_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GtkDestDefaults.FFI.withVal
+         &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr 0
+         &&&> GInt.FFI.withVal
+         &&&> GdkDragAction.FFI.withVal
+         ---> I
+    in
+      fun dragDestSet
+        self
+        (
+          flags,
+          targets,
+          actions
+        ) =
+        let
+          val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
+          val () =
+            call dragDestSet_
+              (
+                GtkWidgetClass.toBase self
+                 & flags
+                 & targets
+                 & nTargets
+                 & actions
+              )
+        in
+          ()
+        end
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GdkWindowClass.FFI.withPtr false
          &&&> GdkDragProtocol.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
-      )
-        dragDestSetProxy_
+    in
+      fun dragDestSetProxy
+        self
         (
-          self
-           & proxyWindow
-           & protocol
-           & useCoordinates
-        )
-    fun dragDestSetTargetList self targetList = (GtkWidgetClass.FFI.withPtr false &&&> GtkTargetListRecord.FFI.withOptPtr false ---> I) dragDestSetTargetList_ (self & targetList)
-    fun dragDestSetTrackMotion self trackMotion = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) dragDestSetTrackMotion_ (self & trackMotion)
-    fun dragDestUnset self = (GtkWidgetClass.FFI.withPtr false ---> I) dragDestUnset_ self
-    fun dragGetData
-      self
-      (
-        context,
-        target,
-        time
-      ) =
-      (
+          proxyWindow,
+          protocol,
+          useCoordinates
+        ) =
+        call dragDestSetProxy_
+          (
+            GtkWidgetClass.toBase self
+             & GdkWindowClass.toBase proxyWindow
+             & protocol
+             & useCoordinates
+          )
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkTargetListRecord.FFI.withOptPtr false ---> I
+    in
+      fun dragDestSetTargetList self targetList = call dragDestSetTargetList_ (GtkWidgetClass.toBase self & targetList)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun dragDestSetTrackMotion self trackMotion = call dragDestSetTrackMotion_ (GtkWidgetClass.toBase self & trackMotion)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun dragDestUnset self = call dragDestUnset_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GdkDragContextClass.FFI.withPtr false
          &&&> GdkAtomRecord.FFI.withPtr false
          &&&> GUInt32.FFI.withVal
          ---> I
-      )
-        dragGetData_
+    in
+      fun dragGetData
+        self
         (
-          self
-           & context
-           & target
-           & time
-        )
-    fun dragHighlight self = (GtkWidgetClass.FFI.withPtr false ---> I) dragHighlight_ self
-    fun dragSourceAddImageTargets self = (GtkWidgetClass.FFI.withPtr false ---> I) dragSourceAddImageTargets_ self
-    fun dragSourceAddTextTargets self = (GtkWidgetClass.FFI.withPtr false ---> I) dragSourceAddTextTargets_ self
-    fun dragSourceAddUriTargets self = (GtkWidgetClass.FFI.withPtr false ---> I) dragSourceAddUriTargets_ self
-    fun dragSourceGetTargetList self = (GtkWidgetClass.FFI.withPtr false ---> GtkTargetListRecord.FFI.fromOptPtr false) dragSourceGetTargetList_ self before GtkWidgetClass.FFI.touchPtr self
-    fun dragSourceSet
-      self
-      (
-        startButtonMask,
-        targets,
-        actions
-      ) =
-      let
-        val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
-        val () =
+          context,
+          target,
+          time
+        ) =
+        call dragGetData_
           (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GdkModifierType.FFI.withVal
-             &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr 0
-             &&&> GInt.FFI.withVal
-             &&&> GdkDragAction.FFI.withVal
-             ---> I
+            GtkWidgetClass.toBase self
+             & GdkDragContextClass.toBase context
+             & target
+             & time
           )
-            dragSourceSet_
-            (
-              self
-               & startButtonMask
-               & targets
-               & nTargets
-               & actions
-            )
-      in
-        ()
-      end
-    fun dragSourceSetIconGicon self icon = (GtkWidgetClass.FFI.withPtr false &&&> GioIconClass.FFI.withPtr false ---> I) dragSourceSetIconGicon_ (self & icon)
-    fun dragSourceSetIconName self iconName = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) dragSourceSetIconName_ (self & iconName)
-    fun dragSourceSetIconPixbuf self pixbuf = (GtkWidgetClass.FFI.withPtr false &&&> GdkPixbufPixbufClass.FFI.withPtr false ---> I) dragSourceSetIconPixbuf_ (self & pixbuf)
-    fun dragSourceSetIconStock self stockId = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) dragSourceSetIconStock_ (self & stockId)
-    fun dragSourceSetTargetList self targetList = (GtkWidgetClass.FFI.withPtr false &&&> GtkTargetListRecord.FFI.withOptPtr false ---> I) dragSourceSetTargetList_ (self & targetList)
-    fun dragSourceUnset self = (GtkWidgetClass.FFI.withPtr false ---> I) dragSourceUnset_ self
-    fun dragUnhighlight self = (GtkWidgetClass.FFI.withPtr false ---> I) dragUnhighlight_ self
-    fun draw self cr = (GtkWidgetClass.FFI.withPtr false &&&> CairoContextRecord.FFI.withPtr false ---> I) draw_ (self & cr)
-    fun ensureStyle self = (GtkWidgetClass.FFI.withPtr false ---> I) ensureStyle_ self
-    fun errorBell self = (GtkWidgetClass.FFI.withPtr false ---> I) errorBell_ self
-    fun event self event = (GtkWidgetClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> GBool.FFI.fromVal) event_ (self & event)
-    fun freezeChildNotify self = (GtkWidgetClass.FFI.withPtr false ---> I) freezeChildNotify_ self
-    fun getAccessible self = (GtkWidgetClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr false) getAccessible_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getActionGroup self prefix = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioActionGroupClass.FFI.fromOptPtr false) getActionGroup_ (self & prefix) before GtkWidgetClass.FFI.touchPtr self before Utf8.FFI.touchPtr prefix
-    fun getAllocatedBaseline self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getAllocatedBaseline_ self
-    fun getAllocatedHeight self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getAllocatedHeight_ self
-    fun getAllocatedSize self =
-      let
-        val allocation
-         & baseline
-         & () =
-          (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GtkAllocationRecord.FFI.withNewPtr
-             &&&> GInt.FFI.withRefVal
-             ---> GtkAllocationRecord.FFI.fromPtr true
-                   && GInt.FFI.fromVal
-                   && I
-          )
-            getAllocatedSize_
-            (
-              self
-               & ()
-               & GInt.null
-            )
-      in
-        (allocation, baseline)
-      end
-    fun getAllocatedWidth self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getAllocatedWidth_ self
-    fun getAllocation self =
-      let
-        val allocation & () = (GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withNewPtr ---> GtkAllocationRecord.FFI.fromPtr true && I) getAllocation_ (self & ())
-      in
-        allocation
-      end
-    fun getAncestor self widgetType = (GtkWidgetClass.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false) getAncestor_ (self & widgetType) before GtkWidgetClass.FFI.touchPtr self
-    fun getAppPaintable self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAppPaintable_ self
-    fun getCanDefault self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCanDefault_ self
-    fun getCanFocus self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getCanFocus_ self
-    fun getChildRequisition self =
-      let
-        val requisition & () = (GtkWidgetClass.FFI.withPtr false &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I) getChildRequisition_ (self & ())
-      in
-        requisition
-      end
-    fun getChildVisible self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getChildVisible_ self
-    fun getClip self =
-      let
-        val clip & () = (GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withNewPtr ---> GtkAllocationRecord.FFI.fromPtr true && I) getClip_ (self & ())
-      in
-        clip
-      end
-    fun getClipboard self selection = (GtkWidgetClass.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> GtkClipboardClass.FFI.fromPtr false) getClipboard_ (self & selection) before GtkWidgetClass.FFI.touchPtr self before GdkAtomRecord.FFI.touchPtr selection
-    fun getCompositeName self = (GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1) getCompositeName_ self
-    fun getDeviceEnabled self device = (GtkWidgetClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDeviceEnabled_ (self & device)
-    fun getDeviceEvents self device = (GtkWidgetClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GdkEventMask.FFI.fromVal) getDeviceEvents_ (self & device)
-    fun getDirection self = (GtkWidgetClass.FFI.withPtr false ---> GtkTextDirection.FFI.fromVal) getDirection_ self
-    fun getDisplay self = (GtkWidgetClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false) getDisplay_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getDoubleBuffered self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getDoubleBuffered_ self
-    fun getEvents self = (GtkWidgetClass.FFI.withPtr false ---> GdkEventMask.FFI.fromVal) getEvents_ self
-    fun getFocusOnClick self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFocusOnClick_ self
-    fun getFontMap self = (GtkWidgetClass.FFI.withPtr false ---> PangoFontMapClass.FFI.fromOptPtr false) getFontMap_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getFontOptions self = (GtkWidgetClass.FFI.withPtr false ---> CairoFontOptionsRecord.FFI.fromOptPtr false) getFontOptions_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getFrameClock self = (GtkWidgetClass.FFI.withPtr false ---> GdkFrameClockClass.FFI.fromOptPtr false) getFrameClock_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getHalign self = (GtkWidgetClass.FFI.withPtr false ---> GtkAlign.FFI.fromVal) getHalign_ self
-    fun getHasTooltip self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasTooltip_ self
-    fun getHasWindow self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHasWindow_ self
-    fun getHexpand self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHexpand_ self
-    fun getHexpandSet self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getHexpandSet_ self
-    fun getMapped self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getMapped_ self
-    fun getMarginBottom self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarginBottom_ self
-    fun getMarginEnd self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarginEnd_ self
-    fun getMarginLeft self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarginLeft_ self
-    fun getMarginRight self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarginRight_ self
-    fun getMarginStart self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarginStart_ self
-    fun getMarginTop self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getMarginTop_ self
-    fun getModifierMask self intent = (GtkWidgetClass.FFI.withPtr false &&&> GdkModifierIntent.FFI.withVal ---> GdkModifierType.FFI.fromVal) getModifierMask_ (self & intent)
-    fun getModifierStyle self = (GtkWidgetClass.FFI.withPtr false ---> GtkRcStyleClass.FFI.fromPtr false) getModifierStyle_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getName self = (GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getName_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getNoShowAll self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getNoShowAll_ self
-    fun getOpacity self = (GtkWidgetClass.FFI.withPtr false ---> GDouble.FFI.fromVal) getOpacity_ self
-    fun getPangoContext self = (GtkWidgetClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr false) getPangoContext_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getParent self = (GtkWidgetClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false) getParent_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getParentWindow self = (GtkWidgetClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getParentWindow_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getPath self = (GtkWidgetClass.FFI.withPtr false ---> GtkWidgetPathRecord.FFI.fromPtr false) getPath_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getPointer self =
-      let
-        val x
-         & y
-         & () =
-          (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GInt.FFI.withRefVal
-             &&&> GInt.FFI.withRefVal
-             ---> GInt.FFI.fromVal
-                   && GInt.FFI.fromVal
-                   && I
-          )
-            getPointer_
-            (
-              self
-               & GInt.null
-               & GInt.null
-            )
-      in
-        (x, y)
-      end
-    fun getPreferredHeight self =
-      let
-        val minimumHeight
-         & naturalHeight
-         & () =
-          (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GInt.FFI.withRefVal
-             &&&> GInt.FFI.withRefVal
-             ---> GInt.FFI.fromVal
-                   && GInt.FFI.fromVal
-                   && I
-          )
-            getPreferredHeight_
-            (
-              self
-               & GInt.null
-               & GInt.null
-            )
-      in
-        (minimumHeight, naturalHeight)
-      end
-    fun getPreferredHeightAndBaselineForWidth self width =
-      let
-        val minimumHeight
-         & naturalHeight
-         & minimumBaseline
-         & naturalBaseline
-         & () =
-          (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GInt.FFI.withVal
-             &&&> GInt.FFI.withRefVal
-             &&&> GInt.FFI.withRefVal
-             &&&> GInt.FFI.withRefVal
-             &&&> GInt.FFI.withRefVal
-             ---> GInt.FFI.fromVal
-                   && GInt.FFI.fromVal
-                   && GInt.FFI.fromVal
-                   && GInt.FFI.fromVal
-                   && I
-          )
-            getPreferredHeightAndBaselineForWidth_
-            (
-              self
-               & width
-               & GInt.null
-               & GInt.null
-               & GInt.null
-               & GInt.null
-            )
-      in
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun dragHighlight self = call dragHighlight_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun dragSourceAddImageTargets self = call dragSourceAddImageTargets_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun dragSourceAddTextTargets self = call dragSourceAddTextTargets_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun dragSourceAddUriTargets self = call dragSourceAddUriTargets_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkTargetListRecord.FFI.fromOptPtr false
+    in
+      fun dragSourceGetTargetList self = call dragSourceGetTargetList_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkModifierType.FFI.withVal
+         &&&> GtkTargetEntryRecordCArrayN.FFI.withPtr 0
+         &&&> GInt.FFI.withVal
+         &&&> GdkDragAction.FFI.withVal
+         ---> I
+    in
+      fun dragSourceSet
+        self
         (
-          minimumHeight,
-          naturalHeight,
-          minimumBaseline,
-          naturalBaseline
-        )
-      end
-    fun getPreferredHeightForWidth self width =
-      let
-        val minimumHeight
-         & naturalHeight
-         & () =
+          startButtonMask,
+          targets,
+          actions
+        ) =
+        let
+          val nTargets = LargeInt.fromInt (GtkTargetEntryRecordCArrayN.length targets)
+          val () =
+            call dragSourceSet_
+              (
+                GtkWidgetClass.toBase self
+                 & startButtonMask
+                 & targets
+                 & nTargets
+                 & actions
+              )
+        in
+          ()
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GioIconClass.FFI.withPtr false ---> I
+    in
+      fun dragSourceSetIconGicon self icon = call dragSourceSetIconGicon_ (GtkWidgetClass.toBase self & GioIconClass.toBase icon)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I
+    in
+      fun dragSourceSetIconName self iconName = call dragSourceSetIconName_ (GtkWidgetClass.toBase self & iconName)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkPixbufPixbufClass.FFI.withPtr false ---> I
+    in
+      fun dragSourceSetIconPixbuf self pixbuf = call dragSourceSetIconPixbuf_ (GtkWidgetClass.toBase self & GdkPixbufPixbufClass.toBase pixbuf)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I
+    in
+      fun dragSourceSetIconStock self stockId = call dragSourceSetIconStock_ (GtkWidgetClass.toBase self & stockId)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkTargetListRecord.FFI.withOptPtr false ---> I
+    in
+      fun dragSourceSetTargetList self targetList = call dragSourceSetTargetList_ (GtkWidgetClass.toBase self & targetList)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun dragSourceUnset self = call dragSourceUnset_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun dragUnhighlight self = call dragUnhighlight_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun draw self cr = call draw_ (GtkWidgetClass.toBase self & cr)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun ensureStyle self = call ensureStyle_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun errorBell self = call errorBell_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun event self event = call event_ (GtkWidgetClass.toBase self & GdkEvent.toBase event)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun freezeChildNotify self = call freezeChildNotify_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> AtkObjectClass.FFI.fromPtr false
+    in
+      fun getAccessible self = call getAccessible_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> GioActionGroupClass.FFI.fromOptPtr false
+    in
+      fun getActionGroup self prefix = call getActionGroup_ (GtkWidgetClass.toBase self & prefix) before GtkWidgetClass.FFI.touchPtr self before Utf8.FFI.touchPtr prefix
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun getAllocatedBaseline self = call getAllocatedBaseline_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun getAllocatedHeight self = call getAllocatedHeight_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GtkAllocationRecord.FFI.withNewPtr
+         &&&> GInt.FFI.withRefVal
+         ---> GtkAllocationRecord.FFI.fromPtr true
+               && GInt.FFI.fromVal
+               && I
+    in
+      fun getAllocatedSize self =
+        let
+          val allocation
+           & baseline
+           & () =
+            call getAllocatedSize_
+              (
+                GtkWidgetClass.toBase self
+                 & ()
+                 & GInt.null
+              )
+        in
+          (allocation, baseline)
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun getAllocatedWidth self = call getAllocatedWidth_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withNewPtr ---> GtkAllocationRecord.FFI.fromPtr true && I
+    in
+      fun getAllocation self =
+        let
+          val allocation & () = call getAllocation_ (GtkWidgetClass.toBase self & ())
+        in
+          allocation
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GtkWidgetClass.FFI.fromOptPtr false
+    in
+      fun getAncestor self widgetType = call getAncestor_ (GtkWidgetClass.toBase self & widgetType) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getAppPaintable self = call getAppPaintable_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getCanDefault self = call getCanDefault_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getCanFocus self = call getCanFocus_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I
+    in
+      fun getChildRequisition self =
+        let
+          val requisition & () = call getChildRequisition_ (GtkWidgetClass.toBase self & ())
+        in
+          requisition
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getChildVisible self = call getChildVisible_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withNewPtr ---> GtkAllocationRecord.FFI.fromPtr true && I
+    in
+      fun getClip self =
+        let
+          val clip & () = call getClip_ (GtkWidgetClass.toBase self & ())
+        in
+          clip
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkAtomRecord.FFI.withPtr false ---> GtkClipboardClass.FFI.fromPtr false
+    in
+      fun getClipboard self selection = call getClipboard_ (GtkWidgetClass.toBase self & selection) before GtkWidgetClass.FFI.touchPtr self before GdkAtomRecord.FFI.touchPtr selection
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromPtr ~1
+    in
+      fun getCompositeName self = call getCompositeName_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getDeviceEnabled self device = call getDeviceEnabled_ (GtkWidgetClass.toBase self & GdkDeviceClass.toBase device)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkDeviceClass.FFI.withPtr false ---> GdkEventMask.FFI.fromVal
+    in
+      fun getDeviceEvents self device = call getDeviceEvents_ (GtkWidgetClass.toBase self & GdkDeviceClass.toBase device)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkTextDirection.FFI.fromVal
+    in
+      fun getDirection self = call getDirection_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GdkDisplayClass.FFI.fromPtr false
+    in
+      fun getDisplay self = call getDisplay_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getDoubleBuffered self = call getDoubleBuffered_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GdkEventMask.FFI.fromVal
+    in
+      fun getEvents self = call getEvents_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getFocusOnClick self = call getFocusOnClick_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> PangoFontMapClass.FFI.fromOptPtr false
+    in
+      fun getFontMap self = call getFontMap_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> CairoFontOptionsRecord.FFI.fromOptPtr false
+    in
+      fun getFontOptions self = call getFontOptions_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GdkFrameClockClass.FFI.fromOptPtr false
+    in
+      fun getFrameClock self = call getFrameClock_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkAlign.FFI.fromVal
+    in
+      fun getHalign self = call getHalign_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getHasTooltip self = call getHasTooltip_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getHasWindow self = call getHasWindow_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getHexpand self = call getHexpand_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getHexpandSet self = call getHexpandSet_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getMapped self = call getMapped_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun getMarginBottom self = call getMarginBottom_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun getMarginEnd self = call getMarginEnd_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun getMarginLeft self = call getMarginLeft_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun getMarginRight self = call getMarginRight_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun getMarginStart self = call getMarginStart_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun getMarginTop self = call getMarginTop_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkModifierIntent.FFI.withVal ---> GdkModifierType.FFI.fromVal
+    in
+      fun getModifierMask self intent = call getModifierMask_ (GtkWidgetClass.toBase self & intent)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkRcStyleClass.FFI.fromPtr false
+    in
+      fun getModifierStyle self = call getModifierStyle_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0
+    in
+      fun getName self = call getName_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getNoShowAll self = call getNoShowAll_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GDouble.FFI.fromVal
+    in
+      fun getOpacity self = call getOpacity_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> PangoContextClass.FFI.fromPtr false
+    in
+      fun getPangoContext self = call getPangoContext_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromOptPtr false
+    in
+      fun getParent self = call getParent_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false
+    in
+      fun getParentWindow self = call getParentWindow_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkWidgetPathRecord.FFI.fromPtr false
+    in
+      fun getPath self = call getPath_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GInt.FFI.withRefVal
+         &&&> GInt.FFI.withRefVal
+         ---> GInt.FFI.fromVal
+               && GInt.FFI.fromVal
+               && I
+    in
+      fun getPointer self =
+        let
+          val x
+           & y
+           & () =
+            call getPointer_
+              (
+                GtkWidgetClass.toBase self
+                 & GInt.null
+                 & GInt.null
+              )
+        in
+          (x, y)
+        end
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GInt.FFI.withRefVal
+         &&&> GInt.FFI.withRefVal
+         ---> GInt.FFI.fromVal
+               && GInt.FFI.fromVal
+               && I
+    in
+      fun getPreferredHeight self =
+        let
+          val minimumHeight
+           & naturalHeight
+           & () =
+            call getPreferredHeight_
+              (
+                GtkWidgetClass.toBase self
+                 & GInt.null
+                 & GInt.null
+              )
+        in
+          (minimumHeight, naturalHeight)
+        end
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withRefVal
+         &&&> GInt.FFI.withRefVal
+         &&&> GInt.FFI.withRefVal
+         &&&> GInt.FFI.withRefVal
+         ---> GInt.FFI.fromVal
+               && GInt.FFI.fromVal
+               && GInt.FFI.fromVal
+               && GInt.FFI.fromVal
+               && I
+    in
+      fun getPreferredHeightAndBaselineForWidth self width =
+        let
+          val minimumHeight
+           & naturalHeight
+           & minimumBaseline
+           & naturalBaseline
+           & () =
+            call getPreferredHeightAndBaselineForWidth_
+              (
+                GtkWidgetClass.toBase self
+                 & width
+                 & GInt.null
+                 & GInt.null
+                 & GInt.null
+                 & GInt.null
+              )
+        in
           (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GInt.FFI.withVal
-             &&&> GInt.FFI.withRefVal
-             &&&> GInt.FFI.withRefVal
-             ---> GInt.FFI.fromVal
-                   && GInt.FFI.fromVal
-                   && I
+            minimumHeight,
+            naturalHeight,
+            minimumBaseline,
+            naturalBaseline
           )
-            getPreferredHeightForWidth_
-            (
-              self
-               & width
-               & GInt.null
-               & GInt.null
-            )
-      in
-        (minimumHeight, naturalHeight)
-      end
-    fun getPreferredSize self =
-      let
-        val minimumSize
-         & naturalSize
-         & () =
-          (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GtkRequisitionRecord.FFI.withNewPtr
-             &&&> GtkRequisitionRecord.FFI.withNewPtr
-             ---> GtkRequisitionRecord.FFI.fromPtr true
-                   && GtkRequisitionRecord.FFI.fromPtr true
-                   && I
-          )
-            getPreferredSize_
-            (
-              self
-               & ()
-               & ()
-            )
-      in
-        (minimumSize, naturalSize)
-      end
-    fun getPreferredWidth self =
-      let
-        val minimumWidth
-         & naturalWidth
-         & () =
-          (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GInt.FFI.withRefVal
-             &&&> GInt.FFI.withRefVal
-             ---> GInt.FFI.fromVal
-                   && GInt.FFI.fromVal
-                   && I
-          )
-            getPreferredWidth_
-            (
-              self
-               & GInt.null
-               & GInt.null
-            )
-      in
-        (minimumWidth, naturalWidth)
-      end
-    fun getPreferredWidthForHeight self height =
-      let
-        val minimumWidth
-         & naturalWidth
-         & () =
-          (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GInt.FFI.withVal
-             &&&> GInt.FFI.withRefVal
-             &&&> GInt.FFI.withRefVal
-             ---> GInt.FFI.fromVal
-                   && GInt.FFI.fromVal
-                   && I
-          )
-            getPreferredWidthForHeight_
-            (
-              self
-               & height
-               & GInt.null
-               & GInt.null
-            )
-      in
-        (minimumWidth, naturalWidth)
-      end
-    fun getRealized self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getRealized_ self
-    fun getReceivesDefault self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getReceivesDefault_ self
-    fun getRequestMode self = (GtkWidgetClass.FFI.withPtr false ---> GtkSizeRequestMode.FFI.fromVal) getRequestMode_ self
-    fun getRequisition self =
-      let
-        val requisition & () = (GtkWidgetClass.FFI.withPtr false &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I) getRequisition_ (self & ())
-      in
-        requisition
-      end
-    fun getRootWindow self = (GtkWidgetClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false) getRootWindow_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getScaleFactor self = (GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal) getScaleFactor_ self
-    fun getScreen self = (GtkWidgetClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false) getScreen_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getSensitive self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSensitive_ self
-    fun getSettings self = (GtkWidgetClass.FFI.withPtr false ---> GtkSettingsClass.FFI.fromPtr false) getSettings_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getSizeRequest self =
-      let
-        val width
-         & height
-         & () =
-          (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GInt.FFI.withRefVal
-             &&&> GInt.FFI.withRefVal
-             ---> GInt.FFI.fromVal
-                   && GInt.FFI.fromVal
-                   && I
-          )
-            getSizeRequest_
-            (
-              self
-               & GInt.null
-               & GInt.null
-            )
-      in
-        (width, height)
-      end
-    fun getState self = (GtkWidgetClass.FFI.withPtr false ---> GtkStateType.FFI.fromVal) getState_ self
-    fun getStateFlags self = (GtkWidgetClass.FFI.withPtr false ---> GtkStateFlags.FFI.fromVal) getStateFlags_ self
-    fun getStyle self = (GtkWidgetClass.FFI.withPtr false ---> GtkStyleClass.FFI.fromPtr false) getStyle_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getStyleContext self = (GtkWidgetClass.FFI.withPtr false ---> GtkStyleContextClass.FFI.fromPtr false) getStyleContext_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getSupportMultidevice self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getSupportMultidevice_ self
-    fun getTemplateChild self (widgetType, name) =
-      (
+        end
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withRefVal
+         &&&> GInt.FFI.withRefVal
+         ---> GInt.FFI.fromVal
+               && GInt.FFI.fromVal
+               && I
+    in
+      fun getPreferredHeightForWidth self width =
+        let
+          val minimumHeight
+           & naturalHeight
+           & () =
+            call getPreferredHeightForWidth_
+              (
+                GtkWidgetClass.toBase self
+                 & width
+                 & GInt.null
+                 & GInt.null
+              )
+        in
+          (minimumHeight, naturalHeight)
+        end
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GtkRequisitionRecord.FFI.withNewPtr
+         &&&> GtkRequisitionRecord.FFI.withNewPtr
+         ---> GtkRequisitionRecord.FFI.fromPtr true
+               && GtkRequisitionRecord.FFI.fromPtr true
+               && I
+    in
+      fun getPreferredSize self =
+        let
+          val minimumSize
+           & naturalSize
+           & () =
+            call getPreferredSize_
+              (
+                GtkWidgetClass.toBase self
+                 & ()
+                 & ()
+              )
+        in
+          (minimumSize, naturalSize)
+        end
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GInt.FFI.withRefVal
+         &&&> GInt.FFI.withRefVal
+         ---> GInt.FFI.fromVal
+               && GInt.FFI.fromVal
+               && I
+    in
+      fun getPreferredWidth self =
+        let
+          val minimumWidth
+           & naturalWidth
+           & () =
+            call getPreferredWidth_
+              (
+                GtkWidgetClass.toBase self
+                 & GInt.null
+                 & GInt.null
+              )
+        in
+          (minimumWidth, naturalWidth)
+        end
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withRefVal
+         &&&> GInt.FFI.withRefVal
+         ---> GInt.FFI.fromVal
+               && GInt.FFI.fromVal
+               && I
+    in
+      fun getPreferredWidthForHeight self height =
+        let
+          val minimumWidth
+           & naturalWidth
+           & () =
+            call getPreferredWidthForHeight_
+              (
+                GtkWidgetClass.toBase self
+                 & height
+                 & GInt.null
+                 & GInt.null
+              )
+        in
+          (minimumWidth, naturalWidth)
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getRealized self = call getRealized_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getReceivesDefault self = call getReceivesDefault_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkSizeRequestMode.FFI.fromVal
+    in
+      fun getRequestMode self = call getRequestMode_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I
+    in
+      fun getRequisition self =
+        let
+          val requisition & () = call getRequisition_ (GtkWidgetClass.toBase self & ())
+        in
+          requisition
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromPtr false
+    in
+      fun getRootWindow self = call getRootWindow_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun getScaleFactor self = call getScaleFactor_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GdkScreenClass.FFI.fromPtr false
+    in
+      fun getScreen self = call getScreen_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getSensitive self = call getSensitive_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkSettingsClass.FFI.fromPtr false
+    in
+      fun getSettings self = call getSettings_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GInt.FFI.withRefVal
+         &&&> GInt.FFI.withRefVal
+         ---> GInt.FFI.fromVal
+               && GInt.FFI.fromVal
+               && I
+    in
+      fun getSizeRequest self =
+        let
+          val width
+           & height
+           & () =
+            call getSizeRequest_
+              (
+                GtkWidgetClass.toBase self
+                 & GInt.null
+                 & GInt.null
+              )
+        in
+          (width, height)
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkStateType.FFI.fromVal
+    in
+      fun getState self = call getState_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkStateFlags.FFI.fromVal
+    in
+      fun getStateFlags self = call getStateFlags_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkStyleClass.FFI.fromPtr false
+    in
+      fun getStyle self = call getStyle_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkStyleContextClass.FFI.fromPtr false
+    in
+      fun getStyleContext self = call getStyleContext_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getSupportMultidevice self = call getSupportMultidevice_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GObjectType.FFI.withVal
          &&&> Utf8.FFI.withPtr 0
          ---> GObjectObjectClass.FFI.fromPtr false
-      )
-        getTemplateChild_
-        (
-          self
-           & widgetType
-           & name
-        )
-       before GtkWidgetClass.FFI.touchPtr self
-       before Utf8.FFI.touchPtr name
-    fun getTooltipMarkup self = (GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getTooltipMarkup_ self
-    fun getTooltipText self = (GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1) getTooltipText_ self
-    fun getTooltipWindow self = (GtkWidgetClass.FFI.withPtr false ---> GtkWindowClass.FFI.fromPtr false) getTooltipWindow_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getToplevel self = (GtkWidgetClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false) getToplevel_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getValign self = (GtkWidgetClass.FFI.withPtr false ---> GtkAlign.FFI.fromVal) getValign_ self
-    fun getValignWithBaseline self = (GtkWidgetClass.FFI.withPtr false ---> GtkAlign.FFI.fromVal) getValignWithBaseline_ self
-    fun getVexpand self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVexpand_ self
-    fun getVexpandSet self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVexpandSet_ self
-    fun getVisible self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) getVisible_ self
-    fun getVisual self = (GtkWidgetClass.FFI.withPtr false ---> GdkVisualClass.FFI.fromPtr false) getVisual_ self before GtkWidgetClass.FFI.touchPtr self
-    fun getWindow self = (GtkWidgetClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false) getWindow_ self before GtkWidgetClass.FFI.touchPtr self
-    fun grabAdd self = (GtkWidgetClass.FFI.withPtr false ---> I) grabAdd_ self
-    fun grabDefault self = (GtkWidgetClass.FFI.withPtr false ---> I) grabDefault_ self
-    fun grabFocus self = (GtkWidgetClass.FFI.withPtr false ---> I) grabFocus_ self
-    fun grabRemove self = (GtkWidgetClass.FFI.withPtr false ---> I) grabRemove_ self
-    fun hasDefault self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasDefault_ self
-    fun hasFocus self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasFocus_ self
-    fun hasGrab self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasGrab_ self
-    fun hasRcStyle self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasRcStyle_ self
-    fun hasScreen self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasScreen_ self
-    fun hasVisibleFocus self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hasVisibleFocus_ self
-    fun hide self = (GtkWidgetClass.FFI.withPtr false ---> I) hide_ self
-    fun hideOnDelete self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) hideOnDelete_ self
-    fun inDestruction self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) inDestruction_ self
-    fun initTemplate self = (GtkWidgetClass.FFI.withPtr false ---> I) initTemplate_ self
-    fun inputShapeCombineRegion self region = (GtkWidgetClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withOptPtr false ---> I) inputShapeCombineRegion_ (self & region)
-    fun insertActionGroup self (name, group) =
-      (
+    in
+      fun getTemplateChild self (widgetType, name) =
+        call getTemplateChild_
+          (
+            GtkWidgetClass.toBase self
+             & widgetType
+             & name
+          )
+         before GtkWidgetClass.FFI.touchPtr self
+         before Utf8.FFI.touchPtr name
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1
+    in
+      fun getTooltipMarkup self = call getTooltipMarkup_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr ~1
+    in
+      fun getTooltipText self = call getTooltipText_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkWindowClass.FFI.fromPtr false
+    in
+      fun getTooltipWindow self = call getTooltipWindow_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkWidgetClass.FFI.fromPtr false
+    in
+      fun getToplevel self = call getToplevel_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkAlign.FFI.fromVal
+    in
+      fun getValign self = call getValign_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GtkAlign.FFI.fromVal
+    in
+      fun getValignWithBaseline self = call getValignWithBaseline_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getVexpand self = call getVexpand_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getVexpandSet self = call getVexpandSet_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getVisible self = call getVisible_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GdkVisualClass.FFI.fromPtr false
+    in
+      fun getVisual self = call getVisual_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GdkWindowClass.FFI.fromOptPtr false
+    in
+      fun getWindow self = call getWindow_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun grabAdd self = call grabAdd_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun grabDefault self = call grabDefault_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun grabFocus self = call grabFocus_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun grabRemove self = call grabRemove_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun hasDefault self = call hasDefault_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun hasFocus self = call hasFocus_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun hasGrab self = call hasGrab_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun hasRcStyle self = call hasRcStyle_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun hasScreen self = call hasScreen_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun hasVisibleFocus self = call hasVisibleFocus_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun hide self = call hide_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun hideOnDelete self = call hideOnDelete_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun inDestruction self = call inDestruction_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun initTemplate self = call initTemplate_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withOptPtr false ---> I
+    in
+      fun inputShapeCombineRegion self region = call inputShapeCombineRegion_ (GtkWidgetClass.toBase self & region)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GioActionGroupClass.FFI.withOptPtr false
          ---> I
-      )
-        insertActionGroup_
-        (
-          self
-           & name
-           & group
-        )
-    fun intersect self area =
-      let
-        val intersection & retVal =
+    in
+      fun insertActionGroup self (name, group) =
+        call insertActionGroup_
           (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GdkRectangleRecord.FFI.withPtr false
-             &&&> GdkRectangleRecord.FFI.withNewPtr
-             ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal
+            GtkWidgetClass.toBase self
+             & name
+             & Option.map GioActionGroupClass.toBase group
           )
-            intersect_
-            (
-              self
-               & area
-               & ()
-            )
-      in
-        if retVal then SOME intersection else NONE
-      end
-    fun isAncestor self ancestor = (GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isAncestor_ (self & ancestor)
-    fun isComposited self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isComposited_ self
-    fun isDrawable self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isDrawable_ self
-    fun isFocus self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isFocus_ self
-    fun isSensitive self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isSensitive_ self
-    fun isToplevel self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isToplevel_ self
-    fun isVisible self = (GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal) isVisible_ self
-    fun keynavFailed self direction = (GtkWidgetClass.FFI.withPtr false &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal) keynavFailed_ (self & direction)
-    fun listActionPrefixes self = (GtkWidgetClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 1) listActionPrefixes_ self before GtkWidgetClass.FFI.touchPtr self
-    fun map self = (GtkWidgetClass.FFI.withPtr false ---> I) map_ self
-    fun mnemonicActivate self groupCycling = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal) mnemonicActivate_ (self & groupCycling)
-    fun modifyBase self (state, color) =
-      (
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withPtr false
+         &&&> GdkRectangleRecord.FFI.withNewPtr
+         ---> GdkRectangleRecord.FFI.fromPtr true && GBool.FFI.fromVal
+    in
+      fun intersect self area =
+        let
+          val intersection & retVal =
+            call intersect_
+              (
+                GtkWidgetClass.toBase self
+                 & area
+                 & ()
+              )
+        in
+          if retVal then SOME intersection else NONE
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isAncestor self ancestor = call isAncestor_ (GtkWidgetClass.toBase self & GtkWidgetClass.toBase ancestor)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isComposited self = call isComposited_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isDrawable self = call isDrawable_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isFocus self = call isFocus_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isSensitive self = call isSensitive_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isToplevel self = call isToplevel_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isVisible self = call isVisible_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkDirectionType.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun keynavFailed self direction = call keynavFailed_ (GtkWidgetClass.toBase self & direction)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> Utf8CPtrArray.FFI.fromPtr 1
+    in
+      fun listActionPrefixes self = call listActionPrefixes_ (GtkWidgetClass.toBase self) before GtkWidgetClass.FFI.touchPtr self
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun map self = call map_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun mnemonicActivate self groupCycling = call mnemonicActivate_ (GtkWidgetClass.toBase self & groupCycling)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GdkColorRecord.FFI.withOptPtr false
          ---> I
-      )
-        modifyBase_
-        (
-          self
-           & state
-           & color
-        )
-    fun modifyBg self (state, color) =
-      (
+    in
+      fun modifyBase self (state, color) =
+        call modifyBase_
+          (
+            GtkWidgetClass.toBase self
+             & state
+             & color
+          )
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GdkColorRecord.FFI.withOptPtr false
          ---> I
-      )
-        modifyBg_
-        (
-          self
-           & state
-           & color
-        )
-    fun modifyCursor self (primary, secondary) =
-      (
+    in
+      fun modifyBg self (state, color) =
+        call modifyBg_
+          (
+            GtkWidgetClass.toBase self
+             & state
+             & color
+          )
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GdkColorRecord.FFI.withOptPtr false
          &&&> GdkColorRecord.FFI.withOptPtr false
          ---> I
-      )
-        modifyCursor_
-        (
-          self
-           & primary
-           & secondary
-        )
-    fun modifyFg self (state, color) =
-      (
-        GtkWidgetClass.FFI.withPtr false
-         &&&> GtkStateType.FFI.withVal
-         &&&> GdkColorRecord.FFI.withOptPtr false
-         ---> I
-      )
-        modifyFg_
-        (
-          self
-           & state
-           & color
-        )
-    fun modifyFont self fontDesc = (GtkWidgetClass.FFI.withPtr false &&&> PangoFontDescriptionRecord.FFI.withOptPtr false ---> I) modifyFont_ (self & fontDesc)
-    fun modifyStyle self style = (GtkWidgetClass.FFI.withPtr false &&&> GtkRcStyleClass.FFI.withPtr false ---> I) modifyStyle_ (self & style)
-    fun modifyText self (state, color) =
-      (
+    in
+      fun modifyCursor self (primary, secondary) =
+        call modifyCursor_
+          (
+            GtkWidgetClass.toBase self
+             & primary
+             & secondary
+          )
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateType.FFI.withVal
          &&&> GdkColorRecord.FFI.withOptPtr false
          ---> I
-      )
-        modifyText_
-        (
-          self
-           & state
-           & color
-        )
-    fun overrideBackgroundColor self (state, color) =
-      (
+    in
+      fun modifyFg self (state, color) =
+        call modifyFg_
+          (
+            GtkWidgetClass.toBase self
+             & state
+             & color
+          )
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> PangoFontDescriptionRecord.FFI.withOptPtr false ---> I
+    in
+      fun modifyFont self fontDesc = call modifyFont_ (GtkWidgetClass.toBase self & fontDesc)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkRcStyleClass.FFI.withPtr false ---> I
+    in
+      fun modifyStyle self style = call modifyStyle_ (GtkWidgetClass.toBase self & GtkRcStyleClass.toBase style)
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GtkStateType.FFI.withVal
+         &&&> GdkColorRecord.FFI.withOptPtr false
+         ---> I
+    in
+      fun modifyText self (state, color) =
+        call modifyText_
+          (
+            GtkWidgetClass.toBase self
+             & state
+             & color
+          )
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateFlags.FFI.withVal
          &&&> GdkRgbaRecord.FFI.withOptPtr false
          ---> I
-      )
-        overrideBackgroundColor_
-        (
-          self
-           & state
-           & color
-        )
-    fun overrideColor self (state, color) =
-      (
+    in
+      fun overrideBackgroundColor self (state, color) =
+        call overrideBackgroundColor_
+          (
+            GtkWidgetClass.toBase self
+             & state
+             & color
+          )
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateFlags.FFI.withVal
          &&&> GdkRgbaRecord.FFI.withOptPtr false
          ---> I
-      )
-        overrideColor_
-        (
-          self
-           & state
-           & color
-        )
-    fun overrideCursor self (cursor, secondaryCursor) =
-      (
+    in
+      fun overrideColor self (state, color) =
+        call overrideColor_
+          (
+            GtkWidgetClass.toBase self
+             & state
+             & color
+          )
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GdkRgbaRecord.FFI.withOptPtr false
          &&&> GdkRgbaRecord.FFI.withOptPtr false
          ---> I
-      )
-        overrideCursor_
-        (
-          self
-           & cursor
-           & secondaryCursor
-        )
-    fun overrideFont self fontDesc = (GtkWidgetClass.FFI.withPtr false &&&> PangoFontDescriptionRecord.FFI.withOptPtr false ---> I) overrideFont_ (self & fontDesc)
-    fun overrideSymbolicColor self (name, color) =
-      (
+    in
+      fun overrideCursor self (cursor, secondaryCursor) =
+        call overrideCursor_
+          (
+            GtkWidgetClass.toBase self
+             & cursor
+             & secondaryCursor
+          )
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> PangoFontDescriptionRecord.FFI.withOptPtr false ---> I
+    in
+      fun overrideFont self fontDesc = call overrideFont_ (GtkWidgetClass.toBase self & fontDesc)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GdkRgbaRecord.FFI.withOptPtr false
          ---> I
-      )
-        overrideSymbolicColor_
-        (
-          self
-           & name
-           & color
-        )
-    fun path self =
-      let
-        val pathLength
-         & path
-         & pathReversed
-         & () =
+    in
+      fun overrideSymbolicColor self (name, color) =
+        call overrideSymbolicColor_
           (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GUInt.FFI.withRefVal
-             &&&> Utf8.FFI.withRefOptPtr 0
-             &&&> Utf8.FFI.withRefOptPtr 0
-             ---> GUInt.FFI.fromVal
-                   && Utf8.FFI.fromPtr ~1
-                   && Utf8.FFI.fromPtr ~1
-                   && I
+            GtkWidgetClass.toBase self
+             & name
+             & color
           )
-            path_
-            (
-              self
-               & GUInt.null
-               & NONE
-               & NONE
-            )
-      in
-        (
-          pathLength,
-          path,
-          pathReversed
-        )
-      end
-    fun queueAllocate self = (GtkWidgetClass.FFI.withPtr false ---> I) queueAllocate_ self
-    fun queueComputeExpand self = (GtkWidgetClass.FFI.withPtr false ---> I) queueComputeExpand_ self
-    fun queueDraw self = (GtkWidgetClass.FFI.withPtr false ---> I) queueDraw_ self
-    fun queueDrawArea
-      self
-      (
-        x,
-        y,
-        width,
-        height
-      ) =
-      (
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GUInt.FFI.withRefVal
+         &&&> Utf8.FFI.withRefOptPtr 0
+         &&&> Utf8.FFI.withRefOptPtr 0
+         ---> GUInt.FFI.fromVal
+               && Utf8.FFI.fromPtr ~1
+               && Utf8.FFI.fromPtr ~1
+               && I
+    in
+      fun path self =
+        let
+          val pathLength
+           & path
+           & pathReversed
+           & () =
+            call path_
+              (
+                GtkWidgetClass.toBase self
+                 & GUInt.null
+                 & NONE
+                 & NONE
+              )
+        in
+          (
+            pathLength,
+            path,
+            pathReversed
+          )
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun queueAllocate self = call queueAllocate_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun queueComputeExpand self = call queueComputeExpand_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun queueDraw self = call queueDraw_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
-      )
-        queueDrawArea_
+    in
+      fun queueDrawArea
+        self
         (
-          self
-           & x
-           & y
-           & width
-           & height
-        )
-    fun queueDrawRegion self region = (GtkWidgetClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withPtr false ---> I) queueDrawRegion_ (self & region)
-    fun queueResize self = (GtkWidgetClass.FFI.withPtr false ---> I) queueResize_ self
-    fun queueResizeNoRedraw self = (GtkWidgetClass.FFI.withPtr false ---> I) queueResizeNoRedraw_ self
-    fun realize self = (GtkWidgetClass.FFI.withPtr false ---> I) realize_ self
-    fun regionIntersect self region = (GtkWidgetClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withPtr false ---> CairoRegionRecord.FFI.fromPtr true) regionIntersect_ (self & region)
-    fun registerWindow self window = (GtkWidgetClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> I) registerWindow_ (self & window)
-    fun removeAccelerator
-      self
-      (
-        accelGroup,
-        accelKey,
-        accelMods
-      ) =
-      (
+          x,
+          y,
+          width,
+          height
+        ) =
+        call queueDrawArea_
+          (
+            GtkWidgetClass.toBase self
+             & x
+             & y
+             & width
+             & height
+          )
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withPtr false ---> I
+    in
+      fun queueDrawRegion self region = call queueDrawRegion_ (GtkWidgetClass.toBase self & region)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun queueResize self = call queueResize_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun queueResizeNoRedraw self = call queueResizeNoRedraw_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun realize self = call realize_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withPtr false ---> CairoRegionRecord.FFI.fromPtr true
+    in
+      fun regionIntersect self region = call regionIntersect_ (GtkWidgetClass.toBase self & region)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> I
+    in
+      fun registerWindow self window = call registerWindow_ (GtkWidgetClass.toBase self & GdkWindowClass.toBase window)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GtkAccelGroupClass.FFI.withPtr false
          &&&> GUInt.FFI.withVal
          &&&> GdkModifierType.FFI.withVal
          ---> GBool.FFI.fromVal
-      )
-        removeAccelerator_
+    in
+      fun removeAccelerator
+        self
         (
-          self
-           & accelGroup
-           & accelKey
-           & accelMods
-        )
-    fun removeMnemonicLabel self label = (GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) removeMnemonicLabel_ (self & label)
-    fun removeTickCallback self id = (GtkWidgetClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I) removeTickCallback_ (self & id)
-    fun renderIcon
-      self
-      (
-        stockId,
-        size,
-        detail
-      ) =
-      (
+          accelGroup,
+          accelKey,
+          accelMods
+        ) =
+        call removeAccelerator_
+          (
+            GtkWidgetClass.toBase self
+             & GtkAccelGroupClass.toBase accelGroup
+             & accelKey
+             & accelMods
+          )
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun removeMnemonicLabel self label = call removeMnemonicLabel_ (GtkWidgetClass.toBase self & GtkWidgetClass.toBase label)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GUInt.FFI.withVal ---> I
+    in
+      fun removeTickCallback self id = call removeTickCallback_ (GtkWidgetClass.toBase self & id)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          &&&> Utf8.FFI.withOptPtr 0
          ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
-      )
-        renderIcon_
+    in
+      fun renderIcon
+        self
         (
-          self
-           & stockId
-           & size
-           & detail
-        )
-    fun renderIconPixbuf self (stockId, size) =
-      (
+          stockId,
+          size,
+          detail
+        ) =
+        call renderIcon_
+          (
+            GtkWidgetClass.toBase self
+             & stockId
+             & size
+             & detail
+          )
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GInt.FFI.withVal
          ---> GdkPixbufPixbufClass.FFI.fromOptPtr true
-      )
-        renderIconPixbuf_
-        (
-          self
-           & stockId
-           & size
-        )
-    fun reparent self newParent = (GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) reparent_ (self & newParent)
-    fun resetRcStyles self = (GtkWidgetClass.FFI.withPtr false ---> I) resetRcStyles_ self
-    fun resetStyle self = (GtkWidgetClass.FFI.withPtr false ---> I) resetStyle_ self
-    fun sendExpose self event = (GtkWidgetClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> GInt.FFI.fromVal) sendExpose_ (self & event)
-    fun sendFocusChange self event = (GtkWidgetClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> GBool.FFI.fromVal) sendFocusChange_ (self & event)
-    fun setAccelPath self (accelPath, accelGroup) =
-      (
+    in
+      fun renderIconPixbuf self (stockId, size) =
+        call renderIconPixbuf_
+          (
+            GtkWidgetClass.toBase self
+             & stockId
+             & size
+          )
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun reparent self newParent = call reparent_ (GtkWidgetClass.toBase self & GtkWidgetClass.toBase newParent)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun resetRcStyles self = call resetRcStyles_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun resetStyle self = call resetStyle_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun sendExpose self event = call sendExpose_ (GtkWidgetClass.toBase self & GdkEvent.toBase event)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkEvent.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun sendFocusChange self event = call sendFocusChange_ (GtkWidgetClass.toBase self & GdkEvent.toBase event)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> Utf8.FFI.withOptPtr 0
          &&&> GtkAccelGroupClass.FFI.withOptPtr false
          ---> I
-      )
-        setAccelPath_
-        (
-          self
-           & accelPath
-           & accelGroup
-        )
-    fun setAllocation self allocation = (GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withPtr false ---> I) setAllocation_ (self & allocation)
-    fun setAppPaintable self appPaintable = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setAppPaintable_ (self & appPaintable)
-    fun setCanDefault self canDefault = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCanDefault_ (self & canDefault)
-    fun setCanFocus self canFocus = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCanFocus_ (self & canFocus)
-    fun setChildVisible self isVisible = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setChildVisible_ (self & isVisible)
-    fun setClip self clip = (GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withPtr false ---> I) setClip_ (self & clip)
-    fun setCompositeName self name = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setCompositeName_ (self & name)
-    fun setDeviceEnabled self (device, enabled) =
-      (
+    in
+      fun setAccelPath self (accelPath, accelGroup) =
+        call setAccelPath_
+          (
+            GtkWidgetClass.toBase self
+             & accelPath
+             & Option.map GtkAccelGroupClass.toBase accelGroup
+          )
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withPtr false ---> I
+    in
+      fun setAllocation self allocation = call setAllocation_ (GtkWidgetClass.toBase self & allocation)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setAppPaintable self appPaintable = call setAppPaintable_ (GtkWidgetClass.toBase self & appPaintable)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setCanDefault self canDefault = call setCanDefault_ (GtkWidgetClass.toBase self & canDefault)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setCanFocus self canFocus = call setCanFocus_ (GtkWidgetClass.toBase self & canFocus)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setChildVisible self isVisible = call setChildVisible_ (GtkWidgetClass.toBase self & isVisible)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withPtr false ---> I
+    in
+      fun setClip self clip = call setClip_ (GtkWidgetClass.toBase self & clip)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I
+    in
+      fun setCompositeName self name = call setCompositeName_ (GtkWidgetClass.toBase self & name)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GdkDeviceClass.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
-      )
-        setDeviceEnabled_
-        (
-          self
-           & device
-           & enabled
-        )
-    fun setDeviceEvents self (device, events) =
-      (
+    in
+      fun setDeviceEnabled self (device, enabled) =
+        call setDeviceEnabled_
+          (
+            GtkWidgetClass.toBase self
+             & GdkDeviceClass.toBase device
+             & enabled
+          )
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GdkDeviceClass.FFI.withPtr false
          &&&> GdkEventMask.FFI.withVal
          ---> I
-      )
-        setDeviceEvents_
-        (
-          self
-           & device
-           & events
-        )
-    fun setDirection self dir = (GtkWidgetClass.FFI.withPtr false &&&> GtkTextDirection.FFI.withVal ---> I) setDirection_ (self & dir)
-    fun setDoubleBuffered self doubleBuffered = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setDoubleBuffered_ (self & doubleBuffered)
-    fun setEvents self events = (GtkWidgetClass.FFI.withPtr false &&&> GdkEventMask.FFI.withVal ---> I) setEvents_ (self & events)
-    fun setFocusOnClick self focusOnClick = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setFocusOnClick_ (self & focusOnClick)
-    fun setFontMap self fontMap = (GtkWidgetClass.FFI.withPtr false &&&> PangoFontMapClass.FFI.withOptPtr false ---> I) setFontMap_ (self & fontMap)
-    fun setFontOptions self options = (GtkWidgetClass.FFI.withPtr false &&&> CairoFontOptionsRecord.FFI.withOptPtr false ---> I) setFontOptions_ (self & options)
-    fun setHalign self align = (GtkWidgetClass.FFI.withPtr false &&&> GtkAlign.FFI.withVal ---> I) setHalign_ (self & align)
-    fun setHasTooltip self hasTooltip = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasTooltip_ (self & hasTooltip)
-    fun setHasWindow self hasWindow = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHasWindow_ (self & hasWindow)
-    fun setHexpand self expand = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHexpand_ (self & expand)
-    fun setHexpandSet self set = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setHexpandSet_ (self & set)
-    fun setMapped self mapped = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setMapped_ (self & mapped)
-    fun setMarginBottom self margin = (GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMarginBottom_ (self & margin)
-    fun setMarginEnd self margin = (GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMarginEnd_ (self & margin)
-    fun setMarginLeft self margin = (GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMarginLeft_ (self & margin)
-    fun setMarginRight self margin = (GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMarginRight_ (self & margin)
-    fun setMarginStart self margin = (GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMarginStart_ (self & margin)
-    fun setMarginTop self margin = (GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I) setMarginTop_ (self & margin)
-    fun setName self name = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I) setName_ (self & name)
-    fun setNoShowAll self noShowAll = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setNoShowAll_ (self & noShowAll)
-    fun setOpacity self opacity = (GtkWidgetClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setOpacity_ (self & opacity)
-    fun setParent self parent = (GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I) setParent_ (self & parent)
-    fun setParentWindow self parentWindow = (GtkWidgetClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> I) setParentWindow_ (self & parentWindow)
-    fun setRealized self realized = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRealized_ (self & realized)
-    fun setReceivesDefault self receivesDefault = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setReceivesDefault_ (self & receivesDefault)
-    fun setRedrawOnAllocate self redrawOnAllocate = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setRedrawOnAllocate_ (self & redrawOnAllocate)
-    fun setSensitive self sensitive = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSensitive_ (self & sensitive)
-    fun setSizeRequest self (width, height) =
-      (
+    in
+      fun setDeviceEvents self (device, events) =
+        call setDeviceEvents_
+          (
+            GtkWidgetClass.toBase self
+             & GdkDeviceClass.toBase device
+             & events
+          )
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkTextDirection.FFI.withVal ---> I
+    in
+      fun setDirection self dir = call setDirection_ (GtkWidgetClass.toBase self & dir)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setDoubleBuffered self doubleBuffered = call setDoubleBuffered_ (GtkWidgetClass.toBase self & doubleBuffered)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkEventMask.FFI.withVal ---> I
+    in
+      fun setEvents self events = call setEvents_ (GtkWidgetClass.toBase self & events)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setFocusOnClick self focusOnClick = call setFocusOnClick_ (GtkWidgetClass.toBase self & focusOnClick)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> PangoFontMapClass.FFI.withOptPtr false ---> I
+    in
+      fun setFontMap self fontMap = call setFontMap_ (GtkWidgetClass.toBase self & Option.map PangoFontMapClass.toBase fontMap)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> CairoFontOptionsRecord.FFI.withOptPtr false ---> I
+    in
+      fun setFontOptions self options = call setFontOptions_ (GtkWidgetClass.toBase self & options)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkAlign.FFI.withVal ---> I
+    in
+      fun setHalign self align = call setHalign_ (GtkWidgetClass.toBase self & align)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setHasTooltip self hasTooltip = call setHasTooltip_ (GtkWidgetClass.toBase self & hasTooltip)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setHasWindow self hasWindow = call setHasWindow_ (GtkWidgetClass.toBase self & hasWindow)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setHexpand self expand = call setHexpand_ (GtkWidgetClass.toBase self & expand)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setHexpandSet self set = call setHexpandSet_ (GtkWidgetClass.toBase self & set)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setMapped self mapped = call setMapped_ (GtkWidgetClass.toBase self & mapped)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I
+    in
+      fun setMarginBottom self margin = call setMarginBottom_ (GtkWidgetClass.toBase self & margin)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I
+    in
+      fun setMarginEnd self margin = call setMarginEnd_ (GtkWidgetClass.toBase self & margin)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I
+    in
+      fun setMarginLeft self margin = call setMarginLeft_ (GtkWidgetClass.toBase self & margin)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I
+    in
+      fun setMarginRight self margin = call setMarginRight_ (GtkWidgetClass.toBase self & margin)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I
+    in
+      fun setMarginStart self margin = call setMarginStart_ (GtkWidgetClass.toBase self & margin)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GInt.FFI.withVal ---> I
+    in
+      fun setMarginTop self margin = call setMarginTop_ (GtkWidgetClass.toBase self & margin)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withPtr 0 ---> I
+    in
+      fun setName self name = call setName_ (GtkWidgetClass.toBase self & name)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setNoShowAll self noShowAll = call setNoShowAll_ (GtkWidgetClass.toBase self & noShowAll)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I
+    in
+      fun setOpacity self opacity = call setOpacity_ (GtkWidgetClass.toBase self & opacity)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun setParent self parent = call setParent_ (GtkWidgetClass.toBase self & GtkWidgetClass.toBase parent)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> I
+    in
+      fun setParentWindow self parentWindow = call setParentWindow_ (GtkWidgetClass.toBase self & GdkWindowClass.toBase parentWindow)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setRealized self realized = call setRealized_ (GtkWidgetClass.toBase self & realized)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setReceivesDefault self receivesDefault = call setReceivesDefault_ (GtkWidgetClass.toBase self & receivesDefault)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setRedrawOnAllocate self redrawOnAllocate = call setRedrawOnAllocate_ (GtkWidgetClass.toBase self & redrawOnAllocate)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setSensitive self sensitive = call setSensitive_ (GtkWidgetClass.toBase self & sensitive)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GInt.FFI.withVal
          &&&> GInt.FFI.withVal
          ---> I
-      )
-        setSizeRequest_
-        (
-          self
-           & width
-           & height
-        )
-    fun setState self state = (GtkWidgetClass.FFI.withPtr false &&&> GtkStateType.FFI.withVal ---> I) setState_ (self & state)
-    fun setStateFlags self (flags, clear) =
-      (
+    in
+      fun setSizeRequest self (width, height) =
+        call setSizeRequest_
+          (
+            GtkWidgetClass.toBase self
+             & width
+             & height
+          )
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkStateType.FFI.withVal ---> I
+    in
+      fun setState self state = call setState_ (GtkWidgetClass.toBase self & state)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GtkStateFlags.FFI.withVal
          &&&> GBool.FFI.withVal
          ---> I
-      )
-        setStateFlags_
-        (
-          self
-           & flags
-           & clear
-        )
-    fun setStyle self style = (GtkWidgetClass.FFI.withPtr false &&&> GtkStyleClass.FFI.withOptPtr false ---> I) setStyle_ (self & style)
-    fun setSupportMultidevice self supportMultidevice = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setSupportMultidevice_ (self & supportMultidevice)
-    fun setTooltipMarkup self markup = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setTooltipMarkup_ (self & markup)
-    fun setTooltipText self text = (GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I) setTooltipText_ (self & text)
-    fun setTooltipWindow self customWindow = (GtkWidgetClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withOptPtr false ---> I) setTooltipWindow_ (self & customWindow)
-    fun setValign self align = (GtkWidgetClass.FFI.withPtr false &&&> GtkAlign.FFI.withVal ---> I) setValign_ (self & align)
-    fun setVexpand self expand = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVexpand_ (self & expand)
-    fun setVexpandSet self set = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVexpandSet_ (self & set)
-    fun setVisible self visible = (GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setVisible_ (self & visible)
-    fun setVisual self visual = (GtkWidgetClass.FFI.withPtr false &&&> GdkVisualClass.FFI.withOptPtr false ---> I) setVisual_ (self & visual)
-    fun setWindow self window = (GtkWidgetClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr true ---> I) setWindow_ (self & window)
-    fun shapeCombineRegion self region = (GtkWidgetClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withOptPtr false ---> I) shapeCombineRegion_ (self & region)
-    fun show self = (GtkWidgetClass.FFI.withPtr false ---> I) show_ self
-    fun showAll self = (GtkWidgetClass.FFI.withPtr false ---> I) showAll_ self
-    fun showNow self = (GtkWidgetClass.FFI.withPtr false ---> I) showNow_ self
-    fun sizeAllocate self allocation = (GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withPtr false ---> I) sizeAllocate_ (self & allocation)
-    fun sizeAllocateWithBaseline self (allocation, baseline) =
-      (
+    in
+      fun setStateFlags self (flags, clear) =
+        call setStateFlags_
+          (
+            GtkWidgetClass.toBase self
+             & flags
+             & clear
+          )
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkStyleClass.FFI.withOptPtr false ---> I
+    in
+      fun setStyle self style = call setStyle_ (GtkWidgetClass.toBase self & Option.map GtkStyleClass.toBase style)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setSupportMultidevice self supportMultidevice = call setSupportMultidevice_ (GtkWidgetClass.toBase self & supportMultidevice)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I
+    in
+      fun setTooltipMarkup self markup = call setTooltipMarkup_ (GtkWidgetClass.toBase self & markup)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> Utf8.FFI.withOptPtr 0 ---> I
+    in
+      fun setTooltipText self text = call setTooltipText_ (GtkWidgetClass.toBase self & text)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkWindowClass.FFI.withOptPtr false ---> I
+    in
+      fun setTooltipWindow self customWindow = call setTooltipWindow_ (GtkWidgetClass.toBase self & Option.map GtkWindowClass.toBase customWindow)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkAlign.FFI.withVal ---> I
+    in
+      fun setValign self align = call setValign_ (GtkWidgetClass.toBase self & align)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setVexpand self expand = call setVexpand_ (GtkWidgetClass.toBase self & expand)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setVexpandSet self set = call setVexpandSet_ (GtkWidgetClass.toBase self & set)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setVisible self visible = call setVisible_ (GtkWidgetClass.toBase self & visible)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkVisualClass.FFI.withOptPtr false ---> I
+    in
+      fun setVisual self visual = call setVisual_ (GtkWidgetClass.toBase self & Option.map GdkVisualClass.toBase visual)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr true ---> I
+    in
+      fun setWindow self window = call setWindow_ (GtkWidgetClass.toBase self & GdkWindowClass.toBase window)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> CairoRegionRecord.FFI.withOptPtr false ---> I
+    in
+      fun shapeCombineRegion self region = call shapeCombineRegion_ (GtkWidgetClass.toBase self & region)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun show self = call show_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun showAll self = call showAll_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun showNow self = call showNow_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkAllocationRecord.FFI.withPtr false ---> I
+    in
+      fun sizeAllocate self allocation = call sizeAllocate_ (GtkWidgetClass.toBase self & allocation)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> GtkAllocationRecord.FFI.withPtr false
          &&&> GInt.FFI.withVal
          ---> I
-      )
-        sizeAllocateWithBaseline_
-        (
-          self
-           & allocation
-           & baseline
-        )
-    fun sizeRequest self =
-      let
-        val requisition & () = (GtkWidgetClass.FFI.withPtr false &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I) sizeRequest_ (self & ())
-      in
-        requisition
-      end
-    fun styleAttach self = (GtkWidgetClass.FFI.withPtr false ---> I) styleAttach_ self
-    fun styleGetProperty self (propertyName, value) =
-      (
+    in
+      fun sizeAllocateWithBaseline self (allocation, baseline) =
+        call sizeAllocateWithBaseline_
+          (
+            GtkWidgetClass.toBase self
+             & allocation
+             & baseline
+          )
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkRequisitionRecord.FFI.withNewPtr ---> GtkRequisitionRecord.FFI.fromPtr true && I
+    in
+      fun sizeRequest self =
+        let
+          val requisition & () = call sizeRequest_ (GtkWidgetClass.toBase self & ())
+        in
+          requisition
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun styleAttach self = call styleAttach_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call =
         GtkWidgetClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectValueRecord.FFI.withPtr false
          ---> I
-      )
-        styleGetProperty_
-        (
-          self
-           & propertyName
-           & value
-        )
-    fun thawChildNotify self = (GtkWidgetClass.FFI.withPtr false ---> I) thawChildNotify_ self
-    fun translateCoordinates
-      self
-      (
-        destWidget,
-        srcX,
-        srcY
-      ) =
-      let
-        val destX
-         & destY
-         & retVal =
+    in
+      fun styleGetProperty self (propertyName, value) =
+        call styleGetProperty_
           (
-            GtkWidgetClass.FFI.withPtr false
-             &&&> GtkWidgetClass.FFI.withPtr false
-             &&&> GInt.FFI.withVal
-             &&&> GInt.FFI.withVal
-             &&&> GInt.FFI.withRefVal
-             &&&> GInt.FFI.withRefVal
-             ---> GInt.FFI.fromVal
-                   && GInt.FFI.fromVal
-                   && GBool.FFI.fromVal
+            GtkWidgetClass.toBase self
+             & propertyName
+             & value
           )
-            translateCoordinates_
-            (
-              self
-               & destWidget
-               & srcX
-               & srcY
-               & GInt.null
-               & GInt.null
-            )
-      in
-        if retVal then SOME (destX, destY) else NONE
-      end
-    fun triggerTooltipQuery self = (GtkWidgetClass.FFI.withPtr false ---> I) triggerTooltipQuery_ self
-    fun unmap self = (GtkWidgetClass.FFI.withPtr false ---> I) unmap_ self
-    fun unparent self = (GtkWidgetClass.FFI.withPtr false ---> I) unparent_ self
-    fun unrealize self = (GtkWidgetClass.FFI.withPtr false ---> I) unrealize_ self
-    fun unregisterWindow self window = (GtkWidgetClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> I) unregisterWindow_ (self & window)
-    fun unsetStateFlags self flags = (GtkWidgetClass.FFI.withPtr false &&&> GtkStateFlags.FFI.withVal ---> I) unsetStateFlags_ (self & flags)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun thawChildNotify self = call thawChildNotify_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call =
+        GtkWidgetClass.FFI.withPtr false
+         &&&> GtkWidgetClass.FFI.withPtr false
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withVal
+         &&&> GInt.FFI.withRefVal
+         &&&> GInt.FFI.withRefVal
+         ---> GInt.FFI.fromVal
+               && GInt.FFI.fromVal
+               && GBool.FFI.fromVal
+    in
+      fun translateCoordinates
+        self
+        (
+          destWidget,
+          srcX,
+          srcY
+        ) =
+        let
+          val destX
+           & destY
+           & retVal =
+            call translateCoordinates_
+              (
+                GtkWidgetClass.toBase self
+                 & GtkWidgetClass.toBase destWidget
+                 & srcX
+                 & srcY
+                 & GInt.null
+                 & GInt.null
+              )
+        in
+          if retVal then SOME (destX, destY) else NONE
+        end
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun triggerTooltipQuery self = call triggerTooltipQuery_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun unmap self = call unmap_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun unparent self = call unparent_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false ---> I
+    in
+      fun unrealize self = call unrealize_ (GtkWidgetClass.toBase self)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GdkWindowClass.FFI.withPtr false ---> I
+    in
+      fun unregisterWindow self window = call unregisterWindow_ (GtkWidgetClass.toBase self & GdkWindowClass.toBase window)
+    end
+    local
+      val call = GtkWidgetClass.FFI.withPtr false &&&> GtkStateFlags.FFI.withVal ---> I
+    in
+      fun unsetStateFlags self flags = call unsetStateFlags_ (GtkWidgetClass.toBase self & flags)
+    end
     local
       open ClosureMarshal Signal
     in

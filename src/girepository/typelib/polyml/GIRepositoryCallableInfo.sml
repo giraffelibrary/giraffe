@@ -50,41 +50,45 @@ structure GIRepositoryCallableInfo :>
     type transfer_t = GIRepositoryTransfer.t
 
 
-    val getReturnType =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
-          getReturnType_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true
+    in
+      fun getReturnType info = call getReturnType_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getCallerOwns =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTransfer.FFI.fromVal)
-          getCallerOwns_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTransfer.FFI.fromVal
+    in
+      fun getCallerOwns info = call getCallerOwns_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val mayReturnNull =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) mayReturnNull_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun mayReturnNull info = call mayReturnNull_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getReturnAttribute =
-      fn info => fn name =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> Utf8.FFI.withPtr 0
-           ---> Utf8.FFI.fromOptPtr 0
-        )
-          getReturnAttribute_
-          (info & name)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         ---> Utf8.FFI.fromOptPtr 0
+    in
+      fun getReturnAttribute info name = call getReturnAttribute_ (GIRepositoryBaseInfoClass.toBase info & name)
+    end
 
-    val getNArgs =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNArgs_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getNArgs info = call getNArgs_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getArg =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositoryArgInfoClass.FFI.fromPtr true
-        )
-          getArg_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryArgInfoClass.FFI.fromPtr true
+    in
+      fun getArg info n = call getArg_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
   end

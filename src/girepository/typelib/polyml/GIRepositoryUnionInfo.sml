@@ -79,66 +79,81 @@ structure GIRepositoryUnionInfo :>
     type 'a constantinfo_class = 'a GIRepositoryConstantInfoClass.class
 
 
-    val getNFields =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNFields_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getNFields info = call getNFields_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getField =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositoryFieldInfoClass.FFI.fromPtr true
-        )
-          getField_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryFieldInfoClass.FFI.fromPtr true
+    in
+      fun getField info n = call getField_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val getNMethods =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNMethods_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getNMethods info = call getNMethods_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getMethod =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
-        )
-          getMethod_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
+    in
+      fun getMethod info n = call getMethod_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val isDiscriminated =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isDiscriminated_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isDiscriminated info = call isDiscriminated_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getDiscriminatorOffset =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getDiscriminatorOffset_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getDiscriminatorOffset info = call getDiscriminatorOffset_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getDiscriminatorType =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
-        getDiscriminatorType_
-        info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true
+    in
+      fun getDiscriminatorType info = call getDiscriminatorType_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getDiscriminator =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositoryConstantInfoClass.FFI.fromPtr true
-        )
-          getDiscriminator_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryConstantInfoClass.FFI.fromPtr true
+    in
+      fun getDiscriminator info n = call getDiscriminator_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val findMethod =
-      fn info => fn name =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> Utf8.FFI.withPtr 0
-           ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
-        )
-          findMethod_
-          (info & name)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
+    in
+      fun findMethod info name = call findMethod_ (GIRepositoryBaseInfoClass.toBase info & name)
+    end
 
-    val getSize = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GULong.FFI.fromVal) getSize_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GULong.FFI.fromVal
+    in
+      fun getSize info = call getSize_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getAlignment =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GULong.FFI.fromVal) getAlignment_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GULong.FFI.fromVal
+    in
+      fun getAlignment info = call getAlignment_ (GIRepositoryBaseInfoClass.toBase info)
+    end
   end

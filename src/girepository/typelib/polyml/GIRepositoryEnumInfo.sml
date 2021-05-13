@@ -50,41 +50,45 @@ structure GIRepositoryEnumInfo :>
     type typetag_t = GIRepositoryTypeTag.t
 
 
-    val getNValues =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNValues_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getNValues info = call getNValues_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getValue =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositoryValueInfoClass.FFI.fromPtr true
-        )
-          getValue_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryValueInfoClass.FFI.fromPtr true
+    in
+      fun getValue info n = call getValue_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val getNMethods =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNMethods_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getNMethods info = call getNMethods_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getMethod =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
-        )
-          getMethod_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
+    in
+      fun getMethod info n = call getMethod_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val getStorageType =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeTag.FFI.fromVal)
-          getStorageType_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeTag.FFI.fromVal
+    in
+      fun getStorageType info = call getStorageType_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getErrorDomain =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0)
-          getErrorDomain_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0
+    in
+      fun getErrorDomain info = call getErrorDomain_ (GIRepositoryBaseInfoClass.toBase info)
+    end
   end

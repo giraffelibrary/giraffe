@@ -20,9 +20,15 @@ structure GIRepositoryValueInfo :>
     type 'a class = 'a GIRepositoryValueInfoClass.class
 
 
-    fun getValueInt info =
-      (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getValueInt_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getValueInt info = call getValueInt_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    fun getValueWord info =
-      (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GUInt32.FFI.fromVal) getValueWord_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GUInt32.FFI.fromVal
+    in
+      fun getValueWord info = call getValueWord_ (GIRepositoryBaseInfoClass.toBase info)
+    end
   end

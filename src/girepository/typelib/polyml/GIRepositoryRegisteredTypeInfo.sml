@@ -25,19 +25,21 @@ structure GIRepositoryRegisteredTypeInfo :>
     type 'a class = 'a GIRepositoryRegisteredTypeInfoClass.class
 
 
-    val getTypeName =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0)
-          getTypeName_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0
+    in
+      fun getTypeName info = call getTypeName_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getTypeInit =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0)
-          getTypeInit_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0
+    in
+      fun getTypeInit info = call getTypeInit_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getGType =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GObjectType.FFI.fromVal) getGType_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GObjectType.FFI.fromVal
+    in
+      fun getGType info = call getGType_ (GIRepositoryBaseInfoClass.toBase info)
+    end
   end

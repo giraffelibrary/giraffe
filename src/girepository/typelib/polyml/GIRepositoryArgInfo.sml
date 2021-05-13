@@ -68,51 +68,63 @@ structure GIRepositoryArgInfo :>
     type transfer_t = GIRepositoryTransfer.t
 
 
-    val getDirection =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryDirection.FFI.fromVal) getDirection_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryDirection.FFI.fromVal
+    in
+      fun getDirection info = call getDirection_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val isCallerAllocates =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isCallerAllocates_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isCallerAllocates info = call isCallerAllocates_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val isReturnValue =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isReturnValue_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isReturnValue info = call isReturnValue_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val isOptional =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isOptional_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isOptional info = call isOptional_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val mayBeNull =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) mayBeNull_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun mayBeNull info = call mayBeNull_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getOwnershipTransfer =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTransfer.FFI.fromVal)
-          getOwnershipTransfer_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTransfer.FFI.fromVal
+    in
+      fun getOwnershipTransfer info = call getOwnershipTransfer_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getScope =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryScopeType.FFI.fromVal) getScope_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryScopeType.FFI.fromVal
+    in
+      fun getScope info = call getScope_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getClosure =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> (fn ~1 => NONE | n => SOME n) o GInt32.FFI.fromVal)
-          getClosure_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> (fn ~1 => NONE | n => SOME n) o GInt32.FFI.fromVal
+    in
+      fun getClosure info = call getClosure_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getDestroy =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> (fn ~1 => NONE | n => SOME n) o GInt32.FFI.fromVal)
-          getDestroy_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> (fn ~1 => NONE | n => SOME n) o GInt32.FFI.fromVal
+    in
+      fun getDestroy info = call getDestroy_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getType =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
-          getType_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true
+    in
+      fun getType info = call getType_ (GIRepositoryBaseInfoClass.toBase info)
+    end
   end

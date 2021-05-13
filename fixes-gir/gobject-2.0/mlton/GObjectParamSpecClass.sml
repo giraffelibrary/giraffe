@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2015-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2015-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -229,7 +229,11 @@ structure GObjectParamSpecClass :>
         setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
       }
 
-    fun instanceType object = (FFI.withPtr false ---> GObjectType.FFI.fromVal) instanceType_ object
+    local
+      val call = FFI.withPtr false ---> GObjectType.FFI.fromVal
+    in
+      fun instanceType object = call instanceType_ (toBase object)
+    end
 
     fun toDerived subclass instance = (
       let

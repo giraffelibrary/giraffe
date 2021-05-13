@@ -36,23 +36,27 @@ structure GIRepositoryVFuncInfo :>
     type vfuncinfoflags_t = GIRepositoryVFuncInfoFlags.t
 
 
-    val getFlags =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryVFuncInfoFlags.FFI.fromVal)
-        getFlags_
-        info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryVFuncInfoFlags.FFI.fromVal
+    in
+      fun getFlags info = call getFlags_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getOffset =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getOffset_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getOffset info = call getOffset_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getSignal =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositorySignalInfoClass.FFI.fromOptPtr true)
-          getSignal_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositorySignalInfoClass.FFI.fromOptPtr true
+    in
+      fun getSignal info = call getSignal_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getInvoker =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryFunctionInfoClass.FFI.fromOptPtr true)
-          getInvoker_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryFunctionInfoClass.FFI.fromOptPtr true
+    in
+      fun getInvoker info = call getInvoker_ (GIRepositoryBaseInfoClass.toBase info)
+    end
   end

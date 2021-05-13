@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2017-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2017-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -126,12 +126,15 @@ structure ClassifyEvent :>
     val eventType_ = _import "giraffe_gdk_get_event_type" : GdkEvent.FFI.non_opt GdkEvent.FFI.p -> GdkEventType.FFI.val_;
 
 
-    fun eventType self =
-      (GdkEvent.FFI.withPtr false ---> GdkEventType.FFI.fromVal) eventType_ self
+    local
+      val call = GdkEvent.FFI.withPtr false ---> GdkEventType.FFI.fromVal
+    in
+      fun eventType self = call eventType_ (GdkEvent.toBase self)
+    end
 
 
     local
-      fun mkT (con, fromPtr, ty) event = con (GdkEvent.FFI.withPtr false (fromPtr false) event, ty)
+      fun mkT (con, fromPtr, ty) event = con (GdkEvent.FFI.withPtr false (fromPtr false) (GdkEvent.toBase event), ty)
     in
       fun classify e =
         case eventType e of

@@ -2323,6 +2323,17 @@ fun touchFunExp prefixIds {isOpt} =
     mkLIdLNameExp (prefixIds @ [touchFunId])
   end
 
+fun toBaseExp (iRef as {ty, ...}) =
+  case ty of
+    CLASS => mkLIdLNameExp (prefixInterfaceStrId iRef [toBaseId])
+  | UNION => mkLIdLNameExp (prefixInterfaceStrId iRef [toBaseId])
+  | _     => raise Fail "toBaseExp requires class or union interface reference"
+
+fun toBaseOptExp isOpt =
+  if isOpt
+  then fn iRef => ExpApp (mkLIdLNameExp [optionStrId, mapId], toBaseExp iRef)
+  else toBaseExp
+
 local
   fun withFunGType (dir, {iRef, ...} : gtype_info) =
     let
@@ -2617,7 +2628,7 @@ local
     | _               => mkIdLNameExp name
 
   fun argValInterface
-    (name, dir, {iRef, infoType, isPtr, ...} : interface_info) =
+    (name, dir, {iRef, infoType, isPtr, isOpt, ...} : interface_info) =
     case dir of
       OUT _ =>
         let
@@ -2639,7 +2650,18 @@ local
           | _           =>
               infoExcl "initVal for unidentified INTERFACE not supported"
         end
-    | _     => mkIdLNameExp name
+    | _     =>
+        let
+          val nameExp = mkIdLNameExp name
+
+          open InfoType
+        in
+          case infoType of
+            OBJECT _    => ExpApp (toBaseOptExp isOpt iRef, nameExp)
+          | INTERFACE _ => ExpApp (toBaseOptExp isOpt iRef, nameExp)
+          | UNION _     => ExpApp (toBaseOptExp isOpt iRef, nameExp)
+          | _           => nameExp
+        end
 
   fun touchFunUtf8 (name, {isOpt, optIRef, ...} : utf8_info) =
     let
@@ -3054,7 +3076,12 @@ fun makeFunctionStrDecHighLevel
                   ),
                   falseExp
                 )
-              val argVal = selfExp
+              val argVal = 
+                case infoType of
+                  OBJECT _    => ExpApp (toBaseExp iRef, selfExp)
+                | INTERFACE _ => ExpApp (toBaseExp iRef, selfExp)
+                | UNION _     => ExpApp (toBaseExp iRef, selfExp)
+                | _           => selfExp
               val touchFunSelf =
                 case optTouchFunId of
                   SOME touchFunId => SOME (
@@ -3183,16 +3210,14 @@ fun makeFunctionStrDecHighLevel
     val argValsExp = foldl1 mkAExp revArgVals1
 
     (*
-     *   ([<withFunSelf> &&&>]
-     *      <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
-     *     ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>)
+     *   call
      *     <functionName>_
      *     ([self &] <argVal[1]> & ... & <argVal[J]> [& <argValErr>])
      *)
     val functionCoreExp =
       ExpApp (
         ExpApp (
-          mkParenExp (mkDDDRExp (withFunsExp, fromFunsExp)),
+          mkIdLNameExp callId,
           mkIdLNameExp functionNameUId
         ),
         case revArgVals1 of
@@ -3253,7 +3278,7 @@ fun makeFunctionStrDecHighLevel
      *
      *     otherwise, i.e. N = 0 and M = 0
      *)
-    val functionExp =
+    val functionCallExp =
       case (revOutParams, revMs'2) of
         ([], []) => beforeTouchFuns functionCoreExp
       | _        =>
@@ -3311,9 +3336,28 @@ fun makeFunctionStrDecHighLevel
           in
             ExpLet (mkDecs decs'2, toList1 [beforeTouchFuns retExp])
           end
+
+    (* Construct the function declaration with the form:
+     *
+     *   local
+     *     val call =
+     *       [<withFunSelf> &&&>]
+     *         <withFun[1]> &&&> ... &&&> <withFun[J]> [&&&> <withFunErr>]
+     *        ---> <fromFun[1]> && ... && <fromFun[N]> && <retFromFun>
+     *   in
+     *     fun <functionName> [<self>] (<inParamName[1]>, ..., <inParamName[L]>) =
+     *       <functionCallExp>
+     *   end
+     *)
+    val callExp = mkDDDRExp (withFunsExp, fromFunsExp)
+    val functionDec =
+      DecLocal (
+        mkDecs [mkIdValDec (callId, callExp)],
+        mkDecs [mkIdFunDec (functionNameId, functionArgPats1, functionCallExp)]
+      )
   in
     (
-      StrDecDec (mkIdFunDec (functionNameId, functionArgPats1, functionExp)),
+      StrDecDec functionDec,
       ((iRefs'3, structDeps'3), excls)
     )
   end

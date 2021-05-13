@@ -26,23 +26,24 @@ structure GIRepositoryConstantInfo :>
     type argument_t = GIRepositoryArgument.t
 
 
-    val getType =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
-          getType_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true
+    in
+      fun getType info = call getType_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getValue =
-      fn info =>
+    local
+      val call =
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GIRepositoryArgument.FFI.withNewPtr
+         ---> GIRepositoryArgument.FFI.fromPtr && I
+    in
+      fun getValue info =
         let
           val tag = GIRepositoryTypeInfo.getTag (getType info)
-          val value & _ =
-            (GIRepositoryBaseInfoClass.FFI.withPtr false
-              &&&> GIRepositoryArgument.FFI.withNewPtr
-              ---> GIRepositoryArgument.FFI.fromPtr tag && I)
-              getValue_
-              (info & ())
+          val value & _ = call getValue_ (GIRepositoryBaseInfoClass.toBase info & ())
         in
-          value
+          value tag
         end
+    end
   end

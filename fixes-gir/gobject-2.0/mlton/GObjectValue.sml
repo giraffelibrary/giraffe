@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2015-2017, 2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2015-2017, 2020-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -37,32 +37,72 @@ structure GObjectValue :>
     type t = GObjectValueRecord.t
     type type_t = GObjectType.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new () =
-      let
-        val new & () =
-          (GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I)
-            ignore
-            ()
-      in
-        new
-      end
-    fun copy self destValue = (GObjectValueRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withPtr false ---> I) copy_ (self & destValue)
-    fun fitsPointer self = (GObjectValueRecord.FFI.withPtr false ---> GBool.FFI.fromVal) fitsPointer_ self
-    fun init self gType = (GObjectValueRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> I) (ignore o init_) (self & gType)
-    fun reset self = (GObjectValueRecord.FFI.withPtr false ---> I) (ignore o reset_) self
-    fun transform self destValue = (GObjectValueRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withPtr false ---> GBool.FFI.fromVal) transform_ (self & destValue)
-    fun unset self = (GObjectValueRecord.FFI.withPtr false ---> I) unset_ self
-    fun typeCompatible (srcType, destType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCompatible_ (srcType & destType)
-    fun typeTransformable (srcType, destType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeTransformable_ (srcType & destType)
+    local
+      val call = GObjectValueRecord.FFI.withNewPtr ---> GObjectValueRecord.FFI.fromPtr true && I
+    in
+      fun new () =
+        let
+          val new & () = call ignore ()
+        in
+          new
+        end
+    end
+    local
+      val call = GObjectValueRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withPtr false ---> I
+    in
+      fun copy self destValue = call copy_ (self & destValue)
+    end
+    local
+      val call = GObjectValueRecord.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun fitsPointer self = call fitsPointer_ self
+    end
+    local
+      val call = GObjectValueRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> I
+    in
+      fun init self gType = call (ignore o init_) (self & gType)
+    end
+    local
+      val call = GObjectValueRecord.FFI.withPtr false ---> I
+    in
+      fun reset self = call (ignore o reset_) self
+    end
+    local
+      val call = GObjectValueRecord.FFI.withPtr false &&&> GObjectValueRecord.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun transform self destValue = call transform_ (self & destValue)
+    end
+    local
+      val call = GObjectValueRecord.FFI.withPtr false ---> I
+    in
+      fun unset self = call unset_ self
+    end
+    local
+      val call = GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun typeCompatible (srcType, destType) = call typeCompatible_ (srcType & destType)
+    end
+    local
+      val call = GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun typeTransformable (srcType, destType) = call typeTransformable_ (srcType & destType)
+    end
 
-    fun holds gtype value =
-      (GObjectValueRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal)
-        holds_
-        (value & gtype)
+    local
+      val call = GObjectValueRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal
+    in
+    fun holds gtype value = call holds_ (value & gtype)
+    end
 
-    fun gTypeOf value =
-      (GObjectValueRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal) gtypeOf_ value
+    local
+      val call = GObjectValueRecord.FFI.withPtr false ---> GObjectType.FFI.fromVal
+    in
+      fun gTypeOf value = call gtypeOf_ value
+    end
 
-    fun isValue value =
-      (GObjectValueRecord.FFI.withPtr false ---> GBool.FFI.fromVal) isValue_ value
+    local
+      val call = GObjectValueRecord.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isValue value = call isValue_ value
+    end
   end

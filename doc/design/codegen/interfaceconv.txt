@@ -54,11 +54,14 @@ InterfaceConvSpec has the form:
 InterfaceConvDec has the form:
 
 
-  fun as<InterfaceName> self =
-    (<RootObjectNamespace><RootObjectName>Class.FFI.withPtr false
-      ---> <InterfaceNamespace><InterfaceName>Class.FFI.fromPtr false)
-    I
-    self
+  local
+    val call =
+      <RootObjectNamespace><RootObjectName>Class.FFI.withPtr false
+       ---> <InterfaceNamespace><InterfaceName>Class.FFI.fromPtr false
+  in
+    fun as<InterfaceName> self =
+      call I (<RootObjectNamespace><RootObjectName>Class.toBase self)
+  end
 
     rootObjectInfo = getRoot objectInfo
     RootObjectName = GIBaseInfo.getName rootObjectInfo

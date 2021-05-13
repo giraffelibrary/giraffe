@@ -268,7 +268,11 @@ structure GObjectObjectClass :>
         setValue = (I &&&> FFI.withOptPtr false ---> I) setOptValue_
       }
 
-    fun instanceType object = (FFI.withPtr false ---> GObjectType.FFI.fromVal) instanceType_ object
+    local
+      val call = FFI.withPtr false ---> GObjectType.FFI.fromVal
+    in
+      fun instanceType object = call instanceType_ (toBase object)
+    end
 
     fun toDerived subclass instance = (
       let

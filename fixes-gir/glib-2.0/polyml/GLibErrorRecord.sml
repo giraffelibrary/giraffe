@@ -101,8 +101,16 @@ structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
         GInt.C.ValueType.get p
       end
 
-    fun getDomain self = (FFI.withPtr false ---> GLibQuark.FFI.fromVal) getDomain_ self before FFI.touchPtr self
-    fun getCode self = (FFI.withPtr false ---> GInt.FFI.fromVal) getCode_ self before FFI.touchPtr self
+    local
+      val call = FFI.withPtr false ---> GLibQuark.FFI.fromVal
+    in
+      fun getDomain self = call getDomain_ self before FFI.touchPtr self
+    end
+    local
+      val call = FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun getCode self = call getCode_ self before FFI.touchPtr self
+    end
 
     exception Error of exn * t
 
@@ -114,41 +122,46 @@ structure GLibErrorRecord :> G_LIB_ERROR_RECORD =
       | domainExn :: [] => Error (domainExn, err)
       | _ :: _ :: _     => Error (Fail "internal error: multiple domains", err)
 
-    fun handleError f handlers =
+    fun handleError f =
       let
         val optErr & retVal = (FFI.withRefOptPtr false ---> FFI.fromOptPtr true && I) f NONE
       in
-        case optErr of
-          NONE     => retVal
-        | SOME err => raise (makeErrorExn handlers err)
+        fn handlers =>
+          case optErr of
+            NONE     => retVal
+          | SOME err => raise (makeErrorExn handlers err)
       end
 
-    fun makeHandler (domainName, fromVal, domainExn) =
-      let
-        fun domainHandler err =
-          let
-            val errQuark = getDomain err
-          in
-            if errQuark = GLibQuark.fromString domainName
-            then
-              SOME (domainExn ((FFI.withPtr false ---> fromVal) getCode_ err))
-                handle
-                  _ =>
-                    let
-                      val msg = concat [
-                        "internal error in error handler: unknown error code ",
-                        LargeInt.toString (getCode err), " in error domain \"",
-                        GLibQuark.toString errQuark, "\"\n"
-                      ]
-                    in
-                      GiraffeLog.critical msg;
-                      SOME (Fail "unknown code")
-                    end
-            else
-              NONE
-          end
-      in
-        domainHandler
-      end
+    local
+      val withPtr = FFI.withPtr false
+    in
+      fun makeHandler (domainName, fromVal, domainExn) =
+        let
+          fun domainHandler err =
+            let
+              val errQuark = getDomain err
+            in
+              if errQuark = GLibQuark.fromString domainName
+              then
+                SOME (domainExn ((withPtr ---> fromVal) getCode_ err))
+                  handle
+                    _ =>
+                      let
+                        val msg = concat [
+                          "internal error in error handler: unknown error code ",
+                          LargeInt.toString (getCode err), " in error domain \"",
+                          GLibQuark.toString errQuark, "\"\n"
+                        ]
+                      in
+                        GiraffeLog.critical msg;
+                        SOME (Fail "unknown code")
+                      end
+              else
+                NONE
+            end
+        in
+          domainHandler
+        end
+    end
   end
 exception GLibError = GLibErrorRecord.Error

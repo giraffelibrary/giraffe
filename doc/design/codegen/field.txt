@@ -219,7 +219,6 @@ where
 
           InterfaceName = BaseInfo.getName interfaceTypeInfo
           InterfaceNamespace = BaseInfo.getNamespace interfaceTypeInfo
-          InterfaceCPrefix = getCPrefix repo <InterfaceNamespace>
 
           infoType = InfoType.getType interfaceTypeInfo
           isClass = infoType is OBJECT _ | INTERFACE _
@@ -283,11 +282,14 @@ where
 
 FieldAccessor has the form:
 
+  typeInfo = FieldInfo.getType fieldInfo
+  isPointer = TypeInfo.isPointer typeInfo
+
 
   val <fieldName> =
     {
       get = fn x => <FieldName>Field.get x,
-      set = fn x => <FieldName>Field.set <toBase('x')>
+      set = fn x => <FieldName>Field.set <convertToBase('x', typeInfo, ContainerNamespace, isPointer, true)>
     }
 
     if isReadable and isWritable
@@ -303,7 +305,7 @@ FieldAccessor has the form:
 
   val <fieldName> =
     {
-      set = fn x => <FieldName>Field.set <toBase('x')>
+      set = fn x => <FieldName>Field.set <convertToBase('x', typeInfo, ContainerNamespace, isPointer, true)>
     }
 
     if not isReadable and isWritable
@@ -312,81 +314,6 @@ FieldAccessor has the form:
   <raise Error "field neither readable nor writable">
 
     if not isReadable and not isWritable
-
-
-where
-
-
-  toBase(x)
-    is defined as according to the type tag as follows:
-
-      typeInfo = FieldInfo.getType fieldInfo
-      isPointer = TypeInfo.isPointer typeInfo
-      tag = TypeInfo.getTag typeInfo
-
-      Conversion from tag is as follows:
-
-        ERROR     --->    <raise Error "not expected">
-        GTYPE     --->    <raise Error "not supported">
-        FILENAME  --->    x
-        ARRAY     --->    x
-        GLIST     --->    <raise Error "not supported">
-        GSLIST    --->    <raise Error "not supported">
-        GHASH     --->    <raise Error "not supported">
-        VOID      --->    x
-        BOOLEAN   --->    x
-        CHAR      --->    x
-        UCHAR     --->    x
-        INT       --->    x 
-        UINT      --->    x
-        SHORT     --->    x
-        USHORT    --->    x
-        LONG      --->    x
-        ULONG     --->    x
-        INT8      --->    x
-        UINT8     --->    x
-        INT16     --->    x 
-        UINT16    --->    x
-        INT32     --->    x
-        UINT32    --->    x
-        INT64     --->    x
-        UINT64    --->    x
-        FLOAT     --->    x
-        DOUBLE    --->    x
-        SSIZE     --->    x 
-        SIZE      --->    x
-        OFFSET    --->    <raise Error "not supported">
-        INTPTR    --->    <raise Error "not supported">
-        UINTPTR   --->    <raise Error "not supported">
-        UNICHAR   --->    x
-        UTF8      --->    x
-        INTERFACE --->
-
-          interfaceTypeInfo = TypeInfo.getInterface typeInfo
-
-          InterfaceName = BaseInfo.getName interfaceTypeInfo
-          InterfaceNamespace = BaseInfo.getNamespace interfaceTypeInfo
-          InterfaceCPrefix = getCPrefix repo <InterfaceNamespace>
-
-          infoType = InfoType.getType interfaceTypeInfo
-          isClass = infoType is OBJECT _ | INTERFACE _
-
-          isGlobal = InterfaceNamespace <> FunctionNamespace
-
-            (Option.map <InterfaceNamespace>.<InterfaceName>Class.toBase <x>)
-              if isPointer and isGlobal and isClass
-
-            (Option.map <InterfaceNamespace><InterfaceName>Class.toBase <x>)
-              if isPointer and not isGlobal and isClass
-
-            (<InterfaceNamespace>.<InterfaceName>Class.toBase <x>)
-              if not isPointer and isGlobal and isClass
-
-            (<InterfaceNamespace><InterfaceName>Class.toBase <x>)
-              if not isPointer and not isGlobal and isClass
-
-            <x>
-              otherwise
 
 
 Note that the expression on the right hand side of a FieldAccecssor value binding must be non-expansive.  Therefore it is not possible to introduce functions to simplify the expressions or eta-reduce the expressions.
@@ -597,7 +524,6 @@ where
 
             InterfaceName = GIRepository.BaseInfo.getName interfaceTypeInfo
             InterfaceNamespace = GIRepository.BaseInfo.getNamespace interfaceTypeInfo
-            InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
             infoType = GIRepository.InfoType.getType interfaceTypeInfo
             isClass = infoType is OBJECT _ | INTERFACE _

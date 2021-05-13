@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -111,113 +111,119 @@ structure GObjectType :> G_OBJECT_TYPE =
     val paramVariant_ = _import "giraffe_g_param_variant_get_type" : unit -> FFI.val_;
 
 
-    val isValueType =
-      fn gtype =>
-        (FFI.withVal ---> GBool.FFI.fromVal) isValueType_ gtype
+    local
+      val call = FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun isValueType gtype = call isValueType_ gtype
+    end
 
-    val isA =
-      fn (type', isAType) =>
-        (FFI.withVal &&&> FFI.withVal ---> GBool.FFI.fromVal) isA_ (type' & isAType)
+    local
+      val call = FFI.withVal &&&> FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun isA (type', isAType) = call isA_ (type' & isAType)
+    end
 
-    val name =
-      fn gtype =>
-        (FFI.withVal ---> Utf8.FFI.fromPtr 0) name_ gtype
+    local
+      val call = FFI.withVal ---> Utf8.FFI.fromPtr 0
+    in
+      fun name gtype = call name_ gtype
+    end
 
-    val fromName =
-      fn name =>
-        (Utf8.FFI.withPtr 0 ---> (fn 0 => NONE | n => SOME n) o FFI.fromVal)
-          fromName_
-          name
+    local
+      val call = Utf8.FFI.withPtr 0 ---> (fn 0 => NONE | n => SOME n) o FFI.fromVal
+    in
+      fun fromName name = call fromName_ name
+    end
 
-    val invalid = fn () => (I ---> FFI.fromVal) invalid_ ()
+    val invalid = (I ---> FFI.fromVal) invalid_
 
-    val none = fn () => (I ---> FFI.fromVal) none_ ()
+    val none = (I ---> FFI.fromVal) none_
 
-    val interface = fn () => (I ---> FFI.fromVal) interface_ ()
+    val interface = (I ---> FFI.fromVal) interface_
 
-    val char = fn () => (I ---> FFI.fromVal) char_ ()
+    val char = (I ---> FFI.fromVal) char_
 
-    val uchar = fn () => (I ---> FFI.fromVal) uchar_ ()
+    val uchar = (I ---> FFI.fromVal) uchar_
 
-    val boolean = fn () => (I ---> FFI.fromVal) boolean_ ()
+    val boolean = (I ---> FFI.fromVal) boolean_
 
-    val int = fn () => (I ---> FFI.fromVal) int_ ()
+    val int = (I ---> FFI.fromVal) int_
 
-    val uint = fn () => (I ---> FFI.fromVal) uint_ ()
+    val uint = (I ---> FFI.fromVal) uint_
 
-    val long = fn () => (I ---> FFI.fromVal) long_ ()
+    val long = (I ---> FFI.fromVal) long_
 
-    val ulong = fn () => (I ---> FFI.fromVal) ulong_ ()
+    val ulong = (I ---> FFI.fromVal) ulong_
 
-    val int64 = fn () => (I ---> FFI.fromVal) int64_ ()
+    val int64 = (I ---> FFI.fromVal) int64_
 
-    val uint64 = fn () => (I ---> FFI.fromVal) uint64_ ()
+    val uint64 = (I ---> FFI.fromVal) uint64_
 
-    val enum = fn () => (I ---> FFI.fromVal) enum_ ()
+    val enum = (I ---> FFI.fromVal) enum_
 
-    val flags = fn () => (I ---> FFI.fromVal) flags_ ()
+    val flags = (I ---> FFI.fromVal) flags_
 
-    val float = fn () => (I ---> FFI.fromVal) float_ ()
+    val float = (I ---> FFI.fromVal) float_
 
-    val double = fn () => (I ---> FFI.fromVal) double_ ()
+    val double = (I ---> FFI.fromVal) double_
 
-    val string = fn () => (I ---> FFI.fromVal) string_ ()
+    val string = (I ---> FFI.fromVal) string_
 
-    val pointer = fn () => (I ---> FFI.fromVal) pointer_ ()
+    val pointer = (I ---> FFI.fromVal) pointer_
 
-    val boxed = fn () => (I ---> FFI.fromVal) boxed_ ()
+    val boxed = (I ---> FFI.fromVal) boxed_
 
-    val param = fn () => (I ---> FFI.fromVal) param_ ()
+    val param = (I ---> FFI.fromVal) param_
 
-    val object = fn () => (I ---> FFI.fromVal) object_ ()
+    val object = (I ---> FFI.fromVal) object_
 
-    val gtype = fn () => (I ---> FFI.fromVal) gtype_ ()
+    val gtype = (I ---> FFI.fromVal) gtype_
 
-    val variant = fn () => (I ---> FFI.fromVal) variant_ ()
+    val variant = (I ---> FFI.fromVal) variant_
 
-    val paramChar = fn () => (I ---> FFI.fromVal) paramChar_ ()
+    val paramChar = (I ---> FFI.fromVal) paramChar_
 
-    val paramUChar = fn () => (I ---> FFI.fromVal) paramUChar_ ()
+    val paramUChar = (I ---> FFI.fromVal) paramUChar_
 
-    val paramBoolean = fn () => (I ---> FFI.fromVal) paramBoolean_ ()
+    val paramBoolean = (I ---> FFI.fromVal) paramBoolean_
 
-    val paramInt = fn () => (I ---> FFI.fromVal) paramInt_ ()
+    val paramInt = (I ---> FFI.fromVal) paramInt_
 
-    val paramUInt = fn () => (I ---> FFI.fromVal) paramUInt_ ()
+    val paramUInt = (I ---> FFI.fromVal) paramUInt_
 
-    val paramLong = fn () => (I ---> FFI.fromVal) paramLong_ ()
+    val paramLong = (I ---> FFI.fromVal) paramLong_
 
-    val paramULong = fn () => (I ---> FFI.fromVal) paramULong_ ()
+    val paramULong = (I ---> FFI.fromVal) paramULong_
 
-    val paramInt64 = fn () => (I ---> FFI.fromVal) paramInt64_ ()
+    val paramInt64 = (I ---> FFI.fromVal) paramInt64_
 
-    val paramUInt64 = fn () => (I ---> FFI.fromVal) paramUInt64_ ()
+    val paramUInt64 = (I ---> FFI.fromVal) paramUInt64_
 
-    val paramUnichar = fn () => (I ---> FFI.fromVal) paramUnichar_ ()
+    val paramUnichar = (I ---> FFI.fromVal) paramUnichar_
 
-    val paramEnum = fn () => (I ---> FFI.fromVal) paramEnum_ ()
+    val paramEnum = (I ---> FFI.fromVal) paramEnum_
 
-    val paramFlags = fn () => (I ---> FFI.fromVal) paramFlags_ ()
+    val paramFlags = (I ---> FFI.fromVal) paramFlags_
 
-    val paramFloat = fn () => (I ---> FFI.fromVal) paramFloat_ ()
+    val paramFloat = (I ---> FFI.fromVal) paramFloat_
 
-    val paramDouble = fn () => (I ---> FFI.fromVal) paramDouble_ ()
+    val paramDouble = (I ---> FFI.fromVal) paramDouble_
 
-    val paramString = fn () => (I ---> FFI.fromVal) paramString_ ()
+    val paramString = (I ---> FFI.fromVal) paramString_
 
-    val paramParam = fn () => (I ---> FFI.fromVal) paramParam_ ()
+    val paramParam = (I ---> FFI.fromVal) paramParam_
 
-    val paramBoxed = fn () => (I ---> FFI.fromVal) paramBoxed_ ()
+    val paramBoxed = (I ---> FFI.fromVal) paramBoxed_
 
-    val paramPointer = fn () => (I ---> FFI.fromVal) paramPointer_ ()
+    val paramPointer = (I ---> FFI.fromVal) paramPointer_
 
-    val paramValueArray = fn () => (I ---> FFI.fromVal) paramValueArray_ ()
+    val paramValueArray = (I ---> FFI.fromVal) paramValueArray_
 
-    val paramObject = fn () => (I ---> FFI.fromVal) paramObject_ ()
+    val paramObject = (I ---> FFI.fromVal) paramObject_
 
-    val paramOverride = fn () => (I ---> FFI.fromVal) paramOverride_ ()
+    val paramOverride = (I ---> FFI.fromVal) paramOverride_
 
-    val paramGType = fn () => (I ---> FFI.fromVal) paramGType_ ()
+    val paramGType = (I ---> FFI.fromVal) paramGType_
 
-    val paramVariant = fn () => (I ---> FFI.fromVal) paramVariant_ ()
+    val paramVariant = (I ---> FFI.fromVal) paramVariant_
   end

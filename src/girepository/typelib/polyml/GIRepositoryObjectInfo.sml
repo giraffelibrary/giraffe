@@ -176,168 +176,186 @@ structure GIRepositoryObjectInfo :>
     type 'a structinfo_class = 'a GIRepositoryStructInfoClass.class
 
 
-    val getTypeName =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
-          getTypeName_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0
+    in
+      fun getTypeName info = call getTypeName_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getTypeInit =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
-          getTypeInit_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0
+    in
+      fun getTypeInit info = call getTypeInit_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getAbstract =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) getAbstract_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getAbstract info = call getAbstract_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getFundamental =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) getFundamental_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getFundamental info = call getFundamental_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getParent =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryObjectInfoClass.FFI.fromOptPtr true)
-          getParent_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryObjectInfoClass.FFI.fromOptPtr true
+    in
+      fun getParent info = call getParent_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getNInterfaces =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNInterfaces_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getNInterfaces info = call getNInterfaces_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getInterface =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositoryInterfaceInfoClass.FFI.fromPtr true
-        )
-          getInterface_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryInterfaceInfoClass.FFI.fromPtr true
+    in
+      fun getInterface info n = call getInterface_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val getNFields =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNFields_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getNFields info = call getNFields_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getField =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositoryFieldInfoClass.FFI.fromPtr true
-        )
-          getField_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryFieldInfoClass.FFI.fromPtr true
+    in
+      fun getField info n = call getField_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val getNProperties =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNProperties_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getNProperties info = call getNProperties_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getProperty =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositoryPropertyInfoClass.FFI.fromPtr true
-        )
-          getProperty_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryPropertyInfoClass.FFI.fromPtr true
+    in
+      fun getProperty info n = call getProperty_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val getNMethods =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNMethods_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getNMethods info = call getNMethods_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getMethod =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
-        )
-          getMethod_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
+    in
+      fun getMethod info n = call getMethod_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val findMethod =
-      fn info => fn name =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> Utf8.FFI.withPtr 0
-           ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
-        )
-          findMethod_
-          (info & name)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         ---> GIRepositoryFunctionInfoClass.FFI.fromPtr true
+    in
+      fun findMethod info name = call findMethod_ (GIRepositoryBaseInfoClass.toBase info & name)
+    end
 
-    val getNSignals =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNSignals_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getNSignals info = call getNSignals_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getSignal =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositorySignalInfoClass.FFI.fromPtr true
-        )
-          getSignal_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositorySignalInfoClass.FFI.fromPtr true
+    in
+      fun getSignal info n = call getSignal_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val getNVfuncs =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNVfuncs_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getNVfuncs info = call getNVfuncs_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getVfunc =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositoryVFuncInfoClass.FFI.fromPtr true
-        )
-          getVfunc_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryVFuncInfoClass.FFI.fromPtr true
+    in
+      fun getVfunc info n = call getVfunc_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val getNConstants =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getNConstants_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getNConstants info = call getNConstants_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getConstant =
-      fn info => fn n =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> GInt32.FFI.withVal
-           ---> GIRepositoryConstantInfoClass.FFI.fromPtr true
-        )
-          getConstant_
-          (info & n)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryConstantInfoClass.FFI.fromPtr true
+    in
+      fun getConstant info n = call getConstant_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val getClassStruct =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryStructInfoClass.FFI.fromOptPtr true)
-          getClassStruct_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryStructInfoClass.FFI.fromOptPtr true
+    in
+      fun getClassStruct info = call getClassStruct_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val findVfunc =
-      fn info => fn name =>
-        (
-          GIRepositoryBaseInfoClass.FFI.withPtr false
-           &&&> Utf8.FFI.withPtr 0
-           ---> GIRepositoryVFuncInfoClass.FFI.fromPtr true
-        )
-          findVfunc_
-          (info & name)
+    local
+      val call = 
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         ---> GIRepositoryVFuncInfoClass.FFI.fromPtr true
+    in
+      fun findVfunc info name = call findVfunc_ (GIRepositoryBaseInfoClass.toBase info & name)
+    end
 
-    val getUnrefFunction =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
-          getUnrefFunction_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0
+    in
+      fun getUnrefFunction info = call getUnrefFunction_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getRefFunction =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
-          getRefFunction_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0
+    in
+      fun getRefFunction info = call getRefFunction_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getSetValueFunction =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
-          getSetValueFunction_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0
+    in
+      fun getSetValueFunction info = call getSetValueFunction_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getGetValueFunction =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
-          getGetValueFunction_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0
+    in
+      fun getGetValueFunction info = call getGetValueFunction_ (GIRepositoryBaseInfoClass.toBase info)
+    end
   end

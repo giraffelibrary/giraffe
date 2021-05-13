@@ -32,6 +32,6 @@ signature G_I_REPOSITORY_ARGUMENT =
         type non_opt
         type 'a p
         val withNewPtr : (non_opt p -> 'a) -> unit -> (non_opt p, 'a) pair
-        val fromPtr : typetag_t -> non_opt p -> t
+        val fromPtr : non_opt p -> typetag_t -> t
       end
   end

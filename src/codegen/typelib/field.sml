@@ -885,14 +885,7 @@ fun addFieldAccessorStrDec
               (SET, IINTERFACE {iRef as {ty = CLASS, ...}, isOpt, ...}) =>
                 mkParenExp (
                   ExpApp (
-                    let
-                      val toBaseExp =
-                        mkLIdLNameExp (prefixInterfaceStrId iRef [toBaseId])
-                    in
-                      if isOpt
-                      then ExpApp (mkLIdLNameExp [optionStrId, mapId], toBaseExp)
-                      else toBaseExp
-                    end,
+                    toBaseOptExp isOpt iRef,
                     xExp
                   )
                 )

@@ -99,89 +99,103 @@ structure GIRepositoryRepository :>
      * The bindings to the C functions that are subsequently wrapped have the
      * suffix '1'. *)
 
-    fun getDefault () =
-      (I ---> GIRepositoryRepositoryClass.FFI.fromPtr false) getDefault_ ()
+    local
+      val call = I ---> GIRepositoryRepositoryClass.FFI.fromPtr false
+    in
+      fun getDefault () = call getDefault_ ()
+    end
 
-    fun loadTypelib repository typelib flags =
-      (
+    local
+      val call = 
         GObjectObjectClass.FFI.withPtr false
          &&&> GIRepositoryTypelibType.FFI.withPtr false
          &&&> GIRepositoryRepositoryLoadFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> Utf8.FFI.fromPtr 0
-      )
-        loadTypelib_
-        (repository & typelib & flags & [])
+    in
+      fun loadTypelib repository typelib flags =
+        call loadTypelib_ (GObjectObjectClass.toBase repository & typelib & flags & [])
+    end
 
-    fun prependSearchPath directory =
-      (Utf8.FFI.withPtr 0 ---> I) prependSearchPath_ directory
+    local
+      val call = Utf8.FFI.withPtr 0 ---> I
+    in
+      fun prependSearchPath directory = call prependSearchPath_ directory
+    end
 
-    fun require1 repository (namespace_, version, flags) =
-      (
+    local
+      val call = 
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GIRepositoryRepositoryLoadFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GIRepositoryTypelibType.FFI.fromPtr false
-      )
-        require_
-        (repository & namespace_ & version & flags & [])
+    in
+      fun require1 repository (namespace_, version, flags) =
+        call require_ (GObjectObjectClass.toBase repository & namespace_ & version & flags & [])
+    end
 
-    fun getDependencies1 repository namespace_ =
-      (
+    local
+      val call = 
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          ---> Utf8CPtrArray.FFI.fromOptPtr 2
-      )
-        getDependencies_
-        (repository & namespace_)
+    in
+      fun getDependencies1 repository namespace_ =
+        call getDependencies_ (GObjectObjectClass.toBase repository & namespace_)
+    end
 
-    fun getNInfos1 repository namespace_ =
-      (
+    local
+      val call = 
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          ---> GInt32.FFI.fromVal
-      )
-        getNInfos_
-        (repository & namespace_)
+    in
+      fun getNInfos1 repository namespace_ =
+        call getNInfos_ (GObjectObjectClass.toBase repository & namespace_)
+    end
 
-    fun getInfo1 repository namespace_ index =
-      (
+    local
+      val call = 
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GInt32.FFI.withVal
          ---> GIRepositoryBaseInfoClass.FFI.fromPtr true
-      )
-        getInfo_
-        (repository & namespace_ & index)
+    in
+      fun getInfo1 repository namespace_ index =
+        call getInfo_ (GObjectObjectClass.toBase repository & namespace_ & index)
+    end
 
-    fun getSharedLibrary1 repository namespace =
-      (
+    local
+      val call = 
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          ---> Utf8.FFI.fromOptPtr 0
-      )
-        getSharedLibrary_
-        (repository & namespace)
+    in
+      fun getSharedLibrary1 repository namespace =
+        call getSharedLibrary_ (GObjectObjectClass.toBase repository & namespace)
+    end
 
-    fun getVersion1 repository namespace =
-      (
+    local
+      val call = 
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          ---> Utf8.FFI.fromOptPtr 0
-      )
-        getVersion_
-        (repository & namespace)
+    in
+      fun getVersion1 repository namespace =
+        call getVersion_ (GObjectObjectClass.toBase repository & namespace)
+    end
 
-    fun getCPrefix1 repository namespace_ =
-      (
+    local
+      val call = 
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          ---> Utf8.FFI.fromOptPtr 0
-      )
-        getCPrefix_
-        (repository & namespace_)
+    in
+      fun getCPrefix1 repository namespace_ =
+        call getCPrefix_ (GObjectObjectClass.toBase repository & namespace_)
+    end
 
 
     (* `typelibvers_t` is a map from names to versions. *)

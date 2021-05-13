@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -41,11 +41,11 @@ signature CLASS =
         type 'a p = 'a C.p
         type ('a, 'b) r
 
-        val withPtr    : bool -> (non_opt p -> 'a) -> 'b class        -> 'a
-        val withOptPtr : bool -> (opt     p -> 'a) -> 'b class option -> 'a
+        val withPtr    : bool -> (non_opt p -> 'a) -> base class        -> 'a
+        val withOptPtr : bool -> (opt     p -> 'a) -> base class option -> 'a
 
-        val withRefPtr    : bool -> ((non_opt, 'a) r -> 'b) -> 'c class        -> ('a p, 'b) pair
-        val withRefOptPtr : bool -> ((opt,     'a) r -> 'b) -> 'c class option -> ('a p, 'b) pair
+        val withRefPtr    : bool -> ((non_opt, 'a) r -> 'b) -> base class        -> ('a p, 'b) pair
+        val withRefOptPtr : bool -> ((opt,     'a) r -> 'b) -> base class option -> ('a p, 'b) pair
 
         val fromPtr    : bool -> non_opt p -> base class
         val fromOptPtr : bool -> opt     p -> base class option

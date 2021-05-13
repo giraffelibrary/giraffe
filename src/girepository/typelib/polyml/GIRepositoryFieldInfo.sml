@@ -34,17 +34,27 @@ structure GIRepositoryFieldInfo :>
     type fieldinfoflags_t = GIRepositoryFieldInfoFlags.t
 
 
-    val getFlags =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryFieldInfoFlags.FFI.fromVal) getFlags_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryFieldInfoFlags.FFI.fromVal
+    in
+      fun getFlags info = call getFlags_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getSize = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getSize_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getSize info = call getSize_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getOffset = fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getOffset_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getOffset info = call getOffset_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getType =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
-          getType_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true
+    in
+      fun getType info = call getType_ (GIRepositoryBaseInfoClass.toBase info)
+    end
   end

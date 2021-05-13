@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -41,11 +41,11 @@ signature UNION =
         type 'a p = 'a C.p
         type ('a, 'b) r
 
-        val withPtr    : bool -> (non_opt p -> 'a) -> 'b union        -> 'a
-        val withOptPtr : bool -> (opt     p -> 'a) -> 'b union option -> 'a
+        val withPtr    : bool -> (non_opt p -> 'a) -> base union        -> 'a
+        val withOptPtr : bool -> (opt     p -> 'a) -> base union option -> 'a
 
-        val withRefPtr    : bool -> ((non_opt, 'a) r -> 'b) -> 'c union        -> ('a p, 'b) pair
-        val withRefOptPtr : bool -> ((opt,     'a) r -> 'b) -> 'c union option -> ('a p, 'b) pair
+        val withRefPtr    : bool -> ((non_opt, 'a) r -> 'b) -> base union        -> ('a p, 'b) pair
+        val withRefOptPtr : bool -> ((opt,     'a) r -> 'b) -> base union option -> ('a p, 'b) pair
 
         val fromPtr : bool -> non_opt p -> base union
         val fromOptPtr : bool -> opt p -> base union option

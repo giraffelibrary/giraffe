@@ -268,230 +268,314 @@ structure GLibIOChannel :>
     type i_o_status_t = GLibIOStatus.t
     type i_o_channel_error_t = GLibIOChannelError.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun newFile (filename, mode) =
-      (
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GLibIOChannelRecord.FFI.fromPtr true
-      )
-        newFile_
-        (
-          filename
-           & mode
-           & []
-        )
-    fun unixNew fd = (GFileDesc.FFI.withVal ---> GLibIOChannelRecord.FFI.fromPtr true) unixNew_ fd
-    fun close self = (GLibIOChannelRecord.FFI.withPtr false ---> I) close_ self
-    fun flush self = (GLibIOChannelRecord.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GLibIOStatus.FFI.fromVal) flush_ (self & [])
-    fun getBufferCondition self = (GLibIOChannelRecord.FFI.withPtr false ---> GLibIOCondition.FFI.fromVal) getBufferCondition_ self
-    fun getBufferSize self = (GLibIOChannelRecord.FFI.withPtr false ---> GSize.FFI.fromVal) getBufferSize_ self
-    fun getBuffered self = (GLibIOChannelRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getBuffered_ self
-    fun getCloseOnUnref self = (GLibIOChannelRecord.FFI.withPtr false ---> GBool.FFI.fromVal) getCloseOnUnref_ self
-    fun getEncoding self = (GLibIOChannelRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0) getEncoding_ self before GLibIOChannelRecord.FFI.touchPtr self
-    fun getFlags self = (GLibIOChannelRecord.FFI.withPtr false ---> GLibIOFlags.FFI.fromVal) getFlags_ self
-    fun init self = (GLibIOChannelRecord.FFI.withPtr false ---> I) init_ self
-    fun readChars self count =
-      let
-        val buf
-         & bytesRead
-         & retVal =
+    in
+      fun newFile (filename, mode) =
+        call newFile_
           (
-            GLibIOChannelRecord.FFI.withPtr false
-             &&&> GUInt8CArrayN.FFI.withNewPtr
-             &&&> GSize.FFI.withVal
-             &&&> GSize.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> GUInt8CArrayN.FFI.fromPtr ~1
-                   && GSize.FFI.fromVal
-                   && GLibIOStatus.FFI.fromVal
+            filename
+             & mode
+             & []
           )
-            readChars_
-            (
-              self
-               & count
-               & count
-               & GSize.null
-               & []
-            )
-      in
-        (
-          retVal,
-          buf count,
-          bytesRead
-        )
-      end
-    fun readLine self =
-      let
-        val strReturn
-         & length
-         & terminatorPos
-         & retVal =
+    end
+    local
+      val call = GFileDesc.FFI.withVal ---> GLibIOChannelRecord.FFI.fromPtr true
+    in
+      fun unixNew fd = call unixNew_ fd
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false ---> I
+    in
+      fun close self = call close_ self
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false &&&> GLibErrorRecord.handleError ---> GLibIOStatus.FFI.fromVal
+    in
+      fun flush self = call flush_ (self & [])
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false ---> GLibIOCondition.FFI.fromVal
+    in
+      fun getBufferCondition self = call getBufferCondition_ self
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false ---> GSize.FFI.fromVal
+    in
+      fun getBufferSize self = call getBufferSize_ self
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getBuffered self = call getBuffered_ self
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun getCloseOnUnref self = call getCloseOnUnref_ self
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false ---> Utf8.FFI.fromPtr 0
+    in
+      fun getEncoding self = call getEncoding_ self before GLibIOChannelRecord.FFI.touchPtr self
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false ---> GLibIOFlags.FFI.fromVal
+    in
+      fun getFlags self = call getFlags_ self
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false ---> I
+    in
+      fun init self = call init_ self
+    end
+    local
+      val call =
+        GLibIOChannelRecord.FFI.withPtr false
+         &&&> GUInt8CArrayN.FFI.withNewPtr
+         &&&> GSize.FFI.withVal
+         &&&> GSize.FFI.withRefVal
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt8CArrayN.FFI.fromPtr ~1
+               && GSize.FFI.fromVal
+               && GLibIOStatus.FFI.fromVal
+    in
+      fun readChars self count =
+        let
+          val buf
+           & bytesRead
+           & retVal =
+            call readChars_
+              (
+                self
+                 & count
+                 & count
+                 & GSize.null
+                 & []
+              )
+        in
           (
-            GLibIOChannelRecord.FFI.withPtr false
-             &&&> Utf8.FFI.withRefOptPtr 0
-             &&&> GSize.FFI.withRefVal
-             &&&> GSize.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> Utf8.FFI.fromPtr ~1
-                   && GSize.FFI.fromVal
-                   && GSize.FFI.fromVal
-                   && GLibIOStatus.FFI.fromVal
+            retVal,
+            buf count,
+            bytesRead
           )
-            readLine_
-            (
-              self
-               & NONE
-               & GSize.null
-               & GSize.null
-               & []
-            )
-      in
-        (
-          retVal,
-          strReturn,
-          length,
-          terminatorPos
-        )
-      end
-    fun readToEnd self =
-      let
-        val strReturn
-         & length
-         & retVal =
+        end
+    end
+    local
+      val call =
+        GLibIOChannelRecord.FFI.withPtr false
+         &&&> Utf8.FFI.withRefOptPtr 0
+         &&&> GSize.FFI.withRefVal
+         &&&> GSize.FFI.withRefVal
+         &&&> GLibErrorRecord.handleError
+         ---> Utf8.FFI.fromPtr ~1
+               && GSize.FFI.fromVal
+               && GSize.FFI.fromVal
+               && GLibIOStatus.FFI.fromVal
+    in
+      fun readLine self =
+        let
+          val strReturn
+           & length
+           & terminatorPos
+           & retVal =
+            call readLine_
+              (
+                self
+                 & NONE
+                 & GSize.null
+                 & GSize.null
+                 & []
+              )
+        in
           (
-            GLibIOChannelRecord.FFI.withPtr false
-             &&&> GUInt8CArrayN.FFI.withRefOptPtr 0
-             &&&> GSize.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> GUInt8CArrayN.FFI.fromPtr ~1
-                   && GSize.FFI.fromVal
-                   && GLibIOStatus.FFI.fromVal
+            retVal,
+            strReturn,
+            length,
+            terminatorPos
           )
-            readToEnd_
-            (
-              self
-               & NONE
-               & GSize.null
-               & []
-            )
-      in
-        (retVal, strReturn length)
-      end
-    fun readUnichar self =
-      let
-        val thechar & retVal =
-          (
-            GLibIOChannelRecord.FFI.withPtr false
-             &&&> GChar.FFI.withRefVal
-             &&&> GLibErrorRecord.handleError
-             ---> GChar.FFI.fromVal && GLibIOStatus.FFI.fromVal
-          )
-            readUnichar_
-            (
-              self
-               & GChar.null
-               & []
-            )
-      in
-        (retVal, thechar)
-      end
-    fun seek self (offset, type') =
-      (
+        end
+    end
+    local
+      val call =
+        GLibIOChannelRecord.FFI.withPtr false
+         &&&> GUInt8CArrayN.FFI.withRefOptPtr 0
+         &&&> GSize.FFI.withRefVal
+         &&&> GLibErrorRecord.handleError
+         ---> GUInt8CArrayN.FFI.fromPtr ~1
+               && GSize.FFI.fromVal
+               && GLibIOStatus.FFI.fromVal
+    in
+      fun readToEnd self =
+        let
+          val strReturn
+           & length
+           & retVal =
+            call readToEnd_
+              (
+                self
+                 & NONE
+                 & GSize.null
+                 & []
+              )
+        in
+          (retVal, strReturn length)
+        end
+    end
+    local
+      val call =
+        GLibIOChannelRecord.FFI.withPtr false
+         &&&> GChar.FFI.withRefVal
+         &&&> GLibErrorRecord.handleError
+         ---> GChar.FFI.fromVal && GLibIOStatus.FFI.fromVal
+    in
+      fun readUnichar self =
+        let
+          val thechar & retVal =
+            call readUnichar_
+              (
+                self
+                 & GChar.null
+                 & []
+              )
+        in
+          (retVal, thechar)
+        end
+    end
+    local
+      val call =
         GLibIOChannelRecord.FFI.withPtr false
          &&&> GInt64.FFI.withVal
          &&&> GLibSeekType.FFI.withVal
          ---> GLibIOError.FFI.fromVal
-      )
-        seek_
-        (
-          self
-           & offset
-           & type'
-        )
-    fun seekPosition self (offset, type') =
-      (
+    in
+      fun seek self (offset, type') =
+        call seek_
+          (
+            self
+             & offset
+             & type'
+          )
+    end
+    local
+      val call =
         GLibIOChannelRecord.FFI.withPtr false
          &&&> GInt64.FFI.withVal
          &&&> GLibSeekType.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.FFI.fromVal
-      )
-        seekPosition_
-        (
-          self
-           & offset
-           & type'
-           & []
-        )
-    fun setBufferSize self size = (GLibIOChannelRecord.FFI.withPtr false &&&> GSize.FFI.withVal ---> I) setBufferSize_ (self & size)
-    fun setBuffered self buffered = (GLibIOChannelRecord.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setBuffered_ (self & buffered)
-    fun setCloseOnUnref self doClose = (GLibIOChannelRecord.FFI.withPtr false &&&> GBool.FFI.withVal ---> I) setCloseOnUnref_ (self & doClose)
-    fun setEncoding self encoding =
-      (
+    in
+      fun seekPosition self (offset, type') =
+        call seekPosition_
+          (
+            self
+             & offset
+             & type'
+             & []
+          )
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false &&&> GSize.FFI.withVal ---> I
+    in
+      fun setBufferSize self size = call setBufferSize_ (self & size)
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setBuffered self buffered = call setBuffered_ (self & buffered)
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false &&&> GBool.FFI.withVal ---> I
+    in
+      fun setCloseOnUnref self doClose = call setCloseOnUnref_ (self & doClose)
+    end
+    local
+      val call =
         GLibIOChannelRecord.FFI.withPtr false
          &&&> Utf8.FFI.withOptPtr 0
          &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.FFI.fromVal
-      )
-        setEncoding_
-        (
-          self
-           & encoding
-           & []
-        )
-    fun setFlags self flags =
-      (
+    in
+      fun setEncoding self encoding =
+        call setEncoding_
+          (
+            self
+             & encoding
+             & []
+          )
+    end
+    local
+      val call =
         GLibIOChannelRecord.FFI.withPtr false
          &&&> GLibIOFlags.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.FFI.fromVal
-      )
-        setFlags_
-        (
-          self
-           & flags
-           & []
-        )
-    fun setLineTerm self (lineTerm, length) =
-      (
+    in
+      fun setFlags self flags =
+        call setFlags_
+          (
+            self
+             & flags
+             & []
+          )
+    end
+    local
+      val call =
         GLibIOChannelRecord.FFI.withPtr false
          &&&> Utf8.FFI.withOptPtr 0
          &&&> GInt.FFI.withVal
          ---> I
-      )
-        setLineTerm_
-        (
-          self
-           & lineTerm
-           & length
-        )
-    fun shutdown self flush =
-      (
+    in
+      fun setLineTerm self (lineTerm, length) =
+        call setLineTerm_
+          (
+            self
+             & lineTerm
+             & length
+          )
+    end
+    local
+      val call =
         GLibIOChannelRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.FFI.fromVal
-      )
-        shutdown_
-        (
-          self
-           & flush
-           & []
-        )
-    fun unixGetFd self = (GLibIOChannelRecord.FFI.withPtr false ---> GFileDesc.FFI.fromVal) unixGetFd_ self
-    fun writeUnichar self thechar =
-      (
+    in
+      fun shutdown self flush =
+        call shutdown_
+          (
+            self
+             & flush
+             & []
+          )
+    end
+    local
+      val call = GLibIOChannelRecord.FFI.withPtr false ---> GFileDesc.FFI.fromVal
+    in
+      fun unixGetFd self = call unixGetFd_ self
+    end
+    local
+      val call =
         GLibIOChannelRecord.FFI.withPtr false
          &&&> GChar.FFI.withVal
          &&&> GLibErrorRecord.handleError
          ---> GLibIOStatus.FFI.fromVal
-      )
-        writeUnichar_
-        (
-          self
-           & thechar
-           & []
-        )
-    fun errorFromErrno en = (GInt.FFI.withVal ---> GLibIOChannelError.FFI.fromVal) errorFromErrno_ en
+    in
+      fun writeUnichar self thechar =
+        call writeUnichar_
+          (
+            self
+             & thechar
+             & []
+          )
+    end
+    local
+      val call = GInt.FFI.withVal ---> GLibIOChannelError.FFI.fromVal
+    in
+      fun errorFromErrno en = call errorFromErrno_ en
+    end
   end

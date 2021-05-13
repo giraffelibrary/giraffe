@@ -29,21 +29,21 @@ structure GIRepositoryPropertyInfo :>
     type transfer_t = GIRepositoryTransfer.t
 
 
-    val getFlags =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GObjectParamFlags.FFI.fromVal)
-          getFlags_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GObjectParamFlags.FFI.fromVal
+    in
+      fun getFlags info = call getFlags_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getType =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true)
-          getType_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeInfoClass.FFI.fromPtr true
+    in
+      fun getType info = call getType_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getOwnershipTransfer =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTransfer.FFI.fromVal)
-        getOwnershipTransfer_
-        info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTransfer.FFI.fromVal
+    in
+      fun getOwnershipTransfer info = call getOwnershipTransfer_ (GIRepositoryBaseInfoClass.toBase info)
+    end
   end

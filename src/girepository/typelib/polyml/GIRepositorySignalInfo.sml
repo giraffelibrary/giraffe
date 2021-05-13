@@ -27,18 +27,21 @@ structure GIRepositorySignalInfo :>
     type 'a vfuncinfo_class = 'a GIRepositoryVFuncInfoClass.class
 
 
-    val getFlags =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GObjectSignalFlags.FFI.fromVal)
-          getFlags_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GObjectSignalFlags.FFI.fromVal
+    in
+      fun getFlags info = call getFlags_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getClassClosure =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryVFuncInfoClass.FFI.fromOptPtr true)
-          getClassClosure_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryVFuncInfoClass.FFI.fromOptPtr true
+    in
+      fun getClassClosure info = call getClassClosure_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val trueStopsEmit =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) trueStopsEmit_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun trueStopsEmit info = call trueStopsEmit_ (GIRepositoryBaseInfoClass.toBase info)
+    end
   end

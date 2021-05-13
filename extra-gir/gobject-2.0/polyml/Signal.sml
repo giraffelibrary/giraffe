@@ -53,39 +53,45 @@ structure Signal :>
 
     type id = GULong.FFI.val_
 
-    fun signalConnectClosure instance detailedSignal closure after =
-      (
+    local
+      val call =
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectClosureRecord.FFI.withPtr false
          &&&> GBool.FFI.withVal
          ---> I
-      )
-        signalConnectClosure_
-        (
-          instance
-           & detailedSignal
-           & closure
-           & after
-        )
+    in
+      fun signalConnectClosure instance detailedSignal closure after =
+        call signalConnectClosure_
+          (
+            GObjectObjectClass.toBase instance
+             & detailedSignal
+             & closure
+             & after
+          )
+    end
 
-    fun signalHandlerDisconnect instance handlerId =
-      (
+    local
+      val call =
         GObjectObjectClass.FFI.withPtr false
          &&&> I
          ---> I
-      )
-        signalHandlerDisconnect_
-        (instance & handlerId)
+    in
+      fun signalHandlerDisconnect instance handlerId =
+        call signalHandlerDisconnect_
+          (GObjectObjectClass.toBase instance & handlerId)
+    end
 
-    fun signalHandlerIsConnected instance handlerId =
-      (
+    local
+      val call =
         GObjectObjectClass.FFI.withPtr false
          &&&> I
          ---> GBool.FFI.fromVal
-      )
-        signalHandlerIsConnected_
-        (instance & handlerId)
+    in
+      fun signalHandlerIsConnected instance handlerId =
+        call signalHandlerIsConnected_
+          (GObjectObjectClass.toBase instance & handlerId)
+    end
 
     fun log action =
       if GiraffeDebug.getClosure ()
@@ -101,7 +107,7 @@ structure Signal :>
             " instance ",
             GObjectObjectClass.FFI.withPtr false
               GObjectObjectClass.C.Pointer.toString
-              instance,
+              (GObjectObjectClass.toBase instance),
             " (type ",
             GObjectType.name (GObjectObjectClass.instanceType instance),
             ")\n"

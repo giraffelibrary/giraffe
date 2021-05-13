@@ -41,7 +41,7 @@ structure ValueAccessor :>
         fun get ({getValue, ...} : ('a, 'b) t) v = getValue v
         fun set ({setValue, ...} : ('a, 'b) t) v x = setValue (v & x)
         fun init v gtype =
-          (I &&&> GObjectType.FFI.withVal ---> I) (ignore o init_) (v & gtype)
+          (I &&&> GObjectType.FFI.withVal ---> ignore) init_ (v & gtype)
 
         val isValue = (I ---> GBool.FFI.fromVal) isValue_
       end
@@ -54,17 +54,22 @@ structure ValueAccessor :>
 
     fun gtype {getType, ...} = getType ()
 
-    fun new t x =
-      let
-        val value & () =
-          (GObjectValueRecord.FFI.withNewPtr &&&> GObjectType.FFI.withVal
-            ---> GObjectValueRecord.FFI.fromPtr true && I)
-            (ignore o init_)
-            (() & gtype t)
-        val () = set t value x
-      in
-        value
-      end
+    local
+      val call =
+        GObjectValueRecord.FFI.withNewPtr &&&> GObjectType.FFI.withVal
+         ---> GObjectValueRecord.FFI.fromPtr true && ignore
+    in
+      fun new t x =
+        let
+          val value & () =
+            call
+              init_
+              (() & gtype t)
+          val () = set t value x
+        in
+          value
+        end
+    end
 
     fun map (getConv, setConv) {getType, getValue, setValue} =
       {

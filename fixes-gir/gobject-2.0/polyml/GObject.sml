@@ -401,68 +401,75 @@ structure GObject :
     val TYPE_RESERVED_USER_FIRST = 49
     val VALUE_INTERNED_STRING = 268435456
     val VALUE_NOCOPY_CONTENTS = 134217728
-    fun enumToString (gEnumType, value) = (GObjectType.FFI.withVal &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr ~1) enumToString_ (gEnumType & value)
-    fun flagsToString (flagsType, value) = (GObjectType.FFI.withVal &&&> GUInt.FFI.withVal ---> Utf8.FFI.fromPtr ~1) flagsToString_ (flagsType & value)
-    fun gtypeGetType () = (I ---> GObjectType.FFI.fromVal) gtypeGetType_ ()
-    fun paramSpecBoolean
-      (
-        name,
-        nick,
-        blurb,
-        defaultValue,
-        flags
-      ) =
-      (
+    local
+      val call = GObjectType.FFI.withVal &&&> GInt.FFI.withVal ---> Utf8.FFI.fromPtr ~1
+    in
+      fun enumToString (gEnumType, value) = call enumToString_ (gEnumType & value)
+    end
+    local
+      val call = GObjectType.FFI.withVal &&&> GUInt.FFI.withVal ---> Utf8.FFI.fromPtr ~1
+    in
+      fun flagsToString (flagsType, value) = call flagsToString_ (flagsType & value)
+    end
+    local
+      val call = I ---> GObjectType.FFI.fromVal
+    in
+      fun gtypeGetType () = call gtypeGetType_ ()
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GBool.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecBoolean_
+    in
+      fun paramSpecBoolean
         (
-          name
-           & nick
-           & blurb
-           & defaultValue
-           & flags
-        )
-    fun paramSpecBoxed
-      (
-        name,
-        nick,
-        blurb,
-        boxedType,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecBoolean_
+          (
+            name
+             & nick
+             & blurb
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectType.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecBoxed_
+    in
+      fun paramSpecBoxed
         (
-          name
-           & nick
-           & blurb
-           & boxedType
-           & flags
-        )
-    fun paramSpecChar
-      (
-        name,
-        nick,
-        blurb,
-        minimum,
-        maximum,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          boxedType,
+          flags
+        ) =
+        call paramSpecBoxed_
+          (
+            name
+             & nick
+             & blurb
+             & boxedType
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -471,28 +478,30 @@ structure GObject :
          &&&> GInt8.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecChar_
+    in
+      fun paramSpecChar
         (
-          name
-           & nick
-           & blurb
-           & minimum
-           & maximum
-           & defaultValue
-           & flags
-        )
-    fun paramSpecDouble
-      (
-        name,
-        nick,
-        blurb,
-        minimum,
-        maximum,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          minimum,
+          maximum,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecChar_
+          (
+            name
+             & nick
+             & blurb
+             & minimum
+             & maximum
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -501,27 +510,30 @@ structure GObject :
          &&&> GDouble.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecDouble_
+    in
+      fun paramSpecDouble
         (
-          name
-           & nick
-           & blurb
-           & minimum
-           & maximum
-           & defaultValue
-           & flags
-        )
-    fun paramSpecEnum
-      (
-        name,
-        nick,
-        blurb,
-        enumType,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          minimum,
+          maximum,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecDouble_
+          (
+            name
+             & nick
+             & blurb
+             & minimum
+             & maximum
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -529,26 +541,28 @@ structure GObject :
          &&&> GInt.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecEnum_
+    in
+      fun paramSpecEnum
         (
-          name
-           & nick
-           & blurb
-           & enumType
-           & defaultValue
-           & flags
-        )
-    fun paramSpecFlags
-      (
-        name,
-        nick,
-        blurb,
-        flagsType,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          enumType,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecEnum_
+          (
+            name
+             & nick
+             & blurb
+             & enumType
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -556,27 +570,28 @@ structure GObject :
          &&&> GUInt.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecFlags_
+    in
+      fun paramSpecFlags
         (
-          name
-           & nick
-           & blurb
-           & flagsType
-           & defaultValue
-           & flags
-        )
-    fun paramSpecFloat
-      (
-        name,
-        nick,
-        blurb,
-        minimum,
-        maximum,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          flagsType,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecFlags_
+          (
+            name
+             & nick
+             & blurb
+             & flagsType
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -585,52 +600,56 @@ structure GObject :
          &&&> GFloat.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecFloat_
+    in
+      fun paramSpecFloat
         (
-          name
-           & nick
-           & blurb
-           & minimum
-           & maximum
-           & defaultValue
-           & flags
-        )
-    fun paramSpecGtype
-      (
-        name,
-        nick,
-        blurb,
-        isAType,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          minimum,
+          maximum,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecFloat_
+          (
+            name
+             & nick
+             & blurb
+             & minimum
+             & maximum
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectType.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecGtype_
+    in
+      fun paramSpecGtype
         (
-          name
-           & nick
-           & blurb
-           & isAType
-           & flags
-        )
-    fun paramSpecInt
-      (
-        name,
-        nick,
-        blurb,
-        minimum,
-        maximum,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          isAType,
+          flags
+        ) =
+        call paramSpecGtype_
+          (
+            name
+             & nick
+             & blurb
+             & isAType
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -639,28 +658,30 @@ structure GObject :
          &&&> GInt.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecInt_
+    in
+      fun paramSpecInt
         (
-          name
-           & nick
-           & blurb
-           & minimum
-           & maximum
-           & defaultValue
-           & flags
-        )
-    fun paramSpecInt64
-      (
-        name,
-        nick,
-        blurb,
-        minimum,
-        maximum,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          minimum,
+          maximum,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecInt_
+          (
+            name
+             & nick
+             & blurb
+             & minimum
+             & maximum
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -669,28 +690,30 @@ structure GObject :
          &&&> GInt64.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecInt64_
+    in
+      fun paramSpecInt64
         (
-          name
-           & nick
-           & blurb
-           & minimum
-           & maximum
-           & defaultValue
-           & flags
-        )
-    fun paramSpecLong
-      (
-        name,
-        nick,
-        blurb,
-        minimum,
-        maximum,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          minimum,
+          maximum,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecInt64_
+          (
+            name
+             & nick
+             & blurb
+             & minimum
+             & maximum
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -699,121 +722,131 @@ structure GObject :
          &&&> GLong.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecLong_
+    in
+      fun paramSpecLong
         (
-          name
-           & nick
-           & blurb
-           & minimum
-           & maximum
-           & defaultValue
-           & flags
-        )
-    fun paramSpecObject
-      (
-        name,
-        nick,
-        blurb,
-        objectType,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          minimum,
+          maximum,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecLong_
+          (
+            name
+             & nick
+             & blurb
+             & minimum
+             & maximum
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectType.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecObject_
+    in
+      fun paramSpecObject
         (
-          name
-           & nick
-           & blurb
-           & objectType
-           & flags
-        )
-    fun paramSpecParam
-      (
-        name,
-        nick,
-        blurb,
-        paramType,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          objectType,
+          flags
+        ) =
+        call paramSpecObject_
+          (
+            name
+             & nick
+             & blurb
+             & objectType
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectType.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecParam_
+    in
+      fun paramSpecParam
         (
-          name
-           & nick
-           & blurb
-           & paramType
-           & flags
-        )
-    fun paramSpecPointer
-      (
-        name,
-        nick,
-        blurb,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          paramType,
+          flags
+        ) =
+        call paramSpecParam_
+          (
+            name
+             & nick
+             & blurb
+             & paramType
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecPointer_
+    in
+      fun paramSpecPointer
         (
-          name
-           & nick
-           & blurb
-           & flags
-        )
-    fun paramSpecString
-      (
-        name,
-        nick,
-        blurb,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          flags
+        ) =
+        call paramSpecPointer_
+          (
+            name
+             & nick
+             & blurb
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withOptPtr 0
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecString_
+    in
+      fun paramSpecString
         (
-          name
-           & nick
-           & blurb
-           & defaultValue
-           & flags
-        )
-    fun paramSpecUchar
-      (
-        name,
-        nick,
-        blurb,
-        minimum,
-        maximum,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecString_
+          (
+            name
+             & nick
+             & blurb
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -822,28 +855,30 @@ structure GObject :
          &&&> GUInt8.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecUchar_
+    in
+      fun paramSpecUchar
         (
-          name
-           & nick
-           & blurb
-           & minimum
-           & maximum
-           & defaultValue
-           & flags
-        )
-    fun paramSpecUint
-      (
-        name,
-        nick,
-        blurb,
-        minimum,
-        maximum,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          minimum,
+          maximum,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecUchar_
+          (
+            name
+             & nick
+             & blurb
+             & minimum
+             & maximum
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -852,28 +887,30 @@ structure GObject :
          &&&> GUInt.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecUint_
+    in
+      fun paramSpecUint
         (
-          name
-           & nick
-           & blurb
-           & minimum
-           & maximum
-           & defaultValue
-           & flags
-        )
-    fun paramSpecUint64
-      (
-        name,
-        nick,
-        blurb,
-        minimum,
-        maximum,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          minimum,
+          maximum,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecUint_
+          (
+            name
+             & nick
+             & blurb
+             & minimum
+             & maximum
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -882,28 +919,30 @@ structure GObject :
          &&&> GUInt64.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecUint64_
+    in
+      fun paramSpecUint64
         (
-          name
-           & nick
-           & blurb
-           & minimum
-           & maximum
-           & defaultValue
-           & flags
-        )
-    fun paramSpecUlong
-      (
-        name,
-        nick,
-        blurb,
-        minimum,
-        maximum,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          minimum,
+          maximum,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecUint64_
+          (
+            name
+             & nick
+             & blurb
+             & minimum
+             & maximum
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -912,51 +951,56 @@ structure GObject :
          &&&> GULong.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecUlong_
+    in
+      fun paramSpecUlong
         (
-          name
-           & nick
-           & blurb
-           & minimum
-           & maximum
-           & defaultValue
-           & flags
-        )
-    fun paramSpecUnichar
-      (
-        name,
-        nick,
-        blurb,
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          minimum,
+          maximum,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecUlong_
+          (
+            name
+             & nick
+             & blurb
+             & minimum
+             & maximum
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> GChar.FFI.withVal
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecUnichar_
+    in
+      fun paramSpecUnichar
         (
-          name
-           & nick
-           & blurb
-           & defaultValue
-           & flags
-        )
-    fun paramSpecVariant
-      (
-        name,
-        nick,
-        blurb,
-        type',
-        defaultValue,
-        flags
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          defaultValue,
+          flags
+        ) =
+        call paramSpecUnichar_
+          (
+            name
+             & nick
+             & blurb
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call =
         Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
          &&&> Utf8.FFI.withPtr 0
@@ -964,144 +1008,270 @@ structure GObject :
          &&&> GLibVariantRecord.FFI.withOptPtr true
          &&&> GObjectParamFlags.FFI.withVal
          ---> GObjectParamSpecClass.FFI.fromPtr true
-      )
-        paramSpecVariant_
+    in
+      fun paramSpecVariant
         (
-          name
-           & nick
-           & blurb
-           & type'
-           & defaultValue
-           & flags
-        )
-    fun pointerTypeRegisterStatic name = (Utf8.FFI.withPtr 0 ---> GObjectType.FFI.fromVal) pointerTypeRegisterStatic_ name
-    fun signalIsValidName name = (Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal) signalIsValidName_ name
-    fun signalListIds itype =
-      let
-        val nIds & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUIntCArrayN.FFI.fromPtr ~1) signalListIds_ (itype & GUInt.null)
-      in
-        retVal (LargeInt.toInt nIds)
-      end
-    fun signalLookup (name, itype) = (Utf8.FFI.withPtr 0 &&&> GObjectType.FFI.withVal ---> GUInt.FFI.fromVal) signalLookup_ (name & itype)
-    fun signalOverrideClassClosure
-      (
-        signalId,
-        instanceType,
-        classClosure
-      ) =
-      (
+          name,
+          nick,
+          blurb,
+          type',
+          defaultValue,
+          flags
+        ) =
+        call paramSpecVariant_
+          (
+            name
+             & nick
+             & blurb
+             & type'
+             & defaultValue
+             & flags
+          )
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> GObjectType.FFI.fromVal
+    in
+      fun pointerTypeRegisterStatic name = call pointerTypeRegisterStatic_ name
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> GBool.FFI.fromVal
+    in
+      fun signalIsValidName name = call signalIsValidName_ name
+    end
+    local
+      val call = GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GUIntCArrayN.FFI.fromPtr ~1
+    in
+      fun signalListIds itype =
+        let
+          val nIds & retVal = call signalListIds_ (itype & GUInt.null)
+        in
+          retVal (LargeInt.toInt nIds)
+        end
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 &&&> GObjectType.FFI.withVal ---> GUInt.FFI.fromVal
+    in
+      fun signalLookup (name, itype) = call signalLookup_ (name & itype)
+    end
+    local
+      val call =
         GUInt.FFI.withVal
          &&&> GObjectType.FFI.withVal
          &&&> GObjectClosureRecord.FFI.withPtr false
          ---> I
-      )
-        signalOverrideClassClosure_
+    in
+      fun signalOverrideClassClosure
         (
-          signalId
-           & instanceType
-           & classClosure
-        )
-    fun signalParseName
-      (
-        detailedSignal,
-        itype,
-        forceDetailQuark
-      ) =
-      let
-        val signalIdP
-         & detailP
-         & retVal =
+          signalId,
+          instanceType,
+          classClosure
+        ) =
+        call signalOverrideClassClosure_
           (
-            Utf8.FFI.withPtr 0
-             &&&> GObjectType.FFI.withVal
-             &&&> GUInt.FFI.withRefVal
-             &&&> GLibQuark.FFI.withRefVal
-             &&&> GBool.FFI.withVal
-             ---> GUInt.FFI.fromVal
-                   && GLibQuark.FFI.fromVal
-                   && GBool.FFI.fromVal
+            signalId
+             & instanceType
+             & classClosure
           )
-            signalParseName_
-            (
-              detailedSignal
-               & itype
-               & GUInt.null
-               & GLibQuark.null
-               & forceDetailQuark
-            )
-      in
-        if retVal then SOME (signalIdP, detailP) else NONE
-      end
-    fun signalTypeCclosureNew (itype, structOffset) = (GObjectType.FFI.withVal &&&> GUInt.FFI.withVal ---> GObjectClosureRecord.FFI.fromPtr false) signalTypeCclosureNew_ (itype & structOffset)
-    fun typeAddClassPrivate (classType, privateSize) = (GObjectType.FFI.withVal &&&> GSize.FFI.withVal ---> I) typeAddClassPrivate_ (classType & privateSize)
-    fun typeAddInstancePrivate (classType, privateSize) = (GObjectType.FFI.withVal &&&> GSize.FFI.withVal ---> GInt.FFI.fromVal) typeAddInstancePrivate_ (classType & privateSize)
-    fun typeAddInterfaceDynamic
-      (
-        instanceType,
-        interfaceType,
-        plugin
-      ) =
-      (
+    end
+    local
+      val call =
+        Utf8.FFI.withPtr 0
+         &&&> GObjectType.FFI.withVal
+         &&&> GUInt.FFI.withRefVal
+         &&&> GLibQuark.FFI.withRefVal
+         &&&> GBool.FFI.withVal
+         ---> GUInt.FFI.fromVal
+               && GLibQuark.FFI.fromVal
+               && GBool.FFI.fromVal
+    in
+      fun signalParseName
+        (
+          detailedSignal,
+          itype,
+          forceDetailQuark
+        ) =
+        let
+          val signalIdP
+           & detailP
+           & retVal =
+            call signalParseName_
+              (
+                detailedSignal
+                 & itype
+                 & GUInt.null
+                 & GLibQuark.null
+                 & forceDetailQuark
+              )
+        in
+          if retVal then SOME (signalIdP, detailP) else NONE
+        end
+    end
+    local
+      val call = GObjectType.FFI.withVal &&&> GUInt.FFI.withVal ---> GObjectClosureRecord.FFI.fromPtr false
+    in
+      fun signalTypeCclosureNew (itype, structOffset) = call signalTypeCclosureNew_ (itype & structOffset)
+    end
+    local
+      val call = GObjectType.FFI.withVal &&&> GSize.FFI.withVal ---> I
+    in
+      fun typeAddClassPrivate (classType, privateSize) = call typeAddClassPrivate_ (classType & privateSize)
+    end
+    local
+      val call = GObjectType.FFI.withVal &&&> GSize.FFI.withVal ---> GInt.FFI.fromVal
+    in
+      fun typeAddInstancePrivate (classType, privateSize) = call typeAddInstancePrivate_ (classType & privateSize)
+    end
+    local
+      val call =
         GObjectType.FFI.withVal
          &&&> GObjectType.FFI.withVal
          &&&> GObjectTypePluginClass.FFI.withPtr false
          ---> I
-      )
-        typeAddInterfaceDynamic_
+    in
+      fun typeAddInterfaceDynamic
         (
-          instanceType
-           & interfaceType
-           & plugin
-        )
-    fun typeCheckIsValueType type' = (GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCheckIsValueType_ type'
-    fun typeCheckValueHolds (value, type') = (GObjectValueRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeCheckValueHolds_ (value & type')
-    fun typeChildren type' =
-      let
-        val nChildren & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr ~1) typeChildren_ (type' & GUInt.null)
-      in
-        retVal (LargeInt.toInt nChildren)
-      end
-    fun typeDepth type' = (GObjectType.FFI.withVal ---> GUInt.FFI.fromVal) typeDepth_ type'
-    fun typeEnsure type' = (GObjectType.FFI.withVal ---> I) typeEnsure_ type'
-    fun typeFromName name = (Utf8.FFI.withPtr 0 ---> GObjectType.FFI.fromVal) typeFromName_ name
-    fun typeFundamental typeId = (GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal) typeFundamental_ typeId
-    fun typeFundamentalNext () = (I ---> GObjectType.FFI.fromVal) typeFundamentalNext_ ()
-    fun typeGetInstanceCount type' = (GObjectType.FFI.withVal ---> GInt.FFI.fromVal) typeGetInstanceCount_ type'
-    fun typeGetPlugin type' = (GObjectType.FFI.withVal ---> GObjectTypePluginClass.FFI.fromPtr false) typeGetPlugin_ type'
-    fun typeGetTypeRegistrationSerial () = (I ---> GUInt.FFI.fromVal) typeGetTypeRegistrationSerial_ ()
-    fun typeInit () = (I ---> I) typeInit_ ()
-    fun typeInitWithDebugFlags debugFlags = (GObjectTypeDebugFlags.FFI.withVal ---> I) typeInitWithDebugFlags_ debugFlags
-    fun typeInterfaces type' =
-      let
-        val nInterfaces & retVal = (GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr ~1) typeInterfaces_ (type' & GUInt.null)
-      in
-        retVal (LargeInt.toInt nInterfaces)
-      end
-    fun typeIsA (type', isAType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal) typeIsA_ (type' & isAType)
-    fun typeName type' = (GObjectType.FFI.withVal ---> Utf8.FFI.fromPtr 0) typeName_ type'
-    fun typeNextBase (leafType, rootType) = (GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal) typeNextBase_ (leafType & rootType)
-    fun typeParent type' = (GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal) typeParent_ type'
-    fun typeQname type' = (GObjectType.FFI.withVal ---> GLibQuark.FFI.fromVal) typeQname_ type'
-    fun typeRegisterDynamic
-      (
-        parentType,
-        typeName,
-        plugin,
-        flags
-      ) =
-      (
+          instanceType,
+          interfaceType,
+          plugin
+        ) =
+        call typeAddInterfaceDynamic_
+          (
+            instanceType
+             & interfaceType
+             & GObjectTypePluginClass.toBase plugin
+          )
+    end
+    local
+      val call = GObjectType.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun typeCheckIsValueType type' = call typeCheckIsValueType_ type'
+    end
+    local
+      val call = GObjectValueRecord.FFI.withPtr false &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun typeCheckValueHolds (value, type') = call typeCheckValueHolds_ (value & type')
+    end
+    local
+      val call = GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr ~1
+    in
+      fun typeChildren type' =
+        let
+          val nChildren & retVal = call typeChildren_ (type' & GUInt.null)
+        in
+          retVal (LargeInt.toInt nChildren)
+        end
+    end
+    local
+      val call = GObjectType.FFI.withVal ---> GUInt.FFI.fromVal
+    in
+      fun typeDepth type' = call typeDepth_ type'
+    end
+    local
+      val call = GObjectType.FFI.withVal ---> I
+    in
+      fun typeEnsure type' = call typeEnsure_ type'
+    end
+    local
+      val call = Utf8.FFI.withPtr 0 ---> GObjectType.FFI.fromVal
+    in
+      fun typeFromName name = call typeFromName_ name
+    end
+    local
+      val call = GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal
+    in
+      fun typeFundamental typeId = call typeFundamental_ typeId
+    end
+    local
+      val call = I ---> GObjectType.FFI.fromVal
+    in
+      fun typeFundamentalNext () = call typeFundamentalNext_ ()
+    end
+    local
+      val call = GObjectType.FFI.withVal ---> GInt.FFI.fromVal
+    in
+      fun typeGetInstanceCount type' = call typeGetInstanceCount_ type'
+    end
+    local
+      val call = GObjectType.FFI.withVal ---> GObjectTypePluginClass.FFI.fromPtr false
+    in
+      fun typeGetPlugin type' = call typeGetPlugin_ type'
+    end
+    local
+      val call = I ---> GUInt.FFI.fromVal
+    in
+      fun typeGetTypeRegistrationSerial () = call typeGetTypeRegistrationSerial_ ()
+    end
+    local
+      val call = I ---> I
+    in
+      fun typeInit () = call typeInit_ ()
+    end
+    local
+      val call = GObjectTypeDebugFlags.FFI.withVal ---> I
+    in
+      fun typeInitWithDebugFlags debugFlags = call typeInitWithDebugFlags_ debugFlags
+    end
+    local
+      val call = GObjectType.FFI.withVal &&&> GUInt.FFI.withRefVal ---> GUInt.FFI.fromVal && GObjectTypeCArrayN.FFI.fromPtr ~1
+    in
+      fun typeInterfaces type' =
+        let
+          val nInterfaces & retVal = call typeInterfaces_ (type' & GUInt.null)
+        in
+          retVal (LargeInt.toInt nInterfaces)
+        end
+    end
+    local
+      val call = GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun typeIsA (type', isAType) = call typeIsA_ (type' & isAType)
+    end
+    local
+      val call = GObjectType.FFI.withVal ---> Utf8.FFI.fromPtr 0
+    in
+      fun typeName type' = call typeName_ type'
+    end
+    local
+      val call = GObjectType.FFI.withVal &&&> GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal
+    in
+      fun typeNextBase (leafType, rootType) = call typeNextBase_ (leafType & rootType)
+    end
+    local
+      val call = GObjectType.FFI.withVal ---> GObjectType.FFI.fromVal
+    in
+      fun typeParent type' = call typeParent_ type'
+    end
+    local
+      val call = GObjectType.FFI.withVal ---> GLibQuark.FFI.fromVal
+    in
+      fun typeQname type' = call typeQname_ type'
+    end
+    local
+      val call =
         GObjectType.FFI.withVal
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectTypePluginClass.FFI.withPtr false
          &&&> GObjectTypeFlags.FFI.withVal
          ---> GObjectType.FFI.fromVal
-      )
-        typeRegisterDynamic_
+    in
+      fun typeRegisterDynamic
         (
-          parentType
-           & typeName
-           & plugin
-           & flags
-        )
-    fun typeTestFlags (type', flags) = (GObjectType.FFI.withVal &&&> GUInt.FFI.withVal ---> GBool.FFI.fromVal) typeTestFlags_ (type' & flags)
+          parentType,
+          typeName,
+          plugin,
+          flags
+        ) =
+        call typeRegisterDynamic_
+          (
+            parentType
+             & typeName
+             & GObjectTypePluginClass.toBase plugin
+             & flags
+          )
+    end
+    local
+      val call = GObjectType.FFI.withVal &&&> GUInt.FFI.withVal ---> GBool.FFI.fromVal
+    in
+      fun typeTestFlags (type', flags) = call typeTestFlags_ (type' & flags)
+    end
   end

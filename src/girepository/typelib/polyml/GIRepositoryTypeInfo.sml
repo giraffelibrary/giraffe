@@ -58,39 +58,54 @@ structure GIRepositoryTypeInfo :>
     type 'a baseinfo_class = 'a GIRepositoryBaseInfoClass.class
 
 
-    val isPointer =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isPointer_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isPointer info = call isPointer_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getTag =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeTag.FFI.fromVal) getTag_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypeTag.FFI.fromVal
+    in
+      fun getTag info = call getTag_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getParamType =
-      fn info => fn n =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false
-          &&&> GInt32.FFI.withVal
-          ---> GIRepositoryTypeInfoClass.FFI.fromOptPtr true)
-          getParamType_
-          (info & n)
+    local
+      val call =
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GInt32.FFI.withVal
+         ---> GIRepositoryTypeInfoClass.FFI.fromOptPtr true
+    in
+      fun getParamType info n = call getParamType_ (GIRepositoryBaseInfoClass.toBase info & n)
+    end
 
-    val getInterface =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryBaseInfoClass.FFI.fromOptPtr true)
-          getInterface_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryBaseInfoClass.FFI.fromOptPtr true
+    in
+      fun getInterface info = call getInterface_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getArrayLength =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getArrayLength_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getArrayLength info = call getArrayLength_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getArrayFixedSize =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal) getArrayFixedSize_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GInt32.FFI.fromVal
+    in
+      fun getArrayFixedSize info = call getArrayFixedSize_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val isZeroTerminated =
-      fn info => (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal) isZeroTerminated_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isZeroTerminated info = call isZeroTerminated_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getArrayType =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryArrayType.FFI.fromVal)
-          getArrayType_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryArrayType.FFI.fromVal
+    in
+      fun getArrayType info = call getArrayType_ (GIRepositoryBaseInfoClass.toBase info)
+    end
   end

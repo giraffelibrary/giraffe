@@ -62,33 +62,37 @@ structure Property :>
     type 'a object_class = 'a GObjectObjectClass.class
     type 'a binding_class = 'a GObjectBindingClass.class
 
-    fun getProperty self (propertyName, value) =
-      (
+    local
+      val call =
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectValueRecord.FFI.withPtr false
          ---> I
-      )
-        getProperty_
-        (
-          self
-           & propertyName
-           & value
-        )
+    in
+      fun getProperty self (propertyName, value) =
+        call getProperty_
+          (
+            GObjectObjectClass.toBase self
+             & propertyName
+             & value
+          )
+    end
 
-    fun setProperty self (propertyName, value) =
-      (
+    local
+      val call =
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectValueRecord.FFI.withPtr false
          ---> I
-      )
-        setProperty_
-        (
-          self
-           & propertyName
-           & value
-        )
+    in
+      fun setProperty self (propertyName, value) =
+        call setProperty_
+          (
+            GObjectObjectClass.toBase self
+             & propertyName
+             & value
+          )
+    end
 
     type ('object_class, 'get, 'set, 'init) t =
       {
@@ -136,42 +140,35 @@ structure Property :>
     fun initName {name, ...} = name
     fun initValue {init, ...} v = init v
 
-    fun bindProperty
-      (
-        source,
-        sourceProperty,
-        target,
-        targetProperty,
-        flags
-      ) =
-      (
+    local
+      val call =
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectBindingFlags.FFI.withVal
          ---> GObjectBindingClass.FFI.fromPtr false
-      )
-        bindProperty_
+    in
+      fun bindProperty
         (
-          source
-           & sourceProperty
-           & target
-           & targetProperty
-           & flags
-        )
+          source,
+          sourceProperty,
+          target,
+          targetProperty,
+          flags
+        ) =
+        call bindProperty_
+          (
+            GObjectObjectClass.toBase source
+             & sourceProperty
+             & GObjectObjectClass.toBase target
+             & targetProperty
+             & flags
+          )
+    end
 
-    fun bindPropertyFull
-      (
-        source,
-        sourceProperty,
-        target,
-        targetProperty,
-        flags,
-        transformTo,
-        transformFrom
-      ) =
-      (
+    local
+      val call =
         GObjectObjectClass.FFI.withPtr false
          &&&> Utf8.FFI.withPtr 0
          &&&> GObjectObjectClass.FFI.withPtr false
@@ -180,17 +177,28 @@ structure Property :>
          &&&> GObjectClosureRecord.FFI.withOptPtr false
          &&&> GObjectClosureRecord.FFI.withOptPtr false
          ---> GObjectBindingClass.FFI.fromPtr false
-      )
-        bindPropertyFull_
+    in
+      fun bindPropertyFull
         (
-          source
-           & sourceProperty
-           & target
-           & targetProperty
-           & flags
-           & transformTo
-           & transformFrom
-        )
+          source,
+          sourceProperty,
+          target,
+          targetProperty,
+          flags,
+          transformTo,
+          transformFrom
+        ) =
+        call bindPropertyFull_
+          (
+            GObjectObjectClass.toBase source
+             & sourceProperty
+             & GObjectObjectClass.toBase target
+             & targetProperty
+             & flags
+             & transformTo
+             & transformFrom
+          )
+    end
 
     fun bind
       (

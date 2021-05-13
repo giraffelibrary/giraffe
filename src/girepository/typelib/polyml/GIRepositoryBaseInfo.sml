@@ -51,46 +51,51 @@ structure GIRepositoryBaseInfo :>
     type typelibtype_t = GIRepositoryTypelibType.t
 
 
-    val getName =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0)
-          getName_ info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromOptPtr 0
+    in
+      fun getName info = call getName_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getNamespace =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0)
-          getNamespace_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> Utf8.FFI.fromPtr 0
+    in
+      fun getNamespace info = call getNamespace_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val isDeprecated =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal)
-          isDeprecated_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun isDeprecated info = call isDeprecated_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getAttribute =
-      fn info => fn name =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false
-          &&&> Utf8.FFI.withPtr 0
-          ---> Utf8.FFI.fromOptPtr 0)
-          getAttribute_
-          (info & name)
+    local
+      val call =
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> Utf8.FFI.withPtr 0
+         ---> Utf8.FFI.fromOptPtr 0
+    in
+      fun getAttribute info name = call getAttribute_ (GIRepositoryBaseInfoClass.toBase info & name)
+    end
 
-    val getContainer =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryBaseInfoClass.FFI.fromOptPtr false)
-          getContainer_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryBaseInfoClass.FFI.fromOptPtr false
+    in
+      fun getContainer info = call getContainer_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val getTypelib =
-      fn info =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypelibType.FFI.fromPtr false)
-          getTypelib_
-          info
+    local
+      val call = GIRepositoryBaseInfoClass.FFI.withPtr false ---> GIRepositoryTypelibType.FFI.fromPtr false
+    in
+      fun getTypelib info = call getTypelib_ (GIRepositoryBaseInfoClass.toBase info)
+    end
 
-    val equal =
-      fn info1 => fn info2 =>
-        (GIRepositoryBaseInfoClass.FFI.withPtr false &&&> GIRepositoryBaseInfoClass.FFI.withPtr false ---> GBool.FFI.fromVal)
-        equal_
-        (info1 & info2)
+    local
+      val call =
+        GIRepositoryBaseInfoClass.FFI.withPtr false
+         &&&> GIRepositoryBaseInfoClass.FFI.withPtr false
+         ---> GBool.FFI.fromVal
+    in
+      fun equal info1 info2 = call equal_ (GIRepositoryBaseInfoClass.toBase info1 & GIRepositoryBaseInfoClass.toBase info2)
+    end
   end

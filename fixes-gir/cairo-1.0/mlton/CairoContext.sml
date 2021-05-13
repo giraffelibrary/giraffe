@@ -666,12 +666,36 @@ structure CairoContext :>
     type pattern_t = CairoPatternRecord.t
     type surface_t = CairoSurfaceRecord.t
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun create target = (CairoSurfaceRecord.FFI.withPtr false ---> CairoContextRecord.FFI.fromPtr true) create_ target
-    fun status cr = (CairoContextRecord.FFI.withPtr false ---> CairoStatus.FFI.fromVal) status_ cr
-    fun save cr = (CairoContextRecord.FFI.withPtr false ---> I) save_ cr
-    fun restore cr = (CairoContextRecord.FFI.withPtr false ---> I) restore_ cr
-    fun getTarget cr = (CairoContextRecord.FFI.withPtr false ---> CairoSurfaceRecord.FFI.fromPtr false) getTarget_ cr
-    fun pushGroup cr = (CairoContextRecord.FFI.withPtr false ---> I) pushGroup_ cr
+    local
+      val call = CairoSurfaceRecord.FFI.withPtr false ---> CairoContextRecord.FFI.fromPtr true
+    in
+      fun create target = call create_ target
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> CairoStatus.FFI.fromVal
+    in
+      fun status cr = call status_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun save cr = call save_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun restore cr = call restore_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> CairoSurfaceRecord.FFI.fromPtr false
+    in
+      fun getTarget cr = call getTarget_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun pushGroup cr = call pushGroup_ cr
+    end
     fun pushGroupWithContent cr content =
       (
         CairoContextRecord.FFI.withPtr false
@@ -680,456 +704,654 @@ structure CairoContext :>
       )
         pushGroupWithContent_
         (cr & content)
-    fun popGroup cr = (CairoContextRecord.FFI.withPtr false ---> CairoPatternRecord.FFI.fromPtr true) popGroup_ cr
-    fun popGroupToSource cr = (CairoContextRecord.FFI.withPtr false ---> I) popGroupToSource_ cr
-    fun getGroupTarget cr = (CairoContextRecord.FFI.withPtr false ---> CairoSurfaceRecord.FFI.fromPtr false) getGroupTarget_ cr
-    fun setSourceRgb cr (red, green, blue) =
-      (
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> CairoPatternRecord.FFI.fromPtr true
+    in
+      fun popGroup cr = call popGroup_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun popGroupToSource cr = call popGroupToSource_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> CairoSurfaceRecord.FFI.fromPtr false
+    in
+      fun getGroupTarget cr = call getGroupTarget_ cr
+    end
+    local
+      val call =
         CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          ---> I
-      )
-        setSourceRgb_
-        (
-          cr
-           & red
-           & green
-           & blue
-        )
-    fun setSourceRgba cr (red, green, blue, alpha) =
-      (
-        CairoContextRecord.FFI.withPtr false
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         ---> I
-      )
-        setSourceRgba_
-        (
-          cr
-           & red
-           & green
-           & blue
-           & alpha
-        )
-    fun setSource cr source = (CairoContextRecord.FFI.withPtr false &&&> CairoPatternRecord.FFI.withPtr false ---> I) setSource_ (cr & source)
-    fun setSourceSurface cr (surface, x, y) =
-      (
-        CairoContextRecord.FFI.withPtr false
-         &&&> CairoSurfaceRecord.FFI.withPtr false
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         ---> I
-      )
-        setSourceSurface_
-        (
-          cr
-           & surface
-           & x
-           & y
-        )
-    fun getSource cr = (CairoContextRecord.FFI.withPtr false ---> CairoPatternRecord.FFI.fromPtr false) getSource_ cr
-    fun setAntialias cr antialias = (CairoContextRecord.FFI.withPtr false &&&> CairoAntialias.FFI.withVal ---> I) setAntialias_ (cr & antialias)
-    fun getAntialias cr = (CairoContextRecord.FFI.withPtr false ---> CairoAntialias.FFI.fromVal) getAntialias_ cr
-    fun setDash cr (dashes, offset) =
-      let
-        val numDashes = LargeInt.fromInt (GDoubleCArrayN.length dashes)
-      in
-        (
-          CairoContextRecord.FFI.withPtr false
-           &&&> GDoubleCArrayN.FFI.withPtr 0
-           &&&> GInt.FFI.withVal
-           &&&> GDouble.FFI.withVal
-           ---> I
-        )
-          setDash_
+    in
+      fun setSourceRgb cr (red, green, blue) =
+        call setSourceRgb_
           (
             cr
-             & dashes
-             & numDashes
-             & offset
+             & red
+             & green
+             & blue
           )
-      end
-    fun getDashCount cr = (CairoContextRecord.FFI.withPtr false ---> GInt.FFI.fromVal) getDashCount_ cr
-    fun getDash cr =
-      let
-        val count = LargeInt.toInt (getDashCount cr)
-        val dashes
-         & offset
-         & () =
-          (
-            CairoContextRecord.FFI.withPtr false
-             &&&> GDoubleCArrayN.FFI.withNewPtr
-             &&&> GDouble.FFI.withRefVal
-             ---> GDoubleCArrayN.FFI.fromPtr ~1 && GDouble.FFI.fromVal && I
-          )
-            getDash_
-            (
-              cr
-               & count
-               & GDouble.null
-            )
-      in
-        (dashes count, offset)
-      end
-    fun setFillRule cr fillRule = (CairoContextRecord.FFI.withPtr false &&&> CairoFillRule.FFI.withVal ---> I) setFillRule_ (cr & fillRule)
-    fun getFillRule cr = (CairoContextRecord.FFI.withPtr false ---> CairoFillRule.FFI.fromVal) getFillRule_ cr
-    fun setLineCap cr lineCap = (CairoContextRecord.FFI.withPtr false &&&> CairoLineCap.FFI.withVal ---> I) setLineCap_ (cr & lineCap)
-    fun getLineCap cr = (CairoContextRecord.FFI.withPtr false ---> CairoLineCap.FFI.fromVal) getLineCap_ cr
-    fun setLineJoin cr lineJoin = (CairoContextRecord.FFI.withPtr false &&&> CairoLineJoin.FFI.withVal ---> I) setLineJoin_ (cr & lineJoin)
-    fun getLineJoin cr = (CairoContextRecord.FFI.withPtr false ---> CairoLineJoin.FFI.fromVal) getLineJoin_ cr
-    fun setLineWidth cr width = (CairoContextRecord.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setLineWidth_ (cr & width)
-    fun getLineWidth cr = (CairoContextRecord.FFI.withPtr false ---> GDouble.FFI.fromVal) getLineWidth_ cr
-    fun setMiterLimit cr limit = (CairoContextRecord.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setMiterLimit_ (cr & limit)
-    fun getMiterLimit cr = (CairoContextRecord.FFI.withPtr false ---> GDouble.FFI.fromVal) getMiterLimit_ cr
-    fun setOperator cr op' = (CairoContextRecord.FFI.withPtr false &&&> CairoOperator.FFI.withVal ---> I) setOperator_ (cr & op')
-    fun getOperator cr = (CairoContextRecord.FFI.withPtr false ---> CairoOperator.FFI.fromVal) getOperator_ cr
-    fun setTolerance cr tolerance = (CairoContextRecord.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) setTolerance_ (cr & tolerance)
-    fun getTolerance cr = (CairoContextRecord.FFI.withPtr false ---> GDouble.FFI.fromVal) getTolerance_ cr
-    fun clip cr = (CairoContextRecord.FFI.withPtr false ---> I) clip_ cr
-    fun clipPreserve cr = (CairoContextRecord.FFI.withPtr false ---> I) clipPreserve_ cr
-    fun clipExtents cr =
-      let
-        val x1 & y1 & x2 & y2 & () =
-          (
-            CairoContextRecord.FFI.withPtr false
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             ---> GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && I
-          )
-            clipExtents_
-            (
-              cr
-               & GDouble.null
-               & GDouble.null
-               & GDouble.null
-               & GDouble.null
-            )
-      in
-        (x1, y1, x2, y2)
-      end
-    fun inClip cr (x, y) =
-      (
+    end
+    local
+      val call =
         CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
-         ---> GBool.FFI.fromVal
-      )
-        inClip_
-        (
-          cr
-           & x
-           & y
-        )
-    fun resetClip cr = (CairoContextRecord.FFI.withPtr false ---> I) resetClip_ cr
-    fun fill cr = (CairoContextRecord.FFI.withPtr false ---> I) fill_ cr
-    fun fillPreserve cr = (CairoContextRecord.FFI.withPtr false ---> I) fillPreserve_ cr
-    fun fillExtents cr =
-      let
-        val x1 & y1 & x2 & y2 & () =
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+    in
+      fun setSourceRgba cr (red, green, blue, alpha) =
+        call setSourceRgba_
           (
-            CairoContextRecord.FFI.withPtr false
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             ---> GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && I
+            cr
+             & red
+             & green
+             & blue
+             & alpha
           )
-            fillExtents_
-            (
-              cr
-               & GDouble.null
-               & GDouble.null
-               & GDouble.null
-               & GDouble.null
-            )
-      in
-        (x1, y1, x2, y2)
-      end
-    fun inFill cr (x, y) =
-      (
-        CairoContextRecord.FFI.withPtr false
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         ---> GBool.FFI.fromVal
-      )
-        inFill_
-        (
-          cr
-           & x
-           & y
-        )
-    fun mask cr pattern = (CairoContextRecord.FFI.withPtr false &&&> CairoPatternRecord.FFI.withPtr false ---> I) mask_ (cr & pattern)
-    fun maskSurface cr (surface, surface_x, surface_y) =
-      (
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false &&&> CairoPatternRecord.FFI.withPtr false ---> I
+    in
+      fun setSource cr source = call setSource_ (cr & source)
+    end
+    local
+      val call =
         CairoContextRecord.FFI.withPtr false
          &&&> CairoSurfaceRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          ---> I
-      )
-        maskSurface_
-        (
-          cr
-           & surface
-           & surface_x
-           & surface_y
-        )
-    fun paint cr = (CairoContextRecord.FFI.withPtr false ---> I) paint_ cr
-    fun paintWithAlpha cr alpha = (CairoContextRecord.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I) paintWithAlpha_ (cr & alpha)
-    fun stroke cr = (CairoContextRecord.FFI.withPtr false ---> I) stroke_ cr
-    fun strokePreserve cr = (CairoContextRecord.FFI.withPtr false ---> I) strokePreserve_ cr
-    fun strokeExtents cr =
-      let
-        val x1 & y1 & x2 & y2 & () =
+    in
+      fun setSourceSurface cr (surface, x, y) =
+        call setSourceSurface_
           (
-            CairoContextRecord.FFI.withPtr false
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             ---> GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && I
+            cr
+             & surface
+             & x
+             & y
           )
-            strokeExtents_
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> CairoPatternRecord.FFI.fromPtr false
+    in
+      fun getSource cr = call getSource_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false &&&> CairoAntialias.FFI.withVal ---> I
+    in
+      fun setAntialias cr antialias = call setAntialias_ (cr & antialias)
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> CairoAntialias.FFI.fromVal
+    in
+      fun getAntialias cr = call getAntialias_ cr
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDoubleCArrayN.FFI.withPtr 0
+         &&&> GInt.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+    in
+      fun setDash cr (dashes, offset) =
+        let
+          val numDashes = LargeInt.fromInt (GDoubleCArrayN.length dashes)
+        in
+          call setDash_
             (
               cr
-               & GDouble.null
-               & GDouble.null
-               & GDouble.null
-               & GDouble.null
+               & dashes
+               & numDashes
+               & offset
             )
-      in
-        (x1, y1, x2, y2)
-      end
-    fun inStroke cr (x, y) =
-      (
+        end
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> GInt.FFI.fromVal
+    in
+      fun getDashCount cr = call getDashCount_ cr
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDoubleCArrayN.FFI.withNewPtr
+         &&&> GDouble.FFI.withRefVal
+         ---> GDoubleCArrayN.FFI.fromPtr ~1 && GDouble.FFI.fromVal && I
+    in
+      fun getDash cr =
+        let
+          val count = LargeInt.toInt (getDashCount cr)
+          val dashes
+           & offset
+           & () =
+            call getDash_
+              (
+                cr
+                 & count
+                 & GDouble.null
+              )
+        in
+          (dashes count, offset)
+        end
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false &&&> CairoFillRule.FFI.withVal ---> I
+    in
+      fun setFillRule cr fillRule = call setFillRule_ (cr & fillRule)
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> CairoFillRule.FFI.fromVal
+    in
+      fun getFillRule cr = call getFillRule_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false &&&> CairoLineCap.FFI.withVal ---> I
+    in
+      fun setLineCap cr lineCap = call setLineCap_ (cr & lineCap)
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> CairoLineCap.FFI.fromVal
+    in
+      fun getLineCap cr = call getLineCap_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false &&&> CairoLineJoin.FFI.withVal ---> I
+    in
+      fun setLineJoin cr lineJoin = call setLineJoin_ (cr & lineJoin)
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> CairoLineJoin.FFI.fromVal
+    in
+      fun getLineJoin cr = call getLineJoin_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I
+    in
+      fun setLineWidth cr width = call setLineWidth_ (cr & width)
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> GDouble.FFI.fromVal
+    in
+      fun getLineWidth cr = call getLineWidth_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I
+    in
+      fun setMiterLimit cr limit = call setMiterLimit_ (cr & limit)
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> GDouble.FFI.fromVal
+    in
+      fun getMiterLimit cr = call getMiterLimit_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false &&&> CairoOperator.FFI.withVal ---> I
+    in
+      fun setOperator cr op' = call setOperator_ (cr & op')
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> CairoOperator.FFI.fromVal
+    in
+      fun getOperator cr = call getOperator_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I
+    in
+      fun setTolerance cr tolerance = call setTolerance_ (cr & tolerance)
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> GDouble.FFI.fromVal
+    in
+      fun getTolerance cr = call getTolerance_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun clip cr = call clip_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun clipPreserve cr = call clipPreserve_ cr
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         ---> GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && I
+    in
+      fun clipExtents cr =
+        let
+          val x1 & y1 & x2 & y2 & () =
+            call clipExtents_
+              (
+                cr
+                 & GDouble.null
+                 & GDouble.null
+                 & GDouble.null
+                 & GDouble.null
+              )
+        in
+          (x1, y1, x2, y2)
+        end
+    end
+    local
+      val call =
         CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
          ---> GBool.FFI.fromVal
-      )
-        inStroke_
-        (
-          cr
-           & x
-           & y
-        )
-    fun copyPage cr = (CairoContextRecord.FFI.withPtr false ---> I) copyPage_ cr
-    fun showPage cr = (CairoContextRecord.FFI.withPtr false ---> I) showPage_ cr
-    fun hasCurrentPoint cr = (CairoContextRecord.FFI.withPtr false ---> GBool.FFI.fromVal) hasCurrentPoint_ cr
-    fun getCurrentPoint cr =
-      let
-        val x & y & () =
+    in
+      fun inClip cr (x, y) =
+        call inClip_
           (
-            CairoContextRecord.FFI.withPtr false
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             ---> GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && I
+            cr
+             & x
+             & y
           )
-            getCurrentPoint_
-            (
-              cr
-               & GDouble.null
-               & GDouble.null
-            )
-      in
-        (x, y)
-      end
-    fun newPath cr = (CairoContextRecord.FFI.withPtr false ---> I) newPath_ cr
-    fun newSubPath cr = (CairoContextRecord.FFI.withPtr false ---> I) newSubPath_ cr
-    fun closePath cr = (CairoContextRecord.FFI.withPtr false ---> I) closePath_ cr
-    fun arc cr (xc, yc, radius, angle1, angle2) =
-      (
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun resetClip cr = call resetClip_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun fill cr = call fill_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun fillPreserve cr = call fillPreserve_ cr
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         ---> GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && I
+    in
+      fun fillExtents cr =
+        let
+          val x1 & y1 & x2 & y2 & () =
+            call fillExtents_
+              (
+                cr
+                 & GDouble.null
+                 & GDouble.null
+                 & GDouble.null
+                 & GDouble.null
+              )
+        in
+          (x1, y1, x2, y2)
+        end
+    end
+    local
+      val call =
         CairoContextRecord.FFI.withPtr false
          &&&> GDouble.FFI.withVal
          &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         ---> I
-      )
-        arc_
-        (
-          cr
-           & xc
-           & yc
-           & radius
-           & angle1
-           & angle2
-        )
-    fun arcNegative cr (xc, yc, radius, angle1, angle2) =
-      (
-        CairoContextRecord.FFI.withPtr false
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         ---> I
-      )
-        arcNegative_
-        (
-          cr
-           & xc
-           & yc
-           & radius
-           & angle1
-           & angle2
-        )
-    fun curveTo cr (x1, y1, x2, y2, x3, y3) =
-      (
-        CairoContextRecord.FFI.withPtr false
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         ---> I
-      )
-        curveTo_
-        (
-          cr
-           & x1
-           & y1
-           & x2
-           & y2
-           & x3
-           & y3
-        )
-    fun lineTo cr (x, y) =
-      (
-        CairoContextRecord.FFI.withPtr false
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         ---> I
-      )
-        lineTo_
-        (
-          cr
-           & x
-           & y
-        )
-    fun moveTo cr (x, y) =
-      (
-        CairoContextRecord.FFI.withPtr false
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         ---> I
-      )
-        moveTo_
-        (
-          cr
-           & x
-           & y
-        )
-    fun rectangle cr (x, y, width, height) =
-      (
-        CairoContextRecord.FFI.withPtr false
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         ---> I
-      )
-        rectangle_
-        (
-          cr
-           & x
-           & y
-           & width
-           & height
-        )
-    fun relCurveTo cr (dx1, dy1, dx2, dy2, dx3, dy3) =
-      (
-        CairoContextRecord.FFI.withPtr false
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         ---> I
-      )
-        relCurveTo_
-        (
-          cr
-           & dx1
-           & dy1
-           & dx2
-           & dy2
-           & dx3
-           & dy3
-        )
-    fun relLineTo cr (dx, dy) =
-      (
-        CairoContextRecord.FFI.withPtr false
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         ---> I
-      )
-        relLineTo_
-        (
-          cr
-           & dx
-           & dy
-        )
-    fun relMoveTo cr (dx, dy) =
-      (
-        CairoContextRecord.FFI.withPtr false
-         &&&> GDouble.FFI.withVal
-         &&&> GDouble.FFI.withVal
-         ---> I
-      )
-        relMoveTo_
-        (
-          cr
-           & dx
-           & dy
-        )
-    fun pathExtents cr =
-      let
-        val x1 & y1 & x2 & y2 & () =
+         ---> GBool.FFI.fromVal
+    in
+      fun inFill cr (x, y) =
+        call inFill_
           (
-            CairoContextRecord.FFI.withPtr false
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             &&&> GDouble.FFI.withRefVal
-             ---> GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && GDouble.FFI.fromVal
-                   && I
+            cr
+             & x
+             & y
           )
-            pathExtents_
-            (
-              cr
-               & GDouble.null
-               & GDouble.null
-               & GDouble.null
-               & GDouble.null
-            )
-      in
-        (x1, y1, x2, y2)
-      end
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false &&&> CairoPatternRecord.FFI.withPtr false ---> I
+    in
+      fun mask cr pattern = call mask_ (cr & pattern)
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> CairoSurfaceRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+    in
+      fun maskSurface cr (surface, surface_x, surface_y) =
+        call maskSurface_
+          (
+            cr
+             & surface
+             & surface_x
+             & surface_y
+          )
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun paint cr = call paint_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false &&&> GDouble.FFI.withVal ---> I
+    in
+      fun paintWithAlpha cr alpha = call paintWithAlpha_ (cr & alpha)
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun stroke cr = call stroke_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun strokePreserve cr = call strokePreserve_ cr
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         ---> GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && I
+    in
+      fun strokeExtents cr =
+        let
+          val x1 & y1 & x2 & y2 & () =
+            call strokeExtents_
+              (
+                cr
+                 & GDouble.null
+                 & GDouble.null
+                 & GDouble.null
+                 & GDouble.null
+              )
+        in
+          (x1, y1, x2, y2)
+        end
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> GBool.FFI.fromVal
+    in
+      fun inStroke cr (x, y) =
+        call inStroke_
+          (
+            cr
+             & x
+             & y
+          )
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun copyPage cr = call copyPage_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun showPage cr = call showPage_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> GBool.FFI.fromVal
+    in
+      fun hasCurrentPoint cr = call hasCurrentPoint_ cr
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         ---> GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && I
+    in
+      fun getCurrentPoint cr =
+        let
+          val x & y & () =
+            call getCurrentPoint_
+              (
+                cr
+                 & GDouble.null
+                 & GDouble.null
+              )
+        in
+          (x, y)
+        end
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun newPath cr = call newPath_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun newSubPath cr = call newSubPath_ cr
+    end
+    local
+      val call = CairoContextRecord.FFI.withPtr false ---> I
+    in
+      fun closePath cr = call closePath_ cr
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+    in
+      fun arc cr (xc, yc, radius, angle1, angle2) =
+        call arc_
+          (
+            cr
+             & xc
+             & yc
+             & radius
+             & angle1
+             & angle2
+          )
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+    in
+      fun arcNegative cr (xc, yc, radius, angle1, angle2) =
+        call arcNegative_
+          (
+            cr
+             & xc
+             & yc
+             & radius
+             & angle1
+             & angle2
+          )
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+    in
+      fun curveTo cr (x1, y1, x2, y2, x3, y3) =
+        call curveTo_
+          (
+            cr
+             & x1
+             & y1
+             & x2
+             & y2
+             & x3
+             & y3
+          )
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+    in
+      fun lineTo cr (x, y) =
+        call lineTo_
+          (
+            cr
+             & x
+             & y
+          )
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+    in
+      fun moveTo cr (x, y) =
+        call moveTo_
+          (
+            cr
+             & x
+             & y
+          )
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+    in
+      fun rectangle cr (x, y, width, height) =
+        call rectangle_
+          (
+            cr
+             & x
+             & y
+             & width
+             & height
+          )
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+    in
+      fun relCurveTo cr (dx1, dy1, dx2, dy2, dx3, dy3) =
+        call relCurveTo_
+          (
+            cr
+             & dx1
+             & dy1
+             & dx2
+             & dy2
+             & dx3
+             & dy3
+          )
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+    in
+      fun relLineTo cr (dx, dy) =
+        call relLineTo_
+          (
+            cr
+             & dx
+             & dy
+          )
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withVal
+         &&&> GDouble.FFI.withVal
+         ---> I
+    in
+      fun relMoveTo cr (dx, dy) =
+        call relMoveTo_
+          (
+            cr
+             & dx
+             & dy
+          )
+    end
+    local
+      val call =
+        CairoContextRecord.FFI.withPtr false
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         &&&> GDouble.FFI.withRefVal
+         ---> GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && GDouble.FFI.fromVal
+               && I
+    in
+      fun pathExtents cr =
+        let
+          val x1 & y1 & x2 & y2 & () =
+            call pathExtents_
+              (
+                cr
+                 & GDouble.null
+                 & GDouble.null
+                 & GDouble.null
+                 & GDouble.null
+              )
+        in
+          (x1, y1, x2, y2)
+        end
+    end
   end

@@ -132,12 +132,15 @@ structure ClassifyEvent :>
     end
 
 
-    fun eventType self =
-      (GdkEvent.FFI.withPtr false ---> GdkEventType.FFI.fromVal) eventType_ self
+    local
+      val call = GdkEvent.FFI.withPtr false ---> GdkEventType.FFI.fromVal
+    in
+      fun eventType self = call eventType_ (GdkEvent.toBase self)
+    end
 
 
     local
-      fun mkT (con, fromPtr, ty) event = con (GdkEvent.FFI.withPtr false (fromPtr false) event, ty)
+      fun mkT (con, fromPtr, ty) event = con (GdkEvent.FFI.withPtr false (fromPtr false) (GdkEvent.toBase event), ty)
     in
       fun classify e =
         case eventType e of
