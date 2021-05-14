@@ -944,38 +944,358 @@ structure VteTerminal :>
     local
       open ClosureMarshal Signal
     in
-      fun beepSig f = signal "beep" (void ---> ret_void) f
-      fun charSizeChangedSig f = signal "char-size-changed" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn width & height => f (width, height))
-      fun childExitedSig f = signal "child-exited" (void ---> ret_void) f
-      fun commitSig f = signal "commit" (get 0w1 string &&&> get 0w2 uint ---> ret_void) (fn text & size => f (text, size))
-      fun contentsChangedSig f = signal "contents-changed" (void ---> ret_void) f
-      fun copyClipboardSig f = signal "copy-clipboard" (void ---> ret_void) f
-      fun currentDirectoryUriChangedSig f = signal "current-directory-uri-changed" (void ---> ret_void) f
-      fun currentFileUriChangedSig f = signal "current-file-uri-changed" (void ---> ret_void) f
-      fun cursorMovedSig f = signal "cursor-moved" (void ---> ret_void) f
-      fun decreaseFontSizeSig f = signal "decrease-font-size" (void ---> ret_void) f
-      fun deiconifyWindowSig f = signal "deiconify-window" (void ---> ret_void) f
-      fun emulationChangedSig f = signal "emulation-changed" (void ---> ret_void) f
-      fun encodingChangedSig f = signal "encoding-changed" (void ---> ret_void) f
-      fun eofSig f = signal "eof" (void ---> ret_void) f
-      fun iconTitleChangedSig f = signal "icon-title-changed" (void ---> ret_void) f
-      fun iconifyWindowSig f = signal "iconify-window" (void ---> ret_void) f
-      fun increaseFontSizeSig f = signal "increase-font-size" (void ---> ret_void) f
-      fun lowerWindowSig f = signal "lower-window" (void ---> ret_void) f
-      fun maximizeWindowSig f = signal "maximize-window" (void ---> ret_void) f
-      fun moveWindowSig f = signal "move-window" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn x & y => f (x, y))
-      fun pasteClipboardSig f = signal "paste-clipboard" (void ---> ret_void) f
-      fun raiseWindowSig f = signal "raise-window" (void ---> ret_void) f
-      fun refreshWindowSig f = signal "refresh-window" (void ---> ret_void) f
-      fun resizeWindowSig f = signal "resize-window" (get 0w1 uint &&&> get 0w2 uint ---> ret_void) (fn width & height => f (width, height))
-      fun restoreWindowSig f = signal "restore-window" (void ---> ret_void) f
-      fun selectionChangedSig f = signal "selection-changed" (void ---> ret_void) f
-      fun statusLineChangedSig f = signal "status-line-changed" (void ---> ret_void) f
-      fun textDeletedSig f = signal "text-deleted" (void ---> ret_void) f
-      fun textInsertedSig f = signal "text-inserted" (void ---> ret_void) f
-      fun textModifiedSig f = signal "text-modified" (void ---> ret_void) f
-      fun textScrolledSig f = signal "text-scrolled" (get 0w1 int ---> ret_void) f
-      fun windowTitleChangedSig f = signal "window-title-changed" (void ---> ret_void) f
+      fun beepSig f =
+        signal "beep" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun charSizeChangedSig f =
+        signal "char-size-changed" (get 0w1 uint &&&> get 0w2 uint ---> ret_void)
+          (
+            fn
+              width & height =>
+                let
+                  val () = f (width, height)
+                in
+                  ()
+                end
+          )
+      fun childExitedSig f =
+        signal "child-exited" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun commitSig f =
+        signal "commit" (get 0w1 string &&&> get 0w2 uint ---> ret_void)
+          (
+            fn
+              text & size =>
+                let
+                  val () = f (text, size)
+                in
+                  ()
+                end
+          )
+      fun contentsChangedSig f =
+        signal "contents-changed" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun copyClipboardSig f =
+        signal "copy-clipboard" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun currentDirectoryUriChangedSig f =
+        signal "current-directory-uri-changed" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun currentFileUriChangedSig f =
+        signal "current-file-uri-changed" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun cursorMovedSig f =
+        signal "cursor-moved" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun decreaseFontSizeSig f =
+        signal "decrease-font-size" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun deiconifyWindowSig f =
+        signal "deiconify-window" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun emulationChangedSig f =
+        signal "emulation-changed" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun encodingChangedSig f =
+        signal "encoding-changed" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun eofSig f =
+        signal "eof" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun iconTitleChangedSig f =
+        signal "icon-title-changed" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun iconifyWindowSig f =
+        signal "iconify-window" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun increaseFontSizeSig f =
+        signal "increase-font-size" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun lowerWindowSig f =
+        signal "lower-window" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun maximizeWindowSig f =
+        signal "maximize-window" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun moveWindowSig f =
+        signal "move-window" (get 0w1 uint &&&> get 0w2 uint ---> ret_void)
+          (
+            fn
+              x & y =>
+                let
+                  val () = f (x, y)
+                in
+                  ()
+                end
+          )
+      fun pasteClipboardSig f =
+        signal "paste-clipboard" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun raiseWindowSig f =
+        signal "raise-window" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun refreshWindowSig f =
+        signal "refresh-window" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun resizeWindowSig f =
+        signal "resize-window" (get 0w1 uint &&&> get 0w2 uint ---> ret_void)
+          (
+            fn
+              width & height =>
+                let
+                  val () = f (width, height)
+                in
+                  ()
+                end
+          )
+      fun restoreWindowSig f =
+        signal "restore-window" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun selectionChangedSig f =
+        signal "selection-changed" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun statusLineChangedSig f =
+        signal "status-line-changed" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun textDeletedSig f =
+        signal "text-deleted" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun textInsertedSig f =
+        signal "text-inserted" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun textModifiedSig f =
+        signal "text-modified" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun textScrolledSig f =
+        signal "text-scrolled" (get 0w1 int ---> ret_void)
+          (
+            fn
+              delta =>
+                let
+                  val () = f delta
+                in
+                  ()
+                end
+          )
+      fun windowTitleChangedSig f =
+        signal "window-title-changed" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
     end
     local
       open ValueAccessor
@@ -984,79 +1304,79 @@ structure VteTerminal :>
         {
           name = "allow-bold",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val audibleBellProp =
         {
           name = "audible-bell",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val backgroundImageFileProp =
         {
           name = "background-image-file",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn _ => fn x => fn () => C.get stringOpt x,
-          set = fn _ => fn x => C.set stringOpt x,
-          init = fn x => C.set stringOpt x
+          get = fn _ => fn v => fn () => C.get stringOpt v,
+          set = fn _ => fn v => fn x => C.set stringOpt v x,
+          init = fn v => fn x => C.set stringOpt v x
         }
       val backgroundImagePixbufProp =
         {
           name = "background-image-pixbuf",
           gtype = fn () => C.gtype GdkPixbufPixbufClass.tOpt (),
-          get = fn _ => fn x => fn () => C.get GdkPixbufPixbufClass.tOpt x,
-          set = fn _ => fn x => C.set GdkPixbufPixbufClass.tOpt x,
-          init = fn x => C.set GdkPixbufPixbufClass.tOpt x
+          get = fn _ => fn v => fn () => C.get GdkPixbufPixbufClass.tOpt v,
+          set = fn _ => fn v => fn x => C.set GdkPixbufPixbufClass.tOpt v (Option.map GdkPixbufPixbufClass.toBase x),
+          init = fn v => fn x => C.set GdkPixbufPixbufClass.tOpt v (Option.map GdkPixbufPixbufClass.toBase x)
         }
       val backgroundOpacityProp =
         {
           name = "background-opacity",
           gtype = fn () => C.gtype double (),
-          get = fn _ => fn x => fn () => C.get double x,
-          set = fn _ => fn x => C.set double x,
-          init = fn x => C.set double x
+          get = fn _ => fn v => fn () => C.get double v,
+          set = fn _ => fn v => fn x => C.set double v x,
+          init = fn v => fn x => C.set double v x
         }
       val backgroundSaturationProp =
         {
           name = "background-saturation",
           gtype = fn () => C.gtype double (),
-          get = fn _ => fn x => fn () => C.get double x,
-          set = fn _ => fn x => C.set double x,
-          init = fn x => C.set double x
+          get = fn _ => fn v => fn () => C.get double v,
+          set = fn _ => fn v => fn x => C.set double v x,
+          init = fn v => fn x => C.set double v x
         }
       val backgroundTintColorProp =
         {
           name = "background-tint-color",
           gtype = fn () => C.gtype GdkColorRecord.tOpt (),
-          get = fn _ => fn x => fn () => C.get GdkColorRecord.tOpt x,
-          set = fn _ => fn x => C.set GdkColorRecord.tOpt x,
-          init = fn x => C.set GdkColorRecord.tOpt x
+          get = fn _ => fn v => fn () => C.get GdkColorRecord.tOpt v,
+          set = fn _ => fn v => fn x => C.set GdkColorRecord.tOpt v x,
+          init = fn v => fn x => C.set GdkColorRecord.tOpt v x
         }
       val backgroundTransparentProp =
         {
           name = "background-transparent",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val backspaceBindingProp =
         {
           name = "backspace-binding",
           gtype = fn () => C.gtype VteTerminalEraseBinding.t (),
-          get = fn _ => fn x => fn () => C.get VteTerminalEraseBinding.t x,
-          set = fn _ => fn x => C.set VteTerminalEraseBinding.t x,
-          init = fn x => C.set VteTerminalEraseBinding.t x
+          get = fn _ => fn v => fn () => C.get VteTerminalEraseBinding.t v,
+          set = fn _ => fn v => fn x => C.set VteTerminalEraseBinding.t v x,
+          init = fn v => fn x => C.set VteTerminalEraseBinding.t v x
         }
       val currentDirectoryUriProp =
         {
           name = "current-directory-uri",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn _ => fn x => fn () => C.get stringOpt x,
+          get = fn _ => fn v => fn () => C.get stringOpt v,
           set = fn _ => ignore,
           init = ignore
         }
@@ -1064,7 +1384,7 @@ structure VteTerminal :>
         {
           name = "current-file-uri",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn _ => fn x => fn () => C.get stringOpt x,
+          get = fn _ => fn v => fn () => C.get stringOpt v,
           set = fn _ => ignore,
           init = ignore
         }
@@ -1072,55 +1392,55 @@ structure VteTerminal :>
         {
           name = "cursor-blink-mode",
           gtype = fn () => C.gtype VteTerminalCursorBlinkMode.t (),
-          get = fn _ => fn x => fn () => C.get VteTerminalCursorBlinkMode.t x,
-          set = fn _ => fn x => C.set VteTerminalCursorBlinkMode.t x,
-          init = fn x => C.set VteTerminalCursorBlinkMode.t x
+          get = fn _ => fn v => fn () => C.get VteTerminalCursorBlinkMode.t v,
+          set = fn _ => fn v => fn x => C.set VteTerminalCursorBlinkMode.t v x,
+          init = fn v => fn x => C.set VteTerminalCursorBlinkMode.t v x
         }
       val cursorShapeProp =
         {
           name = "cursor-shape",
           gtype = fn () => C.gtype VteTerminalCursorShape.t (),
-          get = fn _ => fn x => fn () => C.get VteTerminalCursorShape.t x,
-          set = fn _ => fn x => C.set VteTerminalCursorShape.t x,
-          init = fn x => C.set VteTerminalCursorShape.t x
+          get = fn _ => fn v => fn () => C.get VteTerminalCursorShape.t v,
+          set = fn _ => fn v => fn x => C.set VteTerminalCursorShape.t v x,
+          init = fn v => fn x => C.set VteTerminalCursorShape.t v x
         }
       val deleteBindingProp =
         {
           name = "delete-binding",
           gtype = fn () => C.gtype VteTerminalEraseBinding.t (),
-          get = fn _ => fn x => fn () => C.get VteTerminalEraseBinding.t x,
-          set = fn _ => fn x => C.set VteTerminalEraseBinding.t x,
-          init = fn x => C.set VteTerminalEraseBinding.t x
+          get = fn _ => fn v => fn () => C.get VteTerminalEraseBinding.t v,
+          set = fn _ => fn v => fn x => C.set VteTerminalEraseBinding.t v x,
+          init = fn v => fn x => C.set VteTerminalEraseBinding.t v x
         }
       val emulationProp =
         {
           name = "emulation",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn _ => fn x => fn () => C.get stringOpt x,
-          set = fn _ => fn x => C.set stringOpt x,
-          init = fn x => C.set stringOpt x
+          get = fn _ => fn v => fn () => C.get stringOpt v,
+          set = fn _ => fn v => fn x => C.set stringOpt v x,
+          init = fn v => fn x => C.set stringOpt v x
         }
       val encodingProp =
         {
           name = "encoding",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn _ => fn x => fn () => C.get stringOpt x,
-          set = fn _ => fn x => C.set stringOpt x,
-          init = fn x => C.set stringOpt x
+          get = fn _ => fn v => fn () => C.get stringOpt v,
+          set = fn _ => fn v => fn x => C.set stringOpt v x,
+          init = fn v => fn x => C.set stringOpt v x
         }
       val fontDescProp =
         {
           name = "font-desc",
           gtype = fn () => C.gtype PangoFontDescriptionRecord.tOpt (),
-          get = fn _ => fn x => fn () => C.get PangoFontDescriptionRecord.tOpt x,
-          set = fn _ => fn x => C.set PangoFontDescriptionRecord.tOpt x,
-          init = fn x => C.set PangoFontDescriptionRecord.tOpt x
+          get = fn _ => fn v => fn () => C.get PangoFontDescriptionRecord.tOpt v,
+          set = fn _ => fn v => fn x => C.set PangoFontDescriptionRecord.tOpt v x,
+          init = fn v => fn x => C.set PangoFontDescriptionRecord.tOpt v x
         }
       val iconTitleProp =
         {
           name = "icon-title",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn _ => fn x => fn () => C.get stringOpt x,
+          get = fn _ => fn v => fn () => C.get stringOpt v,
           set = fn _ => ignore,
           init = ignore
         }
@@ -1128,79 +1448,79 @@ structure VteTerminal :>
         {
           name = "pointer-autohide",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val ptyProp =
         {
           name = "pty",
           gtype = fn () => C.gtype int (),
-          get = fn _ => fn x => fn () => C.get int x,
-          set = fn _ => fn x => C.set int x,
-          init = fn x => C.set int x
+          get = fn _ => fn v => fn () => C.get int v,
+          set = fn _ => fn v => fn x => C.set int v x,
+          init = fn v => fn x => C.set int v x
         }
       val ptyObjectProp =
         {
           name = "pty-object",
           gtype = fn () => C.gtype VtePtyClass.tOpt (),
-          get = fn _ => fn x => fn () => C.get VtePtyClass.tOpt x,
-          set = fn _ => fn x => C.set VtePtyClass.tOpt x,
-          init = fn x => C.set VtePtyClass.tOpt x
+          get = fn _ => fn v => fn () => C.get VtePtyClass.tOpt v,
+          set = fn _ => fn v => fn x => C.set VtePtyClass.tOpt v (Option.map VtePtyClass.toBase x),
+          init = fn v => fn x => C.set VtePtyClass.tOpt v (Option.map VtePtyClass.toBase x)
         }
       val rewrapOnResizeProp =
         {
           name = "rewrap-on-resize",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val scrollBackgroundProp =
         {
           name = "scroll-background",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val scrollOnKeystrokeProp =
         {
           name = "scroll-on-keystroke",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val scrollOnOutputProp =
         {
           name = "scroll-on-output",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val scrollbackLinesProp =
         {
           name = "scrollback-lines",
           gtype = fn () => C.gtype uint (),
-          get = fn _ => fn x => fn () => C.get uint x,
-          set = fn _ => fn x => C.set uint x,
-          init = fn x => C.set uint x
+          get = fn _ => fn v => fn () => C.get uint v,
+          set = fn _ => fn v => fn x => C.set uint v x,
+          init = fn v => fn x => C.set uint v x
         }
       val visibleBellProp =
         {
           name = "visible-bell",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val windowTitleProp =
         {
           name = "window-title",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn _ => fn x => fn () => C.get stringOpt x,
+          get = fn _ => fn v => fn () => C.get stringOpt v,
           set = fn _ => ignore,
           init = ignore
         }
@@ -1208,9 +1528,9 @@ structure VteTerminal :>
         {
           name = "word-chars",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn _ => fn x => fn () => C.get stringOpt x,
-          set = fn _ => fn x => C.set stringOpt x,
-          init = fn x => C.set stringOpt x
+          get = fn _ => fn v => fn () => C.get stringOpt v,
+          set = fn _ => fn v => fn x => C.set stringOpt v x,
+          init = fn v => fn x => C.set stringOpt v x
         }
     end
   end

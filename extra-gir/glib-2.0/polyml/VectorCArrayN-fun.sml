@@ -1,4 +1,4 @@
-(* Copyright (C) 2019-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2019-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -9,7 +9,7 @@ functor VectorCArrayN(
   CArray :
     C_ARRAY
       where type 'a C.ArrayType.from_p = int -> 'a
-      where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+      where type 'a value_accessor_t = 'a ValueAccessor.t
 ) :>
   C_ARRAY
     where type t = CArray.sequence
@@ -21,12 +21,12 @@ functor VectorCArrayN(
     where type C.non_opt = CArray.C.non_opt
     where type 'a C.p = 'a CArray.C.p
     where type ('a, 'b) C.r = ('a, 'b) CArray.C.r
-    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
+    where type 'a value_accessor_t = 'a ValueAccessor.t =
   struct
     structure Array = VectorCArrayN(CArray)
     open Array
 
-    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
-    val t = ValueAccessor.map (fn f => CArray.toSequence o f, Fn.id) CArray.t
-    val tOpt = ValueAccessor.map (fn f => Option.map CArray.toSequence o f, Fn.id) CArray.tOpt
+    type 'a value_accessor_t = 'a ValueAccessor.t
+    val t = ValueAccessor.map (fn f => CArray.toSequence o f, fn f => CArray.fromSequence o f) CArray.t
+    val tOpt = ValueAccessor.map (fn f => Option.map CArray.toSequence o f, fn f => Option.map CArray.fromSequence o f) CArray.tOpt
   end

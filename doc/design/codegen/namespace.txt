@@ -26,7 +26,7 @@ signature <NAMESPACE> =
   sig
     (* Types *)
                                                                 -.
-    type ('a, 'b) value_accessor_t                               |
+    type 'a value_accessor_t                                     |
                                                                  |
     type 'a signal_t                                             | isGObject
                                                                  |
@@ -90,7 +90,7 @@ where
           where type 'a <parent_object_name>_class = 'a <ParentObjectName>Class.class | isParentObjectNamespace
                                                                                      -'
                                                                                      -.
-          where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t             | isGObject
+          where type 'a value_accessor_t = 'a ValueAccessor.t                         | isGObject
                                                                                      -'
       structure <Name> :
         <NAMESPACE>_<NAME>
@@ -120,7 +120,7 @@ where
               'a <ParentUnionName>.union         |                          |    ("<ParentUnionNamespace>", "<ParentUnionName>", _)
                                                 -'                         -'
                                                                                 -.
-          where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t        | isGObject
+          where type 'a value_accessor_t = 'a ValueAccessor.t                    | isGObject
                                                                                 -'
       structure <Name> :
         <NAMESPACE>_<NAME>
@@ -144,7 +144,7 @@ where
       structure <Name> :
         <NAMESPACE>_<NAME>
                                                                                 -.
-          where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t        | isGObject
+          where type 'a value_accessor_t = 'a ValueAccessor.t                    | isGObject
                                                                                 -'
           where type <varlist[1]> <local_name[1]> = <varlist[1]> <TypeName[1]>.<t[1]>
           ...
@@ -156,7 +156,7 @@ where
       structure <Name> :
         <NAMESPACE>_<NAME>
                                                                                 -.
-          where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t        | isGObject
+          where type 'a value_accessor_t = 'a ValueAccessor.t                    | isGObject
                                                                                 -'
           where type <varlist[1]> <local_name[1]> = <varlist[1]> <TypeName[1]>.<t[1]>
           ...
@@ -213,7 +213,7 @@ where
 structure <Namespace> :
   <NAMESPACE>
                                                                                           -.
-    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t                        |
+    where type 'a value_accessor_t = 'a ValueAccessor.t                                    |
                                                                                            |
     where type 'a signal_t = 'a Signal.t                                                   | isGObject
                                                                                            |
@@ -247,7 +247,7 @@ structure <Namespace> :
 
     (* Types *)
                                                                                           -.
-    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t                              |
+    type 'a value_accessor_t = 'a ValueAccessor.t                                          |
                                                                                            |
     type 'a signal_t = 'a Signal.t                                                         | isGObject
                                                                                            |

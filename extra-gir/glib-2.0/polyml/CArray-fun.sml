@@ -15,7 +15,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
     where type 'a C.ArrayType.p = 'a CArrayType.p
     where type C.ArrayType.opt = CArrayType.opt
     where type C.ArrayType.non_opt = CArrayType.non_opt
-    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
+    where type 'a value_accessor_t = 'a ValueAccessor.t =
   struct
     structure Array = CArray(CArrayType)
     open Array
@@ -34,7 +34,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
           (GObjectValueRecord.PolyML.cPtr --> PolyML.cOutOptPtr);
     end
 
-    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    type 'a value_accessor_t = 'a ValueAccessor.t
 
     val t =
       ValueAccessor.C.createAccessor {

@@ -17,7 +17,7 @@ structure GObjectValueRecord : G_OBJECT_VALUE_RECORD =
       val setValue_ = call (externalFunctionSymbol "g_value_set_boxed") (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)
       val setOptValue_ = call (externalFunctionSymbol "g_value_set_boxed") (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid)
     end
-    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    type 'a value_accessor_t = 'a ValueAccessor.t
     val t =
       ValueAccessor.C.createAccessor
         {

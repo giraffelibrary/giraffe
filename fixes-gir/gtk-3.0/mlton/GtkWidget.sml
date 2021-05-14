@@ -3388,20 +3388,160 @@ structure GtkWidget :>
     local
       open ClosureMarshal Signal
     in
-      fun accelClosuresChangedSig f = signal "accel-closures-changed" (void ---> ret_void) f
-      fun buttonPressEventSig f = signal "button-press-event" (get 0w1 GdkEventButtonRecord.t ---> ret boolean) f
-      fun buttonReleaseEventSig f = signal "button-release-event" (get 0w1 GdkEventButtonRecord.t ---> ret boolean) f
-      fun canActivateAccelSig f = signal "can-activate-accel" (get 0w1 uint ---> ret boolean) f
-      fun childNotifySig f = signal "child-notify" (get 0w1 GObjectParamSpecClass.t ---> ret_void) f
-      fun compositedChangedSig f = signal "composited-changed" (void ---> ret_void) f
-      fun configureEventSig f = signal "configure-event" (get 0w1 GdkEventConfigureRecord.t ---> ret boolean) f
-      fun damageEventSig f = signal "damage-event" (get 0w1 GdkEventExposeRecord.t ---> ret boolean) f
-      fun deleteEventSig f = signal "delete-event" (get 0w1 GdkEvent.t ---> ret boolean) f
-      fun destroySig f = signal "destroy" (void ---> ret_void) f
-      fun destroyEventSig f = signal "destroy-event" (get 0w1 GdkEvent.t ---> ret boolean) f
-      fun directionChangedSig f = signal "direction-changed" (get 0w1 GtkTextDirection.t ---> ret_void) f
-      fun dragBeginSig f = signal "drag-begin" (get 0w1 GdkDragContextClass.t ---> ret_void) f
-      fun dragDataDeleteSig f = signal "drag-data-delete" (get 0w1 GdkDragContextClass.t ---> ret_void) f
+      fun accelClosuresChangedSig f =
+        signal "accel-closures-changed" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun buttonPressEventSig f =
+        signal "button-press-event" (get 0w1 GdkEventButtonRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun buttonReleaseEventSig f =
+        signal "button-release-event" (get 0w1 GdkEventButtonRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun canActivateAccelSig f =
+        signal "can-activate-accel" (get 0w1 uint ---> ret boolean)
+          (
+            fn
+              signalId =>
+                let
+                  val retVal = f signalId
+                in
+                  retVal
+                end
+          )
+      fun childNotifySig f =
+        signal "child-notify" (get 0w1 GObjectParamSpecClass.t ---> ret_void)
+          (
+            fn
+              childProperty =>
+                let
+                  val () = f childProperty
+                in
+                  ()
+                end
+          )
+      fun compositedChangedSig f =
+        signal "composited-changed" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun configureEventSig f =
+        signal "configure-event" (get 0w1 GdkEventConfigureRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun damageEventSig f =
+        signal "damage-event" (get 0w1 GdkEventExposeRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun deleteEventSig f =
+        signal "delete-event" (get 0w1 GdkEvent.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun destroySig f =
+        signal "destroy" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun destroyEventSig f =
+        signal "destroy-event" (get 0w1 GdkEvent.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun directionChangedSig f =
+        signal "direction-changed" (get 0w1 GtkTextDirection.t ---> ret_void)
+          (
+            fn
+              previousDirection =>
+                let
+                  val () = f previousDirection
+                in
+                  ()
+                end
+          )
+      fun dragBeginSig f =
+        signal "drag-begin" (get 0w1 GdkDragContextClass.t ---> ret_void)
+          (
+            fn
+              context =>
+                let
+                  val () = f context
+                in
+                  ()
+                end
+          )
+      fun dragDataDeleteSig f =
+        signal "drag-data-delete" (get 0w1 GdkDragContextClass.t ---> ret_void)
+          (
+            fn
+              context =>
+                let
+                  val () = f context
+                in
+                  ()
+                end
+          )
       fun dragDataGetSig f =
         signal "drag-data-get"
           (
@@ -3417,13 +3557,18 @@ structure GtkWidget :>
                & data
                & info
                & time =>
-                f
-                  (
-                    context,
-                    data,
-                    info,
-                    time
-                  )
+                let
+                  val () =
+                    f
+                      (
+                        context,
+                        data,
+                        info,
+                        time
+                      )
+                in
+                  ()
+                end
           )
       fun dragDataReceivedSig f =
         signal "drag-data-received"
@@ -3444,15 +3589,20 @@ structure GtkWidget :>
                & data
                & info
                & time =>
-                f
-                  (
-                    context,
-                    x,
-                    y,
-                    data,
-                    info,
-                    time
-                  )
+                let
+                  val () =
+                    f
+                      (
+                        context,
+                        x,
+                        y,
+                        data,
+                        info,
+                        time
+                      )
+                in
+                  ()
+                end
           )
       fun dragDropSig f =
         signal "drag-drop"
@@ -3469,17 +3619,52 @@ structure GtkWidget :>
                & x
                & y
                & time =>
-                f
-                  (
-                    context,
-                    x,
-                    y,
-                    time
-                  )
+                let
+                  val retVal =
+                    f
+                      (
+                        context,
+                        x,
+                        y,
+                        time
+                      )
+                in
+                  retVal
+                end
           )
-      fun dragEndSig f = signal "drag-end" (get 0w1 GdkDragContextClass.t ---> ret_void) f
-      fun dragFailedSig f = signal "drag-failed" (get 0w1 GdkDragContextClass.t &&&> get 0w2 GtkDragResult.t ---> ret boolean) (fn context & result => f (context, result))
-      fun dragLeaveSig f = signal "drag-leave" (get 0w1 GdkDragContextClass.t &&&> get 0w2 uint ---> ret_void) (fn context & time => f (context, time))
+      fun dragEndSig f =
+        signal "drag-end" (get 0w1 GdkDragContextClass.t ---> ret_void)
+          (
+            fn
+              context =>
+                let
+                  val () = f context
+                in
+                  ()
+                end
+          )
+      fun dragFailedSig f =
+        signal "drag-failed" (get 0w1 GdkDragContextClass.t &&&> get 0w2 GtkDragResult.t ---> ret boolean)
+          (
+            fn
+              context & result =>
+                let
+                  val retVal = f (context, result)
+                in
+                  retVal
+                end
+          )
+      fun dragLeaveSig f =
+        signal "drag-leave" (get 0w1 GdkDragContextClass.t &&&> get 0w2 uint ---> ret_void)
+          (
+            fn
+              context & time =>
+                let
+                  val () = f (context, time)
+                in
+                  ()
+                end
+          )
       fun dragMotionSig f =
         signal "drag-motion"
           (
@@ -3495,40 +3680,305 @@ structure GtkWidget :>
                & x
                & y
                & time =>
-                f
-                  (
-                    context,
-                    x,
-                    y,
-                    time
-                  )
+                let
+                  val retVal =
+                    f
+                      (
+                        context,
+                        x,
+                        y,
+                        time
+                      )
+                in
+                  retVal
+                end
           )
-      fun drawSig f = signal "draw" (get 0w1 CairoContextRecord.t ---> ret boolean) f
-      fun enterNotifyEventSig f = signal "enter-notify-event" (get 0w1 GdkEventCrossingRecord.t ---> ret boolean) f
-      fun eventSig f = signal "event" (get 0w1 GdkEvent.t ---> ret boolean) f
-      fun eventAfterSig f = signal "event-after" (get 0w1 GdkEvent.t ---> ret_void) f
-      fun focusSig f = signal "focus" (get 0w1 GtkDirectionType.t ---> ret boolean) f
-      fun focusInEventSig f = signal "focus-in-event" (get 0w1 GdkEventFocusRecord.t ---> ret boolean) f
-      fun focusOutEventSig f = signal "focus-out-event" (get 0w1 GdkEventFocusRecord.t ---> ret boolean) f
-      fun grabBrokenEventSig f = signal "grab-broken-event" (get 0w1 GdkEventGrabBrokenRecord.t ---> ret boolean) f
-      fun grabFocusSig f = signal "grab-focus" (void ---> ret_void) f
-      fun grabNotifySig f = signal "grab-notify" (get 0w1 boolean ---> ret_void) f
-      fun hideSig f = signal "hide" (void ---> ret_void) f
-      fun hierarchyChangedSig f = signal "hierarchy-changed" (get 0w1 GtkWidgetClass.tOpt ---> ret_void) f
-      fun keyPressEventSig f = signal "key-press-event" (get 0w1 GdkEventKeyRecord.t ---> ret boolean) f
-      fun keyReleaseEventSig f = signal "key-release-event" (get 0w1 GdkEventKeyRecord.t ---> ret boolean) f
-      fun keynavFailedSig f = signal "keynav-failed" (get 0w1 GtkDirectionType.t ---> ret boolean) f
-      fun leaveNotifyEventSig f = signal "leave-notify-event" (get 0w1 GdkEventCrossingRecord.t ---> ret boolean) f
-      fun mapSig f = signal "map" (void ---> ret_void) f
-      fun mapEventSig f = signal "map-event" (get 0w1 GdkEventAnyRecord.t ---> ret boolean) f
-      fun mnemonicActivateSig f = signal "mnemonic-activate" (get 0w1 boolean ---> ret boolean) f
-      fun motionNotifyEventSig f = signal "motion-notify-event" (get 0w1 GdkEventMotionRecord.t ---> ret boolean) f
-      fun moveFocusSig f = signal "move-focus" (get 0w1 GtkDirectionType.t ---> ret_void) f
-      fun parentSetSig f = signal "parent-set" (get 0w1 GtkWidgetClass.tOpt ---> ret_void) f
-      fun popupMenuSig f = signal "popup-menu" (void ---> ret boolean) f
-      fun propertyNotifyEventSig f = signal "property-notify-event" (get 0w1 GdkEventPropertyRecord.t ---> ret boolean) f
-      fun proximityInEventSig f = signal "proximity-in-event" (get 0w1 GdkEventProximityRecord.t ---> ret boolean) f
-      fun proximityOutEventSig f = signal "proximity-out-event" (get 0w1 GdkEventProximityRecord.t ---> ret boolean) f
+      fun drawSig f =
+        signal "draw" (get 0w1 CairoContextRecord.t ---> ret boolean)
+          (
+            fn
+              cr =>
+                let
+                  val retVal = f cr
+                in
+                  retVal
+                end
+          )
+      fun enterNotifyEventSig f =
+        signal "enter-notify-event" (get 0w1 GdkEventCrossingRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun eventSig f =
+        signal "event" (get 0w1 GdkEvent.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun eventAfterSig f =
+        signal "event-after" (get 0w1 GdkEvent.t ---> ret_void)
+          (
+            fn
+              event =>
+                let
+                  val () = f event
+                in
+                  ()
+                end
+          )
+      fun focusSig f =
+        signal "focus" (get 0w1 GtkDirectionType.t ---> ret boolean)
+          (
+            fn
+              direction =>
+                let
+                  val retVal = f direction
+                in
+                  retVal
+                end
+          )
+      fun focusInEventSig f =
+        signal "focus-in-event" (get 0w1 GdkEventFocusRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun focusOutEventSig f =
+        signal "focus-out-event" (get 0w1 GdkEventFocusRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun grabBrokenEventSig f =
+        signal "grab-broken-event" (get 0w1 GdkEventGrabBrokenRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun grabFocusSig f =
+        signal "grab-focus" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun grabNotifySig f =
+        signal "grab-notify" (get 0w1 boolean ---> ret_void)
+          (
+            fn
+              wasGrabbed =>
+                let
+                  val () = f wasGrabbed
+                in
+                  ()
+                end
+          )
+      fun hideSig f =
+        signal "hide" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun hierarchyChangedSig f =
+        signal "hierarchy-changed" (get 0w1 GtkWidgetClass.tOpt ---> ret_void)
+          (
+            fn
+              previousToplevel =>
+                let
+                  val () = f previousToplevel
+                in
+                  ()
+                end
+          )
+      fun keyPressEventSig f =
+        signal "key-press-event" (get 0w1 GdkEventKeyRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun keyReleaseEventSig f =
+        signal "key-release-event" (get 0w1 GdkEventKeyRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun keynavFailedSig f =
+        signal "keynav-failed" (get 0w1 GtkDirectionType.t ---> ret boolean)
+          (
+            fn
+              direction =>
+                let
+                  val retVal = f direction
+                in
+                  retVal
+                end
+          )
+      fun leaveNotifyEventSig f =
+        signal "leave-notify-event" (get 0w1 GdkEventCrossingRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun mapSig f =
+        signal "map" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun mapEventSig f =
+        signal "map-event" (get 0w1 GdkEventAnyRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun mnemonicActivateSig f =
+        signal "mnemonic-activate" (get 0w1 boolean ---> ret boolean)
+          (
+            fn
+              groupCycling =>
+                let
+                  val retVal = f groupCycling
+                in
+                  retVal
+                end
+          )
+      fun motionNotifyEventSig f =
+        signal "motion-notify-event" (get 0w1 GdkEventMotionRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun moveFocusSig f =
+        signal "move-focus" (get 0w1 GtkDirectionType.t ---> ret_void)
+          (
+            fn
+              direction =>
+                let
+                  val () = f direction
+                in
+                  ()
+                end
+          )
+      fun parentSetSig f =
+        signal "parent-set" (get 0w1 GtkWidgetClass.tOpt ---> ret_void)
+          (
+            fn
+              oldParent =>
+                let
+                  val () = f oldParent
+                in
+                  ()
+                end
+          )
+      fun popupMenuSig f =
+        signal "popup-menu" (void ---> ret boolean)
+          (
+            fn
+              () =>
+                let
+                  val retVal = f ()
+                in
+                  retVal
+                end
+          )
+      fun propertyNotifyEventSig f =
+        signal "property-notify-event" (get 0w1 GdkEventPropertyRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun proximityInEventSig f =
+        signal "proximity-in-event" (get 0w1 GdkEventProximityRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun proximityOutEventSig f =
+        signal "proximity-out-event" (get 0w1 GdkEventProximityRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
       fun queryTooltipSig f =
         signal "query-tooltip"
           (
@@ -3544,18 +3994,63 @@ structure GtkWidget :>
                & y
                & keyboardMode
                & tooltip =>
-                f
-                  (
-                    x,
-                    y,
-                    keyboardMode,
-                    tooltip
-                  )
+                let
+                  val retVal =
+                    f
+                      (
+                        x,
+                        y,
+                        keyboardMode,
+                        tooltip
+                      )
+                in
+                  retVal
+                end
           )
-      fun realizeSig f = signal "realize" (void ---> ret_void) f
-      fun screenChangedSig f = signal "screen-changed" (get 0w1 GdkScreenClass.tOpt ---> ret_void) f
-      fun scrollEventSig f = signal "scroll-event" (get 0w1 GdkEventScrollRecord.t ---> ret boolean) f
-      fun selectionClearEventSig f = signal "selection-clear-event" (get 0w1 GdkEventSelectionRecord.t ---> ret boolean) f
+      fun realizeSig f =
+        signal "realize" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun screenChangedSig f =
+        signal "screen-changed" (get 0w1 GdkScreenClass.tOpt ---> ret_void)
+          (
+            fn
+              previousScreen =>
+                let
+                  val () = f previousScreen
+                in
+                  ()
+                end
+          )
+      fun scrollEventSig f =
+        signal "scroll-event" (get 0w1 GdkEventScrollRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun selectionClearEventSig f =
+        signal "selection-clear-event" (get 0w1 GdkEventSelectionRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
       fun selectionGetSig f =
         signal "selection-get"
           (
@@ -3569,29 +4064,194 @@ structure GtkWidget :>
               data
                & info
                & time =>
-                f
-                  (
-                    data,
-                    info,
-                    time
-                  )
+                let
+                  val () =
+                    f
+                      (
+                        data,
+                        info,
+                        time
+                      )
+                in
+                  ()
+                end
           )
-      fun selectionNotifyEventSig f = signal "selection-notify-event" (get 0w1 GdkEventSelectionRecord.t ---> ret boolean) f
-      fun selectionReceivedSig f = signal "selection-received" (get 0w1 GtkSelectionDataRecord.t &&&> get 0w2 uint ---> ret_void) (fn data & time => f (data, time))
-      fun selectionRequestEventSig f = signal "selection-request-event" (get 0w1 GdkEventSelectionRecord.t ---> ret boolean) f
-      fun showSig f = signal "show" (void ---> ret_void) f
-      fun showHelpSig f = signal "show-help" (get 0w1 GtkWidgetHelpType.t ---> ret boolean) f
-      fun sizeAllocateSig f = signal "size-allocate" (get 0w1 GtkAllocationRecord.t ---> ret_void) f
-      fun stateChangedSig f = signal "state-changed" (get 0w1 GtkStateType.t ---> ret_void) f
-      fun stateFlagsChangedSig f = signal "state-flags-changed" (get 0w1 GtkStateFlags.t ---> ret_void) f
-      fun styleSetSig f = signal "style-set" (get 0w1 GtkStyleClass.tOpt ---> ret_void) f
-      fun styleUpdatedSig f = signal "style-updated" (void ---> ret_void) f
-      fun touchEventSig f = signal "touch-event" (get 0w1 GdkEvent.t ---> ret boolean) f
-      fun unmapSig f = signal "unmap" (void ---> ret_void) f
-      fun unmapEventSig f = signal "unmap-event" (get 0w1 GdkEventAnyRecord.t ---> ret boolean) f
-      fun unrealizeSig f = signal "unrealize" (void ---> ret_void) f
-      fun visibilityNotifyEventSig f = signal "visibility-notify-event" (get 0w1 GdkEventVisibilityRecord.t ---> ret boolean) f
-      fun windowStateEventSig f = signal "window-state-event" (get 0w1 GdkEventWindowStateRecord.t ---> ret boolean) f
+      fun selectionNotifyEventSig f =
+        signal "selection-notify-event" (get 0w1 GdkEventSelectionRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun selectionReceivedSig f =
+        signal "selection-received" (get 0w1 GtkSelectionDataRecord.t &&&> get 0w2 uint ---> ret_void)
+          (
+            fn
+              data & time =>
+                let
+                  val () = f (data, time)
+                in
+                  ()
+                end
+          )
+      fun selectionRequestEventSig f =
+        signal "selection-request-event" (get 0w1 GdkEventSelectionRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun showSig f =
+        signal "show" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun showHelpSig f =
+        signal "show-help" (get 0w1 GtkWidgetHelpType.t ---> ret boolean)
+          (
+            fn
+              helpType =>
+                let
+                  val retVal = f helpType
+                in
+                  retVal
+                end
+          )
+      fun sizeAllocateSig f =
+        signal "size-allocate" (get 0w1 GtkAllocationRecord.t ---> ret_void)
+          (
+            fn
+              allocation =>
+                let
+                  val () = f allocation
+                in
+                  ()
+                end
+          )
+      fun stateChangedSig f =
+        signal "state-changed" (get 0w1 GtkStateType.t ---> ret_void)
+          (
+            fn
+              state =>
+                let
+                  val () = f state
+                in
+                  ()
+                end
+          )
+      fun stateFlagsChangedSig f =
+        signal "state-flags-changed" (get 0w1 GtkStateFlags.t ---> ret_void)
+          (
+            fn
+              flags =>
+                let
+                  val () = f flags
+                in
+                  ()
+                end
+          )
+      fun styleSetSig f =
+        signal "style-set" (get 0w1 GtkStyleClass.tOpt ---> ret_void)
+          (
+            fn
+              previousStyle =>
+                let
+                  val () = f previousStyle
+                in
+                  ()
+                end
+          )
+      fun styleUpdatedSig f =
+        signal "style-updated" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun touchEventSig f =
+        signal "touch-event" (get 0w1 GdkEvent.t ---> ret boolean)
+          (
+            fn
+              object =>
+                let
+                  val retVal = f object
+                in
+                  retVal
+                end
+          )
+      fun unmapSig f =
+        signal "unmap" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun unmapEventSig f =
+        signal "unmap-event" (get 0w1 GdkEventAnyRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun unrealizeSig f =
+        signal "unrealize" (void ---> ret_void)
+          (
+            fn
+              () =>
+                let
+                  val () = f ()
+                in
+                  ()
+                end
+          )
+      fun visibilityNotifyEventSig f =
+        signal "visibility-notify-event" (get 0w1 GdkEventVisibilityRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
+      fun windowStateEventSig f =
+        signal "window-state-event" (get 0w1 GdkEventWindowStateRecord.t ---> ret boolean)
+          (
+            fn
+              event =>
+                let
+                  val retVal = f event
+                in
+                  retVal
+                end
+          )
     end
     local
       open ValueAccessor
@@ -3600,31 +4260,31 @@ structure GtkWidget :>
         {
           name = "app-paintable",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val canDefaultProp =
         {
           name = "can-default",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val canFocusProp =
         {
           name = "can-focus",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val compositeChildProp =
         {
           name = "composite-child",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
+          get = fn _ => fn v => fn () => C.get boolean v,
           set = fn _ => ignore,
           init = ignore
         }
@@ -3632,199 +4292,199 @@ structure GtkWidget :>
         {
           name = "double-buffered",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val eventsProp =
         {
           name = "events",
           gtype = fn () => C.gtype GdkEventMask.t (),
-          get = fn _ => fn x => fn () => C.get GdkEventMask.t x,
-          set = fn _ => fn x => C.set GdkEventMask.t x,
-          init = fn x => C.set GdkEventMask.t x
+          get = fn _ => fn v => fn () => C.get GdkEventMask.t v,
+          set = fn _ => fn v => fn x => C.set GdkEventMask.t v x,
+          init = fn v => fn x => C.set GdkEventMask.t v x
         }
       val expandProp =
         {
           name = "expand",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val focusOnClickProp =
         {
           name = "focus-on-click",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val halignProp =
         {
           name = "halign",
           gtype = fn () => C.gtype GtkAlign.t (),
-          get = fn _ => fn x => fn () => C.get GtkAlign.t x,
-          set = fn _ => fn x => C.set GtkAlign.t x,
-          init = fn x => C.set GtkAlign.t x
+          get = fn _ => fn v => fn () => C.get GtkAlign.t v,
+          set = fn _ => fn v => fn x => C.set GtkAlign.t v x,
+          init = fn v => fn x => C.set GtkAlign.t v x
         }
       val hasDefaultProp =
         {
           name = "has-default",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val hasFocusProp =
         {
           name = "has-focus",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val hasTooltipProp =
         {
           name = "has-tooltip",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val heightRequestProp =
         {
           name = "height-request",
           gtype = fn () => C.gtype int (),
-          get = fn _ => fn x => fn () => C.get int x,
-          set = fn _ => fn x => C.set int x,
-          init = fn x => C.set int x
+          get = fn _ => fn v => fn () => C.get int v,
+          set = fn _ => fn v => fn x => C.set int v x,
+          init = fn v => fn x => C.set int v x
         }
       val hexpandProp =
         {
           name = "hexpand",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val hexpandSetProp =
         {
           name = "hexpand-set",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val isFocusProp =
         {
           name = "is-focus",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val marginProp =
         {
           name = "margin",
           gtype = fn () => C.gtype int (),
-          get = fn _ => fn x => fn () => C.get int x,
-          set = fn _ => fn x => C.set int x,
-          init = fn x => C.set int x
+          get = fn _ => fn v => fn () => C.get int v,
+          set = fn _ => fn v => fn x => C.set int v x,
+          init = fn v => fn x => C.set int v x
         }
       val marginBottomProp =
         {
           name = "margin-bottom",
           gtype = fn () => C.gtype int (),
-          get = fn _ => fn x => fn () => C.get int x,
-          set = fn _ => fn x => C.set int x,
-          init = fn x => C.set int x
+          get = fn _ => fn v => fn () => C.get int v,
+          set = fn _ => fn v => fn x => C.set int v x,
+          init = fn v => fn x => C.set int v x
         }
       val marginEndProp =
         {
           name = "margin-end",
           gtype = fn () => C.gtype int (),
-          get = fn _ => fn x => fn () => C.get int x,
-          set = fn _ => fn x => C.set int x,
-          init = fn x => C.set int x
+          get = fn _ => fn v => fn () => C.get int v,
+          set = fn _ => fn v => fn x => C.set int v x,
+          init = fn v => fn x => C.set int v x
         }
       val marginLeftProp =
         {
           name = "margin-left",
           gtype = fn () => C.gtype int (),
-          get = fn _ => fn x => fn () => C.get int x,
-          set = fn _ => fn x => C.set int x,
-          init = fn x => C.set int x
+          get = fn _ => fn v => fn () => C.get int v,
+          set = fn _ => fn v => fn x => C.set int v x,
+          init = fn v => fn x => C.set int v x
         }
       val marginRightProp =
         {
           name = "margin-right",
           gtype = fn () => C.gtype int (),
-          get = fn _ => fn x => fn () => C.get int x,
-          set = fn _ => fn x => C.set int x,
-          init = fn x => C.set int x
+          get = fn _ => fn v => fn () => C.get int v,
+          set = fn _ => fn v => fn x => C.set int v x,
+          init = fn v => fn x => C.set int v x
         }
       val marginStartProp =
         {
           name = "margin-start",
           gtype = fn () => C.gtype int (),
-          get = fn _ => fn x => fn () => C.get int x,
-          set = fn _ => fn x => C.set int x,
-          init = fn x => C.set int x
+          get = fn _ => fn v => fn () => C.get int v,
+          set = fn _ => fn v => fn x => C.set int v x,
+          init = fn v => fn x => C.set int v x
         }
       val marginTopProp =
         {
           name = "margin-top",
           gtype = fn () => C.gtype int (),
-          get = fn _ => fn x => fn () => C.get int x,
-          set = fn _ => fn x => C.set int x,
-          init = fn x => C.set int x
+          get = fn _ => fn v => fn () => C.get int v,
+          set = fn _ => fn v => fn x => C.set int v x,
+          init = fn v => fn x => C.set int v x
         }
       val nameProp =
         {
           name = "name",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn _ => fn x => fn () => C.get stringOpt x,
-          set = fn _ => fn x => C.set stringOpt x,
-          init = fn x => C.set stringOpt x
+          get = fn _ => fn v => fn () => C.get stringOpt v,
+          set = fn _ => fn v => fn x => C.set stringOpt v x,
+          init = fn v => fn x => C.set stringOpt v x
         }
       val noShowAllProp =
         {
           name = "no-show-all",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val opacityProp =
         {
           name = "opacity",
           gtype = fn () => C.gtype double (),
-          get = fn _ => fn x => fn () => C.get double x,
-          set = fn _ => fn x => C.set double x,
-          init = fn x => C.set double x
+          get = fn _ => fn v => fn () => C.get double v,
+          set = fn _ => fn v => fn x => C.set double v x,
+          init = fn v => fn x => C.set double v x
         }
       val parentProp =
         {
           name = "parent",
           gtype = fn () => C.gtype GtkContainerClass.tOpt (),
-          get = fn _ => fn x => fn () => C.get GtkContainerClass.tOpt x,
-          set = fn _ => fn x => C.set GtkContainerClass.tOpt x,
-          init = fn x => C.set GtkContainerClass.tOpt x
+          get = fn _ => fn v => fn () => C.get GtkContainerClass.tOpt v,
+          set = fn _ => fn v => fn x => C.set GtkContainerClass.tOpt v (Option.map GtkContainerClass.toBase x),
+          init = fn v => fn x => C.set GtkContainerClass.tOpt v (Option.map GtkContainerClass.toBase x)
         }
       val receivesDefaultProp =
         {
           name = "receives-default",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val scaleFactorProp =
         {
           name = "scale-factor",
           gtype = fn () => C.gtype int (),
-          get = fn _ => fn x => fn () => C.get int x,
+          get = fn _ => fn v => fn () => C.get int v,
           set = fn _ => ignore,
           init = ignore
         }
@@ -3832,79 +4492,79 @@ structure GtkWidget :>
         {
           name = "sensitive",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val styleProp =
         {
           name = "style",
           gtype = fn () => C.gtype GtkStyleClass.tOpt (),
-          get = fn _ => fn x => fn () => C.get GtkStyleClass.tOpt x,
-          set = fn _ => fn x => C.set GtkStyleClass.tOpt x,
-          init = fn x => C.set GtkStyleClass.tOpt x
+          get = fn _ => fn v => fn () => C.get GtkStyleClass.tOpt v,
+          set = fn _ => fn v => fn x => C.set GtkStyleClass.tOpt v (Option.map GtkStyleClass.toBase x),
+          init = fn v => fn x => C.set GtkStyleClass.tOpt v (Option.map GtkStyleClass.toBase x)
         }
       val tooltipMarkupProp =
         {
           name = "tooltip-markup",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn _ => fn x => fn () => C.get stringOpt x,
-          set = fn _ => fn x => C.set stringOpt x,
-          init = fn x => C.set stringOpt x
+          get = fn _ => fn v => fn () => C.get stringOpt v,
+          set = fn _ => fn v => fn x => C.set stringOpt v x,
+          init = fn v => fn x => C.set stringOpt v x
         }
       val tooltipTextProp =
         {
           name = "tooltip-text",
           gtype = fn () => C.gtype stringOpt (),
-          get = fn _ => fn x => fn () => C.get stringOpt x,
-          set = fn _ => fn x => C.set stringOpt x,
-          init = fn x => C.set stringOpt x
+          get = fn _ => fn v => fn () => C.get stringOpt v,
+          set = fn _ => fn v => fn x => C.set stringOpt v x,
+          init = fn v => fn x => C.set stringOpt v x
         }
       val valignProp =
         {
           name = "valign",
           gtype = fn () => C.gtype GtkAlign.t (),
-          get = fn _ => fn x => fn () => C.get GtkAlign.t x,
-          set = fn _ => fn x => C.set GtkAlign.t x,
-          init = fn x => C.set GtkAlign.t x
+          get = fn _ => fn v => fn () => C.get GtkAlign.t v,
+          set = fn _ => fn v => fn x => C.set GtkAlign.t v x,
+          init = fn v => fn x => C.set GtkAlign.t v x
         }
       val vexpandProp =
         {
           name = "vexpand",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val vexpandSetProp =
         {
           name = "vexpand-set",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val visibleProp =
         {
           name = "visible",
           gtype = fn () => C.gtype boolean (),
-          get = fn _ => fn x => fn () => C.get boolean x,
-          set = fn _ => fn x => C.set boolean x,
-          init = fn x => C.set boolean x
+          get = fn _ => fn v => fn () => C.get boolean v,
+          set = fn _ => fn v => fn x => C.set boolean v x,
+          init = fn v => fn x => C.set boolean v x
         }
       val widthRequestProp =
         {
           name = "width-request",
           gtype = fn () => C.gtype int (),
-          get = fn _ => fn x => fn () => C.get int x,
-          set = fn _ => fn x => C.set int x,
-          init = fn x => C.set int x
+          get = fn _ => fn v => fn () => C.get int v,
+          set = fn _ => fn v => fn x => C.set int v x,
+          init = fn v => fn x => C.set int v x
         }
       val windowProp =
         {
           name = "window",
           gtype = fn () => C.gtype GdkWindowClass.tOpt (),
-          get = fn _ => fn x => fn () => C.get GdkWindowClass.tOpt x,
+          get = fn _ => fn v => fn () => C.get GdkWindowClass.tOpt v,
           set = fn _ => ignore,
           init = ignore
         }

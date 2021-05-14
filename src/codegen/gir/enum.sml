@@ -204,7 +204,7 @@ in
       val (specs'2, (sigIRefs'2, extIRefs'2), excls'2) = acc'2
       val specs'3 = revMapAppend makeIRefLocalTypeSpec (sigIRefs'2, specs'2)
       val specs'4 =
-        addAccessorSpecs enumNamespace enumInfo (tTy, tTy) false specs'3
+        addAccessorSpecs enumNamespace enumInfo tTy false specs'3
       val specs'5 =
         case optErrorDomain of
           SOME _ => addErrorSpecs enumNamespace specs'4

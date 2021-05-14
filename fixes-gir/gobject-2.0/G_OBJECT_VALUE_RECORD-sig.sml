@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2018, 2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -8,7 +8,7 @@
 signature G_OBJECT_VALUE_RECORD =
   sig
     include G_OBJECT_VALUE_RECORD
-    type ('a, 'b) value_accessor_t
-    val t : (t, t) value_accessor_t
-    val tOpt : (t option, t option) value_accessor_t
+    type 'a value_accessor_t
+    val t : t value_accessor_t
+    val tOpt : t option value_accessor_t
   end

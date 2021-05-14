@@ -7,6 +7,6 @@ signature GDK_EVENT_PAD_GROUP_MODE_RECORD =
         where type t = pad_group_mode event_union
     datatype event =
       PAD_GROUP_MODE
-    val t : (t, t) ValueAccessor.t
-    val tOpt : (t option, t option) ValueAccessor.t
+    val t : t ValueAccessor.t
+    val tOpt : t option ValueAccessor.t
   end

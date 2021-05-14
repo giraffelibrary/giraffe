@@ -229,7 +229,7 @@ where
             var is
 
               a fresh type variable
-                for an outParamType or a retType
+                for an outParamType or a retValType
 
               base
                 for an inParamType
@@ -254,11 +254,11 @@ inverse of an array X is denoted X~.
     "<signal-name>"
     (<getFun[1]> &&&> ... &&&> <getFun[L]> ---> <setFun[1]> && ... && <setFun[K]> && <retFun>)
     (
-      fn inParamName[1] & ... & inParamName[L] =>
+      fn <inParamName[1]> & ... & <inParamName[L]> =>
         let
-          val <retPat> = f (inParamExp[1], ..., inParamExp[J])
+          val <retPat> = f (<inParamExp[1]>, ..., <inParamExp[J]>)
         in
-          outParamName[1] & ... & outParamName[K] & <retVal>
+          <outParamExp[1]> & ... & <outParamExp[K]> & <retValExp>
         end
     )
 
@@ -274,7 +274,7 @@ inverse of an array X is denoted X~.
         let
           val <retPat> = f ()
         in
-          outParamName[1] & ... & outParamName[K] & <retVal>
+          <outParamExp[1]> & ... & <outParamExp[K]> & <retValExp>
         end
     )
 
@@ -286,27 +286,29 @@ inverse of an array X is denoted X~.
     "<signal-name>"
     (<getFun[1]> &&&> ... &&&> <getFun[L]> ---> <retFun>)
     (
-      fn inParamName[1] & ... & inParamName[L] =>
-        f (inParamExp[1], ..., inParamExp[J])
+      fn <inParamName[1]> & ... & <inParamName[L]> =>
+        let
+          val <retPat> = f (<inParamExp[1]>, ..., <inParamExp[J]>)
+        in
+          <retValExp>
+        end
     )
 
-    if K = 0 and L > 1
-
-
-  fun <signalName>Sig f =
-    signal
-    "<signal-name>"
-    (<getFun[1]> ---> <retFun>)
-    f
-
-    if K = 0 and L = 1
+    if K = 0 and L > 0
 
 
   fun <signalName>Sig f =
     signal
     "<signal-name>"
     (void ---> <retFun>)
-    f
+    (
+      fn () =>
+        let
+          val <retPat> = f ()
+        in
+          <retValExp>
+        end
+    )
 
     if K = 0 and L = 0
 
@@ -315,38 +317,50 @@ where
 
 
   retPat
-    when K > 0, is defined as follows:
+    is defined as follows:
 
 
         retTypeInfo = GICallableInfo.getReturnType signalInfo
         tag         = GITypeInfo.getTag retTypeInfo
 
-          tag      | retPat
-        ===========+===================================================
-          VOID     | (outParamName[1], ..., outParamName[K])
-        -----------+---------------------------------------------------
-          _        | (retVal, outParamName[1], ..., outParamName[K])
-        -----------+---------------------------------------------------
+          K > 0   tag      | retPat
+        ===================+===================================================
+          true    VOID     | (<outParamName[1]>, ..., <outParamName[K]>)
+        -------------------+---------------------------------------------------
+          true    _        | (retVal, <outParamName[1]>, ..., <outParamName[K]>)
+        -------------------+---------------------------------------------------
+          false   VOID     | ()
+        -------------------+---------------------------------------------------
+          false   _        | retVal
+        -------------------+---------------------------------------------------
 
 
-  retVal
-    when K > 0, is defined as follows:
+  retValExp
+    is defined as follows:
 
 
         retTypeInfo = GICallableInfo.getReturnType signalInfo
         tag         = GITypeInfo.getTag retTypeInfo
 
-          tag             | retVal
+          tag             | retValExp
         ==================+===================
           VOID            | ()
         ------------------+-------------------
-          _               | retVal
+          _               | <convertInterfaceToBase('retVal', retTypeInfo, SignalNamespace, false)>
         ------------------+-------------------
 
 
   outParamName[k]
     is the <k>th element in the list of names of non-VOID INOUT/OUT
     parameters of the function as given by `GIRepository.BaseInfo.getName`.
+
+
+  outParamExp[k]
+    is defined as follows:
+
+      argTypeInfo = GIRepository.ArgInfo.getType argInfo
+
+      <convertInterfaceToBase(outParamName[k], argTypeInfo, SignalNamespace, false)>
 
 
   inParamName[l]

@@ -10,6 +10,6 @@ signature GDK_EVENT_TOUCH_RECORD =
     | TOUCH_UPDATE
     | TOUCH_END
     | TOUCH_CANCEL
-    val t : (t, t) ValueAccessor.t
-    val tOpt : (t option, t option) ValueAccessor.t
+    val t : t ValueAccessor.t
+    val tOpt : t option ValueAccessor.t
   end

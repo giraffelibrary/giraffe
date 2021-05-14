@@ -11,29 +11,33 @@ Context
   propertyInfo
     the property typelib info
 
+
 Placeholders
 
-Conditions
+  ContainerName = BaseInfo.getName containerInfo
 
-  ContainerName = GIBaseInfo.getName ContainerInfo
+  ContainerNamespace = BaseInfo.getNamespace containerInfo
+
+
+Conditions
 
   isGObject = "GObject" = ObjectNamespace
 
   belowGObject = List.exists
                    (String.isPrefix "GObject")
-                   (GIRepository.getDependencies ObjectNamespace)
+                   (Repository.getDependencies ObjectNamespace)
 
   isReadable =
     GParamFlags.anySet
-      (GIPropertyInfo.getFlags propertyInfo, GParamFlags.READABLE);
+      (PropertyInfo.getFlags propertyInfo, GParamFlags.READABLE);
 
   isWritable = 
     GParamFlags.anySet
-      (GIPropertyInfo.getFlags propertyInfo, GParamFlags.WRITABLE);
+      (PropertyInfo.getFlags propertyInfo, GParamFlags.WRITABLE);
 
   isConstructOnly = 
     GParamFlags.anySet
-      (GIPropertyInfo.getFlags propertyInfo, GParamFlags.CONSTRUCT_ONLY);
+      (PropertyInfo.getFlags propertyInfo, GParamFlags.CONSTRUCT_ONLY);
 
 
 ==Specification==
@@ -122,8 +126,8 @@ where
     is the SML type representing the type of the property value
     translated as follows:
 
-      typeInfo = GIPropertyInfo.getType propertyInfo
-      isPointer = GITypeInfo.isPointer typeInfo
+      typeInfo = PropertyInfo.getType propertyInfo
+      isPointer = TypeInfo.isPointer typeInfo
 
         isPointer        | PropertyType(isReadType)
       ===================+===================
@@ -136,8 +140,8 @@ where
   type(isReadType)
     is defined as according to the GIR type tag as follows:
 
-      typeInfo = GIPropertyInfo.getType propertyInfo
-      tag = GITypeInfo.getTag typeInfo
+      typeInfo = PropertyInfo.getType propertyInfo
+      tag = TypeInfo.getTag typeInfo
 
       Conversion from tag is as follows:
 
@@ -165,13 +169,12 @@ where
 
         INTERFACE --->
 
-          interfaceTypeInfo = GITypeInfo.getInterface typeInfo
+          interfaceTypeInfo = TypeInfo.getInterface typeInfo
 
-          InterfaceName = GIBaseInfo.getName interfaceTypeInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace interfaceTypeInfo
-          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+          InterfaceName = BaseInfo.getName interfaceTypeInfo
+          InterfaceNamespace = BaseInfo.getNamespace interfaceTypeInfo
 
-          infoType = GIInfoType.getType interfaceTypeInfo
+          infoType = InfoType.getType interfaceTypeInfo
           isClass = infoType is OBJECT _ | INTERFACE _
           isRecord = infoType is STRUCT _
           isUnion = infoType is UNION _
@@ -238,9 +241,9 @@ PropertyDec has the form:
     {
       name  = "<property-name>",
       gtype = fn () => C.gtype <PropertyAccessor> (),
-      get   = fn _ => fn x => fn () => C.get <PropertyAccessor> x,
-      set   = fn _ => fn x => C.set <PropertyAccessor> x,
-      init  = fn x => C.set <PropertyAccessor> x
+      get   = fn _ => fn v => fn () => C.get <PropertyAccessor> v,
+      set   = fn _ => fn v => fn x => C.set <PropertyAccessor> v <PropertyToBaseType('x')>,
+      init  = fn v => fn x => C.set <PropertyAccessor> v <PropertyToBaseType('x')>
     }
 
     if isReadable and isWritable and not isConstructOnly
@@ -250,9 +253,9 @@ PropertyDec has the form:
     {
       name  = "<property-name>",
       gtype = fn () => C.gtype <PropertyAccessor> (),
-      get   = fn _ => fn x => fn () => C.get <PropertyAccessor> x,
+      get   = fn _ => fn v => fn () => C.get <PropertyAccessor> v,
       set   = fn _ => ignore,
-      init  = fn x => C.set <PropertyAccessor> x
+      init  = fn v => fn x => C.set <PropertyAccessor> v <PropertyToBaseType('x')>
     }
 
     if isReadable and isWritable and isConstructOnly
@@ -262,7 +265,7 @@ PropertyDec has the form:
     {
       name  = "<property-name>",
       gtype = fn () => C.gtype <PropertyAccessor> (),
-      get   = fn _ => fn x => fn () => C.get <PropertyAccessor> x,
+      get   = fn _ => fn v => fn () => C.get <PropertyAccessor> v,
       set   = fn _ => ignore,
       init  = ignore
     }
@@ -275,8 +278,8 @@ PropertyDec has the form:
       name  = "<property-name>",
       gtype = fn () => C.gtype <PropertyAccessor> (),
       get   = fn _ => ignore,
-      set   = fn _ => fn x => C.set <PropertyAccessor> x,
-      init  = fn x => C.set <PropertyAccessor> x
+      set   = fn _ => fn v => fn x => C.set <PropertyAccessor> v <PropertyToBaseType('x')>,
+      init  = fn v => fn x => C.set <PropertyAccessor> v <PropertyToBaseType('x')>
     }
 
     if not isReadable and isWritable and not isConstructOnly
@@ -288,7 +291,7 @@ PropertyDec has the form:
       gtype = fn () => C.gtype <PropertyAccessor> (),
       get   = fn _ => ignore,
       set   = fn _ => ignore,
-      init  = fn x => C.set <PropertyAccessor> x
+      init  = fn v => fn x => C.set <PropertyAccessor> v <PropertyToBaseType('x')>
     }
 
     if not isReadable and isWritable and isConstructOnly
@@ -301,11 +304,22 @@ PropertyDec has the form:
 
 where
 
+
+  PropertyToBaseType(x)
+    is defined as follows:
+
+      typeInfo = PropertyInfo.getType propertyInfo
+      isPointer = TypeInfo.isPointer typeInfo
+
+      <convertToBase(x, typeInfo, ContainerNamespace, isPointer, true)>
+
+
   PropertyAccessor
     is defined as according to the GIR type tag as follows:
 
-      typeInfo = GIPropertyInfo.getType propertyInfo
-      tag = GITypeInfo.getTag typeInfo
+      typeInfo = PropertyInfo.getType propertyInfo
+      isPointer = TypeInfo.isPointer typeInfo
+      tag = TypeInfo.getTag typeInfo
 
       Conversion from tag is as follows:
 
@@ -333,13 +347,12 @@ where
 
         INTERFACE --->
 
-          interfaceTypeInfo = GITypeInfo.getInterface typeInfo
+          interfaceTypeInfo = TypeInfo.getInterface typeInfo
 
-          InterfaceName = GIBaseInfo.getName interfaceTypeInfo
-          InterfaceNamespace = GIBaseInfo.getNamespace interfaceTypeInfo
-          InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
+          InterfaceName = BaseInfo.getName interfaceTypeInfo
+          InterfaceNamespace = BaseInfo.getNamespace interfaceTypeInfo
 
-          infoType = GIInfoType.getType interfaceTypeInfo
+          infoType = InfoType.getType interfaceTypeInfo
           isClass = infoType is OBJECT _ | INTERFACE _
           isRecord = infoType is STRUCT _
           isUnion = infoType is UNION _

@@ -7,6 +7,6 @@ signature GDK_EVENT_FOCUS_RECORD =
         where type t = focus_change event_union
     datatype event =
       FOCUS_CHANGE
-    val t : (t, t) ValueAccessor.t
-    val tOpt : (t option, t option) ValueAccessor.t
+    val t : t ValueAccessor.t
+    val tOpt : t option ValueAccessor.t
   end

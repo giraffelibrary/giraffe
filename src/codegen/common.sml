@@ -429,7 +429,7 @@ end
 
 local
   val accessorName = ("", "ValueAccessor", "", "t")
-  val accessorTemplate = ([aTyVar, bTyVar], accessorName)
+  val accessorTemplate = ([aTyVar], accessorName)
 
   val accessorGlobalLId : lid = mkGlobalLId accessorName
   val accessorLocalId : id = mkLocalId "" accessorName
@@ -439,12 +439,12 @@ local
 in
   (*
    *                                                          -.
-   *     val toDerived                                         | isGObject
-   *       : ('a class, 'b) value_accessor_t -> base class -> 'a class
+   *     val toDerived :                                       | isGObject
+   *       'a class value_accessor_t -> base class -> 'a class |
    *                                                          -'
    *                                                          -.
-   *     val toDerived                                         | not isGObject
-   *       : ('a class, 'b) ValueAccessor.t -> base class -> 'a class
+   *     val toDerived :                                       | not isGObject
+   *       'a class ValueAccessor.t -> base class -> 'a class  |
    *                                                          -'
    *)
   fun toDerivedSpec namespace =
@@ -454,12 +454,11 @@ in
       val derivedClassTy = classTy aVarTy
       val baseClassTy = classTy baseTy
 
-      val accessorTys = [derivedClassTy, bVarTy]
       val accessorLId =
         if isGObject
         then accessorLocalLId
         else accessorGlobalLId
-      val accessorTy = TyRef (accessorTys, accessorLId)
+      val accessorTy = TyRef ([derivedClassTy], accessorLId)
       val ty = TyFun (accessorTy, TyFun (baseClassTy, derivedClassTy))
 
       val toDerivedId = "toDerived"
@@ -468,39 +467,38 @@ in
     end
 
   (*
-   * `addAccessorSpecs namespace info (readTy, writeTy) isPtr specs` adds
+   * `addAccessorSpecs namespace info accessTy isPtr specs` adds
    *
    *                                                          -.
-   *     type ('a, 'b) value_accessor_t                        |
-   *     val t : (<readTy>, <writeTy>) value_accessor_t        |
+   *     type 'a value_accessor_t                              |
+   *     val t : <accessTy> value_accessor_t                   |
    *                                           -.              | isGObject
    *     val tOpt :                             |              |
-   *       (<readTy> option, <writeTy> option)  | isPtr        |
+   *       <accessTy> option                    | isPtr        |
    *         value_accessor_t                   |              |
    *                                           -'             -'
    *                                                          -.
-   *     val t : (<readTy>, <writeTy>) ValueAccessor.t         |
+   *     val t : <accessTy> ValueAccessor.t                    |
    *                                           -.              |
    *     val tOpt :                             |              | not isGObject
-   *       (<readTy> option, <writeTy> option)  | isPtr        |
+   *       <accessTy> option                    | isPtr        |
    *         ValueAccessor.t                    |              |
    *                                           -'             -'
    *
    * to `specs`.
    *)
-  fun addAccessorSpecs namespace info (readTy, writeTy) isPtr specs =
+  fun addAccessorSpecs namespace info accessTy isPtr specs =
     case RegisteredTypeInfo.getTypeInit info of
       SOME _ =>
         let
           val isGObject = namespace = "GObject"
 
-          val accessorTys = [readTy, writeTy]
           fun addValSpecs accessorLId specs =
-            mkValSpec (tId, TyRef (accessorTys, accessorLId))
+            mkValSpec (tId, TyRef ([accessTy], accessorLId))
              :: (
               if isPtr
               then
-                mkValSpec (tOptId, TyRef (map optionTy accessorTys, accessorLId))
+                mkValSpec (tOptId, TyRef ([optionTy accessTy], accessorLId))
                  :: specs
               else
                 specs
@@ -518,8 +516,8 @@ in
    * as follows:
    *
    *                                                 -.
-   *     type ('a, 'b) value_accessor_t =             | isGObject
-   *       ('a, 'b) ValueAccessor.t                   |
+   *     type 'a value_accessor_t =                   | isGObject
+   *       'a ValueAccessor.t                         |
    *                                                 -'
    *
    * and `revMap makeLocalTypeStrModuleQual revLocalTypes` produces qual
@@ -527,8 +525,8 @@ in
    *
    *                                                 -.
    *     where                                        |
-   *       type ('a, 'b) value_accessor_t =           | isGObject
-   *         ('a, 'b) ValueAccessor.t                 |
+   *       type 'a value_accessor_t =                 | isGObject
+   *         'a ValueAccessor.t                       |
    *                                                 -'
    *)
   fun makeAccessorLocalTypes isGObject =
@@ -635,8 +633,8 @@ end
  *         (x1, x2)                           |               |
  *                                           -'              -'
  *                                                           -.
- *     type ('a, 'b) value_accessor_t =                       | isGObject
- *       ('a, 'b) ValueAccessor.t                             |
+ *     type 'a value_accessor_t =                             | isGObject
+ *       'a ValueAccessor.t                                   |
  *                                                           -'
  *     val t =
  *       ValueAccessor.C.createAccessor {

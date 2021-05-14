@@ -28,7 +28,7 @@ in
         addAccessorSpecs
           interfaceNamespace
           interfaceInfo
-          (classTy baseTy, classTy aVarTy)
+          (classTy baseTy)
           true
           specs'0
 
@@ -179,8 +179,8 @@ in
        *         'a GObjectObjectClass.class              |
        *                                                 -'
        *                                                 -.
-       *     where type ('a, 'b) value_accessor_t =       | isGObject
-       *       ('a, 'b) ValueAccessor.t                   |
+       *     where type 'a value_accessor_t =             | isGObject
+       *       'a ValueAccessor.t                         |
        *                                                 -'
        *     where type C.opt =
        *       <ParentObjectNamespace><ParentObjectName>Class.C.opt

@@ -7,17 +7,17 @@
 
 signature VALUE_ACCESSOR =
   sig
-    type ('a, 'b) t
+    type 'a t
 
     type type_t
     type value_t
 
-    val new : ('a, 'b) t -> 'b -> value_t
-    val get : ('a, 'b) t -> value_t -> 'a
-    val set : ('a, 'b) t -> value_t -> 'b -> unit
-    val gtype : ('a, 'b) t -> type_t
+    val new : 'a t -> 'a -> value_t
+    val get : 'a t -> value_t -> 'a
+    val set : 'a t -> value_t -> 'a -> unit
+    val gtype : 'a t -> type_t
 
-    val map : ('a -> 'b) * ('c -> 'd) -> ('a, 'd) t -> ('b, 'c) t
+    val map : ('a -> 'b) * ('b -> 'a) -> 'a t -> 'b t
 
     structure C :
       sig
@@ -27,13 +27,13 @@ signature VALUE_ACCESSOR =
           {
             getType  : unit -> type_t,
             getValue : value_v -> 'a,
-            setValue : (value_v, 'b) pair -> unit
+            setValue : (value_v, 'a) pair -> unit
           }
-           -> ('a, 'b) t
+           -> 'a t
 
-        val gtype : ('a, 'b) t -> unit -> type_t
-        val get : ('a, 'b) t -> value_v -> 'a
-        val set : ('a, 'b) t -> value_v -> 'b -> unit
+        val gtype : 'a t -> unit -> type_t
+        val get : 'a t -> value_v -> 'a
+        val set : 'a t -> value_v -> 'a -> unit
 
         val init : value_v -> type_t -> unit
 
@@ -42,17 +42,17 @@ signature VALUE_ACCESSOR =
 
     structure Types :
       sig
-        val boolean : (bool, bool) t
-        val int : (LargeInt.int, LargeInt.int) t
-        val uint : (LargeInt.int, LargeInt.int) t
-        val long : (LargeInt.int, LargeInt.int) t
-        val ulong : (LargeInt.int, LargeInt.int) t
-        val int64 : (LargeInt.int, LargeInt.int) t
-        val uint64 : (LargeInt.int, LargeInt.int) t
-        val float : (real, real) t
-        val double : (real, real) t
-        val char : (char, char) t
-        val string : (string, string) t
-        val stringOpt : (string option, string option) t
+        val boolean : bool t
+        val int : LargeInt.int t
+        val uint : LargeInt.int t
+        val long : LargeInt.int t
+        val ulong : LargeInt.int t
+        val int64 : LargeInt.int t
+        val uint64 : LargeInt.int t
+        val float : real t
+        val double : real t
+        val char : char t
+        val string : string t
+        val stringOpt : string option t
       end
   end

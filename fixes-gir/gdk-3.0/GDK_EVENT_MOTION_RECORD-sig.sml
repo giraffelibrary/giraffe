@@ -7,6 +7,6 @@ signature GDK_EVENT_MOTION_RECORD =
         where type t = motion event_union
     datatype event =
       MOTION_NOTIFY
-    val t : (t, t) ValueAccessor.t
-    val tOpt : (t option, t option) ValueAccessor.t
+    val t : t ValueAccessor.t
+    val tOpt : t option ValueAccessor.t
   end

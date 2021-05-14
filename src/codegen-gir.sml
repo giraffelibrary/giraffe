@@ -135,9 +135,8 @@ end
 (* Local types for extra structures *)
 
 val aTyVar : tyvar = (false, "a")
-val bTyVar : tyvar = (false, "b")
 
-val valueAccessorLocalType = mkLocalType ([aTyVar, bTyVar], ("", "ValueAccessor", "", "t"))
+val valueAccessorLocalType = mkLocalType ([aTyVar], ("", "ValueAccessor", "", "t"))
 
 val quarkLocalType = mkLocalType ([], ("GLib", "Quark", "", "t"))
 val pidLocalType = mkLocalType ([], ("GLib", "Pid", "", "t"))

@@ -8,7 +8,7 @@
 structure GObjectParamSpecClass :>
   G_OBJECT_PARAM_SPEC_CLASS
     where type type_t = GObjectType.t
-    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
+    where type 'a value_accessor_t = 'a ValueAccessor.t =
   struct
     structure Pointer = CPointer(GMemory)
     type opt = Pointer.opt
@@ -213,7 +213,7 @@ structure GObjectParamSpecClass :>
     val instanceType_ = _import "giraffe_g_param_spec_type" : non_opt p -> GObjectType.FFI.val_;
 
     type type_t = GObjectType.t
-    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    type 'a value_accessor_t = 'a ValueAccessor.t
 
     val t =
       ValueAccessor.C.createAccessor {

@@ -34,35 +34,54 @@ fun mkParamGtypeExp accExp =
   ])
 
 (*
- * `mkParamModeExp accExp paramMode` returns
+ * `mkParamModeExp accExp optToBaseExp paramMode` returns
  *
  *   ignore
  *     if paramMode is NONE
  *
- *   fn x => fn () => C.get <accExp> x
+ *   fn v => fn () => C.get <accExp> v
  *     if paramMode is SOME true
  *
- *   fn x => C.set <accExp> x
+ *   fn v => fn x => C.set <accExp> v <xBase>
  *     if paramMode is SOME false
+ *
+ * where
+ *
+ *   xBase is
+ *
+ *     x
+ *       if optToBase is NONE
+ *
+ *     (<toBase> x)
+ *       if optToBase is SOME toBase
  *)
-fun mkParamModeExp accExp =
+fun mkParamModeExp accExp optToBaseExp =
   fn
     NONE        => mkIdLNameExp ignoreId
   | SOME isRead =>
       let
+        val vId : id = "v"
         val xId : id = "x"
-        val pat = mkIdVarPat xId
-        val appExp =
+        val exp'1 =
           ExpApp (
             ExpApp (if isRead then cGetExp else cSetExp, accExp),
-            mkIdLNameExp xId
+            mkIdLNameExp vId
           )
+        val xExp = mkIdLNameExp xId
         val exp =
           if isRead
-          then ExpFn (toList1 [(mkConstPat ConstUnit, appExp)])
-          else appExp
+          then ExpFn (toList1 [(mkConstPat ConstUnit, exp'1)])
+          else
+            let
+              val xBaseExp =
+                case optToBaseExp of
+                  SOME toBaseExp => mkParenExp (ExpApp (toBaseExp, xExp))
+                | NONE           => xExp
+            in
+              ExpFn (toList1 [(mkIdVarPat xId, ExpApp (exp'1, xBaseExp))])
+            end
       in
-        ExpFn (toList1 [(pat, exp)])
+        ExpFn (toList1 [(mkIdVarPat vId, exp)])
       end
 
 fun getParamModes propertyInfo =
@@ -430,9 +449,9 @@ fun makePropertyStrDec
     val paramModes = getParamModes propertyInfo
     val paramInfo = getParamInfo repo vers containerIRef propertyInfo
 
-    val (accExp, iRefs'1) =
+    val (accExp, optToBase, iRefs'1) =
       case paramInfo of
-        PIGTYPE {iRef}                 =>
+        PIGTYPE {iRef}                           =>
           let
             val {scope, ...} = iRef
             val iRefs' =
@@ -444,18 +463,18 @@ fun makePropertyStrDec
             val accId = tId
             val accExp = mkLIdLNameExp (prefixInterfaceStrId iRef [accId])
           in
-            (accExp, iRefs')
+            (accExp, NONE, iRefs')
           end
-      | PISCALAR {ty}                  =>
-          (mkIdLNameExp (scalarAccessorId ty), iRefs)
-      | PIUTF8 {isOpt}                 =>
+      | PISCALAR {ty}                            =>
+          (mkIdLNameExp (scalarAccessorId ty), NONE, iRefs)
+      | PIUTF8 {isOpt}                           =>
           let
             val accId = if isOpt then "stringOpt" else "string"
             val accExp = mkIdLNameExp accId
           in
-            (accExp, iRefs)
+            (accExp, NONE, iRefs)
           end
-      | PIINTERFACE {iRef, isOpt, ...} =>
+      | PIINTERFACE {iRef, infoType, isOpt, ...} =>
           let
             val {scope, ...} = iRef
             val iRefs' =
@@ -466,8 +485,18 @@ fun makePropertyStrDec
 
             val accId = if isOpt then tOptId else tId
             val accExp = mkLIdLNameExp (prefixInterfaceStrId iRef [accId])
+            val optToBaseExp =
+              let
+                open InfoType
+              in
+                case infoType of
+                  OBJECT _    => SOME (toBaseOptExp isOpt iRef)
+                | INTERFACE _ => SOME (toBaseOptExp isOpt iRef)
+                | UNION _     => SOME (toBaseOptExp isOpt iRef)
+                | _           => NONE
+              end
           in
-            (accExp, iRefs')
+            (accExp, optToBaseExp, iRefs')
           end
 
     val nameExp = ExpConst (ConstString propertyName)
@@ -482,9 +511,9 @@ fun makePropertyStrDec
       ExpRec [
         (nameId,  nameExp),
         (gtypeId, mkParamGtypeExp accExp),
-        (getId,   mkConstFn (mkParamModeExp accExp (#get  paramModes))),
-        (setId,   mkConstFn (mkParamModeExp accExp (#set  paramModes))),
-        (initId,             mkParamModeExp accExp (#init paramModes))
+        (getId,   mkConstFn (mkParamModeExp accExp optToBase (#get  paramModes))),
+        (setId,   mkConstFn (mkParamModeExp accExp optToBase (#set  paramModes))),
+        (initId,             mkParamModeExp accExp optToBase (#init paramModes))
       ]
   in
     (

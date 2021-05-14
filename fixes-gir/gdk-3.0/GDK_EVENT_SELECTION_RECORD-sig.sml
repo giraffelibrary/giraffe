@@ -9,6 +9,6 @@ signature GDK_EVENT_SELECTION_RECORD =
       SELECTION_CLEAR
     | SELECTION_REQUEST
     | SELECTION_NOTIFY
-    val t : (t, t) ValueAccessor.t
-    val tOpt : (t option, t option) ValueAccessor.t
+    val t : t ValueAccessor.t
+    val tOpt : t option ValueAccessor.t
   end

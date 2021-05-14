@@ -1,4 +1,4 @@
-(* Copyright (C) 2019-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2019-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -15,7 +15,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
     where type 'a C.ArrayType.p = 'a CArrayType.p
     where type C.ArrayType.opt = CArrayType.opt
     where type C.ArrayType.non_opt = CArrayType.non_opt
-    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
+    where type 'a value_accessor_t = 'a ValueAccessor.t =
   struct
     structure Array = CArray(CArrayType)
     open Array
@@ -32,7 +32,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
       _import "g_value_get_pointer" :
         GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p -> unit FFI.out_p;
 
-    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    type 'a value_accessor_t = 'a ValueAccessor.t
 
     val t =
       ValueAccessor.C.createAccessor {
@@ -50,7 +50,7 @@ functor CArray(CArrayType : C_ARRAY_TYPE where type 'a from_p = 'a) :>
  *
  **)
 
-    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    type 'a value_accessor_t = 'a ValueAccessor.t
 
     val t =
       ValueAccessor.C.createAccessor {

@@ -65,11 +65,11 @@ signature <ENUM_NAMESPACE>_<ENUM_NAME> =
                                                     -'               -'
 
                                                     -.               -.
-    type ('a, 'b) value_accessor_t                   | isGObject      |
-    val t : (t, t) value_accessor_t                  |                |
+    type 'a value_accessor_t                         | isGObject      |
+    val t : t value_accessor_t                       |                |
                                                     -'                | optGetTypeSymbol is SOME _
                                                     -.                |
-    val t : (t, t) ValueAccessor.t                   | not isGObject  |
+    val t : t ValueAccessor.t                        | not isGObject  |
                                                     -'               -'
 
     type <varlist[1]> <local_name[1]>
@@ -130,7 +130,7 @@ where
 structure <EnumNamespace><EnumName> :>
   <ENUM_NAMESPACE>_<ENUM_NAME>
                                                                             -.
-    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t          | isGObject andalso optGetTypeSymbol is SOME _
+    where type 'a value_accessor_t = 'a ValueAccessor.t                      | isGObject andalso optGetTypeSymbol is SOME _
                                                                             -'
     where type <varlist[1]> <local_name[1]> = <varlist[1]> <EnumNamespace><TypeName[1]>.<t[1]>
 
@@ -200,7 +200,7 @@ structure <EnumNamespace><EnumName> :>
       _import "g_value_set_enum" : GObjectValueRecord.C.p * C.v -> unit;   |               |
                                                                           -'               |
                                                                           -.               |
-    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t              | isGObject     |
+    type 'a value_accessor_t = 'a ValueAccessor.t                          | isGObject     |
                                                                           -'               |
     val t =                                                                                |
       ValueAccessor.C.createAccessor {                                                     |

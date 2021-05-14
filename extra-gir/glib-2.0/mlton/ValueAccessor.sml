@@ -25,10 +25,10 @@ structure ValueAccessor :>
     type type_t = GObjectType.t
     type value_t = GObjectValueRecord.t
 
-    type ('a, 'b) t = {
+    type 'a t = {
       getType  : unit -> type_t,
       getValue : GObjectValueRecord.C.v -> 'a,
-      setValue : (GObjectValueRecord.C.v, 'b) pair -> unit
+      setValue : (GObjectValueRecord.C.v, 'a) pair -> unit
     }
 
     structure C =
@@ -37,9 +37,9 @@ structure ValueAccessor :>
 
         fun createAccessor x = x
 
-        fun gtype ({getType, ...} : ('a, 'b) t) = getType
-        fun get ({getValue, ...} : ('a, 'b) t) v = getValue v
-        fun set ({setValue, ...} : ('a, 'b) t) v x = setValue (v & x)
+        fun gtype {getType, ...} = getType
+        fun get {getValue, ...} v = getValue v
+        fun set {setValue, ...} v x = setValue (v & x)
         fun init v gtype =
           (I &&&> GObjectType.FFI.withVal ---> ignore) init_ (v & gtype)
 
@@ -172,84 +172,84 @@ structure ValueAccessor :>
             (x1, x2, x3)
 
 
-        val boolean : (bool, bool) t =
+        val boolean : bool t =
           C.createAccessor {
             getType  = GObjectType.boolean,
             getValue = (I ---> GBool.FFI.fromVal) get_boolean_,
             setValue = (I &&&> GBool.FFI.withVal ---> I) set_boolean_
           }
 
-        val int : (LargeInt.int, LargeInt.int) t =
+        val int : LargeInt.int t =
           C.createAccessor {
             getType  = GObjectType.int,
             getValue = (I ---> GInt.FFI.fromVal) get_int_,
             setValue = (I &&&> GInt.FFI.withVal ---> I) set_int_
           }
 
-        val uint : (LargeInt.int, LargeInt.int) t =
+        val uint : LargeInt.int t =
           C.createAccessor {
             getType  = GObjectType.uint,
             getValue = (I ---> GUInt.FFI.fromVal) get_uint_,
             setValue = (I &&&> GUInt.FFI.withVal ---> I) set_uint_
           }
 
-        val long : (LargeInt.int, LargeInt.int) t =
+        val long : LargeInt.int t =
           C.createAccessor {
             getType  = GObjectType.long,
             getValue = (I ---> GLong.FFI.fromVal) get_long_,
             setValue = (I &&&> GLong.FFI.withVal ---> I) set_long_
           }
 
-        val ulong : (LargeInt.int, LargeInt.int) t =
+        val ulong : LargeInt.int t =
           C.createAccessor {
             getType  = GObjectType.ulong,
             getValue = (I ---> GULong.FFI.fromVal) get_ulong_,
             setValue = (I &&&> GULong.FFI.withVal ---> I) set_ulong_
           }
 
-        val int64 : (LargeInt.int, LargeInt.int) t =
+        val int64 : LargeInt.int t =
           C.createAccessor {
             getType  = GObjectType.int64,
             getValue = (I ---> GInt64.FFI.fromVal) get_int64_,
             setValue = (I &&&> GInt64.FFI.withVal ---> I) set_int64_
           }
 
-        val uint64 : (LargeInt.int, LargeInt.int) t =
+        val uint64 : LargeInt.int t =
           C.createAccessor {
             getType  = GObjectType.uint64,
             getValue = (I ---> GUInt64.FFI.fromVal) get_uint64_,
             setValue = (I &&&> GUInt64.FFI.withVal ---> I) set_uint64_
           }
 
-        val float : (real, real) t =
+        val float : real t =
           C.createAccessor {
             getType  = GObjectType.float,
             getValue = (I ---> GFloat.FFI.fromVal) get_float_,
             setValue = (I &&&> GFloat.FFI.withVal ---> I) set_float_
           }
 
-        val double : (real, real) t =
+        val double : real t =
           C.createAccessor {
             getType  = GObjectType.double,
             getValue = (I ---> GDouble.FFI.fromVal) get_double_,
             setValue = (I &&&> GDouble.FFI.withVal ---> I) set_double_
           }
 
-        val char : (char, char) t =
+        val char : char t =
           C.createAccessor {
             getType  = GObjectType.char,
             getValue = (I ---> GChar.FFI.fromVal) get_char_,
             setValue = (I &&&> GChar.FFI.withVal ---> I) set_char_
           }
 
-        val string : (string, string) t =
+        val string : string t =
           C.createAccessor {
             getType  = GObjectType.string,
             getValue = (I ---> Utf8.FFI.fromPtr 0) get_string_,
             setValue = (I &&&> Utf8.FFI.withPtr 0 ---> I) set_string_
           }
 
-        val stringOpt : (string option, string option) t =
+        val stringOpt : string option t =
           C.createAccessor {
             getType  = GObjectType.string,
             getValue = (I ---> Utf8.FFI.fromOptPtr 0) get_string_opt_,

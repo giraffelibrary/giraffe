@@ -12,6 +12,6 @@ signature GDK_EVENT_D_N_D_RECORD =
     | DRAG_STATUS
     | DROP_START
     | DROP_FINISHED
-    val t : (t, t) ValueAccessor.t
-    val tOpt : (t option, t option) ValueAccessor.t
+    val t : t ValueAccessor.t
+    val tOpt : t option ValueAccessor.t
   end

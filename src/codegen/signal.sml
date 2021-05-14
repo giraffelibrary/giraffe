@@ -150,7 +150,7 @@ fun makeSignalSpec
  *
  *   the k<th> element of `ks` contains
  *
- *     (<setFun[k]>, <outParamName[k]>)
+ *     (<setFun[k]>, (<outParamName[k]>, <outParamExp[k]>))
  *
  *
  * `iRefs` accumulates the references to interfaces for generating type
@@ -237,31 +237,34 @@ in
       PIVOID                          => acc
     | PISOME {name, dir, array, info} =>
         let
-          val (inParamExp, getFun, setFun, structDeps'1) =
+          val (inParamExp, getFun, setFun, outParamExp, structDeps'1) =
             case info of
               IGTYPE gtypeParInfo         =>
                 let
                   fun inParamExp () = mkIdLNameExp name
                   fun getFun n = getFunGType n gtypeParInfo
                   fun setFun n = setFunGType n gtypeParInfo
+                  fun outParamExp () = mkIdLNameExp name
                 in
-                  (inParamExp, getFun, setFun, structDeps)
+                  (inParamExp, getFun, setFun, outParamExp, structDeps)
                 end
             | ISCALAR scalarParInfo       =>
                 let
                   fun inParamExp () = mkIdLNameExp name
                   fun getFun n = getFunScalar n scalarParInfo
                   fun setFun n = setFunScalar n scalarParInfo
+                  fun outParamExp () = mkIdLNameExp name
                 in
-                  (inParamExp, getFun, setFun, structDeps)
+                  (inParamExp, getFun, setFun, outParamExp, structDeps)
                 end
             | IUTF8 utf8ParInfo           =>
                 let
                   fun inParamExp () = mkIdLNameExp name
                   fun getFun n = getFunUtf8 n utf8ParInfo
                   fun setFun n = setFunUtf8 n utf8ParInfo
+                  fun outParamExp () = mkIdLNameExp name
                 in
-                  (inParamExp, getFun, setFun, structDeps)
+                  (inParamExp, getFun, setFun, outParamExp, structDeps)
                 end
             | IARRAY arrayParInfo         =>
                 let
@@ -271,16 +274,31 @@ in
 
                   fun getFun n = getFunArray n arrayParInfo
                   fun setFun n = setFunArray n arrayParInfo
+                  fun outParamExp () = mkIdLNameExp name
                 in
-                  (inParamExp, getFun, setFun, structDeps)
+                  (inParamExp, getFun, setFun, outParamExp, structDeps)
                 end
             | IINTERFACE interfaceParInfo =>
                 let
+                  val {iRef, infoType, isOpt, ...} = interfaceParInfo
+
                   fun inParamExp () = mkIdLNameExp name
                   fun getFun n = getFunInterface n interfaceParInfo
                   fun setFun n = setFunInterface n interfaceParInfo
+                  fun outParamExp () =
+                    let
+                      val nameExp = mkIdLNameExp name
+
+                      open InfoType
+                    in
+                      case infoType of
+                        OBJECT _    => ExpApp (toBaseOptExp isOpt iRef, nameExp)
+                      | INTERFACE _ => ExpApp (toBaseOptExp isOpt iRef, nameExp)
+                      | UNION _     => ExpApp (toBaseOptExp isOpt iRef, nameExp)
+                      | _           => nameExp
+                    end
                 in
-                  (inParamExp, getFun, setFun, structDeps)
+                  (inParamExp, getFun, setFun, outParamExp, structDeps)
                 end
 
           fun addJ js =
@@ -288,7 +306,7 @@ in
               SOME _ => js
             | NONE   => inParamExp () :: js
           fun addL ls = (getFun n, name) :: ls
-          fun addK ks = (setFun n, name) :: ks
+          fun addK ks = (setFun n, (name, outParamExp ())) :: ks
 
           val (js', ls', ks') =
             case dir of
@@ -306,20 +324,35 @@ in
 
   fun addRetInfo (retInfo, iRefs, structDeps) =
     case retInfo of
-      RIVOID        => (retFunVoid, iRefs, structDeps)
+      RIVOID        => (retFunVoid, ExpConst ConstUnit, iRefs, structDeps)
     | RISOME {info} =>
         let
-          val (retFun, structDeps') =
+          val (retFun, retValExp, structDeps') =
             case info of
-              IGTYPE gtypeRetInfo      => (retFunGType gtypeRetInfo, structDeps)
-            | ISCALAR scalarRetInfo    => (retFunScalar scalarRetInfo, structDeps)
-            | IUTF8 utf8RetInfo        => (retFunUtf8 utf8RetInfo, structDeps)
-            | IARRAY arrayRetInfo      => (retFunArray arrayRetInfo, structDeps)
-            | IINTERFACE interfaceInfo => (retFunInterface interfaceInfo, structDeps)
+              IGTYPE gtypeRetInfo         => (retFunGType gtypeRetInfo,   retValExp, structDeps)
+            | ISCALAR scalarRetInfo       => (retFunScalar scalarRetInfo, retValExp, structDeps)
+            | IUTF8 utf8RetInfo           => (retFunUtf8 utf8RetInfo,     retValExp, structDeps)
+            | IARRAY arrayRetInfo         => (retFunArray arrayRetInfo,   retValExp, structDeps)
+            | IINTERFACE interfaceRetInfo =>
+                let
+                  val {iRef, infoType, isOpt, ...} = interfaceRetInfo
+                  val retValExp =
+                    let
+                      open InfoType
+                    in
+                      case infoType of
+                        OBJECT _    => ExpApp (toBaseOptExp isOpt iRef, retValExp)
+                      | INTERFACE _ => ExpApp (toBaseOptExp isOpt iRef, retValExp)
+                      | UNION _     => ExpApp (toBaseOptExp isOpt iRef, retValExp)
+                      | _           => retValExp
+                    end
+                in
+                  (retFunInterface interfaceRetInfo, retValExp, structDeps)
+                end
 
           val iRefs' = addIRef (info, iRefs)
         in
-          (retFun, iRefs', structDeps')
+          (retFun, retValExp, iRefs', structDeps')
         end
 end
 
@@ -379,12 +412,13 @@ fun makeSignalStrDec
     val (_, revJs'2, revLs'2, revKs'2, iRefs'2, structs'2) =
       foldl addParInfo (1, revJs'1, revLs'1, revKs'1, iRefs'1, structs'1) parInfos
 
-    val (retFun, iRefs'3, structs'3) = addRetInfo (retInfo, iRefs'2, structs'2)
+    val (retFun, retValExp, iRefs'3, structs'3) = addRetInfo (retInfo, iRefs'2, structs'2)
 
 
     val revInParamExps = revJs'2
     val (revGetFuns, revInParamNames) = ListPair.unzip revLs'2
-    val (revSetFuns, revOutParamNames) = ListPair.unzip revKs'2
+    val (revSetFuns, revOutParams) = ListPair.unzip revKs'2
+    val (revOutParamNames, revOutParamExps) = ListPair.unzip revOutParams
 
     (* Construct
      *
@@ -411,11 +445,11 @@ fun makeSignalStrDec
     (* Construct the handler body with the form:
      *
      *   (
-     *     fn inParamName[1] & ... & inParamName[L] =>
+     *     fn <inParamName[1]> & ... & <inParamName[L]> =>
      *       let
-     *         val <retPat> = f (inParamExp[1], ..., inParamExp[J])
+     *         val <retPat> = f (<inParamExp[1]>, ..., <inParamExp[J]>)
      *       in
-     *         outParamName[1] & ... & outParamName[K] & <retVal>
+     *         <outParamExp[1]> & ... & <outParamExp[K]> & <retValExp>
      *       end
      *   )
      *     if K > 0 and L > 0
@@ -425,29 +459,39 @@ fun makeSignalStrDec
      *       let
      *         val <retPat> = f ()
      *       in
-     *         outParamName[1] & ... & outParamName[K] & <retVal>
+     *         <outParamExp[1]> & ... & <outParamExp[K]> & <retValExp>
      *       end
      *   )
      *     if K > 0 and L = 0
      *
      *   (
-     *     fn inParamName[1] & ... & inParamName[L] =>
-     *       f (inParamExp[1], ..., inParamExp[J])
+     *     fn <inParamName[1]> & ... & <inParamName[L]> =>
+     *       let
+     *         val <retPat> = f (<inParamExp[1]>, ..., <inParamExp[J]>)
+     *       in
+     *         <retValExp>
+     *       end
+     *       
      *   )
      *     if K = 0 and L > 0
      *
-     *   f
+     *   (
+     *     fn () =>
+     *       let
+     *         val <retPat> = f ()
+     *       in
+     *         <retValExp>
+     *       end
+     *       
+     *   )
      *     if K = 0 and L = 0
      *)
     val handlerExp =
-      case (revOutParamNames, revInParamNames) of
-        ([], [])      => fExp
-      | ([], _ :: []) => fExp
-      | _             => mkParenExp
+      mkParenExp
           let
             (* Construct pattern
              *
-             *   inParamName[1] & ... & inParamName[L]
+             *   <inParamName[1]> & ... & <inParamName[L]>
              *     if L > 0
              *
              *   ()
@@ -459,7 +503,7 @@ fun makeSignalStrDec
 
             (* Construct expression
              *
-             *   f (inParamExp[1], ..., inParamExp[J])
+             *   f (<inParamExp[1]>, ..., <inParamExp[J]>)
              *     if L > 0
              *
              *   f ()
@@ -475,15 +519,33 @@ fun makeSignalStrDec
 
             val funExp =
               case revMap mkIdVarPat revOutParamNames of
-                []                      => funAppExp
+                []                      =>
+                  let
+                    (* Construct pattern
+                     *
+                     *   ()
+                     *     if tag is VOID
+                     *
+                     *   retVal
+                     *     otherwise
+                     *)
+                    val retPat =
+                      case retInfo of
+                        RIVOID => PatA (APatConst ConstUnit)
+                      | _      => retValPat
+
+                    val dec = DecVal (toList1 [([], false, retPat, funAppExp)])
+                  in
+                    ExpLet (mkDecs [dec], toList1 [retValExp])
+                  end
               | op :: outParamNamePats1 =>
                   let
                     (* Construct pattern
                      *
-                     *   (outParamName[1], ..., outParamName[K])
+                     *   (<outParamName[1]>, ..., <outParamName[K]>)
                      *     if tag is VOID
                      *
-                     *   (retVal, outParamName[1], ..., outParamName[K])
+                     *   (retVal, <outParamName[1]>, ..., <outParamName[K]>)
                      *     otherwise
                      *)
                     val retPat =
@@ -495,11 +557,9 @@ fun makeSignalStrDec
 
                     (* Construct expression
                      *
-                     *   outParamName[1] & ... & outParamName[K] & <retVal>
+                     *   <outParamExp[1]> & ... & <outParamExp[K]> & <retValExp>
                      *)
-                    val retValExp = getRetValExp retInfo
-                    val exp =
-                      foldl mkAExp retValExp (map mkIdLNameExp revOutParamNames)
+                    val exp = foldl mkAExp retValExp revOutParamExps
                   in
                     ExpLet (mkDecs [dec], toList1 [exp])
                   end

@@ -7,7 +7,7 @@
 
 structure GObjectClosureRecord :>
   G_OBJECT_CLOSURE_RECORD
-    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
+    where type 'a value_accessor_t = 'a ValueAccessor.t =
   struct
     structure Pointer = CPointer(GMemory)
     type opt = Pointer.opt
@@ -76,7 +76,7 @@ structure GObjectClosureRecord :>
       val setValue_ = call (externalFunctionSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)
       val setOptValue_ = call (externalFunctionSymbol "g_value_set_boxed") (GObjectValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid)
     end
-    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    type 'a value_accessor_t = 'a ValueAccessor.t
     val t =
       ValueAccessor.C.createAccessor
         {

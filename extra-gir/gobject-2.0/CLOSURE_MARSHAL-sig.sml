@@ -7,7 +7,7 @@
 
 signature CLOSURE_MARSHAL =
   sig
-    type ('a, 'b) accessor
+    type 'a accessor
 
 
     type 'a get
@@ -21,9 +21,9 @@ signature CLOSURE_MARSHAL =
     val ---> : 'a get * 'b ret -> ('a -> 'b) marshaller
 
 
-    val get : word -> ('a, 'b) accessor -> 'a get
-    val set : word -> ('a, 'b) accessor -> 'b set
-    val ret : ('a, 'b) accessor -> 'b ret
+    val get : word -> 'a accessor -> 'a get
+    val set : word -> 'a accessor -> 'a set
+    val ret : 'a accessor -> 'a ret
 
     val void : unit get
     val ret_void : unit ret

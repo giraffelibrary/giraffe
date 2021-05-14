@@ -30,7 +30,7 @@ in
         addAccessorSpecs
           structNamespace
           structInfo
-          (tTy, tTy)
+          tTy
           true
           specs'0
 
@@ -855,8 +855,8 @@ in
           val sigQual'1 : qual list = parentUnionQuals
           (*
            *                                                 -.
-           *     where type ('a, 'b) value_accessor_t =       | isGObject
-           *       ('a, 'b) ValueAccessor.t                   |
+           *     where type 'a value_accessor_t =             | isGObject
+           *       'a ValueAccessor.t                         |
            *                                                 -'
            *)
           val sigQual'2 =

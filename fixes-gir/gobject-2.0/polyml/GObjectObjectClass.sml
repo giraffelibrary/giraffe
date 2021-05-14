@@ -8,7 +8,7 @@
 structure GObjectObjectClass :>
   G_OBJECT_OBJECT_CLASS
     where type type_t = GObjectType.t
-    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t =
+    where type 'a value_accessor_t = 'a ValueAccessor.t =
   struct
     structure Pointer = CPointer(GMemory)
     type opt = Pointer.opt
@@ -291,7 +291,7 @@ structure GObjectObjectClass :>
     end
 
     type type_t = GObjectType.t
-    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    type 'a value_accessor_t = 'a ValueAccessor.t
 
     val t =
       ValueAccessor.C.createAccessor {

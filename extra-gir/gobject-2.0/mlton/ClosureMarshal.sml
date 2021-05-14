@@ -8,11 +8,11 @@
 structure ClosureMarshal :>
   sig
     include CLOSURE_MARSHAL
-      where type ('a, 'b) accessor = ('a, 'b) ValueAccessor.t
+      where type 'a accessor = 'a ValueAccessor.t
       where type C.value_v = GObjectValueRecord.C.v
   end =
   struct
-    type ('a, 'b) accessor = ('a, 'b) ValueAccessor.t
+    type 'a accessor = 'a ValueAccessor.t
 
     structure GObjectValueRecordArray = 
       struct

@@ -8,7 +8,7 @@ structure GObjectObject :>
     where type value_t = GObjectValueRecord.t
     where type closure_t = GObjectClosureRecord.t
     where type 'a param_spec_class = 'a GObjectParamSpecClass.class
-    where type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    where type 'a value_accessor_t = 'a ValueAccessor.t
     where type 'object_class property_init_t = 'object_class Property.init_t
     where type 'a signal_t = 'a Signal.t =
   struct
@@ -187,7 +187,7 @@ structure GObjectObject :>
     type value_t = GObjectValueRecord.t
     type closure_t = GObjectClosureRecord.t
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
-    type ('a, 'b) value_accessor_t = ('a, 'b) ValueAccessor.t
+    type 'a value_accessor_t = 'a ValueAccessor.t
     type 'object_class property_init_t = 'object_class Property.init_t
     type 'a signal_t = 'a Signal.t
     type t = base class
@@ -387,6 +387,16 @@ structure GObjectObject :>
     local
       open ClosureMarshal Signal
     in
-      fun notifySig f = signal "notify" (get 0w1 GObjectParamSpecClass.t ---> ret_void) f
+      fun notifySig f =
+        signal "notify" (get 0w1 GObjectParamSpecClass.t ---> ret_void)
+          (
+            fn
+              pspec =>
+                let
+                  val () = f pspec
+                in
+                  ()
+                end
+          )
     end
   end
