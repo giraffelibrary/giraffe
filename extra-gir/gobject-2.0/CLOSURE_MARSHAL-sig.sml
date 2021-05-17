@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2016, 2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016, 2020-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -29,6 +29,10 @@ signature CLOSURE_MARSHAL =
     val ret_void : unit ret
 
 
+    type callback
+    val makeCallback : ('a -> 'b) marshaller * ('a -> 'b) -> callback
+
+
     structure C :
       sig
         type value_v
@@ -47,10 +51,8 @@ signature CLOSURE_MARSHAL =
         type 'a dispatch_p     (* dispatch function pointer *)
         type destroy_notify_p  (* destroy notify function pointer *)
 
-        val withPtr :
-          (non_opt p -> 'c) -> (('a -> 'b) marshaller * ('a -> 'b))        -> 'c
-        val withOptPtr :
-          (opt     p -> 'c) -> (('a -> 'b) marshaller * ('a -> 'b)) option -> 'c
+        val withPtr    : (non_opt p -> 'a) -> callback        -> 'a
+        val withOptPtr : (opt     p -> 'a) -> callback option -> 'a
 
         val withDispatchPtr    : (non_opt dispatch_p -> 'a) -> unit -> 'a
         val withOptDispatchPtr : (opt     dispatch_p -> 'a) -> bool -> 'a

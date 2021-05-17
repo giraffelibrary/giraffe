@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2013, 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2013, 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -128,6 +128,9 @@ structure ClosureMarshal :>
       else raise Fail "GIRAFFE internal error: ret_void used \
                       \for callback that has return value";
 
+    type callback = Closure.callback
+    fun makeCallback (marshaller, func) = marshaller func
+
     structure FFI =
       struct
         type opt = Pointer.opt
@@ -136,18 +139,18 @@ structure ClosureMarshal :>
         type 'a dispatch_p = 'a Pointer.p
         type destroy_notify_p = Pointer.t
 
-        fun withPtr f (marshaller, func) =
+        fun withPtr f callback =
           let
-            val closure = Closure.make (marshaller func)
+            val closure = Closure.make callback
           in
             f closure
               handle
                 e => (Closure.free closure; raise e)
           end
-        fun withOptPtr f optMarshallerFunc =
-          case optMarshallerFunc of
-            SOME marshallerFunc => withPtr f marshallerFunc
-          | NONE                => f Closure.null
+        fun withOptPtr f optCallback =
+          case optCallback of
+            SOME callback => withPtr f callback
+          | NONE          => f Closure.null
 
         val dispatchPtr = _address "giraffe_closure_dispatch" private : Pointer.t;
         val destroyNotifyPtr = _address "giraffe_closure_destroy" private : Pointer.t;

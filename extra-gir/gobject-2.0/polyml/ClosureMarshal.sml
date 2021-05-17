@@ -123,6 +123,9 @@ structure ClosureMarshal :>
       else raise Fail "GIRAFFE internal error: ret_void used \
                       \for callback that has return value";
 
+    type callback = Closure.callback
+    fun makeCallback (marshaller, func) = marshaller func
+
     structure FFI =
       struct
         type opt = Pointer.opt
@@ -149,18 +152,18 @@ structure ClosureMarshal :>
              -> unit
           ) PolyMLFFI.closure
 
-        fun withPtr f (marshaller, func) =
+        fun withPtr f callback =
           let
-            val closure = Closure.make (marshaller func)
+            val closure = Closure.make callback
           in
             f closure
               handle
                 e => (Closure.free closure; raise e)
           end
-        fun withOptPtr f optMarshallerFunc =
-          case optMarshallerFunc of
-            SOME marshallerFunc => withPtr f marshallerFunc
-          | NONE                => f Closure.null
+        fun withOptPtr f optCallback =
+          case optCallback of
+            SOME callback => withPtr f callback
+          | NONE          => f Closure.null
 
         local
           open PolyMLFFI

@@ -23,19 +23,21 @@ structure GObjectClosure :>
     type type_t = GObjectType.t
     type 'a marshaller = 'a ClosureMarshal.marshaller
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
-    fun new marshallerFunc =
-      (
+    local
+      val call =
         ClosureMarshal.FFI.withDispatchPtr
          &&&> ClosureMarshal.FFI.withPtr
          &&&> ClosureMarshal.FFI.withDestroyNotifyPtr
          ---> GObjectClosureRecord.FFI.fromPtr false
-      )
-        new_
-        (
-          ()
-           & marshallerFunc
-           & ()
-        )
+    in
+      fun new marshallerFunc =
+        call new_
+          (
+            ()
+             & ClosureMarshal.makeCallback marshallerFunc
+             & ()
+          )
+    end
     local
       val call = GObjectClosureRecord.FFI.withPtr false ---> I
     in
