@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,6 +11,7 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
     where type sequence = CArrayType.t
     where type 'a update = unit  (* mutable *)
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
+    where type C.ArrayType.Pointer.e = CArrayType.Pointer.e
     where type C.ArrayType.e = CArrayType.e
     where type 'a C.ArrayType.p = 'a CArrayType.p
     where type C.ArrayType.opt = CArrayType.opt

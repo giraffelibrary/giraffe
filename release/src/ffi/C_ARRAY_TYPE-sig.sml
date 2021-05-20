@@ -15,7 +15,7 @@ signature C_ARRAY_TYPE (* includes C_POINTER_TYPE *) =
         where type t = t
         where type elem = elem
 
-    structure Pointer : C_POINTER
+    structure Pointer : C_TYPED_POINTER
     type opt = Pointer.opt
     type non_opt = Pointer.non_opt
     type 'a p = 'a Pointer.p

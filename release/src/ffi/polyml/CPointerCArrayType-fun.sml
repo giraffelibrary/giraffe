@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -12,6 +12,7 @@ functor CPointerCArrayType(
   C_ARRAY_TYPE
     where type ElemSequence.elem = CElemType.t
     where type ElemSequence.t = CElemType.t Sequence.t
+    where type Pointer.e = CElemType.opt CElemType.p
     where type e = CElemType.non_opt CElemType.p
     where type 'a from_p = 'a =
   struct

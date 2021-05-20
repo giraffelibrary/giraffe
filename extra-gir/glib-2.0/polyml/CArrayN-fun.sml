@@ -11,6 +11,7 @@ functor CArrayN(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a) :>
     where type sequence = CArrayType.t
     where type 'a update = unit
     where type 'a C.ArrayType.from_p = 'a CArrayType.from_p
+    where type C.ArrayType.Pointer.e = CArrayType.Pointer.e
     where type C.ArrayType.e = CArrayType.e
     where type 'a C.ArrayType.p = 'a CArrayType.p
     where type C.ArrayType.opt = CArrayType.opt

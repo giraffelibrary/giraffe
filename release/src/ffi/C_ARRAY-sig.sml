@@ -140,7 +140,7 @@ signature C_ARRAY =
      *)
     structure C :
       sig
-        structure Pointer : C_POINTER
+        structure Pointer : C_TYPED_POINTER
         type opt = Pointer.opt
         type non_opt = Pointer.non_opt
         type 'a p = 'a Pointer.p
@@ -162,6 +162,7 @@ signature C_ARRAY =
           C_ARRAY_TYPE
             where type t = sequence
             where type elem = elem
+            where type Pointer.e = Pointer.e
             where type e = e
             where type opt = opt
             where type non_opt = non_opt
