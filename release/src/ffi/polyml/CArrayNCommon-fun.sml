@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -313,6 +313,9 @@ functor CArrayNCommon(CArrayType : C_ARRAY_TYPE where type 'a from_p = int -> 'a
 
     structure PolyML =
       struct
+        val cPtr = C.Pointer.PolyML.cVal
+        val cOptPtr = C.Pointer.PolyML.cOptVal
+
         val cInPtr = C.Pointer.PolyML.cVal
         val cInOptPtr = C.Pointer.PolyML.cOptVal
 

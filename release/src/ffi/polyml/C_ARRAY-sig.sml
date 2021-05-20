@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -11,6 +11,9 @@ signature C_ARRAY =
 
     structure PolyML :
       sig
+        val cPtr       : FFI.non_opt FFI.p PolyMLFFI.conversion
+        val cOptPtr    : FFI.opt     FFI.p PolyMLFFI.conversion
+
         val cInPtr     : FFI.non_opt FFI.in_p PolyMLFFI.conversion
         val cInOptPtr  : FFI.opt     FFI.in_p PolyMLFFI.conversion
 

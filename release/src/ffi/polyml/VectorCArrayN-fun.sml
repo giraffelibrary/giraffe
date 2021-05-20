@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -58,6 +58,7 @@ functor VectorCArrayN(CArray : C_ARRAY where type 'a C.ArrayType.from_p = int ->
 
         type opt = CArray.FFI.opt
         type non_opt = CArray.FFI.non_opt
+        type 'a p = 'a CArray.FFI.p
         type 'a from_p = 'a CArray.FFI.from_p
         type 'a tabulator = 'a CArray.FFI.tabulator
 

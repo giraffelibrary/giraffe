@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -183,6 +183,7 @@ signature C_ARRAY =
       sig
         type opt = C.opt
         type non_opt = C.non_opt
+        type 'a p = 'a C.p
 
         (**
          * Reference a C array to ensure that a pointer it still available.
@@ -217,7 +218,7 @@ signature C_ARRAY =
          * from a reference parameter.  `opt out_p` and `non_opt out_p`
          * represent an optional and non-optional pointer, respectively.
          *)
-        type 'a out_p = 'a C.p
+        type 'a out_p = 'a p
 
         (* An array returned by or exported from a C function is wrapped
          * according to:
