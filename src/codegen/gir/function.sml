@@ -1879,61 +1879,54 @@ fun getRetInfo
 
 (* Specification *)
 
-fun addSpecParInfo
-  (makeInRefTy, makeOutRefTy)
-  (parInfo, acc as (((inTys, outTys), tyVarIdx), iRefs)) =
+fun ifTyRef iRef =
   let
-    fun mkOpt isOpt ty = if isOpt then optionTy ty else ty
+    val ifTyRef = (
+      numInterfaceRefTyVars iRef,
+      makeInterfaceRefTyLongId iRef
+    )
+  in
+    ifTyRef
+  end
 
-    fun addInTy isElem tyMap tyRef =
+fun mkTyRef tyRef isOpt iRefs = ((tyRef, isOpt), iRefs)
+
+fun mkIRefTyRef iRef isOpt (sigIRefs, extIRefs) =
+  let
+    val {scope, container, ...} = iRef
+    val sigIRefs' =
+      case scope of
+        GLOBAL             => sigIRefs
+      | LOCALINTERFACESELF => sigIRefs
+      | _                  => insert (iRef, sigIRefs)
+    val extIRefs' =
+      case (scope, container) of
+        (GLOBAL, SOME _) => insert (iRef, extIRefs)
+      | _                => extIRefs
+
+    val ifTyRef = ifTyRef iRef
+  in
+    mkTyRef ifTyRef isOpt (sigIRefs', extIRefs')
+  end
+
+
+fun addSpecParInfo
+  (parInfo, acc as ((inParTyRefs, outParTyRefs), iRefs)) =
+  let
+    fun addTyRef dir parTyRef iRefs =
+      (
+        case dir of
+          IN    => (parTyRef :: inParTyRefs, outParTyRefs)
+        | INOUT => (parTyRef :: inParTyRefs, (parTyRef, false) :: outParTyRefs)
+        | OUT _ => (inParTyRefs,             (parTyRef, true)  :: outParTyRefs)
+      , iRefs
+      )
+
+    fun addIRefTyRef dir iRef isOpt iRefs =
       let
-        val (ty, tyVarIdx') = makeInRefTy isElem (tyRef, tyVarIdx)
+        val (parTyRef, iRefs) = mkIRefTyRef iRef isOpt iRefs
       in
-        ((tyMap ty :: inTys, outTys), tyVarIdx')
-      end
-
-    fun addInOutTy isElem tyMap tyRef =
-      let
-        val (ty, tyVarIdx') = makeInRefTy isElem (tyRef, tyVarIdx)
-        val isRetCondInit = false
-        val ty' = tyMap ty
-      in
-        ((ty' :: inTys, (ty', isRetCondInit) :: outTys), tyVarIdx')
-      end
-
-    fun addOutTy isElem tyMap tyRef =
-      let
-        val (ty, tyVarIdx') = makeOutRefTy isElem (tyRef, tyVarIdx)
-        val isRetCondInit = true
-      in
-        ((inTys, (tyMap ty, isRetCondInit) :: outTys), tyVarIdx')
-      end
-
-    fun addTy dir isElem tyMap tyRef =
-      case dir of
-        IN    => addInTy isElem tyMap tyRef
-      | INOUT => addInOutTy isElem tyMap tyRef
-      | OUT _ => addOutTy isElem tyMap tyRef
-
-    fun addIRefTy dir isElem tyMap iRef (sigIRefs, extIRefs) =
-      let
-        val {scope, container, ...} = iRef
-        val sigIRefs' =
-          case scope of
-            GLOBAL             => sigIRefs
-          | LOCALINTERFACESELF => sigIRefs
-          | _                  => insert (iRef, sigIRefs)
-        val extIRefs' =
-          case (scope, container) of
-            (GLOBAL, SOME _) => insert (iRef, extIRefs)
-          | _                => extIRefs
-
-        val ifTyRef = (
-          numInterfaceRefTyVars iRef,
-          makeInterfaceRefTyLongId iRef
-        )
-      in
-        (addTy dir isElem tyMap ifTyRef, (sigIRefs', extIRefs'))
+        addTyRef dir parTyRef iRefs
       end
   in
     case parInfo of
@@ -1941,88 +1934,59 @@ fun addSpecParInfo
     | PISOME {array = SOME _, ...}          => acc
     | PISOME {dir, array = NONE, info, ...} =>
         let
-          fun addInfo isElem tyMap info =
+          fun addInfo info =
             case info of
               IGTYPE {iRef, ...}                 =>
-                addIRefTy dir isElem tyMap iRef iRefs
+                addIRefTyRef dir iRef false iRefs
             | ISCALAR {ty, optIRef, ...}         => (
                 if true
                 then
                   case optIRef of
-                    NONE      => (addTy dir isElem tyMap (scalarTyRef ty), iRefs)
-                  | SOME iRef => addIRefTy dir isElem tyMap iRef iRefs
+                    NONE      => addTyRef dir (scalarTyRef ty, false) iRefs
+                  | SOME iRef => addIRefTyRef dir iRef false iRefs
                 else
                   acc
               )
             | IUTF8 {isOpt, optIRef, ...}        => (
                 case optIRef of
-                  NONE      => (addTy dir isElem (mkOpt isOpt o tyMap) utf8TyRef, iRefs)
-                | SOME iRef => addIRefTy dir isElem (mkOpt isOpt o tyMap) iRef iRefs
+                  NONE      => addTyRef dir (utf8TyRef, isOpt) iRefs
+                | SOME iRef => addIRefTyRef dir iRef isOpt iRefs
               )
             | IARRAY {isOpt, iRef, ...}          =>
-                addIRefTy dir isElem (mkOpt isOpt o tyMap) iRef iRefs
+                addIRefTyRef dir iRef isOpt iRefs
             | IINTERFACE {iRef, isOpt, ...}      =>
-                addIRefTy dir isElem (mkOpt isOpt o tyMap) iRef iRefs
+                addIRefTyRef dir iRef isOpt iRefs
         in
-          addInfo false I info
+          addInfo info
         end
   end
 
 
 fun addSpecRetInfo
-  makeOutRefTy
-  (optConstructorIRef)
-  (retInfo, (tyVarIdx, iRefs)) =
+  optConstructorIRef
+  (retInfo, iRefs) =
   let
-    fun mkOpt isOpt ty = if isOpt then optionTy ty else ty
-
-    fun mkTy isElem tyMap tyRef =
-      let
-        val (ty, tyVarIdx') = makeOutRefTy isElem (tyRef, tyVarIdx)
-      in
-        (tyMap ty, tyVarIdx')
-      end
-
-    fun mkIRefTy isElem tyMap iRef (sigIRefs, extIRefs) =
-      let
-        val {scope, container, ...} = iRef
-        val sigIRefs' =
-          case scope of
-            GLOBAL             => sigIRefs
-          | LOCALINTERFACESELF => sigIRefs
-          | _                  => insert (iRef, sigIRefs)
-        val extIRefs' =
-          case (scope, container) of
-            (GLOBAL, SOME _) => insert (iRef, extIRefs)
-          | _                => extIRefs
-
-        val ifTyRef = (
-          numInterfaceRefTyVars iRef,
-          makeInterfaceRefTyLongId iRef
-        )
-      in
-        (mkTy isElem tyMap ifTyRef, (sigIRefs', extIRefs'))
-      end
+    val unitTyRef = (0, toList1 ["unit"])
   in
     case retInfo of
-      RIVOID        => ((unitTy, tyVarIdx), iRefs)
+      RIVOID        => mkTyRef unitTyRef false iRefs
     | RISOME {info} =>
         let
-          fun addInfo isElem tyMap info =
+          fun addInfo info =
             case info of
-              IGTYPE {iRef, ...}                 => mkIRefTy isElem tyMap iRef iRefs
+              IGTYPE {iRef, ...}                 => mkIRefTyRef iRef false iRefs
             | ISCALAR {ty, optIRef, ...}         => (
                 case optIRef of
-                  NONE      => (mkTy isElem tyMap (scalarTyRef ty), iRefs)
-                | SOME iRef => mkIRefTy isElem tyMap iRef iRefs
+                  NONE      => mkTyRef (scalarTyRef ty) false iRefs
+                | SOME iRef => mkIRefTyRef iRef false iRefs
               )
             | IUTF8 {isOpt, optIRef, ...}        => (
                 case optIRef of
-                  NONE      => (mkTy isElem (mkOpt isOpt o tyMap) utf8TyRef, iRefs)
-                | SOME iRef => mkIRefTy isElem (mkOpt isOpt o tyMap) iRef iRefs
+                  NONE      => mkTyRef utf8TyRef isOpt iRefs
+                | SOME iRef => mkIRefTyRef iRef isOpt iRefs
               )
             | IARRAY {isOpt, iRef, ...}          =>
-                mkIRefTy isElem (mkOpt isOpt o tyMap) iRef iRefs
+                mkIRefTyRef iRef isOpt iRefs
             | IINTERFACE {
                 iRef,
                 infoType,
@@ -2045,11 +2009,31 @@ fun addSpecRetInfo
                   }
                   val {iRef, isOpt, ...} = interfaceRetInfo
                 in
-                  mkIRefTy isElem (mkOpt isOpt o tyMap) iRef iRefs
+                  mkIRefTyRef iRef isOpt iRefs
                 end
         in
-          addInfo false I info
+          addInfo info
         end
+  end
+
+
+fun mkOpt isOpt ty = if isOpt then optionTy ty else ty
+
+fun mkParamTy isReadType ((interfaceTyRef, isOpt), tyVarIdx) =
+  let
+    val (ty, tyVarIdx') =
+      if isReadType
+      then makeRefBaseTy (interfaceTyRef, tyVarIdx)
+      else makeRefVarTy (interfaceTyRef, tyVarIdx)
+  in
+    (mkOpt isOpt ty, tyVarIdx')
+  end
+
+fun foldMapFst f ((a, b), acc) =
+  let
+    val (a', acc') = f (a, acc)
+  in
+    ((a', b), acc')
   end
 
 
@@ -2101,7 +2085,7 @@ fun makeFunctionSpec
           SOME containerIRef =>
             let
               val (selfTy, tyVarIdx'1) =
-                makeIRefLocalTypeRef (makeRefVarTy false) (containerIRef, tyVarIdx'0)
+                makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'0)
             in
               (SOME selfTy, tyVarIdx'1)
             end
@@ -2109,16 +2093,19 @@ fun makeFunctionSpec
             infoExcl "function outside interface has method flag set"
       else
         (NONE, tyVarIdx'0)
-    val revInTys'1 = []
-    val revOutTys'1 = []
+    val revInParTyRefs'1 = []
+    val revOutParTyRefs'1 = []
     val iRefs'1 = iRefs
 
     (* Add types for the arguments and the return value. *)
-    val (((revInTys'2, revOutTys'2), tyVarIdx'2), iRefs'2) =
+    val ((revInParTyRefs'2, revOutParTyRefs'2), iRefs'2) =
       foldl
-        (addSpecParInfo (makeRefVarTy, makeRefBaseTy))
-        (((revInTys'1, revOutTys'1), tyVarIdx'1), iRefs'1)
+        addSpecParInfo
+        ((revInParTyRefs'1, revOutParTyRefs'1), iRefs'1)
         parInfos
+    val (inTys'2, tyVarIdx'2) = foldmapl (mkParamTy false) (rev revInParTyRefs'2, tyVarIdx'1)
+    val (outTys'2, tyVarIdx'3) =
+      foldmapl (foldMapFst (mkParamTy true)) (rev revOutParTyRefs'2, tyVarIdx'2)
 
     val optConstructorIRef =
       if FunctionInfoFlags.anySet
@@ -2130,11 +2117,11 @@ fun makeFunctionSpec
             infoExcl "function outside interface has constructor flag set"
       else
         NONE
-    val ((retValTy, _), iRefs'3) =
+    val (retValTyRef, iRefs'3) =
       addSpecRetInfo
-        makeRefBaseTy
         optConstructorIRef
-        (retInfo, (tyVarIdx'2, iRefs'2))
+        (retInfo, iRefs'2)
+    val (retValTy, _) = mkParamTy true (retValTyRef, tyVarIdx'3)
 
     (* Construct curried function argument types with the form:
      *
@@ -2152,12 +2139,12 @@ fun makeFunctionSpec
      *
      * where
      *
-     *   [<inParamType[1]> * ... * <inParamType[L]>] = rev revInTys'2
+     *   [<inParamType[1]> * ... * <inParamType[L]>] = inTys'2
      *
      *   SOME <selfType> = inParamTypeSelf
      *)
     val argTys =
-      case (inParamTypeSelf, rev revInTys'2) of
+      case (inParamTypeSelf, inTys'2) of
         (NONE,        [])         => [unitTy]
       | (SOME selfTy, [])         => [selfTy]
       | (SOME selfTy, op :: tys1) => [selfTy, mkProdTy1 tys1]
@@ -2166,10 +2153,10 @@ fun makeFunctionSpec
     val throws =
       FunctionInfoFlags.anySet (functionFlags, FunctionInfoFlags.THROWS)
 
-    (* `revOutTys'2` contains out parameter types associated with
+    (* `outTys'2` contains out parameter types associated with
      * the caller-allocates flag for each out parameter. *)
     val retTy =
-      case (revOutTys'2, throws) of
+      case (outTys'2, throws) of
         ([],     false) => retValTy
       | _               =>
           let
@@ -2177,7 +2164,7 @@ fun makeFunctionSpec
             fun getCondTy (ty, isCond) = if isCond then SOME ty else NONE
 
             val (outParamTysCond, outParamTysUncond) =
-              partitionRevMap (getCondTy, getTy) revOutTys'2
+              partitionRevMap (getCondTy, getTy) (rev outTys'2)
             val outParamTys = outParamTysCond @ outParamTysUncond
 
             val retTys =
@@ -2224,7 +2211,7 @@ fun makeFunctionSpec
  *)
 fun getTypeSpec typeIRef =
   let
-    val (typeRefTy, _) = makeIRefLocalTypeRef (makeRefBaseTy false) (typeIRef, 0)
+    val (typeRefTy, _) = makeIRefLocalTypeRef makeRefBaseTy (typeIRef, 0)
   in
     mkValSpec (getTypeId, TyFun (unitTy, typeRefTy))
   end

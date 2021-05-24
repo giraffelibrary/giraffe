@@ -49,23 +49,26 @@ fun makeSignalSpec
     val parInfos = updateParInfos retInfo parInfos
 
     val tyVarIdx'0 = 0
-    val (revInTys'1, tyVarIdx'1) = ([], tyVarIdx'0)
-    val revOutTys'1 = []
+    val (revInParTyRefs'1, tyVarIdx'1) = ([], tyVarIdx'0)
+    val revOutParTyRefs'1 = []
     val iRefs'1 = iRefs
 
     (* Add types for the arguments and the return value. *)
-    val (((revInTys'2, revOutTys'2), tyVarIdx'2), iRefs'2) =
+    val ((revInParTyRefs'2, revOutParTyRefs'2), iRefs'2) =
       foldl
-        (addSpecParInfo (makeRefBaseTy, makeRefVarTy))
-        (((revInTys'1, revOutTys'1), tyVarIdx'1), iRefs'1)
+        addSpecParInfo
+        ((revInParTyRefs'1, revOutParTyRefs'1), iRefs'1)
         parInfos
+    val (inTys'2, tyVarIdx'2) = foldmapl (mkParamTy true) (rev revInParTyRefs'2, tyVarIdx'1)
+    val (outTys'2, tyVarIdx'3) =
+      foldmapl (foldMapFst (mkParamTy false)) (rev revOutParTyRefs'2, tyVarIdx'2)
 
     val optConstructorIRef = NONE
-    val ((retValTy, tyVarIdx'3), iRefs'3) =
+    val (retValTyRef, iRefs'3) =
       addSpecRetInfo
-        makeRefVarTy
         optConstructorIRef
-        (retInfo, (tyVarIdx'2, iRefs'2))
+        (retInfo, iRefs'2)
+    val (retValTy, tyVarIdx'4) = mkParamTy false (retValTyRef, tyVarIdx'3)
 
     (* Construct function argument type with the form:
      *
@@ -77,23 +80,23 @@ fun makeSignalSpec
      *
      * where
      *
-     *   [<inParamType[1]> * ... * <inParamType[L]>] = rev revInTys'2
+     *   [<inParamType[1]> * ... * <inParamType[L]>] = inTys'2
      *)
     val argTys =
-      case rev revInTys'2 of
+      case inTys'2 of
         []         => [unitTy]
       | op :: tys1 => [mkProdTy1 tys1]
 
-    (* `revOutTys'2` contains out parameter types associated with
+    (* `outTys'2` contains out parameter types associated with
      * the caller-allocates flag for each out parameter. *)
     val retTy =
-      case revOutTys'2 of
+      case outTys'2 of
         []     => retValTy
       | _ :: _ =>
           let
             fun getTy (ty, _) = ty
 
-            val outParamTys = revMap getTy revOutTys'2
+            val outParamTys = map getTy outTys'2
 
             val retTys =
               case retInfo of
@@ -114,7 +117,7 @@ fun makeSignalSpec
      *
      *)
     val (containerTy, _) =
-      makeIRefLocalTypeRef (makeRefVarTy false) (containerIRef, tyVarIdx'3)
+      makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'4)
     val lid =
       if isGObject
       then toList1 [concat [signalId ^ "_" ^ tId]]

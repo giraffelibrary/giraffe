@@ -44,9 +44,9 @@ fun makeInterfaceConvSpec
      *)
     val tyVarIdx'0 = 0
     val (containerTy, tyVarIdx'1) =
-       makeIRefLocalTypeRef (makeRefVarTy false) (containerIRef, tyVarIdx'0)
+       makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'0)
     val (interfaceTy, _) =
-       makeIRefLocalTypeRef (makeRefBaseTy false) (interfaceIRef, tyVarIdx'1)
+       makeIRefLocalTypeRef makeRefBaseTy (interfaceIRef, tyVarIdx'1)
     val interfaceConvTy = TyFun (containerTy, interfaceTy)
   in
     (mkValSpec (interfaceConvId, interfaceConvTy), ((sigIRefs'1, extIRefs), excls))

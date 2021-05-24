@@ -312,21 +312,11 @@ fun mkPropertyNameId propertyName =
 
 (* Specification *)
 
-fun mkParamTy isOpt ((isReadType, interfaceTyRef), tyVarIdx) =
-  let
-    val (ty, tyVarIdx') =
-      if isReadType
-      then makeRefBaseTy false (interfaceTyRef, tyVarIdx)
-      else makeRefVarTy false (interfaceTyRef, tyVarIdx)
-  in
-    (if isOpt then optionTy ty else ty, tyVarIdx')
-  end
-
 fun makePropertySpec
   repo
   vers
   (containerIRef as {namespace = containerNamespace, ...})
-  (propertyInfo, (iRefs as (sigIRefs, extIRefs), excls))
+  (propertyInfo, (iRefs, excls))
   : spec * ((interfaceref list * interfaceref list) * info_excl_hier list) =
   let
     val () = checkDeprecated propertyInfo
@@ -341,55 +331,17 @@ fun makePropertySpec
 
     val tyVarIdx'0 = 0
     val (containerTy, tyVarIdx'1) =
-      makeIRefLocalTypeRef (makeRefVarTy false) (containerIRef, tyVarIdx'0)
+      makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'0)
 
-    val (tyRef, isOpt, iRefs'1) =
+    val (paramTyRef, iRefs'1) =
       case paramInfo of
-        PIGTYPE {iRef}                 =>
-          let
-            val {scope, container, ...} = iRef
-            val sigIRefs' =
-              case scope of
-                GLOBAL             => sigIRefs
-              | LOCALINTERFACESELF => sigIRefs
-              | _                  => insert (iRef, sigIRefs)
-            val extIRefs' =
-              case container of
-                NONE => extIRefs
-              | _    => insert (iRef, extIRefs)
+        PIGTYPE {iRef}                 => mkIRefTyRef iRef false iRefs
+      | PISCALAR {ty}                  => mkTyRef (scalarTyRef ty) false iRefs
+      | PIUTF8 {isOpt}                 => mkTyRef utf8TyRef isOpt iRefs
+      | PIINTERFACE {iRef, isOpt, ...} => mkIRefTyRef iRef isOpt iRefs
 
-            val gtypeTyRef = (
-              numInterfaceRefTyVars iRef,
-              makeInterfaceRefTyLongId iRef
-            )
-          in
-            (gtypeTyRef, false, (sigIRefs', extIRefs'))
-          end
-      | PISCALAR {ty}                  => (scalarTyRef ty, false, iRefs)
-      | PIUTF8 {isOpt}                 => (utf8TyRef, isOpt, iRefs)
-      | PIINTERFACE {iRef, isOpt, ...} =>
-          let
-            val {scope, container, ...} = iRef
-            val sigIRefs' =
-              case scope of
-                GLOBAL             => sigIRefs
-              | LOCALINTERFACESELF => sigIRefs
-              | _                  => insert (iRef, sigIRefs)
-            val extIRefs' =
-              case container of
-                NONE => extIRefs
-              | _    => insert (iRef, extIRefs)
-
-            val interfaceTyRef = (
-              numInterfaceRefTyVars iRef,
-              makeInterfaceRefTyLongId iRef
-            )
-          in
-            (interfaceTyRef, isOpt, (sigIRefs', extIRefs'))
-          end
-
-    val (paramReadTy, tyVarIdx'2) = mkParamTy isOpt ((true, tyRef), tyVarIdx'1)
-    val (paramWriteTy, _) = mkParamTy isOpt ((false, tyRef), tyVarIdx'2)
+    val (paramReadTy, tyVarIdx'2) = mkParamTy true (paramTyRef, tyVarIdx'1)
+    val (paramWriteTy, _) = mkParamTy false (paramTyRef, tyVarIdx'2)
 
     val tys =
       map (mkParamModeTy (paramReadTy, paramWriteTy)) [
