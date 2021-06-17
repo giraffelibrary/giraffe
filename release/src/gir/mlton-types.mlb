@@ -12,6 +12,7 @@ local
 in
   ann
     "resolveScope topdec"
+    "deadCode true"
   in
     ann "allowFFI true" in mlton/GMemory.sml end
     GScalarTypes.sml

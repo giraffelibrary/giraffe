@@ -26,6 +26,7 @@ in
   ENUM-sig.sml
   ann
     "resolveScope topdec"
+    "deadCode true"
   in
     mlton/PointerRecord-fun.sml
     mlton/BoxedRecord-fun.sml

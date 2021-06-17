@@ -38,6 +38,7 @@ in
   ann
     "allowFFI true"
     "resolveScope topdec"
+    "deadCode true"
     "valrecConstr ignore"
   in
     mlton/VteCharAttributesRecord.sml
