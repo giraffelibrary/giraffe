@@ -623,13 +623,19 @@ of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
 the SML interface provides
 </p>
 <code>
-<var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig : <var>handlerType</var> -> 'a <var>Namespace</var>.<var>Type</var>.class Signal.t
+<var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig : ('a <var>Namespace</var>.<var>Type</var>.class, <var>argType_e</var>, <var>argType_h</var>, <var>resType_h</var>, <var>resType_e</var>) Signal.t
 </code>
 <p>
-The handler function <code><var>f</var></code> is connected to the signal on an object <code><var>obj</var></code> by
+A handler function <code><var>f</var> : <var>argType_h</var> -> <var>resType_h</var></code> is connected to the signal on an object <code><var>obj</var></code> by
 </p>
 <code>
 Signal.connect <var>obj</var> (<var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig, <var>f</var>) : Signal.id
+</code>
+<p>
+The signal is emitted on an object <code><var>obj</var></code> by the function
+</p>
+<code>
+Signal.emit <var>obj</var> <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig : <var>argType_e</var> -> <var>resType_e</var>
 </code>
 <p>
 If <code><var>Namespace</var>.<var>Type</var></code> is an interface, not a class,
@@ -641,6 +647,9 @@ to have an SML type that is an instance of the interface.
 </p>
 <code>
 Signal.connect (<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>obj</var>) (<var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig, <var>f</var>) : Signal.id
+</code>
+<code>
+Signal.emit (<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>obj</var>) <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig : <var>argType_e</var> -> <var>resType_e</var>
 </code>
 </section>
 

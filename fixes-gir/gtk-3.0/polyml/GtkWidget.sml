@@ -2769,870 +2769,1607 @@ structure GtkWidget :>
     local
       open ClosureMarshal Signal
     in
-      fun accelClosuresChangedSig f =
-        signal "accel-closures-changed" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun buttonPressEventSig f =
-        signal "button-press-event" (get 0w1 GdkEventButtonRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun buttonReleaseEventSig f =
-        signal "button-release-event" (get 0w1 GdkEventButtonRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun canActivateAccelSig f =
-        signal "can-activate-accel" (get 0w1 uint ---> ret boolean)
-          (
-            fn
-              signalId =>
-                let
-                  val retVal = f signalId
-                in
-                  retVal
-                end
-          )
-      fun childNotifySig f =
-        signal "child-notify" (get 0w1 GObjectParamSpecClass.t ---> ret_void)
-          (
-            fn
-              childProperty =>
-                let
-                  val () = f childProperty
-                in
-                  ()
-                end
-          )
-      fun compositedChangedSig f =
-        signal "composited-changed" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun configureEventSig f =
-        signal "configure-event" (get 0w1 GdkEventConfigureRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun damageEventSig f =
-        signal "damage-event" (get 0w1 GdkEventExposeRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun deleteEventSig f =
-        signal "delete-event" (get 0w1 GdkEvent.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun destroySig f =
-        signal "destroy" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun destroyEventSig f =
-        signal "destroy-event" (get 0w1 GdkEvent.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun directionChangedSig f =
-        signal "direction-changed" (get 0w1 GtkTextDirection.t ---> ret_void)
-          (
-            fn
-              previousDirection =>
-                let
-                  val () = f previousDirection
-                in
-                  ()
-                end
-          )
-      fun dragBeginSig f =
-        signal "drag-begin" (get 0w1 GdkDragContextClass.t ---> ret_void)
-          (
-            fn
-              context =>
-                let
-                  val () = f context
-                in
-                  ()
-                end
-          )
-      fun dragDataDeleteSig f =
-        signal "drag-data-delete" (get 0w1 GdkDragContextClass.t ---> ret_void)
-          (
-            fn
-              context =>
-                let
-                  val () = f context
-                in
-                  ()
-                end
-          )
-      fun dragDataGetSig f =
-        signal "drag-data-get"
-          (
-            get 0w1 GdkDragContextClass.t
-             &&&> get 0w2 GtkSelectionDataRecord.t
-             &&&> get 0w3 uint
-             &&&> get 0w4 uint
-             ---> ret_void
-          )
-          (
-            fn
-              context
-               & data
-               & info
-               & time =>
-                let
-                  val () =
-                    f
-                      (
-                        context,
-                        data,
-                        info,
-                        time
-                      )
-                in
-                  ()
-                end
-          )
-      fun dragDataReceivedSig f =
-        signal "drag-data-received"
-          (
-            get 0w1 GdkDragContextClass.t
-             &&&> get 0w2 int
-             &&&> get 0w3 int
-             &&&> get 0w4 GtkSelectionDataRecord.t
-             &&&> get 0w5 uint
-             &&&> get 0w6 uint
-             ---> ret_void
-          )
-          (
-            fn
-              context
-               & x
-               & y
-               & data
-               & info
-               & time =>
-                let
-                  val () =
-                    f
-                      (
-                        context,
-                        x,
-                        y,
-                        data,
-                        info,
-                        time
-                      )
-                in
-                  ()
-                end
-          )
-      fun dragDropSig f =
-        signal "drag-drop"
-          (
-            get 0w1 GdkDragContextClass.t
-             &&&> get 0w2 int
-             &&&> get 0w3 int
-             &&&> get 0w4 uint
-             ---> ret boolean
-          )
-          (
-            fn
-              context
-               & x
-               & y
-               & time =>
-                let
-                  val retVal =
-                    f
-                      (
-                        context,
-                        x,
-                        y,
-                        time
-                      )
-                in
-                  retVal
-                end
-          )
-      fun dragEndSig f =
-        signal "drag-end" (get 0w1 GdkDragContextClass.t ---> ret_void)
-          (
-            fn
-              context =>
-                let
-                  val () = f context
-                in
-                  ()
-                end
-          )
-      fun dragFailedSig f =
-        signal "drag-failed" (get 0w1 GdkDragContextClass.t &&&> get 0w2 GtkDragResult.t ---> ret boolean)
-          (
-            fn
-              context & result =>
-                let
-                  val retVal = f (context, result)
-                in
-                  retVal
-                end
-          )
-      fun dragLeaveSig f =
-        signal "drag-leave" (get 0w1 GdkDragContextClass.t &&&> get 0w2 uint ---> ret_void)
-          (
-            fn
-              context & time =>
-                let
-                  val () = f (context, time)
-                in
-                  ()
-                end
-          )
-      fun dragMotionSig f =
-        signal "drag-motion"
-          (
-            get 0w1 GdkDragContextClass.t
-             &&&> get 0w2 int
-             &&&> get 0w3 int
-             &&&> get 0w4 uint
-             ---> ret boolean
-          )
-          (
-            fn
-              context
-               & x
-               & y
-               & time =>
-                let
-                  val retVal =
-                    f
-                      (
-                        context,
-                        x,
-                        y,
-                        time
-                      )
-                in
-                  retVal
-                end
-          )
-      fun drawSig f =
-        signal "draw" (get 0w1 CairoContextRecord.t ---> ret boolean)
-          (
-            fn
-              cr =>
-                let
-                  val retVal = f cr
-                in
-                  retVal
-                end
-          )
-      fun enterNotifyEventSig f =
-        signal "enter-notify-event" (get 0w1 GdkEventCrossingRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun eventSig f =
-        signal "event" (get 0w1 GdkEvent.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun eventAfterSig f =
-        signal "event-after" (get 0w1 GdkEvent.t ---> ret_void)
-          (
-            fn
-              event =>
-                let
-                  val () = f event
-                in
-                  ()
-                end
-          )
-      fun focusSig f =
-        signal "focus" (get 0w1 GtkDirectionType.t ---> ret boolean)
-          (
-            fn
-              direction =>
-                let
-                  val retVal = f direction
-                in
-                  retVal
-                end
-          )
-      fun focusInEventSig f =
-        signal "focus-in-event" (get 0w1 GdkEventFocusRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun focusOutEventSig f =
-        signal "focus-out-event" (get 0w1 GdkEventFocusRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun grabBrokenEventSig f =
-        signal "grab-broken-event" (get 0w1 GdkEventGrabBrokenRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun grabFocusSig f =
-        signal "grab-focus" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun grabNotifySig f =
-        signal "grab-notify" (get 0w1 boolean ---> ret_void)
-          (
-            fn
-              wasGrabbed =>
-                let
-                  val () = f wasGrabbed
-                in
-                  ()
-                end
-          )
-      fun hideSig f =
-        signal "hide" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun hierarchyChangedSig f =
-        signal "hierarchy-changed" (get 0w1 GtkWidgetClass.tOpt ---> ret_void)
-          (
-            fn
-              previousToplevel =>
-                let
-                  val () = f previousToplevel
-                in
-                  ()
-                end
-          )
-      fun keyPressEventSig f =
-        signal "key-press-event" (get 0w1 GdkEventKeyRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun keyReleaseEventSig f =
-        signal "key-release-event" (get 0w1 GdkEventKeyRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun keynavFailedSig f =
-        signal "keynav-failed" (get 0w1 GtkDirectionType.t ---> ret boolean)
-          (
-            fn
-              direction =>
-                let
-                  val retVal = f direction
-                in
-                  retVal
-                end
-          )
-      fun leaveNotifyEventSig f =
-        signal "leave-notify-event" (get 0w1 GdkEventCrossingRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun mapSig f =
-        signal "map" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun mapEventSig f =
-        signal "map-event" (get 0w1 GdkEventAnyRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun mnemonicActivateSig f =
-        signal "mnemonic-activate" (get 0w1 boolean ---> ret boolean)
-          (
-            fn
-              groupCycling =>
-                let
-                  val retVal = f groupCycling
-                in
-                  retVal
-                end
-          )
-      fun motionNotifyEventSig f =
-        signal "motion-notify-event" (get 0w1 GdkEventMotionRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun moveFocusSig f =
-        signal "move-focus" (get 0w1 GtkDirectionType.t ---> ret_void)
-          (
-            fn
-              direction =>
-                let
-                  val () = f direction
-                in
-                  ()
-                end
-          )
-      fun parentSetSig f =
-        signal "parent-set" (get 0w1 GtkWidgetClass.tOpt ---> ret_void)
-          (
-            fn
-              oldParent =>
-                let
-                  val () = f oldParent
-                in
-                  ()
-                end
-          )
-      fun popupMenuSig f =
-        signal "popup-menu" (void ---> ret boolean)
-          (
-            fn
-              () =>
-                let
-                  val retVal = f ()
-                in
-                  retVal
-                end
-          )
-      fun propertyNotifyEventSig f =
-        signal "property-notify-event" (get 0w1 GdkEventPropertyRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun proximityInEventSig f =
-        signal "proximity-in-event" (get 0w1 GdkEventProximityRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun proximityOutEventSig f =
-        signal "proximity-out-event" (get 0w1 GdkEventProximityRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun queryTooltipSig f =
-        signal "query-tooltip"
-          (
-            get 0w1 int
-             &&&> get 0w2 int
-             &&&> get 0w3 boolean
-             &&&> get 0w4 GtkTooltipClass.t
-             ---> ret boolean
-          )
-          (
-            fn
-              x
-               & y
-               & keyboardMode
-               & tooltip =>
-                let
-                  val retVal =
-                    f
-                      (
-                        x,
-                        y,
-                        keyboardMode,
-                        tooltip
-                      )
-                in
-                  retVal
-                end
-          )
-      fun realizeSig f =
-        signal "realize" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun screenChangedSig f =
-        signal "screen-changed" (get 0w1 GdkScreenClass.tOpt ---> ret_void)
-          (
-            fn
-              previousScreen =>
-                let
-                  val () = f previousScreen
-                in
-                  ()
-                end
-          )
-      fun scrollEventSig f =
-        signal "scroll-event" (get 0w1 GdkEventScrollRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun selectionClearEventSig f =
-        signal "selection-clear-event" (get 0w1 GdkEventSelectionRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun selectionGetSig f =
-        signal "selection-get"
-          (
-            get 0w1 GtkSelectionDataRecord.t
-             &&&> get 0w2 uint
-             &&&> get 0w3 uint
-             ---> ret_void
-          )
-          (
-            fn
-              data
-               & info
-               & time =>
-                let
-                  val () =
-                    f
-                      (
-                        data,
-                        info,
-                        time
-                      )
-                in
-                  ()
-                end
-          )
-      fun selectionNotifyEventSig f =
-        signal "selection-notify-event" (get 0w1 GdkEventSelectionRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun selectionReceivedSig f =
-        signal "selection-received" (get 0w1 GtkSelectionDataRecord.t &&&> get 0w2 uint ---> ret_void)
-          (
-            fn
-              data & time =>
-                let
-                  val () = f (data, time)
-                in
-                  ()
-                end
-          )
-      fun selectionRequestEventSig f =
-        signal "selection-request-event" (get 0w1 GdkEventSelectionRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun showSig f =
-        signal "show" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun showHelpSig f =
-        signal "show-help" (get 0w1 GtkWidgetHelpType.t ---> ret boolean)
-          (
-            fn
-              helpType =>
-                let
-                  val retVal = f helpType
-                in
-                  retVal
-                end
-          )
-      fun sizeAllocateSig f =
-        signal "size-allocate" (get 0w1 GtkAllocationRecord.t ---> ret_void)
-          (
-            fn
-              allocation =>
-                let
-                  val () = f allocation
-                in
-                  ()
-                end
-          )
-      fun stateChangedSig f =
-        signal "state-changed" (get 0w1 GtkStateType.t ---> ret_void)
-          (
-            fn
-              state =>
-                let
-                  val () = f state
-                in
-                  ()
-                end
-          )
-      fun stateFlagsChangedSig f =
-        signal "state-flags-changed" (get 0w1 GtkStateFlags.t ---> ret_void)
-          (
-            fn
-              flags =>
-                let
-                  val () = f flags
-                in
-                  ()
-                end
-          )
-      fun styleSetSig f =
-        signal "style-set" (get 0w1 GtkStyleClass.tOpt ---> ret_void)
-          (
-            fn
-              previousStyle =>
-                let
-                  val () = f previousStyle
-                in
-                  ()
-                end
-          )
-      fun styleUpdatedSig f =
-        signal "style-updated" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun touchEventSig f =
-        signal "touch-event" (get 0w1 GdkEvent.t ---> ret boolean)
-          (
-            fn
-              object =>
-                let
-                  val retVal = f object
-                in
-                  retVal
-                end
-          )
-      fun unmapSig f =
-        signal "unmap" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun unmapEventSig f =
-        signal "unmap-event" (get 0w1 GdkEventAnyRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun unrealizeSig f =
-        signal "unrealize" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun visibilityNotifyEventSig f =
-        signal "visibility-notify-event" (get 0w1 GdkEventVisibilityRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
-      fun windowStateEventSig f =
-        signal "window-state-event" (get 0w1 GdkEventWindowStateRecord.t ---> ret boolean)
-          (
-            fn
-              event =>
-                let
-                  val retVal = f event
-                in
-                  retVal
-                end
-          )
+      local
+        val marshaller = parInst GtkWidgetClass.t ---> retVoid
+      in
+        val accelClosuresChangedSig =
+          {
+            name = "accel-closures-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => GtkWidgetClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventButtonRecord.t ---> ret boolean
+      in
+        val buttonPressEventSig =
+          {
+            name = "button-press-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventButtonRecord.t ---> ret boolean
+      in
+        val buttonReleaseEventSig =
+          {
+            name = "button-release-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 uint ---> ret boolean
+      in
+        val canActivateAccelSig =
+          {
+            name = "can-activate-accel",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & signalId => () & signalId,
+                      fn self & signalId => GtkWidgetClass.toBase self & signalId,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GObjectParamSpecClass.t ---> retVoid
+      in
+        val childNotifySig =
+          {
+            name = "child-notify",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & childProperty => () & childProperty,
+                      fn self & childProperty => GtkWidgetClass.toBase self & GObjectParamSpecClass.toBase childProperty,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t ---> retVoid
+      in
+        val compositedChangedSig =
+          {
+            name = "composited-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => GtkWidgetClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventConfigureRecord.t ---> ret boolean
+      in
+        val configureEventSig =
+          {
+            name = "configure-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventExposeRecord.t ---> ret boolean
+      in
+        val damageEventSig =
+          {
+            name = "damage-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEvent.t ---> ret boolean
+      in
+        val deleteEventSig =
+          {
+            name = "delete-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & GdkEvent.toBase event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t ---> retVoid
+      in
+        val destroySig =
+          {
+            name = "destroy",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => GtkWidgetClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEvent.t ---> ret boolean
+      in
+        val destroyEventSig =
+          {
+            name = "destroy-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & GdkEvent.toBase event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkTextDirection.t ---> retVoid
+      in
+        val directionChangedSig =
+          {
+            name = "direction-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & previousDirection => () & previousDirection,
+                      fn self & previousDirection => GtkWidgetClass.toBase self & previousDirection,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkDragContextClass.t ---> retVoid
+      in
+        val dragBeginSig =
+          {
+            name = "drag-begin",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & context => () & context,
+                      fn self & context => GtkWidgetClass.toBase self & GdkDragContextClass.toBase context,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkDragContextClass.t ---> retVoid
+      in
+        val dragDataDeleteSig =
+          {
+            name = "drag-data-delete",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & context => () & context,
+                      fn self & context => GtkWidgetClass.toBase self & GdkDragContextClass.toBase context,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst GtkWidgetClass.t
+           &&&> parIn 1 GdkDragContextClass.t
+           &&&> parIn 2 GtkSelectionDataRecord.t
+           &&&> parIn 3 uint
+           &&&> parIn 4 uint
+           ---> retVoid
+      in
+        val dragDataGetSig =
+          {
+            name = "drag-data-get",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & context
+                         & data
+                         & info
+                         & time =>
+                          ()
+                           & (
+                               context,
+                               data,
+                               info,
+                               time
+                             ),
+                      fn
+                        self
+                         & (
+                             context,
+                             data,
+                             info,
+                             time
+                           ) =>
+                          GtkWidgetClass.toBase self
+                           & GdkDragContextClass.toBase context
+                           & data
+                           & info
+                           & time,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst GtkWidgetClass.t
+           &&&> parIn 1 GdkDragContextClass.t
+           &&&> parIn 2 int
+           &&&> parIn 3 int
+           &&&> parIn 4 GtkSelectionDataRecord.t
+           &&&> parIn 5 uint
+           &&&> parIn 6 uint
+           ---> retVoid
+      in
+        val dragDataReceivedSig =
+          {
+            name = "drag-data-received",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & context
+                         & x
+                         & y
+                         & data
+                         & info
+                         & time =>
+                          ()
+                           & (
+                               context,
+                               x,
+                               y,
+                               data,
+                               info,
+                               time
+                             ),
+                      fn
+                        self
+                         & (
+                             context,
+                             x,
+                             y,
+                             data,
+                             info,
+                             time
+                           ) =>
+                          GtkWidgetClass.toBase self
+                           & GdkDragContextClass.toBase context
+                           & x
+                           & y
+                           & data
+                           & info
+                           & time,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst GtkWidgetClass.t
+           &&&> parIn 1 GdkDragContextClass.t
+           &&&> parIn 2 int
+           &&&> parIn 3 int
+           &&&> parIn 4 uint
+           ---> ret boolean
+      in
+        val dragDropSig =
+          {
+            name = "drag-drop",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & context
+                         & x
+                         & y
+                         & time =>
+                          ()
+                           & (
+                               context,
+                               x,
+                               y,
+                               time
+                             ),
+                      fn
+                        self
+                         & (
+                             context,
+                             x,
+                             y,
+                             time
+                           ) =>
+                          GtkWidgetClass.toBase self
+                           & GdkDragContextClass.toBase context
+                           & x
+                           & y
+                           & time,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkDragContextClass.t ---> retVoid
+      in
+        val dragEndSig =
+          {
+            name = "drag-end",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & context => () & context,
+                      fn self & context => GtkWidgetClass.toBase self & GdkDragContextClass.toBase context,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst GtkWidgetClass.t
+           &&&> parIn 1 GdkDragContextClass.t
+           &&&> parIn 2 GtkDragResult.t
+           ---> ret boolean
+      in
+        val dragFailedSig =
+          {
+            name = "drag-failed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & context
+                         & result =>
+                          () & (context, result),
+                      fn
+                        self & (context, result) =>
+                          GtkWidgetClass.toBase self
+                           & GdkDragContextClass.toBase context
+                           & result,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst GtkWidgetClass.t
+           &&&> parIn 1 GdkDragContextClass.t
+           &&&> parIn 2 uint
+           ---> retVoid
+      in
+        val dragLeaveSig =
+          {
+            name = "drag-leave",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & context
+                         & time =>
+                          () & (context, time),
+                      fn
+                        self & (context, time) =>
+                          GtkWidgetClass.toBase self
+                           & GdkDragContextClass.toBase context
+                           & time,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst GtkWidgetClass.t
+           &&&> parIn 1 GdkDragContextClass.t
+           &&&> parIn 2 int
+           &&&> parIn 3 int
+           &&&> parIn 4 uint
+           ---> ret boolean
+      in
+        val dragMotionSig =
+          {
+            name = "drag-motion",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & context
+                         & x
+                         & y
+                         & time =>
+                          ()
+                           & (
+                               context,
+                               x,
+                               y,
+                               time
+                             ),
+                      fn
+                        self
+                         & (
+                             context,
+                             x,
+                             y,
+                             time
+                           ) =>
+                          GtkWidgetClass.toBase self
+                           & GdkDragContextClass.toBase context
+                           & x
+                           & y
+                           & time,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 CairoContextRecord.t ---> ret boolean
+      in
+        val drawSig =
+          {
+            name = "draw",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & cr => () & cr,
+                      fn self & cr => GtkWidgetClass.toBase self & cr,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventCrossingRecord.t ---> ret boolean
+      in
+        val enterNotifyEventSig =
+          {
+            name = "enter-notify-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEvent.t ---> ret boolean
+      in
+        val eventSig =
+          {
+            name = "event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & GdkEvent.toBase event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEvent.t ---> retVoid
+      in
+        val eventAfterSig =
+          {
+            name = "event-after",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & GdkEvent.toBase event,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkDirectionType.t ---> ret boolean
+      in
+        val focusSig =
+          {
+            name = "focus",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & direction => () & direction,
+                      fn self & direction => GtkWidgetClass.toBase self & direction,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventFocusRecord.t ---> ret boolean
+      in
+        val focusInEventSig =
+          {
+            name = "focus-in-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventFocusRecord.t ---> ret boolean
+      in
+        val focusOutEventSig =
+          {
+            name = "focus-out-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventGrabBrokenRecord.t ---> ret boolean
+      in
+        val grabBrokenEventSig =
+          {
+            name = "grab-broken-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t ---> retVoid
+      in
+        val grabFocusSig =
+          {
+            name = "grab-focus",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => GtkWidgetClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 boolean ---> retVoid
+      in
+        val grabNotifySig =
+          {
+            name = "grab-notify",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & wasGrabbed => () & wasGrabbed,
+                      fn self & wasGrabbed => GtkWidgetClass.toBase self & wasGrabbed,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t ---> retVoid
+      in
+        val hideSig =
+          {
+            name = "hide",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => GtkWidgetClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkWidgetClass.tOpt ---> retVoid
+      in
+        val hierarchyChangedSig =
+          {
+            name = "hierarchy-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & previousToplevel => () & previousToplevel,
+                      fn self & previousToplevel => GtkWidgetClass.toBase self & Option.map GtkWidgetClass.toBase previousToplevel,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventKeyRecord.t ---> ret boolean
+      in
+        val keyPressEventSig =
+          {
+            name = "key-press-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventKeyRecord.t ---> ret boolean
+      in
+        val keyReleaseEventSig =
+          {
+            name = "key-release-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkDirectionType.t ---> ret boolean
+      in
+        val keynavFailedSig =
+          {
+            name = "keynav-failed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & direction => () & direction,
+                      fn self & direction => GtkWidgetClass.toBase self & direction,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventCrossingRecord.t ---> ret boolean
+      in
+        val leaveNotifyEventSig =
+          {
+            name = "leave-notify-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t ---> retVoid
+      in
+        val mapSig =
+          {
+            name = "map",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => GtkWidgetClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventAnyRecord.t ---> ret boolean
+      in
+        val mapEventSig =
+          {
+            name = "map-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 boolean ---> ret boolean
+      in
+        val mnemonicActivateSig =
+          {
+            name = "mnemonic-activate",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & groupCycling => () & groupCycling,
+                      fn self & groupCycling => GtkWidgetClass.toBase self & groupCycling,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventMotionRecord.t ---> ret boolean
+      in
+        val motionNotifyEventSig =
+          {
+            name = "motion-notify-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkDirectionType.t ---> retVoid
+      in
+        val moveFocusSig =
+          {
+            name = "move-focus",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & direction => () & direction,
+                      fn self & direction => GtkWidgetClass.toBase self & direction,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkWidgetClass.tOpt ---> retVoid
+      in
+        val parentSetSig =
+          {
+            name = "parent-set",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & oldParent => () & oldParent,
+                      fn self & oldParent => GtkWidgetClass.toBase self & Option.map GtkWidgetClass.toBase oldParent,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t ---> ret boolean
+      in
+        val popupMenuSig =
+          {
+            name = "popup-menu",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => GtkWidgetClass.toBase self,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventPropertyRecord.t ---> ret boolean
+      in
+        val propertyNotifyEventSig =
+          {
+            name = "property-notify-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventProximityRecord.t ---> ret boolean
+      in
+        val proximityInEventSig =
+          {
+            name = "proximity-in-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventProximityRecord.t ---> ret boolean
+      in
+        val proximityOutEventSig =
+          {
+            name = "proximity-out-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst GtkWidgetClass.t
+           &&&> parIn 1 int
+           &&&> parIn 2 int
+           &&&> parIn 3 boolean
+           &&&> parIn 4 GtkTooltipClass.t
+           ---> ret boolean
+      in
+        val queryTooltipSig =
+          {
+            name = "query-tooltip",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & x
+                         & y
+                         & keyboardMode
+                         & tooltip =>
+                          ()
+                           & (
+                               x,
+                               y,
+                               keyboardMode,
+                               tooltip
+                             ),
+                      fn
+                        self
+                         & (
+                             x,
+                             y,
+                             keyboardMode,
+                             tooltip
+                           ) =>
+                          GtkWidgetClass.toBase self
+                           & x
+                           & y
+                           & keyboardMode
+                           & GtkTooltipClass.toBase tooltip,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t ---> retVoid
+      in
+        val realizeSig =
+          {
+            name = "realize",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => GtkWidgetClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkScreenClass.tOpt ---> retVoid
+      in
+        val screenChangedSig =
+          {
+            name = "screen-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & previousScreen => () & previousScreen,
+                      fn self & previousScreen => GtkWidgetClass.toBase self & Option.map GdkScreenClass.toBase previousScreen,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventScrollRecord.t ---> ret boolean
+      in
+        val scrollEventSig =
+          {
+            name = "scroll-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventSelectionRecord.t ---> ret boolean
+      in
+        val selectionClearEventSig =
+          {
+            name = "selection-clear-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst GtkWidgetClass.t
+           &&&> parIn 1 GtkSelectionDataRecord.t
+           &&&> parIn 2 uint
+           &&&> parIn 3 uint
+           ---> retVoid
+      in
+        val selectionGetSig =
+          {
+            name = "selection-get",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & data
+                         & info
+                         & time =>
+                          ()
+                           & (
+                               data,
+                               info,
+                               time
+                             ),
+                      fn
+                        self
+                         & (
+                             data,
+                             info,
+                             time
+                           ) =>
+                          GtkWidgetClass.toBase self
+                           & data
+                           & info
+                           & time,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventSelectionRecord.t ---> ret boolean
+      in
+        val selectionNotifyEventSig =
+          {
+            name = "selection-notify-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst GtkWidgetClass.t
+           &&&> parIn 1 GtkSelectionDataRecord.t
+           &&&> parIn 2 uint
+           ---> retVoid
+      in
+        val selectionReceivedSig =
+          {
+            name = "selection-received",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & data
+                         & time =>
+                          () & (data, time),
+                      fn
+                        self & (data, time) =>
+                          GtkWidgetClass.toBase self
+                           & data
+                           & time,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventSelectionRecord.t ---> ret boolean
+      in
+        val selectionRequestEventSig =
+          {
+            name = "selection-request-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t ---> retVoid
+      in
+        val showSig =
+          {
+            name = "show",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => GtkWidgetClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkWidgetHelpType.t ---> ret boolean
+      in
+        val showHelpSig =
+          {
+            name = "show-help",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & helpType => () & helpType,
+                      fn self & helpType => GtkWidgetClass.toBase self & helpType,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkAllocationRecord.t ---> retVoid
+      in
+        val sizeAllocateSig =
+          {
+            name = "size-allocate",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & allocation => () & allocation,
+                      fn self & allocation => GtkWidgetClass.toBase self & allocation,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkStateType.t ---> retVoid
+      in
+        val stateChangedSig =
+          {
+            name = "state-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & state => () & state,
+                      fn self & state => GtkWidgetClass.toBase self & state,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkStateFlags.t ---> retVoid
+      in
+        val stateFlagsChangedSig =
+          {
+            name = "state-flags-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & flags => () & flags,
+                      fn self & flags => GtkWidgetClass.toBase self & flags,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GtkStyleClass.tOpt ---> retVoid
+      in
+        val styleSetSig =
+          {
+            name = "style-set",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & previousStyle => () & previousStyle,
+                      fn self & previousStyle => GtkWidgetClass.toBase self & Option.map GtkStyleClass.toBase previousStyle,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t ---> retVoid
+      in
+        val styleUpdatedSig =
+          {
+            name = "style-updated",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => GtkWidgetClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEvent.t ---> ret boolean
+      in
+        val touchEventSig =
+          {
+            name = "touch-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & object => () & object,
+                      fn self & object => GtkWidgetClass.toBase self & GdkEvent.toBase object,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t ---> retVoid
+      in
+        val unmapSig =
+          {
+            name = "unmap",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => GtkWidgetClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventAnyRecord.t ---> ret boolean
+      in
+        val unmapEventSig =
+          {
+            name = "unmap-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t ---> retVoid
+      in
+        val unrealizeSig =
+          {
+            name = "unrealize",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => GtkWidgetClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventVisibilityRecord.t ---> ret boolean
+      in
+        val visibilityNotifyEventSig =
+          {
+            name = "visibility-notify-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst GtkWidgetClass.t &&&> parIn 1 GdkEventWindowStateRecord.t ---> ret boolean
+      in
+        val windowStateEventSig =
+          {
+            name = "window-state-event",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & event => () & event,
+                      fn self & event => GtkWidgetClass.toBase self & event,
+                      fn retVal => retVal,
+                      fn retVal => retVal
+                    )
+                    marshaller
+          }
+      end
     end
     local
       open ValueAccessor

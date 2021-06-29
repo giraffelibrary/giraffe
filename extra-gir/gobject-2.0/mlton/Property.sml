@@ -367,9 +367,9 @@ structure Property :>
             open ClosureMarshal
           in
             val marshaller =
-              get 0w1 GObjectValueRecord.t
-               &&&> get 0w2 GObjectValueRecord.t
-               ---> set 0w2 GObjectValueRecord.t && ret boolean
+              parIn 1 GObjectValueRecord.t
+               &&&> parIn 2 GObjectValueRecord.t
+               ---> parOut 2 GObjectValueRecord.t &&& ret boolean
           end
 
           fun convert (fromValue & toValue) =
@@ -424,9 +424,9 @@ structure Property :>
             open ClosureMarshal
           in
             val marshaller =
-              get 0w1 GObjectValueRecord.t
-               &&&> get 0w2 GObjectValueRecord.t
-               ---> set 0w2 GObjectValueRecord.t && ret boolean
+              parIn 1 GObjectValueRecord.t
+               &&&> parIn 2 GObjectValueRecord.t
+               ---> parOut 2 GObjectValueRecord.t &&& ret boolean
           end
 
           fun convertTo (fromValue & toValue) =

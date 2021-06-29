@@ -712,112 +712,155 @@ signature GTK_WIDGET =
       'a class
        -> state_flags_t
        -> unit
-    val accelClosuresChangedSig : (unit -> unit) -> 'a class Signal.t
-    val buttonPressEventSig : (Gdk.EventButtonRecord.t -> bool) -> 'a class Signal.t
-    val buttonReleaseEventSig : (Gdk.EventButtonRecord.t -> bool) -> 'a class Signal.t
-    val canActivateAccelSig : (LargeInt.int -> bool) -> 'a class Signal.t
-    val childNotifySig : (base GObject.ParamSpecClass.class -> unit) -> 'a class Signal.t
-    val compositedChangedSig : (unit -> unit) -> 'a class Signal.t
-    val configureEventSig : (Gdk.EventConfigureRecord.t -> bool) -> 'a class Signal.t
-    val damageEventSig : (Gdk.EventExposeRecord.t -> bool) -> 'a class Signal.t
-    val deleteEventSig : (base Gdk.Event.union -> bool) -> 'a class Signal.t
-    val destroySig : (unit -> unit) -> 'a class Signal.t
-    val destroyEventSig : (base Gdk.Event.union -> bool) -> 'a class Signal.t
-    val directionChangedSig : (text_direction_t -> unit) -> 'a class Signal.t
-    val dragBeginSig : (base Gdk.DragContextClass.class -> unit) -> 'a class Signal.t
-    val dragDataDeleteSig : (base Gdk.DragContextClass.class -> unit) -> 'a class Signal.t
+    val accelClosuresChangedSig : ('a class, unit, unit, unit, unit) Signal.t
+    val buttonPressEventSig : ('a class, Gdk.EventButtonRecord.t, Gdk.EventButtonRecord.t, bool, bool) Signal.t
+    val buttonReleaseEventSig : ('a class, Gdk.EventButtonRecord.t, Gdk.EventButtonRecord.t, bool, bool) Signal.t
+    val canActivateAccelSig : ('a class, LargeInt.int, LargeInt.int, bool, bool) Signal.t
+    val childNotifySig : ('a class, 'b GObject.ParamSpecClass.class, base GObject.ParamSpecClass.class, unit, unit) Signal.t
+    val compositedChangedSig : ('a class, unit, unit, unit, unit) Signal.t
+    val configureEventSig : ('a class, Gdk.EventConfigureRecord.t, Gdk.EventConfigureRecord.t, bool, bool) Signal.t
+    val damageEventSig : ('a class, Gdk.EventExposeRecord.t, Gdk.EventExposeRecord.t, bool, bool) Signal.t
+    val deleteEventSig : ('a class, 'b Gdk.Event.union, base Gdk.Event.union, bool, bool) Signal.t
+    val destroySig : ('a class, unit, unit, unit, unit) Signal.t
+    val destroyEventSig : ('a class, 'b Gdk.Event.union, base Gdk.Event.union, bool, bool) Signal.t
+    val directionChangedSig : ('a class, text_direction_t, text_direction_t, unit, unit) Signal.t
+    val dragBeginSig : ('a class, 'b Gdk.DragContextClass.class, base Gdk.DragContextClass.class, unit, unit) Signal.t
+    val dragDataDeleteSig : ('a class, 'b Gdk.DragContextClass.class, base Gdk.DragContextClass.class, unit, unit) Signal.t
     val dragDataGetSig :
-      (base Gdk.DragContextClass.class
-        * selection_data_t
-        * LargeInt.int
-        * LargeInt.int
-        -> unit)
-       -> 'a class Signal.t
+      (
+        'a class,
+        'b Gdk.DragContextClass.class
+         * selection_data_t
+         * LargeInt.int
+         * LargeInt.int,
+        base Gdk.DragContextClass.class
+         * selection_data_t
+         * LargeInt.int
+         * LargeInt.int,
+        unit,
+        unit
+      ) Signal.t
     val dragDataReceivedSig :
-      (base Gdk.DragContextClass.class
-        * LargeInt.int
-        * LargeInt.int
-        * selection_data_t
-        * LargeInt.int
-        * LargeInt.int
-        -> unit)
-       -> 'a class Signal.t
+      (
+        'a class,
+        'b Gdk.DragContextClass.class
+         * LargeInt.int
+         * LargeInt.int
+         * selection_data_t
+         * LargeInt.int
+         * LargeInt.int,
+        base Gdk.DragContextClass.class
+         * LargeInt.int
+         * LargeInt.int
+         * selection_data_t
+         * LargeInt.int
+         * LargeInt.int,
+        unit,
+        unit
+      ) Signal.t
     val dragDropSig :
-      (base Gdk.DragContextClass.class
-        * LargeInt.int
-        * LargeInt.int
-        * LargeInt.int
-        -> bool)
-       -> 'a class Signal.t
-    val dragEndSig : (base Gdk.DragContextClass.class -> unit) -> 'a class Signal.t
-    val dragFailedSig : (base Gdk.DragContextClass.class * drag_result_t -> bool) -> 'a class Signal.t
-    val dragLeaveSig : (base Gdk.DragContextClass.class * LargeInt.int -> unit) -> 'a class Signal.t
+      (
+        'a class,
+        'b Gdk.DragContextClass.class
+         * LargeInt.int
+         * LargeInt.int
+         * LargeInt.int,
+        base Gdk.DragContextClass.class
+         * LargeInt.int
+         * LargeInt.int
+         * LargeInt.int,
+        bool,
+        bool
+      ) Signal.t
+    val dragEndSig : ('a class, 'b Gdk.DragContextClass.class, base Gdk.DragContextClass.class, unit, unit) Signal.t
+    val dragFailedSig : ('a class, 'b Gdk.DragContextClass.class * drag_result_t, base Gdk.DragContextClass.class * drag_result_t, bool, bool) Signal.t
+    val dragLeaveSig : ('a class, 'b Gdk.DragContextClass.class * LargeInt.int, base Gdk.DragContextClass.class * LargeInt.int, unit, unit) Signal.t
     val dragMotionSig :
-      (base Gdk.DragContextClass.class
-        * LargeInt.int
-        * LargeInt.int
-        * LargeInt.int
-        -> bool)
-       -> 'a class Signal.t
-    val drawSig : (Cairo.ContextRecord.t -> bool) -> 'a class Signal.t
-    val enterNotifyEventSig : (Gdk.EventCrossingRecord.t -> bool) -> 'a class Signal.t
-    val eventSig : (base Gdk.Event.union -> bool) -> 'a class Signal.t
-    val eventAfterSig : (base Gdk.Event.union -> unit) -> 'a class Signal.t
-    val focusSig : (direction_type_t -> bool) -> 'a class Signal.t
-    val focusInEventSig : (Gdk.EventFocusRecord.t -> bool) -> 'a class Signal.t
-    val focusOutEventSig : (Gdk.EventFocusRecord.t -> bool) -> 'a class Signal.t
-    val grabBrokenEventSig : (Gdk.EventGrabBrokenRecord.t -> bool) -> 'a class Signal.t
-    val grabFocusSig : (unit -> unit) -> 'a class Signal.t
-    val grabNotifySig : (bool -> unit) -> 'a class Signal.t
-    val hideSig : (unit -> unit) -> 'a class Signal.t
-    val hierarchyChangedSig : (base class option -> unit) -> 'a class Signal.t
-    val keyPressEventSig : (Gdk.EventKeyRecord.t -> bool) -> 'a class Signal.t
-    val keyReleaseEventSig : (Gdk.EventKeyRecord.t -> bool) -> 'a class Signal.t
-    val keynavFailedSig : (direction_type_t -> bool) -> 'a class Signal.t
-    val leaveNotifyEventSig : (Gdk.EventCrossingRecord.t -> bool) -> 'a class Signal.t
-    val mapSig : (unit -> unit) -> 'a class Signal.t
-    val mapEventSig : (Gdk.EventAnyRecord.t -> bool) -> 'a class Signal.t
-    val mnemonicActivateSig : (bool -> bool) -> 'a class Signal.t
-    val motionNotifyEventSig : (Gdk.EventMotionRecord.t -> bool) -> 'a class Signal.t
-    val moveFocusSig : (direction_type_t -> unit) -> 'a class Signal.t
-    val parentSetSig : (base class option -> unit) -> 'a class Signal.t
-    val popupMenuSig : (unit -> bool) -> 'a class Signal.t
-    val propertyNotifyEventSig : (Gdk.EventPropertyRecord.t -> bool) -> 'a class Signal.t
-    val proximityInEventSig : (Gdk.EventProximityRecord.t -> bool) -> 'a class Signal.t
-    val proximityOutEventSig : (Gdk.EventProximityRecord.t -> bool) -> 'a class Signal.t
+      (
+        'a class,
+        'b Gdk.DragContextClass.class
+         * LargeInt.int
+         * LargeInt.int
+         * LargeInt.int,
+        base Gdk.DragContextClass.class
+         * LargeInt.int
+         * LargeInt.int
+         * LargeInt.int,
+        bool,
+        bool
+      ) Signal.t
+    val drawSig : ('a class, Cairo.ContextRecord.t, Cairo.ContextRecord.t, bool, bool) Signal.t
+    val enterNotifyEventSig : ('a class, Gdk.EventCrossingRecord.t, Gdk.EventCrossingRecord.t, bool, bool) Signal.t
+    val eventSig : ('a class, 'b Gdk.Event.union, base Gdk.Event.union, bool, bool) Signal.t
+    val eventAfterSig : ('a class, 'b Gdk.Event.union, base Gdk.Event.union, unit, unit) Signal.t
+    val focusSig : ('a class, direction_type_t, direction_type_t, bool, bool) Signal.t
+    val focusInEventSig : ('a class, Gdk.EventFocusRecord.t, Gdk.EventFocusRecord.t, bool, bool) Signal.t
+    val focusOutEventSig : ('a class, Gdk.EventFocusRecord.t, Gdk.EventFocusRecord.t, bool, bool) Signal.t
+    val grabBrokenEventSig : ('a class, Gdk.EventGrabBrokenRecord.t, Gdk.EventGrabBrokenRecord.t, bool, bool) Signal.t
+    val grabFocusSig : ('a class, unit, unit, unit, unit) Signal.t
+    val grabNotifySig : ('a class, bool, bool, unit, unit) Signal.t
+    val hideSig : ('a class, unit, unit, unit, unit) Signal.t
+    val hierarchyChangedSig : ('a class, 'b class option, base class option, unit, unit) Signal.t
+    val keyPressEventSig : ('a class, Gdk.EventKeyRecord.t, Gdk.EventKeyRecord.t, bool, bool) Signal.t
+    val keyReleaseEventSig : ('a class, Gdk.EventKeyRecord.t, Gdk.EventKeyRecord.t, bool, bool) Signal.t
+    val keynavFailedSig : ('a class, direction_type_t, direction_type_t, bool, bool) Signal.t
+    val leaveNotifyEventSig : ('a class, Gdk.EventCrossingRecord.t, Gdk.EventCrossingRecord.t, bool, bool) Signal.t
+    val mapSig : ('a class, unit, unit, unit, unit) Signal.t
+    val mapEventSig : ('a class, Gdk.EventAnyRecord.t, Gdk.EventAnyRecord.t, bool, bool) Signal.t
+    val mnemonicActivateSig : ('a class, bool, bool, bool, bool) Signal.t
+    val motionNotifyEventSig : ('a class, Gdk.EventMotionRecord.t, Gdk.EventMotionRecord.t, bool, bool) Signal.t
+    val moveFocusSig : ('a class, direction_type_t, direction_type_t, unit, unit) Signal.t
+    val parentSetSig : ('a class, 'b class option, base class option, unit, unit) Signal.t
+    val popupMenuSig : ('a class, unit, unit, bool, bool) Signal.t
+    val propertyNotifyEventSig : ('a class, Gdk.EventPropertyRecord.t, Gdk.EventPropertyRecord.t, bool, bool) Signal.t
+    val proximityInEventSig : ('a class, Gdk.EventProximityRecord.t, Gdk.EventProximityRecord.t, bool, bool) Signal.t
+    val proximityOutEventSig : ('a class, Gdk.EventProximityRecord.t, Gdk.EventProximityRecord.t, bool, bool) Signal.t
     val queryTooltipSig :
-      (LargeInt.int
-        * LargeInt.int
-        * bool
-        * base tooltip_class
-        -> bool)
-       -> 'a class Signal.t
-    val realizeSig : (unit -> unit) -> 'a class Signal.t
-    val screenChangedSig : (base Gdk.ScreenClass.class option -> unit) -> 'a class Signal.t
-    val scrollEventSig : (Gdk.EventScrollRecord.t -> bool) -> 'a class Signal.t
-    val selectionClearEventSig : (Gdk.EventSelectionRecord.t -> bool) -> 'a class Signal.t
+      (
+        'a class,
+        LargeInt.int
+         * LargeInt.int
+         * bool
+         * 'b tooltip_class,
+        LargeInt.int
+         * LargeInt.int
+         * bool
+         * base tooltip_class,
+        bool,
+        bool
+      ) Signal.t
+    val realizeSig : ('a class, unit, unit, unit, unit) Signal.t
+    val screenChangedSig : ('a class, 'b Gdk.ScreenClass.class option, base Gdk.ScreenClass.class option, unit, unit) Signal.t
+    val scrollEventSig : ('a class, Gdk.EventScrollRecord.t, Gdk.EventScrollRecord.t, bool, bool) Signal.t
+    val selectionClearEventSig : ('a class, Gdk.EventSelectionRecord.t, Gdk.EventSelectionRecord.t, bool, bool) Signal.t
     val selectionGetSig :
-      (selection_data_t
-        * LargeInt.int
-        * LargeInt.int
-        -> unit)
-       -> 'a class Signal.t
-    val selectionNotifyEventSig : (Gdk.EventSelectionRecord.t -> bool) -> 'a class Signal.t
-    val selectionReceivedSig : (selection_data_t * LargeInt.int -> unit) -> 'a class Signal.t
-    val selectionRequestEventSig : (Gdk.EventSelectionRecord.t -> bool) -> 'a class Signal.t
-    val showSig : (unit -> unit) -> 'a class Signal.t
-    val showHelpSig : (widget_help_type_t -> bool) -> 'a class Signal.t
-    val sizeAllocateSig : (allocation_t -> unit) -> 'a class Signal.t
-    val stateChangedSig : (state_type_t -> unit) -> 'a class Signal.t
-    val stateFlagsChangedSig : (state_flags_t -> unit) -> 'a class Signal.t
-    val styleSetSig : (base style_class option -> unit) -> 'a class Signal.t
-    val styleUpdatedSig : (unit -> unit) -> 'a class Signal.t
-    val touchEventSig : (base Gdk.Event.union -> bool) -> 'a class Signal.t
-    val unmapSig : (unit -> unit) -> 'a class Signal.t
-    val unmapEventSig : (Gdk.EventAnyRecord.t -> bool) -> 'a class Signal.t
-    val unrealizeSig : (unit -> unit) -> 'a class Signal.t
-    val visibilityNotifyEventSig : (Gdk.EventVisibilityRecord.t -> bool) -> 'a class Signal.t
-    val windowStateEventSig : (Gdk.EventWindowStateRecord.t -> bool) -> 'a class Signal.t
+      (
+        'a class,
+        selection_data_t
+         * LargeInt.int
+         * LargeInt.int,
+        selection_data_t
+         * LargeInt.int
+         * LargeInt.int,
+        unit,
+        unit
+      ) Signal.t
+    val selectionNotifyEventSig : ('a class, Gdk.EventSelectionRecord.t, Gdk.EventSelectionRecord.t, bool, bool) Signal.t
+    val selectionReceivedSig : ('a class, selection_data_t * LargeInt.int, selection_data_t * LargeInt.int, unit, unit) Signal.t
+    val selectionRequestEventSig : ('a class, Gdk.EventSelectionRecord.t, Gdk.EventSelectionRecord.t, bool, bool) Signal.t
+    val showSig : ('a class, unit, unit, unit, unit) Signal.t
+    val showHelpSig : ('a class, widget_help_type_t, widget_help_type_t, bool, bool) Signal.t
+    val sizeAllocateSig : ('a class, allocation_t, allocation_t, unit, unit) Signal.t
+    val stateChangedSig : ('a class, state_type_t, state_type_t, unit, unit) Signal.t
+    val stateFlagsChangedSig : ('a class, state_flags_t, state_flags_t, unit, unit) Signal.t
+    val styleSetSig : ('a class, 'b style_class option, base style_class option, unit, unit) Signal.t
+    val styleUpdatedSig : ('a class, unit, unit, unit, unit) Signal.t
+    val touchEventSig : ('a class, 'b Gdk.Event.union, base Gdk.Event.union, bool, bool) Signal.t
+    val unmapSig : ('a class, unit, unit, unit, unit) Signal.t
+    val unmapEventSig : ('a class, Gdk.EventAnyRecord.t, Gdk.EventAnyRecord.t, bool, bool) Signal.t
+    val unrealizeSig : ('a class, unit, unit, unit, unit) Signal.t
+    val visibilityNotifyEventSig : ('a class, Gdk.EventVisibilityRecord.t, Gdk.EventVisibilityRecord.t, bool, bool) Signal.t
+    val windowStateEventSig : ('a class, Gdk.EventWindowStateRecord.t, Gdk.EventWindowStateRecord.t, bool, bool) Signal.t
     val appPaintableProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
     val canDefaultProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t
     val canFocusProp : ('a class, unit -> bool, bool -> unit, bool -> unit) Property.t

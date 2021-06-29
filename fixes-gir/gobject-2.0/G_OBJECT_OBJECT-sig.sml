@@ -10,7 +10,7 @@ signature G_OBJECT_OBJECT =
     type 'a param_spec_class
     type 'a value_accessor_t
     type 'object_class property_init_t
-    type 'a signal_t
+    type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t
     type t = base class
     val getType : unit -> type_t
     val new : 'a class value_accessor_t * 'a class property_init_t list -> 'a class
@@ -57,5 +57,5 @@ signature G_OBJECT_OBJECT =
       'a class
        -> closure_t
        -> unit
-    val notifySig : (base param_spec_class -> unit) -> 'a class signal_t
+    val notifySig : ('a class, 'b param_spec_class, base param_spec_class, unit, unit) signal_t
   end

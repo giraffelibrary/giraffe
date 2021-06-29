@@ -354,6 +354,7 @@ val falseId : id = "false"
 val falseExp = mkIdLNameExp falseId
 
 val mapId : id = "map"
+val mapIdExp : exp = mkIdLNameExp mapId
 
 val flagsStrId = "Flags"
 
@@ -461,6 +462,10 @@ val objId : id = "obj"
 val cPtrLId : lid = toList1 ["C", "p"]
 val cOptptrLId : lid = toList1 ["C", "optptr"]
 
+val retValId : id = "retVal"
+val retValIdPat : pat = mkIdVarPat retValId
+val retValIdExp : exp = mkIdLNameExp retValId
+
 val errorId : id = "error"
 val errorStrId : id = "Error"
 val errorExnId : id = errorStrId
@@ -503,17 +508,22 @@ val setOptValueUId : id = setOptValueId ^ "_"
 val signalId : id = "signal"
 val signalExp : exp = mkIdLNameExp signalId
 
-val getId : id = "get"
-val setId : id = "set"
-val retId : id = "ret"
-val getExp : exp = mkIdLNameExp getId
-val setExp : exp = mkIdLNameExp setId
-val retExp : exp = mkIdLNameExp retId
+val marshallerId : id = "marshaller"
+val marshallerIdExp : exp = mkIdLNameExp marshallerId
+
+val parInstId : id = "parInst"
+val parInId : id = "parIn"
+val parOutId : id = "parOut"
+val parInstIdExp : exp = mkIdLNameExp parInstId
+val parInIdExp : exp = mkIdLNameExp parInId
+val parOutIdExp : exp = mkIdLNameExp parOutId
 
 val voidId : id = "void"
-val retVoidId : id = "ret_void"
-val voidExp : exp = mkIdLNameExp voidId
-val retVoidExp : exp = mkIdLNameExp retVoidId
+val retId : id = "ret"
+val retVoidId : id = "retVoid"
+val voidIdExp : exp = mkIdLNameExp voidId
+val retIdExp : exp = mkIdLNameExp retId
+val retVoidIdExp : exp = mkIdLNameExp retVoidId
 
 val fieldStrId : id = "Field"
 val fieldTypeStrId : id = "FieldType"
@@ -527,6 +537,8 @@ val propertyId : id = "property"
 val propertyStrId : id = "Property"
 val valueAccessorStrId : id = "ValueAccessor"
 val gtypeId : id = "gtype"
+val getId : id = "get"
+val setId : id = "set"
 val cGtypeExp : exp = mkLIdLNameExp [cStrId, gtypeId]
 val cGetExp : exp = mkLIdLNameExp [cStrId, getId]
 val cSetExp : exp = mkLIdLNameExp [cStrId, setId]

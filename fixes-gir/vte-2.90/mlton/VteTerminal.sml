@@ -1176,358 +1176,694 @@ structure VteTerminal :>
     local
       open ClosureMarshal Signal
     in
-      fun beepSig f =
-        signal "beep" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun charSizeChangedSig f =
-        signal "char-size-changed" (get 0w1 uint &&&> get 0w2 uint ---> ret_void)
-          (
-            fn
-              width & height =>
-                let
-                  val () = f (width, height)
-                in
-                  ()
-                end
-          )
-      fun childExitedSig f =
-        signal "child-exited" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun commitSig f =
-        signal "commit" (get 0w1 string &&&> get 0w2 uint ---> ret_void)
-          (
-            fn
-              text & size =>
-                let
-                  val () = f (text, size)
-                in
-                  ()
-                end
-          )
-      fun contentsChangedSig f =
-        signal "contents-changed" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun copyClipboardSig f =
-        signal "copy-clipboard" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun currentDirectoryUriChangedSig f =
-        signal "current-directory-uri-changed" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun currentFileUriChangedSig f =
-        signal "current-file-uri-changed" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun cursorMovedSig f =
-        signal "cursor-moved" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun decreaseFontSizeSig f =
-        signal "decrease-font-size" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun deiconifyWindowSig f =
-        signal "deiconify-window" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun emulationChangedSig f =
-        signal "emulation-changed" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun encodingChangedSig f =
-        signal "encoding-changed" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun eofSig f =
-        signal "eof" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun iconTitleChangedSig f =
-        signal "icon-title-changed" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun iconifyWindowSig f =
-        signal "iconify-window" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun increaseFontSizeSig f =
-        signal "increase-font-size" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun lowerWindowSig f =
-        signal "lower-window" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun maximizeWindowSig f =
-        signal "maximize-window" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun moveWindowSig f =
-        signal "move-window" (get 0w1 uint &&&> get 0w2 uint ---> ret_void)
-          (
-            fn
-              x & y =>
-                let
-                  val () = f (x, y)
-                in
-                  ()
-                end
-          )
-      fun pasteClipboardSig f =
-        signal "paste-clipboard" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun raiseWindowSig f =
-        signal "raise-window" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun refreshWindowSig f =
-        signal "refresh-window" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun resizeWindowSig f =
-        signal "resize-window" (get 0w1 uint &&&> get 0w2 uint ---> ret_void)
-          (
-            fn
-              width & height =>
-                let
-                  val () = f (width, height)
-                in
-                  ()
-                end
-          )
-      fun restoreWindowSig f =
-        signal "restore-window" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun selectionChangedSig f =
-        signal "selection-changed" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun statusLineChangedSig f =
-        signal "status-line-changed" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun textDeletedSig f =
-        signal "text-deleted" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun textInsertedSig f =
-        signal "text-inserted" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun textModifiedSig f =
-        signal "text-modified" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
-      fun textScrolledSig f =
-        signal "text-scrolled" (get 0w1 int ---> ret_void)
-          (
-            fn
-              delta =>
-                let
-                  val () = f delta
-                in
-                  ()
-                end
-          )
-      fun windowTitleChangedSig f =
-        signal "window-title-changed" (void ---> ret_void)
-          (
-            fn
-              () =>
-                let
-                  val () = f ()
-                in
-                  ()
-                end
-          )
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val beepSig =
+          {
+            name = "beep",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst VteTerminalClass.t
+           &&&> parIn 1 uint
+           &&&> parIn 2 uint
+           ---> retVoid
+      in
+        val charSizeChangedSig =
+          {
+            name = "char-size-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & width
+                         & height =>
+                          () & (width, height),
+                      fn
+                        self & (width, height) =>
+                          VteTerminalClass.toBase self
+                           & width
+                           & height,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val childExitedSig =
+          {
+            name = "child-exited",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst VteTerminalClass.t
+           &&&> parIn 1 string
+           &&&> parIn 2 uint
+           ---> retVoid
+      in
+        val commitSig =
+          {
+            name = "commit",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & text
+                         & size =>
+                          () & (text, size),
+                      fn
+                        self & (text, size) =>
+                          VteTerminalClass.toBase self
+                           & text
+                           & size,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val contentsChangedSig =
+          {
+            name = "contents-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val copyClipboardSig =
+          {
+            name = "copy-clipboard",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val currentDirectoryUriChangedSig =
+          {
+            name = "current-directory-uri-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val currentFileUriChangedSig =
+          {
+            name = "current-file-uri-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val cursorMovedSig =
+          {
+            name = "cursor-moved",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val decreaseFontSizeSig =
+          {
+            name = "decrease-font-size",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val deiconifyWindowSig =
+          {
+            name = "deiconify-window",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val emulationChangedSig =
+          {
+            name = "emulation-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val encodingChangedSig =
+          {
+            name = "encoding-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val eofSig =
+          {
+            name = "eof",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val iconTitleChangedSig =
+          {
+            name = "icon-title-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val iconifyWindowSig =
+          {
+            name = "iconify-window",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val increaseFontSizeSig =
+          {
+            name = "increase-font-size",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val lowerWindowSig =
+          {
+            name = "lower-window",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val maximizeWindowSig =
+          {
+            name = "maximize-window",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst VteTerminalClass.t
+           &&&> parIn 1 uint
+           &&&> parIn 2 uint
+           ---> retVoid
+      in
+        val moveWindowSig =
+          {
+            name = "move-window",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & x
+                         & y =>
+                          () & (x, y),
+                      fn
+                        self & (x, y) =>
+                          VteTerminalClass.toBase self
+                           & x
+                           & y,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val pasteClipboardSig =
+          {
+            name = "paste-clipboard",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val raiseWindowSig =
+          {
+            name = "raise-window",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val refreshWindowSig =
+          {
+            name = "refresh-window",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller =
+          parInst VteTerminalClass.t
+           &&&> parIn 1 uint
+           &&&> parIn 2 uint
+           ---> retVoid
+      in
+        val resizeWindowSig =
+          {
+            name = "resize-window",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn
+                        ()
+                         & width
+                         & height =>
+                          () & (width, height),
+                      fn
+                        self & (width, height) =>
+                          VteTerminalClass.toBase self
+                           & width
+                           & height,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val restoreWindowSig =
+          {
+            name = "restore-window",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val selectionChangedSig =
+          {
+            name = "selection-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val statusLineChangedSig =
+          {
+            name = "status-line-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val textDeletedSig =
+          {
+            name = "text-deleted",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val textInsertedSig =
+          {
+            name = "text-inserted",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val textModifiedSig =
+          {
+            name = "text-modified",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t &&&> parIn 1 int ---> retVoid
+      in
+        val textScrolledSig =
+          {
+            name = "text-scrolled",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & delta => () & delta,
+                      fn self & delta => VteTerminalClass.toBase self & delta,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
+      local
+        val marshaller = parInst VteTerminalClass.t ---> retVoid
+      in
+        val windowTitleChangedSig =
+          {
+            name = "window-title-changed",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () => () & (),
+                      fn self & () => VteTerminalClass.toBase self,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
     end
     local
       open ValueAccessor

@@ -1,7 +1,7 @@
 signature G_OBJECT =
   sig
     type 'a value_accessor_t
-    type 'a signal_t
+    type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t
     type ('object_class, 'get, 'set, 'init) property_t
     type 'object_class property_init_t
     structure Type : G_OBJECT_TYPE
@@ -268,7 +268,7 @@ signature G_OBJECT =
         where type 'a param_spec_class = 'a ParamSpecClass.class
         where type 'a value_accessor_t = 'a value_accessor_t
         where type 'a property_init_t = 'a property_init_t
-        where type 'a signal_t = 'a signal_t
+        where type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t = ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t
     val PARAM_MASK : LargeInt.int
     val PARAM_STATIC_STRINGS : LargeInt.int
     val PARAM_USER_SHIFT : LargeInt.int

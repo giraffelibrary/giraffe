@@ -98,9 +98,6 @@ There is support for handling the emission of a signal from an object (instance)
 When connecting to a signal, there is no support for specifying the detail argument.
 </p>
 <p>
-There is no support for (programmatically) emitting a signal.
-</p>
-<p>
 Support for the above operations is expected to be added in future.
 </p>
 </section>

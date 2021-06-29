@@ -10,6 +10,7 @@ structure ClosureMarshal :>
     include CLOSURE_MARSHAL
       where type 'a accessor = 'a ValueAccessor.t
       where type C.value_v = GObjectValueRecord.C.v
+      where type C.value_array_v = GObjectValueRecordCArrayN.C.non_opt GObjectValueRecordCArrayN.C.p
 
     structure PolyML :
       sig
@@ -23,21 +24,6 @@ structure ClosureMarshal :>
   struct
     type 'a accessor = 'a ValueAccessor.t
 
-    structure GObjectValueRecordArray = 
-      struct
-        structure C =
-          struct
-            structure Pointer = CTypedPointer(GObjectValueRecord.C.ValueType)
-            type opt = Pointer.opt
-            type non_opt = Pointer.non_opt
-            type 'a p = 'a Pointer.p
-          end
-        structure PolyML =
-          struct
-            val cPtr = C.Pointer.PolyML.cVal	
-          end
-      end
-
     structure Pointer = CPointer(GMemory)
     structure Closure =
       Closure(
@@ -46,7 +32,7 @@ structure ClosureMarshal :>
           (
             GObjectValueRecord.C.non_opt GObjectValueRecord.C.p,
             (
-              GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p,
+              GObjectValueRecordCArrayN.C.non_opt GObjectValueRecordCArrayN.C.p,
               GUInt32.FFI.val_
             ) pair
           ) pair
@@ -92,39 +78,206 @@ structure ClosureMarshal :>
        before log "destroy" (closure, "leave")
     ) handle e => app print [exnMessage e, "\n"]
 
-    type 'a get = Closure.args -> 'a
-    type 'a set = Closure.args -> 'a -> unit
-    type 'a ret = Closure.args -> 'a -> unit
-
     structure C =
       struct
-        type value_v = GObjectValueRecord.C.v
-        fun offset vs n = GObjectValueRecordArray.C.Pointer.get (vs, Word.toInt n)
-        fun get n getValue (_ & vs & _) = getValue (offset vs n)
-        fun set n setValue (_ & vs & _) x = setValue (offset vs n) x
-        fun ret setValue (v & _ & _) x = setValue v x
+        type value_v = GObjectValueRecord.C.non_opt GObjectValueRecord.C.p
+        type value_array_v = GObjectValueRecordCArrayN.C.non_opt GObjectValueRecordCArrayN.C.p
+        fun offset vs n = GObjectValueRecordCArrayN.C.Pointer.get (vs, n)
       end
 
-    fun get n a = C.get n (ValueAccessor.C.get a)
-    fun set n a = C.set n (ValueAccessor.C.set a)
-    fun ret a = C.ret (ValueAccessor.C.set a)
+    type ('r, 'w) arg =
+      {
+        get  : C.value_array_v -> 'r,
+        set  : C.value_array_v -> 'w -> unit,
+        init : (int * (C.value_v -> unit)) list,
+        last : int
+      }
 
-    type 'a marshaller = 'a -> Closure.callback
+    type ('r, 'w) res =
+      {
+        get  : C.value_array_v * C.value_v -> 'r,
+        set  : C.value_array_v * C.value_v -> 'w -> unit,
+        init : (int option * (C.value_v -> unit)) list,
+        last : int
+      }
 
-    fun (f &&&> g) args = f args & g args
-    fun (f ---> g) h args = g args (h (f args))
-    fun (f && g) args (x & y) = (f args x : unit; g args y : unit)
+    type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller =
+      {
+        getArg   : C.value_array_v -> 'arg_r,
+        setArg   : C.value_array_v -> 'arg_w -> unit,
+        getRes   : C.value_array_v * C.value_v -> 'res_r,
+        setRes   : C.value_array_v * C.value_v -> 'res_w -> unit,
+        initPars : (C.value_v -> unit) vector,
+        initRet  : C.value_v -> unit
+      }
 
-    fun void _ = ()
+    fun (a &&&> b) =
+      {
+        get  = fn vs => #get a vs & #get b vs,
+        set  = fn vs => fn x & y => (#set a vs x; #set b vs y),
+        init = #init a @ #init b,
+        last = Int.max (#last a, #last b)
+      }
 
-    fun ret_void (v & _ & _) () =
-      if not (ValueAccessor.C.isValue v)
-      then ()
-      else raise Fail "GIRAFFE internal error: ret_void used \
-                      \for callback that has return value";
+    fun (a &&& b) =
+      {
+        get  = fn vsv => #get a vsv & #get b vsv,
+        set  = fn vsv => fn x & y => (#set a vsv x; #set b vsv y),
+        init = #init a @ #init b,
+        last = Int.max (#last a, #last b)
+      }
+
+    fun checkAscending s prev =
+      let
+        fun check prev =
+          fn
+            (n, _) :: xs =>
+              if n > prev
+              then check n xs
+              else raise Fail ("marshaller specifies non-ascending \
+                               \'" ^ s ^ "' parameter indices")
+          | []             => ()
+      in
+        check prev
+      end
+
+    fun mergeAscending (xs, ys) =
+      let
+        fun merge acc (xs, ys) =
+          case (xs, ys) of
+            ((x as (m, _)) :: xs', (y as (n, _)) :: ys') =>
+              if m < n
+              then merge (x :: acc) (xs', ys)
+              else if m = n
+              then merge (x :: acc) (xs', ys')
+              else merge (y :: acc) (xs,  ys')
+          | ([],                   y :: ys')             => merge (y :: acc) ([], ys')
+          | (x :: xs',             [])                   => merge (x :: acc) ([], xs')
+          | ([],                   [])                   => rev acc
+      in
+        merge [] (xs, ys)
+      end
+
+    fun (arg ---> res) =
+      {
+        getArg   = #get arg,
+        setArg   = #set arg,
+        getRes   = #get res,
+        setRes   = #set res,
+        initPars =
+          let
+            val numPars = Int.max (#last arg, #last res) + 1
+            val initIns = #init arg
+            val initOuts =
+              List.mapPartial (fn (SOME n, f) => SOME (n, f) | _ => NONE) (#init res)
+
+            val () = checkAscending "in"  ~1 initIns
+            val () = checkAscending "out" ~1 initOuts
+            val inits = mergeAscending (initIns, initOuts)
+            val r = ref inits
+            exception Missing of int
+            fun getNext i = (
+              case ! r of
+                (n, f) :: inits' => if n = i then (r := inits'; f) else raise Missing i
+              | []               => raise Missing i
+            ) handle
+                Missing i =>
+                  raise Fail (
+                    concat [
+                      "marshaller does not specify contiguous parameter indices: ",
+                      case i of
+                        0 => "instance parameter (index 0)"
+                      | _ => "parameter with index " ^ Int.toString i,
+                      " is missing"
+                    ]
+                  )
+          in
+            Vector.tabulate (numPars, getNext)
+          end,
+        initRet  =
+          let
+            val initRets =
+              List.mapPartial (fn (NONE, f) => SOME f | _ => NONE) (#init res)
+          in
+            case initRets of
+              []        => Fn.const ()
+            | [initRet] => initRet
+            | _         => raise Fail "marshaller specifies multiple return values"
+          end
+      }
+
+    fun parInst t =
+      {
+        get  = fn _ => (),
+        set  = fn vs => fn x => ValueAccessor.C.set t (C.offset vs 0) x,
+        init = [(0, fn v => ValueAccessor.C.init v (ValueAccessor.C.gtype t ()))],
+        last = 0
+      }
+
+    fun parIn n t =
+      {
+        get  = fn vs => ValueAccessor.C.get t (C.offset vs n),
+        set  = fn vs => fn x => ValueAccessor.C.set t (C.offset vs n) x,
+        init = [(n, fn v => ValueAccessor.C.init v (ValueAccessor.C.gtype t ()))],
+        last = n
+      }
+
+    fun parOut n t =
+      {
+        get  = fn (vs, _) => ValueAccessor.C.get t (C.offset vs n),
+        set  = fn (vs, _) => fn x => ValueAccessor.C.set t (C.offset vs n) x,
+        init = [(SOME n, fn v => ValueAccessor.C.init v (ValueAccessor.C.gtype t ()))],
+        last = n
+      }
+
+    fun ret t =
+      {
+        get  = fn (_, v) => ValueAccessor.C.get t v,
+        set  = fn (_, v) => fn x => ValueAccessor.C.set t v x,
+        init = [(NONE, fn v => ValueAccessor.C.init v (ValueAccessor.C.gtype t ()))],
+        last = ~1
+      }
+
+    val retVoid =
+      {
+        get  =
+          fn (_, v) =>
+            if not (ValueAccessor.C.isValue v)
+            then ()
+            else raise Fail "GIRAFFE internal error: retVoid used to get \
+                            \return value of closure that has return value",
+        set  =
+          fn (_, v) =>
+          fn () =>
+            if not (ValueAccessor.C.isValue v)
+            then ()
+            else raise Fail "GIRAFFE internal error: retVoid used to set \
+                            \return value of closure that has return value",
+        init = [(NONE, fn _ => ())],
+        last = ~1
+      }
+
+    fun map (mapArgR, mapArgW, mapResR, mapResW)
+      {
+        getArg,
+        setArg,
+        getRes,
+        setRes,
+        initPars,
+        initRet
+      } =
+      {
+        getArg   = mapArgR o getArg,
+        setArg   = fn vs => setArg vs o mapArgW,
+        getRes   = mapResR o getRes,
+        setRes   = fn vsv => setRes vsv o mapResW,
+        initPars = initPars,
+        initRet  = initRet
+      }
 
     type callback = Closure.callback
-    fun makeCallback (marshaller, func) = marshaller func
+    fun makeCallback ({getArg, setRes, ...}, func) =
+      fn v & vs & _ => setRes (vs, v) (func (getArg vs))
 
     structure FFI =
       struct
@@ -137,7 +290,7 @@ structure ClosureMarshal :>
               GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p, (
               GObjectValueRecord.C.non_opt GObjectValueRecord.C.p, (
               GUInt32.FFI.val_, (
-              GObjectValueRecordArray.C.non_opt GObjectValueRecordArray.C.p, (
+              GObjectValueRecordCArrayN.C.non_opt GObjectValueRecordCArrayN.C.p, (
               Pointer.t,
               Pointer.t
             ) pair) pair) pair) pair) pair
@@ -171,7 +324,7 @@ structure ClosureMarshal :>
             GObjectClosureRecord.PolyML.cPtr
              &&> GObjectValueRecord.PolyML.cPtr
              &&> GUInt32.PolyML.cVal
-             &&> GObjectValueRecordArray.PolyML.cPtr
+             &&> GObjectValueRecordCArrayN.PolyML.cPtr
              &&> Pointer.ValueType.PolyML.cVal
              &&> Pointer.ValueType.PolyML.cVal
              --> cVoid

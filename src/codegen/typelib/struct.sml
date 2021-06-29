@@ -1104,10 +1104,10 @@ fun newStrDecHighLevel structIRef (fieldInfos : field_info list) =
           )
         val exp = foldL ExpApp (ffiExp, [mkIdLNameExp initUId, unitExp])
       in
-        DecVal (toList1 [([], false, mkAPat (retValPat, unitPat), exp)])
+        DecVal (toList1 [([], false, mkAPat (retValIdPat, unitPat), exp)])
       end
 
-    val funExp = ExpLet (mkDecs [initUDec, retValDec], toList1 [retValExp])
+    val funExp = ExpLet (mkDecs [initUDec, retValDec], toList1 [retValIdExp])
   in
     StrDecDec (mkIdFunDec (newId, toList1 [fieldIdsRecAPat], funExp))
   end

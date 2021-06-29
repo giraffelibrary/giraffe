@@ -15,61 +15,70 @@ structure Signal :>
     type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller =
       ('arg_r, 'arg_w, 'res_r, 'res_w) GObjectClosure.marshaller
 
-    local
-      open PolyMLFFI
-    in
-      val quarkFromString_ =
-        call (externalFunctionSymbol "g_quark_from_string")
-          (Utf8.PolyML.cPtr --> GLib.Quark.PolyML.cVal)
+    val quarkFromString_ =
+      _import "g_quark_from_string" :  (* don't use "mlton_g_quark_from_string" *)
+        Utf8.FFI.non_opt Utf8.FFI.p -> GLib.Quark.FFI.val_;
 
-      val signalLookup_ =
-        call (externalFunctionSymbol "g_signal_lookup")
+    val signalLookup_ =
+      fn
+        (x1, x2) & x3 =>
           (
-            Utf8.PolyML.cInPtr
-             &&> GObjectType.PolyML.cVal
-             --> GUInt.PolyML.cVal
+            _import "mlton_g_signal_lookup" :
+              Utf8.MLton.p1
+               * Utf8.FFI.non_opt Utf8.MLton.p2
+               * GObjectType.FFI.val_
+               -> GUInt.FFI.val_;
           )
+            (
+              x1,
+              x2,
+              x3
+            )
 
-      val signalEmit_ =
-        call
-          (externalFunctionSymbol "g_signal_emitv")
-          (
-            GObjectValueRecordCArrayN.PolyML.cPtr
-             &&> GUInt.PolyML.cVal
-             &&> GLib.Quark.PolyML.cVal
-             &&> GObjectValueRecord.PolyML.cPtr
-             --> cVoid
-          );
+    val signalEmit_ =
+      fn x1 & x2 & x3 & x4 =>
+        (
+          _import "g_signal_emitv" reentrant :  (* don't use "mlton_g_signal_emitv" *)
+            GObjectValueRecordCArrayN.FFI.non_opt GObjectValueRecordCArrayN.FFI.p
+             * GUInt.FFI.val_
+             * GLib.Quark.FFI.val_
+             * GObjectValueRecord.FFI.non_opt GObjectValueRecord.FFI.p
+             -> unit;
+        )
+          (x1, x2, x3, x4)
 
-      val signalConnectClosure_ =
-        call
-          (externalFunctionSymbol "g_signal_connect_closure")
-          (
-            GObjectObjectClass.PolyML.cPtr
-             &&> Utf8.PolyML.cInPtr
-             &&> GObjectClosureRecord.PolyML.cPtr
-             &&> GBool.PolyML.cVal
-             --> GULong.PolyML.cVal
-          );
+    val signalConnectClosure_ =
+      fn x1 & (x2, x3) & x4 & x5 =>
+        (
+          _import "mlton_g_signal_connect_closure" :
+            GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
+             * Utf8.MLton.p1
+             * Utf8.FFI.non_opt Utf8.MLton.p2
+             * GObjectClosureRecord.FFI.non_opt GObjectClosureRecord.FFI.p
+             * GBool.FFI.val_
+             -> GULong.FFI.val_;
+        )
+          (x1, x2, x3, x4, x5)
 
-      val signalHandlerDisconnect_ =
-        call
-          (externalFunctionSymbol "g_signal_handler_disconnect")
-          (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GULong.PolyML.cVal
-             --> cVoid
-          );
+    val signalHandlerDisconnect_ =
+      fn x1 & x2 =>
+        (
+          _import "g_signal_handler_disconnect" :
+            GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
+             * GULong.FFI.val_
+             -> unit;
+        )
+          (x1, x2)
 
-      val signalHandlerIsConnected_ =
-        call
-          (externalFunctionSymbol "g_signal_handler_is_connected")
-          (
-            GObjectObjectClass.PolyML.cPtr
-             &&> GULong.PolyML.cVal
-             --> GBool.PolyML.cVal
-          );
-    end
+    val signalHandlerIsConnected_ =
+      fn x1 & x2 =>
+        (
+          _import "g_signal_handler_is_connected" :
+            GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p
+             * GULong.FFI.val_
+             -> GBool.FFI.val_;
+        )
+          (x1, x2)
 
     type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) t =
       {

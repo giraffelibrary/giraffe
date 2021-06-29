@@ -5,43 +5,61 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
+infixr &&&
+
 signature CLOSURE_MARSHAL =
   sig
     type 'a accessor
 
 
-    type 'a get
-    val &&&> : 'a get * 'b get -> ('a, 'b) pair get
-
-    type 'a set
-    type 'a ret
-    val && : 'a set * 'b ret -> ('a, 'b) pair ret
-
-    type 'a marshaller
-    val ---> : 'a get * 'b ret -> ('a -> 'b) marshaller
-
-
-    val get : word -> 'a accessor -> 'a get
-    val set : word -> 'a accessor -> 'a set
-    val ret : 'a accessor -> 'a ret
-
-    val void : unit get
-    val ret_void : unit ret
-
-
-    type callback
-    val makeCallback : ('a -> 'b) marshaller * ('a -> 'b) -> callback
-
-
     structure C :
       sig
         type value_v
-
-        val get : word -> (value_v -> 'a) -> 'a get
-        val set : word -> (value_v -> 'a -> unit) -> 'a set
-        val ret : (value_v -> 'a -> unit) -> 'a ret
+        type value_array_v
       end
 
+    type ('r, 'w) arg
+    type ('r, 'w) res
+    type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller =
+      {
+        getArg   : C.value_array_v -> 'arg_r,
+        setArg   : C.value_array_v -> 'arg_w -> unit,
+        getRes   : C.value_array_v * C.value_v -> 'res_r,
+        setRes   : C.value_array_v * C.value_v -> 'res_w -> unit,
+        initPars : (C.value_v -> unit) vector,
+        initRet  : C.value_v -> unit
+      }
+
+    val &&&> :
+      ('a_r, 'a_w) arg * ('b_r, 'b_w) arg
+       -> (('a_r, 'b_r) pair, ('a_w, 'b_w) pair) arg
+
+    val &&& :
+      ('a_r, 'a_w) res * ('b_r, 'b_w) res
+       -> (('a_r, 'b_r) pair , ('a_w, 'b_w) pair) res
+
+    val ---> :
+      ('arg_r, 'arg_w) arg * ('res_r, 'res_w) res
+       -> ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller
+
+    val parInst :        'a accessor -> (unit, 'a) arg
+    val parIn   : int -> 'a accessor -> ('a,   'a) arg
+    val parOut  : int -> 'a accessor -> ('a,   'a)   res
+    val ret     :        'a accessor -> ('a,   'a)   res
+    val retVoid :                       (unit, unit) res
+
+    val map :
+      ('arg1_r -> 'arg2_r)
+       * ('arg2_w -> 'arg1_w)
+       * ('res1_r -> 'res2_r)
+       * ('res2_w -> 'res1_w)
+       -> ('arg1_r, 'arg1_w, 'res1_r, 'res1_w) marshaller
+       -> ('arg2_r, 'arg2_w, 'res2_r, 'res2_w) marshaller
+
+    type callback
+    val makeCallback :
+      ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller * ('arg_r -> 'res_w)
+       -> callback
 
     structure FFI :
       sig

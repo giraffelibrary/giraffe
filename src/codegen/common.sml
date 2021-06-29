@@ -325,7 +325,17 @@ fun toLocalType name (tyVars, tyName) =
   end
 
 local
-  val signalTemplate = ([aTyVar], ("", "Signal", "", "t"))
+  val signalTemplate =
+    (
+      [
+        (false, "object_class"),
+        (false, "arg_e"),
+        (false, "arg_h"),
+        (false, "res_h"),
+        (false, "res_e")
+      ],
+      ("", "Signal", "", "t")
+    )
   val signalSpec = toSpec "" signalTemplate
   val signalLocalType = toLocalType "" signalTemplate
 in
@@ -333,8 +343,10 @@ in
    * `addSignalSpecs namespace numSigs specs` adds
    *
    *                                                       -.
-   *     type 'a signal_t                                   | isGObject
-   *                                                       -'  and numSigs > 0
+   *                                                        | isGObject
+   *     type                                               |  and numSigs > 0
+   *       ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t
+   *                                                       -'
    *
    * to `specs`.
    *)
@@ -353,15 +365,21 @@ in
    * as follows:
    *
    *                                                       -.
-   *     type 'a signal_t = Signal.t                        | isGObject
-   *                                                       -'  and numSigs > 0
+   *                                                        | isGObject
+   *     type                                               |  and numSigs > 0
+   *       ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t =
+   *       ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t
+   *                                                       -'
    *
    * and `revMap makeLocalTypeStrModuleQual revLocalTypes` produces qual
    * values as follows:
    *
    *                                                       -.
-   *     where type 'a signal_t = Signal.t                  | isGObject
-   *                                                       -'  and numSigs > 0
+   *     where                                              | isGObject
+   *       type                                             |  and numSigs > 0
+   *         ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t =
+   *         ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t
+   *                                                       -'
    *)
   fun makeSignalLocalTypes isGObject (numSigs : LargeInt.int) =
     if isGObject andalso numSigs > 0

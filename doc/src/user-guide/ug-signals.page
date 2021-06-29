@@ -37,7 +37,7 @@ of the class <code>Gtk.TextView</code> is
 <p>
 In order to provide a type-safe interface for using signals,
 each signal has an SML specification constraining the instance type that emits
-the signal and the type of the handler function.
+the signal and the type of the emitter and handler functions.
 </p>
 <p>
 The specification of <code><var>Namespace</var>.<var>Type</var>.<var>someSignalName</var>Sig</code>
@@ -45,7 +45,7 @@ in the signature <code><var>NAMESPACE</var>_<var>TYPE</var></code>
 has the form:
 </p>
 <code>
-val <var>some</var><var>Signal</var><var>Name</var>Sig : <var>handlerType</var> -> <var>instanceType</var> Signal.t
+val <var>some</var><var>Signal</var><var>Name</var>Sig : (<var>instanceType</var>, <var>argType_e</var>, <var>argType_h</var>, <var>resType_h</var>, <var>resType_e</var>) Signal.t
 </code>
 <p>
 where
@@ -53,23 +53,73 @@ where
 <terms>
 <item>
   <title><code><var>instanceType</var></code></title>
-  <p>is <code>'a class</code> which represents the class or interface on which the signal is emitted or any subclass of the class;</p>
+  <p>
+    is:
+  </p>
+  <list>
+    <item><p><code>'a class</code> for a class, which allows an instance of the class or any subclass of the class;</p></item>
+    <item><p><code>t</code> for an interface;</p></item>
+  </list>
 </item>
 <item>
-  <title><code><var>handlerType</var></code></title>
-  <p>is the type of the handler function.</p>
+  <title><code><var>argType_e</var> -> <var>resType_e</var></code></title>
+  <p>
+    is the type of a function that emits the signal;
+  </p>
+</item>
+<item>
+  <title><code><var>argType_h</var> -> <var>resType_h</var></code></title>
+  <p>
+    is the type of a function that handles the signal;
+  </p>
+</item>
+<item>
+  <title><code><var>argType_e</var></code> and <code><var>argType_h</var></code></title>
+  <p>
+    contain the types of the &#x2018;in&#x2019; and &#x2018;inout&#x2019; arguments,
+    as a tuple if there are two or more and as <code>unit</code> if there are none;
+  </p>
+</item>
+<item>
+  <title><code><var>resType_e</var></code> and <code><var>resType_h</var></code></title>
+  <p>
+    contain the following types as a tuple if there are two or more and as <code>unit</code> if there are none:
+  </p>
+  <list>
+  <item>
+    <p>
+      the types of the &#x2018;out&#x2019; and &#x2018;inout&#x2019; arguments, if the return type is void;
+    </p>
+  </item>
+  <item>
+    <p>
+      the return type followed by the types of the &#x2018;out&#x2019; and &#x2018;inout&#x2019; arguments, if the return type is not void.
+    </p>
+  </item>
+  </list>
 </item>
 </terms>
+<p>
+The difference between <code><var>argType_e</var></code> and <code><var>argType_h</var></code> and
+between <code><var>resType_e</var></code> and <code><var>resType_h</var></code>
+is in the SML types for a class or union:
+<code><var>argType_e</var></code> and <code><var>resType_h</var></code> allow
+an object of any subclass of the class and
+a union instance to have the type of any field of the union
+whereas <code><var>resType_e</var></code> and <code><var>argType_h</var></code> do not.
+</p>
 <example>
 <p>
 For example, the specification of <code>Gtk.TextView.insertAtCursorSig</code> is
 </p>
 <code>
-val insertAtCursorSig : (string -> unit) -> 'a class Signal.t
+val insertAtCursorSig : ('a class, string, string, unit, unit) Signal.t
 </code>
 </example>
 <p>
-As the example above shows, <code><var>handlerType</var></code> does not have an argument
+As the example above shows,
+neither <code><var>argType_e</var></code> nor <code><var>argType_h</var></code>
+have an argument
 for the instance that emits the signal.
 </p>
 </section>
@@ -93,27 +143,32 @@ There is no support for
 <p>
 A handler function is connected to a signal of an object (instance)
 using <code>Signal.connect</code> or <code>Signal.connectAfter</code>.
+The handler function is called
+<em>before</em> the default handler by using <code>Signal.connect</code> and
+<em>after</em> the default handler by using <code>Signal.connectAfter</code>.
+</p>
+<p>
 For a signal “<var>a</var>”
 of a class <code><var>ClassNamespace</var>.<var>Class</var></code>,
-the handler function <code><var>f</var></code>
+a handler function <code><var>f</var></code>
 is connected to the signal on an object <code><var>obj</var></code> by
 </p>
 <code>
 Signal.connect <var>obj</var> (<var>ClassNamespace</var>.<var>Class</var>.<var>a</var>Sig, <var>f</var>)
 </code>
 <p>
+whose value is a handler id to allow the signal connection to be modified or checked subsequently.
+</p>
+<p>
 For a signal “<var>a</var>”
 of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
 implemented by the class <code><var>ClassNamespace</var>.<var>Class</var></code>,
-the handler function <code><var>f</var></code>
+a handler function <code><var>f</var></code>
 is connected to the signal on the object <code><var>obj</var></code> by
 </p>
 <code>
 Signal.connect (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>) (<var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig, <var>f</var>)
 </code>
-<p>
-The function returns a handler id to allow the signal connection to be modified or checked subsequently.
-</p>
 <example>
 <p>
 For example, to handle emission of the signal “insert-at-cursor”
@@ -128,7 +183,7 @@ val handlerId = Signal.connect textView (Gtk.TextView.insertAtCursorSig, onInser
 </p>
 </example>
 <p>
-It is not unusual for the handler function <code><var>f</var></code> to need to refer to the object that emitted the signal, <code><var>obj</var></code>, but <code><var>handlerType</var></code> does not have an argument to pass <code><var>obj</var></code> to the handler <code><var>f</var></code>.
+It is not unusual for the handler function <code><var>f</var></code> to need to refer to the object that emitted the signal, <code><var>obj</var></code>, but <code><var>argType_h</var></code> does not have an argument to pass <code><var>obj</var></code> to the handler <code><var>f</var></code>.
 This is easily achieved by defining <code><var>f</var></code> to take the emitting object as the first argument and supplying the argument when connecting the handler as follows:
 </p>
 <code>
@@ -184,11 +239,63 @@ Signal.isConnected textView handlerId
 
 <section>
 <title>Emitting signals</title>
+<p>
+A signal is emitted on an object (instance)
+using <code>Signal.emit</code>.
+</p>
+<p>
+For a signal “<var>a</var>”
+of a class <code><var>ClassNamespace</var>.<var>Class</var></code>,
+the signal is emitted on an object <code><var>obj</var></code> with an argument <code><var>arg</var></code> by
+</p>
+<code>
+Signal.emit <var>obj</var> <var>ClassNamespace</var>.<var>Class</var>.<var>a</var>Sig <var>arg</var>
+</code>
+<p>
+whose value is the result.
+</p>
 <note style="tip">
 <p>
-At present, there is no support for emitting signals.
+Not all signals have a default handler.
+If emission of a signal is not handled,
+the result contains
+</p>
+<list style="compact">
+<item><p>the default value for &#x2018;out&#x2019; arguments and the return value and</p></item>
+<item><p>the before value for &#x2018;inout&#x2019; arguments.</p></item>
+</list>
+<p>
+The default value is the value set on initialization of a <code>GValue</code>
+by <code><link href="https://developer.gnome.org/gobject/stable/gobject-Generic-values.html#g-value-init">g_value_init</link></code>
+for the <code>GType</code> of the corresponding &#x2018;out&#x2019; argument or return value.
 </p>
 </note>
+<p>
+For a signal “<var>a</var>”
+of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
+implemented by the class <code><var>ClassNamespace</var>.<var>Class</var></code>,
+the signal is emitted on an object <code><var>obj</var></code> with an argument <code><var>arg</var></code> by
+</p>
+<code>
+Signal.emit (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>) <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig <var>arg</var>
+</code>
+<example>
+<p>
+For example, to emit the signal “button-press-event”
+on the object <code>button</code>
+with the argument <code>e</code>, emit the signal as follows:
+</p>
+<code>
+val res = Signal.emit button Widget.buttonPressEventSig e
+</code>
+</example>
+<p>
+Type checking ensures that when a signal is emitted on an object,
+</p>
+<list style="compact">
+<item><p>the emit function has the correct type for the signal;</p></item>
+<item><p>the signal is valid for the object.</p></item>
+</list>
 </section>
 
 </page>

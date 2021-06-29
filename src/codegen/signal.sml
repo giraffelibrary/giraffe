@@ -49,7 +49,7 @@ fun makeSignalSpec
     val parInfos = updateParInfos retInfo parInfos
 
     val tyVarIdx'0 = 0
-    val (revInParTyRefs'1, tyVarIdx'1) = ([], tyVarIdx'0)
+    val revInParTyRefs'1 = []
     val revOutParTyRefs'1 = []
     val iRefs'1 = iRefs
 
@@ -59,70 +59,102 @@ fun makeSignalSpec
         addSpecParInfo
         ((revInParTyRefs'1, revOutParTyRefs'1), iRefs'1)
         parInfos
-    val (inTys'2, tyVarIdx'2) = foldmapl (mkParamTy true) (rev revInParTyRefs'2, tyVarIdx'1)
-    val (outTys'2, tyVarIdx'3) =
-      foldmapl (foldMapFst (mkParamTy false)) (rev revOutParTyRefs'2, tyVarIdx'2)
+    val inParTyRefs = rev revInParTyRefs'2
+    val outParTyRefs = revMap #1 revOutParTyRefs'2
 
     val optConstructorIRef = NONE
     val (retValTyRef, iRefs'3) =
       addSpecRetInfo
         optConstructorIRef
         (retInfo, iRefs'2)
-    val (retValTy, tyVarIdx'4) = mkParamTy false (retValTyRef, tyVarIdx'3)
 
-    (* Construct function argument type with the form:
+    (* Construct argument type with the form:
      *
      *   unit
      *     if L = 0
      *
-     *   <inParamType[1]> * ... * <inParamType[L]>
+     *   <inParamType[1](isRead)> * ... * <inParamType[L](isRead)>
      *     if L > 0
+     *)
+    fun mkArgTy isReadType tyVarIdx =
+      let
+        val (inParTys, tyVarIdx') =
+          foldmapl (mkParamTy isReadType) (inParTyRefs, tyVarIdx)
+        val argTy =
+          case inParTys of
+            []         => unitTy
+          | op :: tys1 => mkProdTy1 tys1
+      in
+        (argTy, tyVarIdx')
+      end
+
+    (* Construct result type with the form:
+     *
+     *   unit
+     *     if K = 0 and retInfo is RIVOID
+     *
+     *   <retValType(isRead)>
+     *     if K = 0 and retInfo is not RIVOID
+     *
+     *   <outParamType[1](isRead)> * ... * <outParamType[K](isRead)>
+     *     if K > 0 and retInfo is RIVOID
+     *
+     *   <retValType(isRead)>
+     *    * <outParamType[1](isRead)> * ... * <outParamType[K](isRead)>
+     *     if K > 0 and retInfo is not RIVOID
+     *)
+    fun mkResTy isReadType tyVarIdx =
+      let
+        val (outParTys, tyVarIdx'1) =
+          foldmapl (mkParamTy isReadType) (outParTyRefs, tyVarIdx)
+        val (retValTy, tyVarIdx'2) = mkParamTy isReadType (retValTyRef, tyVarIdx'1)
+        val resTys =
+          case retInfo of
+            RIVOID => outParTys
+          | _      => retValTy :: outParTys
+        val resTy = mkProdTy0 resTys
+      in
+        (resTy, tyVarIdx'2)
+      end
+
+    (* Construct instance type with the form:
+     *
+     *   <var> class
+     *)
+    val (instTy, tyVarIdx'1) =
+      makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'0)
+
+    (* Construct signal type with the form:
+     *
+     *   (
+     *     <var> class,
+     *     <argType(false)>,
+     *     <argType(true)>,
+     *     <resType(false)>,
+     *     <resType(true)>
+     *   )
+     *     <Signal>
      *
      * where
      *
-     *   [<inParamType[1]> * ... * <inParamType[L]>] = inTys'2
-     *)
-    val argTys =
-      case inTys'2 of
-        []         => [unitTy]
-      | op :: tys1 => [mkProdTy1 tys1]
-
-    (* `outTys'2` contains out parameter types associated with
-     * the caller-allocates flag for each out parameter. *)
-    val retTy =
-      case outTys'2 of
-        []     => retValTy
-      | _ :: _ =>
-          let
-            fun getTy (ty, _) = ty
-
-            val outParamTys = map getTy outTys'2
-
-            val retTys =
-              case retInfo of
-                RIVOID => outParamTys
-              | _      => retValTy :: outParamTys
-          in
-            mkProdTy0 retTys  (* `length retTys > 0` so result not unit type *)
-          end
-
-    val functionTy = foldr TyFun retTy argTys
-
-    (*
-     *   <functionTy> -> <var> class signal_t
-     *     if isGObject
+     *   <Signal> has the form:
      *
-     *   <functionTy> -> <var> class Signal.t
-     *     if not isGObject
+     *     signal_t
+     *       if isGObject
      *
+     *     Signal.t
+     *       if not isGObject
      *)
-    val (containerTy, _) =
-      makeIRefLocalTypeRef makeRefVarTy (containerIRef, tyVarIdx'4)
+    val (argWriteTy, tyVarIdx'2) = mkArgTy false tyVarIdx'1
+    val (argReadTy,  tyVarIdx'3) = mkArgTy true  tyVarIdx'2
+    val (resWriteTy, tyVarIdx'4) = mkResTy false tyVarIdx'3
+    val (resReadTy,  _)          = mkResTy true  tyVarIdx'4
     val lid =
       if isGObject
       then toList1 [concat [signalId ^ "_" ^ tId]]
       else toList1 [toUCC signalId, tId]
-    val signalTy = TyFun (TyParen functionTy, TyRef ([containerTy], lid))
+    val signalTy =
+      TyRef ([instTy, argWriteTy, argReadTy, resWriteTy, resReadTy], lid)
   in
     (mkValSpec (signalNameId, signalTy), (iRefs'3, excls))
   end
@@ -132,28 +164,34 @@ fun makeSignalSpec
 
 (* `addParInfo` accumulates function components in the parameter
  *
- *   `(js, ls, ks, iRefs)`
+ *   `(i, js, ls, ks, ns, iRefs, structDeps)`
  *
- * The lists `js`, `ls` and `ks` accumulate the components of the vectors of
- * sizes J, L and K, respectively, in the CODEGEN for SignalDec.
+ * The lists `js`, `ls`, `ks` and `ns` accumulate the components of
+ * the vectors of sizes J, L, K and N, respectively, in the codegen for
+ * SignalDec.
  *
- * `js`, `ls` and `ks` are built up in reverse.  After iterating over all
- * `parInfo` values, the final values are as follows:
+ * `js`, `ls`, `ks` and `ns` are built up in reverse.  After iterating
+ * over all `parInfo` values, the final values are as follows:
  *
  *
  *   the j<th> element of `js` contains
  *
- *     <inParamExp[j]>
+ *     (<inParamFun[j]>, (<inParamNameJ[j]>, <inParamExpJ[j]>))
  *
  *
  *   the l<th> element of `ls` contains
  *
- *     (<getFun[l]>, <inParamName[l]>)
+ *     (<inParamNameL[l]>, <inParamExpL[l]>)
  *
  *
  *   the k<th> element of `ks` contains
  *
- *     (<setFun[k]>, (<outParamName[k]>, <outParamExp[k]>))
+ *     (<outParamNameK[k]>, <outParamExpK[k]>)
+ *
+ *
+ *   the n<th> element of `ns` contains
+ *
+ *     (<outParamFun[n]>, (<outParamNameN[n]>, <outParamExpN[n]>))
  *
  *
  * `iRefs` accumulates the references to interfaces for generating type
@@ -198,97 +236,119 @@ local
     end
 
 
-  fun indexAppExp e n = ExpApp (e, ExpConst (ConstWord (n, NONE)))
+  fun indexAppExp e i = ExpApp (e, mkIntConstExp i)
 
 
-  fun getFunGType n = mkFunGType (indexAppExp getExp n)
+  fun inParamFunGType i = mkFunGType (indexAppExp parInIdExp i)
 
-  fun getFunScalar n = mkFunScalar (indexAppExp getExp n)
+  fun inParamFunScalar i = mkFunScalar (indexAppExp parInIdExp i)
 
-  fun getFunUtf8 n = mkFunUtf8 (indexAppExp getExp n)
+  fun inParamFunUtf8 i = mkFunUtf8 (indexAppExp parInIdExp i)
 
-  fun getFunArray n = mkFunArray (indexAppExp getExp n)
+  fun inParamFunArray i = mkFunArray (indexAppExp parInIdExp i)
 
-  fun getFunInterface n = mkFunInterface (indexAppExp getExp n)
-
-
-  fun setFunGType n = mkFunGType (indexAppExp setExp n)
-
-  fun setFunScalar n = mkFunScalar (indexAppExp setExp n)
-
-  fun setFunUtf8 n = mkFunUtf8 (indexAppExp setExp n)
-
-  fun setFunArray n = mkFunArray (indexAppExp setExp n)
-
-  fun setFunInterface n = mkFunInterface (indexAppExp setExp n)
+  fun inParamFunInterface i = mkFunInterface (indexAppExp parInIdExp i)
 
 
-  val retFunVoid = retVoidExp
+  fun outParamFunGType i = mkFunGType (indexAppExp parOutIdExp i)
 
-  val retFunGType = mkFunGType retExp
+  fun outParamFunScalar i = mkFunScalar (indexAppExp parOutIdExp i)
 
-  val retFunScalar = mkFunScalar retExp
+  fun outParamFunUtf8 i = mkFunUtf8 (indexAppExp parOutIdExp i)
 
-  val retFunUtf8 = mkFunUtf8 retExp
+  fun outParamFunArray i = mkFunArray (indexAppExp parOutIdExp i)
 
-  val retFunArray = mkFunArray retExp
+  fun outParamFunInterface i = mkFunInterface (indexAppExp parOutIdExp i)
 
-  val retFunInterface = mkFunInterface retExp
+
+  val retFunVoid = retVoidIdExp
+
+  val retFunGType = mkFunGType retIdExp
+
+  val retFunScalar = mkFunScalar retIdExp
+
+  val retFunUtf8 = mkFunUtf8 retIdExp
+
+  val retFunArray = mkFunArray retIdExp
+
+  val retFunInterface = mkFunInterface retIdExp
 in
-  fun addParInfo (parInfo, acc as (n, js, ls, ks, iRefs, structDeps)) =
+  fun addParInfo (parInfo, acc as (i, js, ls, ks, ns, iRefs, structDeps)) =
     case parInfo of
       PIVOID                          => acc
     | PISOME {name, dir, array, info} =>
         let
-          val (inParamExp, getFun, setFun, outParamExp, structDeps'1) =
+          val (inParamFun, outParamFun, inParamExpJ, inParamExpL, outParamExpK, outParamExpN, structDeps'1) =
             case info of
               IGTYPE gtypeParInfo         =>
                 let
-                  fun inParamExp () = mkIdLNameExp name
-                  fun getFun n = getFunGType n gtypeParInfo
-                  fun setFun n = setFunGType n gtypeParInfo
-                  fun outParamExp () = mkIdLNameExp name
+                  fun inParamFun i = inParamFunGType i gtypeParInfo
+                  fun outParamFun i = outParamFunGType i gtypeParInfo
+                  fun inParamExpJ () = mkIdLNameExp name
+                  fun inParamExpL () = mkIdLNameExp name
+                  fun outParamExpK () = mkIdLNameExp name
+                  fun outParamExpN () = mkIdLNameExp name
                 in
-                  (inParamExp, getFun, setFun, outParamExp, structDeps)
+                  (inParamFun, outParamFun, inParamExpJ, inParamExpL, outParamExpK, outParamExpN, structDeps)
                 end
             | ISCALAR scalarParInfo       =>
                 let
-                  fun inParamExp () = mkIdLNameExp name
-                  fun getFun n = getFunScalar n scalarParInfo
-                  fun setFun n = setFunScalar n scalarParInfo
-                  fun outParamExp () = mkIdLNameExp name
+                  fun inParamFun i = inParamFunScalar i scalarParInfo
+                  fun outParamFun i = outParamFunScalar i scalarParInfo
+                  fun inParamExpJ () = mkIdLNameExp name
+                  fun inParamExpL () = mkIdLNameExp name
+                  fun outParamExpK () = mkIdLNameExp name
+                  fun outParamExpN () = mkIdLNameExp name
                 in
-                  (inParamExp, getFun, setFun, outParamExp, structDeps)
+                  (inParamFun, outParamFun, inParamExpJ, inParamExpL, outParamExpK, outParamExpN, structDeps)
                 end
             | IUTF8 utf8ParInfo           =>
                 let
-                  fun inParamExp () = mkIdLNameExp name
-                  fun getFun n = getFunUtf8 n utf8ParInfo
-                  fun setFun n = setFunUtf8 n utf8ParInfo
-                  fun outParamExp () = mkIdLNameExp name
+                  fun inParamFun i = inParamFunUtf8 i utf8ParInfo
+                  fun outParamFun i = outParamFunUtf8 i utf8ParInfo
+                  fun inParamExpJ () = mkIdLNameExp name
+                  fun inParamExpL () = mkIdLNameExp name
+                  fun outParamExpK () = mkIdLNameExp name
+                  fun outParamExpN () = mkIdLNameExp name
                 in
-                  (inParamExp, getFun, setFun, outParamExp, structDeps)
+                  (inParamFun, outParamFun, inParamExpJ, inParamExpL, outParamExpK, outParamExpN, structDeps)
                 end
             | IARRAY arrayParInfo         =>
                 let
+                  fun inParamFun i = inParamFunArray i arrayParInfo
+                  fun outParamFun i = outParamFunArray i arrayParInfo
+
                   val {lengths, ...} = arrayParInfo
                   val length = hd1 lengths
-                  fun inParamExp () = mkArrayLenAppExp length (mkIdLNameExp name)
-
-                  fun getFun n = getFunArray n arrayParInfo
-                  fun setFun n = setFunArray n arrayParInfo
-                  fun outParamExp () = mkIdLNameExp name
+                  fun inParamExpJ () = mkArrayLenFnExp length (mkIdLNameExp name)
+                  fun inParamExpL () = mkArrayLenAppExp length (mkIdLNameExp name)
+                  fun outParamExpK () = mkArrayLenAppExp length (mkIdLNameExp name)
+                  fun outParamExpN () = mkArrayLenFnExp length (mkIdLNameExp name)
                 in
-                  (inParamExp, getFun, setFun, outParamExp, structDeps)
+                  (inParamFun, outParamFun, inParamExpJ, inParamExpL, outParamExpK, outParamExpN, structDeps)
                 end
             | IINTERFACE interfaceParInfo =>
                 let
+                  fun inParamFun i = inParamFunInterface i interfaceParInfo
+                  fun outParamFun i = outParamFunInterface i interfaceParInfo
+
                   val {iRef, infoType, isOpt, ...} = interfaceParInfo
 
-                  fun inParamExp () = mkIdLNameExp name
-                  fun getFun n = getFunInterface n interfaceParInfo
-                  fun setFun n = setFunInterface n interfaceParInfo
-                  fun outParamExp () =
+                  fun inParamExpJ () =
+                    let
+                      val nameExp = mkIdLNameExp name
+
+                      open InfoType
+                    in
+                      case infoType of
+                        OBJECT _    => ExpApp (toBaseOptExp isOpt iRef, nameExp)
+                      | INTERFACE _ => ExpApp (toBaseOptExp isOpt iRef, nameExp)
+                      | UNION _     => ExpApp (toBaseOptExp isOpt iRef, nameExp)
+                      | _           => nameExp
+                    end
+                  fun inParamExpL () = mkIdLNameExp name
+                  fun outParamExpK () = mkIdLNameExp name
+                  fun outParamExpN () =
                     let
                       val nameExp = mkIdLNameExp name
 
@@ -301,41 +361,95 @@ in
                       | _           => nameExp
                     end
                 in
-                  (inParamExp, getFun, setFun, outParamExp, structDeps)
+                  (inParamFun, outParamFun, inParamExpJ, inParamExpL, outParamExpK, outParamExpN, structDeps)
                 end
 
-          fun addJ js =
-            case array of
-              SOME _ => js
-            | NONE   => inParamExp () :: js
-          fun addL ls = (getFun n, name) :: ls
-          fun addK ks = (setFun n, (name, outParamExp ())) :: ks
+          val inParamNameJ = name
+          val inParamNameL = name
+          val outParamNameK = name
+          val outParamNameN = name
 
-          val (js', ls', ks') =
+          fun addJ js =
+            let
+              val inParamExpJ =
+                case array of
+                  SOME {
+                    name = arrayName,
+                    info = SOME arrayInfo
+                  }    => (
+                    case info of
+                      ISCALAR {ty, ...} => mkLenParamExp ty arrayInfo arrayName
+                    | _                 => infoExcl "non-scalar length parameter"
+                  )
+                | SOME {
+                    info = NONE,
+                    ...
+                  }    => raise Fail "unused length parameter not expected for IN/INOUT parameter"
+                | NONE => inParamExpJ ()
+            in
+              (inParamFun i, (inParamNameJ, inParamExpJ)) :: js
+            end
+          fun addL ls =
+            case array of
+              SOME _ => ls
+            | NONE   => (inParamNameL, inParamExpL ()) :: ls
+          fun addK ks =
+            case array of
+              SOME _ => ks
+            | NONE   => (outParamNameK, outParamExpK ()) :: ks
+          fun addN ns =
+            let
+              val outParamExpN =
+                case array of
+                  SOME {
+                    name = arrayName,
+                    info = SOME arrayInfo
+                  }    => (
+                    case info of
+                      ISCALAR {ty, ...} => mkLenParamExp ty arrayInfo arrayName
+                    | _                 => infoExcl "non-scalar length parameter"
+                  )
+                | SOME {
+                    info = NONE,
+                    ...
+                  }    => raise Fail "unused length parameter not expected for IN/INOUT parameter"
+                | NONE => outParamExpN ()
+            in
+              (outParamFun i, (outParamNameN, outParamExpN)) :: ns
+            end
+
+          val (js', ls', ks', ns') =
             case dir of
-              OUT _ => (js,      ls,      addK ks)
-            | INOUT => (addJ js, addL ls, addK ks)
-            | IN    => (addJ js, addL ls, ks)
+              IN    => (addJ js, addL ls, ks,      ns)
+            | INOUT => (addJ js, addL ls, addK ks, addN ns)
+            | OUT _ => (js,      ls,      addK ks, addN ns)
 
           val structDeps' = structDeps'1
-          val n' = n + 1
+          val i' = i + 1
 
           val iRefs' = addIRef (info, iRefs)
         in
-          (n', js', ls', ks', iRefs', structDeps')
+          (i', js', ls', ks', ns', iRefs', structDeps')
         end
 
   fun addRetInfo (retInfo, iRefs, structDeps) =
     case retInfo of
-      RIVOID        => (retFunVoid, ExpConst ConstUnit, iRefs, structDeps)
+      RIVOID        => (retFunVoid, unitPat, unitExp, NONE, iRefs, structDeps)
     | RISOME {info} =>
         let
-          val (retFun, retValExp, structDeps') =
+          val (retFun, retValExp, retValExpK, structDeps') =
             case info of
-              IGTYPE gtypeRetInfo         => (retFunGType gtypeRetInfo,   retValExp, structDeps)
-            | ISCALAR scalarRetInfo       => (retFunScalar scalarRetInfo, retValExp, structDeps)
-            | IUTF8 utf8RetInfo           => (retFunUtf8 utf8RetInfo,     retValExp, structDeps)
-            | IARRAY arrayRetInfo         => (retFunArray arrayRetInfo,   retValExp, structDeps)
+              IGTYPE gtypeRetInfo         => (retFunGType gtypeRetInfo,   retValIdExp, retValIdExp, structDeps)
+            | ISCALAR scalarRetInfo       => (retFunScalar scalarRetInfo, retValIdExp, retValIdExp, structDeps)
+            | IUTF8 utf8RetInfo           => (retFunUtf8 utf8RetInfo,     retValIdExp, retValIdExp, structDeps)
+            | IARRAY arrayRetInfo         =>
+                let
+                  val {lengths, ...} = arrayRetInfo
+                  val length = hd1 lengths
+                  val retValExpK = mkArrayLenAppExp length retValIdExp
+                in
+                  (retFunArray arrayRetInfo, retValIdExp, retValExpK, structDeps)
+                end
             | IINTERFACE interfaceRetInfo =>
                 let
                   val {iRef, infoType, isOpt, ...} = interfaceRetInfo
@@ -344,18 +458,19 @@ in
                       open InfoType
                     in
                       case infoType of
-                        OBJECT _    => ExpApp (toBaseOptExp isOpt iRef, retValExp)
-                      | INTERFACE _ => ExpApp (toBaseOptExp isOpt iRef, retValExp)
-                      | UNION _     => ExpApp (toBaseOptExp isOpt iRef, retValExp)
-                      | _           => retValExp
+                        OBJECT _    => ExpApp (toBaseOptExp isOpt iRef, retValIdExp)
+                      | INTERFACE _ => ExpApp (toBaseOptExp isOpt iRef, retValIdExp)
+                      | UNION _     => ExpApp (toBaseOptExp isOpt iRef, retValIdExp)
+                      | _           => retValIdExp
                     end
+                  val retValExpK = retValIdExp
                 in
-                  (retFunInterface interfaceRetInfo, retValExp, structDeps)
+                  (retFunInterface interfaceRetInfo, retValExp, retValExpK, structDeps)
                 end
 
           val iRefs' = addIRef (info, iRefs)
         in
-          (retFun, retValExp, iRefs', structDeps')
+          (retFun, retValIdPat, retValExp, SOME retValExpK, iRefs', structDeps')
         end
 end
 
@@ -363,7 +478,7 @@ end
 fun makeSignalStrDec
   repo
   vers
-  ({name = containerName, ...} : interfaceref)
+  (iRef as {name = containerName, ...} : interfaceref)
   (signalInfo, ((iRefs, structs), excls))
   : strdec * ((interfaceref list * struct1 ListDict.t) * info_excl_hier list) =
   let
@@ -405,6 +520,7 @@ fun makeSignalStrDec
     val revJs'1 = []
     val revLs'1 = []
     val revKs'1 = []
+    val revNs'1 = []
     val iRefs'1 = iRefs
     val structs'1 = structs
 
@@ -412,183 +528,230 @@ fun makeSignalStrDec
      * As for a function spec, `iRefs` should be generated in a forwards
      * pass over the parameter infos so types appear in order of first
      * appearance. *)
-    val (_, revJs'2, revLs'2, revKs'2, iRefs'2, structs'2) =
-      foldl addParInfo (1, revJs'1, revLs'1, revKs'1, iRefs'1, structs'1) parInfos
+    val (_, revJs'2, revLs'2, revKs'2, revNs'2, iRefs'2, structs'2) =
+      foldl addParInfo
+        (1, revJs'1, revLs'1, revKs'1, revNs'1, iRefs'1, structs'1)
+        parInfos
 
-    val (retFun, retValExp, iRefs'3, structs'3) = addRetInfo (retInfo, iRefs'2, structs'2)
+    val (retFun, retValPat, retValExp, retValExpK, iRefs'3, structs'3) =
+      addRetInfo (retInfo, iRefs'2, structs'2)
 
+    val (revInParamFuns, revInParams) = ListPair.unzip revJs'2
+    val (revInParamNameJs, revInParamExpJs) = ListPair.unzip revInParams
 
-    val revInParamExps = revJs'2
-    val (revGetFuns, revInParamNames) = ListPair.unzip revLs'2
-    val (revSetFuns, revOutParams) = ListPair.unzip revKs'2
-    val (revOutParamNames, revOutParamExps) = ListPair.unzip revOutParams
+    val (revInParamNameLs, revInParamExpLs) = ListPair.unzip revLs'2
 
-    (* Construct
+    val (revOutParamNameKs, revOutParamExpKs) = ListPair.unzip revKs'2
+
+    val (revOutParamFuns, revOutParams) = ListPair.unzip revNs'2
+    val (revOutParamNameNs, revOutParamExpNs) = ListPair.unzip revOutParams
+
+    (* Construct result marshaller expression with the form:
      *
-     *   <setFun[1]> && ... && <setFun[K]> && <retFun>
+     *   <outParamFun[1]> &&& ... &&& <outParamFun[N]> &&& <retFun>
+     *     if N > 0
+     *
+     *   <retFun>
+     *     otherwise
      *)
-    val setRetFunsExp = foldl mkAAExp retFun revSetFuns
+    val resMarshallerExp = foldl mkAAAExp retFun revOutParamFuns
 
-    (*
-     *   <getFun[1]> &&&> ... &&&> <getFun[L]>
-     *     if L > 0
+    (* Construct instance parameter marshaller expression with the form:
      *
-     *   void
-     *     if L = 0
+     *   parInst <ContainerNamespace><ContainerName>Class.t
      *)
-    val revGetFuns1 = getList1 (revGetFuns, voidExp)
-    val getFunsExp = foldl1 mkAAARExp revGetFuns1
+    val instParamFunExp =
+      ExpApp (parInstIdExp, mkLIdLNameExp (prefixInterfaceStrId iRef [tId]))
 
-    (*
-     *   (<getFun[1]> &&&> ... &&&> <getFun[L]>
-     *     ---> <setFun[1]> && ... && <setFun[K]> && <retFun>)
+    (* Construct argument marshaller expression with the form:
+     *
+     *   <instParamFunExp>
+     *    &&&> <inParamFun[1]> &&&> ... &&&> <inParamFun[J]>
+     *     if J > 0
+     *
+     *   parInst <ContainerNamespace><ContainerName>Class.t
+     *     otherwise
      *)
-    val marshallerExp = mkParenExp (mkDDDRExp (getFunsExp, setRetFunsExp))
+    val argMarshallerExp =
+      case revInParamFuns of
+        []      => instParamFunExp
+      | e :: es => mkAAARExp (instParamFunExp, foldl mkAAARExp e es)
 
-    (* Construct the handler body with the form:
+    (* Construct marshaller expression with the form:
      *
-     *   (
-     *     fn <inParamName[1]> & ... & <inParamName[L]> =>
-     *       let
-     *         val <retPat> = f (<inParamExp[1]>, ..., <inParamExp[J]>)
-     *       in
-     *         <outParamExp[1]> & ... & <outParamExp[K]> & <retValExp>
-     *       end
-     *   )
-     *     if K > 0 and L > 0
-     *
-     *   (
-     *     fn () =>
-     *       let
-     *         val <retPat> = f ()
-     *       in
-     *         <outParamExp[1]> & ... & <outParamExp[K]> & <retValExp>
-     *       end
-     *   )
-     *     if K > 0 and L = 0
-     *
-     *   (
-     *     fn <inParamName[1]> & ... & <inParamName[L]> =>
-     *       let
-     *         val <retPat> = f (<inParamExp[1]>, ..., <inParamExp[J]>)
-     *       in
-     *         <retValExp>
-     *       end
-     *       
-     *   )
-     *     if K = 0 and L > 0
-     *
-     *   (
-     *     fn () =>
-     *       let
-     *         val <retPat> = f ()
-     *       in
-     *         <retValExp>
-     *       end
-     *       
-     *   )
-     *     if K = 0 and L = 0
+     *   <argMarshallerExp> ---> <resMarshallerExp>
      *)
-    val handlerExp =
-      mkParenExp
-          let
-            (* Construct pattern
-             *
-             *   <inParamName[1]> & ... & <inParamName[L]>
-             *     if L > 0
-             *
-             *   ()
-             *     if L = 0
-             *)
-            val revInParamNamePats1 =
-              getList1 (map mkIdVarPat revInParamNames, mkConstPat ConstUnit)
-            val funPat = foldl1 mkAPat revInParamNamePats1
+    val marshallerExp = mkDDDRExp (argMarshallerExp, resMarshallerExp)
 
-            (* Construct expression
-             *
-             *   f (<inParamExp[1]>, ..., <inParamExp[J]>)
-             *     if L > 0
-             *
-             *   f ()
-             *     if L = 0
-             *)
-            fun mkParenAppExp e = case e of ExpApp _ => mkParenExp e | _ => e
-            val argExp =
-              case rev revInParamExps of
-                []        => ExpConst ConstUnit
-              | e :: []   => mkParenAppExp e
-              | op :: es1 => mkTupleExp1 es1
-            val funAppExp = ExpApp (fExp, argExp)
+    (* Construct marshaller declaration with the form:
+     *
+     *   val marshaller = <marshallerExp>
+     *)
+    val marshallerDec = mkIdValDec (marshallerId, marshallerExp)
 
-            val funExp =
-              case revMap mkIdVarPat revOutParamNames of
-                []                      =>
-                  let
-                    (* Construct pattern
-                     *
-                     *   ()
-                     *     if tag is VOID
-                     *
-                     *   retVal
-                     *     otherwise
-                     *)
-                    val retPat =
-                      case retInfo of
-                        RIVOID => PatA (APatConst ConstUnit)
-                      | _      => retValPat
+    (* Construct conversion function for the instance parameter of the form:
+     *
+     *   <ContainerNamespace><ContainerName>Class.toBase
+     *)
+    val toBaseExp = mkLIdLNameExp (prefixInterfaceStrId iRef [toBaseId])
 
-                    val dec = DecVal (toList1 [([], false, retPat, funAppExp)])
-                  in
-                    ExpLet (mkDecs [dec], toList1 [retValExp])
-                  end
-              | op :: outParamNamePats1 =>
-                  let
-                    (* Construct pattern
-                     *
-                     *   (<outParamName[1]>, ..., <outParamName[K]>)
-                     *     if tag is VOID
-                     *
-                     *   (retVal, <outParamName[1]>, ..., <outParamName[K]>)
-                     *     otherwise
-                     *)
-                    val retPat =
-                      case retInfo of
-                        RIVOID => mkTuplePat1 outParamNamePats1
-                      | _      => mkTuplePat2 (retValPat, outParamNamePats1)
+    (* Construct conversion function for reading the arguments with the form:
+     *
+     *   fn () & <inParamNameJ[1]> & ... & <inParamNameJ[J]> => () & (<inParamExpL[1]>, ..., <inParamExpL[L]>)
+     *     if J > 0
+     *
+     *   fn () => () & ()
+     *     otherwise
+     *)
+    val argReadConvExp =
+      let
+        val funPat =
+          case map mkIdVarPat revInParamNameJs of
+            op :: revPats1 => mkAPat (unitPat, foldl1 mkAPat revPats1)
+          | []             => unitPat
 
-                    val dec = DecVal (toList1 [([], false, retPat, funAppExp)])
+        val exps1 = getList1 (rev revInParamExpLs, unitExp)
+        val funExp = mkAExp (unitExp, mkTupleExp1 exps1)
+      in
+        ExpFn (toList1 [(funPat, funExp)])
+      end
 
-                    (* Construct expression
-                     *
-                     *   <outParamExp[1]> & ... & <outParamExp[K]> & <retValExp>
-                     *)
-                    val exp = foldl mkAExp retValExp revOutParamExps
-                  in
-                    ExpLet (mkDecs [dec], toList1 [exp])
-                  end
-          in
-            ExpFn (toList1 [(funPat, funExp)])
-          end
+    (* Construct conversion function for writing the arguments with the form:
+     *
+     *   fn self & (<inParamNameL[1]>, ..., <inParamNameL[L]>) =>
+     *     <ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>
+     *     if J > 0
+     *
+     *   fn self & () => <ContainerNamespace><ContainerName>Class.toBase self
+     *     otherwise
+     *)
+    val argWriteConvExp =
+      let
+        val pats1 = getList1 (revMap mkIdVarPat revInParamNameLs, unitPat)
+        val funPat = mkAPat (mkIdVarPat selfId, mkTuplePat1 pats1)
 
-    val signalNameExp = ExpConst (ConstString signalName)
-    val functionExp =
-      foldl mkRevAppExp signalExp [signalNameExp, marshallerExp, handlerExp]
+        val toBaseSelfExp = ExpApp (toBaseExp, selfExp)
+        val funExp =
+          case revInParamExpJs of
+            op :: revExps1 => mkAExp (toBaseSelfExp, foldl1 mkAExp revExps1)
+          | []             => toBaseSelfExp
+      in
+        ExpFn (toList1 [(funPat, funExp)])
+      end
+
+    (* Construct conversion function for reading the result with the form:
+     *
+     *   fn <outParamNameN[1]> & ... & <outParamNameN[N]> & <retValPat> => <resExp>
+     *     if N > 0
+     *
+     *   fn <retValPat> => <resExp>
+     *     otherwise
+     *)
+    val resReadConvExp =
+      let
+        val revPats1 = (retValPat, map mkIdVarPat revOutParamNameNs)
+        val funPat = foldl1 mkAPat revPats1
+
+        val resExp =
+          case (retValExpK, revOutParamExpKs) of
+            (SOME e, op :: es1) => mkTupleExp2 (e, es1)
+          | (NONE,   op :: es1) => mkTupleExp1 es1
+          | (SOME e, [])        => e
+          | (NONE,   [])        => unitExp
+        val funExp = resExp
+      in
+        ExpFn (toList1 [(funPat, funExp)])
+      end
+
+    (* Construct conversion function for writing the result with the form:
+     *
+     *   fn <resPat> => <outParamExpN[1]> & ... & <outParamExpN[N]> & <retValExp>
+     *     if N > 0
+     *
+     *   fn <resPat> => <retValExp>
+     *     otherwise
+     *)
+    val resWriteConvExp =
+      let
+        val resPat =
+          case (retValExpK, map mkIdVarPat revOutParamNameKs) of
+            (SOME _, op :: ps1) => mkTuplePat2 (retValIdPat, ps1)
+          | (NONE,   op :: ps1) => mkTuplePat1 ps1
+          | (SOME _, [])        => retValIdPat
+          | (NONE,   [])        => unitPat
+        val funPat = resPat
+
+        val revExps1 = (retValExp, revOutParamExpNs)
+        val funExp = foldl1 mkAExp revExps1
+      in
+        ExpFn (toList1 [(funPat, funExp)])
+      end
+
+    (* Construct signal marshaller with the form:
+     *
+     *   fn () =>
+     *     map
+     *       (
+     *         <argReadConvExp>,
+     *         <argWriteConvExp>,
+     *         <resReadConvExp>,
+     *         <resWriteConvExp>,
+     *       )
+     *       marshaller
+     *)
+    val mapMarshallerExp =
+      foldl mkRevAppExp mapIdExp
+        [
+          ExpParen (
+            toList1 [
+              argReadConvExp,
+              argWriteConvExp,
+              resReadConvExp,
+              resWriteConvExp
+            ]
+          ),
+          marshallerIdExp
+        ]
+    val signalMarshallerExp = ExpFn (toList1 [(unitPat, mapMarshallerExp)])
+
+    (* Construct signal declaration
+     *
+     *   val <signalName>Sig =
+     *     {
+     *       name = "<signal-name>",
+     *       detail = "",
+     *       marshaller = <signalMarshallerExp>
+     *     }
+     *)
+    val signalDec =
+      mkIdValDec (
+        signalNameId,
+        ExpRec
+          [
+            ("name",       mkStringConstExp signalName),
+            ("detail",     mkStringConstExp ""),
+            ("marshaller", signalMarshallerExp)
+          ]
+      )
+
+    (* Construct overall signal structure declaration
+     *
+     *   local
+     *     <marshallerDec>
+     *   in
+     *     <signalDec>
+     *   end
+     *)
+    val signalStrDec =
+      StrDecDec (
+        DecLocal (
+          mkDecs [marshallerDec],
+          mkDecs [signalDec]
+        )
+      )
   in
     (
-      StrDecDec (
-        DecFun (
-          [],
-          toList1 [
-            toList1 [
-              (
-                FunHeadPrefix (NameId signalNameId, toList1 [mkIdVarAPat fId]),
-                NONE,
-                functionExp
-              )
-            ]
-          ]
-        )
-      ),
+      signalStrDec,
       ((iRefs'3, structs'3), excls)
     )
   end

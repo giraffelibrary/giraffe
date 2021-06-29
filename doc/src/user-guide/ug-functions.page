@@ -97,6 +97,16 @@ where
 </p>
 <terms>
 <item>
+  <title><code><var>instanceType</var></code></title>
+  <p>
+    is:
+  </p>
+  <list>
+    <item><p><code>'a class</code> for a class, which allows an instance of the class or any subclass of the class;</p></item>
+    <item><p><code>t</code> for an interface;</p></item>
+  </list>
+</item>
+<item>
   <title><code><var>inTypes</var></code></title>
   <p>
     contains the types of the &#x2018;in&#x2019; and &#x2018;inout&#x2019; arguments,
@@ -172,7 +182,7 @@ where
   </item>
   <item>
     <p>
-      the return type followed by the types of the  &#x2018;out&#x2019; and &#x2018;inout&#x2019; arguments, if:
+      the return type followed by the types of the &#x2018;out&#x2019; and &#x2018;inout&#x2019; arguments, if:
     </p>
     <list style="compact">
     <item><p>the return type is not void, and</p></item>
@@ -212,7 +222,7 @@ where
     <p>
       the types of the &#x2018;inout&#x2019; arguments followed by
       an optional type containing the types of the &#x2018;out&#x2019; arguments as a tuple if there are two or more,
-      if the return type is gboolean and there are &#x2018;out&#x2019; arguments but none is an error &#x2018;out&#x2019; argument;
+      if the return type is gboolean and there are &#x2018;out&#x2019; arguments but none is an error &#x2018;out&#x2019; argument.
     </p>
 <!--
     <table rules="rowgroups cols">
@@ -265,16 +275,6 @@ where
     </table>
 -->
   </item>
-  </list>
-</item>
-<item>
-  <title><code><var>instanceType</var></code></title>
-  <p>
-    is:
-  </p>
-  <list>
-    <item><p><code>'a class</code> for a class, which allows an instance of the class or any subclass of the class;</p></item>
-    <item><p><code>t</code> for an interface.</p></item>
   </list>
 </item>
 </terms>
@@ -565,20 +565,20 @@ An object value that is an instance of any subclass of <var>C</var>
 is guaranteed to be an instance of a class <var>C</var>.
 To avoid the need to explicitly upcast object values,
 the object type for a class <var>C</var> or any subclass of <var>C</var> is
-used where an instance of class <var>C</var> is required for
+used where an instance of class <var>C</var> occurs in
 </p>
 <list style="compact">
 <item><p>the argument of a constructor, method or function and</p></item>
-<item><p>the return value of a callback function</p></item>
+<item><p>the result of a callback function</p></item>
 </list>
 <p>
 Conversely, an object value that is guaranteed to be an instance of a class <var>C</var>
 is not guaranteed to be an instance of any subclass of <var>C</var>.
 Therefore the object type for a class <var>C</var> but <em>not</em> a subclass of <var>C</var> is
-used where an instance of class <var>C</var> is required for
+used where an instance of class <var>C</var> occurs in
 </p>
 <list style="compact">
-<item><p>the return value of a constructor, method or function and</p></item>
+<item><p>the result of a constructor, method or function and</p></item>
 <item><p>the argument of a callback function</p></item>
 </list>
 </section>

@@ -10,7 +10,7 @@ structure GObjectObject :>
     where type 'a param_spec_class = 'a GObjectParamSpecClass.class
     where type 'a value_accessor_t = 'a ValueAccessor.t
     where type 'object_class property_init_t = 'object_class Property.init_t
-    where type 'a signal_t = 'a Signal.t =
+    where type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t = ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t =
   struct
     local
       open PolyMLFFI
@@ -89,7 +89,7 @@ structure GObjectObject :>
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
     type 'a value_accessor_t = 'a ValueAccessor.t
     type 'object_class property_init_t = 'object_class Property.init_t
-    type 'a signal_t = 'a Signal.t
+    type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t = ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t
     type t = base class
     val getType = (I ---> GObjectType.FFI.fromVal) getType_
     local
@@ -287,16 +287,25 @@ structure GObjectObject :>
     local
       open ClosureMarshal Signal
     in
-      fun notifySig f =
-        signal "notify" (get 0w1 GObjectParamSpecClass.t ---> ret_void)
-          (
-            fn
-              pspec =>
-                let
-                  val () = f pspec
-                in
-                  ()
-                end
-          )
+      local
+        val marshaller = parInst GObjectObjectClass.t &&&> parIn 1 GObjectParamSpecClass.t ---> retVoid
+      in
+        val notifySig =
+          {
+            name = "notify",
+            detail = "",
+            marshaller =
+              fn
+                () =>
+                  map
+                    (
+                      fn () & pspec => () & pspec,
+                      fn self & pspec => GObjectObjectClass.toBase self & GObjectParamSpecClass.toBase pspec,
+                      fn () => (),
+                      fn () => ()
+                    )
+                    marshaller
+          }
+      end
     end
   end

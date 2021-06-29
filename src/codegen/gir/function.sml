@@ -483,6 +483,48 @@ fun mkArrayLenAppExp length e =
     SOME lenExp => ExpApp (e, lenExp)
   | NONE        => e
 
+fun mkArrayLenFnExp length e =
+  case length of
+    ArrayLengthParam _ => mkParenExp (ExpFn (toList1 [(PatA APatU, e)]))
+  | _                  => e
+
+fun mkLenParamExp ty arrayInfo arrayName =
+  let
+    val {iRef, isOpt, ...} = arrayInfo
+    val strId = makeIRefInterfaceOtherStrId iRef
+    val lenIntExp =
+      ExpApp (
+        mkLIdLNameExp [strId, lengthId],
+        mkIdLNameExp arrayName
+      )
+    val lenExp =
+      case convertFromInt ty of
+        SOME NONE           => lenIntExp
+      | SOME (SOME convExp) => ExpApp (convExp, mkParenExp lenIntExp)
+      | NONE                => infoExcl (
+          "conversion to SML type int not defined for "
+           ^ scalarToString ty ^ " array length parameter"
+        )
+  in
+    if isOpt
+    then
+      let
+        val somePat = PatPrefix (toList1 [someId], mkIdVarPat arrayName)
+        val nonePat = mkConstPat (mkIdLNameConst noneId)
+        val noneExp = mkLIdLNameExp [gStrId ^ scalarStrId ty, nullId]
+      in
+        ExpCase (
+          mkIdLNameExp arrayName,
+          toList1 [
+            (somePat, lenExp),
+            (nonePat, noneExp)
+          ]
+        )
+      end
+    else
+      lenExp
+  end
+
 fun isPtrElem repo vers =
   fn
     IGTYPE _                   => false
@@ -2706,43 +2748,6 @@ local
           infoExcl "touchFun for unidentified INTERFACE not supported"
     end
 
-  fun mkLenParamExp ty arrayInfo arrayName =
-    let
-      val {iRef, isOpt, ...} = arrayInfo
-      val strId = makeIRefInterfaceOtherStrId iRef
-      val lenIntExp =
-        ExpApp (
-          mkLIdLNameExp [strId, lengthId],
-          mkIdLNameExp arrayName
-        )
-      val lenExp =
-        case convertFromInt ty of
-          SOME NONE           => lenIntExp
-        | SOME (SOME convExp) => ExpApp (convExp, mkParenExp lenIntExp)
-        | NONE                => infoExcl (
-            "conversion to SML type int not defined for "
-             ^ scalarToString ty ^ " array length parameter"
-          )
-
-    in
-      if isOpt
-      then
-        let
-          val somePat = PatPrefix (toList1 [someId], mkIdVarPat arrayName)
-          val nonePat = mkConstPat (mkIdLNameConst noneId)
-          val noneExp = mkLIdLNameExp [gStrId ^ scalarStrId ty, nullId]
-        in
-          ExpCase (
-            mkIdLNameExp arrayName,
-            toList1 [
-              (somePat, lenExp),
-              (nonePat, noneExp)
-            ]
-          )
-        end
-      else
-        lenExp
-    end
 in
   fun addParInfo (parInfo, acc as (js, ks, ls, ms, ns, copyFromPtr, iRefs, structDeps)) =
     case parInfo of
@@ -2948,30 +2953,27 @@ fun argValErr (_ : lid list) =
   ExpList []
 
 
-val retValId : id = "retVal"
-val retValPat : pat = mkIdVarPat retValId
-val retValExp : exp = mkIdLNameExp retValId
-
 fun getRetValPat throws =
   fn
     RIVOID        => PatA (APatConst ConstUnit)
   | RISOME {info} =>
       case (info, throws) of
         (ISCALAR {ty = STBOOLEAN, ...}, true) => PatA (APatConst ConstUnit)
-      | _                                     => retValPat
+      | _                                     => retValIdPat
 
 val getRetValExp =
   fn
     RIVOID        => ExpConst ConstUnit
   | RISOME {info} =>
       case info of
-        IARRAY {lengths, ...} => mkArrayLenAppExp (hd1 lengths) retValExp
-      | _                     => retValExp
+        IARRAY {lengths, ...} => mkArrayLenAppExp (hd1 lengths) retValIdExp
+      | _                     => retValIdExp
 
 
 val aInfixId = "&"
 val aAInfixId = "&&"
 val aARInfixId = "&&>"
+val aAAInfixId = "&&&"
 val aAARInfixId = "&&&>"
 val dDRInfixId = "-->"
 val dDDRInfixId = "--->"
@@ -2980,6 +2982,7 @@ fun mkAExp (a, b) = ExpInfixApp (a, aInfixId, b)
 fun mkAPat (a, b) = PatInfix (a, aInfixId, b)
 fun mkAAExp (a, b) = ExpInfixApp (a, aAInfixId, b)
 fun mkAARExp (a, b) = ExpInfixApp (a, aARInfixId, b)
+fun mkAAAExp (a, b) = ExpInfixApp (a, aAAInfixId, b)
 fun mkAAARExp (a, b) = ExpInfixApp (a, aAARInfixId, b)
 fun mkDDRExp (a, b) = ExpInfixApp (a, dDRInfixId, b)
 fun mkDDDRExp (a, b) = ExpInfixApp (a, dDDRInfixId, b)

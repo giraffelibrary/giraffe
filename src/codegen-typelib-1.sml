@@ -392,10 +392,21 @@ val errorLog'1 = List.foldl insert errorLog'0 [
          * spec and strdec lists are empty but dependencies are included to
          * ensure that they are loaded after structures that they depend on. *)
         extendStrDeps "ClosureMarshal"
-          ["GObjectValueRecord", "GObjectValue", "GObjectClosureRecord"],
+          [
+            "GObjectValueRecord",
+            "GObjectValueRecordCArrayN",
+            "GObjectValue",
+            "GObjectClosureRecord"
+          ],
         extendStrDeps "ValueAccessor" [],
         extendStrDeps "Signal"
-          ["GObjectObjectClass", "GObjectClosureRecord", "GObjectClosure"],
+          [
+            "GObjectObjectClass",
+            "GObjectClosureRecord",
+            "GObjectClosure",
+            "GObjectValueRecord",
+            "GObjectValueRecordCArrayN"
+          ],
         extendStrDeps "Property"
           [
             "GObjectObjectClass",

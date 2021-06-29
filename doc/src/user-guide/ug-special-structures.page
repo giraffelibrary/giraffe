@@ -124,42 +124,98 @@ signature VALUE_ACCESSOR =
 <title>Signal</title>
 <p>
 The top-level structure <code>Signal</code> is included with the <code>GObject</code> structure
-and provides a high-level type safe representation of a signal
+and provides a high-level type safe representation of a signal,
+<code>('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t</code>,
 and associated operations.
 </p>
 <p>
-Applications should not need to use the function <code>signal</code>
-which is used to create a type safe interface to an existing signal.
+The internal representation of type <code>Signal.t</code> is exposed to work around the
+value restriction when declaring a signal value.
+(A parameter of type <code>Signal.t</code> always contains a variable.)
+Typically, applications do not declare signals so the internal representation can be ignored.
 </p>
 <code><![CDATA[
 structure Signal :>
 ]]>  SIGNAL
     where type 'a object_class = 'a GObjectObjectClass.class
-    where type 'a marshaller = 'a <link xref="#g-object-closure">GObjectClosure</link>.marshaller
+    where type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller =
+            ('arg_r, 'arg_w, 'res_r, 'res_w) <link xref="#g-object-closure">GObjectClosure</link>.marshaller
 </code>
 <code><![CDATA[
 signature SIGNAL =
   sig
-    type 'object_class t
+    type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller
 
-    type 'a marshaller
+    (**
+     * Representation of a signal
+     *
+     * The type `('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) t`
+     * represents a signal of the class represented by the type
+     * `'object_class` where
+     *
+     *     'arg_e -> 'res_e
+     *       is the type of a function that emits the signal and
+     *
+     *     'arg_h -> 'res_h
+     *       is the type of a function that handles the signal.
+     *
+     * The type parameters `'arg_e`, `'arg_h`, `'res_h` and `'res_e` capture
+     * the type and direction of the signal arguments and the type of the
+     * signal return value as follows:
+     *
+     *     `'arg_e` and `'arg_h` are instantiated to the types of the
+     *       signal 'in' and 'inout' arguments;
+     *
+     *     `'res_e` and `'res_h` are instantiated to the types of the
+     *       signal return value and 'out' and 'inout' arguments.
+     *
+     * The 'e' and 'h' variants differ in whether they allow an object of any
+     * subclass or not and whether they allow an instance of any field of a
+     * union or not.
+     *
+     * Ideally, the type `('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) t`
+     * would be abstract and a function defined to construct values of the
+     * type.  However, the resulting value always contains a type variable in
+     * the parameter `'object_class` to allow the type of any subclass to
+     * unify with it.  The application of the construction function is a non-
+     * expansive expression so the result cannot be a value containing a
+     * type variable due to the value restriction.  The usual work around
+     * for the value restriction is to defer evaluation, so a signal would
+     * have the type `unit -> ('object_class, ...) t` but this is not done.
+     * Instead, the type is not abstract and its concrete representation - a
+     * record - enables a value to be written as an expansive expression,
+     * thereby avoiding the value restriction.
+     *)
+    type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) t =
+      {
+        name       : string,
+        detail     : string,
+        marshaller :
+          unit
+           -> (
+                (unit,          'arg_h) pair,
+                ('object_class, 'arg_e) pair,
+                'res_e,
+                'res_h
+              )
+               marshaller
+      }
+
     type 'a object_class
 
-    val signal
-      : string
-         -> ('a -> 'b) marshaller
-         -> ('a -> 'b) -> 'c object_class t
+    val emit :
+      'a object_class
+       -> ('a object_class, 'arg_e, 'b, 'c, 'res_e) t
+       -> 'arg_e -> 'res_e
 
     type id
     val connect :
       'a object_class
-       -> ('func -> 'a object_class t)
-       -> 'func
+       -> ('a object_class, 'b, 'arg_h, 'res_h, 'c) t * ('arg_h -> 'res_h)
        -> id
     val connectAfter :
       'a object_class
-       -> ('func -> 'a object_class t)
-       -> 'func
+       -> ('a object_class, 'b, 'arg_h, 'res_h, 'c) t * ('arg_h -> 'res_h)
        -> id
     val disconnect : 'a object_class -> id -> unit
     val isConnected : 'a object_class -> id -> bool
@@ -201,15 +257,13 @@ signature CHILD_SIGNAL =
 
     val connect :
       'a widget_class
-       -> 'b GObjectObjectClass.class
-       -> ('func -> 'b GObjectObjectClass.class Signal.t)
-       -> 'func
+       -> 'b GObject.ObjectClass.class
+       -> ('b GObject.ObjectClass.class, 'c, 'arg_h, 'res_h, 'd) Signal.t * ('arg_h -> 'res_h)
        -> unit
     val connectAfter :
       'a widget_class
-       -> 'b GObjectObjectClass.class
-       -> ('func -> 'b GObjectObjectClass.class Signal.t)
-       -> 'func
+       -> 'b GObject.ObjectClass.class
+       -> ('b GObject.ObjectClass.class, 'c, 'arg_h, 'res_h, 'd) Signal.t * ('arg_h -> 'res_h)
        -> unit
   end
 ]]></code>
@@ -241,14 +295,62 @@ signature PROPERTY =
 
     (**
      * Representation of a property
+     *
+     * The type `('object_class, 'get, 'set, 'init) t` represents a property
+     * of an object whose class is represented by the type `'object_class`.
+     * The type parameters `'get`, `'set` and `'init` capture the possible
+     * access modes as follows so that type checking ensures mode safety:
+     *
+     *     'get is instantiated to:
+     *
+     *         unit -> 'r
+     *           if a value of type 'r can be read from the property
+     *
+     *         unit
+     *           if the property is not readable
+     *
+     *     'set is instantiated to:
+     *
+     *         'w -> unit
+     *           if a value of type 'w can be written to the property
+     *           after object construction
+     *
+     *         unit
+     *           if the property is not writable after object construction
+     *
+     *     'init is instantiated as for 'set but according to whether
+     *     a value of type 'w can be set during object construction.
+     *
+     * Ideally, the type `('object_class, 'get, 'set, 'init) t` would be
+     * abstract and a function defined to construct values of the type.
+     * However, the resulting value always contains a type variable in the
+     * parameter `'object_class` to allow the type of any subclass to unify
+     * with it.  The application of the construction function is a non-
+     * expansive expression so the result cannot be a value containing a
+     * type variable due to the value restriction.  The usual work around
+     * for the value restriction is to defer evaluation, so a property would
+     * have the type `unit -> ('object_class, 'get, 'set, 'init) t` but this
+     * is not done.  Instead, the type is not abstract and its concrete
+     * representation - a record - enables a value to be written as an
+     * expansive expression, thereby avoiding the value restriction.
+     * However, the type parameter `'object_class` is a phantom type which
+     * must be therefore be mentioned in the concrete representation
+     * (otherwise it imposes no type constraint).  An argument of this
+     * type can be added to the `get` and `set` functions because they
+     * require an object instance to operate on therefore there is always
+     * a value available to use as the witness for the type.  Note that the
+     * field `gtype` must defer evaluation because some GObject types are not
+     * determined until run-time.  This is convenient because it allows the
+     * value to be defined by a non-expansive expression without falling foul
+     * of the value restriction.
      *)
     type ('object_class, 'get, 'set, 'init) t =
       {
         name  : string,
         gtype : unit -> type_t,
-        get   : value_v -> 'get,
-        set   : value_v -> 'set,
-        init  : value_v -> 'init
+        get   : 'object_class -> value_v -> 'get,
+        set   : 'object_class -> value_v -> 'set,
+        init  :                  value_v -> 'init
       }
 
     val conv :
@@ -604,24 +706,24 @@ signature G_OBJECT_VALUE =
 The top-level structure <code>GObjectClosure</code> provides the implementation of the <code>GObject.Closure</code> structure.
 This structure excludes most of the introspected entities
 and provides a constructor <code>GObjectClosure.new</code> that creates
-a closure based on an SML marshaller,
-represented by the type <code>'func ClosureMarshal.marshaller</code>, and an SML function of type <code>'func</code>.
+a GObject closure that wraps an SML function of type <code>'arg_r -> 'res_w</code>
+given an SML marshaller of type <code>('arg_r, 'arg_w, 'res_r, 'res_w) ClosureMarshal.marshaller</code>.
 </p>
 <code><![CDATA[
 structure GObjectClosure :>
 ]]>  G_OBJECT_CLOSURE
     where type t = GObjectClosureRecord.t
     where type type_t = <link xref="#g-object-type">GObjectType</link>.t
-    where type 'a marshaller = 'a <link xref="#closure-marshal">ClosureMarshal</link>.marshaller
+    where type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller = ('arg_r, 'arg_w, 'res_r, 'res_w) <link xref="#closure-marshal">ClosureMarshal</link>.marshaller
 </code>
 <code><![CDATA[
 signature G_OBJECT_CLOSURE =
   sig
     type t
     type type_t
-    type 'a marshaller
+    type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller
     val getType : unit -> type_t
-    val new : ('a -> 'b) marshaller * ('a -> 'b) -> t
+    val new : ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller * ('arg_r -> 'res_w) -> t
     val invalidate : t -> unit
   end
 ]]></code>
@@ -632,42 +734,74 @@ signature G_OBJECT_CLOSURE =
 <p>
 The top-level structure <code>ClosureMarshal</code> is included with the <code>GObject</code> structure
 and provides functions to construct an SML marshaller for a GObject closure.
-The SML marshaller for an SML function of type <code>'func</code>
-is represented by the type <code>'func ClosureMarshal.marshaller</code>.
+An SML marshaller is bidirectional:
+given an SML marshaller of type <code>('arg_r, 'arg_w, 'res_r, 'res_w) ClosureMarshal.marshaller</code>,
+a GObject closure can be called by an SML function of type <code>'arg_w -> 'res_r</code>
+and an SML function of type <code>'arg_r -> 'res_w</code> can be called by a GObject closure.
 </p>
 <code><![CDATA[
 structure ClosureMarshal :>
 ]]>  CLOSURE_MARSHAL
     where type 'a accessor = 'a <link xref="#value-accessor">ValueAccessor</link>.t
     where type C.value_v = GObjectValueRecord.C.v
+    where type C.value_array_v = GObjectValueRecordCArrayN.C.non_opt GObjectValueRecordCArrayN.C.p
 </code>
 <code><![CDATA[
+infixr &&&
+
 signature CLOSURE_MARSHAL =
   sig
     type 'a accessor
 
 
-    type 'a get
-    val &&&> : 'a get * 'b get -> ('a, 'b) pair get
+    structure C :
+      sig
+        type value_v
+        type value_array_v
+      end
 
-    type 'a set
-    type 'a ret
-    val && : 'a set * 'b ret -> ('a, 'b) pair ret
+    type ('r, 'w) arg
+    type ('r, 'w) res
+    type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller =
+      {
+        getArg   : C.value_array_v -> 'arg_r,
+        setArg   : C.value_array_v -> 'arg_w -> unit,
+        getRes   : C.value_array_v * C.value_v -> 'res_r,
+        setRes   : C.value_array_v * C.value_v -> 'res_w -> unit,
+        initPars : (C.value_v -> unit) vector,
+        initRet  : C.value_v -> unit
+      }
 
-    type 'a marshaller
-    val ---> : 'a get * 'b ret -> ('a -> 'b) marshaller
+    val &&&> :
+      ('a_r, 'a_w) arg * ('b_r, 'b_w) arg
+       -> (('a_r, 'b_r) pair, ('a_w, 'b_w) pair) arg
 
+    val &&& :
+      ('a_r, 'a_w) res * ('b_r, 'b_w) res
+       -> (('a_r, 'b_r) pair , ('a_w, 'b_w) pair) res
 
-    val get : word -> 'a accessor -> 'a get
-    val set : word -> 'a accessor -> 'a set
-    val ret : 'a accessor -> 'a ret
+    val ---> :
+      ('arg_r, 'arg_w) arg * ('res_r, 'res_w) res
+       -> ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller
 
-    val void : unit get
-    val ret_void : unit ret
+    val parInst :        'a accessor -> (unit, 'a) arg
+    val parIn   : int -> 'a accessor -> ('a,   'a) arg
+    val parOut  : int -> 'a accessor -> ('a,   'a)   res
+    val ret     :        'a accessor -> ('a,   'a)   res
+    val retVoid :                       (unit, unit) res
 
+    val map :
+      ('arg1_r -> 'arg2_r)
+       * ('arg2_w -> 'arg1_w)
+       * ('res1_r -> 'res2_r)
+       * ('res2_w -> 'res1_w)
+       -> ('arg1_r, 'arg1_w, 'res1_r, 'res1_w) marshaller
+       -> ('arg2_r, 'arg2_w, 'res2_r, 'res2_w) marshaller
 
     type callback
-    val makeCallback : ('a -> 'b) marshaller * ('a -> 'b) -> callback
+    val makeCallback :
+      ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller * ('arg_r -> 'res_w)
+       -> callback
 
 
     …

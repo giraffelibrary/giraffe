@@ -294,7 +294,7 @@ signature GTK_BUTTON =
     …
 
     <em>(* signals *)</em>
-    val clickedSig : (unit -> unit) -> 'a class Signal.t
+    val clickedSig : ('a class, unit, unit, unit, unit) Signal.t
     …
 
     <em>(* properties *)</em>

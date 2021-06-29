@@ -13,7 +13,9 @@ Context
 
 Placeholders
 
-  ContainerName = GIBaseInfo.getName ContainerInfo
+  ContainerName = GIBaseInfo.getName containerInfo
+
+  ContainerNamespace = GIBaseInfo.getNamespace containerInfo
 
   SignalName = GIBaseInfo.getName signalInfo
 
@@ -30,26 +32,8 @@ For
 SignalSpec has the form:
 
 
-  val <signalName>Sig
-    : (<inParamType[1]> * ... * <inParamType[L]> -> <retExpType>) -> <var> class <Signal>
-
-    if K > 0 and L > 0
-
-
-  val <signalName>Sig
-    : (<inParamType[1]> * ... * <inParamType[L]> -> <retValType>) -> <var> class <Signal>
-
-    if K = 0 and L > 0
-
-
-  val <signalName>Sig : (unit -> <retExpType>) -> <var> class <Signal>
-
-    if K > 0 and L = 0
-
-
-  val <signalName>Sig : (unit -> <retValType>) -> <var> class <Signal>
-
-    if K = 0 and L = 0
+  val <signalName>Sig :
+    (<var> class, <argType(false)>, <argType(true)>, <resType(false)>, <resType(true)>) <Signal>
 
 
 where
@@ -68,65 +52,64 @@ where
   var is a fresh type variable
 
 
-  retValType
-    is the SML type representing the return type of the function
-    translated as follows:
+  argType(isRead)
+    is defined as follows:
+
+      <inParamType[1](isRead)> * ... * <inParamType[L](isRead)>
+        if L > 0
+
+      unit
+        if L = 0
 
 
-        mayReturnNull = GICallableInfo.mayReturnNull signalInfo
-
-          mayReturnNull    | retValType
-        ===================+===================
-          false            | <type>
-        -------------------+-------------------
-          true             | <type> option
-        -------------------+-------------------
-
-
-  retExpType
-    when K > 0, is defined as follows:
+  resType(isRead)
+    is defined as follows:
 
 
         retTypeInfo = GICallableInfo.getReturnType signalInfo
         tag         = GITypeInfo.getTag retTypeInfo
 
-          tag      | retExpType
-        ===========+===================================================
-          VOID     | <outParamType[1]> * ... * <outParamType[K]>
-        -----------+---------------------------------------------------
-          _        | <retValType>
-                   |   * <outParamType[1]> * ... * <outParamType[K]>
-        -----------+---------------------------------------------------
+          K > 0   tag      | resType(isRead)
+        ===================+===================================================================
+          true    VOID     | <outParamType[1](isRead)> * ... * <outParamType[K](isRead)>
+        -------------------+-------------------------------------------------------------------
+          true    _        | <retValType(isRead)>
+                           |   * <outParamType[1](isRead)> * ... * <outParamType[K](isRead)>
+        -------------------+-------------------------------------------------------------------
+          false   VOID     | unit
+        -------------------+-------------------------------------------------------------------
+          false   _        | <retValType(isRead)>
+        -------------------+-------------------------------------------------------------------
 
 
-  inParamType[l]
+  inParamType[l](isRead)
     for l in 1 to L, is the SML type representing the
     <l>th parameter type in the list of non-VOID IN/INOUT parameter
-    types of the function translated as follows:
+    types of the signal translated as follows:
 
       mayBeNull = GIArgInfo.mayBeNull argInfo
 
-        mayBeNull        | inParamType
-      ===================+===================
-        false            | <type>
-      -------------------+-------------------
-        true             | <type> option
-      -------------------+-------------------
+        mayBeNull        | inParamType[l](isRead)
+      ===================+===========================
+        false            | <type(isRead)>
+      -------------------+---------------------------
+        true             | <type(isRead)> option
+      -------------------+---------------------------
 
 
-  outParamType[k]
+  outParamType[k](isRead)
     for k in 1 to K, is the SML type representing the
     <k>th parameter type in the list of non-VOID INOUT/OUT
-    parameter types of the function translated as follows:
+    parameter types of the signal translated as follows:
 
       mayBeNull = GIArgInfo.mayBeNull argInfo
 
-        mayBeNull        | outParamType
-      ===================+===================
-        false [#1]       | <type>
-      -------------------+-------------------
-        true [#1]        | <type> option
-      -------------------+-------------------
+        mayBeNull        | outParamType[k](isRead)
+      ===================+===========================
+        false [#1]       | <type(isRead)>
+      -------------------+---------------------------
+        true [#1]        | <type(isRead)> option
+      -------------------+---------------------------
 
       #1: currently for out and in-out parameters, mayBeNull indicates
       whether a null reference argument is allowed, rather than a non-null
@@ -146,7 +129,22 @@ where
       to determine whether to use an optional type.)
 
 
-  type
+  retValType(isRead)
+    is the SML type representing the return type of the signal
+    translated as follows:
+
+
+        mayReturnNull = GICallableInfo.mayReturnNull signalInfo
+
+          mayReturnNull    | retValType(isRead)
+        ===================+===========================
+          false            | <type(isRead)>
+        -------------------+---------------------------
+          true             | <type(isRead)> option
+        -------------------+---------------------------
+
+
+  type(isRead)
     is the SML type representation derived from a GITypeInfo provided by
     GIArgInfo.getType and GICallableInfo.getReturnType for a parameter type
     and return type respectively.
@@ -184,7 +182,7 @@ where
           InterfaceCPrefix = GIRepository.getCPrefix repo <InterfaceNamespace>
 
           isSelf = InterfaceName = ContainerName
-          isGlobal = InterfaceNamespace <> FunctionNamespace
+          isGlobal = InterfaceNamespace <> ContainerNamespace
 
             <var> <InterfaceNamespace>.<InterfaceName>Class.class
               if isGlobal and isClass
@@ -229,110 +227,244 @@ where
             var is
 
               a fresh type variable
-                for an outParamType or a retValType
+                if not isRead
 
               base
-                for an inParamType
+                if isRead
 
 
 ==Declaration==
 
 For
-  J non-VOID non-length IN/INOUT parameters excluding the object instance,
-  L non-VOID IN/INOUT parameters excluding the object instance,
-  K non-VOID INOUT/OUT parameters,
+  J non-VOID IN/INOUT parameters excluding the object instance,
+  K non-VOID non-length INOUT/OUT parameters,
+  L non-VOID non-length IN/INOUT parameters excluding the object instance,
+  N non-VOID INOUT/OUT parameters,
 where a length parameter is one that provides the length of an array in another parameter
 or the return value, SignalDec has a form as described below.
 
-We also treat J, K and L as arrays whose elements are the parameter index in the
+We also treat J, K, L and N as arrays whose elements are the parameter index in the
 full list of parameters.  Each array is injective (i.e. elements are unique) and the
 inverse of an array X is denoted X~.
 
 
-  fun <signalName>Sig f =
-    signal
-    "<signal-name>"
-    (<getFun[1]> &&&> ... &&&> <getFun[L]> ---> <setFun[1]> && ... && <setFun[K]> && <retFun>)
-    (
-      fn <inParamName[1]> & ... & <inParamName[L]> =>
-        let
-          val <retPat> = f (<inParamExp[1]>, ..., <inParamExp[J]>)
-        in
-          <outParamExp[1]> & ... & <outParamExp[K]> & <retValExp>
-        end
-    )
+  local
+    val marshaller =
+      parInst <ContainerNamespace><ContainerName>Class.t
+       &&&> <inParamFun[1]> &&&> ... &&&> <inParamFun[J]>
+       ---> <outParamFun[1]> &&& ... &&& <outParamFun[N]> &&& <retFun>
+  in
+    val <signalName>Sig =
+      {
+        name = "<signal-name>",
+        detail = "",
+        marshaller =
+          fn () =>
+            map
+              (
+                fn () & <inParamNameJ[1]> & ... & <inParamNameJ[J]> => () & (<inParamExpL[1]>, ..., <inParamExpL[L]>),
+                fn self & (<inParamNameL[1]>, ..., <inParamNameL[L]>) =>
+                  <ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>,
+                fn <outParamNameN[1]> & ... & <outParamNameN[N]> & <retValPat> => <resExp>,
+                fn <resPat> => <outParamExpN[1]> & ... & <outParamExpN[N]> & <retValExp>,
+              )
+              marshaller
+      }
+  end
 
-    if K > 0 and L > 0
-
-
-  fun <signalName>Sig f =
-    signal
-    "<signal-name>"
-    (void ---> <setFun[1]> && ... && <setFun[K]> && <retFun>)
-    (
-      fn () =>
-        let
-          val <retPat> = f ()
-        in
-          <outParamExp[1]> & ... & <outParamExp[K]> & <retValExp>
-        end
-    )
-
-    if K > 0 and L = 0
+    if J > 0 and N > 0
 
 
-  fun <signalName>Sig f =
-    signal
-    "<signal-name>"
-    (<getFun[1]> &&&> ... &&&> <getFun[L]> ---> <retFun>)
-    (
-      fn <inParamName[1]> & ... & <inParamName[L]> =>
-        let
-          val <retPat> = f (<inParamExp[1]>, ..., <inParamExp[J]>)
-        in
-          <retValExp>
-        end
-    )
+  local
+    val marshaller =
+      parInst <ContainerNamespace><ContainerName>Class.t
+       ---> <outParamFun[1]> &&& ... &&& <outParamFun[N]> &&& <retFun>
+  in
+    val <signalName>Sig =
+      {
+        name = "<signal-name>",
+        detail = "",
+        marshaller =
+          fn () =>
+            map
+              (
+                fn () => () & (),
+                fn self & () => <ContainerNamespace><ContainerName>Class.toBase self,
+                fn <outParamNameN[1]> & ... & <outParamNameN[N]> & <retValPat> => <resExp>,
+                fn <resPat> => <outParamExpN[1]> & ... & <outParamExpN[N]> & <retValExp>,
+              )
+              marshaller
+      }
+  end
 
-    if K = 0 and L > 0
+    if J = 0 and N > 0  (which implies L = 0 because L <= J)
 
 
-  fun <signalName>Sig f =
-    signal
-    "<signal-name>"
-    (void ---> <retFun>)
-    (
-      fn () =>
-        let
-          val <retPat> = f ()
-        in
-          <retValExp>
-        end
-    )
+  local
+    val marshaller =
+      parInst <ContainerNamespace><ContainerName>Class.t
+       &&&> <inParamFun[1]> &&&> ... &&&> <inParamFun[J]>
+       ---> <retFun>
+  in
+    val <signalName>Sig =
+      {
+        name = "<signal-name>",
+        detail = "",
+        marshaller =
+          fn () =>
+            map
+              (
+                fn () & <inParamNameJ[1]> & ... & <inParamNameJ[J]> => () & (<inParamExpL[1]>, ..., <inParamExpL[L]>),
+                fn self & (<inParamNameL[1]>, ..., <inParamNameL[L]>) =>
+                  <ContainerNamespace><ContainerName>Class.toBase self & <inParamExpJ[1]> & ... & <inParamExpJ[J]>,
+                fn <retValPat> => <resExp>,
+                fn <resPat> => <retValExp>,
+              )
+              marshaller
+      }
+  end
 
-    if K = 0 and L = 0
+    if J > 0 and N = 0  (which implies K = 0 because K <= N)
+
+
+  local
+    val marshaller =
+      parInst <ContainerNamespace><ContainerName>Class.t
+       ---> <retFun>
+  in
+    val <signalName>Sig =
+      {
+        name = "<signal-name>",
+        detail = "",
+        marshaller =
+          fn () =>
+            map
+              (
+                fn () => () & (),
+                fn self & () => <ContainerNamespace><ContainerName>Class.toBase self,
+                fn <retValPat> => <resExp>,
+                fn <resPat> => <retValExp>,
+              )
+              marshaller
+      }
+  end
+
+    if J = 0 and N = 0  (which implies L = 0 and K = 0 because L <= J and K <= N)
 
 
 where
 
 
-  retPat
+  resPat
     is defined as follows:
 
 
         retTypeInfo = GICallableInfo.getReturnType signalInfo
         tag         = GITypeInfo.getTag retTypeInfo
 
-          K > 0   tag      | retPat
+          K > 0   tag      | resPat
         ===================+===================================================
-          true    VOID     | (<outParamName[1]>, ..., <outParamName[K]>)
+          true    VOID     | (<outParamNameK[1]>, ..., <outParamNameK[K]>)
         -------------------+---------------------------------------------------
-          true    _        | (retVal, <outParamName[1]>, ..., <outParamName[K]>)
+          true    _        | (retVal, <outParamNameK[1]>, ..., <outParamNameK[K]>)
         -------------------+---------------------------------------------------
           false   VOID     | ()
         -------------------+---------------------------------------------------
           false   _        | retVal
         -------------------+---------------------------------------------------
+
+
+  resExp
+    is defined as follows:
+
+
+        retTypeInfo = GICallableInfo.getReturnType signalInfo
+        tag         = GITypeInfo.getTag retTypeInfo
+
+          K > 0   tag      | resExp
+        ===================+===================================================
+          true    VOID     | (<outParamExpK[1]>, ..., <outParamExpK[K]>)
+        -------------------+---------------------------------------------------
+          true    _        | (<retValExpK>, <outParamExpK[1]>, ..., <outParamExpK[K]>)
+        -------------------+---------------------------------------------------
+          false   VOID     | ()
+        -------------------+---------------------------------------------------
+          false   _        | <retValExpK>
+        -------------------+---------------------------------------------------
+
+  outParamExpK[k]
+    is defined as follows:
+
+      <outParamNameK[k]> <outParamArrayLenExp>
+
+    where
+
+      inParamArrayLenExp is defined as follows:
+
+        argTypeInfo = GIRepository.ArgInfo.getType argInfo
+        arrayLength = GIRepository.TypeInfo.getArrayLength argTypeInfo
+
+        Conversion from arrayLength is as follows:
+
+          NONE                     --->     <empty>
+          SOME ZeroTerminated      --->     <empty>
+          SOME (LengthFixed n)     --->     <n>
+          SOME (LengthParam i)     --->     (LargeInt.toInt <paramName[i]>)
+
+
+  retValExpK
+    is defined as follows:
+
+      retVal <retValArrayLenExp>
+
+    where
+
+      retValArrayLenExp is defined as follows:
+
+        retTypeInfo = GICallableInfo.getReturnType signalInfo
+        arrayLength = GIRepository.TypeInfo.getArrayLength retTypeInfo
+
+        Conversion from arrayLength is as follows:
+
+          NONE                     --->     <empty>
+          SOME ZeroTerminated      --->     <empty>
+          SOME (LengthFixed n)     --->     <n>
+          SOME (LengthParam i)     --->     (LargeInt.toInt <paramName[i]>)
+
+
+  inParamExpL[l]
+    is defined as follows:
+
+      <inParamNameL[l]> <inParamArrayLenExp>
+
+    where
+
+      inParamArrayLenExp is defined as follows:
+
+        argTypeInfo = GIRepository.ArgInfo.getType argInfo
+        arrayLength = GIRepository.TypeInfo.getArrayLength argTypeInfo
+
+        Conversion from arrayLength is as follows:
+
+          NONE                     --->     <empty>
+          SOME ZeroTerminated      --->     <empty>
+          SOME (LengthFixed n)     --->     <n>
+          SOME (LengthParam i)     --->     (LargeInt.toInt <paramName[i]>)
+
+
+  retValPat
+    is defined as follows:
+
+
+        retTypeInfo = GICallableInfo.getReturnType signalInfo
+        tag         = GITypeInfo.getTag retTypeInfo
+
+          tag             | retValPat
+        ==================+===================
+          VOID            | ()
+        ------------------+-------------------
+          _               | retVal
+        ------------------+-------------------
 
 
   retValExp
@@ -350,47 +482,249 @@ where
         ------------------+-------------------
 
 
-  outParamName[k]
-    is the <k>th element in the list of names of non-VOID INOUT/OUT
-    parameters of the function as given by `GIRepository.BaseInfo.getName`.
+  paramName[i]
+    is the <i>th element in the list of names of
+    parameters of the signal as given by `GIRepository.BaseInfo.getName`.
 
 
-  outParamExp[k]
+  inParamNameJ[j]
+    is defined as <paramName[J[j]]>, the <j>th element in the list of names
+    of non-VOID IN/INOUT parameters of the signal.
+
+
+  inParamNameL[l]
+    is defined as <paramName[L[l]]>, the <l>th element in the list of names
+    of non-VOID non-length IN/INOUT parameters of the signal.
+
+
+  outParamNameK[k]
+    is defined as <paramName[K[k]]>, the <k>th element in the list of names
+    of non-VOID non-length INOUT/OUT parameters of the signal.
+
+
+  outParamNameN[n]
+    is defined as <paramName[N[n]]>, the <n>th element in the list of names
+    of non-VOID INOUT/OUT parameters of the signal.
+
+
+  outParamExpN[n]
     is defined as follows:
 
       argTypeInfo = GIRepository.ArgInfo.getType argInfo
+      mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
 
-      <convertInterfaceToBase(outParamName[k], argTypeInfo, SignalNamespace, false)>
+      <paramLenExp(i, argTypeInfo, arrArgInfo, arrArgTypeInfo)>
+
+        if there exists a unique i, arrArgInfo and arrArgTypeInfo such that
+          arrArgInfo = GIRepository.CallableInfo.getArg functionInfo i
+          arrArgTypeInfo = GIRepository.ArgInfo.getType arrArgInfo
+          SOME <N[n]> = GIRepository.TypeInfo.getArrayLength arrArgTypeInfo
+          i.e. the <n>th INOUT/OUT parameter is the length parameter for the
+          array parameter with index <i>
 
 
-  inParamName[l]
-    is the <l>th element in the list of names of non-VOID IN/INOUT
-    parameters of the function as given by `GIRepository.BaseInfo.getName`.
+      <paramNonLenExp(outParamNameN[n], argTypeInfo, mayBeNull)>
+
+        otherwise, i.e. the <n>th INOUT/OUT parameter is not a length parameter
 
 
-  inParamExp[j]
+  inParamExpJ[j]
     is defined as follows:
 
-      <inParamName[L~[J[j]]]> <inParamArrayLenExp>
+      argTypeInfo = GIRepository.ArgInfo.getType argInfo
+      mayBeNull = GIRepository.ArgInfo.mayBeNull argInfo
+
+      <paramLenExp(i, argTypeInfo, arrArgInfo, arrArgTypeInfo)>
+
+        if there exists a unique i, arrArgInfo and arrArgTypeInfo such that
+          arrArgInfo = GIRepository.CallableInfo.getArg functionInfo i
+          arrArgTypeInfo = GIRepository.ArgInfo.getType arrArgInfo
+          SOME <J[j]> = GIRepository.TypeInfo.getArrayLength arrArgTypeInfo
+          i.e. the <j>th IN/INOUT parameter is the length parameter for the
+          array parameter with index <i>
+
+
+      <paramNonLenExp(inParamNameJ[j], argTypeInfo, mayBeNull)>
+
+        otherwise, i.e. the <j>th IN/INOUT parameter is not a length parameter
+
+
+  paramNonLenExp(name, argTypeInfo, mayBeNull)
+    is defined as follows:
+
+      tag = GIRepository.TypeInfo.getTag argTypeInfo
+
+      Conversion from tag is as follows:
+
+        ERROR     --->    <name>
+        FILENAME  --->    <name>
+        ARRAY     --->    <paramArrayExp(name, argTypeInfo)>
+        GLIST     --->    <raise Error "not supported">
+        GSLIST    --->    <raise Error "not supported">
+        GHASH     --->    <raise Error "not supported">
+        VOID      --->    <raise Error "not expected">
+        BOOLEAN   --->    <name>
+        CHAR      --->    <name>
+        UCHAR     --->    <name>
+        INT       --->    <name>
+        UINT      --->    <name>
+        SHORT     --->    <name>
+        USHORT    --->    <name>
+        LONG      --->    <name>
+        ULONG     --->    <name>
+        INT8      --->    <name>
+        UINT8     --->    <name>
+        INT16     --->    <name>
+        UINT16    --->    <name>
+        INT32     --->    <name>
+        UINT32    --->    <name>
+        INT64     --->    <name>
+        UINT64    --->    <name>
+        FLOAT     --->    <name>
+        DOUBLE    --->    <name>
+        SSIZE     --->    <name>
+        SIZE      --->    <name>
+        OFFSET    --->    <raise Error "not supported">
+        INTPTR    --->    <raise Error "not supported">
+        UINTPTR   --->    <raise Error "not supported">
+        UNICHAR   --->    <name>
+        UTF8      --->    <name>
+        INTERFACE --->    <convertInterfaceToBase(name, argTypeInfo, SignalNamespace, mayBeNull)>
+
+
+  paramArrayExp(name, argTypeInfo)
+    is defined as follows:
+
+      arrayLength = GIRepository.TypeInfo.getArrayLength argTypeInfo
+
+      Conversion from arrayLength is as follows:
+
+        NONE                     --->     <name>
+        SOME ZeroTerminated      --->     <name>
+        SOME (LengthFixed n)     --->     <name>
+        SOME (LengthParam i)     --->     (fn _ => <name>)
+
+
+  paramLenExp(i, argTypeInfo, arrArgInfo, arrArgTypeInfo)
+    is defined as follows:
+
+      case <paramName[i]> of
+        SOME <paramName[i]> => <lenParamSomeExp>
+      | NONE                => <lenParamNoneExp>
+
+        if GIRepository.ArgInfo.mayBeNull arrArgInfo
+
+
+      <lenParamSomeExp>
+
+        otherwise
 
     where
 
-      inParamArrayLenExp is defined as follows:
+      lenParamSomeExp
+        is defined as follows:
 
-        argTypeInfo = GIRepository.ArgInfo.getType argInfo
-        arrayLength = GIRepository.TypeInfo.getArrayLength argTypeInfo
+          tag = GIRepository.TypeInfo.getTag argTypeInfo
 
-        Conversion from arrayLength is as follows:
+          Conversion from tag is as follows:
 
-          NONE                     --->     <empty>
-          SOME ZeroTerminated      --->     <empty>
-          SOME (LengthFixed n)     --->     <n>
-          SOME (LengthParam i)     --->     (LargeInt.toInt <inParamName[L~[i]]>)
+            ERROR     --->    <raise Error "not expected">
+            FILENAME  --->    <raise Error "not expected">
+            ARRAY     --->    <raise Error "not expected">
+            GLIST     --->    <raise Error "not expected">
+            GSLIST    --->    <raise Error "not expected">
+            GHASH     --->    <raise Error "not expected">
+            VOID      --->    <raise Error "not expected">
+            BOOLEAN   --->    <raise Error "not expected">
+            CHAR      --->    <raise Error "not expected">
+            UCHAR     --->    <raise Error "not expected">
+            INT       --->    <convertFromInt>
+            UINT      --->    <convertFromInt>
+            SHORT     --->    <convertFromInt>
+            USHORT    --->    <convertFromInt>
+            LONG      --->    <convertFromInt>
+            ULONG     --->    <convertFromInt>
+            INT8      --->    <convertFromInt>
+            UINT8     --->    <convertFromInt>
+            INT16     --->    <convertFromInt>
+            UINT16    --->    <convertFromInt>
+            INT32     --->    <convertFromInt>
+            UINT32    --->    <convertFromInt>
+            INT64     --->    <convertFromInt>
+            UINT64    --->    <convertFromInt>
+            FLOAT     --->    <raise Error "not expected">
+            DOUBLE    --->    <raise Error "not expected">
+            SSIZE     --->    <convertFromInt>
+            SIZE      --->    <convertFromInt>
+            OFFSET    --->    <raise Error "not supported">
+            INTPTR    --->    <raise Error "not supported">
+            UINTPTR   --->    <raise Error "not supported">
+            UNICHAR   --->    <raise Error "not expected">
+            UTF8      --->    <raise Error "not expected">
+            INTERFACE --->    <raise Error "not expected">
+
+
+          convertFromInt is defined as follows:
+
+              scalarType(argTypeInfo) | convertFromInt
+            ======================+===================================
+              int                     | <lenIntExp>
+            --------------------------+-----------------------------------
+              LargeInt.int            | LargeInt.fromInt (<lenIntExp>)
+            --------------------------+-----------------------------------
+              Word8.word              | Word8.fromInt (<lenIntExp>)
+            --------------------------+-----------------------------------
+
+          lenIntExp is defined as follows:
+
+              <ArrayStructId(arrArgTypeInfo)>.length <paramName[i]>
+
+
+      lenParamNoneExp
+        is defined as follows:
+
+          tag = GIRepository.TypeInfo.getTag argTypeInfo
+
+          Conversion from tag is as follows:
+
+            ERROR     --->    <raise Error "not expected">
+            FILENAME  --->    <raise Error "not expected">
+            ARRAY     --->    <raise Error "not expected">
+            GLIST     --->    <raise Error "not supported">
+            GSLIST    --->    <raise Error "not supported">
+            GHASH     --->    <raise Error "not supported">
+            VOID      --->    <raise Error "not expected">
+            BOOLEAN   --->    <raise Error "not expected">
+            CHAR      --->    <raise Error "not expected">
+            UCHAR     --->    <raise Error "not expected">
+            INT       --->    GInt.null
+            UINT      --->    GUInt.null
+            SHORT     --->    GShort.null
+            USHORT    --->    GUShort.null
+            LONG      --->    GLong.null
+            ULONG     --->    GULong.null
+            INT8      --->    GInt8.null
+            UINT8     --->    GUInt8.null
+            INT16     --->    GInt16.null
+            UINT16    --->    GUInt16.null
+            INT32     --->    GInt32.null
+            UINT32    --->    GUInt32.null
+            INT64     --->    GInt64.null
+            UINT64    --->    GUInt64.null
+            FLOAT     --->    <raise Error "not expected">
+            DOUBLE    --->    <raise Error "not expected">
+            SSIZE     --->    GSSize.null
+            SIZE      --->    GSize.null
+            OFFSET    --->    <raise Error "not supported">
+            INTPTR    --->    <raise Error "not supported">
+            UINTPTR   --->    <raise Error "not supported">
+            UTF8      --->    <raise Error "not expected">
+            UNICHAR   --->    <raise Error "not expected">
+            INTERFACE --->    <raise Error "not expected">
 
 
   retFun
-    is the closure marshaller writer function for the
-    return value of the signal handler function,
+    is the closure marshaller for the return value,
     translated according to the GIR type tag as follows:
 
         ERROR     --->    <raise Error "not expected">
@@ -404,7 +738,7 @@ where
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
-        VOID      --->    ret_void
+        VOID      --->    retVoid
         BOOLEAN   --->    ret boolean
         INT32     --->    ret int32
         UINT32    --->    ret uint32
@@ -462,11 +796,10 @@ where
             ------------------+-------------------
 
 
-  getFun[l]
-    for l in 1 to L, is the closure marshaller reader function for the
-    <l>th parameter in the list of non-VOID IN/INOUT parameters of the
-    signal handler function, translated according to the GIR type tag
-    as follows:
+  inParamFun[j]
+    for j in 1 to J, is the closure marshaller for the
+    <j>th parameter in the list of non-VOID IN/INOUT parameters,
+    translated according to the GIR type tag as follows:
 
         ERROR     --->    <raise Error "not expected">
         INT8      --->    <raise Error "no corresponding GType for INT8">
@@ -475,20 +808,20 @@ where
         UINT16    --->    <raise Error "no corresponding GType for UINT16">
         GTYPE     --->    <raise Error "not supported">
         FILENAME  --->    <raise Error "not supported">
-        ARRAY     --->    <getArrayFun[l]>
+        ARRAY     --->    <inArrayParam[j]>
         GLIST     --->    <raise Error "not supported">
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
         VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    get 0w<L[l]> boolean
-        INT32     --->    get 0w<L[l]> int32
-        UINT32    --->    get 0w<L[l]> uint32
-        INT64     --->    get 0w<L[l]> int64
-        UINT64    --->    get 0w<L[l]> uint64
-        FLOAT     --->    get 0w<L[l]> float
-        DOUBLE    --->    get 0w<L[l]> double
-        UTF8      --->    get 0w<L[l]> string
-        UNICHAR   --->    get 0w<L[l]> char
+        BOOLEAN   --->    parIn <J[j]> boolean
+        INT32     --->    parIn <J[j]> int32
+        UINT32    --->    parIn <J[j]> uint32
+        INT64     --->    parIn <J[j]> int64
+        UINT64    --->    parIn <J[j]> uint64
+        FLOAT     --->    parIn <J[j]> float
+        DOUBLE    --->    parIn <J[j]> double
+        UTF8      --->    parIn <J[j]> string
+        UNICHAR   --->    parIn <J[j]> char
 
         INTERFACE --->
 
@@ -503,25 +836,25 @@ where
 
           isSelf = InterfaceName = ContainerName
 
-            get 0w<L[l]> <InterfaceNamespace><InterfaceName>Class.t<InOpt>
+            parIn <J[j]> <InterfaceNamespace><InterfaceName>Class.t<InOpt>
               if isClass
 
 
-            get 0w<L[l]> <InterfaceNamespace><InterfaceName>Record.t<InOpt>
+            parIn <J[j]> <InterfaceNamespace><InterfaceName>Record.t<InOpt>
               if isRecord
 
 
-            get 0w<L[l]> <InterfaceNamespace><InterfaceName>.t<InOpt>
+            parIn <J[j]> <InterfaceNamespace><InterfaceName>.t<InOpt>
               if  not isSelf and isUnion
 
-            get 0w<L[l]> t<InOpt>
+            parIn <J[j]> t<InOpt>
               if isSelf and isUnion
 
 
-            get 0w<L[l]> <InterfaceNamespace><InterfaceName>.t<InOpt>
+            parIn <J[j]> <InterfaceNamespace><InterfaceName>.t<InOpt>
               if  not isSelf and isOther
 
-            get 0w<L[l]> t<InOpt>
+            parIn <J[j]> t<InOpt>
               if isSelf and isOther
 
 
@@ -537,16 +870,16 @@ where
             ------------------+-------------------
 
 
-  getArrayFun[l]
+  inArrayParam[j]
     is defined as follows:
 
         ownershipTransfer = GIRepository.ArgInfo.getOwnershipTransfer argInfo
         argTypeInfo       = GIRepository.ArgInfo.getType argInfo
         mayBeNull         = GIRepository.ArgInfo.mayBeNull argInfo
 
-          ownershipTra... | getArrayFun[l]
+          ownershipTra... | inArrayParam[j]
         ==================+===============================================
-          NOTHING         | get 0w<L[l]> <A>.t<Opt>
+          NOTHING         | parIn <J[j]> <A>.t<Opt>
         ------------------+-----------------------------------------------
           CONTAINER       | <raise Error "not supported">
         ------------------+-----------------------------------------------
@@ -567,11 +900,10 @@ where
         ------------------+-------------------
 
 
-  setFun[n]
-    for n in 1 to N, is the closure marshaller writer function for the
-    <n>th parameter in the list of non-VOID INOUT/OUT parameters of the
-    signal handler function, translated according to the GIR type tag
-    as follows:
+  outParamFun[n]
+    for n in 1 to N, is the closure marshaller for the
+    <n>th parameter in the list of non-VOID INOUT/OUT parameters,
+    translated according to the GIR type tag as follows:
 
         ERROR     --->    <raise Error "not expected">
         INT8      --->    <raise Error "no corresponding GType for INT8">
@@ -585,15 +917,15 @@ where
         GSLIST    --->    <raise Error "not supported">
         GHASH     --->    <raise Error "not supported">
         VOID      --->    <raise Fail "VOID">
-        BOOLEAN   --->    set <N[n]> boolean
-        INT32     --->    set <N[n]> int32
-        UINT32    --->    set <N[n]> uint32
-        INT64     --->    set <N[n]> int64
-        UINT64    --->    set <N[n]> uint64
-        FLOAT     --->    set <N[n]> float
-        DOUBLE    --->    set <N[n]> double
-        UTF8      --->    set <N[n]> string
-        UNICHAR   --->    set <N[n]> char
+        BOOLEAN   --->    parOut <N[n]> boolean
+        INT32     --->    parOut <N[n]> int32
+        UINT32    --->    parOut <N[n]> uint32
+        INT64     --->    parOut <N[n]> int64
+        UINT64    --->    parOut <N[n]> uint64
+        FLOAT     --->    parOut <N[n]> float
+        DOUBLE    --->    parOut <N[n]> double
+        UTF8      --->    parOut <N[n]> string
+        UNICHAR   --->    parOut <N[n]> char
 
         INTERFACE --->
 
@@ -608,33 +940,36 @@ where
 
           isSelf = InterfaceName = ContainerName
 
-            set <N[n]> <InterfaceNamespace><InterfaceName>Class.t<OutOpt>
+            parOut <N[n]> <InterfaceNamespace><InterfaceName>Class.t<OutOpt>
               if isClass
 
 
-            set <N[n]> <InterfaceNamespace><InterfaceName>Record.t<OutOpt>
+            parOut <N[n]> <InterfaceNamespace><InterfaceName>Record.t<OutOpt>
               if isRecord
 
 
-            set <N[n]> <InterfaceNamespace><InterfaceName>.t<OutOpt>
+            parOut <N[n]> <InterfaceNamespace><InterfaceName>.t<OutOpt>
               if not isSelf and isUnion
 
-            set <N[n]> t<OutOpt>
+            parOut <N[n]> t<OutOpt>
               if isSelf and isUnion
 
 
-            set <N[n]> <InterfaceNamespace><InterfaceName>.t<OutOpt>
+            parOut <N[n]> <InterfaceNamespace><InterfaceName>.t<OutOpt>
               if not isSelf and isOther
 
-            set <N[n]> t<OutOpt>
+            parOut <N[n]> t<OutOpt>
               if isSelf and isOther
 
 
-          OutOpt cannot be determined because GIR does not capture
-          sufficient information.  For now, it is defined as follows:
+          OutOpt is defined as follows:
 
-              | OutOpt
-            ==+===================
-              | <empty>
-            --+-------------------
+            mayBeNull   = GIArgInfo.mayBeNull argInfo
+
+              mayBeNull       | InOpt
+            ==================+===================
+              false           | <empty>
+            ------------------+-------------------
+              true            | Opt
+            ------------------+-------------------
 
