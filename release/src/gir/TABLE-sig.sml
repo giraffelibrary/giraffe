@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2018 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2018, 2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -34,4 +34,6 @@ signature TABLE =
     val insert : 'a t -> 'a -> key
     val delete : 'a t -> key -> 'a option
     val lookup : 'a t -> key -> 'a option
+    val fold : ('a * 'b -> 'b) -> 'a t * 'b -> 'b
+    val app : ('a -> unit) -> 'a t -> unit
   end

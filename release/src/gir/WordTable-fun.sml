@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2018, 2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2018, 2020-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -208,4 +208,38 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
         | NONE       => NONE
       end
 
+
+    (**
+     * Fold
+     *)
+    fun fold f ({blocks, ...}, acc) =
+      let
+        val addElem =
+          fn
+            (SOME e, acc) => f (e, acc)
+          | (NONE,   acc) => acc
+
+        exception Done of 'a
+        val addBlock =
+          fn
+            (SOME block, acc) => Array.foldl addElem acc block
+          | (NONE,       acc) => raise Done acc
+      in
+        Array.foldl addBlock acc blocks handle Done acc => acc
+      end
+
+
+    (**
+     * App
+     *)
+    fun app f {blocks, ...} =
+      let
+        exception Done
+        val appBlock =
+          fn
+            SOME block => Array.app (Option.app f) block
+          | NONE       => raise Done
+      in
+        Array.app appBlock blocks handle Done => ()
+      end
   end
