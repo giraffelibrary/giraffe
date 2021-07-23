@@ -20,10 +20,15 @@ structure CMemory : C_MEMORY =
     val getPointer = MLton.Pointer.getPointer
     val setPointer = MLton.Pointer.setPointer
 
-    val malloc_ = _import "malloc" : C_Size.t -> Pointer.t;
-    val calloc_ = _import "calloc" : C_Size.t * C_Size.t -> Pointer.t;
+    structure Size =
+      struct
+        open C_Size
+      end
+
+    val malloc_ = _import "malloc" : Size.t -> Pointer.t;
+    val calloc_ = _import "calloc" : Size.t * Size.t -> Pointer.t;
     val free_ = _import "free" : Pointer.t -> unit;
-    fun malloc n = malloc_ (C_Size.fromLargeWord (Word.toLargeWord n))
-    fun malloc0 n = calloc_ (C_Size.fromLargeWord (Word.toLargeWord n), 0w1)
+    val malloc = malloc_
+    fun malloc0 n = calloc_ (n, 0w1)
     val free = free_
   end

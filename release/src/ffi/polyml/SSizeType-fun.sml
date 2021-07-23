@@ -1,4 +1,4 @@
-(* Copyright (C) 2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2020-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -16,7 +16,7 @@ functor SSizeType(
 
     structure PolyML =
       struct
-        val cVal = PolyMLFFI.cLong
+        val cVal = PolyMLFFI.cSsize
         val cPtr = PolyMLFFI.cPointer
       end
 

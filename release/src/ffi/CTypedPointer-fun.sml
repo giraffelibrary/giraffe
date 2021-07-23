@@ -1,4 +1,4 @@
-(* Copyright (C) 2016-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2016-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -20,6 +20,11 @@ functor CTypedPointer(CValueType : C_VALUE_TYPE) :>
     fun set (p, i, x) = CValueType.set (offset (p, i), x)
     fun get (p, i) = CValueType.get (offset (p, i))
 
-    fun new n = Memory.malloc0 (Word.fromInt n * CValueType.size ())
+    fun new n =
+      let
+        val size = Word.fromInt n * CValueType.size ()
+      in
+        Memory.malloc0 (Memory.Size.fromLarge (Word.toLarge size))
+      end
     val free = Memory.free
   end

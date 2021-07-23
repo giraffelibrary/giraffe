@@ -19,6 +19,12 @@ structure CMemory : C_MEMORY =
     val getPointer = Memory.getPointer
     val setPointer = Memory.setPointer
 
+    structure Size =
+      struct
+        open Word
+        type t = word
+      end
+
     val malloc = Memory.malloc
     fun malloc0 n =
       let

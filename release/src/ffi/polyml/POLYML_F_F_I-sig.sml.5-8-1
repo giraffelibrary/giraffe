@@ -164,6 +164,10 @@ signature POLYML_F_F_I =
     val cLongLarge   : LargeInt.int conversion
     val cUlong       : int conversion
     val cUlongLarge  : LargeInt.int conversion
+    val cSsize       : int conversion
+    val cSsizeLarge  : LargeInt.int conversion
+    val cSize        : word conversion  (* `word` to match `Memory.malloc` *)
+    val cSizeLarge   : LargeInt.int conversion
     val cString      : string conversion
     val cByteArray   : Word8Vector.vector conversion
     val cFloat       : real conversion

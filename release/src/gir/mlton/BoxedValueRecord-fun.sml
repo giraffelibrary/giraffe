@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2021 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -22,7 +22,7 @@ functor BoxedValueRecord(
   struct
     val malloc0_ = Pointer.Memory.malloc0
     val free_ = Pointer.Memory.free
-    val new0_ = malloc0_ o Word.fromInt o GSize.FFI.fromVal o size_
+    val new0_ = malloc0_ o size_
     fun dup_ ptr =
       let
         (* Ensure allocated memory is set to 0 in case `copy_` is a function

@@ -19,6 +19,7 @@ in
     FINALIZABLE-sig.sml
     mlton/CMemory_0.sml
     C_MEMORY-sig.sml
+    mlton/C_MEMORY-sig.sml
     C_VALUE-sig.sml
     mlton/C_VALUE-sig.sml
     C_VALUE_EQ-sig.sml

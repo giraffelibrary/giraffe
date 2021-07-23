@@ -37,7 +37,13 @@ signature C_MEMORY =
     val getPointer : Pointer.t * int -> Pointer.t
     val setPointer : Pointer.t * int * Pointer.t -> unit
 
-    val malloc : word -> Pointer.t
-    val malloc0 : word -> Pointer.t
+    structure Size :
+      sig
+        eqtype t (* = compiler-specific type, not abstract *)
+        include WORD where type word = t
+      end
+
+    val malloc  : Size.t -> Pointer.t
+    val malloc0 : Size.t -> Pointer.t
     val free : Pointer.t -> unit
   end
