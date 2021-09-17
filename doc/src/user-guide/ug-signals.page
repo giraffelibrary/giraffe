@@ -20,8 +20,9 @@ provides support for working with signals in a type safe way.
 <section>
 <title>Referring to signals</title>
 <p>
-A signal name is string of ASCII letters and digits with words separated by a hyphen (or underscore)
+In GObject, a signal name is string of ASCII letters and digits with words separated by a hyphen (or underscore)
 where the first word starts with a letter.
+The SML interface provides an abstract value for each signal.
 For a signal “<var>some</var>-<var>signal</var>-<var>name</var>”
 of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
 the hierarchical SML name is

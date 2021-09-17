@@ -20,8 +20,9 @@ for use with <code>GObject.Object.new</code> as described by <link xref="#object
 <section>
 <title>Referring to properties</title>
 <p>
-A property name is string of ASCII letters and digits with words separated by a hyphen (or underscore)
+In GObject, a property name is string of ASCII letters and digits with words separated by a hyphen (or underscore)
 where the first word starts with a letter.
+The SML interface provides an abstract value for each property.
 For a property “<var>some</var>-<var>property</var>-<var>name</var>”
 of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
 the hierarchical SML name is
