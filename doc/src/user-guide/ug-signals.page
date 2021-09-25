@@ -125,6 +125,64 @@ for the instance that emits the signal.
 </section>
 
 <section>
+<title>Specifying signal detail</title>
+
+<p>
+In GObject, the detail of a signal is a string whose format is specific to the signal.
+The SML representation of a signal includes the detail,
+which is used by both signal connection and emission functions.
+The detail of a signal value is returned by the function <code>Signal.detail</code>
+and is overridden by the functions <code>Signal.withDetail</code> and <code>Signal.withPropDetail</code>
+which return a new signal value.
+</p>
+<p>
+The detail of a signal <code><var>signal</var></code> is given by
+</p>
+<code>
+Signal.detail <code><var>signal</var></code>
+</code>
+<p>
+The detail of each signal provided in the SML interface is empty:
+for a signal “<var>a</var>”
+of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
+<code>
+Signal.detail <var>Namespace</var>.<var>Type</var>.<var>a</var>Sig
+</code>
+is <code>""</code>.
+</p>
+<p>
+A signal <code><var>signal</var></code>
+with the detail replaced by <code><var>detail</var></code> is given by
+</p>
+<code>
+Signal.withDetail (<code><var>signal</var></code>, <var>detail</var>)
+</code>
+<p>
+Specifying <code><var>detail</var></code> as <code>""</code> has the effect of removing any detail.
+</p>
+<p>
+The detail of the signal “notify” of the class <code>GObject.Object</code> requires a property name if non-empty.
+Using <code>Signal.withDetail</code> to override this detail requires the property name to be written as a string.
+Instead, this detail can be overridden by specifying a property value using <code>Signal.withPropDetail</code>.
+A signal <code><var>signal</var></code>
+with the detail replaced by the name of a property <code><var>prop</var></code> and
+with its type constrained for use only on instances with the property is given by
+</p>
+<code>
+Signal.withPropDetail (<code><var>signal</var></code>, <var>prop</var>)
+</code>
+<p>
+<code>Signal.withPropDetail</code> is preferable for a signal whose detail is a property name
+because type checking also ensures that:
+</p>
+<list style="compact">
+<item><p>the property exists;</p></item>
+<item><p>the property is valid for the object on which the signal is defined;</p></item>
+<item><p>the resulting signal cannot be used on an object that does not have the property.</p></item>
+</list>
+</section>
+
+<section>
 <title>Handling signals</title>
 
 <note style="tip">

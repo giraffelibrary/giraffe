@@ -95,10 +95,7 @@ There is support for handling the emission of a signal from an object (instance)
 <item><p>emission hooks</p></item>
 </list>
 <p>
-When connecting to a signal, there is no support for specifying the detail argument.
-</p>
-<p>
-Support for the above operations is expected to be added in future.
+To date, such support has not been required in Giraffe Library.
 </p>
 </section>
 

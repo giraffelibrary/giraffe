@@ -625,6 +625,30 @@ the SML interface provides
 <code>
 <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig : ('a <var>Namespace</var>.<var>Type</var>.class, <var>argType_e</var>, <var>argType_h</var>, <var>resType_h</var>, <var>resType_e</var>) Signal.t
 </code>
+<section>
+<title>Detail</title>
+<p>
+The SML representation of a signal includes the detail string.
+The detail string is empty for signals in the SML interface: <code>Signal.detail <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig</code> is <code>""</code>.
+</p>
+<p>
+The signal with its detail string replaced by <code><var>detail</var></code> is
+</p>
+<code>
+Signal.withDetail (<var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig, <var>detail</var>) : <var>...</var> Signal.t
+</code>
+<p>
+The signal with its detail string replaced by the name of a property <code><var>prop</var> : (<var>propInstanceType</var>, <var>...</var>) Property.t</code> is
+</p>
+<code>
+Signal.withPropDetail (<var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig, <var>prop</var>) : (<var>instanceType</var>, <var>...</var>) Signal.t
+</code>
+<p>
+where <code><var>instanceType</var></code> matches with both the instance type of the signal and with <code><var>propInstanceType</var></code>.
+</p>
+</section>
+<section>
+<title>Handler connection and emission</title>
 <p>
 A handler function <code><var>f</var> : <var>argType_h</var> -> <var>resType_h</var></code> is connected to the signal on an object <code><var>obj</var></code> by
 </p>
@@ -651,6 +675,7 @@ Signal.connect (<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <va
 <code>
 Signal.emit (<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>obj</var>) <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig : <var>argType_e</var> -> <var>resType_e</var>
 </code>
+</section>
 </section>
 
 <section id="properties">

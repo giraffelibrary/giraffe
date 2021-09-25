@@ -82,4 +82,15 @@ signature SIGNAL =
        -> id
     val disconnect : 'a object_class -> id -> unit
     val isConnected : 'a object_class -> id -> bool
+
+    val detail : ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) t -> string
+    val withDetail :
+      ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) t * string
+       -> ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) t
+
+    type ('object_class, 'get, 'set, 'init) property_t
+    val withPropDetail :
+      ('a object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) t
+           * ('a object_class, 'get, 'set, 'init) property_t
+       -> ('a object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) t
   end

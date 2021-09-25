@@ -356,6 +356,7 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         extendStrDeps "ValueAccessor" [],
         extendStrDeps "Signal"
           [
+            "Property",
             "GObjectObjectClass",
             "GObjectClosureRecord",
             "GObjectClosure",

@@ -8,10 +8,14 @@
 structure Signal :>
   SIGNAL
     where type 'a object_class = 'a GObjectObjectClass.class
+    where type ('object_class, 'get, 'set, 'init) property_t =
+            ('object_class, 'get, 'set, 'init) Property.t
     where type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller =
             ('arg_r, 'arg_w, 'res_r, 'res_w) GObjectClosure.marshaller =
   struct
     type 'a object_class = 'a GObjectObjectClass.class
+    type ('object_class, 'get, 'set, 'init) property_t =
+      ('object_class, 'get, 'set, 'init) Property.t
     type ('arg_r, 'arg_w, 'res_r, 'res_w) marshaller =
       ('arg_r, 'arg_w, 'res_r, 'res_w) GObjectClosure.marshaller
 
@@ -225,4 +229,11 @@ structure Signal :>
     val disconnect = signalHandlerDisconnect
 
     val isConnected = signalHandlerIsConnected
+
+    fun detail {detail, ...} = detail
+
+    fun withDetail ({name, marshaller, ...}, detail) =
+      {name = name, detail = detail, marshaller = marshaller}
+
+    fun withPropDetail (signal, prop) = withDetail (signal, #name prop)
   end
