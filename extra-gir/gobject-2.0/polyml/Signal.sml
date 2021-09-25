@@ -56,6 +56,24 @@ structure Signal :>
              --> GULong.PolyML.cVal
           );
 
+      val handlerBlock_ =
+        call
+          (externalFunctionSymbol "g_signal_handler_block")
+          (
+            GObjectObjectClass.PolyML.cPtr
+             &&> GULong.PolyML.cVal
+             --> cVoid
+          )
+
+      val handlerUnblock_ =
+        call
+          (externalFunctionSymbol "g_signal_handler_unblock")
+          (
+            GObjectObjectClass.PolyML.cPtr
+             &&> GULong.PolyML.cVal
+             --> cVoid
+          )
+
       val signalHandlerDisconnect_ =
         call
           (externalFunctionSymbol "g_signal_handler_disconnect")
@@ -154,6 +172,28 @@ structure Signal :>
              & closure
              & after
           )
+    end
+
+    local
+      val call =
+        GObjectObjectClass.FFI.withPtr false
+         &&&> I
+         ---> I
+    in
+      fun handlerBlock instance handlerId =
+        call handlerBlock_
+          (GObjectObjectClass.toBase instance & handlerId)
+    end
+
+    local
+      val call =
+        GObjectObjectClass.FFI.withPtr false
+         &&&> I
+         ---> I
+    in
+      fun handlerUnblock instance handlerId =
+        call handlerUnblock_
+          (GObjectObjectClass.toBase instance & handlerId)
     end
 
     local

@@ -64,6 +64,20 @@ structure Signal :>
         )
           (x1, x2, x3, x4, x5)
 
+    val handlerBlock_ =
+      fn x1 & x2 => (
+        _import "g_signal_handler_block" :
+          GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p * GULong.FFI.val_ -> unit;
+      )
+        (x1, x2)
+
+    val handlerUnblock_ =
+      fn x1 & x2 => (
+        _import "g_signal_handler_unblock" :
+          GObjectObjectClass.FFI.non_opt GObjectObjectClass.FFI.p * GULong.FFI.val_ -> unit;
+      )
+        (x1, x2)
+
     val signalHandlerDisconnect_ =
       fn x1 & x2 =>
         (
@@ -163,6 +177,28 @@ structure Signal :>
              & closure
              & after
           )
+    end
+
+    local
+      val call =
+        GObjectObjectClass.FFI.withPtr false
+         &&&> I
+         ---> I
+    in
+      fun handlerBlock instance handlerId =
+        call handlerBlock_
+          (GObjectObjectClass.toBase instance & handlerId)
+    end
+
+    local
+      val call =
+        GObjectObjectClass.FFI.withPtr false
+         &&&> I
+         ---> I
+    in
+      fun handlerUnblock instance handlerId =
+        call handlerUnblock_
+          (GObjectObjectClass.toBase instance & handlerId)
     end
 
     local

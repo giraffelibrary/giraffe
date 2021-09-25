@@ -675,6 +675,18 @@ Signal.connect (<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <va
 <code>
 Signal.emit (<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>obj</var>) <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig : <var>argType_e</var> -> <var>resType_e</var>
 </code>
+<p>
+A signal handler on an object <code><var>obj</var></code> with id <code><var>handlerId</var> : Signal.id</code> is blocked by
+</p>
+<code>
+Signal.handlerBlock <var>obj</var> <var>handlerId</var>
+</code>
+<p>
+and is unblocked by
+</p>
+<code>
+Signal.handlerUnblock <var>obj</var> <var>handlerId</var>
+</code>
 </section>
 </section>
 

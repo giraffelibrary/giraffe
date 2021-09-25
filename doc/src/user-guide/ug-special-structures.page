@@ -219,6 +219,8 @@ signature SIGNAL =
       'a object_class
        -> ('a object_class, 'b, 'arg_h, 'res_h, 'c) t * ('arg_h -> 'res_h)
        -> id
+    val handlerBlock   : 'a object_class -> id -> unit
+    val handlerUnblock : 'a object_class -> id -> unit
     val disconnect : 'a object_class -> id -> unit
     val isConnected : 'a object_class -> id -> bool
 

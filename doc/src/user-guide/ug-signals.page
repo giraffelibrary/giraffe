@@ -259,10 +259,37 @@ Type checking ensures that when a handler is connected to a signal of an object,
 </section>
 
 <section>
+<title>Blocking signal handlers</title>
+<p>
+A signal handler is blocked using <code>Signal.handlerBlock</code>
+and unblocked using <code>Signal.handlerUnblock</code>.
+(Note that blocking is cumulative so a signal handler becomes active
+only once it has been unblocked as many times as it has been blocked.)
+The signal handler to block or unblock is identified by the object that emits the signal and
+the handler id returned when it was connected.
+</p>
+<example>
+<p>
+For example, a signal handler on <code>textView</code> identified by <code>handlerId</code>
+is blocked as follows:
+</p>
+<code>
+Signal.handlerBlock textView handlerId
+</code>
+<p>
+and is unblocked as follows:
+</p>
+<code>
+Signal.handlerUnblock textView handlerId
+</code>
+</example>
+</section>
+
+<section>
 <title>Disconnecting signal handlers</title>
 <p>
 A signal handler is disconnected using <code>Signal.disconnect</code>.
-The signal to disconnect is identified by the object that emits the signal and
+The signal handler to disconnect is identified by the object that emits the signal and
 the handler id returned when it was connected.
 </p>
 <example>
@@ -280,7 +307,7 @@ Signal.disconnect textView handlerId
 <title>Testing whether signal handlers are still connected</title>
 <p>
 <code>Signal.isConnected</code> tests whether a signal is connected.
-The signal is identified by the object that emits the signal and
+The signal handler is identified by the object that emits the signal and
 the handler id returned when it was connected.
 </p>
 <example>
