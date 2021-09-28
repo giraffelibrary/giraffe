@@ -17,7 +17,7 @@ structure ChildSignal :>
         val _ =
           Signal.connect
             parent
-            (GtkWidget.destroySig, fn () => Signal.disconnect object id)
+            (GtkWidget.destroySig, fn () => Signal.handlerDisconnect object id)
       in
         ()
       end
@@ -28,7 +28,7 @@ structure ChildSignal :>
         val _ =
           Signal.connect
             parent
-            (GtkWidget.destroySig, fn () => Signal.disconnect object id)
+            (GtkWidget.destroySig, fn () => Signal.handlerDisconnect object id)
       in
         ()
       end

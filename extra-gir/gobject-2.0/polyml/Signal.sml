@@ -74,7 +74,7 @@ structure Signal :>
              --> cVoid
           )
 
-      val signalHandlerDisconnect_ =
+      val handlerDisconnect_ =
         call
           (externalFunctionSymbol "g_signal_handler_disconnect")
           (
@@ -83,7 +83,7 @@ structure Signal :>
              --> cVoid
           );
 
-      val signalHandlerIsConnected_ =
+      val handlerIsConnected_ =
         call
           (externalFunctionSymbol "g_signal_handler_is_connected")
           (
@@ -154,7 +154,7 @@ structure Signal :>
           end
       end
 
-    type id = GULong.FFI.val_
+    type handler_id = GULong.FFI.val_
 
     local
       val call =
@@ -202,8 +202,8 @@ structure Signal :>
          &&&> I
          ---> I
     in
-      fun signalHandlerDisconnect instance handlerId =
-        call signalHandlerDisconnect_
+      fun handlerDisconnect instance handlerId =
+        call handlerDisconnect_
           (GObjectObjectClass.toBase instance & handlerId)
     end
 
@@ -213,8 +213,8 @@ structure Signal :>
          &&&> I
          ---> GBool.FFI.fromVal
     in
-      fun signalHandlerIsConnected instance handlerId =
-        call signalHandlerIsConnected_
+      fun handlerIsConnected instance handlerId =
+        call handlerIsConnected_
           (GObjectObjectClass.toBase instance & handlerId)
     end
 
@@ -265,10 +265,6 @@ structure Signal :>
         log "connect-after" (closure, detailedName, instance);
         signalConnectClosure instance detailedName closure true
       end
-
-    val disconnect = signalHandlerDisconnect
-
-    val isConnected = signalHandlerIsConnected
 
     fun detail {detail, ...} = detail
 

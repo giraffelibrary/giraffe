@@ -71,19 +71,19 @@ signature SIGNAL =
        -> ('a object_class, 'arg_e, 'b, 'c, 'res_e) t
        -> 'arg_e -> 'res_e
 
-    type id
+    type handler_id
     val connect :
       'a object_class
        -> ('a object_class, 'b, 'arg_h, 'res_h, 'c) t * ('arg_h -> 'res_h)
-       -> id
+       -> handler_id
     val connectAfter :
       'a object_class
        -> ('a object_class, 'b, 'arg_h, 'res_h, 'c) t * ('arg_h -> 'res_h)
-       -> id
-    val handlerBlock   : 'a object_class -> id -> unit
-    val handlerUnblock : 'a object_class -> id -> unit
-    val disconnect : 'a object_class -> id -> unit
-    val isConnected : 'a object_class -> id -> bool
+       -> handler_id
+    val handlerBlock   : 'a object_class -> handler_id -> unit
+    val handlerUnblock : 'a object_class -> handler_id -> unit
+    val handlerDisconnect : 'a object_class -> handler_id -> unit
+    val handlerIsConnected : 'a object_class -> handler_id -> bool
 
     val detail : ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) t -> string
     val withDetail :

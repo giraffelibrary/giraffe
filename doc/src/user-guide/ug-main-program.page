@@ -111,7 +111,7 @@ fun main () =
     val argv = Utf8CPtrArrayN.fromList (CommandLine.name () :: CommandLine.arguments ())
     val status = Gio.Application.run app argv
 
-    val () = Signal.disconnect app id
+    val () = Signal.handlerDisconnect app id
   in
     Giraffe.exit status
   end

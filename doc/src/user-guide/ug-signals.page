@@ -288,7 +288,7 @@ Signal.handlerUnblock textView handlerId
 <section>
 <title>Disconnecting signal handlers</title>
 <p>
-A signal handler is disconnected using <code>Signal.disconnect</code>.
+A signal handler is disconnected using <code>Signal.handlerDisconnect</code>.
 The signal handler to disconnect is identified by the object that emits the signal and
 the handler id returned when it was connected.
 </p>
@@ -298,7 +298,7 @@ For example, a signal handler on <code>textView</code> identified by <code>handl
 is disconnected as follows:
 </p>
 <code>
-Signal.disconnect textView handlerId
+Signal.handlerDisconnect textView handlerId
 </code>
 </example>
 </section>
@@ -306,7 +306,7 @@ Signal.disconnect textView handlerId
 <section>
 <title>Testing whether signal handlers are still connected</title>
 <p>
-<code>Signal.isConnected</code> tests whether a signal is connected.
+<code>Signal.handlerIsConnected</code> tests whether a signal is connected.
 The signal handler is identified by the object that emits the signal and
 the handler id returned when it was connected.
 </p>
@@ -316,7 +316,7 @@ For example, a signal handler on <code>textView</code> identified by <code>handl
 is tested as follows:
 </p>
 <code>
-Signal.isConnected textView handlerId
+Signal.handlerIsConnected textView handlerId
 </code>
 </example>
 </section>
