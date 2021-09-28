@@ -619,12 +619,21 @@ See the section <link xref="ug-signals"/> for a more detailed description.
 </p>
 <p>
 For a signal “<var>some</var>-<var>signal</var>-<var>name</var>”
-of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
+of a class <code><var>Namespace</var>.<var>Type</var></code>,
 the SML interface provides
 </p>
 <code>
 <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig : ('a <var>Namespace</var>.<var>Type</var>.class, <var>argType_e</var>, <var>argType_h</var>, <var>resType_h</var>, <var>resType_e</var>) Signal.t
 </code>
+<p>
+For a signal “<var>some</var>-<var>signal</var>-<var>name</var>”
+of an interface <code><var>Namespace</var>.<var>Type</var></code>,
+the SML interface provides
+</p>
+<code>
+<var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig : (<var>Namespace</var>.<var>Type</var>.t, <var>argType_e</var>, <var>argType_h</var>, <var>resType_h</var>, <var>resType_e</var>) Signal.t
+</code>
+
 <section>
 <title>Detail</title>
 <p>
@@ -708,11 +717,19 @@ See the section <link xref="ug-properties"/> for a more detailed description.
 </p>
 <p>
 For a property “<var>some</var>-<var>property</var>-<var>name</var>”
-of a class or interface <code><var>Namespace</var>.<var>Type</var></code>,
+of a class <code><var>Namespace</var>.<var>Type</var></code>,
 the SML interface provides
 </p>
 <code>
 <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Property</var><var>Name</var>Prop : ('a <var>Namespace</var>.<var>Type</var>.class, <var>getType</var>, <var>setType</var>, <var>initType</var>) Property.t
+</code>
+<p>
+For a property “<var>some</var>-<var>property</var>-<var>name</var>”
+of an interface <code><var>Namespace</var>.<var>Type</var></code>,
+the SML interface provides
+</p>
+<code>
+<var>Namespace</var>.<var>Type</var>.<var>some</var><var>Property</var><var>Name</var>Prop : (<var>Namespace</var>.<var>Type</var>.t, <var>getType</var>, <var>setType</var>, <var>initType</var>) Property.t
 </code>
 
 <section>

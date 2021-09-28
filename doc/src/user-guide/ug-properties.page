@@ -55,7 +55,13 @@ where
 <terms>
 <item>
   <title><code><var>instanceType</var></code></title>
-  <p>is <code>'a class</code> which represents the class or interface that provides the property or any subclass of the class;</p>
+  <p>
+    is:
+  </p>
+  <list>
+    <item><p><code>'a class</code> for a class, which allows an instance of the class or any subclass of the class;</p></item>
+    <item><p><code>t</code> for an interface;</p></item>
+  </list>
 </item>
 <item>
   <title><code><var>getType</var></code></title>
