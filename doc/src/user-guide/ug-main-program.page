@@ -84,8 +84,8 @@ fun main () =
     val app = Gtk.Application.new (SOME <var>appId</var>, Gio.ApplicationFlags.flags […])
     …
 
-    val args = Utf8CPtrArrayN.fromList (CommandLine.name () :: CommandLine.arguments ())
-    val status = Gio.Application.run app args
+    val argv = Utf8CPtrArrayN.fromList (CommandLine.name () :: CommandLine.arguments ())
+    val status = Gio.Application.run app argv
   in
     Giraffe.exit status
   end
@@ -108,8 +108,8 @@ fun main () =
     val app = Gtk.Application.new (SOME <var>appId</var>, Gio.ApplicationFlags.flags [])
     val id = Signal.connect app (Gio.Application.activateSig, activate app)
 
-    val args = Utf8CPtrArrayN.fromList (CommandLine.name () :: CommandLine.arguments ())
-    val status = Gio.Application.run app args
+    val argv = Utf8CPtrArrayN.fromList (CommandLine.name () :: CommandLine.arguments ())
+    val status = Gio.Application.run app argv
 
     val () = Signal.disconnect app id
   in
@@ -131,8 +131,8 @@ Using this approach, a main program could have the following form:
 <code>
 fun main () =
   let
-    val args = Utf8CPtrArrayN.fromList (CommandLine.name () :: CommandLine.arguments ())
-    val … = Gtk.init args
+    val argv = Utf8CPtrArrayN.fromList (CommandLine.name () :: CommandLine.arguments ())
+    val … = Gtk.init argv
 
     …  (* set up *)
 
