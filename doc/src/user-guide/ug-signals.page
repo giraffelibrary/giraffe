@@ -224,9 +224,14 @@ of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
 implemented by the class <code><var>ClassNamespace</var>.<var>Class</var></code>,
 a handler function <code><var>f</var></code>
 is connected to the signal on the object <code><var>obj</var></code> by
+either converting <code><var>obj</var></code>:
 </p>
 <code>
 Signal.connect (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>) (<var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig, <var>f</var>)
+</code>
+<p>or converting the signal:</p>
+<code>
+Signal.connect <var>obj</var> (Signal.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig, <var>f</var>)
 </code>
 <example>
 <p>
@@ -361,9 +366,14 @@ For a signal “<var>a</var>”
 of an interface <code><var>IfaceNamespace</var>.<var>Iface</var></code>
 implemented by the class <code><var>ClassNamespace</var>.<var>Class</var></code>,
 the signal is emitted on an object <code><var>obj</var></code> with an argument <code><var>arg</var></code> by
+either converting <code><var>obj</var></code>:
 </p>
 <code>
 Signal.emit (<var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>obj</var>) <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig <var>arg</var>
+</code>
+<p>or converting the signal:</p>
+<code>
+Signal.emit <var>obj</var> (Signal.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Iface</var> <var>IfaceNamespace</var>.<var>Iface</var>.<var>a</var>Sig) <var>arg</var>
 </code>
 <example>
 <p>

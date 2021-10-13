@@ -64,6 +64,11 @@ signature SIGNAL =
                marshaller
       }
 
+    val conv :
+      ('a -> 'b)
+       -> ('b, 'arg_e, 'arg_h, 'res_h, 'res_e) t
+       -> ('a, 'arg_e, 'arg_h, 'res_h, 'res_e) t
+
     type 'a object_class
 
     val emit :

@@ -108,6 +108,13 @@ structure Signal :>
                marshaller
       }
 
+    fun conv f {name, detail, marshaller} =
+      {
+        name       = name,
+        detail     = detail,
+        marshaller = ClosureMarshal.map (Fn.id, Pair.mapFst f, Fn.id, Fn.id) o marshaller
+      }
+
     local
       val call = Utf8.FFI.withPtr 0 &&&> GObjectType.FFI.withVal ---> I
     in

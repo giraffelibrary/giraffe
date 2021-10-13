@@ -668,13 +668,24 @@ Signal.connect <var>obj</var> (<var>Namespace</var>.<var>Type</var>.<var>some</v
 If <code><var>Namespace</var>.<var>Type</var></code> is an interface, not a class,
 but the SML type of <code><var>obj</var></code>
 is an instance of a class <code><var>ClassNamespace</var>.<var>Class</var></code> that implements the interface,
-<code><var>obj</var></code> must be explicitly converted,
-as described above in the section <link xref="#implemented-interfaces"/>,
-to have an SML type that is an instance of the interface.
+the SML types must be explicitly aligned
+as described above in the section <link xref="#implemented-interfaces"/>.
+In this case, it is necessary to convert either
 </p>
-<code>
-Signal.connect (<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>obj</var>) (<var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig, <var>f</var>) : Signal.handler_id
+<list>
+<item>
+  <p>the SML type of <code><var>obj</var></code> by</p>
+  <code>
+<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>obj</var>
 </code>
+</item>
+<item>
+  <p>the SML type of <code><var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig</code> by</p>
+  <code>
+Signal.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig
+</code>
+</item>
+</list>
 <p>
 A signal handler on an object <code><var>obj</var></code> with id <code><var>handlerId</var> : Signal.handler_id</code> is blocked by
 </p>
@@ -712,13 +723,24 @@ Signal.emit <var>obj</var> <var>Namespace</var>.<var>Type</var>.<var>some</var><
 If <code><var>Namespace</var>.<var>Type</var></code> is an interface, not a class,
 but the SML type of <code><var>obj</var></code>
 is an instance of a class <code><var>ClassNamespace</var>.<var>Class</var></code> that implements the interface,
-<code><var>obj</var></code> must be explicitly converted,
-as described above in the section <link xref="#implemented-interfaces"/>,
-to have an SML type that is an instance of the interface.
+the SML types must be explicitly aligned
+as described above in the section <link xref="#implemented-interfaces"/>.
+In this case, it is necessary to convert either
 </p>
-<code>
-Signal.emit (<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>obj</var>) <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig : <var>argType_e</var> -> <var>resType_e</var>
+<list>
+<item>
+  <p>the SML type of <code><var>obj</var></code> by</p>
+  <code>
+<var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>obj</var>
 </code>
+</item>
+<item>
+  <p>the SML type of <code><var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig</code> by</p>
+  <code>
+Signal.conv <var>ClassNamespace</var>.<var>Class</var>.as<var>Type</var> <var>Namespace</var>.<var>Type</var>.<var>some</var><var>Signal</var><var>Name</var>Sig
+</code>
+</item>
+</list>
 </section>
 </section>
 
@@ -767,7 +789,7 @@ Otherwise, if the property is not writable after construction, <code><var>setTyp
 <p>
 If <code><var>Namespace</var>.<var>Type</var></code> is an interface, not a class,
 but the SML type of <code><var>obj</var></code>
-is an instance of a class <code><var>ClassNamespace</var>.<var>Class</var></code>,
+is an instance of a class <code><var>ClassNamespace</var>.<var>Class</var></code> that implements the interface,
 the SML types must be explicitly aligned
 as described above in the section <link xref="#implemented-interfaces"/>.
 In this case, it is necessary to convert either
