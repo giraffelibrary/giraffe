@@ -5,9 +5,11 @@
  * or visit <http://www.giraffelibrary.org/licence-runtime.html>.
  *)
 
+use "TABLE-sig.sml";
 use "Pair.sml";
 use "Combinators.sml";
 use "Fn.sml";
+use "WordTable-fun.sml";
 use "Word32BitFlags-fun.sml";
 use "GIRAFFE-sig.sml";
 use "GIRAFFE_LOG-sig.sml";

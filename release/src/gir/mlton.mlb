@@ -19,7 +19,6 @@ in
   VALUE_RECORD-sig.sml
   FIELD_TYPE-sig.sml
   FIELD-sig.sml
-  TABLE-sig.sml
   CLOSURE-sig.sml
   CALLBACK-sig.sml
   FLAGS-sig.sml
@@ -41,7 +40,6 @@ in
     OptPointerFieldType-fun.sml
     mlton/Flags-fun.sml
     mlton/Enum-fun.sml
-    WordTable-fun.sml
     mlton/Closure-fun.sml
     mlton/Callback-fun.sml
   end

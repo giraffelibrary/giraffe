@@ -33,7 +33,10 @@ signature TABLE =
     val new : unit -> 'a t
     val insert : 'a t -> 'a -> key
     val delete : 'a t -> key -> 'a option
+    val filter : 'a t -> ('a -> bool) -> key list
     val lookup : 'a t -> key -> 'a option
     val fold : ('a * 'b -> 'b) -> 'a t * 'b -> 'b
+    val foldi : (key -> 'a * 'b -> 'b) -> 'a t * 'b -> 'b
     val app : ('a -> unit) -> 'a t -> unit
+    val appi : (key -> 'a -> unit) -> 'a t -> unit
   end

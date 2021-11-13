@@ -9,12 +9,14 @@ local
   $(SML_LIB)/basis/basis.mlb
   $(SML_LIB)/basis/mlton.mlb
 in
+  TABLE-sig.sml
   ann
     "deadCode true"
   in
     "Pair.sml"
     "Combinators.sml"
     "Fn.sml"
+    WordTable-fun.sml
     "Word32BitFlags-fun.sml"
     "GIRAFFE-sig.sml"
     "GIRAFFE_LOG-sig.sml"

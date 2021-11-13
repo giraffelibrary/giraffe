@@ -1,4 +1,4 @@
-(* Copyright (C) 2012, 2018, 2020-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012, 2018, 2020-2021, 2023 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -27,7 +27,16 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
 
     val fmtKey = Key.fmt StringCvt.DEC
 
-    (* The table is effectively a dynamic array whose size grows as
+     (* The keys are simply an index into the concatenation of the blocks
+     * and are allocated sequentially starting from 1. For type `key`
+     * defined as `Key.word` and excluding key 0, at most `Key.wordSize`
+     * blocks are required.
+     *)
+    val nullKey = fromWord 0w0
+    val firstKey = fromWord 0w1
+    val numBlocks = Key.wordSize
+
+   (* The table is effectively a dynamic array whose size grows as
      * required.  No attempt is made to shrink the structure where
      * possible.  The dynamic array is allocated in blocks whose sizes
      * increase exponentially.  Once a block is allocated, it is never
@@ -38,17 +47,8 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
       val << = Key.<<
       infix <<
     in
-      fun blockLength (idx : Word.word) = (fromWord 0w1) << idx
+      fun blockLength (idx : Word.word) = firstKey << idx
     end
-
-    (* The keys are simply an index into the concatenation of the blocks
-     * and are allocated sequentially starting from 1. For type `key`
-     * defined as `Key.word` and excluding key 0, at most `Key.wordSize`
-     * blocks are required.
-     *)
-    val nullKey = fromWord 0w0
-    val firstKey = fromWord 0w1
-    val numBlocks = Key.wordSize
 
     (* When an entry is removed its key is recycled by maintaining a list
      * of recovered keys.  When a fresh key is required, recovered keys
@@ -82,11 +82,11 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
           infix >>
 
           fun aux (n, w) =
-            if w = fromWord 0w0
+            if w = nullKey
             then n
             else aux (n + 0w1, w >> 0w1)
         in
-          if w = fromWord 0w0
+          if w = nullKey
           then raise Domain
           else aux (0w0, w >> 0w1)
         end
@@ -99,11 +99,21 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
           val op - = Key.-
           val bIdx : Word.word = log2 key
           val bLen : Key.word  = blockLength bIdx
-          val eIdx : Key.word  = andb (bLen - fromWord 0w1, key)
+          val eIdx : Key.word  = andb (bLen - firstKey, key)
         in
           {bIdx = Word.toInt bIdx, eIdx = toInt eIdx, bLen = toInt bLen}
         end
     end
+
+    fun indexKey (bi : int) =
+      let
+        val op + = Key.+
+        val << = Key.<<
+        infix <<
+        val baseIdx = firstKey << Word.fromInt bi
+      in
+        fn ei : int => baseIdx + (Key.fromInt ei)
+      end
 
     (**
      * A table with elements of type `'a` is represented by the type `'a t`.
@@ -152,7 +162,7 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
     fun getFreshKey (nextKey, recKeys) =
       case !recKeys of
         key :: keys => key before recKeys := keys
-      | []          => !nextKey before nextKey := !nextKey + fromWord 0w1
+      | []          => !nextKey before nextKey := !nextKey + firstKey
 
     fun insert {nextKey, recKeys, blocks} x =
       let
@@ -197,6 +207,35 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
 
 
     (**
+     * Filtering
+     *)
+    fun filter {recKeys, blocks, ...} f =
+      let
+        fun filterElem block indexKey =
+          fn
+            (ei, SOME e, keys) =>
+              if f e
+              then keys
+              else (
+                Array.update (block, ei, NONE);
+                indexKey ei :: keys
+              )
+          | (_,  NONE,   keys) => keys
+
+        exception Done of key list
+        val filterBlock =
+          fn
+            (bi, SOME block, keys) => Array.foldli (filterElem block (indexKey bi)) keys block
+          | (_,  NONE,       keys) => raise Done keys
+
+        val keys = Array.foldli filterBlock [] blocks handle Done keys => keys 
+      in
+        recKeys := List.revAppend (keys, !recKeys);
+        keys
+      end
+
+
+    (**
      * Look up
      *)
     fun lookup {blocks, ...} key =
@@ -228,6 +267,22 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
         Array.foldl addBlock acc blocks handle Done acc => acc
       end
 
+    fun foldi f ({blocks, ...}, acc) =
+      let
+        fun addElem indexKey =
+          fn
+            (ei, SOME e, acc) => f (indexKey ei) (e, acc)
+          | (_,  NONE,   acc) => acc
+
+        exception Done of 'a
+        val addBlock =
+          fn
+            (bi, SOME block, acc) => Array.foldli (addElem (indexKey bi)) acc block
+          | (_,  NONE,       acc) => raise Done acc
+      in
+        Array.foldli addBlock acc blocks handle Done acc => acc
+      end
+
 
     (**
      * App
@@ -241,5 +296,20 @@ functor WordTable(Key : WORD) :> TABLE where type key = Key.word =
           | NONE       => raise Done
       in
         Array.app appBlock blocks handle Done => ()
+      end
+
+    fun appi f {blocks, ...} =
+      let
+        exception Done
+        fun appElem indexKey =
+          fn
+            (ei, SOME e) => f (indexKey ei) e
+          | (_,  NONE)   => ()
+        val appBlock =
+          fn
+            (bi, SOME block) => Array.appi (appElem (indexKey bi)) block
+          | (_,  NONE)       => raise Done
+      in
+        Array.appi appBlock blocks handle Done => ()
       end
   end
