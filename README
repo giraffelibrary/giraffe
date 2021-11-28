@@ -1,4 +1,37 @@
-This repository contains the Giraffe Library code generator and documentation.
+
+  __ o  o __
+  \_\|__|/_/
+   (o  o)/           Giraffe Code Generator
+    |_ /\
+    '-'\|\           The code generator for Giraffe Library.
+        \_\
+         \|\
+          \_\          You do not need this repository to use Giraffe Library!
+          / |\         The latest release packages and documentation have been
+         /_/\_\        generated for you and are available from
+        /|/  \|\
+       /_/    \_\          http://giraffelibrary.org/
+      /|/      \|\
+     /_/        \_\
+
+
+Overview
+
+The Giraffe Code Generator generates an SML interface to libraries using the
+GObject Introspection metadata (GIR or TYPELIB files) provided by the libraries.
+The Giraffe Library source release files are generated using the GIR files only.
+Originally, the TYPELIB files were used and support is retained for generating
+code from them but only for comparison, to validate the code generated from GIR
+files.
+
+In addition to the code generator, this repository provides static (i.e. not
+generated) source release files.  The final source release contains both static
+and generated files.  After the code generation steps below are performed, the
+final source release is in the directory 'release', which can be used as a
+Giraffe Library release.  However, users do not need to generate the release,
+which may require additional tools, as the latest is available from the website
+(http://giraffelibrary.org/).
+
 
 This document contains the following sections:
 
@@ -14,6 +47,9 @@ This document contains the following sections:
 The repository contains the following:
 
   README            - this file
+  LICENCE           - overview of the licences
+  LICENCE.CODEGEN   - the licence that covers the code generator source code
+  COPYING           - a copy of the GNU GPL version 3
   release/          - source release files excluding generated code
   Makefile          - Make file for building source release TAR file
   codegen           - script to perform code generation steps
@@ -24,6 +60,7 @@ The repository contains the following:
   fixes-gir/        - fixes to generated code
   extra-gir/        - extra code that is not generated
   mlton-fixes/      - fixes to generated MLton-specific C code
+  gir2typelib/      - script to compare code generated from GIR and TYPELIB data
 
 The following are submodules which must be initialized in the working directory,
 as described in section 2 below, before code generation can be performed:
@@ -34,8 +71,7 @@ as described in section 2 below, before code generation can be performed:
   doc/
     examples/       - Giraffe Library Examples
 
-The following are created in the working directory as a result of code
-generation:
+The following are created in the working directory during code generation:
 
   auto-gir/         - code that is generated from GIR files
   auto-typelib/     - code that is generated from TYPELIB files
@@ -43,11 +79,15 @@ generation:
   mlton-auto/       - MLton-specific C code that is generated from GIR files
   mlton-fixed/      - final version of MLton-specific C code for source release
 
+The following contain the release files after code generation:
+
+  release/          - Giraffe Library source release files
+
 The following are created in the working directory as a result of building the
-source release TAR file:
+release packages:
 
   giraffe-${VERSION}.tar.gz
-                    - source release TAR file
+                    - Giraffe Library source release package
 
 
 
