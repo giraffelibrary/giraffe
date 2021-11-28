@@ -238,7 +238,7 @@ fi
 # Check SML compilers
 
 MIN_MLTON_VERSION="20130715"
-MIN_POLYML_VERSION="5.5.2"
+MIN_POLYML_VERSION="5.6"
 
 echo
 echo "== Checking SML compilers =="
