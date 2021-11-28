@@ -12,6 +12,82 @@
   provided with the release.
 </p>
 
+<section id="1.0.0-alpha.12">
+<title>1.0.0-alpha.12 (2021-11-28)</title>
+<p>Release packages:</p>
+<list style="compact">
+<item><p><link href="releases/1.0.0-alpha.12/giraffe-1.0.0-alpha.12.tar.gz">giraffe-1.0.0-alpha.12.tar.gz</link></p></item>
+</list>
+<p>Changes since release 1.0.0-alpha.11:</p>
+<list style="compact">
+<item>
+  <p>
+    Changed function names in the module Signal to align with GIR metadata:
+  </p>
+  <table>
+  <tr><td><p><code>Signal.disconnect</code></p></td><td><p>&#8594;</p></td><td><p><code>Signal.handlerDisconnect</code></p></td></tr>
+  <tr><td><p><code>Signal.isConnected</code></p></td><td><p>&#8594;</p></td><td><p><code>Signal.handlerIsConnected</code></p></td></tr>
+  </table>
+</item>
+<item>
+  <p>
+    Changed type names in the module Signal:
+  </p>
+  <table>
+  <tr><td><p><code>Signal.id</code></p></td><td><p>&#8594;</p></td><td><p><code>Signal.handler_id</code></p></td></tr>
+  </table>
+</item>
+<item><p>Poly/ML 5.8.2 supported.  Note that Poly/ML >= 5.8.2 does not use libffi.</p></item>
+<item>
+  <p>Poly/ML-specific changes:</p>
+  <list style="compact">
+  <item>
+    <p>
+      Dynamic linking used for versions of Poly/ML >= 5.8.
+      Earlier versions do not support dynamic linking and dynamic loading is still used.
+    </p>
+  </item>
+  </list>
+</item>
+<item>
+  <p>MLton-specific changes:</p>
+  <list style="compact">
+  <item>
+    <p>
+      Added <code>deadCode</code> annotation to MLB files to reduce compilation times.
+    </p>
+  </item>
+  </list>
+</item>
+<item>
+  <p>
+    Updated internal representation of C size types to avoid unnecessary internal conversions and checks.
+    This representation is compatible with LLP64 systems (such as Windows 64 bit).
+    Also, this reduces the size of binaries, significantly for Poly/ML.
+  </p>
+</item>
+<item><p>Added support for specifying signal detail.</p></item>
+<item><p>Added support for emitting a signal.</p></item>
+<item><p>Added support for blocking and unblocking a signal handler.</p></item>
+<item>
+  <p>
+    Added signal conversion function <code>Signal.conv</code>
+    to convert
+    a signal of an interface to
+    a signal of a class or interface
+    that implements the interface.
+  </p>
+</item>
+<item>
+  <p>
+    Fixed loss of property type safety
+    where SML type checking did not ensure that access to
+    a property was allowed only for an object with the property.
+  </p>
+</item>
+</list>
+</section>
+
 <section id="1.0.0-alpha.11">
 <title>1.0.0-alpha.11 (2021-02-10)</title>
 <p>Release packages:</p>

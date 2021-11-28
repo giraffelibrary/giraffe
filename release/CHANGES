@@ -1,3 +1,30 @@
+1.0.0-alpha.12 (2021-11-28)
+
+  - Changed function names in the module Signal to align with GIR metadata:
+        `Signal.disconnect`  ---> `Signal.handlerDisconnect`
+        `Signal.isConnected` ---> `Signal.handlerIsConnected`
+  - Changed type names in the module Signal:
+        `Signal.id` --->  `Signal.handler_id`
+  - Poly/ML 5.8.2 supported.  Note that Poly/ML >= 5.8.2 does not use libffi.
+  - Poly/ML-specific changes:
+      - Dynamic linking used for versions of Poly/ML >= 5.8.  Earlier versions
+         do not support dynamic linking and dynamic loading is still used.
+  - MLton-specific changes:
+      - Added `deadCode` annotation to MLB files to reduce compilation times.
+  - Updated internal representation of C size types to avoid unnecessary
+     internal conversions and checks.  This representation is compatible with
+     LLP64 systems (such as Windows 64 bit).  Also, this reduces the size of
+     binaries, significantly for Poly/ML.
+  - Added support for specifying signal detail.
+  - Added support for emitting a signal.
+  - Added support for blocking and unblocking a signal handler.
+  - Added signal conversion function `Signal.conv` to convert a signal of
+     an interface to a signal of a class or interface that implements the
+     interface.
+  - Fixed loss of property type safety where SML type checking did not ensure
+     that access to a property was allowed only for an object with the property.
+
+
 1.0.0-alpha.11 (2021-02-10)
 
   - Changed functions `[Child]Signal.connect[After]` to take signal and handler
