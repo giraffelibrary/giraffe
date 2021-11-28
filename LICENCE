@@ -12,7 +12,7 @@ There are two licences:
 
     This applies to files in this repository EXCEPT those in
       - the directory 'release' (see item 1 above)
-      - the directory 'src/xml' (see ...)
+      - the directory 'src/xml' (see the file 'src/xml/README')
       - directories for Git submodules, as listed in the file '.gitmodules'
 
     See 'LICENCE.CODEGEN'.
