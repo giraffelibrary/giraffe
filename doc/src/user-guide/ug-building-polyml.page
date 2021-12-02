@@ -224,7 +224,7 @@ At a minimum, the <cmd>gcc</cmd> command must do the following
 to link the object file and generate an exectuable:
 </p>
 <list>
-<item><p>(Darwin only) Specify that a position-independent executable is <em>not</em> generated.</p></item>
+<item><p>(Darwin only) If Poly/ML &lt; 5.9 or Poly/ML generates X86/32 code, specify that a position-independent executable is <em>not</em> generated.</p></item>
 <item><p>Set the run path for dynamically linked/loaded shared object files provided by Poly/ML and Giraffe Library.</p></item>
 <item><p>Specify the executable file name to generate.</p></item>
 <item><p>Specify the object file to link.</p></item>
@@ -257,7 +257,7 @@ This is achieved by the following command:
 </item>
 <item>
   <p>
-    Under Darwin, the same as for Linux except that the <cmd>ld</cmd> flag <cmd>-no_pie</cmd> is also specified:
+    Under Darwin, the same as for Linux except that the <cmd>ld</cmd> flag <cmd>-no_pie</cmd> is also specified in case Poly/ML &lt; 5.9 or Poly/ML generates X86/32 code:
   </p>
   <quote>
   <screen><cmd>gcc \
@@ -386,7 +386,7 @@ the following commands could be used.
   </item>
   <item>
     <p>
-      Under Darwin, the same as for Linux except that the <cmd>ld</cmd> flag <cmd>-no_pie</cmd> is also specified:
+      Under Darwin, the same as for Linux except that the <cmd>ld</cmd> flag <cmd>-no_pie</cmd> is also specified in case Poly/ML &lt; 5.9 or Poly/ML generates X86/32 code:
     </p>
     <quote>
     <screen><cmd>gcc \
