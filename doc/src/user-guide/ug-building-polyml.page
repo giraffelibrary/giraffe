@@ -244,13 +244,13 @@ This is achieved by the following command:
  -Wl,-rpath,<var>installdir</var>/lib/polyml \
  -o <var>name</var> \
  <var>name</var>.o \
+ -L<var>installdir</var>/lib/polyml \
+ -lgiraffe-<var>namespace1</var>-<var>version1</var> \
+ -lgiraffe-<var>namespace2</var>-<var>version2</var> \
  $(PKG_CONFIG_PATH=<var>polymldir</var>/lib/pkgconfig:${PKG_CONFIG_PATH} pkg-config --libs polyml \
                 $(cat <var>installdir</var>/lib/sml/<var>namespace1</var>-<var>version1</var>/package) \
                 $(cat <var>installdir</var>/lib/sml/<var>namespace2</var>-<var>version2</var>/package) \
                 …) \
- -L<var>installdir</var>/lib/polyml \
- -lgiraffe-<var>namespace1</var>-<var>version1</var> \
- -lgiraffe-<var>namespace2</var>-<var>version2</var> \
  …
 </cmd></screen>
   </quote>
@@ -266,13 +266,13 @@ This is achieved by the following command:
  -Wl,-rpath,<var>installdir</var>/lib/polyml \
  -o <var>name</var> \
  <var>name</var>.o \
+ -L<var>installdir</var>/lib/polyml \
+ -lgiraffe-<var>namespace1</var>-<var>version1</var> \
+ -lgiraffe-<var>namespace2</var>-<var>version2</var> \
  $(PKG_CONFIG_PATH=<var>polymldir</var>/lib/pkgconfig:${PKG_CONFIG_PATH} pkg-config --libs polyml \
                 $(cat <var>installdir</var>/lib/sml/<var>namespace1</var>-<var>version1</var>/package) \
                 $(cat <var>installdir</var>/lib/sml/<var>namespace2</var>-<var>version2</var>/package) \
                 …) \
- -L<var>installdir</var>/lib/polyml \
- -lgiraffe-<var>namespace1</var>-<var>version1</var> \
- -lgiraffe-<var>namespace2</var>-<var>version2</var> \
  …
 </cmd></screen>
   </quote>
@@ -374,14 +374,14 @@ the following commands could be used.
  -Wl,-rpath,${GIRAFFEHOME}/lib/polyml \
  -o example-1-polyml \
  example-1-polyml.o \
- $(PKG_CONFIG_PATH=${POLYMLHOME}/lib/pkgconfig:${PKG_CONFIG_PATH} pkg-config --libs polyml \
-                $(cat ${GIRAFFEHOME}/lib/sml/gobject-2.0/package) \
-                $(cat ${GIRAFFEHOME}/lib/sml/gio-2.0/package) \
-                $(cat ${GIRAFFEHOME}/lib/sml/gtk-3.0/package)) \
  -L${GIRAFFEHOME}/lib/polyml \
  -lgiraffe-gobject-2.0 \
  -lgiraffe-gio-2.0 \
- -lgiraffe-gtk-3.0</cmd></screen>
+ -lgiraffe-gtk-3.0 \
+ $(PKG_CONFIG_PATH=${POLYMLHOME}/lib/pkgconfig:${PKG_CONFIG_PATH} pkg-config --libs polyml \
+                $(cat ${GIRAFFEHOME}/lib/sml/gobject-2.0/package) \
+                $(cat ${GIRAFFEHOME}/lib/sml/gio-2.0/package) \
+                $(cat ${GIRAFFEHOME}/lib/sml/gtk-3.0/package))</cmd></screen>
     </quote>
   </item>
   <item>
@@ -396,14 +396,14 @@ the following commands could be used.
  -Wl,-rpath,${GIRAFFEHOME}/lib/polyml \
  -o example-1-polyml \
  example-1-polyml.o \
- $(PKG_CONFIG_PATH=${POLYMLHOME}/lib/pkgconfig:${PKG_CONFIG_PATH} pkg-config --libs polyml \
-                $(cat ${GIRAFFEHOME}/lib/sml/gobject-2.0/package) \
-                $(cat ${GIRAFFEHOME}/lib/sml/gio-2.0/package) \
-                $(cat ${GIRAFFEHOME}/lib/sml/gtk-3.0/package)) \
  -L${GIRAFFEHOME}/lib/polyml \
  -lgiraffe-gobject-2.0 \
  -lgiraffe-gio-2.0 \
- -lgiraffe-gtk-3.0</cmd></screen>
+ -lgiraffe-gtk-3.0 \
+ $(PKG_CONFIG_PATH=${POLYMLHOME}/lib/pkgconfig:${PKG_CONFIG_PATH} pkg-config --libs polyml \
+                $(cat ${GIRAFFEHOME}/lib/sml/gobject-2.0/package) \
+                $(cat ${GIRAFFEHOME}/lib/sml/gio-2.0/package) \
+                $(cat ${GIRAFFEHOME}/lib/sml/gtk-3.0/package))</cmd></screen>
     </quote>
   </item>
   </list>

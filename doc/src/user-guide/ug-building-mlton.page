@@ -125,13 +125,13 @@ This is achieved by the following command:
 <screen>
 <cmd>mlton \
  -mlb-path-var "GIRAFFE_SML_LIB <var>installdir</var>/lib/sml" \
- -link-opt "$(pkg-config --libs \
+ -link-opt "-L<var>installdir</var>/lib/mlton \
+            -lgiraffe-<var>namespace1</var>-<var>version1</var> \
+            -lgiraffe-<var>namespace2</var>-<var>version2</var> \
+            $(pkg-config --libs \
                 $(cat <var>installdir</var>/lib/sml/<var>namespace1</var>-<var>version1</var>/package) \
                 $(cat <var>installdir</var>/lib/sml/<var>namespace2</var>-<var>version2</var>/package) \
                 …) \
-            -L<var>installdir</var>/lib/mlton \
-            -lgiraffe-<var>namespace1</var>-<var>version1</var> \
-            -lgiraffe-<var>namespace2</var>-<var>version2</var> \
             …" \
  mlton.mlb</cmd>
 </screen>
@@ -173,13 +173,13 @@ This is achieved by the following command:
  -const "GiraffeDebug.isEnabled <var>debugEnabled</var>" \
  -const "Exn.keepHistory true" \
  -cc-opt "-ggdb -std=c99 -O2" \
- -link-opt "$(pkg-config --libs \
+ -link-opt "-L<var>installdir</var>/lib/mlton \
+            -lgiraffe-<var>namespace1</var>-<var>version1</var> \
+            -lgiraffe-<var>namespace2</var>-<var>version2</var> \
+            $(pkg-config --libs \
                 $(cat <var>installdir</var>/lib/sml/<var>namespace1</var>-<var>version1</var>/package) \
                 $(cat <var>installdir</var>/lib/sml/<var>namespace2</var>-<var>version2</var>/package) \
                 …) \
-            -L<var>installdir</var>/lib/mlton \
-            -lgiraffe-<var>namespace1</var>-<var>version1</var> \
-            -lgiraffe-<var>namespace2</var>-<var>version2</var> \
             …" \
  mlton.mlb</cmd>
 </screen>
@@ -234,14 +234,14 @@ the following <cmd>mlton</cmd> command could be used:
  -const "GiraffeDebug.isEnabled true" \
  -const "Exn.keepHistory true" \
  -cc-opt "-ggdb -std=c99 -O2" \
- -link-opt "$(pkg-config --libs \
-                $(cat ${GIRAFFEHOME}/lib/sml/gobject-2.0/package) \
-                $(cat ${GIRAFFEHOME}/lib/sml/gio-2.0/package) \
-                $(cat ${GIRAFFEHOME}/lib/sml/gtk-3.0/package)) \
-            -L${GIRAFFEHOME}/lib/mlton \
+ -link-opt "-L${GIRAFFEHOME}/lib/mlton \
             -lgiraffe-gobject-2.0 \
             -lgiraffe-gio-2.0 \
-            -lgiraffe-gtk-3.0" \
+            -lgiraffe-gtk-3.0 \
+            $(pkg-config --libs \
+                $(cat ${GIRAFFEHOME}/lib/sml/gobject-2.0/package) \
+                $(cat ${GIRAFFEHOME}/lib/sml/gio-2.0/package) \
+                $(cat ${GIRAFFEHOME}/lib/sml/gtk-3.0/package))" \
  mlton.mlb
 </cmd>
 </screen>
