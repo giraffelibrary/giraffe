@@ -305,16 +305,6 @@
           <item>arg user_data: pointer C type for VOID not supported</item>
         </item>
         <item>
-          function invoke_full
-          <item>
-            arg notify
-            <item>
-              type interface
-              <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
-            </item>
-          </item>
-        </item>
-        <item>
           function query
           <item>
             arg fds
@@ -379,16 +369,6 @@
         <item>
           function find_source_by_user_data
           <item>arg user_data: pointer C type for VOID not supported</item>
-        </item>
-        <item>
-          function invoke_full
-          <item>
-            arg notify
-            <item>
-              type interface
-              <item>callback DestroyNotify: type CALLBACK INTERFACE not supported</item>
-            </item>
-          </item>
         </item>
         <item>
           function query

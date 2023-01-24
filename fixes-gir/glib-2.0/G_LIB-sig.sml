@@ -113,6 +113,7 @@ signature G_LIB =
       G_LIB_MAIN_CONTEXT
         where type t = MainContextRecord.t
         where type source_t = SourceRecord.t
+        where type source_func_t = SourceFunc.t
     structure MainLoop :
       G_LIB_MAIN_LOOP
         where type t = MainLoopRecord.t
