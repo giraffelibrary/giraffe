@@ -1,4 +1,4 @@
-(* Copyright (C) 2012-2020 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2012-2020, 2023 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -14,6 +14,8 @@ use (
 use "polyml/PolyMLFFI.sml";
 use "HighLevelFFI.sml";
 use "FINALIZABLE-sig.sml";
+use "CONTEXT_FINALIZABLE-sig.sml";
+use "THREAD_FINALIZABLE-sig.sml";
 use "polyml/CMemory_0.sml";
 use "C_MEMORY-sig.sml";
 use "polyml/C_MEMORY-sig.sml";
@@ -46,7 +48,11 @@ use "C_ARRAY_TYPE-sig.sml";
 use "C_ARRAY-sig.sml";
 use "polyml/C_ARRAY-sig.sml";
 use "C_ARRAY_N-sig.sml";
-use "polyml/Finalizable.sml";
+use "SHARED_VAR-sig.sml";
+use "polyml/SharedVar.sml";
+use "polyml/ContextFinalizable.sml";
+use "polyml/ThreadFinalizable.sml";
+use "Finalizable.sml";
 use "polyml/CMemory.sml";
 use "polyml/CRef-fun.sml";
 use "polyml/CPointerInternal-fun.sml";
