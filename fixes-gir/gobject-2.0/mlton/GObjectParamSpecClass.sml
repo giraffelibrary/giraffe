@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2015-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2015-2021, 2023 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -7,8 +7,7 @@
 
 structure GObjectParamSpecClass :>
   G_OBJECT_PARAM_SPEC_CLASS
-    where type type_t = GObjectType.t
-    where type 'a value_accessor_t = 'a ValueAccessor.t =
+    where type type_t = GObjectType.t =
   struct
     structure Pointer = CPointer(GMemory)
     type opt = Pointer.opt
@@ -213,7 +212,6 @@ structure GObjectParamSpecClass :>
     val instanceType_ = _import "giraffe_g_param_spec_type" : non_opt p -> GObjectType.FFI.val_;
 
     type type_t = GObjectType.t
-    type 'a value_accessor_t = 'a ValueAccessor.t
 
     val t =
       ValueAccessor.C.createAccessor {

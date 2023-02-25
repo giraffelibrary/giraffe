@@ -8,7 +8,6 @@ structure GObjectObject :>
     where type value_t = GObjectValueRecord.t
     where type closure_t = GObjectClosureRecord.t
     where type 'a param_spec_class = 'a GObjectParamSpecClass.class
-    where type 'a value_accessor_t = 'a ValueAccessor.t
     where type 'object_class property_init_t = 'object_class Property.init_t
     where type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t = ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t =
   struct
@@ -87,7 +86,6 @@ structure GObjectObject :>
     type value_t = GObjectValueRecord.t
     type closure_t = GObjectClosureRecord.t
     type 'a param_spec_class = 'a GObjectParamSpecClass.class
-    type 'a value_accessor_t = 'a ValueAccessor.t
     type 'object_class property_init_t = 'object_class Property.init_t
     type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t = ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) Signal.t
     type t = base class

@@ -171,8 +171,6 @@ end
 
 val aTyVar : tyvar = (false, "a")
 
-val valueAccessorLocalType = mkLocalType ([aTyVar], ("", "ValueAccessor", "", "t"))
-
 val quarkLocalType = mkLocalType ([], ("GLib", "Quark", "", "t"))
 val pidLocalType = mkLocalType ([], ("GLib", "Pid", "", "t"))
 val ioChannelRecordLocalType = mkLocalType ([], ("GLib", "IOChannel", "Record", "t"))
@@ -383,11 +381,10 @@ val errorLog'1 = List.foldl insert errorLog'0 [
         newSig "PROPERTY" [],
         newSig "G_OBJECT_TYPE" [],                   (* TYPELIB only *)
         newSig "G_OBJECT_VALUE_RECORD" [],
-        newSig "G_OBJECT_VALUE" [],
-        newSig "VALUE_ACCESSOR" []
+        newSig "G_OBJECT_VALUE" []
       ],
       [
-        (* ClosureMarshal, ValueAccessor, Signal and Property are special
+        (* ClosureMarshal, Signal and Property are special
          * supporting structures outside the Gtk structure.  Therefore their
          * spec and strdec lists are empty but dependencies are included to
          * ensure that they are loaded after structures that they depend on. *)
@@ -398,7 +395,6 @@ val errorLog'1 = List.foldl insert errorLog'0 [
             "GObjectValue",
             "GObjectClosureRecord"
           ],
-        extendStrDeps "ValueAccessor" [],
         extendStrDeps "Signal"
           [
             "Property",
@@ -429,9 +425,9 @@ val errorLog'1 = List.foldl insert errorLog'0 [
          * to be inserted into the namespace module. *)
         newStr ("GObject", "Type", "G_OBJECT_TYPE") [],  (* TYPELIB only *)
         newStr ("GObject", "ValueRecord", "G_OBJECT_VALUE_RECORD")
-          [valueAccessorLocalType],
+          [],
         newStr ("GObject", "Value", "G_OBJECT_VALUE")
-          [valueRecordLocalType, typeLocalType],
+          [typeLocalType],
 
         (* GObjectClosureRecord, GObjectClosure, GObjectObjectClass and
          * GObjectParamSpecClass are partially automatically generated.

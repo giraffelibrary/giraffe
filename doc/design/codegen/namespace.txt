@@ -26,10 +26,8 @@ signature <NAMESPACE> =
   sig
     (* Types *)
                                                                 -.
-    type 'a value_accessor_t                                     |
-                                                                 |
-    type 'a signal_t                                             | isGObject
-                                                                 |
+    type 'a signal_t                                             |
+                                                                 | isGObject
     type ('object_class, 'get, 'set, 'init) property_t           |
                                                                 -'
                                                                 -.
@@ -89,9 +87,6 @@ where
                                                                                      -.
           where type 'a <parent_object_name>_class = 'a <ParentObjectName>Class.class | isParentObjectNamespace
                                                                                      -'
-                                                                                     -.
-          where type 'a value_accessor_t = 'a ValueAccessor.t                         | isGObject
-                                                                                     -'
       structure <Name> :
         <NAMESPACE>_<NAME>
           where type 'a class = 'a <Name>Class.class
@@ -119,9 +114,6 @@ where
             type 'a <parent_union_name>_union =  |  = ParentUnionNamespace  |  UnionRecord
               'a <ParentUnionName>.union         |                          |    ("<ParentUnionNamespace>", "<ParentUnionName>", _)
                                                 -'                         -'
-                                                                                -.
-          where type 'a value_accessor_t = 'a ValueAccessor.t                    | isGObject
-                                                                                -'
       structure <Name> :
         <NAMESPACE>_<NAME>
           where type t = <Name>Record.t
@@ -143,9 +135,6 @@ where
 
       structure <Name> :
         <NAMESPACE>_<NAME>
-                                                                                -.
-          where type 'a value_accessor_t = 'a ValueAccessor.t                    | isGObject
-                                                                                -'
           where type <varlist[1]> <local_name[1]> = <varlist[1]> <TypeName[1]>.<t[1]>
           ...
           where type <varlist[N]> <local_name[N]> = <varlist[N]> <TypeName[N]>.<t[N]>
@@ -155,9 +144,6 @@ where
 
       structure <Name> :
         <NAMESPACE>_<NAME>
-                                                                                -.
-          where type 'a value_accessor_t = 'a ValueAccessor.t                    | isGObject
-                                                                                -'
           where type <varlist[1]> <local_name[1]> = <varlist[1]> <TypeName[1]>.<t[1]>
           ...
           where type <varlist[N]> <local_name[N]> = <varlist[N]> <TypeName[N]>.<t[N]>
@@ -213,10 +199,8 @@ where
 structure <Namespace> :
   <NAMESPACE>
                                                                                           -.
-    where type 'a value_accessor_t = 'a ValueAccessor.t                                    |
-                                                                                           |
-    where type 'a signal_t = 'a Signal.t                                                   | isGObject
-                                                                                           |
+    where type 'a signal_t = 'a Signal.t                                                   |
+                                                                                           | isGObject
     where type ('object_class, 'get, 'set, 'init) property_t =                             |
             ('object_class, 'get, 'set, 'init) Property.t                                  |
                                                                                           -'
@@ -247,10 +231,8 @@ structure <Namespace> :
 
     (* Types *)
                                                                                           -.
-    type 'a value_accessor_t = 'a ValueAccessor.t                                          |
-                                                                                           |
-    type 'a signal_t = 'a Signal.t                                                         | isGObject
-                                                                                           |
+    type 'a signal_t = 'a Signal.t                                                         |
+                                                                                           | isGObject
     type ('object_class, 'get, 'set, 'init) property_t =                                   |
       ('object_class, 'get, 'set, 'init) Property.t                                        |
                                                                                           -'

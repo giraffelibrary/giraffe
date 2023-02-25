@@ -88,15 +88,10 @@ signature <STRUCT_NAMESPACE>_<STRUCT_NAME>_RECORD =
     include RECORD                     | StructNamespace <> ParentUnionNamespace  |
       where type t = <field_name> <ParentUnionNamespace><ParentUnionName>.union   |
                                       -'                                         -'
-                                                               -.                -.
-    type 'a value_accessor_t                                    |                 |
-    val t : t value_accessor_t                                  | isGObject       |
-    val tOpt : t option value_accessor_t                        |                 |
-                                                               -'                 | optGetTypeSymbol is SOME _
-                                                               -.                 |
-    val t : t ValueAccessor.t                                   | not isGObject   |
-    val tOpt : t option ValueAccessor.t                         |                 |
-                                                               -'                -'
+                                                                                 -.
+    val t : t ValueAccessor.t                                                     | optGetTypeSymbol is SOME _
+    val tOpt : t option ValueAccessor.t                                           |
+                                                                                 -'
   end
 
 
@@ -104,9 +99,6 @@ signature <STRUCT_NAMESPACE>_<STRUCT_NAME>_RECORD =
 
 structure <StructNamespace><StructName>Record :>
   <STRUCT_NAMESPACE>_<STRUCT_NAME>_RECORD
-                                                                          -.
-    where type 'a value_accessor_t = 'a ValueAccessor.t                    | isGObject
-                                                                          -'
                                                                -.                                               -.
     where                                                       |                                                |
       type 'a <parent_union_name>_union =                       | StructNamespace = ParentUnionNamespace         |
@@ -357,9 +349,6 @@ structure <StructNamespace><StructName>Record :>
     val setOptValue_ =                                                       |               |
       _import "g_value_set_<valueType>" :                                    |               |
         GObjectValueRecord.FFI.p * unit FFI.p -> unit;                       |               |
-                                                                            -'               |
-                                                                            -.               |
-    type 'a value_accessor_t = 'a ValueAccessor.t                            | isGObject     |
                                                                             -'               |
     val t =                                                                                  |
       ValueAccessor.C.createAccessor {                                                       |

@@ -28,7 +28,6 @@ in
       val specs'0 = []
       val specs'1 =
         addAccessorSpecs
-          structNamespace
           structInfo
           tTy
           true
@@ -853,12 +852,6 @@ in
           (* sig *)
           val sig1 = SigName structRecordSigId
           val sigQual'1 : qual list = parentUnionQuals
-          (*
-           *                                                 -.
-           *     where type 'a value_accessor_t =             | isGObject
-           *       'a ValueAccessor.t                         |
-           *                                                 -'
-           *)
           val sigQual'2 =
             revMapAppend makeLocalTypeStrModuleQual
               (revAccessorLocalTypes, sigQual'1)

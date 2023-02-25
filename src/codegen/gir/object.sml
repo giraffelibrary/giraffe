@@ -37,10 +37,9 @@ in
       val objectClassStrId = mkClassStrId objectNamespace objectName
       val objectClassSigId = toUCU objectClassStrId
 
-      val specs'0 = [toDerivedSpec objectNamespace]
+      val specs'0 = [toDerivedSpec]
       val specs'1 =
         addAccessorSpecs
-          objectNamespace
           objectInfo
           (classTy baseTy)
           true
@@ -244,10 +243,6 @@ in
            *       type 'a <parent_object_name>_class =       | isParentNamespace
            *         'a <ParentObjectNamespace><ParentObjectName>Class.class
            *                                                 -'
-           *                                                 -.
-           *     where type 'a value_accessor_t =             | isGObject
-           *       'a ValueAccessor.t                         |
-           *                                                 -'
            *     where type C.opt =
            *       <ParentObjectNamespace><ParentObjectName>Class.C.opt
            *     where type C.non_opt =
@@ -338,10 +333,8 @@ in
 
       val objectClassStrNameId = mkClassStrNameId objectName
 
-      val isGObject = objectNamespace = "GObject"
-
       (* module *)
-      val revAccessorLocalTypes = makeAccessorLocalTypes isGObject
+      val revAccessorLocalTypes = []
       val programMLton = []
       val programPolyML = []
 

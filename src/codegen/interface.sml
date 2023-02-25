@@ -26,7 +26,6 @@ in
       val specs'0 = []
       val specs'1 =
         addAccessorSpecs
-          interfaceNamespace
           interfaceInfo
           (classTy baseTy)
           true
@@ -125,8 +124,11 @@ in
 
       (* module *)
       val strDecs'0 = []
-      val revAccessorLocalTypes = makeAccessorLocalTypes isGObject
-      val iRefs'2 = addAccessorIRefs isGObject iRefs'1
+
+      fun addAccessorIRefs iRefs = iRefs
+      val revAccessorLocalTypes = []
+
+      val iRefs'2 = addAccessorIRefs iRefs'1
 
       (*
        *                                           -.

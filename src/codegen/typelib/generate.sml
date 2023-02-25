@@ -529,8 +529,7 @@ fun makeNamespaceSigStr
     functions,
     structDeps,
     numProps,
-    numSigs,
-    useAccessors
+    numSigs
   ) =
   let
     val namespaceStrId = toUCC namespace
@@ -561,11 +560,6 @@ fun makeNamespaceSigStr
 
     val revSigLocalTypes = makeSignalLocalTypes isGObject numSigs
 
-    val revAccessorLocalTypes =
-      if useAccessors
-      then makeAccessorLocalTypes isGObject
-      else []
-
     (* spec *)
     val specs'1 = mkSpecs functionSpecs
     val specs'2 = mkSpecs constantSpecs @ specs'1
@@ -574,8 +568,7 @@ fun makeNamespaceSigStr
       revMapAppend (noSemi o makeLocalTypeSpec) (revPropLocalTypes, specs'3)
     val specs'5 =
       revMapAppend (noSemi o makeLocalTypeSpec) (revSigLocalTypes, specs'4)
-    val specs'6 =
-      revMapAppend (noSemi o makeLocalTypeSpec) (revAccessorLocalTypes, specs'5)
+    val specs'6 = specs'5
     val namespaceSigProgram = [
       ModuleDecSig (
         toList1 [
@@ -592,8 +585,7 @@ fun makeNamespaceSigStr
       revMapAppend (noSemi o makeLocalTypeStrDec) (revPropLocalTypes, strDecs'3)
     val strDecs'5 =
       revMapAppend (noSemi o makeLocalTypeStrDec) (revSigLocalTypes, strDecs'4)
-    val strDecs'6 =
-      revMapAppend (noSemi o makeLocalTypeStrDec) (revAccessorLocalTypes, strDecs'5)
+    val strDecs'6 = strDecs'5
     fun mkModule functionStrDecsLowLevel =
       let
         val strDecs'7 = mkStrDecs functionStrDecsLowLevel @ strDecs'6
@@ -603,8 +595,7 @@ fun makeNamespaceSigStr
         val sigQual'1 = revMap makeLocalTypeStrModuleQual revPropLocalTypes
         val sigQual'2 =
           revMapAppend makeLocalTypeStrModuleQual (revSigLocalTypes, sigQual'1)
-        val sigQual'3 =
-          revMapAppend makeLocalTypeStrModuleQual (revAccessorLocalTypes, sigQual'2)
+        val sigQual'3 = sigQual'2
         val namespaceQSig = (SigName namespaceSigId, sigQual'3)
       in
         [
@@ -688,7 +679,7 @@ fun generateFull
     val ((files'1, exts'1, modules, constants, functions, structDeps, cInterfaceDecls), excls) =
       makeNamespaceElems repo vers namespace
 
-    val (sigs'1, strs'1, numProps, numSigs, useAccessors) = modules
+    val (sigs'1, strs'1, numProps, numSigs) = modules
 
     val curDir = OS.FileSys.getDir ()
     val () = OS.FileSys.chDir dir
@@ -769,8 +760,7 @@ fun generateFull
             functions,
             structDeps,
             numProps,
-            numSigs,
-            useAccessors
+            numSigs
           )
 
       (* Step 3 *)
@@ -854,7 +844,6 @@ fun generateInit
     val strs'1 = FileMap.empty
     val numProps = 0
     val numSigs = 0
-    val useAccessors = false
 
     val curDir = OS.FileSys.getDir ()
     val () = OS.FileSys.chDir dir
@@ -923,8 +912,7 @@ fun generateInit
             functions,
             structDeps,
             numProps,
-            numSigs,
-            useAccessors
+            numSigs
           )
 
       (* Step 3 *)

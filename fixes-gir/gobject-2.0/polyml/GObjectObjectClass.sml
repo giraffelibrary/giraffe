@@ -1,4 +1,4 @@
-(* Copyright (C) 2013, 2016-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2013, 2016-2021, 2023 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -7,8 +7,7 @@
 
 structure GObjectObjectClass :>
   G_OBJECT_OBJECT_CLASS
-    where type type_t = GObjectType.t
-    where type 'a value_accessor_t = 'a ValueAccessor.t =
+    where type type_t = GObjectType.t =
   struct
     structure Pointer = CPointer(GMemory)
     type opt = Pointer.opt
@@ -291,7 +290,6 @@ structure GObjectObjectClass :>
     end
 
     type type_t = GObjectType.t
-    type 'a value_accessor_t = 'a ValueAccessor.t
 
     val t =
       ValueAccessor.C.createAccessor {

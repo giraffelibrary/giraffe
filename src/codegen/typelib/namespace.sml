@@ -354,8 +354,7 @@ fun makeInfo
           sigs'0 : (bool * string list) FileMap.t,
           strs'0 : ((bool * (spec list * strdec list) * string option) * string list) FileMap.t,
           numProps'0 : LargeInt.int,
-          numSigs'0 : LargeInt.int,
-          useAccessors'0 : bool
+          numSigs'0 : LargeInt.int
         ),
         constants'0,
         functions'0,
@@ -447,9 +446,8 @@ fun makeInfo
           )
         val numProps'1 = numProps'0 + ObjectInfo.getNProperties objectInfo
         val numSigs'1  = numSigs'0  + ObjectInfo.getNSignals    objectInfo
-        val useAccessors'1 = true
         val modules'1 =
-          (sigs'2, strs'2, numProps'1, numSigs'1, useAccessors'1)
+          (sigs'2, strs'2, numProps'1, numSigs'1)
 
         val cInterfaceDecls'1 =
           cInterfaceDecls'0
@@ -523,9 +521,8 @@ fun makeInfo
           )
         val numProps'1 = numProps'0 + InterfaceInfo.getNProperties interfaceInfo
         val numSigs'1  = numSigs'0  + InterfaceInfo.getNSignals    interfaceInfo
-        val useAccessors'1 = true
         val modules'1 =
-          (sigs'2, strs'2, numProps'1, numSigs'1, useAccessors'1)
+          (sigs'2, strs'2, numProps'1, numSigs'1)
       in
         ((files'3, exts'1, modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
       end
@@ -609,7 +606,7 @@ fun makeInfo
             files'2
           )
         val modules'1 =
-          (sigs'2, strs'2, numProps'0, numSigs'0, useAccessors'0)
+          (sigs'2, strs'2, numProps'0, numSigs'0)
 
         val cInterfaceDecls'1 =
           cInterfaceDecls'0
@@ -662,7 +659,7 @@ fun makeInfo
             files'2
           )
         val modules'1 =
-          (sigs'2, strs'2, numProps'0, numSigs'0, useAccessors'0)
+          (sigs'2, strs'2, numProps'0, numSigs'0)
       in
         ((files'3, exts'1, modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
       end
@@ -710,10 +707,8 @@ fun makeInfo
             ],
             files'2
           )
-        val useAccessors'1 =
-          useAccessors'0 orelse isSome (RegisteredTypeInfo.getTypeInit enumInfo)
         val modules'1 =
-          (sigs'2, strs'2, numProps'0, numSigs'0, useAccessors'1)
+          (sigs'2, strs'2, numProps'0, numSigs'0)
       in
         ((files'3, exts'1, modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
       end
@@ -761,10 +756,8 @@ fun makeInfo
             ],
             files'2
           )
-        val useAccessors'1 =
-          useAccessors'0 orelse isSome (RegisteredTypeInfo.getTypeInit enumInfo)
         val modules'1 =
-          (sigs'2, strs'2, numProps'0, numSigs'0, useAccessors'1)
+          (sigs'2, strs'2, numProps'0, numSigs'0)
       in
         ((files'3, exts'1, modules'1, constants'0, functions'0, structDeps'0, cInterfaceDecls'0), excls'2)
       end
@@ -787,7 +780,7 @@ fun makeInfo
           foldR (foldR insertLocalContainer) ([strIRefs], (files'1, strs'0))
 
         val modules'1 =
-          (sigs'0, strs'1, numProps'0, numSigs'0, useAccessors'0)
+          (sigs'0, strs'1, numProps'0, numSigs'0)
 
         val (specs'0, strDecs'0) = constants'0
         val constants'1 = (spec :: specs'0, strDec :: strDecs'0)
@@ -821,7 +814,7 @@ fun makeInfo
           foldR (foldR insertLocalContainer) ([strIRefs], (files'1, strs'0))
 
         val modules'1 =
-          (sigs'0, strs'1, numProps'0, numSigs'0, useAccessors'0)
+          (sigs'0, strs'1, numProps'0, numSigs'0)
 
         val (
           specs'0,
@@ -845,7 +838,7 @@ fun makeNamespaceElems repo vers namespace =
   let
     val files'0 = NamespaceFileMap.empty
     val exts'0 = NamespaceFileMap.empty
-    val modules'0 = (FileMap.empty, FileMap.empty, 0, 0, false)
+    val modules'0 = (FileMap.empty, FileMap.empty, 0, 0)
     val constants'0 = ([], [])
     val functions'0 = ([], [], [], [])
     val structDeps'0 = ListDict.empty

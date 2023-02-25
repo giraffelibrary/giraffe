@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2021, 2023 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -17,7 +17,6 @@ structure GObjectValueRecord : G_OBJECT_VALUE_RECORD =
       val setValue_ = call (externalFunctionSymbol "g_value_set_boxed") (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cPtr --> cVoid)
       val setOptValue_ = call (externalFunctionSymbol "g_value_set_boxed") (GObject.ValueRecord.PolyML.cPtr &&> PolyML.cOptPtr --> cVoid)
     end
-    type 'a value_accessor_t = 'a ValueAccessor.t
     val t =
       ValueAccessor.C.createAccessor
         {

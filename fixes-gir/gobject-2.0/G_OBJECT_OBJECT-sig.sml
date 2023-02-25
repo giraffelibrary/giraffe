@@ -8,12 +8,11 @@ signature G_OBJECT_OBJECT =
     type value_t
     type closure_t
     type 'a param_spec_class
-    type 'a value_accessor_t
     type 'object_class property_init_t
     type ('object_class, 'arg_e, 'arg_h, 'res_h, 'res_e) signal_t
     type t = base class
     val getType : unit -> type_t
-    val new : 'a class value_accessor_t * 'a class property_init_t list -> 'a class
+    val new : 'a class ValueAccessor.t * 'a class property_init_t list -> 'a class
     val bindProperty :
       'a class
        -> string

@@ -4,7 +4,7 @@ local
   $(GIRAFFE_SML_LIB)/general/mlton.mlb
   $(GIRAFFE_SML_LIB)/ffi/mlton.mlb
   $(GIRAFFE_SML_LIB)/gir/mlton.mlb
-  ../gobject-2.0/mlton.mlb
+  ../glib-2.0/mlton.mlb
 in
   ../glib-2.0/GDoubleCArrayN.mlb
   CAIRO_CONTEXT_RECORD-sig.sml
