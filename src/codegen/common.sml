@@ -456,24 +456,6 @@ in
   val accessorLocalType = toLocalType "" accessorTemplate
 
   (*
-   *     val toDerived :
-   *       'a class ValueAccessor.t -> base class -> 'a class
-   *)
-  val toDerivedSpec =
-    let
-      val derivedClassTy = classTy aVarTy
-      val baseClassTy = classTy baseTy
-
-      val accessorLId = accessorGlobalLId
-      val accessorTy = TyRef ([derivedClassTy], accessorLId)
-      val ty = TyFun (accessorTy, TyFun (baseClassTy, derivedClassTy))
-
-      val toDerivedId = "toDerived"
-    in
-      mkValSpec (toDerivedId, ty)
-    end
-
-  (*
    * `addAccessorSpecs info accessTy isPtr specs` adds
    *
    *     val t : <accessTy> ValueAccessor.t

@@ -8,9 +8,9 @@
 signature G_OBJECT_OBJECT_CLASS =
   sig
     include CLASS
+      where type 'a value_accessor_t = 'a ValueAccessor.t
     type type_t
-    val t : base class ValueAccessor.t
-    val tOpt : base class option ValueAccessor.t
-    val toDerived : 'a class ValueAccessor.t -> base class -> 'a class
+    val t : t ValueAccessor.t
+    val tOpt : t option ValueAccessor.t
     val instanceType : 'a class -> type_t
   end

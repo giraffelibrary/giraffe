@@ -40,19 +40,19 @@ Conditions
 signature <OBJECT_NAMESPACE>_<OBJECT_NAME>_CLASS =
   sig
     type 'a <object_name>
-                                                               -.
-    type 'a <parent_object_name>_class                          |
-    include CLASS                                               | isParentNamespace
-      where type 'a class = 'a <object_name> <parent_object_name>_class
-                                                               -'
-                                                               -.
-    include CLASS                                               | not isParentNamespace
+                                                                            -.
+    type 'a <parent_object_name>_class                                       |
+    include CLASS                                                            | isParentNamespace
+      where type 'a class = 'a <object_name> <parent_object_name>_class      |
+      where type 'a value_accessor_t = 'a ValueAccessor.t                    |
+                                                                            -'
+                                                                            -.
+    include CLASS                                                            | not isParentNamespace
       where type 'a class = 'a <object_name> <ParentObjectNamespace>.<ParentObjectName>Class.class
-                                                               -'
-    val t : base class ValueAccessor.t
-    val tOpt : base class option ValueAccessor.t
-    val toDerived :
-      'a class ValueAccessor.t -> base class -> 'a class
+      where type 'a value_accessor_t = 'a ValueAccessor.t                    |
+                                                                            -'
+    val t : t ValueAccessor.t
+    val tOpt : t option ValueAccessor.t
   end
 
 

@@ -1,4 +1,4 @@
-(* Copyright (C) 2017-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2017-2021, 2023 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -9,7 +9,9 @@ signature CLASS =
   sig
     type 'a class
     type t = base class
+    type 'a value_accessor_t
     val toBase : 'a class -> base class
+    val toDerived : 'a class value_accessor_t -> base class -> 'a class
 
     structure C :
       sig

@@ -37,11 +37,13 @@ in
       val objectClassStrId = mkClassStrId objectNamespace objectName
       val objectClassSigId = toUCU objectClassStrId
 
-      val specs'0 = [toDerivedSpec]
+      val tTy = mkIdTy tId
+
+      val specs'0 = []
       val specs'1 =
         addAccessorSpecs
           objectInfo
-          (classTy baseTy)
+          tTy
           true
           specs'0
 
@@ -51,12 +53,14 @@ in
        *     type 'a <parent_object_name>_class     | isParentNamespace
        *     include CLASS                          |
        *       where type 'a class = 'a <object_name> <parent_object_name>_class
+       *       where type 'a value_accessor = 'a ValueAccessor
        *                                           -'
        *                                           -.
        *     include CLASS                          |
        *       where type 'a class =                | not isParentNamespace
        *         'a <object_name>                   |
        *           <ParentObjectNamespace>.<ParentObjectName>Class.class
+       *       where type 'a value_accessor = 'a ValueAccessor
        *                                           -'
        *)
       val parentClassTypeLId = makeInterfaceRefTyLongId parentObjectIRef
@@ -72,7 +76,8 @@ in
                   parentClassTypeLId
                 )
               )
-            ]
+            ],
+            makeLocalTypeStrModuleQual accessorLocalType
           ]
         )
 

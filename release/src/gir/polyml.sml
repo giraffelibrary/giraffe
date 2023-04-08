@@ -1,4 +1,4 @@
-(* Copyright (C) 2020-2021 Phil Clayton <phil.clayton@veonix.com>
+(* Copyright (C) 2020-2021, 2023 Phil Clayton <phil.clayton@veonix.com>
  *
  * This file is part of the Giraffe Library runtime.  For your rights to use
  * this file, see the file 'LICENCE.RUNTIME' distributed with Giraffe Library
@@ -23,6 +23,7 @@ use "CALLBACK-sig.sml";
 use "polyml/CALLBACK-sig.sml";
 use "FLAGS-sig.sml";
 use "ENUM-sig.sml";
+use "polyml/Class-fun.sml";
 use "polyml/PointerRecord-fun.sml";
 use "polyml/BoxedRecord-fun.sml";
 use "polyml/BoxedValueRecord-fun.sml";

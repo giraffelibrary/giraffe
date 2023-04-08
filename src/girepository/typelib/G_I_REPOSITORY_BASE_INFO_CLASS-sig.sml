@@ -1,4 +1,6 @@
 signature G_I_REPOSITORY_BASE_INFO_CLASS =
   sig
-    include CLASS
+    type 'a class
+    val toBase : 'a class -> base class
+    include RECORD where type t = base class
   end
